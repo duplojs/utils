@@ -1,0 +1,33 @@
+name: Release Workflow
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publisher:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: get_version
+        run: |
+          VERSION=$(echo "${{ github.event.release.name }}" | sed -E 's/v([0-9.]+).*/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          TAG_BETA=$(echo "${{ github.event.release.name }}" | grep -q "@beta" && echo "true" || echo "false")
+          echo "tag_beta=$TAG_BETA" >> $GITHUB_OUTPUT
+      - run: sed -i 's/"version":.*".*"/"version": "'${{ steps.get_version.outputs.version }}'"/' package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org/'
+          scope: '@mathcovax'
+      - run: npm ci
+      - run: npm run build
+      - run: |
+          if [ "${{ steps.get_version.outputs.tag_beta }}" = "true" ]; then
+            npm publish --tag beta --access public
+          else
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

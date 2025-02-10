@@ -1,0 +1,60 @@
+{
+  "name": "@duplojs/utils",
+  "version": "0.0.0",
+  "author": "mathcovax",
+  "license": "MIT",
+  "type": "module",
+  "repository": "https://github.com/duplojs/utils",
+  "scripts": {
+    "build": "rollup --config && tsc-alias -p tsconfig.build.json && npm run build:globals",
+    "test:tu": "vitest --coverage",
+    "test:tu:watch": "vitest --coverage --watch",
+    "test:tu:update": "vitest --coverage --update",
+    "test:types": "npm run test:types:scripts && npm run integration:test:types",
+    "test:types:scripts": "tsc",
+    "integration:test:types": "npm -w test/integration run test:types",
+    "test:lint": "eslint",
+    "test:lint:fix": "eslint --fix",
+    "prepare": "husky"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "workspaces": [
+    "test/integration"
+  ],
+  "peerDependencies": {
+
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.7.1",
+    "@commitlint/config-conventional": "19.2.2",
+    "@duplojs/eslint": "0.4.0",
+    "@rollup/plugin-typescript": "12.1.2",
+    "@types/node": "22.1.0",
+    "@vitest/coverage-istanbul": "3.0.5",
+    "eslint": "9.20.0",
+    "husky": "9.1.7",
+    "rollup": "4.34.6",
+    "rollup-plugin-esbuild": "6.2.0",
+    "tsc-alias": "1.8.10",
+    "tslib": "2.8.1",
+    "tsx": "4.19.2",
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.5"
+  },
+  "keywords": []
+}
