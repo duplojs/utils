@@ -6,7 +6,7 @@
   "type": "module",
   "repository": "https://github.com/duplojs/utils",
   "scripts": {
-    "build": "rollup --config && tsc-alias -p tsconfig.build.json && npm run build:globals",
+    "build": "rollup --config && tsc-alias -p tsconfig.build.json",
     "test:tu": "vitest --coverage",
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
