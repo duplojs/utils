@@ -6,6 +6,7 @@ it("export all", () => {
 			"InvalidBytesInStringError",
 			"UnPartialError",
 			"clone",
+			"createInterpolation",
 			"entryUseMapper",
 			"escapeRegExp",
 			"getTypedEntries",
