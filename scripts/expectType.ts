@@ -1,8 +1,10 @@
+import { type IsEqual } from "./isEqual";
+
 export interface ExpectType<
 	GenericOne extends unknown,
 	GenericTwo extends unknown,
 	GenericRule extends (
-		(<V>() => V extends GenericOne ? 1 : 2) extends (<V>() => V extends GenericTwo ? 1 : 2)
+		IsEqual<GenericOne, GenericTwo> extends true
 			? "strict"
 			: (GenericOne extends GenericTwo ? true : 1) extends (GenericTwo extends GenericOne ? true : 2)
 				? "flexible"
@@ -10,7 +12,7 @@ export interface ExpectType<
 					? "one-extends-two"
 					: GenericTwo extends GenericOne
 						? "two-extends-one"
-						: never
+						: "none"
 	),
 
 > {
