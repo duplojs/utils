@@ -9,7 +9,7 @@ export * from "./getTypedEntries";
 export * from "./getTypedKeys";
 export * from "./hasKey";
 export * from "./incremente";
-export * from "./isAny";
+export * from "./isEqual";
 export * from "./overrideInterface";
 export * from "./partialKeys";
 export * from "./requiredKeys";
