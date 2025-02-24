@@ -25,20 +25,26 @@ export type CreateInterpolationContract<
 export function createInterpolation<
 	GenericValue extends string,
 	GenericInterpolationId extends ExtractInterpolationId<GenericValue>,
->(value: GenericValue) {
-	return <
-		GenericInterpolationMapperValue extends string,
-		GenericInterpolationValues extends Record<GenericInterpolationId, GenericInterpolationMapperValue>,
-	>(
-		...[interpolationValues]: IsEqual<GenericInterpolationId, never> extends true
-			? []
-			: [interpolationValues: GenericInterpolationValues]
-	): ReplaceInterpolationIdByValues<GenericValue, GenericInterpolationValues> => (
+	GenericStrict extends boolean,
+>(value: GenericValue, strict?: GenericStrict): <
+	GenericInterpolationMapperValue extends string,
+	GenericInterpolationValues extends Record<GenericInterpolationId, GenericInterpolationMapperValue>,
+>(
+	...[interpolationValues]: IsEqual<GenericInterpolationId, never> extends true
+		? []
+		: [interpolationValues: GenericInterpolationValues]
+) => IsEqual<GenericStrict, true> extends true
+	? ReplaceInterpolationIdByValues<GenericValue, GenericInterpolationValues>
+	: string;
+export function createInterpolation(value: string, _strict?: true) {
+	return (
+		interpolationValues: Record<string, string>,
+	): string => (
 		interpolationValues
 			? value.replace(
 				/\{([^}]*)\}/g,
-				(match, interpolationId: GenericInterpolationId) => interpolationValues[interpolationId],
+				(match, interpolationId: string) => interpolationValues[interpolationId],
 			)
 			: value
-	) as never;
+	);
 }
