@@ -1,9 +1,9 @@
 import { type ExpectType } from "./expectType";
 import { createInterpolation, type CreateInterpolationContract } from "./interpolation";
 
-describe("interpolation", () => {
+describe("strict interpolation", () => {
 	it("simple replace", () => {
-		const interpolation = createInterpolation("query-{id}");
+		const interpolation = createInterpolation("query-{id}", true);
 
 		type check1 = ExpectType<
 			CreateInterpolationContract<typeof interpolation>,
@@ -21,7 +21,7 @@ describe("interpolation", () => {
 	});
 
 	it("multi replace", () => {
-		const interpolation = createInterpolation("query-{id}-{test}");
+		const interpolation = createInterpolation("query-{id}-{test}", true);
 
 		type check1 = ExpectType<
 			CreateInterpolationContract<typeof interpolation>,
@@ -40,7 +40,7 @@ describe("interpolation", () => {
 	});
 
 	it("no interpolation", () => {
-		const interpolation = createInterpolation("query");
+		const interpolation = createInterpolation("query", true);
 
 		type check1 = ExpectType<
 			CreateInterpolationContract<typeof interpolation>,
@@ -56,7 +56,7 @@ describe("interpolation", () => {
 	});
 
 	it("complex interpolation", () => {
-		const interpolation = createInterpolation("{id1}{id2}{id3}{id4}");
+		const interpolation = createInterpolation("{id1}{id2}{id3}{id4}", true);
 
 		type check1 = ExpectType<
 			CreateInterpolationContract<typeof interpolation>,
@@ -77,7 +77,7 @@ describe("interpolation", () => {
 	});
 
 	it("replace multi", () => {
-		const interpolation = createInterpolation("{id}{id}");
+		const interpolation = createInterpolation("{id}{id}", true);
 
 		type check1 = ExpectType<
 			CreateInterpolationContract<typeof interpolation>,
@@ -92,5 +92,24 @@ describe("interpolation", () => {
 		type check = ExpectType<typeof result, "11", "strict">;
 
 		expect(result).toBe("11");
+	});
+
+	it("no stricy", () => {
+		const interpolation = createInterpolation("query-{id}-{test}");
+
+		type check1 = ExpectType<
+			CreateInterpolationContract<typeof interpolation>,
+			string,
+			"strict"
+		>;
+
+		const result = interpolation({
+			id: "aa",
+			test: "vol",
+		});
+
+		type check = ExpectType<typeof result, string, "strict">;
+
+		expect(result).toBe("query-aa-vol");
 	});
 });
