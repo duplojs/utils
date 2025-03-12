@@ -1,6 +1,6 @@
 import { type SimplifyObjectTopLevel } from "./simplifyType";
 
-export type MergeObject<
+export type MergeObjects<
 	GenericFirstObject extends object,
 	GenericSecondObject extends object,
 > = SimplifyObjectTopLevel<

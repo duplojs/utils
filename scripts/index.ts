@@ -11,6 +11,7 @@ export * from "./hasKey";
 export * from "./incremente";
 export * from "./interpolation";
 export * from "./isEqual";
+export * from "./mergeObjects";
 export * from "./overrideInterface";
 export * from "./partialKeys";
 export * from "./requiredKeys";
