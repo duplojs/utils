@@ -18,6 +18,9 @@ export default defineConfig({
 				"bin", 
 				"dist",
 			],
+			thresholds: {
+				lines: 100
+			}
 		},
 	},
 	plugins: [tsconfigPaths()],
