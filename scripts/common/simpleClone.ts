@@ -1,8 +1,8 @@
-import { getTypedEntries } from "../object/getTypedEntries";
+import { getEntries } from "../object/getEntries";
 
 export function simpleClone<
-	T extends unknown = unknown,
->(unknownValue: T): T {
+	GenericObject extends unknown = unknown,
+>(unknownValue: GenericObject): GenericObject {
 	if (!unknownValue) {
 		return unknownValue;
 	} else if (typeof unknownValue !== "object") {
@@ -11,15 +11,15 @@ export function simpleClone<
 		unknownValue.constructor?.name === "Object"
 		|| unknownValue.constructor === undefined
 	) {
-		return getTypedEntries(unknownValue).reduce(
+		return getEntries(unknownValue).reduce(
 			(pv, [key, value]) => {
 				pv[key] = simpleClone(value);
 				return pv;
 			},
-			{} as T,
+			{} as GenericObject,
 		);
 	} else if (unknownValue instanceof Array && unknownValue.constructor.name === "Array") {
-		return unknownValue.map(simpleClone) as T;
+		return unknownValue.map(simpleClone) as GenericObject;
 	} else {
 		return unknownValue;
 	}

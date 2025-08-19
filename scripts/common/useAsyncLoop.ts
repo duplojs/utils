@@ -1,3 +1,5 @@
+import { type AnyValue } from "./types/AnyValue";
+
 interface LoopOutputExistResult<
 	GenericOutput extends any,
 > {
@@ -15,21 +17,23 @@ export interface LoopParams<
 > {
 	count: number;
 	previousOutput: GenericRawNextOutput | undefined;
-	next(output?: GenericRawNextOutput): LoopOutputNextResult<GenericRawNextOutput | undefined>;
+	next<
+		GenericValue extends GenericRawNextOutput | undefined = undefined,
+	>(output?: GenericValue): LoopOutputNextResult<GenericValue>;
 	exit<
 		GenericOutput extends any = undefined,
 	>(output?: GenericOutput): LoopOutputExistResult<GenericOutput>;
 }
 
 export async function useAsyncLoop<
-	GenericExitOutput extends LoopOutputExistResult<any> = LoopOutputExistResult<undefined>,
-	GenericRawNextOutput extends any = undefined,
+	GenericRawExitOutput extends AnyValue = undefined,
+	GenericRawNextOutput extends AnyValue = undefined,
 >(
 	loop: (params: LoopParams<GenericRawNextOutput>) => Promise<
-		| LoopOutputNextResult<GenericRawNextOutput>
-		| GenericExitOutput
+		| LoopOutputNextResult<GenericRawNextOutput | undefined>
+		| LoopOutputExistResult<GenericRawExitOutput>
 	>,
-): Promise<GenericExitOutput["-exitData"]> {
+): Promise<GenericRawExitOutput> {
 	let previousOutput: any = undefined;
 
 	for (let count = 0; true; count++) {

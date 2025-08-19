@@ -13,7 +13,7 @@ export class InvalidBytesInStringError extends Error {
 	}
 }
 
-const parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb)$/i;
+const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pd)/;
 
 const unitMapper = {
 	b: 1,
@@ -33,17 +33,12 @@ export function stringToBytes(bytesInString: BytesInString | number) {
 
 	const regExpResults = parseRegExp.exec(bytesInString);
 
-	const floatValue = regExpResults
-		? parseFloat(regExpResults[1]!)
-		: parseInt(bytesInString, 10);
+	const { rawValue, unit } = regExpResults?.groups ?? {};
+	const value = parseFloat(rawValue ?? "");
 
-	const unit = regExpResults
-		? regExpResults[4]!.toLowerCase()
-		: "b";
-
-	if (!hasKey(unitMapper, unit) || isNaN(floatValue)) {
+	if (isNaN(value) || !unit || !hasKey(unitMapper, unit)) {
 		throw new InvalidBytesInStringError(bytesInString);
 	}
 
-	return Math.floor(unitMapper[unit] * floatValue);
+	return Math.floor(unitMapper[unit] * value);
 }

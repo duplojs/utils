@@ -1,9 +1,11 @@
-import type { SimplifyType } from "../simplifyType";
+import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
 
-export type RequiredKeys<T extends object, K extends keyof T = keyof T> =
-	SimplifyType<
-		Required<
-			Pick<T, K>
-		> &
-		Omit<T, K>
-	>;
+export type RequiredKeys<
+	GenericObject extends object,
+	GenericKeys extends keyof GenericObject = keyof GenericObject,
+> = SimplifyTopLevel<
+	Required<
+		Pick<GenericObject, GenericKeys>
+	> &
+	GenericObject
+>;

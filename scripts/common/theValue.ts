@@ -1,15 +1,17 @@
-export type TheValue<
-    GenericValue extends unknown,
-> = {
-    value: GenericValue
+import { type AnyValue } from "./types/AnyValue";
+
+export interface TheValue<
+	GenericValue extends unknown,
+> {
+	value: GenericValue;
 }
 
 export function theValue<
-	GenericValue extends unknown,
+	GenericValue extends AnyValue,
 >(value: GenericValue): TheValue<GenericValue> {
 	return {
-		value
-	}
+		value,
+	};
 }
 
 export function hasValue<
@@ -17,5 +19,5 @@ export function hasValue<
 >(
 	input: GenericInput,
 ): input is Extract<GenericInput, Record<"value", unknown>> {
-	return input && typeof input === "object" && "value" in input
+	return !!input && typeof input === "object" && "value" in input;
 }

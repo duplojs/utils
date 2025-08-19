@@ -1,4 +1,5 @@
 import { sleep } from "./sleep";
+import { type AnyValue } from "./types/AnyValue";
 
 interface CreateAsyncRetryOptions {
 	maxRetry: number;
@@ -13,18 +14,18 @@ export async function useAsyncRetry<
 	shouldRetry: (result: GenericOutput) => boolean,
 	options: CreateAsyncRetryOptions,
 ): Promise<GenericOutput> {
-	for (let currentDeep = 0; true; currentDeep++) {
+	for (let currentTry = 1; true; currentTry++) {
 		const result = await retryFunction();
 
 		if (
-			currentDeep >= options.maxRetry
+			currentTry >= options.maxRetry
 			|| !shouldRetry(result)
 		) {
 			return result;
 		}
 
 		if (options.log) {
-			console.log(`useAsyncRetry: attempt ${currentDeep} failed, starting new attempt.`);
+			console.log(`useAsyncRetry: attempt ${currentTry} failed, starting new attempt.`);
 		}
 
 		if (options.timeToSleep) {
@@ -34,7 +35,7 @@ export async function useAsyncRetry<
 }
 
 export function createAsyncRetry<
-	GenericAnyFunction extends((...args: unknown[]) => Promise<any>),
+	GenericAnyFunction extends((...args: any[]) => Promise<any>),
 >(
 	retryFunction: GenericAnyFunction,
 	checkFunction: (result: Awaited<ReturnType<GenericAnyFunction>>) => boolean,
@@ -42,7 +43,7 @@ export function createAsyncRetry<
 ): GenericAnyFunction {
 	return (
 		(...args) => useAsyncRetry(
-			() => retryFunction(...args),
+			() => retryFunction(...args as never[]),
 			checkFunction,
 			options,
 		)

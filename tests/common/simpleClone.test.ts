@@ -1,4 +1,4 @@
-import { simpleClone } from "./simpleClone";
+import { simpleClone } from "@scripts/common/simpleClone";
 
 it("simpleClone", () => {
 	expect(simpleClone({

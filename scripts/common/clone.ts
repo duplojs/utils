@@ -1,5 +1,5 @@
 import { type ObjectKey } from "@scripts/object/types/objectKey";
-import { getTypedEntries } from "../object/getTypedEntries";
+import { getEntries } from "../object/getEntries";
 import { type SimplifyTypeForce } from "@scripts/common/types/simplifyTypeForce";
 
 export function clone<
@@ -12,7 +12,7 @@ export function clone<
 	} else if (unknownValue instanceof Array) {
 		return <never>unknownValue.map(clone);
 	} else {
-		return <never>getTypedEntries(unknownValue)
+		return <never>getEntries(unknownValue)
 			.reduce<Record<ObjectKey, unknown>>(
 				(pv, [key, value]) => {
 					pv[key] = clone(value);

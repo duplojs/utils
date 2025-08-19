@@ -1,3 +1,4 @@
+import { type AnyValue } from "@scripts/common/types/AnyValue";
 import { type MaybePromise } from "@scripts/common/types/maybePromise";
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
 
@@ -8,7 +9,8 @@ export type AwaitedPromiseObject<
 };
 
 export function promiseObject<
-	GenericObject extends Record<string, MaybePromise<unknown>>,
+	GenericValue extends AnyValue,
+	GenericObject extends Record<string, MaybePromise<GenericValue>>,
 >(object: GenericObject) {
 	return Promise
 		.all(

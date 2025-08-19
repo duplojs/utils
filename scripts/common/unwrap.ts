@@ -1,9 +1,10 @@
-import { TheValue } from "./theValue";
+import { type TheValue } from "./theValue";
+import { type AnyValue } from "./types/AnyValue";
 
 export function unwrap<
-    GenericValue extends unknown
+	GenericValue extends AnyValue,
 >(
-    {value}: TheValue<GenericValue>
+	{ value }: TheValue<GenericValue>,
 ) {
-    return value
+	return value;
 }

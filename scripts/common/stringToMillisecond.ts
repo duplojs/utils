@@ -22,7 +22,7 @@ const unitMapper = {
 	w: 604_800_000,
 };
 
-const parseRegExp = /(<rawValue>[0-9.])+(<unit>ms|s|m|h|d|w)/g;
+const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>ms|s|m|h|d|w)/;
 
 export type MillisecondInString =
 	| `${number}${keyof typeof unitMapper}`
@@ -39,13 +39,13 @@ export function stringToMillisecond(
 	const result = parseRegExp.exec(millisecondInString);
 
 	const { rawValue, unit } = result?.groups ?? {};
-	const value = Number(rawValue);
+	const value = parseFloat(rawValue ?? "");
 
 	if (isNaN(value) || !unit || !hasKey(unitMapper, unit)) {
 		throw new InvalidMillisecondInStringError(millisecondInString);
 	}
 
-	const millisecond = value * unitMapper[unit];
+	const millisecond = Math.floor(value * unitMapper[unit]);
 
 	const [otherMillisecondInString, ...restMillisecondInStrings] = millisecondInStrings;
 

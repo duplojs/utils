@@ -6,8 +6,7 @@ export default defineConfig({
 		watch: false,
 		globals: true,
 		include: [
-			"scripts/**/*.test.ts", 
-			"test/integration/**/*.test.ts", 
+			"tests/**/*.test.ts",
 		],
 		coverage: {
 			provider: "istanbul",
