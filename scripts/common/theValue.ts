@@ -1,7 +1,7 @@
-import { type AnyValue } from "./types/AnyValue";
+import { type AnyValue } from "./types/anyValue";
 
 export interface TheValue<
-	GenericValue extends unknown,
+	GenericValue extends unknown = unknown,
 > {
 	value: GenericValue;
 }

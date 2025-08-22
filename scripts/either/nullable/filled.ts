@@ -3,7 +3,7 @@ import { createEitherNullable } from "./create";
 import { type EitherLeft, unknownIsEitherLeft } from "../left";
 import { type EitherNullableEmpty } from "./empty";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherNullableFilled<
 	GenericValue extends unknown = unknown,

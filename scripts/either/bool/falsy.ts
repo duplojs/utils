@@ -1,9 +1,10 @@
-import { createEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
+import { createEitherLeft, type EitherLeft, isEitherLeft, unknownIsEitherLeft } from "../left";
 import { type EitherBoolTruthy } from "./truthy";
-import { type EitherRight, isEitherRight, unknownIsEitherRight } from "../right";
+import { type EitherRight, unknownIsEitherRight } from "../right";
 import { createEitherBool } from "./create";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
+import { type EscapeVoid } from "@scripts/common/types/escapeVoid";
 
 export type BoolFalsyValue = 0 | "" | undefined | null | false;
 
@@ -16,8 +17,8 @@ export interface EitherBoolFalsy<
 }
 
 export function createEitherBoolFalsy<
-	GenericValue extends BoolFalsyValue,
->(value: GenericValue): EitherBoolFalsy<BoolFalsyValue> {
+	GenericValue extends BoolFalsyValue = undefined,
+>(value: GenericValue = undefined as GenericValue): EitherBoolFalsy<GenericValue> {
 	return {
 		"kind-either-falsy": null,
 		"kind-either-bool": null,
@@ -34,7 +35,7 @@ export function isEitherBoolFalsy<
 >(
 	either: GenericEither,
 ): either is Extract<GenericEither, EitherBoolFalsy> {
-	return isEitherRight(either)
+	return isEitherLeft(either)
 		&& hasKind(either, "either-bool")
 		&& hasKind(either, "either-falsy");
 }
@@ -42,7 +43,7 @@ export function isEitherBoolFalsy<
 export function unknownIsEitherBoolFalsy(
 	either: unknown,
 ): either is EitherBoolFalsy {
-	return unknownIsEitherRight(either)
+	return unknownIsEitherLeft(either)
 		&& hasKind(either, "either-bool")
 		&& hasKind(either, "either-falsy");
 }
@@ -55,7 +56,7 @@ type ToOptionalEither<
 
 export function whenEitherIsBoolFalsy<
 	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (

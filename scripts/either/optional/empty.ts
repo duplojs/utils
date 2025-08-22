@@ -1,9 +1,9 @@
-import { createEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
+import { createEitherLeft, type EitherLeft, isEitherLeft, unknownIsEitherLeft } from "../left";
 import { type EitherOptionalFilled } from "./filled";
-import { type EitherRight, isEitherRight, unknownIsEitherRight } from "../right";
+import { type EitherRight, unknownIsEitherRight } from "../right";
 import { createEitherOptional } from "./create";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherOptionalEmpty
 	extends EitherLeft<"optional", undefined>,
@@ -29,7 +29,7 @@ export function isEitherOptionalEmpty<
 >(
 	either: GenericEither,
 ): either is Extract<GenericEither, EitherOptionalEmpty> {
-	return isEitherRight(either)
+	return isEitherLeft(either)
 		&& hasKind(either, "either-optional")
 		&& hasKind(either, "either-empty");
 }
@@ -37,7 +37,7 @@ export function isEitherOptionalEmpty<
 export function unknownIsEitherOptionalEmpty(
 	either: unknown,
 ): either is EitherOptionalEmpty {
-	return unknownIsEitherRight(either)
+	return unknownIsEitherLeft(either)
 		&& hasKind(either, "either-optional")
 		&& hasKind(either, "either-empty");
 }

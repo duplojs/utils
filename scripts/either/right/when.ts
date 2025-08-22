@@ -1,4 +1,4 @@
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type EitherLeft } from "../left";
 import { type EitherRight } from "./create";
 import { isEitherRight } from "./is";

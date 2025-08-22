@@ -1,6 +1,6 @@
 import { type TheKind } from "@scripts/common/theKind";
 import { createEitherLeft, type EitherLeft } from "../left";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherFutureError
 	extends EitherLeft<"future", unknown>,

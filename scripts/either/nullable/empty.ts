@@ -2,7 +2,7 @@ import { hasKind, type TheKind } from "@scripts/common/theKind";
 import { createEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
 import { type EitherRight, unknownIsEitherRight } from "../right";
 import { createEitherNullable } from "./create";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherNullableEmpty
 	extends EitherLeft<"nullable", null>,

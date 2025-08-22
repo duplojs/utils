@@ -1,4 +1,4 @@
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type BoolFalsyValue, createEitherBoolFalsy, type EitherBoolFalsy } from "./falsy";
 import { createEitherBoolTruthy, type EitherBoolTruthy } from "./truthy";
 

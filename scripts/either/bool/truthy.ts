@@ -3,7 +3,8 @@ import { type EitherBoolFalsy } from "./falsy";
 import { createEitherBool } from "./create";
 import { type EitherLeft, unknownIsEitherLeft } from "../left";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
+import { type EscapeVoid } from "@scripts/common/types/escapeVoid";
 
 export interface EitherBoolTruthy<
 	GenericValue extends unknown = unknown,
@@ -53,7 +54,7 @@ type ToBoolEither<
 
 export function whenEitherIsBoolTruthy<
 	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (

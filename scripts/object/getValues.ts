@@ -1,4 +1,4 @@
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export function getValues<
 	GenericValue extends AnyValue,

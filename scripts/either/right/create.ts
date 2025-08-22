@@ -1,6 +1,6 @@
 import { type TheKind } from "@scripts/common/theKind";
 import { type TheValue } from "@scripts/common/theValue";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherRight<
 	GenericInformation extends string = string,

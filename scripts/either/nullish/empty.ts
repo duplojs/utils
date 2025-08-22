@@ -3,7 +3,7 @@ import { type EitherNullishFilled } from "./filled";
 import { type EitherRight, unknownIsEitherRight } from "../right";
 import { createEitherNullish } from "./create";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export type NullishValue = null | undefined;
 
@@ -16,8 +16,8 @@ export interface EitherNullishEmpty<
 }
 
 export function createEitherNullishEmpty<
-	GenericValue extends NullishValue,
->(value: GenericValue): EitherNullishEmpty<GenericValue> {
+	GenericValue extends NullishValue = undefined,
+>(value: GenericValue = undefined as GenericValue): EitherNullishEmpty<GenericValue> {
 	return {
 		"kind-either-empty": null,
 		"kind-either-nullish": null,

@@ -1,4 +1,4 @@
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type MaybePromise } from "@scripts/common/types/maybePromise";
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
 

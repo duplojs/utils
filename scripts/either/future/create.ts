@@ -1,9 +1,9 @@
-import { type EitherError, type EitherLeft, isEitherLeft } from "../left";
+import { type EitherLeft, isEitherLeft } from "../left";
 import { type EitherRight, isEitherRight } from "../right";
 import { createEitherFutureSuccess, type EitherFutureSuccess } from "./success";
-import { createEitherFutureError } from "./error";
+import { createEitherFutureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 type Either = EitherRight | EitherLeft;
 
@@ -14,9 +14,9 @@ type ComputeEitherFutureSuccess<
 	: never;
 
 export class FutureEither<
-	GenericValue extends unknown,
+	GenericValue extends AnyValue = AnyValue,
 > extends Promise<
-	| EitherError
+	| EitherFutureError
 	| Extract<
 		Awaited<GenericValue>,
 		Either
@@ -42,7 +42,7 @@ export class FutureEither<
 							return createEitherFutureSuccess(value);
 						}
 					})
-					.catch((error) => createEitherFutureError(error)),
+					.catch((error: AnyValue) => createEitherFutureError(error)),
 			),
 		);
 	}
@@ -51,6 +51,10 @@ export class FutureEither<
 
 	public static override get [Symbol.species]() {
 		return Promise;
+	}
+
+	public static instanceof(value: unknown): value is FutureEither {
+		return value?.constructor?.name === "FutureEither";
 	}
 }
 

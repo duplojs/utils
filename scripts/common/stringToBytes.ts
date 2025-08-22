@@ -8,6 +8,8 @@ export class InvalidBytesInStringError extends Error {
 		super(`Invalid Input: ${input}`);
 	}
 
+	public "kind-invalid-bytes-in-string-error" = null as unknown;
+
 	public static instanceof(value: unknown): value is InvalidBytesInStringError {
 		return value?.constructor?.name === "InvalidBytesInStringError";
 	}

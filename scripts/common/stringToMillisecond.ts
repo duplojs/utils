@@ -8,6 +8,8 @@ export class InvalidMillisecondInStringError extends Error {
 		super(`Invalid Input: ${input}`);
 	}
 
+	public "kind-invalid-millisecond-in-string-error" = null as unknown;
+
 	public static instanceof(value: unknown): value is InvalidMillisecondInStringError {
 		return value?.constructor?.name === "InvalidMillisecondInStringError";
 	}

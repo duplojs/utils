@@ -1,9 +1,9 @@
-import { createEitherRight, type EitherRight, isEitherRight, unknownIsEitherRight, whenEitherIsRight } from "../right";
+import { createEitherRight, type EitherRight, isEitherRight, unknownIsEitherRight } from "../right";
 import { type EitherNullishEmpty } from "./empty";
 import { type EitherLeft, unknownIsEitherLeft } from "../left";
 import { createEitherNullish } from "./create";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherNullishFilled<
 	GenericValue extends unknown = unknown,

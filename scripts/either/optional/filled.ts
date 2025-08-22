@@ -3,7 +3,7 @@ import { type EitherOptionalEmpty } from "./empty";
 import { createEitherOptional } from "./create";
 import { type EitherLeft, unknownIsEitherLeft } from "../left";
 import { hasKind, type TheKind } from "@scripts/common/theKind";
-import { type AnyValue } from "@scripts/common/types/AnyValue";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
