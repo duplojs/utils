@@ -1,6 +1,8 @@
-import { hasKey } from "@scripts/object/hasKey";
-
 /* eslint-disable id-length */
+import { isKeyofObject } from "@scripts/object/isKeyof";
+
+const kind = "kind-invalid-millisecond-in-string-error";
+
 export class InvalidMillisecondInStringError extends Error {
 	public constructor(
 		public input: string,
@@ -8,10 +10,12 @@ export class InvalidMillisecondInStringError extends Error {
 		super(`Invalid Input: ${input}`);
 	}
 
-	public "kind-invalid-millisecond-in-string-error" = null as unknown;
+	public [kind] = null as unknown;
 
 	public static instanceof(value: unknown): value is InvalidMillisecondInStringError {
-		return value?.constructor?.name === "InvalidMillisecondInStringError";
+		return typeof value === "object"
+			&& value?.constructor?.name === "InvalidMillisecondInStringError"
+			&& kind in value;
 	}
 }
 
@@ -43,7 +47,7 @@ export function stringToMillisecond(
 	const { rawValue, unit } = result?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !hasKey(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyofObject(unitMapper, unit)) {
 		throw new InvalidMillisecondInStringError(millisecondInString);
 	}
 

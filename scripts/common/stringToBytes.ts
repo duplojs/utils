@@ -1,5 +1,7 @@
 /* eslint-disable id-length */
-import { hasKey } from "../object/hasKey";
+import { isKeyofObject } from "../object/isKeyof";
+
+const kind = "kind-invalid-bytes-in-string-error";
 
 export class InvalidBytesInStringError extends Error {
 	public constructor(
@@ -8,10 +10,12 @@ export class InvalidBytesInStringError extends Error {
 		super(`Invalid Input: ${input}`);
 	}
 
-	public "kind-invalid-bytes-in-string-error" = null as unknown;
+	public [kind] = null as unknown;
 
 	public static instanceof(value: unknown): value is InvalidBytesInStringError {
-		return value?.constructor?.name === "InvalidBytesInStringError";
+		return typeof value === "object"
+			&& value?.constructor?.name === "InvalidBytesInStringError"
+			&& kind in value;
 	}
 }
 
@@ -38,7 +42,7 @@ export function stringToBytes(bytesInString: BytesInString | number) {
 	const { rawValue, unit } = regExpResults?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !hasKey(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyofObject(unitMapper, unit)) {
 		throw new InvalidBytesInStringError(bytesInString);
 	}
 

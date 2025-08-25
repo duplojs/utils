@@ -1,5 +1,5 @@
 import { type TheValue } from "@scripts/common/theValue";
 
-export type EmbeddedNumber<
+export type WrappedNumber<
 	GenericNumber extends number = number,
 > = TheValue<GenericNumber>;

@@ -8,7 +8,7 @@ describe("eitherRightAsyncPipe", () => {
 			({ value }) => createEitherSuccess(value),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherSuccess(10));
+		expect(await result).toStrictEqual(createEitherSuccess(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -23,7 +23,7 @@ describe("eitherRightAsyncPipe", () => {
 			({ value }) => createEitherSuccess(value),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherSuccess(10));
+		expect(await result).toStrictEqual(createEitherSuccess(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -38,7 +38,7 @@ describe("eitherRightAsyncPipe", () => {
 			({ value }) => createEitherSuccess(value),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherFutureError(new Error()));
+		expect(await result).toStrictEqual(createEitherFutureError(new Error()));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -53,7 +53,7 @@ describe("eitherRightAsyncPipe", () => {
 			({ value }) => createEitherSuccess(value),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherSuccess(10));
+		expect(await result).toStrictEqual(createEitherSuccess(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -75,7 +75,7 @@ describe("eitherRightAsyncPipe", () => {
 			(value) => createEitherSuccess(value + 1),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherSuccess(7));
+		expect(await result).toStrictEqual(createEitherSuccess(7));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -97,7 +97,7 @@ describe("eitherRightAsyncPipe", () => {
 			(value) => createEitherSuccess(value + 1),
 		);
 
-		await expect(result).resolves.toStrictEqual(createEitherFail());
+		expect(await result).toStrictEqual(createEitherFail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,

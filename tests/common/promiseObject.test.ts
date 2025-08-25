@@ -1,5 +1,5 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { promiseObject } from "@scripts/object/promiseObject";
+import { promiseObject } from "@scripts/common/promiseObject";
 
 describe("promiseObject", () => {
 	it("obtain object", async() => {

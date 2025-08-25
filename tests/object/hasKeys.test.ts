@@ -1,13 +1,13 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { haveKeys } from "@scripts/object/haveKeys";
+import { objectHasKeys } from "@scripts/object/hasKeys";
 
-describe("haveKeys", () => {
-	it("have", () => {
+describe("objectHasKeys", () => {
+	it("has", () => {
 		const input: Partial<{ test: string }> = {
 			test: "ok",
 		};
 
-		const output = haveKeys(
+		const output = objectHasKeys(
 			input,
 			["test"],
 		);
@@ -28,7 +28,7 @@ describe("haveKeys", () => {
 	it("missing", () => {
 		const input: Partial<{ test: string }> = {};
 
-		const output = haveKeys(
+		const output = objectHasKeys(
 			input,
 			["test"],
 		);

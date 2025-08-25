@@ -1,6 +1,6 @@
 import { type RequiredKeys } from "./types/requiredKeys";
 
-export function haveKeys<
+export function objectHasKeys<
 	GenericObject extends object,
 	GenericKeys extends keyof GenericObject,
 >(

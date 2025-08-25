@@ -1,9 +1,9 @@
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
-export function getValues<
+export function objectValues<
 	GenericValue extends AnyValue,
 >(
-	object: Record<string, GenericValue> | ArrayLike<GenericValue>,
+	object: { [key: string]: GenericValue } | ArrayLike<GenericValue>,
 ): GenericValue[] {
 	return Object.values(object);
 }

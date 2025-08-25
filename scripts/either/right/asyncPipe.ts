@@ -337,7 +337,7 @@ export function eitherRightAsyncPipe<
 export function eitherRightAsyncPipe(
 	input: AnyValue,
 	...pipes: EitherRightAsyncPipeFunction[]
-): Promise<any> {
+): FutureEither<any> {
 	return createFutureEither(
 		(async() => {
 			const awaitedInput = await input;

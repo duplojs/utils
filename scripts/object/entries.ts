@@ -9,7 +9,7 @@ export type GetEntries<
 	[Prop in keyof GenericData]: [Prop, GenericData[Prop]]
 }[keyof GenericData][];
 
-export function getEntries<
+export function objectEntries<
 	GenericObject extends object,
 >(object: GenericObject) {
 	return Object.entries(object) as SimplifyTopLevel<GetEntries<GenericObject>>;

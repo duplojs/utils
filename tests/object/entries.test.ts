@@ -1,8 +1,8 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { getEntries } from "@scripts/object/getEntries";
+import { objectEntries } from "@scripts/object/entries";
 
-it("getTypedEntries", () => {
-	const entries = getEntries({
+it("objectEntries", () => {
+	const entries = objectEntries({
 		toto: 1,
 		tt: true ? "ee" : undefined,
 	});

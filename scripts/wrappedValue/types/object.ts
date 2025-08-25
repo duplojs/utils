@@ -1,5 +1,5 @@
 import { type TheValue } from "@scripts/common/theValue";
 
-export type EmbeddedObject<
+export type WrappedObject<
 	GenericObject extends object = object,
 > = TheValue<GenericObject>;

@@ -21,7 +21,7 @@ it("useAsyncLoop", async() => {
 
 	type check = ExpectType<
 		typeof result,
-		string,
+		"exit",
 		"strict"
 	>;
 });

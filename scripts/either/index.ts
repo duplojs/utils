@@ -5,6 +5,7 @@ import { createEitherNullable, type EitherNullableEmpty, type EitherNullableFill
 import { createFutureEither, type FutureEither } from "./future";
 import { createEitherNullish, type EitherNullishEmpty, type EitherNullishFilled, isEitherNullishEmpty, isEitherNullishFilled, whenEitherIsNullishEmpty, whenEitherIsNullishFilled } from "./nullish";
 import { createEitherBool, type EitherBoolFalsy, type EitherBoolTruthy, isEitherBoolFalsy, isEitherBoolTruthy, whenEitherIsBoolFalsy, whenEitherIsBoolTruthy } from "./bool";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export * from "./bool";
 export * from "./future";
@@ -94,7 +95,7 @@ export namespace Either {
 	export const whenIsNullableEmpty = whenEitherIsNullableEmpty;
 
 	export type Future<
-		GenericValue extends unknown = unknown,
+		GenericValue extends AnyValue = AnyValue,
 	> = FutureEither<GenericValue>;
 
 	export const future = createFutureEither;

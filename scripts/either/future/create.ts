@@ -4,24 +4,48 @@ import { createEitherFutureSuccess, type EitherFutureSuccess } from "./success";
 import { createEitherFutureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
 import { type AnyValue } from "@scripts/common/types/anyValue";
+import { type MaybePromise } from "@scripts/common/types/maybePromise";
 
 type Either = EitherRight | EitherLeft;
 
-type ComputeEitherFutureSuccess<
+type ComputeEitherFutureSuccessResult<
 	GenericValue extends unknown,
 > = IsEqual<never, Exclude<GenericValue, Either>> extends false
 	? EitherFutureSuccess<Exclude<GenericValue, Either>>
 	: never;
 
-export class FutureEither<
+type ComputeEitherFutureErrorResult<
+	GenericValue extends unknown,
+> = GenericValue extends Promise<unknown>
+	? EitherFutureError
+	: never;
+
+type ComputeFutureEitherResult<
 	GenericValue extends AnyValue = AnyValue,
-> extends Promise<
-	| EitherFutureError
+> =
 	| Extract<
 		Awaited<GenericValue>,
 		Either
 	>
-	| ComputeEitherFutureSuccess<Awaited<GenericValue>>
+	| ComputeEitherFutureSuccessResult<
+		Awaited<GenericValue>
+	>
+	| ComputeEitherFutureErrorResult<GenericValue>;
+
+export type FutureEitherAllResult<
+	GenericArray extends readonly AnyValue[] | [],
+> = FutureEither<{
+	-readonly [Prop in keyof GenericArray]: Awaited<
+		FutureEither<GenericArray[Prop]>
+	>;
+}>;
+
+const kind = "kind-future-either";
+
+export class FutureEither<
+	GenericValue extends AnyValue = AnyValue,
+> extends Promise<
+		ComputeFutureEitherResult<GenericValue>
 	> {
 	public constructor(
 		value: GenericValue,
@@ -47,14 +71,42 @@ export class FutureEither<
 		);
 	}
 
-	public "kind-future-either" = null as unknown;
+	public [kind] = null as unknown;
+
+	// @ts-expect-error override signature error
+	public override then<
+		GenericOutput extends AnyValue,
+	>(
+		theFunction: (
+			result: Extract<ComputeFutureEitherResult<GenericValue>, any>
+		) => MaybePromise<GenericOutput>,
+	) {
+		return new FutureEither<GenericOutput>(
+			super.then(theFunction) as never,
+		);
+	}
 
 	public static override get [Symbol.species]() {
 		return Promise;
 	}
 
 	public static instanceof(value: unknown): value is FutureEither {
-		return value?.constructor?.name === "FutureEither";
+		return typeof value === "object"
+			&& value?.constructor?.name === "FutureEither"
+			&& kind in value;
+	}
+
+	public static override all<
+		GenericValue extends AnyValue,
+		GenericArray extends readonly GenericValue[] | [],
+	>(values: GenericArray): FutureEitherAllResult<GenericArray> {
+		return new FutureEither(
+			Promise.all(
+				values.map(
+					(value) => new FutureEither(value),
+				),
+			),
+		) as never;
 	}
 }
 

@@ -18,6 +18,6 @@ export function hasValue<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, Record<"value", unknown>> {
+): input is Extract<GenericInput, Record<"value", any>> {
 	return !!input && typeof input === "object" && "value" in input;
 }
