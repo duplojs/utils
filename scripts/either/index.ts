@@ -6,6 +6,8 @@ import { createFutureEither, type FutureEither } from "./future";
 import { createEitherNullish, type EitherNullishEmpty, type EitherNullishFilled, isEitherNullishEmpty, isEitherNullishFilled, whenEitherIsNullishEmpty, whenEitherIsNullishFilled } from "./nullish";
 import { createEitherBool, type EitherBoolFalsy, type EitherBoolTruthy, isEitherBoolFalsy, isEitherBoolTruthy, whenEitherIsBoolFalsy, whenEitherIsBoolTruthy } from "./bool";
 import { type AnyValue } from "@scripts/common/types/anyValue";
+import { eitherHasInformation } from "./hasInformation";
+import { whenEitherHasInformation } from "./whenHasInformation";
 
 export * from "./bool";
 export * from "./future";
@@ -14,6 +16,8 @@ export * from "./nullable";
 export * from "./nullish";
 export * from "./optional";
 export * from "./right";
+export * from "./hasInformation";
+export * from "./whenHasInformation";
 
 export namespace DEither {
 	export type Right<
@@ -131,6 +135,10 @@ export namespace DEither {
 	export const isBoolFalsy = isEitherBoolFalsy;
 
 	export const whenIsBoolFalsy = whenEitherIsBoolFalsy;
+
+	export const hasInformation = eitherHasInformation;
+
+	export const whenHasInformation = whenEitherHasInformation;
 }
 
 // eslint-disable-next-line id-length
