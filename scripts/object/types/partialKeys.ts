@@ -1,7 +1,7 @@
-import type { SimplifyType } from "../simplifyType";
+import { type SimplifyTopLevel } from "@scripts/common";
 
 export type PartialKeys<T extends object, K extends keyof T = keyof T> =
-	SimplifyType<
+	SimplifyTopLevel<
 		Omit<T, K> &
 		Partial<
 			Pick<T, K>

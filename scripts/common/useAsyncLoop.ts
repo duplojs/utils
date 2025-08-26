@@ -21,7 +21,7 @@ export interface LoopParams<
 		GenericValue extends GenericRawNextOutput | undefined = undefined,
 	>(output?: GenericValue): LoopOutputNextResult<GenericValue>;
 	exit<
-		GenericOutput extends any = undefined,
+		GenericOutput extends AnyValue = undefined,
 	>(output?: GenericOutput): LoopOutputExistResult<GenericOutput>;
 }
 

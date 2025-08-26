@@ -1,5 +1,5 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, createEitherOk, type EitherFail, type EitherLeft, isEitherLeft, isEitherLeft } from "@scripts/either";
+import { createEitherFail, createEitherOk, type EitherFail, type EitherLeft, isEitherLeft } from "@scripts/either";
 
 describe("isEitherLeft", () => {
 	it("return true", () => {

@@ -38,4 +38,4 @@ export namespace DTypedWrapper {
 	export const addProperties = addWrappedProperties;
 }
 
-export const TW = DTypedWrappe;
+export const TW = DTypedWrapper;

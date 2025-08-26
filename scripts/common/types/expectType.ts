@@ -2,7 +2,7 @@ import { type IsEqual } from "./isEqual";
 
 export interface ExpectType<
 	GenericOne extends unknown,
-	GenericTwo extends unknown,
+	GenericTwo extends GenericOne,
 	GenericRule extends (
 		IsEqual<GenericOne, GenericTwo> extends true
 			? "strict"

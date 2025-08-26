@@ -3,9 +3,9 @@ import { type EitherRight } from "./create";
 import { isWrappedValue } from "@scripts/common/wrapValue";
 
 export function isEitherRight(
-	either: unknown,
-): either is EitherRight {
-	return hasKind(either, "either-right")
-		&& hasKind(either, "either-information")
-		&& isWrappedValue(either);
+	input: unknown,
+): input is EitherRight {
+	return hasKind(input, "either-right")
+		&& hasKind(input, "either-information")
+		&& isWrappedValue(input);
 }

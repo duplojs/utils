@@ -12,7 +12,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherFutureError | EitherSuccess<number>,
+			EitherSuccess<number>,
 			"strict"
 		>;
 	});
@@ -57,7 +57,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherFutureError | EitherSuccess<number>,
+			EitherSuccess<number>,
 			"strict"
 		>;
 	});
@@ -79,7 +79,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherFutureError | EitherSuccess<number> | EitherFail,
+			EitherSuccess<number> | EitherFail,
 			"strict"
 		>;
 	});
@@ -101,7 +101,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherFutureError | EitherFail | EitherSuccess<number>,
+			EitherFail | EitherSuccess<number>,
 			"strict"
 		>;
 	});

@@ -10,8 +10,7 @@
     "test:tu": "vitest --coverage",
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
-    "test:types": "npm run test:types:scripts",
-    "test:types:scripts": "tsc",
+    "test:types": "tsc -p tsconfig.test.json",
     "test:lint": "eslint",
     "test:lint:fix": "eslint --fix",
     "prepare": "husky"
@@ -42,7 +41,7 @@
     "tsc-alias": "1.8.10",
     "tslib": "2.8.1",
     "tsx": "^4.20.4",
-    "typescript": "5.7.3",
+    "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   },
