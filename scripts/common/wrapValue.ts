@@ -1,20 +1,20 @@
 import { type AnyValue } from "./types/anyValue";
 
-export interface TheValue<
+export interface WrappedValue<
 	GenericValue extends unknown = unknown,
 > {
 	value: GenericValue;
 }
 
-export function theValue<
+export function wrapValue<
 	GenericValue extends AnyValue,
->(value: GenericValue): TheValue<GenericValue> {
+>(value: GenericValue): WrappedValue<GenericValue> {
 	return {
 		value,
 	};
 }
 
-export function hasValue<
+export function isWrappedValue<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,

@@ -1,6 +1,6 @@
 import { type UnionToIntersection } from "./unionToIntersection";
 
-export type GetLastOfUnion<T> =
+type GetLastOfUnion<T> =
 	UnionToIntersection<
 		T extends any
 			? () => T

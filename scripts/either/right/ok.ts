@@ -1,9 +1,9 @@
-import { type TheKind } from "@scripts/common/theKind";
+import { type Kind } from "@scripts/common/kind";
 import { createEitherRight, type EitherRight } from "./create";
 
 export interface EitherOk
 	extends EitherRight<"ok", never>,
-	TheKind<"either-ok"> {
+	Kind<"either-ok"> {
 
 }
 

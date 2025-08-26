@@ -1,9 +1,9 @@
-import { type TheKind } from "@scripts/common/theKind";
+import { type Kind } from "@scripts/common/kind";
 import { createEitherLeft, type EitherLeft } from "./create";
 
 export interface EitherFail
 	extends EitherLeft<"fail", never>,
-	TheKind<"either-fail"> {
+	Kind<"either-fail"> {
 
 }
 

@@ -1,8 +1,8 @@
-import { hasKind, theKind } from "@scripts/common/theKind";
+import { hasKind, createKind } from "@scripts/common/kind";
 
 describe("theKind", () => {
 	it("theKind", () => {
-		expect(theKind("test"))
+		expect(createKind("test"))
 			.toStrictEqual({ "kind-test": null });
 	});
 

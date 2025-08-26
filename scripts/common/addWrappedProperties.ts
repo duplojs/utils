@@ -1,9 +1,7 @@
-import { unwrap } from "@scripts/common/unwrap";
-import { createWrappedNumber } from "./create/number";
-import { type WrappedAnyValue } from "./types/anyValue";
+import { type WrappedValue } from "./wrapValue";
 
 export type GetWrappedProperties<
-	GenericWrappedValue extends WrappedAnyValue = WrappedAnyValue,
+	GenericWrappedValue extends WrappedValue = WrappedValue,
 	GenericProperties extends object = object,
 > = (
 	params: {
@@ -12,7 +10,7 @@ export type GetWrappedProperties<
 ) => GenericProperties;
 
 export function addWrappedProperties<
-	GenericWrappedValue extends WrappedAnyValue,
+	GenericWrappedValue extends WrappedValue,
 	GenericGetWrappedProperties extends GetWrappedProperties<GenericWrappedValue>,
 >(
 	wrappedValue: GenericWrappedValue,

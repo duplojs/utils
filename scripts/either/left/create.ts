@@ -1,13 +1,13 @@
-import { type TheKind } from "@scripts/common/theKind";
-import { type TheValue } from "@scripts/common/theValue";
+import { type Kind } from "@scripts/common/kind";
+import { type WrappedValue } from "@scripts/common/wrapValue";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherLeft<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,
-> extends TheKind<"either-left">,
-	TheKind<"either-information", GenericInformation>,
-	TheValue<GenericValue> {
+> extends Kind<"either-left">,
+	Kind<"either-information", GenericInformation>,
+	WrappedValue<GenericValue> {
 
 }
 

@@ -4,13 +4,15 @@ import { isKeyofObject } from "./isKeyof";
 import { objectKeys } from "./keys";
 import { objectValues } from "./values";
 
+export * from "./types";
+
 export * from "./entries";
 export * from "./hasKeys";
 export * from "./isKeyof";
 export * from "./keys";
 export * from "./values";
 
-export namespace Object {
+export namespace DObject {
 	export const entries = objectEntries;
 
 	export const hasKeys = objectHasKeys;
@@ -23,4 +25,4 @@ export namespace Object {
 }
 
 // eslint-disable-next-line id-length
-export const O = Object;
+export const O = DObject;

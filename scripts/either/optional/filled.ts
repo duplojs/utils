@@ -1,15 +1,15 @@
-import { createEitherRight, type EitherRight, isEitherRight, unknownIsEitherRight } from "../right";
-import { type EitherOptionalEmpty } from "./empty";
+import { createEitherRight, type EitherRight, isEitherRight } from "../right";
 import { createEitherOptional } from "./create";
-import { type EitherLeft, unknownIsEitherLeft } from "../left";
-import { hasKind, type TheKind } from "@scripts/common/theKind";
+import { type EitherLeft, isEitherLeft } from "../left";
+import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyValue } from "@scripts/common/types/anyValue";
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
 > extends EitherRight<"optional", GenericValue>,
-	TheKind<"either-optional">,
-	TheKind<"either-filled"> {
+	Kind<"either-optional">,
+	Kind<"either-filled"> {
 
 }
 
@@ -25,22 +25,10 @@ export function createEitherOptionalFilled<
 
 type Either = EitherRight | EitherLeft;
 
-type OptionalEither = EitherOptionalFilled | EitherOptionalEmpty;
-
-export function isEitherOptionalFilled<
-	GenericEither extends OptionalEither,
->(
-	either: GenericEither,
-): either is Extract<GenericEither, EitherOptionalFilled> {
-	return isEitherRight(either)
-		&& hasKind(either, "either-optional")
-		&& hasKind(either, "either-filled");
-}
-
-export function unknownIsEitherOptionalFilled(
+export function isEitherOptionalFilled(
 	either: unknown,
 ): either is EitherOptionalFilled {
-	return unknownIsEitherRight(either)
+	return isEitherRight(either)
 		&& hasKind(either, "either-optional")
 		&& hasKind(either, "either-filled");
 }
@@ -55,6 +43,17 @@ export function whenEitherIsOptionalFilled<
 	GenericInput extends AnyValue,
 	GenericOutput extends AnyValue,
 >(
+	theFunction: (
+		eitherValue: Extract<
+			ToOptionalEither<GenericInput>,
+			EitherOptionalFilled
+		>["value"]
+	) => GenericOutput,
+): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+export function whenEitherIsOptionalFilled<
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
+>(
 	input: GenericInput,
 	theFunction: (
 		eitherValue: Extract<
@@ -62,20 +61,30 @@ export function whenEitherIsOptionalFilled<
 			EitherOptionalFilled
 		>["value"]
 	) => GenericOutput,
-):
-	| GenericOutput
-	| Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled> {
-	if (unknownIsEitherLeft(input)) {
+): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+export function whenEitherIsOptionalFilled(...args: [AnyValue, AnyFunction] | [AnyFunction]): any {
+	if (args.length === 1) {
+		const [theFunction] = args;
+
+		return (input: Either) => whenEitherIsOptionalFilled(
+			input,
+			theFunction,
+		);
+	}
+
+	const [input, theFunction] = args;
+
+	if (isEitherLeft(input)) {
 		return input as never;
-	} else if (!unknownIsEitherOptionalFilled(input) && unknownIsEitherRight(input)) {
+	} else if (!isEitherOptionalFilled(input) && isEitherRight(input)) {
 		return input as never;
 	}
 
-	const either = unknownIsEitherRight(input) || unknownIsEitherLeft(input)
+	const either = isEitherRight(input) || isEitherLeft(input)
 		? input
 		: createEitherOptional(input);
 
-	if (unknownIsEitherOptionalFilled(either)) {
+	if (isEitherOptionalFilled(either)) {
 		return theFunction(either.value);
 	}
 

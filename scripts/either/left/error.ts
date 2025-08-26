@@ -1,11 +1,11 @@
-import { type TheKind } from "@scripts/common/theKind";
+import { type Kind } from "@scripts/common/kind";
 import { createEitherLeft, type EitherLeft } from "./create";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherError<
 	GenericValue extends unknown = unknown,
 > extends EitherLeft<"error", GenericValue>,
-	TheKind<"either-error"> {
+	Kind<"either-error"> {
 
 }
 

@@ -1,5 +1,6 @@
+import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherNullishEmpty, createEitherNullishFilled, type EitherNullishFilled, isEitherNullishEmpty, type NullishValue, type EitherNullishEmpty, unknownIsEitherNullishEmpty, whenEitherIsNullishEmpty, createEitherFail, type EitherFail } from "@scripts/either";
+import { createEitherNullishEmpty, createEitherNullishFilled, type EitherNullishFilled, isEitherNullishEmpty, type NullishValue, type EitherNullishEmpty, whenEitherIsNullishEmpty, createEitherFail, type EitherFail } from "@scripts/either";
 
 describe("EitherNullishEmpty", () => {
 	it("create", () => {
@@ -42,22 +43,6 @@ describe("EitherNullishEmpty", () => {
 		const predicate = isEitherNullishEmpty(either);
 
 		expect(predicate).toBe(false);
-	});
-
-	it("unknownIsEitherNullishEmpty return false", () => {
-		const either = 1 as unknown;
-
-		const predicate = unknownIsEitherNullishEmpty(either);
-
-		expect(predicate).toBe(false);
-
-		if (predicate) {
-			type check = ExpectType<
-				typeof either,
-				EitherNullishEmpty<NullishValue>,
-				"strict"
-			>;
-		}
 	});
 
 	it("whenEitherIsNullishEmpty match", () => {
@@ -189,6 +174,33 @@ describe("EitherNullishEmpty", () => {
 		type check = ExpectType<
 			typeof result,
 			EitherNullishFilled<10> | 0,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			true
+				? createEitherNullishEmpty(null)
+				: createEitherNullishFilled(true),
+			whenEitherIsNullishEmpty(
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						null,
+						"strict"
+					>;
+
+					return value;
+				},
+			),
+		);
+
+		expect(result).toBe(null);
+
+		type check = ExpectType<
+			typeof result,
+			EitherNullishFilled<true> | null,
 			"strict"
 		>;
 	});

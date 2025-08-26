@@ -1,5 +1,6 @@
+import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, type EitherFail, createEitherOptionalEmpty, type EitherOptionalEmpty, isEitherOptionalEmpty, type EitherOptionalFilled, createEitherOptionalFilled, unknownIsEitherOptionalEmpty, whenEitherIsOptionalEmpty } from "@scripts/either";
+import { createEitherFail, type EitherFail, createEitherOptionalEmpty, type EitherOptionalEmpty, isEitherOptionalEmpty, type EitherOptionalFilled, createEitherOptionalFilled, whenEitherIsOptionalEmpty } from "@scripts/either";
 
 describe("EitherOptionalEmpty", () => {
 	it("create", () => {
@@ -42,22 +43,6 @@ describe("EitherOptionalEmpty", () => {
 		const predicate = isEitherOptionalEmpty(either);
 
 		expect(predicate).toBe(false);
-	});
-
-	it("unknownIsEitherOptionalEmpty return false", () => {
-		const either = 1 as unknown;
-
-		const predicate = unknownIsEitherOptionalEmpty(either);
-
-		expect(predicate).toBe(false);
-
-		if (predicate) {
-			type check = ExpectType<
-				typeof either,
-				EitherOptionalEmpty,
-				"strict"
-			>;
-		}
 	});
 
 	it("whenEitherIsOptionalEmpty match", () => {
@@ -189,6 +174,33 @@ describe("EitherOptionalEmpty", () => {
 		type check = ExpectType<
 			typeof result,
 			EitherOptionalFilled<10> | 0,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			true
+				? createEitherOptionalEmpty()
+				: createEitherOptionalFilled(true),
+			whenEitherIsOptionalEmpty(
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						undefined,
+						"strict"
+					>;
+
+					return value;
+				},
+			),
+		);
+
+		expect(result).toBe(undefined);
+
+		type check = ExpectType<
+			typeof result,
+			EitherOptionalFilled<true> | undefined,
 			"strict"
 		>;
 	});

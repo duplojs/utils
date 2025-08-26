@@ -14,7 +14,7 @@ export * from "./maxItems";
 export * from "./minItems";
 export * from "./reduce";
 
-export namespace Array {
+export namespace DArray {
 	export const filter = arrayFilter;
 
 	export const find = arrayFind;
@@ -31,4 +31,4 @@ export namespace Array {
 }
 
 // eslint-disable-next-line id-length
-export const A = Array;
+export const A = DArray;

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/max-params */
 import { type EitherRight } from "./create";
-import { isEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
+import { isEitherLeft, type EitherLeft, isEitherLeft } from "../left";
 import { type MaybeFutureEither } from "../future/MaybeFutureEither";
 import { createFutureEither, type FutureEither } from "../future";
 import { createEitherSuccess, type EitherSuccess } from "./success";
-import { unknownIsEitherRight } from "./is";
+import { isEitherRight } from "./is";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 type Either = EitherRight | EitherLeft;
@@ -342,11 +342,11 @@ export function eitherRightAsyncPipe(
 		(async() => {
 			const awaitedInput = await input;
 
-			if (unknownIsEitherLeft(awaitedInput)) {
+			if (isEitherLeft(awaitedInput)) {
 				return awaitedInput;
 			}
 
-			let acc: Either = unknownIsEitherRight(awaitedInput)
+			let acc: Either = isEitherRight(awaitedInput)
 				? awaitedInput
 				: createEitherSuccess(awaitedInput);
 

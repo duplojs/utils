@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/max-params */
 
 import { type EitherRight } from "./create";
-import { isEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
+import { isEitherLeft, type EitherLeft } from "../left";
 import { createEitherSuccess, type EitherSuccess } from "./success";
-import { unknownIsEitherRight } from "./is";
+import { isEitherRight } from "./is";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 type Either = EitherRight | EitherLeft;
@@ -315,7 +315,7 @@ export function eitherRightPipe(
 	input: AnyValue,
 	...pipes: EitherRightPipeFunction[]
 ): any {
-	let acc: Either = unknownIsEitherRight(input) || unknownIsEitherLeft(input)
+	let acc: Either = isEitherRight(input) || isEitherLeft(input)
 		? input
 		: createEitherSuccess(input);
 

@@ -1,5 +1,6 @@
+import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherBoolFalsy, type EitherBoolTruthy, type EitherBoolFalsy, isEitherBoolFalsy, createEitherBoolTruthy, unknownIsEitherBoolFalsy, whenEitherIsBoolFalsy, createEitherFail, type EitherFail } from "@scripts/either";
+import { createEitherBoolFalsy, type EitherBoolTruthy, type EitherBoolFalsy, isEitherBoolFalsy, createEitherBoolTruthy, whenEitherIsBoolFalsy, createEitherFail, type EitherFail } from "@scripts/either";
 
 describe("EitherBoolFalsy", () => {
 	it("create", () => {
@@ -42,22 +43,6 @@ describe("EitherBoolFalsy", () => {
 		const predicate = isEitherBoolFalsy(either);
 
 		expect(predicate).toBe(false);
-	});
-
-	it("unknownIsEitherBoolFalsy return false", () => {
-		const either = 1 as unknown;
-
-		const predicate = unknownIsEitherBoolFalsy(either);
-
-		expect(predicate).toBe(false);
-
-		if (predicate) {
-			type check = ExpectType<
-				typeof either,
-				EitherBoolFalsy,
-				"strict"
-			>;
-		}
 	});
 
 	it("whenEitherIsBoolFalsy match", () => {
@@ -191,5 +176,32 @@ describe("EitherBoolFalsy", () => {
 			EitherBoolTruthy<10> | 0,
 			"strict"
 		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			true
+				? createEitherBoolFalsy(null)
+				: createEitherBoolTruthy(true),
+			whenEitherIsBoolFalsy(
+				(value) => {
+						type check = ExpectType<
+							typeof value,
+							null,
+							"strict"
+						>;
+
+						return value;
+				},
+			),
+		);
+
+		expect(result).toBe(null);
+
+			type check = ExpectType<
+				typeof result,
+				EitherBoolTruthy<true> | null,
+				"strict"
+			>;
 	});
 });

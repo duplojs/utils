@@ -59,14 +59,14 @@ export class FutureEither<
 				)
 					.then((value) => {
 						if (isEitherRight(value)) {
-							return value;
+							return value as never;
 						} else if (isEitherLeft(value)) {
-							return value;
+							return value as never;
 						} else {
-							return createEitherFutureSuccess(value);
+							return createEitherFutureSuccess(value) as never;
 						}
 					})
-					.catch((error: AnyValue) => createEitherFutureError(error)),
+					.catch((error: AnyValue) => createEitherFutureError(error) as never),
 			),
 		);
 	}

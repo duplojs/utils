@@ -1,11 +1,11 @@
-import { type TheKind } from "@scripts/common/theKind";
+import { type Kind } from "@scripts/common/kind";
 import { createEitherLeft, type EitherLeft } from "../left";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherFutureError
 	extends EitherLeft<"future", unknown>,
-	TheKind<"either-future">,
-	TheKind<"either-error"> {
+	Kind<"either-future">,
+	Kind<"either-error"> {
 
 }
 

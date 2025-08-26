@@ -1,13 +1,13 @@
 const kindPrefix = "kind-";
 
-export type TheKind<
+export type Kind<
 	GenericName extends string,
 	GenericValue extends unknown = unknown,
 > = {
 	[Prop in GenericName as `${typeof kindPrefix}${Prop}`]: GenericValue
 };
 
-export function theKind<
+export function createKind<
 	GenericName extends string,
 	GenericValue extends unknown = unknown,
 >(
@@ -16,7 +16,7 @@ export function theKind<
 ) {
 	return {
 		[`${kindPrefix}${name}`]: value,
-	} as TheKind<GenericName, GenericValue>;
+	} as Kind<GenericName, GenericValue>;
 }
 
 export function hasKind<

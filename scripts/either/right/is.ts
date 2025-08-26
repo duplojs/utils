@@ -1,22 +1,11 @@
-import { hasKind } from "@scripts/common/theKind";
-import { type EitherLeft } from "../left";
+import { hasKind } from "@scripts/common/kind";
 import { type EitherRight } from "./create";
-import { hasValue } from "@scripts/common/theValue";
+import { isWrappedValue } from "@scripts/common/wrapValue";
 
-type Either = EitherRight | EitherLeft;
-
-export function isEitherRight<
-	GenericEither extends Either,
->(
-	either: GenericEither,
-): either is Extract<GenericEither, EitherRight> {
-	return hasKind(either, "either-right");
-}
-
-export function unknownIsEitherRight(
+export function isEitherRight(
 	either: unknown,
 ): either is EitherRight {
 	return hasKind(either, "either-right")
 		&& hasKind(either, "either-information")
-		&& hasValue(either);
+		&& isWrappedValue(either);
 }

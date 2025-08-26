@@ -15,7 +15,7 @@ export * from "./nullish";
 export * from "./optional";
 export * from "./right";
 
-export namespace Either {
+export namespace DEither {
 	export type Right<
 		GenericInformation extends string = string,
 		GenericValue extends unknown = unknown,
@@ -134,4 +134,4 @@ export namespace Either {
 }
 
 // eslint-disable-next-line id-length
-export const E = Either;
+export const E = DEither;

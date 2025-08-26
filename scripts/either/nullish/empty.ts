@@ -1,17 +1,17 @@
-import { createEitherLeft, type EitherLeft, unknownIsEitherLeft } from "../left";
-import { type EitherNullishFilled } from "./filled";
-import { type EitherRight, unknownIsEitherRight } from "../right";
+import { createEitherLeft, type EitherLeft, isEitherLeft } from "../left";
+import { type EitherRight, isEitherRight } from "../right";
 import { createEitherNullish } from "./create";
-import { hasKind, type TheKind } from "@scripts/common/theKind";
+import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyValue } from "@scripts/common/types/anyValue";
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export type NullishValue = null | undefined;
 
 export interface EitherNullishEmpty<
 	GenericValue extends NullishValue = NullishValue,
 >extends EitherLeft<"nullish", GenericValue>,
-	TheKind<"either-nullish">,
-	TheKind<"either-empty"> {
+	Kind<"either-nullish">,
+	Kind<"either-empty"> {
 
 }
 
@@ -27,27 +27,15 @@ export function createEitherNullishEmpty<
 
 type Either = EitherRight | EitherLeft;
 
-type NullishEither = EitherNullishFilled | EitherNullishEmpty;
-
-export function isEitherNullishEmpty<
-	GenericEither extends NullishEither,
->(
-	either: GenericEither,
-): either is Extract<GenericEither, EitherNullishEmpty> {
-	return unknownIsEitherLeft(either)
-		&& hasKind(either, "either-nullish")
-		&& hasKind(either, "either-empty");
-}
-
-export function unknownIsEitherNullishEmpty(
+export function isEitherNullishEmpty(
 	either: unknown,
 ): either is EitherNullishEmpty {
-	return unknownIsEitherLeft(either)
+	return isEitherLeft(either)
 		&& hasKind(either, "either-nullish")
 		&& hasKind(either, "either-empty");
 }
 
-type ToNullishEither<
+type ToEither<
 	GenericValue extends AnyValue,
 > = GenericValue extends Either
 	? GenericValue
@@ -57,27 +45,48 @@ export function whenEitherIsNullishEmpty<
 	GenericInput extends AnyValue,
 	GenericOutput extends AnyValue,
 >(
-	input: GenericInput,
 	theFunction: (
 		eitherValue: Extract<
-			ToNullishEither<GenericInput>,
+			ToEither<GenericInput>,
 			EitherNullishEmpty
 		>["value"]
 	) => GenericOutput,
-):
-	| GenericOutput
-	| Exclude<ToNullishEither<GenericInput>, EitherNullishEmpty> {
-	if (unknownIsEitherRight(input)) {
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
+export function whenEitherIsNullishEmpty<
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
+>(
+	input: GenericInput,
+	theFunction: (
+		eitherValue: Extract<
+			ToEither<GenericInput>,
+			EitherNullishEmpty
+		>["value"]
+	) => GenericOutput,
+): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
+export function whenEitherIsNullishEmpty(...args: [AnyValue, AnyFunction] | [AnyFunction]): any {
+	if (args.length === 1) {
+		const [theFunction] = args;
+
+		return (input: Either) => whenEitherIsNullishEmpty(
+			input,
+			theFunction,
+		);
+	}
+
+	const [input, theFunction] = args;
+
+	if (isEitherRight(input)) {
 		return input as never;
-	} else if (!unknownIsEitherNullishEmpty(input) && unknownIsEitherLeft(input)) {
+	} else if (!isEitherNullishEmpty(input) && isEitherLeft(input)) {
 		return input as never;
 	}
 
-	const either = unknownIsEitherRight(input) || unknownIsEitherLeft(input)
+	const either = isEitherRight(input) || isEitherLeft(input)
 		? input
 		: createEitherNullish(input);
 
-	if (unknownIsEitherNullishEmpty(either)) {
+	if (isEitherNullishEmpty(either)) {
 		return theFunction(either.value);
 	}
 

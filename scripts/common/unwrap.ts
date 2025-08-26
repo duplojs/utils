@@ -1,15 +1,15 @@
-import { type TheValue } from "./theValue";
+import { type WrappedValue } from "./wrapValue";
 import { type AnyValue } from "./types/anyValue";
 
 export type Unwrap<
 	GenericAnyValue extends unknown,
-> = GenericAnyValue extends TheValue
+> = GenericAnyValue extends WrappedValue
 	? GenericAnyValue["value"]
 	: GenericAnyValue;
 
 export function unwrap<
 	GenericValue extends AnyValue,
-	GenericAnyValue extends AnyValue | TheValue<GenericValue>,
+	GenericAnyValue extends AnyValue | WrappedValue<GenericValue>,
 >(
 	anyValue: GenericAnyValue,
 ): Unwrap<GenericAnyValue>;

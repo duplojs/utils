@@ -1,20 +1,36 @@
 import { type AnyValue } from "@scripts/common/types/anyValue";
-import { type EitherLeft } from "../left";
 import { type EitherRight } from "./create";
 import { isEitherRight } from "./is";
-
-type Either = EitherRight | EitherLeft;
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export function whenEitherIsRight<
-	GenericEither extends Either,
+	GenericInput extends AnyValue,
 	GenericOutput extends AnyValue,
 >(
-	either: GenericEither,
-	theFunction: (eitherValue: Extract<GenericEither, EitherRight>["value"]) => GenericOutput,
-) {
-	if (isEitherRight(either)) {
-		return theFunction(either.value);
+	theFunction: (eitherValue: Extract<GenericInput, EitherRight>["value"]) => GenericOutput,
+): (input: GenericInput) => Exclude<GenericInput, EitherRight> | GenericOutput;
+export function whenEitherIsRight<
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
+>(
+	input: GenericInput,
+	theFunction: (eitherValue: Extract<GenericInput, EitherRight>["value"]) => GenericOutput,
+): Exclude<GenericInput, EitherRight> | GenericOutput;
+export function whenEitherIsRight(...args: [AnyValue, AnyFunction] | [AnyFunction]) {
+	if (args.length === 1) {
+		const [theFunction] = args;
+
+		return (input: AnyValue) => whenEitherIsRight(
+			input,
+			theFunction,
+		);
 	}
 
-	return either as Exclude<GenericEither, EitherRight>;
+	const [input, theFunction] = args;
+
+	if (isEitherRight(input)) {
+		return theFunction(input.value);
+	}
+
+	return input;
 }

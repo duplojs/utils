@@ -1,6 +1,6 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { theKind, type TheKind } from "@scripts/common/theKind";
-import { type TheValue } from "@scripts/common/theValue";
+import { createKind, type Kind } from "@scripts/common/kind";
+import { type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 
 export interface ArrayReduceFunctionParams<
@@ -20,8 +20,8 @@ export interface ArrayReduceFunctionParams<
 
 export interface ArrayReduceFromResult<
 	GenericValue extends unknown = unknown,
-> extends TheKind<"array-reduce-from">,
-	TheValue<GenericValue> {
+> extends Kind<"array-reduce-from">,
+	WrappedValue<GenericValue> {
 
 }
 
@@ -88,7 +88,7 @@ arrayReduce.from = function<
 	GenericValue extends unknown,
 >(value: GenericValue): ArrayReduceFromResult<GenericValue> {
 	return {
-		...theKind("array-reduce-from"),
+		...createKind("array-reduce-from"),
 		value,
 	};
 };
