@@ -70,7 +70,7 @@ export function whenEitherHasInformation(
 			|| isEitherRight(input)
 		) && formattedInformation.includes(input["kind-either-information"])
 	) {
-		return theFunction(input);
+		return theFunction(input.value);
 	}
 
 	return input;
