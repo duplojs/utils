@@ -16,11 +16,7 @@ export function arrayPush<
 >(
 	arrayOrElement: GenericElement[] | GenericElement,
 	...items: GenericElement[]
-):
-	| GenericElement[]
-	| (
-		<GenericArrayType extends GenericElement>(array: GenericArrayType[]) => GenericElement[]
-	) {
+) {
 	if (Array.isArray(arrayOrElement)) {
 		return [...arrayOrElement, ...items];
 	}

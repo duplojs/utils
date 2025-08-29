@@ -8,6 +8,7 @@ import { arrayMaxItems } from "./maxItems";
 import { arrayMinItems } from "./minItems";
 import { arrayPush } from "./push";
 import { arrayReduce } from "./reduce";
+import { arraySome } from "./some";
 
 export * from "./filter";
 export * from "./find";
@@ -19,6 +20,7 @@ export * from "./minItems";
 export * from "./reduce";
 export * from "./push";
 export * from "./flat";
+export * from "./some";
 
 export namespace DArray {
 	export const filter = arrayFilter;
@@ -40,6 +42,8 @@ export namespace DArray {
 	export const push = arrayPush;
 
 	export const flat = arrayFlat;
+
+	export const some = arraySome;
 }
 
 // eslint-disable-next-line id-length
