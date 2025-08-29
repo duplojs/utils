@@ -1,10 +1,12 @@
 import { arrayFilter } from "./filter";
 import { arrayFind } from "./find";
+import { arrayFlat } from "./flat";
 import { arrayGroup } from "./group";
 import { arrayIncludes } from "./includes";
 import { arrayMap } from "./map";
 import { arrayMaxItems } from "./maxItems";
 import { arrayMinItems } from "./minItems";
+import { arrayPush } from "./push";
 import { arrayReduce } from "./reduce";
 
 export * from "./filter";
@@ -15,6 +17,8 @@ export * from "./map";
 export * from "./maxItems";
 export * from "./minItems";
 export * from "./reduce";
+export * from "./push";
+export * from "./flat";
 
 export namespace DArray {
 	export const filter = arrayFilter;
@@ -32,6 +36,10 @@ export namespace DArray {
 	export const minItems = arrayMinItems;
 
 	export const reduce = arrayReduce;
+
+	export const push = arrayPush;
+
+	export const flat = arrayFlat;
 }
 
 // eslint-disable-next-line id-length
