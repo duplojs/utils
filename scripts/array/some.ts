@@ -9,7 +9,6 @@ export function some<
 >(
 	predicate: (
 		item: GenericElement,
-		index: number,
 		params: ArraySomeParams
 	) => boolean,
 ): (array: GenericElement[]) => boolean;
@@ -25,6 +24,7 @@ export function some<
 export function some(...args: [AnyFunction] | [unknown[], AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
+
 		return (array: unknown[]) => some(array, predicate as never);
 	}
 
