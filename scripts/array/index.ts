@@ -9,3 +9,7 @@ export * from "./minElements";
 export * from "./push";
 export * from "./reduce";
 export * from "./some";
+export * from "./sort";
+export * from "./spliceInsert";
+export * from "./spliceDelete";
+export * from "./spliceReplace";

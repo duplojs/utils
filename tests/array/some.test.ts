@@ -25,8 +25,8 @@ describe("arraySome", () => {
 		const arr = [10, 20, 30];
 		const result = pipe(
 			arr,
-			some((item, index, array) => {
-				if (item === 20 && index === 1 && array === arr) {
+			some((item, { index }) => {
+				if (item === 20 && index === 1) {
 					return true;
 				}
 				return false;
