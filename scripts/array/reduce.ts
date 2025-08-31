@@ -3,6 +3,21 @@ import { createKind, type Kind } from "@scripts/common/kind";
 import { type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 
+interface ArrayReduceNext<
+	GenericOutput extends unknown,
+> {
+	"-next": GenericOutput;
+}
+
+interface ArrayReduceExit<
+	GenericOutput extends unknown,
+> {
+	"-exit": GenericOutput;
+}
+
+type ExitOrNext<
+	GenericOutput extends unknown = unknown,
+> = ArrayReduceExit<GenericOutput> | ArrayReduceNext<GenericOutput>;
 export interface ArrayReduceFunctionParams<
 	GenericElement extends unknown = unknown,
 	GenericOutput extends unknown = unknown,
@@ -16,6 +31,8 @@ export interface ArrayReduceFunctionParams<
 			object2: Partial<GenericOutput>,
 		) => GenericOutput
 		: undefined;
+	next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
+	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
 }
 
 export interface ArrayReduceFromResult<
@@ -35,7 +52,7 @@ export function reduce<
 			GenericElement,
 			Unwrap<GenericReduceFrom>
 		>
-	) => Unwrap<GenericReduceFrom>,
+	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
 ): (array: GenericElement[]) => Unwrap<GenericReduceFrom>;
 export function reduce<
 	GenericElement extends unknown,
@@ -48,7 +65,7 @@ export function reduce<
 			GenericElement,
 			Unwrap<GenericReduceFrom>
 		>
-	) => Unwrap<GenericReduceFrom>,
+	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
 ): Unwrap<GenericReduceFrom>;
 export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, AnyFunction]): any {
 	if (args.length === 2) {
@@ -68,7 +85,7 @@ export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, An
 	for (let index = 0; index < array.length; index++) {
 		const item = array[index]!;
 
-		lastValue = theFunction({
+		const result = theFunction({
 			item,
 			index,
 			lastValue,
@@ -78,7 +95,15 @@ export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, An
 					...object2,
 				})
 			) as never,
-		});
+			exit: (output: any) => ({ "-exit": output }),
+			next: (output: any) => ({ "-next": output }),
+		}) as ExitOrNext;
+
+		if ("-exit" in result) {
+			return result["-exit"];
+		}
+
+		lastValue = result["-next"];
 	}
 
 	return lastValue;

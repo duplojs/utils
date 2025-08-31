@@ -59,7 +59,7 @@ export function group(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	return reduce(
 		array,
 		reduce.from({}),
-		({ index, item, lastValue, mergeObject }) => {
+		({ index, item, lastValue, mergeObject, next }) => {
 			const { group, value } = theFunction({
 				index,
 				item,
@@ -69,14 +69,16 @@ export function group(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 				}),
 			});
 
-			return mergeObject(
-				lastValue,
-				{
-					[group]: [
-						...(lastValue[group as never] ?? []),
-						value,
-					],
-				},
+			return next(
+				mergeObject(
+					lastValue,
+					{
+						[group]: [
+							...(lastValue[group as never] ?? []),
+							value,
+						],
+					},
+				),
 			);
 		},
 	) as never;
