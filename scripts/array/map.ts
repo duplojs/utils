@@ -4,23 +4,23 @@ interface ArrayMapParams {
 	index: number;
 }
 
-export function arrayMap<
-	GenericItem extends unknown,
+export function map<
+	GenericElement extends unknown,
 	GenericOutput extends unknown,
 >(
-	theFunction: (item: GenericItem, params: ArrayMapParams) => GenericOutput,
-): (array: GenericItem[]) => GenericOutput[];
-export function arrayMap<
-	GenericItem extends unknown,
+	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
+): (array: GenericElement[]) => GenericOutput[];
+export function map<
+	GenericElement extends unknown,
 	GenericOutput extends unknown,
 >(
-	array: GenericItem[],
-	theFunction: (item: GenericItem, params: ArrayMapParams) => GenericOutput,
+	array: GenericElement[],
+	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
 ): GenericOutput[];
-export function arrayMap(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function map(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
-		return (array: unknown[]) => arrayMap(array, theFunction);
+		return (array: unknown[]) => map(array, theFunction);
 	}
 	const [array, theFunction] = args;
 

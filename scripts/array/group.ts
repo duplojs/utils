@@ -1,5 +1,5 @@
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
-import { arrayReduce } from "./reduce";
+import { reduce } from "./reduce";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface ArrayGroupFunctionOutput<
@@ -11,18 +11,18 @@ export interface ArrayGroupFunctionOutput<
 }
 
 export interface ArrayGroupFunctionParams<
-	GenericItem extends unknown = unknown,
+	GenericElement extends unknown = unknown,
 > {
-	item: GenericItem;
+	item: GenericElement;
 	index: number;
 	output<
 		GenericGroupeName extends string,
 	>(
 		group: GenericGroupeName,
-		value: GenericItem
+		value: GenericElement
 	): ArrayGroupFunctionOutput<
 		GenericGroupeName,
-		GenericItem
+		GenericElement
 	>;
 }
 
@@ -32,33 +32,33 @@ export type ArrayGroupResult<
 	[Output in GenericOutput as Output["group"]]: Output["value"][]
 }>;
 
-export function arrayGroup<
-	GenericItem extends unknown,
+export function group<
+	GenericElement extends unknown,
 	GenericOutput extends ArrayGroupFunctionOutput,
 >(
 	theFunction: (
-		params: ArrayGroupFunctionParams<GenericItem>
+		params: ArrayGroupFunctionParams<GenericElement>
 	) => GenericOutput,
-): (array: GenericItem[]) => ArrayGroupResult<GenericOutput>;
-export function arrayGroup<
-	GenericItem extends unknown,
+): (array: GenericElement[]) => ArrayGroupResult<GenericOutput>;
+export function group<
+	GenericElement extends unknown,
 	GenericOutput extends ArrayGroupFunctionOutput,
 >(
-	array: GenericItem[],
+	array: GenericElement[],
 	theFunction: (
-		params: ArrayGroupFunctionParams<GenericItem>
+		params: ArrayGroupFunctionParams<GenericElement>
 	) => GenericOutput,
 ): ArrayGroupResult<GenericOutput>;
-export function arrayGroup(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function group(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
-		return (array: unknown[]) => arrayGroup(array, theFunction);
+		return (array: unknown[]) => group(array, theFunction);
 	}
 	const [array, theFunction] = args;
 
-	return arrayReduce(
+	return reduce(
 		array,
-		arrayReduce.from({}),
+		reduce.from({}),
 		({ index, item, lastValue, mergeObject }) => {
 			const { group, value } = theFunction({
 				index,

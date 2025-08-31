@@ -1,21 +1,20 @@
-import { type AnyValue } from "@scripts/common";
 
-export function arrayIncludes<
-	GenericArrayValue extends AnyValue,
+export function includes<
+	GenericArrayValue extends unknown,
 >(
 	value: GenericArrayValue,
 ): (array: GenericArrayValue[]) => boolean;
-export function arrayIncludes<
-	GenericArrayValue extends AnyValue,
+export function includes<
+	GenericArrayValue extends unknown,
 >(
 	array: GenericArrayValue[],
 	value: GenericArrayValue,
 ): boolean;
-export function arrayIncludes(...args: [AnyValue[], AnyValue] | [AnyValue]) {
+export function includes(...args: [unknown[], unknown] | [unknown]) {
 	if (args.length === 1) {
 		const [value] = args;
 
-		return (array: AnyValue[]) => arrayIncludes(array, value);
+		return (array: unknown[]) => includes(array, value);
 	}
 
 	const [array, value] = args;

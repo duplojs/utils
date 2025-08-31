@@ -4,10 +4,10 @@ import { type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 
 export interface ArrayReduceFunctionParams<
-	GenericItem extends unknown = unknown,
+	GenericElement extends unknown = unknown,
 	GenericOutput extends unknown = unknown,
 > {
-	item: GenericItem;
+	item: GenericElement;
 	index: number;
 	lastValue: GenericOutput;
 	mergeObject: GenericOutput extends object
@@ -25,36 +25,36 @@ export interface ArrayReduceFromResult<
 
 }
 
-export function arrayReduce<
-	GenericItem extends unknown,
+export function reduce<
+	GenericElement extends unknown,
 	GenericReduceFrom extends ArrayReduceFromResult,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericItem,
+			GenericElement,
 			Unwrap<GenericReduceFrom>
 		>
 	) => Unwrap<GenericReduceFrom>,
-): (array: GenericItem[]) => Unwrap<GenericReduceFrom>;
-export function arrayReduce<
-	GenericItem extends unknown,
+): (array: GenericElement[]) => Unwrap<GenericReduceFrom>;
+export function reduce<
+	GenericElement extends unknown,
 	GenericReduceFrom extends string | number | ArrayReduceFromResult,
 >(
-	array: GenericItem[],
+	array: GenericElement[],
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericItem,
+			GenericElement,
 			Unwrap<GenericReduceFrom>
 		>
 	) => Unwrap<GenericReduceFrom>,
 ): Unwrap<GenericReduceFrom>;
-export function arrayReduce(...args: [unknown, AnyFunction] | [unknown[], unknown, AnyFunction]): any {
+export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, AnyFunction]): any {
 	if (args.length === 2) {
 		const [startValue, theFunction] = args;
 
-		return (array: unknown[]) => arrayReduce(
+		return (array: unknown[]) => reduce(
 			array,
 			startValue as never,
 			theFunction as never,
@@ -84,7 +84,7 @@ export function arrayReduce(...args: [unknown, AnyFunction] | [unknown[], unknow
 	return lastValue;
 }
 
-arrayReduce.from = function<
+reduce.from = function<
 	GenericValue extends unknown,
 >(value: GenericValue): ArrayReduceFromResult<GenericValue> {
 	return {

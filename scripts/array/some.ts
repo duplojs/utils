@@ -1,33 +1,34 @@
 import { type AnyFunction } from "@scripts/common";
 
-export function arraySome<GenericItem extends unknown>(
+interface ArraySomeParams {
+	index: number;
+}
+
+export function some<
+	GenericElement extends unknown,
+>(
 	predicate: (
-		item: GenericItem,
+		item: GenericElement,
 		index: number,
-		array: GenericItem[]
+		params: ArraySomeParams
 	) => boolean,
-): (array: GenericItem[]) => boolean;
-export function arraySome<GenericItem extends unknown>(
-	array: GenericItem[],
+): (array: GenericElement[]) => boolean;
+export function some<
+	GenericElement extends unknown,
+>(
+	array: GenericElement[],
 	predicate: (
-		item: GenericItem,
-		index: number,
-		array: GenericItem[]
+		item: GenericElement,
+		params: ArraySomeParams
 	) => boolean,
 ): boolean;
-export function arraySome(...args: [AnyFunction] | [unknown[], AnyFunction]) {
+export function some(...args: [AnyFunction] | [unknown[], AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
-		return (array: unknown[]) => arraySome(array, predicate as never);
+		return (array: unknown[]) => some(array, predicate as never);
 	}
 
 	const [array, predicate] = args;
 
-	for (let index = 0; index < array.length; index++) {
-		const item = array[index];
-		if (predicate(item, index, array)) {
-			return true;
-		}
-	}
-	return false;
+	return array.some((element, index) => predicate(element, { index }));
 }

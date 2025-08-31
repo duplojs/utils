@@ -4,24 +4,35 @@ interface ArrayFilterParams {
 	index: number;
 }
 
-export function arrayFilter<
-	GenericItem extends unknown,
-	GenericOutput extends GenericItem,
+export function filter<
+	GenericElement extends unknown,
+	GenericOutput extends GenericElement,
 >(
-	predicate: (item: GenericItem, params: ArrayFilterParams) => item is GenericOutput,
-): (array: GenericItem[]) => GenericOutput[];
-export function arrayFilter<
-	GenericItem extends unknown,
-	GenericOutput extends GenericItem,
+	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
+): (array: GenericElement[]) => GenericOutput[];
+export function filter<
+	GenericElement extends unknown,
+	GenericOutput extends GenericElement,
 >(
-	array: GenericItem[],
-	predicate: (item: GenericItem, params: ArrayFilterParams) => item is GenericOutput,
+	array: GenericElement[],
+	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
 ): GenericOutput[];
-export function arrayFilter(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function filter<
+	GenericElement extends unknown,
+>(
+	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
+): (array: GenericElement[]) => GenericElement[];
+export function filter<
+	GenericElement extends unknown,
+>(
+	array: GenericElement[],
+	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
+): GenericElement[];
+export function filter(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => arrayFilter(array, predicate as never);
+		return (array: unknown[]) => filter(array, predicate as never);
 	}
 
 	const [array, predicate] = args;

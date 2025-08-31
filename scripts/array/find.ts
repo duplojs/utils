@@ -4,24 +4,35 @@ interface ArrayFindParams {
 	index: number;
 }
 
-export function arrayFind<
-	GenericItem extends unknown,
-	GenericOutput extends GenericItem,
+export function find<
+	GenericElement extends unknown,
+	GenericOutput extends GenericElement,
 >(
-	predicate: (item: GenericItem, params: ArrayFindParams) => item is GenericOutput,
-): (array: GenericItem[]) => GenericOutput | undefined;
-export function arrayFind<
-	GenericItem extends unknown,
-	GenericOutput extends GenericItem,
+	predicate: (item: GenericElement, params: ArrayFindParams) => item is GenericOutput,
+): (array: GenericElement[]) => GenericOutput | undefined;
+export function find<
+	GenericElement extends unknown,
+	GenericOutput extends GenericElement,
 >(
-	array: GenericItem[],
-	predicate: (item: GenericItem, params: ArrayFindParams) => item is GenericOutput,
+	array: GenericElement[],
+	predicate: (item: GenericElement, params: ArrayFindParams) => item is GenericOutput,
 ): GenericOutput | undefined;
-export function arrayFind(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function find<
+	GenericElement extends unknown,
+>(
+	predicate: (item: GenericElement, params: ArrayFindParams) => boolean,
+): (array: GenericElement[]) => GenericElement | undefined;
+export function find<
+	GenericElement extends unknown,
+>(
+	array: GenericElement[],
+	predicate: (item: GenericElement, params: ArrayFindParams) => boolean,
+): GenericElement | undefined;
+export function find(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => arrayFind(array, predicate as never);
+		return (array: unknown[]) => find(array, predicate as never);
 	}
 	const [array, predicate] = args;
 

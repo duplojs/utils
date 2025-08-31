@@ -1,18 +1,23 @@
-export function arrayPush<GenericElement extends unknown>(
-	...elements: GenericElement[]
+export function push<
+	GenericElement extends unknown,
+>(
+	item: GenericElement
 ): (array: GenericElement[]) => GenericElement[];
-
-export function arrayPush<GenericElement extends unknown>(
+export function push<
+	GenericElement extends unknown,
+>(
 	array: GenericElement[],
-	...elements: GenericElement[]
+	item: GenericElement,
+	...items: GenericElement[]
 ): GenericElement[];
+export function push(...args: [unknown[], unknown, ...unknown[]] | [unknown]) {
+	if (args.length === 1) {
+		const [item] = args as [unknown];
 
-export function arrayPush(...args: unknown[]) {
-	const [first, ...rest] = args;
-
-	if (Array.isArray(first)) {
-		return [...first, ...rest];
-	} else {
-		return (array: unknown[]) => [...array, ...args];
+		return (array: unknown[]) => push(array, item);
 	}
+
+	const [array, ...items] = args as [unknown[], unknown, ...unknown[]];
+
+	return [...array, ...items];
 }
