@@ -17,7 +17,7 @@ describe("whenEitherIsRight", () => {
 					"strict"
 				>;
 
-				return value;
+				return 10;
 			},
 		);
 
@@ -25,7 +25,7 @@ describe("whenEitherIsRight", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | true,
+			EitherNullableEmpty | 10,
 			"strict"
 		>;
 	});

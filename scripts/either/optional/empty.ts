@@ -1,3 +1,4 @@
+import { type AnyValue } from "@scripts/common";
 import { createLeft, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { createOptional } from "./create";
@@ -37,7 +38,7 @@ type ToOptionalEither<
 
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -48,7 +49,7 @@ export function whenIsOptionalEmpty<
 ): (input: GenericInput,) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	theFunction: (

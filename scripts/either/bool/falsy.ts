@@ -1,3 +1,4 @@
+import { type AnyValue } from "@scripts/common";
 import { createLeft, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { createBool } from "./create";
@@ -42,7 +43,7 @@ type ToEither<
 
 export function whenIsBoolFalsy<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -53,7 +54,7 @@ export function whenIsBoolFalsy<
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
 export function whenIsBoolFalsy<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	theFunction: (

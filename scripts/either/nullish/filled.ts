@@ -3,6 +3,7 @@ import { type EitherLeft, isLeft } from "../left";
 import { createNullish } from "./create";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type AnyValue } from "@scripts/common";
 
 export interface EitherNullishFilled<
 	GenericValue extends unknown = unknown,
@@ -40,7 +41,7 @@ type ToEither<
 
 export function whenIsNullishFilled<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -51,7 +52,7 @@ export function whenIsNullishFilled<
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishFilled>;
 export function whenIsNullishFilled<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	theFunction: (

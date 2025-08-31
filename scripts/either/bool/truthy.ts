@@ -3,6 +3,7 @@ import { createBool } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type AnyValue } from "@scripts/common";
 
 export interface EitherBoolTruthy<
 	GenericValue extends unknown = unknown,
@@ -40,7 +41,7 @@ type ToEither<
 
 export function whenIsBoolTruthy<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -51,7 +52,7 @@ export function whenIsBoolTruthy<
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
 export function whenIsBoolTruthy<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	theFunction: (

@@ -3,6 +3,7 @@ import { createLeft, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { createNullable } from "./create";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type AnyValue } from "@scripts/common";
 
 export interface EitherNullableEmpty
 	extends EitherLeft<"nullable", null>,
@@ -37,7 +38,7 @@ type ToEither<
 
 export function whenIsNullableEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -48,7 +49,7 @@ export function whenIsNullableEmpty<
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
 export function whenIsNullableEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	theFunction: (

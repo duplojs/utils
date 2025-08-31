@@ -4,6 +4,7 @@ import { createFutureSuccess, type EitherFutureSuccess } from "./success";
 import { createFutureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
 import { type MaybePromise } from "@scripts/common/types/maybePromise";
+import { type AnyValue } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
@@ -74,7 +75,7 @@ export class Future<
 
 	// @ts-expect-error override signature error
 	public override then<
-		const GenericOutput extends unknown,
+		const GenericOutput extends AnyValue,
 	>(
 		theFunction: (
 			result: Extract<ComputeFutureEitherResult<GenericValue>, any>

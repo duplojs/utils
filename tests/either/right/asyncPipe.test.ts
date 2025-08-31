@@ -12,7 +12,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number>,
+			EitherSuccess<10>,
 			"strict"
 		>;
 	});

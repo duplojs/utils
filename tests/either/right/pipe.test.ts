@@ -12,7 +12,7 @@ describe("eitherRightPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number>,
+			EitherSuccess<10>,
 			"strict"
 		>;
 	});
@@ -29,7 +29,7 @@ describe("eitherRightPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number> | EitherFail,
+			EitherSuccess<10> | EitherFail,
 			"strict"
 		>;
 	});

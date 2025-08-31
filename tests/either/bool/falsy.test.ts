@@ -185,13 +185,13 @@ describe("EitherBoolFalsy", () => {
 				: createBoolTruthy(true),
 			whenIsBoolFalsy(
 				(value) => {
-						type check = ExpectType<
-							typeof value,
-							null,
-							"strict"
-						>;
+					type check = ExpectType<
+						typeof value,
+						null,
+						"strict"
+					>;
 
-						return value;
+					return value;
 				},
 			),
 		);

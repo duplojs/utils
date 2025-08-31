@@ -69,7 +69,7 @@ describe("whenEitherIsLeft", () => {
 					"strict"
 				>;
 
-				return value;
+				return 0;
 			},
 		);
 
@@ -77,7 +77,7 @@ describe("whenEitherIsLeft", () => {
 
 		type check = ExpectType<
 			typeof result,
-			null | 30,
+			0 | 30,
 			"strict"
 		>;
 	});
