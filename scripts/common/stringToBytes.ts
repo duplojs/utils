@@ -1,5 +1,5 @@
 /* eslint-disable id-length */
-import { isKeyofObject } from "../object/isKeyof";
+import { isKeyof } from "../object/isKeyof";
 
 const kind = "kind-invalid-bytes-in-string-error";
 
@@ -42,7 +42,7 @@ export function stringToBytes(bytesInString: BytesInString | number) {
 	const { rawValue, unit } = regExpResults?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !isKeyofObject(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyof(unitMapper, unit)) {
 		throw new InvalidBytesInStringError(bytesInString);
 	}
 

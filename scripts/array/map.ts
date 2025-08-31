@@ -1,9 +1,6 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
-export interface ArrayMapFunctionParams<
-	GenericItem extends unknown = unknown,
-> {
-	item: GenericItem;
+interface ArrayMapParams {
 	index: number;
 }
 
@@ -11,14 +8,14 @@ export function arrayMap<
 	GenericItem extends unknown,
 	GenericOutput extends unknown,
 >(
-	theFunction: (params: ArrayMapFunctionParams<GenericItem>) => GenericOutput,
+	theFunction: (item: GenericItem, params: ArrayMapParams) => GenericOutput,
 ): (array: GenericItem[]) => GenericOutput[];
 export function arrayMap<
 	GenericItem extends unknown,
 	GenericOutput extends unknown,
 >(
 	array: GenericItem[],
-	theFunction: (params: ArrayMapFunctionParams<GenericItem>) => GenericOutput,
+	theFunction: (item: GenericItem, params: ArrayMapParams) => GenericOutput,
 ): GenericOutput[];
 export function arrayMap(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
@@ -27,18 +24,5 @@ export function arrayMap(...args: [unknown[], AnyFunction] | [AnyFunction]): any
 	}
 	const [array, theFunction] = args;
 
-	const newArray = [];
-
-	for (let index = 0; index < array.length; index++) {
-		const item = array[index]!;
-
-		newArray.push(
-			theFunction({
-				index,
-				item,
-			}),
-		);
-	}
-
-	return newArray;
+	return array.map((item, index) => theFunction(item, { index }));
 }

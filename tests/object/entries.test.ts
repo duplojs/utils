@@ -1,8 +1,8 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { objectEntries } from "@scripts/object/entries";
+import { DObject } from "@scripts";
 
-it("objectEntries", () => {
-	const entries = objectEntries({
+it("entries", () => {
+	const entries = DObject.entries({
 		toto: 1,
 		tt: true ? "ee" : undefined,
 	});

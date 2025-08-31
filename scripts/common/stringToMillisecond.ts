@@ -1,5 +1,5 @@
 /* eslint-disable id-length */
-import { isKeyofObject } from "@scripts/object/isKeyof";
+import { isKeyof } from "@scripts/object/isKeyof";
 
 const kind = "kind-invalid-millisecond-in-string-error";
 
@@ -47,7 +47,7 @@ export function stringToMillisecond(
 	const { rawValue, unit } = result?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !isKeyofObject(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyof(unitMapper, unit)) {
 		throw new InvalidMillisecondInStringError(millisecondInString);
 	}
 

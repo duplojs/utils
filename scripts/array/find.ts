@@ -1,17 +1,21 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
+interface ArrayFindParams {
+	index: number;
+}
+
 export function arrayFind<
 	GenericItem extends unknown,
 	GenericOutput extends GenericItem,
 >(
-	predicate: (item: GenericItem, index: number) => item is GenericOutput,
+	predicate: (item: GenericItem, params: ArrayFindParams) => item is GenericOutput,
 ): (array: GenericItem[]) => GenericOutput | undefined;
 export function arrayFind<
 	GenericItem extends unknown,
 	GenericOutput extends GenericItem,
 >(
 	array: GenericItem[],
-	predicate: (item: GenericItem, index: number) => item is GenericOutput,
+	predicate: (item: GenericItem, params: ArrayFindParams) => item is GenericOutput,
 ): GenericOutput | undefined;
 export function arrayFind(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
@@ -21,13 +25,5 @@ export function arrayFind(...args: [unknown[], AnyFunction] | [AnyFunction]): an
 	}
 	const [array, predicate] = args;
 
-	for (let index = 0; index < array.length; index++) {
-		const item = array[index]!;
-
-		if (predicate(item, index)) {
-			return item;
-		}
-	}
-
-	return undefined;
+	return array.find((item, index) => predicate(item, { index }));
 }

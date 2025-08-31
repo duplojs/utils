@@ -4,6 +4,7 @@
     "baseUrl": "./",
     "paths": {
       "@scripts/*": ["scripts/*"],
+      "@scripts": ["scripts/index.ts"],
       "@test/*": ["test/*"],
     },
     "types": ["vitest/globals", "node"],

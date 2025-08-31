@@ -1,4 +1,4 @@
-import { objectEntries } from "../object/entries";
+import { entries } from "../object/entries";
 
 export function simpleClone<
 	GenericObject extends unknown = unknown,
@@ -11,7 +11,7 @@ export function simpleClone<
 		unknownValue.constructor?.name === "Object"
 		|| unknownValue.constructor === undefined
 	) {
-		return objectEntries(unknownValue).reduce(
+		return entries(unknownValue).reduce(
 			(pv, [key, value]) => {
 				pv[key] = simpleClone(value);
 				return pv;

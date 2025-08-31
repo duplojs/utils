@@ -7,7 +7,7 @@ type ComputeEntries<
 	[Entry in GenericEntry as Entry[0]]?: Entry[1]
 }>;
 
-export function objectFromEntries<
+export function fromEntries<
 	GenericKey extends ObjectKey,
 	GenericValue extends AnyValue,
 	GenericEntry extends [GenericKey, GenericValue],

@@ -1,8 +1,8 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { objectValues } from "@scripts/object/values";
+import { DObject } from "@scripts/index";
 
-it("objectValues", () => {
-	const values = objectValues({
+it("values", () => {
+	const values = DObject.values({
 		test: "ok",
 		prop: 20,
 	});
