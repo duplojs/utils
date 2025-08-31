@@ -1,8 +1,8 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, type EitherFail } from "@scripts/either";
+import { createFail, type EitherFail } from "@scripts/either";
 
 it("createEitherFail", () => {
-	const either = createEitherFail();
+	const either = createFail();
 
 	expect(either).toStrictEqual({
 		"kind-either-fail": null,

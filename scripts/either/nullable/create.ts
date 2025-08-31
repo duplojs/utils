@@ -1,14 +1,13 @@
-import { type AnyValue } from "@scripts/common/types/anyValue";
-import { createEitherNullableEmpty, type EitherNullableEmpty } from "./empty";
-import { createEitherNullableFilled, type EitherNullableFilled } from "./filled";
+import { createNullableEmpty, type EitherNullableEmpty } from "./empty";
+import { createNullableFilled, type EitherNullableFilled } from "./filled";
 
-export function createEitherNullable<
-	GenericValue extends AnyValue = null,
+export function createNullable<
+	const GenericValue extends unknown = null,
 >(value?: GenericValue): GenericValue extends null
 	? EitherNullableEmpty
 	: EitherNullableFilled<GenericValue>;
-export function createEitherNullable(value: AnyValue = null) {
+export function createNullable(value: unknown = null) {
 	return value === null
-		? createEitherNullableEmpty()
-		: createEitherNullableFilled(value);
+		? createNullableEmpty()
+		: createNullableFilled(value);
 }

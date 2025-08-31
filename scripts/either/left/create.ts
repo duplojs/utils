@@ -1,6 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
 import { type WrappedValue } from "@scripts/common/wrapValue";
-import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export interface EitherLeft<
 	GenericInformation extends string = string,
@@ -11,12 +10,12 @@ export interface EitherLeft<
 
 }
 
-export function createEitherLeft<
+export function createLeft<
 	GenericInformation extends string,
-	GenericValue extends AnyValue,
+	const GenericValue extends unknown = undefined,
 >(
 	information: GenericInformation,
-	value: GenericValue,
+	value: GenericValue = undefined as GenericValue,
 ): EitherLeft<
 		GenericInformation,
 		GenericValue

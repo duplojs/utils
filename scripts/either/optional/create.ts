@@ -1,14 +1,13 @@
-import { type AnyValue } from "@scripts/common/types/anyValue";
-import { createEitherOptionalEmpty, type EitherOptionalEmpty } from "./empty";
-import { createEitherOptionalFilled, type EitherOptionalFilled } from "./filled";
+import { createOptionalEmpty, type EitherOptionalEmpty } from "./empty";
+import { createOptionalFilled, type EitherOptionalFilled } from "./filled";
 
-export function createEitherOptional<
-	GenericValue extends AnyValue = undefined,
+export function createOptional<
+	const GenericValue extends unknown = undefined,
 >(value?: GenericValue): GenericValue extends undefined
 	? EitherOptionalEmpty
 	: EitherOptionalFilled<GenericValue>;
-export function createEitherOptional(value: AnyValue) {
+export function createOptional(value: unknown) {
 	return value === undefined
-		? createEitherOptionalEmpty()
-		: createEitherOptionalFilled(value);
+		? createOptionalEmpty()
+		: createOptionalFilled(value);
 }

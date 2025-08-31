@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/max-params */
 import { type EitherRight } from "./create";
-import { isEitherLeft, type EitherLeft } from "../left";
+import { isLeft, type EitherLeft } from "../left";
 import { type MaybeFutureEither } from "../future/MaybeFutureEither";
-import { createFutureEither, type FutureEither } from "../future";
-import { createEitherSuccess, type EitherSuccess } from "./success";
-import { isEitherRight } from "./is";
-import { type AnyValue } from "@scripts/common/types/anyValue";
+import { createFuture, type Future } from "../future";
+import { createSuccess, type EitherSuccess } from "./success";
+import { isRight } from "./is";
+import { type AnyValue } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
-type EitherOrFutureEither = Either | FutureEither<any>;
+type EitherOrFutureEither = Either | Future<any>;
 
 export type EitherRightAsyncPipeFunction<
 	GenericInput extends Either = Either,
@@ -39,13 +39,13 @@ type ToEither<
 	? GenericValue
 	: EitherSuccess<GenericValue>;
 
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 >(
 	input: GenericInput,
 	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -55,7 +55,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -63,7 +63,7 @@ export function eitherRightAsyncPipe<
 	input: GenericInput,
 	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
 	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -74,7 +74,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -84,7 +84,7 @@ export function eitherRightAsyncPipe<
 	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
 	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
 	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -96,7 +96,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -108,7 +108,7 @@ export function eitherRightAsyncPipe<
 	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
 	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
 	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -121,7 +121,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -135,7 +135,7 @@ export function eitherRightAsyncPipe<
 	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
 	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
 	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -149,7 +149,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -165,7 +165,7 @@ export function eitherRightAsyncPipe<
 	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
 	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
 	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -180,7 +180,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -198,7 +198,7 @@ export function eitherRightAsyncPipe<
 	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
 	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
 	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -214,7 +214,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -234,7 +234,7 @@ export function eitherRightAsyncPipe<
 	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
 	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
 	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -251,7 +251,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -273,7 +273,7 @@ export function eitherRightAsyncPipe<
 	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
 	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
 	pipe9: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe8>, GenericOutputPipe9>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -291,7 +291,7 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe<
+export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends EitherOrFutureEither,
 	GenericOutputPipe2 extends EitherOrFutureEither,
@@ -315,7 +315,7 @@ export function eitherRightAsyncPipe<
 	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
 	pipe9: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe8>, GenericOutputPipe9>,
 	pipe10: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe9>, GenericOutputPipe10>,
-): FutureEither<
+): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
 			ToEither<Awaited<GenericInput>>,
@@ -334,26 +334,26 @@ export function eitherRightAsyncPipe<
 		any
 	>
 >;
-export function eitherRightAsyncPipe(
+export function rightAsyncPipe(
 	input: AnyValue,
 	...pipes: EitherRightAsyncPipeFunction[]
-): FutureEither<any> {
-	return createFutureEither(
+): Future<any> {
+	return createFuture(
 		(async() => {
 			const awaitedInput = await input;
 
-			if (isEitherLeft(awaitedInput)) {
+			if (isLeft(awaitedInput)) {
 				return awaitedInput;
 			}
 
-			let acc: Either = isEitherRight(awaitedInput)
+			let acc: Either = isRight(awaitedInput)
 				? awaitedInput
-				: createEitherSuccess(awaitedInput);
+				: createSuccess(awaitedInput);
 
 			for (const pipe of pipes) {
 				acc = await pipe(acc.value);
 
-				if (isEitherLeft(acc)) {
+				if (isLeft(acc)) {
 					return acc;
 				}
 			}

@@ -1,9 +1,8 @@
-import { type EitherLeft, isEitherLeft } from "../left";
-import { type EitherRight, isEitherRight } from "../right";
-import { createEitherFutureSuccess, type EitherFutureSuccess } from "./success";
-import { createEitherFutureError, type EitherFutureError } from "./error";
+import { type EitherLeft, isLeft } from "../left";
+import { type EitherRight, isRight } from "../right";
+import { createFutureSuccess, type EitherFutureSuccess } from "./success";
+import { createFutureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
-import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type MaybePromise } from "@scripts/common/types/maybePromise";
 
 type Either = EitherRight | EitherLeft;
@@ -21,7 +20,7 @@ type ComputeEitherFutureErrorResult<
 	: never;
 
 type ComputeFutureEitherResult<
-	GenericValue extends AnyValue = AnyValue,
+	GenericValue extends unknown = unknown,
 > =
 	| Extract<
 		Awaited<GenericValue>,
@@ -33,17 +32,17 @@ type ComputeFutureEitherResult<
 	| ComputeEitherFutureErrorResult<GenericValue>;
 
 export type FutureEitherAllResult<
-	GenericArray extends readonly AnyValue[] | [],
-> = FutureEither<{
+	GenericArray extends readonly unknown[] | [],
+> = Future<{
 	-readonly [Prop in keyof GenericArray]: Awaited<
-		FutureEither<GenericArray[Prop]>
+		Future<GenericArray[Prop]>
 	>;
 }>;
 
 const kind = "kind-future-either";
 
-export class FutureEither<
-	GenericValue extends AnyValue = AnyValue,
+export class Future<
+	const GenericValue extends unknown = unknown,
 > extends Promise<
 		ComputeFutureEitherResult<GenericValue>
 	> {
@@ -58,15 +57,15 @@ export class FutureEither<
 						: Promise.resolve(value)
 				)
 					.then((value) => {
-						if (isEitherRight(value)) {
+						if (isRight(value)) {
 							return value as never;
-						} else if (isEitherLeft(value)) {
+						} else if (isLeft(value)) {
 							return value as never;
 						} else {
-							return createEitherFutureSuccess(value) as never;
+							return createFutureSuccess(value) as never;
 						}
 					})
-					.catch((error: AnyValue) => createEitherFutureError(error) as never),
+					.catch((error: unknown) => createFutureError(error) as never),
 			),
 		);
 	}
@@ -75,13 +74,13 @@ export class FutureEither<
 
 	// @ts-expect-error override signature error
 	public override then<
-		GenericOutput extends AnyValue,
+		const GenericOutput extends unknown,
 	>(
 		theFunction: (
 			result: Extract<ComputeFutureEitherResult<GenericValue>, any>
 		) => MaybePromise<GenericOutput>,
 	) {
-		return new FutureEither<GenericOutput>(
+		return new Future<GenericOutput>(
 			super.then(theFunction) as never,
 		);
 	}
@@ -90,30 +89,30 @@ export class FutureEither<
 		return Promise;
 	}
 
-	public static instanceof(value: unknown): value is FutureEither {
+	public static instanceof(value: unknown): value is Future {
 		return typeof value === "object"
 			&& value?.constructor?.name === "FutureEither"
 			&& kind in value;
 	}
 
 	public static override all<
-		GenericValue extends AnyValue,
+		const GenericValue extends unknown,
 		GenericArray extends readonly GenericValue[] | [],
 	>(values: GenericArray): FutureEitherAllResult<GenericArray> {
-		return new FutureEither(
+		return new Future(
 			Promise.all(
 				values.map(
-					(value) => new FutureEither(value),
+					(value) => new Future(value),
 				),
 			),
 		) as never;
 	}
 }
 
-export function createFutureEither<
-	GenericEither extends AnyValue,
+export function createFuture<
+	const GenericEither extends unknown,
 >(
 	value: GenericEither,
 ) {
-	return new FutureEither(value);
+	return new Future(value);
 }

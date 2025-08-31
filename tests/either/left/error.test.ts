@@ -1,8 +1,8 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherError, type EitherError } from "@scripts/either";
+import { createError, type EitherError } from "@scripts/either";
 
 it("createEitherError", () => {
-	const either = createEitherError(50);
+	const either = createError(50);
 
 	expect(either).toStrictEqual({
 		"kind-either-error": null,

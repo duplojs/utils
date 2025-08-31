@@ -1,9 +1,9 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherNullish, type EitherNullishFilled, type EitherNullishEmpty } from "@scripts/either";
+import { createNullish, type EitherNullishFilled, type EitherNullishEmpty } from "@scripts/either";
 
 describe("createEitherNullish", () => {
 	it("nullish undefined", () => {
-		const either = createEitherNullish(undefined);
+		const either = createNullish(undefined);
 
 		expect(either).toStrictEqual({
 			"kind-either-empty": null,
@@ -19,7 +19,7 @@ describe("createEitherNullish", () => {
 			"strict"
 		>;
 
-		expect(createEitherNullish()).toStrictEqual({
+		expect(createNullish()).toStrictEqual({
 			"kind-either-empty": null,
 			"kind-either-information": "nullish",
 			"kind-either-left": null,
@@ -29,7 +29,7 @@ describe("createEitherNullish", () => {
 	});
 
 	it("nullish null", () => {
-		const either = createEitherNullish(null);
+		const either = createNullish(null);
 
 		expect(either).toStrictEqual({
 			"kind-either-empty": null,
@@ -47,7 +47,7 @@ describe("createEitherNullish", () => {
 	});
 
 	it("nullish number", () => {
-		const either = createEitherNullish(10);
+		const either = createNullish(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-filled": null,

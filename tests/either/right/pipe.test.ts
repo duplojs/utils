@@ -1,14 +1,14 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, createEitherSuccess, type EitherFail, eitherRightPipe, type EitherSuccess } from "@scripts/either";
+import { createFail, createSuccess, type EitherFail, rightPipe, type EitherSuccess } from "@scripts/either";
 
 describe("eitherRightPipe", () => {
 	it("input either", () => {
-		const result = eitherRightPipe(
-			createEitherSuccess({ value: 10 }),
-			({ value }) => createEitherSuccess(value),
+		const result = rightPipe(
+			createSuccess({ value: 10 }),
+			({ value }) => createSuccess(value),
 		);
 
-		expect(result).toStrictEqual(createEitherSuccess(10));
+		expect(result).toStrictEqual(createSuccess(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -18,14 +18,14 @@ describe("eitherRightPipe", () => {
 	});
 
 	it("input object", () => {
-		const result = eitherRightPipe(
+		const result = rightPipe(
 			true
 				? { value: 10 }
-				: createEitherFail(),
-			({ value }) => createEitherSuccess(value),
+				: createFail(),
+			({ value }) => createSuccess(value),
 		);
 
-		expect(result).toStrictEqual(createEitherSuccess(10));
+		expect(result).toStrictEqual(createSuccess(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -35,17 +35,17 @@ describe("eitherRightPipe", () => {
 	});
 
 	it("input object with 6 pipe", () => {
-		const result = eitherRightPipe(
+		const result = rightPipe(
 			{ value: 10 },
-			({ value }) => createEitherSuccess(value),
-			(value) => createEitherSuccess(value * 2),
-			(value) => createEitherSuccess(value ^ 4),
-			(value) => createEitherSuccess(value - 4),
-			(value) => createEitherSuccess(value / 2),
-			(value) => createEitherSuccess(value + 1),
+			({ value }) => createSuccess(value),
+			(value) => createSuccess(value * 2),
+			(value) => createSuccess(value ^ 4),
+			(value) => createSuccess(value - 4),
+			(value) => createSuccess(value / 2),
+			(value) => createSuccess(value + 1),
 		);
 
-		expect(result).toStrictEqual(createEitherSuccess(7));
+		expect(result).toStrictEqual(createSuccess(7));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -55,19 +55,19 @@ describe("eitherRightPipe", () => {
 	});
 
 	it("input object with 6 pipe and one error", () => {
-		const result = eitherRightPipe(
+		const result = rightPipe(
 			{ value: 10 },
-			({ value }) => createEitherSuccess(value),
-			(value) => createEitherSuccess(value * 2),
+			({ value }) => createSuccess(value),
+			(value) => createSuccess(value * 2),
 			(value) => true
-				? createEitherFail()
-				: createEitherSuccess(value ^ 4),
-			(value) => createEitherSuccess(value - 4),
-			(value) => createEitherSuccess(value / 2),
-			(value) => createEitherSuccess(value + 1),
+				? createFail()
+				: createSuccess(value ^ 4),
+			(value) => createSuccess(value - 4),
+			(value) => createSuccess(value / 2),
+			(value) => createSuccess(value + 1),
 		);
 
-		expect(result).toStrictEqual(createEitherFail());
+		expect(result).toStrictEqual(createFail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,

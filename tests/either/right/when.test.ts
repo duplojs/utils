@@ -1,14 +1,14 @@
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherNullableEmpty, createEitherNullableFilled, type EitherNullableEmpty, whenEitherIsRight } from "@scripts/either";
+import { createNullableEmpty, createNullableFilled, type EitherNullableEmpty, whenIsRight } from "@scripts/either";
 
 describe("whenEitherIsRight", () => {
 	it("match", () => {
 		const either = true
-			? createEitherNullableFilled(true)
-			: createEitherNullableEmpty();
+			? createNullableFilled(true)
+			: createNullableEmpty();
 
-		const result = whenEitherIsRight(
+		const result = whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -31,9 +31,9 @@ describe("whenEitherIsRight", () => {
 	});
 
 	it("not match with right", () => {
-		const either = createEitherNullableEmpty();
+		const either = createNullableEmpty();
 
-		const result = whenEitherIsRight(
+		const result = whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -58,9 +58,9 @@ describe("whenEitherIsRight", () => {
 	it("not match with any value", () => {
 		const either = true
 			? 30
-			: createEitherNullableFilled(true);
+			: createNullableFilled(true);
 
-		const result = whenEitherIsRight(
+		const result = whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -85,9 +85,9 @@ describe("whenEitherIsRight", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? createEitherNullableFilled(true)
-				: createEitherNullableEmpty(),
-			whenEitherIsRight(
+				? createNullableFilled(true)
+				: createNullableEmpty(),
+			whenIsRight(
 				(value) => {
 					type check = ExpectType<
 						typeof value,

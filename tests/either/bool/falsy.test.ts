@@ -1,10 +1,10 @@
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherBoolFalsy, type EitherBoolTruthy, type EitherBoolFalsy, isEitherBoolFalsy, createEitherBoolTruthy, whenEitherIsBoolFalsy, createEitherFail, type EitherFail } from "@scripts/either";
+import { createBoolFalsy, type EitherBoolTruthy, type EitherBoolFalsy, isEitherBoolFalsy, createBoolTruthy, whenIsBoolFalsy, createFail, type EitherFail } from "@scripts/either";
 
 describe("EitherBoolFalsy", () => {
 	it("create", () => {
-		const either = createEitherBoolFalsy(undefined);
+		const either = createBoolFalsy(undefined);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -22,7 +22,7 @@ describe("EitherBoolFalsy", () => {
 	});
 
 	it("isEitherBoolFalsy return true", () => {
-		const either = createEitherBoolFalsy(undefined) as EitherBoolFalsy | EitherBoolTruthy;
+		const either = createBoolFalsy(undefined) as EitherBoolFalsy | EitherBoolTruthy;
 
 		const predicate = isEitherBoolFalsy(either);
 
@@ -38,7 +38,7 @@ describe("EitherBoolFalsy", () => {
 	});
 
 	it("isEitherBoolFalsy return false", () => {
-		const either = createEitherBoolTruthy(10) as EitherBoolFalsy | EitherBoolTruthy;
+		const either = createBoolTruthy(10) as EitherBoolFalsy | EitherBoolTruthy;
 
 		const predicate = isEitherBoolFalsy(either);
 
@@ -47,10 +47,10 @@ describe("EitherBoolFalsy", () => {
 
 	it("whenEitherIsBoolFalsy match", () => {
 		const either = true
-			? createEitherBoolFalsy(null)
-			: createEitherBoolTruthy(true);
+			? createBoolFalsy(null)
+			: createBoolTruthy(true);
 
-		const result = whenEitherIsBoolFalsy(
+		const result = whenIsBoolFalsy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -73,9 +73,9 @@ describe("EitherBoolFalsy", () => {
 	});
 
 	it("whenEitherIsBoolFalsy not match with right", () => {
-		const either = createEitherBoolTruthy(10);
+		const either = createBoolTruthy(10);
 
-		const result = whenEitherIsBoolFalsy(
+		const result = whenIsBoolFalsy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -99,10 +99,10 @@ describe("EitherBoolFalsy", () => {
 
 	it("whenEitherIsBoolFalsy not match with left", () => {
 		const either = true
-			? createEitherFail()
-			: createEitherBoolFalsy(null);
+			? createFail()
+			: createBoolFalsy(null);
 
-		const result = whenEitherIsBoolFalsy(
+		const result = whenIsBoolFalsy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -129,7 +129,7 @@ describe("EitherBoolFalsy", () => {
 			? null
 			: 10;
 
-		const result = whenEitherIsBoolFalsy(
+		const result = whenIsBoolFalsy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -156,7 +156,7 @@ describe("EitherBoolFalsy", () => {
 			? 10
 			: null;
 
-		const result = whenEitherIsBoolFalsy(
+		const result = whenIsBoolFalsy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -169,7 +169,7 @@ describe("EitherBoolFalsy", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(createEitherBoolTruthy(10));
+		expect(result).toStrictEqual(createBoolTruthy(10));
 
 		type check = ExpectType<
 			typeof result,
@@ -181,9 +181,9 @@ describe("EitherBoolFalsy", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? createEitherBoolFalsy(null)
-				: createEitherBoolTruthy(true),
-			whenEitherIsBoolFalsy(
+				? createBoolFalsy(null)
+				: createBoolTruthy(true),
+			whenIsBoolFalsy(
 				(value) => {
 						type check = ExpectType<
 							typeof value,

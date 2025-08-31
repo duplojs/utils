@@ -1,13 +1,13 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, createEitherOk, type EitherFail, type EitherLeft, isEitherLeft } from "@scripts/either";
+import { createFail, createOk, type EitherFail, type EitherLeft, isLeft } from "@scripts/either";
 
 describe("isEitherLeft", () => {
 	it("return true", () => {
 		const either = true
-			? createEitherFail()
-			: createEitherOk();
+			? createFail()
+			: createOk();
 
-		const predicate = isEitherLeft(either);
+		const predicate = isLeft(either);
 
 		expect(predicate).toBe(true);
 
@@ -21,9 +21,9 @@ describe("isEitherLeft", () => {
 	});
 
 	it("return false", () => {
-		const either = createEitherOk();
+		const either = createOk();
 
-		const predicate = isEitherLeft(either);
+		const predicate = isLeft(either);
 
 		expect(predicate).toBe(false);
 
@@ -37,9 +37,9 @@ describe("isEitherLeft", () => {
 	});
 
 	it("unknown return true", () => {
-		const either = createEitherFail() as unknown;
+		const either = createFail() as unknown;
 
-		const predicate = isEitherLeft(either);
+		const predicate = isLeft(either);
 
 		expect(predicate).toBe(true);
 
@@ -55,7 +55,7 @@ describe("isEitherLeft", () => {
 	it("unknown return false", () => {
 		const either = 1 as unknown;
 
-		const predicate = isEitherLeft(either);
+		const predicate = isLeft(either);
 
 		expect(predicate).toBe(false);
 

@@ -1,9 +1,7 @@
-import { createEitherRight, type EitherRight, isEitherRight } from "../right";
-import { createEitherBool } from "./create";
-import { type EitherLeft, isEitherLeft } from "../left";
+import { createRight, type EitherRight, isRight } from "../right";
+import { createBool } from "./create";
+import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
-import { type AnyValue } from "@scripts/common/types/anyValue";
-import { type EscapeVoid } from "@scripts/common/types/escapeVoid";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface EitherBoolTruthy<
@@ -14,35 +12,35 @@ export interface EitherBoolTruthy<
 
 }
 
-export function createEitherBoolTruthy<
-	GenericValue extends AnyValue,
+export function createBoolTruthy<
+	const GenericValue extends unknown,
 >(value: GenericValue): EitherBoolTruthy<GenericValue> {
 	return {
 		"kind-either-truthy": null,
 		"kind-either-bool": null,
-		...createEitherRight("bool", value),
+		...createRight("bool", value),
 	};
 }
 
 type Either = EitherRight | EitherLeft;
 
-export function isEitherBoolTruthy(
+export function isBoolTruthy(
 	either: unknown,
 ): either is EitherBoolTruthy {
-	return isEitherRight(either)
+	return isRight(either)
 		&& hasKind(either, "either-bool")
 		&& hasKind(either, "either-truthy");
 }
 
 type ToEither<
-	GenericValue extends AnyValue,
+	GenericValue extends unknown,
 > = GenericValue extends Either
 	? GenericValue
-	: ReturnType<typeof createEitherBool<GenericValue>>;
+	: ReturnType<typeof createBool<GenericValue>>;
 
-export function whenEitherIsBoolTruthy<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue | EscapeVoid,
+export function whenIsBoolTruthy<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -51,9 +49,9 @@ export function whenEitherIsBoolTruthy<
 		>["value"]
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
-export function whenEitherIsBoolTruthy<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue | EscapeVoid,
+export function whenIsBoolTruthy<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	input: GenericInput,
 	theFunction: (
@@ -63,11 +61,11 @@ export function whenEitherIsBoolTruthy<
 		>["value"]
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
-export function whenEitherIsBoolTruthy(...args: [AnyValue, AnyFunction] | [AnyFunction]): any {
+export function whenIsBoolTruthy(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 
-		return (input: Either) => whenEitherIsBoolTruthy(
+		return (input: Either) => whenIsBoolTruthy(
 			input,
 			theFunction,
 		);
@@ -75,17 +73,17 @@ export function whenEitherIsBoolTruthy(...args: [AnyValue, AnyFunction] | [AnyFu
 
 	const [input, theFunction] = args;
 
-	if (isEitherLeft(input)) {
+	if (isLeft(input)) {
 		return input as never;
-	} else if (!isEitherBoolTruthy(input) && isEitherRight(input)) {
+	} else if (!isBoolTruthy(input) && isRight(input)) {
 		return input as never;
 	}
 
-	const either = isEitherRight(input) || isEitherLeft(input)
+	const either = isRight(input) || isLeft(input)
 		? input
-		: createEitherBool(input);
+		: createBool(input);
 
-	if (isEitherBoolTruthy(either)) {
+	if (isBoolTruthy(either)) {
 		return theFunction(either.value);
 	}
 

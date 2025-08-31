@@ -1,7 +1,7 @@
-import { createEitherFutureSuccess } from "@scripts/either";
+import { createFutureSuccess } from "@scripts/either";
 
 it("createEitherFutureSuccess", () => {
-	expect(createEitherFutureSuccess(1)).toStrictEqual({
+	expect(createFutureSuccess(1)).toStrictEqual({
 		"kind-either-success": null,
 		"kind-either-future": null,
 		"kind-either-information": "future",

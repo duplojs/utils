@@ -1,11 +1,11 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherFail, createEitherFutureError, createEitherFutureSuccess, createEitherOk, createFutureEither, type EitherFail, type EitherFutureError, type EitherFutureSuccess, type EitherOk, FutureEither, type FutureEitherAllResult } from "@scripts/either";
+import { createFail, createFutureError, createFutureSuccess, createOk, createFuture, type EitherFail, type EitherFutureError, type EitherFutureSuccess, type EitherOk, Future, type FutureEitherAllResult } from "@scripts/either";
 
 describe("FutureEither", () => {
 	it("create instance with promise", async() => {
-		const result = new FutureEither(Promise.resolve(1));
+		const result = new Future(Promise.resolve(1));
 
-		expect(await result).toStrictEqual(createEitherFutureSuccess(1));
+		expect(await result).toStrictEqual(createFutureSuccess(1));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -15,9 +15,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with value", async() => {
-		const result = new FutureEither(1);
+		const result = new Future(1);
 
-		expect(await result).toStrictEqual(createEitherFutureSuccess(1));
+		expect(await result).toStrictEqual(createFutureSuccess(1));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -27,11 +27,11 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with promise right", async() => {
-		const result = new FutureEither(
-			Promise.resolve(createEitherOk()),
+		const result = new Future(
+			Promise.resolve(createOk()),
 		);
 
-		expect(await result).toStrictEqual(createEitherOk());
+		expect(await result).toStrictEqual(createOk());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -41,9 +41,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with right", async() => {
-		const result = new FutureEither(createEitherOk());
+		const result = new Future(createOk());
 
-		expect(await result).toStrictEqual(createEitherOk());
+		expect(await result).toStrictEqual(createOk());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -53,9 +53,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with left", async() => {
-		const result = new FutureEither(createEitherFail());
+		const result = new Future(createFail());
 
-		expect(await result).toStrictEqual(createEitherFail());
+		expect(await result).toStrictEqual(createFail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -65,9 +65,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance promise error", async() => {
-		const result = new FutureEither(Promise.reject(new Error()));
+		const result = new Future(Promise.reject(new Error()));
 
-		expect(await result).toStrictEqual(createEitherFutureError(new Error()));
+		expect(await result).toStrictEqual(createFutureError(new Error()));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -77,29 +77,29 @@ describe("FutureEither", () => {
 	});
 
 	it("instanceof", () => {
-		expect(FutureEither.instanceof(Promise.resolve())).toBe(false);
+		expect(Future.instanceof(Promise.resolve())).toBe(false);
 
-		const error = new FutureEither("test") as unknown;
+		const error = new Future("test") as unknown;
 
-		const isInstanceOf = FutureEither.instanceof(error);
+		const isInstanceOf = Future.instanceof(error);
 
 		expect(isInstanceOf).toBe(true);
 
 		if (isInstanceOf) {
 			type check = ExpectType<
 				typeof error,
-				FutureEither,
+				Future,
 				"strict"
 			>;
 		}
 	});
 
 	it("createFutureEither", () => {
-		expect(createFutureEither(1)).instanceOf(FutureEither);
+		expect(createFuture(1)).instanceOf(Future);
 	});
 
 	it("then", async() => {
-		const result = new FutureEither("value")
+		const result = new Future("value")
 			.then((value) => {
 				type check = ExpectType<
 					typeof value,
@@ -111,30 +111,30 @@ describe("FutureEither", () => {
 			});
 
 		expect(await result).toStrictEqual(
-			createEitherFutureSuccess(2),
+			createFutureSuccess(2),
 		);
 
 		type check = ExpectType<
 			typeof result,
-			FutureEither<2>,
+			Future<2>,
 			"strict"
 		>;
 	});
 
 	it("all", async() => {
-		const result = FutureEither.all([
+		const result = Future.all([
 			15,
 			Promise.resolve({ test: 15 }),
-			new FutureEither("test"),
+			new Future("test"),
 			Promise.reject(new Error()),
 		]);
 
 		expect(await result).toStrictEqual(
-			createEitherFutureSuccess([
-				createEitherFutureSuccess(15),
-				createEitherFutureSuccess({ test: 15 }),
-				createEitherFutureSuccess("test"),
-				createEitherFutureError(new Error()),
+			createFutureSuccess([
+				createFutureSuccess(15),
+				createFutureSuccess({ test: 15 }),
+				createFutureSuccess("test"),
+				createFutureError(new Error()),
 			]),
 		);
 
@@ -143,7 +143,7 @@ describe("FutureEither", () => {
 			FutureEitherAllResult<[
 				15,
 				Promise<{ test: number }>,
-				FutureEither<"test">,
+				Future<"test">,
 				Promise<never>,
 			]>,
 			"strict"

@@ -1,6 +1,5 @@
-import { type AnyValue } from "@scripts/common/types/anyValue";
-import { type FutureEither } from "./create";
+import { type Future } from "./create";
 
 export type MaybeFutureEither<
-	GenericValue extends AnyValue,
-> = FutureEither<GenericValue> | GenericValue;
+	GenericValue extends unknown,
+> = Future<GenericValue> | GenericValue;

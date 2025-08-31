@@ -1,9 +1,9 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createEitherOptional, type EitherOptionalFilled, type EitherOptionalEmpty } from "@scripts/either";
+import { createOptional, type EitherOptionalFilled, type EitherOptionalEmpty } from "@scripts/either";
 
 describe("createEitherOptional", () => {
 	it("create EitherOptionalEmpty", () => {
-		const either = createEitherOptional(undefined);
+		const either = createOptional(undefined);
 
 		expect(either).toStrictEqual({
 			"kind-either-empty": null,
@@ -19,7 +19,7 @@ describe("createEitherOptional", () => {
 			"strict"
 		>;
 
-		expect(createEitherOptional()).toStrictEqual({
+		expect(createOptional()).toStrictEqual({
 			"kind-either-empty": null,
 			"kind-either-information": "optional",
 			"kind-either-left": null,
@@ -29,7 +29,7 @@ describe("createEitherOptional", () => {
 	});
 
 	it("create EitherOptionalFilled", () => {
-		const either = createEitherOptional(10);
+		const either = createOptional(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-filled": null,

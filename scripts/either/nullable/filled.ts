@@ -1,8 +1,7 @@
-import { createEitherRight, type EitherRight, isEitherRight } from "../right";
-import { createEitherNullable } from "./create";
-import { type EitherLeft, isEitherLeft } from "../left";
+import { createRight, type EitherRight, isRight } from "../right";
+import { createNullable } from "./create";
+import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
-import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface EitherNullableFilled<
@@ -13,35 +12,35 @@ export interface EitherNullableFilled<
 
 }
 
-export function createEitherNullableFilled<
-	GenericValue extends AnyValue,
+export function createNullableFilled<
+	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullableFilled<GenericValue> {
 	return {
 		"kind-either-filled": null,
 		"kind-either-nullable": null,
-		...createEitherRight("nullable", value),
+		...createRight("nullable", value),
 	};
 }
 
 type Either = EitherRight | EitherLeft;
 
-export function isEitherNullableFilled(
+export function isNullableFilled(
 	either: unknown,
 ): either is EitherNullableFilled {
-	return isEitherRight(either)
+	return isRight(either)
 		&& hasKind(either, "either-nullable")
 		&& hasKind(either, "either-filled");
 }
 
 type ToEither<
-	GenericValue extends AnyValue,
+	GenericValue extends unknown,
 > = GenericValue extends Either
 	? GenericValue
-	: ReturnType<typeof createEitherNullable<GenericValue>>;
+	: ReturnType<typeof createNullable<GenericValue>>;
 
-export function whenEitherIsNullableFilled<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+export function whenIsNullableFilled<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -50,9 +49,9 @@ export function whenEitherIsNullableFilled<
 		>["value"]
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableFilled>;
-export function whenEitherIsNullableFilled<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+export function whenIsNullableFilled<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	input: GenericInput,
 	theFunction: (
@@ -62,11 +61,11 @@ export function whenEitherIsNullableFilled<
 		>["value"]
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableFilled>;
-export function whenEitherIsNullableFilled(...args: [AnyValue, AnyFunction] | [AnyFunction]): any {
+export function whenIsNullableFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 
-		return (input: Either) => whenEitherIsNullableFilled(
+		return (input: Either) => whenIsNullableFilled(
 			input,
 			theFunction,
 		);
@@ -74,17 +73,17 @@ export function whenEitherIsNullableFilled(...args: [AnyValue, AnyFunction] | [A
 
 	const [input, theFunction] = args;
 
-	if (isEitherLeft(input)) {
+	if (isLeft(input)) {
 		return input as never;
-	} else if (!isEitherNullableFilled(input) && isEitherRight(input)) {
+	} else if (!isNullableFilled(input) && isRight(input)) {
 		return input as never;
 	}
 
-	const either = isEitherRight(input) || isEitherLeft(input)
+	const either = isRight(input) || isLeft(input)
 		? input
-		: createEitherNullable(input);
+		: createNullable(input);
 
-	if (isEitherNullableFilled(either)) {
+	if (isNullableFilled(either)) {
 		return theFunction(either.value);
 	}
 

@@ -1,5 +1,4 @@
-import { type AnyValue } from "@scripts/common/types/anyValue";
-import { createEitherRight, type EitherRight } from "./create";
+import { createRight, type EitherRight } from "./create";
 import { type Kind } from "@scripts/common/kind";
 
 export interface EitherSuccess<
@@ -9,13 +8,13 @@ export interface EitherSuccess<
 
 }
 
-export function createEitherSuccess<
-	GenericValue extends AnyValue,
+export function createSuccess<
+	const GenericValue extends unknown,
 >(
 	value: GenericValue,
 ): EitherSuccess<GenericValue> {
 	return {
 		"kind-either-success": null,
-		...createEitherRight("success", value),
+		...createRight("success", value),
 	};
 }

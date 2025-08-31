@@ -1,7 +1,7 @@
-import { createEitherFutureError } from "@scripts/either";
+import { createFutureError } from "@scripts/either";
 
 it("createEitherFutureError", () => {
-	expect(createEitherFutureError(1)).toStrictEqual({
+	expect(createFutureError(1)).toStrictEqual({
 		"kind-either-error": null,
 		"kind-either-future": null,
 		"kind-either-information": "future",

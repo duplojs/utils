@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/max-params */
 
 import { type EitherRight } from "./create";
-import { isEitherLeft, type EitherLeft } from "../left";
-import { createEitherSuccess, type EitherSuccess } from "./success";
-import { isEitherRight } from "./is";
-import { type AnyValue } from "@scripts/common/types/anyValue";
+import { isLeft, type EitherLeft } from "../left";
+import { createSuccess, type EitherSuccess } from "./success";
+import { isRight } from "./is";
 
 type Either = EitherRight | EitherLeft;
 
@@ -36,8 +35,8 @@ type ToEither<
 	? GenericValue
 	: EitherSuccess<GenericValue>;
 
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 >(
 	input: GenericInput,
@@ -50,8 +49,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 >(
@@ -67,8 +66,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -87,8 +86,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -110,8 +109,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -136,8 +135,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -165,8 +164,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -197,8 +196,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -232,8 +231,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -270,8 +269,8 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe<
-	GenericInput extends AnyValue,
+export function rightPipe<
+	const GenericInput extends unknown,
 	GenericOutputPipe1 extends Either,
 	GenericOutputPipe2 extends Either,
 	GenericOutputPipe3 extends Either,
@@ -311,18 +310,18 @@ export function eitherRightPipe<
 	>,
 	any
 >;
-export function eitherRightPipe(
-	input: AnyValue,
+export function rightPipe(
+	input: unknown,
 	...pipes: EitherRightPipeFunction[]
 ): any {
-	let acc: Either = isEitherRight(input) || isEitherLeft(input)
+	let acc: Either = isRight(input) || isLeft(input)
 		? input
-		: createEitherSuccess(input);
+		: createSuccess(input);
 
 	for (const pipe of pipes) {
 		acc = pipe(acc.value);
 
-		if (isEitherLeft(acc)) {
+		if (isLeft(acc)) {
 			return acc;
 		}
 	}

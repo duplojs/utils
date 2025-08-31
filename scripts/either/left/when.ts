@@ -1,26 +1,25 @@
-import { type AnyValue } from "@scripts/common/types/anyValue";
 import { type EitherLeft } from "./create";
-import { isEitherLeft } from "./is";
+import { isLeft } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
-export function whenEitherIsLeft<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+export function whenIsLeft<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	theFunction: (eitherValue: Extract<GenericInput, EitherLeft>["value"]) => GenericOutput,
 ): (input: GenericInput) => Exclude<GenericInput, EitherLeft> | GenericOutput;
-export function whenEitherIsLeft<
-	GenericInput extends AnyValue,
-	GenericOutput extends AnyValue,
+export function whenIsLeft<
+	const GenericInput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	input: GenericInput,
 	theFunction: (eitherValue: Extract<GenericInput, EitherLeft>["value"]) => GenericOutput,
 ): Exclude<GenericInput, EitherLeft> | GenericOutput;
-export function whenEitherIsLeft(...args: [AnyValue, AnyFunction] | [AnyFunction]): any {
+export function whenIsLeft(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 
-		return (input: AnyValue) => whenEitherIsLeft(
+		return (input: unknown) => whenIsLeft(
 			input,
 			theFunction,
 		);
@@ -28,7 +27,7 @@ export function whenEitherIsLeft(...args: [AnyValue, AnyFunction] | [AnyFunction
 
 	const [input, theFunction] = args;
 
-	if (isEitherLeft(input)) {
+	if (isLeft(input)) {
 		return theFunction(input.value);
 	}
 

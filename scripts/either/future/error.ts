@@ -1,6 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
-import { createEitherLeft, type EitherLeft } from "../left";
-import { type AnyValue } from "@scripts/common/types/anyValue";
+import { createLeft, type EitherLeft } from "../left";
 
 export interface EitherFutureError
 	extends EitherLeft<"future", unknown>,
@@ -9,10 +8,10 @@ export interface EitherFutureError
 
 }
 
-export function createEitherFutureError(value: AnyValue): EitherFutureError {
+export function createFutureError(value: unknown): EitherFutureError {
 	return {
 		"kind-either-future": null,
 		"kind-either-error": null,
-		...createEitherLeft("future", value),
+		...createLeft("future", value),
 	};
 }
