@@ -1,27 +1,18 @@
 export function arrayPush<GenericElement extends unknown>(
-	element: GenericElement
-): <GenericArrayType extends GenericElement>(
-	array: GenericArrayType[]
-) => GenericElement[];
+	...elements: GenericElement[]
+): (array: GenericElement[]) => GenericElement[];
 
-export function arrayPush<
-	GenericArrayElement extends unknown,
->(
-	array: GenericArrayElement[],
-	...items: GenericArrayElement[]
-): GenericArrayElement[];
+export function arrayPush<GenericElement extends unknown>(
+	array: GenericElement[],
+	...elements: GenericElement[]
+): GenericElement[];
 
-export function arrayPush<
-	GenericElement extends unknown,
->(
-	arrayOrElement: GenericElement[] | GenericElement,
-	...items: GenericElement[]
-) {
-	if (Array.isArray(arrayOrElement)) {
-		return [...arrayOrElement, ...items];
+export function arrayPush(...args: unknown[]) {
+	const [first, ...rest] = args;
+
+	if (Array.isArray(first)) {
+		return [...first, ...rest];
+	} else {
+		return (array: unknown[]) => [...array, ...args];
 	}
-
-	return <GenericArrayType extends GenericElement>(
-		array: GenericArrayType[],
-	) => [...array, arrayOrElement];
 }

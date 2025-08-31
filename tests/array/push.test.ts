@@ -20,9 +20,9 @@ describe("arrayPush", () => {
 		const arr = [1, 2];
 		const result = pipe(
 			arr,
-			arrayPush(3),
-			arrayPush(4),
+			arrayPush(3, 4),
+			arrayPush(5),
 		);
-		expect(result).toEqual([1, 2, 3, 4]);
+		expect(result).toEqual([1, 2, 3, 4, 5]);
 	});
 });
