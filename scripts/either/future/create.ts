@@ -92,7 +92,7 @@ export class Future<
 
 	public static instanceof(value: unknown): value is Future {
 		return typeof value === "object"
-			&& value?.constructor?.name === "FutureEither"
+			&& value?.constructor?.name === "Future"
 			&& kind in value;
 	}
 

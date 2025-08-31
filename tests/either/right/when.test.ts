@@ -21,7 +21,7 @@ describe("whenEitherIsRight", () => {
 			},
 		);
 
-		expect(result).toBe(true);
+		expect(result).toBe(10);
 
 		type check = ExpectType<
 			typeof result,
