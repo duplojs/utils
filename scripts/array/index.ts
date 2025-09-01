@@ -15,3 +15,4 @@ export * from "./spliceDelete";
 export * from "./spliceReplace";
 export * from "./isArray";
 export * from "./toString";
+export * from "./at";
