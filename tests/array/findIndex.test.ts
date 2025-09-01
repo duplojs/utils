@@ -14,6 +14,11 @@ describe("findIndex", () => {
 		expect(index).toBeUndefined();
 	});
 
+	it("should pass index param to predicate", () => {
+		const index = DArray.findIndex(arr, (element, { index }) => index === 4 && element === 5);
+		expect(index).toBe(4);
+	});
+
 	it("works with pipe (curried)", () => {
 		const index = pipe(
 			arr,

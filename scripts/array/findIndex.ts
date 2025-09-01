@@ -1,16 +1,20 @@
 import { type AnyFunction } from "@scripts/common";
 
+interface ArrayFindIndexParams {
+	index: number;
+}
+
 export function findIndex<
 	GenericElement extends unknown,
 >(
-	predicate: (element: GenericElement, index: number) => boolean,
+	predicate: (element: GenericElement, params: ArrayFindIndexParams) => boolean,
 ): (array: GenericElement[]) => number | undefined;
 
 export function findIndex<
 	GenericElement extends unknown,
 >(
 	array: GenericElement[],
-	predicate: (element: GenericElement, index: number) => boolean,
+	predicate: (element: GenericElement, params: ArrayFindIndexParams) => boolean,
 ): number | undefined;
 
 export function findIndex(...args: [unknown[], AnyFunction] | [AnyFunction]) {
@@ -21,7 +25,11 @@ export function findIndex(...args: [unknown[], AnyFunction] | [AnyFunction]) {
 
 	const [array, predicate] = args;
 
-	const result = array.findIndex(predicate);
+	for (let index = 0; index < array.length; index++) {
+		if (predicate(array[index], { index })) {
+			return index;
+		}
+	}
 
-	return result === -1 ? undefined : result;
+	return undefined;
 }
