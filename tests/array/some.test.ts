@@ -1,22 +1,22 @@
 import { pipe } from "@scripts/common";
-import { some } from "@scripts/array";
+import { DArray } from "@scripts";
 
-describe("arraySome", () => {
+describe("some", () => {
 	it("returns true if at least one element matches", () => {
 		const arr = [1, 2, 3, 4];
-		const result = some(arr, (value) => value === 2);
+		const result = DArray.some(arr, (value) => value === 2);
 		expect(result).toBe(true);
 	});
 
 	it("returns false if no element matches", () => {
 		const arr = [1, 2, 3, 4];
-		const result = some(arr, (value) => value === 5);
+		const result = DArray.some(arr, (value) => value === 5);
 		expect(result).toBe(false);
 	});
 
 	it("returns false for empty array", () => {
 		const arr: number[] = [];
-		const result = some(arr, (value) => value === 1);
+		const result = DArray.some(arr, (value) => value === 1);
 		expect(result).toBe(false);
 	});
 
@@ -24,7 +24,7 @@ describe("arraySome", () => {
 		const arr = [10, 20, 30];
 		const result = pipe(
 			arr,
-			some((item, { index }) => {
+			DArray.some((item, { index }) => {
 				if (item === 20 && index === 1) {
 					return true;
 				}

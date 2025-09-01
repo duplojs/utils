@@ -1,16 +1,16 @@
 import { pipe } from "@scripts/common";
-import { isArray } from "@scripts/array";
+import { DArray } from "@scripts";
 
 describe("isArray", () => {
 	it("should work in normal mode", () => {
-		expect(isArray([1, 2, 3])).toBe(true);
-		expect(isArray("string")).toBe(false);
+		expect(DArray.isArray([1, 2, 3])).toBe(true);
+		expect(DArray.isArray("string")).toBe(false);
 	});
 
 	it("should work in curried mode with pipe", () => {
 		const result = pipe(
 			[1, 2, 3],
-			isArray(),
+			DArray.isArray(),
 		);
 
 		expect(result).toBe(true);
