@@ -1,22 +1,22 @@
+import { AnyFunction } from "@scripts/common";
 import { type ObjectKey } from "@scripts/object/types/objectKey";
 
 export function isKeyof<
 	GenericObject extends object,
 >(
 	obj: GenericObject,
-	key: ObjectKey,
-): key is keyof GenericObject;
+): (key: ObjectKey) => key is keyof GenericObject;
 export function isKeyof<
 	GenericObject extends object,
 >(
-	obj: GenericObject,
 	key: ObjectKey,
+	obj: GenericObject,
 ): key is keyof GenericObject;
-export function isKeyof(...args: [object, ObjectKey] | [ObjectKey]) {
+export function isKeyof(...args: [ObjectKey, object] | [object]): any {
 	if (args.length === 1) {
-		const [key] = args;
+		const [obj] = args;
 
-		return (obj: object) => isKeyof(obj, key);
+		return (key: ObjectKey) => isKeyof(key, obj);
 	}
 
 	const [obj, key] = args;

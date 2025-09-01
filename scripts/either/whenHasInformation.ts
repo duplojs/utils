@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type AnyFunction } from "@scripts/common";
+import { type Kind, type WrappedValue, type AnyFunction, type AnyValue } from "@scripts/common";
 import { isRight, type EitherRight } from "./right";
 import { isLeft, type EitherLeft } from "./left";
 
@@ -11,7 +11,7 @@ export function whenHasInformation<
 			? GenericInput["kind-either-information"]
 			: never
 	),
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	information: GenericInformation | GenericInformation[],
 	theFunction: (
@@ -31,7 +31,7 @@ export function whenHasInformation<
 			? GenericInput["kind-either-information"]
 			: never
 	),
-	const GenericOutput extends unknown,
+	const GenericOutput extends AnyValue,
 >(
 	input: GenericInput,
 	information: GenericInformation | GenericInformation[],

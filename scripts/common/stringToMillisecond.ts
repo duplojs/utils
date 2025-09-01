@@ -1,5 +1,5 @@
 /* eslint-disable id-length */
-import { isKeyof } from "@scripts/object/isKeyof";
+import { isKeyof } from "@scripts/string/isKeyof";
 
 const kind = "kind-invalid-millisecond-in-string-error";
 

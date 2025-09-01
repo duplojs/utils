@@ -1,13 +1,13 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DObject } from "@scripts/index";
+import { DString } from "@scripts/index";
 
 it("isKeyof", () => {
-	expect(DObject.isKeyof({ toto: 1 }, "toto")).toBe(true);
-	expect(DObject.isKeyof({ toto: 1 }, "test")).toBe(false);
+	expect(DString.isKeyof("toto", { toto: 1 })).toBe(true);
+	expect(DString.isKeyof("test", { toto: 1 })).toBe(false);
 
 	const key = "toto" as string;
 
-	if (DObject.isKeyof({ toto: 1 }, key)) {
+	if (DString.isKeyof(key, { toto: 1 })) {
 		type check = ExpectType<
 			typeof key,
 			"toto",

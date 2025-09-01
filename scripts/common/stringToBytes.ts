@@ -1,5 +1,5 @@
 /* eslint-disable id-length */
-import { isKeyof } from "../object/isKeyof";
+import { isKeyof } from "../string/isKeyof";
 
 const kind = "kind-invalid-bytes-in-string-error";
 

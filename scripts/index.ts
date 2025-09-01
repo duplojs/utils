@@ -8,3 +8,6 @@ export * as DEither from "./either";
 
 export * as O from "./object";
 export * as DObject from "./object";
+
+export * as S from "./string";
+export * as DString from "./string";
