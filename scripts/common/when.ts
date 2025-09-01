@@ -61,9 +61,3 @@ export function when(
 
 	return input;
 }
-
-when(
-	"test" as string,
-	(value) => value === "test",
-	(value) => value,
-);
