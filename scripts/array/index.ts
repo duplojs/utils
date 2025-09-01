@@ -16,3 +16,4 @@ export * from "./spliceReplace";
 export * from "./isArray";
 export * from "./toString";
 export * from "./at";
+export * from "./findIndex";
