@@ -3,7 +3,8 @@ import { type MaybeWrapped } from "./types/maybeWrapped";
 import { type AnyValue } from "./types";
 
 export function toWrappedValue<
-	GenericValue extends MaybeWrapped<AnyValue>,
+	GenericInnerValue extends AnyValue,
+	GenericValue extends MaybeWrapped<GenericInnerValue>,
 >(
 	value: GenericValue,
 ): GenericValue extends WrappedValue

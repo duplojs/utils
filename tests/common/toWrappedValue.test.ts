@@ -1,0 +1,21 @@
+import { type ExpectType, toWrappedValue, type WrappedValue } from "@scripts/common";
+
+it("toWrappedValue", () => {
+	const result1 = toWrappedValue({ value: 10 });
+	expect(result1).toStrictEqual({ value: 10 });
+
+	type check1 = ExpectType<
+		typeof result1,
+		WrappedValue<10>,
+		"strict"
+	>;
+
+	const result2 = toWrappedValue(10);
+	expect(result2).toStrictEqual({ value: 10 });
+
+	type check2 = ExpectType<
+		typeof result2,
+		WrappedValue<10>,
+		"strict"
+	>;
+});

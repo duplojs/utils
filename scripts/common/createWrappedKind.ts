@@ -1,7 +1,6 @@
 import { createKind, type Kind } from "@scripts/common/kind";
 import { type WrappedValue } from "@scripts/common/wrapValue";
 import { type Unwrap } from "@scripts/common/unwrap";
-import { type AnyValue } from "./types";
 
 export interface CreateWrappedKindConstrainResult<
 	GenericValue extends unknown = unknown,
@@ -12,13 +11,13 @@ export interface CreateWrappedKindConstrainResult<
 
 export function createWrappedKind<
 	GenericKind extends string,
-	GenericConstrainWrappedValue extends CreateWrappedKindConstrainResult<AnyValue>,
+	GenericConstrainWrappedValue extends CreateWrappedKindConstrainResult<object>,
 >(
 	kind: GenericKind,
 	_constrain?: GenericConstrainWrappedValue,
 ) {
 	return <
-		GenericWrappedValue extends WrappedValue<Unwrap<GenericConstrainWrappedValue>>,
+		GenericWrappedValue extends Unwrap<GenericConstrainWrappedValue>,
 	>(
 		wrappedValue: GenericWrappedValue,
 	): GenericWrappedValue & Kind<GenericKind> => ({
@@ -28,7 +27,7 @@ export function createWrappedKind<
 }
 
 createWrappedKind.constrain = function<
-	GenericWrappedValue extends AnyValue,
+	GenericWrappedValue extends object,
 >(): CreateWrappedKindConstrainResult<GenericWrappedValue> {
 	return void 0 as never;
 };

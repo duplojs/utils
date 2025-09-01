@@ -1,7 +1,5 @@
-import { type WrappedValue } from "./wrapValue";
-
 export type GetWrappedProperties<
-	GenericWrappedValue extends WrappedValue = WrappedValue,
+	GenericWrappedValue extends object = object,
 	GenericProperties extends object = object,
 > = (
 	params: {
@@ -10,7 +8,7 @@ export type GetWrappedProperties<
 ) => GenericProperties;
 
 export function addWrappedProperties<
-	GenericWrappedValue extends WrappedValue,
+	GenericWrappedValue extends object,
 	GenericGetWrappedProperties extends GetWrappedProperties<GenericWrappedValue>,
 >(
 	wrappedValue: GenericWrappedValue,
