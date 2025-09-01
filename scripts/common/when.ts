@@ -21,6 +21,25 @@ export function when<
 ):
 	| GenericOutput
 	| Exclude<GenericInput, GenericPredicatedInput>;
+export function when<
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
+>(
+	ifFunction: (input: GenericInput) => boolean,
+	theFunction: (predicatedInput: GenericInput) => GenericOutput
+): (input: GenericInput) =>
+	| GenericOutput
+	| GenericInput;
+export function when<
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
+>(
+	input: GenericInput,
+	ifFunction: (input: GenericInput) => boolean,
+	theFunction: (predicatedInput: GenericInput) => GenericOutput
+):
+	| GenericOutput
+	| GenericInput;
 export function when(
 	...args: [AnyValue, AnyFunction, AnyFunction] | [ AnyFunction, AnyFunction]
 ): any {
@@ -42,3 +61,9 @@ export function when(
 
 	return input;
 }
+
+when(
+	"test" as string,
+	(value) => value === "test",
+	(value) => value,
+);
