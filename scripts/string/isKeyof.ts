@@ -1,4 +1,3 @@
-import { AnyFunction } from "@scripts/common";
 import { type ObjectKey } from "@scripts/object/types/objectKey";
 
 export function isKeyof<
@@ -19,7 +18,7 @@ export function isKeyof(...args: [ObjectKey, object] | [object]): any {
 		return (key: ObjectKey) => isKeyof(key, obj);
 	}
 
-	const [obj, key] = args;
+	const [key, obj] = args;
 
 	return obj[key as never] !== undefined;
 }

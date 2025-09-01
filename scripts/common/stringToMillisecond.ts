@@ -47,7 +47,7 @@ export function stringToMillisecond(
 	const { rawValue, unit } = result?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !isKeyof(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyof(unit, unitMapper)) {
 		throw new InvalidMillisecondInStringError(millisecondInString);
 	}
 

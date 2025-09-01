@@ -42,7 +42,7 @@ export function stringToBytes(bytesInString: BytesInString | number) {
 	const { rawValue, unit } = regExpResults?.groups ?? {};
 	const value = parseFloat(rawValue ?? "");
 
-	if (isNaN(value) || !unit || !isKeyof(unitMapper, unit)) {
+	if (isNaN(value) || !unit || !isKeyof(unit, unitMapper)) {
 		throw new InvalidBytesInStringError(bytesInString);
 	}
 
