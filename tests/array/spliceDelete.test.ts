@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { spliceDelete } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { spliceDelete } from "@scripts/array";
 
 describe("spliceDelete", () => {
 	it("deletes elements at specified index", () => {

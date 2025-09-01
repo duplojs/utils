@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { findLast } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { findLast } from "@scripts/array";
 
 describe("findLast", () => {
 	it("returns the last matching element", () => {

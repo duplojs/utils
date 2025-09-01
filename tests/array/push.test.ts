@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { push } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { push } from "@scripts/array";
 
 describe("push", () => {
 	it("adds elements in array", () => {

@@ -1,0 +1,13 @@
+{
+	"test-tu": {
+		"prefix": "tu",
+		"scope": "typescript",
+		"body": [
+			"import { pipe } from \"@scripts/common\";",
+			"",
+			"describe(\"$1\", () => {",
+			"});"
+		],
+		"description": "template tu",
+	},
+}

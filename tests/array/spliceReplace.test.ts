@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { spliceReplace } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { spliceReplace } from "@scripts/array";
 
 describe("spliceReplace", () => {
 	it("replaces elements at specified index", () => {

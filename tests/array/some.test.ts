@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { some } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { some } from "@scripts/array";
 
 describe("arraySome", () => {
 	it("returns true if at least one element matches", () => {

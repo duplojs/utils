@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { sort } from "@scripts/array";
 import { pipe } from "@scripts/common";
+import { sort } from "@scripts/array";
 
 describe("sort", () => {
 	it("sorts array with compare function", () => {

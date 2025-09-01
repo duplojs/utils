@@ -13,3 +13,4 @@ export * from "./sort";
 export * from "./spliceInsert";
 export * from "./spliceDelete";
 export * from "./spliceReplace";
+export * from "./isArray";
