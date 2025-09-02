@@ -20,3 +20,4 @@ export * from "./findIndex";
 export * from "./findLastIndex";
 export * from "./flat";
 export * from "./reverse";
+export * from "./join";
