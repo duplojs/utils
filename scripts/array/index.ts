@@ -19,3 +19,4 @@ export * from "./at";
 export * from "./findIndex";
 export * from "./findLastIndex";
 export * from "./flat";
+export * from "./reverse";
