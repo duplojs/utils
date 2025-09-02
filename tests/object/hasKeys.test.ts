@@ -1,15 +1,21 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DObject } from "@scripts";
+import { DObject, pipe } from "@scripts";
+import { when } from "@scripts/common/when";
 
 describe("hasKeys", () => {
 	it("has", () => {
-		const input: Partial<{ test: string }> = {
+		const input: {
+			test?: string;
+			toto?: number;
+			tutu?: number;
+		} = {
 			test: "ok",
+			toto: 12,
 		};
 
 		const output = DObject.hasKeys(
 			input,
-			["test"],
+			["test", "toto"],
 		);
 
 		expect(output).toEqual(true);
@@ -19,6 +25,8 @@ describe("hasKeys", () => {
 				typeof input,
 				{
 					test: string;
+					toto: number;
+					tutu?: number | undefined;
 				},
 				"strict"
 			>;
@@ -26,13 +34,47 @@ describe("hasKeys", () => {
 	});
 
 	it("missing", () => {
-		const input: Partial<{ test: string }> = {};
+		const input: Partial<{
+			test: string;
+			toto: number;
+		}> = {};
 
 		const output = DObject.hasKeys(
 			input,
-			["test"],
+			"test",
 		);
 
 		expect(output).toEqual(false);
+	});
+
+	it("use in pipe", () => {
+		const input: { test?: number } = { test: 1 };
+		const result = pipe(
+			input,
+			when(
+				DObject.hasKeys(["test"]),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							test: number;
+						},
+						"strict"
+					>;
+
+					return value.test;
+				},
+			),
+		);
+
+		expect(result).toBe(1);
+
+		type check = ExpectType<
+			typeof result,
+			number | {
+				test?: number | undefined;
+			},
+			"strict"
+		>;
 	});
 });

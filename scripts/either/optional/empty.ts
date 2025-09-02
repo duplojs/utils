@@ -1,7 +1,7 @@
-import { type AnyValue } from "@scripts/common";
-import { createLeft, type EitherLeft, isLeft } from "../left";
+import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
-import { createOptional } from "./create";
+import { optional } from "./create";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
@@ -12,33 +12,35 @@ export interface EitherOptionalEmpty
 
 }
 
-export function createOptionalEmpty(): EitherOptionalEmpty {
+export function optionalEmpty(): EitherOptionalEmpty {
 	return {
 		"kind-either-empty": null,
 		"kind-either-optional": null,
-		...createLeft("optional", undefined),
+		...left("optional", undefined),
 	};
 }
 
 type Either = EitherRight | EitherLeft;
 
-export function isOptionalEmpty(
-	either: unknown,
-): either is EitherOptionalEmpty {
-	return isLeft(either)
-		&& hasKind(either, "either-optional")
-		&& hasKind(either, "either-empty");
+export function isOptionalEmpty<
+	GenericInput extends unknown,
+>(
+	input: GenericInput,
+): input is Extract<GenericInput, EitherOptionalEmpty> {
+	return isLeft(input)
+		&& hasKind(input, "either-optional")
+		&& hasKind(input, "either-empty");
 }
 
 type ToOptionalEither<
 	GenericValue extends unknown,
 > = GenericValue extends Either
 	? GenericValue
-	: ReturnType<typeof createOptional<GenericValue>>;
+	: ReturnType<typeof optional<GenericValue>>;
 
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -49,7 +51,7 @@ export function whenIsOptionalEmpty<
 ): (input: GenericInput,) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (
@@ -81,7 +83,7 @@ export function whenIsOptionalEmpty(...args: [unknown, AnyFunction] | [AnyFuncti
 
 	const either = isRight(input) || isLeft(input)
 		? input
-		: createOptional(input);
+		: optional(input as any);
 
 	if (isOptionalEmpty(either)) {
 		return theFunction(either.value);

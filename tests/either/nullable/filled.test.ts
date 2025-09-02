@@ -1,10 +1,10 @@
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createNullableEmpty, type EitherNullableEmpty, type EitherNullableFilled, createNullableFilled, isNullableFilled, whenIsNullableFilled, createOk, type EitherOk } from "@scripts/either";
+import { nullableEmpty, type EitherNullableEmpty, type EitherNullableFilled, nullableFilled, isNullableFilled, whenIsNullableFilled, ok, type EitherOk } from "@scripts/either";
 
 describe("EitherNullableFilled", () => {
 	it("create", () => {
-		const either = createNullableFilled(10);
+		const either = nullableFilled(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-filled": null,
@@ -22,7 +22,7 @@ describe("EitherNullableFilled", () => {
 	});
 
 	it("isEitherNullableFilled return true", () => {
-		const either = createNullableFilled(10) as EitherNullableEmpty | EitherNullableFilled;
+		const either = nullableFilled(10) as EitherNullableEmpty | EitherNullableFilled;
 
 		const predicate = isNullableFilled(either);
 
@@ -38,7 +38,7 @@ describe("EitherNullableFilled", () => {
 	});
 
 	it("isEitherNullableFilled return false", () => {
-		const either = createNullableEmpty() as EitherNullableEmpty | EitherNullableFilled;
+		const either = nullableEmpty() as EitherNullableEmpty | EitherNullableFilled;
 
 		const predicate = isNullableFilled(either);
 
@@ -47,8 +47,8 @@ describe("EitherNullableFilled", () => {
 
 	it("whenEitherIsNullableFilled match", () => {
 		const either = true
-			? createNullableFilled(10)
-			: createNullableEmpty();
+			? nullableFilled(10)
+			: nullableEmpty();
 
 		const result = whenIsNullableFilled(
 			either,
@@ -73,7 +73,7 @@ describe("EitherNullableFilled", () => {
 	});
 
 	it("whenEitherIsNullableFilled not match with left", () => {
-		const either = createNullableEmpty();
+		const either = nullableEmpty();
 
 		const result = whenIsNullableFilled(
 			either,
@@ -99,8 +99,8 @@ describe("EitherNullableFilled", () => {
 
 	it("whenEitherIsNullableFilled not match with right", () => {
 		const either = true
-			? createOk()
-			: createNullableFilled(10);
+			? ok()
+			: nullableFilled(10);
 
 		const result = whenIsNullableFilled(
 			either,
@@ -169,7 +169,7 @@ describe("EitherNullableFilled", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(createNullableEmpty());
+		expect(result).toStrictEqual(nullableEmpty());
 
 		type check = ExpectType<
 			typeof result,
@@ -181,8 +181,8 @@ describe("EitherNullableFilled", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? createNullableFilled(true)
-				: createNullableEmpty(),
+				? nullableFilled(true)
+				: nullableEmpty(),
 			whenIsNullableFilled(
 				(value) => {
 					type check = ExpectType<

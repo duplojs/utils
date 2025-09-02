@@ -1,13 +1,18 @@
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
+import { type ObjectKey } from "./types";
+
+export type GetEntry<
+	GenericKey extends ObjectKey,
+	GenericValue extends unknown,
+> = GenericValue extends any
+	? [GenericKey, GenericValue]
+	: never;
 
 export type GetEntries<
 	GenericObject extends object,
-	GenericData = {
-		[P in keyof GenericObject]-?: GenericObject[P]
-	},
 > = {
-	[Prop in keyof GenericData]: [Prop, GenericData[Prop]]
-}[keyof GenericData][];
+	[Prop in keyof GenericObject]-?: GetEntry<Prop, GenericObject[Prop]>
+}[keyof GenericObject][];
 
 export function entries<
 	GenericObject extends object,

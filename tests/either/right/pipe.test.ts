@@ -1,14 +1,14 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createFail, createSuccess, type EitherFail, rightPipe, type EitherSuccess } from "@scripts/either";
+import { fail, success, type EitherFail, rightPipe, type EitherSuccess } from "@scripts/either";
 
 describe("eitherRightPipe", () => {
 	it("input either", () => {
 		const result = rightPipe(
-			createSuccess({ value: 10 }),
-			({ value }) => createSuccess(value),
+			success({ value: 10 }),
+			({ value }) => success(value),
 		);
 
-		expect(result).toStrictEqual(createSuccess(10));
+		expect(result).toStrictEqual(success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -21,11 +21,11 @@ describe("eitherRightPipe", () => {
 		const result = rightPipe(
 			true
 				? { value: 10 }
-				: createFail(),
-			({ value }) => createSuccess(value),
+				: fail(),
+			({ value }) => success(value),
 		);
 
-		expect(result).toStrictEqual(createSuccess(10));
+		expect(result).toStrictEqual(success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -37,15 +37,15 @@ describe("eitherRightPipe", () => {
 	it("input object with 6 pipe", () => {
 		const result = rightPipe(
 			{ value: 10 },
-			({ value }) => createSuccess(value),
-			(value) => createSuccess(value * 2),
-			(value) => createSuccess(value ^ 4),
-			(value) => createSuccess(value - 4),
-			(value) => createSuccess(value / 2),
-			(value) => createSuccess(value + 1),
+			({ value }) => success(value),
+			(value) => success(value * 2),
+			(value) => success(value ^ 4),
+			(value) => success(value - 4),
+			(value) => success(value / 2),
+			(value) => success(value + 1),
 		);
 
-		expect(result).toStrictEqual(createSuccess(7));
+		expect(result).toStrictEqual(success(7));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -57,17 +57,17 @@ describe("eitherRightPipe", () => {
 	it("input object with 6 pipe and one error", () => {
 		const result = rightPipe(
 			{ value: 10 },
-			({ value }) => createSuccess(value),
-			(value) => createSuccess(value * 2),
+			({ value }) => success(value),
+			(value) => success(value * 2),
 			(value) => true
-				? createFail()
-				: createSuccess(value ^ 4),
-			(value) => createSuccess(value - 4),
-			(value) => createSuccess(value / 2),
-			(value) => createSuccess(value + 1),
+				? fail()
+				: success(value ^ 4),
+			(value) => success(value - 4),
+			(value) => success(value / 2),
+			(value) => success(value + 1),
 		);
 
-		expect(result).toStrictEqual(createFail());
+		expect(result).toStrictEqual(fail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,

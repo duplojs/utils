@@ -1,7 +1,7 @@
 import { type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
-import { createFutureSuccess, type EitherFutureSuccess } from "./success";
-import { createFutureError, type EitherFutureError } from "./error";
+import { futureSuccess, type EitherFutureSuccess } from "./success";
+import { futureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
 import { type MaybePromise } from "@scripts/common/types/maybePromise";
 import { type AnyValue } from "@scripts/common";
@@ -63,10 +63,10 @@ export class Future<
 						} else if (isLeft(value)) {
 							return value as never;
 						} else {
-							return createFutureSuccess(value) as never;
+							return futureSuccess(value) as never;
 						}
 					})
-					.catch((error: unknown) => createFutureError(error) as never),
+					.catch((error: unknown) => futureError(error) as never),
 			),
 		);
 	}
@@ -110,7 +110,7 @@ export class Future<
 	}
 }
 
-export function createFuture<
+export function future<
 	const GenericEither extends unknown,
 >(
 	value: GenericEither,

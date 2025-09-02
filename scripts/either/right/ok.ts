@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
-import { createRight, type EitherRight } from "./create";
+import { right, type EitherRight } from "./create";
 
 export interface EitherOk
 	extends EitherRight<"ok", never>,
@@ -7,9 +7,9 @@ export interface EitherOk
 
 }
 
-export function createOk(): EitherOk {
+export function ok(): EitherOk {
 	return {
 		"kind-either-ok": null,
-		...createRight("ok", undefined as never),
+		...right("ok", undefined as never),
 	};
 }

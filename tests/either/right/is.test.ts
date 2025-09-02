@@ -1,11 +1,11 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createBool, createFail, createOk, type EitherBoolTruthy, type EitherFail, type EitherOk, type EitherRight, isRight } from "@scripts/either";
+import { bool, fail, ok, type EitherBoolTruthy, type EitherFail, type EitherOk, type EitherRight, isRight } from "@scripts/either";
 
 describe("isEitherRight", () => {
 	it("return true", () => {
 		const either = true
-			? createBool(10)
-			: createFail();
+			? bool(10)
+			: fail();
 
 		const predicate = isRight(either);
 
@@ -21,7 +21,7 @@ describe("isEitherRight", () => {
 	});
 
 	it("return false", () => {
-		const either = createFail();
+		const either = fail();
 
 		const predicate = isRight(either);
 
@@ -37,7 +37,7 @@ describe("isEitherRight", () => {
 	});
 
 	it("object return true", () => {
-		const either = createOk() as object;
+		const either = ok() as object;
 
 		const predicate = isRight(either);
 

@@ -1,17 +1,17 @@
-import { type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue } from "@scripts/common";
 import { type EitherRight } from "./create";
 import { isRight } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export function whenIsRight<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (eitherValue: Extract<GenericInput, EitherRight>["value"]) => GenericOutput,
 ): (input: GenericInput) => Exclude<GenericInput, EitherRight> | GenericOutput;
 export function whenIsRight<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (eitherValue: Extract<GenericInput, EitherRight>["value"]) => GenericOutput,

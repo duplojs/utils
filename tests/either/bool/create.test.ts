@@ -1,9 +1,9 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createBool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
+import { bool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
 
 describe("createEitherBool", () => {
 	it("falsy undefined", () => {
-		const either = createBool();
+		const either = bool();
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -19,7 +19,7 @@ describe("createEitherBool", () => {
 			"strict"
 		>;
 
-		expect(createBool()).toStrictEqual({
+		expect(bool()).toStrictEqual({
 			"kind-either-bool": null,
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
@@ -29,7 +29,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("falsy null", () => {
-		const either = createBool(null);
+		const either = bool(null);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -47,7 +47,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("falsy empty string", () => {
-		const either = createBool("");
+		const either = bool("");
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -65,7 +65,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("falsy 0", () => {
-		const either = createBool(0);
+		const either = bool(0);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -83,7 +83,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("falsy false", () => {
-		const either = createBool(false);
+		const either = bool(false);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -101,7 +101,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("truthy object", () => {
-		const either = createBool({});
+		const either = bool({});
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -119,7 +119,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("truthy true", () => {
-		const either = createBool(true);
+		const either = bool(true);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -137,7 +137,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("truthy number", () => {
-		const either = createBool(10);
+		const either = bool(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -155,7 +155,7 @@ describe("createEitherBool", () => {
 	});
 
 	it("truthy string", () => {
-		const either = createBool("test");
+		const either = bool("test");
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,

@@ -1,17 +1,17 @@
-import { type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue } from "@scripts/common";
 import { type EitherLeft } from "./create";
 import { isLeft } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export function whenIsLeft<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (eitherValue: Extract<GenericInput, EitherLeft>["value"]) => GenericOutput,
 ): (input: GenericInput) => Exclude<GenericInput, EitherLeft> | GenericOutput;
 export function whenIsLeft<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (eitherValue: Extract<GenericInput, EitherLeft>["value"]) => GenericOutput,

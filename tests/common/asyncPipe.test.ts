@@ -1,5 +1,6 @@
 import { asyncPipe } from "@scripts/common/asyncPipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
+import { DEither } from "@scripts";
 
 describe("asyncPipe", () => {
 	it("input promise number", async() => {
@@ -36,6 +37,27 @@ describe("asyncPipe", () => {
 		type check = ExpectType<
 			typeof result,
 			Promise<{ value: number }>,
+			"strict"
+		>;
+	});
+
+	it("input future number", async() => {
+		const result = asyncPipe(
+			DEither.future(56),
+			({ value }) => Promise.resolve(value * 10),
+			(value) => DEither.future(value - 10),
+			(value) => ({ value }),
+		);
+
+		expect(await result).toStrictEqual({
+			value: DEither.futureSuccess(550),
+		});
+
+		type check = ExpectType<
+			typeof result,
+			Promise<{
+				value: DEither.EitherFutureSuccess<number>;
+			}>,
 			"strict"
 		>;
 	});

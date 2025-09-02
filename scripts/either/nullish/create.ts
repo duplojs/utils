@@ -1,13 +1,13 @@
-import { createNullishEmpty, type EitherNullishEmpty, type NullishValue } from "./empty";
-import { createNullishFilled, type EitherNullishFilled } from "./filled";
+import { nullishEmpty, type EitherNullishEmpty, type NullishValue } from "./empty";
+import { nullishFilled, type EitherNullishFilled } from "./filled";
 
-export function createNullish<
+export function nullish<
 	const GenericValue extends unknown = undefined,
 >(value?: GenericValue): GenericValue extends NullishValue
 	? EitherNullishEmpty<GenericValue>
 	: EitherNullishFilled<GenericValue>;
-export function createNullish(value?: unknown) {
+export function nullish(value?: unknown) {
 	return value === null || value === undefined
-		? createNullishEmpty(value)
-		: createNullishFilled(value);
+		? nullishEmpty(value)
+		: nullishFilled(value);
 }

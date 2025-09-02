@@ -1,9 +1,9 @@
 import { hasKind, type Kind } from "@scripts/common/kind";
-import { createLeft, type EitherLeft, isLeft } from "../left";
+import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
-import { createNullable } from "./create";
+import { nullable } from "./create";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue } from "@scripts/common";
 
 export interface EitherNullableEmpty
 	extends EitherLeft<"nullable", null>,
@@ -12,33 +12,35 @@ export interface EitherNullableEmpty
 
 }
 
-export function createNullableEmpty(): EitherNullableEmpty {
+export function nullableEmpty(): EitherNullableEmpty {
 	return {
 		"kind-either-empty": null,
 		"kind-either-nullable": null,
-		...createLeft("nullable", null),
+		...left("nullable", null),
 	};
 }
 
 type Either = EitherRight | EitherLeft;
 
-export function isNullableEmpty(
-	either: unknown,
-): either is EitherNullableEmpty {
-	return isLeft(either)
-		&& hasKind(either, "either-nullable")
-		&& hasKind(either, "either-empty");
+export function isNullableEmpty<
+	GenericInput extends unknown,
+>(
+	input: GenericInput,
+): input is Extract<GenericInput, EitherNullableEmpty> {
+	return isLeft(input)
+		&& hasKind(input, "either-nullable")
+		&& hasKind(input, "either-empty");
 }
 
 type ToEither<
 	GenericValue extends unknown,
 > = GenericValue extends Either
 	? GenericValue
-	: ReturnType<typeof createNullable<GenericValue>>;
+	: ReturnType<typeof nullable<GenericValue>>;
 
 export function whenIsNullableEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
 		eitherValue: Extract<
@@ -49,7 +51,7 @@ export function whenIsNullableEmpty<
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
 export function whenIsNullableEmpty<
 	const GenericInput extends unknown,
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	theFunction: (
@@ -79,7 +81,7 @@ export function whenIsNullableEmpty(...args: [unknown, AnyFunction] | [AnyFuncti
 
 	const either = isRight(input) || isLeft(input)
 		? input
-		: createNullable(input);
+		: nullable(input as any);
 
 	if (isNullableEmpty(either)) {
 		return theFunction(either.value);

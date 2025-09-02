@@ -10,7 +10,7 @@ export interface EitherRight<
 
 }
 
-export function createRight<
+export function right<
 	GenericInformation extends string,
 	const GenericValue extends unknown = undefined,
 >(

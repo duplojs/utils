@@ -2,15 +2,17 @@ import { type ObjectKey } from "@scripts/object/types/objectKey";
 
 export function isKeyof<
 	GenericObject extends object,
+	GenericKey extends ObjectKey,
 >(
 	obj: GenericObject,
-): (key: ObjectKey) => key is keyof GenericObject;
+): (key: GenericKey) => key is keyof GenericObject & GenericKey;
 export function isKeyof<
 	GenericObject extends object,
+	GenericKey extends ObjectKey,
 >(
-	key: ObjectKey,
+	key: GenericKey,
 	obj: GenericObject,
-): key is keyof GenericObject;
+): key is keyof GenericObject & GenericKey;
 export function isKeyof(...args: [ObjectKey, object] | [object]): any {
 	if (args.length === 1) {
 		const [obj] = args;

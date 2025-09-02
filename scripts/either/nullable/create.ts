@@ -1,13 +1,13 @@
-import { createNullableEmpty, type EitherNullableEmpty } from "./empty";
-import { createNullableFilled, type EitherNullableFilled } from "./filled";
+import { nullableEmpty, type EitherNullableEmpty } from "./empty";
+import { nullableFilled, type EitherNullableFilled } from "./filled";
 
-export function createNullable<
+export function nullable<
 	const GenericValue extends unknown = null,
 >(value?: GenericValue): GenericValue extends null
 	? EitherNullableEmpty
 	: EitherNullableFilled<GenericValue>;
-export function createNullable(value: unknown = null) {
+export function nullable(value: unknown = null) {
 	return value === null
-		? createNullableEmpty()
-		: createNullableFilled(value);
+		? nullableEmpty()
+		: nullableFilled(value);
 }

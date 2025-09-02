@@ -1,12 +1,12 @@
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createFail, createNullableEmpty, createNullableFilled, type EitherNullableFilled, whenIsLeft } from "@scripts/either";
+import { fail, nullableEmpty, nullableFilled, type EitherNullableFilled, whenIsLeft } from "@scripts/either";
 
 describe("whenEitherIsLeft", () => {
 	it("match", () => {
 		const either = true
-			? createNullableEmpty()
-			: createNullableFilled(true);
+			? nullableEmpty()
+			: nullableFilled(true);
 
 		const result = whenIsLeft(
 			either,
@@ -31,7 +31,7 @@ describe("whenEitherIsLeft", () => {
 	});
 
 	it("not match with right", () => {
-		const either = createNullableFilled(10);
+		const either = nullableFilled(10);
 
 		const result = whenIsLeft(
 			either,
@@ -58,7 +58,7 @@ describe("whenEitherIsLeft", () => {
 	it("not match with any value", () => {
 		const either = true
 			? 30
-			: createNullableEmpty();
+			: nullableEmpty();
 
 		const result = whenIsLeft(
 			either,
@@ -85,8 +85,8 @@ describe("whenEitherIsLeft", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? createNullableEmpty()
-				: createNullableFilled(true),
+				? nullableEmpty()
+				: nullableFilled(true),
 			whenIsLeft(
 				(value) => {
 					type check = ExpectType<

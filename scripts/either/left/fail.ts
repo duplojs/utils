@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
-import { createLeft, type EitherLeft } from "./create";
+import { left, type EitherLeft } from "./create";
 
 export interface EitherFail
 	extends EitherLeft<"fail", never>,
@@ -7,9 +7,9 @@ export interface EitherFail
 
 }
 
-export function createFail(): EitherFail {
+export function fail(): EitherFail {
 	return {
 		"kind-either-fail": null,
-		...createLeft("fail", undefined as never),
+		...left("fail", undefined as never),
 	};
 }

@@ -2,7 +2,7 @@
 
 import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
-import { createSuccess, type EitherSuccess } from "./success";
+import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
 
 type Either = EitherRight | EitherLeft;
@@ -316,7 +316,7 @@ export function rightPipe(
 ): any {
 	let acc: Either = isRight(input) || isLeft(input)
 		? input
-		: createSuccess(input);
+		: success(input);
 
 	for (const pipe of pipes) {
 		acc = pipe(acc.value);

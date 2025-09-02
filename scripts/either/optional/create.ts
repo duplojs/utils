@@ -1,13 +1,13 @@
-import { createOptionalEmpty, type EitherOptionalEmpty } from "./empty";
-import { createOptionalFilled, type EitherOptionalFilled } from "./filled";
+import { optionalEmpty, type EitherOptionalEmpty } from "./empty";
+import { optionalFilled, type EitherOptionalFilled } from "./filled";
 
-export function createOptional<
+export function optional<
 	const GenericValue extends unknown = undefined,
 >(value?: GenericValue): GenericValue extends undefined
 	? EitherOptionalEmpty
 	: EitherOptionalFilled<GenericValue>;
-export function createOptional(value: unknown) {
+export function optional(value: unknown) {
 	return value === undefined
-		? createOptionalEmpty()
-		: createOptionalFilled(value);
+		? optionalEmpty()
+		: optionalFilled(value);
 }

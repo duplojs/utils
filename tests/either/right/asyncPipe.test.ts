@@ -1,14 +1,14 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createFail, createFutureError, createSuccess, createFuture, type EitherError, type EitherFail, type EitherFutureError, rightAsyncPipe, type EitherSuccess } from "@scripts/either";
+import { fail, futureError, success, future, type EitherError, type EitherFail, type EitherFutureError, rightAsyncPipe, type EitherSuccess } from "@scripts/either";
 
 describe("eitherRightAsyncPipe", () => {
 	it("input future", async() => {
 		const result = rightAsyncPipe(
-			createFuture({ value: 10 }),
-			({ value }) => createSuccess(value),
+			future({ value: 10 }),
+			({ value }) => success(value),
 		);
 
-		expect(await result).toStrictEqual(createSuccess(10));
+		expect(await result).toStrictEqual(success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -19,11 +19,11 @@ describe("eitherRightAsyncPipe", () => {
 
 	it("input future with Promise", async() => {
 		const result = rightAsyncPipe(
-			createFuture(Promise.resolve({ value: 10 })),
-			({ value }) => createSuccess(value),
+			future(Promise.resolve({ value: 10 })),
+			({ value }) => success(value),
 		);
 
-		expect(await result).toStrictEqual(createSuccess(10));
+		expect(await result).toStrictEqual(success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -34,11 +34,11 @@ describe("eitherRightAsyncPipe", () => {
 
 	it("input future with Promise error", async() => {
 		const result = rightAsyncPipe(
-			createFuture(Promise.reject(new Error()) as Promise<{ value: number }>),
-			({ value }) => createSuccess(value),
+			future(Promise.reject(new Error()) as Promise<{ value: number }>),
+			({ value }) => success(value),
 		);
 
-		expect(await result).toStrictEqual(createFutureError(new Error()));
+		expect(await result).toStrictEqual(futureError(new Error()));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -50,10 +50,10 @@ describe("eitherRightAsyncPipe", () => {
 	it("input object", async() => {
 		const result = rightAsyncPipe(
 			{ value: 10 },
-			({ value }) => createSuccess(value),
+			({ value }) => success(value),
 		);
 
-		expect(await result).toStrictEqual(createSuccess(10));
+		expect(await result).toStrictEqual(success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -66,16 +66,16 @@ describe("eitherRightAsyncPipe", () => {
 		const result = rightAsyncPipe(
 			true
 				? { value: 10 }
-				: createFail(),
-			({ value }) => createSuccess(value),
-			(value) => createSuccess(value * 2),
-			(value) => createFuture(value ^ 4),
-			(value) => createSuccess(value - 4),
-			(value) => createFuture(value / 2),
-			(value) => createSuccess(value + 1),
+				: fail(),
+			({ value }) => success(value),
+			(value) => success(value * 2),
+			(value) => future(value ^ 4),
+			(value) => success(value - 4),
+			(value) => future(value / 2),
+			(value) => success(value + 1),
 		);
 
-		expect(await result).toStrictEqual(createSuccess(7));
+		expect(await result).toStrictEqual(success(7));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -87,17 +87,17 @@ describe("eitherRightAsyncPipe", () => {
 	it("input object with 6 pipe and one error", async() => {
 		const result = rightAsyncPipe(
 			{ value: 10 },
-			({ value }) => createFuture(value),
-			(value) => createSuccess(value * 2),
+			({ value }) => future(value),
+			(value) => success(value * 2),
 			(value) => true
-				? createFail()
-				: createSuccess(value ^ 4),
-			(value) => createSuccess(value - 4),
-			(value) => createFuture(value / 2),
-			(value) => createSuccess(value + 1),
+				? fail()
+				: success(value ^ 4),
+			(value) => success(value - 4),
+			(value) => future(value / 2),
+			(value) => success(value + 1),
 		);
 
-		expect(await result).toStrictEqual(createFail());
+		expect(await result).toStrictEqual(fail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,

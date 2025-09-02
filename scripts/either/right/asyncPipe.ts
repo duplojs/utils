@@ -2,8 +2,8 @@
 import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
 import { type MaybeFutureEither } from "../future/MaybeFutureEither";
-import { createFuture, type Future } from "../future";
-import { createSuccess, type EitherSuccess } from "./success";
+import { future, type Future } from "../future";
+import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
 import { type AnyValue } from "@scripts/common";
 
@@ -338,7 +338,7 @@ export function rightAsyncPipe(
 	input: AnyValue,
 	...pipes: EitherRightAsyncPipeFunction[]
 ): Future<any> {
-	return createFuture(
+	return future(
 		(async() => {
 			const awaitedInput = await input;
 
@@ -348,7 +348,7 @@ export function rightAsyncPipe(
 
 			let acc: Either = isRight(awaitedInput)
 				? awaitedInput
-				: createSuccess(awaitedInput);
+				: success(awaitedInput);
 
 			for (const pipe of pipes) {
 				acc = await pipe(acc.value);

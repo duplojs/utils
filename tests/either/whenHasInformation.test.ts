@@ -1,10 +1,10 @@
 import { pipe, type ExpectType } from "@scripts/common";
-import { createBool, createLeft, createRight, type EitherBoolTruthy, type EitherLeft, whenHasInformation } from "@scripts/either";
+import { bool, left, right, type EitherBoolTruthy, type EitherLeft, whenHasInformation } from "@scripts/either";
 
 describe("whenHasInformation", () => {
 	it("whenHasInformation match with information", () => {
 		const result = whenHasInformation(
-			true ? createRight("right", true) : createLeft("left"),
+			true ? right("right", true) : left("left"),
 			"right",
 			(value) => {
 				type check = ExpectType<
@@ -28,7 +28,7 @@ describe("whenHasInformation", () => {
 
 	it("whenHasInformation match with multi information", () => {
 		const result = whenHasInformation(
-			true ? createLeft("left") : createRight("right", true),
+			true ? left("left") : right("right", true),
 			["right", "left"],
 			(value) => {
 				type check = ExpectType<
@@ -52,7 +52,7 @@ describe("whenHasInformation", () => {
 
 	it("whenHasInformation not match", () => {
 		const result = whenHasInformation(
-			true ? createLeft("left") : createRight("right", true),
+			true ? left("left") : right("right", true),
 			"right",
 			(value) => {
 				type check = ExpectType<
@@ -65,7 +65,7 @@ describe("whenHasInformation", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(createLeft("left"));
+		expect(result).toStrictEqual(left("left"));
 
 		type check = ExpectType<
 			typeof result,
@@ -76,14 +76,14 @@ describe("whenHasInformation", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			true ? createRight("right", true) : createLeft("left"),
+			true ? right("right", true) : left("left"),
 			whenHasInformation(
 				"right",
-				createBool,
+				bool,
 			),
 		);
 
-		expect(result).toStrictEqual(createBool(true));
+		expect(result).toStrictEqual(bool(true));
 
 		type check = ExpectType<
 			typeof result,

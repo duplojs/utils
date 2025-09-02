@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/max-params */
+import { type EscapeVoid } from "./types";
 import { type AnyFunction } from "./types/anyFunction";
 import { type AnyValue } from "./types/anyValue";
 
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
 ): GenericOutputPipe1;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -20,9 +21,9 @@ export function pipe<
 ): GenericOutputPipe2;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -31,10 +32,10 @@ export function pipe<
 ): GenericOutputPipe3;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -44,11 +45,11 @@ export function pipe<
 ): GenericOutputPipe4;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -59,12 +60,12 @@ export function pipe<
 ): GenericOutputPipe5;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
+	GenericOutputPipe6 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -76,13 +77,13 @@ export function pipe<
 ): GenericOutputPipe6;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
+	GenericOutputPipe6 extends AnyValue | EscapeVoid,
+	GenericOutputPipe7 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -95,14 +96,14 @@ export function pipe<
 ): GenericOutputPipe7;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
+	GenericOutputPipe6 extends AnyValue | EscapeVoid,
+	GenericOutputPipe7 extends AnyValue | EscapeVoid,
+	GenericOutputPipe8 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -116,15 +117,15 @@ export function pipe<
 ): GenericOutputPipe8;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
+	GenericOutputPipe6 extends AnyValue | EscapeVoid,
+	GenericOutputPipe7 extends AnyValue | EscapeVoid,
+	GenericOutputPipe8 extends AnyValue | EscapeVoid,
+	GenericOutputPipe9 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,
@@ -139,16 +140,16 @@ export function pipe<
 ): GenericOutputPipe9;
 export function pipe<
 	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe1 extends AnyValue | EscapeVoid,
+	GenericOutputPipe2 extends AnyValue | EscapeVoid,
+	GenericOutputPipe3 extends AnyValue | EscapeVoid,
+	GenericOutputPipe4 extends AnyValue | EscapeVoid,
+	GenericOutputPipe5 extends AnyValue | EscapeVoid,
+	GenericOutputPipe6 extends AnyValue | EscapeVoid,
+	GenericOutputPipe7 extends AnyValue | EscapeVoid,
+	GenericOutputPipe8 extends AnyValue | EscapeVoid,
+	GenericOutputPipe9 extends AnyValue | EscapeVoid,
+	GenericOutputPipe10 extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
 	pipe1: (input: GenericInput) => GenericOutputPipe1,

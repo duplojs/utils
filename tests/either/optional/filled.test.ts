@@ -1,10 +1,10 @@
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createOptionalEmpty, type EitherOptionalEmpty, type EitherOptionalFilled, createOptionalFilled, isOptionalFilled, whenIsOptionalFilled, createOk, type EitherOk } from "@scripts/either";
+import { optionalEmpty, type EitherOptionalEmpty, type EitherOptionalFilled, optionalFilled, isOptionalFilled, whenIsOptionalFilled, ok, type EitherOk } from "@scripts/either";
 
 describe("EitherOptionalFilled", () => {
 	it("create", () => {
-		const either = createOptionalFilled(10);
+		const either = optionalFilled(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-filled": null,
@@ -22,7 +22,7 @@ describe("EitherOptionalFilled", () => {
 	});
 
 	it("isEitherOptionalFilled return true", () => {
-		const either = createOptionalFilled(10) as EitherOptionalEmpty | EitherOptionalFilled;
+		const either = optionalFilled(10) as EitherOptionalEmpty | EitherOptionalFilled;
 
 		const predicate = isOptionalFilled(either);
 
@@ -38,7 +38,7 @@ describe("EitherOptionalFilled", () => {
 	});
 
 	it("isEitherOptionalFilled return false", () => {
-		const either = createOptionalEmpty() as EitherOptionalEmpty | EitherOptionalFilled;
+		const either = optionalEmpty() as EitherOptionalEmpty | EitherOptionalFilled;
 
 		const predicate = isOptionalFilled(either);
 
@@ -47,8 +47,8 @@ describe("EitherOptionalFilled", () => {
 
 	it("whenEitherIsOptionalFilled match", () => {
 		const either = true
-			? createOptionalFilled(10)
-			: createOptionalEmpty();
+			? optionalFilled(10)
+			: optionalEmpty();
 
 		const result = whenIsOptionalFilled(
 			either,
@@ -73,7 +73,7 @@ describe("EitherOptionalFilled", () => {
 	});
 
 	it("whenEitherIsOptionalFilled not match with left", () => {
-		const either = createOptionalEmpty();
+		const either = optionalEmpty();
 
 		const result = whenIsOptionalFilled(
 			either,
@@ -99,8 +99,8 @@ describe("EitherOptionalFilled", () => {
 
 	it("whenEitherIsOptionalFilled not match with right", () => {
 		const either = true
-			? createOk()
-			: createOptionalFilled(10);
+			? ok()
+			: optionalFilled(10);
 
 		const result = whenIsOptionalFilled(
 			either,
@@ -169,7 +169,7 @@ describe("EitherOptionalFilled", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(createOptionalEmpty());
+		expect(result).toStrictEqual(optionalEmpty());
 
 		type check = ExpectType<
 			typeof result,
@@ -181,8 +181,8 @@ describe("EitherOptionalFilled", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? createOptionalFilled(true)
-				: createOptionalEmpty(),
+				? optionalFilled(true)
+				: optionalEmpty(),
 			whenIsOptionalFilled(
 				(value) => {
 					type check = ExpectType<

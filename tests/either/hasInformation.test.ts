@@ -1,10 +1,10 @@
 import { type ExpectType } from "@scripts/common";
-import { createFail, createOk, type EitherOk, hasInformation } from "@scripts/either";
+import { fail, ok, type EitherOk, hasInformation } from "@scripts/either";
 
 it("hasInformation", () => {
 	const either = true
-		? createOk()
-		: createFail();
+		? ok()
+		: fail();
 
 	const boolean = hasInformation(either, "ok");
 

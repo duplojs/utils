@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
-import { createLeft, type EitherLeft } from "./create";
+import { left, type EitherLeft } from "./create";
 
 export interface EitherError<
 	GenericValue extends unknown = unknown,
@@ -8,13 +8,13 @@ export interface EitherError<
 
 }
 
-export function createError<
+export function error<
 	const GenericValue extends unknown,
 >(
 	value: GenericValue,
 ): EitherError<GenericValue> {
 	return {
 		"kind-either-error": null,
-		...createLeft("error", value),
+		...left("error", value),
 	};
 }

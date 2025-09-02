@@ -1,11 +1,11 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createFail, createFutureError, createFutureSuccess, createOk, createFuture, type EitherFail, type EitherFutureError, type EitherFutureSuccess, type EitherOk, Future, type FutureEitherAllResult } from "@scripts/either";
+import { fail, futureError, futureSuccess, ok, future, type EitherFail, type EitherFutureError, type EitherFutureSuccess, type EitherOk, Future, type FutureEitherAllResult } from "@scripts/either";
 
 describe("FutureEither", () => {
 	it("create instance with promise", async() => {
 		const result = new Future(Promise.resolve(1));
 
-		expect(await result).toStrictEqual(createFutureSuccess(1));
+		expect(await result).toStrictEqual(futureSuccess(1));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -17,7 +17,7 @@ describe("FutureEither", () => {
 	it("create instance with value", async() => {
 		const result = new Future(1);
 
-		expect(await result).toStrictEqual(createFutureSuccess(1));
+		expect(await result).toStrictEqual(futureSuccess(1));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -28,10 +28,10 @@ describe("FutureEither", () => {
 
 	it("create instance with promise right", async() => {
 		const result = new Future(
-			Promise.resolve(createOk()),
+			Promise.resolve(ok()),
 		);
 
-		expect(await result).toStrictEqual(createOk());
+		expect(await result).toStrictEqual(ok());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -41,9 +41,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with right", async() => {
-		const result = new Future(createOk());
+		const result = new Future(ok());
 
-		expect(await result).toStrictEqual(createOk());
+		expect(await result).toStrictEqual(ok());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -53,9 +53,9 @@ describe("FutureEither", () => {
 	});
 
 	it("create instance with left", async() => {
-		const result = new Future(createFail());
+		const result = new Future(fail());
 
-		expect(await result).toStrictEqual(createFail());
+		expect(await result).toStrictEqual(fail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -67,7 +67,7 @@ describe("FutureEither", () => {
 	it("create instance promise error", async() => {
 		const result = new Future(Promise.reject(new Error()));
 
-		expect(await result).toStrictEqual(createFutureError(new Error()));
+		expect(await result).toStrictEqual(futureError(new Error()));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
@@ -95,7 +95,7 @@ describe("FutureEither", () => {
 	});
 
 	it("createFutureEither", () => {
-		expect(createFuture(1)).instanceOf(Future);
+		expect(future(1)).instanceOf(Future);
 	});
 
 	it("then", async() => {
@@ -111,7 +111,7 @@ describe("FutureEither", () => {
 			});
 
 		expect(await result).toStrictEqual(
-			createFutureSuccess(2),
+			futureSuccess(2),
 		);
 
 		type check = ExpectType<
@@ -130,11 +130,11 @@ describe("FutureEither", () => {
 		]);
 
 		expect(await result).toStrictEqual(
-			createFutureSuccess([
-				createFutureSuccess(15),
-				createFutureSuccess({ test: 15 }),
-				createFutureSuccess("test"),
-				createFutureError(new Error()),
+			futureSuccess([
+				futureSuccess(15),
+				futureSuccess({ test: 15 }),
+				futureSuccess("test"),
+				futureError(new Error()),
 			]),
 		);
 

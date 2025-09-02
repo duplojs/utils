@@ -6,6 +6,6 @@ export type RequiredKeys<
 > = SimplifyTopLevel<
 	Required<
 		Pick<GenericObject, GenericKeys>
-	> &
-	GenericObject
+	>
+	& GenericObject
 >;

@@ -1,9 +1,9 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createNullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
+import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
 
 describe("createEitherNullable", () => {
 	it("create EitherNullableEmpty", () => {
-		const either = createNullable(null);
+		const either = nullable(null);
 
 		expect(either).toStrictEqual({
 			"kind-either-empty": null,
@@ -19,7 +19,7 @@ describe("createEitherNullable", () => {
 			"strict"
 		>;
 
-		expect(createNullable()).toStrictEqual({
+		expect(nullable()).toStrictEqual({
 			"kind-either-empty": null,
 			"kind-either-information": "nullable",
 			"kind-either-left": null,
@@ -29,7 +29,7 @@ describe("createEitherNullable", () => {
 	});
 
 	it("create EitherNullableFilled", () => {
-		const either = createNullable(10);
+		const either = nullable(10);
 
 		expect(either).toStrictEqual({
 			"kind-either-filled": null,
