@@ -20,3 +20,4 @@ export * from "./flat";
 export * from "./reverse";
 export * from "./join";
 export * from "./from";
+export * from "./fromAsync";
