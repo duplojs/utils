@@ -1,8 +1,8 @@
 type Sort = "asc" | "dsc";
 
-export function sortString(sort?: Sort): (array: string[]) => string[];
-export function sortString(array: string[], sort?: Sort): string[];
-export function sortString(...args: [string[], sort?: Sort] | [sort?: Sort]) {
+export function sortString(sort?: Sort): (array: readonly string[]) => string[];
+export function sortString(array: readonly string[], sort?: Sort): string[];
+export function sortString(...args: [readonly string[], sort?: Sort] | [sort?: Sort]) {
 	if (args[0] === undefined || typeof args[0] === "string") {
 		const [sort] = args;
 
@@ -13,13 +13,15 @@ export function sortString(...args: [string[], sort?: Sort] | [sort?: Sort]) {
 
 	return [...array].sort(
 		sort === "dsc"
-			// eslint-disable-next-line no-nested-ternary
-			? (first, second) => (first < second
-				? 1
-				: first > second
-					? -1
-					: 0
-			)
+			? (first, second) => {
+				if (first < second) {
+					return 1;
+				} else if (first > second) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
 			: undefined,
 	);
 }

@@ -2,15 +2,15 @@
 export function includes<
 	GenericArrayValue extends unknown,
 >(
-	value: GenericArrayValue,
-): (array: GenericArrayValue[]) => boolean;
+	value: NoInfer<GenericArrayValue>,
+): (array: readonly GenericArrayValue[]) => boolean;
 export function includes<
 	GenericArrayValue extends unknown,
 >(
-	array: GenericArrayValue[],
-	value: GenericArrayValue,
+	array: readonly GenericArrayValue[],
+	value: NoInfer<GenericArrayValue>,
 ): boolean;
-export function includes(...args: [unknown[], unknown] | [unknown]) {
+export function includes(...args: [readonly unknown[], unknown] | [unknown]) {
 	if (args.length === 1) {
 		const [value] = args;
 

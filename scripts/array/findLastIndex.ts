@@ -8,16 +8,16 @@ export function findLastIndex<
 	GenericElement extends unknown,
 >(
 	predicate: (element: GenericElement, params: ArrayFindLastIndexParams) => boolean,
-): (array: GenericElement[]) => number | undefined;
+): (array: readonly GenericElement[]) => number | undefined;
 
 export function findLastIndex<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	predicate: (element: GenericElement, params: ArrayFindLastIndexParams) => boolean,
 ): number | undefined;
 
-export function findLastIndex(...args: [unknown[], AnyFunction] | [AnyFunction]) {
+export function findLastIndex(...args: [readonly unknown[], AnyFunction] | [AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
 		return (array: unknown[]) => findLastIndex(array, predicate as never);

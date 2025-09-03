@@ -5,17 +5,17 @@ export function sort<GenericElement extends unknown>(
 		first: GenericElement,
 		second: GenericElement,
 	) => number,
-): (array: GenericElement[]) => GenericElement[];
+): (array: readonly GenericElement[]) => GenericElement[];
 
 export function sort<GenericElement extends unknown>(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	compareFn: (
 		first: GenericElement,
 		second: GenericElement,
 	) => number,
 ): GenericElement[];
 
-export function sort(...args: [AnyFunction] | [unknown[], AnyFunction]) {
+export function sort(...args: [AnyFunction] | [readonly unknown[], AnyFunction]) {
 	if (args.length === 1) {
 		const [compareFn] = args;
 		return (array: unknown[]) => sort(array, compareFn);

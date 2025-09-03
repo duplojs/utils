@@ -9,26 +9,26 @@ export function filter<
 	GenericOutput extends GenericElement,
 >(
 	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
-): (array: GenericElement[]) => GenericOutput[];
+): (array: readonly GenericElement[]) => GenericOutput[];
 export function filter<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
 ): GenericOutput[];
 export function filter<
 	GenericElement extends unknown,
 >(
 	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
-): (array: GenericElement[]) => GenericElement[];
+): (array: readonly GenericElement[]) => GenericElement[];
 export function filter<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
 ): GenericElement[];
-export function filter(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function filter(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;
 

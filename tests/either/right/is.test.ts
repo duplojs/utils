@@ -30,7 +30,7 @@ describe("isEitherRight", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherFail & EitherRight<string, unknown>,
+				never,
 				"strict"
 			>;
 		}
@@ -46,7 +46,7 @@ describe("isEitherRight", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherRight,
+				never,
 				"strict"
 			>;
 		}
@@ -62,7 +62,7 @@ describe("isEitherRight", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherRight,
+				never,
 				"strict"
 			>;
 		}

@@ -1,16 +1,16 @@
 export function push<
 	GenericElement extends unknown,
 >(
-	item: GenericElement
-): (array: GenericElement[]) => GenericElement[];
+	item: NoInfer<GenericElement>
+): (array: readonly GenericElement[]) => GenericElement[];
 export function push<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
-	item: GenericElement,
-	...items: GenericElement[]
+	array: readonly GenericElement[],
+	item: NoInfer<GenericElement>,
+	...items: NoInfer<GenericElement>[]
 ): GenericElement[];
-export function push(...args: [unknown[], unknown, ...unknown[]] | [unknown]) {
+export function push(...args: [readonly unknown[], unknown, ...unknown[]] | [unknown]) {
 	if (args.length === 1) {
 		const [item] = args as [unknown];
 

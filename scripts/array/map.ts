@@ -9,15 +9,15 @@ export function map<
 	GenericOutput extends unknown,
 >(
 	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
-): (array: GenericElement[]) => GenericOutput[];
+): (array: readonly GenericElement[]) => GenericOutput[];
 export function map<
 	GenericElement extends unknown,
 	GenericOutput extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
 ): GenericOutput[];
-export function map(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function map(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 		return (array: unknown[]) => map(array, theFunction);

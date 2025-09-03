@@ -70,7 +70,7 @@ export function whenHasInformation(
 			|| isRight(input)
 		) && formattedInformation.includes(input["kind-either-information"])
 	) {
-		return theFunction(input.value);
+		return theFunction((input as WrappedValue).value);
 	}
 
 	return input;

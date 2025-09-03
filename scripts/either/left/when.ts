@@ -29,7 +29,7 @@ export function whenIsLeft(...args: [unknown, AnyFunction] | [AnyFunction]): any
 	const [input, theFunction] = args;
 
 	if (isLeft(input)) {
-		return theFunction(input.value);
+		return theFunction((input as EitherLeft).value);
 	}
 
 	return input;

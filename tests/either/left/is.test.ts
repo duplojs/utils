@@ -46,7 +46,7 @@ describe("isEitherLeft", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherLeft,
+				never,
 				"strict"
 			>;
 		}
@@ -62,7 +62,7 @@ describe("isEitherLeft", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherLeft,
+				never,
 				"strict"
 			>;
 		}

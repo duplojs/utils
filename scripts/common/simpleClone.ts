@@ -13,7 +13,7 @@ export function simpleClone<
 	) {
 		return entries(unknownValue).reduce(
 			(pv, [key, value]) => {
-				pv[key] = simpleClone(value);
+				pv[key] = simpleClone(value) as never;
 				return pv;
 			},
 			{} as GenericObject,

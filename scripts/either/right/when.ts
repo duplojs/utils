@@ -29,7 +29,7 @@ export function whenIsRight(...args: [unknown, AnyFunction] | [AnyFunction]) {
 	const [input, theFunction] = args;
 
 	if (isRight(input)) {
-		return theFunction(input.value);
+		return theFunction((input as EitherRight).value);
 	}
 
 	return input;

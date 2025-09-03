@@ -3,10 +3,21 @@
 		"prefix": "tu",
 		"scope": "typescript",
 		"body": [
-			"import { pipe } from \"@scripts/common\";",
-			"",
 			"describe(\"$1\", () => {",
+			"\tit(\"$2\", () => {",
+			"\t\t$3",
+			"\t});",
 			"});"
+		],
+		"description": "template tu",
+	},
+	"test-tu-it": {
+		"prefix": "tuit",
+		"scope": "typescript",
+		"body": [
+			"it(\"$1\", () => {",
+			"\t$2",
+			"});",
 		],
 		"description": "template tu",
 	},

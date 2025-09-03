@@ -13,23 +13,24 @@ export interface ArrayGroupFunctionOutput<
 export interface ArrayGroupFunctionParams<
 	GenericElement extends unknown = unknown,
 > {
-	item: GenericElement;
+	element: GenericElement;
 	index: number;
 	output<
 		GenericGroupeName extends string,
+		GenericGroupeValue extends GenericElement,
 	>(
 		group: GenericGroupeName,
-		value: GenericElement
+		value: GenericGroupeValue
 	): ArrayGroupFunctionOutput<
 		GenericGroupeName,
-		GenericElement
+		GenericGroupeValue
 	>;
 }
 
 export type ArrayGroupResult<
 	GenericOutput extends ArrayGroupFunctionOutput,
 > = SimplifyTopLevel<{
-	[Output in GenericOutput as Output["group"]]: Output["value"][]
+	[Output in GenericOutput as Output["group"]]?: Output["value"][]
 }>;
 
 export function group<
@@ -39,17 +40,17 @@ export function group<
 	theFunction: (
 		params: ArrayGroupFunctionParams<GenericElement>
 	) => GenericOutput,
-): (array: GenericElement[]) => ArrayGroupResult<GenericOutput>;
+): (array: readonly GenericElement[]) => ArrayGroupResult<GenericOutput>;
 export function group<
 	GenericElement extends unknown,
 	GenericOutput extends ArrayGroupFunctionOutput,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	theFunction: (
 		params: ArrayGroupFunctionParams<GenericElement>
 	) => GenericOutput,
 ): ArrayGroupResult<GenericOutput>;
-export function group(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
+export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 		return (array: unknown[]) => group(array, theFunction);
@@ -59,26 +60,24 @@ export function group(...args: [unknown[], AnyFunction] | [AnyFunction]): any {
 	return reduce(
 		array,
 		reduce.from({}),
-		({ index, item, lastValue, mergeObject, next }) => {
+		({ index, element, lastValue, nextWithObject }) => {
 			const { group, value } = theFunction({
 				index,
-				item,
+				element,
 				output: (group: unknown, value: unknown) => ({
 					group,
 					value,
 				}),
 			});
 
-			return next(
-				mergeObject(
-					lastValue,
-					{
-						[group]: [
-							...(lastValue[group as never] ?? []),
-							value,
-						],
-					},
-				),
+			return nextWithObject(
+				lastValue,
+				{
+					[group]: [
+						...(lastValue[group as never] ?? []),
+						value,
+					],
+				},
 			);
 		},
 	) as never;

@@ -1,8 +1,8 @@
 type Sort = "asc" | "dsc";
 
-export function sortNumber(sort?: Sort): (array: number[]) => number[];
-export function sortNumber(array: number[], sort?: Sort): number[];
-export function sortNumber(...args: [number[], sort?: Sort] | [sort?: Sort]): any {
+export function sortNumber(sort?: Sort): (array: readonly number[]) => number[];
+export function sortNumber(array: readonly number[], sort?: Sort): number[];
+export function sortNumber(...args: [readonly number[], sort?: Sort] | [sort?: Sort]): any {
 	if (args[0] === undefined || typeof args[0] === "string") {
 		const [sort] = args;
 

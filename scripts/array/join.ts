@@ -2,26 +2,26 @@ export function join<
 	GenericElement extends unknown,
 >(
 	separator: string,
-): (array: GenericElement[]) => string;
+): (array: readonly GenericElement[]) => string;
 
 export function join<
 	GenericElement extends unknown,
->(): (array: GenericElement[]) => string;
+>(): (array: readonly GenericElement[]) => string;
 
 export function join<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	separator: string,
 ): string;
 
 export function join<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 ): string;
 
-export function join(...args: [unknown[], string ] | [unknown[]] | [string] | []) {
+export function join(...args: [readonly unknown[], string] | [readonly unknown[]] | [string] | []) {
 	if (args.length === 0) {
 		return (array: unknown[]) => join(array);
 	}
@@ -29,11 +29,11 @@ export function join(...args: [unknown[], string ] | [unknown[]] | [string] | []
 	if (args.length === 1) {
 		const [arrayOrSeparator] = args;
 
-		if (Array.isArray(arrayOrSeparator)) {
+		if (arrayOrSeparator instanceof Array) {
 			return arrayOrSeparator.join();
 		}
 
-		return (array: unknown[]) => join(array, arrayOrSeparator);
+		return (array: readonly unknown[]) => join(array, arrayOrSeparator);
 	}
 
 	const [array, separator] = args;

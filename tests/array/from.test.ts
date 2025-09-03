@@ -54,4 +54,14 @@ describe("from", () => {
 		);
 		expect(result).toBe("x0-y1-z2");
 	});
+
+	it("works with pipe and curry (long test)", () => {
+		const result = pipe(
+			["a", "b", "c"],
+			DArray.from(),
+			DArray.join("-"),
+		);
+
+		expect(result).toBe("a-b-c");
+	});
 });

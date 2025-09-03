@@ -3,18 +3,18 @@ export function spliceReplace<
 >(
 	indexFrom: number,
 	elements: GenericElement[],
-): (array: GenericElement[]) => GenericElement[];
+): (array: readonly GenericElement[]) => GenericElement[];
 
 export function spliceReplace<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	indexFrom: number,
 	elements: GenericElement[],
 ): GenericElement[];
 
 export function spliceReplace(
-	...args: [number, unknown[]] | [unknown[], number, unknown[]]
+	...args: [number, unknown[]] | [readonly unknown[], number, unknown[]]
 ) {
 	if (args.length === 2) {
 		const [indexFrom, elements] = args;

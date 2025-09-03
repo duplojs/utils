@@ -2,16 +2,16 @@ export function at<
 	GenericElement extends unknown,
 >(
 	index: number,
-): (array: GenericElement[]) => GenericElement | undefined;
+): (array: readonly GenericElement[]) => GenericElement | undefined;
 
 export function at<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	index: number,
 ): GenericElement | undefined;
 
-export function at(...args: [unknown[], number] | [number]) {
+export function at(...args: [readonly unknown[], number] | [number]) {
 	if (args.length === 1) {
 		const [index] = args;
 		return (array: unknown[]) => at(array, index);

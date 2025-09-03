@@ -8,16 +8,16 @@ export function findIndex<
 	GenericElement extends unknown,
 >(
 	predicate: (element: GenericElement, params: ArrayFindIndexParams) => boolean,
-): (array: GenericElement[]) => number | undefined;
+): (array: readonly GenericElement[]) => number | undefined;
 
 export function findIndex<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	predicate: (element: GenericElement, params: ArrayFindIndexParams) => boolean,
 ): number | undefined;
 
-export function findIndex(...args: [unknown[], AnyFunction] | [AnyFunction]) {
+export function findIndex(...args: [readonly unknown[], AnyFunction] | [AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
 		return (array: unknown[]) => findIndex(array, predicate);

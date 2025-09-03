@@ -1,16 +1,16 @@
 export function spliceDelete<GenericElement extends unknown>(
 	indexTo: number,
 	deleteCount: number,
-): (array: GenericElement[]) => GenericElement[];
+): (array: readonly GenericElement[]) => GenericElement[];
 
 export function spliceDelete<GenericElement extends unknown>(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	indexTo: number,
 	deleteCount: number,
 ): GenericElement[];
 
 export function spliceDelete(
-	...args: [number, number] | [unknown[], number, number]
+	...args: [number, number] | [readonly unknown[], number, number]
 ) {
 	if (args.length === 2) {
 		const [indexTo, deleteCount] = args;

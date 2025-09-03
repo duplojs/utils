@@ -11,17 +11,17 @@ export function some<
 		item: GenericElement,
 		params: ArraySomeParams
 	) => boolean,
-): (array: GenericElement[]) => boolean;
+): (array: readonly GenericElement[]) => boolean;
 export function some<
 	GenericElement extends unknown,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	predicate: (
 		item: GenericElement,
 		params: ArraySomeParams
 	) => boolean,
 ): boolean;
-export function some(...args: [AnyFunction] | [unknown[], AnyFunction]) {
+export function some(...args: [AnyFunction] | [readonly unknown[], AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
 

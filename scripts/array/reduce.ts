@@ -22,14 +22,14 @@ export interface ArrayReduceFunctionParams<
 	GenericElement extends unknown = unknown,
 	GenericOutput extends unknown = unknown,
 > {
-	item: GenericElement;
+	element: GenericElement;
 	index: number;
 	lastValue: GenericOutput;
-	mergeObject: GenericOutput extends object
+	nextWithObject: GenericOutput extends object
 		? (
 			object1: GenericOutput,
 			object2: Partial<GenericOutput>,
-		) => GenericOutput
+		) => ArrayReduceNext<GenericOutput>
 		: undefined;
 	next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
 	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
@@ -53,12 +53,12 @@ export function reduce<
 			Unwrap<GenericReduceFrom>
 		>
 	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
-): (array: GenericElement[]) => Unwrap<GenericReduceFrom>;
+): (array: readonly GenericElement[]) => Unwrap<GenericReduceFrom>;
 export function reduce<
 	GenericElement extends unknown,
-	GenericReduceFrom extends string | number | ArrayReduceFromResult,
+	GenericReduceFrom extends ArrayReduceFromResult,
 >(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
@@ -67,7 +67,7 @@ export function reduce<
 		>
 	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
 ): Unwrap<GenericReduceFrom>;
-export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, AnyFunction]): any {
+export function reduce(...args: [unknown, AnyFunction] | [readonly unknown[], unknown, AnyFunction]): any {
 	if (args.length === 2) {
 		const [startValue, theFunction] = args;
 
@@ -83,16 +83,18 @@ export function reduce(...args: [unknown, AnyFunction] | [unknown[], unknown, An
 	let lastValue = unwrap(startValue);
 
 	for (let index = 0; index < array.length; index++) {
-		const item = array[index]!;
+		const element = array[index]!;
 
 		const result = theFunction({
-			item,
+			element,
 			index,
 			lastValue,
-			mergeObject: (
+			nextWithObject: (
 				(object1: object, object2: object) => ({
-					...object1,
-					...object2,
+					"-next": {
+						...object1,
+						...object2,
+					},
 				})
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),

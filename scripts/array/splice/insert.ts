@@ -1,16 +1,16 @@
 export function spliceInsert<GenericElement extends unknown>(
 	indexFrom: number,
 	elements: GenericElement[],
-): (array: GenericElement[]) => GenericElement[];
+): (array: readonly GenericElement[]) => GenericElement[];
 
 export function spliceInsert<GenericElement extends unknown>(
-	array: GenericElement[],
+	array: readonly GenericElement[],
 	indexFrom: number,
 	elements: GenericElement[],
 ): GenericElement[];
 
 export function spliceInsert(
-	...args: [number, unknown[]] | [unknown[], number, unknown[]]
+	...args: [number, unknown[]] | [readonly unknown[], number, unknown[]]
 ) {
 	if (args.length === 2) {
 		const [indexFrom, elements] = args;
