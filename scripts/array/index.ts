@@ -21,3 +21,4 @@ export * from "./reverse";
 export * from "./join";
 export * from "./from";
 export * from "./fromAsync";
+export * from "./of";
