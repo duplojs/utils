@@ -5,3 +5,4 @@ export * from "./fromEntries";
 export * from "./hasKeys";
 export * from "./keys";
 export * from "./values";
+export * from "./getProperty";

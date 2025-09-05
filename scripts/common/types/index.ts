@@ -13,4 +13,5 @@ export * from "./simplifyType";
 export * from "./simplifyTypeForce";
 export * from "./unionToIntersection";
 export * from "./unionToTuple";
+export * from "./isUnion";
 
