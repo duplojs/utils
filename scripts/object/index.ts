@@ -6,3 +6,4 @@ export * from "./hasKeys";
 export * from "./keys";
 export * from "./values";
 export * from "./getProperty";
+export * from "./transformProperties";

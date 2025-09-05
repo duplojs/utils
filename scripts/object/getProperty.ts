@@ -1,4 +1,3 @@
-import { type SimplifyTopLevel } from "@scripts/common";
 import { type PartialKeys, type ObjectKey } from "./types";
 import { type UnionObjectToIntersection } from "./types/UnionObjectToIntersection";
 
@@ -6,21 +5,19 @@ type MergeTopLevelUnionObject<
 	GenericObject extends object,
 	GenericFullObjectKeys extends keyof UnionObjectToIntersection<GenericObject>
 	= keyof UnionObjectToIntersection<GenericObject>,
-> = SimplifyTopLevel<
-	PartialKeys<
-		{
-			[Prop in GenericFullObjectKeys]: (
-				GenericObject extends object
-					? Prop extends keyof GenericObject
-						? GenericObject[Prop]
-						: never
+> = PartialKeys<
+	{
+		[Prop in GenericFullObjectKeys]: (
+			GenericObject extends object
+				? Prop extends keyof GenericObject
+					? GenericObject[Prop]
 					: never
-			)
-		},
-		Exclude<
-			GenericFullObjectKeys,
-			keyof GenericObject
-		>
+				: never
+		)
+	},
+	Exclude<
+		GenericFullObjectKeys,
+		keyof GenericObject
 	>
 >;
 
