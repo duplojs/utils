@@ -7,3 +7,4 @@ export * from "./keys";
 export * from "./values";
 export * from "./getProperty";
 export * from "./transformProperties";
+export * from "./transformProperty";
