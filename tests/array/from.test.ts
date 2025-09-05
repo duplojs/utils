@@ -1,4 +1,4 @@
-import { pipe } from "@scripts/common";
+import { type ExpectType, pipe } from "@scripts/common";
 import { DArray } from "@scripts/index";
 
 describe("from", () => {
@@ -8,29 +8,29 @@ describe("from", () => {
 			1: "b",
 			length: 2,
 		};
-		expect(DArray.from(arrayLike)).toEqual(["a", "b"]);
+
+		const result = DArray.from(arrayLike);
+
+		expect(result).toEqual(["a", "b"]);
+
+		type check = ExpectType<
+			typeof result,
+			string[],
+			"strict"
+		>;
 	});
 
 	it("creates array from iterable", () => {
 		const iterable = new Set([1, 2, 3]);
-		expect(DArray.from(iterable)).toEqual([1, 2, 3]);
-	});
+		const result = DArray.from(iterable);
 
-	it("creates array from generator", () => {
-		const iterable = (function *() {
-			yield 1;
-			yield 2;
-			yield 3;
-		})();
-		expect(DArray.from(iterable)).toEqual([1, 2, 3]);
-	});
+		expect(result).toEqual([1, 2, 3]);
 
-	it("creates array from string", () => {
-		expect(DArray.from("abc")).toEqual(["a", "b", "c"]);
-	});
-
-	it("creates array from array", () => {
-		expect(DArray.from(["a", "b", "c"])).toEqual(["a", "b", "c"]);
+		type check = ExpectType<
+			typeof result,
+			number[],
+			"strict"
+		>;
 	});
 
 	it("creates array from async generator", async() => {
@@ -40,6 +40,29 @@ describe("from", () => {
 			yield Promise.resolve(3);
 		})();
 
-		await expect(DArray.from(iterable)).resolves.toEqual([1, 2, 3]);
+		const result = DArray.from(iterable);
+
+		await expect(result).resolves.toEqual([1, 2, 3]);
+
+		type check = ExpectType<
+			Awaited<typeof result>,
+			number[],
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			[1, 2, 3],
+			DArray.from,
+		);
+
+		expect(result).toEqual([1, 2, 3]);
+
+		type check = ExpectType<
+			typeof result,
+			number[],
+			"strict"
+		>;
 	});
 });

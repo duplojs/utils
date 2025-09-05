@@ -1,27 +1,21 @@
 export function from<
-	GenericElement extends unknown,
+	const GenericArray extends(
+		| ArrayLike<unknown>
+		| Iterable<unknown>
+		| AsyncIterable<unknown>
+	),
 >(
-	input: ArrayLike<GenericElement>,
-): GenericElement[];
-
-export function from<
-	GenericElement extends unknown,
->(
-	input: Iterable<GenericElement>,
-): GenericElement[];
-
-export function from<
-	GenericElement extends unknown,
->(
-	input: AsyncIterable<GenericElement>,
-): Promise<GenericElement[]>;
-
-export function from(
-	input: ArrayLike<unknown> | Iterable<unknown> | AsyncIterable<unknown>,
-): any {
+	input: GenericArray,
+): GenericArray extends AsyncIterable<infer InferredValue>
+		? Promise<InferredValue[]>
+		: GenericArray extends Iterable<infer InferredValue>
+			? InferredValue[]
+			: GenericArray extends ArrayLike<infer InferredValue>
+				? InferredValue[]
+				: never {
 	if (typeof input === "object" && Symbol.asyncIterator in input) {
-		return Array.fromAsync(input);
+		return Array.fromAsync(input) as never;
 	}
 
-	return Array.from(input);
+	return Array.from(input) as never;
 }
