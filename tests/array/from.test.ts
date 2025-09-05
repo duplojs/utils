@@ -33,6 +33,19 @@ describe("from", () => {
 		>;
 	});
 
+	it("creates array from string", () => {
+		const iterable = "test";
+		const result = DArray.from(iterable);
+
+		expect(result).toEqual(["t", "e", "s", "t"]);
+
+		type check = ExpectType<
+			typeof result,
+			string[],
+			"strict"
+		>;
+	});
+
 	it("creates array from async generator", async() => {
 		const iterable = (async function *() {
 			yield await Promise.resolve(1);
