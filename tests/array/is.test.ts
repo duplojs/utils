@@ -11,6 +11,14 @@ describe("is", () => {
 		const value = "duplojs";
 		const result = DArray.is(value);
 		expect(result).toBe(false);
+
+		if (result) {
+			type check = ExpectType<
+			typeof value,
+				never,
+				"strict"
+			>;
+		}
 	});
 
 	it("must be an empty array", () => {
@@ -20,14 +28,18 @@ describe("is", () => {
 	});
 
 	it("should validate the type predicate", () => {
-		const value: number | string[] = [];
+		const value = [] as null | string[];
+
 		const result = DArray.is(value);
+
 		expect(result).toBe(true);
 
-		type check = ExpectType<
+		if (result) {
+			type check = ExpectType<
 			typeof value,
-			string[],
-			"strict"
-		>;
+				string[],
+				"strict"
+			>;
+		}
 	});
 });
