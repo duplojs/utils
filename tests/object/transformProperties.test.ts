@@ -1,4 +1,4 @@
-import { DObject, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DObject, pipe, type ExpectType } from "@scripts/index";
 
 describe("transformProperties", () => {
 	it("basic usage", () => {
@@ -6,10 +6,9 @@ describe("transformProperties", () => {
 			{
 				prop1: 1,
 				prop2: "test",
-				prop3: [],
+				prop3: [1] as const,
 			},
-			{
-				prop1: (value) => {
+			({ transformValue }) => transformValue("prop1", (value) => {
 					type check = ExpectType<
 						typeof value,
 						number,
@@ -17,23 +16,22 @@ describe("transformProperties", () => {
 					>;
 
 					return `wow${value}`;
-				},
-				prop3: undefined,
-			},
+			})
+				.transformValue("prop3", DArray.shift),
 		);
 
 		expect(result).toStrictEqual({
 			prop1: "wow1",
 			prop2: "test",
-			prop3: undefined,
+			prop3: [],
 		});
 
 		type check = ExpectType<
 			typeof result,
 			{
-				prop1: string;
-				prop3: undefined;
+				prop1: number;
 				prop2: string;
+				prop3: [];
 			},
 			"strict"
 		>;
@@ -46,9 +44,9 @@ describe("transformProperties", () => {
 				prop2: "test",
 				prop3: [],
 			},
-			DObject.transformProperties({
-				prop1: () => "wow",
-			}),
+			DObject.transformProperties(
+				({ transformValue }) => transformValue("prop1", () => "wow"),
+			),
 		);
 
 		expect(result).toStrictEqual({
