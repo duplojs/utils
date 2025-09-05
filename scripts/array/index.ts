@@ -33,3 +33,4 @@ export * from "./indexOf";
 export * from "./slice";
 export * from "./fill";
 export * from "./set";
+export * from "./concat";
