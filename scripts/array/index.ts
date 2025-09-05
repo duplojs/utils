@@ -23,3 +23,4 @@ export * from "./from";
 export * from "./first";
 export * from "./last";
 export * from "./flatMap";
+export * from "./shift";
