@@ -28,3 +28,4 @@ export * from "./unshift";
 export * from "./pop";
 export * from "./reduceRight";
 export * from "./every";
+export * from "./lastIndexOf";
