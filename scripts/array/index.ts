@@ -27,3 +27,4 @@ export * from "./shift";
 export * from "./unshift";
 export * from "./pop";
 export * from "./reduceRight";
+export * from "./every";

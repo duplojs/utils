@@ -1,36 +1,36 @@
 import { type AnyFunction } from "@scripts/common";
 
-interface ArraySomeParams {
+interface ArrayEveryParams {
 	index: number;
 }
 
-export function some<
+export function every<
 	GenericElement extends unknown,
 >(
 	predicate: (
 		element: GenericElement,
-		params: ArraySomeParams
+		params: ArrayEveryParams
 	) => boolean,
 ): (array: readonly GenericElement[]) => boolean;
 
-export function some<
+export function every<
 	GenericElement extends unknown,
 >(
 	array: readonly GenericElement[],
 	predicate: (
 		element: GenericElement,
-		params: ArraySomeParams
+		params: ArrayEveryParams
 	) => boolean,
 ): boolean;
 
-export function some(...args: [AnyFunction] | [readonly unknown[], AnyFunction]) {
+export function every(...args: [AnyFunction] | [readonly unknown[], AnyFunction]) {
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => some(array, predicate as never);
+		return (array: unknown[]) => every(array, predicate as never);
 	}
 
 	const [array, predicate] = args;
 
-	return array.some((element, index) => predicate(element, { index }));
+	return array.every((element, index) => predicate(element, { index }));
 }
