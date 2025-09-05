@@ -171,4 +171,40 @@ describe("createEitherBool", () => {
 			"strict"
 		>;
 	});
+
+	it("bool large string", () => {
+		const either = bool("test" as string);
+
+		expect(either).toStrictEqual({
+			"kind-either-bool": null,
+			"kind-either-truthy": null,
+			"kind-either-information": "bool",
+			"kind-either-right": null,
+			value: "test",
+		});
+
+		type check = ExpectType<
+			typeof either,
+			EitherBoolTruthy<string> | EitherBoolFalsy<"">,
+			"strict"
+		>;
+	});
+
+	it("bool large number", () => {
+		const either = bool(1 as number);
+
+		expect(either).toStrictEqual({
+			"kind-either-bool": null,
+			"kind-either-truthy": null,
+			"kind-either-information": "bool",
+			"kind-either-right": null,
+			value: 1,
+		});
+
+		type check = ExpectType<
+			typeof either,
+			EitherBoolTruthy<number> | EitherBoolFalsy<0>,
+			"strict"
+		>;
+	});
 });
