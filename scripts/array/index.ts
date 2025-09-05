@@ -31,3 +31,5 @@ export * from "./every";
 export * from "./lastIndexOf";
 export * from "./indexOf";
 export * from "./slice";
+export * from "./fill";
+export * from "./set";
