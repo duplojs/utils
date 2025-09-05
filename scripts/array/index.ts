@@ -34,3 +34,4 @@ export * from "./slice";
 export * from "./fill";
 export * from "./set";
 export * from "./concat";
+export * from "./copyWithin";

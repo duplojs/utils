@@ -1,7 +1,7 @@
-import { DArray, type ExpectType } from "@scripts/index";
+import { DArray, type ExpectType, pipe } from "@scripts/index";
 
 describe("concat", () => {
-	it("should concatenate two arrays of numbers", () => {
+	it("should concatenate", () => {
 		const result = DArray.concat([1, 2], [3, 4]);
 		expect(result).toEqual([1, 2, 3, 4]);
 
@@ -12,20 +12,14 @@ describe("concat", () => {
 		>;
 	});
 
-	it("should concatenate multiple arrays of strings", () => {
-		const result = DArray.concat(["a"], ["b", "c"], ["d"]);
-		expect(result).toEqual(["a", "b", "c", "d"]);
-
-		type check = ExpectType<
-			typeof result,
-			string[],
-			"strict"
-		>;
-	});
-
-	it("should concatenate arrays and individual values", () => {
-		const result = DArray.concat(10, 20, [30, 40], 50);
-		expect(result).toEqual([10, 20, 30, 40, 50]);
+	it("use in pipe", () => {
+		const result = pipe(
+			[1, 2, 3, 4],
+			DArray.map((value) => value * 2),
+			DArray.filter((value) => value > 4),
+			DArray.concat([10, 12]),
+		);
+		expect(result).toEqual([6, 8, 10, 12]);
 
 		type check = ExpectType<
 			typeof result,

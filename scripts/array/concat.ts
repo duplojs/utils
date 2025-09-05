@@ -1,8 +1,21 @@
 export function concat<
 	GenericElement extends unknown,
->(first: (GenericElement | GenericElement[]), ...rest: (GenericElement | GenericElement[])[]): GenericElement[] {
-	if (first instanceof Array) {
-		return first.concat(...rest);
+>(
+	elements: GenericElement[],
+): (array: GenericElement[]) => GenericElement[];
+
+export function concat<
+	GenericElement extends unknown,
+>(
+	array: GenericElement[],
+	elements: GenericElement[],
+): GenericElement[];
+
+export function concat(...args: [unknown[], unknown[]] | [unknown[]]) {
+	if (args.length === 1) {
+		const [elements] = args;
+		return (array: unknown[]) => concat(array, elements);
 	}
-	return [first].concat(...rest);
+	const [array, elements] = args;
+	return array.concat(elements);
 }
