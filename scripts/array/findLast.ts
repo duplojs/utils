@@ -10,6 +10,7 @@ export function findLast<
 >(
 	predicate: (element: GenericElement, params: ArrayFindLastParams) => element is GenericOutput,
 ): (array: readonly GenericElement[]) => GenericOutput | undefined;
+
 export function findLast<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
@@ -17,17 +18,20 @@ export function findLast<
 	array: readonly GenericElement[],
 	predicate: (element: GenericElement, params: ArrayFindLastParams) => element is GenericOutput,
 ): GenericOutput | undefined;
+
 export function findLast<
 	GenericElement extends unknown,
 >(
 	predicate: (element: GenericElement, params: ArrayFindLastParams) => boolean,
 ): (array: readonly GenericElement[]) => GenericElement | undefined;
+
 export function findLast<
 	GenericElement extends unknown,
 >(
 	array: readonly GenericElement[],
 	predicate: (element: GenericElement, params: ArrayFindLastParams) => boolean,
 ): GenericElement | undefined;
+
 export function findLast(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;
