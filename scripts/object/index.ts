@@ -8,3 +8,4 @@ export * from "./values";
 export * from "./getProperty";
 export * from "./transformProperties";
 export * from "./transformProperty";
+export * from "./to";
