@@ -1,23 +1,5 @@
 import { type AnyFunction, type SimplifyTopLevel } from "@scripts/common";
 
-function createShape(
-	input: unknown,
-	lastValue: object,
-): ShapeParams {
-	return {
-		"-objectOutput": lastValue,
-		addEntry(key, theFunction) {
-			return createShape(
-				input,
-				{
-					...lastValue,
-					[key]: theFunction(input),
-				},
-			) as never;
-		},
-	};
-}
-
 interface ShapeParams<
 	GenericInput extends unknown = unknown,
 	GenericObjectOutput extends object = object,
@@ -30,10 +12,28 @@ interface ShapeParams<
 		theFunction: (input: GenericInput) => GenericValue
 	): ShapeParams<
 		GenericInput,
-		& GenericObjectOutput
+		& Omit<GenericObjectOutput, GenericKey>
 		& { [Prop in GenericKey]: GenericValue }
 	>;
 	"-objectOutput": GenericObjectOutput;
+}
+
+function createShapeParams(
+	input: unknown,
+	lastValue: object,
+): ShapeParams {
+	return {
+		"-objectOutput": lastValue,
+		addEntry(key, theFunction) {
+			return createShapeParams(
+				input,
+				{
+					...lastValue,
+					[key]: theFunction(input),
+				},
+			) as never;
+		},
+	};
 }
 
 export function to<
@@ -65,6 +65,6 @@ export function to(
 	const [input, shape] = args;
 
 	return shape(
-		createShape(input, {}),
+		createShapeParams(input, {}),
 	)["-objectOutput"];
 }
