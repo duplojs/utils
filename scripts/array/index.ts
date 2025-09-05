@@ -26,3 +26,4 @@ export * from "./flatMap";
 export * from "./shift";
 export * from "./unshift";
 export * from "./pop";
+export * from "./reduceRight";
