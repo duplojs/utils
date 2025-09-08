@@ -1,3 +1,5 @@
+export * from "./types";
+
 export * from "./filter";
 export * from "./find";
 export * from "./findLast";
@@ -12,7 +14,6 @@ export * from "./some";
 export * from "./sort";
 export * from "./splice";
 export * from "./is";
-export * from "./toString";
 export * from "./at";
 export * from "./findIndex";
 export * from "./findLastIndex";
