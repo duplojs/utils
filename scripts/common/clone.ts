@@ -1,4 +1,4 @@
-import { type ObjectKey } from "@scripts/object/types/objectKey";
+import { type ObjectKey } from "@scripts/common/types/objectKey";
 import { entries } from "../object/entries";
 import { type SimplifyTypeForce } from "@scripts/common/types/simplifyTypeForce";
 

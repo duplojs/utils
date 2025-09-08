@@ -14,8 +14,8 @@ export * from "./simplifyTypeForce";
 export * from "./unionToIntersection";
 export * from "./unionToTuple";
 export * from "./isUnion";
-export * from "../../array/types/shiftTuple";
-export * from "../../array/types/popTuple";
 export * from "./anyTuple";
-export * from "../../array/types/reverseTuple";
+export * from "./anyObject";
+export * from "./objectEntry";
+export * from "./objectKey";
 

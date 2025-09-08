@@ -33,7 +33,6 @@ describe("isKeyof", () => {
 				DEither.isRight,
 				DEither.error,
 			),
-
 		);
 
 		expect(result).toStrictEqual(DEither.success("test"));

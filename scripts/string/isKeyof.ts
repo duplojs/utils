@@ -1,4 +1,4 @@
-import { type ObjectKey } from "@scripts/object/types/objectKey";
+import { type ObjectKey } from "@scripts/common/types/objectKey";
 
 export function isKeyof<
 	GenericObject extends object,
