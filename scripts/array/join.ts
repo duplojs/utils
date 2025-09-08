@@ -1,39 +1,39 @@
+import { type IsEqual, type ShiftTuple } from "@scripts/common";
+import { type Adaptor } from "@scripts/common/types/adaptor";
+import { type AnyTuple } from "@scripts/common/types/anyTuple";
+
+type ComputeResult<
+	GenericArray extends readonly string[],
+	GenericSeparator extends string,
+> = GenericArray extends AnyTuple
+	? IsEqual<GenericArray["length"], 1> extends true
+		? GenericArray[0]
+		: `${GenericArray[0]}${GenericSeparator}${ComputeResult<Adaptor<ShiftTuple<GenericArray>, readonly string[]>, GenericSeparator>}`
+	: string;
+
 export function join<
-	GenericElement extends unknown,
+	GenericArray extends readonly string[],
+	GenericSeparator extends string,
+>(separator: GenericSeparator): (array: GenericArray) => ComputeResult<
+	GenericArray,
+	GenericSeparator
+>;
+
+export function join<
+	GenericArray extends readonly string[],
+	GenericSeparator extends string,
 >(
-	separator: string,
-): (array: readonly GenericElement[]) => string;
+	array: GenericArray,
+	separator: GenericSeparator,
+): ComputeResult<
+	GenericArray,
+	GenericSeparator
+>;
 
-export function join<
-	GenericElement extends unknown,
->(): (array: readonly GenericElement[]) => string;
-
-export function join<
-	GenericElement extends unknown,
->(
-	array: readonly GenericElement[],
-	separator: string,
-): string;
-
-export function join<
-	GenericElement extends unknown,
->(
-	array: readonly GenericElement[],
-): string;
-
-export function join(...args: [readonly unknown[], string] | [readonly unknown[]] | [string] | []) {
-	if (args.length === 0) {
-		return (array: unknown[]) => join(array);
-	}
-
+export function join(...args: [readonly unknown[], string] | [string]) {
 	if (args.length === 1) {
-		const [arrayOrSeparator] = args;
-
-		if (arrayOrSeparator instanceof Array) {
-			return arrayOrSeparator.join();
-		}
-
-		return (array: readonly unknown[]) => join(array, arrayOrSeparator);
+		const [separator] = args;
+		return (array: string[]) => join(array, separator);
 	}
 
 	const [array, separator] = args;
