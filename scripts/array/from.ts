@@ -14,7 +14,15 @@ export function from<
 				? InferredValue[]
 				: never {
 	if (typeof input === "object" && Symbol.asyncIterator in input) {
-		return Array.fromAsync(input) as never;
+		return (async() => {
+			const array: unknown[] = [];
+
+			for await (const element of input as AsyncGenerator) {
+				array.push(element);
+			}
+
+			return array;
+		})() as never;
 	}
 
 	return Array.from(input) as never;
