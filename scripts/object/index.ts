@@ -11,3 +11,4 @@ export * from "./transformProperty";
 export * from "./to";
 export * from "./assign";
 export * from "./override";
+export * from "./omit";
