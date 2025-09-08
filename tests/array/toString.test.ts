@@ -12,7 +12,7 @@ describe("toString", () => {
 	it("works with pipe (curried)", () => {
 		const result = pipe(
 			[1, 2, 3],
-			DArray.toString(),
+			DArray.toString,
 		);
 		expect(result).toBe("1,2,3");
 	});
