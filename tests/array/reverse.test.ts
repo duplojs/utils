@@ -1,9 +1,17 @@
-import { pipe } from "@scripts/common";
+import { type ExpectType, pipe } from "@scripts/common";
 import { DArray } from "@scripts";
 
 describe("reverse", () => {
 	it("reverse simple array", () => {
-		expect(DArray.reverse([1, 2, 3])).toEqual([3, 2, 1]);
+		const result = DArray.reverse([1, 2, 3]);
+
+		expect(result).toEqual([3, 2, 1]);
+
+		type check = ExpectType<
+			typeof result,
+			number[],
+			"strict"
+		>;
 	});
 
 	it("reverse void array", () => {
@@ -12,10 +20,16 @@ describe("reverse", () => {
 
 	it("works with pipe (curried)", () => {
 		const result = pipe(
-			[1, 2, 3],
-			DArray.reverse(),
+			[1, 2, 3] as const,
+			DArray.reverse,
 		);
 
 		expect(result).toEqual([3, 2, 1]);
+
+		type check = ExpectType<
+			typeof result,
+			[3, 2, 1],
+			"strict"
+		>;
 	});
 });

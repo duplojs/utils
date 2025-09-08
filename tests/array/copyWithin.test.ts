@@ -22,7 +22,7 @@ describe("copyWithin", () => {
 		const result = pipe(
 			[1, 2, 3, 4, 5],
 			DArray.copyWithin(2, 0, 2),
-			DArray.reverse(),
+			DArray.reverse,
 			DArray.map((value) => value * 2),
 		);
 		expect(result).toEqual([10, 4, 2, 4, 2]);

@@ -1,17 +1,12 @@
-export function reverse<
-	GenericElement extends unknown,
->(): (array: readonly GenericElement[]) => GenericElement[];
+import { type AnyTuple } from "@scripts/common/types/anyTuple";
+import { type ReverseTuple } from "@scripts/common/types/reverseTuple";
 
 export function reverse<
-	GenericElement extends unknown,
->(array: readonly GenericElement[]): GenericElement[];
-
-export function reverse(...args: [readonly unknown[]] | [undefined] | []) {
-	if (args.length === 0 || args[0] === undefined) {
-		return (array: unknown[]) => reverse(array);
-	}
-
-	const [array] = args;
-
-	return [...array].reverse();
+	GenericArray extends readonly unknown[],
+>(
+	array: GenericArray,
+): GenericArray extends AnyTuple
+		? ReverseTuple<GenericArray>
+		: GenericArray {
+	return [...array].reverse() as never;
 }
