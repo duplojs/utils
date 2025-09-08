@@ -1,5 +1,4 @@
-import { type AnyFunction, type SimplifyTopLevel } from "@scripts/common";
-import { type ObjectKey } from "./types";
+import { type AnyFunction, type SimplifyTopLevel, type ObjectKey } from "@scripts/common";
 
 export function transformProperty<
 	GenericObject extends object,

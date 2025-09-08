@@ -1,4 +1,4 @@
-import { type ObjectKey } from "./types";
+import { type ObjectKey } from "@scripts/common";
 import { type RequiredKeys } from "./types/requiredKeys";
 
 export function hasKeys<

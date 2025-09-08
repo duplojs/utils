@@ -1,4 +1,5 @@
-import { type PartialKeys, type ObjectKey } from "./types";
+import { type ObjectKey } from "@scripts/common";
+import { type PartialKeys } from "./types";
 import { type UnionObjectToIntersection } from "./types/UnionObjectToIntersection";
 
 type MergeTopLevelUnionObject<

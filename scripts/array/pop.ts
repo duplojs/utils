@@ -1,4 +1,5 @@
-import { type AnyTuple, type PopTuple } from "@scripts/common";
+import { type AnyTuple } from "@scripts/common";
+import { type PopTuple } from "./types";
 
 export function pop<
 	const GenericArray extends readonly unknown[],

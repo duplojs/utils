@@ -1,5 +1,4 @@
-import { type AnyValue, type SimplifyTopLevel } from "@scripts/common";
-import { type ObjectKey, type ObjectEntry } from "./types";
+import { type ObjectEntry, type ObjectKey, type AnyValue, type SimplifyTopLevel } from "@scripts/common";
 
 type ComputeEntries<
 	GenericEntry extends ObjectEntry,

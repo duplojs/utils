@@ -1,6 +1,7 @@
-import { type IsEqual, type ShiftTuple } from "@scripts/common";
+import { type IsEqual } from "@scripts/common";
 import { type Adaptor } from "@scripts/common/types/adaptor";
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
+import { type ShiftTuple } from "./types";
 
 type ComputeResult<
 	GenericArray extends readonly string[],
