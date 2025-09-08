@@ -2,6 +2,7 @@ import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createKind, type Kind } from "@scripts/common/kind";
 import { type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
+import { override } from "@scripts/object";
 
 interface ArrayReduceNext<
 	GenericOutput extends unknown,
@@ -91,10 +92,7 @@ export function reduce(...args: [unknown, AnyFunction] | [readonly unknown[], un
 			lastValue,
 			nextWithObject: (
 				(object1: object, object2: object) => ({
-					"-next": {
-						...object1,
-						...object2,
-					},
+					"-next": override(object1, object2),
 				})
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
