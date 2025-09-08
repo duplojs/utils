@@ -1,5 +1,5 @@
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
-import { type ReverseTuple } from "@scripts/common/types/reverseTuple";
+import { type ReverseTuple } from "@scripts/array";
 
 export function reverse<
 	GenericArray extends readonly unknown[],
