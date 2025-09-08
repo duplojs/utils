@@ -21,8 +21,6 @@ export * from "./flat";
 export * from "./reverse";
 export * from "./join";
 export * from "./from";
-export * from "./first";
-export * from "./last";
 export * from "./flatMap";
 export * from "./shift";
 export * from "./unshift";
