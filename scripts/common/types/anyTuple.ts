@@ -1,1 +1,3 @@
-export type AnyTuple = readonly [any, ...any[]];
+export type AnyTuple<
+	GenericValue extends unknown = any,
+> = readonly [GenericValue, ...GenericValue[]];

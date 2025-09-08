@@ -22,3 +22,4 @@ export * from "./unwrap";
 export * from "./useAsyncLoop";
 export * from "./useAsyncRetry";
 export * from "./wrapValue";
+export * from "./toString";
