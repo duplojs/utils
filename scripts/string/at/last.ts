@@ -1,19 +1,9 @@
-type Last<
-	StringGeneric extends string,
-> = StringGeneric extends ""
-	? undefined
-	: StringGeneric extends `${string}${infer LeftInfered}${infer RightInfered}`
-		? RightInfered extends ""
-			? LeftInfered
-			: Last<`${LeftInfered}${RightInfered}`>
-		: StringGeneric extends `${infer SingleInfered}`
-			? SingleInfered
-			: string | undefined;
+import { type Last } from "../types";
 
 export function last<
-	GenericString extends string,
->(string: GenericString): Last<GenericString> {
+	GenericValue extends string,
+>(string: GenericValue): Last<GenericValue> {
 	return string.length > 0
-		? string[string.length - 1] as Last<GenericString>
+		? string[string.length - 1] as Last<GenericValue>
 		: undefined as never;
 }

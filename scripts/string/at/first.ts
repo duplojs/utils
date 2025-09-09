@@ -1,12 +1,4 @@
-type First<
-	StringGeneric extends string,
-> = string extends StringGeneric
-	? string | undefined
-	: StringGeneric extends ""
-		? undefined
-		: StringGeneric extends `${infer FirstInfered}${string}`
-			? FirstInfered
-			: string;
+import { type First } from "../types";
 
 export function first<
 	GenericString extends string,
