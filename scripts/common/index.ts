@@ -24,3 +24,4 @@ export * from "./useAsyncRetry";
 export * from "./wrapValue";
 export * from "./toString";
 export * from "./innerPipe";
+export * from "./asyncInnerPipe";
