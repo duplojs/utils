@@ -3,6 +3,7 @@ import { createKind, type Kind } from "@scripts/common/kind";
 import { type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
+import { type ToLargeEnsemble } from "@scripts/common";
 
 interface ArrayReduceNext<
 	GenericOutput extends unknown,
@@ -43,11 +44,37 @@ export interface ArrayReduceFromResult<
 
 }
 
+interface GetStartValueParams {
+	from<
+		GenericValue extends unknown,
+	>(value: GenericValue): ArrayReduceFromResult<GenericValue>;
+}
+
+const getStartValueParams: GetStartValueParams = {
+	from: (value) => ({
+		...createKind("array-reduce-from"),
+		value,
+	}),
+};
+
+export function reduce<
+	GenericElement extends unknown,
+	GenericReduceFrom extends number | string | bigint | boolean,
+>(
+	startValue: GenericReduceFrom,
+	theFunction: (
+		params: ArrayReduceFunctionParams<
+			GenericElement,
+			ToLargeEnsemble<GenericReduceFrom>
+		>
+	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
+): (array: readonly GenericElement[]) => ToLargeEnsemble<GenericReduceFrom>;
+
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends ArrayReduceFromResult,
 >(
-	startValue: GenericReduceFrom,
+	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
 			GenericElement,
@@ -55,12 +82,27 @@ export function reduce<
 		>
 	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
 ): (array: readonly GenericElement[]) => Unwrap<GenericReduceFrom>;
+
+export function reduce<
+	GenericElement extends unknown,
+	GenericReduceFrom extends number | string | bigint | boolean,
+>(
+	array: readonly GenericElement[],
+	startValue: GenericReduceFrom,
+	theFunction: (
+		params: ArrayReduceFunctionParams<
+			GenericElement,
+			ToLargeEnsemble<GenericReduceFrom>
+		>
+	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
+): ToLargeEnsemble<GenericReduceFrom>;
+
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends ArrayReduceFromResult,
 >(
 	array: readonly GenericElement[],
-	startValue: GenericReduceFrom,
+	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
 			GenericElement,
@@ -68,20 +110,28 @@ export function reduce<
 		>
 	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
 ): Unwrap<GenericReduceFrom>;
-export function reduce(...args: [unknown, AnyFunction] | [readonly unknown[], unknown, AnyFunction]): any {
+
+export function reduce(
+	...args: [unknown, AnyFunction]
+		| [readonly unknown[], unknown, AnyFunction]
+): any {
 	if (args.length === 2) {
-		const [startValue, theFunction] = args;
+		const [getStartValue, theFunction] = args;
 
 		return (array: unknown[]) => reduce(
 			array,
-			startValue as never,
+			getStartValue as never,
 			theFunction as never,
 		);
 	}
 
-	const [array, startValue, theFunction] = args;
+	const [array, getStartValue, theFunction] = args;
 
-	let lastValue = unwrap(startValue);
+	let lastValue = unwrap(
+		typeof getStartValue === "function"
+			? (getStartValue as AnyFunction)(getStartValueParams)
+			: getStartValue,
+	);
 
 	for (let index = 0; index < array.length; index++) {
 		const element = array[index]!;
@@ -108,12 +158,3 @@ export function reduce(...args: [unknown, AnyFunction] | [readonly unknown[], un
 
 	return lastValue;
 }
-
-reduce.from = function<
-	GenericValue extends unknown,
->(value: GenericValue): ArrayReduceFromResult<GenericValue> {
-	return {
-		...createKind("array-reduce-from"),
-		value,
-	};
-};

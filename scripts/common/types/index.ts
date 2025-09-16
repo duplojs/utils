@@ -18,4 +18,5 @@ export * from "./anyTuple";
 export * from "./anyObject";
 export * from "./objectEntry";
 export * from "./objectKey";
+export * from "./toLargeEnsemble";
 

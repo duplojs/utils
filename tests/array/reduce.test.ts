@@ -1,4 +1,3 @@
-import { reduce } from "@scripts/array";
 import { DArray, pipe, type ExpectType } from "@scripts/index";
 
 describe("reduce", () => {
@@ -7,7 +6,7 @@ describe("reduce", () => {
 
 		const result = DArray.reduce(
 			input,
-			reduce.from(0),
+			0,
 			({ element, lastValue, next }) => next(element + lastValue),
 		);
 
@@ -23,7 +22,7 @@ describe("reduce", () => {
 	it("array to objet", () => {
 		const result = DArray.reduce(
 			[1, 2, 3],
-			reduce.from<Record<number, null>>({}),
+			({ from }) => from<Record<number, null>>({}),
 			({ element, lastValue, nextWithObject }) => nextWithObject(
 				lastValue,
 				{ [element.toString()]: null },
@@ -46,7 +45,7 @@ describe("reduce", () => {
 	it("exit before end", () => {
 		const result = DArray.reduce(
 			[1, 2, 3],
-			reduce.from<Record<number, null>>({}),
+			({ from }) => from<Record<number, null>>({}),
 			({ element, lastValue, exit, nextWithObject }) => element > 1
 				? exit({ 100: null })
 				: nextWithObject(
@@ -70,7 +69,7 @@ describe("reduce", () => {
 		const result = pipe(
 			[1, 2, 3],
 			DArray.reduce(
-				reduce.from(0),
+				0,
 				({ element, lastValue, next }) => next(element + lastValue),
 			),
 		);

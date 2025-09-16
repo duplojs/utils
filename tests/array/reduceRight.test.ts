@@ -6,7 +6,7 @@ describe("reduceRight", () => {
 
 		const result = DArray.reduceRight(
 			input,
-			DArray.reduceRight.from(""),
+			"",
 			({ element, lastValue, next }) => next(lastValue + element),
 		);
 
@@ -22,7 +22,7 @@ describe("reduceRight", () => {
 	it("array to objet", () => {
 		const result = DArray.reduceRight(
 			["one", "two", "three"],
-			DArray.reduceRight.from<Record<string, null>>({}),
+			({ from }) => from<Record<string, null>>({}),
 			({ element, lastValue, index, nextWithObject }) => nextWithObject(
 				lastValue,
 				{ [`${element}${index}`]: null },
@@ -45,7 +45,7 @@ describe("reduceRight", () => {
 	it("exit before end", () => {
 		const result = DArray.reduceRight(
 			[1, 2, 3],
-			DArray.reduceRight.from<Record<number, null>>({}),
+			({ from }) => from<Record<number, null>>({}),
 			({ element, lastValue, exit, nextWithObject }) => element < 3
 				? exit({ 100: null })
 				: nextWithObject(
@@ -69,7 +69,7 @@ describe("reduceRight", () => {
 		const result = pipe(
 			["a", "b", "c"],
 			DArray.reduceRight(
-				DArray.reduceRight.from(""),
+				"",
 				({ element, lastValue, next }) => next(lastValue + element),
 			),
 		);

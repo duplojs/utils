@@ -59,7 +59,7 @@ export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]
 
 	return reduce(
 		array,
-		reduce.from({}),
+		({ from }) => from({}),
 		({ index, element, lastValue, nextWithObject }) => {
 			const { group, value } = theFunction({
 				index,
