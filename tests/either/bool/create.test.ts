@@ -1,9 +1,11 @@
+import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { bool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
+import { DArray, DEither } from "@scripts/index";
 
 describe("createEitherBool", () => {
 	it("falsy undefined", () => {
-		const either = bool();
+		const either = bool(undefined);
 
 		expect(either).toStrictEqual({
 			"kind-either-bool": null,
@@ -18,14 +20,6 @@ describe("createEitherBool", () => {
 			EitherBoolFalsy<undefined>,
 			"strict"
 		>;
-
-		expect(bool()).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			value: undefined,
-		});
 	});
 
 	it("falsy null", () => {
@@ -204,6 +198,22 @@ describe("createEitherBool", () => {
 		type check = ExpectType<
 			typeof either,
 			EitherBoolTruthy<number> | EitherBoolFalsy<0>,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			["test"],
+			DArray.find((value) => value === "toto"),
+			DEither.bool,
+		);
+
+		expect(result).toStrictEqual(DEither.bool(undefined));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherBoolFalsy<undefined> | DEither.EitherBoolTruthy<"toto">,
 			"strict"
 		>;
 	});

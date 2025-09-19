@@ -1,5 +1,6 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
+import { DArray, DEither, pipe } from "@scripts/index";
 
 describe("createEitherNullable", () => {
 	it("create EitherNullableEmpty", () => {
@@ -18,14 +19,6 @@ describe("createEitherNullable", () => {
 			EitherNullableEmpty,
 			"strict"
 		>;
-
-		expect(nullable()).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "nullable",
-			"kind-either-left": null,
-			"kind-either-nullable": null,
-			value: null,
-		});
 	});
 
 	it("create EitherNullableFilled", () => {
@@ -42,6 +35,21 @@ describe("createEitherNullable", () => {
 		type check = ExpectType<
 			typeof either,
 			EitherNullableFilled<10>,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			"test" as string | null,
+			DEither.nullable,
+		);
+
+		expect(result).toStrictEqual(DEither.nullable("test"));
+
+		type check = ExpectType<
+			typeof result,
+			EitherNullableEmpty | EitherNullableFilled<string>,
 			"strict"
 		>;
 	});

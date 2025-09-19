@@ -1,5 +1,7 @@
+import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { optional, type EitherOptionalFilled, type EitherOptionalEmpty } from "@scripts/either";
+import { DEither } from "@scripts/index";
 
 describe("createEitherOptional", () => {
 	it("create EitherOptionalEmpty", () => {
@@ -18,14 +20,6 @@ describe("createEitherOptional", () => {
 			EitherOptionalEmpty,
 			"strict"
 		>;
-
-		expect(optional()).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "optional",
-			"kind-either-left": null,
-			"kind-either-optional": null,
-			value: undefined,
-		});
 	});
 
 	it("create EitherOptionalFilled", () => {
@@ -42,6 +36,21 @@ describe("createEitherOptional", () => {
 		type check = ExpectType<
 			typeof either,
 			EitherOptionalFilled<10>,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			"test" as string | undefined,
+			DEither.optional,
+		);
+
+		expect(result).toStrictEqual(DEither.optional("test"));
+
+		type check = ExpectType<
+			typeof result,
+			EitherOptionalEmpty | EitherOptionalFilled<string>,
 			"strict"
 		>;
 	});

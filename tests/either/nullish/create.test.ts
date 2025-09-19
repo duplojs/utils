@@ -1,5 +1,7 @@
+import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullish, type EitherNullishFilled, type EitherNullishEmpty } from "@scripts/either";
+import { DEither } from "@scripts/index";
 
 describe("createEitherNullish", () => {
 	it("nullish undefined", () => {
@@ -18,14 +20,6 @@ describe("createEitherNullish", () => {
 			EitherNullishEmpty<undefined>,
 			"strict"
 		>;
-
-		expect(nullish()).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "nullish",
-			"kind-either-left": null,
-			"kind-either-nullish": null,
-			value: undefined,
-		});
 	});
 
 	it("nullish null", () => {
@@ -60,6 +54,21 @@ describe("createEitherNullish", () => {
 		type check = ExpectType<
 			typeof either,
 			EitherNullishFilled<10>,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			"test" as string | null,
+			DEither.nullish,
+		);
+
+		expect(result).toStrictEqual(DEither.nullish("test"));
+
+		type check = ExpectType<
+			typeof result,
+			EitherNullishEmpty<null> | EitherNullishFilled<string>,
 			"strict"
 		>;
 	});
