@@ -1,5 +1,4 @@
 import { sleep } from "./sleep";
-import { type AnyValue } from "./types/anyValue";
 
 interface CreateAsyncRetryOptions {
 	maxRetry: number;

@@ -1,5 +1,5 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { createAsyncRetry, useAsyncRetry } from "@scripts/common/useAsyncRetry";
+import { createAsyncRetry, useAsyncRetry } from "@scripts/common/asyncRetry";
 
 describe("useAsyncRetry", () => {
 	it("success retry", async() => {

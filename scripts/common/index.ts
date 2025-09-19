@@ -20,7 +20,7 @@ export * from "./toTransform";
 export * from "./toWrappedValue";
 export * from "./unwrap";
 export * from "./asyncLoop";
-export * from "./useAsyncRetry";
+export * from "./asyncRetry";
 export * from "./wrapValue";
 export * from "./toString";
 export * from "./innerPipe";
