@@ -4,3 +4,4 @@ export * from "./asyncMap";
 export * from "./filter";
 export * from "./asyncFilter";
 export * from "./reduce";
+export * from "./asyncReduce";
