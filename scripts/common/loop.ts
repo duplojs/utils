@@ -25,19 +25,18 @@ export interface LoopParams<
 	>(output?: GenericOutput): LoopOutputExistResult<GenericOutput>;
 }
 
-export async function useAsyncLoop<
+export function loop<
 	GenericRawExitOutput extends AnyValue = undefined,
 	GenericRawNextOutput extends AnyValue = undefined,
 >(
-	loop: (params: LoopParams<GenericRawNextOutput>) => Promise<
-		| LoopOutputNextResult<GenericRawNextOutput | undefined>
-		| LoopOutputExistResult<GenericRawExitOutput>
-	>,
-): Promise<GenericRawExitOutput> {
+	loop: (params: LoopParams<GenericRawNextOutput>) =>
+		| LoopOutputNextResult<GenericRawNextOutput>
+		| LoopOutputExistResult<GenericRawExitOutput>,
+): GenericRawExitOutput {
 	let previousOutput: any = undefined;
 
 	for (let count = 0; true; count++) {
-		const result = await loop({
+		const result = loop({
 			previousOutput,
 			count,
 			next: (data) => ({ "-nextData": data as any }),

@@ -1,9 +1,7 @@
-import { sleep } from "@scripts/common/sleep";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { type LoopParams, useAsyncLoop } from "@scripts/common/useAsyncLoop";
+import { sleep, type ExpectType, type LoopParams, asyncLoop } from "@scripts";
 
-it("useAsyncLoop", async() => {
-	const result = await useAsyncLoop(
+it("asyncLoop", async() => {
+	const result = await asyncLoop(
 		async({ next, exit, previousOutput }: LoopParams<number>) => {
 			await sleep();
 
