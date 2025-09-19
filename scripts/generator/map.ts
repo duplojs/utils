@@ -1,10 +1,14 @@
 import { type AnyFunction } from "@scripts/common";
 
+interface GeneratorMapParams {
+	index: number;
+}
+
 export function map<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,
 >(
-	theFunction: (arg: GenericInput) => GenericOutput
+	theFunction: (arg: GenericInput, params: GeneratorMapParams) => GenericOutput
 ): (iterator: Iterable<GenericInput>) => Generator<GenericOutput, unknown, unknown>;
 
 export function map<
@@ -12,7 +16,7 @@ export function map<
 	const GenericOutput extends unknown,
 >(
 	iterator: Iterable<GenericInput>,
-	theFunction: (arg: GenericInput) => GenericOutput
+	theFunction: (arg: GenericInput, params: GeneratorMapParams) => GenericOutput
 ): Generator<GenericOutput, unknown, unknown>;
 
 export function map(...args: [Iterable<unknown>, AnyFunction] | [AnyFunction]): any {
@@ -22,9 +26,11 @@ export function map(...args: [Iterable<unknown>, AnyFunction] | [AnyFunction]): 
 	}
 	const [iterator, theFunction] = args;
 
+	let index = 0;
 	return (function *() {
 		for (const element of iterator) {
-			yield theFunction(element);
+			yield theFunction(element, { index });
+			index++;
 		}
 	})();
 }

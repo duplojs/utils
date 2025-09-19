@@ -1,10 +1,14 @@
 import { type AnyFunction } from "@scripts/common";
 
+interface AsyncGeneratorMapParams {
+	index: number;
+}
+
 export function asyncMap<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,
 >(
-	theFunction: (arg: GenericInput) => Promise<GenericOutput>
+	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => Promise<GenericOutput>
 ): (iterator: AsyncIterable<GenericInput> | Iterable<GenericInput>) => AsyncGenerator<GenericOutput, unknown, unknown>;
 
 export function asyncMap<
@@ -12,7 +16,7 @@ export function asyncMap<
 	const GenericOutput extends unknown,
 >(
 	iterator: AsyncIterable<GenericInput> | Iterable<GenericInput>,
-	theFunction: (arg: GenericInput) => Promise<GenericOutput>
+	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => Promise<GenericOutput>
 ): AsyncGenerator<GenericOutput, unknown, unknown>;
 
 export function asyncMap(
@@ -25,9 +29,11 @@ export function asyncMap(
 	}
 	const [iterator, theFunction] = args;
 
+	let index = 0;
 	return (async function *() {
 		for await (const element of iterator) {
-			yield theFunction(element);
+			yield theFunction(element, { index });
+			index++;
 		}
 	})();
 }
