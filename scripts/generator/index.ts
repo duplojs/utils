@@ -5,3 +5,4 @@ export * from "./filter";
 export * from "./asyncFilter";
 export * from "./reduce";
 export * from "./asyncReduce";
+export * from "./loop";
