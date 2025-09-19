@@ -11,3 +11,6 @@ export * as DObject from "./object";
 
 export * as S from "./string";
 export * as DString from "./string";
+
+export * as G from "./generator";
+export * as DGenerator from "./generator";
