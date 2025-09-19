@@ -1,6 +1,6 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
-interface GeneratorFilterParams {
+interface AsyncGeneratorFilterParams {
 	index: number;
 }
 
@@ -8,7 +8,7 @@ export function asyncFilter<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
 >(
-	predicate: (item: GenericElement, params: GeneratorFilterParams) => item is GenericOutput,
+	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => item is GenericOutput,
 ): (
 	iterator: Iterable<GenericElement>
 	| AsyncIterable<GenericElement>
@@ -19,13 +19,13 @@ export function asyncFilter<
 	GenericOutput extends GenericElement,
 >(
 	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>,
-	predicate: (item: GenericElement, params: GeneratorFilterParams) => item is GenericOutput,
+	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => item is GenericOutput,
 ): AsyncGenerator<GenericOutput, unknown, unknown>;
 
 export function asyncFilter<
 	GenericElement extends unknown,
 >(
-	predicate: (item: GenericElement, params: GeneratorFilterParams) => boolean,
+	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => boolean,
 ): (
 	iterator: Iterable<GenericElement>
 	| AsyncIterable<GenericElement>
@@ -35,7 +35,7 @@ export function asyncFilter<
 	GenericElement extends unknown,
 >(
 	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>,
-	predicate: (item: GenericElement, params: GeneratorFilterParams) => boolean,
+	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => boolean,
 ): AsyncGenerator<GenericElement, unknown, unknown>;
 
 export function asyncFilter(
