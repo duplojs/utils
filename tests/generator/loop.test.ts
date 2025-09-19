@@ -1,4 +1,4 @@
-import { DArray, DGenerator } from "@scripts/index";
+import { DArray, DGenerator, type ExpectType } from "@scripts/index";
 
 it("generator loop", () => {
 	const result = DGenerator.loop(
@@ -20,4 +20,10 @@ it("generator loop", () => {
 	);
 
 	expect(DArray.from(result)).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+	type check = ExpectType<
+			typeof result,
+		Generator<number, unknown, unknown>,
+		"strict"
+	>;
 });
