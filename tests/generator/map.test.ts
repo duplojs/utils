@@ -1,4 +1,4 @@
-import { DGenerator, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DGenerator, pipe, type ExpectType } from "@scripts/index";
 
 describe("map", () => {
 	const input = new Set([{ type: "test" }, { type: "ok" }]);
@@ -6,7 +6,7 @@ describe("map", () => {
 	it("default usage", () => {
 		const result = DGenerator.map(input, ({ type }) => type);
 
-		expect([...result]).toStrictEqual(["test", "ok"]);
+		expect(DArray.from(result)).toStrictEqual(["test", "ok"]);
 
 		type check = ExpectType<
 			typeof result,
@@ -21,7 +21,7 @@ describe("map", () => {
 			DGenerator.map(({ type }) => type),
 		);
 
-		expect([...result]).toStrictEqual(["test", "ok"]);
+		expect(DArray.from(result)).toStrictEqual(["test", "ok"]);
 
 		type check = ExpectType<
 			typeof result,
