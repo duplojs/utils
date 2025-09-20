@@ -3,13 +3,13 @@ import { type AnyValue } from "@scripts/common";
 interface LoopOutputExistResult<
 	GenericOutput extends any,
 > {
-	"-exitData": GenericOutput;
+	"-exitData": GenericOutput | undefined;
 }
 
 interface LoopOutputNextResult<
 	GenericOutput extends any,
 > {
-	"-nextData": GenericOutput;
+	"-nextData": GenericOutput | undefined;
 }
 
 export interface GeneratorLoopParams<
@@ -31,8 +31,17 @@ export function *loop<
 >(
 	loop: (params: GeneratorLoopParams<GenericRawNextOutput>) =>
 		| LoopOutputNextResult<GenericRawNextOutput>
-		| LoopOutputExistResult<GenericRawExitOutput>,
-): Generator<GenericRawExitOutput | GenericRawNextOutput, unknown, unknown> {
+		| LoopOutputNextResult<undefined>
+		| LoopOutputExistResult<GenericRawExitOutput>
+		| LoopOutputExistResult<undefined>,
+): Generator<
+		Exclude<
+			GenericRawExitOutput | GenericRawNextOutput,
+			undefined
+		>,
+		unknown,
+		unknown
+	> {
 	let previousOutput: any = undefined;
 
 	for (let count = 0; true; count++) {
@@ -44,12 +53,17 @@ export function *loop<
 		});
 
 		if ("-exitData" in result) {
-			yield result["-exitData"];
+			if (result["-exitData"] !== undefined) {
+				yield result["-exitData"] as never;
+			}
 			break;
 		}
 
 		previousOutput = result["-nextData"];
-		yield result["-nextData"];
+
+		if (previousOutput !== undefined) {
+			yield previousOutput;
+		}
 	}
 
 	return;

@@ -4,13 +4,13 @@ import { type GeneratorLoopParams } from "./loop";
 interface LoopOutputExistResult<
 	GenericOutput extends any,
 > {
-	"-exitData": GenericOutput;
+	"-exitData": GenericOutput | undefined;
 }
 
 interface LoopOutputNextResult<
 	GenericOutput extends any,
 > {
-	"-nextData": GenericOutput;
+	"-nextData": GenericOutput | undefined;
 }
 
 export async function *asyncLoop<
@@ -19,9 +19,18 @@ export async function *asyncLoop<
 >(
 	loop: (params: GeneratorLoopParams<GenericRawNextOutput>) => Promise<
 		| LoopOutputNextResult<GenericRawNextOutput>
+		| LoopOutputNextResult<undefined>
 		| LoopOutputExistResult<GenericRawExitOutput>
+		| LoopOutputExistResult<undefined>
 	>,
-): AsyncGenerator<GenericRawExitOutput | GenericRawNextOutput, unknown, unknown> {
+): AsyncGenerator<
+		Exclude<
+			GenericRawExitOutput | GenericRawNextOutput,
+			undefined
+		>,
+		unknown,
+		unknown
+	> {
 	let previousOutput: any = undefined;
 
 	for (let count = 0; true; count++) {
@@ -33,12 +42,17 @@ export async function *asyncLoop<
 		});
 
 		if ("-exitData" in result) {
-			yield result["-exitData"];
+			if (result["-exitData"] !== undefined) {
+				yield result["-exitData"] as never;
+			}
 			break;
 		}
 
 		previousOutput = result["-nextData"];
-		yield result["-nextData"];
+
+		if (previousOutput !== undefined) {
+			yield previousOutput;
+		}
 	}
 
 	return;
