@@ -1,5 +1,3 @@
-import { type AnyValue } from "./types/anyValue";
-
 export interface WrappedValue<
 	GenericValue extends unknown = unknown,
 > {
@@ -7,7 +5,7 @@ export interface WrappedValue<
 }
 
 export function wrapValue<
-	GenericValue extends AnyValue,
+	const GenericValue extends unknown,
 >(value: GenericValue): WrappedValue<GenericValue> {
 	return {
 		value,

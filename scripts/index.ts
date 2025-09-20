@@ -17,3 +17,6 @@ export * as DString from "./string";
 
 export * as G from "./generator";
 export * as DGenerator from "./generator";
+
+export * as P from "./pattern";
+export * as DPattern from "./pattern";
