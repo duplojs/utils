@@ -36,3 +36,4 @@ export * from "./concat";
 export * from "./copyWithin";
 export * from "./findAndSet";
 export * from "./findAndSplice";
+export * from "./sum";
