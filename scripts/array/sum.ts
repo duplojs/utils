@@ -1,4 +1,4 @@
-export function sum(array: number[]): number {
+export function sum(array: readonly number[]): number {
 	let result = 0;
 
 	for (const number of array) {
