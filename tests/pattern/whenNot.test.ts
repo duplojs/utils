@@ -1,9 +1,10 @@
 import { pipe, type ExpectType } from "@scripts/common";
+import { whenNot } from "@scripts/common/whenNot";
 import { DPattern } from "@scripts/index";
 
-describe("pattern when", () => {
-	it("when match", () => {
-		const result = DPattern.when(
+describe("pattern whenNot", () => {
+	it("whenNot match", () => {
+		const result = DPattern.whenNot(
 			true
 				? "test"
 				: "toto",
@@ -14,7 +15,7 @@ describe("pattern when", () => {
 					"strict"
 				>;
 
-				return value === "test";
+				return value === "toto";
 			},
 			(value) => {
 				type check = ExpectType<
@@ -37,11 +38,11 @@ describe("pattern when", () => {
 	});
 
 	it("when not match", () => {
-		const result = DPattern.when(
+		const result = DPattern.whenNot(
 			true
 				? "test"
 				: "toto",
-			(value) => value === "toto",
+			(value) => value === "test",
 			(value) => {
 				type check = ExpectType<
 					typeof value,
@@ -66,31 +67,27 @@ describe("pattern when", () => {
 		const result = pipe(
 			true
 				? "test"
-				: 500,
-			DPattern.when(
+				: "toto",
+			DPattern.whenNot(
 				(value) => value === "test",
 				(value) => {
 					type check = ExpectType<
 						typeof value,
-						"test",
+						"toto",
 						"strict"
 					>;
 
 					return 10;
 				},
 			),
-			DPattern.when(
-				(value) => value === 500,
-				() => "ok",
-			),
-			DPattern.exhaustive,
+			DPattern.otherwise,
 		);
 
-		expect(result).toBe(10);
+		expect(result).toBe("test");
 
 		type check = ExpectType<
 			typeof result,
-			10 | "ok",
+			"test" | 10,
 			"strict"
 		>;
 	});

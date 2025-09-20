@@ -14,34 +14,8 @@ describe("whenNot", () => {
 					"strict"
 				>;
 
-				return value === "test";
+				return value === "toto";
 			},
-			(value) => {
-				type check = ExpectType<
-					typeof value,
-					"toto",
-					"strict"
-				>;
-
-				return 10;
-			},
-		);
-
-		expect(result).toBe("test");
-
-		type check = ExpectType<
-			typeof result,
-			"test" | 10,
-			"strict"
-		>;
-	});
-
-	it("when not match", () => {
-		const result = whenNot(
-			true
-				? "test"
-				: "toto",
-			(value) => value === "toto",
 			(value) => {
 				type check = ExpectType<
 					typeof value,
@@ -58,6 +32,32 @@ describe("whenNot", () => {
 		type check = ExpectType<
 			typeof result,
 			"toto" | 10,
+			"strict"
+		>;
+	});
+
+	it("when not match", () => {
+		const result = whenNot(
+			true
+				? "test"
+				: "toto",
+			(value) => value === "test",
+			(value) => {
+				type check = ExpectType<
+					typeof value,
+					"toto",
+					"strict"
+				>;
+
+				return 10;
+			},
+		);
+
+		expect(result).toBe("test");
+
+		type check = ExpectType<
+			typeof result,
+			"test" | 10,
 			"strict"
 		>;
 	});
