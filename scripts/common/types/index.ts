@@ -19,4 +19,7 @@ export * from "./anyObject";
 export * from "./objectEntry";
 export * from "./objectKey";
 export * from "./toLargeEnsemble";
+export * from "./deepPartial";
+export * from "./fixDeepFunctionInfer";
+export * from "./adaptor";
 

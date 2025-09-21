@@ -1,70 +1,51 @@
-import { type AnyFunction, type SimplifyTopLevel } from "@scripts/common";
+import { type Adaptor, type FixDeepFunctionInfer, type AnyFunction, type SimplifyTopLevel } from "@scripts/common";
 
-interface TransformersParams<
+type TransformObject<
 	GenericObjectInput extends object = object,
-	GenericObjectOutput extends object = object,
-> {
-	transformValue<
-		GenericKey extends keyof GenericObjectInput,
-		GenericValue extends unknown,
-	>(
-		key: GenericKey,
-		theFunction: (input: GenericObjectInput[GenericKey]) => GenericValue
-	): TransformersParams<
-		GenericObjectInput,
-		& Omit<GenericObjectInput, GenericKey>
-		& { [Prop in GenericKey]: GenericValue }
-	>;
-	"-objectOutput": GenericObjectOutput;
-}
+> = {
+	[Prop in keyof GenericObjectInput]?: (input: GenericObjectInput[Prop]) => unknown
+};
 
-function createTransformersParams(
-	input: object,
-	lastValue: object,
-): TransformersParams {
-	return {
-		"-objectOutput": lastValue,
-		transformValue(key, theFunction) {
-			return createTransformersParams(
-				input,
-				{
-					...lastValue,
-					[key]: theFunction(input[key]),
-				},
-			) as never;
-		},
-	};
-}
-
-export function transformProperties<
-	GenericObjectInput extends object = object,
-	GenericObjectOutput extends object = object,
->(
-	transformers: (
-		params: TransformersParams<
-			GenericObjectInput,
-			{}
+type ComputesResult<
+	GenericObjectInput extends object,
+	GenericTransformObject extends TransformObject,
+> = SimplifyTopLevel<(
+	& Omit<GenericObjectInput, keyof GenericTransformObject>
+	& {
+		[Prop in keyof GenericTransformObject]: ReturnType<
+			Adaptor<
+				GenericTransformObject[Prop],
+				AnyFunction
+			>
 		>
-	) => TransformersParams<GenericObjectInput, GenericObjectOutput>,
-): (obj: GenericObjectInput) => SimplifyTopLevel<GenericObjectOutput>;
+	}
+)>;
 
 export function transformProperties<
-	GenericObjectInput extends object = object,
-	GenericObjectOutput extends object = object,
+	GenericObjectInput extends object,
+	GenericTransformObject extends TransformObject<GenericObjectInput>,
+>(
+	transformObject: FixDeepFunctionInfer<
+		TransformObject<GenericObjectInput>,
+		GenericTransformObject
+	>,
+): (obj: GenericObjectInput) => ComputesResult<GenericObjectInput, GenericTransformObject>;
+
+export function transformProperties<
+	GenericObjectInput extends object,
+	GenericTransformObject extends TransformObject<GenericObjectInput>,
 >(
 	obj: GenericObjectInput,
-	transformers: (
-		params: TransformersParams<
-			GenericObjectInput,
-			{}
-		>
-	) => TransformersParams<GenericObjectInput, GenericObjectOutput>,
-): SimplifyTopLevel<GenericObjectOutput>;
+	transformObject: FixDeepFunctionInfer<
+		TransformObject<GenericObjectInput>,
+		GenericTransformObject
+	>,
+): ComputesResult<GenericObjectInput, GenericTransformObject>;
 
 export function transformProperties(
 	...args:
-		| [Record<string, any>, (params: TransformersParams) => TransformersParams]
-		| [AnyFunction]
+		| [Record<string, any>, Record<string, AnyFunction>]
+		| [ Record<string, AnyFunction>]
 ): any {
 	if (args.length === 1) {
 		const [transformers] = args;
@@ -72,9 +53,15 @@ export function transformProperties(
 		return (obj: object) => transformProperties(obj, transformers);
 	}
 
-	const [obj, transformers] = args;
+	const [obj, transformObject] = args;
 
-	return transformers(
-		createTransformersParams(obj, obj),
-	)["-objectOutput"];
+	return Object.entries(transformObject)
+		.reduce(
+			(acc, [key, theFunction]) => {
+				acc[key] = theFunction(acc[key]);
+
+				return acc;
+			},
+			{ ...obj },
+		);
 }

@@ -6,9 +6,10 @@ describe("transformProperties", () => {
 			{
 				prop1: 1,
 				prop2: "test",
-				prop3: [1] as const,
+				prop3: [1, 2] as const,
 			},
-			({ transformValue }) => transformValue("prop1", (value) => {
+			{
+				prop1: (value) => {
 					type check = ExpectType<
 						typeof value,
 						number,
@@ -16,22 +17,23 @@ describe("transformProperties", () => {
 					>;
 
 					return `wow${value}`;
-			})
-				.transformValue("prop3", DArray.shift),
+				},
+				prop3: DArray.shift,
+			},
 		);
 
 		expect(result).toStrictEqual({
 			prop1: "wow1",
 			prop2: "test",
-			prop3: [],
+			prop3: [2],
 		});
 
 		type check = ExpectType<
 			typeof result,
 			{
-				prop1: number;
+				prop1: string;
 				prop2: string;
-				prop3: [];
+				prop3: [2];
 			},
 			"strict"
 		>;
@@ -42,24 +44,25 @@ describe("transformProperties", () => {
 			{
 				prop1: 1,
 				prop2: "test",
-				prop3: [],
+				prop3: [1, 2] as const,
 			},
-			DObject.transformProperties(
-				({ transformValue }) => transformValue("prop1", () => "wow"),
-			),
+			DObject.transformProperties({
+				prop1: () => "wow",
+				prop3: DArray.shift,
+			}),
 		);
 
 		expect(result).toStrictEqual({
 			prop1: "wow",
 			prop2: "test",
-			prop3: [],
+			prop3: [2],
 		});
 
 		type check = ExpectType<
 			typeof result,
 			{
 				prop1: string;
-				prop3: never[];
+				prop3: [2];
 				prop2: string;
 			},
 			"strict"
