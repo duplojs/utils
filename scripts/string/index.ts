@@ -14,3 +14,5 @@ export * from "./startsWith";
 export * from "./endsWith";
 export * from "./includes";
 export * from "./search";
+export * from "./replace";
+export * from "./replaceAll";
