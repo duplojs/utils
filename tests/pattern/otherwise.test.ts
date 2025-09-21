@@ -1,52 +1,52 @@
 import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DArray, DPattern } from "@scripts/index";
+import { DPattern, DString } from "@scripts/index";
 
 describe("otherwise", () => {
 	it("not match on when", () => {
 		const result = pipe(
-			["test"],
-			DPattern.when(
-				DArray.includes("toto"),
+			"test" as "titi" | "test",
+			DPattern.whenPrimitive(
+				"titi",
 				() => 50,
 			),
 			DPattern.otherwise(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
-						readonly string[],
+						"test",
 						"strict"
 					>;
 
-					return DArray.first(value);
+					return DString.toUpperCase(value);
 				},
 			),
 		);
 
-		expect(result).toStrictEqual("test");
+		expect(result).toStrictEqual("TEST");
 
 		type check = ExpectType<
 			typeof result,
-			string | 50 | undefined,
+			"TEST" | 50,
 			"strict"
 		>;
 	});
 
 	it("match on when and skip ", () => {
 		const result = pipe(
-			["test"],
-			DPattern.when(
-				DArray.includes("test"),
+			"test" as "titi" | "test",
+			DPattern.whenPrimitive(
+				"test",
 				() => 50,
 			),
-			DPattern.otherwise(DArray.first),
+			DPattern.otherwise(DString.toUpperCase),
 		);
 
 		expect(result).toStrictEqual(50);
 
 		type check = ExpectType<
 			typeof result,
-			string | 50 | undefined,
+			"TITI" | 50,
 			"strict"
 		>;
 	});
