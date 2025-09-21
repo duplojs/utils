@@ -1,5 +1,4 @@
 import { pipe, type ExpectType } from "@scripts/common";
-import { whenNot } from "@scripts/common/whenNot";
 import { DPattern } from "@scripts/index";
 
 describe("pattern whenNot", () => {
@@ -80,7 +79,7 @@ describe("pattern whenNot", () => {
 					return 10;
 				},
 			),
-			DPattern.otherwise,
+			DPattern.otherwise((rest) => rest),
 		);
 
 		expect(result).toBe("test");

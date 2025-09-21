@@ -1,14 +1,20 @@
-import { unwrap, type Unwrap } from "@scripts/common";
+import { type AnyFunction, type AnyValue, unwrap, type Unwrap } from "@scripts/common";
 import { isResult, type PatternResult } from "./result";
 
 export function otherwise<
-	GenericResult extends unknown,
+	GenericInput extends AnyValue,
+	GenericOutput extends AnyValue,
 >(
-	result: GenericResult,
-): GenericResult extends PatternResult
-		? Unwrap<GenericResult>
-		: GenericResult {
-	return isResult(result)
-		? unwrap(result) as never
-		: result as never;
+	theFunction: (rest: Exclude<GenericInput, PatternResult>) => GenericOutput
+): (input: GenericInput) => (
+	| GenericOutput
+	| Unwrap<Extract<GenericInput, PatternResult>>
+);
+
+export function otherwise(
+	theFunction: AnyFunction,
+) {
+	return (input: any) => isResult(input)
+		? unwrap(input) as never
+		: theFunction(input) as never;
 }

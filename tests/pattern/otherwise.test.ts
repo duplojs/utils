@@ -1,33 +1,52 @@
+import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { otherwise } from "@scripts/pattern/otherwise";
-import { result } from "@scripts/pattern/result";
+import { DArray, DPattern } from "@scripts/index";
 
 describe("otherwise", () => {
-	it("unwraps pattern result values", () => {
-		const sample = { foo: "bar" } as const;
-		const patternResult = result(sample);
+	it("not match on when", () => {
+		const result = pipe(
+			["test"],
+			DPattern.when(
+				DArray.includes("toto"),
+				() => 50,
+			),
+			DPattern.otherwise(
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						readonly string[],
+						"strict"
+					>;
 
-		const output = otherwise(patternResult);
+					return DArray.first(value);
+				},
+			),
+		);
 
-		expect(output).toBe(sample);
+		expect(result).toStrictEqual("test");
 
 		type check = ExpectType<
-			typeof output,
-			typeof sample,
+			typeof result,
+			string | 50 | undefined,
 			"strict"
 		>;
 	});
 
-	it("returns non pattern values unchanged", () => {
-		const fallback = "fallback";
+	it("match on when and skip ", () => {
+		const result = pipe(
+			["test"],
+			DPattern.when(
+				DArray.includes("test"),
+				() => 50,
+			),
+			DPattern.otherwise(DArray.first),
+		);
 
-		const output = otherwise(fallback);
-
-		expect(output).toBe(fallback);
+		expect(result).toStrictEqual(50);
 
 		type check = ExpectType<
-			typeof output,
-			typeof fallback,
+			typeof result,
+			string | 50 | undefined,
 			"strict"
 		>;
 	});
