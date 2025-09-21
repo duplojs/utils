@@ -9,3 +9,4 @@ export * from "./toLowerCase";
 export * from "./trim";
 export * from "./capitalize";
 export * from "./uncapitalize";
+export * from "./substring";
