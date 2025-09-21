@@ -16,3 +16,5 @@ export * from "./includes";
 export * from "./search";
 export * from "./replace";
 export * from "./replaceAll";
+export * from "./match";
+export * from "./matchAll";
