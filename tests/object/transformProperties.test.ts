@@ -19,6 +19,7 @@ describe("transformProperties", () => {
 					return `wow${value}`;
 				},
 				prop3: DArray.shift,
+				prop2: undefined,
 			},
 		);
 
@@ -48,7 +49,7 @@ describe("transformProperties", () => {
 			},
 			DObject.transformProperties({
 				prop1: () => "wow",
-				prop3: DArray.shift,
+				prop3: true ? DArray.shift : undefined,
 			}),
 		);
 
@@ -62,7 +63,7 @@ describe("transformProperties", () => {
 			typeof result,
 			{
 				prop1: string;
-				prop3: [2];
+				prop3: readonly [1, 2] | [2];
 				prop2: string;
 			},
 			"strict"
