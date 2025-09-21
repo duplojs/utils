@@ -2,9 +2,15 @@ import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
 
 describe("toLowerCase", () => {
 	it("should convert string to lowercase", () => {
-		expect(DString.toLowerCase("HELLO")).toBe("hello");
-		expect(DString.toLowerCase("World")).toBe("world");
-		expect(DString.toLowerCase("")).toBe("");
+		const str = "HELLO";
+		const result = DString.toLowerCase(str);
+		expect(result).toBe("hello");
+
+		type check = ExpectType<
+			typeof result,
+			"hello",
+			"strict"
+		>;
 	});
 
 	it("use in pipe", () => {
