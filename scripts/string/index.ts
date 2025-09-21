@@ -10,3 +10,6 @@ export * from "./trim";
 export * from "./capitalize";
 export * from "./uncapitalize";
 export * from "./substring";
+export * from "./startsWith";
+export * from "./endsWith";
+export * from "./includes";
