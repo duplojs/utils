@@ -1,11 +1,12 @@
-import { DArray, DObject, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DObject, innerPipe, pipe, type ExpectType } from "@scripts/index";
 
 describe("to", () => {
 	it("basic usage", () => {
 		const result = DObject.to(
 			[1, 2, 3] as const,
-			({ addEntry }) => addEntry("first", DArray.first)
-				.addEntry("rest", (input) => {
+			{
+				first: DArray.first,
+				rest: (input) => {
 					type check = ExpectType<
 						typeof input,
 						readonly [1, 2, 3],
@@ -13,7 +14,9 @@ describe("to", () => {
 					>;
 
 					return DArray.shift(input);
-				}),
+				},
+				test: undefined,
+			},
 		);
 
 		expect(result).toStrictEqual({
@@ -22,6 +25,7 @@ describe("to", () => {
 				2,
 				3,
 			],
+			test: undefined,
 		});
 
 		type check = ExpectType<
@@ -29,6 +33,7 @@ describe("to", () => {
 			{
 				first: 1;
 				rest: [2, 3];
+				test: undefined;
 			},
 			"strict"
 		>;
@@ -37,10 +42,11 @@ describe("to", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			[1, 2, 3] as const,
-			DObject.to(
-				({ addEntry }) => addEntry("first", DArray.first)
-					.addEntry("rest", DArray.shift),
-			),
+			(value) => value,
+			DObject.to({
+				first: true ? DArray.first : undefined,
+				rest: DArray.shift,
+			}),
 		);
 
 		expect(result).toStrictEqual({
@@ -54,7 +60,7 @@ describe("to", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				first: 1;
+				first: 1 | undefined;
 				rest: [2, 3];
 			},
 			"strict"

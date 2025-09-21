@@ -25,10 +25,10 @@ it("asyncInnerPipe", async() => {
 			}),
 		),
 		DObject.transformProperty("prop1", DArray.from),
-		DObject.to(
-			({ addEntry }) => addEntry(
-				"test1",
-				asyncInnerPipe((value) => {
+		DObject.to({
+			test1: (value) => asyncPipe(
+				value,
+				(value) => {
 					type check = ExpectType<
 						typeof value,
 						{
@@ -38,9 +38,9 @@ it("asyncInnerPipe", async() => {
 					>;
 
 					return value;
-				}),
+				},
 			),
-		),
+		}),
 		promiseObject,
 	);
 

@@ -25,22 +25,22 @@ it("innerPipe", () => {
 			}),
 		),
 		DObject.transformProperty("prop1", DArray.from),
-		DObject.to(
-			({ addEntry }) => addEntry(
-				"test1",
-				innerPipe((value) => {
-					type check = ExpectType<
-						typeof value,
-						{
-							prop1: string[];
-						},
-						"strict"
-					>;
+		DObject.to({
+			test1: (value) => pipe(
+				value,
+				(value) => {
+				type check = ExpectType<
+					typeof value,
+					{
+						prop1: string[];
+					},
+					"strict"
+				>;
 
-					return value;
-				}),
+				return value;
+				},
 			),
-		),
+		}),
 	);
 
 	type check = ExpectType<

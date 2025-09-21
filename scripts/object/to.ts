@@ -1,60 +1,56 @@
-import { type AnyFunction, type SimplifyTopLevel } from "@scripts/common";
+import { type FixDeepFunctionInfer, type AnyFunction, type SimplifyTopLevel, type Adaptor } from "@scripts/common";
 
-interface ShapeParams<
+type ShapeObject<
 	GenericInput extends unknown = unknown,
-	GenericObjectOutput extends object = object,
-> {
-	addEntry<
-		GenericKey extends string,
-		GenericValue extends unknown,
-	>(
-		key: GenericKey,
-		theFunction: (input: GenericInput) => GenericValue
-	): ShapeParams<
-		GenericInput,
-		& Omit<GenericObjectOutput, GenericKey>
-		& { [Prop in GenericKey]: GenericValue }
-	>;
-	"-objectOutput": GenericObjectOutput;
-}
+> = {
+	[Prop in string]?: (input: GenericInput) => unknown
+};
 
-function createShapeParams(
-	input: unknown,
-	lastValue: object,
-): ShapeParams {
-	return {
-		"-objectOutput": lastValue,
-		addEntry(key, theFunction) {
-			return createShapeParams(
-				input,
-				{
-					...lastValue,
-					[key]: theFunction(input),
-				},
-			) as never;
-		},
-	};
-}
+type ComputesResult<
+	GenericShapeObject extends ShapeObject<any>,
+> = SimplifyTopLevel<
+	{
+		[Prop in keyof GenericShapeObject]: (
+			| ReturnType<
+				Adaptor<
+					GenericShapeObject[Prop],
+					AnyFunction
+				>
+			>
+			| (
+				undefined extends GenericShapeObject[Prop]
+					? undefined
+					: never
+			)
+		)
+	}
+>;
 
 export function to<
 	GenericInput extends unknown,
-	GenericOutput extends object,
+	GenericShapeObject extends ShapeObject<GenericInput>,
 >(
-	shape: (params: ShapeParams<GenericInput, {}>) => ShapeParams<GenericInput, GenericOutput>,
-): (input: GenericInput) => SimplifyTopLevel<GenericOutput>;
+	shapeObject: FixDeepFunctionInfer<
+		ShapeObject<GenericInput>,
+		GenericShapeObject
+	>,
+): (input: GenericInput) => ComputesResult<GenericShapeObject>;
 
 export function to<
 	GenericInput extends unknown,
-	GenericOutput extends object,
+	GenericShapeObject extends ShapeObject<GenericInput>,
 >(
 	input: GenericInput,
-	shape: (params: ShapeParams<GenericInput, {}>) => ShapeParams<GenericInput, GenericOutput>,
-): SimplifyTopLevel<GenericOutput>;
+	shapeObject: FixDeepFunctionInfer<
+		ShapeObject<GenericInput>,
+		GenericShapeObject
+	>,
+): ComputesResult<GenericShapeObject>;
 
 export function to(
 	...args:
-		| [unknown, (params: ShapeParams) => ShapeParams]
-		| [AnyFunction]
+		| [unknown, ShapeObject]
+		| [ShapeObject]
 ): any {
 	if (args.length === 1) {
 		const [shape] = args;
@@ -62,9 +58,15 @@ export function to(
 		return (input: unknown) => to(input, shape);
 	}
 
-	const [input, shape] = args;
+	const [input, shapeObject] = args;
 
-	return shape(
-		createShapeParams(input, {}),
-	)["-objectOutput"];
+	return Object.entries(shapeObject)
+		.reduce<Record<string, any>>(
+			(acc, [key, theFunction]) => {
+				acc[key] = theFunction?.(input);
+
+				return acc;
+			},
+			{},
+		);
 }
