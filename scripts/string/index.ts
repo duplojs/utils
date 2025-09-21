@@ -13,3 +13,4 @@ export * from "./substring";
 export * from "./startsWith";
 export * from "./endsWith";
 export * from "./includes";
+export * from "./search";
