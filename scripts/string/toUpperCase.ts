@@ -3,4 +3,3 @@ export function toUpperCase<
 >(str: GenericString) {
 	return str.toUpperCase() as Uppercase<GenericString>;
 }
-
