@@ -20,3 +20,5 @@ export * from "./match";
 export * from "./matchAll";
 export * from "./concat";
 export * from "./slice";
+export * from "./padStart";
+export * from "./padEnd";
