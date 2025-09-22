@@ -18,3 +18,4 @@ export * from "./replace";
 export * from "./replaceAll";
 export * from "./match";
 export * from "./matchAll";
+export * from "./concat";
