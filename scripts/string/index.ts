@@ -22,3 +22,7 @@ export * from "./concat";
 export * from "./slice";
 export * from "./padStart";
 export * from "./padEnd";
+export * from "./indexOf";
+export * from "./lastIndexOf";
+export * from "./repeat";
+export * from "./normalize";
