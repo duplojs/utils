@@ -20,3 +20,6 @@ export * as DGenerator from "./generator";
 
 export * as P from "./pattern";
 export * as DPattern from "./pattern";
+
+export * as D from "./date";
+export * as DDate from "./date";
