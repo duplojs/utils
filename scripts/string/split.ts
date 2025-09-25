@@ -1,20 +1,47 @@
-interface StringSplitParams {
-	limit?: number;
+import type { SplitString } from "./types/split";
+
+interface StringSplitParams<
+	GenericLimit extends number,
+> {
+	limit: GenericLimit;
 }
 
-export function split(
-	separator: string | RegExp,
-	params?: StringSplitParams,
-): (str: string) => string[];
+export function split<
+	GenericString extends string,
+	GenericSeparator extends string | RegExp,
+	GenericLimit extends number,
+>(
+	separator: GenericSeparator,
+	params: StringSplitParams<GenericLimit>,
+): (str: GenericString) => SplitString<GenericString, GenericSeparator, GenericLimit>;
+
+export function split<
+	GenericString extends string,
+	GenericSeparator extends string | RegExp,
+>(
+	separator: GenericSeparator,
+): (str: GenericString) => SplitString<GenericString, GenericSeparator>;
+
+export function split<
+	GenericString extends string,
+	GenericSeparator extends string | RegExp,
+	GenericLimit extends number,
+>(
+	str: GenericString,
+	separator: GenericSeparator,
+	params: StringSplitParams<GenericLimit>,
+): SplitString<GenericString, GenericSeparator, GenericLimit>;
+
+export function split<
+	GenericString extends string,
+	GenericSeparator extends string | RegExp,
+>(
+	str: GenericString,
+	separator: GenericSeparator,
+): SplitString<GenericString, GenericSeparator>;
 
 export function split(
-	str: string,
-	separator: string | RegExp,
-	params?: StringSplitParams,
-): string[];
-
-export function split(
-	...args: [string, string | RegExp, StringSplitParams?] | [string | RegExp, StringSplitParams?]
+	...args: [string, string | RegExp, StringSplitParams<number>?] | [string | RegExp, StringSplitParams<number>?]
 ): any {
 	if (args.length === 1) {
 		const [separator] = args;
@@ -26,7 +53,7 @@ export function split(
 		return (str: string) => split(str, separator, params);
 	}
 
-	const [str, separator, params] = args as [string, string | RegExp, StringSplitParams?];
+	const [str, separator, params] = args as [string, string | RegExp, StringSplitParams<number>?];
 
 	return str.split(separator, params?.limit);
 }
