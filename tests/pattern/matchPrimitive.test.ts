@@ -1,11 +1,11 @@
 import { pipe, type ExpectType } from "@scripts/common";
 import { DPattern } from "@scripts/index";
 
-describe("pattern whenPrimitive", () => {
+describe("pattern matchPrimitive", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			10 as 10 | "car" | "train",
-			DPattern.whenPrimitive(
+			DPattern.matchPrimitive(
 				"car",
 				(value) => {
 					type checkValue = ExpectType<
@@ -17,7 +17,7 @@ describe("pattern whenPrimitive", () => {
 					return 100;
 				},
 			),
-			DPattern.whenPrimitive(
+			DPattern.matchPrimitive(
 				[10, "train"],
 				(value) => {
 					type checkValue = ExpectType<

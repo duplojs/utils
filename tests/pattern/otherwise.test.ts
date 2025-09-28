@@ -6,7 +6,7 @@ describe("otherwise", () => {
 	it("not match on when", () => {
 		const result = pipe(
 			"test" as "titi" | "test",
-			DPattern.whenPrimitive(
+			DPattern.matchPrimitive(
 				"titi",
 				() => 50,
 			),
@@ -35,7 +35,7 @@ describe("otherwise", () => {
 	it("match on when and skip ", () => {
 		const result = pipe(
 			"test" as "titi" | "test",
-			DPattern.whenPrimitive(
+			DPattern.matchPrimitive(
 				"test",
 				() => 50,
 			),

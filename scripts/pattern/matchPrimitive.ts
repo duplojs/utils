@@ -1,7 +1,7 @@
 import { type AnyFunction, type AnyValue } from "..";
 import { isResult, result, type PatternResult } from "./result";
 
-export function whenPrimitive<
+export function matchPrimitive<
 	GenericInput extends AnyValue,
 	GenericMatch extends Exclude<GenericInput, PatternResult>,
 	GenericOutput extends AnyValue,
@@ -12,7 +12,7 @@ export function whenPrimitive<
 	| PatternResult<GenericOutput>
 	| Exclude<GenericInput, GenericMatch>;
 
-export function whenPrimitive(
+export function matchPrimitive(
 	primitive: AnyValue,
 	theFunction: AnyFunction,
 ): any {
