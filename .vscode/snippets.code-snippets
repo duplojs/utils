@@ -21,4 +21,17 @@
 		],
 		"description": "template tu",
 	},
+
+	"expect-type": {
+		"prefix": "tuet",
+		"scope": "typescript",
+		"body": [
+			"type Check = ExpectType<",
+			"\ttypeof $1,",
+			"\t$2,",
+			"\t\"strict\"",
+			">;",
+		],
+		"description": "template tu",
+	},
 }

@@ -9,7 +9,7 @@ export type Kind<
 
 export function createKind<
 	GenericName extends string,
-	GenericValue extends unknown = unknown,
+	const GenericValue extends unknown = unknown,
 >(
 	name: GenericName,
 	value: GenericValue = null as GenericValue,

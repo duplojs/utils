@@ -22,4 +22,8 @@ export * from "./toLargeEnsemble";
 export * from "./deepPartial";
 export * from "./fixDeepFunctionInfer";
 export * from "./adaptor";
+export * from "./neverCoalescing";
+export * from "./unionContain";
+export * from "./forcePredicate";
+export * from "./IsExtends";
 
