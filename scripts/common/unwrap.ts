@@ -13,11 +13,7 @@ export function unwrap<
 >(
 	anyValue: GenericAnyValue,
 ): Unwrap<GenericAnyValue>;
-export function unwrap<
-	GenericAnyValue extends unknown,
->(
-	anyValue: GenericAnyValue,
-): Unwrap<GenericAnyValue>;
+
 export function unwrap(anyValue: unknown) {
 	return anyValue && typeof anyValue === "object" && "value" in anyValue
 		? anyValue.value as never
