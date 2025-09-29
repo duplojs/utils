@@ -1,7 +1,10 @@
+const SymbolWrappedValue = Symbol("SymbolWrappedValue");
+export type SymbolWrappedValue = typeof SymbolWrappedValue;
+
 export interface WrappedValue<
 	GenericValue extends unknown = unknown,
 > {
-	value: GenericValue;
+	[SymbolWrappedValue]: GenericValue;
 }
 
 export function wrapValue<
@@ -9,7 +12,7 @@ export function wrapValue<
 >(value: GenericValue): WrappedValue<GenericValue> {
 	return {
 		value,
-	};
+	} as never;
 }
 
 export function isWrappedValue<

@@ -3,7 +3,7 @@ import { optional } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 
 export interface EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
@@ -46,10 +46,12 @@ export function whenIsOptionalFilled<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToOptionalEither<GenericInput>,
-			EitherOptionalFilled
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalFilled
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
 export function whenIsOptionalFilled<
@@ -58,10 +60,12 @@ export function whenIsOptionalFilled<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToOptionalEither<GenericInput>,
-			EitherOptionalFilled
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalFilled
+			>
+		>
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
 export function whenIsOptionalFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
@@ -87,7 +91,7 @@ export function whenIsOptionalFilled(...args: [unknown, AnyFunction] | [AnyFunct
 		: optional(input);
 
 	if (isOptionalFilled(either)) {
-		return theFunction(either.value);
+		return theFunction(unwrap(either));
 	}
 
 	return either as never;

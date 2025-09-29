@@ -1,6 +1,6 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createKind, type Kind } from "@scripts/common/kind";
-import { type WrappedValue } from "@scripts/common/wrapValue";
+import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
 import { type ToLargeEnsemble } from "@scripts/common";
@@ -54,7 +54,7 @@ interface GetStartValueParams {
 const getStartValueParams: GetStartValueParams = {
 	from: (value) => ({
 		...createKind("array-reduce-right-from"),
-		value,
+		...wrapValue(value),
 	}),
 };
 

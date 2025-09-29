@@ -1,8 +1,9 @@
+import { wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { unwrap } from "@scripts/common/unwrap";
 describe("unwrap", () => {
 	it("embedded value", () => {
-		const embeddedValue = unwrap({ value: 1 });
+		const embeddedValue = unwrap(wrapValue(1));
 
 		expect(embeddedValue).toBe(1);
 

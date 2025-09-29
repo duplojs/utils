@@ -4,6 +4,7 @@ import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
+import { unwrap, type Unwrap } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
@@ -11,7 +12,7 @@ export type EitherRightPipeFunction<
 	GenericInput extends Either = Either,
 	GenericOutput extends Either = Either,
 > = (
-	input: Extract<GenericInput, EitherRight>["value"]
+	input: Unwrap<Extract<GenericInput, EitherRight>>
 ) => GenericOutput;
 
 export type EitherRightPipeResult<
@@ -319,7 +320,7 @@ export function rightPipe(
 		: success(input);
 
 	for (const pipe of pipes) {
-		acc = pipe(acc.value);
+		acc = pipe(unwrap(acc));
 
 		if (isLeft(acc)) {
 			return acc;

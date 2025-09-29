@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common/kind";
-import { type WrappedValue } from "@scripts/common/wrapValue";
+import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 
 export interface EitherRight<
 	GenericInformation extends string = string,
@@ -23,6 +23,6 @@ export function right<
 	return {
 		"kind-either-information": information,
 		"kind-either-right": null,
-		value,
+		...wrapValue(value),
 	};
 }

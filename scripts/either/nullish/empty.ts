@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { nullish } from "./create";
@@ -48,10 +48,12 @@ export function whenIsNullishEmpty<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherNullishEmpty
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherNullishEmpty
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
 export function whenIsNullishEmpty<
@@ -60,10 +62,12 @@ export function whenIsNullishEmpty<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherNullishEmpty
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherNullishEmpty
+			>
+		>
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
 export function whenIsNullishEmpty(...args: [unknown, AnyFunction] | [AnyFunction]): any {
@@ -89,7 +93,7 @@ export function whenIsNullishEmpty(...args: [unknown, AnyFunction] | [AnyFunctio
 		: nullish(input as any);
 
 	if (isNullishEmpty(either)) {
-		return theFunction(either.value);
+		return theFunction(unwrap(either));
 	}
 
 	return either as never;

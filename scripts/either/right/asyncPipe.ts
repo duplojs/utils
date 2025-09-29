@@ -5,7 +5,7 @@ import { type MaybeFutureEither } from "../future/MaybeFutureEither";
 import { future, type Future } from "../future";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
-import { type AnyValue } from "@scripts/common";
+import { type Unwrap, type AnyValue, unwrap } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
@@ -15,7 +15,7 @@ export type EitherRightAsyncPipeFunction<
 	GenericInput extends Either = Either,
 	GenericOutput extends EitherOrFutureEither = EitherOrFutureEither,
 > = (
-	input: Extract<GenericInput, EitherRight>["value"]
+	input: Unwrap<Extract<GenericInput, EitherRight>>
 ) => GenericOutput;
 
 export type EitherRightAsyncPipeResult<
@@ -351,7 +351,7 @@ export function rightAsyncPipe(
 				: success(awaitedInput);
 
 			for (const pipe of pipes) {
-				acc = await pipe(acc.value);
+				acc = await pipe(unwrap(acc));
 
 				if (isLeft(acc)) {
 					return acc;

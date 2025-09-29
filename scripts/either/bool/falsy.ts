@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { bool } from "./create";
@@ -48,10 +48,12 @@ export function whenIsBoolFalsy<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherBoolFalsy
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherBoolFalsy
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
 export function whenIsBoolFalsy<
@@ -60,10 +62,12 @@ export function whenIsBoolFalsy<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherBoolFalsy
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherBoolFalsy
+			>
+		>
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
 export function whenIsBoolFalsy(...args: [unknown, AnyFunction] | [AnyFunction]): any {
@@ -89,7 +93,7 @@ export function whenIsBoolFalsy(...args: [unknown, AnyFunction] | [AnyFunction])
 		: bool(input as any);
 
 	if (isBoolFalsy(either)) {
-		return theFunction(either.value);
+		return theFunction(unwrap(either));
 	}
 
 	return either as never;

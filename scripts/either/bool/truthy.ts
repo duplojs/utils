@@ -3,7 +3,7 @@ import { bool } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 
 export interface EitherBoolTruthy<
 	GenericValue extends unknown = unknown,
@@ -46,10 +46,12 @@ export function whenIsBoolTruthy<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherBoolTruthy
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherBoolTruthy
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
 export function whenIsBoolTruthy<
@@ -58,10 +60,12 @@ export function whenIsBoolTruthy<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherBoolTruthy
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherBoolTruthy
+			>
+		>
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
 export function whenIsBoolTruthy(...args: [unknown, AnyFunction] | [AnyFunction]): any {
@@ -87,7 +91,7 @@ export function whenIsBoolTruthy(...args: [unknown, AnyFunction] | [AnyFunction]
 		: bool(input);
 
 	if (isBoolTruthy(either)) {
-		return theFunction(either.value);
+		return theFunction(unwrap(either));
 	}
 
 	return either as never;

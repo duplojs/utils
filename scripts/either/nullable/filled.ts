@@ -3,7 +3,7 @@ import { nullable } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { hasKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 
 export interface EitherNullableFilled<
 	GenericValue extends unknown = unknown,
@@ -46,10 +46,12 @@ export function whenIsNullableFilled<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherNullableFilled
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherNullableFilled
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableFilled>;
 export function whenIsNullableFilled<
@@ -58,10 +60,12 @@ export function whenIsNullableFilled<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToEither<GenericInput>,
-			EitherNullableFilled
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToEither<GenericInput>,
+				EitherNullableFilled
+			>
+		>
 	) => GenericOutput,
 ): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableFilled>;
 export function whenIsNullableFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
@@ -87,7 +91,7 @@ export function whenIsNullableFilled(...args: [unknown, AnyFunction] | [AnyFunct
 		: nullable(input);
 
 	if (isNullableFilled(either)) {
-		return theFunction(either.value);
+		return theFunction(unwrap(either));
 	}
 
 	return either as never;

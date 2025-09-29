@@ -1,7 +1,7 @@
-import { type ExpectType, toWrappedValue, type WrappedValue } from "@scripts/common";
+import { type ExpectType, toWrappedValue, type WrappedValue, wrapValue } from "@scripts/common";
 
 it("toWrappedValue", () => {
-	const result1 = toWrappedValue({ value: 10 });
+	const result1 = toWrappedValue(wrapValue(10));
 	expect(result1).toStrictEqual({ value: 10 });
 
 	type check1 = ExpectType<

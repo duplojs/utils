@@ -3,8 +3,8 @@ import { type AnyValue } from "./types/anyValue";
 
 export type Unwrap<
 	GenericAnyValue extends unknown,
-> = GenericAnyValue extends WrappedValue
-	? GenericAnyValue["value"]
+> = GenericAnyValue extends WrappedValue<infer inferredValue>
+	? inferredValue
 	: GenericAnyValue;
 
 export function unwrap<

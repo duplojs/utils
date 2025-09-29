@@ -1,6 +1,6 @@
 import { asyncPipe } from "@scripts/common/asyncPipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DEither } from "@scripts";
+import { DEither, unwrap } from "@scripts";
 
 describe("asyncPipe", () => {
 	it("input promise number", async() => {
@@ -44,7 +44,7 @@ describe("asyncPipe", () => {
 	it("input future number", async() => {
 		const result = asyncPipe(
 			DEither.future(56),
-			({ value }) => Promise.resolve(value * 10),
+			(value) => Promise.resolve(unwrap(value) * 10),
 			(value) => DEither.future(value - 10),
 			(value) => ({ value }),
 		);

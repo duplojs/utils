@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { optional } from "./create";
@@ -43,10 +43,12 @@ export function whenIsOptionalEmpty<
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	theFunction: (
-		eitherValue: Extract<
-			ToOptionalEither<GenericInput>,
-			EitherOptionalEmpty
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalEmpty
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput,) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
 export function whenIsOptionalEmpty<
@@ -55,10 +57,12 @@ export function whenIsOptionalEmpty<
 >(
 	input: GenericInput,
 	theFunction: (
-		eitherValue: Extract<
-			ToOptionalEither<GenericInput>,
-			EitherOptionalEmpty
-		>["value"]
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalEmpty
+			>
+		>
 	) => GenericOutput,
 ):
 	| GenericOutput
@@ -86,7 +90,7 @@ export function whenIsOptionalEmpty(...args: [unknown, AnyFunction] | [AnyFuncti
 		: optional(input as any);
 
 	if (isOptionalEmpty(either)) {
-		return theFunction(either.value);
+		return theFunction(undefined);
 	}
 
 	return either as never;

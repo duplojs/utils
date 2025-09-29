@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type AnyFunction, type AnyValue } from "@scripts/common";
+import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 import { isRight, type EitherRight } from "./right";
 import { isLeft, type EitherLeft } from "./left";
 
@@ -15,11 +15,13 @@ export function whenHasInformation<
 >(
 	information: GenericInformation | GenericInformation[],
 	theFunction: (
-		value: Extract<
-			GenericInput,
-			& Kind<"either-information", GenericInformation>
-			& WrappedValue
-		>["value"]
+		value: Unwrap<
+			Extract<
+				GenericInput,
+				& Kind<"either-information", GenericInformation>
+				& WrappedValue
+			>
+		>
 	) => GenericOutput,
 ): (input: GenericInput) =>
 	| GenericOutput
@@ -36,11 +38,13 @@ export function whenHasInformation<
 	input: GenericInput,
 	information: GenericInformation | GenericInformation[],
 	theFunction: (
-		value: Extract<
-			GenericInput,
-			& Kind<"either-information", GenericInformation>
-			& WrappedValue
-		>["value"]
+		value: Unwrap<
+			Extract<
+				GenericInput,
+				& Kind<"either-information", GenericInformation>
+				& WrappedValue
+			>
+		>
 	) => GenericOutput,
 ):
 	| GenericOutput
@@ -70,7 +74,7 @@ export function whenHasInformation(
 			|| isRight(input)
 		) && formattedInformation.includes(input["kind-either-information"])
 	) {
-		return theFunction((input as WrappedValue).value);
+		return theFunction(unwrap(input));
 	}
 
 	return input;
