@@ -53,9 +53,9 @@ export type PatternValue<
 > = GenericPattern extends EligiblePrimitiveMatch
 	? GenericPattern
 	: GenericPattern extends (input: any) => input is infer InferredPredicate
-		? PatternValue<InferredPredicate>
+		? InferredPredicate
 		: GenericPattern extends (input: infer InferredInput) => boolean
-			? PatternValue<InferredInput>
+			? InferredInput
 			: GenericPattern extends Record<ObjectKey, Pattern>
 				? {
 					[Prop in keyof GenericPattern]: PatternValue<GenericPattern[Prop]>
