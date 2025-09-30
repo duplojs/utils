@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { ok, type EitherOk } from "@scripts/either";
 
@@ -8,7 +9,7 @@ it("createEitherOk", () => {
 		"kind-either-ok": null,
 		"kind-either-information": "ok",
 		"kind-either-right": null,
-		value: undefined,
+		...wrapValue(undefined),
 	});
 
 	type check = ExpectType<

@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { isResult, result, type PatternResult } from "@scripts/pattern/result";
 
@@ -8,7 +9,7 @@ describe("Pattern result", () => {
 
 		expect(patternResult).toStrictEqual({
 			"kind-pattern-result": null,
-			value: input,
+			...wrapValue(input),
 		});
 
 		type check = ExpectType<

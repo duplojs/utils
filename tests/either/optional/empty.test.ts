@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { fail, type EitherFail, optionalEmpty, type EitherOptionalEmpty, isOptionalEmpty, type EitherOptionalFilled, optionalFilled, whenIsOptionalEmpty } from "@scripts/either";
@@ -11,7 +12,7 @@ describe("EitherOptionalEmpty", () => {
 			"kind-either-information": "optional",
 			"kind-either-left": null,
 			"kind-either-optional": null,
-			value: undefined,
+			...wrapValue(undefined),
 		});
 
 		type check = ExpectType<

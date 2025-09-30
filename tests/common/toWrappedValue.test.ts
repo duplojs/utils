@@ -2,7 +2,7 @@ import { type ExpectType, toWrappedValue, type WrappedValue, wrapValue } from "@
 
 it("toWrappedValue", () => {
 	const result1 = toWrappedValue(wrapValue(10));
-	expect(result1).toStrictEqual({ value: 10 });
+	expect(result1).toStrictEqual(wrapValue(10));
 
 	type check1 = ExpectType<
 		typeof result1,
@@ -11,7 +11,7 @@ it("toWrappedValue", () => {
 	>;
 
 	const result2 = toWrappedValue(10);
-	expect(result2).toStrictEqual({ value: 10 });
+	expect(result2).toStrictEqual(wrapValue(10));
 
 	type check2 = ExpectType<
 		typeof result2,

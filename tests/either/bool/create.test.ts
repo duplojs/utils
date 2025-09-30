@@ -1,4 +1,4 @@
-import { pipe } from "@scripts/common";
+import { pipe, wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { bool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
 import { DArray, DEither } from "@scripts/index";
@@ -12,7 +12,7 @@ describe("createEitherBool", () => {
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
 			"kind-either-left": null,
-			value: undefined,
+			...wrapValue(undefined),
 		});
 
 		type check = ExpectType<
@@ -30,7 +30,7 @@ describe("createEitherBool", () => {
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
 			"kind-either-left": null,
-			value: null,
+			...wrapValue(null),
 		});
 
 		type check = ExpectType<
@@ -48,7 +48,7 @@ describe("createEitherBool", () => {
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
 			"kind-either-left": null,
-			value: "",
+			...wrapValue(""),
 		});
 
 		type check = ExpectType<
@@ -66,7 +66,7 @@ describe("createEitherBool", () => {
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
 			"kind-either-left": null,
-			value: 0,
+			...wrapValue(0),
 		});
 
 		type check = ExpectType<
@@ -84,7 +84,7 @@ describe("createEitherBool", () => {
 			"kind-either-falsy": null,
 			"kind-either-information": "bool",
 			"kind-either-left": null,
-			value: false,
+			...wrapValue(false),
 		});
 
 		type check = ExpectType<
@@ -102,7 +102,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: {},
+			...wrapValue({}),
 		});
 
 		type check = ExpectType<
@@ -120,7 +120,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: true,
+			...wrapValue(true),
 		});
 
 		type check = ExpectType<
@@ -138,7 +138,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: 10,
+			...wrapValue(10),
 		});
 
 		type check = ExpectType<
@@ -156,7 +156,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: "test",
+			...wrapValue("test"),
 		});
 
 		type check = ExpectType<
@@ -174,7 +174,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: "test",
+			...wrapValue("test"),
 		});
 
 		type check = ExpectType<
@@ -192,7 +192,7 @@ describe("createEitherBool", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: 1,
+			...wrapValue(1),
 		});
 
 		type check = ExpectType<

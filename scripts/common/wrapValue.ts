@@ -1,5 +1,6 @@
 const SymbolWrappedValue = Symbol("SymbolWrappedValue");
 export type SymbolWrappedValue = typeof SymbolWrappedValue;
+export const keyWrappedValue = "@duplojs/utils/value";
 
 export interface WrappedValue<
 	GenericValue extends unknown = unknown,
@@ -11,7 +12,7 @@ export function wrapValue<
 	const GenericValue extends unknown,
 >(value: GenericValue): WrappedValue<GenericValue> {
 	return {
-		value,
+		[keyWrappedValue]: value,
 	} as never;
 }
 
@@ -19,6 +20,6 @@ export function isWrappedValue<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, Record<"value", any>> {
-	return !!input && typeof input === "object" && "value" in input;
+): input is Extract<GenericInput, WrappedValue<any>> {
+	return !!input && typeof input === "object" && keyWrappedValue in input;
 }

@@ -1,4 +1,4 @@
-import { createWrappedKind, type ExpectType, type Kind, toWrappedValue, type WrappedValue } from "@scripts/common";
+import { createWrappedKind, type ExpectType, type Kind, toWrappedValue, type WrappedValue, wrapValue } from "@scripts/common";
 
 it("createWrappedKind", () => {
 	const myKind = createWrappedKind(
@@ -12,7 +12,7 @@ it("createWrappedKind", () => {
 
 	expect(result).toStrictEqual({
 		"kind-my-kind": null,
-		value: 10,
+		...wrapValue(10),
 	});
 
 	type check = ExpectType<

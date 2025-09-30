@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { futureSuccess } from "@scripts/either";
 
 it("createEitherFutureSuccess", () => {
@@ -6,6 +7,6 @@ it("createEitherFutureSuccess", () => {
 		"kind-either-future": null,
 		"kind-either-information": "future",
 		"kind-either-right": null,
-		value: 1,
+		...wrapValue(1),
 	});
 });

@@ -1,4 +1,4 @@
-import { addWrappedProperties, toWrappedValue } from "@scripts/common";
+import { addWrappedProperties, toWrappedValue, wrapValue } from "@scripts/common";
 
 it("addWrappedProperties", () => {
 	const fnc = () => 10 as const;
@@ -14,8 +14,8 @@ it("addWrappedProperties", () => {
 	expect(valueWithProperties).toStrictEqual({
 		fnc,
 		test: {
-			value: 10,
+			...wrapValue(10),
 		},
-		value: 10,
+		...wrapValue(10),
 	});
 });

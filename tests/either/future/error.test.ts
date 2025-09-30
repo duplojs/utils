@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { futureError } from "@scripts/either";
 
 it("createEitherFutureError", () => {
@@ -6,6 +7,6 @@ it("createEitherFutureError", () => {
 		"kind-either-future": null,
 		"kind-either-information": "future",
 		"kind-either-left": null,
-		value: 1,
+		...wrapValue(1),
 	});
 });

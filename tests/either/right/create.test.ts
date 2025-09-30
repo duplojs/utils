@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { right, type EitherRight } from "@scripts/either";
 
@@ -7,7 +8,7 @@ it("createEitherRight", () => {
 	expect(either).toStrictEqual({
 		"kind-either-information": "info",
 		"kind-either-right": null,
-		value: 50,
+		...wrapValue(50),
 	});
 
 	type check = ExpectType<

@@ -1,4 +1,4 @@
-import { type WrappedValue } from "./wrapValue";
+import { keyWrappedValue, type WrappedValue } from "./wrapValue";
 import { type AnyValue } from "./types/anyValue";
 
 export type Unwrap<
@@ -15,7 +15,7 @@ export function unwrap<
 ): Unwrap<GenericAnyValue>;
 
 export function unwrap(anyValue: unknown) {
-	return anyValue && typeof anyValue === "object" && "value" in anyValue
-		? anyValue.value as never
-		: anyValue as never;
+	return anyValue && typeof anyValue === "object" && keyWrappedValue in anyValue
+		? anyValue[keyWrappedValue]
+		: anyValue;
 }

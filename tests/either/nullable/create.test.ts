@@ -1,6 +1,6 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
-import { DArray, DEither, pipe } from "@scripts/index";
+import { DArray, DEither, pipe, wrapValue } from "@scripts/index";
 
 describe("createEitherNullable", () => {
 	it("create EitherNullableEmpty", () => {
@@ -11,7 +11,7 @@ describe("createEitherNullable", () => {
 			"kind-either-information": "nullable",
 			"kind-either-left": null,
 			"kind-either-nullable": null,
-			value: null,
+			...wrapValue(null),
 		});
 
 		type check = ExpectType<
@@ -29,7 +29,7 @@ describe("createEitherNullable", () => {
 			"kind-either-information": "nullable",
 			"kind-either-right": null,
 			"kind-either-nullable": null,
-			value: 10,
+			...wrapValue(10),
 		});
 
 		type check = ExpectType<

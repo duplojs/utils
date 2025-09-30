@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullishEmpty, nullishFilled, ok, type EitherNullishEmpty, type EitherNullishFilled, type EitherOk, isNullishFilled, whenIsNullishFilled } from "@scripts/either";
@@ -11,7 +12,7 @@ describe("EitherNullishFilled", () => {
 			"kind-either-filled": null,
 			"kind-either-information": "nullish",
 			"kind-either-right": null,
-			value: 10,
+			...wrapValue(10),
 		});
 
 		type check = ExpectType<

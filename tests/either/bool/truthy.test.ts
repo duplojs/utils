@@ -1,3 +1,4 @@
+import { wrapValue } from "@scripts/common";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { boolTruthy, type EitherBoolTruthy, type EitherBoolFalsy, isBoolTruthy, boolFalsy, whenIsBoolTruthy, ok, type EitherOk } from "@scripts/either";
@@ -11,7 +12,7 @@ describe("EitherBoolTruthy", () => {
 			"kind-either-truthy": null,
 			"kind-either-information": "bool",
 			"kind-either-right": null,
-			value: 10,
+			...wrapValue(10),
 		});
 
 		type check = ExpectType<
