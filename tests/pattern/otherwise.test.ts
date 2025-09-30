@@ -1,8 +1,32 @@
 import { pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { DPattern, DString } from "@scripts/index";
+import { otherwise, type PatternResult } from "@scripts/pattern";
 
 describe("otherwise", () => {
+	it("treat normal value result", () => {
+		const result = otherwise(
+			1 as 1 | PatternResult<"match">,
+			(value) => {
+				type check = ExpectType<
+					typeof value,
+					1,
+					"strict"
+				>;
+
+				return value;
+			},
+		);
+
+		expect(result).toBe(1);
+
+		type Check = ExpectType<
+			typeof result,
+			1 | "match",
+			"strict"
+		>;
+	});
+
 	it("not match on when", () => {
 		const result = pipe(
 			"test" as "titi" | "test",

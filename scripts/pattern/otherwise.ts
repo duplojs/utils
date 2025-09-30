@@ -13,10 +13,30 @@ export function otherwise<
 	| Unwrap<GenericInputPatternResult>
 );
 
+export function otherwise<
+	GenericInput extends AnyValue,
+	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
+	GenericOutput extends AnyValue,
+>(
+	input: GenericInput | GenericInputPatternResult | GenericInputValue,
+	theFunction: (rest: GenericInputValue) => GenericOutput
+): (
+	| GenericOutput
+	| Unwrap<GenericInputPatternResult>
+);
+
 export function otherwise(
-	theFunction: AnyFunction,
+	...args: [unknown, AnyFunction] | [AnyFunction]
 ) {
-	return (input: any) => isResult(input)
+	if (args.length === 1) {
+		const [theFunction] = args;
+		return (input: unknown) => otherwise(input, theFunction);
+	}
+
+	const [input, theFunction] = args;
+
+	return isResult(input)
 		? unwrap(input) as never
 		: theFunction(input) as never;
 }
