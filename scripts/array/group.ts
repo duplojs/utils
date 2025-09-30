@@ -10,21 +10,47 @@ export interface ArrayGroupFunctionOutput<
 	value: GenericGroupeValue;
 }
 
-export interface ArrayGroupFunctionParams<
-	GenericElement extends unknown = unknown,
-> {
-	element: GenericElement;
+export function groupOutput<
+	GenericGroupeValue extends unknown,
+	GenericGroupeName extends string,
+>(
+	group: GenericGroupeName,
+): (value: GenericGroupeValue) => ArrayGroupFunctionOutput<
+	GenericGroupeName,
+	GenericGroupeValue
+>;
+
+export function groupOutput<
+	GenericGroupeValue extends unknown,
+	GenericGroupeName extends string,
+>(
+	group: GenericGroupeName,
+	value: GenericGroupeValue,
+): ArrayGroupFunctionOutput<
+	GenericGroupeName,
+	GenericGroupeValue
+>;
+
+export function groupOutput(
+	...args: [string, unknown] | [string]
+) {
+	if (args.length === 1) {
+		const [group] = args;
+
+		return (input: unknown) => groupOutput(group, input);
+	}
+
+	const [group, value] = args;
+
+	return {
+		group,
+		value,
+	};
+}
+
+export interface ArrayGroupFunctionParams {
 	index: number;
-	output<
-		GenericGroupeName extends string,
-		GenericGroupeValue extends GenericElement,
-	>(
-		group: GenericGroupeName,
-		value: GenericGroupeValue
-	): ArrayGroupFunctionOutput<
-		GenericGroupeName,
-		GenericGroupeValue
-	>;
+	output: typeof groupOutput;
 }
 
 export type ArrayGroupResult<
@@ -38,7 +64,8 @@ export function group<
 	GenericOutput extends ArrayGroupFunctionOutput,
 >(
 	theFunction: (
-		params: ArrayGroupFunctionParams<GenericElement>
+		element: GenericElement,
+		params: ArrayGroupFunctionParams
 	) => GenericOutput,
 ): (array: readonly GenericElement[]) => ArrayGroupResult<GenericOutput>;
 export function group<
@@ -47,7 +74,8 @@ export function group<
 >(
 	array: readonly GenericElement[],
 	theFunction: (
-		params: ArrayGroupFunctionParams<GenericElement>
+		element: GenericElement,
+		params: ArrayGroupFunctionParams
 	) => GenericOutput,
 ): ArrayGroupResult<GenericOutput>;
 export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
@@ -61,13 +89,9 @@ export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]
 		array,
 		({ from }) => from({}),
 		({ index, element, lastValue, nextWithObject }) => {
-			const { group, value } = theFunction({
+			const { group, value } = theFunction(element, {
 				index,
-				element,
-				output: (group: unknown, value: unknown) => ({
-					group,
-					value,
-				}),
+				output: groupOutput,
 			});
 
 			return nextWithObject(

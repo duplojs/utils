@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Adaptor, type IsEqual, type NeverCoalescing, type IsUnion, type UnionToTuple } from "@scripts/common";
+import { type SimplifyTopLevel, type Adaptor, type IsEqual, type NeverCoalescing, type IsUnion, type UnionToTuple, type DeepRemoveReadonly, type RemoveReadonly } from "@scripts/common";
 import { type EligiblePrimitiveMatch } from "./pattern";
 import { type GetPropsWithValue } from "@scripts/object";
 import { type FlatObject } from "@scripts/object/types/flatObject";
@@ -91,7 +91,7 @@ type ComputeComplexUnMatchedValue<
 								keyof inferredPatternValue
 							> extends false
 								? inferredInput
-								: SimplifyTopLevel<
+								: (
 									& Omit<inferredInput, keyof inferredPatternValue>
 									& {
 										-readonly [Prop in keyof inferredPatternValue]: NeverCoalescing<
@@ -126,11 +126,14 @@ type ComputeComplexUnMatchedValue<
 											}
 										)
 										: never
-								> extends infer InferredResult
+								) extends infer InferredResult
 									// priority to opaque type
-									? IsEqual<InferredResult, inferredInput> extends true
+									? IsEqual<
+										RemoveReadonly<InferredResult>,
+										RemoveReadonly<inferredInput>
+									> extends true
 										? inferredInput
-										: InferredResult
+										: SimplifyTopLevel<InferredResult>
 									: never
 						: never
 			: never
@@ -155,5 +158,5 @@ export type ComplexUnMatchedValue<
 	GenericInput extends unknown,
 	GenericPatternValue extends unknown,
 > = UnionToTuple<keyof GetIncompleteUnion<GenericInput, GenericPatternValue>>["length"] extends 0 | 1
-	? ComputeComplexUnMatchedValue<GenericInput, GenericPatternValue>
+	? Extract<ComputeComplexUnMatchedValue<GenericInput, GenericPatternValue>, any>
 	: GenericInput;

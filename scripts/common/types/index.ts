@@ -26,4 +26,6 @@ export * from "./neverCoalescing";
 export * from "./unionContain";
 export * from "./forcePredicate";
 export * from "./IsExtends";
+export * from "./removeReadonly";
+export * from "./deepRemoveReadonly";
 

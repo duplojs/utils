@@ -3,12 +3,14 @@ import { isResult, type PatternResult } from "./result";
 
 export function otherwise<
 	GenericInput extends AnyValue,
+	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericOutput extends AnyValue,
 >(
-	theFunction: (rest: Exclude<GenericInput, PatternResult>) => GenericOutput
-): (input: GenericInput) => (
+	theFunction: (rest: GenericInputValue) => GenericOutput
+): (input: GenericInput | GenericInputPatternResult | GenericInputValue) => (
 	| GenericOutput
-	| Unwrap<Extract<GenericInput, PatternResult>>
+	| Unwrap<GenericInputPatternResult>
 );
 
 export function otherwise(

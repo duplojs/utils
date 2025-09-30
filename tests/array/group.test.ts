@@ -1,4 +1,4 @@
-import { DArray, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DPattern, innerPipe, pipe, type ExpectType } from "@scripts/index";
 
 describe("group", () => {
 	const input = [
@@ -22,7 +22,7 @@ describe("group", () => {
 	it("create element in array", () => {
 		const result = DArray.group(
 			input,
-			({ element, output }) => element.type === "care"
+			(element, { output }) => element.type === "care"
 				? output("cher", element)
 				: output("pasCher", element),
 		);
@@ -75,10 +75,13 @@ describe("group", () => {
 		const result = pipe(
 			input,
 			DArray.group(
-				({ element, output }) => element.type === "book"
-					? output(element.type, element)
-					: output("other", element),
-
+				innerPipe(
+					DPattern.match(
+						{ type: "book" },
+						DArray.groupOutput("book"),
+					),
+					DPattern.otherwise(DArray.groupOutput("other")),
+				),
 			),
 		);
 
