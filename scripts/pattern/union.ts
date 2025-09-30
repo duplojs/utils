@@ -1,6 +1,7 @@
 import { type ForcePredicate, type FixDeepFunctionInfer } from "@scripts/common";
 import { isMatch } from "./isMatch";
 import { type PatternValue, type Pattern } from "./types/pattern";
+import { type ComplexMatchedValue } from "./types";
 
 export function union<
 	GenericInput extends unknown,
@@ -15,7 +16,10 @@ export function union<
 		input: GenericInput,
 	): input is ForcePredicate<
 		GenericInput,
-		PatternValue<GenericPatterns[number]>
+		ComplexMatchedValue<
+			GenericInput,
+			PatternValue<GenericPatterns[number]>
+		>
 	> => {
 		for (const pattern of patterns) {
 			if (isMatch(input, pattern)) {
