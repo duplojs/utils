@@ -28,13 +28,10 @@ type ComputesResult<
 
 export function to<
 	GenericInput extends unknown,
-	GenericShapeObject extends ShapeObject<GenericInput>,
+	GenericShapeObject extends ShapeObject<NoInfer<GenericInput>>,
 >(
-	shapeObject: FixDeepFunctionInfer<
-		ShapeObject<GenericInput>,
-		GenericShapeObject
-	>,
-): (input: GenericInput) => ComputesResult<GenericShapeObject>;
+	shapeObject: ShapeObject<NoInfer<GenericInput>> & GenericShapeObject,
+): (input: GenericInput) => ComputesResult<NoInfer<GenericShapeObject>>;
 
 export function to<
 	GenericInput extends unknown,

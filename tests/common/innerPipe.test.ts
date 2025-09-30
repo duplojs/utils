@@ -26,20 +26,34 @@ it("innerPipe", () => {
 		),
 		DObject.transformProperty("prop1", DArray.from),
 		DObject.to({
-			test1: (value) => pipe(
-				value,
+			test1: innerPipe(
 				(value) => {
-				type check = ExpectType<
-					typeof value,
-					{
-						prop1: string[];
-					},
-					"strict"
-				>;
+					type check = ExpectType<
+						typeof value,
+						{
+							prop1: string[];
+						},
+						"strict"
+					>;
 
-				return value;
+					return value;
 				},
 			),
+		}),
+		DObject.transformProperties({
+			test1: DObject.transformProperties({
+				prop1: innerPipe(
+					(value) => {
+						type check = ExpectType<
+							typeof value,
+							string[],
+							"strict"
+						>;
+
+						return DArray.first(value);
+					},
+				),
+			}),
 		}),
 	);
 
@@ -47,7 +61,7 @@ it("innerPipe", () => {
 		typeof result,
 		{
 			test1: {
-				prop1: string[];
+				prop1: string | undefined;
 			};
 		},
 		"strict"
@@ -55,12 +69,7 @@ it("innerPipe", () => {
 
 	expect(result).toStrictEqual({
 		test1: {
-			prop1: [
-				"t",
-				"e",
-				"s",
-				"t",
-			],
+			prop1: "t",
 		},
 	});
 });

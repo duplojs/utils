@@ -9,7 +9,7 @@ type TransformObject<
 type ComputesResult<
 	GenericObjectInput extends object,
 	GenericTransformObject extends TransformObject<GenericObjectInput>,
-> = SimplifyTopLevel<(
+> = SimplifyTopLevel<
 	& Omit<GenericObjectInput, keyof GenericTransformObject>
 	& {
 		[Prop in keyof GenericTransformObject]: (
@@ -27,17 +27,14 @@ type ComputesResult<
 		)
 		)
 	}
-)>;
+>;
 
 export function transformProperties<
 	GenericObjectInput extends object,
-	GenericTransformObject extends TransformObject<GenericObjectInput>,
+	GenericTransformObject extends TransformObject<NoInfer<GenericObjectInput>>,
 >(
-	transformObject: FixDeepFunctionInfer<
-		TransformObject<GenericObjectInput>,
-		GenericTransformObject
-	>,
-): (obj: GenericObjectInput) => ComputesResult<GenericObjectInput, GenericTransformObject>;
+	transformObject: TransformObject<NoInfer<GenericObjectInput>> & GenericTransformObject,
+): (obj: GenericObjectInput) => ComputesResult<NoInfer<GenericObjectInput>, NoInfer<GenericTransformObject>>;
 
 export function transformProperties<
 	GenericObjectInput extends object,
