@@ -1,10 +1,10 @@
 export function slice(
 	start: number,
 	end: number,
-): (str: string) => string;
+): (input: string) => string;
 
 export function slice(
-	str: string,
+	input: string,
 	start: number,
 	end: number,
 ): string;
@@ -12,10 +12,10 @@ export function slice(
 export function slice(...args: [string, number, number] | [number, number]): any {
 	if (args.length === 2) {
 		const [start, end] = args;
-		return (str: string) => slice(str, start, end);
+		return (input: string) => slice(input, start, end);
 	}
 
-	const [str, start, end] = args;
+	const [input, start, end] = args;
 
-	return str.slice(start, end);
+	return input.slice(start, end);
 }

@@ -1,3 +1,3 @@
-export function trimEnd(str: string) {
-	return str.trimEnd();
+export function trimEnd(input: string) {
+	return input.trimEnd();
 }

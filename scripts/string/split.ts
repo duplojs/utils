@@ -13,21 +13,21 @@ export function split<
 >(
 	separator: GenericSeparator,
 	params: StringSplitParams<GenericLimit>,
-): (str: GenericString) => SplitString<GenericString, GenericSeparator, GenericLimit>;
+): (input: GenericString) => SplitString<GenericString, GenericSeparator, GenericLimit>;
 
 export function split<
 	GenericString extends string,
 	GenericSeparator extends string | RegExp,
 >(
 	separator: GenericSeparator,
-): (str: GenericString) => SplitString<GenericString, GenericSeparator>;
+): (input: GenericString) => SplitString<GenericString, GenericSeparator>;
 
 export function split<
 	GenericString extends string,
 	GenericSeparator extends string | RegExp,
 	GenericLimit extends number,
 >(
-	str: GenericString,
+	input: GenericString,
 	separator: GenericSeparator,
 	params: StringSplitParams<GenericLimit>,
 ): SplitString<GenericString, GenericSeparator, GenericLimit>;
@@ -36,7 +36,7 @@ export function split<
 	GenericString extends string,
 	GenericSeparator extends string | RegExp,
 >(
-	str: GenericString,
+	input: GenericString,
 	separator: GenericSeparator,
 ): SplitString<GenericString, GenericSeparator>;
 
@@ -45,15 +45,15 @@ export function split(
 ): any {
 	if (args.length === 1) {
 		const [separator] = args;
-		return (str: string) => split(str, separator);
+		return (input: string) => split(input, separator);
 	}
 
 	if (args.length === 2 && typeof args[1] === "object" && !(args[1] instanceof RegExp)) {
 		const [separator, params] = args;
-		return (str: string) => split(str, separator, params);
+		return (input: string) => split(input, separator, params);
 	}
 
-	const [str, separator, params] = args as [string, string | RegExp, StringSplitParams<number>?];
+	const [input, separator, params] = args as [string, string | RegExp, StringSplitParams<number>?];
 
-	return str.split(separator, params?.limit);
+	return input.split(separator, params?.limit);
 }

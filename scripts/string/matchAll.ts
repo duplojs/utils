@@ -1,19 +1,19 @@
 export function matchAll(
 	pattern: RegExp,
-): (str: string) => RegExpMatchArray[];
+): (input: string) => RegExpMatchArray[];
 
 export function matchAll(
-	str: string,
+	input: string,
 	pattern: RegExp,
 ): RegExpMatchArray[];
 
 export function matchAll(...args: [string, RegExp] | [RegExp]): any {
 	if (args.length === 1) {
 		const [pattern] = args;
-		return (str: string) => matchAll(str, pattern);
+		return (input: string) => matchAll(input, pattern);
 	}
 
-	const [str, pattern] = args;
+	const [input, pattern] = args;
 
-	return Array.from(str.matchAll(pattern));
+	return Array.from(input.matchAll(pattern));
 }

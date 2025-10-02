@@ -3,23 +3,23 @@ export function at<
 	GenericIndex extends number,
 >(
 	index: GenericIndex,
-): (string: GenericString) => string | undefined;
+): (input: GenericString) => string | undefined;
 
 export function at<
 	GenericString extends string,
 	GenericIndex extends number,
 >(
-	string: GenericString,
+	input: GenericString,
 	index: GenericIndex,
 ): string | undefined;
 
 export function at(...args: [string, number] | [number]) {
 	if (args.length === 1) {
 		const [index] = args;
-		return (string: string) => at(string, index);
+		return (input: string) => at(input, index);
 	}
 
-	const [string, index] = args;
+	const [input, index] = args;
 
-	return string.at(index);
+	return input.at(index);
 }

@@ -1,10 +1,10 @@
 export function replace(
 	pattern: string | RegExp,
 	replacement: string,
-): (str: string) => string;
+): (input: string) => string;
 
 export function replace(
-	str: string,
+	input: string,
 	pattern: string | RegExp,
 	replacement: string,
 ): string;
@@ -12,10 +12,10 @@ export function replace(
 export function replace(...args: [string, string | RegExp, string] | [string | RegExp, string]): any {
 	if (args.length === 2) {
 		const [pattern, replacement] = args;
-		return (str: string) => replace(str, pattern, replacement);
+		return (input: string) => replace(input, pattern, replacement);
 	}
 
-	const [str, pattern, replacement] = args;
+	const [input, pattern, replacement] = args;
 
-	return str.replace(pattern, replacement);
+	return input.replace(pattern, replacement);
 }

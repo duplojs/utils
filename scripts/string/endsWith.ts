@@ -5,24 +5,24 @@ export function endsWith<
 	length?: number,
 ): <
 	GenericString extends string,
->(str: GenericString) => str is Extract<GenericString, `${string}${GenericSearchString}`>;
+>(input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}`>;
 
 export function endsWith<
 	GenericString extends string,
 	GenericSearchString extends string,
 >(
-	str: GenericString,
+	input: GenericString,
 	searchString: GenericSearchString,
 	length?: number,
-): str is Extract<GenericString, `${string}${GenericSearchString}`>;
+): input is Extract<GenericString, `${string}${GenericSearchString}`>;
 
 export function endsWith(...args: [string, string, number?] | [string, number?]): any {
 	if (typeof args[0] === "string" && typeof args[1] !== "string") {
 		const [searchString, length] = args;
-		return (str: string) => endsWith(str, searchString, length);
+		return (input: string) => endsWith(input, searchString, length);
 	}
 
-	const [str, searchString, length] = args as [string, string, number?];
+	const [input, searchString, length] = args as [string, string, number?];
 
-	return str.endsWith(searchString, length);
+	return input.endsWith(searchString, length);
 }

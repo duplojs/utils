@@ -1,5 +1,5 @@
 export function toUpperCase<
 	GenericString extends string,
->(str: GenericString) {
-	return str.toUpperCase() as Uppercase<GenericString>;
+>(input: GenericString) {
+	return input.toUpperCase() as Uppercase<GenericString>;
 }

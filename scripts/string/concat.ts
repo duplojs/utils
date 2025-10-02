@@ -1,19 +1,19 @@
 export function concat(
 	text: string,
-): (str: string) => string;
+): (input: string) => string;
 
 export function concat(
-	str: string,
+	input: string,
 	...textsRest: string[]
 ): string;
 
 export function concat(...args: [string, ...string[]] | [string]) {
 	if (args.length === 1) {
 		const [text] = args;
-		return (str: string) => concat(str, text);
+		return (input: string) => concat(input, text);
 	}
 
-	const [str, ...textsRest] = args;
+	const [input, ...textsRest] = args;
 
-	return str.concat(...textsRest);
+	return input.concat(...textsRest);
 }

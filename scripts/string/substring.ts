@@ -1,10 +1,10 @@
 export function substring(
 	start: number,
 	end?: number,
-): (str: string) => string;
+): (input: string) => string;
 
 export function substring(
-	str: string,
+	input: string,
 	start: number,
 	end?: number,
 ): string;
@@ -12,10 +12,10 @@ export function substring(
 export function substring(...args: [string, number, number?] | [number, number?]): any {
 	if (typeof args[0] === "number") {
 		const [start, end] = args;
-		return (str: string) => substring(str, start, end);
+		return (input: string) => substring(input, start, end);
 	}
 
-	const [str, start, end] = args as [string, number, number?];
+	const [input, start, end] = args as [string, number, number?];
 
-	return str.substring(start, end);
+	return input.substring(start, end);
 }

@@ -1,9 +1,9 @@
 export function lastIndexOf(
 	searchString: string,
-): (str: string) => number | undefined;
+): (input: string) => number | undefined;
 
 export function lastIndexOf(
-	str: string,
+	input: string,
 	searchString: string,
 	position?: number,
 ): number | undefined;
@@ -11,11 +11,11 @@ export function lastIndexOf(
 export function lastIndexOf(...args: [string, string, number?] | [string]): any {
 	if (args.length === 1) {
 		const [searchString] = args;
-		return (str: string) => lastIndexOf(str, searchString);
+		return (input: string) => lastIndexOf(input, searchString);
 	}
 
-	const [str, searchString, position] = args;
+	const [input, searchString, position] = args;
 
-	const result = str.lastIndexOf(searchString, position);
+	const result = input.lastIndexOf(searchString, position);
 	return result === -1 ? undefined : result;
 }

@@ -1,19 +1,19 @@
 export function charAt(
 	index: number,
-): (str: string) => string;
+): (input: string) => string;
 
 export function charAt(
-	str: string,
+	input: string,
 	index: number,
 ): string;
 
 export function charAt(...args: [string, number] | [number]): any {
 	if (args.length === 1) {
 		const [index] = args;
-		return (str: string) => charAt(str, index);
+		return (input: string) => charAt(input, index);
 	}
 
-	const [str, index] = args;
+	const [input, index] = args;
 
-	return str.charAt(index);
+	return input.charAt(index);
 }

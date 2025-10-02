@@ -1,21 +1,21 @@
 export function match(
 	pattern: string | RegExp,
-): (str: string) => RegExpMatchArray | undefined;
+): (input: string) => RegExpMatchArray | undefined;
 
 export function match(
-	str: string,
+	input: string,
 	pattern: string | RegExp,
 ): RegExpMatchArray | undefined;
 
 export function match(...args: [string, string | RegExp] | [string | RegExp]): any {
 	if (args.length === 1) {
 		const [pattern] = args;
-		return (str: string) => match(str, pattern);
+		return (input: string) => match(input, pattern);
 	}
 
-	const [str, pattern] = args;
+	const [input, pattern] = args;
 
-	const result = str.match(pattern);
+	const result = input.match(pattern);
 
 	return result ? result : undefined;
 }

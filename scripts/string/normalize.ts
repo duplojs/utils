@@ -2,20 +2,20 @@ import { type NormalizeForm } from "./types/NormalizeForm";
 
 export function normalize(
 	form: NormalizeForm,
-): (str: string) => string;
+): (input: string) => string;
 
 export function normalize(
-	str: string,
+	input: string,
 	form: NormalizeForm,
 ): string;
 
 export function normalize(...args: [string, NormalizeForm] | [NormalizeForm]): any {
 	if (args.length === 1) {
 		const [form] = args;
-		return (str: string) => normalize(str, form);
+		return (input: string) => normalize(input, form);
 	}
 
-	const [str, form] = args;
+	const [input, form] = args;
 
-	return str.normalize(form);
+	return input.normalize(form);
 }

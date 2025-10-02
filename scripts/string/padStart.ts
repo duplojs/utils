@@ -1,10 +1,10 @@
 export function padStart(
 	targetLength: number,
 	padString: string,
-): (str: string) => string;
+): (input: string) => string;
 
 export function padStart(
-	str: string,
+	input: string,
 	targetLength: number,
 	padString: string,
 ): string;
@@ -12,10 +12,10 @@ export function padStart(
 export function padStart(...args: [string, number, string] | [number, string]): any {
 	if (args.length === 2) {
 		const [targetLength, padString] = args;
-		return (str: string) => padStart(str, targetLength, padString);
+		return (input: string) => padStart(input, targetLength, padString);
 	}
 
-	const [str, targetLength, padString] = args;
+	const [input, targetLength, padString] = args;
 
-	return str.padStart(targetLength, padString);
+	return input.padStart(targetLength, padString);
 }

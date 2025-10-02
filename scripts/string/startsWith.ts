@@ -5,24 +5,24 @@ export function startsWith<
 	position?: number,
 ): <
 	GenericString extends string,
->(str: GenericString) => str is Extract<GenericString, `${GenericSearchString}${string}`>;
+>(input: GenericString) => input is Extract<GenericString, `${GenericSearchString}${string}`>;
 
 export function startsWith<
 	GenericString extends string,
 	GenericSearchString extends string,
 >(
-	str: GenericString,
+	input: GenericString,
 	searchString: GenericSearchString,
 	position?: number,
-): str is Extract<GenericString, `${GenericSearchString}${string}`>;
+): input is Extract<GenericString, `${GenericSearchString}${string}`>;
 
 export function startsWith(...args: [string, string, number?] | [string, number?]): any {
 	if (typeof args[0] === "string" && typeof args[1] !== "string") {
 		const [searchString, position] = args;
-		return (str: string) => startsWith(str, searchString, position);
+		return (input: string) => startsWith(input, searchString, position);
 	}
 
-	const [str, searchString, position] = args as [string, string, number?];
+	const [input, searchString, position] = args as [string, string, number?];
 
-	return str.startsWith(searchString, position);
+	return input.startsWith(searchString, position);
 }

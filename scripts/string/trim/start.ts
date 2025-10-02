@@ -1,3 +1,3 @@
-export function trimStart(str: string) {
-	return str.trimStart();
+export function trimStart(input: string) {
+	return input.trimStart();
 }
