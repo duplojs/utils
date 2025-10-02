@@ -6,11 +6,14 @@ import { type ShiftTuple } from "./types";
 type ComputeResult<
 	GenericArray extends readonly string[],
 	GenericSeparator extends string,
-> = GenericArray extends AnyTuple
-	? IsEqual<GenericArray["length"], 1> extends true
-		? GenericArray[0]
-		: `${GenericArray[0]}${GenericSeparator}${ComputeResult<Adaptor<ShiftTuple<GenericArray>, readonly string[]>, GenericSeparator>}`
-	: string;
+	Depth extends readonly unknown[] = [],
+> = Depth["length"] extends 40
+	? string
+	: GenericArray extends AnyTuple
+		? IsEqual<GenericArray["length"], 1> extends true
+			? GenericArray[0]
+			: `${GenericArray[0]}${GenericSeparator}${ComputeResult<Adaptor<ShiftTuple<GenericArray>, readonly string[]>, GenericSeparator, [...Depth, 0]>}`
+		: string;
 
 export function join<
 	GenericArray extends readonly string[],
