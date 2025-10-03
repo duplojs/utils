@@ -28,4 +28,8 @@ export * from "./forcePredicate";
 export * from "./IsExtends";
 export * from "./removeReadonly";
 export * from "./deepRemoveReadonly";
+export * from "./and";
+export * from "./or";
+export * from "./breakGenericLink";
+export * from "./not";
 

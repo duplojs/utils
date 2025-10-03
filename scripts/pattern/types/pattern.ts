@@ -1,4 +1,4 @@
-import { type IsEqual, type ObjectKey } from "@scripts/common";
+import { type Adaptor, type IsEqual, type ObjectKey } from "@scripts/common";
 
 export type EligiblePrimitiveMatch = string | number | bigint | boolean | undefined | null;
 
@@ -10,31 +10,45 @@ type PrimitivePattern<
 
 type ObjectPattern<
 	GenericInput extends unknown,
-> = [
-	Extract<GenericInput, object>,
-	GenericInput extends object ? keyof GenericInput : never,
-] extends [
-	infer InferredInputObject extends object,
-	infer InferredInputKeyofObject extends ObjectKey,
-]
-	? {
-		[Prop in InferredInputKeyofObject]?: Extract<
-			InferredInputObject,
-			Partial<Record<Prop, any>>
-		> extends infer InferredValue extends object
-			? Extract<
-				Prop extends keyof InferredValue
-					? Pattern<InferredValue[Prop]>
-					: never,
-				any
-			>
+> = Exclude<GenericInput, readonly any[]> extends infer InferredInput
+	? [
+		Extract<InferredInput, object>,
+		InferredInput extends object ? keyof InferredInput : never,
+	] extends [
+		infer InferredInputObject extends object,
+		infer InferredInputKeyofObject extends ObjectKey,
+	]
+		? {
+			[Prop in InferredInputKeyofObject]?: Extract<
+				InferredInputObject,
+				Partial<Record<Prop, any>>
+			> extends infer InferredValue extends object
+				? Extract<
+					Prop extends keyof InferredValue
+						? Pattern<InferredValue[Prop]>
+						: never,
+					any
+				>
+				: never
+		} extends infer InferredResult
+			? IsEqual<InferredResult, {}> extends true
+				? never
+				: InferredResult
 			: never
-	} extends infer InferredResult
-		? IsEqual<InferredResult, {}> extends true
-			? never
-			: InferredResult
 		: never
 	: never;
+
+type ArrayPattern<
+	GenericInput extends unknown,
+> = GenericInput extends readonly [infer inferredFirst, ...infer inferredRest]
+	? (
+		| readonly []
+		| readonly [Pattern<inferredFirst>]
+		| readonly [Pattern<inferredFirst>, ...Adaptor<Pattern<inferredRest>, readonly any[]>]
+	)
+	: GenericInput extends readonly any[]
+		? readonly Pattern<GenericInput[number]>[]
+		: never;
 
 type PredicatePattern<
 	GenericInput extends unknown = any,
@@ -46,6 +60,7 @@ export type Pattern<
 	| PredicatePattern<GenericInput>
 	| PrimitivePattern<GenericInput>
 	| ObjectPattern<GenericInput>
+	| ArrayPattern<GenericInput>
 );
 
 export type PatternValue<
@@ -56,8 +71,16 @@ export type PatternValue<
 		? InferredPredicate
 		: GenericPattern extends (input: infer InferredInput) => boolean
 			? InferredInput
-			: GenericPattern extends Record<ObjectKey, Pattern>
-				? {
-					[Prop in keyof GenericPattern]: PatternValue<GenericPattern[Prop]>
-				}
-				: never;
+			: GenericPattern extends readonly [infer inferredFirst, ...infer inferredRest]
+				? IsEqual<inferredRest, readonly []> extends true
+					? [PatternValue<inferredFirst>]
+					: [PatternValue<inferredFirst>, ...Adaptor<PatternValue<inferredRest>, any[]>]
+				: GenericPattern extends readonly []
+					? []
+					: GenericPattern extends readonly any[]
+						? PatternValue<GenericPattern[number]>[]
+						: GenericPattern extends Record<ObjectKey, Pattern>
+							? {
+								[Prop in keyof GenericPattern]: PatternValue<GenericPattern[Prop]>
+							}
+							: never;

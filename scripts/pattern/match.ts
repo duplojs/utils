@@ -1,4 +1,4 @@
-import { type IsEqual, type AnyFunction, type AnyValue, type EscapeVoid, type FixDeepFunctionInfer, SimplifyType } from "@scripts/common";
+import { type IsEqual, type AnyFunction, type AnyValue, type EscapeVoid, type FixDeepFunctionInfer } from "@scripts/common";
 import { type PatternValue, type Pattern } from "./types/pattern";
 import { type PatternResult, result } from "./result";
 import { type ComplexMatchedValue, type ComplexUnMatchedValue } from "./types";
@@ -24,9 +24,12 @@ export function match<
 		GenericPattern
 	>,
 	theFunction: (
-		value: ComplexMatchedValue<
-			GenericInputValue,
-			PatternValue<GenericPattern>
+		value: Extract<
+			ComplexMatchedValue<
+				GenericInputValue,
+				PatternValue<GenericPattern>
+			>,
+			any
 		>
 	) => GenericOutput,
 ): (input: GenericInput | GenericInputValue | GenericInputPatternResult) => (
@@ -66,9 +69,12 @@ export function match<
 		GenericPattern
 	>,
 	theFunction: (
-		value: ComplexMatchedValue<
-			GenericInputValue,
-			PatternValue<GenericPattern>
+		value: Extract<
+			ComplexMatchedValue<
+				GenericInputValue,
+				PatternValue<GenericPattern>
+			>,
+			any
 		>
 	) => GenericOutput,
 ): (

@@ -1,4 +1,4 @@
-import { DArray, DObject, innerPipe, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DObject, pipe, type ExpectType } from "@scripts/index";
 
 describe("to", () => {
 	it("basic usage", () => {

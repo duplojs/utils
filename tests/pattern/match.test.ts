@@ -874,4 +874,165 @@ describe("pattern match", () => {
 			>;
 		});
 	});
+
+	describe("array discrimination", () => {
+		it("simple array", () => {
+			const array = ["one", 2, 3n];
+
+			const result = DPattern.match(
+				{ array },
+				{ array: ["one", 2, 3n] },
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							array: ["one", 2, 3n, ...(string | number | bigint)[]];
+						},
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			);
+
+			expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				{
+					array: (string | number | bigint)[];
+				} | DPattern.PatternResult<"myValue">,
+				"strict"
+			>;
+		});
+
+		it("tuple", () => {
+			const array = ["one", 2, 3n] as ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+
+			const result = DPattern.match(
+				{ array },
+				{ array: ["one"] },
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							array: ["one", 2, 3n] | ["one", ...string[]];
+						},
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			);
+
+			expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				{
+					array: ["two", 3, 4n];
+				} | DPattern.PatternResult<"myValue">,
+				"strict"
+			>;
+		});
+
+		it("match with empty tuple", () => {
+			const array = ["one", 2, 3n] as ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+
+			const result = DPattern.match(
+				{ test: { array } },
+				{ test: { array: [] } },
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							test: {
+								array: ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+							};
+						},
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			);
+
+			expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue">,
+				"strict"
+			>;
+		});
+
+		it("match tuple in tuple", () => {
+			const array = ["one", 2, 3n] as ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+
+			const result = DPattern.match(
+				[{ array }] as const,
+				[{ array: ["one"] }],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[
+							{
+								array: ["one", 2, 3n] | ["one", ...string[]];
+							},
+						],
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			);
+
+			expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | [
+					{
+						array: ["two", 3, 4n];
+					},
+				],
+				"strict"
+			>;
+		});
+
+		it("match tuple in array", () => {
+			const array = ["one", 2, 3n] as ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+
+			const result = DPattern.match(
+				[{ array }],
+				[{ array: ["one"] }],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[
+							{
+								array: ["one", 2, 3n] | ["one", ...string[]];
+							},
+							...{
+								array: ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+							}[],
+						],
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			);
+
+			expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | {
+					array: ["one", 2, 3n] | ["two", 3, 4n] | ["one", ...string[]];
+				}[],
+				"strict"
+			>;
+		});
+	});
 });
