@@ -37,25 +37,27 @@ type ComplexUnMatchedTupleTuple<
 						InferredInput,
 						InferredPatternValue,
 					] extends [
-						readonly [infer InferredInputFirst, ...infer inferredInputRest],
-						readonly [infer InferredPatternValueFirst, ...infer inferredPatternValueRest],
+						readonly [infer InferredInputFirst, ...infer InferredInputRest],
+						readonly [infer InferredPatternValueFirst, ...infer InferredPatternValueRest],
 					]
 						? ComputeComplexUnMatchedValue<
 							InferredInputFirst,
 							InferredPatternValueFirst
 						> extends infer InferredResultFirst
-							? inferredPatternValueRest extends readonly []
+							? InferredPatternValueRest extends readonly []
 								? IsEqual<InferredResultFirst, never> extends true
 									? never
-									: [InferredResultFirst, ...inferredInputRest]
+									: [InferredResultFirst, ...InferredInputRest]
 								: ComputeComplexUnMatchedValue<
-									inferredInputRest,
-									inferredPatternValueRest
+									InferredInputRest,
+									InferredPatternValueRest
 								> extends infer InferredResultRest
 									? IsEqual<InferredResultRest, never> extends true
 										? never
 										: [
-											InferredResultFirst,
+											IsEqual<InferredResultFirst, never> extends true
+												? InferredInputFirst
+												: InferredResultFirst,
 											...Adaptor<
 												InferredResultRest,
 												readonly any[]
