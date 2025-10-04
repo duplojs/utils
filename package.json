@@ -47,6 +47,9 @@
   },
   "keywords": [],
   "engines": {
-   "node": ">=22.15.1"
+    "node": ">=22.15.1"
+  },
+  "dependencies": {
+    "rollup-plugin-delete": "^3.0.1"
   }
 }
