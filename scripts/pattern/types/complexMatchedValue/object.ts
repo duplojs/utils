@@ -9,34 +9,34 @@ export type ComplexMatchedObject<
 		Exclude<Extract<GenericInput, object>, readonly any[]>,
 		Exclude<Extract<GenericPatternValue, object>, readonly any[]>,
 	] extends [
-		infer inferredInput,
-		infer inferredPatternValue,
+		infer InferredInput,
+		infer InferredPatternValue,
 	]
-		? inferredInput extends any
-			? inferredPatternValue extends any
+		? InferredInput extends any
+			? InferredPatternValue extends any
 				? Extract<
-					inferredInput,
-					inferredPatternValue
+					InferredInput,
+					InferredPatternValue
 				> extends infer InferredObviousMatchedValue
 					? IsEqual<InferredObviousMatchedValue, never> extends false
 						? InferredObviousMatchedValue
 						: IsEqual<
-							Extract<keyof inferredInput, keyof inferredPatternValue>,
-							keyof inferredPatternValue
+							Extract<keyof InferredInput, keyof InferredPatternValue>,
+							keyof InferredPatternValue
 						> extends false
 							? never
 							: SimplifyTopLevel<
-								& Omit<inferredInput, keyof inferredPatternValue>
+								& Omit<InferredInput, keyof InferredPatternValue>
 								& {
-									-readonly [Prop in keyof inferredPatternValue]: Extract<
+									-readonly [Prop in keyof InferredPatternValue]: Extract<
 										ComplexMatchedValue<
-											inferredInput[Adaptor<Prop, keyof inferredInput>],
-											inferredPatternValue[Prop]
+											InferredInput[Adaptor<Prop, keyof InferredInput>],
+											InferredPatternValue[Prop]
 										>,
 										any
 									>
 								}
-							> extends infer InferredResult extends inferredInput
+							> extends infer InferredResult extends InferredInput
 								? InferredResult
 								: never
 					: never

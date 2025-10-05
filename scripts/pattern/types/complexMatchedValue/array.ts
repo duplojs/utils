@@ -25,9 +25,12 @@ type ComplexMatchedArrayTuple<
 							...infer InferredPatternRest,
 						]
 							? [
-								ComplexMatchedValue<
-									InferredInput[number],
-									InferredPatternFirst
+								Extract<
+									ComplexMatchedValue<
+										InferredInput[number],
+										InferredPatternFirst
+									>,
+									any
 								>,
 								...(
 									InferredPatternRest extends readonly []
@@ -81,7 +84,10 @@ type ComplexMatchedTupleTuple<
 								? IsEqual<InferredResult, never> extends true
 									? never
 									: [
-										InferredResult,
+										Extract<
+											InferredResult,
+											any
+										>,
 										...Adaptor<
 											(
 												IsEqual<inferredPatternValueRest[number], never> extends true
@@ -102,6 +108,31 @@ type ComplexMatchedTupleTuple<
 		: never
 );
 
+type ComplexMatchedArrayArray<
+	GenericInput extends unknown,
+	GenericPatternValue extends unknown,
+> = (
+	[
+		Exclude<Extract<GenericInput, readonly any[]>, AnyTuple>,
+		Exclude<Extract<GenericPatternValue, readonly any[]>, AnyTuple>,
+	] extends [
+		infer InferredInput extends readonly any[],
+		infer InferredPatternValue extends readonly any[],
+	]
+		? IsEqual<InferredPatternValue, never> extends true
+			? never
+			: InferredPatternValue extends InferredInput
+				? InferredInput
+				: Extract<
+					ComplexMatchedValue<
+						InferredInput[number],
+						InferredPatternValue[number]
+					>,
+					any
+				>[]
+		: never
+);
+
 export type ComplexMatchedArray<
 	GenericInput extends unknown,
 	GenericPatternValue extends unknown,
@@ -110,4 +141,5 @@ export type ComplexMatchedArray<
 	: (
 		| ComplexMatchedTupleTuple<GenericInput, GenericPatternValue>
 		| ComplexMatchedArrayTuple<GenericInput, GenericPatternValue>
+		| ComplexMatchedArrayArray<GenericInput, GenericPatternValue>
 	);

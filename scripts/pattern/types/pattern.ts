@@ -1,4 +1,5 @@
-import { type Adaptor, type IsEqual, type ObjectKey } from "@scripts/common";
+import { type MergeUnionTuple } from "@scripts/array/types/mergeUnionTuple";
+import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey } from "@scripts/common";
 
 export type EligiblePrimitiveMatch = string | number | bigint | boolean | undefined | null;
 
@@ -19,16 +20,13 @@ type ObjectPattern<
 		infer InferredInputKeyofObject extends ObjectKey,
 	]
 		? {
-			[Prop in InferredInputKeyofObject]?: Extract<
+			readonly [Prop in InferredInputKeyofObject]?: Extract<
 				InferredInputObject,
 				Partial<Record<Prop, any>>
 			> extends infer InferredValue extends object
-				? Extract<
-					Prop extends keyof InferredValue
-						? Pattern<InferredValue[Prop]>
-						: never,
-					any
-				>
+				? Prop extends keyof InferredValue
+					? Pattern<InferredValue[Prop]>
+					: never
 				: never
 		} extends infer InferredResult
 			? IsEqual<InferredResult, {}> extends true
@@ -40,15 +38,43 @@ type ObjectPattern<
 
 type ArrayPattern<
 	GenericInput extends unknown,
-> = GenericInput extends readonly [infer inferredFirst, ...infer inferredRest]
-	? (
-		| readonly []
-		| readonly [Pattern<inferredFirst>]
-		| readonly [Pattern<inferredFirst>, ...Adaptor<Pattern<inferredRest>, readonly any[]>]
+> = (
+	| (
+		Extract<GenericInput, AnyTuple> extends infer InferredInput extends AnyTuple
+			? IsEqual<InferredInput, never> extends true
+				? never
+				: MergeUnionTuple<InferredInput> extends readonly [infer InferredFirst, ...infer InferredRest]
+					? (
+						| readonly []
+						| readonly [Pattern<InferredFirst>]
+						| (
+							InferredRest extends readonly []
+								? never
+								: readonly [
+									Pattern<InferredFirst>,
+									...Adaptor<
+										Pattern<InferredRest>,
+										readonly any[]
+									>,
+								]
+						)
+					)
+					: never
+			: never
 	)
-	: GenericInput extends readonly any[]
-		? readonly Pattern<GenericInput[number]>[]
-		: never;
+	| (
+		Exclude<
+			Extract<GenericInput, readonly any[]>,
+			AnyTuple
+		> extends infer InferredInput extends readonly any[]
+			? IsEqual<InferredInput, never> extends true
+				? never
+				: readonly Pattern<InferredInput[number]>[]
+			: never
+	)
+);
+
+type tt = ArrayPattern<["one", 5, 7n] | ["two", 5n] | ["three", ...string[]]>;
 
 type PredicatePattern<
 	GenericInput extends unknown = any,

@@ -72,9 +72,11 @@ type ComplexUnMatchedTupleTuple<
 export type ComplexUnMatchedArray<
 	GenericInput extends unknown,
 	GenericPatternValue extends unknown,
-> = GenericPatternValue extends readonly []
-	? never
-	: (
-		| ComplexUnMatchedTupleTuple<GenericInput, GenericPatternValue>
-		| ComplexUnMatchedArrayTuple<GenericInput, GenericPatternValue>
-	);
+> = Exclude<GenericPatternValue, readonly []> extends infer InferredPatternValue
+	? IsEqual<InferredPatternValue, never> extends true
+		? never
+		: (
+			| ComplexUnMatchedTupleTuple<GenericInput, InferredPatternValue>
+			| ComplexUnMatchedArrayTuple<GenericInput, InferredPatternValue>
+		)
+	: never;
