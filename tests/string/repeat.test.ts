@@ -6,9 +6,9 @@ describe("repeat", () => {
 		expect(DString.repeat("x", 0)).toBe("");
 	});
 
-	it("should throw on invalid count", () => {
-		expect(() => DString.repeat("test", -1)).toThrow();
-		expect(() => DString.repeat("test", Infinity)).toThrow();
+	it("should return empty string on invalid count", () => {
+		expect(DString.repeat("test", -1)).toBe("");
+		expect(DString.repeat("test", Infinity)).toBe("");
 	});
 
 	it("use in pipe", () => {

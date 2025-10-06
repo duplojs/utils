@@ -15,5 +15,9 @@ export function repeat(...args: [string, number] | [number]): any {
 
 	const [input, count] = args;
 
+	if (count < 0 || !Number.isFinite(count)) {
+		return "";
+	}
+
 	return input.repeat(count);
 }
