@@ -59,15 +59,18 @@ export type ArrayGroupResult<
 	[Output in GenericOutput as Output["group"]]?: Output["value"][]
 }>;
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function group<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 	GenericOutput extends ArrayGroupFunctionOutput,
 >(
 	theFunction: (
-		element: GenericElement,
+		element: GenericArray[number],
 		params: ArrayGroupFunctionParams
 	) => GenericOutput,
-): (array: readonly GenericElement[]) => ArrayGroupResult<GenericOutput>;
+): (array: GenericArray) => ArrayGroupResult<GenericOutput>;
 export function group<
 	GenericElement extends unknown,
 	GenericOutput extends ArrayGroupFunctionOutput,

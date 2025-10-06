@@ -4,12 +4,15 @@ interface ArrayFilterParams {
 	index: number;
 }
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function filter<
-	GenericElement extends unknown,
-	GenericOutput extends GenericElement,
+	GenericArray extends readonly unknown[],
+	GenericOutput extends GenericArray[number],
 >(
-	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
-): (array: readonly GenericElement[]) => GenericOutput[];
+	predicate: (item: GenericArray[number], params: ArrayFilterParams) => item is GenericOutput,
+): (array: GenericArray) => GenericOutput[];
 export function filter<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
@@ -18,10 +21,10 @@ export function filter<
 	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
 ): GenericOutput[];
 export function filter<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 >(
-	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
-): (array: readonly GenericElement[]) => GenericElement[];
+	predicate: (item: GenericArray[number], params: ArrayFilterParams) => boolean,
+): (array: GenericArray) => GenericArray[number][];
 export function filter<
 	GenericElement extends unknown,
 >(

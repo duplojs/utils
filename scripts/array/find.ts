@@ -4,12 +4,15 @@ interface ArrayFindParams {
 	index: number;
 }
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function find<
-	GenericElement extends unknown,
-	GenericOutput extends GenericElement,
+	GenericArray extends readonly unknown[],
+	GenericOutput extends GenericArray[number],
 >(
-	predicate: (element: GenericElement, params: ArrayFindParams) => element is GenericOutput,
-): (array: readonly GenericElement[]) => GenericOutput | undefined;
+	predicate: (element: GenericArray[number], params: ArrayFindParams) => element is GenericOutput,
+): (array: GenericArray) => GenericOutput | undefined;
 export function find<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
@@ -18,10 +21,10 @@ export function find<
 	predicate: (element: GenericElement, params: ArrayFindParams) => element is GenericOutput,
 ): GenericOutput | undefined;
 export function find<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 >(
-	predicate: (element: GenericElement, params: ArrayFindParams) => boolean,
-): (array: readonly GenericElement[]) => GenericElement | undefined;
+	predicate: (element: GenericArray[number], params: ArrayFindParams) => boolean,
+): (array: GenericArray) => GenericArray[number] | undefined;
 export function find<
 	GenericElement extends unknown,
 >(

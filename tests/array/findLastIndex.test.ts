@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, DString, innerPipe, pipe } from "@scripts";
 
 describe("findLastIndex", () => {
 	const arr = [1, 2, 3, 4, 5, 3];
@@ -25,5 +24,21 @@ describe("findLastIndex", () => {
 			DArray.findLastIndex((element) => element < 5),
 		);
 		expect(index).toBe(5);
+	});
+
+	it("works with complex pipe", () => {
+		const prices = ["10.50", "25.99", "10.50", "33.00"] as const;
+
+		const result = pipe(
+			prices,
+			DArray.findLastIndex(
+				innerPipe(
+					DString.toLowerCase,
+					DString.startsWith("10"),
+				),
+			),
+		);
+
+		expect(result).toBe(2);
 	});
 });

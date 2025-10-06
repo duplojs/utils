@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe } from "@scripts";
+import { DArray, type ExpectType, pipe, innerPipe, DNumber } from "@scripts";
 
 describe("flatMap", () => {
 	it("object", () => {
@@ -63,6 +63,47 @@ describe("flatMap", () => {
 		);
 
 		expect(result).toStrictEqual([3, 21, 5, 41]);
+
+		type check = ExpectType<
+			typeof result,
+			number[],
+			"strict"
+		>;
+	});
+
+	it("use in complex pipe", () => {
+		const users = [
+			{
+				id: 1,
+				name: "Alice",
+				scores: [85, 90, 78],
+			},
+			{
+				id: 2,
+				name: "Bob",
+				scores: [92],
+			},
+			{
+				id: 3,
+				name: "Charlie",
+				scores: [88, 95],
+			},
+		];
+
+		const result = pipe(
+			users,
+			DArray.flatMap(
+				innerPipe(
+					(user) => user.scores,
+					DArray.filter((score) => score >= 85),
+					DArray.map((score) => DNumber.multiply(score, 1.1)),
+				),
+			),
+			DArray.sort((first, second) => first - second),
+			DArray.map((score) => DNumber.round(score)),
+		);
+
+		expect(result).toStrictEqual([94, 97, 99, 101, 105]);
 
 		type check = ExpectType<
 			typeof result,

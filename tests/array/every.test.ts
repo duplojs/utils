@@ -1,4 +1,4 @@
-import { DArray, pipe } from "@scripts/index";
+import { DArray, DString, innerPipe, pipe } from "@scripts/index";
 
 describe("every", () => {
 	it("returns true when all elements satisfy the predicate", () => {
@@ -25,5 +25,38 @@ describe("every", () => {
 			DArray.every((element) => element > 5),
 		);
 		expect(result).toBe(false);
+	});
+
+	it("works with complex pipe", () => {
+		const urls = ["https://example.com", "https://test.com", "https://demo.com"] as const;
+
+		const result = pipe(
+			urls,
+			DArray.every(
+				innerPipe(
+					DString.toLowerCase,
+					DString.startsWith("https"),
+				),
+			),
+		);
+
+		expect(result).toBe(true);
+	});
+
+	it("works with split and at", () => {
+		const emails = ["user@company.com", "admin@company.com", "support@company.com"] as const;
+
+		const result = pipe(
+			emails,
+			DArray.every(
+				innerPipe(
+					DString.split("@"),
+					DArray.at(1),
+					(value) => value === "company.com",
+				),
+			),
+		);
+
+		expect(result).toBe(true);
 	});
 });

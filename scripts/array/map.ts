@@ -4,12 +4,16 @@ interface ArrayMapParams {
 	index: number;
 }
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function map<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 	GenericOutput extends unknown,
 >(
-	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
-): (array: readonly GenericElement[]) => GenericOutput[];
+	theFunction: (item: GenericArray[number], params: ArrayMapParams) => GenericOutput,
+): (array: GenericArray) => GenericOutput[];
+
 export function map<
 	GenericElement extends unknown,
 	GenericOutput extends unknown,
@@ -17,6 +21,7 @@ export function map<
 	array: readonly GenericElement[],
 	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
 ): GenericOutput[];
+
 export function map(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

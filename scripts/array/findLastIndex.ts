@@ -4,11 +4,14 @@ interface ArrayFindLastIndexParams {
 	index: number;
 }
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function findLastIndex<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 >(
-	predicate: (element: GenericElement, params: ArrayFindLastIndexParams) => boolean,
-): (array: readonly GenericElement[]) => number | undefined;
+	predicate: (element: GenericArray[number], params: ArrayFindLastIndexParams) => boolean,
+): (array: GenericArray) => number | undefined;
 
 export function findLastIndex<
 	GenericElement extends unknown,

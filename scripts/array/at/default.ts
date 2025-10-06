@@ -1,8 +1,25 @@
+import type { AtTuple } from "../types";
+
+export function at<
+	GenericTuple extends readonly unknown[],
+	GenericIndex extends number,
+>(
+	index: GenericIndex,
+): (array: GenericTuple) => AtTuple<GenericTuple, GenericIndex>;
+
 export function at<
 	GenericElement extends unknown,
 >(
 	index: number,
 ): (array: readonly GenericElement[]) => GenericElement | undefined;
+
+export function at<
+	GenericTuple extends readonly unknown[],
+	GenericIndex extends number,
+>(
+	array: GenericTuple,
+	index: GenericIndex,
+): AtTuple<GenericTuple, GenericIndex>;
 
 export function at<
 	GenericElement extends unknown,
@@ -17,7 +34,7 @@ export function at(...args: [readonly unknown[], number] | [number]) {
 		return (array: unknown[]) => at(array, index);
 	}
 
-	const [array, index] = args;
+	const [input, index] = args;
 
-	return array.at(index);
+	return input.at(index);
 }

@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe } from "@scripts/index";
+import { DArray, DString, type ExpectType, innerPipe, pipe } from "@scripts/index";
 
 describe("find", () => {
 	const input = [
@@ -61,6 +61,59 @@ describe("find", () => {
 				readonly title: "bou";
 				readonly pageQuantity: 200;
 			} | undefined,
+			"strict"
+		>;
+	});
+
+	it("works with complex pipe", () => {
+		const configs = [
+			{
+				key: "USER_NAME",
+				value: "john",
+			},
+			{
+				key: "API_KEY",
+				value: "secret123",
+			},
+			{
+				key: "DATABASE_URL",
+				value: "localhost",
+			},
+		] as const;
+
+		const result = pipe(
+			configs,
+			DArray.find(
+				innerPipe(
+					(config) => config.key,
+					DString.toLowerCase,
+					DString.split("_"),
+					DArray.at(0),
+					(value) => value === "api",
+				),
+			),
+		);
+
+		expect(result).toStrictEqual({
+			key: "API_KEY",
+			value: "secret123",
+		});
+
+		type check = ExpectType<
+			typeof result,
+			| {
+				readonly key: "USER_NAME";
+				readonly value: "john";
+			}
+			| {
+				readonly key: "API_KEY";
+				readonly value: "secret123";
+			}
+			| {
+				readonly key: "DATABASE_URL";
+				readonly value: "localhost";
+			}
+			| undefined,
 			"strict"
 		>;
 	});

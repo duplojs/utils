@@ -4,14 +4,17 @@ interface ArrayEveryParams {
 	index: number;
 }
 
+// Fix: TypeScript can create an intersection from a union during type inference,
+// which causes `never` types. Using GenericArray instead of GenericElement
+// preserves the array structure and avoids this inference bug.
 export function every<
-	GenericElement extends unknown,
+	GenericArray extends readonly unknown[],
 >(
 	predicate: (
-		element: GenericElement,
+		element: GenericArray[number],
 		params: ArrayEveryParams
 	) => boolean,
-): (array: readonly GenericElement[]) => boolean;
+): (array: GenericArray) => boolean;
 
 export function every<
 	GenericElement extends unknown,

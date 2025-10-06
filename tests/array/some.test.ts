@@ -1,5 +1,10 @@
-import { pipe } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, DString, pipe, innerPipe, type ExpectType } from "@scripts";
+
+export function forward<
+	GenericValue extends unknown,
+>(value: GenericValue): GenericValue {
+	return value;
+}
 
 describe("some", () => {
 	it("returns true if at least one element matches", () => {
@@ -33,5 +38,28 @@ describe("some", () => {
 		);
 
 		expect(result).toBe(true);
+	});
+
+	it("works with complex pipe", () => {
+		const emails = ["user@gmail.com", "admin@yahoo.com", "support@outlook.com"] as const;
+
+		const result = pipe(
+			emails,
+			DArray.some(
+				innerPipe(
+					DString.split("@"),
+					DArray.at(1),
+					(value) => value === "yahoo.com",
+				),
+			),
+		);
+
+		expect(result).toBe(true);
+
+		type check = ExpectType<
+			typeof result,
+			boolean,
+			"strict"
+		>;
 	});
 });
