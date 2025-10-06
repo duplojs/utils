@@ -1,4 +1,4 @@
-import { type IsUnion } from "@scripts/common";
+import { type IsUnion, type LastUnionElement } from "@scripts/common";
 import { type ComputeComplexUnMatchedValue } from ".";
 
 export type ComplexUnMatchedUnionObject<
@@ -7,14 +7,16 @@ export type ComplexUnMatchedUnionObject<
 > = (
 	IsUnion<Extract<GenericPatternValue, object>> extends false
 		? never
-		: Extract<GenericPatternValue, any> extends infer inferredPatternValue
-			? inferredPatternValue extends object
-				? ComputeComplexUnMatchedValue<GenericInput, inferredPatternValue> extends infer InferredResult
-					? ComputeComplexUnMatchedValue<
-						InferredResult,
-						Exclude<GenericPatternValue, inferredPatternValue>
-					>
+		: Extract<GenericPatternValue, any> extends infer InferredPatternValue
+			? LastUnionElement<
+				InferredPatternValue extends object
+					? ComputeComplexUnMatchedValue<GenericInput, InferredPatternValue> extends infer InferredResult
+						? ComputeComplexUnMatchedValue<
+							InferredResult,
+							Exclude<GenericPatternValue, InferredPatternValue>
+						>
+						: never
 					: never
-				: never
+			>
 			: never
 );

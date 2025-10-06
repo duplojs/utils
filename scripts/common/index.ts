@@ -26,3 +26,4 @@ export * from "./toString";
 export * from "./innerPipe";
 export * from "./asyncInnerPipe";
 export * from "./loop";
+export * from "./forward";

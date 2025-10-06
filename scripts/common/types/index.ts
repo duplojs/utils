@@ -32,4 +32,5 @@ export * from "./and";
 export * from "./or";
 export * from "./breakGenericLink";
 export * from "./not";
+export * from "./lastUnionElement";
 

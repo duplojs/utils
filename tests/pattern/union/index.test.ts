@@ -118,4 +118,45 @@ describe("union", () => {
 			"strict"
 		>;
 	});
+
+	it("other match", () => {
+		const input: Test = {
+			type: "tata",
+		} as Test;
+
+		const result = pipe(
+			input,
+			DPattern.match(
+				DPattern.union(
+					{ type: "tata" },
+					{ type: "test" },
+				),
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							type: "tata";
+						} | {
+							type: "test";
+						},
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | {
+				type: "toto" | {
+					sub: "ta";
+					tt: "yy" | "oo";
+				};
+			},
+			"strict"
+		>;
+	});
 });

@@ -253,5 +253,241 @@ describe("union discriminate array", () => {
 				"strict"
 			>;
 		});
+
+		it("object with union on object prop in array", () => {
+			const result = pipe(
+				{
+					input,
+					con: true,
+				},
+				DPattern.match(
+					{
+						input: [{ type: DPattern.union("tata", {}) }],
+						con: true,
+					},
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							{
+								input: [{
+									type: "tata" | {
+										tt: "yy" | "oo";
+										sub: "ta";
+									};
+								}, ...Test[]];
+								con: true;
+							},
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | {
+					input: Test[];
+					con: boolean;
+				},
+				"strict"
+			>;
+		});
+	});
+
+	describe("tuple with object", () => {
+		interface Test {
+			type: "test" | "toto" | "tata" | {
+				tt: "yy" | "oo";
+				sub: "ta";
+			};
+		}
+
+		const input = [
+			{
+				type: "tata",
+			},
+			1,
+			"toto",
+		] as [Test, number, ...string[]];
+
+		it("union on object prop in tuple", () => {
+			const result = pipe(
+				input,
+				DPattern.match(
+					[{ type: DPattern.union("tata", {}) }],
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							[{
+								type: "tata" | {
+									tt: "yy" | "oo";
+									sub: "ta";
+								};
+							}, number, ...string[]],
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | [{
+					type: "test" | "toto";
+				}, number, ...string[]],
+				"strict"
+			>;
+		});
+
+		it("union on array with tuple", () => {
+			const result = pipe(
+				input,
+				DPattern.match(
+					DPattern.union(
+						[{ type: "tata" }],
+						[{ type: { tt: DPattern.union("oo", "yy") } }],
+					),
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							| [{
+								type: "tata";
+							}, number, ...string[]]
+							| [{
+								type: {
+									tt: "yy" | "oo";
+									sub: "ta";
+								};
+							}, number, ...string[]],
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | [{
+					type: "test" | "toto";
+				}, number, ...string[]],
+				"strict"
+			>;
+		});
+
+		it("object with union on array with tuple", () => {
+			const result = pipe(
+				{ input },
+				DPattern.match(
+					{
+						input: DPattern.union(
+							[{ type: "tata" }],
+							[{ type: { tt: DPattern.union("oo", "yy") } }],
+						),
+					},
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							{
+								input: [{
+									type: "tata";
+								}, number, ...string[]] | [{
+									type: {
+										tt: "yy" | "oo";
+										sub: "ta";
+									};
+								}, number, ...string[]];
+							},
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | {
+					input: [{
+						type: "test" | "toto";
+					}, number, ...string[]];
+				},
+				"strict"
+			>;
+		});
+
+		it("object with union on object prop in tuple", () => {
+			const result = pipe(
+				{ input },
+				DPattern.match(
+					{ input: [{ type: DPattern.union("tata", {}) }] },
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							{
+								input: [{
+									type: "tata" | {
+										tt: "yy" | "oo";
+										sub: "ta";
+									};
+								}, number, ...string[]];
+							},
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | {
+					input: [{
+						type: "test" | "toto";
+					}, number, ...string[]];
+				},
+				"strict"
+			>;
+		});
+
+		it("object with union on object prop and number in tuple", () => {
+			const result = pipe(
+				{ input },
+				DPattern.match(
+					{ input: [{ type: DPattern.union("tata", {}) }, 1] },
+					(value) => {
+						type Check = ExpectType<
+							typeof value,
+							{
+								input: [{
+									type: "tata" | {
+										tt: "yy" | "oo";
+										sub: "ta";
+									};
+								}, 1, ...string[]];
+							},
+							"strict"
+						>;
+
+						return "myValue";
+					},
+				),
+			);
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue"> | {
+					input: [Test, number, ...string[]];
+				},
+				"strict"
+			>;
+		});
 	});
 });

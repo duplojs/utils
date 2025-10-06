@@ -1,7 +1,6 @@
-import { type AnyTuple, type Adaptor, type IsEqual } from "@scripts/common";
+import { type AnyTuple, type Adaptor, type IsEqual, type Or } from "@scripts/common";
 import { type EligiblePrimitiveMatch } from "../pattern";
 import { type FlatObject } from "@scripts/object/types/flatObject";
-import { type GetPropsWithValue } from "@scripts/object";
 
 export type GetIncompleteUnion<
 	GenericInput extends unknown,
@@ -34,17 +33,13 @@ export type GetIncompleteUnion<
 					InferredInput,
 					Exclude<Extract<GenericInput, object>, readonly any[]>
 				> extends true
-					? {
+					? FlatObject<{
 						[Prop in (InferredPatternValue extends any ? keyof InferredPatternValue : never)]:
 						GetIncompleteUnion<
 							InferredInput[Adaptor<Prop, keyof InferredInput>],
 							InferredPatternValue[Prop]
 						>
-					} extends infer InferredResult extends object
-						? FlatObject<
-							Omit<InferredResult, GetPropsWithValue<InferredResult, never>>
-						>
-						: never
+					}>
 					: IsEqual<InferredInput, never> extends true
 						? {}
 						: {
@@ -54,7 +49,7 @@ export type GetIncompleteUnion<
 	)
 	| (
 		[
-			Extract<GenericInput, AnyTuple>,
+			Exclude<Extract<GenericInput, AnyTuple>, GenericPatternValue>,
 			Extract<GenericPatternValue, AnyTuple>,
 		] extends [
 			infer InferredInput,
@@ -62,26 +57,35 @@ export type GetIncompleteUnion<
 		]
 			? IsEqual<InferredPatternValue, never> extends true
 				? never
-				: [
+				: IsEqual<
 					InferredInput,
-					InferredPatternValue,
-				] extends [
-					readonly [infer InferredInputFirst, ...infer InferredInputRest],
-					readonly [infer InferredPatternValueFirst, ...infer InferredPatternValueRest],
-				]
-					? GetIncompleteUnion<
-						InferredInputFirst,
-						InferredPatternValueFirst
-					> extends infer InferredResultFirst
-						? FlatObject<{
-							"[first": InferredResultFirst;
-							"rest]": GetIncompleteUnion<
-								InferredInputRest,
-								InferredPatternValueRest
-							>;
-						}>
+					Extract<GenericInput, AnyTuple>
+				> extends true
+					? [
+						InferredInput,
+						InferredPatternValue,
+					] extends [
+						readonly [infer InferredInputFirst, ...infer InferredInputRest],
+						readonly [infer InferredPatternValueFirst, ...infer InferredPatternValueRest],
+					]
+						? GetIncompleteUnion<
+							InferredInputFirst,
+							InferredPatternValueFirst
+						> extends infer InferredResultFirst
+							? FlatObject<{
+								"[tuple.first": InferredResultFirst;
+								"tuple.rest]": GetIncompleteUnion<
+									InferredInputRest,
+									InferredPatternValueRest
+								>;
+							}>
+							: never
 						: never
-					: never
+					: IsEqual<InferredInput, never> extends true
+						? {}
+						: {
+							"[tuple]": true;
+						}
 			: never
 	)
 	| (
@@ -89,12 +93,36 @@ export type GetIncompleteUnion<
 			Exclude<Extract<GenericInput, readonly any[]>, AnyTuple>,
 			Extract<GenericPatternValue, AnyTuple>,
 		] extends [
-			infer _inferredInput,
-			infer inferredPatternValue,
+			infer InferredInput extends readonly any[],
+			infer InferredPatternValue,
 		]
-			? IsEqual<inferredPatternValue, never> extends true
+			? Or<[
+				IsEqual<InferredPatternValue, never>,
+				IsEqual<InferredInput, never>,
+			]> extends true
 				? never
-				: never
+				: InferredPatternValue extends readonly [
+					infer InferredPatternValueFirst,
+					...infer InferredPatternValueRest,
+				]
+					? GetIncompleteUnion<
+						InferredInput[number],
+						InferredPatternValueFirst
+					> extends infer InferredResultFirst
+						? FlatObject<{
+							"[array.first": InferredResultFirst;
+							"array.rest]": Or<[
+								IsEqual<InferredResultFirst, never>,
+								IsEqual<InferredResultFirst, {}>,
+							]> extends true
+								? GetIncompleteUnion<
+									InferredInput,
+									InferredPatternValueRest
+								>
+								: never;
+						}>
+						: never
+					: never
 			: never
 	)
 );
