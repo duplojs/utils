@@ -33,4 +33,5 @@ export * from "./or";
 export * from "./breakGenericLink";
 export * from "./not";
 export * from "./lastUnionElement";
+export * from "./removeDuplicateInUnion";
 

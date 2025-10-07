@@ -56,7 +56,7 @@ describe("union discriminate array", () => {
 	});
 
 	describe("tuple", () => {
-		const input = ["one", 5, 7n] as ["one", 5, 7n] | ["two", 5n] | ["three", ...string[]];
+		const input = ["one", 5, 7n] as ["one", 5, 7n] | ["two", number] | ["three", ...string[]];
 
 		it("union on first value of tuple", () => {
 			const result = pipe(
@@ -66,7 +66,7 @@ describe("union discriminate array", () => {
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
-							["one", 5, 7n] | ["two", 5n],
+							["one", 5, 7n] | ["two", number],
 							"strict"
 						>;
 
@@ -86,11 +86,11 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				input,
 				DPattern.match(
-					DPattern.union(["one"], ["two"]),
+					DPattern.union(["one"], ["two", 1]),
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
-							["one", 5, 7n] | ["two", 5n],
+							["one", 5, 7n] | ["two", 1],
 							"strict"
 						>;
 
@@ -101,7 +101,7 @@ describe("union discriminate array", () => {
 
 			type Check = ExpectType<
 				typeof result,
-				DPattern.PatternResult<"myValue"> | ["three", ...string[]],
+				DPattern.PatternResult<"myValue"> | ["two", number] | ["three", ...string[]],
 				"strict"
 			>;
 		});
