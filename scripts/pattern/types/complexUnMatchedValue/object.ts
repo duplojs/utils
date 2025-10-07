@@ -1,5 +1,5 @@
 import { type Adaptor, type SimplifyTopLevel, type IsEqual, type IsUnion, type NeverCoalescing, type RemoveReadonly } from "@scripts/common";
-import { type ComputeComplexUnMatchedValue } from ".";
+import { type ComplexUnMatchedValue } from ".";
 
 export type ComplexUnMatchedObject<
 	GenericInput extends unknown,
@@ -32,7 +32,7 @@ export type ComplexUnMatchedObject<
 									IsEqual<
 										{
 											[Prop in keyof InferredPatternValue]:
-											ComputeComplexUnMatchedValue<
+											ComplexUnMatchedValue<
 												InferredInput[Adaptor<Prop, keyof InferredInput>],
 												InferredPatternValue[Prop]
 											>
@@ -46,7 +46,7 @@ export type ComplexUnMatchedObject<
 											& {
 												-readonly [Prop in keyof InferredPatternValue]: NeverCoalescing<
 													Extract<
-														ComputeComplexUnMatchedValue<
+														ComplexUnMatchedValue<
 															InferredInput[Adaptor<Prop, keyof InferredInput>],
 															InferredPatternValue[Prop]
 														>,

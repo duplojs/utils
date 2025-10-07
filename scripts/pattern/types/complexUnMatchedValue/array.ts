@@ -1,5 +1,5 @@
 import { type Adaptor, type AnyTuple, type IsEqual, type IsUnion } from "@scripts/common";
-import { type ComputeComplexUnMatchedValue } from ".";
+import { type ComplexUnMatchedValue } from ".";
 
 type ComplexUnMatchedArrayTuple<
 	GenericInput extends unknown,
@@ -40,7 +40,7 @@ type ComplexUnMatchedTupleTuple<
 						readonly [infer InferredInputFirst, ...infer InferredInputRest],
 						readonly [infer InferredPatternValueFirst, ...infer InferredPatternValueRest],
 					]
-						? ComputeComplexUnMatchedValue<
+						? ComplexUnMatchedValue<
 							InferredInputFirst,
 							InferredPatternValueFirst
 						> extends infer InferredResultFirst
@@ -48,7 +48,7 @@ type ComplexUnMatchedTupleTuple<
 								? IsEqual<InferredResultFirst, never> extends true
 									? never
 									: [InferredResultFirst, ...InferredInputRest]
-								: ComputeComplexUnMatchedValue<
+								: ComplexUnMatchedValue<
 									InferredInputRest,
 									InferredPatternValueRest
 								> extends infer InferredResultRest

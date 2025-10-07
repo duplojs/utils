@@ -1,5 +1,5 @@
 import { type RemoveDuplicateInUnion, type IsUnion } from "@scripts/common";
-import { type ComputeComplexUnMatchedValue } from ".";
+import { type ComplexUnMatchedValue } from ".";
 
 export type ComplexUnMatchedUnionObject<
 	GenericInput extends unknown,
@@ -10,8 +10,8 @@ export type ComplexUnMatchedUnionObject<
 		: Extract<GenericPatternValue, any> extends infer InferredPatternValue
 			? (
 				InferredPatternValue extends object
-					? ComputeComplexUnMatchedValue<GenericInput, InferredPatternValue> extends infer InferredResult
-						? ComputeComplexUnMatchedValue<
+					? ComplexUnMatchedValue<GenericInput, InferredPatternValue> extends infer InferredResult
+						? ComplexUnMatchedValue<
 							InferredResult,
 							Exclude<GenericPatternValue, InferredPatternValue>
 						>
