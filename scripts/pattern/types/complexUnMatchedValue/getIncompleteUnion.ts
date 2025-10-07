@@ -1,6 +1,6 @@
 import { type AnyTuple, type Adaptor, type IsEqual, type Or } from "@scripts/common";
 import { type EligiblePrimitiveMatch } from "../pattern";
-import { type FlatObject } from "@scripts/object/types/flatObject";
+import { type FlatObject } from "@scripts/object";
 
 export type GetIncompleteUnion<
 	GenericInput extends unknown,

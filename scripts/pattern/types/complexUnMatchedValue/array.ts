@@ -40,9 +40,12 @@ type ComplexUnMatchedTupleTuple<
 						readonly [infer InferredInputFirst, ...infer InferredInputRest],
 						readonly [infer InferredPatternValueFirst, ...infer InferredPatternValueRest],
 					]
-						? ComplexUnMatchedValue<
-							InferredInputFirst,
-							InferredPatternValueFirst
+						? Extract<
+							ComplexUnMatchedValue<
+								InferredInputFirst,
+								InferredPatternValueFirst
+							>,
+							any
 						> extends infer InferredResultFirst
 							? InferredPatternValueRest extends readonly []
 								? IsEqual<InferredResultFirst, never> extends true

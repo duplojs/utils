@@ -261,4 +261,198 @@ describe("union discriminate object", () => {
 			"strict"
 		>;
 	});
+
+	it("union on prop of object in array", () => {
+		const inputArray = [input];
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				[{ type: DPattern.union("one", "three") }],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1 | Object3, ...TestObject[]],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | TestObject[],
+			"strict"
+		>;
+	});
+
+	it("union on array with specific objet", () => {
+		const inputArray = [input];
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				DPattern.union(
+					[{ type: "one" }],
+					[
+						{
+							prop3: true,
+							constProp: 1,
+						},
+					],
+				),
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1, ...TestObject[]] | [{
+							type: "three";
+							prop3: true;
+							constProp: 1;
+						}, ...TestObject[]],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | TestObject[],
+			"strict"
+		>;
+	});
+
+	it("union on array with specific objet", () => {
+		const inputArray = [input];
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				[
+					DPattern.union(
+						{ type: "one" },
+						{ constProp: 3 },
+					),
+				],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1 | {
+							type: "one";
+							prop1: true;
+							constProp: 3;
+						} | {
+							type: "two";
+							prop2: true;
+							constProp: 3;
+						} | {
+							type: "three";
+							prop3: true;
+							constProp: 3;
+						}, ...TestObject[]],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | TestObject[],
+			"strict"
+		>;
+	});
+
+	it("union on prop of object in tuple", () => {
+		const inputArray = [input, input] as const;
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				[{ type: DPattern.union("one", "three") }],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1 | Object3, TestObject],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | [Object2, TestObject],
+			"strict"
+		>;
+	});
+
+	it("union on prop of object in tuple", () => {
+		const inputArray = [input, input] as const;
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				[{ type: DPattern.union("one", "three") }, { type: "one" }],
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1 | Object3, Object1],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | readonly [TestObject, TestObject],
+			"strict"
+		>;
+	});
+
+	it("union on tuple with prop of object", () => {
+		const inputArray = [input, input] as const;
+
+		const result = pipe(
+			inputArray,
+			DPattern.match(
+				DPattern.union(
+					[{ type: "one" }, { prop1: true }],
+					[{ type: "three" }, { type: "two" }],
+				),
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						[Object1, Object1] | [Object3, Object2],
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | readonly [TestObject, TestObject],
+			"strict"
+		>;
+	});
 });
