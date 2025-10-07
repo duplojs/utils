@@ -3,11 +3,24 @@ import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
 describe("matchAll", () => {
 	it("should return all matches as array", () => {
 		const result = DString.matchAll("aaabbbccc", /a/g);
-		expect(result).toHaveLength(3);
+		expect(DArray.from(result)).toHaveLength(3);
+
+		type check = ExpectType<
+			typeof result,
+			RegExpStringIterator<RegExpMatchArray>,
+			"strict"
+		>;
 	});
 
 	it("should return empty array when no matches", () => {
-		expect(DString.matchAll("hello", /world/g)).toEqual([]);
+		const result = DString.matchAll("hello", /world/g);
+		expect(DArray.from(result)).toEqual([]);
+
+		type check = ExpectType<
+			typeof result,
+			RegExpStringIterator<RegExpMatchArray>,
+			"strict"
+		>;
 	});
 
 	it("use in pipe", () => {
@@ -15,13 +28,15 @@ describe("matchAll", () => {
 		const result = pipe(
 			str,
 			DString.matchAll(/\w+@\w+\.\w+/g),
+			DArray.from,
 			DArray.map(DArray.first),
+			DArray.filter((value) => value !== undefined),
 		);
 		expect(result).toEqual(["info@duplojs.com", "support@duplojs.com"]);
 
 		type check = ExpectType<
 			typeof result,
-			(string | undefined)[],
+			string[],
 			"strict"
 		>;
 	});
