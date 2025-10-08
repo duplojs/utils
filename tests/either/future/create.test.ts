@@ -79,7 +79,7 @@ describe("FutureEither", () => {
 	it("instanceof", () => {
 		expect(Future.instanceof(Promise.resolve())).toBe(false);
 
-		const error = new Future("test") as unknown;
+		const error = new Future("test") as Future<"test"> | Promise<"toto">;
 
 		const isInstanceOf = Future.instanceof(error);
 
@@ -88,7 +88,7 @@ describe("FutureEither", () => {
 		if (isInstanceOf) {
 			type check = ExpectType<
 				typeof error,
-				Future,
+				Future<"test">,
 				"strict"
 			>;
 		}

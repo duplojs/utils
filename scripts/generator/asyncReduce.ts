@@ -38,9 +38,13 @@ export interface AsyncGeneratorReduceFunctionParams<
 	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
 }
 
+const generatorAsyncReduceFromKind = createKind(
+	"generator-async-reduce-from",
+);
+
 export interface AsyncGeneratorReduceFromResult<
 	GenericValue extends unknown = unknown,
-> extends Kind<"generator-reduce-from">,
+> extends Kind<typeof generatorAsyncReduceFromKind.definition>,
 	WrappedValue<GenericValue> {
 
 }
@@ -52,10 +56,10 @@ interface GetStartValueParams {
 }
 
 const getStartValueParams: GetStartValueParams = {
-	from: (value) => ({
-		...createKind("generator-reduce-from"),
-		...wrapValue(value),
-	}),
+	from: (value) => generatorAsyncReduceFromKind.addTo(
+		wrapValue(value),
+		null,
+	),
 };
 
 export function asyncReduce<

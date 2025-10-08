@@ -1,5 +1,3 @@
-import { entries } from "../object/entries";
-
 export function simpleClone<
 	GenericObject extends unknown = unknown,
 >(unknownValue: GenericObject): GenericObject {
@@ -11,9 +9,9 @@ export function simpleClone<
 		unknownValue.constructor?.name === "Object"
 		|| unknownValue.constructor === undefined
 	) {
-		return entries(unknownValue).reduce(
+		return Object.entries(unknownValue).reduce(
 			(pv, [key, value]) => {
-				pv[key] = simpleClone(value) as never;
+				pv[key as never] = simpleClone(value) as never;
 				return pv;
 			},
 			{} as GenericObject,

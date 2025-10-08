@@ -2,27 +2,32 @@ import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/co
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { nullish } from "./create";
-import { hasKind, type Kind } from "@scripts/common/kind";
+import { createKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { eitherNullishKind } from "./base";
 
 export type NullishValue = null | undefined;
 
-export interface EitherNullishEmpty<
-	GenericValue extends NullishValue = NullishValue,
->extends EitherLeft<"nullish", GenericValue>,
-	Kind<"either-nullish">,
-	Kind<"either-empty"> {
+export const eitherNullishEmptyKind = createKind(
+	"either-nullish-empty",
+);
 
-}
+export type EitherNullishEmpty<
+	GenericValue extends NullishValue = NullishValue,
+> = (
+	& EitherLeft<"nullish", GenericValue>
+	& Kind<typeof eitherNullishKind.definition>
+	& Kind<typeof eitherNullishEmptyKind.definition>
+);
 
 export function nullishEmpty<
 	const GenericValue extends NullishValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherNullishEmpty<GenericValue> {
-	return {
-		"kind-either-empty": null,
-		"kind-either-nullish": null,
-		...left("nullish", value),
-	};
+	return eitherNullishKind.addTo(
+		eitherNullishEmptyKind.addTo(
+			left("nullish", value),
+		),
+	);
 }
 
 type Either = EitherRight | EitherLeft;
@@ -33,8 +38,8 @@ export function isNullishEmpty<
 	input: GenericInput,
 ): input is Extract<GenericInput, EitherNullishEmpty> {
 	return isLeft(input)
-		&& hasKind(input, "either-nullish")
-		&& hasKind(input, "either-empty");
+		&& eitherNullishKind.has(input)
+		&& eitherNullishEmptyKind.has(input);
 }
 
 type ToEither<

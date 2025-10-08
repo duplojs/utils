@@ -1,19 +1,22 @@
 import { wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullishEmpty, nullishFilled, ok, type EitherNullishEmpty, type EitherNullishFilled, type EitherOk, isNullishFilled, whenIsNullishFilled } from "@scripts/either";
 
 describe("EitherNullishFilled", () => {
+	const expectedNullishFilled = (value: unknown) => ({
+		[`${keyKindPrefix}either-nullish`]: null,
+		[`${keyKindPrefix}either-nullish-filled`]: null,
+		[`${keyKindPrefix}either-information`]: "nullish",
+		[`${keyKindPrefix}either-right`]: null,
+		...wrapValue(value),
+	});
+
 	it("create", () => {
 		const either = nullishFilled(10);
 
-		expect(either).toStrictEqual({
-			"kind-either-nullish": null,
-			"kind-either-filled": null,
-			"kind-either-information": "nullish",
-			"kind-either-right": null,
-			...wrapValue(10),
-		});
+		expect(either).toStrictEqual(expectedNullishFilled(10));
 
 		type check = ExpectType<
 			typeof either,

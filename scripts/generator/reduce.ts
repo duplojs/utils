@@ -38,9 +38,13 @@ export interface GeneratorReduceFunctionParams<
 	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
 }
 
+const generatorReduceFromKind = createKind(
+	"generator-reduce-from",
+);
+
 export interface GeneratorReduceFromResult<
 	GenericValue extends unknown = unknown,
-> extends Kind<"generator-reduce-from">,
+> extends Kind<typeof generatorReduceFromKind.definition>,
 	WrappedValue<GenericValue> {
 
 }
@@ -52,10 +56,10 @@ interface GetStartValueParams {
 }
 
 const getStartValueParams: GetStartValueParams = {
-	from: (value) => ({
-		...createKind("generator-reduce-from"),
-		...wrapValue(value),
-	}),
+	from: (value) => generatorReduceFromKind.addTo(
+		wrapValue(value),
+		null,
+	),
 };
 
 export function reduce<

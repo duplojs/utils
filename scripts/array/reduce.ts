@@ -37,9 +37,13 @@ export interface ArrayReduceFunctionParams<
 	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
 }
 
+const arrayReduceFromKind = createKind(
+	"array-reduce-from",
+);
+
 export interface ArrayReduceFromResult<
 	GenericValue extends unknown = unknown,
-> extends Kind<"array-reduce-from">,
+> extends Kind<typeof arrayReduceFromKind.definition>,
 	WrappedValue<GenericValue> {
 
 }
@@ -51,10 +55,10 @@ interface GetStartValueParams {
 }
 
 const getStartValueParams: GetStartValueParams = {
-	from: (value) => ({
-		...createKind("array-reduce-from"),
-		...wrapValue(value),
-	}),
+	from: (value) => arrayReduceFromKind.addTo(
+		wrapValue(value),
+		null,
+	),
 };
 
 export function reduce<

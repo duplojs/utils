@@ -1,29 +1,34 @@
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { createKind, type Kind } from "@scripts/common/kind";
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type EitherLeft, isLeft } from "../left";
 import { right, type EitherRight, isRight } from "../right";
 import { optional } from "./create";
-import { type EitherLeft, isLeft } from "../left";
-import { hasKind, type Kind } from "@scripts/common/kind";
-import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { eitherOptionalKind } from "./base";
 
-export interface EitherOptionalFilled<
+export const eitherOptionalFilledKind = createKind(
+	"either-optional-filled",
+);
+
+export type EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
-> extends EitherRight<"optional", GenericValue>,
-	Kind<"either-optional">,
-	Kind<"either-filled"> {
+> = (
+	& EitherRight<"optional", GenericValue>
+	& Kind<typeof eitherOptionalKind.definition>
+	& Kind<typeof eitherOptionalFilledKind.definition>
+);
 
-}
+type Either = EitherRight | EitherLeft;
 
 export function optionalFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherOptionalFilled<GenericValue> {
-	return {
-		"kind-either-filled": null,
-		"kind-either-optional": null,
-		...right("optional", value),
-	};
+	return eitherOptionalKind.addTo(
+		eitherOptionalFilledKind.addTo(
+			right("optional", value),
+		),
+	);
 }
-
-type Either = EitherRight | EitherLeft;
 
 export function isOptionalFilled<
 	GenericInput extends unknown,
@@ -31,8 +36,8 @@ export function isOptionalFilled<
 	input: GenericInput,
 ): input is Extract<GenericInput, EitherOptionalFilled> {
 	return isRight(input)
-		&& hasKind(input, "either-optional")
-		&& hasKind(input, "either-filled");
+		&& eitherOptionalKind.has(input)
+		&& eitherOptionalFilledKind.has(input);
 }
 
 type ToOptionalEither<

@@ -1,26 +1,31 @@
 import { right, type EitherRight, isRight } from "../right";
 import { type EitherLeft, isLeft } from "../left";
 import { nullish } from "./create";
-import { hasKind, type Kind } from "@scripts/common/kind";
+import { createKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { eitherNullishKind } from "./base";
 
-export interface EitherNullishFilled<
+export const eitherNullishFilledKind = createKind(
+	"either-nullish-filled",
+);
+
+export type EitherNullishFilled<
 	GenericValue extends unknown = unknown,
-> extends EitherRight<"nullish", GenericValue>,
-	Kind<"either-nullish">,
-	Kind<"either-filled"> {
-
-}
+> = (
+	& EitherRight<"nullish", GenericValue>
+	& Kind<typeof eitherNullishKind.definition>
+	& Kind<typeof eitherNullishFilledKind.definition>
+);
 
 export function nullishFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullishFilled<GenericValue> {
-	return {
-		"kind-either-filled": null,
-		"kind-either-nullish": null,
-		...right("nullish", value),
-	};
+	return eitherNullishKind.addTo(
+		eitherNullishFilledKind.addTo(
+			right("nullish", value),
+		),
+	);
 }
 
 type Either = EitherRight | EitherLeft;
@@ -31,8 +36,8 @@ export function isNullishFilled<
 	input: GenericInput,
 ): input is Extract<GenericInput, EitherNullishFilled> {
 	return isRight(input)
-		&& hasKind(input, "either-nullish")
-		&& hasKind(input, "either-filled");
+		&& eitherNullishKind.has(input)
+		&& eitherNullishKind.has(input);
 }
 
 type ToEither<

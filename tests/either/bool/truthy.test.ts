@@ -1,19 +1,22 @@
 import { wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { boolTruthy, type EitherBoolTruthy, type EitherBoolFalsy, isBoolTruthy, boolFalsy, whenIsBoolTruthy, ok, type EitherOk } from "@scripts/either";
 
 describe("EitherBoolTruthy", () => {
+	const expectedBoolTruthy = (value: unknown) => ({
+		[`${keyKindPrefix}either-bool`]: null,
+		[`${keyKindPrefix}either-bool-truthy`]: null,
+		[`${keyKindPrefix}either-information`]: "bool",
+		[`${keyKindPrefix}either-right`]: null,
+		...wrapValue(value),
+	});
+
 	it("create", () => {
 		const either = boolTruthy(10);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue(10),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy(10));
 
 		type check = ExpectType<
 			typeof either,

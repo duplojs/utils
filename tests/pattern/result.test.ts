@@ -1,4 +1,4 @@
-import { wrapValue } from "@scripts/common";
+import { keyKindPrefix, wrapValue } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { isResult, result, type PatternResult } from "@scripts/pattern/result";
 
@@ -8,7 +8,7 @@ describe("Pattern result", () => {
 		const patternResult = result(input);
 
 		expect(patternResult).toStrictEqual({
-			"kind-pattern-result": null,
+			[`${keyKindPrefix}pattern-result`]: null,
 			...wrapValue(input),
 		});
 

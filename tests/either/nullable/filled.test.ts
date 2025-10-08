@@ -1,4 +1,5 @@
 import { wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullableEmpty, type EitherNullableEmpty, type EitherNullableFilled, nullableFilled, isNullableFilled, whenIsNullableFilled, ok, type EitherOk } from "@scripts/either";
@@ -8,10 +9,10 @@ describe("EitherNullableFilled", () => {
 		const either = nullableFilled(10);
 
 		expect(either).toStrictEqual({
-			"kind-either-filled": null,
-			"kind-either-information": "nullable",
-			"kind-either-right": null,
-			"kind-either-nullable": null,
+			[`${keyKindPrefix}either-nullable`]: null,
+			[`${keyKindPrefix}either-nullable-filled`]: null,
+			[`${keyKindPrefix}either-information`]: "nullable",
+			[`${keyKindPrefix}either-right`]: null,
 			...wrapValue(10),
 		});
 

@@ -1,17 +1,21 @@
-import { type Kind } from "@scripts/common/kind";
+import { createKind, type Kind } from "@scripts/common/kind";
 import { left, type EitherLeft } from "../left";
+import { eitherFutureKind } from "./base";
 
-export interface EitherFutureError
-	extends EitherLeft<"future", unknown>,
-	Kind<"either-future">,
-	Kind<"either-future-error"> {
+export const eitherFutureErrorKind = createKind(
+	"either-future-error",
+);
 
-}
+export type EitherFutureError = (
+	& EitherLeft<"future", unknown>
+	& Kind<typeof eitherFutureKind.definition>
+	& Kind<typeof eitherFutureErrorKind.definition>
+);
 
 export function futureError(value: unknown): EitherFutureError {
-	return {
-		"kind-either-future": null,
-		"kind-either-future-error": null,
-		...left("future", value),
-	};
+	return eitherFutureKind.addTo(
+		eitherFutureErrorKind.addTo(
+			left("future", value),
+		),
+	);
 }

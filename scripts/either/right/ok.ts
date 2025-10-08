@@ -1,15 +1,17 @@
-import { type Kind } from "@scripts/common/kind";
+import { createKind, type Kind } from "@scripts/common/kind";
 import { right, type EitherRight } from "./create";
 
-export interface EitherOk
-	extends EitherRight<"ok", never>,
-	Kind<"either-ok"> {
+export const eitherOkKind = createKind<
+	"either-ok"
+>("either-ok");
 
-}
+export type EitherOk = (
+	& EitherRight<"ok", never>
+	& Kind<typeof eitherOkKind.definition>
+);
 
 export function ok(): EitherOk {
-	return {
-		"kind-either-ok": null,
-		...right("ok", undefined as never),
-	};
+	return eitherOkKind.addTo(
+		right("ok", undefined as never),
+	);
 }

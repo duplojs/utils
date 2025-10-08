@@ -38,9 +38,13 @@ export interface ArrayReduceRightFunctionParams<
 	exit(output: GenericOutput): ArrayReduceRightExit<GenericOutput>;
 }
 
+const arrayReduceRightFromKind = createKind(
+	"array-reduce-right-from",
+);
+
 export interface ArrayReduceRightFromResult<
 	GenericValue extends unknown = unknown,
-> extends Kind<"array-reduce-right-from">,
+> extends Kind<typeof arrayReduceRightFromKind.definition>,
 	WrappedValue<GenericValue> {
 
 }
@@ -52,10 +56,10 @@ interface GetStartValueParams {
 }
 
 const getStartValueParams: GetStartValueParams = {
-	from: (value) => ({
-		...createKind("array-reduce-right-from"),
-		...wrapValue(value),
-	}),
+	from: (value) => arrayReduceRightFromKind.addTo(
+		wrapValue(value),
+		null,
+	),
 };
 
 export function reduceRight<

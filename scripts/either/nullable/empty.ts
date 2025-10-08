@@ -1,26 +1,30 @@
-import { hasKind, type Kind } from "@scripts/common/kind";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { createKind, type Kind } from "@scripts/common/kind";
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { nullable } from "./create";
-import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { eitherNullableKind } from "./base";
 
-export interface EitherNullableEmpty
-	extends EitherLeft<"nullable", null>,
-	Kind<"either-nullable">,
-	Kind<"either-empty"> {
+export const eitherNullableEmptyKind = createKind(
+	"either-nullable-empty",
+);
 
-}
-
-export function nullableEmpty(): EitherNullableEmpty {
-	return {
-		"kind-either-empty": null,
-		"kind-either-nullable": null,
-		...left("nullable", null),
-	};
-}
+export type EitherNullableEmpty = (
+	& EitherLeft<"nullable", null>
+	& Kind<typeof eitherNullableKind.definition>
+	& Kind<typeof eitherNullableEmptyKind.definition>
+);
 
 type Either = EitherRight | EitherLeft;
+
+export function nullableEmpty(): EitherNullableEmpty {
+	return eitherNullableKind.addTo(
+		eitherNullableEmptyKind.addTo(
+			left("nullable", null),
+		),
+	);
+}
 
 export function isNullableEmpty<
 	GenericInput extends unknown,
@@ -28,8 +32,8 @@ export function isNullableEmpty<
 	input: GenericInput,
 ): input is Extract<GenericInput, EitherNullableEmpty> {
 	return isLeft(input)
-		&& hasKind(input, "either-nullable")
-		&& hasKind(input, "either-empty");
+		&& eitherNullableKind.has(input)
+		&& eitherNullableEmptyKind.has(input);
 }
 
 type ToEither<

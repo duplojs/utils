@@ -1,4 +1,5 @@
 import { pipe, wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { optional, type EitherOptionalFilled, type EitherOptionalEmpty } from "@scripts/either";
 import { DEither } from "@scripts/index";
@@ -8,10 +9,10 @@ describe("createEitherOptional", () => {
 		const either = optional(undefined);
 
 		expect(either).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "optional",
-			"kind-either-left": null,
-			"kind-either-optional": null,
+			[`${keyKindPrefix}either-optional`]: null,
+			[`${keyKindPrefix}either-optional-empty`]: null,
+			[`${keyKindPrefix}either-information`]: "optional",
+			[`${keyKindPrefix}either-left`]: null,
 			...wrapValue(undefined),
 		});
 
@@ -26,10 +27,10 @@ describe("createEitherOptional", () => {
 		const either = optional(10);
 
 		expect(either).toStrictEqual({
-			"kind-either-filled": null,
-			"kind-either-information": "optional",
-			"kind-either-right": null,
-			"kind-either-optional": null,
+			[`${keyKindPrefix}either-optional`]: null,
+			[`${keyKindPrefix}either-optional-filled`]: null,
+			[`${keyKindPrefix}either-information`]: "optional",
+			[`${keyKindPrefix}either-right`]: null,
 			...wrapValue(10),
 		});
 

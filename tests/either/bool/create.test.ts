@@ -1,19 +1,30 @@
 import { pipe, wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { bool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
 import { DArray, DEither } from "@scripts/index";
 
 describe("createEitherBool", () => {
+	const expectedBoolFalsy = (value: unknown) => ({
+		[`${keyKindPrefix}either-bool`]: null,
+		[`${keyKindPrefix}either-bool-falsy`]: null,
+		[`${keyKindPrefix}either-information`]: "bool",
+		[`${keyKindPrefix}either-left`]: null,
+		...wrapValue(value),
+	});
+
+	const expectedBoolTruthy = (value: unknown) => ({
+		[`${keyKindPrefix}either-bool`]: null,
+		[`${keyKindPrefix}either-bool-truthy`]: null,
+		[`${keyKindPrefix}either-information`]: "bool",
+		[`${keyKindPrefix}either-right`]: null,
+		...wrapValue(value),
+	});
+
 	it("falsy undefined", () => {
 		const either = bool(undefined);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			...wrapValue(undefined),
-		});
+		expect(either).toStrictEqual(expectedBoolFalsy(undefined));
 
 		type check = ExpectType<
 			typeof either,
@@ -25,13 +36,7 @@ describe("createEitherBool", () => {
 	it("falsy null", () => {
 		const either = bool(null);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			...wrapValue(null),
-		});
+		expect(either).toStrictEqual(expectedBoolFalsy(null));
 
 		type check = ExpectType<
 			typeof either,
@@ -43,13 +48,7 @@ describe("createEitherBool", () => {
 	it("falsy empty string", () => {
 		const either = bool("");
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			...wrapValue(""),
-		});
+		expect(either).toStrictEqual(expectedBoolFalsy(""));
 
 		type check = ExpectType<
 			typeof either,
@@ -61,13 +60,7 @@ describe("createEitherBool", () => {
 	it("falsy 0", () => {
 		const either = bool(0);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			...wrapValue(0),
-		});
+		expect(either).toStrictEqual(expectedBoolFalsy(0));
 
 		type check = ExpectType<
 			typeof either,
@@ -79,13 +72,7 @@ describe("createEitherBool", () => {
 	it("falsy false", () => {
 		const either = bool(false);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-falsy": null,
-			"kind-either-information": "bool",
-			"kind-either-left": null,
-			...wrapValue(false),
-		});
+		expect(either).toStrictEqual(expectedBoolFalsy(false));
 
 		type check = ExpectType<
 			typeof either,
@@ -97,13 +84,7 @@ describe("createEitherBool", () => {
 	it("truthy object", () => {
 		const either = bool({});
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue({}),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy({}));
 
 		type check = ExpectType<
 			typeof either,
@@ -115,13 +96,7 @@ describe("createEitherBool", () => {
 	it("truthy true", () => {
 		const either = bool(true);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue(true),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy(true));
 
 		type check = ExpectType<
 			typeof either,
@@ -133,13 +108,7 @@ describe("createEitherBool", () => {
 	it("truthy number", () => {
 		const either = bool(10);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue(10),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy(10));
 
 		type check = ExpectType<
 			typeof either,
@@ -151,13 +120,7 @@ describe("createEitherBool", () => {
 	it("truthy string", () => {
 		const either = bool("test");
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue("test"),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy("test"));
 
 		type check = ExpectType<
 			typeof either,
@@ -169,13 +132,7 @@ describe("createEitherBool", () => {
 	it("bool large string", () => {
 		const either = bool("test" as string);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue("test"),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy("test"));
 
 		type check = ExpectType<
 			typeof either,
@@ -187,13 +144,7 @@ describe("createEitherBool", () => {
 	it("bool large number", () => {
 		const either = bool(1 as number);
 
-		expect(either).toStrictEqual({
-			"kind-either-bool": null,
-			"kind-either-truthy": null,
-			"kind-either-information": "bool",
-			"kind-either-right": null,
-			...wrapValue(1),
-		});
+		expect(either).toStrictEqual(expectedBoolTruthy(1));
 
 		type check = ExpectType<
 			typeof either,

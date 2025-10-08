@@ -1,22 +1,27 @@
 import { right, type EitherRight } from "../right";
-import { type Kind } from "@scripts/common/kind";
+import { createKind, type Kind } from "@scripts/common/kind";
+import { eitherFutureKind } from "./base";
 
-export interface EitherFutureSuccess<
+export const eitherFutureSuccessKind = createKind(
+	"either-future-success",
+);
+
+export type EitherFutureSuccess<
 	GenericValue extends unknown = unknown,
-> extends EitherRight<"future", GenericValue>,
-	Kind<"either-future">,
-	Kind<"either-future-success"> {
-
-}
+> = (
+	& EitherRight<"future", GenericValue>
+	& Kind<typeof eitherFutureKind.definition>
+	& Kind<typeof eitherFutureSuccessKind.definition>
+);
 
 export function futureSuccess<
 	const GenericValue extends unknown,
 >(
 	value: GenericValue,
 ): EitherFutureSuccess<GenericValue> {
-	return {
-		"kind-either-future": null,
-		"kind-either-future-success": null,
-		...right("future", value),
-	};
+	return eitherFutureKind.addTo(
+		eitherFutureSuccessKind.addTo(
+			right("future", value),
+		),
+	);
 }

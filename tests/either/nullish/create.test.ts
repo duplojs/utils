@@ -1,19 +1,30 @@
 import { pipe, wrapValue } from "@scripts/common";
+import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullish, type EitherNullishFilled, type EitherNullishEmpty } from "@scripts/either";
 import { DEither } from "@scripts/index";
 
 describe("createEitherNullish", () => {
+	const expectedNullishEmpty = (value: unknown) => ({
+		[`${keyKindPrefix}either-nullish`]: null,
+		[`${keyKindPrefix}either-nullish-empty`]: null,
+		[`${keyKindPrefix}either-information`]: "nullish",
+		[`${keyKindPrefix}either-left`]: null,
+		...wrapValue(value),
+	});
+
+	const expectedNullishFilled = (value: unknown) => ({
+		[`${keyKindPrefix}either-nullish`]: null,
+		[`${keyKindPrefix}either-nullish-filled`]: null,
+		[`${keyKindPrefix}either-information`]: "nullish",
+		[`${keyKindPrefix}either-right`]: null,
+		...wrapValue(value),
+	});
+
 	it("nullish undefined", () => {
 		const either = nullish(undefined);
 
-		expect(either).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "nullish",
-			"kind-either-left": null,
-			"kind-either-nullish": null,
-			...wrapValue(undefined),
-		});
+		expect(either).toStrictEqual(expectedNullishEmpty(undefined));
 
 		type check = ExpectType<
 			typeof either,
@@ -25,13 +36,7 @@ describe("createEitherNullish", () => {
 	it("nullish null", () => {
 		const either = nullish(null);
 
-		expect(either).toStrictEqual({
-			"kind-either-empty": null,
-			"kind-either-information": "nullish",
-			"kind-either-left": null,
-			"kind-either-nullish": null,
-			...wrapValue(null),
-		});
+		expect(either).toStrictEqual(expectedNullishEmpty(null));
 
 		type check = ExpectType<
 			typeof either,
@@ -43,13 +48,7 @@ describe("createEitherNullish", () => {
 	it("nullish number", () => {
 		const either = nullish(10);
 
-		expect(either).toStrictEqual({
-			"kind-either-filled": null,
-			"kind-either-information": "nullish",
-			"kind-either-right": null,
-			"kind-either-nullish": null,
-			...wrapValue(10),
-		});
+		expect(either).toStrictEqual(expectedNullishFilled(10));
 
 		type check = ExpectType<
 			typeof either,

@@ -90,7 +90,9 @@ export class Future<
 		return Promise;
 	}
 
-	public static instanceof(value: unknown): value is Future {
+	public static instanceof<
+		GenericValue extends unknown,
+	>(value: GenericValue): value is Extract<GenericValue, Future<any>> {
 		return typeof value === "object"
 			&& value?.constructor?.name === "Future"
 			&& kind in value;

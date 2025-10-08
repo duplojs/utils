@@ -1,6 +1,7 @@
 import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
 import { isRight, type EitherRight } from "./right";
 import { isLeft, type EitherLeft } from "./left";
+import { eitherInformationKind } from "./base";
 
 type Either = EitherRight | EitherLeft;
 
@@ -8,7 +9,7 @@ export function whenHasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? GenericInput["kind-either-information"]
+			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
 			: never
 	),
 	const GenericOutput extends AnyValue,
@@ -18,19 +19,19 @@ export function whenHasInformation<
 		value: Unwrap<
 			Extract<
 				GenericInput,
-				& Kind<"either-information", GenericInformation>
+				& Kind<typeof eitherInformationKind.definition, GenericInformation>
 				& WrappedValue
 			>
 		>
 	) => GenericOutput,
 ): (input: GenericInput) =>
 	| GenericOutput
-	| Exclude<GenericInput, Kind<"either-information", GenericInformation>>;
+	| Exclude<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
 export function whenHasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? GenericInput["kind-either-information"]
+			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
 			: never
 	),
 	const GenericOutput extends AnyValue,
@@ -41,14 +42,14 @@ export function whenHasInformation<
 		value: Unwrap<
 			Extract<
 				GenericInput,
-				& Kind<"either-information", GenericInformation>
+				& Kind<typeof eitherInformationKind.definition, GenericInformation>
 				& WrappedValue
 			>
 		>
 	) => GenericOutput,
 ):
 	| GenericOutput
-	| Exclude<GenericInput, Kind<"either-information", GenericInformation>>;
+	| Exclude<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
 export function whenHasInformation(
 	...args: [unknown, string | string[], AnyFunction] | [string | string[], AnyFunction]
 ): any {
@@ -72,7 +73,9 @@ export function whenHasInformation(
 		(
 			isLeft(input)
 			|| isRight(input)
-		) && formattedInformation.includes(input["kind-either-information"])
+		) && formattedInformation.includes(
+			eitherInformationKind.getValue(input),
+		)
 	) {
 		return theFunction(unwrap(input));
 	}

@@ -3,7 +3,6 @@ export * from "./types";
 export * from "./addWrappedProperties";
 export * from "./asyncPipe";
 export * from "./clone";
-export * from "./createWrappedKind";
 export * from "./enum";
 export * from "./escapeRegExp";
 export * from "./externalPromise";
