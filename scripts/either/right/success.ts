@@ -1,9 +1,7 @@
 import { right, type EitherRight } from "./create";
 import { createKind, type Kind } from "@scripts/common/kind";
 
-export const eitherSuccessKind = createKind<
-	"either-success"
->("either-success");
+export const eitherSuccessKind = createKind("either-success");
 
 export type EitherSuccess<
 	GenericValue extends unknown = unknown,

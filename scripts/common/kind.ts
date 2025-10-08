@@ -58,11 +58,9 @@ export interface Kind<
 	GenericKindDefinition extends KindDefinition,
 	GenericValue extends KindDefinition["value"] = KindDefinition["value"],
 > {
-	[SymbolKind]: (
-		& {
-			[Prop in GenericKindDefinition["name"]]: GenericValue
-		}
-	);
+	[SymbolKind]: {
+		[Prop in GenericKindDefinition["name"]]: GenericValue
+	};
 }
 
 export const keyKindPrefix = `${keyWrappedValue}/kind/`;

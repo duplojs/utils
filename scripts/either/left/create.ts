@@ -2,9 +2,7 @@ import { createKind, type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { eitherInformationKind } from "../base";
 
-export const eitherLeftKind = createKind<
-	"either-left"
->("either-left");
+export const eitherLeftKind = createKind("either-left");
 
 export type EitherLeft<
 	GenericInformation extends string = string,
