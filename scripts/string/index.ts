@@ -26,3 +26,4 @@ export * from "./indexOf";
 export * from "./lastIndexOf";
 export * from "./repeat";
 export * from "./normalize";
+export * from "./test";
