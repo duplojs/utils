@@ -1,0 +1,25 @@
+export function slice<
+	GenericInput extends string,
+>(
+	start: number,
+	end: number,
+): (input: GenericInput) => string;
+
+export function slice<
+	GenericInput extends string,
+>(
+	input: GenericInput,
+	start: number,
+	end: number,
+): string;
+
+export function slice(...args: [string, number, number] | [number, number]): any {
+	if (args.length === 2) {
+		const [start, end] = args;
+		return (input: string) => slice(input, start, end);
+	}
+
+	const [input, start, end] = args;
+
+	return input.slice(start, end);
+}

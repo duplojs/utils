@@ -1,0 +1,103 @@
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { createKind, type Kind } from "@scripts/common/kind";
+import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type EitherLeft, isLeft } from "../left";
+import { right, type EitherRight, isRight } from "../right";
+import { optional } from "./create";
+import { eitherOptionalKind } from "./base";
+
+export const eitherOptionalFilledKind = createKind(
+	"either-optional-filled",
+);
+
+export type EitherOptionalFilled<
+	GenericValue extends unknown = unknown,
+> = (
+	& EitherRight<"optional", GenericValue>
+	& Kind<typeof eitherOptionalKind.definition>
+	& Kind<typeof eitherOptionalFilledKind.definition>
+);
+
+type Either = EitherRight | EitherLeft;
+
+export function optionalFilled<
+	const GenericValue extends unknown,
+>(value: GenericValue): EitherOptionalFilled<GenericValue> {
+	return eitherOptionalKind.addTo(
+		eitherOptionalFilledKind.addTo(
+			right("optional", value),
+		),
+	);
+}
+
+export function isOptionalFilled<
+	GenericInput extends unknown,
+>(
+	input: GenericInput,
+): input is Extract<GenericInput, EitherOptionalFilled> {
+	return isRight(input)
+		&& eitherOptionalKind.has(input)
+		&& eitherOptionalFilledKind.has(input);
+}
+
+type ToOptionalEither<
+	GenericValue extends unknown,
+> = GenericValue extends Either
+	? GenericValue
+	: ReturnType<typeof optional<GenericValue>>;
+
+export function whenIsOptionalFilled<
+	const GenericInput extends unknown,
+	const GenericOutput extends AnyValue | EscapeVoid,
+>(
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalFilled
+			>
+		>
+	) => GenericOutput,
+): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+export function whenIsOptionalFilled<
+	const GenericInput extends unknown,
+	const GenericOutput extends AnyValue | EscapeVoid,
+>(
+	input: GenericInput,
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				ToOptionalEither<GenericInput>,
+				EitherOptionalFilled
+			>
+		>
+	) => GenericOutput,
+): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+export function whenIsOptionalFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
+	if (args.length === 1) {
+		const [theFunction] = args;
+
+		return (input: Either) => whenIsOptionalFilled(
+			input,
+			theFunction,
+		);
+	}
+
+	const [input, theFunction] = args;
+
+	if (isLeft(input)) {
+		return input as never;
+	} else if (!isOptionalFilled(input) && isRight(input)) {
+		return input as never;
+	}
+
+	const either = isRight(input) || isLeft(input)
+		? input
+		: optional(input);
+
+	if (isOptionalFilled(either)) {
+		return theFunction(unwrap(either));
+	}
+
+	return either as never;
+}
