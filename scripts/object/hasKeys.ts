@@ -7,6 +7,7 @@ export function hasKeys<
 >(
 	keys: GenericKeys | GenericKeys[],
 ): (partialObject: GenericObject) => partialObject is RequiredKeys<GenericObject, NoInfer<GenericKeys>>;
+
 export function hasKeys<
 	GenericObject extends object,
 	GenericKeys extends keyof GenericObject,
@@ -14,6 +15,7 @@ export function hasKeys<
 	partialObject: GenericObject,
 	keys: GenericKeys | GenericKeys[],
 ): partialObject is RequiredKeys<GenericObject, NoInfer<GenericKeys>>;
+
 export function hasKeys(...args: [object, ObjectKey | ObjectKey[]] | [ObjectKey | ObjectKey[]]): any {
 	if (args.length === 1) {
 		const [keys] = args;

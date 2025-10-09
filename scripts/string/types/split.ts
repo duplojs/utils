@@ -1,3 +1,5 @@
+import { type IsEqual } from "@scripts/common";
+
 export type SplitString<
 	GenericString extends string,
 	GenericSeparator extends string | RegExp,
@@ -8,7 +10,11 @@ export type SplitString<
 	: GenericSeparator extends string
 		? [GenericLimit] extends [never]
 			? GenericString extends `${infer InferredBefore}${GenericSeparator}${infer InferredAfter}`
-				? [InferredBefore, ...SplitString<InferredAfter, GenericSeparator, never, [...GenericDepth, unknown]>]
+				? [InferredBefore, ...(
+					IsEqual<InferredAfter, ""> extends true
+						? []
+						: SplitString<InferredAfter, GenericSeparator, never, [...GenericDepth, unknown]>
+				)]
 				: [GenericString]
 			: SplitStringWithLimit<GenericString, GenericSeparator, GenericLimit, []>
 		: string[];

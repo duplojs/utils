@@ -26,3 +26,5 @@ export * from "./innerPipe";
 export * from "./asyncInnerPipe";
 export * from "./loop";
 export * from "./forward";
+export * from "./when";
+export * from "./whenNot";
