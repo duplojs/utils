@@ -1,5 +1,5 @@
 import { type ExpectType, pipe } from "@scripts/common";
-import { DPattern } from "@scripts/index";
+import { DPattern, DString } from "@scripts/index";
 
 describe("union discriminate object", () => {
 	interface Object1 {
@@ -503,6 +503,33 @@ describe("union discriminate object", () => {
 		type Check = ExpectType<
 			typeof result,
 			DPattern.PatternResult<"myValue"> | readonly [TestObject, TestObject],
+			"strict"
+		>;
+	});
+
+	it("union whit maybe all", () => {
+		const result = pipe(
+			input,
+			DPattern.match(
+				{
+					type: DString.test(/^o/),
+				},
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						Object1 | Object2 | Object3,
+						"strict"
+					>;
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | Object1 | Object2 | Object3,
 			"strict"
 		>;
 	});

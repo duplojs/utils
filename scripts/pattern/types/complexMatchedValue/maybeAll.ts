@@ -2,7 +2,7 @@ import { type Unwrap, type IsEqual } from "@scripts/common";
 import { type PatternValueMaybeAll } from "../pattern";
 
 export type ComplexMatchedMaybeAll<
-	_GenericInput extends unknown,
+	GenericInput extends unknown,
 	GenericPatternValue extends unknown,
 > = Extract<
 	GenericPatternValue,
@@ -10,5 +10,5 @@ export type ComplexMatchedMaybeAll<
 > extends infer InferredPatternValue
 	? IsEqual<InferredPatternValue, never> extends true
 		? never
-		: Unwrap<InferredPatternValue>
+		: Extract<Unwrap<InferredPatternValue>, GenericInput>
 	: never;

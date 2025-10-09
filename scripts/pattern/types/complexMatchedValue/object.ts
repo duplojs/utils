@@ -37,7 +37,9 @@ export type ComplexMatchedObject<
 									>
 								}
 							> extends infer InferredResult extends InferredInput
-								? InferredResult
+								? IsEqual<InferredResult, InferredInput> extends true
+									? InferredInput
+									: InferredResult
 								: never
 					: never
 				: never
