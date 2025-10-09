@@ -1,6 +1,8 @@
-export function search(
+export function search<
+	GenericInput extends string,
+>(
 	pattern: string | RegExp,
-): (input: string) => number | undefined;
+): (input: GenericInput) => number | undefined;
 
 export function search(
 	input: string,

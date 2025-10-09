@@ -1,6 +1,8 @@
-export function match(
+export function match<
+	GenericInput extends string,
+>(
 	pattern: string | RegExp,
-): (input: string) => RegExpMatchArray | undefined;
+): (input: GenericInput) => RegExpMatchArray | undefined;
 
 export function match(
 	input: string,

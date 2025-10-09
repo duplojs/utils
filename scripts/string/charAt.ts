@@ -1,6 +1,8 @@
-export function charAt(
+export function charAt<
+	GenericInput extends string,
+>(
 	index: number,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function charAt(
 	input: string,

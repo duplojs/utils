@@ -1,7 +1,9 @@
-export function substring(
+export function substring<
+	GenericInput extends string,
+>(
 	start: number,
 	end?: number,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function substring(
 	input: string,

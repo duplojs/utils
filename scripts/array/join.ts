@@ -18,10 +18,14 @@ type ComputeResult<
 export function join<
 	GenericArray extends readonly string[],
 	GenericSeparator extends string,
->(separator: GenericSeparator): (array: GenericArray) => ComputeResult<
-	GenericArray,
-	GenericSeparator
->;
+>(
+	separator: GenericSeparator
+): (array: GenericArray) => GenericArray extends AnyTuple
+	? ComputeResult<
+		GenericArray,
+		GenericSeparator
+	>
+	: string;
 
 export function join<
 	GenericArray extends readonly string[],
@@ -29,10 +33,12 @@ export function join<
 >(
 	array: GenericArray,
 	separator: GenericSeparator,
-): ComputeResult<
-	GenericArray,
-	GenericSeparator
->;
+): GenericArray extends AnyTuple
+	? ComputeResult<
+		GenericArray,
+		GenericSeparator
+	>
+	: string;
 
 export function join(...args: [readonly unknown[], string] | [string]) {
 	if (args.length === 1) {

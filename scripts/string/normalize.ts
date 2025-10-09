@@ -1,8 +1,10 @@
 import { type NormalizeForm } from "./types/NormalizeForm";
 
-export function normalize(
+export function normalize<
+	GenericInput extends string,
+>(
 	form: NormalizeForm,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function normalize(
 	input: string,

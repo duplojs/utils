@@ -1,6 +1,8 @@
-export function indexOf(
+export function indexOf<
+	GenericInput extends string,
+>(
 	searchString: string,
-): (input: string) => number | undefined;
+): (input: GenericInput) => number | undefined;
 
 export function indexOf(
 	input: string,

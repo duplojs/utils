@@ -1,7 +1,9 @@
-export function padEnd(
+export function padEnd<
+	GenericInput extends string,
+>(
 	targetLength: number,
 	padString: string,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function padEnd(
 	input: string,

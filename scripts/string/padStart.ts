@@ -1,7 +1,9 @@
-export function padStart(
+export function padStart<
+	GenericInput extends string,
+>(
 	targetLength: number,
 	padString: string,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function padStart(
 	input: string,

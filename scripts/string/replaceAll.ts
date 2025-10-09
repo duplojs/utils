@@ -1,7 +1,9 @@
-export function replaceAll(
+export function replaceAll<
+	GenericInput extends string,
+>(
 	pattern: string | RegExp,
 	replacement: string,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function replaceAll(
 	input: string,

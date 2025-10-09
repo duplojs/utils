@@ -1,6 +1,8 @@
-export function lastIndexOf(
+export function lastIndexOf<
+	GenericInput extends string,
+>(
 	searchString: string,
-): (input: string) => number | undefined;
+): (input: GenericInput) => number | undefined;
 
 export function lastIndexOf(
 	input: string,

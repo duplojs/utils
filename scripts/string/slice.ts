@@ -1,7 +1,9 @@
-export function slice(
+export function slice<
+	GenericInput extends string,
+>(
 	start: number,
 	end: number,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function slice(
 	input: string,

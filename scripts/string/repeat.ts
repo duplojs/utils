@@ -1,6 +1,8 @@
-export function repeat(
+export function repeat<
+	GenericInput extends string,
+>(
 	count: number,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function repeat(
 	input: string,

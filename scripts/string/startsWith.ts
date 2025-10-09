@@ -3,7 +3,6 @@ export function startsWith<
 	GenericString extends string,
 >(
 	searchString: GenericSearchString,
-	position?: number,
 ): (input: GenericString) => input is Extract<GenericString, `${GenericSearchString}${string}`>;
 
 export function startsWith<
@@ -12,16 +11,15 @@ export function startsWith<
 >(
 	input: GenericString,
 	searchString: GenericSearchString,
-	position?: number,
 ): input is Extract<GenericString, `${GenericSearchString}${string}`>;
 
-export function startsWith(...args: [string, string, number?] | [string, number?]): any {
-	if (typeof args[0] === "string" && typeof args[1] !== "string") {
-		const [searchString, position] = args;
-		return (input: string) => startsWith(input, searchString, position);
+export function startsWith(...args: [string, string] | [string]): any {
+	if (args.length === 1) {
+		const [searchString] = args;
+		return (input: string) => startsWith(input, searchString);
 	}
 
-	const [input, searchString, position] = args as [string, string, number?];
+	const [input, searchString] = args;
 
-	return input.startsWith(searchString, position);
+	return input.startsWith(searchString);
 }

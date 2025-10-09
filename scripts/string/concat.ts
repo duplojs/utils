@@ -1,6 +1,8 @@
-export function concat(
+export function concat<
+	GenericInput extends string,
+>(
 	text: string,
-): (input: string) => string;
+): (input: GenericInput) => string;
 
 export function concat(
 	input: string,

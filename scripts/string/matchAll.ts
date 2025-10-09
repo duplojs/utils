@@ -1,6 +1,8 @@
-export function matchAll(
+export function matchAll<
+	GenericInput extends string,
+>(
 	pattern: RegExp,
-): (input: string) => RegExpStringIterator<RegExpMatchArray>;
+): (input: GenericInput) => RegExpStringIterator<RegExpMatchArray>;
 
 export function matchAll(
 	input: string,
