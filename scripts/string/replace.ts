@@ -5,8 +5,10 @@ export function replace<
 	replacement: string,
 ): (input: GenericInput) => string;
 
-export function replace(
-	input: string,
+export function replace<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	pattern: string | RegExp,
 	replacement: string,
 ): string;

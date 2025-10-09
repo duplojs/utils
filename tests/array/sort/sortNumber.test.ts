@@ -2,7 +2,7 @@ import { DArray, pipe } from "@scripts/index";
 
 describe("sortNumber", () => {
 	it("sorts numbers ascending by default", () => {
-		expect(DArray.sortNumber([3, 1, 4, 2])).toEqual([1, 2, 3, 4]);
+		expect(DArray.sortNumber([3, 1, 4, 2], "asc")).toEqual([1, 2, 3, 4]);
 	});
 
 	it("sorts numbers descending", () => {
@@ -11,7 +11,7 @@ describe("sortNumber", () => {
 
 	it("works with pipe (curried)", () => {
 		const arr = [3, 1, 4, 2];
-		const result = pipe(arr, DArray.sortNumber());
+		const result = pipe(arr, DArray.sortNumber("asc"));
 		expect(result).toEqual([1, 2, 3, 4]);
 	});
 });

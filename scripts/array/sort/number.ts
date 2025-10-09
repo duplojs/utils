@@ -1,12 +1,16 @@
 type Sort = "asc" | "dsc";
 
-export function sortNumber(sort?: Sort): (array: readonly number[]) => number[];
-export function sortNumber(array: readonly number[], sort?: Sort): number[];
-export function sortNumber(...args: [readonly number[], sort?: Sort] | [sort?: Sort]): any {
-	if (args[0] === undefined || typeof args[0] === "string") {
+export function sortNumber<
+	GenericArray extends readonly number[],
+>(sort: Sort): (array: GenericArray) => number[];
+export function sortNumber<
+	GenericArray extends readonly number[],
+>(array: GenericArray, sort: Sort): number[];
+export function sortNumber(...args: [readonly number[], Sort] | [Sort]): any {
+	if (args.length === 1) {
 		const [sort] = args;
 
-		return (array: number[]) => sortNumber(array, sort);
+		return (array: readonly number[]) => sortNumber(array, sort);
 	}
 
 	const [array, sort] = args;

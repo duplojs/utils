@@ -1,6 +1,10 @@
-export function power(exponent: number): (value: number) => number;
+export function power<
+	GenericValue extends number,
+>(exponent: number): (value: GenericValue) => number;
 
-export function power(value: number, exponent: number): number;
+export function power<
+	GenericValue extends number,
+>(value: GenericValue, exponent: number): number;
 
 export function power(...args: [number] | [number, number]) {
 	if (args.length === 1) {

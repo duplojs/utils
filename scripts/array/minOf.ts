@@ -1,4 +1,6 @@
-export function minOf(values: readonly number[]): number | undefined {
+export function minOf<
+	GenericArray extends readonly number[],
+>(values: GenericArray): number | undefined {
 	const [first, ...rest] = values;
 
 	if (first === undefined) {

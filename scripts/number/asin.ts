@@ -1,3 +1,5 @@
-export function asin(value: number): number {
+export function asin<
+	GenericValue extends number,
+>(value: GenericValue): number {
 	return Math.asin(value);
 }

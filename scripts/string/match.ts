@@ -4,8 +4,10 @@ export function match<
 	pattern: string | RegExp,
 ): (input: GenericInput) => RegExpMatchArray | undefined;
 
-export function match(
-	input: string,
+export function match<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	pattern: string | RegExp,
 ): RegExpMatchArray | undefined;
 

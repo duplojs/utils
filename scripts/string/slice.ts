@@ -5,8 +5,10 @@ export function slice<
 	end: number,
 ): (input: GenericInput) => string;
 
-export function slice(
-	input: string,
+export function slice<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	start: number,
 	end: number,
 ): string;

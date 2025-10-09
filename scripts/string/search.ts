@@ -4,8 +4,10 @@ export function search<
 	pattern: string | RegExp,
 ): (input: GenericInput) => number | undefined;
 
-export function search(
-	input: string,
+export function search<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	pattern: string | RegExp,
 ): number | undefined;
 

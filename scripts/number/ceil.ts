@@ -1,3 +1,5 @@
-export function ceil(value: number): number {
+export function ceil<
+	GenericValue extends number,
+>(value: GenericValue): number {
 	return Math.ceil(value);
 }

@@ -4,8 +4,10 @@ export function lastIndexOf<
 	searchString: string,
 ): (input: GenericInput) => number | undefined;
 
-export function lastIndexOf(
-	input: string,
+export function lastIndexOf<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	searchString: string,
 	position?: number,
 ): number | undefined;

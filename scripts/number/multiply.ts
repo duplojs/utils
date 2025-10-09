@@ -1,6 +1,10 @@
-export function multiply(operand: number): (value: number) => number;
+export function multiply<
+	GenericValue extends number,
+>(operand: number): (value: GenericValue) => number;
 
-export function multiply(value: number, operand: number): number;
+export function multiply<
+	GenericValue extends number,
+>(value: GenericValue, operand: number): number;
 
 export function multiply(...args: [number] | [number, number]) {
 	if (args.length === 1) {

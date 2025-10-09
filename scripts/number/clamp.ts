@@ -1,6 +1,10 @@
-export function clamp(lowerBound: number, upperBound: number): (value: number) => number;
+export function clamp<
+	GenericValue extends number,
+>(lowerBound: number, upperBound: number): (value: GenericValue) => number;
 
-export function clamp(value: number, lowerBound: number, upperBound: number): number;
+export function clamp<
+	GenericValue extends number,
+>(value: GenericValue, lowerBound: number, upperBound: number): number;
 
 export function clamp(...args: [number, number] | [number, number, number]) {
 	if (args.length === 2) {

@@ -1,6 +1,10 @@
-export function subtract(subtrahend: number): (value: number) => number;
+export function subtract<
+	GenericValue extends number,
+>(subtrahend: number): (value: GenericValue) => number;
 
-export function subtract(value: number, subtrahend: number): number;
+export function subtract<
+	GenericValue extends number,
+>(value: GenericValue, subtrahend: number): number;
 
 export function subtract(...args: [number] | [number, number]) {
 	if (args.length === 1) {

@@ -6,8 +6,10 @@ export function normalize<
 	form: NormalizeForm,
 ): (input: GenericInput) => string;
 
-export function normalize(
-	input: string,
+export function normalize<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	form: NormalizeForm,
 ): string;
 

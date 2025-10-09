@@ -1,6 +1,10 @@
-export function min(comparison: number): (value: number) => number;
+export function min<
+	GenericValue extends number,
+>(comparison: number): (value: GenericValue) => number;
 
-export function min(value: number, comparison: number): number;
+export function min<
+	GenericValue extends number,
+>(value: GenericValue, comparison: number): number;
 
 export function min(...args: [number] | [number, number]) {
 	if (args.length === 1) {

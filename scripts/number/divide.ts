@@ -1,6 +1,10 @@
-export function divide(divisor: number): (value: number) => number;
+export function divide<
+	GenericValue extends number,
+>(divisor: number): (value: GenericValue) => number;
 
-export function divide(value: number, divisor: number): number;
+export function divide<
+	GenericValue extends number,
+>(value: GenericValue, divisor: number): number;
 
 export function divide(...args: [number] | [number, number]) {
 	if (args.length === 1) {

@@ -1,6 +1,10 @@
-export function max(comparison: number): (value: number) => number;
+export function max<
+	GenericValue extends number,
+>(comparison: number): (value: GenericValue) => number;
 
-export function max(value: number, comparison: number): number;
+export function max<
+	GenericValue extends number,
+>(value: GenericValue, comparison: number): number;
 
 export function max(...args: [number] | [number, number]) {
 	if (args.length === 1) {

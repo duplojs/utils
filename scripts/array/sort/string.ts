@@ -1,12 +1,16 @@
 type Sort = "asc" | "dsc";
 
-export function sortString(sort?: Sort): (array: readonly string[]) => string[];
-export function sortString(array: readonly string[], sort?: Sort): string[];
-export function sortString(...args: [readonly string[], sort?: Sort] | [sort?: Sort]) {
-	if (args[0] === undefined || typeof args[0] === "string") {
+export function sortString<
+	GenericArray extends readonly string[],
+>(sort: Sort): (array: GenericArray) => string[];
+export function sortString<
+	GenericArray extends readonly string[],
+>(array: GenericArray, sort: Sort): string[];
+export function sortString(...args: [readonly string[], Sort] | [Sort]) {
+	if (args.length === 1) {
 		const [sort] = args;
 
-		return (array: string[]) => sortString(array, sort);
+		return (array: readonly string[]) => sortString(array, sort);
 	}
 
 	const [array, sort] = args;
@@ -25,4 +29,3 @@ export function sortString(...args: [readonly string[], sort?: Sort] | [sort?: S
 			: undefined,
 	);
 }
-

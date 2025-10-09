@@ -5,8 +5,10 @@ export function substring<
 	end?: number,
 ): (input: GenericInput) => string;
 
-export function substring(
-	input: string,
+export function substring<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	start: number,
 	end?: number,
 ): string;

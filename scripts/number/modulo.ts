@@ -1,6 +1,10 @@
-export function modulo(divisor: number): (value: number) => number;
+export function modulo<
+	GenericValue extends number,
+>(divisor: number): (value: GenericValue) => number;
 
-export function modulo(value: number, divisor: number): number;
+export function modulo<
+	GenericValue extends number,
+>(value: GenericValue, divisor: number): number;
 
 export function modulo(...args: [number] | [number, number]) {
 	if (args.length === 1) {

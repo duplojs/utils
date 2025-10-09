@@ -2,7 +2,7 @@ import { DArray, pipe } from "@scripts/index";
 
 describe("sortString", () => {
 	it("sorts strings ascending by default", () => {
-		expect(DArray.sortString(["c", "a", "b"])).toEqual(["a", "b", "c"]);
+		expect(DArray.sortString(["c", "a", "b"], "asc")).toEqual(["a", "b", "c"]);
 	});
 
 	it("sorts strings descending", () => {
@@ -16,7 +16,7 @@ describe("sortString", () => {
 
 	it("works with pipe (curried)", () => {
 		const arr = ["c", "a", "b"];
-		const result = pipe(arr, DArray.sortString());
+		const result = pipe(arr, DArray.sortString("asc"));
 		expect(result).toEqual(["a", "b", "c"]);
 	});
 });

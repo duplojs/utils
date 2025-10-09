@@ -5,8 +5,10 @@ export function padEnd<
 	padString: string,
 ): (input: GenericInput) => string;
 
-export function padEnd(
-	input: string,
+export function padEnd<
+	GenericInput extends string,
+>(
+	input: GenericInput,
 	targetLength: number,
 	padString: string,
 ): string;
