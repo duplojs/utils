@@ -10,11 +10,15 @@ export const eitherNullableEmptyKind = createKind(
 	"either-nullable-empty",
 );
 
-export type EitherNullableEmpty = (
+type _EitherNullableEmpty = (
 	& EitherLeft<"nullable", null>
 	& Kind<typeof eitherNullableKind.definition>
 	& Kind<typeof eitherNullableEmptyKind.definition>
 );
+
+export interface EitherNullableEmpty extends _EitherNullableEmpty {
+
+}
 
 type Either = EitherRight | EitherLeft;
 

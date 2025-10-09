@@ -12,13 +12,19 @@ export const eitherNullishEmptyKind = createKind(
 	"either-nullish-empty",
 );
 
-export type EitherNullishEmpty<
+type _EitherNullishEmpty<
 	GenericValue extends NullishValue = NullishValue,
 > = (
 	& EitherLeft<"nullish", GenericValue>
 	& Kind<typeof eitherNullishKind.definition>
 	& Kind<typeof eitherNullishEmptyKind.definition>
 );
+
+export interface EitherNullishEmpty<
+	GenericValue extends NullishValue = NullishValue,
+> extends _EitherNullishEmpty<GenericValue> {
+
+}
 
 export function nullishEmpty<
 	const GenericValue extends NullishValue = undefined,

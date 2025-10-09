@@ -4,7 +4,7 @@ import { eitherInformationKind } from "../base";
 
 export const eitherLeftKind = createKind("either-left");
 
-export type EitherLeft<
+type _EitherLeft<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,
 > = (
@@ -12,6 +12,13 @@ export type EitherLeft<
 	& Kind<typeof eitherInformationKind.definition, GenericInformation>
 	& WrappedValue<GenericValue>
 );
+
+export interface EitherLeft<
+	GenericInformation extends string = string,
+	GenericValue extends unknown = unknown,
+> extends _EitherLeft<GenericInformation, GenericValue> {
+
+}
 
 export function left<
 	GenericInformation extends string,

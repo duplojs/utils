@@ -6,11 +6,15 @@ export const eitherFutureErrorKind = createKind(
 	"either-future-error",
 );
 
-export type EitherFutureError = (
+type _EitherFutureError = (
 	& EitherLeft<"future", unknown>
 	& Kind<typeof eitherFutureKind.definition>
 	& Kind<typeof eitherFutureErrorKind.definition>
 );
+
+export interface EitherFutureError extends _EitherFutureError {
+
+}
 
 export function futureError(value: unknown): EitherFutureError {
 	return eitherFutureKind.addTo(

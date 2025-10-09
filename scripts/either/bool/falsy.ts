@@ -12,13 +12,19 @@ export const eitherBoolFalsyKind = createKind(
 	"either-bool-falsy",
 );
 
-export type EitherBoolFalsy<
+type _EitherBoolFalsy<
 	GenericValue extends BoolFalsyValue = BoolFalsyValue,
 > = (
 	& EitherLeft<"bool", GenericValue>
 	& Kind<typeof eitherBoolKind.definition>
 	& Kind<typeof eitherBoolFalsyKind.definition>
 );
+
+export interface EitherBoolFalsy<
+	GenericValue extends BoolFalsyValue = BoolFalsyValue,
+> extends _EitherBoolFalsy<GenericValue> {
+
+}
 
 export function boolFalsy<
 	const GenericValue extends BoolFalsyValue = undefined,

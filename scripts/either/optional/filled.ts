@@ -10,13 +10,19 @@ export const eitherOptionalFilledKind = createKind(
 	"either-optional-filled",
 );
 
-export type EitherOptionalFilled<
+type _EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
 > = (
 	& EitherRight<"optional", GenericValue>
 	& Kind<typeof eitherOptionalKind.definition>
 	& Kind<typeof eitherOptionalFilledKind.definition>
 );
+
+export interface EitherOptionalFilled<
+	GenericValue extends unknown = unknown,
+> extends _EitherOptionalFilled<GenericValue> {
+
+}
 
 type Either = EitherRight | EitherLeft;
 

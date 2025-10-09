@@ -3,10 +3,14 @@ import { right, type EitherRight } from "./create";
 
 export const eitherOkKind = createKind("either-ok");
 
-export type EitherOk = (
+type _EitherOk = (
 	& EitherRight<"ok", never>
 	& Kind<typeof eitherOkKind.definition>
 );
+
+export interface EitherOk extends _EitherOk {
+
+}
 
 export function ok(): EitherOk {
 	return eitherOkKind.addTo(

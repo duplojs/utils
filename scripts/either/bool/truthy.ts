@@ -10,13 +10,19 @@ export const eitherBoolTruthyKind = createKind(
 	"either-bool-truthy",
 );
 
-export type EitherBoolTruthy<
+type _EitherBoolTruthy<
 	GenericValue extends unknown = unknown,
 > = (
 	& EitherRight<"bool", GenericValue>
 	& Kind<typeof eitherBoolKind.definition>
 	& Kind<typeof eitherBoolTruthyKind.definition>
 );
+
+export interface EitherBoolTruthy<
+	GenericValue extends unknown = unknown,
+> extends _EitherBoolTruthy<GenericValue> {
+
+}
 
 export function boolTruthy<
 	const GenericValue extends unknown,

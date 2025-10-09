@@ -10,13 +10,19 @@ export const eitherNullableFilledKind = createKind(
 	"either-nullable-filled",
 );
 
-export type EitherNullableFilled<
+type _EitherNullableFilled<
 	GenericValue extends unknown = unknown,
 > = (
 	& EitherRight<"nullable", GenericValue>
 	& Kind<typeof eitherNullableKind.definition>
 	& Kind<typeof eitherNullableFilledKind.definition>
 );
+
+export interface EitherNullableFilled<
+	GenericValue extends unknown = unknown,
+> extends _EitherNullableFilled<GenericValue> {
+
+}
 
 type Either = EitherRight | EitherLeft;
 

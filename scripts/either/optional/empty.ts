@@ -10,11 +10,15 @@ export const eitherOptionalEmptyKind = createKind(
 	"either-optional-empty",
 );
 
-export type EitherOptionalEmpty = (
+type _EitherOptionalEmpty = (
 	& EitherLeft<"optional", undefined>
 	& Kind<typeof eitherOptionalKind.definition>
 	& Kind<typeof eitherOptionalEmptyKind.definition>
 );
+
+export interface EitherOptionalEmpty extends _EitherOptionalEmpty {
+
+}
 
 type Either = EitherRight | EitherLeft;
 

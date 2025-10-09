@@ -3,10 +3,14 @@ import { left, type EitherLeft } from "./create";
 
 export const eitherFailKind = createKind("either-fail");
 
-export type EitherFail = (
+type _EitherFail = (
 	& EitherLeft<"fail", never>
 	& Kind<typeof eitherFailKind.definition>
 );
+
+export interface EitherFail extends _EitherFail {
+
+}
 
 export function fail(): EitherFail {
 	return eitherFailKind.addTo(

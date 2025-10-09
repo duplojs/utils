@@ -3,12 +3,18 @@ import { createKind, type Kind } from "@scripts/common/kind";
 
 export const eitherSuccessKind = createKind("either-success");
 
-export type EitherSuccess<
+type _EitherSuccess<
 	GenericValue extends unknown = unknown,
 > = (
 	& EitherRight<"success", GenericValue>
 	& Kind<typeof eitherSuccessKind.definition>
 );
+
+export interface EitherSuccess<
+	GenericValue extends unknown = unknown,
+> extends _EitherSuccess<GenericValue> {
+
+}
 
 export function success<
 	const GenericValue extends unknown,
