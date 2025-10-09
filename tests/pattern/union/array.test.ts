@@ -125,7 +125,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				input,
 				DPattern.match(
-					[{ type: DPattern.union("tata", {}) }],
+					[{ type: DPattern.union("tata", { sub: "ta" }) }],
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
@@ -227,7 +227,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				{ input },
 				DPattern.match(
-					{ input: [{ type: DPattern.union("tata", {}) }] },
+					{ input: [{ type: DPattern.union("tata", { sub: "ta" }) }] },
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
@@ -262,7 +262,7 @@ describe("union discriminate array", () => {
 				},
 				DPattern.match(
 					{
-						input: [{ type: DPattern.union("tata", {}) }],
+						input: [{ type: DPattern.union("tata", { sub: "ta" }) }],
 						con: true,
 					},
 					(value) => {
@@ -316,7 +316,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				input,
 				DPattern.match(
-					[{ type: DPattern.union("tata", {}) }],
+					[{ type: DPattern.union("tata", { sub: "ta" }) }],
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
@@ -426,7 +426,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				{ input },
 				DPattern.match(
-					{ input: [{ type: DPattern.union("tata", {}) }] },
+					{ input: [{ type: DPattern.union("tata", { sub: "ta" }) }] },
 					(value) => {
 						type Check = ExpectType<
 							typeof value,
@@ -461,7 +461,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				{ input },
 				DPattern.match(
-					{ input: [{ type: DPattern.union("tata", {}) }, 1] },
+					{ input: [{ type: DPattern.union("tata", { sub: "ta" }) }, 1] },
 					(value) => {
 						type Check = ExpectType<
 							typeof value,

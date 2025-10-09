@@ -1,5 +1,5 @@
 import { type MergeUnionTuple } from "@scripts/array/types/mergeUnionTuple";
-import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey } from "@scripts/common";
+import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey, type WrappedValue } from "@scripts/common";
 
 export type EligiblePrimitiveMatch = string | number | bigint | boolean | undefined | null;
 
@@ -74,20 +74,43 @@ type ArrayPattern<
 	)
 );
 
-type tt = ArrayPattern<["one", 5, 7n] | ["two", 5n] | ["three", ...string[]]>;
-
 type PredicatePattern<
 	GenericInput extends unknown = any,
 > = (input: GenericInput) => boolean;
+
+const SymbolToolPattern = Symbol.for("SymbolToolPatternLabel");
+type SymbolToolPattern = typeof SymbolToolPattern;
+
+export const SymbolToolPatternFunctionLabel = "SymbolToolPatternFunctionLabel";
+const SymbolToolPatternFunction = Symbol.for(SymbolToolPatternFunctionLabel);
+type SymbolToolPatternFunction = typeof SymbolToolPatternFunction;
+
+export interface ToolPattern<
+	GenericInput extends unknown = any,
+	GenericPattern extends unknown = any,
+> {
+	[SymbolToolPatternFunction](input: GenericInput): boolean;
+	[SymbolToolPattern]: GenericPattern;
+}
 
 export type Pattern<
 	GenericInput extends unknown = any,
 > = (
 	| PredicatePattern<GenericInput>
+	| ToolPattern<GenericInput>
 	| PrimitivePattern<GenericInput>
 	| ObjectPattern<GenericInput>
 	| ArrayPattern<GenericInput>
 );
+
+const SymbolPatternValueMaybeAll = Symbol.for("SymbolMaybeAll");
+type SymbolPatternValueMaybeAll = typeof SymbolPatternValueMaybeAll;
+
+export interface PatternValueMaybeAll<
+	GenericValue extends unknown = any,
+> extends WrappedValue<GenericValue> {
+	[SymbolPatternValueMaybeAll]: unknown;
+}
 
 export type PatternValue<
 	GenericPattern extends Pattern,
@@ -96,17 +119,19 @@ export type PatternValue<
 	: GenericPattern extends (input: any) => input is infer InferredPredicate
 		? InferredPredicate
 		: GenericPattern extends (input: infer InferredInput) => boolean
-			? InferredInput
-			: GenericPattern extends readonly [infer inferredFirst, ...infer inferredRest]
-				? IsEqual<inferredRest, readonly []> extends true
-					? [PatternValue<inferredFirst>]
-					: [PatternValue<inferredFirst>, ...Adaptor<PatternValue<inferredRest>, any[]>]
-				: GenericPattern extends readonly []
-					? []
-					: GenericPattern extends readonly any[]
-						? PatternValue<GenericPattern[number]>[]
-						: GenericPattern extends Record<ObjectKey, Pattern>
-							? {
-								[Prop in keyof GenericPattern]: PatternValue<GenericPattern[Prop]>
-							}
-							: never;
+			? PatternValueMaybeAll<InferredInput>
+			: GenericPattern extends ToolPattern<any, infer InferredPattern>
+				? PatternValue<InferredPattern>
+				: GenericPattern extends readonly [infer inferredFirst, ...infer inferredRest]
+					? IsEqual<inferredRest, readonly []> extends true
+						? [PatternValue<inferredFirst>]
+						: [PatternValue<inferredFirst>, ...Adaptor<PatternValue<inferredRest>, any[]>]
+					: GenericPattern extends readonly []
+						? []
+						: GenericPattern extends readonly any[]
+							? PatternValue<GenericPattern[number]>[]
+							: GenericPattern extends Record<ObjectKey, Pattern>
+								? {
+									[Prop in keyof GenericPattern]: PatternValue<GenericPattern[Prop]>
+								}
+								: never;

@@ -41,6 +41,11 @@ describe("isMatch", () => {
 		expect(DPattern.isMatch(false, (value: boolean) => value)).toBe(false);
 	});
 
+	it("match tool", () => {
+		expect(DPattern.isMatch(true, DPattern.union(true as never))).toBe(true);
+		expect(DPattern.isMatch(false, DPattern.union(true as never))).toBe(false);
+	});
+
 	it("match array", () => {
 		expect(DPattern.isMatch([1, 2n, "3"], [1, 2n, "3"])).toBe(true);
 		expect(DPattern.isMatch([1, 2n, "3"], [1, 2n, 3])).toBe(false);

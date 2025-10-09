@@ -1,4 +1,4 @@
-import { DPattern, type ExpectType, pipe } from "@scripts/index";
+import { DPattern, DString, type ExpectType, forward, pipe } from "@scripts/index";
 
 describe("union", () => {
 	interface Test {
@@ -88,24 +88,23 @@ describe("union", () => {
 			type: "tata",
 		} as Test;
 
-		const result = pipe(
+		const result = DPattern.match(
 			input,
-			DPattern.match(
-				{ type: DPattern.union("test", "toto") },
-				(value) => {
-					type Check = ExpectType<
-						typeof value,
-						{
-							type: "test" | "toto";
-						},
-						"strict"
-					>;
-					return "myValue";
-				},
-			),
+			forward({ type: DPattern.union("test", "toto") }),
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					{
+						type: "test" | "toto";
+					},
+					"strict"
+				>;
+
+				return "myValue";
+			},
 		);
 
-		expect(result).toStrictEqual(DPattern.result("myValue"));
+		expect(result).toStrictEqual(input);
 
 		type Check = ExpectType<
 			typeof result,
@@ -158,5 +157,67 @@ describe("union", () => {
 			},
 			"strict"
 		>;
+	});
+
+	it("match on maybe all", () => {
+		const result = DPattern.match(
+			"one" as "one" | "two",
+			DPattern.union(
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						"one" | "two",
+						"strict"
+					>;
+
+					return true;
+				},
+				"one",
+			),
+			(value) => {
+					type Check = ExpectType<
+						typeof value,
+						"one" | "two",
+						"strict"
+					>;
+
+					return "myValue";
+			},
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				"one" | "two" | DPattern.PatternResult<"myValue">,
+				"strict"
+			>;
+	});
+
+	it("match on predicate", () => {
+		const result = DPattern.match(
+			"one" as "one" | "two",
+			DPattern.union(
+				DString.startsWith("o"),
+				"two",
+			),
+			(value) => {
+					type Check = ExpectType<
+						typeof value,
+						"one" | "two",
+						"strict"
+					>;
+
+					return "myValue";
+			},
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+			type Check = ExpectType<
+				typeof result,
+				DPattern.PatternResult<"myValue">,
+				"strict"
+			>;
 	});
 });

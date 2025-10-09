@@ -1,6 +1,7 @@
 import { type AnyTuple, type Adaptor, type IsEqual, type Or } from "@scripts/common";
-import { type EligiblePrimitiveMatch } from "../pattern";
+import { type PatternValueMaybeAll, type EligiblePrimitiveMatch } from "../pattern";
 import { type FlatObject } from "@scripts/object";
+import { type ExcludeTuple } from "@scripts/array/types/excludeTuple";
 
 export type GetIncompleteUnion<
 	GenericInput extends unknown,
@@ -39,19 +40,22 @@ export type GetIncompleteUnion<
 						[Prop in (InferredPatternValue extends any ? keyof InferredPatternValue : never)]:
 						GetIncompleteUnion<
 							InferredInput[Adaptor<Prop, keyof InferredInput>],
-							InferredPatternValue[Prop]
+							Extract<InferredPatternValue, { [SubProp in Prop]: any }>[Prop]
 						>
 					}>
 					: IsEqual<InferredInput, never> extends true
 						? {}
 						: {
-							"{object}": true;
+							"@duplojs/utils/{object}": true;
 						}
 			: never
 	)
 	| (
 		[
-			Exclude<Extract<GenericInput, AnyTuple>, GenericPatternValue>,
+			ExcludeTuple<
+				Extract<GenericInput, AnyTuple>,
+				Extract<GenericPatternValue, readonly any[]>
+			>,
 			Extract<GenericPatternValue, AnyTuple | readonly []>,
 		] extends [
 			infer InferredInput,
@@ -75,25 +79,25 @@ export type GetIncompleteUnion<
 							InferredPatternValueFirst
 						> extends infer InferredResultFirst
 							? FlatObject<{
-								"[tuple.first": InferredResultFirst;
-								"tuple.rest]": GetIncompleteUnion<
+								"@duplojs/utils/[tuple.first": InferredResultFirst;
+								"@duplojs/utils/tuple.rest]": GetIncompleteUnion<
 									InferredInputRest,
 									InferredPatternValueRest
 								>;
 							}>
 							: never
-						: {}
+						: never
 					: IsEqual<InferredInput, never> extends true
 						? {}
 						: {
-							"[tuple]": true;
+							"@duplojs/utils/[tuple]": true;
 						}
 			: never
 	)
 	| (
 		[
 			Exclude<Extract<GenericInput, readonly any[]>, AnyTuple>,
-			Extract<GenericPatternValue, AnyTuple | readonly []>,
+			Extract<GenericPatternValue, AnyTuple>,
 		] extends [
 			infer InferredInput extends readonly any[],
 			infer InferredPatternValue,
@@ -112,16 +116,42 @@ export type GetIncompleteUnion<
 						InferredPatternValueFirst
 					> extends infer InferredResultFirst
 						? FlatObject<{
-							"[array.first": InferredResultFirst;
-							"array.rest]": IsEqual<InferredResultFirst, {}> extends true
+							"@duplojs/utils/[array.first": InferredResultFirst;
+							"@duplojs/utils/array.rest]": IsEqual<InferredResultFirst, {}> extends true
 								? GetIncompleteUnion<
 									InferredInput,
 									InferredPatternValueRest
 								>
 								: never;
 						}>
-						: never
+						: {}
 					: {}
+			: never
+	)
+	| (
+		Extract<
+			GenericPatternValue,
+			PatternValueMaybeAll
+		> extends infer InferredPatternValue
+			? IsEqual<InferredPatternValue, never> extends true
+				? never
+				: { "@duplojs/utils/{maybeAll}": true }
+			: never
+	)
+	| (
+		[
+			Extract<GenericInput, readonly any[]>,
+			Extract<GenericPatternValue, readonly []>,
+		] extends [
+			infer InferredInput extends readonly any[],
+			infer InferredPatternValue,
+		]
+			? Or<[
+				IsEqual<InferredPatternValue, never>,
+				IsEqual<InferredInput, never>,
+			]> extends true
+				? never
+				: {}
 			: never
 	)
 );

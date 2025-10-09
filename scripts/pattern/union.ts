@@ -1,32 +1,37 @@
-import { type ForcePredicate, type FixDeepFunctionInfer } from "@scripts/common";
+import { type FixDeepFunctionInfer } from "@scripts/common";
 import { isMatch } from "./isMatch";
-import { type PatternValue, type Pattern } from "./types/pattern";
-import { type ComplexMatchedValue } from "./types";
+import { type Pattern, type ToolPattern, SymbolToolPatternFunctionLabel } from "./types/pattern";
+
+const SymbolToolPatternFunction = Symbol.for(SymbolToolPatternFunctionLabel);
 
 export function union<
 	GenericInput extends unknown,
-	const GenericPatterns extends readonly [Pattern<GenericInput>, ...Pattern<GenericInput>[]],
+	const GenericPatterns extends readonly [
+		Pattern<GenericInput extends infer InferredInput ? InferredInput : never>,
+		...Pattern<GenericInput extends infer InferredInput ? InferredInput : never>[],
+	],
 >(
 	...patterns: FixDeepFunctionInfer<
 		readonly [Pattern<GenericInput>, ...Pattern<GenericInput>[]],
 		GenericPatterns
 	>
-) {
-	return (
-		input: GenericInput,
-	): input is ForcePredicate<
+): ToolPattern<
 		GenericInput,
-		ComplexMatchedValue<
-			GenericInput,
-			PatternValue<GenericPatterns[number]>
-		>
-	> => {
-		for (const pattern of patterns) {
-			if (isMatch(input, pattern)) {
-				return true;
+		GenericPatterns[number] extends infer InferredPattern
+			? InferredPattern
+			: never
+	> {
+	return {
+		[SymbolToolPatternFunction]: (
+			input: GenericInput,
+		) => {
+			for (const pattern of patterns) {
+				if (isMatch(input, pattern)) {
+					return true;
+				}
 			}
-		}
 
-		return true;
-	};
+			return false;
+		},
+	} as never;
 }

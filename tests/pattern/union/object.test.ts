@@ -127,6 +127,46 @@ describe("union discriminate object", () => {
 		>;
 	});
 
+	it("union on deep props", () => {
+		const inputDeep = {
+			prop: input,
+			test: input,
+			con: true,
+		};
+
+		const result = pipe(
+			inputDeep,
+			DPattern.match(
+				{
+					test: { type: DPattern.union("one", "three") },
+					prop: { type: DPattern.union("one", "two") },
+					con: true,
+				},
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							test: Object1 | Object3;
+							prop: Object1 | Object2;
+							con: true;
+						},
+						"strict"
+					>;
+
+					return "myValue";
+				},
+			),
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			DPattern.PatternResult<"myValue"> | typeof inputDeep,
+			"strict"
+		>;
+	});
+
 	it("union on deep object", () => {
 		const inputDeep = {
 			prop: input,
@@ -137,18 +177,29 @@ describe("union discriminate object", () => {
 		const result = pipe(
 			inputDeep,
 			DPattern.match(
-				DPattern.union({
-					test: { type: DPattern.union("one", "three") },
-					prop: { type: DPattern.union("one", "two") },
-					con: true,
-				}),
+				DPattern.union(
+					{
+						test: {
+							type: "one",
+						},
+					},
+					{
+						prop: {
+							type: "two",
+						},
+					},
+				),
 				(value) => {
 					type Check = ExpectType<
 						typeof value,
 						{
-							test: Object1 | Object3;
-							prop: Object1 | Object2;
-							con: true;
+							prop: TestObject;
+							con: boolean;
+							test: Object1;
+						} | {
+							test: TestObject;
+							con: boolean;
+							prop: Object2;
 						},
 						"strict"
 					>;

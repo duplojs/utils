@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-for-in-array */
 import { type AnyFunction } from "@scripts/common";
-import { type Pattern } from "./types/pattern";
+import { SymbolToolPatternFunctionLabel, type ToolPattern, type Pattern } from "./types/pattern";
+
+const SymbolToolPatternFunction = Symbol.for(SymbolToolPatternFunctionLabel);
 
 export function isMatch(
 	input: unknown,
@@ -32,7 +34,17 @@ export function isMatch(
 		}
 
 		return true;
-	} else if (typeof pattern === "object" && input && typeof input === "object") {
+	} else if (
+		pattern
+		&& typeof pattern === "object"
+		&& SymbolToolPatternFunction in pattern
+	) {
+		return ((pattern as ToolPattern)[SymbolToolPatternFunction as never] as AnyFunction)(input);
+	} else if (
+		pattern
+		&& typeof pattern === "object"
+		&& input && typeof input === "object"
+	) {
 		for (const key in pattern) {
 			if (
 				!isMatch(

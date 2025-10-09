@@ -1,11 +1,10 @@
 export function endsWith<
 	GenericSearchString extends string,
+	GenericString extends string,
 >(
 	searchString: GenericSearchString,
 	position?: number,
-): <
-	GenericString extends string,
->(input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}`>;
+): (input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}`>;
 
 export function endsWith<
 	GenericString extends string,

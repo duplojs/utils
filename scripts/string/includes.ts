@@ -1,11 +1,10 @@
 export function includes<
 	GenericSearchString extends string,
+	GenericString extends string,
 >(
 	searchString: GenericSearchString,
 	position?: number,
-): <
-	GenericString extends string,
->(input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}${string}`>;
+): (input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}${string}`>;
 
 export function includes<
 	GenericString extends string,

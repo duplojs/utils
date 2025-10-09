@@ -1,4 +1,4 @@
-import { DPattern, type ExpectType } from "@scripts/index";
+import { DPattern, DString, forward, type ExpectType } from "@scripts/index";
 
 describe("pattern match", () => {
 	it("match literal string", () => {
@@ -333,6 +333,62 @@ describe("pattern match", () => {
 		type Check = ExpectType<
 			typeof result,
 			true | DPattern.PatternResult<"myValue">,
+			"strict"
+		>;
+	});
+
+	it("match on maybe all", () => {
+		const result = DPattern.match(
+			"one" as "one" | "two",
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					"one" | "two",
+					"strict"
+				>;
+
+				return true;
+			},
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					"one" | "two",
+					"strict"
+				>;
+
+				return "myValue";
+			},
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			"one" | "two" | DPattern.PatternResult<"myValue">,
+			"strict"
+		>;
+	});
+
+	it("match on predicate", () => {
+		const result = DPattern.match(
+			"one" as "one" | "two",
+			DString.startsWith("o"),
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					"one",
+					"strict"
+				>;
+
+				return "myValue";
+			},
+		);
+
+		expect(result).toStrictEqual(DPattern.result("myValue"));
+
+		type Check = ExpectType<
+			typeof result,
+			"two" | DPattern.PatternResult<"myValue">,
 			"strict"
 		>;
 	});
