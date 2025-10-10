@@ -1,5 +1,6 @@
 import { type Adaptor, type SimplifyTopLevel, type IsEqual } from "@scripts/common";
 import { type ComplexMatchedValue } from ".";
+import { type GetPropsWithValue } from "@scripts/object";
 
 export type ComplexMatchedObject<
 	GenericInput extends unknown,
@@ -36,11 +37,22 @@ export type ComplexMatchedObject<
 										any
 									>
 								}
-							> extends infer InferredResult
+							> extends infer InferredResult extends object
 								? Extract<InferredResult, any> extends InferredInput
 									? IsEqual<InferredResult, InferredInput> extends true
 										? InferredInput
-										: InferredResult
+										: IsEqual<
+											GetPropsWithValue<
+												Pick<
+													InferredResult,
+													Adaptor<keyof InferredPatternValue, keyof InferredResult>
+												>,
+												never
+											>,
+											never
+										> extends true
+											? InferredResult
+											: never
 									: never
 								: never
 					: never
