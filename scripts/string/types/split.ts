@@ -1,38 +1,31 @@
-import { type IsEqual } from "@scripts/common";
+import { type Or, type IsEqual } from "@scripts/common";
+import { type Includes } from "./includes";
 
-export type SplitString<
-	GenericString extends string,
-	GenericSeparator extends string | RegExp,
-	GenericLimit extends number = never,
-	GenericDepth extends readonly unknown[] = [],
-> = GenericDepth["length"] extends 40
-	? string[]
-	: GenericSeparator extends string
-		? [GenericLimit] extends [never]
-			? GenericString extends `${infer InferredBefore}${GenericSeparator}${infer InferredAfter}`
-				? [InferredBefore, ...(
-					IsEqual<InferredAfter, ""> extends true
-						? []
-						: SplitString<InferredAfter, GenericSeparator, never, [...GenericDepth, unknown]>
-				)]
-				: [GenericString]
-			: SplitStringWithLimit<GenericString, GenericSeparator, GenericLimit, []>
-		: string[];
-
-type SplitStringWithLimit<
+export type Split<
 	GenericString extends string,
 	GenericSeparator extends string,
-	GenericLimit extends number,
-	GenericResult extends string[],
-	GenericCount extends readonly unknown[] = [],
-> = GenericResult["length"] extends GenericLimit
-	? GenericResult
+	GenericLimit extends number = number,
+	GenericLastResult extends string[] = [],
+> = Or<[
+	IsEqual<GenericString, string>,
+	IsEqual<GenericSeparator, string>,
+]> extends true
+	? string[]
 	: GenericString extends `${infer InferredBefore}${GenericSeparator}${infer InferredAfter}`
-		? SplitStringWithLimit<
-			InferredAfter,
-			GenericSeparator,
-			GenericLimit,
-			[...GenericResult, InferredBefore],
-			[...GenericCount, unknown]
-		>
-		: [...GenericResult, GenericString];
+		? [...GenericLastResult, InferredBefore] extends infer InferredResult extends any[]
+			? IsEqual<InferredAfter, ""> extends true
+				? InferredResult
+				: IsEqual<InferredResult["length"], 250> extends true
+					? Includes<InferredAfter, GenericSeparator> extends true
+						? [...InferredResult, ...string[]]
+						: InferredResult
+					: IsEqual<InferredResult["length"], GenericLimit> extends true
+						? InferredResult
+						: Split<
+							InferredAfter,
+							GenericSeparator,
+							GenericLimit,
+							InferredResult
+						>
+			: never
+		: [...GenericLastResult, GenericString];

@@ -1,18 +1,30 @@
-import { type CreateTupleFromLength } from "@scripts/common/types/createTupleFromLength";
+import { type CreateTuple } from "./types/createTuple";
 
 export function minElements<
-	GenericValue extends unknown,
+	GenericArray extends readonly unknown[],
 	GenericLength extends number,
 >(
 	minLength: GenericLength,
-): (array: readonly GenericValue[]) => array is CreateTupleFromLength<GenericValue, GenericLength>;
+): (array: GenericArray) =>
+	// @ts-expect-error predicate error
+	array is [
+		...CreateTuple<GenericArray[number], GenericLength>,
+		...GenericArray[number][],
+	];
+
 export function minElements<
-	GenericValue extends unknown,
+	GenericArray extends readonly unknown[],
 	GenericLength extends number,
 >(
-	array: readonly GenericValue[],
+	array: GenericArray,
 	minLength: GenericLength,
-): array is CreateTupleFromLength<GenericValue, GenericLength>;
+):
+	// @ts-expect-error predicate error
+	array is [
+		...CreateTuple<GenericArray[number], GenericLength>,
+		...GenericArray[number][],
+	];
+
 export function minElements(...args: [readonly unknown[], number] | [number]): any {
 	if (args.length === 1) {
 		const [minLength] = args;

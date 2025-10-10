@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/max-params */
 import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
-import { type MaybeFutureEither } from "../future/MaybeFutureEither";
+import { type MaybeFutureEither } from "../future/maybeFutureEither";
 import { future, type Future } from "../future";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";

@@ -1,7 +1,6 @@
 export * from "./addOne";
 export * from "./anyFunction";
 export * from "./anyValue";
-export * from "./createTupleFromLength";
 export * from "./escapeAny";
 export * from "./escapeVoid";
 export * from "./expectType";
@@ -35,4 +34,5 @@ export * from "./not";
 export * from "./lastUnionElement";
 export * from "./removeDuplicateInUnion";
 export * from "./isStringLIteral";
+export * from "./maybeWrapped";
 

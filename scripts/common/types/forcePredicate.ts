@@ -3,5 +3,5 @@ export type ForcePredicate<
 	GenericWantValue extends unknown,
 > = (
 	{ [Prop in GenericWantValue as "prop"]: Prop }
-	& Record<string, GenericArgValue>
+	& { [key: string]: GenericArgValue }
 )["prop"];

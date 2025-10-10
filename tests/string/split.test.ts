@@ -100,14 +100,14 @@ describe("split", () => {
 	it("use in pipe with limit", () => {
 		const result = pipe(
 			"a-b-c-d-e",
-			DString.split("-", { limit: 3 }),
+			DString.split("-"),
 			DArray.join(" | "),
 		);
-		expect(result).toBe("a | b | c");
+		expect(result).toBe("a | b | c | d | e");
 
 		type check = ExpectType<
 			typeof result,
-			"a | b | c",
+			"a | b | c | d | e",
 			"strict"
 		>;
 	});

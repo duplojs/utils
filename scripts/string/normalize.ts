@@ -1,4 +1,4 @@
-import { type NormalizeForm } from "./types/NormalizeForm";
+import { type NormalizeForm } from "./types/normalizeForm";
 
 export function normalize<
 	GenericInput extends string,
