@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@duplojs/utils": "file:.."
+  },
+  "devDependencies": {
+    "zod": "^4.1.12"
   }
 }

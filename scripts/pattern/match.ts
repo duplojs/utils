@@ -1,4 +1,4 @@
-import { type IsEqual, type AnyFunction, type AnyValue, type EscapeVoid, type FixDeepFunctionInfer } from "@scripts/common";
+import { type IsEqual, type AnyFunction, type AnyValue, type EscapeVoid, type FixDeepFunctionInfer, type BreakGenericLink } from "@scripts/common";
 import { type PatternValue, type Pattern } from "./types/pattern";
 import { type PatternResult, result } from "./result";
 import { type ComplexMatchedValue, type ComplexUnMatchedValue } from "./types";
@@ -39,13 +39,15 @@ export function match<
 			: PatternResult<GenericOutput>
 	)
 	| GenericInputPatternResult
-	| Extract<
+	| (Extract<
 		ComplexUnMatchedValue<
 			GenericInputValue,
 			GenericPatternValue
 		>,
 		any
-	>
+	> extends infer InferredResult
+		? BreakGenericLink<InferredResult>
+		: never)
 );
 
 export function match<

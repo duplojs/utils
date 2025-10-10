@@ -83,23 +83,25 @@ type ComplexMatchedTupleTuple<
 									InferredPatternValueFirst
 								>,
 								any
-							> extends infer InferredResult extends InferredInputFirst
-								? IsEqual<InferredResult, never> extends true
-									? never
-									: [
-										InferredResult,
-										...Adaptor<
-											(
-												IsEqual<inferredPatternValueRest[number], never> extends true
-													? inferredInputRest
-													: ComplexMatchedValue<
-														inferredInputRest,
-														inferredPatternValueRest
-													>
-											),
-											readonly any[]
-										>,
-									]
+							> extends infer InferredResult
+								? Extract<InferredResult, any> extends InferredInputFirst
+									? IsEqual<InferredResult, never> extends true
+										? never
+										: [
+											InferredResult,
+											...Adaptor<
+												(
+													IsEqual<inferredPatternValueRest[number], never> extends true
+														? inferredInputRest
+														: ComplexMatchedValue<
+															inferredInputRest,
+															inferredPatternValueRest
+														>
+												),
+												readonly any[]
+											>,
+										]
+									: never
 								: never
 							: never
 					: never
