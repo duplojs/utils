@@ -18,7 +18,6 @@ export function result<
 ): PatternResult<GenericValue> {
 	return patternResultKind.addTo(
 		wrapValue(value),
-		null,
 	);
 }
 

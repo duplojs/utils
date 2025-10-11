@@ -1,6 +1,6 @@
 import { type IsEqual, type AnyFunction, type AnyValue, type EscapeVoid, type FixDeepFunctionInfer, type BreakGenericLink } from "@scripts/common";
 import { type PatternValue, type Pattern } from "./types/pattern";
-import { type PatternResult, result } from "./result";
+import { isResult, type PatternResult, result } from "./result";
 import { type ComplexMatchedValue, type ComplexUnMatchedValue } from "./types";
 import { isMatch } from "./isMatch";
 
@@ -106,7 +106,7 @@ export function match(
 
 	const [input, pattern, theFunction] = args;
 
-	if (isMatch(input as never, pattern)) {
+	if (!isResult(input) && isMatch(input as never, pattern)) {
 		return result(
 			theFunction(
 				input,
