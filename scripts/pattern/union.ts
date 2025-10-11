@@ -26,7 +26,7 @@ export function union<
 			input: GenericInput,
 		) => {
 			for (const pattern of patterns) {
-				if (isMatch(input, pattern)) {
+				if (isMatch(input as never, pattern as never)) {
 					return true;
 				}
 			}

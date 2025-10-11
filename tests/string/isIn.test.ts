@@ -3,7 +3,7 @@ import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
 describe("isIn", () => {
 	it("returns true when input exists in array", () => {
 		const value = "ts" as "ts" | "rs";
-		const predicate = DString.isIn(value, ["js", "ts"]);
+		const predicate = DString.isIn(value, ["ts"]);
 
 		expect(predicate).toBe(true);
 
@@ -17,7 +17,7 @@ describe("isIn", () => {
 	});
 
 	it("returns false when input is missing from array", () => {
-		const predicate = DString.isIn("python", ["js", "ts"]);
+		const predicate = DString.isIn("python" as "python" | "js", ["js"]);
 
 		expect(predicate).toBe(false);
 	});

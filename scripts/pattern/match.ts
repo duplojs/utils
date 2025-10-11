@@ -106,7 +106,7 @@ export function match(
 
 	const [input, pattern, theFunction] = args;
 
-	if (isMatch(input, pattern)) {
+	if (isMatch(input as never, pattern)) {
 		return result(
 			theFunction(
 				input,
