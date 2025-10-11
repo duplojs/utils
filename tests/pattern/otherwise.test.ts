@@ -1,4 +1,4 @@
-import { pipe } from "@scripts/common";
+import { equal, pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { DPattern, DString } from "@scripts/index";
 import { otherwise, type PatternResult } from "@scripts/pattern";
@@ -30,8 +30,8 @@ describe("otherwise", () => {
 	it("not match on when", () => {
 		const result = pipe(
 			"test" as "titi" | "test",
-			DPattern.matchPrimitive(
-				"titi",
+			DPattern.when(
+				equal("titi"),
 				() => 50,
 			),
 			DPattern.otherwise(
@@ -59,8 +59,8 @@ describe("otherwise", () => {
 	it("match on when and skip ", () => {
 		const result = pipe(
 			"test" as "titi" | "test",
-			DPattern.matchPrimitive(
-				"test",
+			DPattern.when(
+				equal("test"),
 				() => 50,
 			),
 			DPattern.otherwise(DString.toUpperCase),

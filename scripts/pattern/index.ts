@@ -1,7 +1,6 @@
 export * from "./result";
 export * from "./exhaustive";
 export * from "./otherwise";
-export * from "./matchPrimitive";
 export * from "./match";
 export * from "./isMatch";
 export * from "./types";
