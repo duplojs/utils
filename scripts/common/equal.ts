@@ -4,7 +4,7 @@ export function equal<
 	GenericInput extends EligibleEqual,
 	GenericValue extends GenericInput,
 >(
-	value: GenericValue
+	value: GenericValue | GenericValue[]
 ): (input: GenericInput) => input is NoInfer<GenericValue>;
 
 export function equal<
@@ -12,11 +12,11 @@ export function equal<
 	GenericValue extends GenericInput,
 >(
 	input: GenericInput,
-	value: GenericValue
+	value: GenericValue | GenericValue[]
 ): input is GenericValue;
 
 export function equal(
-	...args: [EligibleEqual, EligibleEqual] | [EligibleEqual]
+	...args: [EligibleEqual, EligibleEqual | EligibleEqual[]] | [EligibleEqual | EligibleEqual[]]
 ) {
 	if (args.length === 1) {
 		const [value] = args;
@@ -26,5 +26,7 @@ export function equal(
 
 	const [input, value] = args;
 
-	return input === value;
+	return value instanceof Array
+		? value.includes(input)
+		: input === value;
 }

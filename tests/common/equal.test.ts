@@ -2,15 +2,15 @@ import { DArray, equal, pipe, type ExpectType } from "@scripts/index";
 
 describe("equal", () => {
 	it("returns true when values are strictly equal", () => {
-		const value = "duplojs" as "duplojs" | "laravel";
-		const predicate = equal(value, "duplojs");
+		const value = "duplojs" as "duplojs" | "laravel" | null;
+		const predicate = equal(value, ["duplojs", null]);
 
 		expect(predicate).toBe(true);
 
 		if (predicate) {
 			type check = ExpectType<
 				typeof value,
-				"duplojs",
+				"duplojs" | null,
 				"strict"
 			>;
 		}
