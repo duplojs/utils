@@ -1,9 +1,23 @@
-export function includes<
-	GenericSearchString extends string,
+import { type IsEqual } from "@scripts/common";
+
+type ComputeResult<
 	GenericString extends string,
+	GenericSearchString extends string,
+> = Extract<GenericString, `${string}${GenericSearchString}${string}`> extends infer InferredResult extends GenericString
+	? IsEqual<InferredResult, never> extends true
+		? GenericString & `${string}${GenericSearchString}${string}`
+		: InferredResult
+	: never;
+
+export function includes<
+	GenericString extends string,
+	GenericSearchString extends string,
 >(
 	searchString: GenericSearchString,
-): (input: GenericString) => input is Extract<GenericString, `${string}${GenericSearchString}${string}`>;
+): (input: GenericString) => input is ComputeResult<
+	GenericString,
+	GenericSearchString
+>;
 
 export function includes<
 	GenericString extends string,
@@ -11,7 +25,10 @@ export function includes<
 >(
 	input: GenericString,
 	searchString: GenericSearchString,
-): input is Extract<GenericString, `${string}${GenericSearchString}${string}`>;
+): input is ComputeResult<
+	GenericString,
+	GenericSearchString
+>;
 
 export function includes(...args: [string, string] | [string]): any {
 	if (args.length === 1) {

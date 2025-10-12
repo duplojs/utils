@@ -1,9 +1,20 @@
-export function startsWith<
-	GenericSearchString extends string,
+import { type IsEqual } from "@scripts/common";
+
+type ComputeResult<
 	GenericString extends string,
+	GenericSearchString extends string,
+> = Extract<GenericString, `${GenericSearchString}${string}`> extends infer InferredResult extends GenericString
+	? IsEqual<InferredResult, never> extends true
+		? GenericString & `${GenericSearchString}${string}`
+		: InferredResult
+	: never;
+
+export function startsWith<
+	GenericString extends string,
+	GenericSearchString extends string,
 >(
 	searchString: GenericSearchString,
-): (input: GenericString) => input is Extract<GenericString, `${GenericSearchString}${string}`>;
+): (input: GenericString) => input is ComputeResult<GenericString, GenericSearchString>;
 
 export function startsWith<
 	GenericString extends string,
@@ -11,7 +22,7 @@ export function startsWith<
 >(
 	input: GenericString,
 	searchString: GenericSearchString,
-): input is Extract<GenericString, `${GenericSearchString}${string}`>;
+): input is ComputeResult<GenericString, GenericSearchString>;
 
 export function startsWith(...args: [string, string] | [string]): any {
 	if (args.length === 1) {
