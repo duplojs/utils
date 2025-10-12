@@ -28,6 +28,28 @@ export function when<
 	GenericInput extends AnyValue,
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
+	GenericOutput extends AnyValue,
+>(
+	predicate: (
+		input: GenericInputValue
+	) => boolean,
+	theFunction: (predicatedInput: GenericInputValue) => GenericOutput
+): (
+	input: (
+		| GenericInput
+		| GenericInputPatternResult
+		| GenericInputValue
+	)
+) => (
+	| GenericInputPatternResult
+	| GenericInputValue
+	| PatternResult<GenericOutput>
+);
+
+export function when<
+	GenericInput extends AnyValue,
+	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
 	GenericOutput extends AnyValue,
 >(
@@ -43,6 +65,27 @@ export function when<
 ): (
 	| GenericInputPatternResult
 	| Exclude<GenericInputValue, GenericPredicatedInput>
+	| PatternResult<GenericOutput>
+);
+
+export function when<
+	GenericInput extends AnyValue,
+	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
+	GenericOutput extends AnyValue,
+>(
+	input: (
+		| GenericInput
+		| GenericInputPatternResult
+		| GenericInputValue
+	),
+	predicate: (
+		input: GenericInputValue
+	) => boolean,
+	theFunction: (predicatedInput: GenericInputValue) => GenericOutput
+): (
+	| GenericInputPatternResult
+	| GenericInputValue
 	| PatternResult<GenericOutput>
 );
 

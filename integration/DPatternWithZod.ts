@@ -1,6 +1,6 @@
 import { type ExpectType, P, pipe, DPattern } from "@duplojs/utils";
 import { forward } from "@scripts/common";
-import { type ZodNumber, type ZodString, type ZodType } from "zod";
+import { type ZodArray, type ZodBigInt, type ZodObject, type ZodNumber, type ZodString, type ZodType } from "zod";
 
 function _matchZodObject1(zodType: ZodType) {
 	const _result = pipe(
@@ -50,7 +50,7 @@ function _matchZodObject1(zodType: ZodType) {
 	);
 }
 
-function _matchZodObject2(zodType: ZodString | ZodNumber) {
+function _matchZodObject2(zodType: ZodString | ZodNumber | ZodBigInt | ZodArray | ZodObject) {
 	const _result = pipe(
 		zodType,
 		P.match(
@@ -61,22 +61,34 @@ function _matchZodObject2(zodType: ZodString | ZodNumber) {
 			},
 			(value) => {
 				type Check = ExpectType<
-					typeof value.def.type,
-					"number",
+					typeof value,
+					ZodNumber,
 					"strict"
 				>;
 			},
 		),
 		P.match(
 			{
-				def: {
-					type: "string",
-				},
+				type: "string",
 			},
 			(value) => {
 				type Check = ExpectType<
-					typeof value.def.type,
-					"string",
+					typeof value,
+					ZodString,
+					"strict"
+				>;
+			},
+		),
+		P.match(
+			forward({
+				def: {
+					type: DPattern.union("array", "bigint", "object"),
+				},
+			}),
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					ZodBigInt | ZodArray | ZodObject,
 					"strict"
 				>;
 			},

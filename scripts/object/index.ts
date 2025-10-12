@@ -13,3 +13,5 @@ export * from "./assign";
 export * from "./override";
 export * from "./omit";
 export * from "./pick";
+export * from "./discriminate";
+export * from "./getDeepProperty";
