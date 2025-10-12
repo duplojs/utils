@@ -1,4 +1,5 @@
-import { A, E, O, pipe, S, when, whenNot, type ExpectType } from "@duplojs/utils";
+import { A, E, O, pipe, S, type ExpectType } from "@duplojs/utils";
+import { DPattern } from "@scripts/index";
 
 const result = pipe(
 	"test",
@@ -12,12 +13,11 @@ const result = pipe(
 	O.entries,
 	A.filter((entry) => entry[1] !== "t"),
 	O.fromEntries,
-	when(
+	DPattern.when(
 		O.hasKeys(["2", "3"]),
 		E.success,
 	),
-	whenNot(
-		E.isRight,
+	DPattern.otherwise(
 		E.error,
 	),
 );
