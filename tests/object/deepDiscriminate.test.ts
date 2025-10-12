@@ -1,22 +1,22 @@
 import { DObject, pipe, type ExpectType, when } from "@scripts";
 
-describe("discriminate", () => {
+describe("deepDiscriminate", () => {
 	it("match literal prop", () => {
 		interface Admin {
 			type: "admin";
-			status: "active";
+			permissions: "all";
 		}
 		interface Guest {
 			type: "guest";
-			status: "inactive";
+			permissions: "read";
 		}
 
 		const input = {
 			type: "admin",
-			status: "active",
+			permissions: "all",
 		} as Admin | Guest;
 
-		const result = DObject.discriminate(
+		const result = DObject.deepDiscriminate(
 			input,
 			"type",
 			"admin",
@@ -39,21 +39,30 @@ describe("discriminate", () => {
 		}
 	});
 
-	it("no match on literal prop", () => {
+	it("no match on deep prop", () => {
 		interface Active {
-			status: "active";
+			meta: {
+				status: "active";
+				flag: true;
+			};
 		}
 		interface Inactive {
-			status: "inactive";
+			meta: {
+				status: "inactive";
+				flag: false;
+			};
 		}
 
 		const input = {
-			status: "inactive",
+			meta: {
+				status: "inactive",
+				flag: false,
+			},
 		} as Active | Inactive;
 
-		const result = DObject.discriminate(
+		const result = DObject.deepDiscriminate(
 			input,
-			"status",
+			"meta.status",
 			"active",
 		);
 
@@ -94,7 +103,7 @@ describe("discriminate", () => {
 				level: 2,
 			} as SuperUser | Moderator | Viewer,
 			when(
-				DObject.discriminate(
+				DObject.deepDiscriminate(
 					"role",
 					["admin", "moderator"],
 				),

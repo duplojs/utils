@@ -1,54 +1,41 @@
-import { type EligibleEqual, equal, type MaybeArray, when } from "@scripts/common";
-import { type UnFlatObject, type FlatObject } from "./types";
+import { type EligibleEqual, equal, type MaybeArray } from "@scripts/common";
 import { type GetPropsWithValueExtends } from "./types/getPropsWithValueExtends";
-import { getDeepProperty } from "./getDeepProperty";
-
-type ObjectProjection<
-	GenericInput extends object,
-> = FlatObject<GenericInput> extends infer InferredResult extends object
-	? Omit<
-		Pick<
-			InferredResult,
-			GetPropsWithValueExtends<
-				InferredResult,
-				EligibleEqual
-			>
-		>,
-		`${string}[${string}]${string}`
-	>
-	: never;
 
 export function discriminate<
 	GenericInput extends object,
-	GenericObjectProjection extends ObjectProjection<GenericInput>,
-	GenericPath extends keyof GenericObjectProjection,
+	GenericKey extends GetPropsWithValueExtends<
+		GenericInput,
+		EligibleEqual
+	>,
 	GenericValue extends EligibleEqual,
 >(
-	path: GenericPath,
+	key: GenericKey,
 	value: (
-		| MaybeArray<(GenericValue & GenericObjectProjection[GenericPath])>
-		| MaybeArray<GenericObjectProjection[GenericPath]>
+		| MaybeArray<(GenericValue & GenericInput[GenericKey])>
+		| MaybeArray<GenericInput[GenericKey]>
 	)
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
-	UnFlatObject<{ [Prop in GenericPath]: GenericValue }>
+	{ [Prop in GenericKey]: GenericValue }
 >;
 
 export function discriminate<
 	GenericInput extends object,
-	GenericObjectProjection extends ObjectProjection<GenericInput>,
-	GenericPath extends keyof GenericObjectProjection,
+	GenericKey extends GetPropsWithValueExtends<
+		GenericInput,
+		EligibleEqual
+	>,
 	GenericValue extends EligibleEqual,
 >(
 	input: GenericInput,
-	path: GenericPath,
+	key: GenericKey,
 	value: (
-		| MaybeArray<(GenericValue & GenericObjectProjection[GenericPath])>
-		| MaybeArray<GenericObjectProjection[GenericPath]>
+		| MaybeArray<(GenericValue & GenericInput[GenericKey])>
+		| MaybeArray<GenericInput[GenericKey]>
 	)
 ): input is Extract<
 	GenericInput,
-	UnFlatObject<{ [Prop in GenericPath]: GenericValue }>
+	{ [Prop in GenericKey]: GenericValue }
 >;
 
 export function discriminate(
@@ -56,15 +43,15 @@ export function discriminate(
 		| [string, MaybeArray<EligibleEqual>]
 ) {
 	if (args.length === 2) {
-		const [path, value] = args;
+		const [key, value] = args;
 
-		return (input: object) => discriminate(input, path as never, value as never);
+		return (input: object) => discriminate(input, key as never, value as never);
 	}
 
-	const [input, path, value] = args;
+	const [input, key, value] = args;
 
 	return equal(
-		getDeepProperty(input, path as never),
+		input[key as never],
 		value as never,
 	);
 }
