@@ -1,18 +1,14 @@
 import { type EligibleEqual, equal, type MaybeArray } from "@scripts/common";
-import { type GetPropsWithValueExtends } from "./types/getPropsWithValueExtends";
 
 export function discriminate<
 	GenericInput extends object,
-	GenericKey extends GetPropsWithValueExtends<
-		GenericInput,
-		EligibleEqual
-	>,
+	GenericKey extends keyof GenericInput,
 	GenericValue extends EligibleEqual,
 >(
 	key: GenericKey,
 	value: (
-		| MaybeArray<(GenericValue & GenericInput[GenericKey])>
-		| MaybeArray<GenericInput[GenericKey]>
+		| MaybeArray<(GenericValue & Extract<GenericInput[GenericKey], EligibleEqual>)>
+		| MaybeArray<Extract<GenericInput[GenericKey], EligibleEqual>>
 	)
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
@@ -21,17 +17,14 @@ export function discriminate<
 
 export function discriminate<
 	GenericInput extends object,
-	GenericKey extends GetPropsWithValueExtends<
-		GenericInput,
-		EligibleEqual
-	>,
+	GenericKey extends keyof GenericInput,
 	GenericValue extends EligibleEqual,
 >(
 	input: GenericInput,
 	key: GenericKey,
 	value: (
-		| MaybeArray<(GenericValue & GenericInput[GenericKey])>
-		| MaybeArray<GenericInput[GenericKey]>
+		| MaybeArray<(GenericValue & Extract<GenericInput[GenericKey], EligibleEqual>)>
+		| MaybeArray<Extract<GenericInput[GenericKey], EligibleEqual>>
 	)
 ): input is Extract<
 	GenericInput,
