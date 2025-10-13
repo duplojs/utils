@@ -26,6 +26,6 @@ export default [
 		ignores: ["**/*.test.ts", "**/*.bench.ts", "test/**/*.ts", "**/*.d.ts"],
 	},
 	{
-		ignores: ["coverage", "dist"]
+		ignores: ["coverage", "dist", "docs/public/*", "docs/.vitepress/cache/*"]
 	}
 ];

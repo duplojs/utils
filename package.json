@@ -10,6 +10,10 @@
   },
   "scripts": {
     "build": "rollup --config",
+    "build:docs-meta": "node scripts/generate-docs-metadata.js",
+    "docs:dev": "npm run docs:dev --workspace=docs",
+    "docs:build": "npm run docs:build --workspace=docs",
+    "docs:preview": "npm run docs:preview --workspace=docs",
     "test:tu": "vitest --coverage",
     "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",
@@ -117,7 +121,8 @@
     "vitest": "3.2.4"
   },
   "workspaces": [
-    "integration"
+    "integration", 
+    "docs"
   ],
   "keywords": [],
   "engines": {

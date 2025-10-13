@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.app.json",
+  "compilerOptions": {
+ 	"types": ["vitepress/client"],
+	"jsx": "preserve",
+    "lib": ["esnext", "dom", "dom.iterable"],
+	"baseUrl": "./",
+	"paths": {
+		"@duplojs/utils": ["public/libs/v1/index"],
+	}
+  },
+  "include": [
+	".vitepress/**/*.vue",
+	"v1/**/*.ts",
+	".vitepress/**/*.ts",
+  ],
+}
