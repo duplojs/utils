@@ -17,7 +17,7 @@ La méthode **`matchAll()`** prend une expression régulière en argument et ret
 <MonacoTSEditor
   src="/v1/api/string/matchAll/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="280px"
 />
 
 ## Syntaxe
@@ -59,7 +59,7 @@ Un itérateur (`RegExpStringIterator<RegExpMatchArray>`) qui permet de parcourir
 <MonacoTSEditor
   src="/v1/api/string/matchAll/examples/extractEmails.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="250px"
 />
 
 ### Compter les occurrences
@@ -67,7 +67,7 @@ Un itérateur (`RegExpStringIterator<RegExpMatchArray>`) qui permet de parcourir
 <MonacoTSEditor
   src="/v1/api/string/matchAll/examples/countOccurrences.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="240px"
 />
 
 ### Extraire des groupes de capture
@@ -75,7 +75,7 @@ Un itérateur (`RegExpStringIterator<RegExpMatchArray>`) qui permet de parcourir
 <MonacoTSEditor
   src="/v1/api/string/matchAll/examples/extractGroups.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="250px"
 />
 
 ## Voir aussi

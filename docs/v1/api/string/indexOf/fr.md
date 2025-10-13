@@ -67,7 +67,7 @@ L'index de la première occurrence de la sous-chaîne, ou undefined si la sous-c
 <MonacoTSEditor
   src="/v1/api/string/indexOf/examples/extractDomain.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="350px"
 />
 
 ### Compter les occurrences
@@ -75,7 +75,7 @@ L'index de la première occurrence de la sous-chaîne, ou undefined si la sous-c
 <MonacoTSEditor
   src="/v1/api/string/indexOf/examples/countOccurrences.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="280px"
 />
 
 ## Voir aussi

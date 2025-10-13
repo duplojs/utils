@@ -62,7 +62,7 @@ Une nouvelle chaîne de caractères contenant la section extraite de la chaîne 
 <MonacoTSEditor
   src="/v1/api/string/slice/examples/extractExtension.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ### Extraire le suffixe "script"
@@ -70,7 +70,7 @@ Une nouvelle chaîne de caractères contenant la section extraite de la chaîne 
 <MonacoTSEditor
   src="/v1/api/string/slice/examples/extractScriptSuffix.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ### Extraire le début
@@ -78,7 +78,7 @@ Une nouvelle chaîne de caractères contenant la section extraite de la chaîne 
 <MonacoTSEditor
   src="/v1/api/string/slice/examples/extractMiddle.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="200px"
 />
 
 ## Voir aussi

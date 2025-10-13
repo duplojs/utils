@@ -70,7 +70,7 @@ L'index de la dernière occurrence de la sous-chaîne, ou undefined si la sous-c
 <MonacoTSEditor
   src="/v1/api/string/lastIndexOf/examples/extractFileName.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="320px"
 />
 
 ### Trouver la dernière occurrence
@@ -78,7 +78,7 @@ L'index de la dernière occurrence de la sous-chaîne, ou undefined si la sous-c
 <MonacoTSEditor
   src="/v1/api/string/lastIndexOf/examples/findLastOccurrence.doc.ts"
   majorVersion="v1"
-  height="160px"
+  height="200px"
 />
 
 ## Voir aussi
