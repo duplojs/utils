@@ -1,5 +1,5 @@
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
-import { reduce } from "./reduce";
+import { reduce, reduceFrom } from "./reduce";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface ArrayGroupFunctionOutput<
@@ -90,7 +90,7 @@ export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]
 
 	return reduce(
 		array,
-		({ from }) => from({}),
+		reduceFrom({}),
 		({ index, element, lastValue, nextWithObject }) => {
 			const { group, value } = theFunction(element, {
 				index,

@@ -21,3 +21,7 @@ export function bool(value: unknown) {
 		? boolFalsy(value)
 		: boolTruthy(value);
 }
+
+export type Bool<
+	GenericValue extends unknown,
+> = EitherBoolTruthy<GenericValue> | EitherBoolFalsy;

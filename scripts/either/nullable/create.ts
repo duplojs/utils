@@ -11,3 +11,7 @@ export function nullable(value: unknown) {
 		? nullableEmpty()
 		: nullableFilled(value);
 }
+
+export type Nullable<
+	GenericValue extends unknown,
+> = EitherNullableFilled<GenericValue> | EitherNullableEmpty;

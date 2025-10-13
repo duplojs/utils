@@ -11,3 +11,7 @@ export function nullish(value: unknown) {
 		? nullishEmpty(value)
 		: nullishFilled(value);
 }
+
+export type Nullish<
+	GenericValue extends unknown,
+> = EitherNullishFilled<GenericValue> | EitherNullishEmpty;

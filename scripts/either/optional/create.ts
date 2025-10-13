@@ -11,3 +11,7 @@ export function optional(value: unknown) {
 		? optionalEmpty()
 		: optionalFilled(value);
 }
+
+export type Optional<
+	GenericValue extends unknown,
+> = EitherOptionalFilled<GenericValue> | EitherOptionalEmpty;
