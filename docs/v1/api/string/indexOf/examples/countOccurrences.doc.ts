@@ -7,6 +7,6 @@ const result = pipe(
 		(position) => DString.indexOf(input, "test", position),
 	),
 	DArray.filter((value) => value !== undefined),
-	(value) => value.length,
+	DArray.length,
 );
 // result: 3
