@@ -90,6 +90,33 @@
 }
 
 /**
+ * Component: Layout
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-layout-max-width: 100%;
+}
+
+.VPDoc .container,
+.VPDoc .content,
+.vp-doc,
+.VPContent {
+  max-width: 100% !important;
+}
+
+.VPDoc.has-aside .content-container {
+  max-width: 80% !important;
+}
+
+.VPDoc:not(.has-sidebar) .content {
+  max-width: 1200px !important;
+}
+
+.vp-doc .container {
+  max-width: 1200px !important;
+}
+
+/**
  * Component: Home
  * -------------------------------------------------------------------------- */
 
