@@ -54,7 +54,21 @@ L'index de la première occurrence du motif dans la chaîne, ou `undefined` si a
 
 ## Exemples
 
-SOON...
+### Trouver un pattern
+
+<MonacoTSEditor
+	src="/v1/api/string/search/examples/findPattern.doc.ts"
+	majorVersion="v1"
+	height="200px"
+/>
+
+### Rechercher avec une regex
+
+<MonacoTSEditor
+	src="/v1/api/string/search/examples/searchWithRegex.doc.ts"
+	majorVersion="v1"
+	height="200px"
+/>
 
 ## Voir aussi
 

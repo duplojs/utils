@@ -5,6 +5,6 @@ const result = pipe(
 	input,
 	DString.matchAll(/a/g),
 	DArray.from,
-	(value) => value.length,
+	DArray.length,
 );
 // result: 3

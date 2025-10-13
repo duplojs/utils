@@ -5,6 +5,6 @@ const keywords = pipe(
 	searchQuery,
 	DString.toLowerCase,
 	DString.split(" "),
-	DArray.filter((word) => word.length > 0),
+	DArray.filter((word) => DString.length(word) > 0),
 );
 // keywords: ["javascript", "typescript", "python"]

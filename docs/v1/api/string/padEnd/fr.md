@@ -57,7 +57,21 @@ Une nouvelle chaîne de caractères de la longueur indiquée, complétée avec l
 
 ## Exemples
 
-SOON...
+### Formater des langages
+
+<MonacoTSEditor
+  src="/v1/api/string/padEnd/examples/formatLanguages.doc.ts"
+  majorVersion="v1"
+  height="200px"
+/>
+
+### Formater des nombres
+
+<MonacoTSEditor
+  src="/v1/api/string/padEnd/examples/formatNumbers.doc.ts"
+  majorVersion="v1"
+  height="180px"
+/>
 
 ## Voir aussi
 

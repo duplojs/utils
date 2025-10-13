@@ -55,7 +55,21 @@ Une nouvelle chaîne de caractères avec toutes les occurrences du motif remplac
 
 ## Exemples
 
-SOON...
+### Nettoyer du texte
+
+<MonacoTSEditor
+  src="/v1/api/string/replaceAll/examples/sanitizeText.doc.ts"
+  majorVersion="v1"
+  height="180px"
+/>
+
+### Transformer du code
+
+<MonacoTSEditor
+  src="/v1/api/string/replaceAll/examples/cleanupCode.doc.ts"
+  majorVersion="v1"
+  height="220px"
+/>
 
 ## Voir aussi
 

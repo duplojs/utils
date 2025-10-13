@@ -59,7 +59,21 @@ Une nouvelle chaîne de caractères avec les remplacements effectués.
 
 ## Exemples
 
-SOON...
+### Renommer des frameworks
+
+<MonacoTSEditor
+  src="/v1/api/string/replace/examples/renameFrameworks.doc.ts"
+  majorVersion="v1"
+  height="200px"
+/>
+
+### Remplacer avec une regex
+
+<MonacoTSEditor
+  src="/v1/api/string/replace/examples/replaceWithRegex.doc.ts"
+  majorVersion="v1"
+  height="180px"
+/>
 
 ## Voir aussi
 
