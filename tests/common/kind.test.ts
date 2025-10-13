@@ -1,5 +1,4 @@
-import { type ExpectType } from "@scripts/common";
-import { createKind, keyKindPrefix, type KindDefinition, type Kind } from "@scripts/common/kind";
+import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType } from "@scripts";
 
 describe("theKind", () => {
 	const myKind = createKind("testKind");

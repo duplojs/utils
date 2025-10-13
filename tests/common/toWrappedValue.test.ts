@@ -1,4 +1,4 @@
-import { type ExpectType, toWrappedValue, type WrappedValue, wrapValue } from "@scripts/common";
+import { type ExpectType, toWrappedValue, type WrappedValue, wrapValue } from "@scripts";
 
 it("toWrappedValue", () => {
 	const result1 = toWrappedValue(wrapValue(10));

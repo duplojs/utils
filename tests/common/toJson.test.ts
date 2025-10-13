@@ -1,5 +1,4 @@
-import { toJSON } from "@scripts/common/toJson";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, toJSON } from "@scripts";
 
 it("toJson", () => {
 	const json = toJSON({

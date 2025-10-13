@@ -1,4 +1,4 @@
-import { createExternalPromise } from "@scripts/common/externalPromise";
+import { createExternalPromise } from "@scripts";
 
 describe("externalPromise", () => {
 	it("resolve", async() => {

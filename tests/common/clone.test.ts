@@ -1,4 +1,4 @@
-import { clone } from "@scripts/common/clone";
+import { clone } from "@scripts";
 
 it("clone", () => {
 	expect(

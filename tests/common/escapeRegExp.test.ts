@@ -1,4 +1,4 @@
-import { escapeRegExp } from "@scripts/common/escapeRegExp";
+import { escapeRegExp } from "@scripts";
 
 it("escapeRegExp", () => {
 	expect(new RegExp(escapeRegExp("/")).test("/")).toBe(true);

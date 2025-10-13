@@ -1,5 +1,4 @@
-import { toTransform } from "@scripts/common/toTransform";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, toTransform } from "@scripts";
 
 it("toTransform", () => {
 	const method = () => void 0;

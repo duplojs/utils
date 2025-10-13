@@ -1,4 +1,4 @@
-import { isWrappedValue, keyWrappedValue, wrapValue } from "@scripts/common/wrapValue";
+import { isWrappedValue, keyWrappedValue, wrapValue } from "@scripts";
 
 describe("wrapValue", () => {
 	it("wrapValue", () => {

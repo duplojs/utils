@@ -1,5 +1,4 @@
-import { createInterpolation, type CreateInterpolationContract } from "@scripts/common/interpolation";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, createInterpolation, type CreateInterpolationContract } from "@scripts";
 
 describe("strict interpolation", () => {
 	it("simple replace", () => {

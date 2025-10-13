@@ -1,6 +1,4 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { or } from "@scripts/common/or";
-import { DObject, DString, isType, pipe, when } from "@scripts";
+import { DObject, DString, isType, pipe, when, or, type ExpectType } from "@scripts";
 
 describe("or", () => {
 	it("check with multi type", () => {

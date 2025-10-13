@@ -1,6 +1,4 @@
-import { asyncPipe } from "@scripts/common/asyncPipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { DEither, unwrap } from "@scripts";
+import { DEither, unwrap, type ExpectType, asyncPipe } from "@scripts";
 
 describe("asyncPipe", () => {
 	it("input promise number", async() => {

@@ -6,3 +6,4 @@ export * from "./tupleHasSpread";
 export * from "./mergeUnionTuple";
 export * from "./extractTuple";
 export * from "./excludeTuple";
+export * from "./createTuple";

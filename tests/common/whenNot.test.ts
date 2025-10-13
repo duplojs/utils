@@ -1,5 +1,4 @@
-import { pipe, type ExpectType } from "@scripts/common";
-import { whenNot } from "@scripts/common/whenNot";
+import { whenNot, pipe, type ExpectType } from "@scripts";
 
 describe("whenNot", () => {
 	it("whenNot match", () => {

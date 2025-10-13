@@ -1,5 +1,4 @@
-import { createEnum } from "@scripts/common/enum";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, createEnum } from "@scripts";
 
 describe("enum", () => {
 	const myEnum = createEnum([

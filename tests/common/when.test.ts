@@ -1,5 +1,4 @@
-import { pipe, type ExpectType } from "@scripts/common";
-import { when } from "@scripts/common/when";
+import { when, pipe, type ExpectType } from "@scripts";
 
 describe("when", () => {
 	it("when match", () => {

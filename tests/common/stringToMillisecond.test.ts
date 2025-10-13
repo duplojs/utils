@@ -1,5 +1,4 @@
-import { InvalidMillisecondInStringError, stringToMillisecond } from "@scripts/common/stringToMillisecond";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, InvalidMillisecondInStringError, stringToMillisecond } from "@scripts";
 
 describe("stringToMillisecond", () => {
 	it("convert 13 minute", () => {

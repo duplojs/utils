@@ -1,4 +1,4 @@
-import { type ExpectType, toString } from "@scripts/common";
+import { type ExpectType, toString } from "@scripts";
 
 it("toString", () => {
 	const result = toString("null");

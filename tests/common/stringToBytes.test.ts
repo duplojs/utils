@@ -1,5 +1,4 @@
-import { InvalidBytesInStringError, stringToBytes } from "@scripts/common/stringToBytes";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, InvalidBytesInStringError, stringToBytes } from "@scripts";
 
 describe("stringToBytes", () => {
 	it("convert 12 byte", () => {

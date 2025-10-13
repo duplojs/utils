@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common/pipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
+import { type ExpectType, pipe } from "@scripts";
 
 it("pipe", () => {
 	const result = pipe(

@@ -1,5 +1,4 @@
-import { asyncInnerPipe, asyncPipe, type ExpectType, promiseObject } from "@scripts/common";
-import { DArray, DObject } from "@scripts/index";
+import { asyncInnerPipe, asyncPipe, type ExpectType, promiseObject, DArray, DObject } from "@scripts";
 
 it("asyncInnerPipe", async() => {
 	const result = await asyncPipe(

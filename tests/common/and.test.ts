@@ -1,5 +1,4 @@
-import { and } from "@scripts/common/and";
-import { DObject, pipe, type ExpectType, when, DString } from "@scripts";
+import { DObject, pipe, type ExpectType, when, DString, and } from "@scripts";
 
 describe("and", () => {
 	it("check with literal string", () => {

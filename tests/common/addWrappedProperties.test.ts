@@ -1,4 +1,4 @@
-import { addWrappedProperties, toWrappedValue, wrapValue } from "@scripts/common";
+import { addWrappedProperties, toWrappedValue, wrapValue } from "@scripts";
 
 it("addWrappedProperties", () => {
 	const fnc = () => 10 as const;
