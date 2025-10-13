@@ -1,4 +1,4 @@
-import { DArray, DString, pipe, DPattern, innerPipe } from "@duplojs/utils";
+import { DArray, DString, pipe, DPattern } from "@duplojs/utils";
 
 const input = `
 # Getting Started
@@ -26,7 +26,7 @@ const result = pipe(
 	input,
 	DString.split("\n"),
 	DArray.reduce(
-		({ from }) => from<{
+		DArray.reduceFrom<{
 			h1: string | null;
 			h2: string[];
 			h3: string[];
@@ -35,42 +35,35 @@ const result = pipe(
 			h2: [],
 			h3: [],
 		}),
-		innerPipe(
-			DPattern.when(
-				({ element }) => DString.startsWith(element, "###"),
-				({ element, lastValue, nextWithObject }) => nextWithObject(
-					lastValue,
-					{
+		({ element, lastValue, nextWithObject }) => nextWithObject(
+			lastValue,
+			pipe(
+				element,
+				DPattern.when(
+					DString.startsWith("###"),
+					(value) => ({
 						h3: DArray.push(
 							lastValue.h3,
-							DString.replace(element, /^###\s*/, ""),
+							DString.replace(value, /^###\s*/, ""),
 						),
-					},
+					}),
 				),
-			),
-			DPattern.when(
-				({ element }) => DString.startsWith(element, "##"),
-				({ element, lastValue, nextWithObject }) => nextWithObject(
-					lastValue,
-					{
+				DPattern.when(
+					DString.startsWith("##"),
+					(value) => ({
 						h2: DArray.push(
 							lastValue.h2,
-							DString.replace(element, /^##\s*/, ""),
+							DString.replace(value, /^##\s*/, ""),
 						),
-					},
+					}),
 				),
-			),
-			DPattern.when(
-				({ element }) => DString.startsWith(element, "#"),
-				({ element, lastValue, nextWithObject }) => nextWithObject(
-					lastValue,
-					{
-						h1: DString.replace(element, /^#\s*/, ""),
-					},
+				DPattern.when(
+					DString.startsWith("#"),
+					(value) => ({
+						h1: DString.replace(value, /^#\s*/, ""),
+					}),
 				),
-			),
-			DPattern.otherwise(
-				({ lastValue, nextWithObject }) => nextWithObject(lastValue, {}),
+				DPattern.otherwise(() => ({})),
 			),
 		),
 	),

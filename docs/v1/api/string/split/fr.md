@@ -72,7 +72,7 @@ Un tableau de chaînes de caractères. Le type de retour est inféré grâce au 
 <MonacoTSEditor
   src="/v1/api/string/split/examples/splitMarkdownTitles.doc.ts"
   majorVersion="v1"
-  height="1800px"
+  height="1700px"
 />
 
 ## Voir aussi
