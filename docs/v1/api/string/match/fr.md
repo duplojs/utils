@@ -60,7 +60,7 @@ Un tableau de correspondances (`RegExpMatchArray`) si une ou plusieurs correspon
 <MonacoTSEditor
   src="/v1/api/string/match/examples/filterFrameworks.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ### Extraire des nombres
@@ -68,7 +68,7 @@ Un tableau de correspondances (`RegExpMatchArray`) si une ou plusieurs correspon
 <MonacoTSEditor
   src="/v1/api/string/match/examples/extractNumbers.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="250px"
 />
 
 ### Valider un pattern
@@ -76,7 +76,7 @@ Un tableau de correspondances (`RegExpMatchArray`) si une ou plusieurs correspon
 <MonacoTSEditor
   src="/v1/api/string/match/examples/validatePattern.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ## Voir aussi

@@ -68,7 +68,7 @@ Une nouvelle chaîne de caractères avec toutes les occurrences du motif remplac
 <MonacoTSEditor
   src="/v1/api/string/replaceAll/examples/cleanupCode.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ## Voir aussi

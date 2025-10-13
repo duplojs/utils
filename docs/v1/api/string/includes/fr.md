@@ -79,7 +79,7 @@ Un booléen indiquant si la sous-chaîne `searchString` a été trouvée dans la
 <MonacoTSEditor
   src="/v1/api/string/includes/examples/searchEmails.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="350px"
 />
 
 ## Voir aussi

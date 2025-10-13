@@ -72,7 +72,7 @@ Un booléen indiquant si `input` se termine par `searchString`. Le type de retou
 <MonacoTSEditor
   src="/v1/api/string/endsWith/examples/filterScriptLanguages.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="200px"
 />
 
 ### Grouper par extension
@@ -80,7 +80,7 @@ Un booléen indiquant si `input` se termine par `searchString`. Le type de retou
 <MonacoTSEditor
   src="/v1/api/string/endsWith/examples/groupByExtension.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Voir aussi

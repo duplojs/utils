@@ -59,7 +59,21 @@ Un tableau de chaînes de caractères. Le type de retour est inféré grâce au 
 
 ## Exemples
 
-SOON...
+### Extraire la hiérarchie d’une URL
+
+<MonacoTSEditor
+  src="/v1/api/string/split/examples/splitUrl.doc.ts"
+  majorVersion="v1"
+  height="250px"
+/>
+
+### Extraire les titres d’un document Markdown
+
+<MonacoTSEditor
+  src="/v1/api/string/split/examples/splitMarkdownTitles.doc.ts"
+  majorVersion="v1"
+  height="1800px"
+/>
 
 ## Voir aussi
 
