@@ -57,7 +57,7 @@ Une chaîne de caractères représentant le caractère à l'index spécifié, ou
 <MonacoTSEditor
   src="/v1/api/string/at/examples/extractExtension.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ### Filtrer par dernier caractère
@@ -65,7 +65,7 @@ Une chaîne de caractères représentant le caractère à l'index spécifié, ou
 <MonacoTSEditor
   src="/v1/api/string/at/examples/checkLastChar.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ## Voir aussi

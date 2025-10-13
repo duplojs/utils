@@ -31,7 +31,7 @@ function charAt(
 ): string
 ```
 
-### Signature currifi�e
+### Signature currifiée
 
 ```typescript
 function charAt<
@@ -57,7 +57,7 @@ Une chaîne de caractères représentant le caractère à l'index spécifié. Si
 <MonacoTSEditor
   src="/v1/api/string/charAt/examples/createAcronym.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="280px"
 />
 
 ## Voir aussi

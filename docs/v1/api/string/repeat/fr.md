@@ -59,7 +59,7 @@ Une nouvelle chaîne de caractères résultant de la répétition de la chaîne 
 <MonacoTSEditor
   src="/v1/api/string/repeat/examples/createSeparators.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ### Créer un pattern
@@ -67,7 +67,7 @@ Une nouvelle chaîne de caractères résultant de la répétition de la chaîne 
 <MonacoTSEditor
   src="/v1/api/string/repeat/examples/createPattern.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="350px"
 />
 
 ## Voir aussi 
