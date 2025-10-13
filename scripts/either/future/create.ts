@@ -113,7 +113,7 @@ export class Future<
 }
 
 export function future<
-	const GenericEither extends unknown,
+	GenericEither extends AnyValue,
 >(
 	value: GenericEither,
 ) {

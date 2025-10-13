@@ -4,63 +4,59 @@ import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
-import { unwrap, type Unwrap } from "@scripts/common";
+import { type AnyValue, unwrap, type Unwrap } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
 export type EitherRightPipeFunction<
-	GenericInput extends Either = Either,
-	GenericOutput extends Either = Either,
+	GenericInput extends AnyValue = AnyValue,
+	GenericOutput extends AnyValue = AnyValue,
 > = (
-	input: Unwrap<Extract<GenericInput, EitherRight>>
+	input: GenericInput extends Either
+		? Unwrap<Exclude<GenericInput, EitherLeft>>
+		: GenericInput
 ) => GenericOutput;
 
 export type EitherRightPipeResult<
-	GenericInput extends Either,
-	GenericPipes extends Either,
-	GenericLastPipe extends Either,
+	GenericPipeOutputs extends AnyValue,
+	GenericLastPipeOutput extends AnyValue,
 > =
 	| Extract<
-		| GenericInput
-		| GenericPipes,
+		GenericPipeOutputs,
 		EitherLeft
 	>
-	| Extract<
-		GenericLastPipe,
-		EitherRight
+	| Exclude<
+		GenericLastPipeOutput extends Either
+			? GenericLastPipeOutput
+			: EitherSuccess<GenericLastPipeOutput>,
+		EitherLeft
 	>;
 
-type ToEither<
-	GenericValue extends unknown,
-> = GenericValue extends Either
-	? GenericValue
-	: EitherSuccess<GenericValue>;
-
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1,
 		GenericOutputPipe1
 	>,
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2,
 		GenericOutputPipe2
@@ -68,18 +64,18 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3,
@@ -88,20 +84,20 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -111,22 +107,22 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
 	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -137,16 +133,16 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
-	GenericOutputPipe6 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
@@ -154,7 +150,7 @@ export function rightPipe<
 	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -166,17 +162,17 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
-	GenericOutputPipe6 extends Either,
-	GenericOutputPipe7 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
@@ -185,7 +181,7 @@ export function rightPipe<
 	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -198,18 +194,18 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
-	GenericOutputPipe6 extends Either,
-	GenericOutputPipe7 extends Either,
-	GenericOutputPipe8 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
@@ -219,7 +215,7 @@ export function rightPipe<
 	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -233,19 +229,19 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
-	GenericOutputPipe6 extends Either,
-	GenericOutputPipe7 extends Either,
-	GenericOutputPipe8 extends Either,
-	GenericOutputPipe9 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
@@ -256,7 +252,7 @@ export function rightPipe<
 	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -271,20 +267,20 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	const GenericInput extends unknown,
-	GenericOutputPipe1 extends Either,
-	GenericOutputPipe2 extends Either,
-	GenericOutputPipe3 extends Either,
-	GenericOutputPipe4 extends Either,
-	GenericOutputPipe5 extends Either,
-	GenericOutputPipe6 extends Either,
-	GenericOutputPipe7 extends Either,
-	GenericOutputPipe8 extends Either,
-	GenericOutputPipe9 extends Either,
-	GenericOutputPipe10 extends Either,
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
 >(
 	input: GenericInput,
-	pipe1: EitherRightPipeFunction<ToEither<GenericInput>, GenericOutputPipe1>,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
 	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
@@ -296,7 +292,7 @@ export function rightPipe<
 	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
 ): Extract<
 	EitherRightPipeResult<
-		ToEither<GenericInput>,
+		| GenericInput
 		| GenericOutputPipe1
 		| GenericOutputPipe2
 		| GenericOutputPipe3
@@ -311,21 +307,32 @@ export function rightPipe<
 	>,
 	any
 >;
+
 export function rightPipe(
-	input: unknown,
+	input: AnyValue,
 	...pipes: EitherRightPipeFunction[]
 ): any {
-	let acc: Either = isRight(input) || isLeft(input)
-		? input
-		: success(input);
+	if (isLeft(input)) {
+		return input;
+	}
+
+	let acc: AnyValue = isRight(input)
+		? unwrap(input)
+		: input;
 
 	for (const pipe of pipes) {
-		acc = pipe(unwrap(acc));
+		acc = pipe(
+			isRight(acc)
+				? unwrap(acc)
+				: acc,
+		);
 
 		if (isLeft(acc)) {
 			return acc;
 		}
 	}
 
-	return acc;
+	return isRight(acc)
+		? acc
+		: success(acc);
 }

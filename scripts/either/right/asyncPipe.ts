@@ -5,50 +5,44 @@ import { type MaybeFutureEither } from "../future/maybeFutureEither";
 import { future, type Future } from "../future";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
-import { type Unwrap, type AnyValue, unwrap } from "@scripts/common";
+import { type AnyValue, unwrap, type Unwrap } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
 
-type EitherOrFutureEither = Either | Future<any>;
-
 export type EitherRightAsyncPipeFunction<
-	GenericInput extends Either = Either,
-	GenericOutput extends EitherOrFutureEither = EitherOrFutureEither,
+	GenericInput extends AnyValue = AnyValue,
+	GenericOutput extends MaybeFutureEither<AnyValue> = MaybeFutureEither<AnyValue>,
 > = (
-	input: Unwrap<Extract<GenericInput, EitherRight>>
+	input: Awaited<GenericInput> extends infer InferredInput extends Either
+		? Unwrap<Exclude<Awaited<InferredInput>, EitherLeft>>
+		: Exclude<Awaited<GenericInput>, Either>
 ) => GenericOutput;
 
 export type EitherRightAsyncPipeResult<
-	GenericInput extends EitherOrFutureEither,
-	GenericOutputPipes extends EitherOrFutureEither,
-	GenericLastPipe extends EitherOrFutureEither,
+	GenericPipeOutputs extends AnyValue,
+	GenericLastPipeOutput extends AnyValue,
 > =
 	| Extract<
-		| GenericInput
-		| GenericOutputPipes,
+		Awaited<GenericPipeOutputs>,
 		EitherLeft
 	>
-	| Extract<
-		GenericLastPipe,
-		EitherRight
+	| Exclude<
+		Awaited<GenericLastPipeOutput> extends Either
+			? Awaited<GenericLastPipeOutput>
+			: EitherSuccess<Awaited<GenericLastPipeOutput>>,
+		EitherLeft
 	>;
-
-type ToEither<
-	GenericValue extends unknown,
-> = GenericValue extends Either
-	? GenericValue
-	: EitherSuccess<GenericValue>;
 
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1,
 			GenericOutputPipe1
 		>,
@@ -57,16 +51,16 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2,
 			GenericOutputPipe2
@@ -76,18 +70,18 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3,
@@ -98,20 +92,20 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -123,22 +117,22 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -151,25 +145,25 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
-	GenericOutputPipe6 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe6 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightAsyncPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
-			GenericOutputPipe1
+			| GenericInput
+			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
 			| GenericOutputPipe4
@@ -182,26 +176,26 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
-	GenericOutputPipe6 extends EitherOrFutureEither,
-	GenericOutputPipe7 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe6 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe7 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
-	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightAsyncPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightAsyncPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -216,28 +210,28 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
-	GenericOutputPipe6 extends EitherOrFutureEither,
-	GenericOutputPipe7 extends EitherOrFutureEither,
-	GenericOutputPipe8 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe6 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe7 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe8 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
-	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
-	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightAsyncPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightAsyncPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightAsyncPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -253,30 +247,30 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
-	GenericOutputPipe6 extends EitherOrFutureEither,
-	GenericOutputPipe7 extends EitherOrFutureEither,
-	GenericOutputPipe8 extends EitherOrFutureEither,
-	GenericOutputPipe9 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe6 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe7 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe8 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe9 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
-	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
-	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
-	pipe9: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe8>, GenericOutputPipe9>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightAsyncPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightAsyncPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightAsyncPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightAsyncPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -293,32 +287,32 @@ export function rightAsyncPipe<
 >;
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
-	GenericOutputPipe1 extends EitherOrFutureEither,
-	GenericOutputPipe2 extends EitherOrFutureEither,
-	GenericOutputPipe3 extends EitherOrFutureEither,
-	GenericOutputPipe4 extends EitherOrFutureEither,
-	GenericOutputPipe5 extends EitherOrFutureEither,
-	GenericOutputPipe6 extends EitherOrFutureEither,
-	GenericOutputPipe7 extends EitherOrFutureEither,
-	GenericOutputPipe8 extends EitherOrFutureEither,
-	GenericOutputPipe9 extends EitherOrFutureEither,
-	GenericOutputPipe10 extends EitherOrFutureEither,
+	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe2 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe3 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe4 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe5 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe6 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe7 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe8 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe9 extends MaybeFutureEither<AnyValue>,
+	GenericOutputPipe10 extends MaybeFutureEither<AnyValue>,
 >(
 	input: GenericInput,
-	pipe1: EitherRightAsyncPipeFunction<ToEither<Awaited<GenericInput>>, GenericOutputPipe1>,
-	pipe2: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe1>, GenericOutputPipe2>,
-	pipe3: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe2>, GenericOutputPipe3>,
-	pipe4: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe3>, GenericOutputPipe4>,
-	pipe5: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe4>, GenericOutputPipe5>,
-	pipe6: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe5>, GenericOutputPipe6>,
-	pipe7: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe6>, GenericOutputPipe7>,
-	pipe8: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe7>, GenericOutputPipe8>,
-	pipe9: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe8>, GenericOutputPipe9>,
-	pipe10: EitherRightAsyncPipeFunction<Awaited<GenericOutputPipe9>, GenericOutputPipe10>,
+	pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightAsyncPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightAsyncPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightAsyncPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightAsyncPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightAsyncPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightAsyncPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightAsyncPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
 ): Future<
 	Extract<
 		EitherRightAsyncPipeResult<
-			ToEither<Awaited<GenericInput>>,
+			| GenericInput
 			| GenericOutputPipe1
 			| GenericOutputPipe2
 			| GenericOutputPipe3
@@ -335,7 +329,7 @@ export function rightAsyncPipe<
 	>
 >;
 export function rightAsyncPipe(
-	input: AnyValue,
+	input: MaybeFutureEither<AnyValue>,
 	...pipes: EitherRightAsyncPipeFunction[]
 ): Future<any> {
 	return future(
@@ -346,19 +340,25 @@ export function rightAsyncPipe(
 				return awaitedInput;
 			}
 
-			let acc: Either = isRight(awaitedInput)
-				? awaitedInput
-				: success(awaitedInput);
+			let acc: AnyValue = isRight(awaitedInput)
+				? unwrap(awaitedInput)
+				: awaitedInput;
 
 			for (const pipe of pipes) {
-				acc = await pipe(unwrap(acc));
+				acc = await pipe(
+					isRight(acc)
+						? unwrap(acc)
+						: acc,
+				);
 
 				if (isLeft(acc)) {
 					return acc;
 				}
 			}
 
-			return acc;
+			return isRight(acc)
+				? acc
+				: success(acc);
 		})(),
 	);
 }

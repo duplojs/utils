@@ -1,5 +1,5 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { fail, futureError, success, future, type EitherError, type EitherFail, type EitherFutureError, rightAsyncPipe, type EitherSuccess } from "@scripts/either";
+import { fail, futureError, success, future, type EitherFail, type EitherFutureError, rightAsyncPipe, type EitherSuccess, right, type EitherRight } from "@scripts/either";
 
 describe("eitherRightAsyncPipe", () => {
 	it("input future", async() => {
@@ -12,7 +12,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<10>,
+			EitherSuccess<number>,
 			"strict"
 		>;
 	});
@@ -49,15 +49,34 @@ describe("eitherRightAsyncPipe", () => {
 
 	it("input object", async() => {
 		const result = rightAsyncPipe(
-			{ value: 10 },
-			({ value }) => success(value),
+			true
+				? { value: 10 }
+				: fail(),
+			({ value }) => right("result", value),
 		);
 
-		expect(await result).toStrictEqual(success(10));
+		expect(await result).toStrictEqual(right("result", 10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number>,
+			EitherRight<"result", number> | EitherFail,
+			"strict"
+		>;
+	});
+
+	it("input either left", async() => {
+		const result = rightAsyncPipe(
+			true
+				? fail()
+				: { value: 10 },
+			({ value }) => value,
+		);
+
+		expect(await result).toStrictEqual(fail());
+
+		type check = ExpectType<
+			Awaited<typeof result>,
+			EitherSuccess<number> | EitherFail,
 			"strict"
 		>;
 	});
@@ -67,12 +86,12 @@ describe("eitherRightAsyncPipe", () => {
 			true
 				? { value: 10 }
 				: fail(),
-			({ value }) => success(value),
-			(value) => success(value * 2),
+			({ value }) => value,
+			(value) => value * 2,
 			(value) => future(value ^ 4),
-			(value) => success(value - 4),
+			(value) => value - 4,
 			(value) => future(value / 2),
-			(value) => success(value + 1),
+			(value) => value + 1,
 		);
 
 		expect(await result).toStrictEqual(success(7));
@@ -87,13 +106,13 @@ describe("eitherRightAsyncPipe", () => {
 	it("input object with 6 pipe and one error", async() => {
 		const result = rightAsyncPipe(
 			{ value: 10 },
-			({ value }) => future(value),
-			(value) => success(value * 2),
+			({ value }) => value,
+			(value) => value * 2,
 			(value) => true
 				? fail()
-				: success(value ^ 4),
-			(value) => success(value - 4),
-			(value) => future(value / 2),
+				: value ^ 4,
+			(value) => value - 4,
+			(value) => value / 2,
 			(value) => success(value + 1),
 		);
 
@@ -106,4 +125,3 @@ describe("eitherRightAsyncPipe", () => {
 		>;
 	});
 });
-
