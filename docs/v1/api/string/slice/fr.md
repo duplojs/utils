@@ -57,7 +57,29 @@ Une nouvelle chaîne de caractères contenant la section extraite de la chaîne 
 
 ## Exemples
 
-SOON...
+### Extraire les extensions de fichiers
+
+<MonacoTSEditor
+  src="/v1/api/string/slice/examples/extractExtension.doc.ts"
+  majorVersion="v1"
+  height="220px"
+/>
+
+### Extraire le suffixe "script"
+
+<MonacoTSEditor
+  src="/v1/api/string/slice/examples/extractScriptSuffix.doc.ts"
+  majorVersion="v1"
+  height="200px"
+/>
+
+### Extraire le début
+
+<MonacoTSEditor
+  src="/v1/api/string/slice/examples/extractMiddle.doc.ts"
+  majorVersion="v1"
+  height="180px"
+/>
 
 ## Voir aussi
 

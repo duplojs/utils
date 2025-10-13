@@ -57,7 +57,21 @@ Une nouvelle chaîne de caractères de la longueur indiquée, complétée avec l
 
 ## Exemples
 
-SOON...
+### Formater des IDs
+
+<MonacoTSEditor
+  src="/v1/api/string/padStart/examples/formatIds.doc.ts"
+  majorVersion="v1"
+  height="180px"
+/>
+
+### Formater des codes
+
+<MonacoTSEditor
+  src="/v1/api/string/padStart/examples/formatCodes.doc.ts"
+  majorVersion="v1"
+  height="200px"
+/>
 
 ## Voir aussi
 
