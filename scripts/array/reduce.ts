@@ -17,7 +17,7 @@ interface ArrayReduceExit<
 	"-exit": GenericOutput;
 }
 
-type ExitOrNext<
+export type ArrayReduceExitOrNext<
 	GenericOutput extends unknown = unknown,
 > = ArrayReduceExit<GenericOutput> | ArrayReduceNext<GenericOutput>;
 export interface ArrayReduceFunctionParams<
@@ -48,93 +48,67 @@ export interface ArrayReduceFromResult<
 
 }
 
-interface GetStartValueParams {
-	from<
-		GenericValue extends unknown,
-	>(value: GenericValue): ArrayReduceFromResult<GenericValue>;
+export function reduceFrom<
+	GenericValue extends unknown,
+>(value: GenericValue): ArrayReduceFromResult<GenericValue> {
+	return arrayReduceFromKind.addTo(
+		wrapValue(value),
+	);
 }
 
-const getStartValueParams: GetStartValueParams = {
-	from: (value) => arrayReduceFromKind.addTo(
-		wrapValue(value),
-		null,
-	),
-};
+export type ArrayEligibleReduceFromValue = number | string | bigint | boolean | ArrayReduceFromResult;
+
+export type ArrayReduceFromValue<
+	GenericValue extends ArrayEligibleReduceFromValue,
+> = GenericValue extends ArrayReduceFromResult
+	? Unwrap<GenericValue>
+	: ToLargeEnsemble<GenericValue>;
 
 export function reduce<
 	GenericElement extends unknown,
-	GenericReduceFrom extends number | string | bigint | boolean,
+	GenericReduceFrom extends ArrayEligibleReduceFromValue,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
 			GenericElement,
-			ToLargeEnsemble<GenericReduceFrom>
+			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
-): (array: readonly GenericElement[]) => ToLargeEnsemble<GenericReduceFrom>;
+	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
+): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom>;
 
 export function reduce<
 	GenericElement extends unknown,
-	GenericReduceFrom extends ArrayReduceFromResult,
->(
-	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
-	theFunction: (
-		params: ArrayReduceFunctionParams<
-			GenericElement,
-			Unwrap<GenericReduceFrom>
-		>
-	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
-): (array: readonly GenericElement[]) => Unwrap<GenericReduceFrom>;
-
-export function reduce<
-	GenericElement extends unknown,
-	GenericReduceFrom extends number | string | bigint | boolean,
+	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 >(
 	array: readonly GenericElement[],
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
 			GenericElement,
-			ToLargeEnsemble<GenericReduceFrom>
+			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
-): ToLargeEnsemble<GenericReduceFrom>;
-
-export function reduce<
-	GenericElement extends unknown,
-	GenericReduceFrom extends ArrayReduceFromResult,
->(
-	array: readonly GenericElement[],
-	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
-	theFunction: (
-		params: ArrayReduceFunctionParams<
-			GenericElement,
-			Unwrap<GenericReduceFrom>
-		>
-	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
-): Unwrap<GenericReduceFrom>;
+	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
+): ArrayReduceFromValue<GenericReduceFrom>;
 
 export function reduce(
 	...args: [unknown, AnyFunction]
 		| [readonly unknown[], unknown, AnyFunction]
 ): any {
 	if (args.length === 2) {
-		const [getStartValue, theFunction] = args;
+		const [fromValue, theFunction] = args;
 
 		return (array: unknown[]) => reduce(
 			array,
-			getStartValue as never,
+			fromValue as never,
 			theFunction as never,
 		);
 	}
 
-	const [array, getStartValue, theFunction] = args;
+	const [array, fromValue, theFunction] = args;
 
 	let lastValue = unwrap(
-		typeof getStartValue === "function"
-			? (getStartValue as AnyFunction)(getStartValueParams)
-			: getStartValue,
+		fromValue as any,
 	);
 
 	for (let index = 0; index < array.length; index++) {
@@ -151,7 +125,7 @@ export function reduce(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
-		}) as ExitOrNext;
+		}) as ArrayReduceExitOrNext;
 
 		if ("-exit" in result) {
 			return result["-exit"];

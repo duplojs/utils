@@ -22,7 +22,7 @@ describe("generator asyncReduce", () => {
 	it("array to objet", async() => {
 		const result = DGenerator.asyncReduce(
 			[1, 2, 3],
-			({ from }) => from<Record<number, null>>({}),
+			DGenerator.reduceFrom<Record<number, null>>({}),
 			({ element, lastValue, nextWithObject }) => nextWithObject(
 				lastValue,
 				{ [element.toString()]: null },
@@ -45,7 +45,7 @@ describe("generator asyncReduce", () => {
 	it("exit before end", async() => {
 		const result = DGenerator.asyncReduce(
 			[1, 2, 3],
-			({ from }) => from<Record<number, null>>({}),
+			DGenerator.reduceFrom<Record<number, null>>({}),
 			({ element, lastValue, exit, nextWithObject }) => element > 1
 				? exit({ 100: null })
 				: nextWithObject(

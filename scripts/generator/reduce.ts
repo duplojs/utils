@@ -11,15 +11,15 @@ interface GeneratorReduceNext<
 	"-next": GenericOutput;
 }
 
-interface ArrayReduceExit<
+interface GeneratorReduceExit<
 	GenericOutput extends unknown,
 > {
 	"-exit": GenericOutput;
 }
 
-type ExitOrNext<
+export type GeneratorReduceExitOrNext<
 	GenericOutput extends unknown = unknown,
-> = ArrayReduceExit<GenericOutput> | GeneratorReduceNext<GenericOutput>;
+> = GeneratorReduceExit<GenericOutput> | GeneratorReduceNext<GenericOutput>;
 
 export interface GeneratorReduceFunctionParams<
 	GenericElement extends unknown = unknown,
@@ -35,7 +35,7 @@ export interface GeneratorReduceFunctionParams<
 		) => GeneratorReduceNext<GenericOutput>
 		: undefined;
 	next(output: GenericOutput): GeneratorReduceNext<GenericOutput>;
-	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
+	exit(output: GenericOutput): GeneratorReduceExit<GenericOutput>;
 }
 
 const generatorReduceFromKind = createKind(
@@ -49,93 +49,67 @@ export interface GeneratorReduceFromResult<
 
 }
 
-interface GetStartValueParams {
-	from<
-		GenericValue extends unknown,
-	>(value: GenericValue): GeneratorReduceFromResult<GenericValue>;
+export function reduceFrom<
+	GenericValue extends unknown,
+>(value: GenericValue): GeneratorReduceFromResult<GenericValue> {
+	return generatorReduceFromKind.addTo(
+		wrapValue(value),
+	);
 }
 
-const getStartValueParams: GetStartValueParams = {
-	from: (value) => generatorReduceFromKind.addTo(
-		wrapValue(value),
-		null,
-	),
-};
+export type GeneratorEligibleReduceFromValue = number | string | bigint | boolean | GeneratorReduceFromResult;
+
+export type GeneratorReduceFromValue<
+	GenericValue extends GeneratorEligibleReduceFromValue,
+> = GenericValue extends GeneratorReduceFromResult
+	? Unwrap<GenericValue>
+	: ToLargeEnsemble<GenericValue>;
 
 export function reduce<
 	GenericElement extends unknown,
-	GenericReduceFrom extends number | string | bigint | boolean,
+	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: GeneratorReduceFunctionParams<
 			GenericElement,
-			ToLargeEnsemble<GenericReduceFrom>
+			GeneratorReduceFromValue<GenericReduceFrom>
 		>
-	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
-): (iterator: Iterable<GenericElement>) => ToLargeEnsemble<GenericReduceFrom>;
+	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>,
+): (iterator: Iterable<GenericElement>) => GeneratorReduceFromValue<GenericReduceFrom>;
 
 export function reduce<
 	GenericElement extends unknown,
-	GenericReduceFrom extends GeneratorReduceFromResult,
->(
-	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
-	theFunction: (
-		params: GeneratorReduceFunctionParams<
-			GenericElement,
-			Unwrap<GenericReduceFrom>
-		>
-	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
-): (iterator: Iterable<GenericElement>) => Unwrap<GenericReduceFrom>;
-
-export function reduce<
-	GenericElement extends unknown,
-	GenericReduceFrom extends number | string | bigint | boolean,
+	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
 >(
 	iterator: Iterable<GenericElement>,
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: GeneratorReduceFunctionParams<
 			GenericElement,
-			ToLargeEnsemble<GenericReduceFrom>
+			GeneratorReduceFromValue<GenericReduceFrom>
 		>
-	) => ExitOrNext<ToLargeEnsemble<GenericReduceFrom>>,
-): ToLargeEnsemble<GenericReduceFrom>;
-
-export function reduce<
-	GenericElement extends unknown,
-	GenericReduceFrom extends GeneratorReduceFromResult,
->(
-	iterator: Iterable<GenericElement>,
-	getStartValue: (params: GetStartValueParams) => GenericReduceFrom,
-	theFunction: (
-		params: GeneratorReduceFunctionParams<
-			GenericElement,
-			Unwrap<GenericReduceFrom>
-		>
-	) => ExitOrNext<Unwrap<GenericReduceFrom>>,
-): Unwrap<GenericReduceFrom>;
+	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>,
+): GeneratorReduceFromValue<GenericReduceFrom>;
 
 export function reduce(
 	...args: [unknown, AnyFunction]
 		| [Iterable<unknown>, unknown, AnyFunction]
 ): any {
 	if (args.length === 2) {
-		const [getStartValue, theFunction] = args;
+		const [fromValue, theFunction] = args;
 
 		return (iterator: Iterable<unknown>) => reduce(
 			iterator,
-			getStartValue as never,
+			fromValue as never,
 			theFunction as never,
 		);
 	}
 
-	const [iterator, getStartValue, theFunction] = args;
+	const [iterator, fromValue, theFunction] = args;
 
 	let lastValue = unwrap(
-		typeof getStartValue === "function"
-			? (getStartValue as AnyFunction)(getStartValueParams)
-			: getStartValue,
+		fromValue as any,
 	);
 
 	let index = 0;
@@ -151,7 +125,7 @@ export function reduce(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
-		}) as ExitOrNext;
+		}) as GeneratorReduceExitOrNext;
 
 		if ("-exit" in result) {
 			return result["-exit"];

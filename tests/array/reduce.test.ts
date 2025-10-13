@@ -22,7 +22,7 @@ describe("reduce", () => {
 	it("array to objet", () => {
 		const result = DArray.reduce(
 			[1, 2, 3],
-			({ from }) => from<Record<number, null>>({}),
+			DArray.reduceFrom<Record<number, null>>({}),
 			({ element, lastValue, nextWithObject }) => nextWithObject(
 				lastValue,
 				{ [element.toString()]: null },
@@ -45,7 +45,7 @@ describe("reduce", () => {
 	it("exit before end", () => {
 		const result = DArray.reduce(
 			[1, 2, 3],
-			({ from }) => from<Record<number, null>>({}),
+			DArray.reduceFrom<Record<number, null>>({}),
 			({ element, lastValue, exit, nextWithObject }) => element > 1
 				? exit({ 100: null })
 				: nextWithObject(
