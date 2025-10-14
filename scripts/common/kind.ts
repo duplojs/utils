@@ -1,4 +1,4 @@
-import { type Or, type IsEqual } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink } from "./types";
 import { keyWrappedValue } from "./wrapValue";
 
 export interface KindHandler<
@@ -32,7 +32,7 @@ export interface KindHandler<
 	): Kind<
 		GenericKindDefinition,
 		GenericValue
-	> & GenericInput;
+	> & BreakGenericLink<GenericInput>;
 
 	getValue<
 		GenericKind extends Kind<
