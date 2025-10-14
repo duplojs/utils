@@ -4,7 +4,10 @@
   "author": "mathcovax",
   "license": "MIT",
   "type": "module",
-  "repository": "https://github.com/duplojs/utils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duplojs/utils.git"
+  },
   "scripts": {
     "build": "rollup --config && tsc-alias -p tsconfig.build.json",
     "test:tu": "vitest --coverage",
@@ -46,7 +49,9 @@
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   },
-  "workspaces": ["integration"],
+  "workspaces": [
+    "integration"
+  ],
   "keywords": [],
   "engines": {
     "node": ">=22.15.1"

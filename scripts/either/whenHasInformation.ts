@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { isRight, type EitherRight } from "./right";
 import { isLeft, type EitherLeft } from "./left";
 import { eitherInformationKind } from "./base";
@@ -26,7 +26,10 @@ export function whenHasInformation<
 	) => GenericOutput,
 ): (input: GenericInput) =>
 	| GenericOutput
-	| Exclude<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
+	| Exclude<
+		BreakGenericLink<GenericInput>,
+		Kind<typeof eitherInformationKind.definition, GenericInformation>
+	>;
 export function whenHasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(

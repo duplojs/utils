@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyFunction, type AnyValue } from "./types";
+import { type EscapeVoid, type AnyFunction, type AnyValue, type BreakGenericLink } from "./types";
 
 export function whenNot<
 	GenericInput extends AnyValue,
@@ -9,7 +9,7 @@ export function whenNot<
 	theFunction: (predicatedInput: Exclude<GenericInput, GenericPredicatedInput>) => GenericOutput
 ): (input: GenericInput) =>
 	| GenericOutput
-	| GenericPredicatedInput;
+	| BreakGenericLink<GenericPredicatedInput>;
 export function whenNot<
 	GenericInput extends AnyValue,
 	GenericPredicatedInput extends GenericInput,

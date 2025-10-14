@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { bool } from "./create";
@@ -66,7 +66,11 @@ export function whenIsBoolFalsy<
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
+): (input: GenericInput) => GenericOutput | Exclude<
+	ToEither<BreakGenericLink<GenericInput>>,
+	EitherBoolFalsy
+>;
+
 export function whenIsBoolFalsy<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

@@ -3,7 +3,7 @@ import { type EitherLeft, isLeft } from "../left";
 import { nullish } from "./create";
 import { createKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { eitherNullishKind } from "./base";
 
 export const eitherNullishFilledKind = createKind(
@@ -64,7 +64,7 @@ export function whenIsNullishFilled<
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishFilled>;
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullishFilled>;
 export function whenIsNullishFilled<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

@@ -1,4 +1,4 @@
-import { type AnyValue, type AnyFunction } from "@scripts/common";
+import { type AnyValue, type AnyFunction, type BreakGenericLink } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
 export function when<
@@ -20,7 +20,7 @@ export function when<
 	)
 ) => (
 	| GenericInputPatternResult
-	| Exclude<GenericInputValue, GenericPredicatedInput>
+	| Exclude<BreakGenericLink<GenericInputValue>, GenericPredicatedInput>
 	| PatternResult<GenericOutput>
 );
 

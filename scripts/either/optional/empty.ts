@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue, type Unwrap } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "@scripts/common";
 import { createKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { left, type EitherLeft, isLeft } from "../left";
@@ -58,7 +58,10 @@ export function whenIsOptionalEmpty<
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
+): (input: GenericInput) => GenericOutput | Exclude<
+	ToOptionalEither<BreakGenericLink<GenericInput>>,
+	EitherOptionalEmpty
+>;
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

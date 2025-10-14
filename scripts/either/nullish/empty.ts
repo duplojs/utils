@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { nullish } from "./create";
@@ -66,7 +66,7 @@ export function whenIsNullishEmpty<
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullishEmpty>;
 export function whenIsNullishEmpty<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

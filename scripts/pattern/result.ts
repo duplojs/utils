@@ -5,7 +5,7 @@ const patternResultKind = createKind(
 );
 
 export interface PatternResult<
-	GenericValue extends unknown = unknown,
+	GenericValue extends unknown = any,
 > extends Kind<typeof patternResultKind.definition>,
 	WrappedValue<GenericValue> {
 

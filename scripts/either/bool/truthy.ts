@@ -3,7 +3,7 @@ import { bool } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { createKind, type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { eitherBoolKind } from "./base";
 
 export const eitherBoolTruthyKind = createKind(
@@ -64,7 +64,10 @@ export function whenIsBoolTruthy<
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+): (input: GenericInput) => GenericOutput | Exclude<
+	ToEither<BreakGenericLink<GenericInput>>,
+	EitherBoolTruthy
+>;
 export function whenIsBoolTruthy<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
