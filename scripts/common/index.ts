@@ -33,3 +33,5 @@ export * from "./not";
 export * from "./isType";
 export * from "./and";
 export * from "./or";
+export * from "./whenElse";
+export * from "./justReturn";
