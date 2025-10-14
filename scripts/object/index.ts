@@ -16,3 +16,4 @@ export * from "./pick";
 export * from "./deepDiscriminate";
 export * from "./getDeepProperty";
 export * from "./discriminate";
+export * from "./entry";
