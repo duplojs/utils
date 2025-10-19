@@ -1,4 +1,4 @@
-import { type RemoveReadonly, type SimplifyTopLevel } from "@scripts/common";
+import { type RemoveReadonly } from "@scripts/common";
 import { type DataParserCheckerDefinition, type DataParserDefinition } from "../base";
 
 export type MergeDefinition<

@@ -5,6 +5,7 @@ import { string } from "..";
 
 export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefinition {
 	normalize?: boolean;
+	pattern: RegExp;
 }
 
 export const dataParserCheckerEmailKind = createKind("data-parser-checker-email");
@@ -31,10 +32,13 @@ export function checkerEmail(
 	return dataParserCheckerInit<DataParserCheckerEmail>(
 		dataParserCheckerEmailKind,
 		{
-			definition,
+			definition: {
+				...definition,
+				pattern: emailPattern,
+			},
 		},
-		(input) => {
-			if (!emailPattern.test(input)) {
+		(input, self) => {
+			if (!self.definition.pattern.test(input)) {
 				return SymbolDataParserErrorIssue;
 			}
 

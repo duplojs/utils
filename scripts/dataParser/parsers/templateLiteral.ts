@@ -1,20 +1,28 @@
-import { type Adaptor, createKind, escapeRegExp, innerPipe, isType, type Kind, pipe } from "@scripts/common";
+import { type Adaptor, createKind, escapeRegExp, innerPipe, isType, type Kind, pipe, whenElse } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import * as DPattern from "@scripts/pattern";
-import { type DataParserString } from "./string";
+import * as DString from "@scripts/string";
+import { dataParserStringKind, string, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
 import { dataParserNumberKind, type DataParserNumber } from "./number";
 import { dataParserBigIntKind, type DataParserBigInt } from "./bigint";
-import { type DataParserLiteral } from "./literal";
-import { type DataParserEmpty } from "./empty";
-import { type DataParserNil } from "./nil";
+import { dataParserLiteralKind, type DataParserLiteral } from "./literal";
+import { dataParserEmptyKind, type DataParserEmpty } from "./empty";
+import { dataParserNilKind, type DataParserNil } from "./nil";
 import { dataParserBooleanKind, type DataParserBoolean } from "./boolean";
 
 export type DataParsersTemplateLiteral = (
 	| string
-	| DataParserString
+	| DataParserString<
+		& DataParserDefinitionString
+		& {
+			checkers: (
+				| DataParserCheckerEmail
+			)[];
+		}
+	>
 	| DataParserNumber
 	| DataParserBigInt
 	| DataParserBoolean
@@ -54,8 +62,6 @@ export type TemplateLiteralShapeOutput<
 				: TemplateLiteralShapeOutput<[InferredRest[number]], InferredResult>
 		: never
 	: never;
-
-export type tt = TemplateLiteralShapeOutput<[DataParserString]>;
 
 export type TemplateLiteralShapeInput<
 	GenericTemplate extends TemplateLiteralShape,
@@ -141,12 +147,60 @@ export function templateLiteral<
 					() => "(?:true|false)",
 				),
 				DPattern.when(
-					dataParserBooleanKind.has,
-					() => "(?:true|false)",
+					dataParserNilKind.has,
+					() => "(?:null)",
+				),
+				DPattern.when(
+					dataParserEmptyKind.has,
+					() => "(?:undefined)",
+				),
+				DPattern.when(
+					dataParserLiteralKind.has,
+					(dataParser) => pipe(
+						dataParser.definition.value,
+						DArray.map(
+							innerPipe(
+								String,
+								escapeRegExp,
+							),
+						),
+						DArray.join("|"),
+						(pattern) => `(?:${pattern})`,
+					),
+				),
+				DPattern.when(
+					dataParserTemplateLiteralKind.has,
+					(dataParser) => pipe(
+						dataParser.definition.pattern.source,
+						DString.replace(/^\^/, ""),
+						DString.replace(/\$$/, ""),
+					),
+				),
+				DPattern.when(
+					dataParserStringKind.has,
+					innerPipe(
+						whenElse(
+							(dataParser) => !!dataParser.definition.checkers.length,
+							(dataParser) => pipe(
+								dataParser.definition.checkers,
+								DArray.map(
+									(element) => pipe(
+										element.definition.pattern.source,
+										DString.replace(/^\^/, ""),
+										DString.replace(/\$$/, ""),
+									),
+								),
+								DArray.join(""),
+							),
+							() => "(?:[^]*)",
+						),
+					),
 				),
 				DPattern.exhaustive,
 			),
 		),
+		DArray.join(""),
+		(pattern) => new RegExp(`^${pattern}$`),
 	);
 
 	return dataParserInit<DataParserTemplateLiteral>(
@@ -156,8 +210,15 @@ export function templateLiteral<
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
 				template,
+				pattern,
 			},
 		},
-		(data, _error, self) => SymbolDataParserErrorIssue,
+		(data, _error, self) => {
+			if (typeof data === "string" && self.definition.pattern.test(data)) {
+				return data as never;
+			}
+
+			return SymbolDataParserErrorIssue;
+		},
 	) as never;
 }

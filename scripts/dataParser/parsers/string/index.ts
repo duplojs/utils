@@ -47,7 +47,7 @@ export interface DataParserString<
 }
 
 export function string<
-	const GenericDefinition extends Partial<DataParserDefinitionString> = DataParserDefinitionString,
+	const GenericDefinition extends Partial<DataParserDefinitionString> = { checkers: [] },
 >(
 	definition?: GenericDefinition,
 ): DataParserString<
@@ -83,3 +83,5 @@ export function string<
 		},
 	) as never;
 }
+
+string();
