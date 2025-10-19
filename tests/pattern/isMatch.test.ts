@@ -1,6 +1,4 @@
-import { DEither, DPattern, type ExpectType, pipe } from "@scripts/index";
-import { type PatternValue, type ComplexMatchedValue } from "@scripts/pattern";
-import { when } from "dist";
+import { DEither, DPattern, type ExpectType, pipe, when } from "@scripts/index";
 
 describe("isMatch", () => {
 	it("match string", () => {

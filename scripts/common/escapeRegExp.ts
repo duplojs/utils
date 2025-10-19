@@ -1,3 +1,5 @@
-export function escapeRegExp(text: string) {
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+export function escapeRegExp<
+	GenericInput extends string,
+>(input: GenericInput) {
+	return input.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }

@@ -27,8 +27,8 @@ export interface EitherBoolTruthy<
 export function boolTruthy<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherBoolTruthy<GenericValue> {
-	return eitherBoolKind.addTo(
-		eitherBoolTruthyKind.addTo(
+	return eitherBoolKind.setTo(
+		eitherBoolTruthyKind.setTo(
 			right("bool", value),
 		),
 	);

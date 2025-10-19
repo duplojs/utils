@@ -29,8 +29,8 @@ export interface EitherBoolFalsy<
 export function boolFalsy<
 	const GenericValue extends BoolFalsyValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherBoolFalsy<GenericValue> {
-	return eitherBoolKind.addTo(
-		eitherBoolFalsyKind.addTo(
+	return eitherBoolKind.setTo(
+		eitherBoolFalsyKind.setTo(
 			left("bool", value),
 		),
 	);

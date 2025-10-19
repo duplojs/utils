@@ -21,7 +21,7 @@ export function success<
 >(
 	value: GenericValue,
 ): EitherSuccess<GenericValue> {
-	return eitherSuccessKind.addTo(
+	return eitherSuccessKind.setTo(
 		right("success", value),
 	);
 }

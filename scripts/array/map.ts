@@ -11,7 +11,7 @@ export function map<
 	GenericArray extends readonly unknown[],
 	GenericOutput extends unknown,
 >(
-	theFunction: (item: GenericArray[number], params: ArrayMapParams) => GenericOutput,
+	theFunction: (element: GenericArray[number], params: ArrayMapParams) => GenericOutput,
 ): (array: GenericArray) => GenericOutput[];
 
 export function map<
@@ -19,7 +19,7 @@ export function map<
 	GenericOutput extends unknown,
 >(
 	array: readonly GenericElement[],
-	theFunction: (item: GenericElement, params: ArrayMapParams) => GenericOutput,
+	theFunction: (element: GenericElement, params: ArrayMapParams) => GenericOutput,
 ): GenericOutput[];
 
 export function map(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
@@ -29,5 +29,5 @@ export function map(...args: [readonly unknown[], AnyFunction] | [AnyFunction]):
 	}
 	const [array, theFunction] = args;
 
-	return array.map((item, index) => theFunction(item, { index }));
+	return array.map((element, index) => theFunction(element, { index }));
 }

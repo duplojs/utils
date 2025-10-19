@@ -32,8 +32,8 @@ export function right<
 		GenericInformation,
 		GenericValue
 	> {
-	return eitherRightKind.addTo(
-		eitherInformationKind.addTo(
+	return eitherRightKind.setTo(
+		eitherInformationKind.setTo(
 			wrapValue(value),
 			information,
 		),

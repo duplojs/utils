@@ -29,8 +29,8 @@ type Either = EitherRight | EitherLeft;
 export function nullableFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullableFilled<GenericValue> {
-	return eitherNullableKind.addTo(
-		eitherNullableFilledKind.addTo(
+	return eitherNullableKind.setTo(
+		eitherNullableFilledKind.setTo(
 			right("nullable", value),
 		),
 	);

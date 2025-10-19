@@ -13,7 +13,7 @@ export interface EitherOk extends _EitherOk {
 }
 
 export function ok(): EitherOk {
-	return eitherOkKind.addTo(
+	return eitherOkKind.setTo(
 		right("ok", undefined as never),
 	);
 }

@@ -32,6 +32,23 @@ describe("theKind", () => {
 		>;
 	});
 
+	it("setTo", () => {
+		const input = { test: "" };
+		const newObject = myKind.setTo(input);
+
+		expect(newObject).toBe(input);
+		expect(newObject).toStrictEqual({
+			test: "",
+			[`${keyKindPrefix}testKind`]: null,
+		});
+
+		type Check = ExpectType<
+			typeof newObject,
+			{ test: string } & Kind<typeof myKind.definition>,
+			"strict"
+		>;
+	});
+
 	it("has", () => {
 		expect(myKind.has({ test: "" })).toBe(false);
 

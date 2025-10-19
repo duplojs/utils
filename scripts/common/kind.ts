@@ -1,8 +1,8 @@
-import { type Or, type IsEqual, type BreakGenericLink } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor } from "./types";
 import { keyWrappedValue } from "./wrapValue";
 
 export interface KindHandler<
-	GenericKindDefinition extends KindDefinition,
+	GenericKindDefinition extends KindDefinition = KindDefinition,
 > {
 	definition: GenericKindDefinition;
 
@@ -18,6 +18,26 @@ export interface KindHandler<
 	>;
 
 	addTo<
+		GenericInput extends {},
+		GenericValue extends GenericKindDefinition["value"] = GenericKindDefinition["value"],
+	>(
+		...args: Or<[
+			IsEqual<GenericValue, never>,
+			IsEqual<GenericValue, unknown>,
+			IsEqual<GenericValue, any>,
+		]> extends true
+			? [input: GenericInput, value?: GenericValue]
+			: [input: GenericInput, value: GenericValue]
+
+	): Kind<
+		GenericKindDefinition,
+		GenericValue
+	> & BreakGenericLink<GenericInput>;
+
+	/**
+	 * @deprecated This method make mutation.
+	 */
+	setTo<
 		GenericInput extends {},
 		GenericValue extends GenericKindDefinition["value"] = GenericKindDefinition["value"],
 	>(
@@ -56,12 +76,32 @@ type SymbolKind = typeof SymbolKind;
 
 export interface Kind<
 	GenericKindDefinition extends KindDefinition,
-	GenericValue extends KindDefinition["value"] = KindDefinition["value"],
+	GenericValue extends GenericKindDefinition["value"] = GenericKindDefinition["value"],
 > {
 	[SymbolKind]: {
 		[Prop in GenericKindDefinition["name"]]: GenericValue
 	};
 }
+
+export type RemoveKind<
+	GenericObject extends Kind<any>,
+> = Omit<GenericObject, SymbolKind>;
+
+export type GetKindValue<
+	GenericKindHandler extends KindHandler,
+	GenericObject extends Kind<any>,
+> = GenericObject[SymbolKind][GenericKindHandler["definition"]["name"]];
+
+export type GetKindHandler<
+	GenericObject extends Kind<any>,
+> = {
+	[Prop in keyof GenericObject[SymbolKind]]: KindHandler<
+		KindDefinition<
+			Adaptor<Prop, string>,
+			GenericObject[SymbolKind][Prop]
+		>
+	>
+}[keyof GenericObject[SymbolKind]];
 
 export const keyKindPrefix = `${keyWrappedValue}/kind/`;
 
@@ -91,6 +131,14 @@ export function createKind<
 				...input,
 				[runTimeKey]: value,
 			} as never;
+		},
+		setTo(
+			input,
+			value = null as never,
+		) {
+			(input as Record<string, any>)[runTimeKey] = value;
+
+			return input as never;
 		},
 		has(input): input is never {
 			return input

@@ -13,7 +13,7 @@ export interface EitherFail extends _EitherFail {
 }
 
 export function fail(): EitherFail {
-	return eitherFailKind.addTo(
+	return eitherFailKind.setTo(
 		left("fail", undefined as never),
 	);
 }

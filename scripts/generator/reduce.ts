@@ -52,7 +52,7 @@ export interface GeneratorReduceFromResult<
 export function reduceFrom<
 	GenericValue extends unknown,
 >(value: GenericValue): GeneratorReduceFromResult<GenericValue> {
-	return generatorReduceFromKind.addTo(
+	return generatorReduceFromKind.setTo(
 		wrapValue(value),
 	);
 }

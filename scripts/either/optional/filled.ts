@@ -29,8 +29,8 @@ type Either = EitherRight | EitherLeft;
 export function optionalFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherOptionalFilled<GenericValue> {
-	return eitherOptionalKind.addTo(
-		eitherOptionalFilledKind.addTo(
+	return eitherOptionalKind.setTo(
+		eitherOptionalFilledKind.setTo(
 			right("optional", value),
 		),
 	);

@@ -25,8 +25,8 @@ export function futureSuccess<
 >(
 	value: GenericValue,
 ): EitherFutureSuccess<GenericValue> {
-	return eitherFutureKind.addTo(
-		eitherFutureSuccessKind.addTo(
+	return eitherFutureKind.setTo(
+		eitherFutureSuccessKind.setTo(
 			right("future", value),
 		),
 	);
