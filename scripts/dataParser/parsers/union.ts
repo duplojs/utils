@@ -29,7 +29,7 @@ export interface DataParserUnion<
 }
 
 export function union<
-	GenericOptions extends readonly [DataParsers, ...DataParsers[]],
+	GenericOptions extends readonly [DataParser, ...DataParser[]],
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionUnion, "options">
 	> = never,

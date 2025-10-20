@@ -26,7 +26,7 @@ export interface DataParserNullable<
 }
 
 export function nullable<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionNullable, "inner">
 	> = never,

@@ -276,3 +276,12 @@ export type Input<
 	typeof dataParserKind,
 	GenericDataParser
 >["input"];
+
+export type Contract<
+	GenericOutput extends unknown,
+	GenericInput extends unknown = GenericOutput,
+> = DataParser<
+	DataParserDefinition<never>,
+	GenericOutput,
+	GenericInput
+>;

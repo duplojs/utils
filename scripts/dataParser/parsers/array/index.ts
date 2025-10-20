@@ -47,7 +47,7 @@ export interface DataParserArray<
 }
 
 export function array<
-	GenericElement extends DataParsers,
+	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionArray, "element">
 	> = never,
