@@ -1,7 +1,13 @@
 import { type DataParser } from "../base";
 import type * as AllDataParser from "../parsers";
 
+export interface DataParserCustom {
+
+}
+
 export type DataParsers = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserCustom[keyof DataParserCustom]
 	| DataParser
 	| AllDataParser.DataParserString
 	| AllDataParser.DataParserObject
