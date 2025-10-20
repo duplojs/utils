@@ -6,11 +6,10 @@ import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParsers>>;
-export type DataParserObjectFixedShape = Readonly<Record<string, any>>;
 
 export type DataParserObjectShapeOutput<
-	GenericShape extends DataParserObjectFixedShape,
-> = IsEqual<GenericShape, DataParserObjectFixedShape> extends true
+	GenericShape extends DataParserObjectShape,
+> = IsEqual<GenericShape, DataParserObjectShape> extends true
 	? DataParserObjectShape
 	: {
 		-readonly [
@@ -29,8 +28,8 @@ export type DataParserObjectShapeOutput<
 		: never;
 
 export type DataParserObjectShapeInput<
-	GenericShape extends DataParserObjectFixedShape,
-> = IsEqual<GenericShape, DataParserObjectFixedShape> extends true
+	GenericShape extends DataParserObjectShape,
+> = IsEqual<GenericShape, DataParserObjectShape> extends true
 	? DataParserObjectShape
 	: {
 		-readonly [
@@ -49,7 +48,7 @@ export type DataParserObjectShapeInput<
 		: never;
 
 export interface DataParserDefinitionObject extends DataParserDefinition<never> {
-	shape: DataParserObjectFixedShape;
+	shape: DataParserObjectShape;
 }
 
 export const dataParserObjectKind = createKind("data-parser-object");
@@ -73,7 +72,7 @@ export interface DataParserObject<
 }
 
 export function object<
-	const GenericShape extends DataParserObjectFixedShape = DataParserObjectFixedShape,
+	const GenericShape extends DataParserObjectShape,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionObject, "shape">
 	> = never,

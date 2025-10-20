@@ -4,7 +4,7 @@ import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } 
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 
-export type TupleShape = readonly [DataParser, ...DataParser[]];
+export type TupleShape = readonly [DataParsers, ...DataParsers[]];
 
 export type DataParserTupleShapeOutput<
 	GenericShape extends TupleShape,

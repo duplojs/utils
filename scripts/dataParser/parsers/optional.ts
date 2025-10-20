@@ -26,7 +26,7 @@ export interface DataParserOptional<
 }
 
 export function optional<
-	GenericDataParser extends DataParser,
+	GenericDataParser extends DataParsers,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionOptional, "inner">
 	> = never,

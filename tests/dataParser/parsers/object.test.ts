@@ -1,4 +1,4 @@
-import { DDataParser, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("DDataParser object", () => {
 	it("success parsing", () => {

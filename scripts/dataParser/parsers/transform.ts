@@ -28,7 +28,7 @@ export interface DataParserTransform<
 }
 
 export function transform<
-	GenericDataParser extends DataParser,
+	GenericDataParser extends DataParsers,
 	GenericOutput extends AnyValue,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionTransform, "inner" | "theFunction">
