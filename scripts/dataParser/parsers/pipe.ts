@@ -29,7 +29,9 @@ export interface DataParserPipe<
 export function pipe<
 	GenericInput extends DataParsers,
 	GenericOutput extends DataParsers,
-	const GenericDefinition extends Partial<DataParserDefinitionPipe> = never,
+	const GenericDefinition extends Partial<
+		Omit<DataParserDefinitionPipe, "input" | "output">
+	> = never,
 >(
 	input: GenericInput,
 	output: GenericOutput,

@@ -12,3 +12,4 @@ export * from "./boolean";
 export * from "./empty";
 export * from "./templateLiteral";
 export * from "./pipe";
+export * from "./optional";
