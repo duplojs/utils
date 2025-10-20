@@ -16,4 +16,5 @@ export type DataParsers = (
 	| AllDataParser.DataParserNil
 	| AllDataParser.DataParserEmpty
 	| AllDataParser.DataParserTemplateLiteral
+	| AllDataParser.DataParserPipe
 );

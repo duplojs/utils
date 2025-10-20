@@ -1,0 +1,5 @@
+export type AnyPredicate<
+	GenericInput extends any = any,
+	GenericArgs extends any[] = any[],
+	GenericPredicate extends GenericInput = any,
+> = (input: GenericInput, ...args: GenericArgs) => input is GenericPredicate;

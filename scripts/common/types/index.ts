@@ -36,4 +36,5 @@ export * from "./removeDuplicateInUnion";
 export * from "./isStringLIteral";
 export * from "./maybeWrapped";
 export * from "./anyConstructor";
+export * from "./anyPredicate";
 
