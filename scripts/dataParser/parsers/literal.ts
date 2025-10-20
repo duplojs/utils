@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -33,14 +33,14 @@ export function literal<
 	const GenericValue extends LiteralValue,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionLiteral, "value">
-	> = Omit<DataParserDefinitionLiteral, "value">,
+	> = never,
 >(
 	value: GenericValue | GenericValue[],
 	definition?: GenericDefinition,
 ): DataParserLiteral<
 		MergeDefinition<
 			DataParserDefinitionLiteral,
-			GenericDefinition & { value: GenericValue[] }
+			NeverCoalescing<GenericDefinition, {}> & { value: GenericValue[] }
 		>
 	> {
 	const formattedValue = DArray.coalescing(value);

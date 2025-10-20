@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -27,13 +27,13 @@ export interface DataParserBoolean<
 }
 
 export function boolean<
-	const GenericDefinition extends Partial<DataParserDefinitionBoolean> = DataParserDefinitionBoolean,
+	const GenericDefinition extends Partial<DataParserDefinitionBoolean> = never,
 >(
 	definition?: GenericDefinition,
 ): DataParserBoolean<
 		MergeDefinition<
 			DataParserDefinitionBoolean,
-			GenericDefinition
+			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
 	const coerce = definition?.coerce ?? false;

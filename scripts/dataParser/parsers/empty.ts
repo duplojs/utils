@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -27,13 +27,13 @@ export interface DataParserEmpty<
 }
 
 export function empty<
-	const GenericDefinition extends Partial<DataParserDefinitionEmpty> = DataParserDefinitionEmpty,
+	const GenericDefinition extends Partial<DataParserDefinitionEmpty> = never,
 >(
 	definition?: GenericDefinition,
 ): DataParserEmpty<
 		MergeDefinition<
 			DataParserDefinitionEmpty,
-			GenericDefinition
+			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
 	return dataParserInit<DataParserEmpty>(

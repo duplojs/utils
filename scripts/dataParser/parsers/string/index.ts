@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserCheckerUrl, type DataParserCheckerEmail } from "./checkers";
@@ -47,13 +47,13 @@ export interface DataParserString<
 }
 
 export function string<
-	const GenericDefinition extends Partial<DataParserDefinitionString> = { checkers: [] },
+	const GenericDefinition extends Partial<DataParserDefinitionString> = never,
 >(
 	definition?: GenericDefinition,
 ): DataParserString<
 		MergeDefinition<
 			DataParserDefinitionString,
-			GenericDefinition
+			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
 	const coerce = definition?.coerce ?? false;
@@ -83,5 +83,3 @@ export function string<
 		},
 	) as never;
 }
-
-string();

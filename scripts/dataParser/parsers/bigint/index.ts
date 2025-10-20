@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -46,13 +46,13 @@ export interface DataParserBigInt<
 }
 
 export function bigint<
-	const GenericDefinition extends Partial<DataParserDefinitionBigInt> = DataParserDefinitionBigInt,
+	const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never,
 >(
 	definition?: GenericDefinition,
 ): DataParserBigInt<
 		MergeDefinition<
 			DataParserDefinitionBigInt,
-			GenericDefinition
+			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
 	const coerce = definition?.coerce ?? false;

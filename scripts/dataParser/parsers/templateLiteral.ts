@@ -1,17 +1,17 @@
-import { type Adaptor, createKind, escapeRegExp, innerPipe, isType, type Kind, pipe, whenElse } from "@scripts/common";
+import { type Adaptor, createKind, escapeRegExp, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import * as DPattern from "@scripts/pattern";
 import * as DString from "@scripts/string";
-import { dataParserStringKind, string, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
-import { dataParserNumberKind, type DataParserNumber } from "./number";
-import { dataParserBigIntKind, type DataParserBigInt } from "./bigint";
-import { dataParserLiteralKind, type DataParserLiteral } from "./literal";
-import { dataParserEmptyKind, type DataParserEmpty } from "./empty";
-import { dataParserNilKind, type DataParserNil } from "./nil";
-import { dataParserBooleanKind, type DataParserBoolean } from "./boolean";
+import { dataParserStringKind, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
+import { type DataParserDefinitionNumber, dataParserNumberKind, type DataParserNumber } from "./number";
+import { dataParserBigIntKind, type DataParserDefinitionBigInt, type DataParserBigInt } from "./bigint";
+import { type DataParserDefinitionLiteral, dataParserLiteralKind, type DataParserLiteral } from "./literal";
+import { type DataParserDefinitionEmpty, dataParserEmptyKind, type DataParserEmpty } from "./empty";
+import { type DataParserDefinitionNil, dataParserNilKind, type DataParserNil } from "./nil";
+import { dataParserBooleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
 
 export type DataParsersTemplateLiteral = (
 	| string
@@ -23,13 +23,34 @@ export type DataParsersTemplateLiteral = (
 			)[];
 		}
 	>
-	| DataParserNumber
-	| DataParserBigInt
-	| DataParserBoolean
-	| DataParserLiteral
-	| DataParserEmpty
-	| DataParserNil
-	| DataParserTemplateLiteral
+	| DataParserNumber<
+		& DataParserDefinitionNumber
+		& { checkers: [] }
+	>
+	| DataParserBigInt<
+		& DataParserDefinitionBigInt
+		& { checkers: [] }
+	>
+	| DataParserBoolean<
+		& DataParserDefinitionBoolean
+		& { checkers: [] }
+	>
+	| DataParserLiteral<
+		& DataParserDefinitionLiteral
+		& { checkers: [] }
+	>
+	| DataParserEmpty<
+		& DataParserDefinitionEmpty
+		& { checkers: [] }
+	>
+	| DataParserNil<
+		& DataParserDefinitionNil
+		& { checkers: [] }
+	>
+	| DataParserTemplateLiteral<
+		& DataParserDefinitionTemplateLiteral
+		& { checkers: [] }
+	>
 );
 
 export type TemplateLiteralShape = readonly [DataParsersTemplateLiteral, ...DataParsersTemplateLiteral[]];
@@ -39,7 +60,7 @@ type EligibleTemplateLiteral = string | number | bigint | boolean | null | undef
 export type TemplateLiteralShapeOutput<
 	GenericTemplate extends TemplateLiteralShape,
 	GenericLastResult extends string = "",
-> = GenericTemplate extends [
+> = GenericTemplate extends readonly [
 	infer InferredFirst extends DataParsersTemplateLiteral,
 	...infer InferredRest extends DataParsersTemplateLiteral[],
 ]
@@ -66,9 +87,9 @@ export type TemplateLiteralShapeOutput<
 export type TemplateLiteralShapeInput<
 	GenericTemplate extends TemplateLiteralShape,
 	GenericLastResult extends string = "",
-> = GenericTemplate extends [
+> = GenericTemplate extends readonly [
 	infer InferredFirst extends DataParsersTemplateLiteral,
-	...infer InferredRest extends TemplateLiteralShape,
+	...infer InferredRest extends DataParsersTemplateLiteral[],
 ]
 	? (
 		`${GenericLastResult}${
@@ -84,7 +105,9 @@ export type TemplateLiteralShapeInput<
 	) extends infer InferredResult extends string
 		? InferredRest extends readonly []
 			? InferredResult
-			: TemplateLiteralShapeInput<InferredRest, InferredResult>
+			: InferredRest extends TemplateLiteralShape
+				? TemplateLiteralShapeInput<InferredRest, InferredResult>
+				: TemplateLiteralShapeInput<[InferredRest[number]], InferredResult>
 		: never
 	: never;
 
@@ -116,14 +139,14 @@ export function templateLiteral<
 	const GenericTemplate extends TemplateLiteralShape,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionTemplateLiteral, "template">
-	> = Omit<DataParserDefinitionTemplateLiteral, "template">,
+	> = never,
 >(
 	template: GenericTemplate,
 	definition?: GenericDefinition,
 ): DataParserTemplateLiteral<
 		MergeDefinition<
 			DataParserDefinitionTemplateLiteral,
-			GenericDefinition & { template: GenericTemplate }
+			NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
 		>
 	> {
 	const pattern = pipe(
@@ -160,20 +183,16 @@ export function templateLiteral<
 						dataParser.definition.value,
 						DArray.map(
 							innerPipe(
+								when(
+									isType("bigint"),
+									(value) => `${value}n`,
+								),
 								String,
 								escapeRegExp,
 							),
 						),
 						DArray.join("|"),
 						(pattern) => `(?:${pattern})`,
-					),
-				),
-				DPattern.when(
-					dataParserTemplateLiteralKind.has,
-					(dataParser) => pipe(
-						dataParser.definition.pattern.source,
-						DString.replace(/^\^/, ""),
-						DString.replace(/\$$/, ""),
 					),
 				),
 				DPattern.when(
@@ -194,6 +213,15 @@ export function templateLiteral<
 							),
 							() => "(?:[^]*)",
 						),
+					),
+				),
+				DPattern.when(
+					dataParserTemplateLiteralKind.has,
+					(dataParser) => pipe(
+						dataParser.definition.pattern.source,
+						DString.replace(/^\^/, ""),
+						DString.replace(/\$$/, ""),
+						(pattern) => `(?:${pattern})`,
 					),
 				),
 				DPattern.exhaustive,

@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../../base";
 import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -50,14 +50,14 @@ export function array<
 	GenericElement extends DataParsers,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionArray, "element">
-	> = Omit<DataParserDefinitionArray, "element">,
+	> = never,
 >(
 	element: GenericElement,
 	definition?: GenericDefinition,
 ): DataParserArray<
 		MergeDefinition<
 			DataParserDefinitionArray,
-			GenericDefinition & { element: GenericElement }
+			NeverCoalescing<GenericDefinition, {}> & { element: GenericElement }
 		>
 	> {
 	return dataParserInit<DataParserArray>(

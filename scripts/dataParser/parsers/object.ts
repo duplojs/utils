@@ -1,4 +1,4 @@
-import { createKind, type Kind, pipe, type IsEqual, forward, type AnyValue, memo } from "@scripts/common";
+import { createKind, type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
 import { type MergeDefinition, type DataParsers } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
@@ -76,14 +76,14 @@ export function object<
 	const GenericShape extends DataParserObjectFixedShape = DataParserObjectFixedShape,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionObject, "shape">
-	> = Omit<DataParserDefinitionObject, "shape">,
+	> = never,
 >(
 	shape: GenericShape,
 	definition?: GenericDefinition,
 ): DataParserObject<
 		MergeDefinition<
 			DataParserDefinitionObject,
-			GenericDefinition & { shape: GenericShape }
+			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
 	const optimizedShape = memo(

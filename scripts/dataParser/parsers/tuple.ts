@@ -1,4 +1,4 @@
-import { createKind, type UnionContain, type IsEqual, type Kind, type Adaptor } from "@scripts/common";
+import { createKind, type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -102,14 +102,14 @@ export function tuple<
 	GenericShape extends TupleShape,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionTuple, "shape">
-	> = Omit<DataParserDefinitionTuple, "shape">,
+	> = never,
 >(
 	shape: GenericShape,
 	definition?: GenericDefinition,
 ): DataParserTuple<
 		MergeDefinition<
 			DataParserDefinitionTuple,
-			GenericDefinition & { shape: GenericShape }
+			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
 	return dataParserInit<DataParserTuple>(

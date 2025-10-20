@@ -1,4 +1,4 @@
-import { createKind, type Kind } from "@scripts/common";
+import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -32,14 +32,14 @@ export function union<
 	GenericOptions extends readonly [DataParsers, ...DataParsers[]],
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionUnion, "options">
-	> = Omit<DataParserDefinitionUnion, "options">,
+	> = never,
 >(
 	options: GenericOptions,
 	definition?: GenericDefinition,
 ): DataParserUnion<
 		MergeDefinition<
 			DataParserDefinitionUnion,
-			GenericDefinition & { options: GenericOptions }
+			NeverCoalescing<GenericDefinition, {}> & { options: GenericOptions }
 		>
 	> {
 	return dataParserInit<DataParserUnion>(
