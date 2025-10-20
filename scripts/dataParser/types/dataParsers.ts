@@ -26,4 +26,5 @@ export type DataParsers = (
 	| AllDataParser.DataParserNullable
 	| AllDataParser.DataParserOptional
 	| AllDataParser.DataParserLazy
+	| AllDataParser.DataParserUnknown
 );
