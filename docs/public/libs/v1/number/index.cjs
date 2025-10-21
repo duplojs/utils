@@ -1,0 +1,49 @@
+'use strict';
+
+var abs = require('./abs.cjs');
+var acos = require('./acos.cjs');
+var add = require('./add.cjs');
+var asin = require('./asin.cjs');
+var atan = require('./atan.cjs');
+var atan2 = require('./atan2.cjs');
+var ceil = require('./ceil.cjs');
+var clamp = require('./clamp.cjs');
+var cos = require('./cos.cjs');
+var divide = require('./divide.cjs');
+var floor = require('./floor.cjs');
+var max = require('./max.cjs');
+var min = require('./min.cjs');
+var modulo = require('./modulo.cjs');
+var multiply = require('./multiply.cjs');
+var negate = require('./negate.cjs');
+var power = require('./power.cjs');
+var round = require('./round.cjs');
+var sin = require('./sin.cjs');
+var subtract = require('./subtract.cjs');
+var tan = require('./tan.cjs');
+var trunc = require('./trunc.cjs');
+
+
+
+exports.abs = abs.abs;
+exports.acos = acos.acos;
+exports.add = add.add;
+exports.asin = asin.asin;
+exports.atan = atan.atan;
+exports.atan2 = atan2.atan2;
+exports.ceil = ceil.ceil;
+exports.clamp = clamp.clamp;
+exports.cos = cos.cos;
+exports.divide = divide.divide;
+exports.floor = floor.floor;
+exports.max = max.max;
+exports.min = min.min;
+exports.modulo = modulo.modulo;
+exports.multiply = multiply.multiply;
+exports.negate = negate.negate;
+exports.power = power.power;
+exports.round = round.round;
+exports.sin = sin.sin;
+exports.subtract = subtract.subtract;
+exports.tan = tan.tan;
+exports.trunc = trunc.trunc;
