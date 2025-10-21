@@ -1,0 +1,1 @@
+export declare function from<const GenericArray extends (ArrayLike<unknown> | Iterable<unknown> | AsyncIterable<unknown>)>(input: GenericArray): GenericArray extends AsyncIterable<infer InferredValue> ? Promise<InferredValue[]> : GenericArray extends Iterable<infer InferredValue> ? InferredValue[] : GenericArray extends ArrayLike<infer InferredValue> ? InferredValue[] : never;
