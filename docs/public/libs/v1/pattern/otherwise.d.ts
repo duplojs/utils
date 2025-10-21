@@ -1,0 +1,4 @@
+import { type AnyValue, type Unwrap } from "../common";
+import { type PatternResult } from "./result";
+export declare function otherwise<GenericInput extends AnyValue, GenericInputValue extends Exclude<GenericInput, PatternResult>, GenericInputPatternResult extends Extract<GenericInput, PatternResult>, GenericOutput extends AnyValue>(theFunction: (rest: GenericInputValue) => GenericOutput): (input: GenericInput | GenericInputPatternResult | GenericInputValue) => (GenericOutput | Unwrap<GenericInputPatternResult>);
+export declare function otherwise<GenericInput extends AnyValue, GenericInputValue extends Exclude<GenericInput, PatternResult>, GenericInputPatternResult extends Extract<GenericInput, PatternResult>, GenericOutput extends AnyValue>(input: GenericInput | GenericInputPatternResult | GenericInputValue, theFunction: (rest: GenericInputValue) => GenericOutput): (GenericOutput | Unwrap<GenericInputPatternResult>);
