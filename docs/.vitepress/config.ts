@@ -18,10 +18,6 @@ export default defineConfig({
 		],
 	],
 
-	rewrites: {
-		"index.md": "v1/fr",
-	},
-
 	markdown: {
 		lineNumbers: true,
 		theme: {
@@ -34,8 +30,7 @@ export default defineConfig({
 	},
 
 	vite: {
-		// temporary fix - conflict vite version v5 vs v6
-		plugins: [groupIconVitePlugin() as any],
+		plugins: [groupIconVitePlugin()],
 		optimizeDeps: {
 			include: ["monaco-editor"],
 		},
@@ -43,6 +38,9 @@ export default defineConfig({
 			global: "globalThis",
 		},
 		assetsInclude: ["**/*.doc.ts", "public/*"],
+		server: {
+			host: true,
+		},
 	},
 
 	themeConfig: {
