@@ -1,4 +1,4 @@
-import { createKind, type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing } from "@scripts/common";
+import { createKind, type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
 import { type MergeDefinition, type DataParsers } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
@@ -49,6 +49,10 @@ export type DataParserObjectShapeInput<
 
 export interface DataParserDefinitionObject extends DataParserDefinition<never> {
 	shape: DataParserObjectShape;
+	optimizedShape: Memoized<{
+		key: string;
+		schema: DataParsers;
+	}[]>;
 }
 
 export const dataParserObjectKind = createKind("data-parser-object");
@@ -85,18 +89,6 @@ export function object<
 			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
-	const optimizedShape = memo(
-		() => pipe(
-			forward<DataParserObjectShape>(shape),
-			DObject.entries,
-			DArray.filter((entry) => dataParserKind.has(entry[1])),
-			DArray.map(([key, value]) => ({
-				key,
-				schema: value,
-			})),
-		),
-	);
-
 	return dataParserInit<DataParserObject>(
 		dataParserObjectKind,
 		{
@@ -104,10 +96,21 @@ export function object<
 				shape,
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
+				optimizedShape: memo(
+					() => pipe(
+						forward<DataParserObjectShape>(shape),
+						DObject.entries,
+						DArray.filter((entry) => dataParserKind.has(entry[1])),
+						DArray.map(([key, value]) => ({
+							key,
+							schema: value,
+						})),
+					),
+				),
 			},
 		},
 		{
-			sync: (data, error) => {
+			sync: (data, error, self) => {
 				if (
 					!data
 					|| typeof data !== "object"
@@ -119,7 +122,7 @@ export function object<
 				let output = {};
 				const currentIndexPath = error.currentPath.length;
 
-				for (const entry of optimizedShape.value) {
+				for (const entry of self.definition.optimizedShape.value) {
 					setErrorPath(error, entry.key, currentIndexPath);
 
 					const result = entry.schema.exec(
@@ -141,7 +144,7 @@ export function object<
 
 				return output;
 			},
-			async: async(data, error) => {
+			async: async(data, error, self) => {
 				if (
 					!data
 					|| typeof data !== "object"
@@ -153,7 +156,7 @@ export function object<
 				let output = {};
 				const currentIndexPath = error.currentPath.length;
 
-				for (const entry of optimizedShape.value) {
+				for (const entry of self.definition.optimizedShape.value) {
 					setErrorPath(error, entry.key, currentIndexPath);
 
 					const result = await entry.schema.asyncExec(

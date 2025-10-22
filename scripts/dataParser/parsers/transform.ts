@@ -60,14 +60,14 @@ export function transform<
 			},
 		},
 		{
-			sync: (data, error) => {
-				const innerResult = inner.exec(data, error);
+			sync: (data, error, self) => {
+				const innerResult = self.definition.inner.exec(data, error);
 
 				if (innerResult === SymbolDataParserError) {
 					return SymbolDataParserError;
 				}
 
-				const result = theFunction(innerResult as never, error);
+				const result = self.definition.theFunction(innerResult as never, error);
 
 				if (result instanceof Promise) {
 					return SymbolDataParserErrorPromiseIssue;
@@ -75,14 +75,14 @@ export function transform<
 
 				return result;
 			},
-			async: async(data, error) => {
-				const innerResult = await inner.asyncExec(data, error);
+			async: async(data, error, self) => {
+				const innerResult = await self.definition.inner.asyncExec(data, error);
 
 				if (innerResult === SymbolDataParserError) {
 					return SymbolDataParserError;
 				}
 
-				let result: unknown = theFunction(innerResult as never, error);
+				let result: unknown = self.definition.theFunction(innerResult as never, error);
 
 				if (result instanceof Promise) {
 					result = result.catch(() => SymbolDataParserErrorPromiseIssue);

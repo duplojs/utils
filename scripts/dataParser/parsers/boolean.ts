@@ -36,21 +36,19 @@ export function boolean<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const coerce = definition?.coerce ?? false;
-
 	return dataParserInit<DataParserBoolean>(
 		dataParserBooleanKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
-				coerce,
+				coerce: definition?.coerce ?? false,
 			},
 		},
-		(data) => {
+		(data, _error, self) => {
 			if (typeof data === "boolean") {
 				return data;
-			} else if (coerce) {
+			} else if (self.definition.coerce) {
 				if (typeof data === "string") {
 					const lower = data.trim().toLowerCase();
 					if (lower === "true" || lower === "false") {

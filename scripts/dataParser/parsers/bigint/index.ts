@@ -55,19 +55,17 @@ export function bigint<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const coerce = definition?.coerce ?? false;
-
 	return dataParserInit<DataParserBigInt>(
 		dataParserBigIntKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
-				coerce,
+				coerce: definition?.coerce ?? false,
 			},
 		},
-		(data) => {
-			if (coerce) {
+		(data, _error, self) => {
+			if (self.definition.coerce) {
 				try {
 					// eslint-disable-next-line no-param-reassign
 					data = BigInt(data as never);

@@ -43,19 +43,17 @@ export function literal<
 			NeverCoalescing<GenericDefinition, {}> & { value: GenericValue[] }
 		>
 	> {
-	const formattedValue = DArray.coalescing(value);
-
 	return dataParserInit<DataParserLiteral>(
 		dataParserLiteralKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
-				value: formattedValue,
+				value: DArray.coalescing(value),
 			},
 		},
-		(data) => {
-			if (formattedValue.includes(data as never)) {
+		(data, _error, self) => {
+			if (self.definition.value.includes(data as never)) {
 				return data as never;
 			}
 

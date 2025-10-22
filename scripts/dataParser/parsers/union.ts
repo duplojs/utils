@@ -52,8 +52,8 @@ export function union<
 			},
 		},
 		{
-			sync: (data, error) => {
-				for (const dataParser of options) {
+			sync: (data, error, self) => {
+				for (const dataParser of self.definition.options) {
 					const result = dataParser.exec(data, error);
 
 					if (result !== SymbolDataParserError) {
@@ -63,8 +63,8 @@ export function union<
 
 				return SymbolDataParserErrorIssue;
 			},
-			async: async(data, error) => {
-				for (const dataParser of options) {
+			async: async(data, error, self) => {
+				for (const dataParser of self.definition.options) {
 					const result = await dataParser.asyncExec(data, error);
 
 					if (result !== SymbolDataParserError) {

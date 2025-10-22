@@ -70,7 +70,7 @@ export function array<
 			},
 		},
 		{
-			sync: (data, error) => {
+			sync: (data, error, self) => {
 				if (!(data instanceof Array)) {
 					return SymbolDataParserErrorIssue;
 				}
@@ -81,7 +81,10 @@ export function array<
 				for (let index = 0; index < data.length; index++) {
 					setErrorPath(error, `[${index}]`, currentIndexPath);
 
-					const result = element.exec(data[index], error);
+					const result = self
+						.definition
+						.element
+						.exec(data[index], error);
 
 					if (result === SymbolDataParserError) {
 						output = SymbolDataParserError;
@@ -94,7 +97,7 @@ export function array<
 
 				return output as never;
 			},
-			async: async(data, error) => {
+			async: async(data, error, self) => {
 				if (!(data instanceof Array)) {
 					return SymbolDataParserErrorIssue;
 				}
@@ -105,7 +108,10 @@ export function array<
 				for (let index = 0; index < data.length; index++) {
 					setErrorPath(error, `[${index}]`, currentIndexPath);
 
-					const result = await element.asyncExec(data[index], error);
+					const result = await self
+						.definition
+						.element
+						.asyncExec(data[index], error);
 
 					if (result === SymbolDataParserError) {
 						output = SymbolDataParserError;

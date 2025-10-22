@@ -123,7 +123,7 @@ export function tuple<
 			},
 		},
 		{
-			sync: (data, error) => {
+			sync: (data, error, self) => {
 				if (!(data instanceof Array)) {
 					return SymbolDataParserErrorIssue;
 				}
@@ -131,10 +131,10 @@ export function tuple<
 				let output: SymbolDataParserError | unknown[] = [];
 				const currentIndexPath = error.currentPath.length;
 
-				for (let index = 0; index < shape.length; index++) {
+				for (let index = 0; index < self.definition.shape.length; index++) {
 					setErrorPath(error, `[${index}]`, currentIndexPath);
 
-					const result = shape[index]?.exec(data[index], error);
+					const result = self.definition.shape[index]?.exec(data[index], error);
 
 					if (result === SymbolDataParserError) {
 						output = SymbolDataParserError;
@@ -143,11 +143,11 @@ export function tuple<
 					}
 				}
 
-				if (definition?.rest) {
-					for (let index = shape.length; index < data.length; index++) {
+				if (self.definition.rest) {
+					for (let index = self.definition.shape.length; index < data.length; index++) {
 						setErrorPath(error, `[${index}]`, currentIndexPath);
 
-						const result = definition.rest.exec(data[index], error);
+						const result = self.definition.rest.exec(data[index], error);
 
 						if (result === SymbolDataParserError) {
 							output = SymbolDataParserError;
@@ -161,7 +161,7 @@ export function tuple<
 
 				return output as never;
 			},
-			async: async(data, error) => {
+			async: async(data, error, self) => {
 				if (!(data instanceof Array)) {
 					return SymbolDataParserErrorIssue;
 				}
@@ -169,10 +169,10 @@ export function tuple<
 				let output: SymbolDataParserError | unknown[] = [];
 				const currentIndexPath = error.currentPath.length;
 
-				for (let index = 0; index < shape.length; index++) {
+				for (let index = 0; index < self.definition.shape.length; index++) {
 					setErrorPath(error, `[${index}]`, currentIndexPath);
 
-					const result = await shape[index]?.asyncExec(data[index], error);
+					const result = await self.definition.shape[index]?.asyncExec(data[index], error);
 
 					if (result === SymbolDataParserError) {
 						output = SymbolDataParserError;
@@ -181,11 +181,11 @@ export function tuple<
 					}
 				}
 
-				if (definition?.rest) {
-					for (let index = shape.length; index < data.length; index++) {
+				if (self.definition?.rest) {
+					for (let index = self.definition.shape.length; index < data.length; index++) {
 						setErrorPath(error, `[${index}]`, currentIndexPath);
 
-						const result = await definition.rest.asyncExec(data[index], error);
+						const result = await self.definition.rest.asyncExec(data[index], error);
 
 						if (result === SymbolDataParserError) {
 							output = SymbolDataParserError;
