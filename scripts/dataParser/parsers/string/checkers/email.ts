@@ -27,8 +27,6 @@ const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za
 export function checkerEmail(
 	definition: Partial<DataParserCheckerDefinitionEmail> = {},
 ): DataParserCheckerEmail {
-	const { normalize } = definition;
-
 	return dataParserCheckerInit<DataParserCheckerEmail>(
 		dataParserCheckerEmailKind,
 		{
@@ -42,7 +40,7 @@ export function checkerEmail(
 				return SymbolDataParserErrorIssue;
 			}
 
-			return normalize ? input.toLowerCase() : input;
+			return self.definition.normalize ? input.toLowerCase() : input;
 		},
 	);
 }

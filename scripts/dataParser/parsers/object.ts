@@ -69,8 +69,7 @@ type _DataParserObject<
 );
 
 export interface DataParserObject<
-	GenericDefinition extends DataParserDefinitionObject
-	= Omit<DataParserDefinitionObject, "shape"> & { shape: DataParserObjectShape },
+	GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject,
 > extends _DataParserObject<GenericDefinition> {
 
 }

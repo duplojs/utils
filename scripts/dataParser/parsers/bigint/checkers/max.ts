@@ -34,8 +34,8 @@ export function checkerBigIntMax(
 				max,
 			},
 		},
-		(value) => {
-			if (value > max) {
+		(value, self) => {
+			if (value > self.definition.max) {
 				return SymbolDataParserErrorIssue;
 			}
 

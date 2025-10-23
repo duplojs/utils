@@ -34,8 +34,8 @@ export function checkerArrayMax(
 				max,
 			},
 		},
-		(data) => {
-			if (data.length > max) {
+		(data, self) => {
+			if (data.length > self.definition.max) {
 				return SymbolDataParserErrorIssue;
 			}
 

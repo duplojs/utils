@@ -93,6 +93,7 @@ export interface DataParser<
 		| DEither.EitherError<DataParserError>
 	>;
 	addChecker(...args: never): DataParser;
+	clone(): this;
 }
 
 interface DataParserInitExecParams<
@@ -126,7 +127,7 @@ export function dataParserInit<
 	params: NoInfer<
 		Omit<
 			RemoveKind<GenericDataParser>,
-			"parse" | "exec" | "asyncParse" | "asyncExec" | "addChecker"
+			"parse" | "exec" | "asyncParse" | "asyncExec" | "addChecker" | "clone"
 		>
 	>,
 	exec: (
@@ -157,9 +158,9 @@ export function dataParserInit<
 			return SymbolDataParserError;
 		} else if (
 			result !== SymbolDataParserError
-			&& params.definition.checkers.length
+			&& dataParser.definition.checkers.length
 		) {
-			for (const checker of params.definition.checkers) {
+			for (const checker of dataParser.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
 				if (checkerResult === SymbolDataParserErrorIssue) {
@@ -191,9 +192,9 @@ export function dataParserInit<
 			return SymbolDataParserError;
 		} else if (
 			result !== SymbolDataParserError
-			&& params.definition.checkers.length
+			&& dataParser.definition.checkers.length
 		) {
-			for (const checker of params.definition.checkers) {
+			for (const checker of dataParser.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
 				if (checkerResult === SymbolDataParserErrorIssue) {
@@ -235,13 +236,22 @@ export function dataParserInit<
 
 					return DEither.success(result);
 				},
-				addChecker: (...checkers: any[]) => simpleClone({
-					...dataParser,
-					definition: {
-						...dataParser.definition,
-						checkers: [...dataParser.definition.checkers, ...checkers],
-					},
-				}),
+				addChecker: (...checkers: any[]) => dataParserInit(
+					kind,
+					simpleClone({
+						...params,
+						definition: {
+							...params.definition,
+							checkers: [...params.definition.checkers, ...checkers],
+						},
+					}),
+					exec,
+				),
+				clone: () => dataParserInit(
+					kind,
+					simpleClone(params),
+					exec,
+				),
 			},
 			{
 				output: undefined,

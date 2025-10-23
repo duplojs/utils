@@ -1,7 +1,7 @@
 import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { type DataParserCheckerUrl, type DataParserCheckerEmail } from "./checkers";
+import { type DataParserCheckerUrl, type DataParserCheckerEmail, type DataParserCheckerStringMin, type DataParserCheckerStringMax, type DataParserCheckerStringRegex } from "./checkers";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 
 export * from "./checkers";
@@ -9,6 +9,9 @@ export * from "./checkers";
 export type DataParserStringCheckers = (
 	| DataParserCheckerUrl
 	| DataParserCheckerEmail
+	| DataParserCheckerStringMin
+	| DataParserCheckerStringMax
+	| DataParserCheckerStringRegex
 );
 
 export interface DataParserDefinitionString extends DataParserDefinition<

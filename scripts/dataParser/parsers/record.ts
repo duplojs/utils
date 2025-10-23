@@ -8,7 +8,7 @@ import { type DataParserDefinitionLiteral, type DataParserLiteral } from "./lite
 import { type DataParserDefinitionNumber, type DataParserNumber } from "./number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "./union";
 
-type DataParserRecordKey = (
+export type DataParserRecordKey = (
 	| DataParserString
 	| DataParserTemplateLiteral
 	| DataParserLiteral<

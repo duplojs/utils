@@ -75,6 +75,7 @@ describe("base parser", () => {
 							asyncExec: expect.any(Function),
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
+							clone: expect.any(Function),
 						},
 						{
 							input: undefined,
@@ -172,6 +173,34 @@ describe("base parser", () => {
 							asyncExec: expect.any(Function),
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
+							clone: expect.any(Function),
+						},
+						{
+							input: undefined,
+							output: undefined,
+						},
+					),
+				),
+			);
+		});
+
+		it("clone correct structure", () => {
+			const newParser = parser.clone();
+			expect(DDataParser.dataParserKind.has(newParser)).toBe(true);
+			expect(newParser).toStrictEqual(
+				dataParserTestKind.addTo(
+					DDataParser.dataParserKind.addTo(
+						{
+							definition: {
+								errorMessage: "invalid",
+								checkers: [checker],
+							},
+							exec: expect.any(Function),
+							parse: expect.any(Function),
+							asyncExec: expect.any(Function),
+							asyncParse: expect.any(Function),
+							addChecker: expect.any(Function),
+							clone: expect.any(Function),
 						},
 						{
 							input: undefined,

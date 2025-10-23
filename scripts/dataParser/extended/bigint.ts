@@ -42,7 +42,7 @@ export interface DataParserBigIntExtended<
 	max(
 		max: bigint,
 		definition?: Partial<
-			Omit<dataParsers.DataParserCheckerDefinitionBigIntMax, "min">
+			Omit<dataParsers.DataParserCheckerDefinitionBigIntMax, "max">
 		>
 	): DataParserBigIntExtended<
 		AddCheckersToDefinition<

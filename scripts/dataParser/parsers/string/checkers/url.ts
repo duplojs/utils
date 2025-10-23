@@ -28,31 +28,29 @@ const regexRemoveDote = /:$/;
 export function checkerUrl(
 	definition: Partial<DataParserCheckerDefinitionUrl> = {},
 ): DataParserCheckerUrl {
-	const { hostname, protocol, normalize } = definition;
-
 	return dataParserCheckerInit<DataParserCheckerUrl>(
 		dataParserCheckerUrlKind,
 		{
 			definition: definition,
 		},
-		(input) => {
+		(input, self) => {
 			try {
 				const url = new URL(input);
 
-				if (hostname) {
-					hostname.lastIndex = 0;
-					if (!hostname.test(url.hostname)) {
+				if (self.definition.hostname) {
+					self.definition.hostname.lastIndex = 0;
+					if (!self.definition.hostname.test(url.hostname)) {
 						return SymbolDataParserErrorIssue;
 					}
 				}
 
-				if (protocol) {
-					protocol.lastIndex = 0;
-					if (!protocol.test(url.protocol.replace(regexRemoveDote, ""))) {
+				if (self.definition.protocol) {
+					self.definition.protocol.lastIndex = 0;
+					if (!self.definition.protocol.test(url.protocol.replace(regexRemoveDote, ""))) {
 						return SymbolDataParserErrorIssue;
 					}
 				}
-				if (normalize) {
+				if (self.definition.normalize) {
 					return url.href;
 				} else {
 					return input;

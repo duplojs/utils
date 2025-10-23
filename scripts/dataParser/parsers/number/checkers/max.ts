@@ -34,6 +34,6 @@ export function checkerNumberMax(
 				max,
 			},
 		},
-		(value) => value <= max ? value : SymbolDataParserErrorIssue,
+		(value, self) => value <= self.definition.max ? value : SymbolDataParserErrorIssue,
 	);
 }

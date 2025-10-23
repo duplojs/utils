@@ -34,8 +34,8 @@ export function checkerBigIntMin(
 				min,
 			},
 		},
-		(value) => {
-			if (value < min) {
+		(value, self) => {
+			if (value < self.definition.min) {
 				return SymbolDataParserErrorIssue;
 			}
 

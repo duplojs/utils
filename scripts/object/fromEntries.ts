@@ -9,9 +9,9 @@ type ComputeEntries<
 export function fromEntries<
 	GenericKey extends ObjectKey,
 	GenericValue extends AnyValue,
-	GenericEntry extends [GenericKey, GenericValue],
+	GenericEntry extends readonly [GenericKey, GenericValue],
 >(
-	entries: GenericEntry[],
+	entries: readonly GenericEntry[],
 ): ComputeEntries<GenericEntry> {
 	return Object.fromEntries(entries) as never;
 }

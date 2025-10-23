@@ -34,8 +34,8 @@ export function checkerArrayMin(
 				min,
 			},
 		},
-		(data) => {
-			if (data.length < min) {
+		(data, self) => {
+			if (data.length < self.definition.min) {
 				return SymbolDataParserErrorIssue;
 			}
 

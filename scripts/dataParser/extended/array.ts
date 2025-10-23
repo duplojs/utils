@@ -42,7 +42,7 @@ export interface DataParserArrayExtended<
 	max(
 		max: number,
 		definition?: Partial<
-			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "min">
+			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
 		>
 	): DataParserArrayExtended<
 		AddCheckersToDefinition<

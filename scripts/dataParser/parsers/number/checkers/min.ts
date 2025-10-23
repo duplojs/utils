@@ -34,6 +34,6 @@ export function checkerNumberMin(
 				min,
 			},
 		},
-		(value) => value >= min ? value : SymbolDataParserErrorIssue,
+		(value, self) => value >= self.definition.min ? value : SymbolDataParserErrorIssue,
 	);
 }
