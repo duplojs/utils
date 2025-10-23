@@ -14,7 +14,7 @@ export type DataParserBigIntCheckers = (
 export interface DataParserDefinitionBigInt extends DataParserDefinition<
 	DataParserBigIntCheckers
 > {
-	coerce: boolean;
+	readonly coerce: boolean;
 }
 
 export const dataParserBigIntKind = createKind("data-parser-bigint");
@@ -34,7 +34,10 @@ export interface DataParserBigInt<
 	GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt,
 > extends _DataParserBigInt<GenericDefinition> {
 	addChecker<
-		GenericChecker extends [DataParserBigIntCheckers, ...DataParserBigIntCheckers[]],
+		GenericChecker extends readonly [
+			DataParserBigIntCheckers,
+			...DataParserBigIntCheckers[],
+		],
 	>(
 		...args: GenericChecker
 	): DataParserBigInt<

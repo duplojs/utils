@@ -7,7 +7,7 @@ import * as DArray from "@scripts/array";
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
 
 export interface DataParserDefinitionLiteral extends DataParserDefinition<never> {
-	value: LiteralValue[];
+	readonly value: LiteralValue[];
 }
 
 export const dataParserLiteralKind = createKind("data-parser-literal");

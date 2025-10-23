@@ -7,8 +7,8 @@ export type AddCheckersToDefinition<
 > = SimplifyTopLevel<
 	& Omit<GenericDefinition, "checkers">
 	& {
-		checkers: GenericDefinition["checkers"] extends AnyTuple
-			? [...GenericDefinition["checkers"], ...GenericChecker]
+		readonly checkers: GenericDefinition["checkers"] extends AnyTuple
+			? readonly [...GenericDefinition["checkers"], ...GenericChecker]
 			: GenericChecker;
 	}
 >;

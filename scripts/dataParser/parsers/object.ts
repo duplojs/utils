@@ -48,10 +48,10 @@ export type DataParserObjectShapeInput<
 		: never;
 
 export interface DataParserDefinitionObject extends DataParserDefinition<never> {
-	shape: DataParserObjectShape;
-	optimizedShape: Memoized<{
-		key: string;
-		schema: DataParsers;
+	readonly shape: DataParserObjectShape;
+	readonly optimizedShape: Memoized<{
+		readonly key: string;
+		readonly value: DataParsers;
 	}[]>;
 }
 
@@ -103,7 +103,7 @@ export function object<
 						DArray.filter((entry) => dataParserKind.has(entry[1])),
 						DArray.map(([key, value]) => ({
 							key,
-							schema: value,
+							value,
 						})),
 					),
 				),
@@ -125,7 +125,7 @@ export function object<
 				for (const entry of self.definition.optimizedShape.value) {
 					setErrorPath(error, entry.key, currentIndexPath);
 
-					const result = entry.schema.exec(
+					const result = entry.value.exec(
 						data[entry.key as never],
 						error,
 					) as AnyValue;
@@ -159,7 +159,7 @@ export function object<
 				for (const entry of self.definition.optimizedShape.value) {
 					setErrorPath(error, entry.key, currentIndexPath);
 
-					const result = await entry.schema.asyncExec(
+					const result = await entry.value.asyncExec(
 						data[entry.key as never],
 						error,
 					) as AnyValue;

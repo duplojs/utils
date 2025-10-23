@@ -32,8 +32,8 @@ type DataParserRecordKey = (
 );
 
 export interface DataParserDefinitionRecord extends DataParserDefinition<never> {
-	key: DataParserRecordKey;
-	value: DataParsers;
+	readonly key: DataParserRecordKey;
+	readonly value: DataParsers;
 }
 
 export const dataParserRecordKind = createKind("data-parser-record");

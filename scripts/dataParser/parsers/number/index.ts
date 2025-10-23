@@ -15,7 +15,7 @@ export type DataParserNumberCheckers = (
 export interface DataParserDefinitionNumber extends DataParserDefinition<
 	DataParserNumberCheckers
 > {
-	coerce: boolean;
+	readonly coerce: boolean;
 }
 
 export const dataParserNumberKind = createKind("data-parser-number");
@@ -35,7 +35,10 @@ export interface DataParserNumber<
 	GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber,
 > extends _DataParserNumber<GenericDefinition> {
 	addChecker<
-		GenericChecker extends [DataParserNumberCheckers, ...DataParserNumberCheckers[]],
+		GenericChecker extends readonly [
+			DataParserNumberCheckers,
+			...DataParserNumberCheckers[],
+		],
 	>(
 		...args: GenericChecker
 	): DataParserNumber<

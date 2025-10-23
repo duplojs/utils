@@ -1,7 +1,6 @@
-import { type AnyFunction, type AnyValue, createKind, type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind } from "@scripts/common";
+import { type AnyFunction, type AnyValue, createKind, type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
-import { type AddCheckersToDefinition } from "./types";
 
 export const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
@@ -10,14 +9,14 @@ export type SymbolDataParserError = typeof SymbolDataParserError;
 export const dataParserCheckerKind = createKind("data-parser-checker");
 
 export interface DataParserCheckerDefinition {
-	errorMessage?: string;
+	readonly errorMessage?: string;
 }
 
 export interface DataParserChecker<
 	GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
 	GenericInput extends AnyValue = AnyValue,
 > extends Kind<typeof dataParserCheckerKind.definition, GenericInput> {
-	definition: GenericDefinition;
+	readonly definition: GenericDefinition;
 	exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
 }
 
@@ -60,8 +59,8 @@ export const dataParserKind = createKind<
 export interface DataParserDefinition<
 	GenericChecker extends DataParserChecker = DataParserChecker,
 > {
-	errorMessage?: string;
-	checkers: GenericChecker[];
+	readonly errorMessage?: string;
+	readonly checkers: readonly GenericChecker[];
 }
 
 export interface DataParser<
@@ -75,7 +74,7 @@ export interface DataParser<
 			output: GenericOutput;
 		}
 	> {
-	definition: GenericDefinition;
+	readonly definition: GenericDefinition;
 	exec(
 		data: unknown,
 		error: DataParserError,
@@ -93,16 +92,7 @@ export interface DataParser<
 		| DEither.EitherSuccess<GenericOutput>
 		| DEither.EitherError<DataParserError>
 	>;
-	addChecker<
-		GenericChecker extends [never, ...never[]],
-	>(
-		...args: GenericChecker
-	): DataParser<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			GenericChecker
-		>
-	>;
+	addChecker(...args: never): DataParser;
 }
 
 interface DataParserInitExecParams<
@@ -245,7 +235,7 @@ export function dataParserInit<
 
 					return DEither.success(result);
 				},
-				addChecker: (...checkers: any[]) => ({
+				addChecker: (...checkers: any[]) => simpleClone({
 					...dataParser,
 					definition: {
 						...dataParser.definition,

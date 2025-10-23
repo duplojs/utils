@@ -3,7 +3,7 @@ import { type DataParserDefinition, type DataParser, dataParserInit, type Output
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 
 export interface DataParserDefinitionOptional extends DataParserDefinition<never> {
-	inner: DataParsers;
+	readonly inner: DataParsers;
 }
 
 export const dataParserOptionalKind = createKind("data-parser-optional");

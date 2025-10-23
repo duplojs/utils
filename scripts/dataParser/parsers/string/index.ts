@@ -14,7 +14,7 @@ export type DataParserStringCheckers = (
 export interface DataParserDefinitionString extends DataParserDefinition<
 	DataParserStringCheckers
 > {
-	coerce: boolean;
+	readonly coerce: boolean;
 }
 
 export const dataParserStringKind = createKind("data-parser-string");
@@ -34,7 +34,10 @@ export interface DataParserString<
 	GenericDefinition extends DataParserDefinitionString = DataParserDefinitionString,
 > extends _DataParserString<GenericDefinition> {
 	addChecker<
-		GenericChecker extends [DataParserStringCheckers, ...DataParserStringCheckers[]],
+		GenericChecker extends readonly [
+			DataParserStringCheckers,
+			...DataParserStringCheckers[],
+		],
 	>(
 		...args: GenericChecker
 	): DataParserString<

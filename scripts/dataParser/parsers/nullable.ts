@@ -3,7 +3,7 @@ import { type DataParserDefinition, type DataParser, dataParserInit, type Output
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 
 export interface DataParserDefinitionNullable extends DataParserDefinition<never> {
-	inner: DataParsers;
+	readonly inner: DataParsers;
 }
 
 export const dataParserNullableKind = createKind("data-parser-nullable");

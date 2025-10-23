@@ -15,7 +15,7 @@ export type DataParserArrayCheckers = (
 );
 
 export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
-	element: DataParsers;
+	readonly element: DataParsers;
 }
 
 export const dataParserArrayKind = createKind("data-parser-array");
@@ -35,7 +35,10 @@ export interface DataParserArray<
 	GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray,
 > extends _DataParserArray<GenericDefinition> {
 	addChecker<
-		GenericChecker extends [DataParserArrayCheckers, ...DataParserArrayCheckers[]],
+		GenericChecker extends readonly [
+			DataParserArrayCheckers,
+			...DataParserArrayCheckers[],
+		],
 	>(
 		...args: GenericChecker
 	): DataParserArray<

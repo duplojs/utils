@@ -157,7 +157,7 @@ describe("base parser", () => {
 		});
 
 		it("add checkers", () => {
-			const newParser = parser.addChecker(checker as never);
+			const newParser = parser.addChecker(...[checker] as never);
 
 			expect(newParser).toStrictEqual(
 				dataParserTestKind.addTo(

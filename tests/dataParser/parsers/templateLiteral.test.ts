@@ -5,7 +5,7 @@ describe("DDataParser templateLiteral", () => {
 		const schema = DDataParser.templateLiteral([
 			"user-",
 			DDataParser.number(),
-		] as const);
+		]);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
@@ -37,7 +37,7 @@ describe("DDataParser templateLiteral", () => {
 			}),
 			"-id-",
 			DDataParser.number(),
-		] as const);
+		]);
 
 		const input = "user@example.com-id-123";
 		const result = schema.parse(input);
@@ -49,7 +49,7 @@ describe("DDataParser templateLiteral", () => {
 		const schema = DDataParser.templateLiteral([
 			"user-",
 			DDataParser.number(),
-		] as const, {
+		], {
 			errorMessage: "invalid.template",
 		});
 

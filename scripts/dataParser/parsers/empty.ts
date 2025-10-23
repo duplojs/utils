@@ -4,7 +4,7 @@ import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 
 export interface DataParserDefinitionEmpty extends DataParserDefinition<never> {
-	coerce: boolean;
+	readonly coerce: boolean;
 }
 
 export const dataParserEmptyKind = createKind("data-parser-empty");

@@ -4,7 +4,7 @@ import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/type
 import { type DataParserError, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser/error";
 
 export interface DataParserDefinitionTransform extends DataParserDefinition<never> {
-	inner: DataParsers;
+	readonly inner: DataParsers;
 	theFunction(input: any, error: DataParserError): AnyValue;
 }
 

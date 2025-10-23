@@ -3,8 +3,8 @@ import { type DataParserDefinition, type DataParser, dataParserInit, type Output
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 
 export interface DataParserDefinitionPipe extends DataParserDefinition<never> {
-	input: DataParsers;
-	output: DataParsers;
+	readonly input: DataParsers;
+	readonly output: DataParsers;
 }
 
 export const dataParserPipeKind = createKind("data-parser-pipe");

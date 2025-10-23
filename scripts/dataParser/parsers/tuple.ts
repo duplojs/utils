@@ -60,8 +60,8 @@ export type DataParserTupleCheckers = (
 );
 
 export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers> {
-	shape: TupleShape;
-	rest?: DataParsers;
+	readonly shape: TupleShape;
+	readonly rest?: DataParsers;
 }
 
 export const dataParserTupleKind = createKind("data-parser-tuple");

@@ -18,38 +18,38 @@ export type DataParsersTemplateLiteral = (
 	| DataParserString<
 		& DataParserDefinitionString
 		& {
-			checkers: (
+			readonly checkers: readonly (
 				| DataParserCheckerEmail
 			)[];
 		}
 	>
 	| DataParserNumber<
 		& DataParserDefinitionNumber
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserBigInt<
 		& DataParserDefinitionBigInt
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserBoolean<
 		& DataParserDefinitionBoolean
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserLiteral<
 		& DataParserDefinitionLiteral
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserEmpty<
 		& DataParserDefinitionEmpty
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserNil<
 		& DataParserDefinitionNil
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 	| DataParserTemplateLiteral<
 		& DataParserDefinitionTemplateLiteral
-		& { checkers: [] }
+		& { readonly checkers: readonly [] }
 	>
 );
 
@@ -112,8 +112,8 @@ export type TemplateLiteralShapeInput<
 	: never;
 
 export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<never> {
-	template: TemplateLiteralShape;
-	pattern: RegExp;
+	readonly template: TemplateLiteralShape;
+	readonly pattern: RegExp;
 }
 
 export const dataParserTemplateLiteralKind = createKind("data-parser-template-literal");

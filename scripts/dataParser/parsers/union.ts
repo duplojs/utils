@@ -6,7 +6,7 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 export type UnionOptions = readonly [DataParsers, ...DataParsers[]];
 
 export interface DataParserDefinitionUnion extends DataParserDefinition<never> {
-	options: UnionOptions;
+	readonly options: UnionOptions;
 }
 
 export const dataParserUnionKind = createKind("data-parser-union");
