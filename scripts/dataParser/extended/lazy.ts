@@ -25,7 +25,9 @@ export function lazy<
 ): DataParserLazyExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionLazy,
-			NeverCoalescing<GenericDefinition, {}>
+			NeverCoalescing<GenericDefinition, {}> & {
+				getter(): GenericDataParser;
+			}
 		>
 	> {
 	return dataParserExtendedInit<

@@ -4,7 +4,7 @@ describe("DDataParser pipe", () => {
 	it("pipes input parser into output parser", () => {
 		const schema = DDataParser.pipe(
 			DDataParser.number({ coerce: true }),
-			DDataParser.transform(DDataParser.number(), (value) => `#${value}`),
+			DDataParser.transform(DDataParser.number(), (value) => `#${value}` as const),
 		);
 
 		type _CheckOut = ExpectType<
