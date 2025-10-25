@@ -13,9 +13,11 @@ export type EitherRightAsyncPipeFunction<
 	GenericInput extends AnyValue = AnyValue,
 	GenericOutput extends MaybeFutureEither<AnyValue> = MaybeFutureEither<AnyValue>,
 > = (
-	input: Awaited<GenericInput> extends infer InferredInput extends Either
-		? Unwrap<Exclude<Awaited<InferredInput>, EitherLeft>>
-		: Exclude<Awaited<GenericInput>, Either>
+	input: Awaited<GenericInput> extends infer InferredInput
+		? InferredInput extends Either
+			? Unwrap<Exclude<InferredInput, EitherLeft>>
+			: InferredInput
+		: never
 ) => GenericOutput;
 
 export type EitherRightAsyncPipeResult<
@@ -26,12 +28,16 @@ export type EitherRightAsyncPipeResult<
 		Awaited<GenericPipeOutputs>,
 		EitherLeft
 	>
-	| Exclude<
-		Awaited<GenericLastPipeOutput> extends Either
-			? Awaited<GenericLastPipeOutput>
-			: EitherSuccess<Awaited<GenericLastPipeOutput>>,
-		EitherLeft
-	>;
+	| (
+		Awaited<GenericLastPipeOutput> extends infer InferredLastResult
+			? Exclude<
+				InferredLastResult extends Either
+					? InferredLastResult
+					: EitherSuccess<InferredLastResult>,
+				EitherLeft
+			>
+			: never
+	);
 
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
