@@ -7,6 +7,7 @@ export default defineConfig({
 		globals: true,
 		include: [
 			"tests/**/*.test.ts",
+			"integration/**/*.test.ts",
 		],
 		coverage: {
 			provider: "istanbul",
@@ -25,6 +26,12 @@ export default defineConfig({
 				statements: 100
 			}
 		},
+		benchmark: {
+			include: [
+				"tests/**/*.bench.ts",
+				"integration/**/*.bench.ts",
+			]
+		}
 	},
 	plugins: [tsconfigPaths()],
 });

@@ -11,6 +11,7 @@
   "scripts": {
     "build": "rollup --config && tsc-alias -p tsconfig.build.json",
     "test:tu": "vitest --coverage",
+    "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
     "test:types": "tsc -p tsconfig.test.json",
@@ -24,6 +25,61 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./array": {
+      "import": "./dist/array/index.mjs",
+      "require": "./dist/array/index.cjs",
+      "types": "./dist/array/index.d.ts"
+    },
+    "./common": {
+      "import": "./dist/common/index.mjs",
+      "require": "./dist/common/index.cjs",
+      "types": "./dist/common/index.d.ts"
+    },
+    "./dataParser": {
+      "import": "./dist/dataParser/index.mjs",
+      "require": "./dist/dataParser/index.cjs",
+      "types": "./dist/dataParser/index.d.ts"
+    },
+    "./dataParserCoerce": {
+      "import": "./dist/dataParser/parsers/coerce/index.mjs",
+      "require": "./dist/dataParser/parsers/coerce/index.cjs",
+      "types": "./dist/dataParser/parsers/coerce/index.d.ts"
+    },
+    "./dataParserExtended": {
+      "import": "./dist/dataParser/extended/index.mjs",
+      "require": "./dist/dataParser/extended/index.cjs",
+      "types": "./dist/dataParser/extended/index.d.ts"
+    },
+    "./either": {
+      "import": "./dist/either/index.mjs",
+      "require": "./dist/either/index.cjs",
+      "types": "./dist/either/index.d.ts"
+    },
+    "./generator": {
+      "import": "./dist/generator/index.mjs",
+      "require": "./dist/generator/index.cjs",
+      "types": "./dist/generator/index.d.ts"
+    },
+    "./number": {
+      "import": "./dist/number/index.mjs",
+      "require": "./dist/number/index.cjs",
+      "types": "./dist/number/index.d.ts"
+    },
+    "./object": {
+      "import": "./dist/object/index.mjs",
+      "require": "./dist/object/index.cjs",
+      "types": "./dist/object/index.d.ts"
+    },
+    "./pattern": {
+      "import": "./dist/pattern/index.mjs",
+      "require": "./dist/pattern/index.cjs",
+      "types": "./dist/pattern/index.d.ts"
+    },
+    "./string": {
+      "import": "./dist/string/index.mjs",
+      "require": "./dist/string/index.cjs",
+      "types": "./dist/string/index.d.ts"
     }
   },
   "files": [
