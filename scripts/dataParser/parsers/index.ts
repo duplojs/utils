@@ -1,3 +1,5 @@
+export * as coerce from "./coerce";
+
 export * from "./string";
 export * from "./object";
 export * from "./number";
