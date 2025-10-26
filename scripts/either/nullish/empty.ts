@@ -29,8 +29,8 @@ export interface EitherNullishEmpty<
 export function nullishEmpty<
 	const GenericValue extends NullishValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherNullishEmpty<GenericValue> {
-	return eitherNullishKind.addTo(
-		eitherNullishEmptyKind.addTo(
+	return eitherNullishKind.setTo(
+		eitherNullishEmptyKind.setTo(
 			left("nullish", value),
 		),
 	);

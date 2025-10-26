@@ -27,8 +27,8 @@ export interface EitherNullishFilled<
 export function nullishFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullishFilled<GenericValue> {
-	return eitherNullishKind.addTo(
-		eitherNullishFilledKind.addTo(
+	return eitherNullishKind.setTo(
+		eitherNullishFilledKind.setTo(
 			right("nullish", value),
 		),
 	);

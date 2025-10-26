@@ -21,7 +21,7 @@ export function error<
 >(
 	value: GenericValue,
 ): EitherError<GenericValue> {
-	return eitherErrorKind.addTo(
+	return eitherErrorKind.setTo(
 		left("error", value),
 	);
 }

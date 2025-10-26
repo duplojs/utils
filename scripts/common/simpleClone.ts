@@ -6,8 +6,8 @@ export function simpleClone<
 	} else if (typeof unknownValue !== "object") {
 		return unknownValue;
 	} else if (
-		unknownValue.constructor?.name === "Object"
-		|| unknownValue.constructor === undefined
+		unknownValue.constructor === undefined
+		|| unknownValue.constructor.name === "Object"
 	) {
 		return Object.entries(unknownValue).reduce(
 			(pv, [key, value]) => {

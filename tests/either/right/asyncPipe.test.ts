@@ -112,8 +112,10 @@ describe("eitherRightAsyncPipe", () => {
 				? fail()
 				: value ^ 4,
 			(value) => value - 4,
-			(value) => value / 2,
-			(value) => success(value + 1),
+			(value) => success(value / 2),
+			(value) => true
+				? value + 1
+				: fail(),
 		);
 
 		expect(await result).toStrictEqual(fail());

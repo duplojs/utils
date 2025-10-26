@@ -17,8 +17,8 @@ export interface EitherFutureError extends _EitherFutureError {
 }
 
 export function futureError(value: unknown): EitherFutureError {
-	return eitherFutureKind.addTo(
-		eitherFutureErrorKind.addTo(
+	return eitherFutureKind.setTo(
+		eitherFutureErrorKind.setTo(
 			left("future", value),
 		),
 	);

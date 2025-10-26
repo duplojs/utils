@@ -16,7 +16,7 @@ export function result<
 >(
 	value: GenericValue,
 ): PatternResult<GenericValue> {
-	return patternResultKind.addTo(
+	return patternResultKind.setTo(
 		wrapValue(value),
 	);
 }

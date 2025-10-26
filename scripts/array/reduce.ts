@@ -51,7 +51,7 @@ export interface ArrayReduceFromResult<
 export function reduceFrom<
 	GenericValue extends unknown,
 >(value: GenericValue): ArrayReduceFromResult<GenericValue> {
-	return arrayReduceFromKind.addTo(
+	return arrayReduceFromKind.setTo(
 		wrapValue(value),
 	);
 }
