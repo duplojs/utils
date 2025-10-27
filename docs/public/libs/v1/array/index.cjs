@@ -49,6 +49,7 @@ var insert$1 = require('./findAndSplice/insert.cjs');
 var replace$1 = require('./findAndSplice/replace.cjs');
 var sum = require('./sum.cjs');
 var length = require('./length.cjs');
+var coalescing = require('./coalescing.cjs');
 
 
 
@@ -103,3 +104,4 @@ exports.findAndSpliceInsert = insert$1.findAndSpliceInsert;
 exports.findAndSpliceReplace = replace$1.findAndSpliceReplace;
 exports.sum = sum.sum;
 exports.length = length.length;
+exports.coalescing = coalescing.coalescing;

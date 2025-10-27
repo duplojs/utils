@@ -8,7 +8,7 @@ import { eitherBoolKind } from './base.mjs';
 
 const eitherBoolTruthyKind = createKind("either-bool-truthy");
 function boolTruthy(value) {
-    return eitherBoolKind.addTo(eitherBoolTruthyKind.addTo(right("bool", value)));
+    return eitherBoolKind.setTo(eitherBoolTruthyKind.setTo(right("bool", value)));
 }
 function isBoolTruthy(input) {
     return isRight(input)

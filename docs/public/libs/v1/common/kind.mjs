@@ -4,13 +4,20 @@ const keyKindPrefix = `${keyWrappedValue}/kind/`;
 function createKind(name) {
     const runTimeKey = `${keyKindPrefix}${name}`;
     return {
-        definition: undefined,
+        definition: {
+            name,
+            value: null,
+        },
         runTimeKey,
         addTo(input, value = null) {
             return {
                 ...input,
                 [runTimeKey]: value,
             };
+        },
+        setTo(input, value = null) {
+            input[runTimeKey] = value;
+            return input;
         },
         has(input) {
             return input
@@ -22,5 +29,34 @@ function createKind(name) {
         },
     };
 }
+function kindHeritage(uniqueName, kind) {
+    const uniqueKind = createKind(uniqueName);
+    const kinds = kind instanceof Array
+        ? kind
+        : [kind];
+    const ParentKindClass = (function ParentKindClass(params = {}) {
+        for (const kind of kinds) {
+            this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+        }
+    });
+    kinds.forEach((value) => {
+        ParentKindClass.prototype[value.runTimeKey] = null;
+    });
+    ParentKindClass.prototype[uniqueKind.runTimeKey] = null;
+    Object.defineProperty(ParentKindClass, Symbol.hasInstance, {
+        value: (value) => {
+            if (!uniqueKind.has(value)) {
+                return false;
+            }
+            for (const kind of kinds) {
+                if (!kind.has(value)) {
+                    return false;
+                }
+            }
+            return true;
+        },
+    });
+    return ParentKindClass;
+}
 
-export { createKind, keyKindPrefix };
+export { createKind, keyKindPrefix, kindHeritage };
