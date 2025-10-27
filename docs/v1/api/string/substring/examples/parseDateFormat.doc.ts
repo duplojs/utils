@@ -1,11 +1,15 @@
-import { DString, DEither, pipe, when, whenNot } from "@duplojs/utils";
+import { DString, DNumber, DEither, pipe, when, whenNot } from "@duplojs/utils";
 
 const timestamp = "2024-03-15T14:30:45.123Z";
+const minLenght = 19;
 
 const result = pipe(
 	timestamp,
 	when(
-		(value) => value.length >= 19,
+		(value) => DNumber.greater(
+			DString.length(value),
+			minLenght,
+		),
 		(value) => {
 			const year = DString.substring(value, 0, 4);
 			const month = DString.substring(value, 5, 7);

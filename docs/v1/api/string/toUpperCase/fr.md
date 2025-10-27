@@ -40,7 +40,21 @@ Une nouvelle chaîne de caractères avec tous les caractères en majuscules. Le 
 
 ## Exemples
 
-SOON...
+### Formater des mots-clés SQL
+
+<MonacoTSEditor
+  	src="/v1/api/string/toUpperCase/examples/formatSqlKeywords.doc.ts"
+  	majorVersion="v1"
+	height="250px"
+/>
+
+### Générer un nom de constante
+
+<MonacoTSEditor
+  	src="/v1/api/string/toUpperCase/examples/generateConstantName.doc.ts"
+  	majorVersion="v1"
+	height="300px"
+/>
 
 ## Voir aussi
 
