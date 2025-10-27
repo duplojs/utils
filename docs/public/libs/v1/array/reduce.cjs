@@ -7,7 +7,7 @@ var override = require('../object/override.cjs');
 
 const arrayReduceFromKind = kind.createKind("array-reduce-from");
 function reduceFrom(value) {
-    return arrayReduceFromKind.addTo(wrapValue.wrapValue(value));
+    return arrayReduceFromKind.setTo(wrapValue.wrapValue(value));
 }
 function reduce(...args) {
     if (args.length === 2) {

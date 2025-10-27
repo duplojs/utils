@@ -6,7 +6,7 @@ var create = require('../right/create.cjs');
 
 const eitherFutureSuccessKind = kind.createKind("either-future-success");
 function futureSuccess(value) {
-    return base.eitherFutureKind.addTo(eitherFutureSuccessKind.addTo(create.right("future", value)));
+    return base.eitherFutureKind.setTo(eitherFutureSuccessKind.setTo(create.right("future", value)));
 }
 
 exports.eitherFutureSuccessKind = eitherFutureSuccessKind;

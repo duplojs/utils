@@ -10,7 +10,7 @@ var base = require('./base.cjs');
 
 const eitherNullishFilledKind = kind.createKind("either-nullish-filled");
 function nullishFilled(value) {
-    return base.eitherNullishKind.addTo(eitherNullishFilledKind.addTo(create.right("nullish", value)));
+    return base.eitherNullishKind.setTo(eitherNullishFilledKind.setTo(create.right("nullish", value)));
 }
 function isNullishFilled(input) {
     return is.isRight(input)

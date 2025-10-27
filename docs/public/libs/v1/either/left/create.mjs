@@ -4,7 +4,7 @@ import { eitherInformationKind } from '../base.mjs';
 
 const eitherLeftKind = createKind("either-left");
 function left(information, value = undefined) {
-    return eitherLeftKind.addTo(eitherInformationKind.addTo(wrapValue(value), information));
+    return eitherLeftKind.setTo(eitherInformationKind.setTo(wrapValue(value), information));
 }
 
 export { eitherLeftKind, left };

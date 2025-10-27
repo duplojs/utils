@@ -5,7 +5,7 @@ var wrapValue = require('../common/wrapValue.cjs');
 
 const patternResultKind = kind.createKind("pattern-result");
 function result(value) {
-    return patternResultKind.addTo(wrapValue.wrapValue(value));
+    return patternResultKind.setTo(wrapValue.wrapValue(value));
 }
 const isResult = patternResultKind.has;
 

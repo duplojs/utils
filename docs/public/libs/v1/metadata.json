@@ -40,6 +40,15 @@
           ]
         },
         {
+          "name": "coalescing.cjs"
+        },
+        {
+          "name": "coalescing.d.ts"
+        },
+        {
+          "name": "coalescing.mjs"
+        },
+        {
           "name": "concat.cjs"
         },
         {
@@ -489,6 +498,9 @@
           "name": "types",
           "files": [
             {
+              "name": "ArrayCoalescing.d.ts"
+            },
+            {
               "name": "atTuple.d.ts"
             },
             {
@@ -655,6 +667,15 @@
           "name": "innerPipe.mjs"
         },
         {
+          "name": "instanceOf.cjs"
+        },
+        {
+          "name": "instanceOf.d.ts"
+        },
+        {
+          "name": "instanceOf.mjs"
+        },
+        {
           "name": "interpolation.cjs"
         },
         {
@@ -698,6 +719,15 @@
         },
         {
           "name": "loop.mjs"
+        },
+        {
+          "name": "memo.cjs"
+        },
+        {
+          "name": "memo.d.ts"
+        },
+        {
+          "name": "memo.mjs"
         },
         {
           "name": "not.cjs"
@@ -823,10 +853,16 @@
               "name": "and.d.ts"
             },
             {
+              "name": "anyConstructor.d.ts"
+            },
+            {
               "name": "anyFunction.d.ts"
             },
             {
               "name": "anyObject.d.ts"
+            },
+            {
+              "name": "anyPredicate.d.ts"
             },
             {
               "name": "anyTuple.d.ts"
@@ -973,6 +1009,727 @@
         },
         {
           "name": "wrapValue.mjs"
+        }
+      ]
+    },
+    {
+      "name": "dataParser",
+      "files": [
+        {
+          "name": "base.cjs"
+        },
+        {
+          "name": "base.d.ts"
+        },
+        {
+          "name": "base.mjs"
+        },
+        {
+          "name": "baseExtended.cjs"
+        },
+        {
+          "name": "baseExtended.d.ts"
+        },
+        {
+          "name": "baseExtended.mjs"
+        },
+        {
+          "name": "error.cjs"
+        },
+        {
+          "name": "error.d.ts"
+        },
+        {
+          "name": "error.mjs"
+        },
+        {
+          "name": "extended",
+          "files": [
+            {
+              "name": "array.cjs"
+            },
+            {
+              "name": "array.d.ts"
+            },
+            {
+              "name": "array.mjs"
+            },
+            {
+              "name": "bigint.cjs"
+            },
+            {
+              "name": "bigint.d.ts"
+            },
+            {
+              "name": "bigint.mjs"
+            },
+            {
+              "name": "boolean.cjs"
+            },
+            {
+              "name": "boolean.d.ts"
+            },
+            {
+              "name": "boolean.mjs"
+            },
+            {
+              "name": "coerce",
+              "files": [
+                {
+                  "name": "bigint.cjs"
+                },
+                {
+                  "name": "bigint.d.ts"
+                },
+                {
+                  "name": "bigint.mjs"
+                },
+                {
+                  "name": "boolean.cjs"
+                },
+                {
+                  "name": "boolean.d.ts"
+                },
+                {
+                  "name": "boolean.mjs"
+                },
+                {
+                  "name": "empty.cjs"
+                },
+                {
+                  "name": "empty.d.ts"
+                },
+                {
+                  "name": "empty.mjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                },
+                {
+                  "name": "nil.cjs"
+                },
+                {
+                  "name": "nil.d.ts"
+                },
+                {
+                  "name": "nil.mjs"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "number.mjs"
+                },
+                {
+                  "name": "string.cjs"
+                },
+                {
+                  "name": "string.d.ts"
+                },
+                {
+                  "name": "string.mjs"
+                }
+              ]
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "index.mjs"
+            },
+            {
+              "name": "lazy.cjs"
+            },
+            {
+              "name": "lazy.d.ts"
+            },
+            {
+              "name": "lazy.mjs"
+            },
+            {
+              "name": "literal.cjs"
+            },
+            {
+              "name": "literal.d.ts"
+            },
+            {
+              "name": "literal.mjs"
+            },
+            {
+              "name": "nil.cjs"
+            },
+            {
+              "name": "nil.d.ts"
+            },
+            {
+              "name": "nil.mjs"
+            },
+            {
+              "name": "nullable.cjs"
+            },
+            {
+              "name": "nullable.d.ts"
+            },
+            {
+              "name": "nullable.mjs"
+            },
+            {
+              "name": "number.cjs"
+            },
+            {
+              "name": "number.d.ts"
+            },
+            {
+              "name": "number.mjs"
+            },
+            {
+              "name": "object.cjs"
+            },
+            {
+              "name": "object.d.ts"
+            },
+            {
+              "name": "object.mjs"
+            },
+            {
+              "name": "optional.cjs"
+            },
+            {
+              "name": "optional.d.ts"
+            },
+            {
+              "name": "optional.mjs"
+            },
+            {
+              "name": "pipe.cjs"
+            },
+            {
+              "name": "pipe.d.ts"
+            },
+            {
+              "name": "pipe.mjs"
+            },
+            {
+              "name": "record.cjs"
+            },
+            {
+              "name": "record.d.ts"
+            },
+            {
+              "name": "record.mjs"
+            },
+            {
+              "name": "string.cjs"
+            },
+            {
+              "name": "string.d.ts"
+            },
+            {
+              "name": "string.mjs"
+            },
+            {
+              "name": "templateLiteral.cjs"
+            },
+            {
+              "name": "templateLiteral.d.ts"
+            },
+            {
+              "name": "templateLiteral.mjs"
+            },
+            {
+              "name": "transform.cjs"
+            },
+            {
+              "name": "transform.d.ts"
+            },
+            {
+              "name": "transform.mjs"
+            },
+            {
+              "name": "tuple.cjs"
+            },
+            {
+              "name": "tuple.d.ts"
+            },
+            {
+              "name": "tuple.mjs"
+            },
+            {
+              "name": "union.cjs"
+            },
+            {
+              "name": "union.d.ts"
+            },
+            {
+              "name": "union.mjs"
+            },
+            {
+              "name": "unknown.cjs"
+            },
+            {
+              "name": "unknown.d.ts"
+            },
+            {
+              "name": "unknown.mjs"
+            }
+          ]
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "parsers",
+          "files": [
+            {
+              "name": "array",
+              "files": [
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "bigint",
+              "files": [
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "boolean.cjs"
+            },
+            {
+              "name": "boolean.d.ts"
+            },
+            {
+              "name": "boolean.mjs"
+            },
+            {
+              "name": "coerce",
+              "files": [
+                {
+                  "name": "bigint.cjs"
+                },
+                {
+                  "name": "bigint.d.ts"
+                },
+                {
+                  "name": "bigint.mjs"
+                },
+                {
+                  "name": "boolean.cjs"
+                },
+                {
+                  "name": "boolean.d.ts"
+                },
+                {
+                  "name": "boolean.mjs"
+                },
+                {
+                  "name": "empty.cjs"
+                },
+                {
+                  "name": "empty.d.ts"
+                },
+                {
+                  "name": "empty.mjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                },
+                {
+                  "name": "nil.cjs"
+                },
+                {
+                  "name": "nil.d.ts"
+                },
+                {
+                  "name": "nil.mjs"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "number.mjs"
+                },
+                {
+                  "name": "string.cjs"
+                },
+                {
+                  "name": "string.d.ts"
+                },
+                {
+                  "name": "string.mjs"
+                }
+              ]
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "lazy.cjs"
+            },
+            {
+              "name": "lazy.d.ts"
+            },
+            {
+              "name": "lazy.mjs"
+            },
+            {
+              "name": "literal.cjs"
+            },
+            {
+              "name": "literal.d.ts"
+            },
+            {
+              "name": "literal.mjs"
+            },
+            {
+              "name": "nil.cjs"
+            },
+            {
+              "name": "nil.d.ts"
+            },
+            {
+              "name": "nil.mjs"
+            },
+            {
+              "name": "nullable.cjs"
+            },
+            {
+              "name": "nullable.d.ts"
+            },
+            {
+              "name": "nullable.mjs"
+            },
+            {
+              "name": "number",
+              "files": [
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "int.cjs"
+                    },
+                    {
+                      "name": "int.d.ts"
+                    },
+                    {
+                      "name": "int.mjs"
+                    },
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "object.cjs"
+            },
+            {
+              "name": "object.d.ts"
+            },
+            {
+              "name": "object.mjs"
+            },
+            {
+              "name": "optional.cjs"
+            },
+            {
+              "name": "optional.d.ts"
+            },
+            {
+              "name": "optional.mjs"
+            },
+            {
+              "name": "pipe.cjs"
+            },
+            {
+              "name": "pipe.d.ts"
+            },
+            {
+              "name": "pipe.mjs"
+            },
+            {
+              "name": "record.cjs"
+            },
+            {
+              "name": "record.d.ts"
+            },
+            {
+              "name": "record.mjs"
+            },
+            {
+              "name": "string",
+              "files": [
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "email.cjs"
+                    },
+                    {
+                      "name": "email.d.ts"
+                    },
+                    {
+                      "name": "email.mjs"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "regex.cjs"
+                    },
+                    {
+                      "name": "regex.d.ts"
+                    },
+                    {
+                      "name": "regex.mjs"
+                    },
+                    {
+                      "name": "url.cjs"
+                    },
+                    {
+                      "name": "url.d.ts"
+                    },
+                    {
+                      "name": "url.mjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "templateLiteral.cjs"
+            },
+            {
+              "name": "templateLiteral.d.ts"
+            },
+            {
+              "name": "templateLiteral.mjs"
+            },
+            {
+              "name": "transform.cjs"
+            },
+            {
+              "name": "transform.d.ts"
+            },
+            {
+              "name": "transform.mjs"
+            },
+            {
+              "name": "tuple.cjs"
+            },
+            {
+              "name": "tuple.d.ts"
+            },
+            {
+              "name": "tuple.mjs"
+            },
+            {
+              "name": "union.cjs"
+            },
+            {
+              "name": "union.d.ts"
+            },
+            {
+              "name": "union.mjs"
+            },
+            {
+              "name": "unknown.cjs"
+            },
+            {
+              "name": "unknown.d.ts"
+            },
+            {
+              "name": "unknown.mjs"
+            }
+          ]
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "addCheckersToDefinition.d.ts"
+            },
+            {
+              "name": "checkers.d.ts"
+            },
+            {
+              "name": "dataParsers.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "mergeDefinition.d.ts"
+            }
+          ]
         }
       ]
     },
@@ -1571,6 +2328,24 @@
           "name": "floor.mjs"
         },
         {
+          "name": "greater.cjs"
+        },
+        {
+          "name": "greater.d.ts"
+        },
+        {
+          "name": "greater.mjs"
+        },
+        {
+          "name": "greaterThan.cjs"
+        },
+        {
+          "name": "greaterThan.d.ts"
+        },
+        {
+          "name": "greaterThan.mjs"
+        },
+        {
           "name": "index.cjs"
         },
         {
@@ -1578,6 +2353,24 @@
         },
         {
           "name": "index.mjs"
+        },
+        {
+          "name": "less.cjs"
+        },
+        {
+          "name": "less.d.ts"
+        },
+        {
+          "name": "less.mjs"
+        },
+        {
+          "name": "lessThan.cjs"
+        },
+        {
+          "name": "lessThan.d.ts"
+        },
+        {
+          "name": "lessThan.mjs"
         },
         {
           "name": "max.cjs"
