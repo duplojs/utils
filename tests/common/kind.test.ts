@@ -1,4 +1,4 @@
-import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel } from "@scripts";
+import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel, createKindNamespace } from "@scripts";
 
 describe("theKind", () => {
 	const myKind = createKind("testKind");
@@ -114,6 +114,37 @@ describe("theKind", () => {
 				testKind?: unknown;
 				require: string;
 			}],
+			"strict"
+		>;
+	});
+
+	it("createKindNamespace", () => {
+		const userNamespace = createKindNamespace("user");
+		const userEmailKind = userNamespace("email");
+		const userNameKind = userNamespace("name");
+
+		const person = { id: 123 };
+		const personWithEmail = userEmailKind.addTo(person, "user@example.com");
+		const personComplete = userNameKind.addTo(personWithEmail, "John Doe");
+
+		expect(personComplete).toStrictEqual({
+			id: 123,
+			[`${keyKindPrefix}user/email`]: "user@example.com",
+			[`${keyKindPrefix}user/name`]: "John Doe",
+		});
+
+		expect(userEmailKind.getValue(personComplete)).toBe("user@example.com");
+		expect(userNameKind.getValue(personComplete)).toBe("John Doe");
+
+		type Chec1 = ExpectType<
+			typeof userEmailKind.definition,
+			KindDefinition<"user/email">,
+			"strict"
+		>;
+
+		type Check2 = ExpectType<
+			typeof userNameKind.definition,
+			KindDefinition<"user/name">,
 			"strict"
 		>;
 	});

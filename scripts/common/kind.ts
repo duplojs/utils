@@ -250,3 +250,17 @@ export function kindHeritage<
 	return ParentKindClass as unknown as ParentKindClass;
 }
 
+export function createKindNamespace<
+	GenericPrefix extends string,
+	GenericKindValue extends unknown = unknown,
+>(prefix: GenericPrefix) {
+	return <
+		GenericName extends string,
+	>(name: GenericName) => createKind<
+		`${GenericPrefix}/${GenericName}`,
+		GenericKindValue
+	>(
+		`${prefix}/${name}`,
+	);
+}
+
