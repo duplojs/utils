@@ -6,7 +6,7 @@ var base = require('../base.cjs');
 
 const eitherRightKind = kind.createKind("either-right");
 function right(information, value = undefined) {
-    return eitherRightKind.addTo(base.eitherInformationKind.addTo(wrapValue.wrapValue(value), information));
+    return eitherRightKind.setTo(base.eitherInformationKind.setTo(wrapValue.wrapValue(value), information));
 }
 
 exports.eitherRightKind = eitherRightKind;

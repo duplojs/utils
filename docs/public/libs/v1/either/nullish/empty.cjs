@@ -10,7 +10,7 @@ var base = require('./base.cjs');
 
 const eitherNullishEmptyKind = kind.createKind("either-nullish-empty");
 function nullishEmpty(value = undefined) {
-    return base.eitherNullishKind.addTo(eitherNullishEmptyKind.addTo(create.left("nullish", value)));
+    return base.eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(create.left("nullish", value)));
 }
 function isNullishEmpty(input) {
     return is.isLeft(input)

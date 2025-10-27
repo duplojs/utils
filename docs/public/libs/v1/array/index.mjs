@@ -47,3 +47,4 @@ export { findAndSpliceInsert } from './findAndSplice/insert.mjs';
 export { findAndSpliceReplace } from './findAndSplice/replace.mjs';
 export { sum } from './sum.mjs';
 export { length } from './length.mjs';
+export { coalescing } from './coalescing.mjs';

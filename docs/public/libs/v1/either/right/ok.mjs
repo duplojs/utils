@@ -3,7 +3,7 @@ import { right } from './create.mjs';
 
 const eitherOkKind = createKind("either-ok");
 function ok() {
-    return eitherOkKind.addTo(right("ok", undefined));
+    return eitherOkKind.setTo(right("ok", undefined));
 }
 
 export { eitherOkKind, ok };

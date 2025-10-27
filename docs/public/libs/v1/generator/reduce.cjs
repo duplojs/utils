@@ -7,7 +7,7 @@ var override = require('../object/override.cjs');
 
 const generatorReduceFromKind = kind.createKind("generator-reduce-from");
 function reduceFrom(value) {
-    return generatorReduceFromKind.addTo(wrapValue.wrapValue(value));
+    return generatorReduceFromKind.setTo(wrapValue.wrapValue(value));
 }
 function reduce(...args) {
     if (args.length === 2) {

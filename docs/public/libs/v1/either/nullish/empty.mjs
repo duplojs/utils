@@ -8,7 +8,7 @@ import { eitherNullishKind } from './base.mjs';
 
 const eitherNullishEmptyKind = createKind("either-nullish-empty");
 function nullishEmpty(value = undefined) {
-    return eitherNullishKind.addTo(eitherNullishEmptyKind.addTo(left("nullish", value)));
+    return eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(left("nullish", value)));
 }
 function isNullishEmpty(input) {
     return isLeft(input)

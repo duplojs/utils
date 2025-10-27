@@ -8,7 +8,7 @@ import { eitherNullableKind } from './base.mjs';
 
 const eitherNullableFilledKind = createKind("either-nullable-filled");
 function nullableFilled(value) {
-    return eitherNullableKind.addTo(eitherNullableFilledKind.addTo(right("nullable", value)));
+    return eitherNullableKind.setTo(eitherNullableFilledKind.setTo(right("nullable", value)));
 }
 function isNullableFilled(input) {
     return isRight(input)

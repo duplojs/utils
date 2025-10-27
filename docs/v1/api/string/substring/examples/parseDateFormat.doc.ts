@@ -1,0 +1,52 @@
+import { DString, DEither, pipe, when, whenNot } from "@duplojs/utils";
+
+const timestamp = "2024-03-15T14:30:45.123Z";
+
+const result = pipe(
+	timestamp,
+	when(
+		(value) => value.length >= 19,
+		(value) => {
+			const year = DString.substring(value, 0, 4);
+			const month = DString.substring(value, 5, 7);
+			const day = DString.substring(value, 8, 10);
+			const hour = DString.substring(value, 11, 13);
+			const minute = DString.substring(value, 14, 16);
+			const second = DString.substring(value, 17, 19);
+
+			return DEither.success({
+				date: {
+					year,
+					month,
+					day,
+				},
+				time: {
+					hour,
+					minute,
+					second,
+				},
+				formatted: {
+					date: `${day}/${month}/${year}`,
+					time: `${hour}:${minute}:${second}`,
+					datetime: `${day}/${month}/${year} ${hour}:${minute}`,
+				},
+			});
+		},
+	),
+	whenNot(
+		DEither.isRight,
+		() => DEither.error("Invalid timestamp format"),
+	),
+);
+
+/**
+ * result: DEither.EitherSuccess<{
+ *     date: { year: "2024", month: "03", day: "15" },
+ *     time: { hour: "14", minute: "30", second: "45" },
+ *     formatted: {
+ *       date: "15/03/2024",
+ *       time: "14:30:45",
+ *       datetime: "15/03/2024 14:30"
+ *     }
+ * }> | DEither.EitherError<"Invalid timestamp format">
+ */

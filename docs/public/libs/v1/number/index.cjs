@@ -22,6 +22,10 @@ var sin = require('./sin.cjs');
 var subtract = require('./subtract.cjs');
 var tan = require('./tan.cjs');
 var trunc = require('./trunc.cjs');
+var greater = require('./greater.cjs');
+var less = require('./less.cjs');
+var greaterThan = require('./greaterThan.cjs');
+var lessThan = require('./lessThan.cjs');
 
 
 
@@ -47,3 +51,7 @@ exports.sin = sin.sin;
 exports.subtract = subtract.subtract;
 exports.tan = tan.tan;
 exports.trunc = trunc.trunc;
+exports.greater = greater.greater;
+exports.less = less.less;
+exports.greaterThan = greaterThan.greaterThan;
+exports.lessThan = lessThan.lessThan;

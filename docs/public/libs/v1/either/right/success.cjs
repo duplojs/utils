@@ -5,7 +5,7 @@ var kind = require('../../common/kind.cjs');
 
 const eitherSuccessKind = kind.createKind("either-success");
 function success(value) {
-    return eitherSuccessKind.addTo(create.right("success", value));
+    return eitherSuccessKind.setTo(create.right("success", value));
 }
 
 exports.eitherSuccessKind = eitherSuccessKind;

@@ -3,7 +3,7 @@ import { wrapValue } from '../common/wrapValue.mjs';
 
 const patternResultKind = createKind("pattern-result");
 function result(value) {
-    return patternResultKind.addTo(wrapValue(value));
+    return patternResultKind.setTo(wrapValue(value));
 }
 const isResult = patternResultKind.has;
 

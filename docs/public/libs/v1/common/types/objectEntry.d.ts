@@ -1,2 +1,2 @@
 import { type ObjectKey } from "./objectKey";
-export type ObjectEntry = [ObjectKey, any];
+export type ObjectEntry = readonly [ObjectKey, any];

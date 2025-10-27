@@ -8,7 +8,7 @@ import { eitherNullableKind } from './base.mjs';
 
 const eitherNullableEmptyKind = createKind("either-nullable-empty");
 function nullableEmpty() {
-    return eitherNullableKind.addTo(eitherNullableEmptyKind.addTo(left("nullable", null)));
+    return eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(left("nullable", null)));
 }
 function isNullableEmpty(input) {
     return isLeft(input)

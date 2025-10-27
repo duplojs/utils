@@ -20,3 +20,7 @@ export { sin } from './sin.mjs';
 export { subtract } from './subtract.mjs';
 export { tan } from './tan.mjs';
 export { trunc } from './trunc.mjs';
+export { greater } from './greater.mjs';
+export { less } from './less.mjs';
+export { greaterThan } from './greaterThan.mjs';
+export { lessThan } from './lessThan.mjs';

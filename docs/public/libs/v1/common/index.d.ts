@@ -34,3 +34,5 @@ export * from "./and";
 export * from "./or";
 export * from "./whenElse";
 export * from "./justReturn";
+export * from "./memo";
+export * from "./instanceOf";

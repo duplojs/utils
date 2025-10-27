@@ -58,6 +58,8 @@ Retourne `true` si `input` commence par `searchString` et false si ce n'est pas 
 
 ## Exemples
 
+### Type Guard avec unions de chaînes
+
 <MonacoTSEditor
   	src="/v1/api/string/startsWith/examples/typeGuard.doc.ts"
   	majorVersion="v1"
@@ -66,7 +68,21 @@ Retourne `true` si `input` commence par `searchString` et false si ce n'est pas 
 
 :bulb: **Astuce** : Vous pouvez utiliser `startsWith()` pour effectuer des vérifications de type en utilisant des assertions de type conditionnelles.
 
-SOON...
+### Filtrage de logs par niveau
+
+<MonacoTSEditor
+  	src="/v1/api/string/startsWith/examples/filterLogsByLevel.doc.ts"
+  	majorVersion="v1"
+	height="1000px"
+/>
+
+### Routage de commandes CLI
+
+<MonacoTSEditor
+  	src="/v1/api/string/startsWith/examples/routeCliCommands.doc.ts"
+  	majorVersion="v1"
+	height="900px"
+/>
 
 ## Voir aussi
 

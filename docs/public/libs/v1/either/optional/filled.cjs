@@ -10,7 +10,7 @@ var base = require('./base.cjs');
 
 const eitherOptionalFilledKind = kind.createKind("either-optional-filled");
 function optionalFilled(value) {
-    return base.eitherOptionalKind.addTo(eitherOptionalFilledKind.addTo(create.right("optional", value)));
+    return base.eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(create.right("optional", value)));
 }
 function isOptionalFilled(input) {
     return is.isRight(input)

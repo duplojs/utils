@@ -10,7 +10,7 @@ var base = require('./base.cjs');
 
 const eitherNullableEmptyKind = kind.createKind("either-nullable-empty");
 function nullableEmpty() {
-    return base.eitherNullableKind.addTo(eitherNullableEmptyKind.addTo(create.left("nullable", null)));
+    return base.eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(create.left("nullable", null)));
 }
 function isNullableEmpty(input) {
     return is.isLeft(input)
