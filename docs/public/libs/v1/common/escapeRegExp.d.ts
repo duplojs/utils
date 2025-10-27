@@ -1,1 +1,1 @@
-export declare function escapeRegExp(text: string): string;
+export declare function escapeRegExp<GenericInput extends string>(input: GenericInput): string;

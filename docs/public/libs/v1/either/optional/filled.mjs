@@ -8,7 +8,7 @@ import { eitherOptionalKind } from './base.mjs';
 
 const eitherOptionalFilledKind = createKind("either-optional-filled");
 function optionalFilled(value) {
-    return eitherOptionalKind.addTo(eitherOptionalFilledKind.addTo(right("optional", value)));
+    return eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(right("optional", value)));
 }
 function isOptionalFilled(input) {
     return isRight(input)

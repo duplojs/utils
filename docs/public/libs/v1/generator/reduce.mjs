@@ -5,7 +5,7 @@ import { override } from '../object/override.mjs';
 
 const generatorReduceFromKind = createKind("generator-reduce-from");
 function reduceFrom(value) {
-    return generatorReduceFromKind.addTo(wrapValue(value));
+    return generatorReduceFromKind.setTo(wrapValue(value));
 }
 function reduce(...args) {
     if (args.length === 2) {

@@ -5,7 +5,7 @@ import { override } from '../object/override.mjs';
 
 const arrayReduceFromKind = createKind("array-reduce-from");
 function reduceFrom(value) {
-    return arrayReduceFromKind.addTo(wrapValue(value));
+    return arrayReduceFromKind.setTo(wrapValue(value));
 }
 function reduce(...args) {
     if (args.length === 2) {

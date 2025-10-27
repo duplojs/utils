@@ -7,7 +7,7 @@ import { eitherOptionalKind } from './base.mjs';
 
 const eitherOptionalEmptyKind = createKind("either-optional-empty");
 function optionalEmpty() {
-    return eitherOptionalKind.addTo(eitherOptionalEmptyKind.addTo(left("optional", undefined)));
+    return eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(left("optional", undefined)));
 }
 function isOptionalEmpty(input) {
     return isLeft(input)

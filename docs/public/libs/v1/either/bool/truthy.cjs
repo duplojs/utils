@@ -10,7 +10,7 @@ var base = require('./base.cjs');
 
 const eitherBoolTruthyKind = kind.createKind("either-bool-truthy");
 function boolTruthy(value) {
-    return base.eitherBoolKind.addTo(eitherBoolTruthyKind.addTo(create.right("bool", value)));
+    return base.eitherBoolKind.setTo(eitherBoolTruthyKind.setTo(create.right("bool", value)));
 }
 function isBoolTruthy(input) {
     return is.isRight(input)
