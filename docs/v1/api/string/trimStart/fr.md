@@ -38,7 +38,29 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 
 ## Exemples
 
-SOON...
+### Supprimer l'indentation
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimStart/examples/removeIndentation.doc.ts"
+  	majorVersion="v1"
+	height="300px"
+/>
+
+### Parser un préfixe de log
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimStart/examples/parseLogPrefix.doc.ts"
+  	majorVersion="v1"
+	height="450px"
+/>
+
+### Nettoyer les commentaires
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimStart/examples/cleanComments.doc.ts"
+  	majorVersion="v1"
+	height="450px"
+/>
 
 ## Voir aussi
 
