@@ -1,5 +1,6 @@
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor } from "./types";
 import { keyWrappedValue } from "./wrapValue";
+import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
 
 export interface KindHandler<
 	GenericKindDefinition extends KindDefinition = KindDefinition,
@@ -121,7 +122,10 @@ export function createKind<
 	const runTimeKey = `${keyKindPrefix}${name}`;
 
 	return {
-		definition: undefined as never,
+		definition: {
+			name,
+			value: null as never,
+		},
 		runTimeKey,
 		addTo(
 			input,
@@ -150,3 +154,99 @@ export function createKind<
 		},
 	} satisfies KindHandler<$<GenericName>> as KindHandler<$<GenericName>>;
 }
+
+export type KindHeritageConstructorParams<
+	GenericKindHandler extends KindHandler,
+> = {
+	[
+	KindHandler in GenericKindHandler as KindHandler["definition"]["name"]
+	]: KindHandler["definition"]["value"]
+} extends infer InferredResult extends object
+	? PartialKeys<
+		InferredResult,
+		GetPropsWithValue<InferredResult, unknown>
+	>
+	: never;
+
+export function kindHeritage<
+	GenericUniqueName extends string,
+	GenericKindHandler extends KindHandler,
+>(
+	uniqueName: GenericUniqueName,
+	kind: GenericKindHandler | GenericKindHandler[],
+) {
+	const uniqueKind = createKind(uniqueName);
+
+	const kinds = kind instanceof Array
+		? kind
+		: [kind];
+
+	type ParentKindClass = new(
+		...args: IsEqual<
+			GenericKindHandler extends KindHandler
+				? IsEqual<GenericKindHandler["definition"]["value"], unknown>
+				: never,
+			true
+		> extends true
+			? [
+				params?: KindHeritageConstructorParams<
+					GenericKindHandler
+				>,
+			]
+			: [
+				params: KindHeritageConstructorParams<
+					GenericKindHandler
+				>,
+			]
+	) => UnionToIntersection<
+		| (
+			GenericKindHandler extends KindHandler
+				? Kind<GenericKindHandler["definition"]>
+				: never
+		)
+		| Kind<typeof uniqueKind.definition>
+	>;
+
+	const ParentKindClass = (function ParentKindClass(
+		this: Record<string, unknown>,
+		params: Record<string, unknown> = {},
+	) {
+		for (const kind of kinds) {
+			this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+		}
+	}) as unknown as {
+		[Symbol.hasInstance](value: unknown): boolean;
+		prototype: Record<ObjectKey, unknown>;
+	};
+
+	kinds.forEach(
+		(value) => {
+			ParentKindClass.prototype[value.runTimeKey] = null;
+		},
+	);
+
+	ParentKindClass.prototype[uniqueKind.runTimeKey] = null;
+
+	Object.defineProperty(
+		ParentKindClass,
+		Symbol.hasInstance,
+		{
+			value: (value: unknown) => {
+				if (!uniqueKind.has(value)) {
+					return false;
+				}
+
+				for (const kind of kinds) {
+					if (!kind.has(value)) {
+						return false;
+					}
+				}
+
+				return true;
+			},
+		},
+	);
+
+	return ParentKindClass as unknown as ParentKindClass;
+}
+

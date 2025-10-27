@@ -23,3 +23,9 @@ export * as DPattern from "./pattern";
 
 export * as DP from "./dataParser";
 export * as DDataParser from "./dataParser";
+
+export * as DPC from "./dataParser/parsers/coerce";
+export * as DDataParserCoerce from "./dataParser/parsers/coerce";
+
+export * as DPE from "./dataParser/extended";
+export * as DDataParserExtended from "./dataParser/extended";

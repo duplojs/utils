@@ -1,4 +1,4 @@
-import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType } from "@scripts";
+import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel } from "@scripts";
 
 describe("theKind", () => {
 	const myKind = createKind("testKind");
@@ -8,7 +8,10 @@ describe("theKind", () => {
 	});
 
 	it("definition", () => {
-		expect(myKind.definition).toBe(undefined);
+		expect(myKind.definition).toStrictEqual({
+			name: "testKind",
+			value: null,
+		});
 
 		type Check = ExpectType<
 			typeof myKind.definition,
@@ -69,5 +72,49 @@ describe("theKind", () => {
 
 	it("getValue", () => {
 		expect(myKind.getValue(myKind.addTo({ test: "" }, "testValue"))).toBe("testValue");
+	});
+
+	it("kindHeritage", () => {
+		class TestClass extends kindHeritage("test", myKind) {
+			public test = "toto";
+		}
+		const otherKind = createKind<"require", string>("require");
+		class TestClass2 extends kindHeritage("test", [myKind, otherKind]) {
+			public test = 13;
+		}
+
+		expect((new TestClass()) instanceof TestClass2).toBe(false);
+		expect((new TestClass2({ require: "test" })) instanceof TestClass2).toBe(true);
+		expect((new Error()) instanceof TestClass).toBe(false);
+
+		expect((new TestClass2({ require: "test" }) as any)[otherKind.runTimeKey]).toBe("test");
+		expect(myKind.has(new TestClass())).toBe(true);
+
+		type Check = ExpectType<
+			TestClass,
+			SimplifyTopLevel<
+				& Kind<typeof myKind["definition"]>
+				& Kind<KindDefinition<"test", unknown>>
+				& {
+					test: string;
+				}
+			>,
+			"strict"
+		>;
+
+		type Check1 = ExpectType<
+			ConstructorParameters<ReturnType<typeof kindHeritage<"", typeof myKind>>>,
+			[params?: { testKind?: unknown }],
+			"strict"
+		>;
+
+		type Check3 = ExpectType<
+			ConstructorParameters<ReturnType<typeof kindHeritage<"", typeof myKind | typeof otherKind>>>,
+			[params: {
+				testKind?: unknown;
+				require: string;
+			}],
+			"strict"
+		>;
 	});
 });

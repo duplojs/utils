@@ -23,13 +23,13 @@ type Check2 = All.ExpectType<
 >;
 
 type Check22 = All.ExpectType<
-	typeof All.DDataParser.coerce,
+	typeof All.DDataParserCoerce,
 	typeof DDPC,
 	"strict"
 >;
 
 type Check23 = All.ExpectType<
-	typeof All.DDataParser.extended,
+	typeof All.DDataParserExtended,
 	typeof DDPE,
 	"strict"
 >;
