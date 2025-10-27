@@ -38,7 +38,29 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 
 ## Exemples
 
-SOON...
+### Supprimer le slash final d'une URL
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimEnd/examples/removeTrailingSlash.doc.ts"
+  	majorVersion="v1"
+	height="450px"
+/>
+
+### Nettoyer l'extension d'un fichier
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimEnd/examples/cleanFileExtension.doc.ts"
+  	majorVersion="v1"
+	height="450px"
+/>
+
+### Formater la sortie de commande
+
+<MonacoTSEditor
+  	src="/v1/api/string/trimEnd/examples/formatCommandOutput.doc.ts"
+  	majorVersion="v1"
+	height="350px"
+/>
 
 ## Voir aussi
 

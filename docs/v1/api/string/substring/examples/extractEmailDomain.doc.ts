@@ -1,4 +1,4 @@
-import { DString, DEither, pipe, when, whenNot, isType } from "@duplojs/utils";
+import { DString, DEither, pipe, when, whenNot } from "@duplojs/utils";
 
 const email = "john.doe@example.com";
 
@@ -6,12 +6,12 @@ const result = pipe(
 	email,
 	DString.indexOf("@"),
 	when(
-		isType("number"),
+		(atIndex) => atIndex !== undefined,
 		(atIndex) => pipe(
 			email,
 			(value) => DEither.success({
-				username: DString.substring(value, 0, atIndex),
-				domain: DString.substring(value, atIndex + 1),
+				username: DString.substring(value, 0, atIndex as number),
+				domain: DString.substring(value, (atIndex as number) + 1),
 			}),
 		),
 	),

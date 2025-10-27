@@ -65,14 +65,6 @@ Une nouvelle chaîne de caractères contenant la section spécifiée de la chaî
 	height="500px"
 />
 
-### Masquage de données sensibles
-
-<MonacoTSEditor
-  	src="/v1/api/string/substring/examples/maskSensitiveData.doc.ts"
-  	majorVersion="v1"
-	height="600px"
-/>
-
 ### Parsing de format de date
 
 <MonacoTSEditor

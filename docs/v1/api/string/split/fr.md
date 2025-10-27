@@ -75,6 +75,14 @@ Un tableau de chaînes de caractères. Le type de retour est inféré grâce au 
   height="1700px"
 />
 
+### Masquage de données sensibles
+
+<MonacoTSEditor
+  	src="/v1/api/string/substring/examples/maskSensitiveData.doc.ts"
+  	majorVersion="v1"
+	height="600px"
+/>
+
 ## Voir aussi
 
 - [`slice`](/v1/api/string/slice/fr) - Extrait une section d'une chaîne
