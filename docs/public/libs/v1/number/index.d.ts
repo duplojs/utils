@@ -20,3 +20,7 @@ export * from "./sin";
 export * from "./subtract";
 export * from "./tan";
 export * from "./trunc";
+export * from "./greater";
+export * from "./less";
+export * from "./greaterThan";
+export * from "./lessThan";

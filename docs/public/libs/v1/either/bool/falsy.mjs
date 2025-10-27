@@ -8,7 +8,7 @@ import { eitherBoolKind } from './base.mjs';
 
 const eitherBoolFalsyKind = createKind("either-bool-falsy");
 function boolFalsy(value = undefined) {
-    return eitherBoolKind.addTo(eitherBoolFalsyKind.addTo(left("bool", value)));
+    return eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(left("bool", value)));
 }
 function isBoolFalsy(input) {
     return isLeft(input)

@@ -57,7 +57,29 @@ Une nouvelle chaîne de caractères contenant la section spécifiée de la chaî
 
 ## Exemples
 
-SOON...
+### Extraction de domaine d'email
+
+<MonacoTSEditor
+  	src="/v1/api/string/substring/examples/extractEmailDomain.doc.ts"
+  	majorVersion="v1"
+	height="500px"
+/>
+
+### Masquage de données sensibles
+
+<MonacoTSEditor
+  	src="/v1/api/string/substring/examples/maskSensitiveData.doc.ts"
+  	majorVersion="v1"
+	height="600px"
+/>
+
+### Parsing de format de date
+
+<MonacoTSEditor
+  	src="/v1/api/string/substring/examples/parseDateFormat.doc.ts"
+  	majorVersion="v1"
+	height="800px"
+/>
 
 ## Voir aussi
 
