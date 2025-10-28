@@ -1,4 +1,4 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -7,6 +7,7 @@ import { type DataParserTemplateLiteral } from "./templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "./literal";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "./number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "./union";
+import { createDataParserKind } from "../kind";
 
 export type DataParserRecordKey = (
 	| DataParserString
@@ -36,7 +37,7 @@ export interface DataParserDefinitionRecord extends DataParserDefinition<never> 
 	readonly value: DataParsers;
 }
 
-export const dataParserRecordKind = createKind("data-parser-record");
+export const dataParserRecordKind = createDataParserKind("record");
 
 export type DataParserRecordShapeOutput<
 	GenericDataParserKey extends DataParserRecordKey,

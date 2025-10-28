@@ -1,8 +1,8 @@
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
-import { eitherInformationKind } from "../base";
+import { createEitherKind, eitherInformationKind } from "../kind";
 
-export const eitherRightKind = createKind("either-right");
+export const eitherRightKind = createEitherKind("right");
 
 type _EitherRight<
 	GenericInformation extends string = string,
@@ -15,6 +15,7 @@ type _EitherRight<
 	>
 	& WrappedValue<GenericValue>
 );
+
 export interface EitherRight<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,

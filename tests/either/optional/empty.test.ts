@@ -2,17 +2,30 @@ import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { fail, type EitherFail, optionalEmpty, type EitherOptionalEmpty, isOptionalEmpty, type EitherOptionalFilled, optionalFilled, whenIsOptionalEmpty } from "@scripts/either";
+import {
+	fail,
+	type EitherFail,
+	optionalEmpty,
+	type EitherOptionalEmpty,
+	isOptionalEmpty,
+	type EitherOptionalFilled,
+	optionalFilled,
+	whenIsOptionalEmpty,
+} from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/kind";
+import { eitherLeftKind } from "@scripts/either/left/create";
+import { eitherOptionalKind } from "@scripts/either/optional/base";
+import { eitherOptionalEmptyKind } from "@scripts/either/optional/empty";
 
 describe("EitherOptionalEmpty", () => {
 	it("create", () => {
 		const either = optionalEmpty();
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-optional`]: null,
-			[`${keyKindPrefix}either-optional-empty`]: null,
-			[`${keyKindPrefix}either-information`]: "optional",
-			[`${keyKindPrefix}either-left`]: null,
+			[`${keyKindPrefix}${eitherOptionalKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherOptionalEmptyKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "optional",
+			[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
 			...wrapValue(undefined),
 		});
 

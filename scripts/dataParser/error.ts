@@ -1,12 +1,13 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { type DataParsers, type Checkers } from "./types";
 import { type DataParserTransform } from "./parsers";
+import { createDataParserKind } from "./kind";
 
 export const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
 export const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
 export type SymbolDataParserErrorIssue = typeof SymbolDataParserErrorIssue;
 
-export const dataParserErrorIssueKind = createKind("data-parser-error-issue");
+export const dataParserErrorIssueKind = createDataParserKind("error-issue");
 
 export interface DataParserErrorIssue extends Kind<typeof dataParserErrorIssueKind.definition> {
 	readonly source: DataParsers | Checkers;
@@ -18,7 +19,7 @@ export const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorProm
 export const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
 export type SymbolDataParserErrorPromiseIssue = typeof SymbolDataParserErrorPromiseIssue;
 
-export const dataParserErrorPromiseIssueKind = createKind("data-parser-error-issue-promise");
+export const dataParserErrorPromiseIssueKind = createDataParserKind("error-issue-promise");
 
 export interface DataParserErrorPromiseIssue extends Kind<typeof dataParserErrorPromiseIssueKind.definition> {
 	readonly source: DataParserTransform;
@@ -26,7 +27,7 @@ export interface DataParserErrorPromiseIssue extends Kind<typeof dataParserError
 	readonly data: unknown;
 }
 
-export const dataParserErrorKind = createKind("data-parser-error");
+export const dataParserErrorKind = createDataParserKind("error");
 
 export interface DataParserError extends Kind<typeof dataParserErrorKind.definition> {
 	readonly issues: (DataParserErrorIssue | DataParserErrorPromiseIssue)[];

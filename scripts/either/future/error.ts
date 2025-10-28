@@ -1,9 +1,10 @@
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { left, type EitherLeft } from "../left";
 import { eitherFutureKind } from "./base";
+import { createEitherKind } from "../kind";
 
-export const eitherFutureErrorKind = createKind(
-	"either-future-error",
+export const eitherFutureErrorKind = createEitherKind(
+	"future-error",
 );
 
 type _EitherFutureError = (

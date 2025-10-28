@@ -1,6 +1,5 @@
-import { createKind } from "@scripts/common";
+import { createEitherKind } from "../kind";
 
-export const eitherOptionalKind = createKind(
-	"either-optional",
+export const eitherOptionalKind = createEitherKind(
+	"optional",
 );
-

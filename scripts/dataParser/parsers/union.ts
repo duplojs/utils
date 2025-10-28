@@ -1,7 +1,8 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../kind";
 
 export type UnionOptions = readonly [DataParsers, ...DataParsers[]];
 
@@ -9,7 +10,7 @@ export interface DataParserDefinitionUnion extends DataParserDefinition<never> {
 	readonly options: UnionOptions;
 }
 
-export const dataParserUnionKind = createKind("data-parser-union");
+export const dataParserUnionKind = createDataParserKind("union");
 
 type _DataParserUnion<
 	GenericDefinition extends DataParserDefinitionUnion,

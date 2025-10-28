@@ -1,11 +1,12 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionUnknown extends DataParserDefinition<never> {
 }
 
-export const dataParserUnknownKind = createKind("data-parser-unknown");
+export const dataParserUnknownKind = createDataParserKind("unknown");
 
 type _DataParserUnknown<
 	GenericDefinition extends DataParserDefinitionUnknown,

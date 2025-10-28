@@ -1,4 +1,4 @@
-import { eitherInformationKind } from "../base";
+import { eitherInformationKind } from "../kind";
 import { eitherRightKind, type EitherRight } from "./create";
 import { isWrappedValue } from "@scripts/common/wrapValue";
 

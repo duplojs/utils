@@ -2,14 +2,27 @@ import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { nullishEmpty, nullishFilled, ok, type EitherNullishEmpty, type EitherNullishFilled, type EitherOk, isNullishFilled, whenIsNullishFilled } from "@scripts/either";
+import {
+	nullishEmpty,
+	nullishFilled,
+	ok,
+	type EitherNullishEmpty,
+	type EitherNullishFilled,
+	type EitherOk,
+	isNullishFilled,
+	whenIsNullishFilled,
+} from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/kind";
+import { eitherNullishKind } from "@scripts/either/nullish/base";
+import { eitherNullishFilledKind } from "@scripts/either/nullish/filled";
+import { eitherRightKind } from "@scripts/either/right/create";
 
 describe("EitherNullishFilled", () => {
 	const expectedNullishFilled = (value: unknown) => ({
-		[`${keyKindPrefix}either-nullish`]: null,
-		[`${keyKindPrefix}either-nullish-filled`]: null,
-		[`${keyKindPrefix}either-information`]: "nullish",
-		[`${keyKindPrefix}either-right`]: null,
+		[`${keyKindPrefix}${eitherNullishKind.definition.name}`]: null,
+		[`${keyKindPrefix}${eitherNullishFilledKind.definition.name}`]: null,
+		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullish",
+		[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
 		...wrapValue(value),
 	});
 

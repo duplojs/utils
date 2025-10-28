@@ -1,14 +1,15 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserChecker, type DataParserCheckerDefinition } from "@scripts/dataParser/base";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { string } from "..";
+import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefinition {
 	normalize?: boolean;
 	pattern: RegExp;
 }
 
-export const dataParserCheckerEmailKind = createKind("data-parser-checker-email");
+export const dataParserCheckerEmailKind = createDataParserKind("checker-string-email");
 
 type _DataParserCheckerEmail = (
 	& Kind<typeof dataParserCheckerEmailKind.definition>

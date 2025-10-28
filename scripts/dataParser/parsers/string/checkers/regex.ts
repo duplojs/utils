@@ -1,12 +1,13 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionStringRegex extends DataParserCheckerDefinition {
 	regex: RegExp;
 }
 
-export const dataParserCheckerStringRegexKind = createKind("data-parser-checker-string-regex");
+export const dataParserCheckerStringRegexKind = createDataParserKind("checker-string-regex");
 
 type _DataParserCheckerStringRegex = (
 	& Kind<typeof dataParserCheckerStringRegexKind.definition>

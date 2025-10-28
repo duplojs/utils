@@ -1,7 +1,7 @@
 import { type Kind } from "@scripts/common";
 import { type EitherLeft } from "./left";
 import { type EitherRight } from "./right";
-import { eitherInformationKind } from "./base";
+import { eitherInformationKind } from "./kind";
 
 type Either = EitherRight | EitherLeft;
 

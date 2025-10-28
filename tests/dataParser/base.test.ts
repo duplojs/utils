@@ -1,8 +1,9 @@
-import { DEither, DDataParser, createKind, type AnyValue } from "@scripts";
+import { DEither, DDataParser, type AnyValue } from "@scripts";
 import { SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser";
+import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
-	const dataParserTestKind = createKind("data-parser-checker");
+	const dataParserTestKind = createDataParserKind("checker-test");
 
 	it("dataParserCheckerInit", () => {
 		const exec = (input: AnyValue) => input;
@@ -20,12 +21,14 @@ describe("base parser", () => {
 		expect(DDataParser.dataParserCheckerKind.has(result)).toBe(true);
 		expect(dataParserTestKind.has(result)).toBe(true);
 		expect(result).toStrictEqual(
-			DDataParser.dataParserCheckerKind.addTo({
-				definition: {
-					errorMessage: "error",
-				},
-				exec,
-			}),
+			dataParserTestKind.addTo(
+				DDataParser.dataParserCheckerKind.addTo({
+					definition: {
+						errorMessage: "error",
+					},
+					exec,
+				}),
+			),
 		);
 	});
 

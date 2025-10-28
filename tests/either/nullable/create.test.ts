@@ -1,6 +1,12 @@
 import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/kind";
+import { eitherLeftKind } from "@scripts/either/left/create";
+import { eitherNullableKind } from "@scripts/either/nullable/base";
+import { eitherNullableEmptyKind } from "@scripts/either/nullable/empty";
+import { eitherNullableFilledKind } from "@scripts/either/nullable/filled";
+import { eitherRightKind } from "@scripts/either/right/create";
 import { DArray, DEither, pipe, wrapValue } from "@scripts/index";
 
 describe("createEitherNullable", () => {
@@ -8,10 +14,10 @@ describe("createEitherNullable", () => {
 		const either = nullable(null);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-nullable`]: null,
-			[`${keyKindPrefix}either-nullable-empty`]: null,
-			[`${keyKindPrefix}either-information`]: "nullable",
-			[`${keyKindPrefix}either-left`]: null,
+			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherNullableEmptyKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
 			...wrapValue(null),
 		});
 
@@ -26,10 +32,10 @@ describe("createEitherNullable", () => {
 		const either = nullable(10);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-nullable`]: null,
-			[`${keyKindPrefix}either-nullable-filled`]: null,
-			[`${keyKindPrefix}either-information`]: "nullable",
-			[`${keyKindPrefix}either-right`]: null,
+			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherNullableFilledKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
 			...wrapValue(10),
 		});
 

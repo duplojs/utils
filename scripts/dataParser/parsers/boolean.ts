@@ -1,13 +1,14 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionBoolean extends DataParserDefinition<never> {
 	readonly coerce: boolean;
 }
 
-export const dataParserBooleanKind = createKind("data-parser-boolean");
+export const dataParserBooleanKind = createDataParserKind("boolean");
 
 type _DataParserBoolean<
 	GenericDefinition extends DataParserDefinitionBoolean,

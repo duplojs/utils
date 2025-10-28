@@ -1,4 +1,4 @@
-import { type Adaptor, createKind, escapeRegExp, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
+import { type Adaptor, escapeRegExp, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -12,6 +12,7 @@ import { type DataParserDefinitionLiteral, dataParserLiteralKind, type DataParse
 import { type DataParserDefinitionEmpty, dataParserEmptyKind, type DataParserEmpty } from "./empty";
 import { type DataParserDefinitionNil, dataParserNilKind, type DataParserNil } from "./nil";
 import { dataParserBooleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
+import { createDataParserKind } from "../kind";
 
 export type DataParsersTemplateLiteral = (
 	| string
@@ -116,7 +117,7 @@ export interface DataParserDefinitionTemplateLiteral extends DataParserDefinitio
 	readonly pattern: RegExp;
 }
 
-export const dataParserTemplateLiteralKind = createKind("data-parser-template-literal");
+export const dataParserTemplateLiteralKind = createDataParserKind("template-literal");
 
 type _DataParserTemplateLiteral<
 	GenericDefinition extends DataParserDefinitionTemplateLiteral,

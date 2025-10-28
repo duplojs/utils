@@ -1,12 +1,13 @@
-import { type AnyFunction, type AnyValue, createKind, type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, type AnyValue, type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
+import { createDataParserKind } from "./kind";
 
 export const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
 export type SymbolDataParserError = typeof SymbolDataParserError;
 
-export const dataParserCheckerKind = createKind("data-parser-checker");
+export const dataParserCheckerKind = createDataParserKind("checker");
 
 export interface DataParserCheckerDefinition {
 	readonly errorMessage?: string;
@@ -48,13 +49,13 @@ export function dataParserCheckerInit<
 	) as never;
 }
 
-export const dataParserKind = createKind<
-	"data-parser",
+export const dataParserKind = createDataParserKind<
+	"base",
 	{
 		input: unknown;
 		output: unknown;
 	}
->("data-parser");
+>("base");
 
 export interface DataParserDefinition<
 	GenericChecker extends DataParserChecker = DataParserChecker,
@@ -68,7 +69,7 @@ export interface DataParser<
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
 > extends Kind<
-	typeof dataParserKind.definition,
+		typeof dataParserKind.definition,
 		{
 			input: GenericInput;
 			output: GenericOutput;

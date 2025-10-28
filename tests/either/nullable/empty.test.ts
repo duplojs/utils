@@ -2,17 +2,30 @@ import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { fail, type EitherFail, nullableEmpty, type EitherNullableEmpty, isNullableEmpty, type EitherNullableFilled, nullableFilled, whenIsNullableEmpty } from "@scripts/either";
+import {
+	fail,
+	type EitherFail,
+	nullableEmpty,
+	type EitherNullableEmpty,
+	isNullableEmpty,
+	type EitherNullableFilled,
+	nullableFilled,
+	whenIsNullableEmpty,
+} from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/kind";
+import { eitherLeftKind } from "@scripts/either/left/create";
+import { eitherNullableKind } from "@scripts/either/nullable/base";
+import { eitherNullableEmptyKind } from "@scripts/either/nullable/empty";
 
 describe("EitherNullableEmpty", () => {
 	it("create", () => {
 		const either = nullableEmpty();
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-nullable`]: null,
-			[`${keyKindPrefix}either-nullable-empty`]: null,
-			[`${keyKindPrefix}either-information`]: "nullable",
-			[`${keyKindPrefix}either-left`]: null,
+			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherNullableEmptyKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
 			...wrapValue(null),
 		});
 

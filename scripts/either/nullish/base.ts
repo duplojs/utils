@@ -1,6 +1,5 @@
-import { createKind } from "@scripts/common";
+import { createEitherKind } from "../kind";
 
-export const eitherNullishKind = createKind(
-	"either-nullish",
+export const eitherNullishKind = createEitherKind(
+	"nullish",
 );
-

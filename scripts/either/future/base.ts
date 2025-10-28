@@ -1,6 +1,6 @@
-import { createKind } from "@scripts/common";
+import { createEitherKind } from "../kind";
 
-export const eitherFutureKind = createKind(
-	"either-future",
+export const eitherFutureKind = createEitherKind(
+	"future",
 );
 

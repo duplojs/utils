@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, createKind, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, simpleClone } from "@scripts/common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, simpleClone } from "@scripts/common";
 import { type DataParsers, type MergeDefinition } from "./types";
 import { type Output, type DataParser } from "./base";
 import type * as dataParsers from "./parsers";
@@ -6,8 +6,9 @@ import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 import * as DObject from "../object";
 import * as DArray from "../array";
+import { createDataParserKind } from "./kind";
 
-export const dataParserExtendedKind = createKind("data-parser-extended");
+export const dataParserExtendedKind = createDataParserKind("extended");
 
 type _DataParserExtended = (
 	& DataParser

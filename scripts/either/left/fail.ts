@@ -1,7 +1,8 @@
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
+import { createEitherKind } from "../kind";
 import { left, type EitherLeft } from "./create";
 
-export const eitherFailKind = createKind("either-fail");
+export const eitherFailKind = createEitherKind("fail");
 
 type _EitherFail = (
 	& EitherLeft<"fail", never>

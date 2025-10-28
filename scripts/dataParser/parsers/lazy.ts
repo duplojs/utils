@@ -1,12 +1,13 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionLazy extends DataParserDefinition<never> {
 	getter(): DataParsers;
 }
 
-export const dataParserLazyKind = createKind("data-parser-lazy");
+export const dataParserLazyKind = createDataParserKind("lazy");
 
 type _DataParserLazy<
 	GenericDefinition extends DataParserDefinitionLazy,

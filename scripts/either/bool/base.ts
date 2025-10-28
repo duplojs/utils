@@ -1,5 +1,5 @@
-import { createKind } from "@scripts/common";
+import { createEitherKind } from "../kind";
 
-export const eitherBoolKind = createKind(
-	"either-bool",
+export const eitherBoolKind = createEitherKind(
+	"bool",
 );

@@ -6,3 +6,4 @@ export * from "./startsWith";
 export * from "./normalizeForm";
 export * from "./split";
 export * from "./stringLength";
+export * from "./forbiddenCharacters";
