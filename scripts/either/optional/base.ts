@@ -1,4 +1,4 @@
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 
 export const eitherOptionalKind = createEitherKind(
 	"optional",

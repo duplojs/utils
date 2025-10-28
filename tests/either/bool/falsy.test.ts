@@ -12,7 +12,7 @@ import {
 	fail,
 	type EitherFail,
 } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherBoolKind } from "@scripts/either/bool/base";
 import { eitherBoolFalsyKind } from "@scripts/either/bool/falsy";
 import { eitherLeftKind } from "@scripts/either/left/create";

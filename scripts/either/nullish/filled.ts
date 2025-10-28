@@ -4,7 +4,7 @@ import { nullish } from "./create";
 import { type Kind, type MergeKind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 import { eitherNullishKind } from "./base";
 
 export const eitherNullishFilledKind = createEitherKind(

@@ -1,6 +1,6 @@
 import { eitherLeftKind, type EitherLeft } from "./create";
 import { isWrappedValue } from "@scripts/common/wrapValue";
-import { eitherInformationKind } from "../base";
+import { eitherInformationKind } from "../kind";
 
 export function isLeft<
 	GenericInput extends unknown,

@@ -2,7 +2,7 @@ import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { left, type EitherLeft } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherLeftKind } from "@scripts/either/left/create";
 
 it("createEitherLeft", () => {

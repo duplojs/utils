@@ -12,7 +12,7 @@ import {
 	optionalFilled,
 	whenIsOptionalEmpty,
 } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherLeftKind } from "@scripts/either/left/create";
 import { eitherOptionalKind } from "@scripts/either/optional/base";
 import { eitherOptionalEmptyKind } from "@scripts/either/optional/empty";

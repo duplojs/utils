@@ -1,7 +1,7 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { type Kind, type MergeKind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 import { eitherBoolKind } from "./base";
 import { bool } from "./create";
 import { left, type EitherLeft, isLeft } from "../left";

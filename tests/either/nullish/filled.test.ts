@@ -12,7 +12,7 @@ import {
 	isNullishFilled,
 	whenIsNullishFilled,
 } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherNullishKind } from "@scripts/either/nullish/base";
 import { eitherNullishFilledKind } from "@scripts/either/nullish/filled";
 import { eitherRightKind } from "@scripts/either/right/create";

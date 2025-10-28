@@ -12,7 +12,7 @@ import {
 	ok,
 	type EitherOk,
 } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherOptionalKind } from "@scripts/either/optional/base";
 import { eitherOptionalFilledKind } from "@scripts/either/optional/filled";
 import { eitherRightKind } from "@scripts/either/right/create";

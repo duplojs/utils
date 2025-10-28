@@ -1,7 +1,7 @@
 import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { isRight, type EitherRight } from "./right";
 import { isLeft, type EitherLeft } from "./left";
-import { eitherInformationKind } from "./base";
+import { eitherInformationKind } from "./kind";
 
 type Either = EitherRight | EitherLeft;
 

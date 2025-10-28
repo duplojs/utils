@@ -1,7 +1,7 @@
 import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { futureSuccess } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherFutureKind } from "@scripts/either/future/base";
 import { eitherFutureSuccessKind } from "@scripts/either/future/success";
 import { eitherRightKind } from "@scripts/either/right/create";

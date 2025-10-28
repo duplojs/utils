@@ -1,5 +1,5 @@
 import { type MergeKind, type Kind } from "@scripts/common/kind";
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 import { left, type EitherLeft } from "./create";
 
 export const eitherErrorKind = createEitherKind("error");

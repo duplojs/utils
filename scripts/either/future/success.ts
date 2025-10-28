@@ -1,5 +1,5 @@
 import { type Kind, type MergeKind } from "@scripts/common/kind";
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 import { eitherFutureKind } from "./base";
 import { right, type EitherRight } from "../right";
 

@@ -5,7 +5,7 @@ import { type EitherLeft, isLeft } from "../left";
 import { right, type EitherRight, isRight } from "../right";
 import { nullable } from "./create";
 import { eitherNullableKind } from "./base";
-import { createEitherKind } from "../base";
+import { createEitherKind } from "../kind";
 
 export const eitherNullableFilledKind = createEitherKind(
 	"nullable-filled",

@@ -1,7 +1,7 @@
 import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/base";
+import { eitherInformationKind } from "@scripts/either/kind";
 import { eitherLeftKind } from "@scripts/either/left/create";
 import { eitherNullableKind } from "@scripts/either/nullable/base";
 import { eitherNullableEmptyKind } from "@scripts/either/nullable/empty";

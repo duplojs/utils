@@ -1,6 +1,6 @@
 import { type MergeKind, type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
-import { createEitherKind, eitherInformationKind } from "../base";
+import { createEitherKind, eitherInformationKind } from "../kind";
 
 export const eitherRightKind = createEitherKind("right");
 
