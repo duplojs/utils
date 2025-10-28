@@ -129,8 +129,8 @@ describe("theKind", () => {
 
 		expect(personComplete).toStrictEqual({
 			id: 123,
-			[`${keyKindPrefix}user/email`]: "user@example.com",
-			[`${keyKindPrefix}user/name`]: "John Doe",
+			[`${keyKindPrefix}@user/email`]: "user@example.com",
+			[`${keyKindPrefix}@user/name`]: "John Doe",
 		});
 
 		expect(userEmailKind.getValue(personComplete)).toBe("user@example.com");
@@ -138,13 +138,13 @@ describe("theKind", () => {
 
 		type Chec1 = ExpectType<
 			typeof userEmailKind.definition,
-			KindDefinition<"user/email">,
+			KindDefinition<"@user/email">,
 			"strict"
 		>;
 
 		type Check2 = ExpectType<
 			typeof userNameKind.definition,
-			KindDefinition<"user/name">,
+			KindDefinition<"@user/name">,
 			"strict"
 		>;
 	});

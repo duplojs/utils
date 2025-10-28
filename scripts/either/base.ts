@@ -1,6 +1,8 @@
-import { createKind } from "@scripts/common";
+import { createKindNamespace } from "@scripts/common";
 
-export const eitherInformationKind = createKind<
-	"either-information",
+export const createEitherKind = createKindNamespace("Either");
+
+export const eitherInformationKind = createEitherKind<
+	"information",
 	string
->("either-information");
+>("information");

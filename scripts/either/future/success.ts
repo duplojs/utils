@@ -1,22 +1,19 @@
-import { right, type EitherRight } from "../right";
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind, type MergeKind } from "@scripts/common/kind";
+import { createEitherKind } from "../base";
 import { eitherFutureKind } from "./base";
+import { right, type EitherRight } from "../right";
 
-export const eitherFutureSuccessKind = createKind(
-	"either-future-success",
-);
-
-type _EitherFutureSuccess<
-	GenericValue extends unknown = unknown,
-> = (
-	& EitherRight<"future", GenericValue>
-	& Kind<typeof eitherFutureKind.definition>
-	& Kind<typeof eitherFutureSuccessKind.definition>
+export const eitherFutureSuccessKind = createEitherKind(
+	"future-success",
 );
 
 export interface EitherFutureSuccess<
 	GenericValue extends unknown = unknown,
-> extends _EitherFutureSuccess<GenericValue> {
+> extends MergeKind<
+		| Kind<typeof eitherFutureKind.definition>
+		| Kind<typeof eitherFutureSuccessKind.definition>,
+		EitherRight<"future", GenericValue>
+	> {
 
 }
 

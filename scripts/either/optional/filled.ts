@@ -1,26 +1,23 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind, type MergeKind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { createEitherKind } from "../base";
+import { eitherOptionalKind } from "./base";
+import { optional } from "./create";
 import { type EitherLeft, isLeft } from "../left";
 import { right, type EitherRight, isRight } from "../right";
-import { optional } from "./create";
-import { eitherOptionalKind } from "./base";
 
-export const eitherOptionalFilledKind = createKind(
-	"either-optional-filled",
-);
-
-type _EitherOptionalFilled<
-	GenericValue extends unknown = unknown,
-> = (
-	& EitherRight<"optional", GenericValue>
-	& Kind<typeof eitherOptionalKind.definition>
-	& Kind<typeof eitherOptionalFilledKind.definition>
+export const eitherOptionalFilledKind = createEitherKind(
+	"optional-filled",
 );
 
 export interface EitherOptionalFilled<
 	GenericValue extends unknown = unknown,
-> extends _EitherOptionalFilled<GenericValue> {
+> extends MergeKind<
+		| Kind<typeof eitherOptionalKind.definition>
+		| Kind<typeof eitherOptionalFilledKind.definition>,
+		EitherRight<"optional", GenericValue>
+	> {
 
 }
 

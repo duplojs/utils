@@ -2,6 +2,12 @@ import { pipe, wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { optional, type EitherOptionalFilled, type EitherOptionalEmpty } from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/base";
+import { eitherLeftKind } from "@scripts/either/left/create";
+import { eitherOptionalKind } from "@scripts/either/optional/base";
+import { eitherOptionalEmptyKind } from "@scripts/either/optional/empty";
+import { eitherOptionalFilledKind } from "@scripts/either/optional/filled";
+import { eitherRightKind } from "@scripts/either/right/create";
 import { DEither } from "@scripts/index";
 
 describe("createEitherOptional", () => {
@@ -9,10 +15,10 @@ describe("createEitherOptional", () => {
 		const either = optional(undefined);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-optional`]: null,
-			[`${keyKindPrefix}either-optional-empty`]: null,
-			[`${keyKindPrefix}either-information`]: "optional",
-			[`${keyKindPrefix}either-left`]: null,
+			[`${keyKindPrefix}${eitherOptionalKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherOptionalEmptyKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "optional",
+			[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
 			...wrapValue(undefined),
 		});
 
@@ -27,10 +33,10 @@ describe("createEitherOptional", () => {
 		const either = optional(10);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}either-optional`]: null,
-			[`${keyKindPrefix}either-optional-filled`]: null,
-			[`${keyKindPrefix}either-information`]: "optional",
-			[`${keyKindPrefix}either-right`]: null,
+			[`${keyKindPrefix}${eitherOptionalKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherOptionalFilledKind.definition.name}`]: null,
+			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "optional",
+			[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
 			...wrapValue(10),
 		});
 

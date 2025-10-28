@@ -1,26 +1,23 @@
 import { right, type EitherRight, isRight } from "../right";
 import { type EitherLeft, isLeft } from "../left";
 import { nullish } from "./create";
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind, type MergeKind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
+import { createEitherKind } from "../base";
 import { eitherNullishKind } from "./base";
 
-export const eitherNullishFilledKind = createKind(
-	"either-nullish-filled",
-);
-
-type _EitherNullishFilled<
-	GenericValue extends unknown = unknown,
-> = (
-	& EitherRight<"nullish", GenericValue>
-	& Kind<typeof eitherNullishKind.definition>
-	& Kind<typeof eitherNullishFilledKind.definition>
+export const eitherNullishFilledKind = createEitherKind(
+	"nullish-filled",
 );
 
 export interface EitherNullishFilled<
 	GenericValue extends unknown = unknown,
-> extends _EitherNullishFilled<GenericValue> {
+> extends MergeKind<
+		| Kind<typeof eitherNullishKind.definition>
+		| Kind<typeof eitherNullishFilledKind.definition>,
+		EitherRight<"nullish", GenericValue>
+	> {
 
 }
 

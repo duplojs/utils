@@ -1,18 +1,17 @@
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type MergeKind, type Kind } from "@scripts/common/kind";
 import { left, type EitherLeft } from "../left";
 import { eitherFutureKind } from "./base";
+import { createEitherKind } from "../base";
 
-export const eitherFutureErrorKind = createKind(
-	"either-future-error",
+export const eitherFutureErrorKind = createEitherKind(
+	"future-error",
 );
 
-type _EitherFutureError = (
-	& EitherLeft<"future", unknown>
-	& Kind<typeof eitherFutureKind.definition>
-	& Kind<typeof eitherFutureErrorKind.definition>
-);
-
-export interface EitherFutureError extends _EitherFutureError {
+export interface EitherFutureError extends MergeKind<
+	| Kind<typeof eitherFutureKind.definition>
+	| Kind<typeof eitherFutureErrorKind.definition>,
+	EitherLeft<"future", unknown>
+> {
 
 }
 

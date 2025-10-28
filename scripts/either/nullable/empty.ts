@@ -1,22 +1,21 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type Kind, type MergeKind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 import { nullable } from "./create";
 import { eitherNullableKind } from "./base";
+import { createEitherKind } from "../base";
 
-export const eitherNullableEmptyKind = createKind(
-	"either-nullable-empty",
+export const eitherNullableEmptyKind = createEitherKind(
+	"nullable-empty",
 );
 
-type _EitherNullableEmpty = (
-	& EitherLeft<"nullable", null>
-	& Kind<typeof eitherNullableKind.definition>
-	& Kind<typeof eitherNullableEmptyKind.definition>
-);
-
-export interface EitherNullableEmpty extends _EitherNullableEmpty {
+export interface EitherNullableEmpty extends MergeKind<
+	| Kind<typeof eitherNullableKind.definition>
+	| Kind<typeof eitherNullableEmptyKind.definition>,
+	EitherLeft<"nullable", null>
+> {
 
 }
 

@@ -1,4 +1,5 @@
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor } from "./types";
+import { type ForbiddenCharacters } from "@scripts/string";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey } from "./types";
 import { keyWrappedValue } from "./wrapValue";
 import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
 
@@ -110,7 +111,10 @@ export function createKind<
 	GenericName extends string,
 	GenericKindValue extends unknown = unknown,
 >(
-	name: GenericName,
+	name: GenericName & ForbiddenCharacters<
+		GenericName,
+		"@" | "/"
+	>,
 ) {
 	type $<
 		GenericName extends string,
@@ -155,6 +159,36 @@ export function createKind<
 	} satisfies KindHandler<$<GenericName>> as KindHandler<$<GenericName>>;
 }
 
+export function createKindNamespace<
+	GenericNamespace extends string,
+>(
+	namespace: GenericNamespace & ForbiddenCharacters<
+		GenericNamespace,
+		"@" | "/"
+	>,
+) {
+	return <
+		GenericName extends string,
+		GenericKindValue extends unknown = unknown,
+	>(
+		name: GenericName & ForbiddenCharacters<
+			GenericName,
+			"@" | "/"
+		>,
+	) => {
+		const kindHandler = createKind(`@${namespace}/${name}`);
+
+		type $<
+			GenericName extends string,
+		> = KindDefinition<
+			GenericName,
+			GenericKindValue
+		>;
+
+		return kindHandler as KindHandler<$<`@${GenericNamespace}/${GenericName}`>>;
+	};
+}
+
 export type KindHeritageConstructorParams<
 	GenericKindHandler extends KindHandler,
 > = {
@@ -172,10 +206,17 @@ export function kindHeritage<
 	GenericUniqueName extends string,
 	GenericKindHandler extends KindHandler,
 >(
-	uniqueName: GenericUniqueName,
+	uniqueName: GenericUniqueName & ForbiddenCharacters<
+		GenericUniqueName,
+		"@" | "/"
+	>,
 	kind: GenericKindHandler | GenericKindHandler[],
 ) {
-	const uniqueKind = createKind(uniqueName);
+	type $<
+		GenericName extends string,
+	> = KindDefinition<GenericName>;
+
+	const uniqueKind = createKind(uniqueName as string) as KindHandler<$<GenericUniqueName>>;
 
 	const kinds = kind instanceof Array
 		? kind
@@ -250,17 +291,10 @@ export function kindHeritage<
 	return ParentKindClass as unknown as ParentKindClass;
 }
 
-export function createKindNamespace<
-	GenericPrefix extends string,
-	GenericKindValue extends unknown = unknown,
->(prefix: GenericPrefix) {
-	return <
-		GenericName extends string,
-	>(name: GenericName) => createKind<
-		`${GenericPrefix}/${GenericName}`,
-		GenericKindValue
-	>(
-		`${prefix}/${name}`,
-	);
-}
-
+export type MergeKind<
+	GenericKind extends Kind<KindDefinition>,
+	GenericObject extends object = never,
+> = UnionToIntersection<
+	| GenericKind
+	| GenericObject
+>;

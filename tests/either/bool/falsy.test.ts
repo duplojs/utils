@@ -2,14 +2,27 @@ import { wrapValue } from "@scripts/common";
 import { keyKindPrefix } from "@scripts/common/kind";
 import { pipe } from "@scripts/common/pipe";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { boolFalsy, type EitherBoolTruthy, type EitherBoolFalsy, isBoolFalsy, boolTruthy, whenIsBoolFalsy, fail, type EitherFail } from "@scripts/either";
+import {
+	boolFalsy,
+	type EitherBoolTruthy,
+	type EitherBoolFalsy,
+	isBoolFalsy,
+	boolTruthy,
+	whenIsBoolFalsy,
+	fail,
+	type EitherFail,
+} from "@scripts/either";
+import { eitherInformationKind } from "@scripts/either/base";
+import { eitherBoolKind } from "@scripts/either/bool/base";
+import { eitherBoolFalsyKind } from "@scripts/either/bool/falsy";
+import { eitherLeftKind } from "@scripts/either/left/create";
 
 describe("EitherBoolFalsy", () => {
 	const expectedBoolFalsy = (value: unknown) => ({
-		[`${keyKindPrefix}either-bool`]: null,
-		[`${keyKindPrefix}either-bool-falsy`]: null,
-		[`${keyKindPrefix}either-information`]: "bool",
-		[`${keyKindPrefix}either-left`]: null,
+		[`${keyKindPrefix}${eitherBoolKind.definition.name}`]: null,
+		[`${keyKindPrefix}${eitherBoolFalsyKind.definition.name}`]: null,
+		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "bool",
+		[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
 		...wrapValue(value),
 	});
 

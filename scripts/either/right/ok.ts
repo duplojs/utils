@@ -1,14 +1,13 @@
-import { createKind, type Kind } from "@scripts/common/kind";
+import { type MergeKind, type Kind } from "@scripts/common/kind";
+import { createEitherKind } from "../base";
 import { right, type EitherRight } from "./create";
 
-export const eitherOkKind = createKind("either-ok");
+export const eitherOkKind = createEitherKind("ok");
 
-type _EitherOk = (
-	& EitherRight<"ok", never>
-	& Kind<typeof eitherOkKind.definition>
-);
-
-export interface EitherOk extends _EitherOk {
+export interface EitherOk extends MergeKind<
+	Kind<typeof eitherOkKind.definition>,
+	EitherRight<"ok", never>
+> {
 
 }
 
