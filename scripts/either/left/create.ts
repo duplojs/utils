@@ -1,20 +1,25 @@
-import { type MergeKind, type Kind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { createEitherKind, eitherInformationKind } from "../kind";
 
 export const eitherLeftKind = createEitherKind("left");
 
+type _EitherLeft<
+	GenericInformation extends string = string,
+	GenericValue extends unknown = unknown,
+> = (
+	& Kind<typeof eitherLeftKind.definition>
+	& Kind<
+		typeof eitherInformationKind.definition,
+		GenericInformation
+	>
+	& WrappedValue<GenericValue>
+);
+
 export interface EitherLeft<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,
-> extends MergeKind<
-		| Kind<typeof eitherLeftKind.definition>
-		| Kind<
-			typeof eitherInformationKind.definition,
-			GenericInformation
-		>,
-		WrappedValue<GenericValue>
-	> {
+> extends _EitherLeft<GenericInformation, GenericValue> {
 
 }
 

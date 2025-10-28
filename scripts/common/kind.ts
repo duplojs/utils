@@ -290,11 +290,3 @@ export function kindHeritage<
 
 	return ParentKindClass as unknown as ParentKindClass;
 }
-
-export type MergeKind<
-	GenericKind extends Kind<KindDefinition>,
-	GenericObject extends object = never,
-> = UnionToIntersection<
-	| GenericKind
-	| GenericObject
->;

@@ -1,15 +1,19 @@
-import { type MergeKind, type Kind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { createEitherKind } from "../kind";
 import { left, type EitherLeft } from "./create";
 
 export const eitherErrorKind = createEitherKind("error");
 
+type _EitherError<
+	GenericValue extends unknown = unknown,
+> = (
+	& EitherLeft<"error", GenericValue>
+	& Kind<typeof eitherErrorKind.definition>
+);
+
 export interface EitherError<
 	GenericValue extends unknown = unknown,
-> extends MergeKind<
-		Kind<typeof eitherErrorKind.definition>,
-		EitherLeft<"error", GenericValue>
-	> {
+> extends _EitherError<GenericValue> {
 
 }
 

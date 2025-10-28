@@ -1,5 +1,5 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { type Kind, type MergeKind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { eitherBoolKind } from "./base";
 import { createEitherKind } from "../kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
@@ -11,13 +11,17 @@ export const eitherBoolTruthyKind = createEitherKind(
 	"bool-truthy",
 );
 
+type _EitherBoolTruthy<
+	GenericValue extends unknown = unknown,
+> = (
+	& EitherRight<"bool", GenericValue>
+	& Kind<typeof eitherBoolKind.definition>
+	& Kind<typeof eitherBoolTruthyKind.definition>
+);
+
 export interface EitherBoolTruthy<
 	GenericValue extends unknown = unknown,
-> extends MergeKind<
-		| Kind<typeof eitherBoolKind.definition>
-		| Kind<typeof eitherBoolTruthyKind.definition>,
-		EitherRight<"bool", GenericValue>
-	> {
+> extends _EitherBoolTruthy<GenericValue> {
 
 }
 

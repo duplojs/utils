@@ -1,5 +1,5 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "@scripts/common";
-import { type Kind, type MergeKind } from "@scripts/common/kind";
+import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
 import { eitherOptionalKind } from "./base";
@@ -11,11 +11,13 @@ export const eitherOptionalEmptyKind = createEitherKind(
 	"optional-empty",
 );
 
-export interface EitherOptionalEmpty extends MergeKind<
-	| Kind<typeof eitherOptionalKind.definition>
-	| Kind<typeof eitherOptionalEmptyKind.definition>,
-	EitherLeft<"optional", undefined>
-> {
+type _EitherOptionalEmpty = (
+	& EitherLeft<"optional", undefined>
+	& Kind<typeof eitherOptionalKind.definition>
+	& Kind<typeof eitherOptionalEmptyKind.definition>
+);
+
+export interface EitherOptionalEmpty extends _EitherOptionalEmpty {
 
 }
 
