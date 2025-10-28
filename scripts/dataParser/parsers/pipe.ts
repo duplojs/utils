@@ -1,13 +1,14 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionPipe extends DataParserDefinition<never> {
 	readonly input: DataParsers;
 	readonly output: DataParsers;
 }
 
-export const dataParserPipeKind = createKind("data-parser-pipe");
+export const dataParserPipeKind = createDataParserKind("pipe");
 
 type _DataParserPipe<
 	GenericDefinition extends DataParserDefinitionPipe,

@@ -1,8 +1,9 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerBigIntMin, type DataParserCheckerBigIntMax } from "./checkers";
+import { createDataParserKind } from "../../kind";
 
 export * from "./checkers";
 
@@ -17,7 +18,7 @@ export interface DataParserDefinitionBigInt extends DataParserDefinition<
 	readonly coerce: boolean;
 }
 
-export const dataParserBigIntKind = createKind("data-parser-bigint");
+export const dataParserBigIntKind = createDataParserKind("bigint");
 
 type _DataParserBigInt<
 	GenericDefinition extends DataParserDefinitionBigInt,

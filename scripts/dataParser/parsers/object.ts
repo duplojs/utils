@@ -1,9 +1,10 @@
-import { createKind, type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized } from "@scripts/common";
+import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
 import { type MergeDefinition, type DataParsers } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
+import { createDataParserKind } from "../kind";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParsers>>;
 
@@ -55,7 +56,7 @@ export interface DataParserDefinitionObject extends DataParserDefinition<never> 
 	}[]>;
 }
 
-export const dataParserObjectKind = createKind("data-parser-object");
+export const dataParserObjectKind = createDataParserKind("object");
 
 type _DataParserObject<
 	GenericDefinition extends DataParserDefinitionObject,

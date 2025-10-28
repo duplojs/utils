@@ -1,8 +1,9 @@
-import { createKind, type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing } from "@scripts/common";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
+import { createDataParserKind } from "../kind";
 
 export type TupleShape = readonly [DataParsers, ...DataParsers[]];
 
@@ -64,7 +65,7 @@ export interface DataParserDefinitionTuple extends DataParserDefinition<DataPars
 	readonly rest?: DataParsers;
 }
 
-export const dataParserTupleKind = createKind("data-parser-tuple");
+export const dataParserTupleKind = createDataParserKind("tuple");
 
 type _DataParserTuple<
 	GenericDefinition extends DataParserDefinitionTuple,

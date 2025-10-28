@@ -1,12 +1,13 @@
-import { createKind, type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionNullable extends DataParserDefinition<never> {
 	readonly inner: DataParsers;
 }
 
-export const dataParserNullableKind = createKind("data-parser-nullable");
+export const dataParserNullableKind = createDataParserKind("nullable");
 
 type _DataParserNullable<
 	GenericDefinition extends DataParserDefinitionNullable,

@@ -1,12 +1,13 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerDefinition {
 	max: bigint;
 }
 
-export const dataParserCheckerBigIntMaxKind = createKind("data-parser-checker-bigint-max");
+export const dataParserCheckerBigIntMaxKind = createDataParserKind("checker-bigint-max");
 
 type _DataParserCheckerBigIntMax = (
 	& Kind<typeof dataParserCheckerBigIntMaxKind.definition>

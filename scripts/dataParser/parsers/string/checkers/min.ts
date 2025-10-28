@@ -1,12 +1,13 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionStringMin extends DataParserCheckerDefinition {
 	min: number;
 }
 
-export const dataParserCheckerStringMinKind = createKind("data-parser-checker-string-min");
+export const dataParserCheckerStringMinKind = createDataParserKind("checker-string-min");
 
 type _DataParserCheckerStringMin = (
 	& Kind<typeof dataParserCheckerStringMinKind.definition>

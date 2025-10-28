@@ -1,13 +1,14 @@
-import { createKind, type Kind } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { number as numberParser } from "..";
+import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinition {
 
 }
 
-export const dataParserCheckerIntKind = createKind("data-parser-checker-int");
+export const dataParserCheckerIntKind = createDataParserKind("checker-number-int");
 
 type _DataParserCheckerInt = (
 	& Kind<typeof dataParserCheckerIntKind.definition>

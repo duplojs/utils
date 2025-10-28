@@ -1,14 +1,15 @@
-import { createKind, type Kind, type NeverCoalescing } from "@scripts/common";
+import { type Kind, type NeverCoalescing } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError } from "../base";
 import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionTransform extends DataParserDefinition<never> {
 	readonly inner: DataParsers;
 	theFunction(input: any, error: DataParserError): unknown;
 }
 
-export const dataParserTransformKind = createKind("data-parser-transform");
+export const dataParserTransformKind = createDataParserKind("transform");
 
 type _DataParserTransform<
 	GenericDefinition extends DataParserDefinitionTransform,
