@@ -1,7 +1,10 @@
 import { type IsEqual } from "@scripts/common";
 import { type Includes } from "@scripts/string";
 
-export type ForbiddenCharacters<
+const SymbolErrorForbiddenString = Symbol.for("@duplojs/utils/kind");
+type SymbolErrorForbiddenString = typeof SymbolErrorForbiddenString;
+
+export type ForbiddenString<
 	GenericValue extends string,
 	GenericCharacters extends string,
 > = IsEqual<
@@ -13,5 +16,5 @@ export type ForbiddenCharacters<
 	| false,
 	boolean
 > extends true
-	? { error: `Characters "${GenericCharacters}" is forbidden.` }
+	? { [SymbolErrorForbiddenString]: `String "${GenericCharacters}" is forbidden in value.` }
 	: GenericValue;

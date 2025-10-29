@@ -25,3 +25,9 @@ export function isWrappedValue<
 ): input is Extract<GenericInput, WrappedValue<any>> {
 	return !!input && typeof input === "object" && keyWrappedValue in input;
 }
+
+export function isRuntimeWrappedValueKey(
+	value: string,
+) {
+	return value.startsWith(keyWrappedValue);
+}
