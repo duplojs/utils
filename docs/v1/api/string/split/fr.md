@@ -78,9 +78,9 @@ Un tableau de chaînes de caractères. Le type de retour est inféré grâce au 
 ### Masquage de données sensibles
 
 <MonacoTSEditor
-  	src="/v1/api/string/substring/examples/maskSensitiveData.doc.ts"
+  	src="/v1/api/string/split/examples/maskSensitiveData.doc.ts"
   	majorVersion="v1"
-	height="600px"
+	height="420px"
 />
 
 ## Voir aussi

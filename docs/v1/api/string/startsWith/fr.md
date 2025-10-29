@@ -73,7 +73,7 @@ Retourne `true` si `input` commence par `searchString` et false si ce n'est pas 
 <MonacoTSEditor
   	src="/v1/api/string/startsWith/examples/filterLogsByLevel.doc.ts"
   	majorVersion="v1"
-	height="1000px"
+	height="1600px"
 />
 
 ### Routage de commandes CLI
@@ -81,7 +81,7 @@ Retourne `true` si `input` commence par `searchString` et false si ce n'est pas 
 <MonacoTSEditor
   	src="/v1/api/string/startsWith/examples/routeCliCommands.doc.ts"
   	majorVersion="v1"
-	height="900px"
+	height="1300px"
 />
 
 ## Voir aussi
