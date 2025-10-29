@@ -163,8 +163,9 @@ export function createKind<
 }
 
 export interface ReservedKindNamespace {
-	Either: true;
-	DataParser: true;
+	DuplojsUtilsEither: true;
+	DuplojsUtilsDataParser: true;
+	DuplojsUtilsBuilder: true;
 }
 
 type ForbiddenKindNamespace<

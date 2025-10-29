@@ -1,8 +1,7 @@
 import { type IsEqual } from "@scripts/common";
 import { type Includes } from "@scripts/string";
 
-const SymbolErrorForbiddenString = Symbol.for("@duplojs/utils/kind");
-type SymbolErrorForbiddenString = typeof SymbolErrorForbiddenString;
+declare const SymbolErrorForbiddenString: unique symbol;
 
 export type ForbiddenString<
 	GenericValue extends string,
