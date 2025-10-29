@@ -37,3 +37,4 @@ export * from "./whenElse";
 export * from "./justReturn";
 export * from "./memo";
 export * from "./instanceOf";
+export * from "./globalStore";
