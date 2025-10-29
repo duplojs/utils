@@ -1,14 +1,16 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var unwrap = require('../../common/unwrap.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
+var kind = require('../kind.cjs');
 var create = require('../left/create.cjs');
 var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 var create$1 = require('./create.cjs');
 var base = require('./base.cjs');
 
-const eitherNullishEmptyKind = kind.createKind("either-nullish-empty");
+const eitherNullishEmptyKind = kind.createEitherKind("nullish-empty");
 function nullishEmpty(value = undefined) {
     return base.eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(create.left("nullish", value)));
 }

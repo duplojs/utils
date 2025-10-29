@@ -1,5 +1,7 @@
 'use strict';
 
+require('../../../common/globalStore.cjs');
+require('../../../common/builder.cjs');
 var index = require('../bigint/index.cjs');
 require('../../../pattern/result.cjs');
 

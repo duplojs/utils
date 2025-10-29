@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerStringRegexKind = kind.createKind("data-parser-checker-string-regex");
+const dataParserCheckerStringRegexKind = kind.createDataParserKind("checker-string-regex");
 function checkerStringRegex(regex, definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerStringRegexKind, {
         definition: {

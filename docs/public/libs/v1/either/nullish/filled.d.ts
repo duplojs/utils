@@ -4,7 +4,7 @@ import { nullish } from "./create";
 import { type Kind } from "../../common/kind";
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
 import { eitherNullishKind } from "./base";
-export declare const eitherNullishFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-nullish-filled", unknown>>;
+export declare const eitherNullishFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullish-filled", unknown>>;
 type _EitherNullishFilled<GenericValue extends unknown = unknown> = (EitherRight<"nullish", GenericValue> & Kind<typeof eitherNullishKind.definition> & Kind<typeof eitherNullishFilledKind.definition>);
 export interface EitherNullishFilled<GenericValue extends unknown = unknown> extends _EitherNullishFilled<GenericValue> {
 }

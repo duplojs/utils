@@ -1,4 +1,6 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import { bigint as bigint$1 } from '../parsers/bigint/index.mjs';
 import '../../pattern/result.mjs';
 import { checkerBigIntMax } from '../parsers/bigint/checkers/max.mjs';

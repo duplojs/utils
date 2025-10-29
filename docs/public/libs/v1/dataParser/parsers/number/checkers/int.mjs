@@ -1,9 +1,9 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { number } from '../index.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerIntKind = createKind("data-parser-checker-int");
+const dataParserCheckerIntKind = createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
     return dataParserCheckerInit(dataParserCheckerIntKind, {
         definition,

@@ -1,6 +1,8 @@
 'use strict';
 
 var equal = require('../common/equal.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
 
 function discriminate(...args) {
     if (args.length === 2) {

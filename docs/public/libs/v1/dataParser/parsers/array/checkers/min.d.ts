@@ -3,7 +3,7 @@ import { type DataParserCheckerDefinition, type DataParserChecker } from "../../
 export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
     min: number;
 }
-export declare const dataParserCheckerArrayMinKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-array-min", unknown>>;
+export declare const dataParserCheckerArrayMinKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-array-min", unknown>>;
 type _DataParserCheckerArrayMin = (Kind<typeof dataParserCheckerArrayMinKind.definition> & DataParserChecker<DataParserCheckerDefinitionArrayMin, unknown[]>);
 export interface DataParserCheckerArrayMin extends _DataParserCheckerArrayMin {
 }

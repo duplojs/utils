@@ -1,8 +1,8 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerStringMaxKind = createKind("data-parser-checker-string-max");
+const dataParserCheckerStringMaxKind = createDataParserKind("checker-string-max");
 function checkerStringMax(max, definition = {}) {
     return dataParserCheckerInit(dataParserCheckerStringMaxKind, {
         definition: {

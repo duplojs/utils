@@ -2,6 +2,8 @@
 
 var equal = require('../common/equal.cjs');
 var getDeepProperty = require('./getDeepProperty.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
 
 function deepDiscriminate(...args) {
     if (args.length === 2) {

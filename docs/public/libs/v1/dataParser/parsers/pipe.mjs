@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserPipeKind = createKind("data-parser-pipe");
+const dataParserPipeKind = createDataParserKind("pipe");
 function pipe(input, output, definition) {
     return dataParserInit(dataParserPipeKind, {
         definition: {

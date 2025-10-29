@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserNullableKind = kind.createKind("data-parser-nullable");
+const dataParserNullableKind = kind.createDataParserKind("nullable");
 function nullable(inner, definition) {
     return base.dataParserInit(dataParserNullableKind, {
         definition: {

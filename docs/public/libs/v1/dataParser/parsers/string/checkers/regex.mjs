@@ -1,8 +1,8 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerStringRegexKind = createKind("data-parser-checker-string-regex");
+const dataParserCheckerStringRegexKind = createDataParserKind("checker-string-regex");
 function checkerStringRegex(regex, definition = {}) {
     return dataParserCheckerInit(dataParserCheckerStringRegexKind, {
         definition: {

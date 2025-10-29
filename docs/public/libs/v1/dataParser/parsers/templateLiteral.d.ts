@@ -39,7 +39,7 @@ export interface DataParserDefinitionTemplateLiteral extends DataParserDefinitio
     readonly template: TemplateLiteralShape;
     readonly pattern: RegExp;
 }
-export declare const dataParserTemplateLiteralKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-template-literal", unknown>>;
+export declare const dataParserTemplateLiteralKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>>;
 type _DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral> = (DataParser<GenericDefinition, TemplateLiteralShapeOutput<GenericDefinition["template"]>, TemplateLiteralShapeInput<GenericDefinition["template"]>> & Kind<typeof dataParserTemplateLiteralKind.definition>);
 export interface DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral> extends _DataParserTemplateLiteral<GenericDefinition> {
 }

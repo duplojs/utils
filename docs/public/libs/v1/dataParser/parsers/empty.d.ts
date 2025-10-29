@@ -4,7 +4,7 @@ import { type MergeDefinition } from "../types";
 export interface DataParserDefinitionEmpty extends DataParserDefinition<never> {
     readonly coerce: boolean;
 }
-export declare const dataParserEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-empty", unknown>>;
+export declare const dataParserEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/empty", unknown>>;
 type _DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty> = (DataParser<GenericDefinition, undefined, undefined> & Kind<typeof dataParserEmptyKind.definition>);
 export interface DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty> extends _DataParserEmpty<GenericDefinition> {
 }

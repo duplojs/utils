@@ -24,3 +24,5 @@ export * from "./greater";
 export * from "./less";
 export * from "./greaterThan";
 export * from "./lessThan";
+export * from "./toFixed";
+export * from "./sqrt";

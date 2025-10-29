@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserOptionalKind = kind.createKind("data-parser-optional");
+const dataParserOptionalKind = kind.createDataParserKind("optional");
 function optional(inner, definition) {
     return base.dataParserInit(dataParserOptionalKind, {
         definition: {

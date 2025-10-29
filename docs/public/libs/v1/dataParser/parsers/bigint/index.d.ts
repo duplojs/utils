@@ -7,7 +7,7 @@ export type DataParserBigIntCheckers = (DataParserCheckerBigIntMin | DataParserC
 export interface DataParserDefinitionBigInt extends DataParserDefinition<DataParserBigIntCheckers> {
     readonly coerce: boolean;
 }
-export declare const dataParserBigIntKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"data-parser-bigint", unknown>>;
+export declare const dataParserBigIntKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>>;
 type _DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt> = (DataParser<GenericDefinition, bigint, bigint> & Kind<typeof dataParserBigIntKind.definition>);
 export interface DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt> extends _DataParserBigInt<GenericDefinition> {
     addChecker<GenericChecker extends readonly [

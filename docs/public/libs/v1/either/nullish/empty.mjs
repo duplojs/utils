@@ -1,12 +1,14 @@
-import { createKind } from '../../common/kind.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import { createEitherKind } from '../kind.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 import { nullish } from './create.mjs';
 import { eitherNullishKind } from './base.mjs';
 
-const eitherNullishEmptyKind = createKind("either-nullish-empty");
+const eitherNullishEmptyKind = createEitherKind("nullish-empty");
 function nullishEmpty(value = undefined) {
     return eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(left("nullish", value)));
 }

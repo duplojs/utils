@@ -1,3 +1,4 @@
+import { type ForbiddenString } from "../string";
 import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "../object";
 export interface KindHandler<GenericKindDefinition extends KindDefinition = KindDefinition> {
@@ -35,10 +36,19 @@ export type GetKindValue<GenericKindHandler extends KindHandler, GenericObject e
 export type GetKindHandler<GenericObject extends Kind<any>> = {
     [Prop in keyof GenericObject[SymbolKind]]: KindHandler<KindDefinition<Adaptor<Prop, string>, GenericObject[SymbolKind][Prop]>>;
 }[keyof GenericObject[SymbolKind]];
-export declare const keyKindPrefix = "@duplojs/utils/value/kind/";
-export declare function createKind<GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName): KindHandler<KindDefinition<GenericName, GenericKindValue>>;
+export declare const keyKindPrefix = "@duplojs/utils/kind/";
+type ForbiddenKindCharacters<GenericValue extends string> = ForbiddenString<GenericValue, "@" | "/">;
+export declare function createKind<GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>): KindHandler<KindDefinition<GenericName, GenericKindValue>>;
+export interface ReservedKindNamespace {
+    DuplojsUtilsEither: true;
+    DuplojsUtilsDataParser: true;
+    DuplojsUtilsBuilder: true;
+}
+type ForbiddenKindNamespace<GenericValue extends string> = (ForbiddenKindCharacters<GenericValue> & ForbiddenString<GenericValue, GetPropsWithValue<ReservedKindNamespace, true>>);
+export declare function createKindNamespace<GenericNamespace extends string>(namespace: GenericNamespace & ForbiddenKindNamespace<GenericNamespace>): <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>) => KindHandler<KindDefinition<`@${GenericNamespace}/${GenericName}`, GenericKindValue>>;
 export type KindHeritageConstructorParams<GenericKindHandler extends KindHandler> = {
     [KindHandler in GenericKindHandler as KindHandler["definition"]["name"]]: KindHandler["definition"]["value"];
 } extends infer InferredResult extends object ? PartialKeys<InferredResult, GetPropsWithValue<InferredResult, unknown>> : never;
-export declare function kindHeritage<GenericUniqueName extends string, GenericKindHandler extends KindHandler>(uniqueName: GenericUniqueName, kind: GenericKindHandler | GenericKindHandler[]): new (...args: IsEqual<GenericKindHandler extends KindHandler ? IsEqual<GenericKindHandler["definition"]["value"], unknown> : never, true> extends true ? [params?: KindHeritageConstructorParams<GenericKindHandler>] : [params: KindHeritageConstructorParams<GenericKindHandler>]) => UnionToIntersection<(GenericKindHandler extends KindHandler ? Kind<GenericKindHandler["definition"]> : never) | Kind<KindDefinition<GenericUniqueName, unknown>>>;
+export declare function kindHeritage<GenericUniqueName extends string, GenericKindHandler extends KindHandler>(uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>, kind: GenericKindHandler | GenericKindHandler[]): new (...args: IsEqual<GenericKindHandler extends KindHandler ? IsEqual<GenericKindHandler["definition"]["value"], unknown> : never, true> extends true ? [params?: KindHeritageConstructorParams<GenericKindHandler>] : [params: KindHeritageConstructorParams<GenericKindHandler>]) => UnionToIntersection<(GenericKindHandler extends KindHandler ? Kind<GenericKindHandler["definition"]> : never) | Kind<KindDefinition<GenericUniqueName, unknown>>>;
+export declare function isRuntimeKind(value: string): boolean;
 export {};

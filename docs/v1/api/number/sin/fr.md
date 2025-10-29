@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "clamp"
-  link: "/v1/api/number/clamp/fr"
+  text: "toFixed"
+  link: "/v1/api/number/toFixed/fr"
 next:
   text: "cos"
   link: "/v1/api/number/cos/fr"

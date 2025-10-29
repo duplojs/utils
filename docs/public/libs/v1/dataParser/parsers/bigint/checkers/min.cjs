@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerBigIntMinKind = kind.createKind("data-parser-checker-bigint-min");
+const dataParserCheckerBigIntMinKind = kind.createDataParserKind("checker-bigint-min");
 function checkerBigIntMin(min, definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerBigIntMinKind, {
         definition: {

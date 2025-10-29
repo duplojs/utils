@@ -1,11 +1,11 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var index = require('../index.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerIntKind = kind.createKind("data-parser-checker-int");
+const dataParserCheckerIntKind = kind.createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerIntKind, {
         definition,

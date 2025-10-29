@@ -4,7 +4,7 @@ export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefin
     normalize?: boolean;
     pattern: RegExp;
 }
-export declare const dataParserCheckerEmailKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-email", unknown>>;
+export declare const dataParserCheckerEmailKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-email", unknown>>;
 type _DataParserCheckerEmail = (Kind<typeof dataParserCheckerEmailKind.definition> & DataParserChecker<DataParserCheckerDefinitionEmail, string>);
 export interface DataParserCheckerEmail extends _DataParserCheckerEmail {
 }

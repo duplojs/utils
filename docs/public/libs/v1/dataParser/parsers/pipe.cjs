@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserPipeKind = kind.createKind("data-parser-pipe");
+const dataParserPipeKind = kind.createDataParserKind("pipe");
 function pipe(input, output, definition) {
     return base.dataParserInit(dataParserPipeKind, {
         definition: {

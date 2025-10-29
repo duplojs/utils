@@ -1,4 +1,6 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import { number as number$1 } from '../parsers/number/index.mjs';
 import '../../pattern/result.mjs';
 import { checkerInt } from '../parsers/number/checkers/int.mjs';

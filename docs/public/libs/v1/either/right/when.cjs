@@ -1,6 +1,8 @@
 'use strict';
 
 var unwrap = require('../../common/unwrap.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 var is = require('./is.cjs');
 
 function whenIsRight(...args) {

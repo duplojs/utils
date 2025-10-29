@@ -5,7 +5,7 @@ export interface DataParserCheckerDefinitionUrl extends DataParserCheckerDefinit
     protocol?: RegExp;
     normalize?: boolean;
 }
-export declare const dataParserCheckerUrlKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-url", unknown>>;
+export declare const dataParserCheckerUrlKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-url", unknown>>;
 type _DataParserCheckerUrl = (Kind<typeof dataParserCheckerUrlKind.definition> & DataParserChecker<DataParserCheckerDefinitionUrl, string>);
 export interface DataParserCheckerUrl extends _DataParserCheckerUrl {
 }

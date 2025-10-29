@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
 var create = require('./create.cjs');
 
-const eitherOkKind = kind.createKind("either-ok");
+const eitherOkKind = kind.createEitherKind("ok");
 function ok() {
     return eitherOkKind.setTo(create.right("ok", undefined));
 }

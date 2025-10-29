@@ -1,5 +1,7 @@
 import { equal } from '../common/equal.mjs';
 import { getDeepProperty } from './getDeepProperty.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 
 function deepDiscriminate(...args) {
     if (args.length === 2) {

@@ -4,7 +4,7 @@ import { type Output, type DataParser } from "./base";
 import type * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
-export declare const dataParserExtendedKind: import("../common").KindHandler<import("../common").KindDefinition<"data-parser-extended", unknown>>;
+export declare const dataParserExtendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
 type _DataParserExtended = (DataParser & Kind<typeof dataParserExtendedKind.definition>);
 export interface DataParserExtended extends _DataParserExtended {
     array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {

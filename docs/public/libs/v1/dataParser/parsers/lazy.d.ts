@@ -4,7 +4,7 @@ import { type DataParsers, type MergeDefinition } from "../types";
 export interface DataParserDefinitionLazy extends DataParserDefinition<never> {
     getter(): DataParsers;
 }
-export declare const dataParserLazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-lazy", unknown>>;
+export declare const dataParserLazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>;
 type _DataParserLazy<GenericDefinition extends DataParserDefinitionLazy> = (DataParser<GenericDefinition, Output<ReturnType<GenericDefinition["getter"]>>, Input<ReturnType<GenericDefinition["getter"]>>> & Kind<typeof dataParserLazyKind.definition>);
 export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy> extends _DataParserLazy<GenericDefinition> {
 }

@@ -1,9 +1,11 @@
 import { entries } from '../object/entries.mjs';
-import { createKind } from '../common/kind.mjs';
 import { pipe } from '../common/pipe.mjs';
 import { fromEntries } from '../object/fromEntries.mjs';
 import { entry } from '../object/entry.mjs';
 import { map } from '../array/map.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
+import { createDataParserKind } from './kind.mjs';
 import '../pattern/result.mjs';
 import { array } from './extended/array.mjs';
 import { transform } from './extended/transform.mjs';
@@ -12,7 +14,7 @@ import { nullable } from './extended/nullable.mjs';
 import { optional } from './extended/optional.mjs';
 import { pipe as pipe$1 } from './extended/pipe.mjs';
 
-const dataParserExtendedKind = createKind("data-parser-extended");
+const dataParserExtendedKind = createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
     const self = dataParserExtendedKind.setTo({
         ...dataParser,

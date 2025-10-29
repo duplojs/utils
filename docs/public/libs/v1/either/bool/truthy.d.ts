@@ -1,10 +1,10 @@
+import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
+import { type Kind } from "../../common/kind";
+import { eitherBoolKind } from "./base";
+import { type EitherLeft } from "../left";
 import { type EitherRight } from "../right";
 import { bool } from "./create";
-import { type EitherLeft } from "../left";
-import { type Kind } from "../../common/kind";
-import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
-import { eitherBoolKind } from "./base";
-export declare const eitherBoolTruthyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-bool-truthy", unknown>>;
+export declare const eitherBoolTruthyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/bool-truthy", unknown>>;
 type _EitherBoolTruthy<GenericValue extends unknown = unknown> = (EitherRight<"bool", GenericValue> & Kind<typeof eitherBoolKind.definition> & Kind<typeof eitherBoolTruthyKind.definition>);
 export interface EitherBoolTruthy<GenericValue extends unknown = unknown> extends _EitherBoolTruthy<GenericValue> {
 }

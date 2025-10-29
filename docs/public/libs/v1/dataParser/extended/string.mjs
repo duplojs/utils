@@ -1,5 +1,7 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { string as string$1 } from '../parsers/string/index.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import '../../pattern/result.mjs';
 import { checkerEmail } from '../parsers/string/checkers/email.mjs';
 import { checkerUrl } from '../parsers/string/checkers/url.mjs';

@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserLazyKind = createKind("data-parser-lazy");
+const dataParserLazyKind = createDataParserKind("lazy");
 function lazy(getter, definition) {
     return dataParserInit(dataParserLazyKind, {
         definition: {

@@ -1,1 +1,1 @@
-export declare const eitherFutureKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-future", unknown>>;
+export declare const eitherFutureKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsEither/future", unknown>>;

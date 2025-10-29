@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserOptionalKind = createKind("data-parser-optional");
+const dataParserOptionalKind = createDataParserKind("optional");
 function optional(inner, definition) {
     return dataParserInit(dataParserOptionalKind, {
         definition: {

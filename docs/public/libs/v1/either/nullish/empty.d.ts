@@ -1,11 +1,11 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
+import { type Kind } from "../../common/kind";
 import { type EitherLeft } from "../left";
 import { type EitherRight } from "../right";
 import { nullish } from "./create";
-import { type Kind } from "../../common/kind";
 import { eitherNullishKind } from "./base";
 export type NullishValue = null | undefined;
-export declare const eitherNullishEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-nullish-empty", unknown>>;
+export declare const eitherNullishEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullish-empty", unknown>>;
 type _EitherNullishEmpty<GenericValue extends NullishValue = NullishValue> = (EitherLeft<"nullish", GenericValue> & Kind<typeof eitherNullishKind.definition> & Kind<typeof eitherNullishEmptyKind.definition>);
 export interface EitherNullishEmpty<GenericValue extends NullishValue = NullishValue> extends _EitherNullishEmpty<GenericValue> {
 }

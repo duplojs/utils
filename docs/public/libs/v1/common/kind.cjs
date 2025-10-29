@@ -1,8 +1,6 @@
 'use strict';
 
-var wrapValue = require('./wrapValue.cjs');
-
-const keyKindPrefix = `${wrapValue.keyWrappedValue}/kind/`;
+const keyKindPrefix = "@duplojs/utils/kind/";
 function createKind(name) {
     const runTimeKey = `${keyKindPrefix}${name}`;
     return {
@@ -29,6 +27,12 @@ function createKind(name) {
         getValue(input) {
             return input[runTimeKey];
         },
+    };
+}
+function createKindNamespace(namespace) {
+    return (name) => {
+        const kindHandler = createKind(`@${namespace}/${name}`);
+        return kindHandler;
     };
 }
 function kindHeritage(uniqueName, kind) {
@@ -60,7 +64,12 @@ function kindHeritage(uniqueName, kind) {
     });
     return ParentKindClass;
 }
+function isRuntimeKind(value) {
+    return value.startsWith(keyKindPrefix);
+}
 
 exports.createKind = createKind;
+exports.createKindNamespace = createKindNamespace;
+exports.isRuntimeKind = isRuntimeKind;
 exports.keyKindPrefix = keyKindPrefix;
 exports.kindHeritage = kindHeritage;

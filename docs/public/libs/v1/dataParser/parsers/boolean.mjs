@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserBooleanKind = createKind("data-parser-boolean");
+const dataParserBooleanKind = createDataParserKind("boolean");
 function boolean(definition) {
     return dataParserInit(dataParserBooleanKind, {
         definition: {

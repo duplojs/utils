@@ -1,4 +1,6 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import '../../pattern/result.mjs';
 import { lazy as lazy$1 } from '../parsers/lazy.mjs';
 

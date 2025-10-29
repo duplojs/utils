@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../common/kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
+var kind = require('../../kind.cjs');
 
-const dataParserBigIntKind = kind.createKind("data-parser-bigint");
+const dataParserBigIntKind = kind.createDataParserKind("bigint");
 function bigint(definition) {
     return base.dataParserInit(dataParserBigIntKind, {
         definition: {

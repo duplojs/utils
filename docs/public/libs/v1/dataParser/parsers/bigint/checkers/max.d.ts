@@ -3,7 +3,7 @@ import { type DataParserCheckerDefinition, type DataParserChecker } from "../../
 export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerDefinition {
     max: bigint;
 }
-export declare const dataParserCheckerBigIntMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-bigint-max", unknown>>;
+export declare const dataParserCheckerBigIntMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-bigint-max", unknown>>;
 type _DataParserCheckerBigIntMax = (Kind<typeof dataParserCheckerBigIntMaxKind.definition> & DataParserChecker<DataParserCheckerDefinitionBigIntMax, bigint>);
 export interface DataParserCheckerBigIntMax extends _DataParserCheckerBigIntMax {
 }

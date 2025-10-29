@@ -3,7 +3,7 @@ import { type DataParserCheckerDefinition, type DataParserChecker } from "../../
 export interface DataParserCheckerDefinitionStringMax extends DataParserCheckerDefinition {
     max: number;
 }
-export declare const dataParserCheckerStringMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-string-max", unknown>>;
+export declare const dataParserCheckerStringMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-max", unknown>>;
 type _DataParserCheckerStringMax = (Kind<typeof dataParserCheckerStringMaxKind.definition> & DataParserChecker<DataParserCheckerDefinitionStringMax, string>);
 export interface DataParserCheckerStringMax extends _DataParserCheckerStringMax {
 }

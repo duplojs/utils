@@ -1,6 +1,8 @@
 'use strict';
 
 var string$1 = require('../string.cjs');
+require('../../../common/globalStore.cjs');
+require('../../../common/builder.cjs');
 require('../../../pattern/result.cjs');
 
 function string(definition) {

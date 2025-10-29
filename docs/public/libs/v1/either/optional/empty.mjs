@@ -1,11 +1,13 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
+import { eitherOptionalKind } from './base.mjs';
+import { optional } from './create.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import { isRight } from '../right/is.mjs';
-import { optional } from './create.mjs';
-import { eitherOptionalKind } from './base.mjs';
 
-const eitherOptionalEmptyKind = createKind("either-optional-empty");
+const eitherOptionalEmptyKind = createEitherKind("optional-empty");
 function optionalEmpty() {
     return eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(left("optional", undefined)));
 }

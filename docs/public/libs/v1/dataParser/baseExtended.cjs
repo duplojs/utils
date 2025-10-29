@@ -1,11 +1,13 @@
 'use strict';
 
 var entries = require('../object/entries.cjs');
-var kind = require('../common/kind.cjs');
 var pipe = require('../common/pipe.cjs');
 var fromEntries = require('../object/fromEntries.cjs');
 var entry = require('../object/entry.cjs');
 var map = require('../array/map.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
+var kind = require('./kind.cjs');
 require('../pattern/result.cjs');
 var array = require('./extended/array.cjs');
 var transform = require('./extended/transform.cjs');
@@ -14,7 +16,7 @@ var nullable = require('./extended/nullable.cjs');
 var optional = require('./extended/optional.cjs');
 var pipe$1 = require('./extended/pipe.cjs');
 
-const dataParserExtendedKind = kind.createKind("data-parser-extended");
+const dataParserExtendedKind = kind.createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
     const self = dataParserExtendedKind.setTo({
         ...dataParser,

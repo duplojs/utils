@@ -24,3 +24,5 @@ export { greater } from './greater.mjs';
 export { less } from './less.mjs';
 export { greaterThan } from './greaterThan.mjs';
 export { lessThan } from './lessThan.mjs';
+export { toFixed } from './toFixed.mjs';
+export { sqrt } from './sqrt.mjs';

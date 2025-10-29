@@ -1,4 +1,4 @@
-import { eitherInformationKind } from '../base.mjs';
+import { eitherInformationKind } from '../kind.mjs';
 import { eitherRightKind } from './create.mjs';
 import { isWrappedValue } from '../../common/wrapValue.mjs';
 

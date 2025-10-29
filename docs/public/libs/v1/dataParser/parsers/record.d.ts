@@ -17,7 +17,7 @@ export interface DataParserDefinitionRecord extends DataParserDefinition<never> 
     readonly key: DataParserRecordKey;
     readonly value: DataParsers;
 }
-export declare const dataParserRecordKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-record", unknown>>;
+export declare const dataParserRecordKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/record", unknown>>;
 export type DataParserRecordShapeOutput<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParsers> = Extract<Record<Output<GenericDataParserKey> extends infer InferredKey extends string | number ? `${InferredKey}` : never, Output<GenericDataParserValue> extends infer InferredValue ? InferredValue : never>, any>;
 export type DataParserRecordShapeInput<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParsers> = Extract<Record<Input<GenericDataParserKey> extends infer InferredKey extends string | number ? InferredKey : never, Input<GenericDataParserValue> extends infer InferredValue ? InferredValue : never>, any>;
 type _DataParserRecord<GenericDefinition extends DataParserDefinitionRecord> = (DataParser<GenericDefinition, DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]> extends infer InferredOutput ? InferredOutput : never, DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>> & Kind<typeof dataParserRecordKind.definition>);

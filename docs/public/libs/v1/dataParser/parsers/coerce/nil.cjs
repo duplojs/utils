@@ -1,5 +1,7 @@
 'use strict';
 
+require('../../../common/globalStore.cjs');
+require('../../../common/builder.cjs');
 var nil$1 = require('../nil.cjs');
 require('../../../pattern/result.cjs');
 

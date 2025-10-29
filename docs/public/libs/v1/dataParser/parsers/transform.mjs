@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorPromiseIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserTransformKind = createKind("data-parser-transform");
+const dataParserTransformKind = createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
     return dataParserInit(dataParserTransformKind, {
         definition: {

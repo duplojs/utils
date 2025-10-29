@@ -1,5 +1,7 @@
 import { unwrap } from '../common/unwrap.mjs';
-import { eitherInformationKind } from './base.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
+import { eitherInformationKind } from './kind.mjs';
 import { isLeft } from './left/is.mjs';
 import { isRight } from './right/is.mjs';
 

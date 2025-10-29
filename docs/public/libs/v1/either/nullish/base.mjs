@@ -1,5 +1,5 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
 
-const eitherNullishKind = createKind("either-nullish");
+const eitherNullishKind = createEitherKind("nullish");
 
 export { eitherNullishKind };

@@ -1,10 +1,10 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
 import { type Kind } from "../../common/kind";
+import { eitherOptionalKind } from "./base";
+import { optional } from "./create";
 import { type EitherLeft } from "../left";
 import { type EitherRight } from "../right";
-import { optional } from "./create";
-import { eitherOptionalKind } from "./base";
-export declare const eitherOptionalFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-optional-filled", unknown>>;
+export declare const eitherOptionalFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-filled", unknown>>;
 type _EitherOptionalFilled<GenericValue extends unknown = unknown> = (EitherRight<"optional", GenericValue> & Kind<typeof eitherOptionalKind.definition> & Kind<typeof eitherOptionalFilledKind.definition>);
 export interface EitherOptionalFilled<GenericValue extends unknown = unknown> extends _EitherOptionalFilled<GenericValue> {
 }

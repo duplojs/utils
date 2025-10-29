@@ -1,7 +1,9 @@
 'use strict';
 
 var unwrap = require('../common/unwrap.cjs');
-var base = require('./base.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
+var kind = require('./kind.cjs');
 var is = require('./left/is.cjs');
 var is$1 = require('./right/is.cjs');
 
@@ -15,7 +17,7 @@ function whenHasInformation(...args) {
         ? information
         : [information];
     if ((is.isLeft(input)
-        || is$1.isRight(input)) && formattedInformation.includes(base.eitherInformationKind.getValue(input))) {
+        || is$1.isRight(input)) && formattedInformation.includes(kind.eitherInformationKind.getValue(input))) {
         return theFunction(unwrap.unwrap(input));
     }
     return input;

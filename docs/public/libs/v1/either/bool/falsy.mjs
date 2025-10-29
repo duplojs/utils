@@ -1,12 +1,14 @@
-import { createKind } from '../../common/kind.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import { createEitherKind } from '../kind.mjs';
+import { eitherBoolKind } from './base.mjs';
+import { bool } from './create.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
-import { bool } from './create.mjs';
-import { eitherBoolKind } from './base.mjs';
 
-const eitherBoolFalsyKind = createKind("either-bool-falsy");
+const eitherBoolFalsyKind = createEitherKind("bool-falsy");
 function boolFalsy(value = undefined) {
     return eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(left("bool", value)));
 }

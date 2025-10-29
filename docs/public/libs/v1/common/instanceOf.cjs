@@ -1,5 +1,7 @@
 'use strict';
 
+require('./globalStore.cjs');
+require('./builder.cjs');
 var coalescing = require('../array/coalescing.cjs');
 
 function instanceOf(...args) {

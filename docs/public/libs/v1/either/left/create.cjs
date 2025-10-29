@@ -1,12 +1,11 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
-var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const eitherLeftKind = kind.createKind("either-left");
+const eitherLeftKind = kind.createEitherKind("left");
 function left(information, value = undefined) {
-    return eitherLeftKind.setTo(base.eitherInformationKind.setTo(wrapValue.wrapValue(value), information));
+    return eitherLeftKind.setTo(kind.eitherInformationKind.setTo(wrapValue.wrapValue(value), information));
 }
 
 exports.eitherLeftKind = eitherLeftKind;

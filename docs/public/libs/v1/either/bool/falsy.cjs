@@ -1,14 +1,16 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var unwrap = require('../../common/unwrap.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
+var kind = require('../kind.cjs');
+var base = require('./base.cjs');
+var create$1 = require('./create.cjs');
 var create = require('../left/create.cjs');
 var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
-var create$1 = require('./create.cjs');
-var base = require('./base.cjs');
 
-const eitherBoolFalsyKind = kind.createKind("either-bool-falsy");
+const eitherBoolFalsyKind = kind.createEitherKind("bool-falsy");
 function boolFalsy(value = undefined) {
     return base.eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(create.left("bool", value)));
 }

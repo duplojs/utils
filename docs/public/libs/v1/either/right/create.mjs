@@ -1,8 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { wrapValue } from '../../common/wrapValue.mjs';
-import { eitherInformationKind } from '../base.mjs';
+import { createEitherKind, eitherInformationKind } from '../kind.mjs';
 
-const eitherRightKind = createKind("either-right");
+const eitherRightKind = createEitherKind("right");
 function right(information, value = undefined) {
     return eitherRightKind.setTo(eitherInformationKind.setTo(wrapValue(value), information));
 }

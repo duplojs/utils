@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerStringMaxKind = kind.createKind("data-parser-checker-string-max");
+const dataParserCheckerStringMaxKind = kind.createDataParserKind("checker-string-max");
 function checkerStringMax(max, definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerStringMaxKind, {
         definition: {

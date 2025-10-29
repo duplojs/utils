@@ -4,7 +4,7 @@ import { type EitherLeft } from "../left";
 import { type EitherRight } from "../right";
 import { nullable } from "./create";
 import { eitherNullableKind } from "./base";
-export declare const eitherNullableFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-nullable-filled", unknown>>;
+export declare const eitherNullableFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullable-filled", unknown>>;
 type _EitherNullableFilled<GenericValue extends unknown = unknown> = (EitherRight<"nullable", GenericValue> & Kind<typeof eitherNullableKind.definition> & Kind<typeof eitherNullableFilledKind.definition>);
 export interface EitherNullableFilled<GenericValue extends unknown = unknown> extends _EitherNullableFilled<GenericValue> {
 }

@@ -1,4 +1,6 @@
 import { equal } from '../common/equal.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 
 function discriminate(...args) {
     if (args.length === 2) {

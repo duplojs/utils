@@ -1,7 +1,7 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
 
-const eitherNullableKind = kind.createKind("either-nullable");
+const eitherNullableKind = kind.createEitherKind("nullable");
 
 exports.eitherNullableKind = eitherNullableKind;

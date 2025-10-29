@@ -16,7 +16,7 @@ export interface DataParserDefinitionObject extends DataParserDefinition<never> 
         readonly value: DataParsers;
     }[]>;
 }
-export declare const dataParserObjectKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-object", unknown>>;
+export declare const dataParserObjectKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>>;
 type _DataParserObject<GenericDefinition extends DataParserDefinitionObject> = (DataParser<GenericDefinition, DataParserObjectShapeOutput<GenericDefinition["shape"]>, DataParserObjectShapeInput<GenericDefinition["shape"]>> & Kind<typeof dataParserObjectKind.definition>);
 export interface DataParserObject<GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject> extends _DataParserObject<GenericDefinition> {
 }

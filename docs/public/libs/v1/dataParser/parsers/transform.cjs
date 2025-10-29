@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserTransformKind = kind.createKind("data-parser-transform");
+const dataParserTransformKind = kind.createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
     return base.dataParserInit(dataParserTransformKind, {
         definition: {

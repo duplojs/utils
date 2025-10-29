@@ -1,5 +1,5 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
 
-const eitherNullableKind = createKind("either-nullable");
+const eitherNullableKind = createEitherKind("nullable");
 
 export { eitherNullableKind };

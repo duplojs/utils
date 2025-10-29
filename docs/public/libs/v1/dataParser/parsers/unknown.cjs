@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserUnknownKind = kind.createKind("data-parser-unknown");
+const dataParserUnknownKind = kind.createDataParserKind("unknown");
 function unknown(definition) {
     return base.dataParserInit(dataParserUnknownKind, {
         definition: {

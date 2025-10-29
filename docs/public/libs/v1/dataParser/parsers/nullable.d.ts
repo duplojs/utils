@@ -4,7 +4,7 @@ import { type DataParsers, type MergeDefinition } from "../types";
 export interface DataParserDefinitionNullable extends DataParserDefinition<never> {
     readonly inner: DataParsers;
 }
-export declare const dataParserNullableKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-nullable", unknown>>;
+export declare const dataParserNullableKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>>;
 type _DataParserNullable<GenericDefinition extends DataParserDefinitionNullable> = (DataParser<GenericDefinition, Output<GenericDefinition["inner"]> | null, Input<GenericDefinition["inner"]> | null> & Kind<typeof dataParserNullableKind.definition>);
 export interface DataParserNullable<GenericDefinition extends DataParserDefinitionNullable = DataParserDefinitionNullable> extends _DataParserNullable<GenericDefinition> {
 }

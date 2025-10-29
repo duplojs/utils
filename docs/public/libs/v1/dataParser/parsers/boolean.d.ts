@@ -4,7 +4,7 @@ import { type MergeDefinition } from "../types";
 export interface DataParserDefinitionBoolean extends DataParserDefinition<never> {
     readonly coerce: boolean;
 }
-export declare const dataParserBooleanKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-boolean", unknown>>;
+export declare const dataParserBooleanKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>>;
 type _DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean> = (DataParser<GenericDefinition, boolean, boolean> & Kind<typeof dataParserBooleanKind.definition>);
 export interface DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean> extends _DataParserBoolean<GenericDefinition> {
 }

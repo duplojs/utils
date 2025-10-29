@@ -4,7 +4,7 @@ import * as DEither from "../either";
 export declare const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export declare const SymbolDataParserError: unique symbol;
 export type SymbolDataParserError = typeof SymbolDataParserError;
-export declare const dataParserCheckerKind: KindHandler<import("../common").KindDefinition<"data-parser-checker", unknown>>;
+export declare const dataParserCheckerKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/checker", unknown>>;
 export interface DataParserCheckerDefinition {
     readonly errorMessage?: string;
 }
@@ -13,7 +13,7 @@ export interface DataParserChecker<GenericDefinition extends DataParserCheckerDe
     exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
 }
 export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof dataParserCheckerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => GetKindValue<typeof dataParserCheckerKind, GenericDataParserChecker> | SymbolDataParserErrorIssue): GenericDataParserChecker;
-export declare const dataParserKind: KindHandler<import("../common").KindDefinition<"data-parser", {
+export declare const dataParserKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
     input: unknown;
     output: unknown;
 }>>;

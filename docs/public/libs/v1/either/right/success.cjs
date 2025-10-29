@@ -1,9 +1,9 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var create = require('./create.cjs');
-var kind = require('../../common/kind.cjs');
 
-const eitherSuccessKind = kind.createKind("either-success");
+const eitherSuccessKind = kind.createEitherKind("success");
 function success(value) {
     return eitherSuccessKind.setTo(create.right("success", value));
 }

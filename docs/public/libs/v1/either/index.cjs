@@ -34,7 +34,7 @@ var success$1 = require('./right/success.cjs');
 var when$1 = require('./right/when.cjs');
 var hasInformation = require('./hasInformation.cjs');
 var whenHasInformation = require('./whenHasInformation.cjs');
-var base$5 = require('./base.cjs');
+var kind = require('./kind.cjs');
 
 
 
@@ -105,4 +105,5 @@ exports.success = success$1.success;
 exports.whenIsRight = when$1.whenIsRight;
 exports.hasInformation = hasInformation.hasInformation;
 exports.whenHasInformation = whenHasInformation.whenHasInformation;
-exports.eitherInformationKind = base$5.eitherInformationKind;
+exports.createEitherKind = kind.createEitherKind;
+exports.eitherInformationKind = kind.eitherInformationKind;

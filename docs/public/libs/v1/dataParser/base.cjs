@@ -1,21 +1,23 @@
 'use strict';
 
-var kind = require('../common/kind.cjs');
 var simpleClone = require('../common/simpleClone.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
 var error = require('./error.cjs');
 var error$1 = require('../either/left/error.cjs');
 var success = require('../either/right/success.cjs');
+var kind = require('./kind.cjs');
 
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
 const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
-const dataParserCheckerKind = kind.createKind("data-parser-checker");
+const dataParserCheckerKind = kind.createDataParserKind("checker");
 function dataParserCheckerInit(kind, params, exec) {
     return kind.setTo(dataParserCheckerKind.setTo({
         ...params,
         exec,
     }));
 }
-const dataParserKind = kind.createKind("data-parser");
+const dataParserKind = kind.createDataParserKind("base");
 function dataParserInit(kind, params, exec) {
     const formattedExec = typeof exec === "object"
         ? exec
