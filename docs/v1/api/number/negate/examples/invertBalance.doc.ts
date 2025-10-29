@@ -8,4 +8,3 @@ const result = pipe(
 );
 
 // result: [-100, 50, -200, 30, -150]
-// Inverse tous les signes des transactions

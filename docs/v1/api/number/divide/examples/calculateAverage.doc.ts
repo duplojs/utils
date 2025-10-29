@@ -13,4 +13,4 @@ const result = pipe(
 	DNumber.divide(DArray.length(scores)),
 );
 
-// result: 87.6 (moyenne des scores)
+// result: 87.6

@@ -32,4 +32,3 @@ const result = pipe(
 );
 
 // result: [36.87, 30, 30]
-// Angles en degrés pour chaque triangle

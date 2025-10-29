@@ -22,26 +22,33 @@ La méthode **`subtract()`** soustrait un nombre d'un autre. Elle supporte deux 
 
 ## Syntaxe
 
-```typescript
-function subtract<
-	GenericValue extends number,
->(operand: number): (value: GenericValue) => number
+### Signature classique
 
-function subtract<
-	GenericValue extends number,
->(value: GenericValue, operand: number): number
+```typescript
+function subtract<GenericValue extends number>(
+	value: GenericValue,
+	subtrahend: number
+): number
+```
+
+### Signature currifiée
+
+```typescript
+function subtract<GenericValue extends number>(
+	subtrahend: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `operand` : Le nombre à soustraire (dans la forme curryfiée).
-- `value` : Le nombre duquel soustraire (dans la forme directe).
-- `operand` : Le nombre à soustraire (dans la forme directe).
+- `value` : Le nombre duquel soustraire (uniquement en signature classique).
+- `subtrahend` : Le nombre à soustraire.
 
 ## Valeur de retour
 
-Dans la forme curryfiée, retourne une fonction qui prend une valeur et soustrait l'opérande.
-Dans la forme directe, retourne le résultat de la soustraction : `value - operand`.
+**Signature classique** : retourne le résultat de la soustraction `value - subtrahend`.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et soustrait le subtrahend.
 
 ## Exemples
 
@@ -50,7 +57,7 @@ Dans la forme directe, retourne le résultat de la soustraction : `value - opera
 <MonacoTSEditor
   	src="/v1/api/number/subtract/examples/calculateDiscount.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="820px"
 />
 
 ### Calculer un budget restant
@@ -66,7 +73,7 @@ Dans la forme directe, retourne le résultat de la soustraction : `value - opera
 <MonacoTSEditor
   	src="/v1/api/number/subtract/examples/calculateAge.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="750px"
 />
 
 ## Voir aussi

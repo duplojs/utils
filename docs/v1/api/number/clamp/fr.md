@@ -22,25 +22,36 @@ La méthode **`clamp()`** limite un nombre dans un intervalle donné. Si la vale
 
 ## Syntaxe
 
-```typescript
-function clamp<
-	GenericValue extends number,
->(lowerBound: number, upperBound: number): (value: GenericValue) => number
+### Signature classique
 
-function clamp<
-	GenericValue extends number,
->(value: GenericValue, lowerBound: number, upperBound: number): number
+```typescript
+function clamp<GenericValue extends number>(
+	value: GenericValue,
+	lowerBound: number,
+	upperBound: number
+): number
+```
+
+### Signature currifiée
+
+```typescript
+function clamp<GenericValue extends number>(
+	lowerBound: number,
+	upperBound: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à limiter dans l'intervalle.
+- `value` : Le nombre à limiter dans l'intervalle (uniquement en signature classique).
 - `lowerBound` : La borne inférieure de l'intervalle.
 - `upperBound` : La borne supérieure de l'intervalle.
 
 ## Valeur de retour
 
-Un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` et `upperBound` sont inversés, la fonction les réordonne automatiquement.
+**Signature classique** : retourne un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` et `upperBound` sont inversés, la fonction les réordonne automatiquement.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et la limite dans l'intervalle spécifié.
 
 ## Exemples
 
@@ -49,7 +60,7 @@ Un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` 
 <MonacoTSEditor
   	src="/v1/api/number/clamp/examples/speedLimit.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="300px"
 />
 
 ### Contrôler le volume audio
@@ -57,7 +68,7 @@ Un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` 
 <MonacoTSEditor
   	src="/v1/api/number/clamp/examples/audioVolume.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="350px"
 />
 
 ### Normaliser des pourcentages
@@ -65,7 +76,7 @@ Un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` 
 <MonacoTSEditor
   	src="/v1/api/number/clamp/examples/percentage.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="400px"
 />
 
 ## Voir aussi

@@ -51,7 +51,7 @@ Le cosinus de l'angle donné, une valeur comprise entre -1 et 1.
 <MonacoTSEditor
   	src="/v1/api/number/cos/examples/circularMotion.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="550px"
 />
 
 ### Calculer un angle de phase
@@ -59,7 +59,7 @@ Le cosinus de l'angle donné, une valeur comprise entre -1 et 1.
 <MonacoTSEditor
   	src="/v1/api/number/cos/examples/phaseAngle.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="400px"
 />
 
 ## Voir aussi

@@ -22,27 +22,33 @@ La méthode **`divide()`** effectue la division de deux nombres. Elle peut être
 
 ## Syntaxe
 
+### Signature classique
+
 ```typescript
 function divide<GenericValue extends number>(
-	operand: number
-): (value: GenericValue) => number
-
-function divide<GenericValue extends number>(
 	value: GenericValue,
-	operand: number
+	divisor: number
 ): number
+```
+
+### Signature currifiée
+
+```typescript
+function divide<GenericValue extends number>(
+	divisor: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à diviser (dividende).
-- `operand` : Le nombre par lequel diviser (diviseur).
+- `value` : Le nombre à diviser (dividende, uniquement en signature classique).
+- `divisor` : Le nombre par lequel diviser (diviseur).
 
 ## Valeur de retour
 
-Le résultat de la division `value / operand`.
+**Signature classique** : retourne le résultat de la division `value / divisor`.
 
-Lorsqu'elle est appelée avec un seul argument, retourne une fonction currifiée qui attend le dividende.
+**Signature currifiée** : retourne une fonction qui prend une valeur et la divise par le diviseur.
 
 ## Exemples
 
@@ -51,7 +57,7 @@ Lorsqu'elle est appelée avec un seul argument, retourne une fonction currifiée
 <MonacoTSEditor
   	src="/v1/api/number/divide/examples/calculateAverage.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="350px"
 />
 
 ### Diviser un budget
@@ -59,7 +65,7 @@ Lorsqu'elle est appelée avec un seul argument, retourne une fonction currifiée
 <MonacoTSEditor
   	src="/v1/api/number/divide/examples/splitBudget.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="650px"
 />
 
 ### Calculer des ratios
@@ -67,7 +73,7 @@ Lorsqu'elle est appelée avec un seul argument, retourne une fonction currifiée
 <MonacoTSEditor
   	src="/v1/api/number/divide/examples/calculateRatio.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="800px"
 />
 
 ## Voir aussi

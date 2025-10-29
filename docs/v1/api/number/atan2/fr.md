@@ -22,46 +22,44 @@ La méthode **`atan2()`** retourne l'arc tangente du quotient de ses arguments (
 
 ## Syntaxe
 
-```typescript
-// Forme currifiée (avec un seul argument)
-function atan2<GenericValue extends number>(
-	x: number
-): (y: GenericValue) => number
+### Signature classique
 
-// Forme complète (avec deux arguments)
-function atan2<GenericValue extends number>(
-	y: GenericValue,
-	x: number
+```typescript
+function atan2<GenericAxisY extends number>(
+	axisY: GenericAxisY,
+	axisX: number
 ): number
+```
+
+### Signature currifiée
+
+```typescript
+function atan2<GenericAxisY extends number>(
+	axisX: number
+): (axisY: GenericAxisY) => number
 ```
 
 ## Paramètres
 
-- `y` : La coordonnée y (ou composante verticale).
-- `x` : La coordonnée x (ou composante horizontale).
+- `axisY` : La coordonnée y (ou composante verticale, uniquement en signature classique).
+- `axisX` : La coordonnée x (ou composante horizontale).
 
-**Note importante** : L'ordre des paramètres est `y` puis `x`, ce qui correspond à la convention mathématique standard `atan2(y, x)`.
+**Note importante** : L'ordre des paramètres en signature classique est `axisY` puis `axisX`, ce qui correspond à la convention mathématique standard `atan2(y, x)`.
 
 ## Valeur de retour
 
-L'angle en radians (entre -π et π) entre l'axe des x positifs et le point (x, y).
+**Signature classique** : retourne l'angle en radians (entre -π et π) entre l'axe des x positifs et le point (axisX, axisY).
+
+**Signature currifiée** : retourne une fonction qui prend la coordonnée y et calcule l'angle correspondant.
 
 ## Exemples
-
-### Calculer la direction entre deux points
-
-<MonacoTSEditor
-  	src="/v1/api/number/atan2/examples/direction.doc.ts"
-  	majorVersion="v1"
-	height="550px"
-/>
 
 ### Rotation et orientation d'objets
 
 <MonacoTSEditor
   	src="/v1/api/number/atan2/examples/rotation.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="1450px"
 />
 
 ### Navigation et cap géographique
@@ -69,7 +67,7 @@ L'angle en radians (entre -π et π) entre l'axe des x positifs et le point (x, 
 <MonacoTSEditor
   	src="/v1/api/number/atan2/examples/compass.doc.ts"
   	majorVersion="v1"
-	height="600px"
+	height="2200px"
 />
 
 ## Voir aussi

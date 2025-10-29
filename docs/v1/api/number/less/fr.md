@@ -22,26 +22,33 @@ La méthode **`less()`** vérifie si un nombre est inférieur ou égal (<=) à u
 
 ## Syntaxe
 
+### Signature classique
+
 ```typescript
 function less<GenericValue extends number>(
-	threshold: number,
-): (value: GenericValue) => boolean
-
-function less<GenericValue extends number>(
 	value: GenericValue,
-	threshold: number,
+	threshold: number
 ): boolean
+```
+
+### Signature currifiée
+
+```typescript
+function less<GenericValue extends number>(
+	threshold: number
+): (value: GenericValue) => boolean
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à comparer (utilisé dans la forme à deux paramètres).
+- `value` : Le nombre à comparer (uniquement en signature classique).
 - `threshold` : Le seuil de comparaison.
 
 ## Valeur de retour
 
-- **Forme currifiée** : Retourne une fonction qui prend une valeur et vérifie si elle est <= au seuil.
-- **Forme directe** : Retourne `true` si la valeur est inférieure ou égale au seuil, `false` sinon.
+**Signature classique** : retourne `true` si la valeur est inférieure ou égale au seuil, `false` sinon.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et vérifie si elle est <= au seuil.
 
 ## Description
 
@@ -58,7 +65,7 @@ La fonction `less` effectue une comparaison inclusive (<=), ce qui signifie qu'e
 <MonacoTSEditor
   	src="/v1/api/number/less/examples/filterAffordable.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="300px"
 />
 
 ### Valider la capacité
@@ -66,7 +73,7 @@ La fonction `less` effectue une comparaison inclusive (<=), ce qui signifie qu'e
 <MonacoTSEditor
   	src="/v1/api/number/less/examples/validateCapacity.doc.ts"
   	majorVersion="v1"
-	height="600px"
+	height="900px"
 />
 
 ### Catégoriser par score
