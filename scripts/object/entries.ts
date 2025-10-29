@@ -1,4 +1,4 @@
-import { type IsEqual, keyWrappedValue, type ObjectEntry, type ObjectKey } from "@scripts/common";
+import { type IsEqual, isRuntimeKind, isRuntimeWrappedValueKey, type ObjectEntry, type ObjectKey } from "@scripts/common";
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
 
 export type GetEntry<
@@ -27,6 +27,6 @@ export function entries<
 >(object: GenericObject) {
 	return Object.entries(object)
 		.filter(
-			([key]) => !key.startsWith(keyWrappedValue),
+			([key]) => !isRuntimeWrappedValueKey(key) && !isRuntimeKind(key),
 		) as unknown as SimplifyTopLevel<GetEntries<GenericObject>>;
 }

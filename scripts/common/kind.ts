@@ -1,6 +1,5 @@
-import { type ForbiddenCharacters } from "@scripts/string";
+import { type ForbiddenString } from "@scripts/string";
 import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey } from "./types";
-import { keyWrappedValue } from "./wrapValue";
 import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
 
 export interface KindHandler<
@@ -105,16 +104,20 @@ export type GetKindHandler<
 	>
 }[keyof GenericObject[SymbolKind]];
 
-export const keyKindPrefix = `${keyWrappedValue}/kind/`;
+export const keyKindPrefix = "@duplojs/utils/kind/";
+
+type ForbiddenKindCharacters<
+	GenericValue extends string,
+> = ForbiddenString<
+	GenericValue,
+	"@" | "/"
+>;
 
 export function createKind<
 	GenericName extends string,
 	GenericKindValue extends unknown = unknown,
 >(
-	name: GenericName & ForbiddenCharacters<
-		GenericName,
-		"@" | "/"
-	>,
+	name: GenericName & ForbiddenKindCharacters<GenericName>,
 ) {
 	type $<
 		GenericName extends string,
@@ -159,22 +162,31 @@ export function createKind<
 	} satisfies KindHandler<$<GenericName>> as KindHandler<$<GenericName>>;
 }
 
+export interface ReservedKindNamespace {
+	Either: true;
+	DataParser: true;
+}
+
+type ForbiddenKindNamespace<
+	GenericValue extends string,
+> = (
+	& ForbiddenKindCharacters<GenericValue>
+	& ForbiddenString<
+		GenericValue,
+		GetPropsWithValue<ReservedKindNamespace, true>
+	>
+);
+
 export function createKindNamespace<
 	GenericNamespace extends string,
 >(
-	namespace: GenericNamespace & ForbiddenCharacters<
-		GenericNamespace,
-		"@" | "/"
-	>,
+	namespace: GenericNamespace & ForbiddenKindNamespace<GenericNamespace>,
 ) {
 	return <
 		GenericName extends string,
 		GenericKindValue extends unknown = unknown,
 	>(
-		name: GenericName & ForbiddenCharacters<
-			GenericName,
-			"@" | "/"
-		>,
+		name: GenericName & ForbiddenKindCharacters<GenericName>,
 	) => {
 		const kindHandler = createKind(`@${namespace}/${name}`);
 
@@ -206,10 +218,7 @@ export function kindHeritage<
 	GenericUniqueName extends string,
 	GenericKindHandler extends KindHandler,
 >(
-	uniqueName: GenericUniqueName & ForbiddenCharacters<
-		GenericUniqueName,
-		"@" | "/"
-	>,
+	uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>,
 	kind: GenericKindHandler | GenericKindHandler[],
 ) {
 	type $<
@@ -289,4 +298,8 @@ export function kindHeritage<
 	);
 
 	return ParentKindClass as unknown as ParentKindClass;
+}
+
+export function isRuntimeKind(value: string) {
+	return value.startsWith(keyKindPrefix);
 }
