@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserNullableKind = createKind("data-parser-nullable");
+const dataParserNullableKind = createDataParserKind("nullable");
 function nullable(inner, definition) {
     return dataParserInit(dataParserNullableKind, {
         definition: {

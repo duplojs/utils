@@ -6,7 +6,7 @@ export interface DataParserDefinitionTransform extends DataParserDefinition<neve
     readonly inner: DataParsers;
     theFunction(input: any, error: DataParserError): unknown;
 }
-export declare const dataParserTransformKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-transform", unknown>>;
+export declare const dataParserTransformKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>>;
 type _DataParserTransform<GenericDefinition extends DataParserDefinitionTransform> = (DataParser<GenericDefinition, Exclude<Awaited<ReturnType<GenericDefinition["theFunction"]>>, SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>, Input<GenericDefinition["inner"]>> & Kind<typeof dataParserTransformKind.definition>);
 export interface DataParserTransform<GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform> extends _DataParserTransform<GenericDefinition> {
 }

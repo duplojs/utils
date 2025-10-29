@@ -1,9 +1,9 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerUrlKind = createKind("data-parser-checker-url");
+const dataParserCheckerUrlKind = createDataParserKind("checker-string-url");
 const regexRemoveDote = /:$/;
 function checkerUrl(definition = {}) {
     return dataParserCheckerInit(dataParserCheckerUrlKind, {

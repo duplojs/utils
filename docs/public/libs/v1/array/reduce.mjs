@@ -1,6 +1,8 @@
 import { createKind } from '../common/kind.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
 import { unwrap } from '../common/unwrap.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 import { override } from '../object/override.mjs';
 
 const arrayReduceFromKind = createKind("array-reduce-from");

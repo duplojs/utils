@@ -1,7 +1,7 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
 
-const eitherBoolKind = kind.createKind("either-bool");
+const eitherBoolKind = kind.createEitherKind("bool");
 
 exports.eitherBoolKind = eitherBoolKind;

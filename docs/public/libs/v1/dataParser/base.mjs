@@ -1,19 +1,21 @@
-import { createKind } from '../common/kind.mjs';
 import { simpleClone } from '../common/simpleClone.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 import { createError, SymbolDataParserErrorIssue, addIssue, SymbolDataParserErrorPromiseIssue, addPromiseIssue } from './error.mjs';
 import { error } from '../either/left/error.mjs';
 import { success } from '../either/right/success.mjs';
+import { createDataParserKind } from './kind.mjs';
 
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
 const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
-const dataParserCheckerKind = createKind("data-parser-checker");
+const dataParserCheckerKind = createDataParserKind("checker");
 function dataParserCheckerInit(kind, params, exec) {
     return kind.setTo(dataParserCheckerKind.setTo({
         ...params,
         exec,
     }));
 }
-const dataParserKind = createKind("data-parser");
+const dataParserKind = createDataParserKind("base");
 function dataParserInit(kind, params, exec) {
     const formattedExec = typeof exec === "object"
         ? exec

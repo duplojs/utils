@@ -1,8 +1,8 @@
-import { createKind } from '../../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
+import { createDataParserKind } from '../../kind.mjs';
 
-const dataParserArrayKind = createKind("data-parser-array");
+const dataParserArrayKind = createDataParserKind("array");
 function array(element, definition) {
     return dataParserInit(dataParserArrayKind, {
         definition: {

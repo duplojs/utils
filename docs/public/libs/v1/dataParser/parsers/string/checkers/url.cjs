@@ -1,11 +1,11 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var index = require('../index.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerUrlKind = kind.createKind("data-parser-checker-url");
+const dataParserCheckerUrlKind = kind.createDataParserKind("checker-string-url");
 const regexRemoveDote = /:$/;
 function checkerUrl(definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerUrlKind, {

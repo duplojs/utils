@@ -1,9 +1,9 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserLazyKind = kind.createKind("data-parser-lazy");
+const dataParserLazyKind = kind.createDataParserKind("lazy");
 function lazy(getter, definition) {
     return base.dataParserInit(dataParserLazyKind, {
         definition: {

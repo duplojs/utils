@@ -7,4 +7,4 @@ export * from "./optional";
 export * from "./right";
 export * from "./hasInformation";
 export * from "./whenHasInformation";
-export * from "./base";
+export * from "./kind";

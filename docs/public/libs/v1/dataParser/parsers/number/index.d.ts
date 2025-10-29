@@ -7,7 +7,7 @@ export type DataParserNumberCheckers = (DataParserCheckerInt | DataParserChecker
 export interface DataParserDefinitionNumber extends DataParserDefinition<DataParserNumberCheckers> {
     readonly coerce: boolean;
 }
-export declare const dataParserNumberKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"data-parser-number", unknown>>;
+export declare const dataParserNumberKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>>;
 type _DataParserNumber<GenericDefinition extends DataParserDefinitionNumber> = (DataParser<GenericDefinition, number, number> & Kind<typeof dataParserNumberKind.definition>);
 export interface DataParserNumber<GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber> extends _DataParserNumber<GenericDefinition> {
     addChecker<GenericChecker extends readonly [

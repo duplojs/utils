@@ -7,7 +7,7 @@ export type DataParserArrayCheckers = (DataParserCheckerArrayMin | DataParserChe
 export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
     readonly element: DataParsers;
 }
-export declare const dataParserArrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"data-parser-array", unknown>>;
+export declare const dataParserArrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;
 type _DataParserArray<GenericDefinition extends DataParserDefinitionArray> = (DataParser<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]> & Kind<typeof dataParserArrayKind.definition>);
 export interface DataParserArray<GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray> extends _DataParserArray<GenericDefinition> {
     addChecker<GenericChecker extends readonly [

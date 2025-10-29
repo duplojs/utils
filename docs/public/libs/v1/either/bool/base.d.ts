@@ -1,1 +1,1 @@
-export declare const eitherBoolKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-bool", unknown>>;
+export declare const eitherBoolKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsEither/bool", unknown>>;

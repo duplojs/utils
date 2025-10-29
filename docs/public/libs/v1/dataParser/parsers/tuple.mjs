@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserTupleKind = createKind("data-parser-tuple");
+const dataParserTupleKind = createDataParserKind("tuple");
 function tuple(shape, definition) {
     return dataParserInit(dataParserTupleKind, {
         definition: {
