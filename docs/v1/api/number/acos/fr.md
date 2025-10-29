@@ -43,7 +43,7 @@ L'angle en radians (entre 0 et π) dont le cosinus est égal à la valeur donné
 <MonacoTSEditor
   	src="/v1/api/number/acos/examples/vectorAngle.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="1550px"
 />
 
 ### Trouver l'angle dans un triangle
@@ -51,7 +51,7 @@ L'angle en radians (entre 0 et π) dont le cosinus est égal à la valeur donné
 <MonacoTSEditor
   	src="/v1/api/number/acos/examples/triangleAngle.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="1050px"
 />
 
 ### Distance sur une sphère
@@ -59,7 +59,7 @@ L'angle en radians (entre 0 et π) dont le cosinus est égal à la valeur donné
 <MonacoTSEditor
   	src="/v1/api/number/acos/examples/sphericalDistance.doc.ts"
   	majorVersion="v1"
-	height="550px"
+	height="1350px"
 />
 
 ## Voir aussi

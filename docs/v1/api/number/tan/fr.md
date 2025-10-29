@@ -51,7 +51,7 @@ La tangente de l'angle donné. La valeur tend vers l'infini lorsque l'angle appr
 <MonacoTSEditor
   	src="/v1/api/number/tan/examples/calculateHeight.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="650px"
 />
 
 ### Perspective et projection
@@ -59,7 +59,7 @@ La tangente de l'angle donné. La valeur tend vers l'infini lorsque l'angle appr
 <MonacoTSEditor
   	src="/v1/api/number/tan/examples/perspective.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="650px"
 />
 
 ## Voir aussi
