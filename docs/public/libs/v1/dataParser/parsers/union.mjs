@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserUnionKind = createKind("data-parser-union");
+const dataParserUnionKind = createDataParserKind("union");
 function union(options, definition) {
     return dataParserInit(dataParserUnionKind, {
         definition: {

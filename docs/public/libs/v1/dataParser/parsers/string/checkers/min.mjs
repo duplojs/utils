@@ -1,8 +1,8 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerStringMinKind = createKind("data-parser-checker-string-min");
+const dataParserCheckerStringMinKind = createDataParserKind("checker-string-min");
 function checkerStringMin(min, definition = {}) {
     return dataParserCheckerInit(dataParserCheckerStringMinKind, {
         definition: {

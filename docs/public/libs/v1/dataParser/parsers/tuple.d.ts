@@ -22,7 +22,7 @@ export interface DataParserDefinitionTuple extends DataParserDefinition<DataPars
     readonly shape: TupleShape;
     readonly rest?: DataParsers;
 }
-export declare const dataParserTupleKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-tuple", unknown>>;
+export declare const dataParserTupleKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>>;
 type _DataParserTuple<GenericDefinition extends DataParserDefinitionTuple> = (DataParser<GenericDefinition, DataParserTupleShapeOutput<GenericDefinition["shape"], GenericDefinition["rest"]>, DataParserTupleShapeInput<GenericDefinition["shape"], GenericDefinition["rest"]>> & Kind<typeof dataParserTupleKind.definition>);
 export interface DataParserTuple<GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple> extends _DataParserTuple<GenericDefinition> {
     addChecker<GenericChecker extends [DataParserTupleCheckers, ...DataParserTupleCheckers[]]>(...args: GenericChecker): DataParserTuple<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;

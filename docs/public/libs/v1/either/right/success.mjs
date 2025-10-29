@@ -1,7 +1,7 @@
+import { createEitherKind } from '../kind.mjs';
 import { right } from './create.mjs';
-import { createKind } from '../../common/kind.mjs';
 
-const eitherSuccessKind = createKind("either-success");
+const eitherSuccessKind = createEitherKind("success");
 function success(value) {
     return eitherSuccessKind.setTo(right("success", value));
 }

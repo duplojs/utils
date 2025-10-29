@@ -3,7 +3,7 @@ import { type DataParserCheckerDefinition, type DataParserChecker } from "../../
 export interface DataParserCheckerDefinitionStringRegex extends DataParserCheckerDefinition {
     regex: RegExp;
 }
-export declare const dataParserCheckerStringRegexKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"data-parser-checker-string-regex", unknown>>;
+export declare const dataParserCheckerStringRegexKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-regex", unknown>>;
 type _DataParserCheckerStringRegex = (Kind<typeof dataParserCheckerStringRegexKind.definition> & DataParserChecker<DataParserCheckerDefinitionStringRegex, string>);
 export interface DataParserCheckerStringRegex extends _DataParserCheckerStringRegex {
 }

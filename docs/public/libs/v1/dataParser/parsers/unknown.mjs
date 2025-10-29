@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserUnknownKind = createKind("data-parser-unknown");
+const dataParserUnknownKind = createDataParserKind("unknown");
 function unknown(definition) {
     return dataParserInit(dataParserUnknownKind, {
         definition: {

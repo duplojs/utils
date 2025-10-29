@@ -1,5 +1,7 @@
 import { createKind } from '../common/kind.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 
 const patternResultKind = createKind("pattern-result");
 function result(value) {

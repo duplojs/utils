@@ -1,7 +1,7 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
 import { left } from './create.mjs';
 
-const eitherErrorKind = createKind("either-error");
+const eitherErrorKind = createEitherKind("error");
 function error(value) {
     return eitherErrorKind.setTo(left("error", value));
 }

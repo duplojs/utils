@@ -1,8 +1,11 @@
-import { keyWrappedValue } from '../common/wrapValue.mjs';
+import { isRuntimeKind } from '../common/kind.mjs';
+import { isRuntimeWrappedValueKey } from '../common/wrapValue.mjs';
+import '../common/globalStore.mjs';
+import '../common/builder.mjs';
 
 function entries(object) {
     return Object.entries(object)
-        .filter(([key]) => !key.startsWith(keyWrappedValue));
+        .filter(([key]) => !isRuntimeWrappedValueKey(key) && !isRuntimeKind(key));
 }
 
 export { entries };

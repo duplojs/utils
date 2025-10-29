@@ -1,11 +1,11 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
-import { bool } from "./create";
 import { type Kind } from "../../common/kind";
 import { eitherBoolKind } from "./base";
+import { bool } from "./create";
+import { type EitherLeft } from "../left";
+import { type EitherRight } from "../right";
 export type BoolFalsyValue = 0 | "" | undefined | null | false;
-export declare const eitherBoolFalsyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-bool-falsy", unknown>>;
+export declare const eitherBoolFalsyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/bool-falsy", unknown>>;
 type _EitherBoolFalsy<GenericValue extends BoolFalsyValue = BoolFalsyValue> = (EitherLeft<"bool", GenericValue> & Kind<typeof eitherBoolKind.definition> & Kind<typeof eitherBoolFalsyKind.definition>);
 export interface EitherBoolFalsy<GenericValue extends BoolFalsyValue = BoolFalsyValue> extends _EitherBoolFalsy<GenericValue> {
 }

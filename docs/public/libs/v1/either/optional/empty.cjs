@@ -1,13 +1,15 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
+var base = require('./base.cjs');
+var create$1 = require('./create.cjs');
 var create = require('../left/create.cjs');
 var is = require('../left/is.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 var is$1 = require('../right/is.cjs');
-var create$1 = require('./create.cjs');
-var base = require('./base.cjs');
 
-const eitherOptionalEmptyKind = kind.createKind("either-optional-empty");
+const eitherOptionalEmptyKind = kind.createEitherKind("optional-empty");
 function optionalEmpty() {
     return base.eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(create.left("optional", undefined)));
 }

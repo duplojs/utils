@@ -1,8 +1,8 @@
-import { createKind } from '../../../common/kind.mjs';
 import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
+import { createDataParserKind } from '../../kind.mjs';
 
-const dataParserBigIntKind = createKind("data-parser-bigint");
+const dataParserBigIntKind = createDataParserKind("bigint");
 function bigint(definition) {
     return dataParserInit(dataParserBigIntKind, {
         definition: {

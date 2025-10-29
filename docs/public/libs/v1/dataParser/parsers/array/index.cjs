@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../common/kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
+var kind = require('../../kind.cjs');
 
-const dataParserArrayKind = kind.createKind("data-parser-array");
+const dataParserArrayKind = kind.createDataParserKind("array");
 function array(element, definition) {
     return base.dataParserInit(dataParserArrayKind, {
         definition: {

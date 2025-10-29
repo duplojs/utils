@@ -1,11 +1,13 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
-var coalescing = require('../../array/coalescing.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
+var coalescing = require('../../array/coalescing.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserLiteralKind = kind.createKind("data-parser-literal");
+const dataParserLiteralKind = kind.createDataParserKind("literal");
 function literal(value, definition) {
     return base.dataParserInit(dataParserLiteralKind, {
         definition: {

@@ -1,5 +1,5 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
 
-const eitherFutureKind = createKind("either-future");
+const eitherFutureKind = createEitherKind("future");
 
 export { eitherFutureKind };

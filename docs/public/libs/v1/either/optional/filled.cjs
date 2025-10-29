@@ -1,14 +1,16 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var unwrap = require('../../common/unwrap.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
+var kind = require('../kind.cjs');
+var base = require('./base.cjs');
+var create$1 = require('./create.cjs');
 var is$1 = require('../left/is.cjs');
 var create = require('../right/create.cjs');
 var is = require('../right/is.cjs');
-var create$1 = require('./create.cjs');
-var base = require('./base.cjs');
 
-const eitherOptionalFilledKind = kind.createKind("either-optional-filled");
+const eitherOptionalFilledKind = kind.createEitherKind("optional-filled");
 function optionalFilled(value) {
     return base.eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(create.right("optional", value)));
 }

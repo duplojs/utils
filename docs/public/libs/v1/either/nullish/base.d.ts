@@ -1,1 +1,1 @@
-export declare const eitherNullishKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-nullish", unknown>>;
+export declare const eitherNullishKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsEither/nullish", unknown>>;
