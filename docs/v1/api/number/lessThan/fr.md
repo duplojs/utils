@@ -22,26 +22,33 @@ La méthode **`lessThan()`** vérifie si un nombre est strictement inférieur (<
 
 ## Syntaxe
 
+### Signature classique
+
 ```typescript
 function lessThan<GenericValue extends number>(
-	threshold: number,
-): (value: GenericValue) => boolean
-
-function lessThan<GenericValue extends number>(
 	value: GenericValue,
-	threshold: number,
+	threshold: number
 ): boolean
+```
+
+### Signature currifiée
+
+```typescript
+function lessThan<GenericValue extends number>(
+	threshold: number
+): (value: GenericValue) => boolean
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à comparer (utilisé dans la forme à deux paramètres).
+- `value` : Le nombre à comparer (uniquement en signature classique).
 - `threshold` : Le seuil de comparaison.
 
 ## Valeur de retour
 
-- **Forme currifiée** : Retourne une fonction qui prend une valeur et vérifie si elle est < au seuil.
-- **Forme directe** : Retourne `true` si la valeur est strictement inférieure au seuil, `false` sinon.
+**Signature classique** : retourne `true` si la valeur est strictement inférieure au seuil, `false` sinon.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et vérifie si elle est < au seuil.
 
 ## Description
 
@@ -58,7 +65,7 @@ La fonction `lessThan` effectue une comparaison stricte (<), ce qui signifie qu'
 <MonacoTSEditor
   	src="/v1/api/number/lessThan/examples/filterLowPrices.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="300px"
 />
 
 ### Détecter les sous-poids
@@ -66,7 +73,7 @@ La fonction `lessThan` effectue une comparaison stricte (<), ce qui signifie qu'
 <MonacoTSEditor
   	src="/v1/api/number/lessThan/examples/detectUnderweight.doc.ts"
   	majorVersion="v1"
-	height="600px"
+	height="900px"
 />
 
 ### Compter sous le seuil
@@ -74,7 +81,7 @@ La fonction `lessThan` effectue une comparaison stricte (<), ce qui signifie qu'
 <MonacoTSEditor
   	src="/v1/api/number/lessThan/examples/countBelowThreshold.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="450px"
 />
 
 ## Voir aussi

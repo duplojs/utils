@@ -22,24 +22,33 @@ La méthode **`multiply()`** multiplie deux nombres entre eux. Elle peut être u
 
 ## Syntaxe
 
-```typescript
-function multiply<
-	GenericValue extends number,
->(operand: number): (value: GenericValue) => number
+### Signature classique
 
-function multiply<
-	GenericValue extends number,
->(value: GenericValue, operand: number): number
+```typescript
+function multiply<GenericValue extends number>(
+	value: GenericValue,
+	operand: number
+): number
+```
+
+### Signature currifiée
+
+```typescript
+function multiply<GenericValue extends number>(
+	operand: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à multiplier (multiplicande).
+- `value` : Le nombre à multiplier (multiplicande, uniquement en signature classique).
 - `operand` : Le nombre multiplicateur.
 
 ## Valeur de retour
 
-Le produit de la multiplication des deux nombres. Si un seul paramètre est fourni, retourne une fonction qui attend le second paramètre.
+**Signature classique** : retourne le produit de la multiplication des deux nombres.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et la multiplie par l'opérande.
 
 ## Exemples
 
@@ -48,7 +57,7 @@ Le produit de la multiplication des deux nombres. Si un seul paramètre est four
 <MonacoTSEditor
   	src="/v1/api/number/multiply/examples/calculatePriceWithTax.doc.ts"
   	majorVersion="v1"
-	height="350px"
+	height="250px"
 />
 
 ### Convertir des unités
@@ -64,7 +73,7 @@ Le produit de la multiplication des deux nombres. Si un seul paramètre est four
 <MonacoTSEditor
   	src="/v1/api/number/multiply/examples/calculateArea.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="650px"
 />
 
 ## Voir aussi

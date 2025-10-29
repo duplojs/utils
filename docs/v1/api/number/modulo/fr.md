@@ -22,24 +22,33 @@ La méthode **`modulo()`** retourne le reste de la division euclidienne de deux 
 
 ## Syntaxe
 
-```typescript
-function modulo<
-	GenericValue extends number,
->(operand: number): (value: GenericValue) => number
+### Signature classique
 
-function modulo<
-	GenericValue extends number,
->(value: GenericValue, operand: number): number
+```typescript
+function modulo<GenericValue extends number>(
+	value: GenericValue,
+	divisor: number
+): number
+```
+
+### Signature currifiée
+
+```typescript
+function modulo<GenericValue extends number>(
+	divisor: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dividende (le nombre à diviser).
-- `operand` : Le nombre diviseur (le nombre par lequel diviser).
+- `value` : Le nombre dividende (le nombre à diviser, uniquement en signature classique).
+- `divisor` : Le nombre diviseur (le nombre par lequel diviser).
 
 ## Valeur de retour
 
-Le reste de la division euclidienne de `value` par `operand`. Le résultat a le même signe que le dividende.
+**Signature classique** : retourne le reste de la division euclidienne de `value` par `divisor`. Le résultat a le même signe que le dividende.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et retourne le reste de sa division par le diviseur.
 
 ## Exemples
 
@@ -48,7 +57,7 @@ Le reste de la division euclidienne de `value` par `operand`. Le résultat a le 
 <MonacoTSEditor
   	src="/v1/api/number/modulo/examples/checkParity.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="350px"
 />
 
 ### Calculer la pagination
@@ -56,7 +65,7 @@ Le reste de la division euclidienne de `value` par `operand`. Le résultat a le 
 <MonacoTSEditor
   	src="/v1/api/number/modulo/examples/pagination.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="650px"
 />
 
 ### Rotation circulaire
@@ -64,7 +73,7 @@ Le reste de la division euclidienne de `value` par `operand`. Le résultat a le 
 <MonacoTSEditor
   	src="/v1/api/number/modulo/examples/circularRotation.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="600px"
 />
 
 ## Voir aussi
