@@ -1,16 +1,18 @@
 'use strict';
 
 var entries = require('../../object/entries.cjs');
-var kind = require('../../common/kind.cjs');
 var pipe = require('../../common/pipe.cjs');
 var forward = require('../../common/forward.cjs');
 var memo = require('../../common/memo.cjs');
 var filter = require('../../array/filter.cjs');
 var map = require('../../array/map.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserObjectKind = kind.createKind("data-parser-object");
+const dataParserObjectKind = kind.createDataParserKind("object");
 function object(shape, definition) {
     return base.dataParserInit(dataParserObjectKind, {
         definition: {

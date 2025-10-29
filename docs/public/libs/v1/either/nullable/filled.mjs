@@ -1,12 +1,14 @@
-import { createKind } from '../../common/kind.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import { createEitherKind } from '../kind.mjs';
 import { isLeft } from '../left/is.mjs';
 import { right } from '../right/create.mjs';
 import { isRight } from '../right/is.mjs';
 import { nullable } from './create.mjs';
 import { eitherNullableKind } from './base.mjs';
 
-const eitherNullableFilledKind = createKind("either-nullable-filled");
+const eitherNullableFilledKind = createEitherKind("nullable-filled");
 function nullableFilled(value) {
     return eitherNullableKind.setTo(eitherNullableFilledKind.setTo(right("nullable", value)));
 }

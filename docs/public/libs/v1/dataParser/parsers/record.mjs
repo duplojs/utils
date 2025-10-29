@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserRecordKind = createKind("data-parser-record");
+const dataParserRecordKind = createDataParserKind("record");
 function record(key, value, definition) {
     return dataParserInit(dataParserRecordKind, {
         definition: {

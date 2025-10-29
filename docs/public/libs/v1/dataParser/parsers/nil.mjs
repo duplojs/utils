@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserNilKind = createKind("data-parser-nil");
+const dataParserNilKind = createDataParserKind("nil");
 function nil(definition) {
     return dataParserInit(dataParserNilKind, {
         definition: {

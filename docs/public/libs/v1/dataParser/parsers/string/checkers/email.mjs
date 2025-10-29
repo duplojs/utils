@@ -1,9 +1,9 @@
-import { createKind } from '../../../../common/kind.mjs';
 import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
+import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerEmailKind = createKind("data-parser-checker-email");
+const dataParserCheckerEmailKind = createDataParserKind("checker-string-email");
 const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 function checkerEmail(definition = {}) {
     return dataParserCheckerInit(dataParserCheckerEmailKind, {

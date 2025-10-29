@@ -1,7 +1,7 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
 
-const eitherOptionalKind = kind.createKind("either-optional");
+const eitherOptionalKind = kind.createEitherKind("optional");
 
 exports.eitherOptionalKind = eitherOptionalKind;

@@ -3,6 +3,8 @@
 var kind = require('../common/kind.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 var unwrap = require('../common/unwrap.cjs');
+require('../common/globalStore.cjs');
+require('../common/builder.cjs');
 var override = require('../object/override.cjs');
 
 const generatorReduceFromKind = kind.createKind("generator-reduce-from");

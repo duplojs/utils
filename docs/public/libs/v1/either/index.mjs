@@ -32,4 +32,4 @@ export { eitherSuccessKind, success } from './right/success.mjs';
 export { whenIsRight } from './right/when.mjs';
 export { hasInformation } from './hasInformation.mjs';
 export { whenHasInformation } from './whenHasInformation.mjs';
-export { eitherInformationKind } from './base.mjs';
+export { createEitherKind, eitherInformationKind } from './kind.mjs';

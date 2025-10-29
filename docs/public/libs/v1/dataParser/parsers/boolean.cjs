@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserBooleanKind = kind.createKind("data-parser-boolean");
+const dataParserBooleanKind = kind.createDataParserKind("boolean");
 function boolean(definition) {
     return base.dataParserInit(dataParserBooleanKind, {
         definition: {

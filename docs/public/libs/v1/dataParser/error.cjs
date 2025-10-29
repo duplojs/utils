@@ -1,14 +1,14 @@
 'use strict';
 
-var kind = require('../common/kind.cjs');
+var kind = require('./kind.cjs');
 
 const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
 const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
-const dataParserErrorIssueKind = kind.createKind("data-parser-error-issue");
+const dataParserErrorIssueKind = kind.createDataParserKind("error-issue");
 const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
 const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-const dataParserErrorPromiseIssueKind = kind.createKind("data-parser-error-issue-promise");
-const dataParserErrorKind = kind.createKind("data-parser-error");
+const dataParserErrorPromiseIssueKind = kind.createDataParserKind("error-issue-promise");
+const dataParserErrorKind = kind.createDataParserKind("error");
 function createError() {
     return dataParserErrorKind.setTo({
         issues: [],

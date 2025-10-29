@@ -1,6 +1,8 @@
 'use strict';
 
 var baseExtended = require('../baseExtended.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 var index = require('../parsers/bigint/index.cjs');
 require('../../pattern/result.cjs');
 var max = require('../parsers/bigint/checkers/max.cjs');

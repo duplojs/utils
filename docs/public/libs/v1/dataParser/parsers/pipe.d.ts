@@ -5,7 +5,7 @@ export interface DataParserDefinitionPipe extends DataParserDefinition<never> {
     readonly input: DataParsers;
     readonly output: DataParsers;
 }
-export declare const dataParserPipeKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-pipe", unknown>>;
+export declare const dataParserPipeKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>>;
 type _DataParserPipe<GenericDefinition extends DataParserDefinitionPipe> = (DataParser<GenericDefinition, Output<GenericDefinition["output"]>, Input<GenericDefinition["input"]>> & Kind<typeof dataParserPipeKind.definition>);
 export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe> extends _DataParserPipe<GenericDefinition> {
 }

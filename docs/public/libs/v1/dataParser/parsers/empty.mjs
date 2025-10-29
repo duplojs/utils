@@ -1,8 +1,8 @@
-import { createKind } from '../../common/kind.mjs';
 import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserEmptyKind = createKind("data-parser-empty");
+const dataParserEmptyKind = createDataParserKind("empty");
 function empty(definition) {
     return dataParserInit(dataParserEmptyKind, {
         definition: {

@@ -1,12 +1,12 @@
-import { createKind } from '../common/kind.mjs';
+import { createDataParserKind } from './kind.mjs';
 
 const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
 const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
-const dataParserErrorIssueKind = createKind("data-parser-error-issue");
+const dataParserErrorIssueKind = createDataParserKind("error-issue");
 const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
 const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-const dataParserErrorPromiseIssueKind = createKind("data-parser-error-issue-promise");
-const dataParserErrorKind = createKind("data-parser-error");
+const dataParserErrorPromiseIssueKind = createDataParserKind("error-issue-promise");
+const dataParserErrorKind = createDataParserKind("error");
 function createError() {
     return dataParserErrorKind.setTo({
         issues: [],

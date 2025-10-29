@@ -1,6 +1,8 @@
 'use strict';
 
 var baseExtended = require('../baseExtended.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 var index = require('../parsers/number/index.cjs');
 require('../../pattern/result.cjs');
 var int$1 = require('../parsers/number/checkers/int.cjs');

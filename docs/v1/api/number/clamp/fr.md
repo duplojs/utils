@@ -4,8 +4,8 @@ prev:
   text: "min"
   link: "/v1/api/number/min/fr"
 next:
-  text: "sin"
-  link: "/v1/api/number/sin/fr"
+  text: "sqrt"
+  link: "/v1/api/number/sqrt/fr"
 ---
 
 # clamp

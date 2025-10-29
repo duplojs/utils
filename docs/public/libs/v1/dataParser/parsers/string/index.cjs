@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../../common/kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
+var kind = require('../../kind.cjs');
 
-const dataParserStringKind = kind.createKind("data-parser-string");
+const dataParserStringKind = kind.createDataParserKind("string");
 function string(definition) {
     return base.dataParserInit(dataParserStringKind, {
         definition: {

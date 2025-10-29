@@ -9,7 +9,11 @@ function wrapValue(value) {
 function isWrappedValue(input) {
     return !!input && typeof input === "object" && keyWrappedValue in input;
 }
+function isRuntimeWrappedValueKey(value) {
+    return value.startsWith(keyWrappedValue);
+}
 
+exports.isRuntimeWrappedValueKey = isRuntimeWrappedValueKey;
 exports.isWrappedValue = isWrappedValue;
 exports.keyWrappedValue = keyWrappedValue;
 exports.wrapValue = wrapValue;

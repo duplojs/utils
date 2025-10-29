@@ -1,10 +1,10 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
+var kind = require('../kind.cjs');
 
-const dataParserNilKind = kind.createKind("data-parser-nil");
+const dataParserNilKind = kind.createDataParserKind("nil");
 function nil(definition) {
     return base.dataParserInit(dataParserNilKind, {
         definition: {

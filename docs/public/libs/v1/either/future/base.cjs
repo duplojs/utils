@@ -1,7 +1,7 @@
 'use strict';
 
-var kind = require('../../common/kind.cjs');
+var kind = require('../kind.cjs');
 
-const eitherFutureKind = kind.createKind("either-future");
+const eitherFutureKind = kind.createEitherKind("future");
 
 exports.eitherFutureKind = eitherFutureKind;

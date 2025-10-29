@@ -1,11 +1,11 @@
 'use strict';
 
-var kind = require('../../../../common/kind.cjs');
 var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var index = require('../index.cjs');
+var kind = require('../../../kind.cjs');
 
-const dataParserCheckerEmailKind = kind.createKind("data-parser-checker-email");
+const dataParserCheckerEmailKind = kind.createDataParserKind("checker-string-email");
 const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 function checkerEmail(definition = {}) {
     return base.dataParserCheckerInit(dataParserCheckerEmailKind, {

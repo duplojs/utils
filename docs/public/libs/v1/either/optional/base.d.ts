@@ -1,1 +1,1 @@
-export declare const eitherOptionalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"either-optional", unknown>>;
+export declare const eitherOptionalKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsEither/optional", unknown>>;
