@@ -22,26 +22,33 @@ La méthode **`add()`** additionne deux nombres ou crée une fonction d'addition
 
 ## Syntaxe
 
+### Signature classique
+
 ```typescript
 function add<GenericValue extends number>(
-	operand: number,
-): (value: GenericValue) => number
-
-function add<GenericValue extends number>(
 	value: GenericValue,
-	operand: number,
+	operand: number
 ): number
+```
+
+### Signature currifiée
+
+```typescript
+function add<GenericValue extends number>(
+	operand: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre de base auquel ajouter l'opérande (utilisé dans la forme à deux paramètres).
+- `value` : Le nombre de base auquel ajouter l'opérande (uniquement en signature classique).
 - `operand` : Le nombre à ajouter à la valeur.
 
 ## Valeur de retour
 
-- **Forme currifiée** : Retourne une fonction qui prend une valeur et lui ajoute l'opérande.
-- **Forme directe** : Retourne la somme des deux nombres.
+**Signature classique** : retourne la somme des deux nombres.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et lui ajoute l'opérande.
 
 ## Exemples
 

@@ -28,4 +28,3 @@ const result = pipe(
 );
 
 // result: [166.3, 83.1, 55.4, 41.6, 33.3]
-// Apparent width in pixels for objects at different distances

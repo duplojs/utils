@@ -43,7 +43,7 @@ L'angle en radians (entre -π/2 et π/2) dont le sinus est égal à la valeur do
 <MonacoTSEditor
   	src="/v1/api/number/asin/examples/calculateAngle.doc.ts"
   	majorVersion="v1"
-	height="400px"
+	height="750px"
 />
 
 ### Trouver l'angle d'élévation
@@ -51,7 +51,7 @@ L'angle en radians (entre -π/2 et π/2) dont le sinus est égal à la valeur do
 <MonacoTSEditor
   	src="/v1/api/number/asin/examples/elevationAngle.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="900px"
 />
 
 ### Navigation et trajectoires
@@ -59,7 +59,7 @@ L'angle en radians (entre -π/2 et π/2) dont le sinus est égal à la valeur do
 <MonacoTSEditor
   	src="/v1/api/number/asin/examples/trajectory.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="1050px"
 />
 
 ## Voir aussi

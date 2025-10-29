@@ -22,17 +22,33 @@ La méthode **`min()`** retourne la plus petite valeur parmi les nombres fournis
 
 ## Syntaxe
 
+### Signature classique
+
 ```typescript
-function min(...values: number[]): number
+function min<GenericValue extends number>(
+	value: GenericValue,
+	comparison: number
+): number
+```
+
+### Signature currifiée
+
+```typescript
+function min<GenericValue extends number>(
+	comparison: number
+): (value: GenericValue) => number
 ```
 
 ## Paramètres
 
-- `...values` : Un ou plusieurs nombres à comparer.
+- `value` : La valeur à comparer (uniquement en signature classique).
+- `comparison` : Le nombre de comparaison.
 
 ## Valeur de retour
 
-Le nombre le plus petit parmi ceux fournis. Si aucun argument n'est fourni, retourne `Infinity`.
+**Signature classique** : retourne le plus petit des deux nombres.
+
+**Signature currifiée** : retourne une fonction qui prend une valeur et retourne le plus petit des deux nombres.
 
 ## Exemples
 
@@ -41,7 +57,7 @@ Le nombre le plus petit parmi ceux fournis. Si aucun argument n'est fourni, reto
 <MonacoTSEditor
   	src="/v1/api/number/min/examples/stockLevel.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="850px"
 />
 
 ## Voir aussi
