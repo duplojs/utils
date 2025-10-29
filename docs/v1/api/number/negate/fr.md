@@ -43,7 +43,7 @@ Le nombre avec le signe inversé. Si le nombre est positif, retourne sa version 
 <MonacoTSEditor
   	src="/v1/api/number/negate/examples/invertBalance.doc.ts"
   	majorVersion="v1"
-	height="350px"
+	height="250px"
 />
 
 ### Calculer une position
@@ -51,7 +51,7 @@ Le nombre avec le signe inversé. Si le nombre est positif, retourne sa version 
 <MonacoTSEditor
   	src="/v1/api/number/negate/examples/calculateOpposite.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="750px"
 />
 
 ### Inverser des changements de température
@@ -59,7 +59,7 @@ Le nombre avec le signe inversé. Si le nombre est positif, retourne sa version 
 <MonacoTSEditor
   	src="/v1/api/number/negate/examples/temperatureDelta.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="300px"
 />
 
 ## Voir aussi

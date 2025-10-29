@@ -51,7 +51,7 @@ La valeur absolue du nombre donné. Retourne toujours un nombre positif ou zéro
 <MonacoTSEditor
   	src="/v1/api/number/abs/examples/normalizeTemperatures.doc.ts"
   	majorVersion="v1"
-	height="350px"
+	height="450px"
 />
 
 ### Calculer la distance entre des points
@@ -59,7 +59,7 @@ La valeur absolue du nombre donné. Retourne toujours un nombre positif ou zéro
 <MonacoTSEditor
   	src="/v1/api/number/abs/examples/calculateDistance.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="600px"
 />
 
 ## Voir aussi

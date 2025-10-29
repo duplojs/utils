@@ -6,12 +6,7 @@ const currentTemp = 20;
 const result = pipe(
 	temperatureChanges,
 	DArray.map(DNumber.negate),
-	DArray.map(
-		innerPipe(
-			DNumber.add(currentTemp),
-		),
-	),
+	DArray.map(DNumber.add(currentTemp)),
 );
 
 // result: [15, 23, 12, 22]
-// Application des changements inversés à partir de 20°C

@@ -51,7 +51,7 @@ La partie entière du nombre donné (supprime les décimales sans arrondir).
 <MonacoTSEditor
   	src="/v1/api/number/trunc/examples/formatCurrency.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="500px"
 />
 
 ### Convertir des coordonnées décimales
@@ -59,7 +59,7 @@ La partie entière du nombre donné (supprime les décimales sans arrondir).
 <MonacoTSEditor
   	src="/v1/api/number/trunc/examples/processCoordinates.doc.ts"
   	majorVersion="v1"
-	height="550px"
+	height="1000px"
 />
 
 ## Voir aussi

@@ -33,4 +33,4 @@ const result = pipe(
 	),
 );
 
-// result: [75, 112, 86] (pourcentages des objectifs atteints, plafonnés à 150%)
+// result: [75, 112, 86]
