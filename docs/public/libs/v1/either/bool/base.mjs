@@ -1,5 +1,5 @@
-import { createKind } from '../../common/kind.mjs';
+import { createEitherKind } from '../kind.mjs';
 
-const eitherBoolKind = createKind("either-bool");
+const eitherBoolKind = createEitherKind("bool");
 
 export { eitherBoolKind };

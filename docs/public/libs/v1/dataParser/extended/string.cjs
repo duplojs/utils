@@ -2,6 +2,8 @@
 
 var baseExtended = require('../baseExtended.cjs');
 var index = require('../parsers/string/index.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
 require('../../pattern/result.cjs');
 var email$1 = require('../parsers/string/checkers/email.cjs');
 var url$1 = require('../parsers/string/checkers/url.cjs');

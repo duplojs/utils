@@ -5,7 +5,7 @@ export type UnionOptions = readonly [DataParsers, ...DataParsers[]];
 export interface DataParserDefinitionUnion extends DataParserDefinition<never> {
     readonly options: UnionOptions;
 }
-export declare const dataParserUnionKind: import("../../common").KindHandler<import("../../common").KindDefinition<"data-parser-union", unknown>>;
+export declare const dataParserUnionKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>>;
 type _DataParserUnion<GenericDefinition extends DataParserDefinitionUnion> = (DataParser<GenericDefinition, Output<GenericDefinition["options"][number]>, Input<GenericDefinition["options"][number]>> & Kind<typeof dataParserUnionKind.definition>);
 export interface DataParserUnion<GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion> extends _DataParserUnion<GenericDefinition> {
 }

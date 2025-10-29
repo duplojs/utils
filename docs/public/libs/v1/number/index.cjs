@@ -26,6 +26,8 @@ var greater = require('./greater.cjs');
 var less = require('./less.cjs');
 var greaterThan = require('./greaterThan.cjs');
 var lessThan = require('./lessThan.cjs');
+var toFixed = require('./toFixed.cjs');
+var sqrt = require('./sqrt.cjs');
 
 
 
@@ -55,3 +57,5 @@ exports.greater = greater.greater;
 exports.less = less.less;
 exports.greaterThan = greaterThan.greaterThan;
 exports.lessThan = lessThan.lessThan;
+exports.toFixed = toFixed.toFixed;
+exports.sqrt = sqrt.sqrt;

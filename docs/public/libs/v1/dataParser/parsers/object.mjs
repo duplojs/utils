@@ -1,14 +1,16 @@
 import { entries } from '../../object/entries.mjs';
-import { createKind } from '../../common/kind.mjs';
 import { pipe } from '../../common/pipe.mjs';
 import { forward } from '../../common/forward.mjs';
 import { memo } from '../../common/memo.mjs';
 import { filter } from '../../array/filter.mjs';
 import { map } from '../../array/map.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import { dataParserInit, SymbolDataParserError, dataParserKind } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
 
-const dataParserObjectKind = createKind("data-parser-object");
+const dataParserObjectKind = createDataParserKind("object");
 function object(shape, definition) {
     return dataParserInit(dataParserObjectKind, {
         definition: {

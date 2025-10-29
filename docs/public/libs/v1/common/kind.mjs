@@ -1,6 +1,4 @@
-import { keyWrappedValue } from './wrapValue.mjs';
-
-const keyKindPrefix = `${keyWrappedValue}/kind/`;
+const keyKindPrefix = "@duplojs/utils/kind/";
 function createKind(name) {
     const runTimeKey = `${keyKindPrefix}${name}`;
     return {
@@ -27,6 +25,12 @@ function createKind(name) {
         getValue(input) {
             return input[runTimeKey];
         },
+    };
+}
+function createKindNamespace(namespace) {
+    return (name) => {
+        const kindHandler = createKind(`@${namespace}/${name}`);
+        return kindHandler;
     };
 }
 function kindHeritage(uniqueName, kind) {
@@ -58,5 +62,8 @@ function kindHeritage(uniqueName, kind) {
     });
     return ParentKindClass;
 }
+function isRuntimeKind(value) {
+    return value.startsWith(keyKindPrefix);
+}
 
-export { createKind, keyKindPrefix, kindHeritage };
+export { createKind, createKindNamespace, isRuntimeKind, keyKindPrefix, kindHeritage };

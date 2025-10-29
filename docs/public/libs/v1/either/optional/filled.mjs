@@ -1,12 +1,14 @@
-import { createKind } from '../../common/kind.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import { createEitherKind } from '../kind.mjs';
+import { eitherOptionalKind } from './base.mjs';
+import { optional } from './create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { right } from '../right/create.mjs';
 import { isRight } from '../right/is.mjs';
-import { optional } from './create.mjs';
-import { eitherOptionalKind } from './base.mjs';
 
-const eitherOptionalFilledKind = createKind("either-optional-filled");
+const eitherOptionalFilledKind = createEitherKind("optional-filled");
 function optionalFilled(value) {
     return eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(right("optional", value)));
 }

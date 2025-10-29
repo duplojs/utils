@@ -61,6 +61,12 @@ Retourne le plus petit de plusieurs nombres.
 ### [clamp](/v1/api/number/clamp/fr)
 Limite un nombre entre une valeur minimale et maximale.
 
+### [sqrt](/v1/api/number/sqrt/fr)
+Retourne la racine carrée d'un nombre.
+
+### [toFixed](/v1/api/number/toFixed/fr)
+Formate un nombre avec un nombre fixe de décimales.
+
 ## Fonctions trigonométriques
 
 ### [sin](/v1/api/number/sin/fr)

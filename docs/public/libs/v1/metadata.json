@@ -601,6 +601,15 @@
           "name": "asyncRetry.mjs"
         },
         {
+          "name": "builder.cjs"
+        },
+        {
+          "name": "builder.d.ts"
+        },
+        {
+          "name": "builder.mjs"
+        },
+        {
           "name": "clone.cjs"
         },
         {
@@ -653,6 +662,15 @@
         },
         {
           "name": "forward.mjs"
+        },
+        {
+          "name": "globalStore.cjs"
+        },
+        {
+          "name": "globalStore.d.ts"
+        },
+        {
+          "name": "globalStore.mjs"
         },
         {
           "name": "index.d.ts"
@@ -1305,6 +1323,15 @@
           "name": "index.mjs"
         },
         {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "kind.d.ts"
+        },
+        {
+          "name": "kind.mjs"
+        },
+        {
           "name": "parsers",
           "files": [
             {
@@ -1737,15 +1764,6 @@
       "name": "either",
       "files": [
         {
-          "name": "base.cjs"
-        },
-        {
-          "name": "base.d.ts"
-        },
-        {
-          "name": "base.mjs"
-        },
-        {
           "name": "bool",
           "files": [
             {
@@ -1853,6 +1871,15 @@
         },
         {
           "name": "index.mjs"
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "kind.d.ts"
+        },
+        {
+          "name": "kind.mjs"
         },
         {
           "name": "left",
@@ -2445,6 +2472,15 @@
           "name": "sin.mjs"
         },
         {
+          "name": "sqrt.cjs"
+        },
+        {
+          "name": "sqrt.d.ts"
+        },
+        {
+          "name": "sqrt.mjs"
+        },
+        {
           "name": "subtract.cjs"
         },
         {
@@ -2461,6 +2497,15 @@
         },
         {
           "name": "tan.mjs"
+        },
+        {
+          "name": "toFixed.cjs"
+        },
+        {
+          "name": "toFixed.d.ts"
+        },
+        {
+          "name": "toFixed.mjs"
         },
         {
           "name": "trunc.cjs"
@@ -3136,6 +3181,9 @@
             },
             {
               "name": "first.d.ts"
+            },
+            {
+              "name": "forbiddenString.d.ts"
             },
             {
               "name": "includes.d.ts"

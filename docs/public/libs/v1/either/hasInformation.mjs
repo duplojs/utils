@@ -1,4 +1,4 @@
-import { eitherInformationKind } from './base.mjs';
+import { eitherInformationKind } from './kind.mjs';
 
 function hasInformation(input, information) {
     return eitherInformationKind.has(input)
