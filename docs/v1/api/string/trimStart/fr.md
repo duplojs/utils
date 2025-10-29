@@ -51,7 +51,7 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 <MonacoTSEditor
   	src="/v1/api/string/trimStart/examples/parseLogPrefix.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="680px"
 />
 
 ### Nettoyer les commentaires
@@ -59,7 +59,7 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 <MonacoTSEditor
   	src="/v1/api/string/trimStart/examples/cleanComments.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="560px"
 />
 
 ## Voir aussi

@@ -69,7 +69,7 @@ Un booléen indiquant si la clé existe dans l'objet. Le type de retour utilise 
 <MonacoTSEditor
   src="/v1/api/string/isKeyof/examples/filterValidKeys.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="270px"
 />
 
 ### Accès sécurisé aux propriétés
@@ -77,7 +77,7 @@ Un booléen indiquant si la clé existe dans l'objet. Le type de retour utilise 
 <MonacoTSEditor
   src="/v1/api/string/isKeyof/examples/safeAccess.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ### Valider une clé avec Either
@@ -85,7 +85,7 @@ Un booléen indiquant si la clé existe dans l'objet. Le type de retour utilise 
 <MonacoTSEditor
   src="/v1/api/string/isKeyof/examples/validateKeys.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="440px"
 />
 
 ## Voir aussi

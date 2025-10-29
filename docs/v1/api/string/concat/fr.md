@@ -57,7 +57,7 @@ Une nouvelle chaîne de caractères contenant le texte combiné des chaînes fou
 <MonacoTSEditor
   src="/v1/api/string/concat/examples/formatList.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="200px"
 />
 
 ### Construire un chemin
@@ -65,7 +65,7 @@ Une nouvelle chaîne de caractères contenant le texte combiné des chaînes fou
 <MonacoTSEditor
   src="/v1/api/string/concat/examples/buildPath.doc.ts"
   majorVersion="v1"
-  height="180px"
+  height="300px"
 />
 
 ## Voir aussi
