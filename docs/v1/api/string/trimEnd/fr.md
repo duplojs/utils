@@ -43,7 +43,7 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 <MonacoTSEditor
   	src="/v1/api/string/trimEnd/examples/removeTrailingSlash.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="480px"
 />
 
 ### Nettoyer l'extension d'un fichier
@@ -51,7 +51,7 @@ Une nouvelle chaîne de caractères représentant la chaîne appelante sans les 
 <MonacoTSEditor
   	src="/v1/api/string/trimEnd/examples/cleanFileExtension.doc.ts"
   	majorVersion="v1"
-	height="450px"
+	height="680px"
 />
 
 ### Formater la sortie de commande

@@ -81,6 +81,10 @@ export default defineConfig({
 								link: "/v1/api/fr",
 							},
 							{
+								text: "Common",
+								link: "/v1/api/common/fr",
+							},
+							{
 								text: "String",
 								link: "/v1/api/string/fr",
 							},
@@ -107,10 +111,6 @@ export default defineConfig({
 							{
 								text: "Either",
 								link: "/v1/api/either/fr",
-							},
-							{
-								text: "Common",
-								link: "/v1/api/common/fr",
 							},
 						],
 					},

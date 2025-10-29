@@ -62,7 +62,7 @@ Une nouvelle chaîne de caractères contenant la section spécifiée de la chaî
 <MonacoTSEditor
   	src="/v1/api/string/substring/examples/extractEmailDomain.doc.ts"
   	majorVersion="v1"
-	height="500px"
+	height="610px"
 />
 
 ### Parsing de format de date
@@ -70,7 +70,7 @@ Une nouvelle chaîne de caractères contenant la section spécifiée de la chaî
 <MonacoTSEditor
   	src="/v1/api/string/substring/examples/parseDateFormat.doc.ts"
   	majorVersion="v1"
-	height="800px"
+	height="1200px"
 />
 
 ## Voir aussi

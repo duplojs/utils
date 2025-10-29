@@ -1,4 +1,4 @@
-import { DString, DArray, pipe } from "@duplojs/utils";
+import { DString, DArray, pipe, DNumber } from "@duplojs/utils";
 
 const commandOutput = `
 Line 1
@@ -10,7 +10,7 @@ const result = pipe(
 	commandOutput,
 	DString.split("\n"),
 	DArray.map(DString.trimEnd),
-	DArray.filter((line) => line.length > 0),
+	DArray.filter((line) => DNumber.greaterThan(DString.length(line), 0)),
 );
 
 // result: ["Line 1", "Line 2", "Line 3"]
