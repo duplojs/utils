@@ -1,11 +1,40 @@
+import { type Or, type UnionContain } from "./types";
+
 export type EligibleEqual = string | null | number | undefined | bigint | boolean | symbol;
+
+type ExpectLiteral<
+	GenericValue extends EligibleEqual,
+> = Or<[
+	UnionContain<GenericValue, string>,
+	UnionContain<GenericValue, number>,
+	UnionContain<GenericValue, boolean>,
+	UnionContain<GenericValue, bigint>,
+	UnionContain<GenericValue, symbol>,
+]> extends true
+	? never
+	: GenericValue;
+
+export function equal<
+	GenericInput extends EligibleEqual,
+	GenericValue extends GenericInput,
+>(
+	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
+): (input: GenericInput) => input is NoInfer<GenericValue>;
 
 export function equal<
 	GenericInput extends EligibleEqual,
 	GenericValue extends GenericInput,
 >(
 	value: GenericValue | GenericValue[]
-): (input: GenericInput) => input is NoInfer<GenericValue>;
+): (input: GenericInput) => boolean;
+
+export function equal<
+	GenericInput extends EligibleEqual,
+	GenericValue extends GenericInput,
+>(
+	input: GenericInput,
+	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
+): input is GenericValue;
 
 export function equal<
 	GenericInput extends EligibleEqual,
@@ -13,7 +42,7 @@ export function equal<
 >(
 	input: GenericInput,
 	value: GenericValue | GenericValue[]
-): input is GenericValue;
+): boolean;
 
 export function equal(
 	...args: [EligibleEqual, EligibleEqual | EligibleEqual[]] | [EligibleEqual | EligibleEqual[]]
