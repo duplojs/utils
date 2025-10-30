@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../../base";
-import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import {
 	type DataParserCheckerArrayMin,
@@ -16,10 +16,10 @@ export type DataParserArrayCheckers = (
 );
 
 export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
-	readonly element: DataParsers;
+	readonly element: DataParser;
 }
 
-export const dataParserArrayKind = createDataParserKind("array");
+export const arrayKind = createDataParserKind("array");
 
 type _DataParserArray<
 	GenericDefinition extends DataParserDefinitionArray,
@@ -29,7 +29,7 @@ type _DataParserArray<
 		Output<GenericDefinition["element"]>[],
 		Input<GenericDefinition["element"]>[]
 	>
-	& Kind<typeof dataParserArrayKind.definition>
+	& Kind<typeof arrayKind.definition>
 );
 
 export interface DataParserArray<
@@ -51,7 +51,7 @@ export interface DataParserArray<
 }
 
 export function array<
-	GenericElement extends DataParsers,
+	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionArray, "element">
 	> = never,
@@ -65,7 +65,7 @@ export function array<
 		>
 	> {
 	return dataParserInit<DataParserArray>(
-		dataParserArrayKind,
+		arrayKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

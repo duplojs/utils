@@ -1,15 +1,15 @@
 import { type Kind, type NeverCoalescing } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError } from "../base";
-import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionTransform extends DataParserDefinition<never> {
-	readonly inner: DataParsers;
+	readonly inner: DataParser;
 	theFunction(input: any, error: DataParserError): unknown;
 }
 
-export const dataParserTransformKind = createDataParserKind("transform");
+export const transformKind = createDataParserKind("transform");
 
 type _DataParserTransform<
 	GenericDefinition extends DataParserDefinitionTransform,
@@ -24,7 +24,7 @@ type _DataParserTransform<
 		>,
 		Input<GenericDefinition["inner"]>
 	>
-	& Kind<typeof dataParserTransformKind.definition>
+	& Kind<typeof transformKind.definition>
 );
 
 export interface DataParserTransform<
@@ -34,7 +34,7 @@ export interface DataParserTransform<
 }
 
 export function transform<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionTransform, "inner" | "theFunction">
@@ -56,7 +56,7 @@ export function transform<
 		>
 	> {
 	return dataParserInit<DataParserTransform>(
-		dataParserTransformKind,
+		transformKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

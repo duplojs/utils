@@ -1,12 +1,12 @@
 import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
-import { type MergeDefinition, type DataParsers } from "../types";
+import { type MergeDefinition } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 import { createDataParserKind } from "../kind";
 
-export type DataParserObjectShape = Readonly<Record<string, DataParsers>>;
+export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 
 export type DataParserObjectShapeOutput<
 	GenericShape extends DataParserObjectShape,
@@ -52,11 +52,11 @@ export interface DataParserDefinitionObject extends DataParserDefinition<never> 
 	readonly shape: DataParserObjectShape;
 	readonly optimizedShape: Memoized<{
 		readonly key: string;
-		readonly value: DataParsers;
+		readonly value: DataParser;
 	}[]>;
 }
 
-export const dataParserObjectKind = createDataParserKind("object");
+export const objectKind = createDataParserKind("object");
 
 type _DataParserObject<
 	GenericDefinition extends DataParserDefinitionObject,
@@ -66,7 +66,7 @@ type _DataParserObject<
 		DataParserObjectShapeOutput<GenericDefinition["shape"]>,
 		DataParserObjectShapeInput<GenericDefinition["shape"]>
 	>
-	& Kind<typeof dataParserObjectKind.definition>
+	& Kind<typeof objectKind.definition>
 );
 
 export interface DataParserObject<
@@ -90,7 +90,7 @@ export function object<
 		>
 	> {
 	return dataParserInit<DataParserObject>(
-		dataParserObjectKind,
+		objectKind,
 		{
 			definition: {
 				shape,

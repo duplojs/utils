@@ -1,8 +1,8 @@
 import { type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
-import { type DataParsers, type MergeDefinition } from "../types";
+import { type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output } from "../base";
+import { type DataParser, type Output } from "../base";
 import { type DataParserError } from "../error";
 
 type _DataParserTransformExtended<
@@ -19,7 +19,7 @@ export interface DataParserTransformExtended<
 }
 
 export function transform<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
 	const GenericDefinition extends Partial<
 		Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">

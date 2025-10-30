@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserString } from "./string";
 import { type DataParserTemplateLiteral } from "./templateLiteral";
@@ -34,14 +34,14 @@ export type DataParserRecordKey = (
 
 export interface DataParserDefinitionRecord extends DataParserDefinition<never> {
 	readonly key: DataParserRecordKey;
-	readonly value: DataParsers;
+	readonly value: DataParser;
 }
 
-export const dataParserRecordKind = createDataParserKind("record");
+export const recordKind = createDataParserKind("record");
 
 export type DataParserRecordShapeOutput<
 	GenericDataParserKey extends DataParserRecordKey,
-	GenericDataParserValue extends DataParsers,
+	GenericDataParserValue extends DataParser,
 > = Extract<
 	Record<
 		Output<GenericDataParserKey> extends infer InferredKey extends string | number
@@ -56,7 +56,7 @@ export type DataParserRecordShapeOutput<
 
 export type DataParserRecordShapeInput<
 	GenericDataParserKey extends DataParserRecordKey,
-	GenericDataParserValue extends DataParsers,
+	GenericDataParserValue extends DataParser,
 > = Extract<
 	Record<
 		Input<GenericDataParserKey> extends infer InferredKey extends string | number
@@ -85,7 +85,7 @@ type _DataParserRecord<
 			GenericDefinition["value"]
 		>
 	>
-	& Kind<typeof dataParserRecordKind.definition>
+	& Kind<typeof recordKind.definition>
 );
 
 export interface DataParserRecord<
@@ -96,7 +96,7 @@ export interface DataParserRecord<
 
 export function record<
 	GenericDataParserKey extends DataParserRecordKey,
-	GenericDataParserValue extends DataParsers,
+	GenericDataParserValue extends DataParser,
 	const GenericDefinition extends Partial<DataParserDefinitionRecord> = never,
 >(
 	key: GenericDataParserKey,
@@ -112,7 +112,7 @@ export function record<
 		>
 	> {
 	return dataParserInit<DataParserRecord>(
-		dataParserRecordKind,
+		recordKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

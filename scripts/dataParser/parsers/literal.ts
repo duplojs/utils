@@ -11,7 +11,7 @@ export interface DataParserDefinitionLiteral extends DataParserDefinition<never>
 	readonly value: LiteralValue[];
 }
 
-export const dataParserLiteralKind = createDataParserKind("literal");
+export const literalKind = createDataParserKind("literal");
 
 type _DataParserLiteral<
 	GenericDefinition extends DataParserDefinitionLiteral,
@@ -21,7 +21,7 @@ type _DataParserLiteral<
 		GenericDefinition["value"][number],
 		GenericDefinition["value"][number]
 	>
-	& Kind<typeof dataParserLiteralKind.definition>
+	& Kind<typeof literalKind.definition>
 );
 
 export interface DataParserLiteral<
@@ -45,7 +45,7 @@ export function literal<
 		>
 	> {
 	return dataParserInit<DataParserLiteral>(
-		dataParserLiteralKind,
+		literalKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

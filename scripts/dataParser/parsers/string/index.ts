@@ -21,7 +21,7 @@ export interface DataParserDefinitionString extends DataParserDefinition<
 	readonly coerce: boolean;
 }
 
-export const dataParserStringKind = createDataParserKind("string");
+export const stringKind = createDataParserKind("string");
 
 type _DataParserString<
 	GenericDefinition extends DataParserDefinitionString,
@@ -31,7 +31,7 @@ type _DataParserString<
 		string,
 		string
 	>
-	& Kind<typeof dataParserStringKind.definition>
+	& Kind<typeof stringKind.definition>
 );
 
 export interface DataParserString<
@@ -64,7 +64,7 @@ export function string<
 		>
 	> {
 	return dataParserInit<DataParserString>(
-		dataParserStringKind,
+		stringKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

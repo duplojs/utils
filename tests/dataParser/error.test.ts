@@ -11,14 +11,14 @@ describe("dataParser error helpers", () => {
 	it("createError returns kind-wrapped accumulator", () => {
 		const error = DDataParser.createError();
 
-		expect(DDataParser.dataParserErrorKind.has(error)).toBe(true);
+		expect(DDataParser.errorKind.has(error)).toBe(true);
 		expect(error).toStrictEqual(
-			DDataParser.dataParserErrorKind.addTo({
+			DDataParser.errorKind.addTo({
 				issues: [],
 				currentPath: [],
 			}),
 		);
-		expect(DDataParser.dataParserErrorKind.getValue(error)).toBeNull();
+		expect(DDataParser.errorKind.getValue(error)).toBeNull();
 	});
 
 	it("setErrorPath updates current path values", () => {
@@ -43,12 +43,12 @@ describe("dataParser error helpers", () => {
 		DDataParser.addPromiseIssue(error, parser as never, undefined);
 
 		expect(error.issues).toStrictEqual([
-			DDataParser.dataParserErrorIssueKind.addTo({
+			DDataParser.errorIssueKind.addTo({
 				source: parser,
 				path: "user.email",
 				data: undefined,
 			}),
-			DDataParser.dataParserErrorPromiseIssueKind.addTo({
+			DDataParser.errorPromiseIssueKind.addTo({
 				source: parser,
 				path: "user.email",
 				data: undefined,

@@ -1,7 +1,8 @@
 import { type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
-import { type DataParsers, type MergeDefinition } from "../types";
+import { type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
+import { type DataParser } from "../base";
 
 type _DataParserRecordExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionRecord,
@@ -18,7 +19,7 @@ export interface DataParserRecordExtended<
 
 export function record<
 	GenericDataParserKey extends dataParsers.DataParserRecordKey,
-	GenericDataParserValue extends DataParsers,
+	GenericDataParserValue extends DataParser,
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionRecord> = never,
 >(
 	key: GenericDataParserKey,

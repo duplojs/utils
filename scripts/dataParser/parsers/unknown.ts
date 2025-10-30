@@ -6,7 +6,7 @@ import { createDataParserKind } from "../kind";
 export interface DataParserDefinitionUnknown extends DataParserDefinition<never> {
 }
 
-export const dataParserUnknownKind = createDataParserKind("unknown");
+export const unknownKind = createDataParserKind("unknown");
 
 type _DataParserUnknown<
 	GenericDefinition extends DataParserDefinitionUnknown,
@@ -16,7 +16,7 @@ type _DataParserUnknown<
 		unknown,
 		unknown
 	>
-	& Kind<typeof dataParserUnknownKind.definition>
+	& Kind<typeof unknownKind.definition>
 );
 
 export interface DataParserUnknown<
@@ -36,7 +36,7 @@ export function unknown<
 		>
 	> {
 	return dataParserInit<DataParserUnknown>(
-		dataParserUnknownKind,
+		unknownKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

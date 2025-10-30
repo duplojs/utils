@@ -1,14 +1,14 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionPipe extends DataParserDefinition<never> {
-	readonly input: DataParsers;
-	readonly output: DataParsers;
+	readonly input: DataParser;
+	readonly output: DataParser;
 }
 
-export const dataParserPipeKind = createDataParserKind("pipe");
+export const pipeKind = createDataParserKind("pipe");
 
 type _DataParserPipe<
 	GenericDefinition extends DataParserDefinitionPipe,
@@ -18,7 +18,7 @@ type _DataParserPipe<
 		Output<GenericDefinition["output"]>,
 		Input<GenericDefinition["input"]>
 	>
-	& Kind<typeof dataParserPipeKind.definition>
+	& Kind<typeof pipeKind.definition>
 );
 
 export interface DataParserPipe<
@@ -28,8 +28,8 @@ export interface DataParserPipe<
 }
 
 export function pipe<
-	GenericInput extends DataParsers,
-	GenericOutput extends DataParsers,
+	GenericInput extends DataParser,
+	GenericOutput extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionPipe, "input" | "output">
 	> = never,
@@ -47,7 +47,7 @@ export function pipe<
 		>
 	> {
 	return dataParserInit<DataParserPipe>(
-		dataParserPipeKind,
+		pipeKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

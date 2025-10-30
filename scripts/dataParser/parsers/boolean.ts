@@ -8,7 +8,7 @@ export interface DataParserDefinitionBoolean extends DataParserDefinition<never>
 	readonly coerce: boolean;
 }
 
-export const dataParserBooleanKind = createDataParserKind("boolean");
+export const booleanKind = createDataParserKind("boolean");
 
 type _DataParserBoolean<
 	GenericDefinition extends DataParserDefinitionBoolean,
@@ -18,7 +18,7 @@ type _DataParserBoolean<
 		boolean,
 		boolean
 	>
-	& Kind<typeof dataParserBooleanKind.definition>
+	& Kind<typeof booleanKind.definition>
 );
 
 export interface DataParserBoolean<
@@ -38,7 +38,7 @@ export function boolean<
 		>
 	> {
 	return dataParserInit<DataParserBoolean>(
-		dataParserBooleanKind,
+		booleanKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

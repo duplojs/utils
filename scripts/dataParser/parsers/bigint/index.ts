@@ -18,7 +18,7 @@ export interface DataParserDefinitionBigInt extends DataParserDefinition<
 	readonly coerce: boolean;
 }
 
-export const dataParserBigIntKind = createDataParserKind("bigint");
+export const bigIntKind = createDataParserKind("bigint");
 
 type _DataParserBigInt<
 	GenericDefinition extends DataParserDefinitionBigInt,
@@ -28,7 +28,7 @@ type _DataParserBigInt<
 		bigint,
 		bigint
 	>
-	& Kind<typeof dataParserBigIntKind.definition>
+	& Kind<typeof bigIntKind.definition>
 );
 
 export interface DataParserBigInt<
@@ -60,7 +60,7 @@ export function bigint<
 		>
 	> {
 	return dataParserInit<DataParserBigInt>(
-		dataParserBigIntKind,
+		bigIntKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

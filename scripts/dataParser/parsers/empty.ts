@@ -8,7 +8,7 @@ export interface DataParserDefinitionEmpty extends DataParserDefinition<never> {
 	readonly coerce: boolean;
 }
 
-export const dataParserEmptyKind = createDataParserKind("empty");
+export const emptyKind = createDataParserKind("empty");
 
 type _DataParserEmpty<
 	GenericDefinition extends DataParserDefinitionEmpty,
@@ -18,7 +18,7 @@ type _DataParserEmpty<
 		undefined,
 		undefined
 	>
-	& Kind<typeof dataParserEmptyKind.definition>
+	& Kind<typeof emptyKind.definition>
 );
 
 export interface DataParserEmpty<
@@ -38,7 +38,7 @@ export function empty<
 		>
 	> {
 	return dataParserInit<DataParserEmpty>(
-		dataParserEmptyKind,
+		emptyKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

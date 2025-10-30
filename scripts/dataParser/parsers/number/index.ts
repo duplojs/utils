@@ -19,7 +19,7 @@ export interface DataParserDefinitionNumber extends DataParserDefinition<
 	readonly coerce: boolean;
 }
 
-export const dataParserNumberKind = createDataParserKind("number");
+export const numberKind = createDataParserKind("number");
 
 type _DataParserNumber<
 	GenericDefinition extends DataParserDefinitionNumber,
@@ -29,7 +29,7 @@ type _DataParserNumber<
 		number,
 		number
 	>
-	& Kind<typeof dataParserNumberKind.definition>
+	& Kind<typeof numberKind.definition>
 );
 
 export interface DataParserNumber<
@@ -61,7 +61,7 @@ export function number<
 		>
 	> {
 	return dataParserInit<DataParserNumber>(
-		dataParserNumberKind,
+		numberKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

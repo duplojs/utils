@@ -5,13 +5,13 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import * as DPattern from "@scripts/pattern";
 import * as DString from "@scripts/string";
-import { dataParserStringKind, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
-import { type DataParserDefinitionNumber, dataParserNumberKind, type DataParserNumber } from "./number";
-import { dataParserBigIntKind, type DataParserDefinitionBigInt, type DataParserBigInt } from "./bigint";
-import { type DataParserDefinitionLiteral, dataParserLiteralKind, type DataParserLiteral } from "./literal";
-import { type DataParserDefinitionEmpty, dataParserEmptyKind, type DataParserEmpty } from "./empty";
-import { type DataParserDefinitionNil, dataParserNilKind, type DataParserNil } from "./nil";
-import { dataParserBooleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
+import { stringKind, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
+import { type DataParserDefinitionNumber, numberKind, type DataParserNumber } from "./number";
+import { bigIntKind, type DataParserDefinitionBigInt, type DataParserBigInt } from "./bigint";
+import { type DataParserDefinitionLiteral, literalKind, type DataParserLiteral } from "./literal";
+import { type DataParserDefinitionEmpty, emptyKind, type DataParserEmpty } from "./empty";
+import { type DataParserDefinitionNil, nilKind, type DataParserNil } from "./nil";
+import { booleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
 import { createDataParserKind } from "../kind";
 
 export type DataParsersTemplateLiteral = (
@@ -117,7 +117,7 @@ export interface DataParserDefinitionTemplateLiteral extends DataParserDefinitio
 	readonly pattern: RegExp;
 }
 
-export const dataParserTemplateLiteralKind = createDataParserKind("template-literal");
+export const templateLiteralKind = createDataParserKind("template-literal");
 
 type _DataParserTemplateLiteral<
 	GenericDefinition extends DataParserDefinitionTemplateLiteral,
@@ -127,7 +127,7 @@ type _DataParserTemplateLiteral<
 		TemplateLiteralShapeOutput<GenericDefinition["template"]>,
 		TemplateLiteralShapeInput<GenericDefinition["template"]>
 	>
-	& Kind<typeof dataParserTemplateLiteralKind.definition>
+	& Kind<typeof templateLiteralKind.definition>
 );
 
 export interface DataParserTemplateLiteral<
@@ -159,27 +159,27 @@ export function templateLiteral<
 					(value) => `(?:${escapeRegExp(value)})`,
 				),
 				DPattern.when(
-					dataParserNumberKind.has,
+					numberKind.has,
 					() => "(:?[0-9]+)",
 				),
 				DPattern.when(
-					dataParserBigIntKind.has,
+					bigIntKind.has,
 					() => "(?:[0-9]+n)",
 				),
 				DPattern.when(
-					dataParserBooleanKind.has,
+					booleanKind.has,
 					() => "(?:true|false)",
 				),
 				DPattern.when(
-					dataParserNilKind.has,
+					nilKind.has,
 					() => "(?:null)",
 				),
 				DPattern.when(
-					dataParserEmptyKind.has,
+					emptyKind.has,
 					() => "(?:undefined)",
 				),
 				DPattern.when(
-					dataParserLiteralKind.has,
+					literalKind.has,
 					(dataParser) => pipe(
 						dataParser.definition.value,
 						DArray.map(
@@ -197,7 +197,7 @@ export function templateLiteral<
 					),
 				),
 				DPattern.when(
-					dataParserStringKind.has,
+					stringKind.has,
 					innerPipe(
 						whenElse(
 							(dataParser) => !!dataParser.definition.checkers.length,
@@ -217,7 +217,7 @@ export function templateLiteral<
 					),
 				),
 				DPattern.when(
-					dataParserTemplateLiteralKind.has,
+					templateLiteralKind.has,
 					(dataParser) => pipe(
 						dataParser.definition.pattern.source,
 						DString.replace(/^\^/, ""),
@@ -233,7 +233,7 @@ export function templateLiteral<
 	);
 
 	return dataParserInit<DataParserTemplateLiteral>(
-		dataParserTemplateLiteralKind,
+		templateLiteralKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

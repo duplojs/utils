@@ -1,13 +1,13 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
-import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionOptional extends DataParserDefinition<never> {
-	readonly inner: DataParsers;
+	readonly inner: DataParser;
 }
 
-export const dataParserOptionalKind = createDataParserKind("optional");
+export const optionalKind = createDataParserKind("optional");
 
 type _DataParserOptional<
 	GenericDefinition extends DataParserDefinitionOptional,
@@ -17,7 +17,7 @@ type _DataParserOptional<
 		Output<GenericDefinition["inner"]> | undefined,
 		Input<GenericDefinition["inner"]> | undefined
 	>
-	& Kind<typeof dataParserOptionalKind.definition>
+	& Kind<typeof optionalKind.definition>
 );
 
 export interface DataParserOptional<
@@ -27,7 +27,7 @@ export interface DataParserOptional<
 }
 
 export function optional<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionOptional, "inner">
 	> = never,
@@ -41,7 +41,7 @@ export function optional<
 		>
 	> {
 	return dataParserInit<DataParserOptional>(
-		dataParserOptionalKind,
+		optionalKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

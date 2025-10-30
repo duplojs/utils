@@ -18,11 +18,11 @@ describe("base parser", () => {
 			exec,
 		);
 
-		expect(DDataParser.dataParserCheckerKind.has(result)).toBe(true);
+		expect(DDataParser.checkerKind.has(result)).toBe(true);
 		expect(dataParserTestKind.has(result)).toBe(true);
 		expect(result).toStrictEqual(
 			dataParserTestKind.addTo(
-				DDataParser.dataParserCheckerKind.addTo({
+				DDataParser.checkerKind.addTo({
 					definition: {
 						errorMessage: "error",
 					},

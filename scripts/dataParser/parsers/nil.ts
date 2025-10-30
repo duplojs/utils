@@ -8,7 +8,7 @@ export interface DataParserDefinitionNil extends DataParserDefinition<never> {
 	readonly coerce: boolean;
 }
 
-export const dataParserNilKind = createDataParserKind("nil");
+export const nilKind = createDataParserKind("nil");
 
 type _DataParserNil<
 	GenericDefinition extends DataParserDefinitionNil,
@@ -18,7 +18,7 @@ type _DataParserNil<
 		null,
 		null
 	>
-	& Kind<typeof dataParserNilKind.definition>
+	& Kind<typeof nilKind.definition>
 );
 
 export interface DataParserNil<
@@ -38,7 +38,7 @@ export function nil<
 		>
 	> {
 	return dataParserInit<DataParserNil>(
-		dataParserNilKind,
+		nilKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

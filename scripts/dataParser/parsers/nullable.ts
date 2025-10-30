@@ -1,13 +1,13 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
-import { type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export interface DataParserDefinitionNullable extends DataParserDefinition<never> {
-	readonly inner: DataParsers;
+	readonly inner: DataParser;
 }
 
-export const dataParserNullableKind = createDataParserKind("nullable");
+export const nullableKind = createDataParserKind("nullable");
 
 type _DataParserNullable<
 	GenericDefinition extends DataParserDefinitionNullable,
@@ -17,7 +17,7 @@ type _DataParserNullable<
 		Output<GenericDefinition["inner"]> | null,
 		Input<GenericDefinition["inner"]> | null
 	>
-	& Kind<typeof dataParserNullableKind.definition>
+	& Kind<typeof nullableKind.definition>
 );
 
 export interface DataParserNullable<
@@ -27,7 +27,7 @@ export interface DataParserNullable<
 }
 
 export function nullable<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionNullable, "inner">
 	> = never,
@@ -41,7 +41,7 @@ export function nullable<
 		>
 	> {
 	return dataParserInit<DataParserNullable>(
-		dataParserNullableKind,
+		nullableKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

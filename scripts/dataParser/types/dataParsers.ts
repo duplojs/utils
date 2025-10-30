@@ -1,14 +1,15 @@
+import { type GetPropsWithValueExtends } from "@scripts/object";
 import { type DataParser } from "../base";
 import type * as AllDataParser from "../parsers";
+import type * as AllDataParserExtended from "../extended";
+import { type DataParserExtended } from "../baseExtended";
 
 export interface DataParserCustom {
-
+	base: DataParser;
 }
 
 export type DataParsers = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserCustom[keyof DataParserCustom]
-	| DataParser
+	| DataParserCustom[GetPropsWithValueExtends<DataParserCustom, DataParser>]
 	| AllDataParser.DataParserString
 	| AllDataParser.DataParserObject
 	| AllDataParser.DataParserNumber
@@ -28,4 +29,31 @@ export type DataParsers = (
 	| AllDataParser.DataParserLazy
 	| AllDataParser.DataParserUnknown
 	| AllDataParser.DataParserRecord
+);
+
+export interface DataParserExtendedCustom {
+	base: DataParserExtended;
+}
+
+export type DataParsersExtended = (
+	| DataParserExtendedCustom[GetPropsWithValueExtends<DataParserExtendedCustom, DataParserExtended>]
+	| AllDataParserExtended.DataParserStringExtended
+	| AllDataParserExtended.DataParserObjectExtended
+	| AllDataParserExtended.DataParserNumberExtended
+	| AllDataParserExtended.DataParserLiteralExtended
+	| AllDataParserExtended.DataParserUnionExtended
+	| AllDataParserExtended.DataParserArrayExtended
+	| AllDataParserExtended.DataParserBigIntExtended
+	| AllDataParserExtended.DataParserTupleExtended
+	| AllDataParserExtended.DataParserTransformExtended
+	| AllDataParserExtended.DataParserBooleanExtended
+	| AllDataParserExtended.DataParserNilExtended
+	| AllDataParserExtended.DataParserEmptyExtended
+	| AllDataParserExtended.DataParserTemplateLiteralExtended
+	| AllDataParserExtended.DataParserPipeExtended
+	| AllDataParserExtended.DataParserNullableExtended
+	| AllDataParserExtended.DataParserOptionalExtended
+	| AllDataParserExtended.DataParserLazyExtended
+	| AllDataParserExtended.DataParserUnknownExtended
+	| AllDataParserExtended.DataParserRecordExtended
 );

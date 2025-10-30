@@ -7,7 +7,7 @@ export const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
 export type SymbolDataParserError = typeof SymbolDataParserError;
 
-export const dataParserCheckerKind = createDataParserKind("checker");
+export const checkerKind = createDataParserKind("checker");
 
 export interface DataParserCheckerDefinition {
 	readonly errorMessage?: string;
@@ -16,7 +16,7 @@ export interface DataParserCheckerDefinition {
 export interface DataParserChecker<
 	GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
 	GenericInput extends AnyValue = AnyValue,
-> extends Kind<typeof dataParserCheckerKind.definition, GenericInput> {
+> extends Kind<typeof checkerKind.definition, GenericInput> {
 	readonly definition: GenericDefinition;
 	exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
 }
@@ -26,7 +26,7 @@ export function dataParserCheckerInit<
 >(
 	kind: Exclude<
 		GetKindHandler<GenericDataParserChecker>,
-		typeof dataParserCheckerKind
+		typeof checkerKind
 	>,
 	params: NoInfer<
 		Omit<
@@ -37,12 +37,12 @@ export function dataParserCheckerInit<
 	exec: (
 		...args: Parameters<GenericDataParserChecker["exec"]>
 	) => GetKindValue<
-		typeof dataParserCheckerKind,
+		typeof checkerKind,
 		GenericDataParserChecker
 	> | SymbolDataParserErrorIssue,
 ): GenericDataParserChecker {
 	return (kind as KindHandler).setTo(
-		dataParserCheckerKind.setTo({
+		checkerKind.setTo({
 			...params,
 			exec,
 		}),

@@ -4,11 +4,16 @@ export type UnionContain<
 	GenericUnion extends unknown,
 	GenericValue extends unknown,
 > = IsEqual<
-	| (
-		GenericUnion extends any
-			? IsEqual<GenericUnion, GenericValue>
-			: never
-	)
-	| false,
-	boolean
+	GenericValue extends any
+		? IsEqual<
+			| (
+				GenericUnion extends any
+					? IsEqual<GenericUnion, GenericValue>
+					: never
+			)
+			| false,
+			boolean
+		>
+		: never,
+	true
 >;

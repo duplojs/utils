@@ -1,20 +1,20 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { createDataParserKind } from "../kind";
 
-export type TupleShape = readonly [DataParsers, ...DataParsers[]];
+export type TupleShape = readonly [DataParser, ...DataParser[]];
 
 export type DataParserTupleShapeOutput<
 	GenericShape extends TupleShape,
-	GenericRest extends DataParsers | undefined,
+	GenericRest extends DataParser | undefined,
 > = IsEqual<GenericShape, TupleShape> extends true
 	? TupleShape
 	: GenericShape extends [
-		infer InferredFirst extends DataParsers,
-		...infer InferredRest extends DataParsers[],
+		infer InferredFirst extends DataParser,
+		...infer InferredRest extends DataParser[],
 	]
 		? [
 			Output<InferredFirst>,
@@ -33,12 +33,12 @@ export type DataParserTupleShapeOutput<
 
 export type DataParserTupleShapeInput<
 	GenericShape extends TupleShape,
-	GenericRest extends DataParsers | undefined,
+	GenericRest extends DataParser | undefined,
 > = IsEqual<GenericShape, TupleShape> extends true
 	? TupleShape
 	: GenericShape extends [
-		infer InferredFirst extends DataParsers,
-		...infer InferredRest extends DataParsers[],
+		infer InferredFirst extends DataParser,
+		...infer InferredRest extends DataParser[],
 	]
 		? [
 			Input<InferredFirst>,
@@ -62,10 +62,10 @@ export type DataParserTupleCheckers = (
 
 export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers> {
 	readonly shape: TupleShape;
-	readonly rest?: DataParsers;
+	readonly rest?: DataParser;
 }
 
-export const dataParserTupleKind = createDataParserKind("tuple");
+export const tupleKind = createDataParserKind("tuple");
 
 type _DataParserTuple<
 	GenericDefinition extends DataParserDefinitionTuple,
@@ -81,7 +81,7 @@ type _DataParserTuple<
 			GenericDefinition["rest"]
 		>
 	>
-	& Kind<typeof dataParserTupleKind.definition>
+	& Kind<typeof tupleKind.definition>
 );
 
 export interface DataParserTuple<
@@ -114,7 +114,7 @@ export function tuple<
 		>
 	> {
 	return dataParserInit<DataParserTuple>(
-		dataParserTupleKind,
+		tupleKind,
 		{
 			definition: {
 				errorMessage: definition?.errorMessage,

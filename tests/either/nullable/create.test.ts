@@ -7,7 +7,7 @@ import { eitherNullableKind } from "@scripts/either/nullable/base";
 import { eitherNullableEmptyKind } from "@scripts/either/nullable/empty";
 import { eitherNullableFilledKind } from "@scripts/either/nullable/filled";
 import { eitherRightKind } from "@scripts/either/right/create";
-import { DArray, DEither, pipe, wrapValue } from "@scripts/index";
+import { DEither, pipe, wrapValue } from "@scripts/index";
 
 describe("createEitherNullable", () => {
 	it("create EitherNullableEmpty", () => {

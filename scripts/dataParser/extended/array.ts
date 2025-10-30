@@ -1,7 +1,8 @@
 import { type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type DataParsers, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
+import { type DataParser } from "../base";
 
 type _DataParserArrayExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionArray,
@@ -53,7 +54,7 @@ export interface DataParserArrayExtended<
 }
 
 export function array<
-	GenericElement extends DataParsers,
+	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<dataParsers.DataParserDefinitionArray, "element">
 	> = never,

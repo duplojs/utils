@@ -1,7 +1,8 @@
 import { type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
-import { type DataParsers, type MergeDefinition } from "../types";
+import { type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
+import { type DataParser } from "../base";
 
 type _DataParserLazyExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionLazy,
@@ -17,7 +18,7 @@ export interface DataParserLazyExtended<
 }
 
 export function lazy<
-	GenericDataParser extends DataParsers,
+	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionLazy> = never,
 >(
 	getter: () => GenericDataParser,
