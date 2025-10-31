@@ -1,6 +1,7 @@
-import typescript from '@rollup/plugin-typescript';
-import del from 'rollup-plugin-delete';
+import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
+import del from "rollup-plugin-delete";
+import { generateMetadataPlugin } from "./rollup-plugins/generate-metadata.js";
 
 export default defineConfig({
 	input: "scripts/index.ts",
@@ -23,5 +24,6 @@ export default defineConfig({
 	plugins: [
 		del({ targets: "dist" }),
 		typescript({ tsconfig: "tsconfig.build.json" }),
+		generateMetadataPlugin(),
 	],
 });
