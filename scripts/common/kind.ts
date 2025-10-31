@@ -1,5 +1,5 @@
 import { type ForbiddenString } from "@scripts/string";
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor, type NeverCoalescing, type And, type Not } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
 
 export interface KindHandler<
@@ -218,9 +218,11 @@ export type KindHeritageConstructorParams<
 export function kindHeritage<
 	GenericUniqueName extends string,
 	GenericKindHandler extends KindHandler,
+	GenericParent extends AnyConstructor = never,
 >(
 	uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>,
 	kind: GenericKindHandler | GenericKindHandler[],
+	parent?: GenericParent,
 ) {
 	type $<
 		GenericName extends string,
@@ -233,12 +235,15 @@ export function kindHeritage<
 		: [kind];
 
 	type ParentKindClass = new(
-		...args: IsEqual<
-			GenericKindHandler extends KindHandler
-				? IsEqual<GenericKindHandler["definition"]["value"], unknown>
-				: never,
-			true
-		> extends true
+		...args: And<[
+			IsEqual<
+				GenericKindHandler extends KindHandler
+					? IsEqual<GenericKindHandler["definition"]["value"], unknown>
+					: never,
+				true
+			>,
+			IsEqual<GenericParent, never>,
+		]> extends true
 			? [
 				params?: KindHeritageConstructorParams<
 					GenericKindHandler
@@ -248,22 +253,52 @@ export function kindHeritage<
 				params: KindHeritageConstructorParams<
 					GenericKindHandler
 				>,
+				...parentArgs: IsEqual<ConstructorParameters<GenericParent>, never> extends true
+					? [
+						parentParams?: ConstructorParameters<GenericParent>,
+					]
+					: [
+						parentParams: ConstructorParameters<GenericParent>,
+					],
 			]
 	) => UnionToIntersection<
-		| (
+			| (
 			GenericKindHandler extends KindHandler
 				? Kind<GenericKindHandler["definition"]>
 				: never
 		)
 		| Kind<typeof uniqueKind.definition>
+		| NeverCoalescing<GenericParent, {}>
 	>;
 
-	const ParentKindClass = (function ParentKindClass(
-		this: Record<string, unknown>,
-		params: Record<string, unknown> = {},
-	) {
-		for (const kind of kinds) {
-			this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+	const Extendable = (parent ?? class {}) as AnyConstructor<any, {}>;
+
+	const ParentKindClass = (class extends Extendable {
+		[key: ObjectKey]: unknown
+
+		public constructor(
+			params: Record<string, unknown> = {},
+			parentParams = [],
+		) {
+			super(...parentParams);
+
+			for (const kind of kinds) {
+				this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+			}
+		}
+
+		public static override [Symbol.hasInstance](value: unknown) {
+			if (!uniqueKind.has(value)) {
+				return false;
+			}
+
+			for (const kind of kinds) {
+				if (!kind.has(value)) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}) as unknown as {
 		[Symbol.hasInstance](value: unknown): boolean;
@@ -277,26 +312,6 @@ export function kindHeritage<
 	);
 
 	ParentKindClass.prototype[uniqueKind.runTimeKey] = null;
-
-	Object.defineProperty(
-		ParentKindClass,
-		Symbol.hasInstance,
-		{
-			value: (value: unknown) => {
-				if (!uniqueKind.has(value)) {
-					return false;
-				}
-
-				for (const kind of kinds) {
-					if (!kind.has(value)) {
-						return false;
-					}
-				}
-
-				return true;
-			},
-		},
-	);
 
 	return ParentKindClass as unknown as ParentKindClass;
 }

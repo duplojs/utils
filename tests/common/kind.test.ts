@@ -1,4 +1,4 @@
-import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel, createKindNamespace } from "@scripts";
+import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel, createKindNamespace, isRuntimeKind } from "@scripts";
 
 describe("theKind", () => {
 	const myKind = createKind("testKind");
@@ -79,15 +79,26 @@ describe("theKind", () => {
 			public test = "toto";
 		}
 		const otherKind = createKind<"require", string>("require");
-		class TestClass2 extends kindHeritage("test", [myKind, otherKind]) {
+		class TestClass2 extends kindHeritage("test", [myKind, otherKind], Error) {
 			public test = 13;
 		}
 
+		class CloneTestClass2 extends kindHeritage("test", [myKind, otherKind]) {
+			public test = 13;
+		}
+
+		class SubTestClass2 extends kindHeritage("test1", [], TestClass2) {
+		}
+
 		expect((new TestClass()) instanceof TestClass2).toBe(false);
-		expect((new TestClass2({ require: "test" })) instanceof TestClass2).toBe(true);
+		expect((new TestClass2({ require: "test" }, ["test"])) instanceof TestClass2).toBe(true);
+		expect((new TestClass2({ require: "test" }, ["test"])) instanceof Error).toBe(true);
+		expect((new TestClass2({ require: "test" }, ["test"])) instanceof CloneTestClass2).toBe(true);
+		expect((new SubTestClass2({}, [{ require: "test" }, ["test"]])) instanceof CloneTestClass2).toBe(true);
+		expect((new SubTestClass2({}, [{ require: "test" }, ["test"]])) instanceof String).toBe(false);
 		expect((new Error()) instanceof TestClass).toBe(false);
 
-		expect((new TestClass2({ require: "test" }) as any)[otherKind.runTimeKey]).toBe("test");
+		expect((new TestClass2({ require: "test" }, ["test"]) as any)[otherKind.runTimeKey]).toBe("test");
 		expect(myKind.has(new TestClass())).toBe(true);
 
 		type Check = ExpectType<
@@ -110,10 +121,13 @@ describe("theKind", () => {
 
 		type Check3 = ExpectType<
 			ConstructorParameters<ReturnType<typeof kindHeritage<"", typeof myKind | typeof otherKind>>>,
-			[params: {
-				testKind?: unknown;
-				require: string;
-			}],
+			[
+				params: {
+					testKind?: unknown;
+					require: string;
+				},
+				parentParams?: undefined,
+			],
 			"strict"
 		>;
 	});
@@ -147,5 +161,10 @@ describe("theKind", () => {
 			KindDefinition<"@user/name">,
 			"strict"
 		>;
+	});
+
+	it("isRuntimeKind", () => {
+		expect(isRuntimeKind(createKind("").runTimeKey)).toBe(true);
+		expect(isRuntimeKind("")).toBe(false);
 	});
 });
