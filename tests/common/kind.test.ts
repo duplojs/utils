@@ -126,7 +126,7 @@ describe("theKind", () => {
 					testKind?: unknown;
 					require: string;
 				},
-				parentParams?: undefined,
+				parentParams?: unknown[],
 			],
 			"strict"
 		>;

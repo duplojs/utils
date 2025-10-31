@@ -218,7 +218,7 @@ export type KindHeritageConstructorParams<
 export function kindHeritage<
 	GenericUniqueName extends string,
 	GenericKindHandler extends KindHandler,
-	GenericParent extends AnyConstructor = never,
+	GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>,
 >(
 	uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>,
 	kind: GenericKindHandler | GenericKindHandler[],
@@ -242,7 +242,7 @@ export function kindHeritage<
 					: never,
 				true
 			>,
-			IsEqual<GenericParent, never>,
+			IsEqual<InstanceType<GenericParent>, never>,
 		]> extends true
 			? [
 				params?: KindHeritageConstructorParams<
@@ -253,7 +253,7 @@ export function kindHeritage<
 				params: KindHeritageConstructorParams<
 					GenericKindHandler
 				>,
-				...parentArgs: IsEqual<ConstructorParameters<GenericParent>, never> extends true
+				...parentArgs: IsEqual<ConstructorParameters<GenericParent>, unknown[]> extends true
 					? [
 						parentParams?: ConstructorParameters<GenericParent>,
 					]
@@ -268,7 +268,7 @@ export function kindHeritage<
 				: never
 		)
 		| Kind<typeof uniqueKind.definition>
-		| NeverCoalescing<GenericParent, {}>
+		| InstanceType<GenericParent>
 	>;
 
 	const Extendable = (parent ?? class {}) as AnyConstructor<any, {}>;
