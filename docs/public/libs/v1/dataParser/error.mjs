@@ -2,19 +2,19 @@ import { createDataParserKind } from './kind.mjs';
 
 const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
 const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
-const dataParserErrorIssueKind = createDataParserKind("error-issue");
+const errorIssueKind = createDataParserKind("error-issue");
 const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
 const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-const dataParserErrorPromiseIssueKind = createDataParserKind("error-issue-promise");
-const dataParserErrorKind = createDataParserKind("error");
+const errorPromiseIssueKind = createDataParserKind("error-issue-promise");
+const errorKind = createDataParserKind("error");
 function createError() {
-    return dataParserErrorKind.setTo({
+    return errorKind.setTo({
         issues: [],
         currentPath: [],
     });
 }
 function addIssue(error, source, data) {
-    error.issues.push(dataParserErrorIssueKind.setTo({
+    error.issues.push(errorIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
@@ -22,7 +22,7 @@ function addIssue(error, source, data) {
     return error;
 }
 function addPromiseIssue(error, source, data) {
-    error.issues.push(dataParserErrorPromiseIssueKind.setTo({
+    error.issues.push(errorPromiseIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
@@ -38,4 +38,4 @@ function popErrorPath(error) {
     return error;
 }
 
-export { SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorPromiseIssue, SymbolDataParserErrorPromiseIssueLabel, addIssue, addPromiseIssue, createError, dataParserErrorIssueKind, dataParserErrorKind, dataParserErrorPromiseIssueKind, popErrorPath, setErrorPath };
+export { SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorPromiseIssue, SymbolDataParserErrorPromiseIssueLabel, addIssue, addPromiseIssue, createError, errorIssueKind, errorKind, errorPromiseIssueKind, popErrorPath, setErrorPath };

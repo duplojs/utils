@@ -1,6 +1,6 @@
 import { DArray, DString, pipe } from "@duplojs/utils";
 
-const input = "HyperText Markup Language";
+const input = "Hyper Text Markup Language";
 const result = pipe(
 	input,
 	DString.split(" "),

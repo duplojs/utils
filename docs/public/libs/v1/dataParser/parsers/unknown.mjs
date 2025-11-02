@@ -1,9 +1,9 @@
 import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserUnknownKind = createDataParserKind("unknown");
+const unknownKind = createDataParserKind("unknown");
 function unknown(definition) {
-    return dataParserInit(dataParserUnknownKind, {
+    return dataParserInit(unknownKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -11,4 +11,4 @@ function unknown(definition) {
     }, (data) => data);
 }
 
-export { dataParserUnknownKind, unknown };
+export { unknown, unknownKind };

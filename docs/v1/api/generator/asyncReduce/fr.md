@@ -1,0 +1,101 @@
+---
+outline: [2, 3]
+prev:
+  text: "reduce"
+  link: "/v1/api/generator/reduce/fr"
+---
+
+# asyncReduce
+
+La fonction **`asyncReduce()`** réduit un générateur à une seule valeur en appliquant une fonction d'accumulation asynchrone sur chaque élément. Version asynchrone de `reduce()`.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/v1/api/generator/asyncReduce/examples/tryout.doc.ts"
+  majorVersion="v1"
+  height="200px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function asyncReduce<
+	GenericElement extends unknown,
+	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
+>(
+	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>,
+	startValue: GenericReduceFrom,
+	theFunction: (
+		params: GeneratorReduceFunctionParams<
+			GenericElement,
+			GeneratorReduceFromValue<GenericReduceFrom>
+		>
+	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>
+): Promise<GeneratorReduceFromValue<GenericReduceFrom>>
+```
+
+### Signature currifiée
+
+```typescript
+function asyncReduce<
+	GenericElement extends unknown,
+	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
+>(
+	startValue: GenericReduceFrom,
+	theFunction: (
+		params: GeneratorReduceFunctionParams<
+			GenericElement,
+			GeneratorReduceFromValue<GenericReduceFrom>
+		>
+	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>
+): (
+	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>
+) => Promise<GeneratorReduceFromValue<GenericReduceFrom>>
+```
+
+## Paramètres
+
+- `iterator` : Le générateur (synchrone ou asynchrone) à réduire
+- `startValue` : Valeur initiale de l'accumulateur (utiliser `DGenerator.reduceFrom()` pour les objets)
+- `theFunction` : Fonction asynchrone de réduction qui reçoit :
+  - `element` : L'élément courant
+  - `index` : L'index de l'élément
+  - `lastValue` : La valeur accumulée précédente
+  - `next(value)` : Continue avec une nouvelle valeur accumulée
+  - `exit(value)` : Termine et retourne la valeur
+  - `nextWithObject(obj1, obj2)` : Fusionne deux objets (disponible si `lastValue` est un objet)
+
+## Valeur de retour
+
+Une `Promise` qui résout avec la valeur finale accumulée.
+
+## Exemples
+
+### Traiter des tâches asynchrones
+
+<MonacoTSEditor
+  src="/v1/api/generator/asyncReduce/examples/processAsync.doc.ts"
+  majorVersion="v1"
+  height="550px"
+/>
+
+### Valider et collecter des données
+
+<MonacoTSEditor
+  src="/v1/api/generator/asyncReduce/examples/validateAndCollect.doc.ts"
+  majorVersion="v1"
+  height="550px"
+/>
+
+## Voir aussi
+
+- [`reduce`](/v1/api/generator/reduce/fr) - Version synchrone de asyncReduce
+- [`asyncMap`](/v1/api/generator/asyncMap/fr) - Transforme avec une fonction asynchrone
+- [`asyncFilter`](/v1/api/generator/asyncFilter/fr) - Filtre avec une fonction asynchrone
+
+## Sources
+
+- [MDN Web Docs - Async iterators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)

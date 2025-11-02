@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserTupleKind = kind.createDataParserKind("tuple");
+const tupleKind = kind.createDataParserKind("tuple");
 function tuple(shape, definition) {
-    return base.dataParserInit(dataParserTupleKind, {
+    return base.dataParserInit(tupleKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -79,5 +79,5 @@ function tuple(shape, definition) {
     });
 }
 
-exports.dataParserTupleKind = dataParserTupleKind;
 exports.tuple = tuple;
+exports.tupleKind = tupleKind;

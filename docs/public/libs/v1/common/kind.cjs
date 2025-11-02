@@ -35,22 +35,21 @@ function createKindNamespace(namespace) {
         return kindHandler;
     };
 }
-function kindHeritage(uniqueName, kind) {
+function kindHeritage(uniqueName, kind, parent) {
     const uniqueKind = createKind(uniqueName);
     const kinds = kind instanceof Array
         ? kind
         : [kind];
-    const ParentKindClass = (function ParentKindClass(params = {}) {
-        for (const kind of kinds) {
-            this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+    const Extendable = (parent ?? class {
+    });
+    const ParentKindClass = (class extends Extendable {
+        constructor(params = {}, parentParams = []) {
+            super(...parentParams);
+            for (const kind of kinds) {
+                this[kind.runTimeKey] = params[kind.definition.name] ?? null;
+            }
         }
-    });
-    kinds.forEach((value) => {
-        ParentKindClass.prototype[value.runTimeKey] = null;
-    });
-    ParentKindClass.prototype[uniqueKind.runTimeKey] = null;
-    Object.defineProperty(ParentKindClass, Symbol.hasInstance, {
-        value: (value) => {
+        static [Symbol.hasInstance](value) {
             if (!uniqueKind.has(value)) {
                 return false;
             }
@@ -60,8 +59,12 @@ function kindHeritage(uniqueName, kind) {
                 }
             }
             return true;
-        },
+        }
     });
+    kinds.forEach((value) => {
+        ParentKindClass.prototype[value.runTimeKey] = null;
+    });
+    ParentKindClass.prototype[uniqueKind.runTimeKey] = null;
     return ParentKindClass;
 }
 function isRuntimeKind(value) {

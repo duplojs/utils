@@ -2,9 +2,9 @@ import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserRecordKind = createDataParserKind("record");
+const recordKind = createDataParserKind("record");
 function record(key, value, definition) {
-    return dataParserInit(dataParserRecordKind, {
+    return dataParserInit(recordKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -77,4 +77,4 @@ function record(key, value, definition) {
     });
 }
 
-export { dataParserRecordKind, record };
+export { record, recordKind };

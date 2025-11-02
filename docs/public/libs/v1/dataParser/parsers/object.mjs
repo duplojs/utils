@@ -10,9 +10,9 @@ import { dataParserInit, SymbolDataParserError, dataParserKind } from '../base.m
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserObjectKind = createDataParserKind("object");
+const objectKind = createDataParserKind("object");
 function object(shape, definition) {
-    return dataParserInit(dataParserObjectKind, {
+    return dataParserInit(objectKind, {
         definition: {
             shape,
             errorMessage: definition?.errorMessage,
@@ -70,4 +70,4 @@ function object(shape, definition) {
     });
 }
 
-export { dataParserObjectKind, object };
+export { object, objectKind };

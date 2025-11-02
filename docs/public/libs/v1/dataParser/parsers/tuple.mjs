@@ -2,9 +2,9 @@ import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserTupleKind = createDataParserKind("tuple");
+const tupleKind = createDataParserKind("tuple");
 function tuple(shape, definition) {
-    return dataParserInit(dataParserTupleKind, {
+    return dataParserInit(tupleKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -77,4 +77,4 @@ function tuple(shape, definition) {
     });
 }
 
-export { dataParserTupleKind, tuple };
+export { tuple, tupleKind };

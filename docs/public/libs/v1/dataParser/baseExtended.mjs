@@ -14,9 +14,9 @@ import { nullable } from './extended/nullable.mjs';
 import { optional } from './extended/optional.mjs';
 import { pipe as pipe$1 } from './extended/pipe.mjs';
 
-const dataParserExtendedKind = createDataParserKind("extended");
+const extendedKind = createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
-    const self = dataParserExtendedKind.setTo({
+    const self = extendedKind.setTo({
         ...dataParser,
         ...pipe(rest, entries, map(([key, value]) => entry(key, typeof value === "function"
             ? (...args) => value(self, ...args)
@@ -51,4 +51,4 @@ function dataParserExtendedInit(dataParser, rest) {
     return self;
 }
 
-export { dataParserExtendedInit, dataParserExtendedKind };
+export { dataParserExtendedInit, extendedKind };

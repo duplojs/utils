@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserTransformKind = kind.createDataParserKind("transform");
+const transformKind = kind.createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
-    return base.dataParserInit(dataParserTransformKind, {
+    return base.dataParserInit(transformKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -39,5 +39,5 @@ function transform(inner, theFunction, definition) {
     });
 }
 
-exports.dataParserTransformKind = dataParserTransformKind;
 exports.transform = transform;
+exports.transformKind = transformKind;

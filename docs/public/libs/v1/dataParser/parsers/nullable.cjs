@@ -3,9 +3,9 @@
 var base = require('../base.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserNullableKind = kind.createDataParserKind("nullable");
+const nullableKind = kind.createDataParserKind("nullable");
 function nullable(inner, definition) {
-    return base.dataParserInit(dataParserNullableKind, {
+    return base.dataParserInit(nullableKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -27,5 +27,5 @@ function nullable(inner, definition) {
     });
 }
 
-exports.dataParserNullableKind = dataParserNullableKind;
 exports.nullable = nullable;
+exports.nullableKind = nullableKind;

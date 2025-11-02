@@ -4,9 +4,9 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 
-const dataParserBigIntKind = kind.createDataParserKind("bigint");
+const bigIntKind = kind.createDataParserKind("bigint");
 function bigint(definition) {
-    return base.dataParserInit(dataParserBigIntKind, {
+    return base.dataParserInit(bigIntKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -27,5 +27,5 @@ function bigint(definition) {
     });
 }
 
+exports.bigIntKind = bigIntKind;
 exports.bigint = bigint;
-exports.dataParserBigIntKind = dataParserBigIntKind;

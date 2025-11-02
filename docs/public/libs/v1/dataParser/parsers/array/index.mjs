@@ -2,9 +2,9 @@ import { dataParserInit, SymbolDataParserError } from '../../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 
-const dataParserArrayKind = createDataParserKind("array");
+const arrayKind = createDataParserKind("array");
 function array(element, definition) {
-    return dataParserInit(dataParserArrayKind, {
+    return dataParserInit(arrayKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -58,4 +58,4 @@ function array(element, definition) {
     });
 }
 
-export { array, dataParserArrayKind };
+export { array, arrayKind };

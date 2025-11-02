@@ -3,9 +3,9 @@
 var base = require('../base.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserLazyKind = kind.createDataParserKind("lazy");
+const lazyKind = kind.createDataParserKind("lazy");
 function lazy(getter, definition) {
-    return base.dataParserInit(dataParserLazyKind, {
+    return base.dataParserInit(lazyKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -17,5 +17,5 @@ function lazy(getter, definition) {
     });
 }
 
-exports.dataParserLazyKind = dataParserLazyKind;
 exports.lazy = lazy;
+exports.lazyKind = lazyKind;

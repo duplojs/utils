@@ -4,9 +4,9 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 
-const dataParserStringKind = kind.createDataParserKind("string");
+const stringKind = kind.createDataParserKind("string");
 function string(definition) {
-    return base.dataParserInit(dataParserStringKind, {
+    return base.dataParserInit(stringKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -27,5 +27,5 @@ function string(definition) {
     });
 }
 
-exports.dataParserStringKind = dataParserStringKind;
 exports.string = string;
+exports.stringKind = stringKind;

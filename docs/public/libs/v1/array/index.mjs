@@ -48,3 +48,4 @@ export { findAndSpliceReplace } from './findAndSplice/replace.mjs';
 export { sum } from './sum.mjs';
 export { length } from './length.mjs';
 export { coalescing } from './coalescing.mjs';
+export { toTuple } from './toTuple.mjs';

@@ -2,9 +2,9 @@ import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserNilKind = createDataParserKind("nil");
+const nilKind = createDataParserKind("nil");
 function nil(definition) {
-    return dataParserInit(dataParserNilKind, {
+    return dataParserInit(nilKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -21,4 +21,4 @@ function nil(definition) {
     });
 }
 
-export { dataParserNilKind, nil };
+export { nil, nilKind };

@@ -1,5 +1,5 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../base";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinition {
 }
 export declare const dataParserCheckerIntKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-int", unknown>>;

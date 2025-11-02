@@ -8,6 +8,9 @@ next:
 
 Bienvenue dans la référence API de `@duplojs/utils`. Cette section présente toutes les fonctions disponibles, organisées par type de données.
 
+## [🛠️ Common](/v1/api/common/fr)
+Utilitaires transversaux et helpers génériques utilisables avec n'importe quel type de données : pipes, composition, identité, et plus.
+
 ## [🔤 String](/v1/api/string/fr)
 Fonctions pour manipuler les chaînes de caractères de manière immutable. Retrouvez des opérations comme `capitalize`, `trim`, `split`, `replace`, et bien plus encore.
 
@@ -28,9 +31,6 @@ Fonctions utilitaires pour travailler avec les générateurs et créer des séqu
 
 ## [🔀 Either](/v1/api/either/fr)
 Monade Either pour la gestion d'erreurs fonctionnelle. Évitez les exceptions et gérez les résultats success/error de manière explicite et type-safe.
-
-## [🛠️ Common](/v1/api/common/fr)
-Utilitaires transversaux et helpers génériques utilisables avec n'importe quel type de données : pipes, composition, identité, et plus.
 
 ---
 

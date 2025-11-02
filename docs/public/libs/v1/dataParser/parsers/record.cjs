@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserRecordKind = kind.createDataParserKind("record");
+const recordKind = kind.createDataParserKind("record");
 function record(key, value, definition) {
-    return base.dataParserInit(dataParserRecordKind, {
+    return base.dataParserInit(recordKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -79,5 +79,5 @@ function record(key, value, definition) {
     });
 }
 
-exports.dataParserRecordKind = dataParserRecordKind;
 exports.record = record;
+exports.recordKind = recordKind;

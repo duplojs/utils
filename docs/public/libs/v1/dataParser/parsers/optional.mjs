@@ -1,9 +1,9 @@
 import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserOptionalKind = createDataParserKind("optional");
+const optionalKind = createDataParserKind("optional");
 function optional(inner, definition) {
-    return dataParserInit(dataParserOptionalKind, {
+    return dataParserInit(optionalKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -25,4 +25,4 @@ function optional(inner, definition) {
     });
 }
 
-export { dataParserOptionalKind, optional };
+export { optional, optionalKind };

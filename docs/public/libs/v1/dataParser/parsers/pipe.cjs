@@ -3,9 +3,9 @@
 var base = require('../base.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserPipeKind = kind.createDataParserKind("pipe");
+const pipeKind = kind.createDataParserKind("pipe");
 function pipe(input, output, definition) {
-    return base.dataParserInit(dataParserPipeKind, {
+    return base.dataParserInit(pipeKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -30,5 +30,5 @@ function pipe(input, output, definition) {
     });
 }
 
-exports.dataParserPipeKind = dataParserPipeKind;
 exports.pipe = pipe;
+exports.pipeKind = pipeKind;

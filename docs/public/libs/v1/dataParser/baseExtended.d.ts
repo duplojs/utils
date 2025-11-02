@@ -1,11 +1,11 @@
 import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue } from "../common";
-import { type DataParsers, type MergeDefinition } from "./types";
+import { type MergeDefinition } from "./types";
 import { type Output, type DataParser } from "./base";
 import type * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
-export declare const dataParserExtendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
-type _DataParserExtended = (DataParser & Kind<typeof dataParserExtendedKind.definition>);
+export declare const extendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
+type _DataParserExtended = (DataParser & Kind<typeof extendedKind.definition>);
 export interface DataParserExtended extends _DataParserExtended {
     array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
         element: GenericThis;
@@ -25,7 +25,7 @@ export interface DataParserExtended extends _DataParserExtended {
             }>>
         ];
     }>>;
-    pipe<GenericThis extends this = this, GenericOutput extends DataParsers = DataParsers, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(output: GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
+    pipe<GenericThis extends this = this, GenericOutput extends DataParser = DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(output: GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
         input: GenericThis;
         output: GenericOutput;
     }>>;
@@ -35,7 +35,7 @@ export interface DataParserExtended extends _DataParserExtended {
     optional<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionOptional, "inner">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserOptionalExtended<MergeDefinition<dataParsers.DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
     }>>;
-    or<GenericThis extends this = this, GenericDataParser extends DataParsers = DataParsers, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(option: GenericDataParser, definition?: GenericDefinition): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
+    or<GenericThis extends this = this, GenericDataParser extends DataParser = DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(option: GenericDataParser, definition?: GenericDefinition): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
         options: [GenericThis, GenericDataParser];
     }>>;
 }
