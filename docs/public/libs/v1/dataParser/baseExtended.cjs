@@ -16,9 +16,9 @@ var nullable = require('./extended/nullable.cjs');
 var optional = require('./extended/optional.cjs');
 var pipe$1 = require('./extended/pipe.cjs');
 
-const dataParserExtendedKind = kind.createDataParserKind("extended");
+const extendedKind = kind.createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
-    const self = dataParserExtendedKind.setTo({
+    const self = extendedKind.setTo({
         ...dataParser,
         ...pipe.pipe(rest, entries.entries, map.map(([key, value]) => entry.entry(key, typeof value === "function"
             ? (...args) => value(self, ...args)
@@ -54,4 +54,4 @@ function dataParserExtendedInit(dataParser, rest) {
 }
 
 exports.dataParserExtendedInit = dataParserExtendedInit;
-exports.dataParserExtendedKind = dataParserExtendedKind;
+exports.extendedKind = extendedKind;

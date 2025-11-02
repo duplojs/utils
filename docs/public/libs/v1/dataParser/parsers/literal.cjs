@@ -7,9 +7,9 @@ require('../../common/builder.cjs');
 var coalescing = require('../../array/coalescing.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserLiteralKind = kind.createDataParserKind("literal");
+const literalKind = kind.createDataParserKind("literal");
 function literal(value, definition) {
-    return base.dataParserInit(dataParserLiteralKind, {
+    return base.dataParserInit(literalKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -23,5 +23,5 @@ function literal(value, definition) {
     });
 }
 
-exports.dataParserLiteralKind = dataParserLiteralKind;
 exports.literal = literal;
+exports.literalKind = literalKind;

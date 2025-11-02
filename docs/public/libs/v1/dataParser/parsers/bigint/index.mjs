@@ -2,9 +2,9 @@ import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 
-const dataParserBigIntKind = createDataParserKind("bigint");
+const bigIntKind = createDataParserKind("bigint");
 function bigint(definition) {
-    return dataParserInit(dataParserBigIntKind, {
+    return dataParserInit(bigIntKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -25,4 +25,4 @@ function bigint(definition) {
     });
 }
 
-export { bigint, dataParserBigIntKind };
+export { bigIntKind, bigint };

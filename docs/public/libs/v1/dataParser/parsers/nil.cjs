@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserNilKind = kind.createDataParserKind("nil");
+const nilKind = kind.createDataParserKind("nil");
 function nil(definition) {
-    return base.dataParserInit(dataParserNilKind, {
+    return base.dataParserInit(nilKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -23,5 +23,5 @@ function nil(definition) {
     });
 }
 
-exports.dataParserNilKind = dataParserNilKind;
 exports.nil = nil;
+exports.nilKind = nilKind;

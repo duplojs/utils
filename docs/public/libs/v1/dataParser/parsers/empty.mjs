@@ -2,9 +2,9 @@ import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserEmptyKind = createDataParserKind("empty");
+const emptyKind = createDataParserKind("empty");
 function empty(definition) {
-    return dataParserInit(dataParserEmptyKind, {
+    return dataParserInit(emptyKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -21,4 +21,4 @@ function empty(definition) {
     });
 }
 
-export { dataParserEmptyKind, empty };
+export { empty, emptyKind };

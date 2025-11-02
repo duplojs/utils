@@ -2,9 +2,9 @@ import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 
-const dataParserStringKind = createDataParserKind("string");
+const stringKind = createDataParserKind("string");
 function string(definition) {
-    return dataParserInit(dataParserStringKind, {
+    return dataParserInit(stringKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -25,4 +25,4 @@ function string(definition) {
     });
 }
 
-export { dataParserStringKind, string };
+export { string, stringKind };

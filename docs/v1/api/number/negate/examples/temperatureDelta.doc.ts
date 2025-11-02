@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { DNumber, DArray, pipe } from "@duplojs/utils";
 
 const temperatureChanges = [5, -3, 8, -2];
 const currentTemp = 20;

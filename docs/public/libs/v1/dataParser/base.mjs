@@ -8,9 +8,9 @@ import { createDataParserKind } from './kind.mjs';
 
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
 const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
-const dataParserCheckerKind = createDataParserKind("checker");
+const checkerKind = createDataParserKind("checker");
 function dataParserCheckerInit(kind, params, exec) {
-    return kind.setTo(dataParserCheckerKind.setTo({
+    return kind.setTo(checkerKind.setTo({
         ...params,
         exec,
     }));
@@ -108,4 +108,4 @@ function dataParserInit(kind, params, exec) {
     return dataParser;
 }
 
-export { SymbolDataParserError, SymbolDataParserErrorLabel, dataParserCheckerInit, dataParserCheckerKind, dataParserInit, dataParserKind };
+export { SymbolDataParserError, SymbolDataParserErrorLabel, checkerKind, dataParserCheckerInit, dataParserInit, dataParserKind };

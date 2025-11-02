@@ -1,9 +1,9 @@
 import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserNullableKind = createDataParserKind("nullable");
+const nullableKind = createDataParserKind("nullable");
 function nullable(inner, definition) {
-    return dataParserInit(dataParserNullableKind, {
+    return dataParserInit(nullableKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -25,4 +25,4 @@ function nullable(inner, definition) {
     });
 }
 
-export { dataParserNullableKind, nullable };
+export { nullable, nullableKind };

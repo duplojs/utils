@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserBooleanKind = kind.createDataParserKind("boolean");
+const booleanKind = kind.createDataParserKind("boolean");
 function boolean(definition) {
-    return base.dataParserInit(dataParserBooleanKind, {
+    return base.dataParserInit(booleanKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -37,4 +37,4 @@ function boolean(definition) {
 }
 
 exports.boolean = boolean;
-exports.dataParserBooleanKind = dataParserBooleanKind;
+exports.booleanKind = booleanKind;

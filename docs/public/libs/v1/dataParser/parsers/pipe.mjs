@@ -1,9 +1,9 @@
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserPipeKind = createDataParserKind("pipe");
+const pipeKind = createDataParserKind("pipe");
 function pipe(input, output, definition) {
-    return dataParserInit(dataParserPipeKind, {
+    return dataParserInit(pipeKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -28,4 +28,4 @@ function pipe(input, output, definition) {
     });
 }
 
-export { dataParserPipeKind, pipe };
+export { pipe, pipeKind };

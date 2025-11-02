@@ -10,9 +10,9 @@ var kind = require('./kind.cjs');
 
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
 const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
-const dataParserCheckerKind = kind.createDataParserKind("checker");
+const checkerKind = kind.createDataParserKind("checker");
 function dataParserCheckerInit(kind, params, exec) {
-    return kind.setTo(dataParserCheckerKind.setTo({
+    return kind.setTo(checkerKind.setTo({
         ...params,
         exec,
     }));
@@ -112,7 +112,7 @@ function dataParserInit(kind, params, exec) {
 
 exports.SymbolDataParserError = SymbolDataParserError;
 exports.SymbolDataParserErrorLabel = SymbolDataParserErrorLabel;
+exports.checkerKind = checkerKind;
 exports.dataParserCheckerInit = dataParserCheckerInit;
-exports.dataParserCheckerKind = dataParserCheckerKind;
 exports.dataParserInit = dataParserInit;
 exports.dataParserKind = dataParserKind;
