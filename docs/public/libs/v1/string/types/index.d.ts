@@ -7,3 +7,5 @@ export * from "./normalizeForm";
 export * from "./split";
 export * from "./stringLength";
 export * from "./forbiddenString";
+export * from "./number";
+export * from "./digit";

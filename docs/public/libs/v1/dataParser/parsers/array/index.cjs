@@ -4,9 +4,9 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 
-const dataParserArrayKind = kind.createDataParserKind("array");
+const arrayKind = kind.createDataParserKind("array");
 function array(element, definition) {
-    return base.dataParserInit(dataParserArrayKind, {
+    return base.dataParserInit(arrayKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -61,4 +61,4 @@ function array(element, definition) {
 }
 
 exports.array = array;
-exports.dataParserArrayKind = dataParserArrayKind;
+exports.arrayKind = arrayKind;

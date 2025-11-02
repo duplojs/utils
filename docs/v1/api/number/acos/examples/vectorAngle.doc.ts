@@ -51,14 +51,14 @@ const result = pipe(
 				DNumber.power(vector1.xPosition, 2),
 				DNumber.power(vector1.yPosition, 2),
 			),
-			(value) => DNumber.power(value, 0.5),
+			DNumber.power(0.5),
 		),
 		magnitude2: pipe(
 			DNumber.add(
 				DNumber.power(vector2.xPosition, 2),
 				DNumber.power(vector2.yPosition, 2),
 			),
-			(value) => DNumber.power(value, 0.5),
+			DNumber.power(0.5),
 		),
 	})),
 	DArray.map(

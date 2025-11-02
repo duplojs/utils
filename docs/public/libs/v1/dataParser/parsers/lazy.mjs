@@ -1,9 +1,9 @@
 import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserLazyKind = createDataParserKind("lazy");
+const lazyKind = createDataParserKind("lazy");
 function lazy(getter, definition) {
-    return dataParserInit(dataParserLazyKind, {
+    return dataParserInit(lazyKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -15,4 +15,4 @@ function lazy(getter, definition) {
     });
 }
 
-export { dataParserLazyKind, lazy };
+export { lazy, lazyKind };

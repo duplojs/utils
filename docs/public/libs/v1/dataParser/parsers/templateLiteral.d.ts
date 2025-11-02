@@ -1,6 +1,6 @@
 import { type Adaptor, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input } from "../base";
-import { type MergeDefinition } from "../types";
+import { type MergeDefinition } from "../../dataParser/types";
 import { type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "./number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "./bigint";
@@ -39,8 +39,8 @@ export interface DataParserDefinitionTemplateLiteral extends DataParserDefinitio
     readonly template: TemplateLiteralShape;
     readonly pattern: RegExp;
 }
-export declare const dataParserTemplateLiteralKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>>;
-type _DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral> = (DataParser<GenericDefinition, TemplateLiteralShapeOutput<GenericDefinition["template"]>, TemplateLiteralShapeInput<GenericDefinition["template"]>> & Kind<typeof dataParserTemplateLiteralKind.definition>);
+export declare const templateLiteralKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>>;
+type _DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral> = (DataParser<GenericDefinition, TemplateLiteralShapeOutput<GenericDefinition["template"]>, TemplateLiteralShapeInput<GenericDefinition["template"]>> & Kind<typeof templateLiteralKind.definition>);
 export interface DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral> extends _DataParserTemplateLiteral<GenericDefinition> {
 }
 export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">> = never>(template: GenericTemplate, definition?: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {

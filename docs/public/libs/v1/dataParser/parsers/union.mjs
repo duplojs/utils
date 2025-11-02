@@ -2,9 +2,9 @@ import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserUnionKind = createDataParserKind("union");
+const unionKind = createDataParserKind("union");
 function union(options, definition) {
-    return dataParserInit(dataParserUnionKind, {
+    return dataParserInit(unionKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -32,4 +32,4 @@ function union(options, definition) {
     });
 }
 
-export { dataParserUnionKind, union };
+export { union, unionKind };

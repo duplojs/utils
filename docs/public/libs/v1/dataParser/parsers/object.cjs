@@ -12,9 +12,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserObjectKind = kind.createDataParserKind("object");
+const objectKind = kind.createDataParserKind("object");
 function object(shape, definition) {
-    return base.dataParserInit(dataParserObjectKind, {
+    return base.dataParserInit(objectKind, {
         definition: {
             shape,
             errorMessage: definition?.errorMessage,
@@ -72,5 +72,5 @@ function object(shape, definition) {
     });
 }
 
-exports.dataParserObjectKind = dataParserObjectKind;
 exports.object = object;
+exports.objectKind = objectKind;

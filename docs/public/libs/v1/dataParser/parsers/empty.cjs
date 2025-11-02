@@ -4,9 +4,9 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserEmptyKind = kind.createDataParserKind("empty");
+const emptyKind = kind.createDataParserKind("empty");
 function empty(definition) {
-    return base.dataParserInit(dataParserEmptyKind, {
+    return base.dataParserInit(emptyKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -23,5 +23,5 @@ function empty(definition) {
     });
 }
 
-exports.dataParserEmptyKind = dataParserEmptyKind;
 exports.empty = empty;
+exports.emptyKind = emptyKind;
