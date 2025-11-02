@@ -1,0 +1,63 @@
+---
+outline: [2, 3]
+prev:
+  text: "omit"
+  link: "/v1/api/object/omit/fr"
+next:
+  text: "override"
+  link: "/v1/api/object/override/fr"
+---
+
+# assign
+
+La méthode **`assign()`** fusionne plusieurs objets ensemble (similaire à Object.assign mais type-safe).
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/v1/api/object/assign/examples/tryout.doc.ts"
+  majorVersion="v1"
+  height="300px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function assign<
+	GenericInput extends object,
+	GenericValue extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
+>(
+	input: GenericInput,
+	value: GenericValue
+): AssignObjects<GenericInput, GenericValue>
+```
+
+### Signature currifiee
+
+```typescript
+function assign<
+	GenericInput extends object,
+	GenericValue extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
+>(
+	value: GenericValue
+): (input: GenericInput) => AssignObjects<GenericInput, GenericValue>
+```
+
+## Paramètres
+
+- `input` : L'objet de base.
+- `value` : L'objet à fusionner avec l'objet de base.
+
+## Valeur de retour
+
+Un nouvel objet résultant de la fusion, avec un typage précis.
+
+## Voir aussi
+
+- [`override`](/v1/api/object/override/fr) - Remplace les propriétés en ignorant les undefined
+
+## Sources
+
+- [MDN Web Docs - Object.assign()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
