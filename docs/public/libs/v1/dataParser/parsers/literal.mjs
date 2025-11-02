@@ -5,9 +5,9 @@ import '../../common/builder.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserLiteralKind = createDataParserKind("literal");
+const literalKind = createDataParserKind("literal");
 function literal(value, definition) {
-    return dataParserInit(dataParserLiteralKind, {
+    return dataParserInit(literalKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -21,4 +21,4 @@ function literal(value, definition) {
     });
 }
 
-export { dataParserLiteralKind, literal };
+export { literal, literalKind };

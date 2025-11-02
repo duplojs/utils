@@ -495,6 +495,15 @@
           "name": "sum.mjs"
         },
         {
+          "name": "toTuple.cjs"
+        },
+        {
+          "name": "toTuple.d.ts"
+        },
+        {
+          "name": "toTuple.mjs"
+        },
+        {
           "name": "types",
           "files": [
             {
@@ -958,6 +967,9 @@
               "name": "removeDuplicateInUnion.d.ts"
             },
             {
+              "name": "removeFromUnion.d.ts"
+            },
+            {
               "name": "removeReadonly.d.ts"
             },
             {
@@ -980,6 +992,9 @@
             },
             {
               "name": "unionToTuple.d.ts"
+            },
+            {
+              "name": "unwrapArray.d.ts"
             }
           ]
         },
@@ -1312,6 +1327,15 @@
               "name": "unknown.mjs"
             }
           ]
+        },
+        {
+          "name": "identifier.cjs"
+        },
+        {
+          "name": "identifier.d.ts"
+        },
+        {
+          "name": "identifier.mjs"
         },
         {
           "name": "index.cjs"
@@ -3177,6 +3201,9 @@
           "name": "types",
           "files": [
             {
+              "name": "digit.d.ts"
+            },
+            {
               "name": "endsWith.d.ts"
             },
             {
@@ -3196,6 +3223,9 @@
             },
             {
               "name": "normalizeForm.d.ts"
+            },
+            {
+              "name": "number.d.ts"
             },
             {
               "name": "split.d.ts"

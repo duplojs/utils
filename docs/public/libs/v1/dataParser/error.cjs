@@ -4,19 +4,19 @@ var kind = require('./kind.cjs');
 
 const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
 const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
-const dataParserErrorIssueKind = kind.createDataParserKind("error-issue");
+const errorIssueKind = kind.createDataParserKind("error-issue");
 const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
 const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-const dataParserErrorPromiseIssueKind = kind.createDataParserKind("error-issue-promise");
-const dataParserErrorKind = kind.createDataParserKind("error");
+const errorPromiseIssueKind = kind.createDataParserKind("error-issue-promise");
+const errorKind = kind.createDataParserKind("error");
 function createError() {
-    return dataParserErrorKind.setTo({
+    return errorKind.setTo({
         issues: [],
         currentPath: [],
     });
 }
 function addIssue(error, source, data) {
-    error.issues.push(dataParserErrorIssueKind.setTo({
+    error.issues.push(errorIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
@@ -24,7 +24,7 @@ function addIssue(error, source, data) {
     return error;
 }
 function addPromiseIssue(error, source, data) {
-    error.issues.push(dataParserErrorPromiseIssueKind.setTo({
+    error.issues.push(errorPromiseIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
@@ -47,8 +47,8 @@ exports.SymbolDataParserErrorPromiseIssueLabel = SymbolDataParserErrorPromiseIss
 exports.addIssue = addIssue;
 exports.addPromiseIssue = addPromiseIssue;
 exports.createError = createError;
-exports.dataParserErrorIssueKind = dataParserErrorIssueKind;
-exports.dataParserErrorKind = dataParserErrorKind;
-exports.dataParserErrorPromiseIssueKind = dataParserErrorPromiseIssueKind;
+exports.errorIssueKind = errorIssueKind;
+exports.errorKind = errorKind;
+exports.errorPromiseIssueKind = errorPromiseIssueKind;
 exports.popErrorPath = popErrorPath;
 exports.setErrorPath = setErrorPath;

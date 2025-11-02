@@ -2,9 +2,9 @@ import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserBooleanKind = createDataParserKind("boolean");
+const booleanKind = createDataParserKind("boolean");
 function boolean(definition) {
-    return dataParserInit(dataParserBooleanKind, {
+    return dataParserInit(booleanKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -34,4 +34,4 @@ function boolean(definition) {
     });
 }
 
-export { boolean, dataParserBooleanKind };
+export { boolean, booleanKind };

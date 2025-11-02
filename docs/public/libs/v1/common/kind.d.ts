@@ -1,5 +1,5 @@
 import { type ForbiddenString } from "../string";
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type AnyConstructor, type And } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "../object";
 export interface KindHandler<GenericKindDefinition extends KindDefinition = KindDefinition> {
     definition: GenericKindDefinition;
@@ -49,6 +49,6 @@ export declare function createKindNamespace<GenericNamespace extends string>(nam
 export type KindHeritageConstructorParams<GenericKindHandler extends KindHandler> = {
     [KindHandler in GenericKindHandler as KindHandler["definition"]["name"]]: KindHandler["definition"]["value"];
 } extends infer InferredResult extends object ? PartialKeys<InferredResult, GetPropsWithValue<InferredResult, unknown>> : never;
-export declare function kindHeritage<GenericUniqueName extends string, GenericKindHandler extends KindHandler>(uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>, kind: GenericKindHandler | GenericKindHandler[]): new (...args: IsEqual<GenericKindHandler extends KindHandler ? IsEqual<GenericKindHandler["definition"]["value"], unknown> : never, true> extends true ? [params?: KindHeritageConstructorParams<GenericKindHandler>] : [params: KindHeritageConstructorParams<GenericKindHandler>]) => UnionToIntersection<(GenericKindHandler extends KindHandler ? Kind<GenericKindHandler["definition"]> : never) | Kind<KindDefinition<GenericUniqueName, unknown>>>;
+export declare function kindHeritage<GenericUniqueName extends string, GenericKindHandler extends KindHandler, GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>>(uniqueName: GenericUniqueName & ForbiddenKindCharacters<GenericUniqueName>, kind: GenericKindHandler | GenericKindHandler[], parent?: GenericParent): new (...args: And<[IsEqual<GenericKindHandler extends KindHandler ? IsEqual<GenericKindHandler["definition"]["value"], unknown> : never, true>, IsEqual<InstanceType<GenericParent>, never>]> extends true ? [params?: KindHeritageConstructorParams<GenericKindHandler>] : [params: KindHeritageConstructorParams<GenericKindHandler>, ...parentArgs: IsEqual<ConstructorParameters<GenericParent>, unknown[]> extends true ? [parentParams?: ConstructorParameters<GenericParent>] : [parentParams: ConstructorParameters<GenericParent>]]) => UnionToIntersection<(GenericKindHandler extends KindHandler ? Kind<GenericKindHandler["definition"]> : never) | Kind<KindDefinition<GenericUniqueName, unknown>> | InstanceType<GenericParent>>;
 export declare function isRuntimeKind(value: string): boolean;
 export {};

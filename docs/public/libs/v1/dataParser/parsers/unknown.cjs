@@ -3,9 +3,9 @@
 var base = require('../base.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserUnknownKind = kind.createDataParserKind("unknown");
+const unknownKind = kind.createDataParserKind("unknown");
 function unknown(definition) {
-    return base.dataParserInit(dataParserUnknownKind, {
+    return base.dataParserInit(unknownKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -13,5 +13,5 @@ function unknown(definition) {
     }, (data) => data);
 }
 
-exports.dataParserUnknownKind = dataParserUnknownKind;
 exports.unknown = unknown;
+exports.unknownKind = unknownKind;

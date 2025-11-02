@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { DNumber, DArray, pipe } from "@duplojs/utils";
 
 const items = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const pageSize = 3;

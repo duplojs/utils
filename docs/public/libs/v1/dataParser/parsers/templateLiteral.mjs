@@ -14,19 +14,19 @@ import '../../pattern/result.mjs';
 import { exhaustive } from '../../pattern/exhaustive.mjs';
 import { when } from '../../pattern/when.mjs';
 import { replace } from '../../string/replace.mjs';
-import { dataParserStringKind } from './string/index.mjs';
-import { dataParserNumberKind } from './number/index.mjs';
-import { dataParserBigIntKind } from './bigint/index.mjs';
-import { dataParserLiteralKind } from './literal.mjs';
-import { dataParserEmptyKind } from './empty.mjs';
-import { dataParserNilKind } from './nil.mjs';
-import { dataParserBooleanKind } from './boolean.mjs';
+import { stringKind } from './string/index.mjs';
+import { numberKind } from './number/index.mjs';
+import { bigIntKind } from './bigint/index.mjs';
+import { literalKind } from './literal.mjs';
+import { emptyKind } from './empty.mjs';
+import { nilKind } from './nil.mjs';
+import { booleanKind } from './boolean.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserTemplateLiteralKind = createDataParserKind("template-literal");
+const templateLiteralKind = createDataParserKind("template-literal");
 function templateLiteral(template, definition) {
-    const pattern = pipe(template, map(innerPipe(when(isType("string"), (value) => `(?:${escapeRegExp(value)})`), when(dataParserNumberKind.has, () => "(:?[0-9]+)"), when(dataParserBigIntKind.has, () => "(?:[0-9]+n)"), when(dataParserBooleanKind.has, () => "(?:true|false)"), when(dataParserNilKind.has, () => "(?:null)"), when(dataParserEmptyKind.has, () => "(?:undefined)"), when(dataParserLiteralKind.has, (dataParser) => pipe(dataParser.definition.value, map(innerPipe(when$1(isType("bigint"), (value) => `${value}n`), String, escapeRegExp)), join("|"), (pattern) => `(?:${pattern})`)), when(dataParserStringKind.has, innerPipe(whenElse((dataParser) => !!dataParser.definition.checkers.length, (dataParser) => pipe(dataParser.definition.checkers, map((element) => pipe(element.definition.pattern.source, replace(/^\^/, ""), replace(/\$$/, ""))), join("")), () => "(?:[^]*)"))), when(dataParserTemplateLiteralKind.has, (dataParser) => pipe(dataParser.definition.pattern.source, replace(/^\^/, ""), replace(/\$$/, ""), (pattern) => `(?:${pattern})`)), exhaustive)), join(""), (pattern) => new RegExp(`^${pattern}$`));
-    return dataParserInit(dataParserTemplateLiteralKind, {
+    const pattern = pipe(template, map(innerPipe(when(isType("string"), (value) => `(?:${escapeRegExp(value)})`), when(numberKind.has, () => "(:?[0-9]+)"), when(bigIntKind.has, () => "(?:[0-9]+n)"), when(booleanKind.has, () => "(?:true|false)"), when(nilKind.has, () => "(?:null)"), when(emptyKind.has, () => "(?:undefined)"), when(literalKind.has, (dataParser) => pipe(dataParser.definition.value, map(innerPipe(when$1(isType("bigint"), (value) => `${value}n`), String, escapeRegExp)), join("|"), (pattern) => `(?:${pattern})`)), when(stringKind.has, innerPipe(whenElse((dataParser) => !!dataParser.definition.checkers.length, (dataParser) => pipe(dataParser.definition.checkers, map((element) => pipe(element.definition.pattern.source, replace(/^\^/, ""), replace(/\$$/, ""))), join("")), () => "(?:[^]*)"))), when(templateLiteralKind.has, (dataParser) => pipe(dataParser.definition.pattern.source, replace(/^\^/, ""), replace(/\$$/, ""), (pattern) => `(?:${pattern})`)), exhaustive)), join(""), (pattern) => new RegExp(`^${pattern}$`));
+    return dataParserInit(templateLiteralKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -41,4 +41,4 @@ function templateLiteral(template, definition) {
     });
 }
 
-export { dataParserTemplateLiteralKind, templateLiteral };
+export { templateLiteral, templateLiteralKind };

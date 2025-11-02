@@ -1,5 +1,5 @@
 import { type Kind } from "../../../../common";
-import { type DataParserChecker, type DataParserCheckerDefinition } from "../../../base";
+import { type DataParserChecker, type DataParserCheckerDefinition } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefinition {
     normalize?: boolean;
     pattern: RegExp;

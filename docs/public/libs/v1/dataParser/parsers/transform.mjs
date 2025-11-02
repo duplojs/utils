@@ -2,9 +2,9 @@ import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorPromiseIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserTransformKind = createDataParserKind("transform");
+const transformKind = createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
-    return dataParserInit(dataParserTransformKind, {
+    return dataParserInit(transformKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -37,4 +37,4 @@ function transform(inner, theFunction, definition) {
     });
 }
 
-export { dataParserTransformKind, transform };
+export { transform, transformKind };
