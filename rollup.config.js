@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import del from 'rollup-plugin-delete';
+import tscAlias from 'rollup-plugin-tsc-alias';
 import { defineConfig } from "rollup";
 
 export default defineConfig({
@@ -23,5 +24,6 @@ export default defineConfig({
 	plugins: [
 		del({ targets: "dist" }),
 		typescript({ tsconfig: "tsconfig.build.json" }),
+		tscAlias({ configFile: "tsconfig.build.json" }),
 	],
 });
