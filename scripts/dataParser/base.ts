@@ -254,10 +254,7 @@ export function dataParserInit<
 					exec,
 				),
 			},
-			{
-				output: undefined,
-				input: undefined,
-			},
+			null as never,
 		),
 	) as unknown as DataParser;
 

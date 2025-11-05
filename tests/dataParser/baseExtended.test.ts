@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {
@@ -160,5 +160,52 @@ describe("base extended", () => {
 		);
 
 		expect((schema as any).test).toBe(12);
+	});
+
+	it("clone", () => {
+		const schema = DDataParser.extended.object({
+			prop1: DDataParser.extended.string(),
+			prop2: DDataParser.extended.number().optional(),
+			prop3: DDataParser.extended.bigint().nullable(),
+		}).refine(
+			(input) => {
+				type Check = ExpectType<
+					typeof input,
+					{
+						prop1: string;
+						prop3: bigint | null;
+						prop2?: number | undefined;
+					},
+					"strict"
+				>;
+
+				return input.prop1 === "ok";
+			},
+		);
+
+		expect(
+			schema.parse({
+				prop1: "ok",
+				prop3: null,
+			}),
+		).toStrictEqual(
+			DEither.success(
+				{
+					prop1: "ok",
+					prop3: null,
+				},
+			),
+		);
+
+		expect(
+			schema.parse({
+				prop1: "okk",
+				prop3: null,
+			}),
+		).toStrictEqual(
+			DEither.error(
+				expect.any(Object),
+			),
+		);
 	});
 });
