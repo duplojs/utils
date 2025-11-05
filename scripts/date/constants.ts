@@ -1,0 +1,11 @@
+export const minTimestamp = -8640000000000000;
+export const maxTimestamp = 8640000000000000;
+export const millisecondsInDay = 86400000;
+export const daysInWeek = 7;
+export const monthtsInYear = 12;
+export const minutesInHour = 60;
+export const secondsInMinute = 60;
+export const millisecondsInSeconds = 1000;
+export const hoursInDay = 24;
+export const theDateRegex = /^date(\d+)([+-])$/;
+export const dateComponentsRegex = /^(-?)(\d+)y-(\d+)m-(\d+)d(?:-(\d+)h)?(?:-(\d+)mn)?(?:-(\d+)s)?(?:-(\d+)ms)?$/;
