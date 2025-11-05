@@ -1,8 +1,20 @@
-import { type TheDate, toNative } from "..";
+import { type TheDate, type Timezone, toNative } from "..";
 
 export function getSecond<
 	GenericInput extends TheDate,
->(input: GenericInput): number {
+>(
+	input: GenericInput,
+	timezone: Timezone = "UTC",
+): number {
 	const nativeDate = toNative(input);
-	return nativeDate.getUTCSeconds();
+	if (timezone === "UTC") {
+		return nativeDate.getUTCSeconds();
+	}
+
+	const formatter = new Intl.DateTimeFormat("en-US", {
+		timeZone: timezone,
+		second: "numeric",
+	});
+
+	return Number(formatter.format(nativeDate));
 }
