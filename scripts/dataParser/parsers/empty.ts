@@ -1,10 +1,15 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionEmpty extends DataParserDefinition<never> {
+export type DataParserEmptyCheckers = (
+	| CheckerRefineImplementation<undefined>
+);
+
+export interface DataParserDefinitionEmpty extends DataParserDefinition<DataParserEmptyCheckers> {
 	readonly coerce: boolean;
 }
 
@@ -24,7 +29,25 @@ type _DataParserEmpty<
 export interface DataParserEmpty<
 	GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty,
 > extends _DataParserEmpty<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserEmptyCheckers,
+			...DataParserEmptyCheckers[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserEmptyCheckers,
+				...DataParserEmptyCheckers[],
+			],
+			GenericChecker
+		>
+	): DataParserEmpty<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function empty<

@@ -1,6 +1,6 @@
-import { type Adaptor, escapeRegExp, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
+import { type Adaptor, escapeRegExp, type FixDeepFunctionInfer, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import * as DPattern from "@scripts/pattern";
@@ -13,6 +13,7 @@ import { type DataParserDefinitionEmpty, emptyKind, type DataParserEmpty } from 
 import { type DataParserDefinitionNil, nilKind, type DataParserNil } from "./nil";
 import { booleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
 export type DataParsersTemplateLiteral = (
 	| string
@@ -112,7 +113,13 @@ export type TemplateLiteralShapeInput<
 		: never
 	: never;
 
-export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<never> {
+export type DataParserTemplateLiteralCheckers<
+	GenericInput extends string = string,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<DataParserTemplateLiteralCheckers> {
 	readonly template: TemplateLiteralShape;
 	readonly pattern: RegExp;
 }
@@ -133,7 +140,25 @@ type _DataParserTemplateLiteral<
 export interface DataParserTemplateLiteral<
 	GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral,
 > extends _DataParserTemplateLiteral<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserTemplateLiteralCheckers<Output<this>>,
+			...DataParserTemplateLiteralCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserTemplateLiteralCheckers<Output<this>>,
+				...DataParserTemplateLiteralCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserTemplateLiteral<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function templateLiteral<

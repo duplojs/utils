@@ -1,9 +1,16 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionPipe extends DataParserDefinition<never> {
+export type DataParserPipeCheckers<
+	GenericInput extends unknown = unknown,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionPipe extends DataParserDefinition<DataParserPipeCheckers> {
 	readonly input: DataParser;
 	readonly output: DataParser;
 }
@@ -24,7 +31,25 @@ type _DataParserPipe<
 export interface DataParserPipe<
 	GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe,
 > extends _DataParserPipe<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserPipeCheckers<Output<this>>,
+			...DataParserPipeCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserPipeCheckers<Output<this>>,
+				...DataParserPipeCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserPipe<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function pipe<

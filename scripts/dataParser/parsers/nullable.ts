@@ -1,9 +1,16 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionNullable extends DataParserDefinition<never> {
+export type DataParserNullableCheckers<
+	GenericInput extends unknown = unknown,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionNullable extends DataParserDefinition<DataParserNullableCheckers> {
 	readonly inner: DataParser;
 }
 
@@ -23,7 +30,25 @@ type _DataParserNullable<
 export interface DataParserNullable<
 	GenericDefinition extends DataParserDefinitionNullable = DataParserDefinitionNullable,
 > extends _DataParserNullable<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserNullableCheckers<Output<this>>,
+			...DataParserNullableCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserNullableCheckers<Output<this>>,
+				...DataParserNullableCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserNullable<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function nullable<

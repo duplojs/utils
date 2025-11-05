@@ -17,4 +17,5 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerNumberMin
 	| AllDataParser.DataParserCheckerInt
 	| AllDataParser.DataParserCheckerEmail
+	| AllDataParser.DataParserCheckerRefine
 );

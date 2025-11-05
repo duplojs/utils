@@ -1,6 +1,6 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserString } from "./string";
 import { type DataParserTemplateLiteral } from "./templateLiteral";
@@ -8,6 +8,7 @@ import { type DataParserDefinitionLiteral, type DataParserLiteral } from "./lite
 import { type DataParserDefinitionNumber, type DataParserNumber } from "./number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "./union";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
 export type DataParserRecordKey = (
 	| DataParserString
@@ -32,7 +33,13 @@ export type DataParserRecordKey = (
 	>
 );
 
-export interface DataParserDefinitionRecord extends DataParserDefinition<never> {
+export type DataParserRecordCheckers<
+	GenericInput extends Record<string, unknown> = Record<string, unknown>,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers> {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
 }
@@ -77,13 +84,15 @@ type _DataParserRecord<
 		DataParserRecordShapeOutput<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
-		> extends infer InferredOutput
+		> extends infer InferredOutput extends Record<string, unknown>
 			? InferredOutput
 			: never,
 		DataParserRecordShapeInput<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
-		>
+		> extends infer InferredInput extends Record<string, unknown>
+			? InferredInput
+			: never
 	>
 	& Kind<typeof recordKind.definition>
 );
@@ -91,7 +100,25 @@ type _DataParserRecord<
 export interface DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord,
 > extends _DataParserRecord<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserRecordCheckers<Output<this>>,
+			...DataParserRecordCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserRecordCheckers<Output<this>>,
+				...DataParserRecordCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserRecord<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function record<

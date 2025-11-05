@@ -1,9 +1,10 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerInt, type DataParserCheckerNumberMin, type DataParserCheckerNumberMax } from "./checkers";
 import { createDataParserKind } from "../../kind";
+import { type CheckerRefineImplementation } from "../refine";
 
 export * from "./checkers";
 
@@ -11,6 +12,7 @@ export type DataParserNumberCheckers = (
 	| DataParserCheckerInt
 	| DataParserCheckerNumberMin
 	| DataParserCheckerNumberMax
+	| CheckerRefineImplementation<number>
 );
 
 export interface DataParserDefinitionNumber extends DataParserDefinition<
@@ -41,7 +43,13 @@ export interface DataParserNumber<
 			...DataParserNumberCheckers[],
 		],
 	>(
-		...args: GenericChecker
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserNumberCheckers,
+				...DataParserNumberCheckers[],
+			],
+			GenericChecker
+		>
 	): DataParserNumber<
 		AddCheckersToDefinition<
 			GenericDefinition,

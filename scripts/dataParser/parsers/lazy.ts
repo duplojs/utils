@@ -1,9 +1,16 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionLazy extends DataParserDefinition<never> {
+export type DataParserLazyCheckers<
+	GenericInput extends unknown = unknown,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers> {
 	getter(): DataParser;
 }
 
@@ -23,7 +30,25 @@ type _DataParserLazy<
 export interface DataParserLazy<
 	GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy,
 > extends _DataParserLazy<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserLazyCheckers<Output<this>>,
+			...DataParserLazyCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserLazyCheckers<Output<this>>,
+				...DataParserLazyCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserLazy<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function lazy<

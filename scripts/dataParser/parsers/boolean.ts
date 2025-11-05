@@ -1,10 +1,15 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionBoolean extends DataParserDefinition<never> {
+export type DataParserBooleanCheckers = (
+	| CheckerRefineImplementation<boolean>
+);
+
+export interface DataParserDefinitionBoolean extends DataParserDefinition<DataParserBooleanCheckers> {
 	readonly coerce: boolean;
 }
 
@@ -24,7 +29,25 @@ type _DataParserBoolean<
 export interface DataParserBoolean<
 	GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean,
 > extends _DataParserBoolean<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserBooleanCheckers,
+			...DataParserBooleanCheckers[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserBooleanCheckers,
+				...DataParserBooleanCheckers[],
+			],
+			GenericChecker
+		>
+	): DataParserBoolean<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function boolean<

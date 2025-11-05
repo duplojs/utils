@@ -1,21 +1,22 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
-import {
-	type DataParserCheckerArrayMin,
-	type DataParserCheckerArrayMax,
-} from "./checkers";
+import { type DataParserCheckerArrayMin, type DataParserCheckerArrayMax } from "./checkers";
 import { createDataParserKind } from "../../kind";
+import { type CheckerRefineImplementation } from "../refine";
 
 export * from "./checkers";
 
-export type DataParserArrayCheckers = (
+export type DataParserArrayCheckers<
+	GenericInput extends unknown[] = unknown[],
+> = (
 	| DataParserCheckerArrayMin
 	| DataParserCheckerArrayMax
+	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
+export interface DataParserDefinitionArray extends DataParserDefinition {
 	readonly element: DataParser;
 }
 
@@ -37,11 +38,17 @@ export interface DataParserArray<
 > extends _DataParserArray<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserArrayCheckers,
-			...DataParserArrayCheckers[],
+			DataParserArrayCheckers<Output<this>>,
+			...DataParserArrayCheckers<Output<this>>[],
 		],
 	>(
-		...args: GenericChecker
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserArrayCheckers<Output<this>>,
+				...DataParserArrayCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
 	): DataParserArray<
 		AddCheckersToDefinition<
 			GenericDefinition,

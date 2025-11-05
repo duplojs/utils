@@ -1,10 +1,15 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
-export interface DataParserDefinitionNil extends DataParserDefinition<never> {
+export type DataParserNilCheckers = (
+	| CheckerRefineImplementation<null>
+);
+
+export interface DataParserDefinitionNil extends DataParserDefinition<DataParserNilCheckers> {
 	readonly coerce: boolean;
 }
 
@@ -24,7 +29,25 @@ type _DataParserNil<
 export interface DataParserNil<
 	GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil,
 > extends _DataParserNil<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserNilCheckers,
+			...DataParserNilCheckers[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserNilCheckers,
+				...DataParserNilCheckers[],
+			],
+			GenericChecker
+		>
+	): DataParserNil<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function nil<
