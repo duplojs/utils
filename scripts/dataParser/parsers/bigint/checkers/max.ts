@@ -7,10 +7,10 @@ export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerD
 	max: bigint;
 }
 
-export const dataParserCheckerBigIntMaxKind = createDataParserKind("checker-bigint-max");
+export const checkerBigIntMaxKind = createDataParserKind("checker-bigint-max");
 
 type _DataParserCheckerBigIntMax = (
-	& Kind<typeof dataParserCheckerBigIntMaxKind.definition>
+	& Kind<typeof checkerBigIntMaxKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionBigIntMax,
 		bigint
@@ -28,7 +28,7 @@ export function checkerBigIntMax(
 	> = {},
 ): DataParserCheckerBigIntMax {
 	return dataParserCheckerInit<DataParserCheckerBigIntMax>(
-		dataParserCheckerBigIntMaxKind,
+		checkerBigIntMaxKind,
 		{
 			definition: {
 				...definition,

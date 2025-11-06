@@ -7,10 +7,10 @@ export interface DataParserCheckerDefinitionBigIntMin extends DataParserCheckerD
 	min: bigint;
 }
 
-export const dataParserCheckerBigIntMinKind = createDataParserKind("checker-bigint-min");
+export const checkerBigIntMinKind = createDataParserKind("checker-bigint-min");
 
 type _DataParserCheckerBigIntMin = (
-	& Kind<typeof dataParserCheckerBigIntMinKind.definition>
+	& Kind<typeof checkerBigIntMinKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionBigIntMin,
 		bigint
@@ -28,7 +28,7 @@ export function checkerBigIntMin(
 	> = {},
 ): DataParserCheckerBigIntMin {
 	return dataParserCheckerInit<DataParserCheckerBigIntMin>(
-		dataParserCheckerBigIntMinKind,
+		checkerBigIntMinKind,
 		{
 			definition: {
 				...definition,

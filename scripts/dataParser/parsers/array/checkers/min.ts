@@ -7,10 +7,10 @@ export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDe
 	min: number;
 }
 
-export const dataParserCheckerArrayMinKind = createDataParserKind("checker-array-min");
+export const checkerArrayMinKind = createDataParserKind("checker-array-min");
 
 type _DataParserCheckerArrayMin = (
-	& Kind<typeof dataParserCheckerArrayMinKind.definition>
+	& Kind<typeof checkerArrayMinKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionArrayMin,
 		unknown[]
@@ -28,7 +28,7 @@ export function checkerArrayMin(
 	> = {},
 ): DataParserCheckerArrayMin {
 	return dataParserCheckerInit<DataParserCheckerArrayMin>(
-		dataParserCheckerArrayMinKind,
+		checkerArrayMinKind,
 		{
 			definition: {
 				...definition,

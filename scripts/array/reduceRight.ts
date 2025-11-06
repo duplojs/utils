@@ -1,11 +1,13 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
-import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceExitOrNext, type ArrayReduceFromValue } from "./reduce";
+import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext } from "./reduce";
+import { type IsEqual } from "@scripts/common";
 
 export function reduceRight<
 	GenericElement extends unknown,
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
+	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
@@ -13,12 +15,17 @@ export function reduceRight<
 			GenericElement,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
-): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom>;
+	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
+): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, ArrayReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduceRight<
 	GenericElement extends unknown,
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
+	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	array: readonly GenericElement[],
 	startValue: GenericReduceFrom,
@@ -27,8 +34,12 @@ export function reduceRight<
 			GenericElement,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
-): ArrayReduceFromValue<GenericReduceFrom>;
+	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
+): ArrayReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, ArrayReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduceRight(
 	...args: [unknown, AnyFunction]
@@ -64,7 +75,7 @@ export function reduceRight(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
-		}) as ArrayReduceExitOrNext;
+		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {
 			return result["-exit"];

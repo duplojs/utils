@@ -1,48 +1,11 @@
-export function flat(): <
-	const GenericArray extends readonly unknown[],
->(
-	array: GenericArray,
-) => FlatArray<GenericArray, 1>[];
-
-export function flat<
-	const Depth extends number,
->(
-	depth: Depth
-): <const GenericArray extends readonly unknown[]>(
-	array: GenericArray
-) => FlatArray<GenericArray, Depth>[];
-
 export function flat<
 	const GenericArray extends readonly unknown[],
-	const Depth extends number,
+	const Depth extends number = 1,
 >(
 	array: GenericArray,
-	depth: Depth
+	depth?: Depth
 ): FlatArray<GenericArray, Depth>[];
 
-export function flat<
-	const GenericArray extends readonly unknown[],
->(
-	array: GenericArray,
-): FlatArray<GenericArray, 1>[];
-
-export function flat(...args: [unknown[], number] | [unknown[]] | [number] | []): any {
-	if (args.length === 0) {
-		return (array: unknown[]) => flat(array);
-	}
-
-	if (args.length === 1) {
-		const [depthOrArray] = args;
-
-		if (Array.isArray(depthOrArray)) {
-			return depthOrArray.flat(1);
-		}
-
-		const depth = depthOrArray;
-		return (array: unknown[]) => flat(array, depth);
-	}
-
-	const [array, depth] = args;
-
+export function flat(array: unknown[], depth?: number): any {
 	return array.flat(depth);
 }

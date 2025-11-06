@@ -7,10 +7,10 @@ export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDe
 	max: number;
 }
 
-export const dataParserCheckerArrayMaxKind = createDataParserKind("checker-array-max");
+export const checkerArrayMaxKind = createDataParserKind("checker-array-max");
 
 type _DataParserCheckerArrayMax = (
-	& Kind<typeof dataParserCheckerArrayMaxKind.definition>
+	& Kind<typeof checkerArrayMaxKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionArrayMax,
 		unknown[]
@@ -28,7 +28,7 @@ export function checkerArrayMax(
 	> = {},
 ): DataParserCheckerArrayMax {
 	return dataParserCheckerInit<DataParserCheckerArrayMax>(
-		dataParserCheckerArrayMaxKind,
+		checkerArrayMaxKind,
 		{
 			definition: {
 				...definition,

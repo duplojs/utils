@@ -1,61 +1,86 @@
-import { type Adaptor, escapeRegExp, type FixDeepFunctionInfer, innerPipe, isType, type Kind, type NeverCoalescing, pipe, when, whenElse } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
+import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe } from "@scripts/common";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
-import * as DArray from "@scripts/array";
-import * as DPattern from "@scripts/pattern";
-import * as DString from "@scripts/string";
-import { stringKind, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "./string";
-import { type DataParserDefinitionNumber, numberKind, type DataParserNumber } from "./number";
-import { bigIntKind, type DataParserDefinitionBigInt, type DataParserBigInt } from "./bigint";
-import { type DataParserDefinitionLiteral, literalKind, type DataParserLiteral } from "./literal";
-import { type DataParserDefinitionEmpty, emptyKind, type DataParserEmpty } from "./empty";
-import { type DataParserDefinitionNil, nilKind, type DataParserNil } from "./nil";
-import { booleanKind, type DataParserDefinitionBoolean, type DataParserBoolean } from "./boolean";
-import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
+import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
+import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
+import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
+import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
+import { type DataParserDefinitionEmpty, type DataParserEmpty } from "../empty";
+import { type DataParserDefinitionNil, type DataParserNil } from "../nil";
+import { type DataParserDefinitionBoolean, type DataParserBoolean } from "../boolean";
+import { createDataParserKind } from "../../kind";
+import { type CheckerRefineImplementation } from "../refine";
+import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
+import { createTemplateLiteralPattern } from "./createTemplateLiteralPattern";
 
-export type DataParsersTemplateLiteral = (
+export * from "./createTemplateLiteralPattern";
+
+export type TemplateLiteralPrimitiveParts = (
 	| string
+	| number
+	| null
+	| undefined
+	| bigint
+	| boolean
+);
+
+export type TemplateLiteralParts = (
+	| TemplateLiteralPrimitiveParts
 	| DataParserString<
-		& DataParserDefinitionString
+		& Omit<DataParserDefinitionString, "checkers">
 		& {
 			readonly checkers: readonly (
 				| DataParserCheckerEmail
+				| DataParserCheckerStringMax
+				| DataParserCheckerStringMin
+				| DataParserCheckerStringRegex
 			)[];
 		}
 	>
 	| DataParserNumber<
-		& DataParserDefinitionNumber
-		& { readonly checkers: readonly [] }
+		& Omit<DataParserDefinitionNumber, "checkers">
+		& { readonly checkers: readonly DataParserCheckerInt[] }
 	>
 	| DataParserBigInt<
-		& DataParserDefinitionBigInt
+		& Omit<DataParserDefinitionBigInt, "checkers">
 		& { readonly checkers: readonly [] }
 	>
 	| DataParserBoolean<
-		& DataParserDefinitionBoolean
+		& Omit<DataParserDefinitionBoolean, "checkers">
 		& { readonly checkers: readonly [] }
 	>
 	| DataParserLiteral<
-		& DataParserDefinitionLiteral
+		& Omit<DataParserDefinitionLiteral, "checkers">
 		& { readonly checkers: readonly [] }
 	>
 	| DataParserEmpty<
-		& DataParserDefinitionEmpty
+		& Omit<DataParserDefinitionEmpty, "checkers">
 		& { readonly checkers: readonly [] }
 	>
 	| DataParserNil<
-		& DataParserDefinitionNil
+		& Omit<DataParserDefinitionNil, "checkers">
 		& { readonly checkers: readonly [] }
 	>
 	| DataParserTemplateLiteral<
-		& DataParserDefinitionTemplateLiteral
+		& Omit<DataParserDefinitionTemplateLiteral, "checkers">
 		& { readonly checkers: readonly [] }
+	>
+	| DataParserUnion<
+		& Omit<DataParserDefinitionUnion, "checkers" | "options">
+		& {
+			readonly options: AnyTuple<
+				Exclude<
+					TemplateLiteralParts,
+					TemplateLiteralPrimitiveParts
+				>
+			>;
+			readonly checkers: readonly [];
+		}
 	>
 );
 
-export type TemplateLiteralShape = readonly [DataParsersTemplateLiteral, ...DataParsersTemplateLiteral[]];
+export type TemplateLiteralShape = readonly [TemplateLiteralParts, ...TemplateLiteralParts[]];
 
 type EligibleTemplateLiteral = string | number | bigint | boolean | null | undefined;
 
@@ -63,16 +88,18 @@ export type TemplateLiteralShapeOutput<
 	GenericTemplate extends TemplateLiteralShape,
 	GenericLastResult extends string = "",
 > = GenericTemplate extends readonly [
-	infer InferredFirst extends DataParsersTemplateLiteral,
-	...infer InferredRest extends DataParsersTemplateLiteral[],
+	infer InferredFirst extends TemplateLiteralParts,
+	...infer InferredRest extends TemplateLiteralParts[],
 ]
 	? (
 		`${GenericLastResult}${
-			InferredFirst extends string
-				? InferredFirst
+			InferredFirst extends TemplateLiteralPrimitiveParts
+				? InferredFirst extends bigint
+					? `${InferredFirst}n`
+					: InferredFirst
 				: Adaptor<
 					Output<
-						Exclude<InferredFirst, string>
+						Exclude<InferredFirst, TemplateLiteralPrimitiveParts>
 					>,
 					EligibleTemplateLiteral
 				>
@@ -90,16 +117,18 @@ export type TemplateLiteralShapeInput<
 	GenericTemplate extends TemplateLiteralShape,
 	GenericLastResult extends string = "",
 > = GenericTemplate extends readonly [
-	infer InferredFirst extends DataParsersTemplateLiteral,
-	...infer InferredRest extends DataParsersTemplateLiteral[],
+	infer InferredFirst extends TemplateLiteralParts,
+	...infer InferredRest extends TemplateLiteralParts[],
 ]
 	? (
 		`${GenericLastResult}${
-			InferredFirst extends string
-				? InferredFirst
+			InferredFirst extends TemplateLiteralPrimitiveParts
+				? InferredFirst extends bigint
+					? `${InferredFirst}n`
+					: InferredFirst
 				: Adaptor<
 					Input<
-						Exclude<InferredFirst, string>
+						Exclude<InferredFirst, TemplateLiteralPrimitiveParts>
 					>,
 					EligibleTemplateLiteral
 				>
@@ -176,85 +205,8 @@ export function templateLiteral<
 		>
 	> {
 	const pattern = pipe(
-		template as TemplateLiteralShape,
-		DArray.map(
-			innerPipe(
-				DPattern.when(
-					isType("string"),
-					(value) => `(?:${escapeRegExp(value)})`,
-				),
-				DPattern.when(
-					numberKind.has,
-					() => "(:?[0-9]+)",
-				),
-				DPattern.when(
-					bigIntKind.has,
-					() => "(?:[0-9]+n)",
-				),
-				DPattern.when(
-					booleanKind.has,
-					() => "(?:true|false)",
-				),
-				DPattern.when(
-					nilKind.has,
-					() => "(?:null)",
-				),
-				DPattern.when(
-					emptyKind.has,
-					() => "(?:undefined)",
-				),
-				DPattern.when(
-					literalKind.has,
-					(dataParser) => pipe(
-						dataParser.definition.value,
-						DArray.map(
-							innerPipe(
-								when(
-									isType("bigint"),
-									(value) => `${value}n`,
-								),
-								String,
-								escapeRegExp,
-							),
-						),
-						DArray.join("|"),
-						(pattern) => `(?:${pattern})`,
-					),
-				),
-				DPattern.when(
-					stringKind.has,
-					innerPipe(
-						whenElse(
-							(dataParser) => !!dataParser.definition.checkers.length,
-							(dataParser) => pipe(
-								dataParser.definition.checkers,
-								DArray.map(
-									(element) => pipe(
-										element.definition.pattern.source,
-										DString.replace(/^\^/, ""),
-										DString.replace(/\$$/, ""),
-									),
-								),
-								DArray.join(""),
-							),
-							() => "(?:[^]*)",
-						),
-					),
-				),
-				DPattern.when(
-					templateLiteralKind.has,
-					(dataParser) => pipe(
-						dataParser.definition.pattern.source,
-						DString.replace(/^\^/, ""),
-						DString.replace(/\$$/, ""),
-						(pattern) => `(?:${pattern})`,
-					),
-				),
-				DPattern.exhaustive,
-			),
-		),
-		DArray.join(""),
-		(pattern) => new RegExp(`^${pattern}$`),
+		createTemplateLiteralPattern(template),
+		(result) => new RegExp(`^${result}$`),
 	);
 
 	return dataParserInit<DataParserTemplateLiteral>(

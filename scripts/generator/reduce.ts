@@ -3,23 +3,19 @@ import { createKind, type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
-import { type ToLargeEnsemble } from "@scripts/common";
+import { type IsEqual, type ToLargeEnsemble } from "@scripts/common";
 
-interface GeneratorReduceNext<
-	GenericOutput extends unknown,
+export interface GeneratorReduceNext<
+	GenericOutput extends unknown = unknown,
 > {
 	"-next": GenericOutput;
 }
 
-interface GeneratorReduceExit<
-	GenericOutput extends unknown,
+export interface GeneratorReduceExit<
+	GenericOutput extends unknown = unknown,
 > {
 	"-exit": GenericOutput;
 }
-
-export type GeneratorReduceExitOrNext<
-	GenericOutput extends unknown = unknown,
-> = GeneratorReduceExit<GenericOutput> | GeneratorReduceNext<GenericOutput>;
 
 export interface GeneratorReduceFunctionParams<
 	GenericElement extends unknown = unknown,
@@ -35,7 +31,9 @@ export interface GeneratorReduceFunctionParams<
 		) => GeneratorReduceNext<GenericOutput>
 		: undefined;
 	next(output: GenericOutput): GeneratorReduceNext<GenericOutput>;
-	exit(output: GenericOutput): GeneratorReduceExit<GenericOutput>;
+	exit<
+		GenericExitValue extends unknown,
+	>(output: GenericExitValue): GeneratorReduceExit<GenericExitValue>;
 }
 
 const generatorReduceFromKind = createKind(
@@ -68,6 +66,7 @@ export type GeneratorReduceFromValue<
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
+	GenericExit extends GeneratorReduceExit = GeneratorReduceExit<never>,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
@@ -75,12 +74,17 @@ export function reduce<
 			GenericElement,
 			GeneratorReduceFromValue<GenericReduceFrom>
 		>
-	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>,
-): (iterator: Iterable<GenericElement>) => GeneratorReduceFromValue<GenericReduceFrom>;
+	) => GeneratorReduceNext<GeneratorReduceFromValue<GenericReduceFrom>> | GenericExit,
+): (iterator: Iterable<GenericElement>) => GeneratorReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, GeneratorReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends GeneratorEligibleReduceFromValue,
+	GenericExit extends GeneratorReduceExit = GeneratorReduceExit<never>,
 >(
 	iterator: Iterable<GenericElement>,
 	startValue: GenericReduceFrom,
@@ -89,8 +93,12 @@ export function reduce<
 			GenericElement,
 			GeneratorReduceFromValue<GenericReduceFrom>
 		>
-	) => GeneratorReduceExitOrNext<GeneratorReduceFromValue<GenericReduceFrom>>,
-): GeneratorReduceFromValue<GenericReduceFrom>;
+	) => GeneratorReduceNext<GeneratorReduceFromValue<GenericReduceFrom>> | GenericExit,
+): GeneratorReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, GeneratorReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduce(
 	...args: [unknown, AnyFunction]
@@ -125,7 +133,7 @@ export function reduce(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
-		}) as GeneratorReduceExitOrNext;
+		}) as GeneratorReduceExit | GeneratorReduceNext;
 
 		if ("-exit" in result) {
 			return result["-exit"];

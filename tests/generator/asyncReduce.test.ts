@@ -60,7 +60,9 @@ describe("generator asyncReduce", () => {
 
 		type check = ExpectType<
 			typeof result,
-			Promise<Record<number, null>>,
+			Promise<Record<number, null> | {
+				100: null;
+			}>,
 			"strict"
 		>;
 	});

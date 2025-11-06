@@ -1,24 +1,23 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "@scripts/common";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
-import { type DataParserString } from "./string";
-import { type DataParserTemplateLiteral } from "./templateLiteral";
-import { type DataParserDefinitionLiteral, type DataParserLiteral } from "./literal";
-import { type DataParserDefinitionNumber, type DataParserNumber } from "./number";
-import { type DataParserDefinitionUnion, type DataParserUnion } from "./union";
-import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
+import { type DataParserString } from "../string";
+import { type DataParserTemplateLiteral } from "../templateLiteral";
+import { type DataParserLiteral } from "../literal";
+import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
+import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
+import { createDataParserKind } from "../../kind";
+import { type CheckerRefineImplementation } from "../refine";
+import { findRecordRequiredKey } from "./findRecordRequiredKey";
+import { type TemplateLiteralContainLargeType } from "@scripts/string";
+
+export * from "./findRecordRequiredKey";
 
 export type DataParserRecordKey = (
 	| DataParserString
 	| DataParserTemplateLiteral
-	| DataParserLiteral<
-		& DataParserDefinitionLiteral
-		& {
-			value: string[];
-		}
-	>
+	| DataParserLiteral
 	| DataParserNumber<
 		& DataParserDefinitionNumber
 		& {
@@ -42,6 +41,7 @@ export type DataParserRecordCheckers<
 export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers> {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
+	readonly requireKey: string[] | null;
 }
 
 export const recordKind = createDataParserKind("record");
@@ -67,7 +67,7 @@ export type DataParserRecordShapeInput<
 > = Extract<
 	Record<
 		Input<GenericDataParserKey> extends infer InferredKey extends string | number
-			? InferredKey
+			? `${InferredKey}`
 			: never,
 		Input<GenericDataParserValue> extends infer InferredValue
 			? InferredValue
@@ -85,13 +85,21 @@ type _DataParserRecord<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
 		> extends infer InferredOutput extends Record<string, unknown>
-			? InferredOutput
+			? TemplateLiteralContainLargeType<
+				Adaptor<keyof InferredOutput, string>
+			> extends true
+				? Partial<InferredOutput>
+				: InferredOutput
 			: never,
 		DataParserRecordShapeInput<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
 		> extends infer InferredInput extends Record<string, unknown>
-			? InferredInput
+			? TemplateLiteralContainLargeType<
+				Adaptor<keyof InferredInput, string>
+			> extends true
+				? Partial<InferredInput>
+				: InferredInput
 			: never
 	>
 	& Kind<typeof recordKind.definition>
@@ -146,6 +154,7 @@ export function record<
 				checkers: definition?.checkers ?? [],
 				key,
 				value,
+				requireKey: findRecordRequiredKey(key),
 			},
 		},
 		{
@@ -189,6 +198,17 @@ export function record<
 
 				popErrorPath(error);
 
+				if (output === SymbolDataParserError) {
+					return output;
+				}
+
+				if (
+					self.definition.requireKey
+					&& self.definition.requireKey.length !== Object.keys(output).length
+				) {
+					return SymbolDataParserErrorIssue;
+				}
+
 				return output;
 			},
 			async: async(data, error, self) => {
@@ -230,6 +250,17 @@ export function record<
 				}
 
 				popErrorPath(error);
+
+				if (output === SymbolDataParserError) {
+					return output;
+				}
+
+				if (
+					self.definition.requireKey
+					&& self.definition.requireKey.length !== Object.keys(output).length
+				) {
+					return SymbolDataParserErrorIssue;
+				}
 
 				return output;
 			},

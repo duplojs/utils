@@ -8,10 +8,10 @@ export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinit
 
 }
 
-export const dataParserCheckerIntKind = createDataParserKind("checker-number-int");
+export const checkerIntKind = createDataParserKind("checker-number-int");
 
 type _DataParserCheckerInt = (
-	& Kind<typeof dataParserCheckerIntKind.definition>
+	& Kind<typeof checkerIntKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionInt,
 		number
@@ -26,7 +26,7 @@ export function checkerInt(
 	definition: Partial<DataParserCheckerDefinitionInt> = {},
 ): DataParserCheckerInt {
 	return dataParserCheckerInit<DataParserCheckerInt>(
-		dataParserCheckerIntKind,
+		checkerIntKind,
 		{
 			definition,
 		},
