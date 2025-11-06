@@ -1,7 +1,8 @@
-import { type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
+import { type Output } from "../base";
 
 type _DataParserBigIntExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBigInt,
@@ -19,11 +20,29 @@ export interface DataParserBigIntExtended<
 			...dataParsers.DataParserBigIntCheckers[],
 		],
 	>(
-		...args: GenericChecker
+		...args: FixDeepFunctionInfer<
+			readonly [
+				dataParsers.DataParserBigIntCheckers,
+				...dataParsers.DataParserBigIntCheckers[],
+			],
+			GenericChecker
+		>
 	): DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
+		>
+	>;
+
+	refine(
+		theFunction: (input: Output<this>) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>
+	): DataParserBigIntExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			[dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 

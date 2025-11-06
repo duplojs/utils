@@ -1,12 +1,19 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
-import { type MergeDefinition } from "@scripts/dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 
-export interface DataParserDefinitionUnion extends DataParserDefinition<never> {
+export type DataParserUnionCheckers<
+	GenericInput extends unknown = unknown,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionUnion extends DataParserDefinition<DataParserUnionCheckers> {
 	readonly options: UnionOptions;
 }
 
@@ -26,7 +33,25 @@ type _DataParserUnion<
 export interface DataParserUnion<
 	GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion,
 > extends _DataParserUnion<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserUnionCheckers<Output<this>>,
+			...DataParserUnionCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserUnionCheckers<Output<this>>,
+				...DataParserUnionCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserUnion<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function union<

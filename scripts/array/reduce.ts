@@ -3,23 +3,20 @@ import { createKind, type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
-import { type ToLargeEnsemble } from "@scripts/common";
+import { type IsEqual, type ToLargeEnsemble } from "@scripts/common";
 
-interface ArrayReduceNext<
-	GenericOutput extends unknown,
+export interface ArrayReduceNext<
+	GenericOutput extends unknown = unknown,
 > {
 	"-next": GenericOutput;
 }
 
-interface ArrayReduceExit<
-	GenericOutput extends unknown,
+export interface ArrayReduceExit<
+	GenericOutput extends unknown = unknown,
 > {
 	"-exit": GenericOutput;
 }
 
-export type ArrayReduceExitOrNext<
-	GenericOutput extends unknown = unknown,
-> = ArrayReduceExit<GenericOutput> | ArrayReduceNext<GenericOutput>;
 export interface ArrayReduceFunctionParams<
 	GenericElement extends unknown = unknown,
 	GenericOutput extends unknown = unknown,
@@ -34,7 +31,9 @@ export interface ArrayReduceFunctionParams<
 		) => ArrayReduceNext<GenericOutput>
 		: undefined;
 	next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
-	exit(output: GenericOutput): ArrayReduceExit<GenericOutput>;
+	exit<
+		GenericExitValue extends unknown,
+	>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
 }
 
 const arrayReduceFromKind = createKind(
@@ -67,6 +66,7 @@ export type ArrayReduceFromValue<
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends ArrayEligibleReduceFromValue,
+	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
@@ -74,12 +74,17 @@ export function reduce<
 			GenericElement,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
-): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom>;
+	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
+): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, ArrayReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
+	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	array: readonly GenericElement[],
 	startValue: GenericReduceFrom,
@@ -88,8 +93,12 @@ export function reduce<
 			GenericElement,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
-	) => ArrayReduceExitOrNext<ArrayReduceFromValue<GenericReduceFrom>>,
-): ArrayReduceFromValue<GenericReduceFrom>;
+	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
+): ArrayReduceFromValue<GenericReduceFrom> | (
+	IsEqual<GenericExit, ArrayReduceExit> extends true
+		? never
+		: GenericExit["-exit"]
+);
 
 export function reduce(
 	...args: [unknown, AnyFunction]
@@ -125,7 +134,7 @@ export function reduce(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
-		}) as ArrayReduceExitOrNext;
+		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {
 			return result["-exit"];

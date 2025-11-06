@@ -1,10 +1,16 @@
-import { DDataParser, DEither, type Kind, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type Kind, pipe, type ExpectType, createKindIdentifier } from "@scripts";
 
-describe("dataParserIdentifier", () => {
+describe("createKindIdentifier", () => {
+	const identifier = createKindIdentifier<
+		DDataParser.DataParser,
+		| DDataParser.DataParsers
+		| DDataParser.DataParsersExtended
+	>();
+
 	it("success", () => {
 		const schema = DDataParser.string();
 
-		const result = DDataParser.identifier(
+		const result = identifier(
 			schema,
 			DDataParser.stringKind,
 		);
@@ -27,7 +33,7 @@ describe("dataParserIdentifier", () => {
 	it("error", () => {
 		const schema = DDataParser.string();
 
-		const result = DDataParser.identifier(
+		const result = identifier(
 			schema,
 			[
 				DDataParser.stringKind,
@@ -54,7 +60,7 @@ describe("dataParserIdentifier", () => {
 
 		const result = pipe(
 			schema,
-			DDataParser.identifier([
+			identifier([
 				DDataParser.stringKind,
 				DDataParser.extendedKind,
 			]),
@@ -77,7 +83,7 @@ describe("dataParserIdentifier", () => {
 	it("test types", () => {
 		const schema = DDataParser.string() as DDataParser.DataParser;
 
-		const result = DDataParser.identifier(
+		const result = identifier(
 			schema,
 			[
 				DDataParser.stringKind,
@@ -100,7 +106,7 @@ describe("dataParserIdentifier", () => {
 			& Kind<typeof DDataParser.extendedKind["definition"]>
 		);
 
-		const result1 = DDataParser.identifier(
+		const result1 = identifier(
 			schema1,
 			[
 				DDataParser.stringKind,

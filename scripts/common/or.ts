@@ -1,20 +1,23 @@
-import { type AnyFunction } from "./types";
+import { type AnyPredicate, type AnyFunction, type IsEqual } from "./types";
 
 type ExtractPredicate<
-	GenericInput extends unknown,
-	GenericPredicatedInput extends AnyFunction<any[], boolean>[],
-> = GenericPredicatedInput extends [
-	(input: any) => input is infer InferredPredicate,
-	...infer InferredRest extends AnyFunction<any[], boolean>[],
+	GenericPredicatedInput extends readonly AnyFunction<any[], boolean>[],
+> = GenericPredicatedInput extends readonly [
+	(input: any, ...args: any[]) => input is infer InferredPredicate,
+	...infer InferredRest extends readonly AnyPredicate[],
 ]
 	? InferredRest extends readonly []
 		? InferredPredicate
-		: InferredPredicate | ExtractPredicate<GenericInput, InferredRest>
-	: GenericInput;
+		: ExtractPredicate<InferredRest> extends infer InferredResult
+			? IsEqual<InferredResult, never> extends true
+				? never
+				: InferredPredicate | InferredResult
+			: never
+	: never;
 
 export function or<
 	GenericInput extends unknown,
-	GenericArrayPredicatedInput extends [
+	const GenericArrayPredicatedInput extends readonly [
 		(input: GenericInput) => input is any,
 		(input: GenericInput) => input is any,
 		...((input: GenericInput) => input is any)[],
@@ -24,7 +27,6 @@ export function or<
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
 	ExtractPredicate<
-		GenericInput,
 		GenericArrayPredicatedInput
 	>
 >;
@@ -41,7 +43,7 @@ export function or<
 
 export function or<
 	GenericInput extends unknown,
-	GenericArrayPredicatedInput extends [
+	const GenericArrayPredicatedInput extends readonly [
 		(input: GenericInput) => input is any,
 		(input: GenericInput) => input is any,
 		...((input: GenericInput) => input is any)[],
@@ -52,7 +54,6 @@ export function or<
 ): input is Extract<
 	GenericInput,
 	ExtractPredicate<
-		GenericInput,
 		GenericArrayPredicatedInput
 	>
 >;

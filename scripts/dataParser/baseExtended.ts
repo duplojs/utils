@@ -1,7 +1,7 @@
 import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser } from "./base";
-import type * as dataParsers from "./parsers";
+import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 import * as DObject from "../object";
@@ -143,6 +143,8 @@ export interface DataParserExtended extends _DataParserExtended {
 			}
 		>
 	>;
+
+	refine(...args: never): DataParserExtended;
 }
 
 export function dataParserExtendedInit<
@@ -233,6 +235,12 @@ export function dataParserExtendedInit<
 		),
 		clone: () => dataParserExtendedInit(
 			dataParser.clone(),
+			rest,
+		),
+		refine: (theFunction) => dataParserExtendedInit(
+			(dataParser.addChecker as AnyFunction<[unknown], never>)(
+				dataParsers.checkerRefine(theFunction),
+			),
 			rest,
 		),
 	} satisfies DataParserExtended);

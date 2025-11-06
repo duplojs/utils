@@ -1,10 +1,11 @@
-import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized } from "@scripts/common";
+import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
-import { type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 
@@ -48,7 +49,13 @@ export type DataParserObjectShapeInput<
 		>
 		: never;
 
-export interface DataParserDefinitionObject extends DataParserDefinition<never> {
+export type DataParserObjectCheckers<
+	GenericInput extends DataParserObjectShape = DataParserObjectShape,
+> = (
+	| CheckerRefineImplementation<GenericInput>
+);
+
+export interface DataParserDefinitionObject extends DataParserDefinition<DataParserObjectCheckers> {
 	readonly shape: DataParserObjectShape;
 	readonly optimizedShape: Memoized<{
 		readonly key: string;
@@ -72,7 +79,25 @@ type _DataParserObject<
 export interface DataParserObject<
 	GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject,
 > extends _DataParserObject<GenericDefinition> {
-
+	addChecker<
+		GenericChecker extends readonly [
+			DataParserObjectCheckers<Output<this>>,
+			...DataParserObjectCheckers<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserObjectCheckers<Output<this>>,
+				...DataParserObjectCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
+	): DataParserObject<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
 }
 
 export function object<

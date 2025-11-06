@@ -60,7 +60,9 @@ describe("reduceRight", () => {
 
 		type check = ExpectType<
 			typeof result,
-			Record<number, null>,
+			Record<number, null> | {
+				100: null;
+			},
 			"strict"
 		>;
 	});

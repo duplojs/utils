@@ -7,10 +7,10 @@ export interface DataParserCheckerDefinitionStringRegex extends DataParserChecke
 	regex: RegExp;
 }
 
-export const dataParserCheckerStringRegexKind = createDataParserKind("checker-string-regex");
+export const checkerStringRegexKind = createDataParserKind("checker-string-regex");
 
 type _DataParserCheckerStringRegex = (
-	& Kind<typeof dataParserCheckerStringRegexKind.definition>
+	& Kind<typeof checkerStringRegexKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionStringRegex,
 		string
@@ -28,7 +28,7 @@ export function checkerStringRegex(
 	> = {},
 ): DataParserCheckerStringRegex {
 	return dataParserCheckerInit<DataParserCheckerStringRegex>(
-		dataParserCheckerStringRegexKind,
+		checkerStringRegexKind,
 		{
 			definition: {
 				...definition,

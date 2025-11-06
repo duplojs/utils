@@ -9,10 +9,10 @@ export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefin
 	pattern: RegExp;
 }
 
-export const dataParserCheckerEmailKind = createDataParserKind("checker-string-email");
+export const checkerEmailKind = createDataParserKind("checker-string-email");
 
 type _DataParserCheckerEmail = (
-	& Kind<typeof dataParserCheckerEmailKind.definition>
+	& Kind<typeof checkerEmailKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionEmail,
 		string
@@ -29,7 +29,7 @@ export function checkerEmail(
 	definition: Partial<DataParserCheckerDefinitionEmail> = {},
 ): DataParserCheckerEmail {
 	return dataParserCheckerInit<DataParserCheckerEmail>(
-		dataParserCheckerEmailKind,
+		checkerEmailKind,
 		{
 			definition: {
 				...definition,

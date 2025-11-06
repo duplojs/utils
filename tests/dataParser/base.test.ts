@@ -80,10 +80,7 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 						},
-						{
-							input: undefined,
-							output: undefined,
-						},
+						null as never,
 					),
 				),
 			);
@@ -178,10 +175,7 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 						},
-						{
-							input: undefined,
-							output: undefined,
-						},
+						null as never,
 					),
 				),
 			);
@@ -205,10 +199,7 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 						},
-						{
-							input: undefined,
-							output: undefined,
-						},
+						null as never,
 					),
 				),
 			);

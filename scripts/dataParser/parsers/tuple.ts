@@ -1,9 +1,10 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing } from "@scripts/common";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { createDataParserKind } from "../kind";
+import { type CheckerRefineImplementation } from "./refine";
 
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 
@@ -55,9 +56,12 @@ export type DataParserTupleShapeInput<
 		]
 		: never;
 
-export type DataParserTupleCheckers = (
+export type DataParserTupleCheckers<
+	GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>,
+> = (
 	| DataParserCheckerArrayMin
 	| DataParserCheckerArrayMax
+	| CheckerRefineImplementation<GenericInput>
 );
 
 export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers> {
@@ -88,9 +92,18 @@ export interface DataParserTuple<
 	GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple,
 > extends _DataParserTuple<GenericDefinition> {
 	addChecker<
-		GenericChecker extends [DataParserTupleCheckers, ...DataParserTupleCheckers[]],
+		GenericChecker extends readonly [
+			DataParserTupleCheckers<Output<this>>,
+			...DataParserTupleCheckers<Output<this>>[],
+		],
 	>(
-		...args: GenericChecker
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserTupleCheckers<Output<this>>,
+				...DataParserTupleCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
 	): DataParserTuple<
 		AddCheckersToDefinition<
 			GenericDefinition,

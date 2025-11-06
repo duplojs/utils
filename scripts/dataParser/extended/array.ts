@@ -1,8 +1,8 @@
-import { type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser } from "../base";
+import { type Output, type DataParser } from "../base";
 
 type _DataParserArrayExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionArray,
@@ -16,15 +16,33 @@ export interface DataParserArrayExtended<
 > extends _DataParserArrayExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserArrayCheckers,
-			...dataParsers.DataParserArrayCheckers[],
+			dataParsers.DataParserArrayCheckers<Output<this>>,
+			...dataParsers.DataParserArrayCheckers<Output<this>>[],
 		],
 	>(
-		...args: GenericChecker
+		...args: FixDeepFunctionInfer<
+			readonly [
+				dataParsers.DataParserArrayCheckers<Output<this>>,
+				...dataParsers.DataParserArrayCheckers<Output<this>>[],
+			],
+			GenericChecker
+		>
 	): DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
+		>
+	>;
+
+	refine(
+		theFunction: (input: Output<this>) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>
+	): DataParserArrayExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			[dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 

@@ -10,10 +10,10 @@ export interface DataParserCheckerDefinitionUrl extends DataParserCheckerDefinit
 	normalize?: boolean;
 }
 
-export const dataParserCheckerUrlKind = createDataParserKind("checker-string-url");
+export const checkerUrlKind = createDataParserKind("checker-string-url");
 
 type _DataParserCheckerUrl = (
-	& Kind<typeof dataParserCheckerUrlKind.definition>
+	& Kind<typeof checkerUrlKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionUrl,
 		string
@@ -30,7 +30,7 @@ export function checkerUrl(
 	definition: Partial<DataParserCheckerDefinitionUrl> = {},
 ): DataParserCheckerUrl {
 	return dataParserCheckerInit<DataParserCheckerUrl>(
-		dataParserCheckerUrlKind,
+		checkerUrlKind,
 		{
 			definition: definition,
 		},
