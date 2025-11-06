@@ -212,6 +212,51 @@ describe("DDataParser record", () => {
 		>;
 	});
 
+	it("parses record with deeply nested template literal keys", () => {
+		const schema = DDataParser.record(
+			DDataParser.templateLiteral([
+				"user-",
+				DDataParser.literal(["admin", "guest"]),
+				"-",
+				DDataParser.templateLiteral([
+					DDataParser.union([
+						DDataParser.literal(["eu", "us"]),
+						DDataParser.string({
+							checkers: [DDataParser.checkerStringRegex(/^[a-z]{2}$/)],
+						}),
+					]),
+				]),
+			]),
+			DDataParser.union([
+				DDataParser.literal(["read", "write"]),
+				DDataParser.number(),
+			]),
+		);
+
+		type ExpectedRecord = Partial<Record<`user-${"admin" | "guest"}-${string}`, "read" | "write" | number>>;
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			ExpectedRecord,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof schema>,
+			ExpectedRecord,
+			"strict"
+		>;
+
+		const validInput: ExpectedRecord = {
+			"user-admin-us": "read",
+			"user-guest-eu": "write",
+			"user-admin-fr": 1,
+		};
+
+		expect(schema.parse(validInput)).toStrictEqual(DEither.success(validInput));
+		expect(schema.parse({ "user-guest-usa": "read" })).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
 	describe("async", () => {
 		it("parses record of strings", async() => {
 			const schema = DDataParser.record(
@@ -359,6 +404,36 @@ describe("DDataParser record", () => {
 			};
 
 			await expect(schema.asyncParse(input)).resolves.toStrictEqual(DEither.error(expect.any(Object)));
+		});
+
+		it("parses record with deeply nested template literal keys", async() => {
+			const schema = DDataParser.record(
+				DDataParser.templateLiteral([
+					"user-",
+					DDataParser.literal(["admin", "guest"]),
+					"-",
+					DDataParser.templateLiteral([
+						DDataParser.union([
+							DDataParser.literal(["eu", "us"]),
+							DDataParser.string({
+								checkers: [DDataParser.checkerStringRegex(/^[a-z]{2}$/)],
+							}),
+						]),
+					]),
+				]),
+				DDataParser.union([
+					DDataParser.literal(["read", "write"]),
+					DDataParser.number(),
+				]),
+			);
+
+			const validInput = {
+				"user-admin-us": "read",
+				"user-guest-eu": "write",
+			};
+
+			expect(await schema.asyncParse(validInput)).toStrictEqual(DEither.success(validInput));
+			expect(await schema.asyncParse({ "user-guest-usa": "read" })).toStrictEqual(DEither.error(expect.any(Object)));
 		});
 	});
 });
