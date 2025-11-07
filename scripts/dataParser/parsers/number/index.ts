@@ -1,14 +1,24 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerInt, type DataParserCheckerNumberMin, type DataParserCheckerNumberMax } from "./checkers";
 import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./checkers";
 
+export interface DataParserNumberCheckerCustom {}
+
 export type DataParserNumberCheckers = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserNumberCheckerCustom[
+		GetPropsWithValueExtends<
+			DataParserNumberCheckerCustom,
+			DataParserChecker
+		>
+	]
 	| DataParserCheckerInt
 	| DataParserCheckerNumberMin
 	| DataParserCheckerNumberMax

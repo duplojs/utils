@@ -1,5 +1,5 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
@@ -13,6 +13,7 @@ import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { createTemplateLiteralPattern } from "./createTemplateLiteralPattern";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./createTemplateLiteralPattern";
 
@@ -142,9 +143,20 @@ export type TemplateLiteralShapeInput<
 		: never
 	: never;
 
+export interface DataParserTemplateLiteralCheckerCustom<
+	GenericInput extends string = string,
+> {}
+
 export type DataParserTemplateLiteralCheckers<
 	GenericInput extends string = string,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserTemplateLiteralCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserTemplateLiteralCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<GenericInput>
 );
 

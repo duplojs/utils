@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
@@ -11,6 +11,7 @@ import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { findRecordRequiredKey } from "./findRecordRequiredKey";
 import { type TemplateLiteralContainLargeType } from "@scripts/string";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./findRecordRequiredKey";
 
@@ -32,9 +33,20 @@ export type DataParserRecordKey = (
 	>
 );
 
+export interface DataParserRecordCheckerCustom<
+	GenericInput extends Record<string, unknown> = Record<string, unknown>,
+> {}
+
 export type DataParserRecordCheckers<
 	GenericInput extends Record<string, unknown> = Record<string, unknown>,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserRecordCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserRecordCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<GenericInput>
 );
 

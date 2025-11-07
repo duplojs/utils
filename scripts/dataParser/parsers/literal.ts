@@ -1,16 +1,28 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
+
+export interface DataParserLiteralCheckerCustom<
+	GenericInput extends LiteralValue = LiteralValue,
+> {}
 
 export type DataParserLiteralCheckers<
 	GenericInput extends LiteralValue = LiteralValue,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserLiteralCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserLiteralCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<GenericInput>
 );
 

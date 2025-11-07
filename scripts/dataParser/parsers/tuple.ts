@@ -1,10 +1,11 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 
@@ -56,9 +57,20 @@ export type DataParserTupleShapeInput<
 		]
 		: never;
 
+export interface DataParserTupleCheckerCustom<
+	GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>,
+> {}
+
 export type DataParserTupleCheckers<
 	GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserTupleCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserTupleCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| DataParserCheckerArrayMin
 	| DataParserCheckerArrayMax
 	| CheckerRefineImplementation<GenericInput>

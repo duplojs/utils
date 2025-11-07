@@ -1,12 +1,24 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
+import { type GetPropsWithValueExtends } from "@scripts/object";
+
+export interface DataParserLazyCheckerCustom<
+	GenericInput extends unknown = unknown,
+> {}
 
 export type DataParserLazyCheckers<
 	GenericInput extends unknown = unknown,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserLazyCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserLazyCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<GenericInput>
 );
 

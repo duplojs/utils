@@ -1,9 +1,10 @@
 import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
-import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError } from "../base";
+import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 
@@ -49,9 +50,20 @@ export type DataParserObjectShapeInput<
 		>
 		: never;
 
+export interface DataParserObjectCheckerCustom<
+	GenericInput extends DataParserObjectShape = DataParserObjectShape,
+> {}
+
 export type DataParserObjectCheckers<
 	GenericInput extends DataParserObjectShape = DataParserObjectShape,
 > = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserObjectCheckerCustom<GenericInput>[
+		GetPropsWithValueExtends<
+			DataParserObjectCheckerCustom<GenericInput>,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<GenericInput>
 );
 

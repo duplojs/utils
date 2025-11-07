@@ -1,11 +1,21 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
+import { type GetPropsWithValueExtends } from "@scripts/object";
+
+export interface DataParserBooleanCheckerCustom {}
 
 export type DataParserBooleanCheckers = (
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	| DataParserBooleanCheckerCustom[
+		GetPropsWithValueExtends<
+			DataParserBooleanCheckerCustom,
+			DataParserChecker
+		>
+	]
 	| CheckerRefineImplementation<boolean>
 );
 
