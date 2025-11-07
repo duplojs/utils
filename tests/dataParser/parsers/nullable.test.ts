@@ -33,6 +33,21 @@ describe("DDataParser nullable", () => {
 		expect(schema.parse(null)).toStrictEqual(DEither.success(null));
 	});
 
+	it("returns coalescing value when null", () => {
+		const schema = DDataParser.nullable(
+			DDataParser.number(),
+			{ coalescingValue: 10 },
+		);
+
+		expect(schema.parse(null)).toStrictEqual(DEither.success(10));
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			number,
+			"strict"
+		>;
+	});
+
 	it("fails when inner parser fails", () => {
 		const inner = DDataParser.number({ errorMessage: "not-number" });
 		const schema = DDataParser.nullable(inner, { errorMessage: "nullable.invalid" });
@@ -65,6 +80,17 @@ describe("DDataParser nullable", () => {
 			const result = await schema.asyncParse(null);
 
 			expect(result).toStrictEqual(DEither.success(null));
+		});
+
+		it("returns coalescing value when null", async() => {
+			const schema = DDataParser.nullable(
+				DDataParser.number(),
+				{ coalescingValue: 10 },
+			);
+
+			const result = await schema.asyncParse(null);
+
+			expect(result).toStrictEqual(DEither.success(10));
 		});
 
 		it("fails when inner parser fails", async() => {

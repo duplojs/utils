@@ -50,7 +50,12 @@ export interface DataParserNullableExtended<
 export function nullable<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionNullable, "inner">
+		Omit<
+			dataParsers.DataParserDefinitionNullable<
+				Output<GenericDataParser> | null
+			>,
+			"inner"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -62,7 +67,7 @@ export function nullable<
 		>
 	> {
 	return dataParserExtendedInit<
-		dataParsers.DataParserNullable,
+		dataParsers.DataParserNullable<any>,
 		DataParserNullableExtended
 	>(
 		dataParsers.nullable(inner, definition),

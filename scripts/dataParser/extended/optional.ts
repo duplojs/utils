@@ -50,7 +50,12 @@ export interface DataParserOptionalExtended<
 export function optional<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionOptional, "inner">
+		Omit<
+			dataParsers.DataParserDefinitionOptional<
+				Output<GenericDataParser> | undefined
+			>,
+			"inner"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -62,7 +67,7 @@ export function optional<
 		>
 	> {
 	return dataParserExtendedInit<
-		dataParsers.DataParserOptional,
+		dataParsers.DataParserOptional<any>,
 		DataParserOptionalExtended
 	>(
 		dataParsers.optional(inner, definition),

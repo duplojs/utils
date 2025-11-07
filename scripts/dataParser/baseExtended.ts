@@ -101,7 +101,12 @@ export interface DataParserExtended extends _DataParserExtended {
 	nullable<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionNullable, "inner">
+			Omit<
+				dataParsers.DataParserDefinitionNullable<
+					Output<GenericThis> | null
+				>,
+				"inner"
+			>
 		> = never,
 	>(
 		definition?: GenericDefinition,
@@ -115,7 +120,12 @@ export interface DataParserExtended extends _DataParserExtended {
 	optional<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionOptional, "inner">
+			Omit<
+				dataParsers.DataParserDefinitionOptional<
+					Output<GenericThis> | undefined
+				>,
+				"inner"
+			>
 		> = never,
 	>(
 		definition?: GenericDefinition,
@@ -145,6 +155,25 @@ export interface DataParserExtended extends _DataParserExtended {
 	>;
 
 	refine(...args: never): DataParserExtended;
+
+	recover<
+		GenericThis extends this = this,
+		GenericRecoveredValue extends unknown = unknown,
+		const GenericDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionRecover, "inner" | "recoveredValue">
+		> = never,
+	>(
+		recoveredValue: GenericRecoveredValue,
+		definition?: GenericDefinition,
+	): dataParsersExtended.DataParserRecoverExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionRecover,
+			NeverCoalescing<GenericDefinition, {}> & {
+				inner: GenericThis;
+				recoveredValue: GenericRecoveredValue;
+			}
+		>
+	>;
 }
 
 export function dataParserExtendedInit<
@@ -229,20 +258,33 @@ export function dataParserExtendedInit<
 				definition,
 			);
 		},
-		addChecker: (...checkers: any[]) => dataParserExtendedInit(
-			dataParser.addChecker(...checkers as never),
-			rest,
-		),
-		clone: () => dataParserExtendedInit(
-			dataParser.clone(),
-			rest,
-		),
-		refine: (theFunction) => dataParserExtendedInit(
-			(dataParser.addChecker as AnyFunction<[unknown], never>)(
-				dataParsers.checkerRefine(theFunction),
-			),
-			rest,
-		),
+		addChecker(...checkers: any[]) {
+			return dataParserExtendedInit(
+				dataParser.addChecker(...checkers as never),
+				rest,
+			);
+		},
+		clone() {
+			return dataParserExtendedInit(
+				dataParser.clone(),
+				rest,
+			);
+		},
+		refine(theFunction) {
+			return dataParserExtendedInit(
+				(dataParser.addChecker as AnyFunction<[unknown], never>)(
+					dataParsers.checkerRefine(theFunction),
+				),
+				rest,
+			);
+		},
+		recover(recoveredValue, definition) {
+			return dataParsersExtended.recover(
+				self,
+				recoveredValue,
+				definition,
+			);
+		},
 	} satisfies DataParserExtended);
 
 	return self as never;

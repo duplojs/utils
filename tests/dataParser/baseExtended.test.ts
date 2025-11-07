@@ -208,4 +208,14 @@ describe("base extended", () => {
 			),
 		);
 	});
+
+	it("recover", () => {
+		const schema = DDataParser.extended.number().recover(0);
+
+		expect(schema.parse(5)).toStrictEqual(DEither.success(5));
+		expect(schema.parse("invalid")).toStrictEqual(DEither.success(0));
+
+		const refined = schema.refine((value) => value > 0, { errorMessage: "must-be-positive" });
+		expect(refined.parse("invalid")).toStrictEqual(DEither.error(expect.any(Object)));
+	});
 });
