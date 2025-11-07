@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -10,8 +10,11 @@ export type DataParserNullableCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionNullable extends DataParserDefinition<DataParserNullableCheckers> {
+export interface DataParserDefinitionNullable<
+	GenericCoalescingValue extends unknown = unknown,
+> extends DataParserDefinition<DataParserNullableCheckers> {
 	readonly inner: DataParser;
+	readonly coalescingValue: GenericCoalescingValue;
 }
 
 export const nullableKind = createDataParserKind("nullable");
@@ -21,7 +24,12 @@ type _DataParserNullable<
 > = (
 	& DataParser<
 		GenericDefinition,
-		Output<GenericDefinition["inner"]> | null,
+		IsEqual<
+			GenericDefinition["coalescingValue"],
+			unknown
+		> extends true
+			? Output<GenericDefinition["inner"]> | null
+			: Output<GenericDefinition["inner"]>,
 		Input<GenericDefinition["inner"]> | null
 	>
 	& Kind<typeof nullableKind.definition>
@@ -54,7 +62,12 @@ export interface DataParserNullable<
 export function nullable<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionNullable, "inner">
+		Omit<
+			DataParserDefinitionNullable<
+				Output<GenericDataParser> | null
+			>,
+			"inner"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -72,19 +85,20 @@ export function nullable<
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
 				inner,
+				coalescingValue: definition?.coalescingValue ?? null,
 			},
 		},
 		{
 			sync: (data, error, self) => {
 				if (data === null) {
-					return data;
+					return self.definition.coalescingValue;
 				}
 
 				return self.definition.inner.exec(data, error);
 			},
 			async: async(data, error, self) => {
 				if (data === null) {
-					return data;
+					return self.definition.coalescingValue;
 				}
 
 				return self.definition.inner.asyncExec(data, error);

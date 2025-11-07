@@ -20,3 +20,4 @@ export * from "./lazy";
 export * from "./unknown";
 export * from "./record";
 export * from "./refine";
+export * from "./recover";

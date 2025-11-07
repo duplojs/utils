@@ -1,5 +1,5 @@
-import { type AnyFunction, type AnyValue, type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
-import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
+import { type AnyFunction, type AnyValue, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
+import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue, errorKind } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
 
@@ -118,6 +118,16 @@ interface DataParserInitExecParams<
 	>;
 }
 
+// This allows for better performance WTF ???
+const SDPEI = SymbolDataParserErrorIssue;
+const SDPEPI = SymbolDataParserErrorPromiseIssue;
+const SDPE = SymbolDataParserError;
+
+const DPE = createError();
+const EE = DEither.error(null);
+const ES = DEither.success(null);
+const KWV = keyWrappedValue;
+
 export function dataParserInit<
 	GenericDataParser extends DataParser,
 >(
@@ -149,25 +159,25 @@ export function dataParserInit<
 	) {
 		let result = (formattedExec.sync as AnyFunction)(data, error, dataParser) as AnyValue;
 
-		if (result === SymbolDataParserErrorIssue) {
+		if (result === SDPEI) {
 			addIssue(error, dataParser as never, data);
 
-			return SymbolDataParserError;
-		} else if (result === SymbolDataParserErrorPromiseIssue) {
+			return SDPE;
+		} else if (result === SDPEPI) {
 			addPromiseIssue(error, dataParser as never, data);
 
-			return SymbolDataParserError;
+			return SDPE;
 		} else if (
-			result !== SymbolDataParserError
+			result !== SDPE
 			&& dataParser.definition.checkers.length
 		) {
 			for (const checker of dataParser.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
-				if (checkerResult === SymbolDataParserErrorIssue) {
+				if (checkerResult === SDPEI) {
 					addIssue(error, checker as never, result);
 
-					return SymbolDataParserError;
+					return SDPE;
 				} else {
 					result = checkerResult;
 				}
@@ -183,25 +193,25 @@ export function dataParserInit<
 	) {
 		let result = await (formattedExec.async as AnyFunction)(data, error, dataParser) as AnyValue;
 
-		if (result === SymbolDataParserErrorIssue) {
+		if (result === SDPEI) {
 			addIssue(error, dataParser as never, data);
 
-			return SymbolDataParserError;
-		} else if (result === SymbolDataParserErrorPromiseIssue) {
+			return SDPE;
+		} else if (result === SDPEPI) {
 			addPromiseIssue(error, dataParser as never, data);
 
-			return SymbolDataParserError;
+			return SDPE;
 		} else if (
-			result !== SymbolDataParserError
+			result !== SDPE
 			&& dataParser.definition.checkers.length
 		) {
 			for (const checker of dataParser.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
-				if (checkerResult === SymbolDataParserErrorIssue) {
+				if (checkerResult === SDPEI) {
 					addIssue(error, checker as never, result);
 
-					return SymbolDataParserError;
+					return SDPE;
 				} else {
 					result = checkerResult;
 				}
@@ -218,24 +228,44 @@ export function dataParserInit<
 				exec: middleExec,
 				asyncExec: middleAsyncExec,
 				parse(data: unknown) {
-					const error = createError();
+					const error = {
+						...DPE,
+						issues: [],
+						currentPath: [],
+					};
 					const result = middleExec(data, error);
 
-					if (result === SymbolDataParserError) {
-						return DEither.error(error);
+					if (result === SDPE) {
+						return {
+							...EE,
+							[KWV]: error,
+						};
 					}
 
-					return DEither.success(result);
+					return {
+						...ES,
+						[KWV]: result,
+					};
 				},
 				async asyncParse(data: unknown) {
-					const error = createError();
+					const error = {
+						...DPE,
+						issues: [],
+						currentPath: [],
+					};
 					const result = await middleAsyncExec(data, error);
 
-					if (result === SymbolDataParserError) {
-						return DEither.error(error);
+					if (result === SDPE) {
+						return {
+							...EE,
+							[KWV]: error,
+						};
 					}
 
-					return DEither.success(result);
+					return {
+						...ES,
+						[KWV]: result,
+					};
 				},
 				addChecker: (...checkers: any[]) => dataParserInit(
 					kind,

@@ -10,7 +10,7 @@ export default [
 				projectService: true,
 			},
 		},
-		files: ["**/*.test.ts", "test/**/*.ts"],
+		files: ["**/*.test.ts", "**/*.bench.ts", "test/**/*.ts"],
 		ignores: ["**/*.d.ts"]
 	},
 	{
@@ -23,7 +23,7 @@ export default [
 			},
 		},
 		files: ["**/*.ts"],
-		ignores: ["**/*.test.ts", "test/**/*.ts", "**/*.d.ts"],
+		ignores: ["**/*.test.ts", "**/*.bench.ts", "test/**/*.ts", "**/*.d.ts"],
 	},
 	{
 		ignores: ["coverage", "dist"]

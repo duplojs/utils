@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -10,8 +10,11 @@ export type DataParserOptionalCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionOptional extends DataParserDefinition<DataParserOptionalCheckers> {
+export interface DataParserDefinitionOptional<
+	GenericCoalescingValue extends unknown = unknown,
+> extends DataParserDefinition<DataParserOptionalCheckers> {
 	readonly inner: DataParser;
+	readonly coalescingValue: GenericCoalescingValue;
 }
 
 export const optionalKind = createDataParserKind("optional");
@@ -21,7 +24,12 @@ type _DataParserOptional<
 > = (
 	& DataParser<
 		GenericDefinition,
-		Output<GenericDefinition["inner"]> | undefined,
+		IsEqual<
+			GenericDefinition["coalescingValue"],
+			unknown
+		> extends true
+			? Output<GenericDefinition["inner"]> | undefined
+			: Output<GenericDefinition["inner"]>,
 		Input<GenericDefinition["inner"]> | undefined
 	>
 	& Kind<typeof optionalKind.definition>
@@ -54,7 +62,12 @@ export interface DataParserOptional<
 export function optional<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionOptional, "inner">
+		Omit<
+			DataParserDefinitionOptional<
+				Output<GenericDataParser> | undefined
+			>,
+			"inner"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -72,19 +85,20 @@ export function optional<
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
 				inner,
+				coalescingValue: definition?.coalescingValue,
 			},
 		},
 		{
 			sync: (data, error, self) => {
 				if (data === undefined) {
-					return data;
+					return self.definition.coalescingValue;
 				}
 
 				return self.definition.inner.exec(data, error);
 			},
 			async: async(data, error, self) => {
 				if (data === undefined) {
-					return data;
+					return self.definition.coalescingValue;
 				}
 
 				return self.definition.inner.asyncExec(data, error);
