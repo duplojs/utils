@@ -61,7 +61,7 @@ describe("getMonth", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d"),
-			(date) => DDate.getMonth(date),
+			DDate.getMonth,
 		);
 
 		expect(result).toBe(1);

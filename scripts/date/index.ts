@@ -8,3 +8,4 @@ export * from "./tomorrow";
 export * from "./toNative";
 export * from "./toTimestamp";
 export * from "./getters";
+export * from "./toISOString";

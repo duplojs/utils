@@ -46,7 +46,7 @@ describe("getMilliseconds", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d-12h-30mn-45s-123ms"),
-			(date) => DDate.getMilliseconds(date),
+			DDate.getMilliseconds,
 		);
 
 		expect(result).toBe(123);

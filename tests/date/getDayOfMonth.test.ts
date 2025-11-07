@@ -47,7 +47,7 @@ describe("getDayOfMonth", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-15d"),
-			(date) => DDate.getDayOfMonth(date),
+			DDate.getDayOfMonth,
 		);
 
 		expect(result).toBe(15);

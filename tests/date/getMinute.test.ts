@@ -61,7 +61,7 @@ describe("getMinute", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d-12h-30mn"),
-			(date) => DDate.getMinute(date),
+			DDate.getMinute,
 		);
 
 		expect(result).toBe(30);

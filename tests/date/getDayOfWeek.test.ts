@@ -61,7 +61,7 @@ describe("getDayOfWeek", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d"),
-			(date) => DDate.getDayOfWeek(date),
+			DDate.getDayOfWeek,
 		);
 
 		expect(result).toBe(5);

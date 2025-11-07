@@ -61,7 +61,7 @@ describe("getSecond", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d-12h-30mn-45s"),
-			(date) => DDate.getSecond(date),
+			DDate.getSecond,
 		);
 
 		expect(result).toBe(45);

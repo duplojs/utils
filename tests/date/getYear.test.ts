@@ -61,7 +61,7 @@ describe("getYear", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d"),
-			(date) => DDate.getYear(date),
+			DDate.getYear,
 		);
 
 		expect(result).toBe(2021);

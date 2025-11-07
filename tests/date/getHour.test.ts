@@ -61,7 +61,7 @@ describe("getHour", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			DDate.create("2021y-1m-1d-15h"),
-			(date) => DDate.getHour(date),
+			DDate.getHour,
 		);
 
 		expect(result).toBe(15);

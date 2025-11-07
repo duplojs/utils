@@ -7,3 +7,5 @@ export * from "./getMonth";
 export * from "./getSecond";
 export * from "./getYear";
 export * from "./getMilliseconds";
+export * from "./getDayOfYear";
+export * from "./getWeekOfYear";
