@@ -1,9 +1,14 @@
+import { isRuntimeKind, isRuntimeWrappedValueKey } from "@scripts/common";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
 export function values<
 	GenericValue extends AnyValue,
 >(
-	object: { [key: string]: GenericValue } | ArrayLike<GenericValue>,
+	object: Record<string, GenericValue>,
 ): GenericValue[] {
-	return Object.values(object);
+	return Object.entries(object)
+		.filter(
+			([key]) => !isRuntimeWrappedValueKey(key) && !isRuntimeKind(key),
+		)
+		.map(([, value]) => value);
 }
