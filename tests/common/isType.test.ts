@@ -148,7 +148,7 @@ describe("isType", () => {
 	it("object", () => {
 		const value = {
 			foo: "bar",
-		} as { foo: string } | string[];
+		} as { foo: string } | string[] | null;
 
 		const result = isType(value, "object");
 
@@ -183,5 +183,43 @@ describe("isType", () => {
 		}
 
 		expect(isType({ foo: "bar" } as string[] | { foo: string }, "array")).toBe(false);
+	});
+
+	it("iterator", () => {
+		const value = new Set([1]);
+
+		const result = isType(value, "iterable");
+
+		expect(result).toBe(true);
+
+		if (result) {
+			type check = ExpectType<
+				typeof value,
+				Set<number>,
+				"strict"
+			>;
+		}
+
+		expect(isType(1 as Set<number> | number, "iterable")).toBe(false);
+	});
+
+	it("asyncIterator", () => {
+		const value = (async function *() {
+			yield await 1;
+		})();
+
+		const result = isType(value, "asyncIterable");
+
+		expect(result).toBe(true);
+
+		if (result) {
+			type check = ExpectType<
+				typeof value,
+				AsyncGenerator<number, void, unknown>,
+				"strict"
+			>;
+		}
+
+		expect(isType([] as AsyncGenerator<number, void, unknown> | number[], "asyncIterable")).toBe(false);
 	});
 });

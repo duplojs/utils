@@ -9,7 +9,9 @@ interface Type {
 	undefined: [undefined, never];
 	null: [null, never];
 	symbol: [symbol, never];
-	object: [object, any[] | AnyFunction];
+	object: [object, any[] | AnyFunction | null];
+	iterable: [Iterable<any>, never];
+	asyncIterable: [AsyncIterable<any>, never];
 	array: [any[], never];
 }
 
@@ -23,7 +25,18 @@ const testTypeWrapper: Record<keyof Type, (input: unknown) => boolean> = {
 	undefined: (input) => typeof input === "undefined",
 	null: (input) => input === null,
 	array: (input) => input instanceof Array,
-	object: (input) => !!input && typeof input === "object" && !(input instanceof Array),
+	object: (input) => !!input
+		&& typeof input === "object"
+		&& !(input instanceof Array)
+		&& !(Symbol.iterator in input),
+	iterable: (input) => !!input
+		&& typeof input === "object"
+		&& Symbol.iterator in input
+		&& typeof input[Symbol.iterator] === "function",
+	asyncIterable: (input) => !!input
+		&& typeof input === "object"
+		&& Symbol.asyncIterator in input
+		&& typeof input[Symbol.asyncIterator] === "function",
 };
 
 type ComputeResult<
