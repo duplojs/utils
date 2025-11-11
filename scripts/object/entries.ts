@@ -1,3 +1,4 @@
+import { type DString } from "@scripts";
 import { type IsEqual, isRuntimeKind, isRuntimeWrappedValueKey, type ObjectEntry, type ObjectKey } from "@scripts/common";
 import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
 
@@ -12,15 +13,17 @@ export type GetEntry<
 
 export type GetEntries<
 	GenericObject extends object,
-> = (
-	{
-		[Prop in keyof GenericObject]-?: GetEntry<Prop, GenericObject[Prop]>
-	}[keyof GenericObject]
-) extends infer InferredResult extends ObjectEntry
-	? IsEqual<InferredResult, never> extends true
-		? []
-		: InferredResult[]
-	: never;
+> = GenericObject extends readonly any[]
+	? [DString.Number, GenericObject[number]][]
+	: (
+		{
+			[Prop in keyof GenericObject]-?: GetEntry<Prop, GenericObject[Prop]>
+		}[keyof GenericObject]
+	) extends infer InferredResult extends ObjectEntry
+		? IsEqual<InferredResult, never> extends true
+			? []
+			: InferredResult[]
+		: never;
 
 export function entries<
 	GenericObject extends object,
