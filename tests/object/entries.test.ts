@@ -39,5 +39,19 @@ describe("entries", () => {
 			"strict"
 		>;
 	});
+
+	it("entry of array", () => {
+		const input = [1, 2, 3];
+
+		const entries = DObject.entries(input);
+
+		expect(entries).toStrictEqual([["0", 1], ["1", 2], ["2", 3]]);
+
+		type check = ExpectType<
+			typeof entries,
+			[`${number}`, number][],
+			"strict"
+		>;
+	});
 });
 
