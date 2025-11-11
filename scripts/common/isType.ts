@@ -9,10 +9,10 @@ interface Type {
 	undefined: [undefined, never];
 	null: [null, never];
 	symbol: [symbol, never];
-	object: [object, any[] | AnyFunction | null];
+	object: [object, readonly any[] | AnyFunction | null];
 	iterable: [Iterable<any>, never];
 	asyncIterable: [AsyncIterable<any>, never];
-	array: [any[], never];
+	array: [readonly any[], never];
 }
 
 const testTypeWrapper: Record<keyof Type, (input: unknown) => boolean> = {
