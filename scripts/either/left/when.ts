@@ -7,14 +7,28 @@ export function whenIsLeft<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
-	theFunction: (eitherValue: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput,
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				BreakGenericLink<GenericInput>,
+				EitherLeft
+			>
+		>
+	) => GenericOutput,
 ): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, EitherLeft> | GenericOutput;
 export function whenIsLeft<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
-	theFunction: (eitherValue: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput,
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				BreakGenericLink<GenericInput>,
+				EitherLeft
+			>
+		>
+	) => GenericOutput,
 ): Exclude<GenericInput, EitherLeft> | GenericOutput;
 export function whenIsLeft(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {

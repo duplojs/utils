@@ -7,14 +7,28 @@ export function whenIsRight<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
-	theFunction: (eitherValue: Unwrap<Extract<GenericInput, EitherRight>>) => GenericOutput,
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				BreakGenericLink<GenericInput>,
+				EitherRight
+			>
+		>
+	) => GenericOutput,
 ): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, EitherRight> | GenericOutput;
 export function whenIsRight<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: GenericInput,
-	theFunction: (eitherValue: Unwrap<Extract<GenericInput, EitherRight>>) => GenericOutput,
+	theFunction: (
+		eitherValue: Unwrap<
+			Extract<
+				BreakGenericLink<GenericInput>,
+				EitherRight
+			>
+		>
+	) => GenericOutput,
 ): Exclude<GenericInput, EitherRight> | GenericOutput;
 export function whenIsRight(...args: [unknown, AnyFunction] | [AnyFunction]) {
 	if (args.length === 1) {

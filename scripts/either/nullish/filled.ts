@@ -60,7 +60,9 @@ export function whenIsNullishFilled<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherNullishFilled
 			>
 		>
@@ -74,7 +76,9 @@ export function whenIsNullishFilled<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherNullishFilled
 			>
 		>
