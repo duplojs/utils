@@ -1,15 +1,17 @@
 import { type AnyValue } from "./types";
 
 export function justReturn<
+	GenericInput extends unknown,
 	GenericValue extends AnyValue,
 >(
 	value: GenericValue
-): (input: unknown) => GenericValue;
+): (input: GenericInput) => GenericValue;
 
 export function justReturn<
+	GenericInput extends unknown,
 	GenericValue extends AnyValue,
 >(
-	input: unknown,
+	input: GenericInput,
 	value: GenericValue
 ): GenericValue;
 
