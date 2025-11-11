@@ -60,7 +60,9 @@ export function whenIsOptionalFilled<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToOptionalEither<GenericInput>,
+				ToOptionalEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherOptionalFilled
 			>
 		>
@@ -77,7 +79,9 @@ export function whenIsOptionalFilled<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToOptionalEither<GenericInput>,
+				ToOptionalEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherOptionalFilled
 			>
 		>

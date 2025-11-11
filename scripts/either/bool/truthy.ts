@@ -60,7 +60,9 @@ export function whenIsBoolTruthy<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherBoolTruthy
 			>
 		>
@@ -77,7 +79,9 @@ export function whenIsBoolTruthy<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherBoolTruthy
 			>
 		>

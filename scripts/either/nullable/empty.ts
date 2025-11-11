@@ -54,7 +54,9 @@ export function whenIsNullableEmpty<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherNullableEmpty
 			>
 		>
@@ -68,7 +70,9 @@ export function whenIsNullableEmpty<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherNullableEmpty
 			>
 		>

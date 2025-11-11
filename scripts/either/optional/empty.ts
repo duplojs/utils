@@ -54,7 +54,9 @@ export function whenIsOptionalEmpty<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToOptionalEither<GenericInput>,
+				ToOptionalEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherOptionalEmpty
 			>
 		>
@@ -71,7 +73,9 @@ export function whenIsOptionalEmpty<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToOptionalEither<GenericInput>,
+				ToOptionalEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherOptionalEmpty
 			>
 		>

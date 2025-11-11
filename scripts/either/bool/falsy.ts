@@ -62,7 +62,9 @@ export function whenIsBoolFalsy<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherBoolFalsy
 			>
 		>
@@ -80,7 +82,9 @@ export function whenIsBoolFalsy<
 	theFunction: (
 		eitherValue: Unwrap<
 			Extract<
-				ToEither<GenericInput>,
+				ToEither<
+					BreakGenericLink<GenericInput>
+				>,
 				EitherBoolFalsy
 			>
 		>
