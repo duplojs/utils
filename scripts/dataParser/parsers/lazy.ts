@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -23,7 +23,7 @@ export type DataParserLazyCheckers<
 );
 
 export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers> {
-	getter(): DataParser;
+	getter: Memoized<DataParser>;
 }
 
 export const lazyKind = createDataParserKind("lazy");
@@ -33,8 +33,8 @@ type _DataParserLazy<
 > = (
 	& DataParser<
 		GenericDefinition,
-		Output<ReturnType<GenericDefinition["getter"]>>,
-		Input<ReturnType<GenericDefinition["getter"]>>
+		Output<GenericDefinition["getter"]["value"]>,
+		Input<GenericDefinition["getter"]["value"]>
 	>
 	& Kind<typeof lazyKind.definition>
 );
@@ -73,7 +73,7 @@ export function lazy<
 		MergeDefinition<
 			DataParserDefinitionLazy,
 			NeverCoalescing<GenericDefinition, {}> & {
-				getter(): GenericDataParser;
+				getter: Memoized<GenericDataParser>;
 			}
 		>
 	> {
@@ -83,12 +83,12 @@ export function lazy<
 			definition: {
 				errorMessage: definition?.errorMessage,
 				checkers: definition?.checkers ?? [],
-				getter,
+				getter: memo(getter),
 			},
 		},
 		{
-			sync: (data, _error, self) => self.definition.getter().exec(data, _error),
-			async: (data, _error, self) => self.definition.getter().asyncExec(data, _error),
+			sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
+			async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
 		},
 	) as never;
 }

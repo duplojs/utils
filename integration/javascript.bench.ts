@@ -1,4 +1,4 @@
-import { DEither, keyWrappedValue } from "@scripts";
+import { DEither, keyWrappedValue, kindHeritage } from "@scripts";
 import { bench } from "vitest";
 
 describe("better argument", () => {
@@ -116,32 +116,32 @@ describe("better compare", () => {
 });
 
 describe.only("instance", () => {
-	const value = DEither.error("test");
+	const eitherError = DEither.error("test");
 
-	const tt = keyWrappedValue;
+	const keyWV = keyWrappedValue;
 
 	bench("spread", () => {
 		const newValue = {
-			...value,
-			[tt]: "test",
+			...eitherError,
+			[keyWV]: "test",
 		};
 	});
 
 	bench("structuredClone", () => {
-		const newValue = structuredClone(value);
+		const newValue = structuredClone(eitherError);
 		newValue[keyWrappedValue as never] = "test" as never;
 	});
 
-	const tt1 = DEither.eitherInformationKind.runTimeKey;
-	const tt2 = DEither.eitherLeftKind.runTimeKey;
-	const tt3 = DEither.eitherErrorKind.runTimeKey;
+	const key1 = DEither.eitherInformationKind.runTimeKey;
+	const key2 = DEither.eitherLeftKind.runTimeKey;
+	const key3 = DEither.eitherErrorKind.runTimeKey;
 
 	bench("declare", () => {
 		const newValue = {
-			[tt1]: "error",
-			[tt2]: null,
-			[tt3]: null,
-			[tt]: "test",
+			[key1]: "error",
+			[key2]: null,
+			[key3]: null,
+			[keyWV]: "test",
 		};
 	});
 
@@ -152,5 +152,41 @@ describe.only("instance", () => {
 			huuuuuuuuuuuuuuuuuuuuuuugeKeeeeeeeeeeeeeeeeeeeeeeeeeeeeey3: null,
 			huuuuuuuuuuuuuuuuuuuuuuugeKeeeeeeeeeeeeeeeeeeeeeeeeeeeeey4: "test",
 		};
+	});
+
+	bench("with for", () => {
+		const newObjet = {};
+
+		for (const key in eitherError) {
+			newObjet[key as never] = eitherError[key as never];
+		}
+	});
+
+	class EitherErrorClass extends kindHeritage(
+		"EitherError",
+		[
+			DEither.eitherInformationKind,
+			DEither.eitherLeftKind,
+			DEither.eitherErrorKind,
+		],
+	) {
+		public [keyWrappedValue]: unknown = null;
+
+		public constructor(
+			value: unknown,
+		) {
+			super(EitherErrorClass.initialValue);
+			this[keyWrappedValue] = value;
+		}
+
+		private static readonly initialValue = {
+			"@DuplojsUtilsEither/error": null,
+			"@DuplojsUtilsEither/information": "error",
+			"@DuplojsUtilsEither/left": null,
+		};
+	}
+
+	bench("with class", () => {
+		const newValue = new EitherErrorClass("test");
 	});
 });
