@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type Memoized, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -57,7 +57,7 @@ export function lazy<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionLazy,
 			NeverCoalescing<GenericDefinition, {}> & {
-				getter(): GenericDataParser;
+				getter: Memoized<GenericDataParser>;
 			}
 		>
 	> {
