@@ -1,6 +1,5 @@
-import { pipe } from "@scripts/common";
+import { type ExpectType, pipe, when } from "@scripts/common";
 import { DArray } from "@scripts";
-import { when, type ExpectType } from "dist";
 
 describe("notIncludes", () => {
 	const input = [1 as const, "", { test: 10 }];
@@ -32,7 +31,7 @@ describe("notIncludes", () => {
 				DArray.notIncludes(1),
 				(input) => {
 					type Check = ExpectType<
-				typeof input,
+						typeof input,
 						(string | {
 							test: number;
 						})[],
