@@ -18,7 +18,7 @@ export function whenHasInformation<
 	theFunction: (
 		value: Unwrap<
 			Extract<
-				GenericInput,
+				BreakGenericLink<GenericInput>,
 				& Kind<typeof eitherInformationKind.definition, GenericInformation>
 				& WrappedValue
 			>
@@ -44,7 +44,7 @@ export function whenHasInformation<
 	theFunction: (
 		value: Unwrap<
 			Extract<
-				GenericInput,
+				BreakGenericLink<GenericInput>,
 				& Kind<typeof eitherInformationKind.definition, GenericInformation>
 				& WrappedValue
 			>
