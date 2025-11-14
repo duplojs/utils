@@ -3,6 +3,7 @@ export * as coerce from "./coerce";
 export * from "./string";
 export * from "./object";
 export * from "./number";
+export * from "./date";
 export * from "./literal";
 export * from "./union";
 export * from "./array";

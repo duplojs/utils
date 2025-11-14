@@ -20,6 +20,7 @@ export type DataParsers = (
 	| AllDataParser.DataParserTuple
 	| AllDataParser.DataParserTransform
 	| AllDataParser.DataParserBoolean
+	| AllDataParser.DataParserDate
 	| AllDataParser.DataParserNil
 	| AllDataParser.DataParserEmpty
 	| AllDataParser.DataParserTemplateLiteral
