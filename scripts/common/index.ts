@@ -40,3 +40,4 @@ export * from "./instanceOf";
 export * from "./globalStore";
 export * from "./builder";
 export * from "./createKindIdentifier";
+export * from "./forwardLog";
