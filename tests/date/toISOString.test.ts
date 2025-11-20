@@ -69,7 +69,7 @@ describe("toISOString", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.create(1609459200000),
+			DDate.createOrThrow(1609459200000),
 			DDate.toISOString,
 		);
 

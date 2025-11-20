@@ -1,6 +1,6 @@
-import { type DEither } from "@scripts";
 import { dateComponentsRegex, maxTimestamp, minTimestamp, theDateRegex } from "./constants";
 import type { TheDate, IsLeapYear } from "./types";
+import { type EitherError, type EitherSuccess, success, error } from "@scripts/either";
 
 type Days1To28 = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28";
 type Day29 = "29";
@@ -18,7 +18,7 @@ type CreateDateInputStringBase =
 	| `${"" | "-"}${number}y-${number}m-${number}d-${number}h-${number}mn-${number}s`
 	| `${"" | "-"}${number}y-${number}m-${number}d-${number}h-${number}mn-${number}s-${number}ms`;
 
-type CreateDateInputString<
+export type CreateDateInputString<
 	GenericInput extends CreateDateInputStringBase = CreateDateInputStringBase,
 > =
 	GenericInput extends `${infer InferedYear extends `${"" | "-"}${number}`}y-2m-${infer InferedDay extends `${number}`}d${string}`
@@ -27,7 +27,50 @@ type CreateDateInputString<
 			: never
 		: GenericInput;
 
-export type MayBeDate = DEither.EitherSuccess<TheDate> | DEither.EitherError<null>;
+export type MayBe = EitherSuccess<TheDate> | EitherError<null>;
+
+function fromDateComponentsMatch(match: RegExpMatchArray) {
+	const [
+		,
+		signStr,
+		yearStr,
+		monthStr,
+		dayStr,
+		hourStr,
+		minuteStr,
+		secondStr,
+		millisecondStr,
+	] = match;
+
+	const date = new Date(0);
+	const isBeforeChrist = signStr === "-";
+	const yearValue = Number(yearStr);
+
+	date.setUTCFullYear(isBeforeChrist ? -yearValue : yearValue);
+	date.setUTCMonth(Number(monthStr) - 1);
+	date.setUTCDate(Number(dayStr));
+
+	if (hourStr !== undefined) {
+		date.setUTCHours(Number(hourStr));
+	}
+
+	if (minuteStr !== undefined) {
+		date.setUTCMinutes(Number(minuteStr));
+	}
+
+	if (secondStr !== undefined) {
+		date.setUTCSeconds(Number(secondStr));
+	}
+
+	if (millisecondStr !== undefined) {
+		date.setUTCMilliseconds(Number(millisecondStr));
+	}
+
+	const timestamp = date.getTime();
+	const isNegative = timestamp < 0;
+
+	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+}
 
 export function create<
 	GenericInput extends CreateDateInputString,
@@ -39,83 +82,65 @@ export function create<
 	GenericInput extends TheDate,
 >(
 	input: GenericInput,
-): TheDate;
+): MayBe;
 
 export function create<
 	GenericInput extends Date,
 >(
 	input: GenericInput,
-): TheDate;
+): MayBe;
 
 export function create<
 	GenericInput extends number,
 >(
 	input: GenericInput,
-): TheDate;
+): MayBe;
 
-export function create(input: string | number | Date): TheDate {
-	let timestamp = 0;
-	let isNegative = false;
-
+export function create(input: string | number | Date): TheDate | MayBe {
 	// number (timestamp)
 	if (typeof input === "number") {
-		if (!Number.isSafeInteger(input) || input < minTimestamp || input > maxTimestamp) {
-			return "date0+" satisfies TheDate;
+		if (
+			!Number.isSafeInteger(input)
+			|| input < minTimestamp
+			|| input > maxTimestamp
+		) {
+			return error(null);
 		}
-		timestamp = input;
-		isNegative = input < 0;
-		return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+
+		const isNegative = input < 0;
+
+		return success(
+			`date${Math.abs(input)}${isNegative ? "-" : "+"}` satisfies TheDate,
+		);
 	}
 
 	// Date object
 	if (input instanceof Date) {
-		timestamp = input.getTime();
-		isNegative = timestamp < 0;
-		return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+		const timestamp = input.getTime();
+
+		if (
+			Number.isNaN(timestamp)
+			|| !Number.isSafeInteger(timestamp)
+			|| timestamp < minTimestamp
+			|| timestamp > maxTimestamp
+		) {
+			return error(null);
+		}
+
+		const isNegative = timestamp < 0;
+
+		return success(
+			`date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate,
+		);
 	}
 
 	// TheDate (format: date{number}{+/-})
-	const theDateMatch = input.match(theDateRegex);
-	if (theDateMatch) {
-		const [, timestampStr, sign] = theDateMatch;
-		timestamp = parseInt(timestampStr!);
-		isNegative = sign === "-";
-		return `date${timestamp}${isNegative ? "-" : "+"}` satisfies TheDate;
+	if (theDateRegex.test(input)) {
+		return success(input as TheDate);
 	}
 
 	// CreateDateInputString (format: 2024y-12m-25d)
-	const dateStringMatch = input.match(dateComponentsRegex);
-	if (!dateStringMatch) {
-		return "date0+" satisfies TheDate;
-	}
+	const dateStringMatch = input.match(dateComponentsRegex)!;
 
-	const date = new Date(0);
-	const [, signStr, yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr, millisecondStr] = dateStringMatch;
-	const isBeforeChrist = signStr === "-";
-
-	const yearValue = parseInt(yearStr!);
-	date.setUTCFullYear(isBeforeChrist ? -yearValue : yearValue);
-	date.setUTCMonth(parseInt(monthStr!) - 1);
-	date.setUTCDate(parseInt(dayStr!));
-
-	if (hourStr !== undefined) {
-		date.setUTCHours(parseInt(hourStr));
-	}
-
-	if (minuteStr !== undefined) {
-		date.setUTCMinutes(parseInt(minuteStr));
-	}
-
-	if (secondStr !== undefined) {
-		date.setUTCSeconds(parseInt(secondStr));
-	}
-
-	if (millisecondStr !== undefined) {
-		date.setUTCMilliseconds(parseInt(millisecondStr));
-	}
-
-	timestamp = date.getTime();
-	isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return fromDateComponentsMatch(dateStringMatch);
 }

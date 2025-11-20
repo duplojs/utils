@@ -13,3 +13,4 @@ export * from "./operators";
 export * from "./closestTo";
 export * from "./each";
 export * from "./each";
+export * from "./createOrThrow";

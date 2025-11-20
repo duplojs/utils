@@ -1,14 +1,14 @@
-import { type ExpectType, DDate } from "@scripts";
+import { type ExpectType, DDate, DEither } from "@scripts";
 
 describe("create", () => {
 	it("create from timestamp", () => {
 		const result = DDate.create(1609459200000);
 
-		expect(result).toBe("date1609459200000+");
+		expect(result).toStrictEqual(DEither.success("date1609459200000+"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -16,11 +16,11 @@ describe("create", () => {
 	it("create from negative timestamp", () => {
 		const result = DDate.create(-1000);
 
-		expect(result).toBe("date1000-");
+		expect(result).toStrictEqual(DEither.success("date1000-"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -28,11 +28,11 @@ describe("create", () => {
 	it("create from unsafe timestamp", () => {
 		const result = DDate.create(Number.MAX_SAFE_INTEGER + 1);
 
-		expect(result).toBe("date0+");
+		expect(result).toStrictEqual(DEither.error(null));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -40,11 +40,11 @@ describe("create", () => {
 	it("create from timestamp out of range (too high)", () => {
 		const result = DDate.create(8640000000000001);
 
-		expect(result).toBe("date0+");
+		expect(result).toStrictEqual(DEither.error(null));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -52,11 +52,11 @@ describe("create", () => {
 	it("create from timestamp out of range (too low)", () => {
 		const result = DDate.create(-8640000000000001);
 
-		expect(result).toBe("date0+");
+		expect(result).toStrictEqual(DEither.error(null));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -65,11 +65,11 @@ describe("create", () => {
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
 		const result = DDate.create(nativeDate);
 
-		expect(result).toBe("date1609459200000+");
+		expect(result).toStrictEqual(DEither.success("date1609459200000+"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -78,23 +78,43 @@ describe("create", () => {
 		const nativeDate = new Date(-1000);
 		const result = DDate.create(nativeDate);
 
-		expect(result).toBe("date1000-");
+		expect(result).toStrictEqual(DEither.success("date1000-"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
+	});
+
+	it("returns error for invalid Date object", () => {
+		const result = DDate.create(new Date(NaN));
+
+		expect(result).toStrictEqual(DEither.error(null));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("returns error for Date objects out of supported range", () => {
+		const above = DDate.create(new Date(DDate.maxTimestamp + 1));
+		const below = DDate.create(new Date(DDate.minTimestamp - 1));
+
+		expect(above).toStrictEqual(DEither.error(null));
+		expect(below).toStrictEqual(DEither.error(null));
 	});
 
 	it("create from TheDate", () => {
 		const result = DDate.create("date1609459200000+");
 
-		expect(result).toBe("date1609459200000+");
+		expect(result).toStrictEqual(DEither.success("date1609459200000+"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -102,11 +122,11 @@ describe("create", () => {
 	it("create from TheDate negative", () => {
 		const result = DDate.create("date1000-");
 
-		expect(result).toBe("date1000-");
+		expect(result).toStrictEqual(DEither.success("date1000-"));
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.MayBe,
 			"strict"
 		>;
 	});
@@ -118,7 +138,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -130,7 +150,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -142,7 +162,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -154,7 +174,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -166,7 +186,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -183,19 +203,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
-			"strict"
-		>;
-	});
-
-	it("create from invalid string", () => {
-		const result = DDate.create("invalid" as any);
-
-		expect(result).toBe("date0+");
-
-		type check = ExpectType<
-			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
@@ -207,7 +215,7 @@ describe("create", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}${"+" | "-"}`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});
