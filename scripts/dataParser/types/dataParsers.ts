@@ -49,6 +49,7 @@ export type DataParsersExtended = (
 	| AllDataParserExtended.DataParserTupleExtended
 	| AllDataParserExtended.DataParserTransformExtended
 	| AllDataParserExtended.DataParserBooleanExtended
+	| AllDataParserExtended.DataParserDateExtended
 	| AllDataParserExtended.DataParserNilExtended
 	| AllDataParserExtended.DataParserEmptyExtended
 	| AllDataParserExtended.DataParserTemplateLiteralExtended
