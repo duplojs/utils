@@ -1,16 +1,10 @@
-import { theDateRegex } from "./constants";
+import { toNative } from "./toNative";
 import type { TheDate } from "./types";
 
 export function toISOString<
 	GenericInput extends TheDate,
 >(input: GenericInput) {
-	const [, timestampStr, sign] = input.match(theDateRegex)!;
+	const date = toNative(input);
 
-	const timestamp = Number(
-		sign === "-"
-			? `-${timestampStr}`
-			: timestampStr,
-	);
-
-	return new Date(timestamp).toISOString();
+	return date.toISOString();
 }

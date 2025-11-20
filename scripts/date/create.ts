@@ -1,3 +1,4 @@
+import { type DEither } from "@scripts";
 import { dateComponentsRegex, maxTimestamp, minTimestamp, theDateRegex } from "./constants";
 import type { TheDate, IsLeapYear } from "./types";
 
@@ -25,6 +26,8 @@ type CreateDateInputString<
 			? GenericInput
 			: never
 		: GenericInput;
+
+export type MayBeDate = DEither.EitherSuccess<TheDate> | DEither.EitherError<null>;
 
 export function create<
 	GenericInput extends CreateDateInputString,

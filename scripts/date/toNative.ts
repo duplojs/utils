@@ -1,16 +1,10 @@
-import { theDateRegex } from "./constants";
+import { toTimestamp } from "./toTimestamp";
 import type { TheDate } from "./types";
 
 export function toNative<
 	GenericInput extends TheDate,
 >(input: GenericInput): Date {
-	const [, timestampStr, sign] = input.match(theDateRegex)!;
-
-	const timestamp = Number(
-		sign === "-"
-			? `-${timestampStr}`
-			: timestampStr,
-	);
+	const timestamp = toTimestamp(input);
 
 	return new Date(timestamp);
 }

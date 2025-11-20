@@ -26,3 +26,6 @@ export * from "./greaterThan";
 export * from "./lessThan";
 export * from "./toFixed";
 export * from "./sqrt";
+export * from "./types";
+export * from "./between";
+export * from "./betweenThan";

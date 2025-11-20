@@ -1,4 +1,5 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { type TheDate } from "@scripts/date";
 
 describe("toTimestamp", () => {
 	it("toTimestamp converts positive TheDate to number", () => {
@@ -23,6 +24,15 @@ describe("toTimestamp", () => {
 			number,
 			"strict"
 		>;
+	});
+
+	it("should throw when timestamp is NaN", () => {
+		expect(() => DDate.toTimestamp("dateNaN-" as TheDate)).toThrow();
+	});
+
+	it("should throw when timestamp exceeds valid range", () => {
+		expect(() => DDate.toTimestamp("date8640000000000001+" as TheDate)).toThrow();
+		expect(() => DDate.toTimestamp("date8640000000000001-" as TheDate)).toThrow();
 	});
 
 	it("use in pipe", () => {
