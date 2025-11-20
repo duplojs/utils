@@ -10,3 +10,6 @@ export * from "./toTimestamp";
 export * from "./getters";
 export * from "./toISOString";
 export * from "./operators";
+export * from "./closestTo";
+export * from "./each";
+export * from "./each";
