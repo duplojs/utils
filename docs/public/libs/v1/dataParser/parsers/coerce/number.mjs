@@ -1,3 +1,4 @@
+import '../../base.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
 import { number as number$1 } from '../number/index.mjs';

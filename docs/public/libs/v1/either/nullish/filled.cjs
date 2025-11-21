@@ -5,10 +5,10 @@ var is$1 = require('../left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
-var create = require('../right/create.cjs');
-var is = require('../right/is.cjs');
 var create$1 = require('./create.cjs');
 var base = require('./base.cjs');
+var create = require('../right/create.cjs');
+var is = require('../right/is.cjs');
 
 const eitherNullishFilledKind = kind.createEitherKind("nullish-filled");
 function nullishFilled(value) {

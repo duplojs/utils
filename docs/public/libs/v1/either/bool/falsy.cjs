@@ -3,9 +3,9 @@
 var unwrap = require('../../common/unwrap.cjs');
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
+var create$1 = require('./create.cjs');
 var kind = require('../kind.cjs');
 var base = require('./base.cjs');
-var create$1 = require('./create.cjs');
 var create = require('../left/create.cjs');
 var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');

@@ -1,6 +1,7 @@
 import { string as string$1 } from '../string.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
+import '../../base.mjs';
 import '../../../pattern/result.mjs';
 
 function string(definition) {

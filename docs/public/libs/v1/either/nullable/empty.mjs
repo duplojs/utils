@@ -1,8 +1,8 @@
 import { unwrap } from '../../common/unwrap.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
-import { left } from '../left/create.mjs';
 import { createEitherKind } from '../kind.mjs';
+import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 import { nullable } from './create.mjs';

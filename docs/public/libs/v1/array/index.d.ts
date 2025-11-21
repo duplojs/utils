@@ -41,3 +41,4 @@ export * from "./sum";
 export * from "./length";
 export * from "./coalescing";
 export * from "./toTuple";
+export * from "./notIncludes";

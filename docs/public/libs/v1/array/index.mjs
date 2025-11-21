@@ -49,3 +49,4 @@ export { sum } from './sum.mjs';
 export { length } from './length.mjs';
 export { coalescing } from './coalescing.mjs';
 export { toTuple } from './toTuple.mjs';
+export { notIncludes } from './notIncludes.mjs';

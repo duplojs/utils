@@ -1,4 +1,5 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
+import '../base.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
 import { bigint as bigint$1 } from '../parsers/bigint/index.mjs';

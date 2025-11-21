@@ -1,3 +1,4 @@
+import '../../base.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
 import { boolean as boolean$1 } from '../boolean.mjs';

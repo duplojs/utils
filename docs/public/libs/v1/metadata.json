@@ -335,6 +335,15 @@
           "name": "minOf.mjs"
         },
         {
+          "name": "notIncludes.cjs"
+        },
+        {
+          "name": "notIncludes.d.ts"
+        },
+        {
+          "name": "notIncludes.mjs"
+        },
+        {
           "name": "pop.cjs"
         },
         {
@@ -628,6 +637,15 @@
           "name": "clone.mjs"
         },
         {
+          "name": "createKindIdentifier.cjs"
+        },
+        {
+          "name": "createKindIdentifier.d.ts"
+        },
+        {
+          "name": "createKindIdentifier.mjs"
+        },
+        {
           "name": "enum.cjs"
         },
         {
@@ -671,6 +689,15 @@
         },
         {
           "name": "forward.mjs"
+        },
+        {
+          "name": "forwardLog.cjs"
+        },
+        {
+          "name": "forwardLog.d.ts"
+        },
+        {
+          "name": "forwardLog.mjs"
         },
         {
           "name": "globalStore.cjs"
@@ -956,6 +983,9 @@
             },
             {
               "name": "objectKey.d.ts"
+            },
+            {
+              "name": "onlyLiteral.d.ts"
             },
             {
               "name": "or.d.ts"
@@ -1271,6 +1301,15 @@
             },
             {
               "name": "record.mjs"
+            },
+            {
+              "name": "recover.cjs"
+            },
+            {
+              "name": "recover.d.ts"
+            },
+            {
+              "name": "recover.mjs"
             },
             {
               "name": "string.cjs"
@@ -1640,13 +1679,45 @@
               "name": "pipe.mjs"
             },
             {
-              "name": "record.cjs"
+              "name": "record",
+              "files": [
+                {
+                  "name": "findRecordRequiredKey.cjs"
+                },
+                {
+                  "name": "findRecordRequiredKey.d.ts"
+                },
+                {
+                  "name": "findRecordRequiredKey.mjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
             },
             {
-              "name": "record.d.ts"
+              "name": "recover.cjs"
             },
             {
-              "name": "record.mjs"
+              "name": "recover.d.ts"
+            },
+            {
+              "name": "recover.mjs"
+            },
+            {
+              "name": "refine.cjs"
+            },
+            {
+              "name": "refine.d.ts"
+            },
+            {
+              "name": "refine.mjs"
             },
             {
               "name": "string",
@@ -1716,13 +1787,27 @@
               ]
             },
             {
-              "name": "templateLiteral.cjs"
-            },
-            {
-              "name": "templateLiteral.d.ts"
-            },
-            {
-              "name": "templateLiteral.mjs"
+              "name": "templateLiteral",
+              "files": [
+                {
+                  "name": "createTemplateLiteralPattern.cjs"
+                },
+                {
+                  "name": "createTemplateLiteralPattern.d.ts"
+                },
+                {
+                  "name": "createTemplateLiteralPattern.mjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
             },
             {
               "name": "transform.cjs"
@@ -3235,6 +3320,9 @@
             },
             {
               "name": "stringLength.d.ts"
+            },
+            {
+              "name": "templateLiteralContainLargeType.d.ts"
             }
           ]
         },

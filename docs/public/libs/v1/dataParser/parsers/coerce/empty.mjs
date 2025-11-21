@@ -1,3 +1,4 @@
+import '../../base.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
 import { empty as empty$1 } from '../empty.mjs';

@@ -1,8 +1,9 @@
 'use strict';
 
-var base = require('../base.cjs');
-var error = require('../error.cjs');
-var kind = require('../kind.cjs');
+var base = require('../../base.cjs');
+var error = require('../../error.cjs');
+var kind = require('../../kind.cjs');
+var findRecordRequiredKey = require('./findRecordRequiredKey.cjs');
 
 const recordKind = kind.createDataParserKind("record");
 function record(key, value, definition) {
@@ -12,6 +13,7 @@ function record(key, value, definition) {
             checkers: definition?.checkers ?? [],
             key,
             value,
+            requireKey: findRecordRequiredKey.findRecordRequiredKey(key),
         },
     }, {
         sync: (data, error$1, self) => {
@@ -43,6 +45,13 @@ function record(key, value, definition) {
                 }
             }
             error.popErrorPath(error$1);
+            if (output === base.SymbolDataParserError) {
+                return output;
+            }
+            if (self.definition.requireKey
+                && self.definition.requireKey.length !== Object.keys(output).length) {
+                return error.SymbolDataParserErrorIssue;
+            }
             return output;
         },
         async: async (data, error$1, self) => {
@@ -74,10 +83,19 @@ function record(key, value, definition) {
                 }
             }
             error.popErrorPath(error$1);
+            if (output === base.SymbolDataParserError) {
+                return output;
+            }
+            if (self.definition.requireKey
+                && self.definition.requireKey.length !== Object.keys(output).length) {
+                return error.SymbolDataParserErrorIssue;
+            }
             return output;
         },
     });
 }
 
+exports.findRecordRequiredKey = findRecordRequiredKey.findRecordRequiredKey;
+exports.findRecordRequiredKeyOnTemplateLiteralPart = findRecordRequiredKey.findRecordRequiredKeyOnTemplateLiteralPart;
 exports.record = record;
 exports.recordKind = recordKind;

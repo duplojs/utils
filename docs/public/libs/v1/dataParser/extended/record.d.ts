@@ -1,10 +1,20 @@
-import { type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
-import { type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser } from "../base";
+import { type Output, type DataParser } from "../base";
 type _DataParserRecordExtended<GenericDefinition extends dataParsers.DataParserDefinitionRecord> = (dataParsers.DataParserRecord<GenericDefinition> & DataParserExtended);
 export interface DataParserRecordExtended<GenericDefinition extends dataParsers.DataParserDefinitionRecord = dataParsers.DataParserDefinitionRecord> extends _DataParserRecordExtended<GenericDefinition> {
+    addChecker<GenericChecker extends readonly [
+        dataParsers.DataParserRecordCheckers<Output<this>>,
+        ...dataParsers.DataParserRecordCheckers<Output<this>>[]
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        dataParsers.DataParserRecordCheckers<Output<this>>,
+        ...dataParsers.DataParserRecordCheckers<Output<this>>[]
+    ], GenericChecker>): DataParserRecordExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserRecordExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.CheckerRefineImplementation<Output<this>>
+    ]>>;
 }
 export declare function record<GenericDataParserKey extends dataParsers.DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<dataParsers.DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecordExtended<MergeDefinition<dataParsers.DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;

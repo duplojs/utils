@@ -1,0 +1,4 @@
+import { type RemoveFromUnion } from "../common";
+export type NotIncludeValue = string | null | undefined | boolean | number | bigint | symbol;
+export declare function notIncludes<GenericArrayValue extends unknown, const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArrayValue, NotIncludeValue>, Exclude<NotIncludeValue, null | undefined>>>(value: GenericNotIncludeValue): (input: readonly GenericArrayValue[]) => input is Exclude<GenericArrayValue, GenericNotIncludeValue>[];
+export declare function notIncludes<GenericArrayValue extends unknown, const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArrayValue, NotIncludeValue>, Exclude<NotIncludeValue, null | undefined>>>(input: readonly GenericArrayValue[], value: GenericNotIncludeValue): input is Exclude<GenericArrayValue, GenericNotIncludeValue>[];

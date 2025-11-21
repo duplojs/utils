@@ -1,6 +1,6 @@
-import { type AnyValue } from "../common/types/anyValue";
-import { type MaybePromise } from "../common/types/maybePromise";
-import { type SimplifyTopLevel } from "../common/types/simplifyTopLevel";
+import { type AnyValue } from "./types/anyValue";
+import { type MaybePromise } from "./types/maybePromise";
+import { type SimplifyTopLevel } from "./types/simplifyTopLevel";
 export type AwaitedPromiseObject<GenericObject extends Record<string, MaybePromise<unknown>>> = {
     [Prop in keyof GenericObject]: Awaited<GenericObject[Prop]>;
 };

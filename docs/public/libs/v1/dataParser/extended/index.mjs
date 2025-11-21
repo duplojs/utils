@@ -19,3 +19,4 @@ export { record } from './record.mjs';
 export { templateLiteral } from './templateLiteral.mjs';
 export { tuple } from './tuple.mjs';
 export { unknown } from './unknown.mjs';
+export { recover } from './recover.mjs';

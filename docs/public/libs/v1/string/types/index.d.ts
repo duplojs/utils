@@ -9,3 +9,4 @@ export * from "./stringLength";
 export * from "./forbiddenString";
 export * from "./number";
 export * from "./digit";
+export * from "./templateLiteralContainLargeType";

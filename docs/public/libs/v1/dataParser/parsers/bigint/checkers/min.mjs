@@ -2,9 +2,9 @@ import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerBigIntMinKind = createDataParserKind("checker-bigint-min");
+const checkerBigIntMinKind = createDataParserKind("checker-bigint-min");
 function checkerBigIntMin(min, definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerBigIntMinKind, {
+    return dataParserCheckerInit(checkerBigIntMinKind, {
         definition: {
             ...definition,
             min,
@@ -17,4 +17,4 @@ function checkerBigIntMin(min, definition = {}) {
     });
 }
 
-export { checkerBigIntMin, dataParserCheckerBigIntMinKind };
+export { checkerBigIntMin, checkerBigIntMinKind };

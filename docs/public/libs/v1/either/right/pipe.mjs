@@ -1,9 +1,9 @@
 import { unwrap } from '../../common/unwrap.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
-import { isLeft } from '../left/is.mjs';
 import { success } from './success.mjs';
 import { isRight } from './is.mjs';
+import { isLeft } from '../left/is.mjs';
 
 /* eslint-disable @typescript-eslint/max-params */
 function rightPipe(input, ...pipes) {

@@ -4,9 +4,9 @@ var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerStringMaxKind = kind.createDataParserKind("checker-string-max");
+const checkerStringMaxKind = kind.createDataParserKind("checker-string-max");
 function checkerStringMax(max, definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerStringMaxKind, {
+    return base.dataParserCheckerInit(checkerStringMaxKind, {
         definition: {
             ...definition,
             max,
@@ -15,4 +15,4 @@ function checkerStringMax(max, definition = {}) {
 }
 
 exports.checkerStringMax = checkerStringMax;
-exports.dataParserCheckerStringMaxKind = dataParserCheckerStringMaxKind;
+exports.checkerStringMaxKind = checkerStringMaxKind;
