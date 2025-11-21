@@ -32,6 +32,9 @@ Fonctions utilitaires pour travailler avec les générateurs et créer des séqu
 ## [🔀 Either](/v1/api/either/fr)
 Monade Either pour la gestion d'erreurs fonctionnelle. Évitez les exceptions et gérez les résultats success/error de manière explicite et type-safe.
 
+## [📊 DataParser](/v1/api/data-parser/fr)
+Outils pour parser et valider les données entrantes. Transformez des données brutes en structures typées avec des règles de validation personnalisées.
+
 ---
 
 # Organisation

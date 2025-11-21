@@ -112,6 +112,10 @@ export default defineConfig({
 								text: "Either",
 								link: "/v1/api/either/fr",
 							},
+							{
+								text: "DataParser",
+								link: "/v1/api/dataParser/fr",
+							},
 						],
 					},
 					{

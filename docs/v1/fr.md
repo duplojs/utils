@@ -59,4 +59,5 @@ pnpm add @duplojs/utils
 <MonacoTSEditor
   src="/v1/fastExample.doc.ts"
   majorVersion="v1"
+  height="400px"
 />
