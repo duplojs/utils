@@ -6,6 +6,7 @@ prev:
 next:
   text: "push"
   link: "/v1/api/array/push/fr"
+---
 
 # copyWithin
 
