@@ -2,9 +2,9 @@ import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerBigIntMaxKind = createDataParserKind("checker-bigint-max");
+const checkerBigIntMaxKind = createDataParserKind("checker-bigint-max");
 function checkerBigIntMax(max, definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerBigIntMaxKind, {
+    return dataParserCheckerInit(checkerBigIntMaxKind, {
         definition: {
             ...definition,
             max,
@@ -17,4 +17,4 @@ function checkerBigIntMax(max, definition = {}) {
     });
 }
 
-export { checkerBigIntMax, dataParserCheckerBigIntMaxKind };
+export { checkerBigIntMax, checkerBigIntMaxKind };

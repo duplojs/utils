@@ -5,10 +5,10 @@ var error = require('../../../error.cjs');
 var index = require('../index.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerUrlKind = kind.createDataParserKind("checker-string-url");
+const checkerUrlKind = kind.createDataParserKind("checker-string-url");
 const regexRemoveDote = /:$/;
 function checkerUrl(definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerUrlKind, {
+    return base.dataParserCheckerInit(checkerUrlKind, {
         definition: definition,
     }, (input, self) => {
         try {
@@ -44,5 +44,5 @@ function url(definition) {
 }
 
 exports.checkerUrl = checkerUrl;
-exports.dataParserCheckerUrlKind = dataParserCheckerUrlKind;
+exports.checkerUrlKind = checkerUrlKind;
 exports.url = url;

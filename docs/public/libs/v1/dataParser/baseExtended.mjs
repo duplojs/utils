@@ -5,14 +5,17 @@ import { entry } from '../object/entry.mjs';
 import { map } from '../array/map.mjs';
 import '../common/globalStore.mjs';
 import '../common/builder.mjs';
+import './base.mjs';
 import { createDataParserKind } from './kind.mjs';
 import '../pattern/result.mjs';
+import { checkerRefine } from './parsers/refine.mjs';
 import { array } from './extended/array.mjs';
 import { transform } from './extended/transform.mjs';
 import { union } from './extended/union.mjs';
 import { nullable } from './extended/nullable.mjs';
 import { optional } from './extended/optional.mjs';
 import { pipe as pipe$1 } from './extended/pipe.mjs';
+import { recover } from './extended/recover.mjs';
 
 const extendedKind = createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
@@ -45,8 +48,18 @@ function dataParserExtendedInit(dataParser, rest) {
         or(option, definition) {
             return union([self, option], definition);
         },
-        addChecker: (...checkers) => dataParserExtendedInit(dataParser.addChecker(...checkers), rest),
-        clone: () => dataParserExtendedInit(dataParser.clone(), rest),
+        addChecker(...checkers) {
+            return dataParserExtendedInit(dataParser.addChecker(...checkers), rest);
+        },
+        clone() {
+            return dataParserExtendedInit(dataParser.clone(), rest);
+        },
+        refine(theFunction) {
+            return dataParserExtendedInit(dataParser.addChecker(checkerRefine(theFunction)), rest);
+        },
+        recover(recoveredValue, definition) {
+            return recover(self, recoveredValue, definition);
+        },
     });
     return self;
 }

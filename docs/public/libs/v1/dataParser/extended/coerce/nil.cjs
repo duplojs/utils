@@ -2,6 +2,7 @@
 
 require('../../../common/globalStore.cjs');
 require('../../../common/builder.cjs');
+require('../../base.cjs');
 require('../../../pattern/result.cjs');
 var nil$1 = require('../nil.cjs');
 

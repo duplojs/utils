@@ -1,9 +1,9 @@
 import { unwrap } from '../../common/unwrap.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
+import { bool } from './create.mjs';
 import { createEitherKind } from '../kind.mjs';
 import { eitherBoolKind } from './base.mjs';
-import { bool } from './create.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';

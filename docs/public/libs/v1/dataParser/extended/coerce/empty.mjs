@@ -1,5 +1,6 @@
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
+import '../../base.mjs';
 import '../../../pattern/result.mjs';
 import { empty as empty$1 } from '../empty.mjs';
 

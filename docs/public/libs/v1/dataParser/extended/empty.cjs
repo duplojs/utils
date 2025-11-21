@@ -1,6 +1,7 @@
 'use strict';
 
 var baseExtended = require('../baseExtended.cjs');
+require('../base.cjs');
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
 var empty$1 = require('../parsers/empty.cjs');

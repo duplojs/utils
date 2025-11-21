@@ -5,9 +5,9 @@ var error = require('../../../error.cjs');
 var index = require('../index.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerIntKind = kind.createDataParserKind("checker-number-int");
+const checkerIntKind = kind.createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerIntKind, {
+    return base.dataParserCheckerInit(checkerIntKind, {
         definition,
     }, (data) => {
         if (Number.isInteger(data)) {
@@ -23,5 +23,5 @@ function int(definition) {
 }
 
 exports.checkerInt = checkerInt;
-exports.dataParserCheckerIntKind = dataParserCheckerIntKind;
+exports.checkerIntKind = checkerIntKind;
 exports.int = int;

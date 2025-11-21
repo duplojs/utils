@@ -2,6 +2,7 @@
 
 require('../../../common/globalStore.cjs');
 require('../../../common/builder.cjs');
+require('../../base.cjs');
 require('../../../pattern/result.cjs');
 var empty$1 = require('../empty.cjs');
 

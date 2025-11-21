@@ -7,14 +7,17 @@ var entry = require('../object/entry.cjs');
 var map = require('../array/map.cjs');
 require('../common/globalStore.cjs');
 require('../common/builder.cjs');
+require('./base.cjs');
 var kind = require('./kind.cjs');
 require('../pattern/result.cjs');
+var refine = require('./parsers/refine.cjs');
 var array = require('./extended/array.cjs');
 var transform = require('./extended/transform.cjs');
 var union = require('./extended/union.cjs');
 var nullable = require('./extended/nullable.cjs');
 var optional = require('./extended/optional.cjs');
 var pipe$1 = require('./extended/pipe.cjs');
+var recover = require('./extended/recover.cjs');
 
 const extendedKind = kind.createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
@@ -47,8 +50,18 @@ function dataParserExtendedInit(dataParser, rest) {
         or(option, definition) {
             return union.union([self, option], definition);
         },
-        addChecker: (...checkers) => dataParserExtendedInit(dataParser.addChecker(...checkers), rest),
-        clone: () => dataParserExtendedInit(dataParser.clone(), rest),
+        addChecker(...checkers) {
+            return dataParserExtendedInit(dataParser.addChecker(...checkers), rest);
+        },
+        clone() {
+            return dataParserExtendedInit(dataParser.clone(), rest);
+        },
+        refine(theFunction) {
+            return dataParserExtendedInit(dataParser.addChecker(refine.checkerRefine(theFunction)), rest);
+        },
+        recover(recoveredValue, definition) {
+            return recover.recover(self, recoveredValue, definition);
+        },
     });
     return self;
 }

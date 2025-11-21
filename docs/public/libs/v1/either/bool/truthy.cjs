@@ -3,12 +3,12 @@
 var unwrap = require('../../common/unwrap.cjs');
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
-var base = require('./base.cjs');
+var create$1 = require('./create.cjs');
 var kind = require('../kind.cjs');
+var base = require('./base.cjs');
 var is$1 = require('../left/is.cjs');
 var create = require('../right/create.cjs');
 var is = require('../right/is.cjs');
-var create$1 = require('./create.cjs');
 
 const eitherBoolTruthyKind = kind.createEitherKind("bool-truthy");
 function boolTruthy(value) {

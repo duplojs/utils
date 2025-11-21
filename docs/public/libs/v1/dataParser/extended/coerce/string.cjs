@@ -3,6 +3,7 @@
 var string$1 = require('../string.cjs');
 require('../../../common/globalStore.cjs');
 require('../../../common/builder.cjs');
+require('../../base.cjs');
 require('../../../pattern/result.cjs');
 
 function string(definition) {

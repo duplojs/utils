@@ -1,4 +1,5 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
+import '../base.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
 import { object as object$1 } from '../parsers/object.mjs';

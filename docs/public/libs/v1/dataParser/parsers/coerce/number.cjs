@@ -1,5 +1,6 @@
 'use strict';
 
+require('../../base.cjs');
 require('../../../common/globalStore.cjs');
 require('../../../common/builder.cjs');
 var index = require('../number/index.cjs');

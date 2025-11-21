@@ -3,9 +3,9 @@ import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { number } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerIntKind = createDataParserKind("checker-number-int");
+const checkerIntKind = createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerIntKind, {
+    return dataParserCheckerInit(checkerIntKind, {
         definition,
     }, (data) => {
         if (Number.isInteger(data)) {
@@ -20,4 +20,4 @@ function int(definition) {
     });
 }
 
-export { checkerInt, dataParserCheckerIntKind, int };
+export { checkerInt, checkerIntKind, int };

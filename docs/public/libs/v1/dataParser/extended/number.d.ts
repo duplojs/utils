@@ -1,13 +1,20 @@
-import { type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
+import { type Output } from "../base";
 type _DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber> = (dataParsers.DataParserNumber<GenericDefinition> & DataParserExtended);
 export interface DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber> extends _DataParserNumberExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserNumberCheckers,
         ...dataParsers.DataParserNumberCheckers[]
-    ]>(...args: GenericChecker): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        dataParsers.DataParserNumberCheckers,
+        ...dataParsers.DataParserNumberCheckers[]
+    ], GenericChecker>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.CheckerRefineImplementation<Output<this>>
+    ]>>;
     min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.DataParserCheckerNumberMin
     ]>>;

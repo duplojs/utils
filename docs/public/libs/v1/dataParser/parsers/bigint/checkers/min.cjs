@@ -4,9 +4,9 @@ var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerBigIntMinKind = kind.createDataParserKind("checker-bigint-min");
+const checkerBigIntMinKind = kind.createDataParserKind("checker-bigint-min");
 function checkerBigIntMin(min, definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerBigIntMinKind, {
+    return base.dataParserCheckerInit(checkerBigIntMinKind, {
         definition: {
             ...definition,
             min,
@@ -20,4 +20,4 @@ function checkerBigIntMin(min, definition = {}) {
 }
 
 exports.checkerBigIntMin = checkerBigIntMin;
-exports.dataParserCheckerBigIntMinKind = dataParserCheckerBigIntMinKind;
+exports.checkerBigIntMinKind = checkerBigIntMinKind;

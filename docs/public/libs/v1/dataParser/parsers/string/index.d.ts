@@ -1,9 +1,13 @@
-import { type NeverCoalescing, type Kind } from "../../../common";
-import { type DataParserDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
+import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type DataParserCheckerUrl, type DataParserCheckerEmail, type DataParserCheckerStringMin, type DataParserCheckerStringMax, type DataParserCheckerStringRegex } from "./checkers";
+import { type CheckerRefineImplementation } from "../refine";
+import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./checkers";
-export type DataParserStringCheckers = (DataParserCheckerUrl | DataParserCheckerEmail | DataParserCheckerStringMin | DataParserCheckerStringMax | DataParserCheckerStringRegex);
+export interface DataParserStringCheckerCustom {
+}
+export type DataParserStringCheckers = (DataParserStringCheckerCustom[GetPropsWithValueExtends<DataParserStringCheckerCustom, DataParserChecker>] | DataParserCheckerUrl | DataParserCheckerEmail | DataParserCheckerStringMin | DataParserCheckerStringMax | DataParserCheckerStringRegex | CheckerRefineImplementation<string>);
 export interface DataParserDefinitionString extends DataParserDefinition<DataParserStringCheckers> {
     readonly coerce: boolean;
 }
@@ -13,6 +17,9 @@ export interface DataParserString<GenericDefinition extends DataParserDefinition
     addChecker<GenericChecker extends readonly [
         DataParserStringCheckers,
         ...DataParserStringCheckers[]
-    ]>(...args: GenericChecker): DataParserString<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        DataParserStringCheckers,
+        ...DataParserStringCheckers[]
+    ], GenericChecker>): DataParserString<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function string<const GenericDefinition extends Partial<DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;

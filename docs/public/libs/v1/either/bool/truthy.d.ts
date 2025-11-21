@@ -12,6 +12,6 @@ export declare function boolTruthy<const GenericValue extends unknown>(value: Ge
 type Either = EitherRight | EitherLeft;
 export declare function isBoolTruthy<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherBoolTruthy>;
 type ToEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof bool<GenericValue>>;
-export declare function whenIsBoolTruthy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherBoolTruthy>;
-export declare function whenIsBoolTruthy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+export declare function whenIsBoolTruthy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherBoolTruthy>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherBoolTruthy>;
+export declare function whenIsBoolTruthy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherBoolTruthy>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
 export {};

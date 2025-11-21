@@ -10,17 +10,18 @@ function nullable(inner, definition) {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
             inner,
+            coalescingValue: definition?.coalescingValue ?? null,
         },
     }, {
         sync: (data, error, self) => {
             if (data === null) {
-                return data;
+                return self.definition.coalescingValue;
             }
             return self.definition.inner.exec(data, error);
         },
         async: async (data, error, self) => {
             if (data === null) {
-                return data;
+                return self.definition.coalescingValue;
             }
             return self.definition.inner.asyncExec(data, error);
         },

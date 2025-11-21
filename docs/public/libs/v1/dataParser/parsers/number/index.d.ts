@@ -1,9 +1,13 @@
-import { type NeverCoalescing, type Kind } from "../../../common";
-import { type DataParserDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
+import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type DataParserCheckerInt, type DataParserCheckerNumberMin, type DataParserCheckerNumberMax } from "./checkers";
+import { type CheckerRefineImplementation } from "../refine";
+import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./checkers";
-export type DataParserNumberCheckers = (DataParserCheckerInt | DataParserCheckerNumberMin | DataParserCheckerNumberMax);
+export interface DataParserNumberCheckerCustom {
+}
+export type DataParserNumberCheckers = (DataParserNumberCheckerCustom[GetPropsWithValueExtends<DataParserNumberCheckerCustom, DataParserChecker>] | DataParserCheckerInt | DataParserCheckerNumberMin | DataParserCheckerNumberMax | CheckerRefineImplementation<number>);
 export interface DataParserDefinitionNumber extends DataParserDefinition<DataParserNumberCheckers> {
     readonly coerce: boolean;
 }
@@ -13,6 +17,9 @@ export interface DataParserNumber<GenericDefinition extends DataParserDefinition
     addChecker<GenericChecker extends readonly [
         DataParserNumberCheckers,
         ...DataParserNumberCheckers[]
-    ]>(...args: GenericChecker): DataParserNumber<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        DataParserNumberCheckers,
+        ...DataParserNumberCheckers[]
+    ], GenericChecker>): DataParserNumber<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function number<const GenericDefinition extends Partial<DataParserDefinitionNumber> = never>(definition?: GenericDefinition): DataParserNumber<MergeDefinition<DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;

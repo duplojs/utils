@@ -1,3 +1,4 @@
+import '../../base.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
 import { nil as nil$1 } from '../nil.mjs';

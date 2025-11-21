@@ -20,6 +20,7 @@ var record = require('./record.cjs');
 var templateLiteral = require('./templateLiteral.cjs');
 var tuple = require('./tuple.cjs');
 var unknown = require('./unknown.cjs');
+var recover = require('./recover.cjs');
 
 
 
@@ -46,3 +47,4 @@ exports.record = record.record;
 exports.templateLiteral = templateLiteral.templateLiteral;
 exports.tuple = tuple.tuple;
 exports.unknown = unknown.unknown;
+exports.recover = recover.recover;

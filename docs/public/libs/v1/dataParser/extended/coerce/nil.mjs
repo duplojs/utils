@@ -1,5 +1,6 @@
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
+import '../../base.mjs';
 import '../../../pattern/result.mjs';
 import { nil as nil$1 } from '../nil.mjs';
 

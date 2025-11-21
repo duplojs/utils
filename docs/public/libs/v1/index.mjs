@@ -37,6 +37,8 @@ export { memo } from './common/memo.mjs';
 export { instanceOf } from './common/instanceOf.mjs';
 export { createGlobalStore } from './common/globalStore.mjs';
 export { MissingBuilderMethodsError, builderKind, createBuilder } from './common/builder.mjs';
+export { createKindIdentifier } from './common/createKindIdentifier.mjs';
+export { forwardLog } from './common/forwardLog.mjs';
 import * as index from './array/index.mjs';
 export { index as A };
 export { index as DArray };

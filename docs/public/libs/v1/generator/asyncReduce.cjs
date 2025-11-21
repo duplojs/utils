@@ -15,7 +15,7 @@ function asyncReduce(...args) {
     return (async () => {
         let index = 0;
         for await (const element of iterator) {
-            const result = theFunction({
+            const result = await theFunction({
                 element,
                 index,
                 lastValue,

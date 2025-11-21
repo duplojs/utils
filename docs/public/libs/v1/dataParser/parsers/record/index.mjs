@@ -1,6 +1,8 @@
-import { dataParserInit, SymbolDataParserError } from '../base.mjs';
-import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
-import { createDataParserKind } from '../kind.mjs';
+import { dataParserInit, SymbolDataParserError } from '../../base.mjs';
+import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
+import { createDataParserKind } from '../../kind.mjs';
+import { findRecordRequiredKey } from './findRecordRequiredKey.mjs';
+export { findRecordRequiredKeyOnTemplateLiteralPart } from './findRecordRequiredKey.mjs';
 
 const recordKind = createDataParserKind("record");
 function record(key, value, definition) {
@@ -10,6 +12,7 @@ function record(key, value, definition) {
             checkers: definition?.checkers ?? [],
             key,
             value,
+            requireKey: findRecordRequiredKey(key),
         },
     }, {
         sync: (data, error, self) => {
@@ -41,6 +44,13 @@ function record(key, value, definition) {
                 }
             }
             popErrorPath(error);
+            if (output === SymbolDataParserError) {
+                return output;
+            }
+            if (self.definition.requireKey
+                && self.definition.requireKey.length !== Object.keys(output).length) {
+                return SymbolDataParserErrorIssue;
+            }
             return output;
         },
         async: async (data, error, self) => {
@@ -72,9 +82,16 @@ function record(key, value, definition) {
                 }
             }
             popErrorPath(error);
+            if (output === SymbolDataParserError) {
+                return output;
+            }
+            if (self.definition.requireKey
+                && self.definition.requireKey.length !== Object.keys(output).length) {
+                return SymbolDataParserErrorIssue;
+            }
             return output;
         },
     });
 }
 
-export { record, recordKind };
+export { findRecordRequiredKey, record, recordKind };

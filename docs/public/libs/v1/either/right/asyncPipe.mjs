@@ -1,10 +1,10 @@
 import { unwrap } from '../../common/unwrap.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
-import { isLeft } from '../left/is.mjs';
 import { future } from '../future/create.mjs';
 import { success } from './success.mjs';
 import { isRight } from './is.mjs';
+import { isLeft } from '../left/is.mjs';
 
 function rightAsyncPipe(input, ...pipes) {
     return future((async () => {

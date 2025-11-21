@@ -4,9 +4,9 @@ var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerStringRegexKind = kind.createDataParserKind("checker-string-regex");
+const checkerStringRegexKind = kind.createDataParserKind("checker-string-regex");
 function checkerStringRegex(regex, definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerStringRegexKind, {
+    return base.dataParserCheckerInit(checkerStringRegexKind, {
         definition: {
             ...definition,
             regex,
@@ -17,4 +17,4 @@ function checkerStringRegex(regex, definition = {}) {
 }
 
 exports.checkerStringRegex = checkerStringRegex;
-exports.dataParserCheckerStringRegexKind = dataParserCheckerStringRegexKind;
+exports.checkerStringRegexKind = checkerStringRegexKind;
