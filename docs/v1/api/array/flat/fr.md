@@ -1,0 +1,51 @@
+---
+outline: [2, 3]
+prev:
+  text: "filter"
+  link: "/v1/api/array/filter/fr"
+next:
+  text: "flatMap"
+  link: "/v1/api/array/flatMap/fr"
+---
+
+# flat
+
+La méthode **`flat()`** aplati un tableau imbriqué jusqu'à la profondeur demandée et retourne un nouveau tableau contenant les éléments déroulés.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/v1/api/array/flat/examples/tryout.doc.ts"
+  majorVersion="v1"
+  height="550px"
+/>
+
+## Syntaxe
+
+```typescript
+function flat<
+	const GenericArray extends readonly unknown[],
+	const Depth extends number = 1
+>(
+	array: GenericArray,
+	depth?: Depth
+): FlatArray<GenericArray, Depth>[]
+```
+
+## Paramètres
+
+- `array` : Le tableau potentiellement imbriqué à aplatir.
+- `depth` : Le nombre de niveaux à dérouler. Par défaut `1`.
+
+## Valeur de retour
+
+Un nouveau tableau dans lequel les éléments ont été concaténés jusqu'à la profondeur demandée. Si l'entrée est un tuple, le type résultant reflète précisément le niveau d'aplatissement.
+
+## Voir aussi
+
+- [`flatMap`](/v1/api/array/flatMap/fr) - Transforme puis aplati le résultat d'un niveau
+- [`map`](/v1/api/array/map/fr) - Applique une fonction à chaque élément
+
+## Sources
+
+- [MDN Web Docs - Array.prototype.flat()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
