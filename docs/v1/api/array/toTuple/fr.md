@@ -17,7 +17,7 @@ La méthode **`toTuple()`** convertit une valeur en tuple en appliquant une sér
 <MonacoTSEditor
   src="/v1/api/array/toTuple/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="400px"
 />
 
 ## Syntaxe

@@ -17,7 +17,7 @@ La méthode **`last()`** retourne le dernier élément d'un tableau.
 <MonacoTSEditor
   src="/v1/api/array/last/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe

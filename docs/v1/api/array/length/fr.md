@@ -17,7 +17,7 @@ La méthode **`length()`** retourne la longueur d'un tableau.
 <MonacoTSEditor
   src="/v1/api/array/length/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe

@@ -17,7 +17,7 @@ La méthode **`is()`** vérifie si une valeur est un tableau (type guard).
 <MonacoTSEditor
   src="/v1/api/array/is/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="400px"
 />
 
 ## Syntaxe

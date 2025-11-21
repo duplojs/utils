@@ -17,7 +17,7 @@ La méthode **`first()`** retourne le premier élément d'un tableau.
 <MonacoTSEditor
   src="/v1/api/array/first/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
