@@ -2,9 +2,9 @@ import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerStringMaxKind = createDataParserKind("checker-string-max");
+const checkerStringMaxKind = createDataParserKind("checker-string-max");
 function checkerStringMax(max, definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerStringMaxKind, {
+    return dataParserCheckerInit(checkerStringMaxKind, {
         definition: {
             ...definition,
             max,
@@ -12,4 +12,4 @@ function checkerStringMax(max, definition = {}) {
     }, (value, self) => value.length <= self.definition.max ? value : SymbolDataParserErrorIssue);
 }
 
-export { checkerStringMax, dataParserCheckerStringMaxKind };
+export { checkerStringMax, checkerStringMaxKind };

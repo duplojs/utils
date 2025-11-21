@@ -19,7 +19,7 @@ export declare const dataParserKind: KindHandler<import("../common").KindDefinit
 }>>;
 export interface DataParserDefinition<GenericChecker extends DataParserChecker = DataParserChecker> {
     readonly errorMessage?: string;
-    readonly checkers: readonly GenericChecker[];
+    readonly checkers: readonly (GenericChecker)[];
 }
 export interface DataParser<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends Kind<typeof dataParserKind.definition, {
     input: GenericInput;

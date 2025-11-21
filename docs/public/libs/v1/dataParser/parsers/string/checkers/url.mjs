@@ -3,10 +3,10 @@ import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerUrlKind = createDataParserKind("checker-string-url");
+const checkerUrlKind = createDataParserKind("checker-string-url");
 const regexRemoveDote = /:$/;
 function checkerUrl(definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerUrlKind, {
+    return dataParserCheckerInit(checkerUrlKind, {
         definition: definition,
     }, (input, self) => {
         try {
@@ -41,4 +41,4 @@ function url(definition) {
     });
 }
 
-export { checkerUrl, dataParserCheckerUrlKind, url };
+export { checkerUrl, checkerUrlKind, url };

@@ -5,10 +5,10 @@ var error = require('../../../error.cjs');
 var index = require('../index.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerEmailKind = kind.createDataParserKind("checker-string-email");
+const checkerEmailKind = kind.createDataParserKind("checker-string-email");
 const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 function checkerEmail(definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerEmailKind, {
+    return base.dataParserCheckerInit(checkerEmailKind, {
         definition: {
             ...definition,
             pattern: emailPattern,
@@ -27,5 +27,5 @@ function email(definition) {
 }
 
 exports.checkerEmail = checkerEmail;
-exports.dataParserCheckerEmailKind = dataParserCheckerEmailKind;
+exports.checkerEmailKind = checkerEmailKind;
 exports.email = email;

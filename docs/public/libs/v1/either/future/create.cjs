@@ -2,10 +2,10 @@
 
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
-var is$1 = require('../left/is.cjs');
 var success = require('./success.cjs');
 var error = require('./error.cjs');
 var is = require('../right/is.cjs');
+var is$1 = require('../left/is.cjs');
 
 const kind = "kind-future-either";
 class Future extends Promise {

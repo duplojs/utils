@@ -4,9 +4,9 @@ var base = require('../../../base.cjs');
 var error = require('../../../error.cjs');
 var kind = require('../../../kind.cjs');
 
-const dataParserCheckerNumberMinKind = kind.createDataParserKind("checker-number-min");
+const checkerNumberMinKind = kind.createDataParserKind("checker-number-min");
 function checkerNumberMin(min, definition = {}) {
-    return base.dataParserCheckerInit(dataParserCheckerNumberMinKind, {
+    return base.dataParserCheckerInit(checkerNumberMinKind, {
         definition: {
             ...definition,
             min,
@@ -15,4 +15,4 @@ function checkerNumberMin(min, definition = {}) {
 }
 
 exports.checkerNumberMin = checkerNumberMin;
-exports.dataParserCheckerNumberMinKind = dataParserCheckerNumberMinKind;
+exports.checkerNumberMinKind = checkerNumberMinKind;

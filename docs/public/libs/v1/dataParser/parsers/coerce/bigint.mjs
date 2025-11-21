@@ -1,3 +1,4 @@
+import '../../base.mjs';
 import '../../../common/globalStore.mjs';
 import '../../../common/builder.mjs';
 import { bigint as bigint$1 } from '../bigint/index.mjs';

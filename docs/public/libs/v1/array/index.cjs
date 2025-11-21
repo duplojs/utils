@@ -51,6 +51,7 @@ var sum = require('./sum.cjs');
 var length = require('./length.cjs');
 var coalescing = require('./coalescing.cjs');
 var toTuple = require('./toTuple.cjs');
+var notIncludes = require('./notIncludes.cjs');
 
 
 
@@ -107,3 +108,4 @@ exports.sum = sum.sum;
 exports.length = length.length;
 exports.coalescing = coalescing.coalescing;
 exports.toTuple = toTuple.toTuple;
+exports.notIncludes = notIncludes.notIncludes;

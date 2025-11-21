@@ -8,8 +8,10 @@ interface Type {
     undefined: [undefined, never];
     null: [null, never];
     symbol: [symbol, never];
-    object: [object, any[] | AnyFunction];
-    array: [any[], never];
+    object: [object, readonly any[] | AnyFunction | null];
+    iterable: [Iterable<any>, never];
+    asyncIterable: [AsyncIterable<any>, never];
+    array: [readonly any[], never];
 }
 type ComputeResult<GenericInput extends unknown, GenericTypeEntry extends Type[keyof Type]> = Exclude<Extract<GenericInput, GenericTypeEntry[0]>, GenericTypeEntry[1]>;
 type EligibleType<GenericInput extends unknown> = {

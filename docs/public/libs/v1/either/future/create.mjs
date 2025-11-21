@@ -1,9 +1,9 @@
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
-import { isLeft } from '../left/is.mjs';
 import { futureSuccess } from './success.mjs';
 import { futureError } from './error.mjs';
 import { isRight } from '../right/is.mjs';
+import { isLeft } from '../left/is.mjs';
 
 const kind = "kind-future-either";
 class Future extends Promise {

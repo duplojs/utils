@@ -1,11 +1,12 @@
 'use strict';
 
 var simpleClone = require('../common/simpleClone.cjs');
+var wrapValue = require('../common/wrapValue.cjs');
 require('../common/globalStore.cjs');
 require('../common/builder.cjs');
-var error = require('./error.cjs');
 var error$1 = require('../either/left/error.cjs');
 var success = require('../either/right/success.cjs');
+var error = require('./error.cjs');
 var kind = require('./kind.cjs');
 
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
@@ -18,6 +19,14 @@ function dataParserCheckerInit(kind, params, exec) {
     }));
 }
 const dataParserKind = kind.createDataParserKind("base");
+// This allows for better performance WTF ???
+const SDPEI = error.SymbolDataParserErrorIssue;
+const SDPEPI = error.SymbolDataParserErrorPromiseIssue;
+const SDPE = SymbolDataParserError;
+const DPE = error.createError();
+const EE = error$1.error(null);
+const ES = success.success(null);
+const KWV = wrapValue.keyWrappedValue;
 function dataParserInit(kind, params, exec) {
     const formattedExec = typeof exec === "object"
         ? exec
@@ -27,21 +36,21 @@ function dataParserInit(kind, params, exec) {
         };
     function middleExec(data, error$1) {
         let result = formattedExec.sync(data, error$1, dataParser);
-        if (result === error.SymbolDataParserErrorIssue) {
+        if (result === SDPEI) {
             error.addIssue(error$1, dataParser, data);
-            return SymbolDataParserError;
+            return SDPE;
         }
-        else if (result === error.SymbolDataParserErrorPromiseIssue) {
+        else if (result === SDPEPI) {
             error.addPromiseIssue(error$1, dataParser, data);
-            return SymbolDataParserError;
+            return SDPE;
         }
-        else if (result !== SymbolDataParserError
+        else if (result !== SDPE
             && dataParser.definition.checkers.length) {
             for (const checker of dataParser.definition.checkers) {
                 const checkerResult = checker.exec(result, checker);
-                if (checkerResult === error.SymbolDataParserErrorIssue) {
+                if (checkerResult === SDPEI) {
                     error.addIssue(error$1, checker, result);
-                    return SymbolDataParserError;
+                    return SDPE;
                 }
                 else {
                     result = checkerResult;
@@ -52,21 +61,21 @@ function dataParserInit(kind, params, exec) {
     }
     async function middleAsyncExec(data, error$1) {
         let result = await formattedExec.async(data, error$1, dataParser);
-        if (result === error.SymbolDataParserErrorIssue) {
+        if (result === SDPEI) {
             error.addIssue(error$1, dataParser, data);
-            return SymbolDataParserError;
+            return SDPE;
         }
-        else if (result === error.SymbolDataParserErrorPromiseIssue) {
+        else if (result === SDPEPI) {
             error.addPromiseIssue(error$1, dataParser, data);
-            return SymbolDataParserError;
+            return SDPE;
         }
-        else if (result !== SymbolDataParserError
+        else if (result !== SDPE
             && dataParser.definition.checkers.length) {
             for (const checker of dataParser.definition.checkers) {
                 const checkerResult = checker.exec(result, checker);
-                if (checkerResult === error.SymbolDataParserErrorIssue) {
+                if (checkerResult === SDPEI) {
                     error.addIssue(error$1, checker, result);
-                    return SymbolDataParserError;
+                    return SDPE;
                 }
                 else {
                     result = checkerResult;
@@ -80,20 +89,40 @@ function dataParserInit(kind, params, exec) {
         exec: middleExec,
         asyncExec: middleAsyncExec,
         parse(data) {
-            const error$2 = error.createError();
-            const result = middleExec(data, error$2);
-            if (result === SymbolDataParserError) {
-                return error$1.error(error$2);
+            const error = {
+                ...DPE,
+                issues: [],
+                currentPath: [],
+            };
+            const result = middleExec(data, error);
+            if (result === SDPE) {
+                return {
+                    ...EE,
+                    [KWV]: error,
+                };
             }
-            return success.success(result);
+            return {
+                ...ES,
+                [KWV]: result,
+            };
         },
         async asyncParse(data) {
-            const error$2 = error.createError();
-            const result = await middleAsyncExec(data, error$2);
-            if (result === SymbolDataParserError) {
-                return error$1.error(error$2);
+            const error = {
+                ...DPE,
+                issues: [],
+                currentPath: [],
+            };
+            const result = await middleAsyncExec(data, error);
+            if (result === SDPE) {
+                return {
+                    ...EE,
+                    [KWV]: error,
+                };
             }
-            return success.success(result);
+            return {
+                ...ES,
+                [KWV]: result,
+            };
         },
         addChecker: (...checkers) => dataParserInit(kind, simpleClone.simpleClone({
             ...params,
@@ -103,10 +132,7 @@ function dataParserInit(kind, params, exec) {
             },
         }), exec),
         clone: () => dataParserInit(kind, simpleClone.simpleClone(params), exec),
-    }, {
-        output: undefined,
-        input: undefined,
-    }));
+    }, null));
     return dataParser;
 }
 

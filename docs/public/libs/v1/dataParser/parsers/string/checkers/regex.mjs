@@ -2,9 +2,9 @@ import { dataParserCheckerInit } from '../../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const dataParserCheckerStringRegexKind = createDataParserKind("checker-string-regex");
+const checkerStringRegexKind = createDataParserKind("checker-string-regex");
 function checkerStringRegex(regex, definition = {}) {
-    return dataParserCheckerInit(dataParserCheckerStringRegexKind, {
+    return dataParserCheckerInit(checkerStringRegexKind, {
         definition: {
             ...definition,
             regex,
@@ -14,4 +14,4 @@ function checkerStringRegex(regex, definition = {}) {
         : SymbolDataParserErrorIssue);
 }
 
-export { checkerStringRegex, dataParserCheckerStringRegexKind };
+export { checkerStringRegex, checkerStringRegexKind };
