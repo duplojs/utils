@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/max-params */
 
 import { type MaybeFutureEither } from "@scripts/either/future/maybeFutureEither";
-import { type MaybePromise, type EscapeVoid } from "./types";
+import { type MaybePromise, type EscapeVoid, type BreakGenericLink } from "./types";
 import { type AnyFunction } from "./types/anyFunction";
 import { type AnyValue } from "./types/anyValue";
 
@@ -13,7 +13,7 @@ export function asyncInnerPipe<
 >(
 	pipe1: (input: GenericInput) => MaybePromiseLike<GenericOutputPipe1>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe1>
+	Awaited<BreakGenericLink<GenericOutputPipe1>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -23,7 +23,7 @@ export function asyncInnerPipe<
 	pipe1: (input: GenericInput) => MaybePromiseLike<GenericOutputPipe1>,
 	pipe2: (input: GenericOutputPipe1) => MaybePromiseLike<GenericOutputPipe2>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe2>
+	Awaited<BreakGenericLink<GenericOutputPipe2>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -35,7 +35,7 @@ export function asyncInnerPipe<
 	pipe2: (input: GenericOutputPipe1) => MaybePromiseLike<GenericOutputPipe2>,
 	pipe3: (input: GenericOutputPipe2) => MaybePromiseLike<GenericOutputPipe3>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe3>
+	Awaited<BreakGenericLink<GenericOutputPipe3>>
 >;
 
 export function asyncInnerPipe<
@@ -50,7 +50,7 @@ export function asyncInnerPipe<
 	pipe3: (input: GenericOutputPipe2) => MaybePromiseLike<GenericOutputPipe3>,
 	pipe4: (input: GenericOutputPipe3) => MaybePromiseLike<GenericOutputPipe4>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe4>
+	Awaited<BreakGenericLink<GenericOutputPipe4>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -66,7 +66,7 @@ export function asyncInnerPipe<
 	pipe4: (input: GenericOutputPipe3) => MaybePromiseLike<GenericOutputPipe4>,
 	pipe5: (input: GenericOutputPipe4) => MaybePromiseLike<GenericOutputPipe5>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe5>
+	Awaited<BreakGenericLink<GenericOutputPipe5>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -84,7 +84,7 @@ export function asyncInnerPipe<
 	pipe5: (input: GenericOutputPipe4) => MaybePromiseLike<GenericOutputPipe5>,
 	pipe6: (input: GenericOutputPipe5) => MaybePromiseLike<GenericOutputPipe6>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe6>
+	Awaited<BreakGenericLink<GenericOutputPipe6>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -104,7 +104,7 @@ export function asyncInnerPipe<
 	pipe6: (input: GenericOutputPipe5) => MaybePromiseLike<GenericOutputPipe6>,
 	pipe7: (input: GenericOutputPipe6) => MaybePromiseLike<GenericOutputPipe7>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe7>
+	Awaited<BreakGenericLink<GenericOutputPipe7>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -126,7 +126,7 @@ export function asyncInnerPipe<
 	pipe7: (input: GenericOutputPipe6) => MaybePromiseLike<GenericOutputPipe7>,
 	pipe8: (input: GenericOutputPipe7) => MaybePromiseLike<GenericOutputPipe8>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe8>
+	Awaited<BreakGenericLink<GenericOutputPipe8>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -150,7 +150,7 @@ export function asyncInnerPipe<
 	pipe8: (input: GenericOutputPipe7) => MaybePromiseLike<GenericOutputPipe8>,
 	pipe9: (input: GenericOutputPipe8) => MaybePromiseLike<GenericOutputPipe9>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe9>
+	Awaited<BreakGenericLink<GenericOutputPipe9>>
 >;
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
@@ -176,7 +176,7 @@ export function asyncInnerPipe<
 	pipe9: (input: GenericOutputPipe8) => MaybePromiseLike<GenericOutputPipe9>,
 	pipe10: (input: GenericOutputPipe9) => MaybePromiseLike<GenericOutputPipe10>,
 ): (input: MaybePromiseLike<GenericInput>) => Promise<
-	Awaited<GenericOutputPipe10>
+	Awaited<BreakGenericLink<GenericOutputPipe10>>
 >;
 
 export function asyncInnerPipe(...pipes: AnyFunction[]) {
