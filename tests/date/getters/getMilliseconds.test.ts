@@ -1,9 +1,10 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("getMilliseconds", () => {
 	it("getMilliseconds returns milliseconds", () => {
 		const result = DDate.getMilliseconds(
-			DDate.create("2021y-1m-1d-12h-30mn-45s-123ms"),
+			fromIso("2021-01-01T12:30:45.123Z"),
 		);
 
 		expect(result).toBe(123);
@@ -17,7 +18,7 @@ describe("getMilliseconds", () => {
 
 	it("getMilliseconds returns 0 when no milliseconds", () => {
 		const result = DDate.getMilliseconds(
-			DDate.create("2021y-1m-1d-12h-30mn-45s"),
+			fromIso("2021-01-01T12:30:45.000Z"),
 		);
 
 		expect(result).toBe(0);
@@ -31,7 +32,7 @@ describe("getMilliseconds", () => {
 
 	it("getMilliseconds returns 999 for max milliseconds", () => {
 		const result = DDate.getMilliseconds(
-			DDate.create("2021y-1m-1d-12h-30mn-45s-999ms"),
+			fromIso("2021-01-01T12:30:45.999Z"),
 		);
 
 		expect(result).toBe(999);
@@ -45,7 +46,7 @@ describe("getMilliseconds", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.create("2021y-1m-1d-12h-30mn-45s-123ms"),
+			fromIso("2021-01-01T12:30:45.123Z"),
 			DDate.getMilliseconds,
 		);
 

@@ -1,5 +1,4 @@
 import { DDate } from "@scripts";
-import { type CreateDateInputString, type TheDate } from "@scripts/date";
 
 describe("createOrThrow", () => {
 	it("creates from timestamp", () => {
@@ -48,16 +47,8 @@ describe("createOrThrow", () => {
 		expect(() => DDate.createOrThrow(new Date(DDate.minTimestamp - 1))).toThrow(DDate.CreateTheDateError);
 	});
 
-	it("throws when date string includes invalid hour component", () => {
-		expect(() => DDate.createOrThrow("2021y-1m-1d-25h")).toThrow(DDate.CreateTheDateError);
-	});
-
-	it("throws when date string has impossible calendar date", () => {
-		expect(() => DDate.createOrThrow("2021y-2m-30d")).toThrow(DDate.CreateTheDateError);
-	});
-
 	it("creates from TheDate string", () => {
-		const value: TheDate = "date42-";
+		const value: DDate.TheDate = "date42-";
 
 		expect(DDate.createOrThrow(value)).toBe(value);
 	});
@@ -68,29 +59,11 @@ describe("createOrThrow", () => {
 		expect(() => DDate.createOrThrow(invalid)).toThrow(DDate.CreateTheDateError);
 	});
 
-	it("creates from string date format", () => {
-		const input: CreateDateInputString = "2021y-1m-1d";
+	it("creates from Date before Christ", () => {
+		const input = new Date(Date.UTC(-100, 0, 1));
+		const timestamp = input.getTime();
 
-		expect(DDate.createOrThrow(input)).toBe("date1609459200000+");
-	});
-
-	it("creates from string date format with full time components", () => {
-		const input: CreateDateInputString = "2021y-1m-1d-12h-30mn-45s-123ms";
-
-		expect(DDate.createOrThrow(input)).toBe("date1609504245123+");
-	});
-
-	it("creates from string date format before Christ", () => {
-		const input: CreateDateInputString = "-100y-1m-1d";
-		const expected = DDate.create(input);
-
-		expect(DDate.createOrThrow(input)).toBe(expected);
-	});
-
-	it("throws when date string has invalid values", () => {
-		const invalidInput = "2021y-13m-1d";
-
-		expect(() => DDate.createOrThrow(invalidInput)).toThrow(DDate.CreateTheDateError);
+		expect(DDate.createOrThrow(input)).toBe(`date${Math.abs(timestamp)}-`);
 	});
 
 	it("throws when string does not match any known pattern", () => {
@@ -100,16 +73,6 @@ describe("createOrThrow", () => {
 	it("throws when TheDate matches timestamp boundary", () => {
 		expect(() => DDate.createOrThrow(`date${DDate.maxTimestamp}+`)).toThrow(DDate.CreateTheDateError);
 		expect(() => DDate.createOrThrow(`date${Math.abs(DDate.minTimestamp)}-`)).toThrow(DDate.CreateTheDateError);
-	});
-
-	it("throws when date string yields boundary timestamp", () => {
-		const boundary = new Date(DDate.maxTimestamp);
-		const year = boundary.getUTCFullYear();
-		const month = boundary.getUTCMonth() + 1;
-		const day = boundary.getUTCDate();
-		const input = `${year}y-${month}m-${day}d` as const;
-
-		expect(() => DDate.createOrThrow(input)).toThrow(DDate.CreateTheDateError);
 	});
 
 	it("throws when runtime type is unsupported", () => {

@@ -60,16 +60,13 @@ describe("DDataParser date", () => {
 		const schema = DDataParser.date({ coerce: true });
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
 		const existing: TheDate = "date42+";
-		const beforeChristInput = "-100y-1m-1d";
-		const beforeChristExpected = DDate.create(beforeChristInput);
+		const beforeChristInput = new Date(Date.UTC(-100, 0, 1));
+		const beforeChristExpected = DDate.createOrThrow(beforeChristInput);
 
 		expect(schema.parse(1)).toStrictEqual(DEither.success("date1+"));
 		expect(schema.parse(-1)).toStrictEqual(DEither.success("date1-"));
 		expect(schema.parse(nativeDate)).toStrictEqual(DEither.success("date1609459200000+"));
 		expect(schema.parse(existing)).toStrictEqual(DEither.success(existing));
-		expect(schema.parse("2021y-1m-1d-12h-30mn-45s-123ms")).toStrictEqual(
-			DEither.success("date1609504245123+"),
-		);
 		expect(schema.parse(beforeChristInput)).toStrictEqual(
 			DEither.success(beforeChristExpected),
 		);

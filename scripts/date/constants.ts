@@ -10,5 +10,4 @@ export const minutesInOneHour = 60;
 export const secondsInOneMinute = 60;
 export const millisecondsInOneSecond = 1000;
 export const hoursInOneDay = 24;
-export const theDateRegex = /^date(?<value>\d+)(?<sign>[+-])$/;
-export const dateComponentsRegex = /^(-?)(\d+)y-(\d+)m-(\d+)d(?:-(\d+)h)?(?:-(\d+)mn)?(?:-(\d+)s)?(?:-(\d+)ms)?$/;
+export const theDateRegex = /^date(?<value>\d{1,16})(?<sign>[+-])$/;

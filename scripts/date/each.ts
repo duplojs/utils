@@ -1,11 +1,9 @@
 import { loop } from "@scripts/generator/loop";
 import { millisecondsInOneSecond, millisecondInOneMinute, millisecondInOneHour, millisecondsInOneDay } from "./constants";
-import type { TheDate } from "./types";
+import type { TheDate, Unit } from "./types";
 import { toTimestamp } from "./toTimestamp";
 
-export type SeparatorUnit = "year" | "month" | "day" | "hour" | "minute" | "second" | "milisecond";
-
-const stepMapper: Record<SeparatorUnit, (timestamp: number, direction: 1 | -1) => number> = {
+const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number> = {
 	milisecond: (timestamp, direction) => timestamp + direction,
 	second: (timestamp, direction) => timestamp + (direction * millisecondsInOneSecond),
 	minute: (timestamp, direction) => timestamp + (direction * millisecondInOneMinute),
@@ -33,13 +31,13 @@ export function each(
 		start: TheDate;
 		end: TheDate;
 	},
-	separator: SeparatorUnit = "day",
+	unit: Unit = "day",
 ) {
 	const startTimestamp = toTimestamp(range.start);
 	const endTimestamp = toTimestamp(range.end);
 
 	const direction: 1 | -1 = startTimestamp <= endTimestamp ? 1 : -1;
-	const advanceTimestamp = stepMapper[separator];
+	const advanceTimestamp = stepMapper[unit];
 
 	function isWithinRange(timestamp: number) {
 		return direction === 1

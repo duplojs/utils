@@ -1,12 +1,13 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("getFirstDayOfMonth", () => {
 	it("returns first day start for mid-month date", () => {
 		const result = DDate.getFirstDayOfMonth(
-			DDate.create("2024y-2m-15d-10h"),
+			fromIso("2024-02-15T10:00:00.000Z"),
 		);
 
-		expect(result).toBe(DDate.create("2024y-2m-1d"));
+		expect(result).toBe(fromIso("2024-02-01T00:00:00.000Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -17,10 +18,10 @@ describe("getFirstDayOfMonth", () => {
 
 	it("returns same date when already first day", () => {
 		const result = DDate.getFirstDayOfMonth(
-			DDate.create("2024y-2m-1d"),
+			fromIso("2024-02-01T00:00:00.000Z"),
 		);
 
-		expect(result).toBe(DDate.create("2024y-2m-1d"));
+		expect(result).toBe(fromIso("2024-02-01T00:00:00.000Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -31,10 +32,10 @@ describe("getFirstDayOfMonth", () => {
 
 	it("handles date before Christ", () => {
 		const result = DDate.getFirstDayOfMonth(
-			DDate.create("-5y-3m-15d"),
+			fromIso("-0005-03-15T00:00:00.000Z"),
 		);
 
-		expect(result).toBe(DDate.create("-5y-3m-1d"));
+		expect(result).toBe(fromIso("-0005-03-01T00:00:00.000Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -45,11 +46,11 @@ describe("getFirstDayOfMonth", () => {
 
 	it("can be used in pipe", () => {
 		const result = pipe(
-			DDate.create("2021y-12m-25d"),
+			fromIso("2021-12-25T00:00:00.000Z"),
 			DDate.getFirstDayOfMonth,
 		);
 
-		expect(result).toBe(DDate.create("2021y-12m-1d"));
+		expect(result).toBe(fromIso("2021-12-01T00:00:00.000Z"));
 
 		type check = ExpectType<
 			typeof result,

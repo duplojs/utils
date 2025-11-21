@@ -1,8 +1,9 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("subtractMilliseconds", () => {
-	const baseDate = DDate.create("2020y-1m-1d-0h-0mn-0s-0ms");
-	const beforeEpochDate = DDate.create("-10y-1m-1d-0h-0mn-1s-0ms");
+	const baseDate = fromIso("2020-01-01T00:00:00.000Z");
+	const beforeEpochDate = fromIso("-0010-01-01T00:00:01.000Z");
 
 	it("subtracts milliseconds from a date", () => {
 		const result = DDate.subtractMilliseconds(
@@ -10,7 +11,7 @@ describe("subtractMilliseconds", () => {
 			250,
 		);
 
-		expect(result).toBe(DDate.create("2019y-12m-31d-23h-59mn-59s-750ms"));
+		expect(result).toBe(fromIso("2019-12-31T23:59:59.750Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -25,7 +26,7 @@ describe("subtractMilliseconds", () => {
 			(-400 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019y-12m-31d-23h-59mn-59s-600ms"));
+		expect(result).toBe(fromIso("2019-12-31T23:59:59.600Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -40,7 +41,7 @@ describe("subtractMilliseconds", () => {
 			DDate.subtractMilliseconds(100),
 		);
 
-		expect(result).toBe(DDate.create("2019y-12m-31d-23h-59mn-59s-900ms"));
+		expect(result).toBe(fromIso("2019-12-31T23:59:59.900Z"));
 
 		type check = ExpectType<
 			typeof result,
@@ -55,7 +56,7 @@ describe("subtractMilliseconds", () => {
 			250,
 		);
 
-		expect(result).toBe(DDate.create("-10y-1m-1d-0h-0mn-0s-750ms"));
+		expect(result).toBe(fromIso("-0010-01-01T00:00:00.750Z"));
 
 		type check = ExpectType<
 			typeof result,

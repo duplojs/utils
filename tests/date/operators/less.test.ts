@@ -1,11 +1,12 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("less", () => {
-	const threshold = DDate.create("2024y-1m-5d");
+	const threshold = fromIso("2024-01-05T00:00:00.000Z");
 
 	it("returns true when input is less than threshold", () => {
 		const result = DDate.less(
-			DDate.create("2024y-1m-1d"),
+			fromIso("2024-01-01T00:00:00.000Z"),
 			threshold,
 		);
 
@@ -23,12 +24,12 @@ describe("less", () => {
 	});
 
 	it("returns false when input is greater than threshold", () => {
-		expect(DDate.less(DDate.create("2024y-1m-10d"), threshold)).toBe(false);
+		expect(DDate.less(fromIso("2024-01-10T00:00:00.000Z"), threshold)).toBe(false);
 	});
 
 	it("une in pipe", () => {
 		const result = pipe(
-			DDate.create("2024y-1m-2d"),
+			fromIso("2024-01-02T00:00:00.000Z"),
 			DDate.less(threshold),
 		);
 

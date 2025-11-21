@@ -1,12 +1,13 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("betweenThan", () => {
-	const lower = DDate.create("2024y-1m-1d");
-	const upper = DDate.create("2024y-1m-10d");
+	const lower = fromIso("2024-01-01T00:00:00.000Z");
+	const upper = fromIso("2024-01-10T00:00:00.000Z");
 
 	it("returns true when input is strictly inside range", () => {
 		const result = DDate.betweenThan(
-			DDate.create("2024y-1m-5d"),
+			fromIso("2024-01-05T00:00:00.000Z"),
 			lower,
 			upper,
 		);
@@ -27,7 +28,7 @@ describe("betweenThan", () => {
 
 	it("returns false when input is outside range", () => {
 		const result = DDate.betweenThan(
-			DDate.create("2024y-1m-12d"),
+			fromIso("2024-01-12T00:00:00.000Z"),
 			lower,
 			upper,
 		);
@@ -37,7 +38,7 @@ describe("betweenThan", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.create("2024y-1m-6d"),
+			fromIso("2024-01-06T00:00:00.000Z"),
 			DDate.betweenThan(lower, upper),
 		);
 

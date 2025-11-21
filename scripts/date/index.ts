@@ -14,3 +14,5 @@ export * from "./closestTo";
 export * from "./each";
 export * from "./each";
 export * from "./createOrThrow";
+export * from "./round";
+export * from "./isSafeTimestamp";

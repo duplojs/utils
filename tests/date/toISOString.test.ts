@@ -1,4 +1,5 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "./utils";
 
 describe("toISOString", () => {
 	it("toISOString converts positive TheDate to ISO string", () => {
@@ -27,7 +28,7 @@ describe("toISOString", () => {
 
 	it("toISOString converts date with time to ISO string", () => {
 		const result = DDate.toISOString(
-			DDate.create("2021y-6m-15d-14h-30mn-45s-123ms"),
+			fromIso("2021-06-15T14:30:45.123Z"),
 		);
 
 		expect(result).toBe("2021-06-15T14:30:45.123Z");
@@ -41,7 +42,7 @@ describe("toISOString", () => {
 
 	it("toISOString converts midnight date to ISO string", () => {
 		const result = DDate.toISOString(
-			DDate.create("2021y-12m-25d"),
+			fromIso("2021-12-25T00:00:00.000Z"),
 		);
 
 		expect(result).toBe("2021-12-25T00:00:00.000Z");
@@ -55,7 +56,7 @@ describe("toISOString", () => {
 
 	it("toISOString converts leap year date to ISO string", () => {
 		const result = DDate.toISOString(
-			DDate.create("2020y-2m-29d"),
+			fromIso("2020-02-29T00:00:00.000Z"),
 		);
 
 		expect(result).toBe("2020-02-29T00:00:00.000Z");
@@ -84,7 +85,7 @@ describe("toISOString", () => {
 
 	it("use in pipe with date creation", () => {
 		const result = pipe(
-			DDate.create("2021y-6m-15d-14h-30mn-45s-123ms"),
+			fromIso("2021-06-15T14:30:45.123Z"),
 			DDate.toISOString,
 		);
 

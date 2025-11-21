@@ -1,18 +1,19 @@
 import { DArray, DDate, type ExpectType } from "@scripts";
+import { fromIso } from "./utils";
 
 describe("each", () => {
 	it("iterates days inclusively in ascending order by default", () => {
 		const iterable = DDate.each({
-			start: DDate.create("2024y-1m-1d"),
-			end: DDate.create("2024y-1m-3d"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-03T00:00:00.000Z"),
 		});
 
 		const result = DArray.from(iterable);
 
 		expect(result).toStrictEqual([
-			DDate.create("2024y-1m-1d"),
-			DDate.create("2024y-1m-2d"),
-			DDate.create("2024y-1m-3d"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2024-01-02T00:00:00.000Z"),
+			fromIso("2024-01-03T00:00:00.000Z"),
 		]);
 
 		type check = ExpectType<
@@ -24,121 +25,121 @@ describe("each", () => {
 
 	it("supports descending ranges", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-5d"),
-			end: DDate.create("2024y-1m-3d"),
+			start: fromIso("2024-01-05T00:00:00.000Z"),
+			end: fromIso("2024-01-03T00:00:00.000Z"),
 		}));
 
 		expect(result).toStrictEqual([
-			DDate.create("2024y-1m-5d"),
-			DDate.create("2024y-1m-4d"),
-			DDate.create("2024y-1m-3d"),
+			fromIso("2024-01-05T00:00:00.000Z"),
+			fromIso("2024-01-04T00:00:00.000Z"),
+			fromIso("2024-01-03T00:00:00.000Z"),
 		]);
 	});
 
 	it("iterates hours when separator is hour", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d-0h"),
-			end: DDate.create("2024y-1m-1d-3h"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T03:00:00.000Z"),
 		}, "hour"));
 
 		expect(result).toStrictEqual([
-			DDate.create("2024y-1m-1d-0h"),
-			DDate.create("2024y-1m-1d-1h"),
-			DDate.create("2024y-1m-1d-2h"),
-			DDate.create("2024y-1m-1d-3h"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2024-01-01T01:00:00.000Z"),
+			fromIso("2024-01-01T02:00:00.000Z"),
+			fromIso("2024-01-01T03:00:00.000Z"),
 		]);
 	});
 
 	it("handles months with varying lengths", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-15d"),
-			end: DDate.create("2024y-4m-15d"),
+			start: fromIso("2024-01-15T00:00:00.000Z"),
+			end: fromIso("2024-04-15T00:00:00.000Z"),
 		}, "month"));
 
 		expect(result).toStrictEqual([
-			DDate.create("2024y-1m-15d"),
-			DDate.create("2024y-2m-15d"),
-			DDate.create("2024y-3m-15d"),
-			DDate.create("2024y-4m-15d"),
+			fromIso("2024-01-15T00:00:00.000Z"),
+			fromIso("2024-02-15T00:00:00.000Z"),
+			fromIso("2024-03-15T00:00:00.000Z"),
+			fromIso("2024-04-15T00:00:00.000Z"),
 		]);
 	});
 
 	it("returns single value when start equals end", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d"),
-			end: DDate.create("2024y-1m-1d"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T00:00:00.000Z"),
 		}));
 
-		expect(result).toStrictEqual([DDate.create("2024y-1m-1d")]);
+		expect(result).toStrictEqual([fromIso("2024-01-01T00:00:00.000Z")]);
 	});
 
 	it("supports seconds, minutes and milliseconds separators", () => {
 		const seconds = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d-0h-0mn-0s"),
-			end: DDate.create("2024y-1m-1d-0h-0mn-2s"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T00:00:02.000Z"),
 		}, "second"));
 
 		expect(seconds).toStrictEqual([
-			DDate.create("2024y-1m-1d-0h-0mn-0s"),
-			DDate.create("2024y-1m-1d-0h-0mn-1s"),
-			DDate.create("2024y-1m-1d-0h-0mn-2s"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2024-01-01T00:00:01.000Z"),
+			fromIso("2024-01-01T00:00:02.000Z"),
 		]);
 
 		const minutes = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d-0h-0mn"),
-			end: DDate.create("2024y-1m-1d-0h-2mn"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T00:02:00.000Z"),
 		}, "minute"));
 
 		expect(minutes).toStrictEqual([
-			DDate.create("2024y-1m-1d-0h-0mn"),
-			DDate.create("2024y-1m-1d-0h-1mn"),
-			DDate.create("2024y-1m-1d-0h-2mn"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2024-01-01T00:01:00.000Z"),
+			fromIso("2024-01-01T00:02:00.000Z"),
 		]);
 
 		const milliseconds = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d-0h-0mn-0s-0ms"),
-			end: DDate.create("2024y-1m-1d-0h-0mn-0s-2ms"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T00:00:00.002Z"),
 		}, "milisecond"));
 
 		expect(milliseconds).toStrictEqual([
-			DDate.create("2024y-1m-1d-0h-0mn-0s-0ms"),
-			DDate.create("2024y-1m-1d-0h-0mn-0s-1ms"),
-			DDate.create("2024y-1m-1d-0h-0mn-0s-2ms"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2024-01-01T00:00:00.001Z"),
+			fromIso("2024-01-01T00:00:00.002Z"),
 		]);
 	});
 
 	it("iterates across years", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2023y-1m-1d"),
-			end: DDate.create("2025y-1m-1d"),
+			start: fromIso("2023-01-01T00:00:00.000Z"),
+			end: fromIso("2025-01-01T00:00:00.000Z"),
 		}, "year"));
 
 		expect(result).toStrictEqual([
-			DDate.create("2023y-1m-1d"),
-			DDate.create("2024y-1m-1d"),
-			DDate.create("2025y-1m-1d"),
+			fromIso("2023-01-01T00:00:00.000Z"),
+			fromIso("2024-01-01T00:00:00.000Z"),
+			fromIso("2025-01-01T00:00:00.000Z"),
 		]);
 	});
 
 	it("exits early when step overshoots the end", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("2024y-1m-1d"),
-			end: DDate.create("2024y-1m-1d-12h"),
+			start: fromIso("2024-01-01T00:00:00.000Z"),
+			end: fromIso("2024-01-01T12:00:00.000Z"),
 		}, "day"));
 
-		expect(result).toStrictEqual([DDate.create("2024y-1m-1d")]);
+		expect(result).toStrictEqual([fromIso("2024-01-01T00:00:00.000Z")]);
 	});
 
 	it("handles dates before 1970", () => {
 		const result = DArray.from(DDate.each({
-			start: DDate.create("-1y-1m-1d"),
-			end: DDate.create("-1y-1m-3d"),
+			start: fromIso("-0001-01-01T00:00:00.000Z"),
+			end: fromIso("-0001-01-03T00:00:00.000Z"),
 		}));
 
 		expect(result).toStrictEqual([
-			DDate.create("-1y-1m-1d"),
-			DDate.create("-1y-1m-2d"),
-			DDate.create("-1y-1m-3d"),
+			fromIso("-0001-01-01T00:00:00.000Z"),
+			fromIso("-0001-01-02T00:00:00.000Z"),
+			fromIso("-0001-01-03T00:00:00.000Z"),
 		]);
 	});
 });

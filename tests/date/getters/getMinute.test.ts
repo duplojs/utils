@@ -1,9 +1,10 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
+import { fromIso } from "../utils";
 
 describe("getMinute", () => {
 	it("getMinute returns minute in UTC", () => {
 		const result = DDate.getMinute(
-			DDate.create("2021y-1m-1d-12h-30mn"),
+			fromIso("2021-01-01T12:30:00.000Z"),
 		);
 
 		expect(result).toBe(30);
@@ -17,7 +18,7 @@ describe("getMinute", () => {
 
 	it("getMinute returns 0 when no minutes", () => {
 		const result = DDate.getMinute(
-			DDate.create("2021y-1m-1d-12h"),
+			fromIso("2021-01-01T12:00:00.000Z"),
 		);
 
 		expect(result).toBe(0);
@@ -31,7 +32,7 @@ describe("getMinute", () => {
 
 	it("getMinute returns 59 for max minutes", () => {
 		const result = DDate.getMinute(
-			DDate.create("2021y-1m-1d-12h-59mn"),
+			fromIso("2021-01-01T12:59:00.000Z"),
 		);
 
 		expect(result).toBe(59);
@@ -45,7 +46,7 @@ describe("getMinute", () => {
 
 	it("getMinute returns minute with timezone", () => {
 		const result = DDate.getMinute(
-			DDate.create("2021y-1m-1d-0h-45mn"),
+			fromIso("2021-01-01T00:45:00.000Z"),
 			"America/New_York",
 		);
 
@@ -60,7 +61,7 @@ describe("getMinute", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.create("2021y-1m-1d-12h-30mn"),
+			fromIso("2021-01-01T12:30:00.000Z"),
 			DDate.getMinute,
 		);
 
@@ -75,7 +76,7 @@ describe("getMinute", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			DDate.create("2021y-1m-1d-0h-45mn"),
+			fromIso("2021-01-01T00:45:00.000Z"),
 			(date) => DDate.getMinute(date, "America/New_York"),
 		);
 
