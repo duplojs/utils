@@ -1,7 +1,6 @@
 import { type ForbiddenString } from "@scripts/string";
 import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor, type NeverCoalescing, type And, type Not, UnionContain } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
-import { DEither } from "@scripts";
 
 export interface KindHandler<
 	GenericKindDefinition extends KindDefinition = KindDefinition,
@@ -263,7 +262,7 @@ export function kindHeritage<
 					],
 			]
 	) => UnionToIntersection<
-			| (
+		| (
 			GenericKindHandler extends KindHandler
 				? Kind<GenericKindHandler["definition"]>
 				: never
