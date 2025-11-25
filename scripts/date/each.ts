@@ -2,6 +2,7 @@ import { loop } from "@scripts/generator/loop";
 import { millisecondsInOneSecond, millisecondInOneMinute, millisecondInOneHour, millisecondsInOneDay } from "./constants";
 import type { TheDate, Unit } from "./types";
 import { toTimestamp } from "./toTimestamp";
+import { createOrThrow } from "./createOrThrow";
 
 const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number> = {
 	milisecond: (timestamp, direction) => timestamp + direction,
@@ -21,11 +22,6 @@ const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number>
 	},
 };
 
-function toTheDate(timestamp: number) {
-	const isNegative = timestamp < 0;
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
-}
-
 export function each(
 	range: {
 		start: TheDate;
@@ -39,43 +35,32 @@ export function each(
 	const direction: 1 | -1 = startTimestamp <= endTimestamp ? 1 : -1;
 	const advanceTimestamp = stepMapper[unit];
 
-	function isWithinRange(timestamp: number) {
-		return direction === 1
-			? timestamp <= endTimestamp
-			: timestamp >= endTimestamp;
-	}
-
-	let currentTimestamp = startTimestamp;
-
 	return loop<TheDate, TheDate>(({
-		count,
 		exit,
 		next,
+		previousOutput,
 	}) => {
-		if (count === 0) {
-			const initial = toTheDate(currentTimestamp);
-
-			if (currentTimestamp === endTimestamp) {
-				return exit(initial);
-			}
-
-			currentTimestamp = advanceTimestamp(currentTimestamp, direction);
-
-			return next(initial);
+		if (!previousOutput) {
+			return next(range.start);
 		}
 
-		if (!isWithinRange(currentTimestamp)) {
-			return exit();
+		const currentTimestamp = advanceTimestamp(
+			toTimestamp(previousOutput),
+			direction,
+		);
+
+		const isWithinRange = direction === 1
+			? currentTimestamp <= endTimestamp
+			: currentTimestamp >= endTimestamp;
+
+		if (!isWithinRange) {
+			return exit(
+				currentTimestamp === endTimestamp
+					? createOrThrow(currentTimestamp)
+					: undefined,
+			);
 		}
 
-		const currentDate = toTheDate(currentTimestamp);
-
-		if (currentTimestamp === endTimestamp) {
-			return exit(currentDate);
-		}
-
-		currentTimestamp = advanceTimestamp(currentTimestamp, direction);
-
-		return next(currentDate);
+		return next(createOrThrow(currentTimestamp));
 	});
 }

@@ -1,5 +1,5 @@
 import { kindHeritage } from "@scripts/common";
-import { maxTimestamp, minTimestamp, theDateRegex } from "./constants";
+import { theDateRegex } from "./constants";
 import type { TheDate } from "./types";
 import { isSafeTimestamp } from "./isSafeTimestamp";
 

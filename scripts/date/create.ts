@@ -97,11 +97,13 @@ export function create(
 
 		const timestamp = date.getTime();
 
-		if (isSafeTimestamp(timestamp)) {
-			const isNegative = timestamp < 0;
-
-			return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+		if (!isSafeTimestamp(timestamp)) {
+			return "date0+";
 		}
+
+		const isNegative = timestamp < 0;
+
+		return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
 	}
 
 	return left("date-created-error", null);
