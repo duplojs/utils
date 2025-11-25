@@ -80,6 +80,11 @@
       "import": "./dist/string/index.mjs",
       "require": "./dist/string/index.cjs",
       "types": "./dist/string/index.d.ts"
+    },
+    "./date": {
+      "import": "./dist/date/index.mjs",
+      "require": "./dist/date/index.cjs",
+      "types": "./dist/date/index.d.ts"
     }
   },
   "files": [

@@ -73,14 +73,4 @@ describe("builder", () => {
 		expect(builderKind.getValue(builder)).toStrictEqual({ age: 0 });
 		expect(() => builder.makeError()).toThrow(MissingBuilderMethodsError);
 	});
-
-	it("MissingBuilderMethodsError guards instances reliably", () => {
-		const error = new MissingBuilderMethodsError("testMethod");
-
-		expect(error).toBeInstanceOf(MissingBuilderMethodsError);
-		expect(error.message).toBe("Missing builder method: testMethod");
-		expect(MissingBuilderMethodsError.instanceof(error)).toBe(true);
-		expect(MissingBuilderMethodsError.instanceof(new Error("testMethod"))).toBe(false);
-		expect(MissingBuilderMethodsError.instanceof({})).toBe(false);
-	});
 });

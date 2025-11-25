@@ -20,22 +20,4 @@ describe("stringToMillisecond", () => {
 	it("force wrong input", () => {
 		expect(() => stringToMillisecond("toto" as any)).toThrowError(InvalidMillisecondInStringError);
 	});
-
-	it("test instance of", () => {
-		expect(InvalidMillisecondInStringError.instanceof(new Error())).toBe(false);
-
-		const error = new InvalidMillisecondInStringError("test") as unknown;
-
-		const isInstanceOf = InvalidMillisecondInStringError.instanceof(error);
-
-		expect(isInstanceOf).toBe(true);
-
-		if (isInstanceOf) {
-			type check = ExpectType<
-				typeof error,
-				InvalidMillisecondInStringError,
-				"strict"
-			>;
-		}
-	});
 });

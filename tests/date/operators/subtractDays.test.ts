@@ -1,0 +1,66 @@
+import { pipe, type ExpectType, DDate } from "@scripts";
+
+describe("subtractDays", () => {
+	const baseDate = DDate.create("2020-01-01");
+	const beforeEpochDate = DDate.create("-0010-01-10");
+
+	it("subtracts days from a date", () => {
+		const result = DDate.subtractDays(
+			baseDate,
+			4,
+		);
+
+		expect(result).toBe(DDate.create("2019-12-28"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.TheDate,
+			"strict"
+		>;
+	});
+
+	it("treats negative numbers as their absolute value", () => {
+		const result = DDate.subtractDays(
+			baseDate,
+			(-3 as number),
+		);
+
+		expect(result).toBe(DDate.create("2019-12-29"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.TheDate,
+			"strict"
+		>;
+	});
+
+	it("use in pipe", () => {
+		const result = pipe(
+			baseDate,
+			DDate.subtractDays(1),
+		);
+
+		expect(result).toBe(DDate.create("2019-12-31"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.TheDate,
+			"strict"
+		>;
+	});
+
+	it("handles dates before 1970", () => {
+		const result = DDate.subtractDays(
+			beforeEpochDate,
+			5,
+		);
+
+		expect(result).toBe(DDate.create("-0010-01-05"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.TheDate,
+			"strict"
+		>;
+	});
+});

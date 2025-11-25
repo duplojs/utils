@@ -16,22 +16,4 @@ describe("stringToBytes", () => {
 	it("force wrong input", () => {
 		expect(() => stringToBytes("toto" as any)).toThrowError(InvalidBytesInStringError);
 	});
-
-	it("test instance of", () => {
-		expect(InvalidBytesInStringError.instanceof(new Error())).toBe(false);
-
-		const error = new InvalidBytesInStringError("test") as unknown;
-
-		const isInstanceOf = InvalidBytesInStringError.instanceof(error);
-
-		expect(isInstanceOf).toBe(true);
-
-		if (isInstanceOf) {
-			type check = ExpectType<
-				typeof error,
-				InvalidBytesInStringError,
-				"strict"
-			>;
-		}
-	});
 });

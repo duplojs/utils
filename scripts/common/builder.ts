@@ -1,9 +1,10 @@
 import { type GetPropsWithValueExtends } from "@scripts/object";
 import { createGlobalStore } from "./globalStore";
 import { type Adaptor, type AnyFunction } from "./types";
-import { createKindNamespace, type Kind, type GetKindValue } from "./kind";
+import { createKindNamespace, type Kind, type GetKindValue, kindHeritage } from "./kind";
 import { wrapValue, type WrappedValue } from "./wrapValue";
 import { unwrap } from "./unwrap";
+import { createErrorKind } from "./errorKindNamespace";
 
 const SymbolBuilderStore = Symbol.for("@duplojs/utils/builder");
 
@@ -87,21 +88,15 @@ export interface BuilderHandler<
 	): GenericCurrentBuilder;
 }
 
-const kind = "kind-missing-builder-methods-error";
-
-export class MissingBuilderMethodsError extends Error {
+export class MissingBuilderMethodsError extends kindHeritage(
+	"missing-builder-methods-error",
+	createErrorKind("missing-builder-methods-error"),
+	Error,
+) {
 	public constructor(
 		public method: string,
 	) {
-		super(`Missing builder method: ${method}`);
-	}
-
-	public [kind] = null as unknown;
-
-	public static instanceof(value: unknown): value is MissingBuilderMethodsError {
-		return typeof value === "object"
-			&& value?.constructor?.name === "MissingBuilderMethodsError"
-			&& kind in value;
+		super({}, [`Missing builder method: ${method}`]);
 	}
 }
 

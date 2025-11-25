@@ -1,21 +1,17 @@
 /* eslint-disable id-length */
 import { isKeyof } from "@scripts/string/isKeyof";
+import { kindHeritage } from "./kind";
+import { createErrorKind } from "./errorKindNamespace";
 
-const kind = "kind-invalid-millisecond-in-string-error";
-
-export class InvalidMillisecondInStringError extends Error {
+export class InvalidMillisecondInStringError extends kindHeritage(
+	"invalid-millisecond-in-string-error",
+	createErrorKind("missing-builder-methods-error"),
+	Error,
+) {
 	public constructor(
 		public input: string,
 	) {
-		super(`Invalid Input: ${input}`);
-	}
-
-	public [kind] = null as unknown;
-
-	public static instanceof(value: unknown): value is InvalidMillisecondInStringError {
-		return typeof value === "object"
-			&& value?.constructor?.name === "InvalidMillisecondInStringError"
-			&& kind in value;
+		super({}, [`Invalid Input: ${input}`]);
 	}
 }
 
