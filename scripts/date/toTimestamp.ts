@@ -1,6 +1,7 @@
 import { kindHeritage } from "@scripts/common";
 import { maxTimestamp, minTimestamp, theDateRegex } from "./constants";
 import type { TheDate } from "./types";
+import { isSafeTimestamp } from "./isSafeTimestamp";
 
 export class InvalidTheDate extends kindHeritage("duplo-utils-invalide-date", [], Error) {
 	public constructor(public date: TheDate) {
@@ -25,7 +26,7 @@ export function toTimestamp<
 			: value,
 	);
 
-	if (timestamp < minTimestamp || timestamp > maxTimestamp) {
+	if (!isSafeTimestamp(timestamp)) {
 		throw new InvalidTheDate(input);
 	}
 
