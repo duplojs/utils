@@ -1,13 +1,20 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getLastDayOfWeek", () => {
 	it("returns Sunday end of day for midweek date", () => {
 		const result = DDate.getLastDayOfWeek(
-			fromIso("2024-01-03T15:30:00.000Z"),
+			DDate.create("2024-01-03", {
+				hour: "15",
+				minute: "30",
+			}),
 		);
 
-		expect(result).toBe(fromIso("2024-01-07T23:59:59.999Z"));
+		expect(result).toBe(DDate.create("2024-01-07", {
+			hour: "23",
+			minute: "59",
+			second: "59",
+			millisecond: "999",
+		}));
 
 		type check = ExpectType<
 			typeof result,
@@ -18,10 +25,15 @@ describe("getLastDayOfWeek", () => {
 
 	it("returns Sunday for Monday input", () => {
 		const result = DDate.getLastDayOfWeek(
-			fromIso("2024-01-01T00:00:00.000Z"),
+			DDate.create("2024-01-01"),
 		);
 
-		expect(result).toBe(fromIso("2024-01-07T23:59:59.999Z"));
+		expect(result).toBe(DDate.create("2024-01-07", {
+			hour: "23",
+			minute: "59",
+			second: "59",
+			millisecond: "999",
+		}));
 
 		type check = ExpectType<
 			typeof result,
@@ -32,10 +44,15 @@ describe("getLastDayOfWeek", () => {
 
 	it("returns same Sunday at end of day for Sunday input", () => {
 		const result = DDate.getLastDayOfWeek(
-			fromIso("2024-01-07T10:00:00.000Z"),
+			DDate.create("2024-01-07", { hour: "10" }),
 		);
 
-		expect(result).toBe(fromIso("2024-01-07T23:59:59.999Z"));
+		expect(result).toBe(DDate.create("2024-01-07", {
+			hour: "23",
+			minute: "59",
+			second: "59",
+			millisecond: "999",
+		}));
 
 		type check = ExpectType<
 			typeof result,
@@ -46,11 +63,16 @@ describe("getLastDayOfWeek", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-06T00:00:00.000Z"),
+			DDate.create("2021-01-06"),
 			DDate.getLastDayOfWeek,
 		);
 
-		expect(result).toBe(fromIso("2021-01-10T23:59:59.999Z"));
+		expect(result).toBe(DDate.create("2021-01-10", {
+			hour: "23",
+			minute: "59",
+			second: "59",
+			millisecond: "999",
+		}));
 
 		type check = ExpectType<
 			typeof result,
@@ -61,10 +83,15 @@ describe("getLastDayOfWeek", () => {
 
 	it("handles dates before 1970", () => {
 		const result = DDate.getLastDayOfWeek(
-			fromIso("1969-07-16T00:00:00.000Z"),
+			DDate.create("1969-07-16"),
 		);
 
-		expect(result).toBe(fromIso("1969-07-20T23:59:59.999Z"));
+		expect(result).toBe(DDate.create("1969-07-20", {
+			hour: "23",
+			minute: "59",
+			second: "59",
+			millisecond: "999",
+		}));
 
 		type check = ExpectType<
 			typeof result,

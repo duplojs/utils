@@ -1,10 +1,9 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getDayOfMonth", () => {
 	it("getDayOfMonth returns day of month in UTC", () => {
 		const result = DDate.getDayOfMonth(
-			fromIso("2021-01-15T00:00:00.000Z"),
+			DDate.create("2021-01-15"),
 		);
 
 		expect(result).toBe(15);
@@ -18,7 +17,7 @@ describe("getDayOfMonth", () => {
 
 	it("getDayOfMonth returns day of month with timezone", () => {
 		const result = DDate.getDayOfMonth(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			"America/New_York",
 		);
 
@@ -33,7 +32,7 @@ describe("getDayOfMonth", () => {
 
 	it("getDayOfMonth returns day of month in UTC by default", () => {
 		const result = DDate.getDayOfMonth(
-			fromIso("2021-12-25T00:00:00.000Z"),
+			DDate.create("2021-12-25"),
 		);
 
 		expect(result).toBe(25);
@@ -47,7 +46,7 @@ describe("getDayOfMonth", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-15T00:00:00.000Z"),
+			DDate.create("2021-01-15"),
 			DDate.getDayOfMonth,
 		);
 
@@ -62,7 +61,7 @@ describe("getDayOfMonth", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			(date) => DDate.getDayOfMonth(date, "America/New_York"),
 		);
 

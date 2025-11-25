@@ -1,21 +1,20 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "./utils";
 
 describe("closestTo", () => {
 	const dates = [
-		fromIso("2024-01-01T00:00:00.000Z"),
-		fromIso("2024-01-05T00:00:00.000Z"),
-		fromIso("2024-01-09T00:00:00.000Z"),
-		fromIso("2024-01-15T00:00:00.000Z"),
+		DDate.create("2024-01-01"),
+		DDate.create("2024-01-05"),
+		DDate.create("2024-01-09"),
+		DDate.create("2024-01-15"),
 	];
 
 	it("returns closest date without tie breaker", () => {
 		const result = DDate.closestTo(
 			dates,
-			fromIso("2024-01-06T00:00:00.000Z"),
+			DDate.create("2024-01-06"),
 		);
 
-		expect(result).toBe(fromIso("2024-01-05T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2024-01-05"));
 
 		type check = ExpectType<
 			typeof result,
@@ -27,26 +26,26 @@ describe("closestTo", () => {
 	it("filters to past dates when tieBreaker is favorPast", () => {
 		const result = DDate.closestTo(
 			dates,
-			fromIso("2024-01-08T00:00:00.000Z"),
+			DDate.create("2024-01-08"),
 			{ tieBreaker: "favorPast" },
 		);
 
-		expect(result).toBe(fromIso("2024-01-05T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2024-01-05"));
 	});
 
 	it("filters to future dates when tieBreaker is favorFuture", () => {
 		const result = DDate.closestTo(
 			dates,
-			fromIso("2024-01-08T00:00:00.000Z"),
+			DDate.create("2024-01-08"),
 			{ tieBreaker: "favorFuture" },
 		);
 
-		expect(result).toBe(fromIso("2024-01-09T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2024-01-09"));
 	});
 
 	it("use in pipe", () => {
 		const selectClosest = DDate.closestTo(
-			fromIso("2024-01-10T00:00:00.000Z"),
+			DDate.create("2024-01-10"),
 			{ tieBreaker: "favorFuture" },
 		);
 
@@ -55,24 +54,24 @@ describe("closestTo", () => {
 			selectClosest,
 		);
 
-		expect(result).toBe(fromIso("2024-01-15T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2024-01-15"));
 	});
 
 	it("when iterable is empty or filtered out", () => {
 		expect(DDate.closestTo(
 			[],
-			fromIso("2024-01-01T00:00:00.000Z"),
+			DDate.create("2024-01-01"),
 		)).toBeUndefined();
 
 		expect(DDate.closestTo(
 			dates,
-			fromIso("2023-12-15T00:00:00.000Z"),
+			DDate.create("2023-12-15"),
 			{ tieBreaker: "favorPast" },
 		)).toBeUndefined();
 
 		expect(DDate.closestTo(
 			dates,
-			fromIso("2024-12-01T00:00:00.000Z"),
+			DDate.create("2024-12-01"),
 			{ tieBreaker: "favorFuture" },
 		)).toBeUndefined();
 	});

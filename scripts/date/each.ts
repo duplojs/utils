@@ -5,7 +5,7 @@ import { toTimestamp } from "./toTimestamp";
 import { createOrThrow } from "./createOrThrow";
 
 const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number> = {
-	milisecond: (timestamp, direction) => timestamp + direction,
+	millisecond: (timestamp, direction) => timestamp + direction,
 	second: (timestamp, direction) => timestamp + (direction * millisecondsInOneSecond),
 	minute: (timestamp, direction) => timestamp + (direction * millisecondInOneMinute),
 	hour: (timestamp, direction) => timestamp + (direction * millisecondInOneHour),
@@ -50,8 +50,8 @@ export function each(
 		);
 
 		const isWithinRange = direction === 1
-			? currentTimestamp <= endTimestamp
-			: currentTimestamp >= endTimestamp;
+			? currentTimestamp < endTimestamp
+			: currentTimestamp > endTimestamp;
 
 		if (!isWithinRange) {
 			return exit(

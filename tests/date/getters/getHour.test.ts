@@ -1,10 +1,9 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getHour", () => {
 	it("getHour returns hour in UTC", () => {
 		const result = DDate.getHour(
-			fromIso("2021-01-01T15:00:00.000Z"),
+			DDate.create("2021-01-01", { hour: "15" }),
 		);
 
 		expect(result).toBe(15);
@@ -18,7 +17,7 @@ describe("getHour", () => {
 
 	it("getHour returns hour with timezone", () => {
 		const result = DDate.getHour(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			"America/New_York",
 		);
 
@@ -33,7 +32,7 @@ describe("getHour", () => {
 
 	it("getHour returns 0 for midnight", () => {
 		const result = DDate.getHour(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 		);
 
 		expect(result).toBe(0);
@@ -47,7 +46,7 @@ describe("getHour", () => {
 
 	it("getHour returns 23 for last hour", () => {
 		const result = DDate.getHour(
-			fromIso("2021-01-01T23:00:00.000Z"),
+			DDate.create("2021-01-01", { hour: "23" }),
 		);
 
 		expect(result).toBe(23);
@@ -61,7 +60,7 @@ describe("getHour", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-01T15:00:00.000Z"),
+			DDate.create("2021-01-01", { hour: "15" }),
 			DDate.getHour,
 		);
 
@@ -76,7 +75,7 @@ describe("getHour", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			(date) => DDate.getHour(date, "America/New_York"),
 		);
 

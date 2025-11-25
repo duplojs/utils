@@ -1,7 +1,7 @@
 import { toNative } from "./toNative";
 import type { TheDate, Unit } from "./types";
 
-export type RoundUnit = Exclude<Unit, "milisecond">;
+export type RoundUnit = Exclude<Unit, "millisecond">;
 
 const stepMapper: Record<RoundUnit, (date: Date) => number> = {
 	second: (date) => date.setUTCMilliseconds(0),

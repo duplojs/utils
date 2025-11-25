@@ -1,10 +1,13 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getSecond", () => {
 	it("getSecond returns second in UTC", () => {
 		const result = DDate.getSecond(
-			fromIso("2021-01-01T12:30:45.000Z"),
+			DDate.create("2021-01-01", {
+				hour: "12",
+				minute: "30",
+				second: "45",
+			}),
 		);
 
 		expect(result).toBe(45);
@@ -18,7 +21,10 @@ describe("getSecond", () => {
 
 	it("getSecond returns 0 when no seconds", () => {
 		const result = DDate.getSecond(
-			fromIso("2021-01-01T12:30:00.000Z"),
+			DDate.create("2021-01-01", {
+				hour: "12",
+				minute: "30",
+			}),
 		);
 
 		expect(result).toBe(0);
@@ -32,7 +38,11 @@ describe("getSecond", () => {
 
 	it("getSecond returns 59 for max seconds", () => {
 		const result = DDate.getSecond(
-			fromIso("2021-01-01T12:30:59.000Z"),
+			DDate.create("2021-01-01", {
+				hour: "12",
+				minute: "30",
+				second: "59",
+			}),
 		);
 
 		expect(result).toBe(59);
@@ -46,7 +56,7 @@ describe("getSecond", () => {
 
 	it("getSecond returns second with timezone", () => {
 		const result = DDate.getSecond(
-			fromIso("2021-01-01T00:00:30.000Z"),
+			DDate.create("2021-01-01", { second: "30" }),
 			"America/New_York",
 		);
 
@@ -61,7 +71,11 @@ describe("getSecond", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-01T12:30:45.000Z"),
+			DDate.create("2021-01-01", {
+				hour: "12",
+				minute: "30",
+				second: "45",
+			}),
 			DDate.getSecond,
 		);
 
@@ -76,7 +90,7 @@ describe("getSecond", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			fromIso("2021-01-01T00:00:30.000Z"),
+			DDate.create("2021-01-01", { second: "30" }),
 			(date) => DDate.getSecond(date, "America/New_York"),
 		);
 

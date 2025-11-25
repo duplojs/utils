@@ -1,9 +1,8 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("addSeconds", () => {
-	const baseDate = fromIso("2020-01-01T00:00:00.000Z");
-	const beforeEpochDate = fromIso("-0010-01-01T00:00:00.000Z");
+	const baseDate = DDate.create("2020-01-01");
+	const beforeEpochDate = DDate.create("-0010-01-01");
 
 	it("adds seconds to a date", () => {
 		const result = DDate.addSeconds(
@@ -11,7 +10,10 @@ describe("addSeconds", () => {
 			75,
 		);
 
-		expect(result).toBe(fromIso("2020-01-01T00:01:15.000Z"));
+		expect(result).toBe(DDate.create("2020-01-01", {
+			minute: "01",
+			second: "15",
+		}));
 
 		type check = ExpectType<
 			typeof result,
@@ -26,7 +28,7 @@ describe("addSeconds", () => {
 			(-30 as number),
 		);
 
-		expect(result).toBe(fromIso("2020-01-01T00:00:30.000Z"));
+		expect(result).toBe(DDate.create("2020-01-01", { second: "30" }));
 
 		type check = ExpectType<
 			typeof result,
@@ -41,7 +43,7 @@ describe("addSeconds", () => {
 			DDate.addSeconds(10),
 		);
 
-		expect(result).toBe(fromIso("2020-01-01T00:00:10.000Z"));
+		expect(result).toBe(DDate.create("2020-01-01", { second: "10" }));
 
 		type check = ExpectType<
 			typeof result,
@@ -56,7 +58,7 @@ describe("addSeconds", () => {
 			45,
 		);
 
-		expect(result).toBe(fromIso("-0010-01-01T00:00:45.000Z"));
+		expect(result).toBe(DDate.create("-0010-01-01", { second: "45" }));
 
 		type check = ExpectType<
 			typeof result,

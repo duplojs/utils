@@ -1,10 +1,9 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getWeekOfYear", () => {
 	it("getWeekOfYear returns week 53 for January 1st 2021", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 		);
 
 		expect(result).toBe(53);
@@ -18,7 +17,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear returns week 1 for January 4th 2021", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2021-01-04T00:00:00.000Z"),
+			DDate.create("2021-01-04"),
 		);
 
 		expect(result).toBe(1);
@@ -32,7 +31,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear returns week 1 for January 1st 2024", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2024-01-01T00:00:00.000Z"),
+			DDate.create("2024-01-01"),
 		);
 
 		expect(result).toBe(1);
@@ -46,7 +45,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear returns week 52 for December 31st 2021", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2021-12-31T00:00:00.000Z"),
+			DDate.create("2021-12-31"),
 		);
 
 		expect(result).toBe(52);
@@ -60,7 +59,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear returns correct week for mid-year date", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2021-06-15T00:00:00.000Z"),
+			DDate.create("2021-06-15"),
 		);
 
 		expect(result).toBe(24);
@@ -74,7 +73,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear returns week 53 for December 31st 2020", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2020-12-31T00:00:00.000Z"),
+			DDate.create("2020-12-31"),
 		);
 
 		expect(result).toBe(53);
@@ -88,7 +87,7 @@ describe("getWeekOfYear", () => {
 
 	it("getWeekOfYear with timezone", () => {
 		const result = DDate.getWeekOfYear(
-			fromIso("2021-01-04T00:00:00.000Z"),
+			DDate.create("2021-01-04"),
 			"America/New_York",
 		);
 
@@ -103,7 +102,7 @@ describe("getWeekOfYear", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-04T00:00:00.000Z"),
+			DDate.create("2021-01-04"),
 			DDate.getWeekOfYear,
 		);
 
@@ -118,7 +117,7 @@ describe("getWeekOfYear", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			fromIso("2021-01-04T00:00:00.000Z"),
+			DDate.create("2021-01-04"),
 			(date) => DDate.getWeekOfYear(date, "America/New_York"),
 		);
 

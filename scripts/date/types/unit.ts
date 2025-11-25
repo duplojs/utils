@@ -1,1 +1,1 @@
-export type Unit = "year" | "month" | "day" | "hour" | "minute" | "second" | "milisecond";
+export type Unit = "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond";

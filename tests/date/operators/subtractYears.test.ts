@@ -1,9 +1,8 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("subtractYears", () => {
-	const baseDate = fromIso("2020-01-01T00:00:00.000Z");
-	const beforeEpochDate = fromIso("-0010-06-01T00:00:00.000Z");
+	const baseDate = DDate.create("2020-01-01");
+	const beforeEpochDate = DDate.create("-0010-06-01");
 
 	it("subtracts years from a date", () => {
 		const result = DDate.subtractYears(
@@ -11,7 +10,7 @@ describe("subtractYears", () => {
 			2,
 		);
 
-		expect(result).toBe(fromIso("2018-01-01T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2018-01-01"));
 
 		type check = ExpectType<
 			typeof result,
@@ -26,7 +25,7 @@ describe("subtractYears", () => {
 			(-3 as number),
 		);
 
-		expect(result).toBe(fromIso("2017-01-01T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2017-01-01"));
 
 		type check = ExpectType<
 			typeof result,
@@ -41,7 +40,7 @@ describe("subtractYears", () => {
 			DDate.subtractYears(1),
 		);
 
-		expect(result).toBe(fromIso("2019-01-01T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("2019-01-01"));
 
 		type check = ExpectType<
 			typeof result,
@@ -56,7 +55,7 @@ describe("subtractYears", () => {
 			2,
 		);
 
-		expect(result).toBe(fromIso("-0012-06-01T00:00:00.000Z"));
+		expect(result).toBe(DDate.create("-0012-06-01"));
 
 		type check = ExpectType<
 			typeof result,

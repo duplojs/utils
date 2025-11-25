@@ -1,10 +1,9 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
-import { fromIso } from "../utils";
 
 describe("getYear", () => {
 	it("getYear returns year in UTC", () => {
 		const result = DDate.getYear(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 		);
 
 		expect(result).toBe(2021);
@@ -18,7 +17,7 @@ describe("getYear", () => {
 
 	it("getYear returns year with timezone", () => {
 		const result = DDate.getYear(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			"America/New_York",
 		);
 
@@ -33,7 +32,7 @@ describe("getYear", () => {
 
 	it("getYear returns year in UTC (different year)", () => {
 		const result = DDate.getYear(
-			fromIso("1999-12-31T00:00:00.000Z"),
+			DDate.create("1999-12-31"),
 		);
 
 		expect(result).toBe(1999);
@@ -47,7 +46,7 @@ describe("getYear", () => {
 
 	it("getYear returns year before Christ", () => {
 		const result = DDate.getYear(
-			fromIso("-0100-01-01T00:00:00.000Z"),
+			DDate.create("-0100-01-01"),
 		);
 
 		expect(result).toBe(-100);
@@ -61,7 +60,7 @@ describe("getYear", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			DDate.getYear,
 		);
 
@@ -76,7 +75,7 @@ describe("getYear", () => {
 
 	it("use in pipe with timezone", () => {
 		const result = pipe(
-			fromIso("2021-01-01T00:00:00.000Z"),
+			DDate.create("2021-01-01"),
 			(date) => DDate.getYear(date, "America/New_York"),
 		);
 
