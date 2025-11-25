@@ -8,10 +8,10 @@ type MultipleOf100 = `${Exclude<Digit, "0">}00`;
 type MultipleOf400 = `${Exclude<MultipleOf4, "0">}00`;
 
 export type IsLeapYear<
-	I extends `${number}`,
-> = I extends `${number | ""}${MultipleOf4}`
-	? I extends `${number | ""}${MultipleOf100}`
-		? I extends `${number | ""}${MultipleOf400}`
+	GenericYear extends `${number}`,
+> = GenericYear extends `${number | ""}${MultipleOf4}`
+	? GenericYear extends `${number | ""}${MultipleOf100}`
+		? GenericYear extends `${number | ""}${MultipleOf400}`
 			? true
 			: false
 		: true
