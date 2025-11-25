@@ -1,21 +1,17 @@
 /* eslint-disable id-length */
 import { isKeyof } from "../string/isKeyof";
+import { createErrorKind } from "./errorKindNamespace";
+import { kindHeritage } from "./kind";
 
-const kind = "kind-invalid-bytes-in-string-error";
-
-export class InvalidBytesInStringError extends Error {
+export class InvalidBytesInStringError extends kindHeritage(
+	"invalid-bytes-in-string-error",
+	createErrorKind("missing-builder-methods-error"),
+	Error,
+) {
 	public constructor(
 		public input: string,
 	) {
-		super(`Invalid Input: ${input}`);
-	}
-
-	public [kind] = null as unknown;
-
-	public static instanceof(value: unknown): value is InvalidBytesInStringError {
-		return typeof value === "object"
-			&& value?.constructor?.name === "InvalidBytesInStringError"
-			&& kind in value;
+		super({}, [`Invalid Input: ${input}`]);
 	}
 }
 

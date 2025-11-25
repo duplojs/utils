@@ -2,10 +2,15 @@ import { kindHeritage, unwrap } from "@scripts/common";
 import { create } from "./create";
 import type { TheDate } from "./types";
 import * as DEither from "@scripts/either";
+import { createErrorKind } from "@scripts/common/errorKindNamespace";
 
-export class CreateTheDateError extends kindHeritage("duplo-utils-invalide-input-format-date", [], Error) {
-	public constructor() {
-		super({}, ["invalide-input-format-date"]);
+export class CreateTheDateError extends kindHeritage(
+	"create-the-date-error",
+	createErrorKind("create-the-date-error"),
+	Error,
+) {
+	public constructor(public input: TheDate | Date | number) {
+		super({}, [`Invalid input: ${input.toString()}`]);
 	}
 }
 
@@ -17,7 +22,7 @@ export function createOrThrow<
 	const result = create(input);
 
 	if (DEither.isLeft(result)) {
-		throw new CreateTheDateError();
+		throw new CreateTheDateError(input);
 	}
 
 	return unwrap(result);

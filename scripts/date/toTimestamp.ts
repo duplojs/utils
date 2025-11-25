@@ -2,10 +2,15 @@ import { kindHeritage } from "@scripts/common";
 import { theDateRegex } from "./constants";
 import type { TheDate } from "./types";
 import { isSafeTimestamp } from "./isSafeTimestamp";
+import { createErrorKind } from "@scripts/common/errorKindNamespace";
 
-export class InvalidTheDate extends kindHeritage("duplo-utils-invalide-date", [], Error) {
-	public constructor(public date: TheDate) {
-		super({}, ["invalide-date"]);
+export class InvalidTheDateError extends kindHeritage(
+	"invalid-the-Date-error",
+	createErrorKind("invalid-the-Date-error"),
+	Error,
+) {
+	public constructor(public theDate: TheDate) {
+		super({}, ["TheDate is invalid."]);
 	}
 }
 
@@ -15,7 +20,7 @@ export function toTimestamp<
 	const match = input.match(theDateRegex);
 
 	if (!match) {
-		throw new InvalidTheDate(input);
+		throw new InvalidTheDateError(input);
 	}
 
 	const { value, sign } = match.groups as Record<"value" | "sign", string>;
@@ -27,7 +32,7 @@ export function toTimestamp<
 	);
 
 	if (!isSafeTimestamp(timestamp)) {
-		throw new InvalidTheDate(input);
+		throw new InvalidTheDateError(input);
 	}
 
 	return timestamp;

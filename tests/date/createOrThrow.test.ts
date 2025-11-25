@@ -76,6 +76,6 @@ describe("createOrThrow", () => {
 	});
 
 	it("throws when runtime type is unsupported", () => {
-		expect(() => DDate.createOrThrow(undefined as any)).toThrow(DDate.CreateTheDateError);
+		expect(() => DDate.createOrThrow("date99999999999999999999999999999999999999+")).toThrow(DDate.CreateTheDateError);
 	});
 });
