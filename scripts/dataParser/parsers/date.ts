@@ -82,53 +82,41 @@ export function date<
 			},
 		},
 		(data, _error, self) => {
-			const result = self.definition.coerce
-				? coerceToTheDate(data)
-				: parseExistingTheDate(data);
+			if (self.definition.coerce) {
+				if (data instanceof Date) {
+					const timestamp = data.getTime();
 
-			if (result) {
-				return result;
+					if (!isSafeTimestamp(timestamp)) {
+						return SymbolDataParserErrorIssue;
+					}
+
+					const isNegative = timestamp < 0;
+
+					return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+				}
+
+				if (typeof data === "number") {
+					if (!isSafeTimestamp(data)) {
+						return SymbolDataParserErrorIssue;
+					}
+
+					const isNegative = data < 0;
+
+					return `date${Math.abs(data)}${isNegative ? "-" : "+"}`;
+				}
+			}
+
+			const theDateMatch = typeof data === "string" && data.match(theDateRegex);
+
+			if (theDateMatch) {
+				if (!isSafeTimestamp(Number(theDateMatch.groups?.value))) {
+					return SymbolDataParserErrorIssue;
+				}
+
+				return data as TheDate;
 			}
 
 			return SymbolDataParserErrorIssue;
 		},
 	) as never;
-}
-
-function parseExistingTheDate(data: unknown): TheDate | undefined {
-	if (
-		typeof data === "string"
-		&& theDateRegex.test(data)
-	) {
-		return data as TheDate;
-	}
-
-	return undefined;
-}
-
-function coerceToTheDate(data: unknown): TheDate | undefined {
-	if (typeof data === "string") {
-		return parseExistingTheDate(data);
-	}
-
-	if (typeof data === "number") {
-		return fromTimestamp(data);
-	}
-
-	if (data instanceof Date) {
-		return fromTimestamp(data.getTime());
-	}
-
-	return undefined;
-}
-
-function fromTimestamp(timestamp: number): TheDate | undefined {
-	if (!isSafeTimestamp(timestamp)) {
-		return undefined;
-	}
-
-	const sign = timestamp < 0 ? "-" : "+";
-	const magnitude = Math.abs(timestamp);
-
-	return `date${magnitude}${sign}` as TheDate;
 }

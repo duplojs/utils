@@ -83,6 +83,8 @@ describe("DDataParser date", () => {
 		const invalidFormat = "2021/01/01";
 		const invalidHour = "2021y-1m-1d-25h";
 		const invalidType = true;
+		const outOfRangeDate = new Date(DDate.maxTimestamp + 1);
+		const unsafeTheDate = `date${DDate.maxTimestamp}+` as TheDate;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const monthResult = schema.parse(invalidMonth);
@@ -90,6 +92,8 @@ describe("DDataParser date", () => {
 		const formatResult = schema.parse(invalidFormat);
 		const hourResult = schema.parse(invalidHour);
 		const typeResult = schema.parse(invalidType);
+		const dateResult = schema.parse(outOfRangeDate);
+		const unsafeTheDateResult = schema.parse(unsafeTheDate);
 
 		expect(timestampResult).toStrictEqual(
 			DEither.error(
@@ -142,6 +146,24 @@ describe("DDataParser date", () => {
 					DDataParser.createError(),
 					schema,
 					invalidType,
+				),
+			),
+		);
+		expect(dateResult).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					outOfRangeDate,
+				),
+			),
+		);
+		expect(unsafeTheDateResult).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					unsafeTheDate,
 				),
 			),
 		);
