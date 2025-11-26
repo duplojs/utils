@@ -1,18 +1,13 @@
 import { isKeyof } from '../string/isKeyof.mjs';
+import { createErrorKind } from './errorKindNamespace.mjs';
+import { kindHeritage } from './kind.mjs';
 
 /* eslint-disable id-length */
-const kind = "kind-invalid-bytes-in-string-error";
-class InvalidBytesInStringError extends Error {
+class InvalidBytesInStringError extends kindHeritage("invalid-bytes-in-string-error", createErrorKind("missing-builder-methods-error"), Error) {
     input;
     constructor(input) {
-        super(`Invalid Input: ${input}`);
+        super({}, [`Invalid Input: ${input}`]);
         this.input = input;
-    }
-    [kind] = null;
-    static instanceof(value) {
-        return typeof value === "object"
-            && value?.constructor?.name === "InvalidBytesInStringError"
-            && kind in value;
     }
 }
 const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pd)/;

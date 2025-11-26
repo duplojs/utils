@@ -1,11 +1,28 @@
 'use strict';
 
 var baseExtended = require('../baseExtended.cjs');
-require('../base.cjs');
-require('../../common/globalStore.cjs');
-require('../../common/builder.cjs');
+require('../parsers/string/index.cjs');
+require('../parsers/object.cjs');
+require('../parsers/number/index.cjs');
+require('../parsers/date.cjs');
+require('../parsers/literal.cjs');
+require('../parsers/union.cjs');
+require('../parsers/array/index.cjs');
+require('../parsers/bigint/index.cjs');
+require('../parsers/tuple.cjs');
 var transform$1 = require('../parsers/transform.cjs');
-require('../../pattern/result.cjs');
+require('../parsers/nil.cjs');
+require('../parsers/boolean.cjs');
+require('../parsers/empty.cjs');
+require('../parsers/templateLiteral/index.cjs');
+require('../parsers/pipe.cjs');
+require('../parsers/optional.cjs');
+require('../parsers/nullable.cjs');
+require('../parsers/lazy.cjs');
+require('../parsers/unknown.cjs');
+require('../parsers/record/index.cjs');
+require('../parsers/refine.cjs');
+require('../parsers/recover.cjs');
 
 function transform(inner, theFunction, definition) {
     return baseExtended.dataParserExtendedInit(transform$1.transform(inner, theFunction, definition), {});

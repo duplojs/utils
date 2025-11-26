@@ -43,6 +43,7 @@ export interface ReservedKindNamespace {
     DuplojsUtilsEither: true;
     DuplojsUtilsDataParser: true;
     DuplojsUtilsBuilder: true;
+    DuplojsUtilsError: true;
 }
 type ForbiddenKindNamespace<GenericValue extends string> = (ForbiddenKindCharacters<GenericValue> & ForbiddenString<GenericValue, GetPropsWithValue<ReservedKindNamespace, true>>);
 export declare function createKindNamespace<GenericNamespace extends string>(namespace: GenericNamespace & ForbiddenKindNamespace<GenericNamespace>): <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>) => KindHandler<KindDefinition<`@${GenericNamespace}/${GenericName}`, GenericKindValue>>;

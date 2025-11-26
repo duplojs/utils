@@ -69,3 +69,6 @@ export { index$8 as DPC };
 import * as index$9 from './dataParser/extended/index.mjs';
 export { index$9 as DDataParserExtended };
 export { index$9 as DPE };
+import * as index$a from './date/index.mjs';
+export { index$a as D };
+export { index$a as DDate };

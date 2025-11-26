@@ -28,6 +28,8 @@ var greaterThan = require('./greaterThan.cjs');
 var lessThan = require('./lessThan.cjs');
 var toFixed = require('./toFixed.cjs');
 var sqrt = require('./sqrt.cjs');
+var between = require('./between.cjs');
+var betweenThan = require('./betweenThan.cjs');
 
 
 
@@ -59,3 +61,5 @@ exports.greaterThan = greaterThan.greaterThan;
 exports.lessThan = lessThan.lessThan;
 exports.toFixed = toFixed.toFixed;
 exports.sqrt = sqrt.sqrt;
+exports.between = between.between;
+exports.betweenThan = betweenThan.betweenThan;

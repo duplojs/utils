@@ -1,18 +1,13 @@
 import { isKeyof } from '../string/isKeyof.mjs';
+import { kindHeritage } from './kind.mjs';
+import { createErrorKind } from './errorKindNamespace.mjs';
 
 /* eslint-disable id-length */
-const kind = "kind-invalid-millisecond-in-string-error";
-class InvalidMillisecondInStringError extends Error {
+class InvalidMillisecondInStringError extends kindHeritage("invalid-millisecond-in-string-error", createErrorKind("missing-builder-methods-error"), Error) {
     input;
     constructor(input) {
-        super(`Invalid Input: ${input}`);
+        super({}, [`Invalid Input: ${input}`]);
         this.input = input;
-    }
-    [kind] = null;
-    static instanceof(value) {
-        return typeof value === "object"
-            && value?.constructor?.name === "InvalidMillisecondInStringError"
-            && kind in value;
     }
 }
 const unitMapper = {
