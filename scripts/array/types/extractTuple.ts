@@ -52,7 +52,7 @@ export type ExtractTuple<
 								readonly [infer InferredValueFirst, ...infer InferredValueRest],
 								readonly [infer InferredArrayFirst, ...infer InferredArrayRest],
 							]
-								? InferredValueFirst extends InferredArrayFirst
+								? Extract<InferredValueFirst, any> extends InferredArrayFirst
 									? InferredArrayRest extends readonly []
 										? InferredValue
 										: ExtractTuple<
