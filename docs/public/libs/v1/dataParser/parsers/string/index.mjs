@@ -1,6 +1,11 @@
 import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+export { checkerUrl, checkerUrlKind, url } from './checkers/url.mjs';
+export { checkerEmail, checkerEmailKind, email } from './checkers/email.mjs';
+export { checkerStringMax, checkerStringMaxKind } from './checkers/max.mjs';
+export { checkerStringMin, checkerStringMinKind } from './checkers/min.mjs';
+export { checkerStringRegex, checkerStringRegexKind } from './checkers/regex.mjs';
 
 const stringKind = createDataParserKind("string");
 function string(definition) {

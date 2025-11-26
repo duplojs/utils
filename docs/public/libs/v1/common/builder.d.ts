@@ -23,12 +23,12 @@ export interface BuilderHandler<GenericBuilder extends Builder = Builder> {
     set<GenericMethodName extends GetPropsWithValueExtends<GenericBuilder, AnyFunction>, GenericMethod extends Adaptor<GenericBuilder[GenericMethodName], AnyFunction>>(method: GenericMethodName, theFunction: (params: BuilderHandlerSetFunctionParams<Parameters<GenericMethod>, GetKindValue<typeof builderKind, GenericBuilder>>) => ReturnType<GenericMethod> extends GenericBuilder ? BuilderNext<GetKindValue<typeof builderKind, GenericBuilder>> : ReturnType<GenericMethod>): BuilderHandler<GenericBuilder>;
     use<GenericCurrentBuilder extends GenericBuilder>(accumulator: GetKindValue<typeof builderKind, GenericBuilder>): GenericCurrentBuilder;
 }
-declare const kind = "kind-missing-builder-methods-error";
-export declare class MissingBuilderMethodsError extends Error {
+declare const MissingBuilderMethodsError_base: new (params: {
+    "@DuplojsUtilsError/missing-builder-methods-error"?: unknown;
+}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/missing-builder-methods-error", unknown>, unknown> & Kind<import("./kind").KindDefinition<"missing-builder-methods-error", unknown>, unknown>;
+export declare class MissingBuilderMethodsError extends MissingBuilderMethodsError_base {
     method: string;
     constructor(method: string);
-    [kind]: unknown;
-    static instanceof(value: unknown): value is MissingBuilderMethodsError;
 }
 export declare function createBuilder<GenericBuilder extends Builder>(builderName: string): BuilderHandler<GenericBuilder>;
 export {};
