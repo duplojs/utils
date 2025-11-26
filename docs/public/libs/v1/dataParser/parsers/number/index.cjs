@@ -3,6 +3,9 @@
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
+var int = require('./checkers/int.cjs');
+var min = require('./checkers/min.cjs');
+var max = require('./checkers/max.cjs');
 
 const numberKind = kind.createDataParserKind("number");
 function number(definition) {
@@ -27,5 +30,12 @@ function number(definition) {
     });
 }
 
+exports.checkerInt = int.checkerInt;
+exports.checkerIntKind = int.checkerIntKind;
+exports.int = int.int;
+exports.checkerNumberMin = min.checkerNumberMin;
+exports.checkerNumberMinKind = min.checkerNumberMinKind;
+exports.checkerNumberMax = max.checkerNumberMax;
+exports.checkerNumberMaxKind = max.checkerNumberMaxKind;
 exports.number = number;
 exports.numberKind = numberKind;

@@ -1,9 +1,26 @@
 import { dataParserExtendedInit } from '../baseExtended.mjs';
-import '../base.mjs';
-import '../../common/globalStore.mjs';
-import '../../common/builder.mjs';
-import '../../pattern/result.mjs';
+import '../parsers/string/index.mjs';
+import '../parsers/object.mjs';
+import '../parsers/number/index.mjs';
+import '../parsers/date.mjs';
+import '../parsers/literal.mjs';
+import '../parsers/union.mjs';
+import '../parsers/array/index.mjs';
+import '../parsers/bigint/index.mjs';
+import '../parsers/tuple.mjs';
+import '../parsers/transform.mjs';
+import '../parsers/nil.mjs';
+import '../parsers/boolean.mjs';
+import '../parsers/empty.mjs';
+import '../parsers/templateLiteral/index.mjs';
 import { pipe as pipe$1 } from '../parsers/pipe.mjs';
+import '../parsers/optional.mjs';
+import '../parsers/nullable.mjs';
+import '../parsers/lazy.mjs';
+import '../parsers/unknown.mjs';
+import '../parsers/record/index.mjs';
+import '../parsers/refine.mjs';
+import '../parsers/recover.mjs';
 
 function pipe(input, output, definition) {
     return dataParserExtendedInit(pipe$1(input, output, definition), {});

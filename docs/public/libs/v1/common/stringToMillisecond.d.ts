@@ -1,9 +1,9 @@
-declare const kind = "kind-invalid-millisecond-in-string-error";
-export declare class InvalidMillisecondInStringError extends Error {
+declare const InvalidMillisecondInStringError_base: new (params: {
+    "@DuplojsUtilsError/missing-builder-methods-error"?: unknown;
+}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("./kind").Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/missing-builder-methods-error", unknown>, unknown> & import("./kind").Kind<import("./kind").KindDefinition<"invalid-millisecond-in-string-error", unknown>, unknown>;
+export declare class InvalidMillisecondInStringError extends InvalidMillisecondInStringError_base {
     input: string;
     constructor(input: string);
-    [kind]: unknown;
-    static instanceof(value: unknown): value is InvalidMillisecondInStringError;
 }
 declare const unitMapper: {
     ms: number;

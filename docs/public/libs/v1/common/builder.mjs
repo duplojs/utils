@@ -1,7 +1,8 @@
 import { createGlobalStore } from './globalStore.mjs';
-import { createKindNamespace } from './kind.mjs';
+import { createKindNamespace, kindHeritage } from './kind.mjs';
 import { wrapValue } from './wrapValue.mjs';
 import { unwrap } from './unwrap.mjs';
+import { createErrorKind } from './errorKindNamespace.mjs';
 
 const SymbolBuilderStore = Symbol.for("@duplojs/utils/builder");
 const builderStore = createGlobalStore(SymbolBuilderStore, {});
@@ -10,18 +11,11 @@ const createBuilderKind = createKindNamespace(
 "DuplojsUtilsBuilder");
 const builderKind = createBuilderKind("base");
 const builderNextKind = createBuilderKind("next");
-const kind = "kind-missing-builder-methods-error";
-class MissingBuilderMethodsError extends Error {
+class MissingBuilderMethodsError extends kindHeritage("missing-builder-methods-error", createErrorKind("missing-builder-methods-error"), Error) {
     method;
     constructor(method) {
-        super(`Missing builder method: ${method}`);
+        super({}, [`Missing builder method: ${method}`]);
         this.method = method;
-    }
-    [kind] = null;
-    static instanceof(value) {
-        return typeof value === "object"
-            && value?.constructor?.name === "MissingBuilderMethodsError"
-            && kind in value;
     }
 }
 function createBuilder(builderName) {

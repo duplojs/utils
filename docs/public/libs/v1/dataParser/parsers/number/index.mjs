@@ -1,6 +1,9 @@
 import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+export { checkerInt, checkerIntKind, int } from './checkers/int.mjs';
+export { checkerNumberMin, checkerNumberMinKind } from './checkers/min.mjs';
+export { checkerNumberMax, checkerNumberMaxKind } from './checkers/max.mjs';
 
 const numberKind = createDataParserKind("number");
 function number(definition) {

@@ -35,6 +35,9 @@ Monade Either pour la gestion d'erreurs fonctionnelle. Évitez les exceptions et
 ## [📊 DataParser](/v1/api/data-parser/fr)
 Outils pour parser et valider les données entrantes. Transformez des données brutes en structures typées avec des règles de validation personnalisées.
 
+## [🕦 Date](/v1/api/date/fr)
+Nouveau type Date basé sur le timestamp Unix + fonctions pour manipuler les dates et heures : calculs de différence, manipulation de fuseaux horaires, et opérations avancées sur les dates.
+
 ---
 
 # Organisation

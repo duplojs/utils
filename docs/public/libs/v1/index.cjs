@@ -51,6 +51,7 @@ var index$6 = require('./pattern/index.cjs');
 var index$7 = require('./dataParser/index.cjs');
 var index$8 = require('./dataParser/parsers/coerce/index.cjs');
 var index$9 = require('./dataParser/extended/index.cjs');
+var index$a = require('./date/index.cjs');
 
 
 
@@ -127,3 +128,5 @@ exports.DDataParserCoerce = index$8;
 exports.DPC = index$8;
 exports.DDataParserExtended = index$9;
 exports.DPE = index$9;
+exports.D = index$a;
+exports.DDate = index$a;

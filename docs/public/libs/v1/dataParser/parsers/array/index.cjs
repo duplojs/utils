@@ -3,6 +3,8 @@
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
+var min = require('./checkers/min.cjs');
+var max = require('./checkers/max.cjs');
 
 const arrayKind = kind.createDataParserKind("array");
 function array(element, definition) {
@@ -60,5 +62,9 @@ function array(element, definition) {
     });
 }
 
+exports.checkerArrayMin = min.checkerArrayMin;
+exports.checkerArrayMinKind = min.checkerArrayMinKind;
+exports.checkerArrayMax = max.checkerArrayMax;
+exports.checkerArrayMaxKind = max.checkerArrayMaxKind;
 exports.array = array;
 exports.arrayKind = arrayKind;

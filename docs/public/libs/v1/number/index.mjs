@@ -26,3 +26,5 @@ export { greaterThan } from './greaterThan.mjs';
 export { lessThan } from './lessThan.mjs';
 export { toFixed } from './toFixed.mjs';
 export { sqrt } from './sqrt.mjs';
+export { between } from './between.mjs';
+export { betweenThan } from './betweenThan.mjs';

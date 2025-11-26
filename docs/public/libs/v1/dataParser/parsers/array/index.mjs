@@ -1,6 +1,8 @@
 import { dataParserInit, SymbolDataParserError } from '../../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+export { checkerArrayMin, checkerArrayMinKind } from './checkers/min.mjs';
+export { checkerArrayMax, checkerArrayMaxKind } from './checkers/max.mjs';
 
 const arrayKind = createDataParserKind("array");
 function array(element, definition) {

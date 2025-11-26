@@ -664,6 +664,15 @@
           "name": "equal.mjs"
         },
         {
+          "name": "errorKindNamespace.cjs"
+        },
+        {
+          "name": "errorKindNamespace.d.ts"
+        },
+        {
+          "name": "errorKindNamespace.mjs"
+        },
+        {
           "name": "escapeRegExp.cjs"
         },
         {
@@ -1157,6 +1166,15 @@
                   "name": "boolean.mjs"
                 },
                 {
+                  "name": "date.cjs"
+                },
+                {
+                  "name": "date.d.ts"
+                },
+                {
+                  "name": "date.mjs"
+                },
+                {
                   "name": "empty.cjs"
                 },
                 {
@@ -1202,6 +1220,15 @@
                   "name": "string.mjs"
                 }
               ]
+            },
+            {
+              "name": "date.cjs"
+            },
+            {
+              "name": "date.d.ts"
+            },
+            {
+              "name": "date.mjs"
             },
             {
               "name": "empty.cjs"
@@ -1508,6 +1535,15 @@
                   "name": "boolean.mjs"
                 },
                 {
+                  "name": "date.cjs"
+                },
+                {
+                  "name": "date.d.ts"
+                },
+                {
+                  "name": "date.mjs"
+                },
+                {
                   "name": "empty.cjs"
                 },
                 {
@@ -1553,6 +1589,15 @@
                   "name": "string.mjs"
                 }
               ]
+            },
+            {
+              "name": "date.cjs"
+            },
+            {
+              "name": "date.d.ts"
+            },
+            {
+              "name": "date.mjs"
             },
             {
               "name": "empty.cjs"
@@ -1866,6 +1911,518 @@
               "name": "mergeDefinition.d.ts"
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "date",
+      "files": [
+        {
+          "name": "closestTo.cjs"
+        },
+        {
+          "name": "closestTo.d.ts"
+        },
+        {
+          "name": "closestTo.mjs"
+        },
+        {
+          "name": "constants.cjs"
+        },
+        {
+          "name": "constants.d.ts"
+        },
+        {
+          "name": "constants.mjs"
+        },
+        {
+          "name": "create.cjs"
+        },
+        {
+          "name": "create.d.ts"
+        },
+        {
+          "name": "create.mjs"
+        },
+        {
+          "name": "createOrThrow.cjs"
+        },
+        {
+          "name": "createOrThrow.d.ts"
+        },
+        {
+          "name": "createOrThrow.mjs"
+        },
+        {
+          "name": "each.cjs"
+        },
+        {
+          "name": "each.d.ts"
+        },
+        {
+          "name": "each.mjs"
+        },
+        {
+          "name": "getters",
+          "files": [
+            {
+              "name": "getDayOfMonth.cjs"
+            },
+            {
+              "name": "getDayOfMonth.d.ts"
+            },
+            {
+              "name": "getDayOfMonth.mjs"
+            },
+            {
+              "name": "getDayOfWeek.cjs"
+            },
+            {
+              "name": "getDayOfWeek.d.ts"
+            },
+            {
+              "name": "getDayOfWeek.mjs"
+            },
+            {
+              "name": "getDayOfYear.cjs"
+            },
+            {
+              "name": "getDayOfYear.d.ts"
+            },
+            {
+              "name": "getDayOfYear.mjs"
+            },
+            {
+              "name": "getFirstDayOfMonth.cjs"
+            },
+            {
+              "name": "getFirstDayOfMonth.d.ts"
+            },
+            {
+              "name": "getFirstDayOfMonth.mjs"
+            },
+            {
+              "name": "getFirstDayOfWeek.cjs"
+            },
+            {
+              "name": "getFirstDayOfWeek.d.ts"
+            },
+            {
+              "name": "getFirstDayOfWeek.mjs"
+            },
+            {
+              "name": "getHour.cjs"
+            },
+            {
+              "name": "getHour.d.ts"
+            },
+            {
+              "name": "getHour.mjs"
+            },
+            {
+              "name": "getLastDayOfMonth.cjs"
+            },
+            {
+              "name": "getLastDayOfMonth.d.ts"
+            },
+            {
+              "name": "getLastDayOfMonth.mjs"
+            },
+            {
+              "name": "getLastDayOfWeek.cjs"
+            },
+            {
+              "name": "getLastDayOfWeek.d.ts"
+            },
+            {
+              "name": "getLastDayOfWeek.mjs"
+            },
+            {
+              "name": "getMilliseconds.cjs"
+            },
+            {
+              "name": "getMilliseconds.d.ts"
+            },
+            {
+              "name": "getMilliseconds.mjs"
+            },
+            {
+              "name": "getMinute.cjs"
+            },
+            {
+              "name": "getMinute.d.ts"
+            },
+            {
+              "name": "getMinute.mjs"
+            },
+            {
+              "name": "getMonth.cjs"
+            },
+            {
+              "name": "getMonth.d.ts"
+            },
+            {
+              "name": "getMonth.mjs"
+            },
+            {
+              "name": "getSecond.cjs"
+            },
+            {
+              "name": "getSecond.d.ts"
+            },
+            {
+              "name": "getSecond.mjs"
+            },
+            {
+              "name": "getWeekOfYear.cjs"
+            },
+            {
+              "name": "getWeekOfYear.d.ts"
+            },
+            {
+              "name": "getWeekOfYear.mjs"
+            },
+            {
+              "name": "getYear.cjs"
+            },
+            {
+              "name": "getYear.d.ts"
+            },
+            {
+              "name": "getYear.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "isSafeTimestamp.cjs"
+        },
+        {
+          "name": "isSafeTimestamp.d.ts"
+        },
+        {
+          "name": "isSafeTimestamp.mjs"
+        },
+        {
+          "name": "now.cjs"
+        },
+        {
+          "name": "now.d.ts"
+        },
+        {
+          "name": "now.mjs"
+        },
+        {
+          "name": "operators",
+          "files": [
+            {
+              "name": "addDays.cjs"
+            },
+            {
+              "name": "addDays.d.ts"
+            },
+            {
+              "name": "addDays.mjs"
+            },
+            {
+              "name": "addHours.cjs"
+            },
+            {
+              "name": "addHours.d.ts"
+            },
+            {
+              "name": "addHours.mjs"
+            },
+            {
+              "name": "addMilliseconds.cjs"
+            },
+            {
+              "name": "addMilliseconds.d.ts"
+            },
+            {
+              "name": "addMilliseconds.mjs"
+            },
+            {
+              "name": "addMinutes.cjs"
+            },
+            {
+              "name": "addMinutes.d.ts"
+            },
+            {
+              "name": "addMinutes.mjs"
+            },
+            {
+              "name": "addMonths.cjs"
+            },
+            {
+              "name": "addMonths.d.ts"
+            },
+            {
+              "name": "addMonths.mjs"
+            },
+            {
+              "name": "addSeconds.cjs"
+            },
+            {
+              "name": "addSeconds.d.ts"
+            },
+            {
+              "name": "addSeconds.mjs"
+            },
+            {
+              "name": "addWeeks.cjs"
+            },
+            {
+              "name": "addWeeks.d.ts"
+            },
+            {
+              "name": "addWeeks.mjs"
+            },
+            {
+              "name": "addYears.cjs"
+            },
+            {
+              "name": "addYears.d.ts"
+            },
+            {
+              "name": "addYears.mjs"
+            },
+            {
+              "name": "between.cjs"
+            },
+            {
+              "name": "between.d.ts"
+            },
+            {
+              "name": "between.mjs"
+            },
+            {
+              "name": "betweenThan.cjs"
+            },
+            {
+              "name": "betweenThan.d.ts"
+            },
+            {
+              "name": "betweenThan.mjs"
+            },
+            {
+              "name": "greater.cjs"
+            },
+            {
+              "name": "greater.d.ts"
+            },
+            {
+              "name": "greater.mjs"
+            },
+            {
+              "name": "greaterThan.cjs"
+            },
+            {
+              "name": "greaterThan.d.ts"
+            },
+            {
+              "name": "greaterThan.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "less.cjs"
+            },
+            {
+              "name": "less.d.ts"
+            },
+            {
+              "name": "less.mjs"
+            },
+            {
+              "name": "lessThan.cjs"
+            },
+            {
+              "name": "lessThan.d.ts"
+            },
+            {
+              "name": "lessThan.mjs"
+            },
+            {
+              "name": "subtractDays.cjs"
+            },
+            {
+              "name": "subtractDays.d.ts"
+            },
+            {
+              "name": "subtractDays.mjs"
+            },
+            {
+              "name": "subtractHours.cjs"
+            },
+            {
+              "name": "subtractHours.d.ts"
+            },
+            {
+              "name": "subtractHours.mjs"
+            },
+            {
+              "name": "subtractMilliseconds.cjs"
+            },
+            {
+              "name": "subtractMilliseconds.d.ts"
+            },
+            {
+              "name": "subtractMilliseconds.mjs"
+            },
+            {
+              "name": "subtractMinutes.cjs"
+            },
+            {
+              "name": "subtractMinutes.d.ts"
+            },
+            {
+              "name": "subtractMinutes.mjs"
+            },
+            {
+              "name": "subtractMonths.cjs"
+            },
+            {
+              "name": "subtractMonths.d.ts"
+            },
+            {
+              "name": "subtractMonths.mjs"
+            },
+            {
+              "name": "subtractSeconds.cjs"
+            },
+            {
+              "name": "subtractSeconds.d.ts"
+            },
+            {
+              "name": "subtractSeconds.mjs"
+            },
+            {
+              "name": "subtractWeeks.cjs"
+            },
+            {
+              "name": "subtractWeeks.d.ts"
+            },
+            {
+              "name": "subtractWeeks.mjs"
+            },
+            {
+              "name": "subtractYears.cjs"
+            },
+            {
+              "name": "subtractYears.d.ts"
+            },
+            {
+              "name": "subtractYears.mjs"
+            }
+          ]
+        },
+        {
+          "name": "round.cjs"
+        },
+        {
+          "name": "round.d.ts"
+        },
+        {
+          "name": "round.mjs"
+        },
+        {
+          "name": "toISOString.cjs"
+        },
+        {
+          "name": "toISOString.d.ts"
+        },
+        {
+          "name": "toISOString.mjs"
+        },
+        {
+          "name": "toNative.cjs"
+        },
+        {
+          "name": "toNative.d.ts"
+        },
+        {
+          "name": "toNative.mjs"
+        },
+        {
+          "name": "toTimestamp.cjs"
+        },
+        {
+          "name": "toTimestamp.d.ts"
+        },
+        {
+          "name": "toTimestamp.mjs"
+        },
+        {
+          "name": "today.cjs"
+        },
+        {
+          "name": "today.d.ts"
+        },
+        {
+          "name": "today.mjs"
+        },
+        {
+          "name": "tomorrow.cjs"
+        },
+        {
+          "name": "tomorrow.d.ts"
+        },
+        {
+          "name": "tomorrow.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "isLeapYear.d.ts"
+            },
+            {
+              "name": "month.d.ts"
+            },
+            {
+              "name": "theDate.d.ts"
+            },
+            {
+              "name": "time.d.ts"
+            },
+            {
+              "name": "timezone.cjs"
+            },
+            {
+              "name": "timezone.d.ts"
+            },
+            {
+              "name": "timezone.mjs"
+            },
+            {
+              "name": "unit.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "yesterday.cjs"
+        },
+        {
+          "name": "yesterday.d.ts"
+        },
+        {
+          "name": "yesterday.mjs"
         }
       ]
     },
@@ -2419,6 +2976,24 @@
           "name": "atan2.mjs"
         },
         {
+          "name": "between.cjs"
+        },
+        {
+          "name": "between.d.ts"
+        },
+        {
+          "name": "between.mjs"
+        },
+        {
+          "name": "betweenThan.cjs"
+        },
+        {
+          "name": "betweenThan.d.ts"
+        },
+        {
+          "name": "betweenThan.mjs"
+        },
+        {
           "name": "ceil.cjs"
         },
         {
@@ -2624,6 +3199,17 @@
         },
         {
           "name": "trunc.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "positiveNumber.d.ts"
+            }
+          ]
         }
       ]
     },

@@ -3,6 +3,8 @@
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
+var min = require('./checkers/min.cjs');
+var max = require('./checkers/max.cjs');
 
 const bigIntKind = kind.createDataParserKind("bigint");
 function bigint(definition) {
@@ -27,5 +29,9 @@ function bigint(definition) {
     });
 }
 
+exports.checkerBigIntMin = min.checkerBigIntMin;
+exports.checkerBigIntMinKind = min.checkerBigIntMinKind;
+exports.checkerBigIntMax = max.checkerBigIntMax;
+exports.checkerBigIntMaxKind = max.checkerBigIntMaxKind;
 exports.bigIntKind = bigIntKind;
 exports.bigint = bigint;

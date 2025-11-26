@@ -6,6 +6,7 @@ export { index$1 as coerce };
 export { string, stringKind } from './parsers/string/index.mjs';
 export { object, objectKind } from './parsers/object.mjs';
 export { number, numberKind } from './parsers/number/index.mjs';
+export { date, dateKind } from './parsers/date.mjs';
 export { literal, literalKind } from './parsers/literal.mjs';
 export { union, unionKind } from './parsers/union.mjs';
 export { array, arrayKind } from './parsers/array/index.mjs';

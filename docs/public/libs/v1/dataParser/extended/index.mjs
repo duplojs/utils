@@ -4,6 +4,7 @@ export { email, string, url } from './string.mjs';
 export { array } from './array.mjs';
 export { bigint } from './bigint.mjs';
 export { int, number } from './number.mjs';
+export { date } from './date.mjs';
 export { transform } from './transform.mjs';
 export { union } from './union.mjs';
 export { boolean } from './boolean.mjs';

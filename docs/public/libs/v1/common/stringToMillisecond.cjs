@@ -1,20 +1,15 @@
 'use strict';
 
 var isKeyof = require('../string/isKeyof.cjs');
+var kind = require('./kind.cjs');
+var errorKindNamespace = require('./errorKindNamespace.cjs');
 
 /* eslint-disable id-length */
-const kind = "kind-invalid-millisecond-in-string-error";
-class InvalidMillisecondInStringError extends Error {
+class InvalidMillisecondInStringError extends kind.kindHeritage("invalid-millisecond-in-string-error", errorKindNamespace.createErrorKind("missing-builder-methods-error"), Error) {
     input;
     constructor(input) {
-        super(`Invalid Input: ${input}`);
+        super({}, [`Invalid Input: ${input}`]);
         this.input = input;
-    }
-    [kind] = null;
-    static instanceof(value) {
-        return typeof value === "object"
-            && value?.constructor?.name === "InvalidMillisecondInStringError"
-            && kind in value;
     }
 }
 const unitMapper = {

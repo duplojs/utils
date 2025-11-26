@@ -1,0 +1,1 @@
+export declare const createErrorKind: <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & import("../string").ForbiddenString<GenericName, "@" | "/">) => import("./kind").KindHandler<import("./kind").KindDefinition<`@DuplojsUtilsError/${GenericName}`, GenericKindValue>>;

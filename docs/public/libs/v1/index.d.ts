@@ -19,3 +19,5 @@ export * as DPC from "./dataParser/parsers/coerce";
 export * as DDataParserCoerce from "./dataParser/parsers/coerce";
 export * as DPE from "./dataParser/extended";
 export * as DDataParserExtended from "./dataParser/extended";
+export * as D from "./date";
+export * as DDate from "./date";

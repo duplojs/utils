@@ -1,6 +1,8 @@
 import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+export { checkerBigIntMin, checkerBigIntMinKind } from './checkers/min.mjs';
+export { checkerBigIntMax, checkerBigIntMaxKind } from './checkers/max.mjs';
 
 const bigIntKind = createDataParserKind("bigint");
 function bigint(definition) {
