@@ -307,6 +307,256 @@ export function rightPipe<
 	>,
 	any
 >;
+export function rightPipe<
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe11 extends AnyValue,
+>(
+	input: GenericInput,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
+	pipe11: EitherRightPipeFunction<GenericOutputPipe10, GenericOutputPipe11>,
+): Extract<
+	EitherRightPipeResult<
+		| GenericInput
+		| GenericOutputPipe1
+		| GenericOutputPipe2
+		| GenericOutputPipe3
+		| GenericOutputPipe4
+		| GenericOutputPipe5
+		| GenericOutputPipe6
+		| GenericOutputPipe7
+		| GenericOutputPipe8
+		| GenericOutputPipe9
+		| GenericOutputPipe10
+		| GenericOutputPipe11,
+		GenericOutputPipe11
+	>,
+	any
+>;
+export function rightPipe<
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe11 extends AnyValue,
+	GenericOutputPipe12 extends AnyValue,
+>(
+	input: GenericInput,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
+	pipe11: EitherRightPipeFunction<GenericOutputPipe10, GenericOutputPipe11>,
+	pipe12: EitherRightPipeFunction<GenericOutputPipe11, GenericOutputPipe12>,
+): Extract<
+	EitherRightPipeResult<
+		| GenericInput
+		| GenericOutputPipe1
+		| GenericOutputPipe2
+		| GenericOutputPipe3
+		| GenericOutputPipe4
+		| GenericOutputPipe5
+		| GenericOutputPipe6
+		| GenericOutputPipe7
+		| GenericOutputPipe8
+		| GenericOutputPipe9
+		| GenericOutputPipe10
+		| GenericOutputPipe11
+		| GenericOutputPipe12,
+		GenericOutputPipe12
+	>,
+	any
+>;
+export function rightPipe<
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe11 extends AnyValue,
+	GenericOutputPipe12 extends AnyValue,
+	GenericOutputPipe13 extends AnyValue,
+>(
+	input: GenericInput,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
+	pipe11: EitherRightPipeFunction<GenericOutputPipe10, GenericOutputPipe11>,
+	pipe12: EitherRightPipeFunction<GenericOutputPipe11, GenericOutputPipe12>,
+	pipe13: EitherRightPipeFunction<GenericOutputPipe12, GenericOutputPipe13>,
+): Extract<
+	EitherRightPipeResult<
+		| GenericInput
+		| GenericOutputPipe1
+		| GenericOutputPipe2
+		| GenericOutputPipe3
+		| GenericOutputPipe4
+		| GenericOutputPipe5
+		| GenericOutputPipe6
+		| GenericOutputPipe7
+		| GenericOutputPipe8
+		| GenericOutputPipe9
+		| GenericOutputPipe10
+		| GenericOutputPipe11
+		| GenericOutputPipe12
+		| GenericOutputPipe13,
+		GenericOutputPipe13
+	>,
+	any
+>;
+export function rightPipe<
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe11 extends AnyValue,
+	GenericOutputPipe12 extends AnyValue,
+	GenericOutputPipe13 extends AnyValue,
+	GenericOutputPipe14 extends AnyValue,
+>(
+	input: GenericInput,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
+	pipe11: EitherRightPipeFunction<GenericOutputPipe10, GenericOutputPipe11>,
+	pipe12: EitherRightPipeFunction<GenericOutputPipe11, GenericOutputPipe12>,
+	pipe13: EitherRightPipeFunction<GenericOutputPipe12, GenericOutputPipe13>,
+	pipe14: EitherRightPipeFunction<GenericOutputPipe13, GenericOutputPipe14>,
+): Extract<
+	EitherRightPipeResult<
+		| GenericInput
+		| GenericOutputPipe1
+		| GenericOutputPipe2
+		| GenericOutputPipe3
+		| GenericOutputPipe4
+		| GenericOutputPipe5
+		| GenericOutputPipe6
+		| GenericOutputPipe7
+		| GenericOutputPipe8
+		| GenericOutputPipe9
+		| GenericOutputPipe10
+		| GenericOutputPipe11
+		| GenericOutputPipe12
+		| GenericOutputPipe13
+		| GenericOutputPipe14,
+		GenericOutputPipe14
+	>,
+	any
+>;
+export function rightPipe<
+	GenericInput extends AnyValue,
+	GenericOutputPipe1 extends AnyValue,
+	GenericOutputPipe2 extends AnyValue,
+	GenericOutputPipe3 extends AnyValue,
+	GenericOutputPipe4 extends AnyValue,
+	GenericOutputPipe5 extends AnyValue,
+	GenericOutputPipe6 extends AnyValue,
+	GenericOutputPipe7 extends AnyValue,
+	GenericOutputPipe8 extends AnyValue,
+	GenericOutputPipe9 extends AnyValue,
+	GenericOutputPipe10 extends AnyValue,
+	GenericOutputPipe11 extends AnyValue,
+	GenericOutputPipe12 extends AnyValue,
+	GenericOutputPipe13 extends AnyValue,
+	GenericOutputPipe14 extends AnyValue,
+	GenericOutputPipe15 extends AnyValue,
+>(
+	input: GenericInput,
+	pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>,
+	pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>,
+	pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>,
+	pipe4: EitherRightPipeFunction<GenericOutputPipe3, GenericOutputPipe4>,
+	pipe5: EitherRightPipeFunction<GenericOutputPipe4, GenericOutputPipe5>,
+	pipe6: EitherRightPipeFunction<GenericOutputPipe5, GenericOutputPipe6>,
+	pipe7: EitherRightPipeFunction<GenericOutputPipe6, GenericOutputPipe7>,
+	pipe8: EitherRightPipeFunction<GenericOutputPipe7, GenericOutputPipe8>,
+	pipe9: EitherRightPipeFunction<GenericOutputPipe8, GenericOutputPipe9>,
+	pipe10: EitherRightPipeFunction<GenericOutputPipe9, GenericOutputPipe10>,
+	pipe11: EitherRightPipeFunction<GenericOutputPipe10, GenericOutputPipe11>,
+	pipe12: EitherRightPipeFunction<GenericOutputPipe11, GenericOutputPipe12>,
+	pipe13: EitherRightPipeFunction<GenericOutputPipe12, GenericOutputPipe13>,
+	pipe14: EitherRightPipeFunction<GenericOutputPipe13, GenericOutputPipe14>,
+	pipe15: EitherRightPipeFunction<GenericOutputPipe14, GenericOutputPipe15>,
+): Extract<
+	EitherRightPipeResult<
+		| GenericInput
+		| GenericOutputPipe1
+		| GenericOutputPipe2
+		| GenericOutputPipe3
+		| GenericOutputPipe4
+		| GenericOutputPipe5
+		| GenericOutputPipe6
+		| GenericOutputPipe7
+		| GenericOutputPipe8
+		| GenericOutputPipe9
+		| GenericOutputPipe10
+		| GenericOutputPipe11
+		| GenericOutputPipe12
+		| GenericOutputPipe13
+		| GenericOutputPipe14
+		| GenericOutputPipe15,
+		GenericOutputPipe15
+	>,
+	any
+>;
 
 export function rightPipe(
 	input: AnyValue,
