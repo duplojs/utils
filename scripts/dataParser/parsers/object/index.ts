@@ -1,54 +1,53 @@
 import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
-import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
-import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../error";
+import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../../base";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 import { type GetPropsWithValueExtends } from "@scripts/object";
-import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
+import { createDataParserKind } from "../../kind";
+import { type CheckerRefineImplementation } from "../refine";
+
+export * from "./omit";
+export * from "./pick";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 
 export type DataParserObjectShapeOutput<
 	GenericShape extends DataParserObjectShape,
-> = IsEqual<GenericShape, DataParserObjectShape> extends true
-	? DataParserObjectShape
-	: {
-		-readonly [
-		Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
-			? Prop
-			: never
-		]: Output<GenericShape[Prop]>
-	} extends infer InferredResult extends object
-		? DObject.PartialKeys<
+> = {
+	-readonly [
+	Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
+		? Prop
+		: never
+	]: Output<GenericShape[Prop]>
+} extends infer InferredResult extends object
+	? DObject.PartialKeys<
+		InferredResult,
+		DObject.GetPropsWithValueExtends<
 			InferredResult,
-			DObject.GetPropsWithValueExtends<
-				InferredResult,
-				undefined
-			>
+			undefined
 		>
-		: never;
+	>
+	: never;
 
 export type DataParserObjectShapeInput<
 	GenericShape extends DataParserObjectShape,
-> = IsEqual<GenericShape, DataParserObjectShape> extends true
-	? DataParserObjectShape
-	: {
-		-readonly [
-		Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
-			? Prop
-			: never
-		]: Input<GenericShape[Prop]>
-	} extends infer InferredResult extends object
-		? DObject.PartialKeys<
+> = {
+	-readonly [
+	Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
+		? Prop
+		: never
+	]: Input<GenericShape[Prop]>
+} extends infer InferredResult extends object
+	? DObject.PartialKeys<
+		InferredResult,
+		DObject.GetPropsWithValueExtends<
 			InferredResult,
-			DObject.GetPropsWithValueExtends<
-				InferredResult,
-				undefined
-			>
+			undefined
 		>
-		: never;
+	>
+	: never;
 
 export interface DataParserObjectCheckerCustom<
 	GenericInput extends DataParserObjectShape = DataParserObjectShape,
@@ -115,7 +114,7 @@ export interface DataParserObject<
 export function object<
 	const GenericShape extends DataParserObjectShape,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionObject, "shape">
+		Omit<DataParserDefinitionObject, "shape" | "optimizedShape">
 	> = never,
 >(
 	shape: GenericShape,
@@ -123,7 +122,9 @@ export function object<
 ): DataParserObject<
 		MergeDefinition<
 			DataParserDefinitionObject,
-			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
+			NeverCoalescing<GenericDefinition, {}> & {
+				readonly shape: GenericShape;
+			}
 		>
 	> {
 	return dataParserInit<DataParserObject>(

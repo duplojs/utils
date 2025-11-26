@@ -1,10 +1,14 @@
-import { type ObjectEntry, type ObjectKey, type AnyValue, type SimplifyTopLevel } from "@scripts/common";
+import { type ObjectEntry, type ObjectKey, type AnyValue, type SimplifyTopLevel, type UnionContain } from "@scripts/common";
 
 type ComputeEntries<
 	GenericEntry extends ObjectEntry,
-> = SimplifyTopLevel<{
-	[Entry in GenericEntry as Entry[0]]?: Entry[1]
-}>;
+> = UnionContain<ObjectKey, GenericEntry[0]> extends true
+	? SimplifyTopLevel<{
+		[Entry in GenericEntry as Entry[0]]: Entry[1]
+	}>
+	: SimplifyTopLevel<{
+		[Entry in GenericEntry as Entry[0]]?: Entry[1]
+	}>;
 
 export function fromEntries<
 	GenericKey extends ObjectKey,
