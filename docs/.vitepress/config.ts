@@ -116,15 +116,11 @@ export default defineConfig({
 								text: "DataParser",
 								link: "/v1/api/dataParser/fr",
 							},
+							{
+								text: "Date",
+								link: "/v1/api/date/fr",
+							},
 						],
-					},
-					{
-						text: "Reference",
-						link: "/v1/reference/fr",
-					},
-					{
-						text: "Exemples",
-						link: "/v1/examples/fr",
 					},
 					{
 						text: "v1.x",
