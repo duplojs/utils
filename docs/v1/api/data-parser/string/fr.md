@@ -20,30 +20,6 @@ Construit un parser pour les chaînes de caractères. `DDataParser.string()` gar
   height="500px"
 />
 
----
-outline: [2, 3]
-prev:
-  text: "Data Parser"
-  link: "/v1/api/string/data-parser/fr"
-  link: "/v1/api/data-parser/fr"
-next:
-  text: "number"
-  link: "/v1/api/data-parser/number/fr"
----
-
-# string
-# string
-
-Construit un parser pour les chaînes de caractères. `DP.string()` garantit que l'entrée est bien une chaîne (avec support optionnel de la coercition), applique les checkers fournis et retourne un `Either` typé contenant soit la valeur validée, soit un `DataParserError` détaillé.
-
-## Exemple interactif
-
-<MonacoTSEditor
-  src="/v1/api/data-parser/string/examples/tryout.doc.ts"
-  majorVersion="v1"
-  height="220px"
-/>
-
 ## Paramètres
 
 - `errorMessage` : message personnalisé injecté dans chaque `issue` lorsque l'entrée n'est pas une chaîne.
@@ -55,12 +31,9 @@ Construit un parser pour les chaînes de caractères. `DP.string()` garantit que
 
 Un `DataParserString` disposant de `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker` et `clone`. `schema.parse(data)` renvoie `DEither.success<string>` lorsque toutes les validations passent, ou `DEither.error<DataParserError>` avec les chemins (`path`), les messages et les valeurs rejetées.
 
-## Tests des checkers & coercition
+## Others exemples
 
-Vérifiez vos règles métiers comme n'importe quel composant :
-- Activez `coerce` puis testez que `schema.parse(42)` retourne un succès (`DEither.isRight`).
-- Utilisez les helpers `DDataParserCoerce.*` pour partager la même logique de coercition côté client/serveur.
-- Ajoutez des checkers (API classique ou `DDataParserExtended`) et contrôlez que les entrées invalides retournent les erreurs attendues (`DEither.isLeft`).
+### Checkers personnalisés
 
 <MonacoTSEditor
   src="/v1/api/data-parser/string/examples/checkers.doc.ts"
@@ -68,11 +41,7 @@ Vérifiez vos règles métiers comme n'importe quel composant :
   height="450px"
 />
 
-<MonacoTSEditor
-  src="/v1/api/data-parser/string/examples/coerce.doc.ts"
-  majorVersion="v1"
-  height="400px"
-/>
+### Mode étendu
 
 <MonacoTSEditor
   src="/v1/api/data-parser/string/examples/extended.doc.ts"
