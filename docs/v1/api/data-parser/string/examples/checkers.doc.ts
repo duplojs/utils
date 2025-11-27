@@ -1,14 +1,14 @@
 import { unwrap, DP, E } from "@duplojs/utils";
 
 const schema = DP
+	.coerce
 	.string()
 	.addChecker(
-		DP.checkerStringMin(5, { errorMessage: "string.too-short" }),
+		DP.checkerStringMin(5, { errorMessage: "input.too-short" }),
 		DP.checkerStringMax(30),
-		DP.checkerEmail({ normalize: true }),
 	);
 
-const result = schema.parse("foo");
+const result = schema.parse(1234567890);
 
 if (E.isRight(result)) {
 	const value = unwrap(result);
