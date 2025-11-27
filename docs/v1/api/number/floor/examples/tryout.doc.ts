@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 3.7;
-const result = DNumber.floor(value);
+const result = N.floor(value);
 // result: 3

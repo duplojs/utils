@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 2;
-const result = DNumber.power(value, 3);
+const result = N.power(value, 3);
 // result: 8

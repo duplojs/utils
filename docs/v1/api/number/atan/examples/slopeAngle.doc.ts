@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const slopePercentages = [0, 5, 10, 15, 20, 25, 50, 100];
 
 const result = pipe(
 	slopePercentages,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.divide(100),
-			DNumber.atan,
-			DNumber.multiply(180 / Math.PI),
+			N.divide(100),
+			N.atan,
+			N.multiply(180 / Math.PI),
 		),
 	),
 );

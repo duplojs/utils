@@ -1,7 +1,7 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-type Timezone = DDate.Timezone;
+type Timezone = D.Timezone;
 
-const paris = DDate.timezone["Europe/Paris"];
-const newYork = DDate.timezone["America/New_York"];
+const paris = D.timezone["Europe/Paris"];
+const newYork = D.timezone["America/New_York"];
 // paris / newYork: string

@@ -1,4 +1,4 @@
-import { DArray, DNumber } from "@duplojs/utils";
+import { A, N } from "@duplojs/utils";
 
 const input = [
 	{
@@ -23,9 +23,9 @@ const input = [
 	},
 ] as const;
 
-const result = DArray.filter(
+const result = A.filter(
 	input,
-	(task) => DNumber.greaterThan(task.estimate, 5),
+	(task) => N.greaterThan(task.estimate, 5),
 );
 // result: [
 //  { id: "T2", status: "done", estimate: 8 },

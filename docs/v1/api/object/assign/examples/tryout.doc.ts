@@ -1,4 +1,4 @@
-import { DObject } from "@duplojs/utils";
+import { O } from "@duplojs/utils";
 
 const input = {
 	name: "Alice",
@@ -8,5 +8,5 @@ const update = {
 	age: 31,
 	city: "Paris",
 };
-const result = DObject.assign(input, update);
+const result = O.assign(input, update);
 // result: { name: "Alice", age: 31, city: "Paris" }

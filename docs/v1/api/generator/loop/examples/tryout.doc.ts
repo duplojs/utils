@@ -1,13 +1,13 @@
-import { DGenerator, equal, whenElse } from "@duplojs/utils";
+import { G, equal, whenElse } from "@duplojs/utils";
 
 const maxValue = 5;
-const result = DGenerator.loop(
+const result = G.loop(
 	(
 		{
 			count,
 			next,
 			exit,
-		}: DGenerator.GeneratorLoopParams<number>,
+		}: G.GeneratorLoopParams<number>,
 	) => whenElse(
 		count,
 		equal(maxValue),

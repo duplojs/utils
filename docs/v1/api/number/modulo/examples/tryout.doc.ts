@@ -1,6 +1,6 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 17;
 const operand = 5;
-const result = DNumber.modulo(value, operand);
+const result = N.modulo(value, operand);
 // result: 2

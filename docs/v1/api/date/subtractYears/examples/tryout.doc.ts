@@ -1,5 +1,5 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-06-20");
-const result = DDate.subtractYears(input, 1);
+const input = D.create("2024-06-20");
+const result = D.subtractYears(input, 1);
 // result: "date1687219200000+"

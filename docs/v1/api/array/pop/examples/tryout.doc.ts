@@ -1,9 +1,9 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = ["todo", "inProgress", "done"] as const;
 
-const result = DArray.pop(input);
+const result = A.pop(input);
 // result: ["todo", "inProgress"]
 
-const result2 = DArray.pop(result);
+const result2 = A.pop(result);
 // result2: ["todo"]

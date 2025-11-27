@@ -1,15 +1,15 @@
-import { DGenerator, equal, whenElse, pipe } from "@duplojs/utils";
+import { G, equal, whenElse, pipe } from "@duplojs/utils";
 
 const maxCount = 3;
 
 const result = await pipe(
-	DGenerator.asyncLoop(
+	G.asyncLoop(
 		async(
 			{
 				count,
 				next,
 				exit,
-			}: DGenerator.GeneratorLoopParams<number>,
+			}: G.GeneratorLoopParams<number>,
 		) => whenElse(
 			count,
 			equal(maxCount),
@@ -17,8 +17,8 @@ const result = await pipe(
 			async() => next(await Promise.resolve(count)),
 		),
 	),
-	DGenerator.asyncReduce(
-		DGenerator.reduceFrom<number[]>([]),
+	G.asyncReduce(
+		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

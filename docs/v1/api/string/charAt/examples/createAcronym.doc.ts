@@ -1,11 +1,11 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = "Hyper Text Markup Language";
 const result = pipe(
 	input,
 	DString.split(" "),
-	DArray.map(DString.charAt(0)),
-	DArray.join(""),
+	A.map(DString.charAt(0)),
+	A.join(""),
 	DString.toUpperCase,
 );
 // result: "HTML"

@@ -1,8 +1,8 @@
-import { DObject } from "@duplojs/utils";
+import { O } from "@duplojs/utils";
 
 const input: {
 	name: string;
 	age?: number;
 } = { name: "Alice" };
-const result = DObject.hasKeys(input, "age");
+const result = O.hasKeys(input, "age");
 // result: false

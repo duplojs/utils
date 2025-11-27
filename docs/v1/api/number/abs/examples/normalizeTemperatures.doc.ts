@@ -1,19 +1,19 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const temperatures = [-5, 10, -15, 20, -3];
 
 const result = pipe(
 	temperatures,
-	DArray.map(DNumber.abs),
-	DArray.reduce(
-		DArray.reduceFrom(0),
+	A.map(N.abs),
+	A.reduce(
+		A.reduceFrom(0),
 		({ element, lastValue, next }) => next(
-			DNumber.add(lastValue, element),
+			N.add(lastValue, element),
 		),
 	),
-	(total) => DNumber.divide(
+	(total) => N.divide(
 		total,
-		DArray.length(temperatures),
+		A.length(temperatures),
 	),
 );
 

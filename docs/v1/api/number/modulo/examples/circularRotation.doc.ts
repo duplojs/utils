@@ -1,18 +1,18 @@
-import { DNumber, DArray, pipe, createEnum } from "@duplojs/utils";
+import { N, A, pipe, createEnum } from "@duplojs/utils";
 
 const teamEnum = createEnum(["Alice", "Bob", "Charlie", "Diana"]);
 const team = teamEnum.toTuple();
 const tasks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-const teamSize = DArray.length(team);
+const teamSize = A.length(team);
 
 const result = pipe(
 	tasks,
-	DArray.map((taskNumber) => ({
+	A.map((taskNumber) => ({
 		taskNumber,
 		assignedTo: pipe(
 			taskNumber,
-			DNumber.modulo(teamSize),
-			(index) => DArray.at(team, index),
+			N.modulo(teamSize),
+			(index) => A.at(team, index),
 		),
 	})),
 );

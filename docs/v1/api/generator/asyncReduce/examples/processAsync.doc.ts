@@ -1,17 +1,17 @@
-import { DGenerator, DNumber, whenElse, pipe, forward, equal } from "@duplojs/utils";
+import { G, N, whenElse, pipe, forward, equal } from "@duplojs/utils";
 
 const itemCount = 3;
 const baseDuration = 100;
 const durationIncrement = 50;
 
 const result = await pipe(
-	DGenerator.asyncLoop(
+	G.asyncLoop(
 		async(
 			{
 				count,
 				next,
 				exit,
-			}: DGenerator.GeneratorLoopParams<number>,
+			}: G.GeneratorLoopParams<number>,
 		) => whenElse(
 			count,
 			equal(itemCount),
@@ -20,22 +20,22 @@ const result = await pipe(
 				await Promise.resolve(
 					pipe(
 						index,
-						DNumber.multiply(durationIncrement),
-						DNumber.add(baseDuration),
+						N.multiply(durationIncrement),
+						N.add(baseDuration),
 					),
 				),
 			)),
 		),
 	),
-	DGenerator.asyncReduce(
-		DGenerator.reduceFrom({
+	G.asyncReduce(
+		G.reduceFrom({
 			completed: 0,
 			totalTime: 0,
 		}),
 		({ element, lastValue, next }) => next(
 			{
-				completed: DNumber.add(lastValue.completed, 1),
-				totalTime: DNumber.add(lastValue.totalTime, element),
+				completed: N.add(lastValue.completed, 1),
+				totalTime: N.add(lastValue.totalTime, element),
 			},
 		),
 	),

@@ -1,4 +1,4 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = [
 	{
@@ -15,9 +15,9 @@ const input = [
 	},
 ] as const;
 
-const result = DArray.flatMap(
+const result = A.flatMap(
 	input,
-	(category) => DArray.map(
+	(category) => A.map(
 		category.tags,
 		(tag) => ({
 			id: category.id,

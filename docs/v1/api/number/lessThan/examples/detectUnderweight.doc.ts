@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Package {
 	id: `P${number}`;
@@ -28,9 +28,9 @@ const minimumWeight = 10;
 
 const result = pipe(
 	packages,
-	DArray.map((pkg) => ({
+	A.map((pkg) => ({
 		...pkg,
-		underweight: DNumber.lessThan(pkg.weight, minimumWeight),
+		underweight: N.lessThan(pkg.weight, minimumWeight),
 	})),
 );
 

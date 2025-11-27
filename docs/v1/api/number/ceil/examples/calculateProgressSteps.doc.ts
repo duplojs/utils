@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const progressValues = [0.15, 0.47, 0.82, 0.93];
 
 const result = pipe(
 	progressValues,
-	DArray.map((progress) => ({
-		percentage: DNumber.multiply(progress, 100),
+	A.map((progress) => ({
+		percentage: N.multiply(progress, 100),
 		steps: pipe(
-			DNumber.multiply(progress, 10),
-			DNumber.ceil,
+			N.multiply(progress, 10),
+			N.ceil,
 		),
 	})),
 );

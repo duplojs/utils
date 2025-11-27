@@ -1,4 +1,4 @@
-import { DString, DArray, pipe, DNumber } from "@duplojs/utils";
+import { DString, A, pipe, N } from "@duplojs/utils";
 
 const configFile = `
   PORT=3000
@@ -9,9 +9,9 @@ const configFile = `
 const result = pipe(
 	configFile,
 	DString.split("\n"),
-	DArray.map(DString.trim),
-	DArray.filter(
-		(value) => DNumber.greaterThan(
+	A.map(DString.trim),
+	A.filter(
+		(value) => N.greaterThan(
 			DString.length(value),
 			0,
 		),

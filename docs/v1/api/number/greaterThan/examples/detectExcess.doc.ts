@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Transaction {
 	id: `T${number}`;
@@ -28,9 +28,9 @@ const maxAmount = 200;
 
 const result = pipe(
 	transactions,
-	DArray.map((transaction) => ({
+	A.map((transaction) => ({
 		...transaction,
-		excess: DNumber.greaterThan(transaction.amount, maxAmount),
+		excess: N.greaterThan(transaction.amount, maxAmount),
 	})),
 );
 

@@ -1,10 +1,10 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = "aaabbbccc";
 const result = pipe(
 	input,
 	DString.matchAll(/a/g),
-	DArray.from,
-	DArray.length,
+	A.from,
+	A.length,
 );
 // result: 3

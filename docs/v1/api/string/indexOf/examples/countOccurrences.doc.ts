@@ -1,12 +1,12 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = "test test test";
 const result = pipe(
 	[0, 5, 10],
-	DArray.map(
+	A.map(
 		(position) => DString.indexOf(input, "test", position),
 	),
-	DArray.filter((value) => value !== undefined),
-	DArray.length,
+	A.filter((value) => value !== undefined),
+	A.length,
 );
 // result: 3

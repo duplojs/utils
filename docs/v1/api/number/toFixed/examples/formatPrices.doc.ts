@@ -1,12 +1,12 @@
-import { DNumber, DArray, pipe, innerPipe, DString } from "@duplojs/utils";
+import { N, A, pipe, innerPipe, DString } from "@duplojs/utils";
 
 const prices = [19.5, 24.999, 15, 32.456];
 
 const result = pipe(
 	prices,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.toFixed(2),
+			N.toFixed(2),
 			DString.concat("€"),
 		),
 	),

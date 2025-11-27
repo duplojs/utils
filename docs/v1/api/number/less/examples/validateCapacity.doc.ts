@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Room {
 	name: string;
@@ -28,9 +28,9 @@ const maxCapacity = 50;
 
 const result = pipe(
 	rooms,
-	DArray.map((room) => ({
+	A.map((room) => ({
 		...room,
-		withinCapacity: DNumber.less(room.occupancy, maxCapacity),
+		withinCapacity: N.less(room.occupancy, maxCapacity),
 	})),
 );
 

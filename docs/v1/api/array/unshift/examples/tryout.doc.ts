@@ -1,6 +1,6 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = ["inProgress", "done"];
 
-const result = DArray.unshift(input, "todo");
+const result = A.unshift(input, "todo");
 // result: ["todo", "inProgress", "done"]

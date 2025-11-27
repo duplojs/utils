@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, createEnum } from "@duplojs/utils";
+import { N, A, pipe, createEnum } from "@duplojs/utils";
 
 const totalBudget = 10000;
 const departmentEnum = createEnum(["IT", "Marketing", "HR", "Sales"]);
@@ -9,13 +9,13 @@ const result = pipe(
 		departments,
 		budgetPerDepartment: pipe(
 			totalBudget,
-			DNumber.divide(DArray.length(departments)),
-			DNumber.round,
+			N.divide(A.length(departments)),
+			N.round,
 		),
 	}),
 	({ departments, budgetPerDepartment }) => pipe(
 		departments,
-		DArray.map((department) => ({
+		A.map((department) => ({
 			department,
 			budget: budgetPerDepartment,
 		})),

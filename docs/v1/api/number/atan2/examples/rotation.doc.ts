@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface GameObject {
 	xPosition: number;
@@ -39,21 +39,21 @@ const enemies: GameObject[] = [
 
 const result = pipe(
 	enemies,
-	DArray.map((enemy) => ({
+	A.map((enemy) => ({
 		enemyId: enemy.id,
-		deltaX: DNumber.subtract(enemy.xPosition, player.xPosition),
-		deltaY: DNumber.subtract(enemy.yPosition, player.yPosition),
+		deltaX: N.subtract(enemy.xPosition, player.xPosition),
+		deltaY: N.subtract(enemy.yPosition, player.yPosition),
 	})),
-	DArray.map(({ enemyId, deltaX, deltaY }) => ({
+	A.map(({ enemyId, deltaX, deltaY }) => ({
 		enemy: enemyId,
-		rotationRadians: DNumber.atan2(deltaY, deltaX),
+		rotationRadians: N.atan2(deltaY, deltaX),
 	})),
-	DArray.map(({ enemy, rotationRadians }) => ({
+	A.map(({ enemy, rotationRadians }) => ({
 		enemy,
 		rotationDegrees: pipe(
 			rotationRadians,
-			DNumber.multiply(degreesToRadians),
-			DNumber.divide(Math.PI),
+			N.multiply(degreesToRadians),
+			N.divide(Math.PI),
 		),
 		rotationRadians,
 	})),
