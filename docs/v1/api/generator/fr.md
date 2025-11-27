@@ -12,6 +12,16 @@ next:
 
 Fonctions pour manipuler les générateurs JavaScript de manière fonctionnelle et type-safe. Les générateurs permettent de traiter des séquences de données de façon lazy (paresseuse), en ne calculant les valeurs que lorsqu'elles sont nécessaires.
 
+## Comment faire les imports ?
+
+La bibliothèque expose les namespaces `DGenerator` et `G` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
+
+```ts
+import { DGenerator, G } from "@duplojs/utils";
+import * as DGenerator from "@duplojs/utils/generator";
+import * as G from "@duplojs/utils/generator";
+```
+
 ## Exécution
 
 ### [execute](/v1/api/generator/execute/fr)

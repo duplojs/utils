@@ -7,6 +7,18 @@
 	"baseUrl": "./",
 	"paths": {
 		"@duplojs/utils": ["public/libs/v1/index"],
+		"@duplojs/utils/array": ["public/libs/v1/array/index"],
+		"@duplojs/utils/either": ["public/libs/v1/either/index"],
+		"@duplojs/utils/common": ["public/libs/v1/common/index"],
+		"@duplojs/utils/dataParser": ["public/libs/v1/dataParser/index"],
+		"@duplojs/utils/dataParserCoerce": ["public/libs/v1/dataParser/parsers/coerce/index"],
+		"@duplojs/utils/dataParserExtended": ["public/libs/v1/dataParser/extended/index"],
+		"@duplojs/utils/generator": ["public/libs/v1/generator/index"],
+		"@duplojs/utils/number": ["public/libs/v1/number/index"],
+		"@duplojs/utils/object": ["public/libs/v1/object/index"],
+		"@duplojs/utils/pattern": ["public/libs/v1/pattern/index"],
+		"@duplojs/utils/string": ["public/libs/v1/string/index"],
+		"@duplojs/utils/date": ["public/libs/v1/date/index"],
 	}
   },
   "include": [
