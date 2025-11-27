@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -80,7 +80,7 @@ export function union<
 			NeverCoalescing<GenericDefinition, {}> & { options: GenericOptions }
 		>
 	> {
-	return dataParserInit<DataParserUnion>(
+	const self = dataParserInit<DataParserUnion>(
 		unionKind,
 		{
 			definition: {
@@ -114,4 +114,8 @@ export function union<
 			},
 		},
 	) as never;
+
+	return union.overrideHandler.apply(self) as never;
 }
+
+union.overrideHandler = createOverride<DataParserUnion>("@duplojs/utils/data-parser/union");

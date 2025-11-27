@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -61,11 +61,15 @@ export function union<
 			NeverCoalescing<GenericDefinition, {}> & { options: GenericOptions }
 		>
 	> {
-	return dataParserExtendedInit<
+	const self = dataParserExtendedInit<
 		dataParsers.DataParserUnion,
 		DataParserUnionExtended
 	>(
 		dataParsers.union(options, definition),
 		{},
 	) as never;
+
+	return union.overrideHandler.apply(self) as never;
 }
+
+union.overrideHandler = createOverride<DataParserUnionExtended>("@duplojs/utils/data-parser-extended/union");

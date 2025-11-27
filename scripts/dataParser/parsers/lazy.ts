@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -77,7 +77,7 @@ export function lazy<
 			}
 		>
 	> {
-	return dataParserInit<DataParserLazy>(
+	const self = dataParserInit<DataParserLazy>(
 		lazyKind,
 		{
 			definition: {
@@ -91,4 +91,8 @@ export function lazy<
 			async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
 		},
 	) as never;
+
+	return lazy.overrideHandler.apply(self) as never;
 }
+
+lazy.overrideHandler = createOverride<DataParserLazyCheckerCustom>("@duplojs/utils/data-parser/lazy");

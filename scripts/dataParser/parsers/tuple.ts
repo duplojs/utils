@@ -1,4 +1,4 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "@scripts/common";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -138,7 +138,7 @@ export function tuple<
 			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
-	return dataParserInit<DataParserTuple>(
+	const self = dataParserInit<DataParserTuple>(
 		tupleKind,
 		{
 			definition: {
@@ -227,4 +227,8 @@ export function tuple<
 			},
 		},
 	) as never;
+
+	return tuple.overrideHandler.apply(self) as never;
 }
+
+tuple.overrideHandler = createOverride<DataParserTuple>("@duplojs/utils/data-parser/tuple");

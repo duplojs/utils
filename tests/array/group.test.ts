@@ -1,4 +1,5 @@
 import { DArray, DPattern, innerPipe, pipe, type ExpectType } from "@scripts/index";
+import { DObject } from "dist";
 
 describe("group", () => {
 	const input = [
@@ -76,8 +77,8 @@ describe("group", () => {
 			input,
 			DArray.group(
 				innerPipe(
-					DPattern.match(
-						{ type: "book" },
+					DPattern.when(
+						DObject.discriminate("type", "book"),
 						DArray.groupOutput("book"),
 					),
 					DPattern.otherwise(DArray.groupOutput("other")),

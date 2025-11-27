@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -90,7 +90,7 @@ export function optional<
 			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 		>
 	> {
-	return dataParserInit<DataParserOptional>(
+	const self = dataParserInit<DataParserOptional>(
 		optionalKind,
 		{
 			definition: {
@@ -117,4 +117,8 @@ export function optional<
 			},
 		},
 	) as never;
+
+	return optional.overrideHandler.apply(self) as never;
 }
+
+optional.overrideHandler = createOverride<DataParserOptional>("@duplojs/utils/data-parser/optional");

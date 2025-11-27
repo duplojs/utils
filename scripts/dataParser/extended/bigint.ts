@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -81,7 +81,7 @@ export function bigint<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	return dataParserExtendedInit<
+	const self = dataParserExtendedInit<
 		dataParsers.DataParserBigInt,
 		DataParserBigIntExtended
 	>(
@@ -105,4 +105,8 @@ export function bigint<
 			},
 		},
 	) as never;
+
+	return bigint.overrideHandler.apply(self) as never;
 }
+
+bigint.overrideHandler = createOverride<DataParserBigIntExtended>("@duplojs/utils/data-parser-extended/bigint");

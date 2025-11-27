@@ -1,4 +1,4 @@
-import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe } from "@scripts/common";
+import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -221,7 +221,7 @@ export function templateLiteral<
 		(result) => new RegExp(`^${result}$`),
 	);
 
-	return dataParserInit<DataParserTemplateLiteral>(
+	const self = dataParserInit<DataParserTemplateLiteral>(
 		templateLiteralKind,
 		{
 			definition: {
@@ -239,4 +239,8 @@ export function templateLiteral<
 			return SymbolDataParserErrorIssue;
 		},
 	) as never;
+
+	return templateLiteral.overrideHandler.apply(self) as never;
 }
+
+templateLiteral.overrideHandler = createOverride<DataParserTemplateLiteral>("@duplojs/utils/data-parser/templateLiteral");

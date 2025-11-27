@@ -1,4 +1,4 @@
-import { pipe, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { pipe, type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -106,7 +106,7 @@ export function object<
 			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
-	return dataParserExtendedInit<
+	const self = dataParserExtendedInit<
 		dataParsers.DataParserObject,
 		DataParserObjectExtended
 	>(
@@ -140,4 +140,8 @@ export function object<
 			},
 		},
 	) as never;
+
+	return object.overrideHandler.apply(self) as never;
 }
+
+object.overrideHandler = createOverride<DataParserObjectExtended>("@duplojs/utils/data-parser-extended/object");

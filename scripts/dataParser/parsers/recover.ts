@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -83,7 +83,7 @@ export function recover<
 			}
 		>
 	> {
-	return dataParserInit<DataParserRecover>(
+	const self = dataParserInit<DataParserRecover>(
 		recoverKind,
 		{
 			definition: {
@@ -110,4 +110,8 @@ export function recover<
 			},
 		},
 	) as never;
+
+	return recover.overrideHandler.apply(self) as never;
 }
+
+recover.overrideHandler = createOverride<DataParserRecover>("@duplojs/utils/data-parser/recover");

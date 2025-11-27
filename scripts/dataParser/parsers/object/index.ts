@@ -1,4 +1,4 @@
-import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
+import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../../error";
@@ -127,7 +127,7 @@ export function object<
 			}
 		>
 	> {
-	return dataParserInit<DataParserObject>(
+	const self = dataParserInit<DataParserObject>(
 		objectKind,
 		{
 			definition: {
@@ -218,4 +218,8 @@ export function object<
 			},
 		},
 	) as never;
+
+	return object.overrideHandler.apply(self) as never;
 }
+
+object.overrideHandler = createOverride<DataParserObject>("@duplojs/utils/data-parser/object");

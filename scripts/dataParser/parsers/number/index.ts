@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -78,7 +78,7 @@ export function number<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	return dataParserInit<DataParserNumber>(
+	const self = dataParserInit<DataParserNumber>(
 		numberKind,
 		{
 			definition: {
@@ -102,4 +102,8 @@ export function number<
 			return SymbolDataParserErrorIssue;
 		},
 	) as never;
+
+	return number.overrideHandler.apply(self) as never;
 }
+
+number.overrideHandler = createOverride<DataParserNumber>("@duplojs/utils/data-parser/number");

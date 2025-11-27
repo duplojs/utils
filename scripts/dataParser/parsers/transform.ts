@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser/error";
@@ -92,7 +92,7 @@ export function transform<
 			}
 		>
 	> {
-	return dataParserInit<DataParserTransform>(
+	const self = dataParserInit<DataParserTransform>(
 		transformKind,
 		{
 			definition: {
@@ -135,4 +135,8 @@ export function transform<
 			},
 		},
 	) as never;
+
+	return transform.overrideHandler.apply(self) as never;
 }
+
+transform.overrideHandler = createOverride<DataParserTransform>("@duplojs/utils/data-parser/transform");

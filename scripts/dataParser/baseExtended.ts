@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe } from "@scripts/common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser } from "./base";
 import * as dataParsers from "./parsers";
@@ -199,93 +199,99 @@ export function dataParserExtendedInit<
 		}
 	>,
 ): GenericDataParserExtended {
-	const self: DataParserExtended = extendedKind.setTo({
-		...dataParser as any,
-		...pipe(
-			rest,
-			DObject.entries,
-			DArray.map(
-				([key, value]) => DObject.entry(
-					key,
-					typeof value === "function"
-						? (...args: never[]) => (value as AnyFunction)(self, ...args)
-						: value,
+	const self: DataParserExtended = pipe(
+		{
+			...dataParser as any,
+			...pipe(
+				rest,
+				DObject.entries,
+				DArray.map(
+					([key, value]) => DObject.entry(
+						key,
+						typeof value === "function"
+							? (...args: never[]) => (value as AnyFunction)(self, ...args)
+							: value,
+					),
 				),
+				DObject.fromEntries,
 			),
-			DObject.fromEntries,
-		),
-		array(definition) {
-			return dataParsersExtended.array(
-				self,
-				definition,
-			);
-		},
-		transform(theFunction, definition) {
-			return dataParsersExtended.transform(
-				self as never,
-				theFunction,
-				definition,
-			);
-		},
-		arrayCoalescing() {
-			return dataParsersExtended.union([
-				self.array(),
-				self.transform((data) => [data]),
-			]);
-		},
-		pipe(output, definition) {
-			return dataParsersExtended.pipe(
-				self,
-				output,
-				definition,
-			);
-		},
-		nullable(definition) {
-			return dataParsersExtended.nullable(
-				self,
-				definition,
-			);
-		},
-		optional(definition) {
-			return dataParsersExtended.optional(
-				self,
-				definition,
-			);
-		},
-		or(option, definition) {
-			return dataParsersExtended.union(
-				[self, option],
-				definition,
-			);
-		},
-		addChecker(...checkers: any[]) {
-			return dataParserExtendedInit(
-				dataParser.addChecker(...checkers as never),
-				rest,
-			);
-		},
-		clone() {
-			return dataParserExtendedInit(
-				dataParser.clone(),
-				rest,
-			);
-		},
-		refine(theFunction) {
-			return dataParserExtendedInit(
-				(dataParser.addChecker as AnyFunction<[unknown], never>)(
-					dataParsers.checkerRefine(theFunction),
-				),
-				rest,
-			);
-		},
-		recover(recoveredValue, definition) {
-			return dataParsersExtended.recover(
-				self,
-				recoveredValue,
-				definition,
-			);
-		},
-	} satisfies DataParserExtended);
+			array(definition) {
+				return dataParsersExtended.array(
+					self,
+					definition,
+				);
+			},
+			transform(theFunction, definition) {
+				return dataParsersExtended.transform(
+					self as never,
+					theFunction,
+					definition,
+				);
+			},
+			arrayCoalescing() {
+				return dataParsersExtended.union([
+					self.array(),
+					self.transform((data) => [data]),
+				]);
+			},
+			pipe(output, definition) {
+				return dataParsersExtended.pipe(
+					self,
+					output,
+					definition,
+				);
+			},
+			nullable(definition) {
+				return dataParsersExtended.nullable(
+					self,
+					definition,
+				);
+			},
+			optional(definition) {
+				return dataParsersExtended.optional(
+					self,
+					definition,
+				);
+			},
+			or(option, definition) {
+				return dataParsersExtended.union(
+					[self, option],
+					definition,
+				);
+			},
+			addChecker(...checkers: any[]) {
+				return dataParserExtendedInit(
+					dataParser.addChecker(...checkers as never),
+					rest,
+				);
+			},
+			clone() {
+				return dataParserExtendedInit(
+					dataParser.clone(),
+					rest,
+				);
+			},
+			refine(theFunction) {
+				return dataParserExtendedInit(
+					(dataParser.addChecker as AnyFunction<[unknown], never>)(
+						dataParsers.checkerRefine(theFunction),
+					),
+					rest,
+				);
+			},
+			recover(recoveredValue, definition) {
+				return dataParsersExtended.recover(
+					self,
+					recoveredValue,
+					definition,
+				);
+			},
+		} satisfies DataParserExtended,
+		extendedKind.setTo,
+		dataParserExtendedInit.overrideHandler.apply,
+	);
 
 	return self as never;
 }
+
+dataParserExtendedInit.overrideHandler = createOverride<DataParserExtended>("@duplojs/utils/data-parser-extended/base");

@@ -23,3 +23,5 @@ export * from "./tuple";
 export * from "./union";
 export * from "./unknown";
 export * from "./recover";
+
+export * from "../error";

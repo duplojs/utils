@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -59,11 +59,15 @@ export function boolean<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	return dataParserExtendedInit<
+	const self = dataParserExtendedInit<
 		dataParsers.DataParserBoolean,
 		DataParserBooleanExtended
 	>(
 		dataParsers.boolean(definition),
 		{},
 	) as never;
+
+	return boolean.overrideHandler.apply(self) as never;
 }
+
+boolean.overrideHandler = createOverride<DataParserBooleanExtended>("@duplojs/utils/data-parser-extended/boolean");

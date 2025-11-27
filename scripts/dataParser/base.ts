@@ -1,4 +1,4 @@
-import { type AnyFunction, type AnyValue, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, type AnyValue, createOverride, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue, errorKind } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
@@ -221,75 +221,77 @@ export function dataParserInit<
 		return result;
 	}
 
-	const dataParser = (kind as KindHandler).setTo(
-		dataParserKind.setTo<Record<keyof RemoveKind<DataParser>, any>>(
-			{
-				...params,
-				exec: middleExec,
-				asyncExec: middleAsyncExec,
-				parse(data: unknown) {
-					const error = {
-						...DPE,
-						issues: [],
-						currentPath: [],
-					};
-					const result = middleExec(data, error);
+	const dataParser = pipe(
+		{
+			...params,
+			exec: middleExec,
+			asyncExec: middleAsyncExec,
+			parse(data: unknown) {
+				const error = {
+					...DPE,
+					issues: [],
+					currentPath: [],
+				};
+				const result = middleExec(data, error);
 
-					if (result === SDPE) {
-						return {
-							...EE,
-							[KWV]: error,
-						};
-					}
-
+				if (result === SDPE) {
 					return {
-						...ES,
-						[KWV]: result,
-					};
-				},
-				async asyncParse(data: unknown) {
-					const error = {
-						...DPE,
-						issues: [],
-						currentPath: [],
-					};
-					const result = await middleAsyncExec(data, error);
+						...EE,
+						[KWV]: error,
+					} as DEither.EitherError<any>;
+				}
 
-					if (result === SDPE) {
-						return {
-							...EE,
-							[KWV]: error,
-						};
-					}
-
-					return {
-						...ES,
-						[KWV]: result,
-					};
-				},
-				addChecker: (...checkers: any[]) => dataParserInit(
-					kind,
-					simpleClone({
-						...params,
-						definition: {
-							...params.definition,
-							checkers: [...params.definition.checkers, ...checkers],
-						},
-					}),
-					exec,
-				),
-				clone: () => dataParserInit(
-					kind,
-					simpleClone(params),
-					exec,
-				),
+				return {
+					...ES,
+					[KWV]: result,
+				} as DEither.EitherSuccess<any>;
 			},
-			null as never,
-		),
-	) as unknown as DataParser;
+			async asyncParse(data: unknown) {
+				const error = {
+					...DPE,
+					issues: [],
+					currentPath: [],
+				};
+				const result = await middleAsyncExec(data, error);
+
+				if (result === SDPE) {
+					return {
+						...EE,
+						[KWV]: error,
+					} as DEither.EitherError<any>;
+				}
+
+				return {
+					...ES,
+					[KWV]: result,
+				} as DEither.EitherSuccess<any>;
+			},
+			addChecker: (...checkers: any[]) => dataParserInit(
+				kind,
+				simpleClone({
+					...params,
+					definition: {
+						...params.definition,
+						checkers: [...params.definition.checkers, ...checkers],
+					},
+				}),
+				exec,
+			),
+			clone: () => dataParserInit(
+				kind,
+				simpleClone(params),
+				exec,
+			),
+		} satisfies Record<keyof RemoveKind<DataParser>, any>,
+		(value) => dataParserKind.setTo(value, null as never),
+		kind.setTo,
+		dataParserInit.overrideHandler.apply,
+	);
 
 	return dataParser as never;
 }
+
+dataParserInit.overrideHandler = createOverride<DataParser>("@duplojs/utils/data-parser/base");
 
 export type Output<
 	GenericDataParser extends DataParser,

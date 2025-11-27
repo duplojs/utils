@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -158,7 +158,7 @@ export function record<
 			}
 		>
 	> {
-	return dataParserInit<DataParserRecord>(
+	const self = dataParserInit<DataParserRecord>(
 		recordKind,
 		{
 			definition: {
@@ -278,4 +278,8 @@ export function record<
 			},
 		},
 	) as never;
+
+	return record.overrideHandler.apply(self) as never;
 }
+
+record.overrideHandler = createOverride<DataParserRecord>("@duplojs/utils/data-parser/record");

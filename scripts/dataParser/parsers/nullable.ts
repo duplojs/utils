@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -90,7 +90,7 @@ export function nullable<
 			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 		>
 	> {
-	return dataParserInit<DataParserNullable>(
+	const self = dataParserInit<DataParserNullable>(
 		nullableKind,
 		{
 			definition: {
@@ -117,4 +117,8 @@ export function nullable<
 			},
 		},
 	) as never;
+
+	return nullable.overrideHandler.apply(self) as never;
 }
+
+nullable.overrideHandler = createOverride<DataParserNullable>("@duplojs/utils/data-parser/nullable");

@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
@@ -83,7 +83,7 @@ export function pipe<
 			}
 		>
 	> {
-	return dataParserInit<DataParserPipe>(
+	const self = dataParserInit<DataParserPipe>(
 		pipeKind,
 		{
 			definition: {
@@ -114,4 +114,8 @@ export function pipe<
 			},
 		},
 	) as never;
+
+	return pipe.overrideHandler.apply(self) as never;
 }
+
+pipe.overrideHandler = createOverride<DataParserPipe>("@duplojs/utils/data-parser/pipe");
