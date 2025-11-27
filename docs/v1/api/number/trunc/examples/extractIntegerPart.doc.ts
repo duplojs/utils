@@ -1,15 +1,15 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const measurements = [12.87, -5.42, 23.95, -8.13];
 
 const result = pipe(
 	measurements,
-	DArray.map((value) => ({
+	A.map((value) => ({
 		original: value,
-		integerPart: DNumber.trunc(value),
-		decimalPart: DNumber.subtract(
+		integerPart: N.trunc(value),
+		decimalPart: N.subtract(
 			value,
-			DNumber.trunc(value),
+			N.trunc(value),
 		),
 	})),
 );

@@ -1,4 +1,4 @@
-import { DObject } from "@duplojs/utils";
+import { O } from "@duplojs/utils";
 
 type Shape = {
 	type: "circle";
@@ -11,5 +11,5 @@ const input: Shape = {
 	type: "circle",
 	radius: 10,
 };
-const result = DObject.discriminate(input, "type", "circle");
+const result = O.discriminate(input, "type", "circle");
 // result: true

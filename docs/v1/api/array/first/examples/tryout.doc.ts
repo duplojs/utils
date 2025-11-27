@@ -1,9 +1,9 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = [10, 20, 30, 40, 50];
-const result = DArray.first(input);
+const result = A.first(input);
 // result: 10
 
 const tuple = ["hello", 42, true] as const;
-const result2 = DArray.first(tuple);
+const result2 = A.first(tuple);
 // result2: "hello"

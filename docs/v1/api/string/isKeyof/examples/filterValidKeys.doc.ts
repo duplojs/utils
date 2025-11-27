@@ -1,4 +1,4 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["name", "age", "email", "address"];
 const user = {
@@ -7,6 +7,6 @@ const user = {
 };
 const result = pipe(
 	input,
-	DArray.filter(DString.isKeyof(user)),
+	A.filter(DString.isKeyof(user)),
 );
 // result: ["name", "age"]

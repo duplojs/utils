@@ -1,13 +1,13 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-06-20", {
+const input = D.create("2024-06-20", {
 	hour: "12",
 	minute: "34",
 	second: "56",
 	millisecond: "789",
 });
-const result = DDate.round(input);
+const result = D.round(input);
 // result: "date1718841600000+"
 
-const result2 = DDate.round(input, "month");
+const result2 = D.round(input, "month");
 // result2: "date1717200000000+"

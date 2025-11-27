@@ -1,8 +1,8 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-06-20");
-const result = DDate.getHour(input);
+const input = D.create("2024-06-20");
+const result = D.getHour(input);
 // result: 0
 
-const result2 = DDate.getHour(input, "America/Los_Angeles");
+const result2 = D.getHour(input, "America/Los_Angeles");
 // result2: 17

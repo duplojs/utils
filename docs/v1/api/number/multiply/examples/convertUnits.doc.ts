@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const distancesInKm = [5, 10, 15, 20];
 const kmToMiles = 0.621371;
 
 const result = pipe(
 	distancesInKm,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.multiply(kmToMiles),
-			DNumber.round,
+			N.multiply(kmToMiles),
+			N.round,
 		),
 	),
 );

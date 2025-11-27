@@ -1,4 +1,4 @@
-import { DArray, DNumber } from "@duplojs/utils";
+import { A, N } from "@duplojs/utils";
 
 const steps = [
 	{
@@ -19,9 +19,9 @@ const steps = [
 	},
 ] as const;
 
-const result = DArray.findAndSpliceDelete(
+const result = A.findAndSpliceDelete(
 	steps,
-	(step) => DNumber.greaterThan(step.priority, 2),
+	(step) => N.greaterThan(step.priority, 2),
 	1,
 );
 // result: [

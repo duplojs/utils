@@ -1,14 +1,14 @@
-import { DGenerator, DNumber, DArray, pipe } from "@duplojs/utils";
+import { G, N, A, pipe } from "@duplojs/utils";
 
 const minPrice = 50;
 const prices = [10, 75, 120, 5];
-const pricesCount = DArray.length(prices);
+const pricesCount = A.length(prices);
 
 const result = await pipe(
 	prices,
-	DGenerator.asyncFilter(DNumber.greaterThan(minPrice)),
-	DGenerator.asyncReduce(
-		DGenerator.reduceFrom<number[]>([]),
+	G.asyncFilter(N.greaterThan(minPrice)),
+	G.asyncReduce(
+		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

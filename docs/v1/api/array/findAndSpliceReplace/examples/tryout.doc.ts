@@ -1,8 +1,8 @@
-import { DArray, equal } from "@duplojs/utils";
+import { A, equal } from "@duplojs/utils";
 
 const steps = ["todo", "inProgress", "review", "done"] as const;
 
-const result = DArray.findAndSpliceReplace(
+const result = A.findAndSpliceReplace(
 	steps,
 	equal("inProgress"),
 	["ready", "deploy"],

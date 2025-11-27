@@ -1,4 +1,4 @@
-import { DArray, DNumber } from "@duplojs/utils";
+import { A, N } from "@duplojs/utils";
 
 const input = [
 	{
@@ -19,9 +19,9 @@ const input = [
 	},
 ] as const;
 
-const result = DArray.sort(
+const result = A.sort(
 	input,
-	(first, second) => DNumber.subtract(first.score, second.score),
+	(first, second) => N.subtract(first.score, second.score),
 );
 // result: [
 //  { id: "P3", score: 65 },

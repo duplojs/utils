@@ -1,19 +1,19 @@
-import { DString, DArray, pipe } from "@duplojs/utils";
+import { DString, A, pipe } from "@duplojs/utils";
 
 const creditCard = "1234-5678-9012-3456";
 const result = pipe(
 	creditCard,
 	DString.split("-"),
-	DArray.slice(0, -1),
-	DArray.map(() => "****"),
-	DArray.push(
+	A.slice(0, -1),
+	A.map(() => "****"),
+	A.push(
 		pipe(
 			creditCard,
 			DString.split("-"),
-			DArray.last,
+			A.last,
 		),
 	),
-	DArray.join("-"),
+	A.join("-"),
 );
 
 // result: "****-****-****-3456"

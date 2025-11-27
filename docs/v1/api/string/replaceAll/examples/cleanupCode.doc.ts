@@ -1,9 +1,9 @@
-import { DArray, DString, innerPipe, pipe } from "@duplojs/utils";
+import { A, DString, innerPipe, pipe } from "@duplojs/utils";
 
 const input = ["console.log('test')", "console.log('debug')", "const x = 1"];
 const result = pipe(
 	input,
-	DArray.map(
+	A.map(
 		innerPipe(
 			DString.replaceAll("console.log", "logger.info"),
 			DString.replaceAll("'", "\""),

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const initialValue = 1000;
 const growthRate = 1.05;
@@ -6,10 +6,10 @@ const years = [1, 2, 3, 4, 5];
 
 const result = pipe(
 	years,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.power(growthRate),
-			DNumber.multiply(initialValue),
+			N.power(growthRate),
+			N.multiply(initialValue),
 			Math.round,
 		),
 	),

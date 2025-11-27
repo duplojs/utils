@@ -1,18 +1,16 @@
-import * as DDataParser from "@duplojs/utils/dataParser";
-import { unwrap } from "@duplojs/utils/common";
-import * as DEither from "@duplojs/utils/either";
+import { unwrap, DP, E } from "@duplojs/utils";
 
-const schema = DDataParser
+const schema = DP
 	.string()
 	.addChecker(
-		DDataParser.checkerStringMin(5, { errorMessage: "string.too-short" }),
-		DDataParser.checkerStringMax(30),
-		DDataParser.checkerEmail({ normalize: true }),
+		DP.checkerStringMin(5, { errorMessage: "string.too-short" }),
+		DP.checkerStringMax(30),
+		DP.checkerEmail({ normalize: true }),
 	);
 
 const result = schema.parse("foo");
 
-if (DEither.isRight(result)) {
+if (E.isRight(result)) {
 	const value = unwrap(result);
 } else {
 	const error = unwrap(result);

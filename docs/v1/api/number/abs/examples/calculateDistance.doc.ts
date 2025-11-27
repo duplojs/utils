@@ -1,4 +1,4 @@
-import { DNumber, pipe } from "@duplojs/utils";
+import { N, pipe } from "@duplojs/utils";
 
 const point1 = {
 	xPostion: 10,
@@ -11,16 +11,16 @@ const point2 = {
 
 const result = pipe(
 	{
-		dx: DNumber.subtract(point2.xPostion, point1.xPostion),
-		dy: DNumber.subtract(point2.yPostion, point1.yPostion),
+		dx: N.subtract(point2.xPostion, point1.xPostion),
+		dy: N.subtract(point2.yPostion, point1.yPostion),
 	},
 	({ dx, dy }) => pipe(
-		DNumber.add(
-			DNumber.power(DNumber.abs(dx), 2),
-			DNumber.power(DNumber.abs(dy), 2),
+		N.add(
+			N.power(N.abs(dx), 2),
+			N.power(N.abs(dy), 2),
 		),
 		Math.sqrt,
-		DNumber.round,
+		N.round,
 	),
 );
 // result: 50

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface GeoPoint {
 	latitude: number;
@@ -32,29 +32,29 @@ const routes: [GeoPoint, GeoPoint][] = [
 
 const result = pipe(
 	routes,
-	DArray.map(([point1, point2]) => ({
-		latitude1Rad: DNumber.divide(DNumber.multiply(point1.latitude, Math.PI), 180),
-		latitude2Rad: DNumber.divide(DNumber.multiply(point2.latitude, Math.PI), 180),
-		longitude1Rad: DNumber.divide(DNumber.multiply(point1.longitude, Math.PI), 180),
-		longitude2Rad: DNumber.divide(DNumber.multiply(point2.longitude, Math.PI), 180),
+	A.map(([point1, point2]) => ({
+		latitude1Rad: N.divide(N.multiply(point1.latitude, Math.PI), 180),
+		latitude2Rad: N.divide(N.multiply(point2.latitude, Math.PI), 180),
+		longitude1Rad: N.divide(N.multiply(point1.longitude, Math.PI), 180),
+		longitude2Rad: N.divide(N.multiply(point2.longitude, Math.PI), 180),
 	})),
-	DArray.map(({ latitude1Rad, latitude2Rad, longitude1Rad, longitude2Rad }) => {
+	A.map(({ latitude1Rad, latitude2Rad, longitude1Rad, longitude2Rad }) => {
 		// cos(d) = sin(lat1)sin(lat2) + cos(lat1)cos(lat2)cos(Δlon)
-		const cosValue = DNumber.add(
-			DNumber.multiply(
-				DNumber.sin(latitude1Rad),
-				DNumber.sin(latitude2Rad),
+		const cosValue = N.add(
+			N.multiply(
+				N.sin(latitude1Rad),
+				N.sin(latitude2Rad),
 			),
-			DNumber.multiply(
-				DNumber.multiply(
-					DNumber.cos(latitude1Rad),
-					DNumber.cos(latitude2Rad),
+			N.multiply(
+				N.multiply(
+					N.cos(latitude1Rad),
+					N.cos(latitude2Rad),
 				),
-				DNumber.cos(DNumber.subtract(longitude2Rad, longitude1Rad)),
+				N.cos(N.subtract(longitude2Rad, longitude1Rad)),
 			),
 		);
 
-		return DNumber.multiply(DNumber.acos(cosValue), earthRadiusKm);
+		return N.multiply(N.acos(cosValue), earthRadiusKm);
 	}),
 );
 

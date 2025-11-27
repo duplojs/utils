@@ -1,8 +1,8 @@
-import { DArray, equal } from "@duplojs/utils";
+import { A, equal } from "@duplojs/utils";
 
 const steps = ["todo", "done"] as const;
 
-const result = DArray.findAndSpliceInsert(
+const result = A.findAndSpliceInsert(
 	steps,
 	equal("done"),
 	["inProgress", "review"],

@@ -1,8 +1,8 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-12-31");
-const result = DDate.getMonth(input);
+const input = D.create("2024-12-31");
+const result = D.getMonth(input);
 // result: 12
 
-const result2 = DDate.getMonth(input, "Asia/Tokyo");
+const result2 = D.getMonth(input, "Asia/Tokyo");
 // result2: 12

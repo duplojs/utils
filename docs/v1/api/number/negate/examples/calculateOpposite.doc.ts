@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, whenElse, equal, createEnum } from "@duplojs/utils";
+import { N, A, pipe, whenElse, equal, createEnum } from "@duplojs/utils";
 
 const directionEnum = createEnum(["up", "down"]);
 
@@ -19,15 +19,15 @@ const movements = [
 
 const result = pipe(
 	movements,
-	DArray.map((move) => whenElse(
+	A.map((move) => whenElse(
 		move.direction,
 		equal(directionEnum.down),
-		() => DNumber.negate(move.distance),
+		() => N.negate(move.distance),
 		() => move.distance,
 	)),
-	DArray.reduce(
-		DArray.reduceFrom(0),
-		({ element, lastValue, next }) => next(DNumber.add(lastValue, element)),
+	A.reduce(
+		A.reduceFrom(0),
+		({ element, lastValue, next }) => next(N.add(lastValue, element)),
 	),
 );
 

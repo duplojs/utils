@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const rectangles = [
 	{
@@ -17,11 +17,11 @@ const rectangles = [
 
 const result = pipe(
 	rectangles,
-	DArray.map(({ width, height }) => DNumber.multiply(width, height)),
-	DArray.reduce(
-		DArray.reduceFrom(0),
+	A.map(({ width, height }) => N.multiply(width, height)),
+	A.reduce(
+		A.reduceFrom(0),
 		({ element, lastValue, next }) => next(
-			DNumber.add(lastValue, element),
+			N.add(lastValue, element),
 		),
 	),
 );

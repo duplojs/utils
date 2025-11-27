@@ -1,7 +1,7 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const threshold = DDate.create("2024-06-01");
-const input = DDate.create("2024-06-20");
+const threshold = D.create("2024-06-01");
+const input = D.create("2024-06-20");
 
-const result = DDate.greater(input, threshold);
+const result = D.greater(input, threshold);
 // result: true

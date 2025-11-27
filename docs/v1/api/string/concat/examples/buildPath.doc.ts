@@ -1,10 +1,10 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["users", "profile", "settings"];
 const result = pipe(
 	input,
-	DArray.map(DString.concat("/")),
-	DArray.reduce(
+	A.map(DString.concat("/")),
+	A.reduce(
 		"",
 		({ element, lastValue, next }) => next(
 			DString.concat(element, lastValue),

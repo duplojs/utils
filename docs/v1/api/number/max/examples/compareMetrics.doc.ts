@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const metrics = [
 	{
@@ -20,14 +20,14 @@ const metrics = [
 
 const result = pipe(
 	metrics,
-	DArray.reduce(
-		DArray.reduceFrom({
+	A.reduce(
+		A.reduceFrom({
 			maxCpu: 0,
 			maxMemory: 0,
 		}),
 		({ element, lastValue, next }) => next({
-			maxCpu: DNumber.max(element.cpuUsage, lastValue.maxCpu),
-			maxMemory: DNumber.max(element.memoryUsage, lastValue.maxMemory),
+			maxCpu: N.max(element.cpuUsage, lastValue.maxCpu),
+			maxMemory: N.max(element.memoryUsage, lastValue.maxMemory),
 		}),
 	),
 );

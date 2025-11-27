@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const coordinates = [
 	{
@@ -17,21 +17,21 @@ const coordinates = [
 
 const result = pipe(
 	coordinates,
-	DArray.map((coord) => ({
+	A.map((coord) => ({
 		latitude: {
-			degrees: DNumber.trunc(coord.lat),
+			degrees: N.trunc(coord.lat),
 			minutes: pipe(
-				DNumber.modulo(DNumber.abs(coord.lat), 1),
-				DNumber.multiply(60),
-				DNumber.trunc,
+				N.modulo(N.abs(coord.lat), 1),
+				N.multiply(60),
+				N.trunc,
 			),
 		},
 		longitude: {
-			degrees: DNumber.trunc(coord.lon),
+			degrees: N.trunc(coord.lon),
 			minutes: pipe(
-				DNumber.modulo(DNumber.abs(coord.lon), 1),
-				DNumber.multiply(60),
-				DNumber.trunc,
+				N.modulo(N.abs(coord.lon), 1),
+				N.multiply(60),
+				N.trunc,
 			),
 		},
 	})),

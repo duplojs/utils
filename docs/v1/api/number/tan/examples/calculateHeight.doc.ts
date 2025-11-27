@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const measurements = [
 	{
@@ -15,15 +15,15 @@ const measurements = [
 	},
 ];
 
-const degreesToRadians = DNumber.divide(Math.PI, 180);
+const degreesToRadians = N.divide(Math.PI, 180);
 
 const result = pipe(
 	measurements,
-	DArray.map((measurement) => pipe(
+	A.map((measurement) => pipe(
 		measurement.angleDegrees,
-		DNumber.multiply(degreesToRadians),
-		DNumber.tan,
-		DNumber.multiply(measurement.distance),
+		N.multiply(degreesToRadians),
+		N.tan,
+		N.multiply(measurement.distance),
 	)),
 );
 

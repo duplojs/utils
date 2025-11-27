@@ -1,4 +1,4 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const result = DDate.now();
+const result = D.now();
 // result: "date" + timestamp au moment de l'exécution
