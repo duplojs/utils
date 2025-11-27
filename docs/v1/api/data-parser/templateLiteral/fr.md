@@ -50,5 +50,5 @@ Un `DataParserTemplateLiteral` qui produit une `string` conforme au template fou
 
 ## Voir aussi
 
-- [bigint](/v1/api/data-parser/bigint/fr)
-- [boolean](/v1/api/data-parser/boolean/fr)
+- [`bigint`](/v1/api/data-parser/bigint/fr) - Parser pour les grands entiers
+- [`boolean`](/v1/api/data-parser/boolean/fr) - Parser pour les valeurs booléennes
