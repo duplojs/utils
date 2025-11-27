@@ -1,4 +1,4 @@
-import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
+import { DArray, DString, type ExpectType, pipe } from "@scripts";
 
 describe("trimEnd", () => {
 	it("should remove whitespace from end only", () => {

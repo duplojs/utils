@@ -1,4 +1,4 @@
-import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
+import { DArray, DString, type ExpectType, pipe } from "@scripts";
 
 describe("match", () => {
 	it("should return match array when pattern matches", () => {

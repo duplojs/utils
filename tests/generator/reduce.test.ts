@@ -1,4 +1,4 @@
-import { DGenerator, pipe, type ExpectType } from "@scripts/index";
+import { DGenerator, pipe, type ExpectType } from "@scripts";
 
 describe("generator reduce", () => {
 	it("sum number", () => {

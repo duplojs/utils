@@ -1,4 +1,4 @@
-import { DArray, DGenerator, type ExpectType } from "@scripts/index";
+import { DArray, DGenerator, type ExpectType } from "@scripts";
 
 describe("generator asyncLoop", () => {
 	it("default usage", async() => {

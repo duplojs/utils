@@ -1,4 +1,4 @@
-import { DString, pipe, type ExpectType } from "@scripts/index";
+import { DString, pipe, type ExpectType } from "@scripts";
 
 describe("at", () => {
 	it("returns char at index 0", () => {

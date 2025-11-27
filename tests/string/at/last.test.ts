@@ -1,4 +1,4 @@
-import { DString, type ExpectType } from "@scripts/index";
+import { DString, type ExpectType } from "@scripts";
 
 describe("last", () => {
 	it("returns last char of short string", () => {

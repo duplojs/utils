@@ -1,4 +1,4 @@
-import { DObject, pipe, type ExpectType } from "@scripts/index";
+import { DObject, pipe, type ExpectType } from "@scripts";
 
 describe("transformProperty", () => {
 	it("basic usage", () => {

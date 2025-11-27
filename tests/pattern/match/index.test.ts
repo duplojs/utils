@@ -1,4 +1,4 @@
-import { DPattern, DString, forward, type ExpectType } from "@scripts/index";
+import { DPattern, DString, forward, type ExpectType } from "@scripts";
 
 describe("pattern match", () => {
 	it("match literal string", () => {

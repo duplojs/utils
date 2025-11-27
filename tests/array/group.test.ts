@@ -1,5 +1,4 @@
-import { DArray, DPattern, innerPipe, pipe, type ExpectType } from "@scripts/index";
-import { DObject } from "dist";
+import { DArray, DPattern, innerPipe, pipe, type ExpectType, DObject } from "@scripts";
 
 describe("group", () => {
 	const input = [

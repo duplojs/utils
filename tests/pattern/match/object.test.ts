@@ -1,4 +1,4 @@
-import { DPattern, pipe, type ExpectType } from "@scripts/index";
+import { DPattern, pipe, type ExpectType } from "@scripts";
 
 describe("object", () => {
 	const input: {

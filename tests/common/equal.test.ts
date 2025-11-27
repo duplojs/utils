@@ -1,4 +1,4 @@
-import { DArray, equal, pipe, type ExpectType } from "@scripts/index";
+import { DArray, equal, pipe, type ExpectType } from "@scripts";
 
 describe("equal", () => {
 	it("returns true when values are strictly equal", () => {

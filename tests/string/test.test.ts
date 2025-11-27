@@ -1,4 +1,4 @@
-import { DArray, DString, type ExpectType, pipe } from "@scripts/index";
+import { DArray, DString, type ExpectType, pipe } from "@scripts";
 
 describe("test", () => {
 	it("should detect match on direct call", () => {

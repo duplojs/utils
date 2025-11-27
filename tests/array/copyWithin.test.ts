@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe } from "@scripts/index";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("copyWithin", () => {
 	it("should copy elements within the array", () => {

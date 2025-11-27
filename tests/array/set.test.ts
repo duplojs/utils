@@ -1,4 +1,4 @@
-import { DArray, pipe } from "@scripts/index";
+import { DArray, pipe } from "@scripts";
 
 describe("set", () => {
 	it("should set value at positive index", () => {

@@ -1,6 +1,6 @@
 import { pipe, type ExpectType } from "@scripts/common";
 import { when } from "@scripts/common/when";
-import { DArray } from "@scripts/index";
+import { DArray } from "@scripts";
 
 describe("minElements", () => {
 	it("predicate 10", () => {

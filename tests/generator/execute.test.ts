@@ -1,4 +1,4 @@
-import { DGenerator, pipe } from "@scripts/index";
+import { DGenerator, pipe } from "@scripts";
 
 describe("generator execute", () => {
 	const input = new Set([{ type: "test" }, { type: "ok" }]);

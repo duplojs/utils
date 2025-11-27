@@ -1,4 +1,4 @@
-import { DDataParser } from "@scripts/index";
+import { DDataParser } from "@scripts";
 
 describe("dataParser error helpers", () => {
 	it("SymbolDataParserError constants", () => {

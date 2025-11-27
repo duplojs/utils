@@ -1,6 +1,6 @@
 import { when } from "@scripts/common/when";
 import { whenNot } from "@scripts/common/whenNot";
-import { DArray, DEither, DObject, type ExpectType, pipe } from "@scripts/index";
+import { DArray, DEither, DObject, type ExpectType, pipe } from "@scripts";
 
 it("fromEntries", () => {
 	const input: {

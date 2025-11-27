@@ -1,4 +1,4 @@
-import { DString, type ExpectType } from "@scripts/index";
+import { DString, type ExpectType } from "@scripts";
 
 describe("first", () => {
 	it("returns first char of short string", () => {

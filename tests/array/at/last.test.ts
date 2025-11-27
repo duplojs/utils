@@ -1,4 +1,4 @@
-import { DArray, type ExpectType } from "@scripts/index";
+import { DArray, type ExpectType } from "@scripts";
 
 describe("last", () => {
 	it("get last element", () => {

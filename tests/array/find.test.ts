@@ -1,4 +1,4 @@
-import { DArray, DString, type ExpectType, innerPipe, pipe } from "@scripts/index";
+import { DArray, DString, type ExpectType, innerPipe, pipe } from "@scripts";
 
 describe("find", () => {
 	const input = [

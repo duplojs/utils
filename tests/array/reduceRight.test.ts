@@ -1,4 +1,4 @@
-import { DArray, pipe, type ExpectType } from "@scripts/index";
+import { DArray, pipe, type ExpectType } from "@scripts";
 
 describe("reduceRight", () => {
 	it("concat string", () => {

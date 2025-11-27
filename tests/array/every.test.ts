@@ -1,4 +1,4 @@
-import { DArray, DString, innerPipe, pipe } from "@scripts/index";
+import { DArray, DString, innerPipe, pipe } from "@scripts";
 
 describe("every", () => {
 	it("returns true when all elements satisfy the predicate", () => {

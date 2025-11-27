@@ -1,5 +1,5 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DObject } from "@scripts/index";
+import { DObject } from "@scripts";
 
 it("values", () => {
 	const values = DObject.values({

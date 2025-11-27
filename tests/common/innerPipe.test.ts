@@ -1,4 +1,4 @@
-import { DArray, DObject, type ExpectType, innerPipe, pipe } from "@scripts/index";
+import { DArray, DObject, type ExpectType, innerPipe, pipe } from "@scripts";
 
 it("innerPipe", () => {
 	const result = pipe(

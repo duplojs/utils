@@ -8,7 +8,7 @@ import { eitherBoolFalsyKind } from "@scripts/either/bool/falsy";
 import { eitherBoolTruthyKind } from "@scripts/either/bool/truthy";
 import { eitherLeftKind } from "@scripts/either/left/create";
 import { eitherRightKind } from "@scripts/either/right/create";
-import { DArray, DEither } from "@scripts/index";
+import { DArray, DEither } from "@scripts";
 
 describe("createEitherBool", () => {
 	const expectedBoolFalsy = (value: unknown) => ({

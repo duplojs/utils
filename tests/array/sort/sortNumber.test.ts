@@ -1,4 +1,4 @@
-import { DArray, pipe } from "@scripts/index";
+import { DArray, pipe } from "@scripts";
 
 describe("sortNumber", () => {
 	it("sorts numbers ascending by default", () => {

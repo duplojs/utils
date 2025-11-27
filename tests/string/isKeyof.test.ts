@@ -1,7 +1,7 @@
 import { type ExpectType } from "@scripts/common/types/expectType";
 import { when } from "@scripts/common/when";
 import { whenNot } from "@scripts/common/whenNot";
-import { DEither, DString, pipe } from "@scripts/index";
+import { DEither, DString, pipe } from "@scripts";
 
 describe("isKeyof", () => {
 	it("normal", () => {

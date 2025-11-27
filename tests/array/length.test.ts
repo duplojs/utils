@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe } from "@scripts/index";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("length", () => {
 	it("returns the correct length for a non-empty array", () => {

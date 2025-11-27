@@ -1,4 +1,4 @@
-import { DArray, DGenerator, pipe, type ExpectType } from "@scripts/index";
+import { DArray, DGenerator, pipe, type ExpectType } from "@scripts";
 
 describe("map", () => {
 	const input = new Set([{ type: "test" }, { type: "ok" }]);

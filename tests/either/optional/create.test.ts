@@ -8,7 +8,7 @@ import { eitherOptionalKind } from "@scripts/either/optional/base";
 import { eitherOptionalEmptyKind } from "@scripts/either/optional/empty";
 import { eitherOptionalFilledKind } from "@scripts/either/optional/filled";
 import { eitherRightKind } from "@scripts/either/right/create";
-import { DEither } from "@scripts/index";
+import { DEither } from "@scripts";
 
 describe("createEitherOptional", () => {
 	it("create EitherOptionalEmpty", () => {

@@ -8,7 +8,7 @@ import { eitherNullishKind } from "@scripts/either/nullish/base";
 import { eitherNullishEmptyKind } from "@scripts/either/nullish/empty";
 import { eitherNullishFilledKind } from "@scripts/either/nullish/filled";
 import { eitherRightKind } from "@scripts/either/right/create";
-import { DEither } from "@scripts/index";
+import { DEither } from "@scripts";
 
 describe("createEitherNullish", () => {
 	const expectedNullishEmpty = (value: unknown) => ({

@@ -1,5 +1,5 @@
 import { pipe } from "@scripts/common";
-import { DArray } from "@scripts/index";
+import { DArray } from "@scripts";
 
 describe("flat", () => {
 	it("flattens a 2D array by default (depth 1)", () => {

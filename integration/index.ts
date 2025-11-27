@@ -1,5 +1,4 @@
-import { A, E, O, pipe, S, type ExpectType } from "@duplojs/utils";
-import { DPattern } from "@scripts/index";
+import { A, E, O, pipe, S, type ExpectType, DPattern } from "@duplojs/utils";
 
 const result = pipe(
 	"test",

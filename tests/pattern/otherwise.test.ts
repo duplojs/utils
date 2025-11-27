@@ -1,6 +1,6 @@
 import { equal, pipe } from "@scripts/common";
 import { type ExpectType } from "@scripts/common/types/expectType";
-import { DPattern, DString } from "@scripts/index";
+import { DPattern, DString } from "@scripts";
 import { otherwise, type PatternResult } from "@scripts/pattern";
 
 describe("otherwise", () => {

@@ -1,5 +1,5 @@
 import { pipe } from "@scripts/common";
-import { DArray } from "@scripts/index";
+import { DArray } from "@scripts";
 
 describe("includes", () => {
 	const input = [1, "", { test: 10 }];

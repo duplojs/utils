@@ -1,4 +1,4 @@
-import { DPattern, DString, type ExpectType, forward, pipe } from "@scripts/index";
+import { DPattern, DString, type ExpectType, forward, pipe } from "@scripts";
 
 describe("union", () => {
 	interface Test {

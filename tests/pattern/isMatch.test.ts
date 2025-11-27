@@ -1,4 +1,4 @@
-import { DEither, DPattern, type ExpectType, pipe, when } from "@scripts/index";
+import { DEither, DPattern, type ExpectType, pipe, when } from "@scripts";
 
 describe("isMatch", () => {
 	it("match string", () => {

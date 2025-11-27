@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe } from "@scripts/index";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("concat", () => {
 	it("should concatenate", () => {

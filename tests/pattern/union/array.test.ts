@@ -1,5 +1,5 @@
 import { type ExpectType, pipe } from "@scripts/common";
-import { DPattern } from "@scripts/index";
+import { DPattern } from "@scripts";
 
 describe("union discriminate array", () => {
 	describe("array", () => {
