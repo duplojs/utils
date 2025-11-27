@@ -10,7 +10,17 @@ next:
 
 # Date
 
-Fonctions pour manipuler des dates et heures via le type propriétaire **`TheDate`** (`type TheDate = `date${number}${"-" | "+"}`). Ce format sérialisable encode un timestamp Unix sécurisé, traverse les protocoles HTTP sans perte et garantit une manipulation immutable.
+Fonctions pour manipuler des dates et heures via le type propriétaire **`TheDate`** (``type TheDate = `date${number}${"-" | "+"}``). Ce format sérialisable encode un timestamp Unix sécurisé, traverse les protocoles HTTP sans perte et garantit une manipulation immutable.
+
+## Comment faire les imports ?
+
+La bibliothèque expose les namespaces `DDate` et `D` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
+
+```ts
+import { DDate, D } from "@duplojs/utils";
+import * as DDate from "@duplojs/utils/date";
+import * as D from "@duplojs/utils/date";
+```
 
 ## Création
 

@@ -35,6 +35,18 @@ function initMonaco() {
 		baseUrl: "file:///",
 		paths: {
 			"@duplojs/utils": ["node_modules/@duplojs/utils/index.d.ts"],
+			"@duplojs/utils/either": ["node_modules/@duplojs/utils/either/index.d.ts"],
+			"@duplojs/utils/array": ["node_modules/@duplojs/utils/array/index.d.ts"],
+			"@duplojs/utils/common": ["node_modules/@duplojs/utils/common/index.d.ts"],
+			"@duplojs/utils/dataParser": ["node_modules/@duplojs/utils/dataParser/index.d.ts"],
+			"@duplojs/utils/dataParserCoerce": ["node_modules/@duplojs/utils/dataParser/parsers/coerce/index.d.ts"],
+			"@duplojs/utils/dataParserExtended": ["node_modules/@duplojs/utils/dataParser/extended/index.d.ts"],
+			"@duplojs/utils/generator": ["node_modules/@duplojs/utils/generator/index.d.ts"],
+			"@duplojs/utils/number": ["node_modules/@duplojs/utils/number/index.d.ts"],
+			"@duplojs/utils/object": ["node_modules/@duplojs/utils/object/index.d.ts"],
+			"@duplojs/utils/pattern": ["node_modules/@duplojs/utils/pattern/index.d.ts"],
+			"@duplojs/utils/string": ["node_modules/@duplojs/utils/string/index.d.ts"],
+			"@duplojs/utils/date": ["node_modules/@duplojs/utils/date/index.d.ts"],
 		},
 	});
 }
