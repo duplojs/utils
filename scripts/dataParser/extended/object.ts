@@ -1,8 +1,11 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { pipe, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
+import * as DObject from "@scripts/object";
+import * as DString from "@scripts/string";
+import * as DArray from "@scripts/array";
 
 type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
@@ -45,6 +48,48 @@ export interface DataParserObjectExtended<
 			[dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
+
+	omit<
+		const GenericOmitObject extends Partial<
+			Record<
+				keyof GenericDefinition["shape"],
+				true
+			>
+		>,
+		const GenericSubDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+		> = never,
+	>(
+		omitObject: GenericOmitObject,
+		definition?: GenericDefinition,
+	): ReturnType<
+		typeof dataParsers.omit<
+			dataParsers.DataParserObject<GenericDefinition>,
+			GenericOmitObject,
+			GenericSubDefinition
+		>
+	>;
+
+	pick<
+		const GenericPickObject extends Partial<
+			Record<
+				keyof GenericDefinition["shape"],
+				true
+			>
+		>,
+		const GenericSubDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+		> = never,
+	>(
+		pickObject: GenericPickObject,
+		definition?: GenericDefinition,
+	): ReturnType<
+		typeof dataParsers.pick<
+			dataParsers.DataParserObject<GenericDefinition>,
+			GenericPickObject,
+			GenericSubDefinition
+		>
+	>;
 }
 
 export function object<
@@ -66,6 +111,33 @@ export function object<
 		DataParserObjectExtended
 	>(
 		dataParsers.object(shape, definition) as never,
-		{},
+		{
+			omit: (self, omitObject, definition) => {
+				const newShape = pipe(
+					self.definition.shape,
+					DObject.entries,
+					DArray.filter(([key]) => !DString.isKeyof(key, omitObject)),
+					DObject.fromEntries,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+			pick: (self, omitObject, definition) => {
+				const newShape = pipe(
+					self.definition.shape,
+					DObject.entries,
+					DArray.filter(([key]) => DString.isKeyof(key, omitObject)),
+					DObject.fromEntries,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+		},
 	) as never;
 }

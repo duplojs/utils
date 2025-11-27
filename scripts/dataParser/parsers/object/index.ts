@@ -1,4 +1,4 @@
-import { type Kind, pipe, type IsEqual, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
+import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../../error";
