@@ -1,4 +1,4 @@
-import { type ObjectEntry, type ObjectKey, type AnyValue, type SimplifyTopLevel, type UnionContain } from "@scripts/common";
+import { type ObjectEntry, type ObjectKey, type SimplifyTopLevel, type UnionContain } from "@scripts/common";
 
 type ComputeEntries<
 	GenericEntry extends ObjectEntry,
@@ -12,8 +12,7 @@ type ComputeEntries<
 
 export function fromEntries<
 	GenericKey extends ObjectKey,
-	GenericValue extends AnyValue,
-	GenericEntry extends readonly [GenericKey, GenericValue],
+	const GenericEntry extends readonly [GenericKey, unknown],
 >(
 	entries: readonly GenericEntry[],
 ): ComputeEntries<GenericEntry> {

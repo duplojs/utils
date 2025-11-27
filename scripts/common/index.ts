@@ -41,3 +41,4 @@ export * from "./globalStore";
 export * from "./builder";
 export * from "./createKindIdentifier";
 export * from "./forwardLog";
+export * from "./override";
