@@ -50,4 +50,5 @@ Un `DataParserLiteral` dont `parse` renvoie `DEither.success<LiteralUnion>` en c
 
 ## Voir aussi
 
-- [Data Parser](/v1/api/data-parser/fr)
+- [`number`](/v1/api/data-parser/number/fr) - Parser pour les nombres
+- [`tuple`](/v1/api/data-parser/tuple/fr) - Parser pour les tableaux à taille fixe

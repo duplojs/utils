@@ -51,5 +51,5 @@ Un `DataParserString` disposant de `parse`, `asyncParse`, `exec`, `asyncExec`, `
 
 ## Voir aussi
 
-- [Data Parser](/v1/api/data-parser/fr) — présentation du système et des autres parsers disponibles
+- [`boolean`](/v1/api/data-parser/boolean/fr) — parser pour les valeurs booléennes
 - [`coerce.*`](/v1/api/data-parser/coerce/fr) — variantes spécialisées pour normaliser les entrées avant validation stricte

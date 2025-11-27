@@ -50,5 +50,5 @@ Un `DataParserNumber` avec `parse`, `asyncParse`, `exec`, `asyncExec`, `addCheck
 
 ## Voir aussi
 
-- [date](/v1/api/data-parser/date/fr)
-- [`coerce.*`](/v1/api/data-parser/coerce/fr)
+- [`date`](/v1/api/data-parser/date/fr) - Parser pour les dates
+- [`coerce.*`](/v1/api/data-parser/coerce/fr) - Fonctions de coercition pour divers types
