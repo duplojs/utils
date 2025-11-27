@@ -1,17 +1,17 @@
-import { pipe, DArray, DNumber, equal, innerPipe } from "@duplojs/utils";
+import { pipe, A, N, equal, innerPipe } from "@duplojs/utils";
 
 const result = pipe(
 	[1, 2, 3, 4, 5, 6],
-	DArray.filter(
+	A.filter(
 		innerPipe(
-			DNumber.modulo(2),
+			N.modulo(2),
 			equal(0),
 		),
 	),
-	DArray.map(DNumber.multiply(2)),
-	DArray.reduce(
+	A.map(N.multiply(2)),
+	A.reduce(
 		0,
-		({ element, lastValue, next }) => next(DNumber.add(element, lastValue)),
+		({ element, lastValue, next }) => next(N.add(element, lastValue)),
 	),
-	DNumber.round,
+	N.round,
 );

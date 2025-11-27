@@ -1,4 +1,4 @@
-import { DGenerator, DString, pipe } from "@duplojs/utils";
+import { G, DString, pipe } from "@duplojs/utils";
 
 const input = [
 	{
@@ -17,13 +17,13 @@ const input = [
 
 const result = pipe(
 	input,
-	DGenerator.map((user) => pipe(
+	G.map((user) => pipe(
 		user.firstName,
 		DString.concat(" "),
 		DString.concat(user.lastName),
 	)),
-	DGenerator.reduce(
-		DGenerator.reduceFrom<string[]>([]),
+	G.reduce(
+		G.reduceFrom<string[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

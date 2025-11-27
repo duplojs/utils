@@ -1,16 +1,16 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = [10, 20, 30, 20, 40];
 
-const result1 = DArray.lastIndexOf(input, 20);
+const result1 = A.lastIndexOf(input, 20);
 // result1: 3
 
-const result2 = DArray.lastIndexOf(input, 20, 2);
+const result2 = A.lastIndexOf(input, 20, 2);
 // result2: 1
 
-const result3 = DArray.lastIndexOf(input, 100);
+const result3 = A.lastIndexOf(input, 100);
 // result3: undefined
 
-const findLast20 = DArray.lastIndexOf(20);
+const findLast20 = A.lastIndexOf(20);
 const result4 = findLast20(input);
 // result4: 3

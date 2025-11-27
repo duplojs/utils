@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Path {
 	lateralDeviation: number;
@@ -26,16 +26,16 @@ const paths: Path[] = [
 
 const result = pipe(
 	paths,
-	DArray.map((path) => ({
+	A.map((path) => ({
 		deviation: path.lateralDeviation,
-		sinValue: DNumber.divide(path.lateralDeviation, path.distance),
+		sinValue: N.divide(path.lateralDeviation, path.distance),
 	})),
-	DArray.map(({ deviation, sinValue }) => ({
+	A.map(({ deviation, sinValue }) => ({
 		deviation,
 		angle: pipe(
 			sinValue,
-			DNumber.asin,
-			DNumber.multiply(DNumber.divide(180, Math.PI)),
+			N.asin,
+			N.multiply(N.divide(180, Math.PI)),
 		),
 	})),
 );

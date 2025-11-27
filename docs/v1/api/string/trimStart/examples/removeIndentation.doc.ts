@@ -1,4 +1,4 @@
-import { DString, DArray, pipe } from "@duplojs/utils";
+import { DString, A, pipe } from "@duplojs/utils";
 
 const codeLines = [
 	"    function hello() {",
@@ -8,7 +8,7 @@ const codeLines = [
 
 const result = pipe(
 	codeLines,
-	DArray.map(DString.trimStart),
+	A.map(DString.trimStart),
 );
 
 // result: ["function hello() {", "console.log('Hello');", "}"]

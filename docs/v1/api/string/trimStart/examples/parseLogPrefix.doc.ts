@@ -1,4 +1,4 @@
-import { DString, DEither, pipe, when, whenNot } from "@duplojs/utils";
+import { DString, E, pipe, when, whenNot } from "@duplojs/utils";
 
 const logLine = "   [INFO] Application started successfully";
 
@@ -11,21 +11,21 @@ const result = pipe(
 		(index) => pipe(
 			logLine,
 			DString.trimStart,
-			(line) => DEither.success({
+			(line) => E.success({
 				level: DString.substring(line, 1, index),
 				message: DString.substring(line, index + 2),
 			}),
 		),
 	),
 	whenNot(
-		DEither.isRight,
-		() => DEither.error("Invalid log format: missing closing bracket"),
+		E.isRight,
+		() => E.error("Invalid log format: missing closing bracket"),
 	),
 );
 
 /**
- * result: DEither.EitherSuccess<{
+ * result: E.EitherSuccess<{
  *   level: "INFO",
  *   message: "Application started successfully"
- * }> | DEither.EitherError<"Invalid log format: missing closing bracket">
+ * }> | E.EitherError<"Invalid log format: missing closing bracket">
  */

@@ -1,10 +1,10 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const email = "ZeRiix@Example.COM";
 const username = pipe(
 	email,
 	DString.toLowerCase,
 	DString.split("@"),
-	DArray.first,
+	A.first,
 );
 // username: zeriix

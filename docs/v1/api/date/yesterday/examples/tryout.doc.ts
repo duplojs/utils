@@ -1,4 +1,4 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const result = DDate.yesterday();
+const result = D.yesterday();
 // result: "date" + timestamp du jour précédent

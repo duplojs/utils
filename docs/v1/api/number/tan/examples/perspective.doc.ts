@@ -1,28 +1,28 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const fieldOfViewDegrees = 60;
 const viewportWidth = 1920;
 const objectDistances = [10, 20, 30, 40, 50];
 const objectRealWidth = 2;
 
-const degreesToRadians = DNumber.divide(Math.PI, 180);
+const degreesToRadians = N.divide(Math.PI, 180);
 const halfDivisor = 2;
 
 const focalLength = pipe(
 	fieldOfViewDegrees,
-	DNumber.multiply(degreesToRadians),
-	(fovRadians) => DNumber.divide(fovRadians, halfDivisor),
-	DNumber.tan,
-	(tanValue) => DNumber.divide(viewportWidth, DNumber.multiply(halfDivisor, tanValue)),
+	N.multiply(degreesToRadians),
+	(fovRadians) => N.divide(fovRadians, halfDivisor),
+	N.tan,
+	(tanValue) => N.divide(viewportWidth, N.multiply(halfDivisor, tanValue)),
 );
 
-const focalTimesObjectWidth = DNumber.multiply(focalLength, objectRealWidth);
+const focalTimesObjectWidth = N.multiply(focalLength, objectRealWidth);
 
 const result = pipe(
 	objectDistances,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.divide(focalTimesObjectWidth),
+			N.divide(focalTimesObjectWidth),
 		),
 	),
 );

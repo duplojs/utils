@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 100;
-const result = DNumber.subtract(value, 25);
+const result = N.subtract(value, 25);
 // result: 75

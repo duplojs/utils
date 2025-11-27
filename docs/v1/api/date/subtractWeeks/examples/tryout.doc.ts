@@ -1,5 +1,5 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-06-30");
-const result = DDate.subtractWeeks(input, 4);
+const input = D.create("2024-06-30");
+const result = D.subtractWeeks(input, 4);
 // result: "date1716076800000+"

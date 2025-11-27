@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 16;
-const result = DNumber.sqrt(value);
+const result = N.sqrt(value);
 // result: 4

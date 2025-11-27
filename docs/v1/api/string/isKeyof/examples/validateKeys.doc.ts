@@ -1,4 +1,4 @@
-import { DEither, DString, pipe, when, whenNot } from "@duplojs/utils";
+import { E, DString, pipe, when, whenNot } from "@duplojs/utils";
 
 const input = "username" as string;
 const user = {
@@ -9,11 +9,11 @@ const result = pipe(
 	input,
 	when(
 		DString.isKeyof(user),
-		DEither.success,
+		E.success,
 	),
 	whenNot(
-		DEither.isRight,
-		DEither.error,
+		E.isRight,
+		E.error,
 	),
 );
-// result: DEither.EitherSuccess<"username" | "email"> | DEither.EitherError<string>
+// result: E.EitherSuccess<"username" | "email"> | E.EitherError<string>

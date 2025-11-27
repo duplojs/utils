@@ -1,6 +1,6 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 10;
 const operand = 5;
-const result = DNumber.add(value, operand);
+const result = N.add(value, operand);
 // result: 15

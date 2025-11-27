@@ -1,12 +1,12 @@
-import { DArray, DString, innerPipe, pipe } from "@duplojs/utils";
+import { A, DString, innerPipe, pipe } from "@duplojs/utils";
 
 const input = ["file.txt", "image.png", "doc.pdf"];
 const result = pipe(
 	input,
-	DArray.map(
+	A.map(
 		innerPipe(
 			DString.split("."),
-			DArray.at(-1),
+			A.at(-1),
 		),
 	),
 );

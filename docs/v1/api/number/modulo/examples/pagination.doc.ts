@@ -1,18 +1,18 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const items = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const pageSize = 3;
 
 const result = pipe(
 	items,
-	DArray.map(
+	A.map(
 		(item, { index }) => ({
 			item,
 			page: pipe(
 				index,
-				DNumber.divide(pageSize),
-				DNumber.floor,
-				DNumber.add(1),
+				N.divide(pageSize),
+				N.floor,
+				N.add(1),
 			),
 		}),
 	),

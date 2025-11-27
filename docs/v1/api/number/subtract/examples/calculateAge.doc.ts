@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const currentYear = 2024;
 const people = [
@@ -18,14 +18,14 @@ const people = [
 
 const result = pipe(
 	people,
-	DArray.map(
+	A.map(
 		({ name, birthYear }) => ({
 			name,
-			age: DNumber.subtract(currentYear, birthYear),
+			age: N.subtract(currentYear, birthYear),
 		}),
 	),
-	DArray.filter(
-		({ age }) => DNumber.greaterThan(age, 30),
+	A.filter(
+		({ age }) => N.greaterThan(age, 30),
 	),
 );
 

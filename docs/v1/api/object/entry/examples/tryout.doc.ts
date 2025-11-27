@@ -1,4 +1,4 @@
-import { DObject } from "@duplojs/utils";
+import { O } from "@duplojs/utils";
 
-const result = DObject.entry("name", "Alice");
+const result = O.entry("name", "Alice");
 // result: ["name", "Alice"]

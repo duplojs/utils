@@ -1,15 +1,15 @@
-import { DGenerator, DNumber, pipe } from "@duplojs/utils";
+import { G, N, pipe } from "@duplojs/utils";
 
 const multiplier = 2;
 const input = [0, 1, 2];
 
 const result = await pipe(
 	input,
-	DGenerator.asyncMap(async(value) => Promise.resolve(
-		DNumber.multiply(value, multiplier),
+	G.asyncMap(async(value) => Promise.resolve(
+		N.multiply(value, multiplier),
 	)),
-	DGenerator.asyncReduce(
-		DGenerator.reduceFrom<number[]>([]),
+	G.asyncReduce(
+		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

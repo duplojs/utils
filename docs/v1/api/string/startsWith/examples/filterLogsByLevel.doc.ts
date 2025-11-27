@@ -1,4 +1,4 @@
-import { DArray, DString, pipe, DPattern } from "@duplojs/utils";
+import { A, DString, pipe, P } from "@duplojs/utils";
 
 const logs = [
 	"[INFO] Server started on port 3000",
@@ -12,8 +12,8 @@ const logs = [
 
 const result = pipe(
 	logs,
-	DArray.reduce(
-		DArray.reduceFrom<{
+	A.reduce(
+		A.reduceFrom<{
 			errors: string[];
 			warnings: string[];
 			info: string[];
@@ -26,34 +26,34 @@ const result = pipe(
 			lastValue,
 			pipe(
 				element,
-				DPattern.when(
+				P.when(
 					DString.startsWith("[ERROR]"),
 					(log) => ({
-						errors: DArray.push(
+						errors: A.push(
 							lastValue.errors,
 							DString.replace(log, /^\[ERROR\]\s*/, ""),
 						),
 					}),
 				),
-				DPattern.when(
+				P.when(
 					DString.startsWith("[WARN]"),
 					(log) => ({
-						warnings: DArray.push(
+						warnings: A.push(
 							lastValue.warnings,
 							DString.replace(log, /^\[WARN\]\s*/, ""),
 						),
 					}),
 				),
-				DPattern.when(
+				P.when(
 					DString.startsWith("[INFO]"),
 					(log) => ({
-						info: DArray.push(
+						info: A.push(
 							lastValue.info,
 							DString.replace(log, /^\[INFO\]\s*/, ""),
 						),
 					}),
 				),
-				DPattern.otherwise(() => ({})),
+				P.otherwise(() => ({})),
 			),
 		),
 	),

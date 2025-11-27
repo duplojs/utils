@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const warehouses = [
 	{
@@ -25,14 +25,14 @@ const warehouses = [
 
 const result = pipe(
 	warehouses,
-	DArray.reduce(
-		DArray.reduceFrom({
+	A.reduce(
+		A.reduceFrom({
 			minProductA: Infinity,
 			minProductB: Infinity,
 		}),
 		({ element, lastValue, next }) => next({
-			minProductA: DNumber.min(element.productAStock, lastValue.minProductA),
-			minProductB: DNumber.min(element.productBStock, lastValue.minProductB),
+			minProductA: N.min(element.productAStock, lastValue.minProductA),
+			minProductB: N.min(element.productBStock, lastValue.minProductB),
 		}),
 	),
 );

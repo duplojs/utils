@@ -1,13 +1,13 @@
-import { DGenerator, equal, whenElse } from "@duplojs/utils";
+import { G, equal, whenElse } from "@duplojs/utils";
 
 const maxCount = 3;
-const result = DGenerator.asyncLoop(
+const result = G.asyncLoop(
 	async(
 		{
 			count,
 			next,
 			exit,
-		}: DGenerator.GeneratorLoopParams<number>,
+		}: G.GeneratorLoopParams<number>,
 	) => whenElse(
 		count,
 		equal(maxCount),

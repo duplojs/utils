@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const totalItems = [47, 93, 125, 18];
 const itemsPerPage = 10;
 
 const result = pipe(
 	totalItems,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.divide(itemsPerPage),
-			DNumber.floor,
+			N.divide(itemsPerPage),
+			N.floor,
 		),
 	),
 );

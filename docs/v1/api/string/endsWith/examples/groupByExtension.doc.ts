@@ -1,9 +1,9 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["file.txt", "image.png", "doc.txt", "photo.png"];
 const result = pipe(
 	input,
-	DArray.group(
+	A.group(
 		(element, { output }) => DString.endsWith(element, ".txt")
 			? output("text", element)
 			: output("image", element),

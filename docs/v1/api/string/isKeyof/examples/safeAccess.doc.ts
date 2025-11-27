@@ -1,4 +1,4 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["id", "name", "role"];
 const config = {
@@ -7,7 +7,7 @@ const config = {
 };
 const result = pipe(
 	input,
-	DArray.map(
+	A.map(
 		(key) => DString.isKeyof(key, config) ? config[key] : null,
 	),
 );

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const ratios = [
 	{
@@ -25,16 +25,16 @@ const ratios = [
 
 const result = pipe(
 	ratios,
-	DArray.map((ratio) => ({
+	A.map((ratio) => ({
 		name: ratio.name,
-		heightToWidthRatio: DNumber.divide(ratio.height, ratio.width),
+		heightToWidthRatio: N.divide(ratio.height, ratio.width),
 	})),
-	DArray.map(({ name, heightToWidthRatio }) => ({
+	A.map(({ name, heightToWidthRatio }) => ({
 		name,
 		angle: pipe(
 			heightToWidthRatio,
-			DNumber.atan,
-			DNumber.multiply(DNumber.divide(180, Math.PI)),
+			N.atan,
+			N.multiply(N.divide(180, Math.PI)),
 		),
 	})),
 );

@@ -1,14 +1,14 @@
-import { DGenerator, DNumber, equal, whenElse, pipe } from "@duplojs/utils";
+import { G, N, equal, whenElse, pipe } from "@duplojs/utils";
 
 const maxValue = 5;
 const result = pipe(
-	DGenerator.loop(
+	G.loop(
 		(
 			{
 				count,
 				next,
 				exit,
-			}: DGenerator.GeneratorLoopParams<number>,
+			}: G.GeneratorLoopParams<number>,
 		) => whenElse(
 			count,
 			equal(maxValue),
@@ -16,9 +16,9 @@ const result = pipe(
 			next,
 		),
 	),
-	DGenerator.reduce(
-		DGenerator.reduceFrom(0),
-		({ element, lastValue, next }) => next(DNumber.add(lastValue, element)),
+	G.reduce(
+		G.reduceFrom(0),
+		({ element, lastValue, next }) => next(N.add(lastValue, element)),
 	),
 );
 // result: 10

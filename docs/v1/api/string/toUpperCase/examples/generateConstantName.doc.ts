@@ -1,4 +1,4 @@
-import { DString, DArray, pipe } from "@duplojs/utils";
+import { DString, A, pipe } from "@duplojs/utils";
 
 const variableName = "maxRetryAttempts";
 

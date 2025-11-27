@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, whenElse, createEnum } from "@duplojs/utils";
+import { N, A, pipe, whenElse, createEnum } from "@duplojs/utils";
 
 const scores = [45, 65, 80, 50, 72, 38];
 const passingScore = 50;
@@ -6,10 +6,10 @@ const categoryEnum = createEnum(["failed", "passed"]);
 
 const result = pipe(
 	scores,
-	DArray.group((score, { output }) => output(
+	A.group((score, { output }) => output(
 		whenElse(
 			score,
-			DNumber.lessThan(passingScore),
+			N.lessThan(passingScore),
 			() => categoryEnum.failed,
 			() => categoryEnum.passed,
 		),

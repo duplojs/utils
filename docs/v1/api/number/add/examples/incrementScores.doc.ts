@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const scores = [85, 90, 78, 92];
 const bonus = 5;
 
 const result = pipe(
 	scores,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.add(bonus),
-			DNumber.min(100),
+			N.add(bonus),
+			N.min(100),
 		),
 	),
 );

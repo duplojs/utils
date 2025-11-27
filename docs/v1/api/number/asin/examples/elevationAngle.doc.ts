@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Projectile {
 	maxHeight: number;
@@ -23,18 +23,18 @@ const projectiles: Projectile[] = [
 
 const result = pipe(
 	projectiles,
-	DArray.map((projectile) => ({
-		numerator: DNumber.multiply(
-			DNumber.multiply(2, gravity),
+	A.map((projectile) => ({
+		numerator: N.multiply(
+			N.multiply(2, gravity),
 			projectile.maxHeight,
 		),
-		denominator: DNumber.power(projectile.initialVelocity, 2),
+		denominator: N.power(projectile.initialVelocity, 2),
 	})),
-	DArray.map(({ numerator, denominator }) => pipe(
-		DNumber.divide(numerator, denominator),
-		(sinSquared) => DNumber.power(sinSquared, 0.5),
-		DNumber.asin,
-		DNumber.multiply(DNumber.divide(180, Math.PI)),
+	A.map(({ numerator, denominator }) => pipe(
+		N.divide(numerator, denominator),
+		(sinSquared) => N.power(sinSquared, 0.5),
+		N.asin,
+		N.multiply(N.divide(180, Math.PI)),
 	)),
 );
 

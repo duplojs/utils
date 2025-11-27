@@ -1,4 +1,4 @@
-import { DArray, DString, pipe, DPattern } from "@duplojs/utils";
+import { A, DString, pipe, P } from "@duplojs/utils";
 
 const input = `
 # Getting Started
@@ -25,8 +25,8 @@ How to use the library.
 const result = pipe(
 	input,
 	DString.split("\n"),
-	DArray.reduce(
-		DArray.reduceFrom<{
+	A.reduce(
+		A.reduceFrom<{
 			h1: string | null;
 			h2: string[];
 			h3: string[];
@@ -39,31 +39,31 @@ const result = pipe(
 			lastValue,
 			pipe(
 				element,
-				DPattern.when(
+				P.when(
 					DString.startsWith("###"),
 					(value) => ({
-						h3: DArray.push(
+						h3: A.push(
 							lastValue.h3,
 							DString.replace(value, /^###\s*/, ""),
 						),
 					}),
 				),
-				DPattern.when(
+				P.when(
 					DString.startsWith("##"),
 					(value) => ({
-						h2: DArray.push(
+						h2: A.push(
 							lastValue.h2,
 							DString.replace(value, /^##\s*/, ""),
 						),
 					}),
 				),
-				DPattern.when(
+				P.when(
 					DString.startsWith("#"),
 					(value) => ({
 						h1: DString.replace(value, /^#\s*/, ""),
 					}),
 				),
-				DPattern.otherwise(() => ({})),
+				P.otherwise(() => ({})),
 			),
 		),
 	),

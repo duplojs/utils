@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 interface Triangle {
 	height: number;
@@ -22,11 +22,11 @@ const triangles: Triangle[] = [
 
 const result = pipe(
 	triangles,
-	DArray.map((triangle) => DNumber.divide(triangle.height, triangle.hypotenuse)),
-	DArray.map(
+	A.map((triangle) => N.divide(triangle.height, triangle.hypotenuse)),
+	A.map(
 		innerPipe(
-			DNumber.asin,
-			DNumber.multiply(DNumber.divide(180, Math.PI)),
+			N.asin,
+			N.multiply(N.divide(180, Math.PI)),
 		),
 	),
 );

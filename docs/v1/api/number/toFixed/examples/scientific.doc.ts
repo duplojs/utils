@@ -1,4 +1,4 @@
-import { DArray, DNumber, pipe } from "@duplojs/utils";
+import { A, N, pipe } from "@duplojs/utils";
 
 const measurements = [
 	{
@@ -25,9 +25,9 @@ const measurements = [
 
 const result = pipe(
 	measurements,
-	DArray.map(({ name, precision, value }) => ({
+	A.map(({ name, precision, value }) => ({
 		name,
-		formatted: DNumber.toFixed(value, precision),
+		formatted: N.toFixed(value, precision),
 	})),
 );
 

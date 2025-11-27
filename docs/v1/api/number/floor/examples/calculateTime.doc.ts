@@ -1,12 +1,12 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const seconds = [125, 487, 92, 3456];
 
 const result = pipe(
 	seconds,
-	DArray.map((totalSeconds) => ({
-		minutes: DNumber.floor(DNumber.divide(totalSeconds, 60)),
-		seconds: DNumber.modulo(totalSeconds, 60),
+	A.map((totalSeconds) => ({
+		minutes: N.floor(N.divide(totalSeconds, 60)),
+		seconds: N.modulo(totalSeconds, 60),
 	})),
 );
 

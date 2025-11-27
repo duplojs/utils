@@ -1,4 +1,4 @@
-import { DArray, pipe } from "@duplojs/utils";
+import { A, pipe } from "@duplojs/utils";
 
 const input = [
 	{
@@ -28,7 +28,7 @@ const input = [
 	},
 ] as const;
 
-const result = DArray.group(
+const result = A.group(
 	input,
 	(task, { output }) => output(task.status, task.title),
 );
@@ -40,7 +40,7 @@ const result = DArray.group(
 
 const result2 = pipe(
 	input,
-	DArray.group((task, { output }) => output(task.status, task.id)),
+	A.group((task, { output }) => output(task.status, task.id)),
 );
 // result2: {
 //  todo: ["T1", "T4"],

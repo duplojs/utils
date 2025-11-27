@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface Triangle {
 	sideA: number;
@@ -26,23 +26,23 @@ const triangles: Triangle[] = [
 
 const result = pipe(
 	triangles,
-	DArray.map((triangle) => ({
-		sideBSquared: DNumber.power(triangle.sideB, 2),
-		sideCSquared: DNumber.power(triangle.sideC, 2),
-		sideASquared: DNumber.power(triangle.sideA, 2),
-		denominator: DNumber.multiply(DNumber.multiply(2, triangle.sideB), triangle.sideC),
+	A.map((triangle) => ({
+		sideBSquared: N.power(triangle.sideB, 2),
+		sideCSquared: N.power(triangle.sideC, 2),
+		sideASquared: N.power(triangle.sideA, 2),
+		denominator: N.multiply(N.multiply(2, triangle.sideB), triangle.sideC),
 	})),
-	DArray.map(({ sideBSquared, sideCSquared, sideASquared, denominator }) => {
+	A.map(({ sideBSquared, sideCSquared, sideASquared, denominator }) => {
 		// cos(A) = (b² + c² - a²) / (2bc)
-		const cosAngleA = DNumber.divide(
-			DNumber.subtract(
-				DNumber.add(sideBSquared, sideCSquared),
+		const cosAngleA = N.divide(
+			N.subtract(
+				N.add(sideBSquared, sideCSquared),
 				sideASquared,
 			),
 			denominator,
 		);
 
-		return pipe(cosAngleA, DNumber.acos, DNumber.multiply(DNumber.divide(180, Math.PI)));
+		return pipe(cosAngleA, N.acos, N.multiply(N.divide(180, Math.PI)));
 	}),
 );
 

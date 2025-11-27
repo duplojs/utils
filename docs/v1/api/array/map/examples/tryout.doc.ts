@@ -1,9 +1,9 @@
-import { DArray, DNumber } from "@duplojs/utils";
+import { A, N } from "@duplojs/utils";
 
 const input = [5, 10, 15] as const;
 
-const result = DArray.map(
+const result = A.map(
 	input,
-	(value, { index }) => DNumber.multiply(value, DNumber.add(index, 1)),
+	(value, { index }) => N.multiply(value, N.add(index, 1)),
 );
 // result: [5, 20, 45]

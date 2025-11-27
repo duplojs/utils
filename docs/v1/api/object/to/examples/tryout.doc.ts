@@ -1,4 +1,4 @@
-import { DNumber, DObject, DString } from "@duplojs/utils";
+import { N, O, DString } from "@duplojs/utils";
 
 const input = {
 	firstName: "Alice",
@@ -7,11 +7,11 @@ const input = {
 };
 const majority = 18;
 
-const result = DObject.to(
+const result = O.to(
 	input,
 	{
 		fullName: ({ firstName, lastName }) => DString.concat(firstName, " ", lastName),
-		isAdult: ({ age }) => DNumber.greater(age, majority),
+		isAdult: ({ age }) => N.greater(age, majority),
 	},
 );
 // result: { fullName: "Alice Smith", isAdult: true }

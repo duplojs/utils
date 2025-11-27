@@ -1,13 +1,13 @@
-import { DArray, DString, innerPipe, pipe } from "@duplojs/utils";
+import { A, DString, innerPipe, pipe } from "@duplojs/utils";
 
 const input = ["user@gmail.com", "admin@yahoo.com", "dev@gmail.com"] as const;
 const result = pipe(
 	input,
-	DArray.filter(DString.includes("@gmail")),
-	DArray.map(
+	A.filter(DString.includes("@gmail")),
+	A.map(
 		innerPipe(
 			DString.split("@"),
-			DArray.first,
+			A.first,
 		),
 	),
 );

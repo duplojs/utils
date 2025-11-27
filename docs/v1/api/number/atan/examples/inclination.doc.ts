@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 interface RoofStructure {
 	// Height (m)
@@ -33,20 +33,20 @@ const structures: RoofStructure[] = [
 
 const result = pipe(
 	structures,
-	DArray.map((structure) => ({
+	A.map((structure) => ({
 		type: structure.type,
-		ratio: DNumber.divide(structure.rise, structure.run),
+		ratio: N.divide(structure.rise, structure.run),
 	})),
-	DArray.map(({ type, ratio }) => ({
+	A.map(({ type, ratio }) => ({
 		type,
 		angle: pipe(
 			ratio,
-			DNumber.atan,
-			DNumber.multiply(DNumber.divide(180, Math.PI)),
+			N.atan,
+			N.multiply(N.divide(180, Math.PI)),
 		),
 		slope: `${pipe(
-			DNumber.multiply(ratio, 100),
-			DNumber.round,
+			N.multiply(ratio, 100),
+			N.round,
 		).toFixed(1)}%`,
 	})),
 );

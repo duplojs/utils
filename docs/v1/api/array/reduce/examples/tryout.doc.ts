@@ -1,4 +1,4 @@
-import { DArray, DNumber, pipe } from "@duplojs/utils";
+import { A, N, pipe } from "@duplojs/utils";
 
 const input = [
 	{
@@ -15,23 +15,23 @@ const input = [
 	},
 ] as const;
 
-const result = DArray.reduce(
+const result = A.reduce(
 	input,
 	0,
-	({ element, lastValue, next }) => next(DNumber.add(lastValue, element.amount)),
+	({ element, lastValue, next }) => next(N.add(lastValue, element.amount)),
 );
 // result: 1120
 
 const result2 = pipe(
 	input,
-	DArray.reduce(
-		DArray.reduceFrom({
+	A.reduce(
+		A.reduceFrom({
 			total: 0,
 			count: 0,
 		}),
 		({ element, lastValue, next }) => next({
-			total: DNumber.add(lastValue.total, element.amount),
-			count: DNumber.add(lastValue.count, 1),
+			total: N.add(lastValue.total, element.amount),
+			count: N.add(lastValue.count, 1),
 		}),
 	),
 );

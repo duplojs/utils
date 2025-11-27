@@ -1,4 +1,4 @@
-import { DArray } from "@duplojs/utils";
+import { A } from "@duplojs/utils";
 
 const input = {
 	name: "John",
@@ -6,7 +6,7 @@ const input = {
 	city: "Paris",
 } as const;
 
-const result = DArray.toTuple(
+const result = A.toTuple(
 	input,
 	[
 		(value) => value.name,

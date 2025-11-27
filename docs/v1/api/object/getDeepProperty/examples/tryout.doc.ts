@@ -1,5 +1,5 @@
-import { DObject } from "@duplojs/utils";
+import { O } from "@duplojs/utils";
 
 const input = { user: { address: { city: "Paris" } } } as const;
-const result = DObject.getDeepProperty(input, "user.address.city");
+const result = O.getDeepProperty(input, "user.address.city");
 // result: "Paris"

@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const scores = [85, 110, -5, 95, 120, 50];
 
 const result = pipe(
 	scores,
-	DArray.map(DNumber.clamp(0, 100)),
-	DArray.map(
+	A.map(N.clamp(0, 100)),
+	A.map(
 		innerPipe(
-			DNumber.divide(100),
-			DNumber.multiply(100),
+			N.divide(100),
+			N.multiply(100),
 			Math.round,
 		),
 	),

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const products = [
 	{
@@ -18,14 +18,14 @@ const discount = 20;
 
 const result = pipe(
 	products,
-	DArray.map(
+	A.map(
 		({ name, price }) => ({
 			name,
 			originalPrice: price,
 			finalPrice: pipe(
 				price,
-				DNumber.subtract(discount),
-				DNumber.max(0),
+				N.subtract(discount),
+				N.max(0),
 			),
 		}),
 	),

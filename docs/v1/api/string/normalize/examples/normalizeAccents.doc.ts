@@ -1,9 +1,9 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["café", "naïve", "résumé"];
 const result = pipe(
 	input,
-	DArray.map(DString.normalize("NFC")),
-	DArray.join(" - "),
+	A.map(DString.normalize("NFC")),
+	A.join(" - "),
 );
 // result: "café - naïve - résumé"

@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const orderQuantities = [23, 47, 8, 102];
 const itemsPerBox = 12;
 
 const result = pipe(
 	orderQuantities,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.divide(itemsPerBox),
-			DNumber.ceil,
+			N.divide(itemsPerBox),
+			N.ceil,
 		),
 	),
 );

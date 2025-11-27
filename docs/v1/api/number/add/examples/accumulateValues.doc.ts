@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const transactions = [
 	{
@@ -21,16 +21,16 @@ const transactions = [
 
 const result = pipe(
 	transactions,
-	DArray.map((transaction) => transaction.amount),
-	DArray.reduce(
-		DArray.reduceFrom(0),
+	A.map((transaction) => transaction.amount),
+	A.reduce(
+		A.reduceFrom(0),
 		({ element, lastValue, next }) => next(
-			DNumber.add(lastValue, element),
+			N.add(lastValue, element),
 		),
 	),
 	(balance) => ({
 		balance,
-		status: DNumber.min(balance, 0) ? "creditor" : "debtor",
+		status: N.min(balance, 0) ? "creditor" : "debtor",
 	}),
 );
 

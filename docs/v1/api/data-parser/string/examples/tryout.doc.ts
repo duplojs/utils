@@ -1,12 +1,10 @@
-import * as DDataParser from "@duplojs/utils/dataParser";
-import * as DEither from "@duplojs/utils/either";
-import { unwrap, type ExpectType } from "@duplojs/utils/common";
+import { unwrap, type ExpectType, E, DP } from "@duplojs/utils";
 
-const schema = DDataParser.string();
+const schema = DP.string();
 
 const result = schema.parse("DuploJS utils");
 
-if (DEither.isRight(result)) {
+if (E.isRight(result)) {
 	const value = unwrap(result);
 	type check = ExpectType<
 		typeof value,
@@ -17,7 +15,7 @@ if (DEither.isRight(result)) {
 	const error = unwrap(result);
 	type check = ExpectType<
 		typeof error,
-		DDataParser.DataParserError,
+		DP.DataParserError,
 		"strict"
 	>;
 }

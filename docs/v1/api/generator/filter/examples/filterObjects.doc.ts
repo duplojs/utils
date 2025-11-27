@@ -1,4 +1,4 @@
-import { DGenerator, DNumber, pipe } from "@duplojs/utils";
+import { G, N, pipe } from "@duplojs/utils";
 
 const minStock = 10;
 const input = [
@@ -22,9 +22,9 @@ const input = [
 
 const result = pipe(
 	input,
-	DGenerator.filter((product) => DNumber.greaterThan(product.stock, minStock)),
-	DGenerator.reduce(
-		DGenerator.reduceFrom<typeof input>([]),
+	G.filter((product) => N.greaterThan(product.stock, minStock)),
+	G.reduce(
+		G.reduceFrom<typeof input>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

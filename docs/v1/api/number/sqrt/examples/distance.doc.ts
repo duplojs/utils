@@ -1,4 +1,4 @@
-import { DNumber, pipe } from "@duplojs/utils";
+import { N, pipe } from "@duplojs/utils";
 
 const point1 = {
 	xPosition: 1,
@@ -9,16 +9,16 @@ const point2 = {
 	yPosition: 6,
 };
 
-const deltaX = DNumber.subtract(point2.xPosition, point1.xPosition);
-const deltaY = DNumber.subtract(point2.yPosition, point1.yPosition);
+const deltaX = N.subtract(point2.xPosition, point1.xPosition);
+const deltaY = N.subtract(point2.yPosition, point1.yPosition);
 
 const square = 2;
 
 const distance = pipe(
 	deltaX,
-	DNumber.power(square),
-	DNumber.add(DNumber.power(deltaY, square)),
-	DNumber.sqrt,
+	N.power(square),
+	N.add(N.power(deltaY, square)),
+	N.sqrt,
 );
 
 // distance: 5

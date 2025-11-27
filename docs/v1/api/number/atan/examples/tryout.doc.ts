@@ -1,7 +1,7 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const tanValue = 1;
-const radians = DNumber.atan(tanValue);
+const radians = N.atan(tanValue);
 
-const degrees = DNumber.divide(DNumber.multiply(radians, 180), Math.PI);
+const degrees = N.divide(N.multiply(radians, 180), Math.PI);
 // degrees: 45

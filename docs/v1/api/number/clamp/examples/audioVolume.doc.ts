@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const volumeAdjustments = [10, -5, 15, -20, 25];
 const currentVolume = 50;
 
 const result = pipe(
 	volumeAdjustments,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.add(currentVolume),
-			DNumber.clamp(0, 100),
+			N.add(currentVolume),
+			N.clamp(0, 100),
 		),
 	),
 );

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 // Formule: cos(θ) = (A·B) / (|A||B|)
 interface Vector2D {
@@ -41,31 +41,31 @@ const vectorPairs: [Vector2D, Vector2D][] = [
 
 const result = pipe(
 	vectorPairs,
-	DArray.map(([vector1, vector2]) => ({
-		dotProduct: DNumber.add(
-			DNumber.multiply(vector1.xPosition, vector2.xPosition),
-			DNumber.multiply(vector1.yPosition, vector2.yPosition),
+	A.map(([vector1, vector2]) => ({
+		dotProduct: N.add(
+			N.multiply(vector1.xPosition, vector2.xPosition),
+			N.multiply(vector1.yPosition, vector2.yPosition),
 		),
 		magnitude1: pipe(
-			DNumber.add(
-				DNumber.power(vector1.xPosition, 2),
-				DNumber.power(vector1.yPosition, 2),
+			N.add(
+				N.power(vector1.xPosition, 2),
+				N.power(vector1.yPosition, 2),
 			),
-			DNumber.power(0.5),
+			N.power(0.5),
 		),
 		magnitude2: pipe(
-			DNumber.add(
-				DNumber.power(vector2.xPosition, 2),
-				DNumber.power(vector2.yPosition, 2),
+			N.add(
+				N.power(vector2.xPosition, 2),
+				N.power(vector2.yPosition, 2),
 			),
-			DNumber.power(0.5),
+			N.power(0.5),
 		),
 	})),
-	DArray.map(
+	A.map(
 		({ dotProduct, magnitude1, magnitude2 }) => pipe(
-			DNumber.divide(dotProduct, DNumber.multiply(magnitude1, magnitude2)),
-			DNumber.acos,
-			DNumber.multiply(DNumber.divide(180, Math.PI)),
+			N.divide(dotProduct, N.multiply(magnitude1, magnitude2)),
+			N.acos,
+			N.multiply(N.divide(180, Math.PI)),
 		),
 	),
 );

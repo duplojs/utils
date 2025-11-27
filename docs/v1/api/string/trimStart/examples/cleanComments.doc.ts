@@ -1,4 +1,4 @@
-import { DString, DArray, pipe, when, innerPipe } from "@duplojs/utils";
+import { DString, A, pipe, when, innerPipe } from "@duplojs/utils";
 
 const comments = [
 	"   // This is a comment",
@@ -8,7 +8,7 @@ const comments = [
 
 const result = pipe(
 	comments,
-	DArray.map(
+	A.map(
 		innerPipe(
 			DString.trimStart,
 			when(

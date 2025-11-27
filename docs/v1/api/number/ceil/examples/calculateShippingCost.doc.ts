@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const weights = [2.3, 5.1, 0.8, 3.9];
 const costPerKg = 8;
 
 const result = pipe(
 	weights,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.ceil,
-			DNumber.multiply(costPerKg),
+			N.ceil,
+			N.multiply(costPerKg),
 		),
 	),
 );

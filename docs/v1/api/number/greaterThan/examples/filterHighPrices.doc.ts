@@ -1,12 +1,12 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const prices = [50, 75, 100, 50, 120, 80];
 const priceLimit = 50;
 
 const result = pipe(
 	prices,
-	DArray.filter(
-		DNumber.greaterThan(priceLimit),
+	A.filter(
+		N.greaterThan(priceLimit),
 	),
 );
 

@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, when } from "@duplojs/utils";
+import { N, A, pipe, when } from "@duplojs/utils";
 
 interface Product {
 	name: string;
@@ -24,9 +24,9 @@ const minimumStock = 5;
 
 const result = pipe(
 	products,
-	DArray.map((product) => ({
+	A.map((product) => ({
 		...product,
-		available: DNumber.greater(product.stock, minimumStock),
+		available: N.greater(product.stock, minimumStock),
 	})),
 );
 

@@ -1,14 +1,14 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const prices = [100, 150, 80, 120];
 const target = 110;
 
 const result = pipe(
 	prices,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.subtract(target),
-			DNumber.abs,
+			N.subtract(target),
+			N.abs,
 		),
 	),
 );

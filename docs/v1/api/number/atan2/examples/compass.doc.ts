@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, createEnum } from "@duplojs/utils";
+import { N, A, pipe, createEnum } from "@duplojs/utils";
 
 interface GeoLocation {
 	latitude: number;
@@ -44,52 +44,52 @@ const directionEnum = createEnum(["N", "NE", "E", "SE", "S", "SW", "W", "NW"]);
 
 const result = pipe(
 	destinations,
-	DArray.map((destination) => ({
+	A.map((destination) => ({
 		name: destination.name,
-		originLatRad: DNumber.divide(DNumber.multiply(origin.latitude, Math.PI), degreesToRadians),
-		destLatRad: DNumber.divide(DNumber.multiply(destination.latitude, Math.PI), degreesToRadians),
-		deltaLonRad: DNumber.divide(
-			DNumber.multiply(DNumber.subtract(destination.longitude, origin.longitude), Math.PI),
+		originLatRad: N.divide(N.multiply(origin.latitude, Math.PI), degreesToRadians),
+		destLatRad: N.divide(N.multiply(destination.latitude, Math.PI), degreesToRadians),
+		deltaLonRad: N.divide(
+			N.multiply(N.subtract(destination.longitude, origin.longitude), Math.PI),
 			degreesToRadians,
 		),
 	})),
-	DArray.map(({ name, originLatRad, destLatRad, deltaLonRad }) => ({
+	A.map(({ name, originLatRad, destLatRad, deltaLonRad }) => ({
 		name,
-		yCoord: DNumber.multiply(DNumber.sin(deltaLonRad), DNumber.cos(destLatRad)),
-		xCoord: DNumber.subtract(
-			DNumber.multiply(DNumber.cos(originLatRad), DNumber.sin(destLatRad)),
-			DNumber.multiply(
-				DNumber.multiply(DNumber.sin(originLatRad), DNumber.cos(destLatRad)),
-				DNumber.cos(deltaLonRad),
+		yCoord: N.multiply(N.sin(deltaLonRad), N.cos(destLatRad)),
+		xCoord: N.subtract(
+			N.multiply(N.cos(originLatRad), N.sin(destLatRad)),
+			N.multiply(
+				N.multiply(N.sin(originLatRad), N.cos(destLatRad)),
+				N.cos(deltaLonRad),
 			),
 		),
 	})),
-	DArray.map(({ name, yCoord, xCoord }) => ({
+	A.map(({ name, yCoord, xCoord }) => ({
 		name,
 		compassBearing: pipe(
-			DNumber.atan2(yCoord, xCoord),
-			DNumber.multiply(degreesToRadians),
-			DNumber.divide(Math.PI),
-			DNumber.add(fullCircleDegrees),
-			DNumber.modulo(fullCircleDegrees),
+			N.atan2(yCoord, xCoord),
+			N.multiply(degreesToRadians),
+			N.divide(Math.PI),
+			N.add(fullCircleDegrees),
+			N.modulo(fullCircleDegrees),
 		),
 	})),
-	DArray.map(({ name, compassBearing }) => ({
+	A.map(({ name, compassBearing }) => ({
 		destination: name,
 		bearing: compassBearing.toFixed(1),
 		directionIndex: pipe(
 			compassBearing,
-			DNumber.divide(degreesPerDirection),
-			DNumber.round,
-			DNumber.modulo(directionCount),
+			N.divide(degreesPerDirection),
+			N.round,
+			N.modulo(directionCount),
 		),
 	})),
-	DArray.map(({ destination, bearing, directionIndex }) => ({
+	A.map(({ destination, bearing, directionIndex }) => ({
 		destination,
 		bearing,
 		direction: pipe(
 			directionEnum.toTuple(),
-			DArray.at(directionIndex),
+			A.at(directionIndex),
 		),
 	})),
 );

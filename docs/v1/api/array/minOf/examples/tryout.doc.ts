@@ -1,13 +1,13 @@
-import { DArray, DNumber, pipe } from "@duplojs/utils";
+import { A, N, pipe } from "@duplojs/utils";
 
 const input = [32, 18, 45, 11] as const;
 
-const result = DArray.minOf(input);
+const result = A.minOf(input);
 // result: 11
 
 const result2 = pipe(
 	input,
-	DArray.map(DNumber.subtract(5)),
-	DArray.minOf,
+	A.map(N.subtract(5)),
+	A.minOf,
 );
 // result2: 6

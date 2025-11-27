@@ -1,5 +1,5 @@
-import { DGenerator } from "@duplojs/utils";
+import { G } from "@duplojs/utils";
 
 const input = [1, 2, 3];
-DGenerator.execute(input);
+G.execute(input);
 // result: void

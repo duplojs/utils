@@ -1,18 +1,18 @@
-import { DGenerator, DNumber, equal, whenElse, pipe } from "@duplojs/utils";
+import { G, N, equal, whenElse, pipe } from "@duplojs/utils";
 
 const maxCount = 5;
 const initialValue = 1;
 const multiplier = 2;
 
 const result = pipe(
-	DGenerator.loop(
+	G.loop(
 		(
 			{
 				count,
 				previousOutput,
 				next,
 				exit,
-			}: DGenerator.GeneratorLoopParams<number>,
+			}: G.GeneratorLoopParams<number>,
 		) => whenElse(
 			count,
 			equal(maxCount),
@@ -21,12 +21,12 @@ const result = pipe(
 				index,
 				equal(0),
 				() => next(initialValue),
-				() => next(DNumber.multiply(previousOutput!, multiplier)),
+				() => next(N.multiply(previousOutput!, multiplier)),
 			),
 		),
 	),
-	DGenerator.reduce(
-		DGenerator.reduceFrom<number[]>([]),
+	G.reduce(
+		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

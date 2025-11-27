@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 3.2;
-const result = DNumber.ceil(value);
+const result = N.ceil(value);
 // result: 4

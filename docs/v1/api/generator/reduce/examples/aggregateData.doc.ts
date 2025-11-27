@@ -1,4 +1,4 @@
-import { DGenerator, DNumber, pipe } from "@duplojs/utils";
+import { G, N, pipe } from "@duplojs/utils";
 
 const orders = [
 	{
@@ -21,22 +21,22 @@ const orders = [
 
 const result = pipe(
 	orders,
-	DGenerator.reduce(
-		DGenerator.reduceFrom({
+	G.reduce(
+		G.reduceFrom({
 			total: 0,
 			count: 0,
 		}),
 		({ element, lastValue, nextWithObject }) => nextWithObject(
 			lastValue,
 			{
-				total: DNumber.add(
+				total: N.add(
 					lastValue.total,
 					(element as {
 						id: number;
 						amount: number;
 					}).amount,
 				),
-				count: DNumber.add(lastValue.count, 1),
+				count: N.add(lastValue.count, 1),
 			},
 		),
 	),

@@ -1,16 +1,14 @@
-import * as DDataParserCoerce from "@duplojs/utils/dataParserCoerce";
-import { unwrap } from "@duplojs/utils/common";
-import * as DEither from "@duplojs/utils/either";
+import { unwrap, E, DPC } from "@duplojs/utils";
 
-const schema = DDataParserCoerce.string();
+const schema = DPC.string();
 // or
-// const schema = DDataParser.coerce.string();
+// const schema = DP.coerce.string();
 // or
-// const schema = DDataParser.string({ coerce: true });
+// const schema = DP.string({ coerce: true });
 
 const result = schema.parse(11111);
 
-if (DEither.isRight(result)) {
+if (E.isRight(result)) {
 	const value = unwrap(result);
 } else {
 	const error = unwrap(result);

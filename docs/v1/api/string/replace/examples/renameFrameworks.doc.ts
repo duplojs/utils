@@ -1,9 +1,9 @@
-import { DArray, DString, pipe } from "@duplojs/utils";
+import { A, DString, pipe } from "@duplojs/utils";
 
 const input = ["duplojs", "nestjs", "expressjs"];
 const result = pipe(
 	input,
-	DArray.map(DString.replace("js", "framework")),
-	DArray.join(" + "),
+	A.map(DString.replace("js", "framework")),
+	A.join(" + "),
 );
 // result: "duploframework + nestframework + expressframework"

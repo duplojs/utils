@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = -42;
-const result = DNumber.abs(value);
+const result = N.abs(value);
 // result: 42

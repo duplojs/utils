@@ -1,4 +1,4 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const result = DDate.today();
+const result = D.today();
 // result: "date" + timestamp du début de journée

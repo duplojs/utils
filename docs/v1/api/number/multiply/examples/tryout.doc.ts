@@ -1,5 +1,5 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 5;
-const result = DNumber.multiply(value, 3);
+const result = N.multiply(value, 3);
 // result: 15

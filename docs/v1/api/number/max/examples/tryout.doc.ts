@@ -1,4 +1,4 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
-const result = DNumber.max(10, 25);
+const result = N.max(10, 25);
 // result: 25

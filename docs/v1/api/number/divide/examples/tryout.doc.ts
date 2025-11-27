@@ -1,6 +1,6 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const value = 100;
 const divisor = 4;
-const result = DNumber.divide(value, divisor);
+const result = N.divide(value, divisor);
 // result: 25

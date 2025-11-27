@@ -1,13 +1,13 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const values = [1, 4, 9, 16, 25, 36];
 
 const result = pipe(
 	values,
-	DArray.map(
+	A.map(
 		innerPipe(
-			DNumber.sqrt,
-			DNumber.round,
+			N.sqrt,
+			N.round,
 		),
 	),
 );

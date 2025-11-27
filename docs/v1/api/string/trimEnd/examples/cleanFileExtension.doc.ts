@@ -1,4 +1,4 @@
-import { DString, DEither, pipe, when, whenNot } from "@duplojs/utils";
+import { DString, E, pipe, when, whenNot } from "@duplojs/utils";
 
 const filename = "document.pdf   ";
 
@@ -11,21 +11,21 @@ const result = pipe(
 		(dotIndex) => pipe(
 			filename,
 			DString.trimEnd,
-			(name) => DEither.success({
+			(name) => E.success({
 				name: DString.substring(name, 0, dotIndex as number),
 				extension: DString.substring(name, (dotIndex as number) + 1),
 			}),
 		),
 	),
 	whenNot(
-		DEither.isRight,
-		() => DEither.error("No file extension found"),
+		E.isRight,
+		() => E.error("No file extension found"),
 	),
 );
 
 /**
- * result: DEither.EitherSuccess<{
+ * result: E.EitherSuccess<{
  *   name: "document",
  *   extension: "pdf"
- * }> | DEither.EitherError<"No file extension found">
+ * }> | E.EitherError<"No file extension found">
  */

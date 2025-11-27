@@ -1,7 +1,7 @@
-import { DNumber } from "@duplojs/utils";
+import { N } from "@duplojs/utils";
 
 const cosValue = 0.5;
-const radians = DNumber.acos(cosValue);
+const radians = N.acos(cosValue);
 
-const degrees = DNumber.divide(DNumber.multiply(radians, 180), Math.PI);
+const degrees = N.divide(N.multiply(radians, 180), Math.PI);
 // degrees: 60

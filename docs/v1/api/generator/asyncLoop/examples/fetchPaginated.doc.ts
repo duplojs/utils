@@ -1,16 +1,16 @@
-import { DGenerator, DNumber, equal, whenElse, pipe } from "@duplojs/utils";
+import { G, N, equal, whenElse, pipe } from "@duplojs/utils";
 
 const totalPages = 3;
 const multiplier = 10;
 
 const result = await pipe(
-	DGenerator.asyncLoop(
+	G.asyncLoop(
 		async(
 			{
 				count,
 				next,
 				exit,
-			}: DGenerator.GeneratorLoopParams<number>,
+			}: G.GeneratorLoopParams<number>,
 		) => whenElse(
 			count,
 			equal(totalPages),
@@ -19,15 +19,15 @@ const result = await pipe(
 				await Promise.resolve(
 					pipe(
 						pageIndex,
-						DNumber.add(1),
-						DNumber.multiply(multiplier),
+						N.add(1),
+						N.multiply(multiplier),
 					),
 				),
 			),
 		),
 	),
-	DGenerator.asyncReduce(
-		DGenerator.reduceFrom<number[]>([]),
+	G.asyncReduce(
+		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );

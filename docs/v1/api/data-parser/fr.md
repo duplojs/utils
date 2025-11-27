@@ -112,7 +112,3 @@ Intercepte les erreurs pour retourner une valeur alternative (fallback) ou lance
 
 ### [coerce.*](/v1/api/data-parser/coerce/fr)
 Espace réservé aux variantes coercitives (`coerce.string`, `coerce.number`, `coerce.boolean`, `coerce.date`, etc.) lorsque vous devez normaliser les données avant validation stricte.
-
----
-
-Référez-vous à chaque sous-page pour trouver la signature détaillée, les exemples d'utilisation et la liste complète des options (mode `extended`, checkers dédiés, types utilitaires `Input`/`Output`).

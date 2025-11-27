@@ -1,4 +1,4 @@
-import { DString, DArray, pipe } from "@duplojs/utils";
+import { DString, A, pipe } from "@duplojs/utils";
 
 const userInputs = [
 	"  john@example.com  ",
@@ -8,7 +8,7 @@ const userInputs = [
 
 const result = pipe(
 	userInputs,
-	DArray.map(DString.trim),
+	A.map(DString.trim),
 );
 
 // result: ["john@example.com", "password123", "User Name"]

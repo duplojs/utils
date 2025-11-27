@@ -1,8 +1,8 @@
-import { DArray, DString, equal, pipe } from "@duplojs/utils";
+import { A, DString, equal, pipe } from "@duplojs/utils";
 
 const input = ["Docs", "API", "Array"] as const;
 
-const result = DArray.reduceRight(
+const result = A.reduceRight(
 	input,
 	"",
 	({ element, lastValue, next }) => {
@@ -16,7 +16,7 @@ const result = DArray.reduceRight(
 
 const result2 = pipe(
 	input,
-	DArray.reduceRight(
+	A.reduceRight(
 		"",
 		({ element, lastValue, next }) => next(DString.concat("[", element, "]", lastValue)),
 	),

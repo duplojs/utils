@@ -1,4 +1,4 @@
-import { DString, DArray, pipe, when, innerPipe } from "@duplojs/utils";
+import { DString, A, pipe, when, innerPipe } from "@duplojs/utils";
 
 const urls = [
 	"https://api.example.com/users/   ",
@@ -8,7 +8,7 @@ const urls = [
 
 const result = pipe(
 	urls,
-	DArray.map(
+	A.map(
 		innerPipe(
 			DString.trimEnd,
 			when(

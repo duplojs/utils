@@ -1,15 +1,15 @@
-import { DNumber, DArray, pipe } from "@duplojs/utils";
+import { N, A, pipe } from "@duplojs/utils";
 
 const amounts = [49.99, 125.50, 8.75, 234.00];
 
 const result = pipe(
 	amounts,
-	DArray.map((amount) => ({
-		euros: DNumber.trunc(amount),
+	A.map((amount) => ({
+		euros: N.trunc(amount),
 		cents: pipe(
-			DNumber.modulo(amount, 1),
-			DNumber.multiply(100),
-			DNumber.round,
+			N.modulo(amount, 1),
+			N.multiply(100),
+			N.round,
 		),
 	})),
 );

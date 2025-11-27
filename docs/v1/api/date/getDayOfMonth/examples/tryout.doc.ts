@@ -1,8 +1,8 @@
-import { DDate } from "@duplojs/utils";
+import { D } from "@duplojs/utils";
 
-const input = DDate.create("2024-06-01");
-const result = DDate.getDayOfMonth(input);
+const input = D.create("2024-06-01");
+const result = D.getDayOfMonth(input);
 // result: 1
 
-const result2 = DDate.getDayOfMonth(input, "America/New_York");
+const result2 = D.getDayOfMonth(input, "America/New_York");
 // result2: 1

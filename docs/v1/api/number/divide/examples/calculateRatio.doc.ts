@@ -1,4 +1,4 @@
-import { DNumber, DArray, pipe, innerPipe } from "@duplojs/utils";
+import { N, A, pipe, innerPipe } from "@duplojs/utils";
 
 const sales = [
 	{
@@ -20,15 +20,15 @@ const sales = [
 
 const result = pipe(
 	sales,
-	DArray.map(
+	A.map(
 		innerPipe(
 			({ sold, target }) => pipe(
 				sold,
-				DNumber.divide(target),
-				DNumber.multiply(100),
-				DNumber.round,
+				N.divide(target),
+				N.multiply(100),
+				N.round,
 			),
-			DNumber.clamp(0, 150),
+			N.clamp(0, 150),
 		),
 	),
 );
