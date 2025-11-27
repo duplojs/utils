@@ -50,5 +50,5 @@ Un `DataParserBigInt` avec toute l'API classique (`parse`, `asyncParse`, `exec`,
 
 ## Voir aussi
 
-- [number](/v1/api/data-parser/number/fr)
-- [`coerce.*`](/v1/api/data-parser/coerce/fr)
+- [`number`](/v1/api/data-parser/number/fr) - Parser pour les nombres
+- [`coerce.*`](/v1/api/data-parser/coerce/fr) - Fonctions de coercition pour divers types

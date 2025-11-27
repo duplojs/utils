@@ -42,6 +42,6 @@ Un `DataParserNil`. `schema.parse(data)` renvoie `DEither.success<null>` ou `DEi
 
 ## Voir aussi
 
-- [date](/v1/api/data-parser/date/fr)
-- [literal](/v1/api/data-parser/literal/fr)
-- [optional](/v1/api/data-parser/optional/fr)
+- [`date`](/v1/api/data-parser/date/fr)
+- [`literal`](/v1/api/data-parser/literal/fr)
+- [`optional`](/v1/api/data-parser/optional/fr)

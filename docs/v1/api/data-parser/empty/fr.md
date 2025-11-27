@@ -32,5 +32,5 @@ Un `DataParserEmpty`. `parse` renvoie `DEither.success<undefined>` ou `DEither.e
 
 ## Voir aussi
 
-- [Data Parser](/v1/api/data-parser/fr)
-- [`coerce.*`](/v1/api/data-parser/coerce/fr)
+- [`date`](/v1/api/data-parser/date/fr) - Parser pour les dates
+- [`coerce.*`](/v1/api/data-parser/coerce/fr) - Fonctions de coercition pour divers types

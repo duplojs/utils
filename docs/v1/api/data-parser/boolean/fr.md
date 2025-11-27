@@ -50,5 +50,5 @@ Un `DataParserBoolean` doté de `parse`, `asyncParse`, `exec`, `asyncExec`, `add
 
 ## Voir aussi
 
-- [string](/v1/api/data-parser/string/fr)
-- [`coerce.*`](/v1/api/data-parser/coerce/fr)
+- [`string`](/v1/api/data-parser/string/fr) - Parser pour les chaînes de caractères
+- [`coerce.*`](/v1/api/data-parser/coerce/fr) - Fonctions de coercition pour divers types
