@@ -13,6 +13,5 @@ import * as DD from "@duplojs/utils/date";
 
 it("just import lib", async() => {
 	[All, DA, DDP, DDPC, DDPE, DE, DG, DN, DO, DP, DS, DD].concat();
-
 	await import("@duplojs/utils");
 });
