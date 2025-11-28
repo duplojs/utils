@@ -26,6 +26,7 @@ import '../nullish/empty.mjs';
 import '../nullish/filled.mjs';
 import '../nullish/base.mjs';
 import './filled.mjs';
+import '../../common/override.mjs';
 
 const eitherOptionalEmptyKind = createEitherKind("optional-empty");
 function optionalEmpty() {

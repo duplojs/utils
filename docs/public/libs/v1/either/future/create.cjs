@@ -28,6 +28,7 @@ require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
 require('../kind.cjs');
+require('../../common/override.cjs');
 
 const kind = "kind-future-either";
 class Future extends Promise {

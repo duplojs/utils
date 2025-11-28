@@ -1,6 +1,33 @@
+import '../../common/stringToBytes.mjs';
+import '../../common/stringToMillisecond.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import '../../either/bool/falsy.mjs';
+import '../../either/bool/truthy.mjs';
+import '../../either/bool/base.mjs';
+import '../../either/left/create.mjs';
+import '../../either/left/error.mjs';
+import '../../either/left/fail.mjs';
+import '../../either/kind.mjs';
+import '../../either/right/success.mjs';
+import '../../either/right/create.mjs';
+import '../../either/right/ok.mjs';
+import '../../either/future/success.mjs';
+import '../../either/future/error.mjs';
+import '../../either/future/base.mjs';
+import '../../either/nullable/empty.mjs';
+import '../../either/nullable/filled.mjs';
+import '../../either/nullable/base.mjs';
+import '../../either/nullish/empty.mjs';
+import '../../either/nullish/filled.mjs';
+import '../../either/nullish/base.mjs';
+import '../../either/optional/empty.mjs';
+import '../../either/optional/filled.mjs';
+import '../../either/optional/base.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { string as string$1 } from '../parsers/string/index.mjs';
-import '../parsers/object.mjs';
+import '../parsers/object/index.mjs';
 import '../parsers/number/index.mjs';
 import '../parsers/date.mjs';
 import '../parsers/literal.mjs';
@@ -28,7 +55,7 @@ import { checkerStringMax } from '../parsers/string/checkers/max.mjs';
 import { checkerStringMin } from '../parsers/string/checkers/min.mjs';
 
 function string(definition) {
-    return dataParserExtendedInit(string$1(definition), {
+    const self = dataParserExtendedInit(string$1(definition), {
         min(self, min, definition) {
             return self.addChecker(checkerStringMin(min, definition));
         },
@@ -39,7 +66,9 @@ function string(definition) {
             return self.addChecker(checkerStringRegex(regex, definition));
         },
     });
+    return string.overrideHandler.apply(self);
 }
+string.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/string");
 function email(definition) {
     return string({
         checkers: [checkerEmail(definition)],

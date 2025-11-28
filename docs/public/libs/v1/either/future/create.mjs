@@ -26,6 +26,7 @@ import '../optional/empty.mjs';
 import '../optional/filled.mjs';
 import '../optional/base.mjs';
 import '../kind.mjs';
+import '../../common/override.mjs';
 
 const kind = "kind-future-either";
 class Future extends Promise {

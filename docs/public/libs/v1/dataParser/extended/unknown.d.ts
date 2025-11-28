@@ -17,4 +17,7 @@ export interface DataParserUnknownExtended<GenericDefinition extends dataParsers
     ]>>;
 }
 export declare function unknown<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionUnknown> = never>(definition?: GenericDefinition): DataParserUnknownExtended<MergeDefinition<dataParsers.DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace unknown {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserUnknownExtended<dataParsers.DataParserDefinitionUnknown>>;
+}
 export {};

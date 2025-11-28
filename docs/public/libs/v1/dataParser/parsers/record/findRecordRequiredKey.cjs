@@ -39,6 +39,7 @@ require('../../../either/nullish/base.cjs');
 require('../../../either/optional/empty.cjs');
 require('../../../either/optional/filled.cjs');
 require('../../../either/optional/base.cjs');
+require('../../../common/override.cjs');
 require('../../../pattern/result.cjs');
 var exhaustive = require('../../../pattern/exhaustive.cjs');
 var otherwise = require('../../../pattern/otherwise.cjs');

@@ -1,7 +1,6 @@
-import { dataParserInit } from '../base.mjs';
-import { SymbolDataParserErrorIssue } from '../error.mjs';
 import '../../common/stringToBytes.mjs';
 import '../../common/stringToMillisecond.mjs';
+import { coalescing } from '../../array/coalescing.mjs';
 import '../../common/globalStore.mjs';
 import '../../common/builder.mjs';
 import '../../either/bool/falsy.mjs';
@@ -26,12 +25,14 @@ import '../../either/nullish/base.mjs';
 import '../../either/optional/empty.mjs';
 import '../../either/optional/filled.mjs';
 import '../../either/optional/base.mjs';
-import { coalescing } from '../../array/coalescing.mjs';
+import { createOverride } from '../../common/override.mjs';
+import { dataParserInit } from '../base.mjs';
+import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
 const literalKind = createDataParserKind("literal");
 function literal(value, definition) {
-    return dataParserInit(literalKind, {
+    const self = dataParserInit(literalKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -43,6 +44,8 @@ function literal(value, definition) {
         }
         return SymbolDataParserErrorIssue;
     });
+    return literal.overrideHandler.apply(self);
 }
+literal.overrideHandler = createOverride("@duplojs/utils/data-parser/literal");
 
 export { literal, literalKind };

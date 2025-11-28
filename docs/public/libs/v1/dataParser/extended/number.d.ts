@@ -23,6 +23,9 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
     ]>>;
 }
 export declare function number<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNumber> = never>(definition?: GenericDefinition): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace number {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserNumberExtended<dataParsers.DataParserDefinitionNumber>>;
+}
 export declare function int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<{
     readonly checkers: readonly [dataParsers.DataParserCheckerInt];
     readonly errorMessage?: string | undefined;

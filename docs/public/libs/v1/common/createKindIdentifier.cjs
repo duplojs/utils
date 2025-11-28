@@ -26,6 +26,7 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+require('./override.cjs');
 var coalescing = require('../array/coalescing.cjs');
 
 function createKindIdentifier() {

@@ -12,8 +12,14 @@ export declare const identifier: {
         input: string;
         output: string;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/string", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
-        output: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
+        output: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
         input: number;
         output: number;
@@ -54,8 +60,14 @@ export declare const identifier: {
         input: unknown;
         output: unknown;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
-        output: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
+        output: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     } & {
         input: unknown;
         output: unknown;
@@ -124,8 +136,14 @@ export declare const identifier: {
         input: string;
         output: string;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/string", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
-        output: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
+        output: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
         input: number;
         output: number;
@@ -166,8 +184,14 @@ export declare const identifier: {
         input: unknown;
         output: unknown;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
-        output: Readonly<Record<string, DataParser<import("./base").DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, import("../common").AnyValue>>, unknown, unknown>>>;
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
+        output: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     } & {
         input: unknown;
         output: unknown;

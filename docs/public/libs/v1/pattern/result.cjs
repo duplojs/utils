@@ -28,6 +28,7 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+require('../common/override.cjs');
 
 const patternResultKind = kind.createKind("pattern-result");
 function result(value) {

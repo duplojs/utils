@@ -26,7 +26,7 @@ export type ExtractTuple<GenericValue extends unknown, GenericArray extends read
 ] extends [
     readonly [infer InferredValueFirst, ...infer InferredValueRest],
     readonly [infer InferredArrayFirst, ...infer InferredArrayRest]
-] ? InferredValueFirst extends InferredArrayFirst ? InferredArrayRest extends readonly [] ? InferredValue : ExtractTuple<InferredValueRest, InferredArrayRest> extends infer InferredRestResult ? IsEqual<InferredRestResult, never> extends true ? never : InferredValue : never : never : never : never) | ([
+] ? Extract<InferredValueFirst, any> extends InferredArrayFirst ? InferredArrayRest extends readonly [] ? InferredValue : ExtractTuple<InferredValueRest, InferredArrayRest> extends infer InferredRestResult ? IsEqual<InferredRestResult, never> extends true ? never : InferredValue : never : never : never : never) | ([
     Extract<GenericValue, readonly any[]>,
     Extract<GenericArray, readonly []>
 ] extends [

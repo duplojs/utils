@@ -23,4 +23,7 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
 export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
     getter: Memoized<GenericDataParser>;
 }>>;
+export declare namespace lazy {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserLazyCheckerCustom<unknown>>;
+}
 export {};

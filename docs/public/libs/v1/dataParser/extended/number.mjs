@@ -1,6 +1,33 @@
+import '../../common/stringToBytes.mjs';
+import '../../common/stringToMillisecond.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
+import '../../either/bool/falsy.mjs';
+import '../../either/bool/truthy.mjs';
+import '../../either/bool/base.mjs';
+import '../../either/left/create.mjs';
+import '../../either/left/error.mjs';
+import '../../either/left/fail.mjs';
+import '../../either/kind.mjs';
+import '../../either/right/success.mjs';
+import '../../either/right/create.mjs';
+import '../../either/right/ok.mjs';
+import '../../either/future/success.mjs';
+import '../../either/future/error.mjs';
+import '../../either/future/base.mjs';
+import '../../either/nullable/empty.mjs';
+import '../../either/nullable/filled.mjs';
+import '../../either/nullable/base.mjs';
+import '../../either/nullish/empty.mjs';
+import '../../either/nullish/filled.mjs';
+import '../../either/nullish/base.mjs';
+import '../../either/optional/empty.mjs';
+import '../../either/optional/filled.mjs';
+import '../../either/optional/base.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { dataParserExtendedInit } from '../baseExtended.mjs';
 import '../parsers/string/index.mjs';
-import '../parsers/object.mjs';
+import '../parsers/object/index.mjs';
 import { number as number$1 } from '../parsers/number/index.mjs';
 import '../parsers/date.mjs';
 import '../parsers/literal.mjs';
@@ -26,7 +53,7 @@ import { checkerNumberMax } from '../parsers/number/checkers/max.mjs';
 import { checkerNumberMin } from '../parsers/number/checkers/min.mjs';
 
 function number(definition) {
-    return dataParserExtendedInit(number$1(definition), {
+    const self = dataParserExtendedInit(number$1(definition), {
         min(self, min, definition) {
             return self.addChecker(checkerNumberMin(min, definition));
         },
@@ -34,7 +61,9 @@ function number(definition) {
             return self.addChecker(checkerNumberMax(max, definition));
         },
     });
+    return number.overrideHandler.apply(self);
 }
+number.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/number");
 function int(definition) {
     return number({
         checkers: [checkerInt(definition)],

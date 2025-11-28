@@ -24,4 +24,7 @@ export interface DataParserOptional<GenericDefinition extends DataParserDefiniti
 export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionOptional<Output<GenericDataParser> | undefined>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
+export declare namespace optional {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserOptional<DataParserDefinitionOptional<unknown>>>;
+}
 export {};

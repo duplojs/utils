@@ -47,4 +47,7 @@ export interface DataParserExtended extends _DataParserExtended {
 export declare function dataParserExtendedInit<GenericDataParser extends DataParser, GenericDataParserExtended extends GenericDataParser & DataParserExtended>(dataParser: NoInfer<GenericDataParser>, rest: NoInfer<{
     [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
 }>): GenericDataParserExtended;
+export declare namespace dataParserExtendedInit {
+    var overrideHandler: import("../common").OverrideHandler<DataParserExtended>;
+}
 export {};

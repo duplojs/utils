@@ -26,6 +26,7 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import '../common/override.mjs';
 
 const patternResultKind = createKind("pattern-result");
 function result(value) {

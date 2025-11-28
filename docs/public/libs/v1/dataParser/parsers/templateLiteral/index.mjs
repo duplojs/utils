@@ -25,6 +25,7 @@ import '../../../either/nullish/base.mjs';
 import '../../../either/optional/empty.mjs';
 import '../../../either/optional/filled.mjs';
 import '../../../either/optional/base.mjs';
+import { createOverride } from '../../../common/override.mjs';
 import { dataParserInit } from '../../base.mjs';
 import { SymbolDataParserErrorIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
@@ -33,7 +34,7 @@ import { createTemplateLiteralPattern } from './createTemplateLiteralPattern.mjs
 const templateLiteralKind = createDataParserKind("template-literal");
 function templateLiteral(template, definition) {
     const pattern = pipe(createTemplateLiteralPattern(template), (result) => new RegExp(`^${result}$`));
-    return dataParserInit(templateLiteralKind, {
+    const self = dataParserInit(templateLiteralKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -46,6 +47,8 @@ function templateLiteral(template, definition) {
         }
         return SymbolDataParserErrorIssue;
     });
+    return templateLiteral.overrideHandler.apply(self);
 }
+templateLiteral.overrideHandler = createOverride("@duplojs/utils/data-parser/templateLiteral");
 
 export { createTemplateLiteralPattern, templateLiteral, templateLiteralKind };

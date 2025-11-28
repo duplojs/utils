@@ -19,4 +19,7 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
 export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser> | null>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
+export declare namespace nullable {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserNullableExtended<dataParsers.DataParserDefinitionNullable<unknown>>>;
+}
 export {};

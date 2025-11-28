@@ -1,9 +1,7 @@
-import { dataParserInit } from '../base.mjs';
-import { SymbolDataParserErrorIssue } from '../error.mjs';
-import { createDataParserKind } from '../kind.mjs';
-import '../../date/types/timezone.mjs';
-import { theDateRegex } from '../../date/constants.mjs';
-import { isSafeTimestamp } from '../../date/isSafeTimestamp.mjs';
+import '../../common/stringToBytes.mjs';
+import '../../common/stringToMillisecond.mjs';
+import '../../common/globalStore.mjs';
+import '../../common/builder.mjs';
 import '../../either/bool/falsy.mjs';
 import '../../either/bool/truthy.mjs';
 import '../../either/bool/base.mjs';
@@ -11,10 +9,6 @@ import '../../either/left/create.mjs';
 import '../../either/left/error.mjs';
 import '../../either/left/fail.mjs';
 import '../../either/kind.mjs';
-import '../../common/stringToBytes.mjs';
-import '../../common/stringToMillisecond.mjs';
-import '../../common/globalStore.mjs';
-import '../../common/builder.mjs';
 import '../../either/right/success.mjs';
 import '../../either/right/create.mjs';
 import '../../either/right/ok.mjs';
@@ -30,12 +24,19 @@ import '../../either/nullish/base.mjs';
 import '../../either/optional/empty.mjs';
 import '../../either/optional/filled.mjs';
 import '../../either/optional/base.mjs';
+import { createOverride } from '../../common/override.mjs';
+import { dataParserInit } from '../base.mjs';
+import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { createDataParserKind } from '../kind.mjs';
+import '../../date/types/timezone.mjs';
+import { theDateRegex } from '../../date/constants.mjs';
+import { isSafeTimestamp } from '../../date/isSafeTimestamp.mjs';
 import '../../date/toTimestamp.mjs';
 import '../../date/createOrThrow.mjs';
 
 const dateKind = createDataParserKind("date");
 function date(definition) {
-    return dataParserInit(dateKind, {
+    const self = dataParserInit(dateKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -68,6 +69,8 @@ function date(definition) {
         }
         return SymbolDataParserErrorIssue;
     });
+    return date.overrideHandler.apply(self);
 }
+date.overrideHandler = createOverride("@duplojs/utils/data-parser/date");
 
 export { date, dateKind };

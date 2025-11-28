@@ -29,6 +29,7 @@ require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
 require('../kind.cjs');
+require('../../common/override.cjs');
 
 /* eslint-disable @typescript-eslint/max-params */
 function rightPipe(input, ...pipes) {

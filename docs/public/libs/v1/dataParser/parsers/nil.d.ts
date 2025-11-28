@@ -21,4 +21,7 @@ export interface DataParserNil<GenericDefinition extends DataParserDefinitionNil
     ], GenericChecker>): DataParserNil<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function nil<const GenericDefinition extends Partial<DataParserDefinitionNil> = never>(definition?: GenericDefinition): DataParserNil<MergeDefinition<DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace nil {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserNil<DataParserDefinitionNil>>;
+}
 export {};

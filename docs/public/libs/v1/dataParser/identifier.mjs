@@ -3,6 +3,7 @@ import '../common/stringToMillisecond.mjs';
 import '../common/globalStore.mjs';
 import '../common/builder.mjs';
 import { createKindIdentifier } from '../common/createKindIdentifier.mjs';
+import '../common/override.mjs';
 
 /**
  * Due to the recursive typing of `DataParsers`, it can’t be used without

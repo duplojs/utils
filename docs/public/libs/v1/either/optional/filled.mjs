@@ -27,6 +27,7 @@ import { optional } from './create.mjs';
 import './empty.mjs';
 import { eitherOptionalKind } from './base.mjs';
 import { createEitherKind } from '../kind.mjs';
+import '../../common/override.mjs';
 
 const eitherOptionalFilledKind = createEitherKind("optional-filled");
 function optionalFilled(value) {

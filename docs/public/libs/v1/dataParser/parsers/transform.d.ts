@@ -26,4 +26,7 @@ export declare function transform<GenericDataParser extends DataParser, GenericO
     inner: GenericDataParser;
     theFunction(input: Output<GenericDataParser>): GenericOutput;
 }>>;
+export declare namespace transform {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTransform<DataParserDefinitionTransform>>;
+}
 export {};

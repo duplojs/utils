@@ -26,6 +26,9 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
     ]>>;
 }
 export declare function string<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserStringExtended<MergeDefinition<dataParsers.DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace string {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserStringExtended<dataParsers.DataParserDefinitionString>>;
+}
 export declare function email(definition?: Partial<dataParsers.DataParserCheckerDefinitionEmail>): DataParserStringExtended<{
     readonly checkers: readonly [dataParsers.DataParserCheckerEmail];
     readonly errorMessage?: string | undefined;

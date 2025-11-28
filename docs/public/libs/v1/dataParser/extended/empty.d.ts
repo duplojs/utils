@@ -17,4 +17,7 @@ export interface DataParserEmptyExtended<GenericDefinition extends dataParsers.D
     ]>>;
 }
 export declare function empty<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionEmpty> = never>(definition?: GenericDefinition): DataParserEmptyExtended<MergeDefinition<dataParsers.DataParserDefinitionEmpty, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace empty {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserEmptyExtended<dataParsers.DataParserDefinitionEmpty>>;
+}
 export {};

@@ -17,4 +17,7 @@ export interface DataParserNilExtended<GenericDefinition extends dataParsers.Dat
     ]>>;
 }
 export declare function nil<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNil> = never>(definition?: GenericDefinition): DataParserNilExtended<MergeDefinition<dataParsers.DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace nil {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserNilExtended<dataParsers.DataParserDefinitionNil>>;
+}
 export {};

@@ -28,6 +28,7 @@ require('../nullish/base.cjs');
 require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
+require('../../common/override.cjs');
 
 function whenIsRight(...args) {
     if (args.length === 1) {

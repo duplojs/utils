@@ -1,9 +1,8 @@
 'use strict';
 
-var base = require('../base.cjs');
-var error = require('../error.cjs');
 require('../../common/stringToBytes.cjs');
 require('../../common/stringToMillisecond.cjs');
+var coalescing = require('../../array/coalescing.cjs');
 require('../../common/globalStore.cjs');
 require('../../common/builder.cjs');
 require('../../either/bool/falsy.cjs');
@@ -28,12 +27,14 @@ require('../../either/nullish/base.cjs');
 require('../../either/optional/empty.cjs');
 require('../../either/optional/filled.cjs');
 require('../../either/optional/base.cjs');
-var coalescing = require('../../array/coalescing.cjs');
+var override = require('../../common/override.cjs');
+var base = require('../base.cjs');
+var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
 const literalKind = kind.createDataParserKind("literal");
 function literal(value, definition) {
-    return base.dataParserInit(literalKind, {
+    const self = base.dataParserInit(literalKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -45,7 +46,9 @@ function literal(value, definition) {
         }
         return error.SymbolDataParserErrorIssue;
     });
+    return literal.overrideHandler.apply(self);
 }
+literal.overrideHandler = override.createOverride("@duplojs/utils/data-parser/literal");
 
 exports.literal = literal;
 exports.literalKind = literalKind;

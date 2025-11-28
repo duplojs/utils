@@ -1,5 +1,5 @@
 import '../string/index.mjs';
-import '../object.mjs';
+import '../object/index.mjs';
 import { number as number$1 } from '../number/index.mjs';
 import '../date.mjs';
 import '../literal.mjs';

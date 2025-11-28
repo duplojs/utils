@@ -20,4 +20,7 @@ export declare function record<GenericDataParserKey extends dataParsers.DataPars
     key: GenericDataParserKey;
     value: GenericDataParserValue;
 }>>;
+export declare namespace record {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserRecordExtended<dataParsers.DataParserDefinitionRecord>>;
+}
 export {};

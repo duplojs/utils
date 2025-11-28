@@ -24,4 +24,7 @@ export interface DataParserLiteral<GenericDefinition extends DataParserDefinitio
 export declare function literal<const GenericValue extends LiteralValue, const GenericDefinition extends Partial<Omit<DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
     value: GenericValue[];
 }>>;
+export declare namespace literal {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserLiteral<DataParserDefinitionLiteral>>;
+}
 export {};

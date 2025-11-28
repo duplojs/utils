@@ -27,6 +27,7 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import '../common/override.mjs';
 import { override } from '../object/override.mjs';
 
 const generatorReduceFromKind = createKind("generator-reduce-from");

@@ -25,6 +25,7 @@ require('../nullish/base.cjs');
 require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
+require('../../common/override.cjs');
 
 const eitherFutureErrorKind = kind.createEitherKind("future-error");
 function futureError(value) {

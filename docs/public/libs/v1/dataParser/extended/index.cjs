@@ -22,6 +22,7 @@ var templateLiteral = require('./templateLiteral.cjs');
 var tuple = require('./tuple.cjs');
 var unknown = require('./unknown.cjs');
 var recover = require('./recover.cjs');
+var error = require('../error.cjs');
 
 
 
@@ -50,3 +51,15 @@ exports.templateLiteral = templateLiteral.templateLiteral;
 exports.tuple = tuple.tuple;
 exports.unknown = unknown.unknown;
 exports.recover = recover.recover;
+exports.SymbolDataParserErrorIssue = error.SymbolDataParserErrorIssue;
+exports.SymbolDataParserErrorIssueLabel = error.SymbolDataParserErrorIssueLabel;
+exports.SymbolDataParserErrorPromiseIssue = error.SymbolDataParserErrorPromiseIssue;
+exports.SymbolDataParserErrorPromiseIssueLabel = error.SymbolDataParserErrorPromiseIssueLabel;
+exports.addIssue = error.addIssue;
+exports.addPromiseIssue = error.addPromiseIssue;
+exports.createError = error.createError;
+exports.errorIssueKind = error.errorIssueKind;
+exports.errorKind = error.errorKind;
+exports.errorPromiseIssueKind = error.errorPromiseIssueKind;
+exports.popErrorPath = error.popErrorPath;
+exports.setErrorPath = error.setErrorPath;

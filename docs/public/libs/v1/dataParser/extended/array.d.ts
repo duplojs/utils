@@ -25,4 +25,7 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
 export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
     element: GenericElement;
 }>>;
+export declare namespace array {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserArrayExtended<dataParsers.DataParserDefinitionArray>>;
+}
 export {};
