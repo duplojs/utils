@@ -40,6 +40,52 @@ Un `DataParserObject` avec les méthodes `parse`, `asyncParse`, `exec`, `asyncEx
   height="600px"
 />
 
+### Projection avec `pick`
+
+Sélectionnez uniquement les champs exposés publiquement depuis un schéma plus large.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Version standard</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/pick/default.doc.ts"
+      majorVersion="v1"
+      height="600px"
+    />
+  </div>
+  <div>
+    <p><strong>Version étendue</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/pick/extended.doc.ts"
+      majorVersion="v1"
+      height="600px"
+    />
+  </div>
+</div>
+
+### Masquage avec `omit`
+
+Retirez les secrets (mot de passe, tokens, etc.) avant de renvoyer vos objets.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Version standard</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/omit/default.doc.ts"
+      majorVersion="v1"
+      height="600px"
+    />
+  </div>
+  <div>
+    <p><strong>Version étendue</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/omit/extended.doc.ts"
+      majorVersion="v1"
+      height="600px"
+    />
+  </div>
+</div>
+
 ### Mode étendu
 
 <MonacoTSEditor
