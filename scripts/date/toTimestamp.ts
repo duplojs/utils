@@ -1,8 +1,7 @@
-import { kindHeritage } from "@scripts/common";
+import { createErrorKind, kindHeritage } from "@scripts/common";
 import { theDateRegex } from "./constants";
 import type { TheDate } from "./types";
 import { isSafeTimestamp } from "./isSafeTimestamp";
-import { createErrorKind } from "@scripts/common/errorKindNamespace";
 
 export class InvalidTheDateError extends kindHeritage(
 	"invalid-the-Date-error",

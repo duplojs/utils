@@ -392,4 +392,26 @@ describe("pattern match", () => {
 			"strict"
 		>;
 	});
+
+	it("builder variant with single argument", () => {
+		const match = DPattern.match<"foo" | "bar">("bar")
+			.with("foo", (value) => {
+				type Check = ExpectType<typeof value, "foo", "strict">;
+
+				return "matched-foo";
+			})
+			.otherwise((rest) => {
+				type Check = ExpectType<typeof rest, "bar", "strict">;
+
+				return `rest-${rest}`;
+			});
+
+		expect(match).toBe("rest-bar");
+
+		type Check = ExpectType<
+			typeof match,
+			string,
+			"strict"
+		>;
+	});
 });

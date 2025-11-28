@@ -55,17 +55,19 @@ type ComplexUnMatchedTupleTuple<
 									InferredInputRest,
 									InferredPatternValueRest
 								> extends infer InferredResultRest
-									? [
-										IsEqual<InferredResultFirst, never> extends true
-											? InferredInputFirst
-											: InferredResultFirst,
-										...Adaptor<
-											IsEqual<InferredResultRest, never> extends true
-												? InferredPatternValueRest
-												: InferredResultRest,
-											readonly any[]
-										>,
-									]
+									? IsEqual<InferredResultRest, never> extends true ?
+										never
+										: [
+											IsEqual<InferredResultFirst, never> extends true
+												? InferredInputFirst
+												: InferredResultFirst,
+											...Adaptor<
+												IsEqual<InferredResultRest, never> extends true
+													? InferredPatternValueRest
+													: InferredResultRest,
+												readonly any[]
+											>,
+										]
 									: never
 							: never
 						: never

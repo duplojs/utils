@@ -15,30 +15,30 @@ type ExpectLiteral<
 	: GenericValue;
 
 export function equal<
-	GenericInput extends EligibleEqual,
-	GenericValue extends GenericInput,
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>,
 >(
 	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
 ): (input: GenericInput) => input is NoInfer<GenericValue>;
 
 export function equal<
-	GenericInput extends EligibleEqual,
-	GenericValue extends GenericInput,
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>,
 >(
 	value: GenericValue | GenericValue[]
 ): (input: GenericInput) => boolean;
 
 export function equal<
-	GenericInput extends EligibleEqual,
-	GenericValue extends GenericInput,
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>,
 >(
 	input: GenericInput,
 	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
 ): input is GenericValue;
 
 export function equal<
-	GenericInput extends EligibleEqual,
-	GenericValue extends GenericInput,
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>,
 >(
 	input: GenericInput,
 	value: GenericValue | GenericValue[]

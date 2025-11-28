@@ -1,6 +1,6 @@
 import { type GetPropsWithValueExtends } from "@scripts/object";
 import { createGlobalStore } from "./globalStore";
-import { type Adaptor, type AnyFunction } from "./types";
+import { type IsEqual, type Adaptor, type AnyFunction, type ObjectKey } from "./types";
 import { createKindNamespace, type Kind, type GetKindValue, kindHeritage } from "./kind";
 import { wrapValue, type WrappedValue } from "./wrapValue";
 import { unwrap } from "./unwrap";
@@ -31,6 +31,7 @@ export const builderKind = createBuilderKind<
 
 export interface Builder<
 	GenericAccumulator extends object = object,
+	GenericIdentifier extends ObjectKey = never,
 > extends Kind<
 		typeof builderKind.definition,
 		GenericAccumulator
@@ -74,7 +75,10 @@ export interface BuilderHandler<
 				Parameters<GenericMethod>,
 				GetKindValue<typeof builderKind, GenericBuilder>
 			>
-		) => ReturnType<GenericMethod> extends GenericBuilder
+		) => IsEqual<
+			keyof ReturnType<GenericMethod>,
+			keyof GenericBuilder
+		> extends true
 			? BuilderNext<
 				GetKindValue<typeof builderKind, GenericBuilder>
 			>
