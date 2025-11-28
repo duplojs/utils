@@ -20,4 +20,7 @@ export declare function recover<GenericDataParser extends DataParser, GenericRec
     inner: GenericDataParser;
     recoveredValue: GenericRecoveredValue;
 }>>;
+export declare namespace recover {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserRecoverExtended<dataParsers.DataParserDefinitionRecover>>;
+}
 export {};

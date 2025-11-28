@@ -1,7 +1,7 @@
 'use strict';
 
 require('../string/index.cjs');
-require('../object.cjs');
+require('../object/index.cjs');
 require('../number/index.cjs');
 require('../date.cjs');
 require('../literal.cjs');

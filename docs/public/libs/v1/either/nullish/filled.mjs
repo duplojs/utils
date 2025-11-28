@@ -23,6 +23,7 @@ import '../optional/empty.mjs';
 import '../optional/filled.mjs';
 import '../optional/base.mjs';
 import { createEitherKind } from '../kind.mjs';
+import '../../common/override.mjs';
 import '../right/success.mjs';
 import { isRight } from '../right/is.mjs';
 import { right } from '../right/create.mjs';

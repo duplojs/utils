@@ -811,6 +811,15 @@
           "name": "or.mjs"
         },
         {
+          "name": "override.cjs"
+        },
+        {
+          "name": "override.d.ts"
+        },
+        {
+          "name": "override.mjs"
+        },
+        {
           "name": "pipe.cjs"
         },
         {
@@ -1697,13 +1706,36 @@
               ]
             },
             {
-              "name": "object.cjs"
-            },
-            {
-              "name": "object.d.ts"
-            },
-            {
-              "name": "object.mjs"
+              "name": "object",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                },
+                {
+                  "name": "omit.cjs"
+                },
+                {
+                  "name": "omit.d.ts"
+                },
+                {
+                  "name": "omit.mjs"
+                },
+                {
+                  "name": "pick.cjs"
+                },
+                {
+                  "name": "pick.d.ts"
+                },
+                {
+                  "name": "pick.mjs"
+                }
+              ]
             },
             {
               "name": "optional.cjs"

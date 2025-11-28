@@ -29,8 +29,9 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import { createOverride } from '../common/override.mjs';
 import './parsers/string/index.mjs';
-import './parsers/object.mjs';
+import './parsers/object/index.mjs';
 import './parsers/number/index.mjs';
 import './parsers/date.mjs';
 import './parsers/literal.mjs';
@@ -51,18 +52,33 @@ import './parsers/unknown.mjs';
 import './parsers/record/index.mjs';
 import { checkerRefine } from './parsers/refine.mjs';
 import './parsers/recover.mjs';
+import './extended/string.mjs';
 import { array } from './extended/array.mjs';
+import './extended/bigint.mjs';
+import './extended/number.mjs';
+import './extended/date.mjs';
 import { transform } from './extended/transform.mjs';
 import { union } from './extended/union.mjs';
+import './extended/boolean.mjs';
+import './extended/empty.mjs';
+import './extended/lazy.mjs';
+import './extended/literal.mjs';
+import './extended/nil.mjs';
 import { nullable } from './extended/nullable.mjs';
+import './extended/object.mjs';
 import { optional } from './extended/optional.mjs';
 import { pipe as pipe$1 } from './extended/pipe.mjs';
+import './extended/record.mjs';
+import './extended/templateLiteral.mjs';
+import './extended/tuple.mjs';
+import './extended/unknown.mjs';
 import { recover } from './extended/recover.mjs';
+import './error.mjs';
 import { createDataParserKind } from './kind.mjs';
 
 const extendedKind = createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
-    const self = extendedKind.setTo({
+    const self = pipe({
         ...dataParser,
         ...pipe(rest, entries, map(([key, value]) => entry(key, typeof value === "function"
             ? (...args) => value(self, ...args)
@@ -103,8 +119,9 @@ function dataParserExtendedInit(dataParser, rest) {
         recover(recoveredValue, definition) {
             return recover(self, recoveredValue, definition);
         },
-    });
+    }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply);
     return self;
 }
+dataParserExtendedInit.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/base");
 
 export { dataParserExtendedInit, extendedKind };

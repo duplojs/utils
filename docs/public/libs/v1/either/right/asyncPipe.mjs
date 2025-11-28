@@ -28,6 +28,7 @@ import { isRight } from './is.mjs';
 import './create.mjs';
 import './ok.mjs';
 import '../kind.mjs';
+import '../../common/override.mjs';
 
 function rightAsyncPipe(input, ...pipes) {
     return future((async () => {

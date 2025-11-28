@@ -20,6 +20,7 @@ import '../nullish/base.mjs';
 import '../optional/empty.mjs';
 import '../optional/filled.mjs';
 import '../optional/base.mjs';
+import '../../common/override.mjs';
 import '../right/success.mjs';
 import { right } from '../right/create.mjs';
 import '../right/ok.mjs';

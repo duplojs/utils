@@ -29,6 +29,7 @@ require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
 var kind = require('../kind.cjs');
+require('../../common/override.cjs');
 
 const eitherNullishEmptyKind = kind.createEitherKind("nullish-empty");
 function nullishEmpty(value = undefined) {

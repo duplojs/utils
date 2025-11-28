@@ -1,8 +1,35 @@
 'use strict';
 
+require('../../common/stringToBytes.cjs');
+require('../../common/stringToMillisecond.cjs');
+require('../../common/globalStore.cjs');
+require('../../common/builder.cjs');
+require('../../either/bool/falsy.cjs');
+require('../../either/bool/truthy.cjs');
+require('../../either/bool/base.cjs');
+require('../../either/left/create.cjs');
+require('../../either/left/error.cjs');
+require('../../either/left/fail.cjs');
+require('../../either/kind.cjs');
+require('../../either/right/success.cjs');
+require('../../either/right/create.cjs');
+require('../../either/right/ok.cjs');
+require('../../either/future/success.cjs');
+require('../../either/future/error.cjs');
+require('../../either/future/base.cjs');
+require('../../either/nullable/empty.cjs');
+require('../../either/nullable/filled.cjs');
+require('../../either/nullable/base.cjs');
+require('../../either/nullish/empty.cjs');
+require('../../either/nullish/filled.cjs');
+require('../../either/nullish/base.cjs');
+require('../../either/optional/empty.cjs');
+require('../../either/optional/filled.cjs');
+require('../../either/optional/base.cjs');
+var override = require('../../common/override.cjs');
 var baseExtended = require('../baseExtended.cjs');
 require('../parsers/string/index.cjs');
-require('../parsers/object.cjs');
+require('../parsers/object/index.cjs');
 require('../parsers/number/index.cjs');
 require('../parsers/date.cjs');
 require('../parsers/literal.cjs');
@@ -25,7 +52,9 @@ require('../parsers/refine.cjs');
 require('../parsers/recover.cjs');
 
 function lazy(getter, definition) {
-    return baseExtended.dataParserExtendedInit(lazy$1.lazy(getter, definition), {});
+    const self = baseExtended.dataParserExtendedInit(lazy$1.lazy(getter, definition), {});
+    return lazy.overrideHandler.apply(self);
 }
+lazy.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/lazy");
 
 exports.lazy = lazy;

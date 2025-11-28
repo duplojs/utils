@@ -17,4 +17,7 @@ export interface DataParserDateExtended<GenericDefinition extends dataParsers.Da
     ]>>;
 }
 export declare function date<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionDate> = never>(definition?: GenericDefinition): DataParserDateExtended<MergeDefinition<dataParsers.DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace date {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserDateExtended<dataParsers.DataParserDefinitionDate>>;
+}
 export {};

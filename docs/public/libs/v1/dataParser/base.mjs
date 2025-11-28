@@ -1,3 +1,4 @@
+import { pipe } from '../common/pipe.mjs';
 import { simpleClone } from '../common/simpleClone.mjs';
 import '../common/stringToBytes.mjs';
 import '../common/stringToMillisecond.mjs';
@@ -26,6 +27,7 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import { createOverride } from '../common/override.mjs';
 import { createError, addIssue, addPromiseIssue, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from './error.mjs';
 import { createDataParserKind } from './kind.mjs';
 
@@ -104,7 +106,7 @@ function dataParserInit(kind, params, exec) {
         }
         return result;
     }
-    const dataParser = kind.setTo(dataParserKind.setTo({
+    const dataParser = pipe({
         ...params,
         exec: middleExec,
         asyncExec: middleAsyncExec,
@@ -152,8 +154,9 @@ function dataParserInit(kind, params, exec) {
             },
         }), exec),
         clone: () => dataParserInit(kind, simpleClone(params), exec),
-    }, null));
+    }, (value) => dataParserKind.setTo(value, null), kind.setTo, dataParserInit.overrideHandler.apply);
     return dataParser;
 }
+dataParserInit.overrideHandler = createOverride("@duplojs/utils/data-parser/base");
 
 export { SymbolDataParserError, SymbolDataParserErrorLabel, checkerKind, dataParserCheckerInit, dataParserInit, dataParserKind };
