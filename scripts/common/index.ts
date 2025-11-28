@@ -42,3 +42,4 @@ export * from "./builder";
 export * from "./createKindIdentifier";
 export * from "./forwardLog";
 export * from "./override";
+export * from "./errorKindNamespace";

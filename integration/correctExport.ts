@@ -9,6 +9,7 @@ import type * as DN from "@duplojs/utils/number";
 import type * as DO from "@duplojs/utils/object";
 import type * as DP from "@duplojs/utils/pattern";
 import type * as DS from "@duplojs/utils/string";
+import type * as DD from "@duplojs/utils/date";
 
 type Check1 = All.ExpectType<
 	typeof All.DArray,
@@ -79,5 +80,11 @@ type Check9 = All.ExpectType<
 type Check10 = All.ExpectType<
 	typeof All.DString,
 	typeof DS,
+	"strict"
+>;
+
+type Check11 = All.ExpectType<
+	typeof All.DDate,
+	typeof DD,
 	"strict"
 >;

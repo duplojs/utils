@@ -19,6 +19,7 @@
     "test:lint:fix": "eslint --fix",
     "prepare": "husky"
   },
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {

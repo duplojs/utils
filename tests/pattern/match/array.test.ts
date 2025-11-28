@@ -307,4 +307,55 @@ describe("array", () => {
 			"strict"
 		>;
 	});
+
+	it("builder variant on arrays", () => {
+		const input = { array: ["one", 2, 3n] as ["one", number, 3n] | ["one", 1, 3n] | ["two", 3, 4n] };
+
+		const result = DPattern.match(input)
+			.with(
+				{ array: ["one", 2] },
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							array: ["one", 2, 3n];
+						},
+						"strict"
+					>;
+
+					return "match-one";
+				},
+			)
+			.with(
+				{ array: ["one"] },
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						{
+							array: ["one", number, 3n] | ["one", 1, 3n];
+						},
+						"strict"
+					>;
+
+					return "match-here";
+				},
+			)
+			.with(
+				{ array: ["two"] },
+				(rest) => {
+				type Check = ExpectType<
+					typeof rest,
+					{
+						array: ["two", 3, 4n];
+					},
+					"strict"
+				>;
+
+				return "other";
+				},
+			)
+			.exhaustive();
+
+		expect(result).toBe("match-one");
+	});
 });

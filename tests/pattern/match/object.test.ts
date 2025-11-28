@@ -536,4 +536,45 @@ describe("object", () => {
 			>;
 		});
 	});
+
+	it("builder variant on object", () => {
+		const base = {
+			type: "one" as "one" | "two",
+			name: "super nom",
+			promotion: undefined as number | undefined,
+		};
+
+		const result = DPattern.match(base)
+			.with(
+				{ type: "one" },
+				(value) => {
+				type Check = ExpectType<
+					typeof value,
+					{
+						type: "one";
+						name: string;
+						promotion: number | undefined;
+					},
+					"strict"
+				>;
+
+				return "matched-one";
+				},
+			)
+			.otherwise((rest) => {
+				type Check = ExpectType<
+					typeof rest,
+					{
+						type: "two";
+						name: string;
+						promotion?: number | undefined;
+					},
+					"strict"
+				>;
+
+				return "other";
+			});
+
+		expect(result).toBe("matched-one");
+	});
 });

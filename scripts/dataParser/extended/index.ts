@@ -25,3 +25,4 @@ export * from "./unknown";
 export * from "./recover";
 
 export * from "../error";
+export { type Contract, type Output, type Input } from "../base";
