@@ -40,4 +40,7 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
 export declare function tuple<GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
     shape: GenericShape;
 }>>;
+export declare namespace tuple {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTuple<DataParserDefinitionTuple>>;
+}
 export {};

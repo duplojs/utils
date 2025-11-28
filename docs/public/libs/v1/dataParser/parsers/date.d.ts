@@ -22,4 +22,7 @@ export interface DataParserDate<GenericDefinition extends DataParserDefinitionDa
     ], GenericChecker>): DataParserDate<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function date<const GenericDefinition extends Partial<DataParserDefinitionDate> = never>(definition?: GenericDefinition): DataParserDate<MergeDefinition<DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace date {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserDate<DataParserDefinitionDate>>;
+}
 export {};

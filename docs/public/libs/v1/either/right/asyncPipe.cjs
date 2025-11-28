@@ -30,6 +30,7 @@ var is$1 = require('./is.cjs');
 require('./create.cjs');
 require('./ok.cjs');
 require('../kind.cjs');
+require('../../common/override.cjs');
 
 function rightAsyncPipe(input, ...pipes) {
     return create.future((async () => {

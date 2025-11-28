@@ -27,6 +27,7 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+require('../common/override.cjs');
 
 function discriminate(...args) {
     if (args.length === 2) {

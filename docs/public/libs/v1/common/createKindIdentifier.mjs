@@ -24,6 +24,7 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import './override.mjs';
 import { coalescing } from '../array/coalescing.mjs';
 
 function createKindIdentifier() {

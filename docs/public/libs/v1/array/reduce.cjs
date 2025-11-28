@@ -29,6 +29,7 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+require('../common/override.cjs');
 var override = require('../object/override.cjs');
 
 const arrayReduceFromKind = kind.createKind("array-reduce-from");

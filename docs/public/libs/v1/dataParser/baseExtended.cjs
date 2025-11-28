@@ -31,8 +31,9 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+var override = require('../common/override.cjs');
 require('./parsers/string/index.cjs');
-require('./parsers/object.cjs');
+require('./parsers/object/index.cjs');
 require('./parsers/number/index.cjs');
 require('./parsers/date.cjs');
 require('./parsers/literal.cjs');
@@ -53,18 +54,33 @@ require('./parsers/unknown.cjs');
 require('./parsers/record/index.cjs');
 var refine = require('./parsers/refine.cjs');
 require('./parsers/recover.cjs');
+require('./extended/string.cjs');
 var array = require('./extended/array.cjs');
+require('./extended/bigint.cjs');
+require('./extended/number.cjs');
+require('./extended/date.cjs');
 var transform = require('./extended/transform.cjs');
 var union = require('./extended/union.cjs');
+require('./extended/boolean.cjs');
+require('./extended/empty.cjs');
+require('./extended/lazy.cjs');
+require('./extended/literal.cjs');
+require('./extended/nil.cjs');
 var nullable = require('./extended/nullable.cjs');
+require('./extended/object.cjs');
 var optional = require('./extended/optional.cjs');
 var pipe$1 = require('./extended/pipe.cjs');
+require('./extended/record.cjs');
+require('./extended/templateLiteral.cjs');
+require('./extended/tuple.cjs');
+require('./extended/unknown.cjs');
 var recover = require('./extended/recover.cjs');
+require('./error.cjs');
 var kind = require('./kind.cjs');
 
 const extendedKind = kind.createDataParserKind("extended");
 function dataParserExtendedInit(dataParser, rest) {
-    const self = extendedKind.setTo({
+    const self = pipe.pipe({
         ...dataParser,
         ...pipe.pipe(rest, entries.entries, map.map(([key, value]) => entry.entry(key, typeof value === "function"
             ? (...args) => value(self, ...args)
@@ -105,9 +121,10 @@ function dataParserExtendedInit(dataParser, rest) {
         recover(recoveredValue, definition) {
             return recover.recover(self, recoveredValue, definition);
         },
-    });
+    }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply);
     return self;
 }
+dataParserExtendedInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/base");
 
 exports.dataParserExtendedInit = dataParserExtendedInit;
 exports.extendedKind = extendedKind;

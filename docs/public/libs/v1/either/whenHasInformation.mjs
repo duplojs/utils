@@ -27,6 +27,7 @@ import './optional/empty.mjs';
 import './optional/filled.mjs';
 import './optional/base.mjs';
 import { eitherInformationKind } from './kind.mjs';
+import '../common/override.mjs';
 
 function whenHasInformation(...args) {
     if (args.length === 2) {

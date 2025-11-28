@@ -1,5 +1,6 @@
 'use strict';
 
+var pipe = require('../common/pipe.cjs');
 var simpleClone = require('../common/simpleClone.cjs');
 require('../common/stringToBytes.cjs');
 require('../common/stringToMillisecond.cjs');
@@ -28,6 +29,7 @@ require('../either/nullish/base.cjs');
 require('../either/optional/empty.cjs');
 require('../either/optional/filled.cjs');
 require('../either/optional/base.cjs');
+var override = require('../common/override.cjs');
 var error = require('./error.cjs');
 var kind = require('./kind.cjs');
 
@@ -106,7 +108,7 @@ function dataParserInit(kind, params, exec) {
         }
         return result;
     }
-    const dataParser = kind.setTo(dataParserKind.setTo({
+    const dataParser = pipe.pipe({
         ...params,
         exec: middleExec,
         asyncExec: middleAsyncExec,
@@ -154,9 +156,10 @@ function dataParserInit(kind, params, exec) {
             },
         }), exec),
         clone: () => dataParserInit(kind, simpleClone.simpleClone(params), exec),
-    }, null));
+    }, (value) => dataParserKind.setTo(value, null), kind.setTo, dataParserInit.overrideHandler.apply);
     return dataParser;
 }
+dataParserInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
 
 exports.SymbolDataParserError = SymbolDataParserError;
 exports.SymbolDataParserErrorLabel = SymbolDataParserErrorLabel;

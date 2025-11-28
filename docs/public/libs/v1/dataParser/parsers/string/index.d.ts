@@ -23,3 +23,6 @@ export interface DataParserString<GenericDefinition extends DataParserDefinition
     ], GenericChecker>): DataParserString<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function string<const GenericDefinition extends Partial<DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace string {
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserString<DataParserDefinitionString>>;
+}

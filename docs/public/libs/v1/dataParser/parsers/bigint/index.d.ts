@@ -23,3 +23,6 @@ export interface DataParserBigInt<GenericDefinition extends DataParserDefinition
     ], GenericChecker>): DataParserBigInt<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 export declare function bigint<const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never>(definition?: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace bigint {
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserBigInt<DataParserDefinitionBigInt>>;
+}

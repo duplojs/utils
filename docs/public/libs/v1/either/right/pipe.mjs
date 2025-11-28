@@ -27,6 +27,7 @@ import '../optional/empty.mjs';
 import '../optional/filled.mjs';
 import '../optional/base.mjs';
 import '../kind.mjs';
+import '../../common/override.mjs';
 
 /* eslint-disable @typescript-eslint/max-params */
 function rightPipe(input, ...pipes) {

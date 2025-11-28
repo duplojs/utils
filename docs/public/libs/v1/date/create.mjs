@@ -11,6 +11,7 @@ import '../common/stringToBytes.mjs';
 import '../common/stringToMillisecond.mjs';
 import '../common/globalStore.mjs';
 import '../common/builder.mjs';
+import '../common/override.mjs';
 import '../either/right/success.mjs';
 import { right } from '../either/right/create.mjs';
 import '../either/right/ok.mjs';

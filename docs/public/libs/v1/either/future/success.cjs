@@ -22,6 +22,7 @@ require('../nullish/base.cjs');
 require('../optional/empty.cjs');
 require('../optional/filled.cjs');
 require('../optional/base.cjs');
+require('../../common/override.cjs');
 require('../right/success.cjs');
 var create = require('../right/create.cjs');
 require('../right/ok.cjs');

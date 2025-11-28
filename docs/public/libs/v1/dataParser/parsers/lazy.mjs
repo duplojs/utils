@@ -25,12 +25,13 @@ import '../../either/nullish/base.mjs';
 import '../../either/optional/empty.mjs';
 import '../../either/optional/filled.mjs';
 import '../../either/optional/base.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
 const lazyKind = createDataParserKind("lazy");
 function lazy(getter, definition) {
-    return dataParserInit(lazyKind, {
+    const self = dataParserInit(lazyKind, {
         definition: {
             errorMessage: definition?.errorMessage,
             checkers: definition?.checkers ?? [],
@@ -40,6 +41,8 @@ function lazy(getter, definition) {
         sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
         async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
     });
+    return lazy.overrideHandler.apply(self);
 }
+lazy.overrideHandler = createOverride("@duplojs/utils/data-parser/lazy");
 
 export { lazy, lazyKind };

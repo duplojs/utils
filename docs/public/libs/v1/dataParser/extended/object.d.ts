@@ -15,8 +15,13 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserObjectExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;
+    omit<const GenericOmitObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(omitObject: GenericOmitObject, definition?: GenericDefinition): ReturnType<typeof dataParsers.omit<dataParsers.DataParserObject<GenericDefinition>, GenericOmitObject, GenericSubDefinition>>;
+    pick<const GenericPickObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(pickObject: GenericPickObject, definition?: GenericDefinition): ReturnType<typeof dataParsers.pick<dataParsers.DataParserObject<GenericDefinition>, GenericPickObject, GenericSubDefinition>>;
 }
 export declare function object<const GenericShape extends dataParsers.DataParserObjectShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     shape: GenericShape;
 }>>;
+export declare namespace object {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserObjectExtended<dataParsers.DataParserDefinitionObject>>;
+}
 export {};

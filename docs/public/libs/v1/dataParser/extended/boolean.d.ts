@@ -17,4 +17,7 @@ export interface DataParserBooleanExtended<GenericDefinition extends dataParsers
     ]>>;
 }
 export declare function boolean<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionBoolean> = never>(definition?: GenericDefinition): DataParserBooleanExtended<MergeDefinition<dataParsers.DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace boolean {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserBooleanExtended<dataParsers.DataParserDefinitionBoolean>>;
+}
 export {};

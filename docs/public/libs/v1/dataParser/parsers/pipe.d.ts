@@ -25,4 +25,7 @@ export declare function pipe<GenericInput extends DataParser, GenericOutput exte
     input: GenericInput;
     output: GenericOutput;
 }>>;
+export declare namespace pipe {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserPipe<DataParserDefinitionPipe>>;
+}
 export {};

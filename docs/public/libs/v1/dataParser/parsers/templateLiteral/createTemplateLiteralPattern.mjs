@@ -35,6 +35,7 @@ import '../../../either/nullish/base.mjs';
 import '../../../either/optional/empty.mjs';
 import '../../../either/optional/filled.mjs';
 import '../../../either/optional/base.mjs';
+import '../../../common/override.mjs';
 import { templateLiteralKind } from './index.mjs';
 import '../../../pattern/result.mjs';
 import { exhaustive } from '../../../pattern/exhaustive.mjs';

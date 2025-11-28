@@ -26,6 +26,7 @@ require('./nullish/base.cjs');
 require('./optional/empty.cjs');
 require('./optional/filled.cjs');
 require('./optional/base.cjs');
+require('../common/override.cjs');
 
 const createEitherKind = kind.createKindNamespace(
 // @ts-expect-error reserved kind namespace

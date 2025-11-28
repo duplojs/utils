@@ -27,6 +27,7 @@ import '../either/nullish/base.mjs';
 import '../either/optional/empty.mjs';
 import '../either/optional/filled.mjs';
 import '../either/optional/base.mjs';
+import '../common/override.mjs';
 import { create } from './create.mjs';
 import { createErrorKind } from '../common/errorKindNamespace.mjs';
 

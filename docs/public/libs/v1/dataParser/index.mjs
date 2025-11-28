@@ -4,7 +4,7 @@ export { SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolData
 import * as index$1 from './parsers/coerce/index.mjs';
 export { index$1 as coerce };
 export { string, stringKind } from './parsers/string/index.mjs';
-export { object, objectKind } from './parsers/object.mjs';
+export { object, objectKind } from './parsers/object/index.mjs';
 export { number, numberKind } from './parsers/number/index.mjs';
 export { date, dateKind } from './parsers/date.mjs';
 export { literal, literalKind } from './parsers/literal.mjs';
@@ -33,6 +33,8 @@ export { checkerEmail, checkerEmailKind, email } from './parsers/string/checkers
 export { checkerStringMax, checkerStringMaxKind } from './parsers/string/checkers/max.mjs';
 export { checkerStringMin, checkerStringMinKind } from './parsers/string/checkers/min.mjs';
 export { checkerStringRegex, checkerStringRegexKind } from './parsers/string/checkers/regex.mjs';
+export { omit } from './parsers/object/omit.mjs';
+export { pick } from './parsers/object/pick.mjs';
 export { checkerInt, checkerIntKind, int } from './parsers/number/checkers/int.mjs';
 export { checkerNumberMin, checkerNumberMinKind } from './parsers/number/checkers/min.mjs';
 export { checkerNumberMax, checkerNumberMaxKind } from './parsers/number/checkers/max.mjs';

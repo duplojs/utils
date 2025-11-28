@@ -64,3 +64,6 @@ export interface DataParserTemplateLiteral<GenericDefinition extends DataParserD
 export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">> = never>(template: GenericTemplate, definition?: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {
     template: GenericTemplate;
 }>>;
+export declare namespace templateLiteral {
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserTemplateLiteral<DataParserDefinitionTemplateLiteral>>;
+}
