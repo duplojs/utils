@@ -172,3 +172,11 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/**
+ * Globals Rules
+ * -------------------------------------------------------------------------- */
+
+.toc-hidden {
+  display: none;
+}
