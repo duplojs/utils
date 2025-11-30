@@ -29,6 +29,7 @@ export default [
 		files: ["**/*.doc.ts"],
 		rules: {
 			"@typescript-eslint/no-confusing-void-expression": "off",
+			"no-nested-ternary": "off",
 		},
 	},
 	{
