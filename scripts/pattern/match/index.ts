@@ -41,25 +41,21 @@ export function match<
 			any
 		>
 	) => GenericOutput,
-): (input: GenericInput | GenericInputValue | GenericInputPatternResult) => (
+): (input: GenericInput | GenericInputValue | GenericInputPatternResult) => BreakGenericLink<(
 	| (
 		IsEqual<GenericMatchedValue, never> extends true
 			? never
 			: PatternResult<GenericOutput>
 	)
 	| GenericInputPatternResult
-	| (
-		Extract<
-			ComplexUnMatchedValue<
-				GenericInputValue,
-				GenericPatternValue
-			>,
-			any
-		> extends infer InferredResult
-			? BreakGenericLink<InferredResult>
-			: never
-	)
-);
+	| Extract<
+		ComplexUnMatchedValue<
+			GenericInputValue,
+			GenericPatternValue
+		>,
+		any
+	>
+)>;
 
 export function match<
 	GenericInput extends AnyValue,
@@ -90,7 +86,7 @@ export function match<
 			any
 		>
 	) => GenericOutput,
-): (
+): BreakGenericLink<
 	| (
 		IsEqual<GenericMatchedValue, never> extends true
 			? never
@@ -104,7 +100,7 @@ export function match<
 		>,
 		any
 	>
-);
+>;
 
 export function match(
 	...args: [unknown, Pattern, AnyFunction] | [Pattern, AnyFunction] | [unknown]
