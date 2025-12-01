@@ -12,9 +12,15 @@ interface VersionMetadata {
 	files: FileMetadata[];
 }
 
+type DTSFilePathPattern = `${string}.d.ts`;
+
 interface DtsFile {
-	path: string;
+	path: DTSFilePathPattern;
 	text: string;
+}
+
+function isDtsFilePath(path: string): path is DTSFilePathPattern {
+	return path.endsWith(".d.ts");
 }
 
 const loadingPromises = new Map<string, Promise<DtsFile[]>>();
@@ -36,11 +42,17 @@ async function fetchVersionMetadata({
 	}
 }
 
-function collectDtsFilesPaths(files: FileMetadata[], path = ""): string[] {
-	const dtsFiles: string[] = [];
+function collectDtsFilesPaths(
+	files: FileMetadata[],
+	path = "",
+): DTSFilePathPattern[] {
+	const dtsFiles: DtsFile["path"][] = [];
 	for (const file of files ?? []) {
 		if (file.name.endsWith(".d.ts")) {
-			dtsFiles.push(`${path}${file.name}`);
+			const dtsPath = `${path}${file.name}`;
+			if (isDtsFilePath(dtsPath)) {
+				dtsFiles.push(dtsPath);
+			}
 		}
 		if (file.files) {
 			dtsFiles.push(...collectDtsFilesPaths(file.files, `${path}${file.name}/`));
@@ -54,8 +66,8 @@ async function fetchFilesContent({
 	paths,
 }: {
 	majorVersion: MajorVersion;
-	paths: string[];
-}) {
+	paths: DTSFilePathPattern[];
+}): Promise<DtsFile[]> {
 	return Promise.all(
 		paths.map(async(path) => {
 			try {

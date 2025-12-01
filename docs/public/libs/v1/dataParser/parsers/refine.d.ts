@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind } from "../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../base";
 import { type AssignObjects } from "../../object";
 export interface DataParserCheckerDefinitionRefine extends DataParserCheckerDefinition {
     theFunction(input: unknown): boolean;
