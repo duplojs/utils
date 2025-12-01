@@ -86,6 +86,11 @@
       "import": "./dist/date/index.mjs",
       "require": "./dist/date/index.cjs",
       "types": "./dist/date/index.d.ts"
+    },
+    "./clean": {
+      "import": "./dist/clean/index.mjs",
+      "require": "./dist/clean/index.cjs",
+      "types": "./dist/clean/index.d.ts"
     }
   },
   "files": [
