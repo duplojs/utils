@@ -167,6 +167,7 @@ export interface ReservedKindNamespace {
 	DuplojsUtilsDataParser: true;
 	DuplojsUtilsBuilder: true;
 	DuplojsUtilsError: true;
+	DuplojsUtilsClean: true;
 }
 
 type ForbiddenKindNamespace<
