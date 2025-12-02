@@ -44,7 +44,3 @@ Teste impérativement si une valeur correspond à un motif et renvoie un type gu
 ### [union](/v1/api/pattern/union/fr)
 Compose plusieurs motifs dans un seul helper réutilisable (`ToolPattern`). Garantit que l'entrée correspond à l'un des motifs passés (en profondeur sur objets/tableaux).
 
-## Gestion des résultats
-
-### [result](/v1/api/pattern/result/fr)
-Crée un `PatternResult` manuellement (ou via `match`/`when`). Utile pour déclencher une sortie anticipée depuis une branche custom ou pour typer une valeur déjà connue.
