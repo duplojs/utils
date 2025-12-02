@@ -1,5 +1,5 @@
 import { type GetPropsWithValueExtends } from "../object";
-import { type Adaptor, type AnyFunction } from "./types";
+import { type IsEqual, type Adaptor, type AnyFunction, type ObjectKey } from "./types";
 import { type Kind, type GetKindValue } from "./kind";
 import { type WrappedValue } from "./wrapValue";
 declare const SymbolBuilderStore: unique symbol;
@@ -9,7 +9,7 @@ declare module "./globalStore" {
     }
 }
 export declare const builderKind: import("./kind").KindHandler<import("./kind").KindDefinition<"@DuplojsUtilsBuilder/base", object>>;
-export interface Builder<GenericAccumulator extends object = object> extends Kind<typeof builderKind.definition, GenericAccumulator> {
+export interface Builder<GenericAccumulator extends object = object, GenericIdentifier extends ObjectKey = never> extends Kind<typeof builderKind.definition, GenericAccumulator> {
 }
 declare const builderNextKind: import("./kind").KindHandler<import("./kind").KindDefinition<"@DuplojsUtilsBuilder/next", unknown>>;
 interface BuilderNext<GenericValue extends object = object> extends WrappedValue<GenericValue>, Kind<typeof builderNextKind.definition> {
@@ -20,7 +20,7 @@ export interface BuilderHandlerSetFunctionParams<GenericArgs extends unknown[], 
     next(newAccumulator: GenericValue): BuilderNext<GenericValue>;
 }
 export interface BuilderHandler<GenericBuilder extends Builder = Builder> {
-    set<GenericMethodName extends GetPropsWithValueExtends<GenericBuilder, AnyFunction>, GenericMethod extends Adaptor<GenericBuilder[GenericMethodName], AnyFunction>>(method: GenericMethodName, theFunction: (params: BuilderHandlerSetFunctionParams<Parameters<GenericMethod>, GetKindValue<typeof builderKind, GenericBuilder>>) => ReturnType<GenericMethod> extends GenericBuilder ? BuilderNext<GetKindValue<typeof builderKind, GenericBuilder>> : ReturnType<GenericMethod>): BuilderHandler<GenericBuilder>;
+    set<GenericMethodName extends GetPropsWithValueExtends<GenericBuilder, AnyFunction>, GenericMethod extends Adaptor<GenericBuilder[GenericMethodName], AnyFunction>>(method: GenericMethodName, theFunction: (params: BuilderHandlerSetFunctionParams<Parameters<GenericMethod>, GetKindValue<typeof builderKind, GenericBuilder>>) => IsEqual<keyof ReturnType<GenericMethod>, keyof GenericBuilder> extends true ? BuilderNext<GetKindValue<typeof builderKind, GenericBuilder>> : ReturnType<GenericMethod>): BuilderHandler<GenericBuilder>;
     use<GenericCurrentBuilder extends GenericBuilder>(accumulator: GetKindValue<typeof builderKind, GenericBuilder>): GenericCurrentBuilder;
 }
 declare const MissingBuilderMethodsError_base: new (params: {

@@ -1,5 +1,8 @@
 'use strict';
 
+var hasInformation = require('./hasInformation.cjs');
+var whenHasInformation = require('./whenHasInformation.cjs');
+var kind = require('./kind.cjs');
 var create = require('./bool/create.cjs');
 var falsy = require('./bool/falsy.cjs');
 var truthy = require('./bool/truthy.cjs');
@@ -32,12 +35,13 @@ var ok = require('./right/ok.cjs');
 var pipe = require('./right/pipe.cjs');
 var success$1 = require('./right/success.cjs');
 var when$1 = require('./right/when.cjs');
-var hasInformation = require('./hasInformation.cjs');
-var whenHasInformation = require('./whenHasInformation.cjs');
-var kind = require('./kind.cjs');
 
 
 
+exports.hasInformation = hasInformation.hasInformation;
+exports.whenHasInformation = whenHasInformation.whenHasInformation;
+exports.createEitherKind = kind.createEitherKind;
+exports.eitherInformationKind = kind.eitherInformationKind;
 exports.bool = create.bool;
 exports.boolFalsy = falsy.boolFalsy;
 exports.eitherBoolFalsyKind = falsy.eitherBoolFalsyKind;
@@ -103,7 +107,3 @@ exports.rightPipe = pipe.rightPipe;
 exports.eitherSuccessKind = success$1.eitherSuccessKind;
 exports.success = success$1.success;
 exports.whenIsRight = when$1.whenIsRight;
-exports.hasInformation = hasInformation.hasInformation;
-exports.whenHasInformation = whenHasInformation.whenHasInformation;
-exports.createEitherKind = kind.createEitherKind;
-exports.eitherInformationKind = kind.eitherInformationKind;

@@ -1,16 +1,10 @@
 'use strict';
 
 var isKeyof = require('./isKeyof.cjs');
-var _default = require('./at/default.cjs');
-var first = require('./at/first.cjs');
-var last = require('./at/last.cjs');
 var split = require('./split.cjs');
 var charAt = require('./charAt.cjs');
 var toUpperCase = require('./toUpperCase.cjs');
 var toLowerCase = require('./toLowerCase.cjs');
-var _default$1 = require('./trim/default.cjs');
-var end = require('./trim/end.cjs');
-var start = require('./trim/start.cjs');
 var capitalize = require('./capitalize.cjs');
 var uncapitalize = require('./uncapitalize.cjs');
 var substring = require('./substring.cjs');
@@ -33,20 +27,20 @@ var normalize = require('./normalize.cjs');
 var test = require('./test.cjs');
 var isIn = require('./isIn.cjs');
 var length = require('./length.cjs');
+var _default = require('./at/default.cjs');
+var first = require('./at/first.cjs');
+var last = require('./at/last.cjs');
+var _default$1 = require('./trim/default.cjs');
+var end = require('./trim/end.cjs');
+var start = require('./trim/start.cjs');
 
 
 
 exports.isKeyof = isKeyof.isKeyof;
-exports.at = _default.at;
-exports.first = first.first;
-exports.last = last.last;
 exports.split = split.split;
 exports.charAt = charAt.charAt;
 exports.toUpperCase = toUpperCase.toUpperCase;
 exports.toLowerCase = toLowerCase.toLowerCase;
-exports.trim = _default$1.trim;
-exports.trimEnd = end.trimEnd;
-exports.trimStart = start.trimStart;
 exports.capitalize = capitalize.capitalize;
 exports.uncapitalize = uncapitalize.uncapitalize;
 exports.substring = substring.substring;
@@ -69,3 +63,9 @@ exports.normalize = normalize.normalize;
 exports.test = test.test;
 exports.isIn = isIn.isIn;
 exports.length = length.length;
+exports.at = _default.at;
+exports.first = first.first;
+exports.last = last.last;
+exports.trim = _default$1.trim;
+exports.trimEnd = end.trimEnd;
+exports.trimStart = start.trimStart;

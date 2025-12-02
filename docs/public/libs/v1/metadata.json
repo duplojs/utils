@@ -3475,13 +3475,27 @@
           "name": "isMatch.mjs"
         },
         {
-          "name": "match.cjs"
-        },
-        {
-          "name": "match.d.ts"
-        },
-        {
-          "name": "match.mjs"
+          "name": "match",
+          "files": [
+            {
+              "name": "builder.cjs"
+            },
+            {
+              "name": "builder.d.ts"
+            },
+            {
+              "name": "builder.mjs"
+            },
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "index.mjs"
+            }
+          ]
         },
         {
           "name": "otherwise.cjs"
