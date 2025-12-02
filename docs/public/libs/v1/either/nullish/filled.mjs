@@ -1,33 +1,10 @@
-import '../left/create.mjs';
-import '../left/error.mjs';
-import '../left/fail.mjs';
-import { isLeft } from '../left/is.mjs';
-import '../../common/stringToBytes.mjs';
-import '../../common/stringToMillisecond.mjs';
-import { unwrap } from '../../common/unwrap.mjs';
-import '../../common/globalStore.mjs';
-import '../../common/builder.mjs';
-import '../bool/falsy.mjs';
-import '../bool/truthy.mjs';
-import '../bool/base.mjs';
-import '../future/success.mjs';
-import '../future/error.mjs';
-import '../future/base.mjs';
-import '../nullable/empty.mjs';
-import '../nullable/filled.mjs';
-import '../nullable/base.mjs';
 import { nullish } from './create.mjs';
-import './empty.mjs';
-import { eitherNullishKind } from './base.mjs';
-import '../optional/empty.mjs';
-import '../optional/filled.mjs';
-import '../optional/base.mjs';
 import { createEitherKind } from '../kind.mjs';
-import '../../common/override.mjs';
-import '../right/success.mjs';
-import { isRight } from '../right/is.mjs';
+import { eitherNullishKind } from './base.mjs';
 import { right } from '../right/create.mjs';
-import '../right/ok.mjs';
+import { isRight } from '../right/is.mjs';
+import { isLeft } from '../left/is.mjs';
+import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherNullishFilledKind = createEitherKind("nullish-filled");
 function nullishFilled(value) {

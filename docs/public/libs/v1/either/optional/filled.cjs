@@ -1,35 +1,12 @@
 'use strict';
 
-require('../../common/stringToBytes.cjs');
-require('../../common/stringToMillisecond.cjs');
-var unwrap = require('../../common/unwrap.cjs');
-require('../../common/globalStore.cjs');
-require('../../common/builder.cjs');
-require('../bool/falsy.cjs');
-require('../bool/truthy.cjs');
-require('../bool/base.cjs');
-require('../left/create.cjs');
-require('../left/error.cjs');
-require('../left/fail.cjs');
-var is$1 = require('../left/is.cjs');
-require('../right/success.cjs');
-var is = require('../right/is.cjs');
-var create = require('../right/create.cjs');
-require('../right/ok.cjs');
-require('../future/success.cjs');
-require('../future/error.cjs');
-require('../future/base.cjs');
-require('../nullable/empty.cjs');
-require('../nullable/filled.cjs');
-require('../nullable/base.cjs');
-require('../nullish/empty.cjs');
-require('../nullish/filled.cjs');
-require('../nullish/base.cjs');
-var create$1 = require('./create.cjs');
-require('./empty.cjs');
-var base = require('./base.cjs');
 var kind = require('../kind.cjs');
-require('../../common/override.cjs');
+var base = require('./base.cjs');
+var create$1 = require('./create.cjs');
+var create = require('../right/create.cjs');
+var is = require('../right/is.cjs');
+var is$1 = require('../left/is.cjs');
+var unwrap = require('../../common/unwrap.cjs');
 
 const eitherOptionalFilledKind = kind.createEitherKind("optional-filled");
 function optionalFilled(value) {
