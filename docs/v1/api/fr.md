@@ -38,6 +38,9 @@ Outils pour parser et valider les données entrantes. Transformez des données b
 ## [🕦 Date](/v1/api/date/fr)
 Nouveau type Date basé sur le timestamp Unix + fonctions pour manipuler les dates et heures : calculs de différence, manipulation de fuseaux horaires, et opérations avancées sur les dates.
 
+## [🏢 Clean](/v1/api/clean/fr)
+Briques essentielles de la Clean Architecture : création d'entités métier, types métier (`NewType`), cas d'usage.
+
 ---
 
 # Organisation

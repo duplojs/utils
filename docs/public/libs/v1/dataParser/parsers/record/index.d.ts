@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserLiteral } from "../literal";
