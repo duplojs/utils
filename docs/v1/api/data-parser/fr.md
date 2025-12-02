@@ -112,3 +112,7 @@ Intercepte les erreurs pour retourner une valeur alternative (fallback) ou lance
 
 ### [coerce.*](/v1/api/data-parser/coerce/fr)
 Espace réservé aux variantes coercitives (`coerce.string`, `coerce.number`, `coerce.boolean`, `coerce.date`, etc.) lorsque vous devez normaliser les données avant validation stricte.
+
+## Override & extensions
+
+Pour modifier le comportement par défaut du `DataParser`, ajouter vos propres helpers ou construire une librairie/extension au-dessus, consultez le guide [Comment override les méthodes du DataParser ?](/v1/api/data-parser/howToOverride/fr).
