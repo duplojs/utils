@@ -4,8 +4,8 @@ prev:
   text: "recover"
   link: "/v1/api/data-parser/recover/fr"
 next:
-  text: "Data Parser"
-  link: "/v1/api/data-parser/fr"
+  text: "override DataParser"
+  link: "/v1/api/data-parser/howToOverride/fr"
 ---
 
 # coerce.*
