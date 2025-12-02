@@ -1,5 +1,5 @@
-import { type AnyFunction, type AnyValue, createOverride, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
-import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue, errorKind } from "./error";
+import { type AnyFunction, createOverride, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
+import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
 
@@ -15,11 +15,15 @@ export interface DataParserCheckerDefinition {
 
 export interface DataParserChecker<
 	GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
-	GenericInput extends AnyValue = AnyValue,
+	GenericInput extends unknown = unknown,
 > extends Kind<typeof checkerKind.definition, GenericInput> {
 	readonly definition: GenericDefinition;
 	exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
 }
+
+export type InputChecker<
+	GenericDataParser extends DataParserChecker,
+> = Parameters<GenericDataParser["exec"]>[0];
 
 export function dataParserCheckerInit<
 	GenericDataParserChecker extends DataParserChecker,
@@ -157,7 +161,7 @@ export function dataParserInit<
 		data: unknown,
 		error: DataParserError,
 	) {
-		let result = (formattedExec.sync as AnyFunction)(data, error, dataParser) as AnyValue;
+		let result = (formattedExec.sync as AnyFunction)(data, error, dataParser) as unknown;
 
 		if (result === SDPEI) {
 			addIssue(error, dataParser as never, data);
@@ -191,7 +195,7 @@ export function dataParserInit<
 		data: unknown,
 		error: DataParserError,
 	) {
-		let result = await (formattedExec.async as AnyFunction)(data, error, dataParser) as AnyValue;
+		let result = await (formattedExec.async as AnyFunction)(data, error, dataParser) as unknown;
 
 		if (result === SDPEI) {
 			addIssue(error, dataParser as never, data);

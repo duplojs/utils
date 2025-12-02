@@ -19,6 +19,27 @@ describe("createNewType", () => {
 		>;
 	});
 
+	it("applies constraints to the new type", () => {
+		const handler = DClean.createNewType(
+			"my-number",
+			DDataParser.number(),
+			[DClean.Positive],
+		);
+
+		const ok = handler.create(5);
+		expect(DEither.isRight(ok)).toBe(true);
+
+		const ko = handler.create(0);
+		expect(DEither.isLeft(ko)).toBe(true);
+
+		type Check = ExpectType<
+			typeof ok,
+			| DEither.EitherRight<"createNewType", DClean.NewType<"my-number", 5, "positive">>
+			| DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>,
+			"strict"
+		>;
+	});
+
 	it("returns error when parser fails", () => {
 		const parser = DDataParser.string();
 		const handler = DClean.createNewType("my-string", parser);
