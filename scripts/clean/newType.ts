@@ -1,10 +1,10 @@
-import { type Kind, type DDataParser, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type UnionToIntersection, A } from "@scripts";
-import { createCleanKind } from "../kind";
-import { type constrainedTypeKind, type ConstraintHandler } from "./constraint";
-import * as DEither from "../../either";
-import * as DArray from "../../array";
-
-export * from "./constraint";
+import { type Kind, type DDataParser, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe } from "@scripts";
+import { createCleanKind } from "./kind";
+import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
+import { type Primitive, type EligiblePrimitive } from "./primitive";
+import * as DEither from "../either";
+import * as DArray from "../array";
+import * as DObject from "../object";
 
 export const newTypeKind = createCleanKind<"new-type", string>("new-type");
 
@@ -25,8 +25,8 @@ type _NewType<
 );
 
 export interface NewType<
-	GenericName extends string,
-	GenericValue extends unknown,
+	GenericName extends string = string,
+	GenericValue extends unknown = unknown,
 	GenericConstrainName extends string = never,
 > extends _NewType<GenericName, GenericValue, GenericConstrainName> {
 
@@ -64,15 +64,50 @@ export interface NewTypeHandler<
 		>
 	);
 
-	createOrThrow<
-		GenericDate extends GenericValue,
+	create<
+		GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>,
 	>(
-		data: GenericDate
+		data: GenericPrimitive
+	): (
+		| DEither.EitherRight<
+			"createConstrainedType",
+			(
+				& GenericPrimitive
+				& NewType<
+					GenericName,
+					Unwrap<GenericPrimitive>,
+					GenericConstrainHandler[number]["name"]
+				>
+			)
+		>
+		| DEither.EitherLeft<
+			"createConstrainedTypeError",
+			DDataParser.DataParserError
+		>
+	);
+
+	createOrThrow<
+		GenericData extends GenericValue,
+	>(
+		data: GenericData
 	): NewType<
 		GenericName,
-		GenericDate,
+		GenericData,
 		GenericConstrainHandler[number]["name"]
 	>;
+
+	createOrThrow<
+		GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>,
+	>(
+		data: GenericPrimitive
+	): (
+		& GenericPrimitive
+		& NewType<
+			GenericName,
+			Unwrap<GenericPrimitive>,
+			GenericConstrainHandler[number]["name"]
+		>
+	);
 
 	createWithUnknown<
 		GenericData extends unknown,
@@ -102,6 +137,17 @@ export interface NewTypeHandler<
 		GenericValue,
 		GenericConstrainHandler[number]["name"]
 	>;
+
+	is<
+		GenericInput extends WrappedValue,
+	>(input: GenericInput): input is Extract<
+		GenericInput,
+		NewType<
+			GenericName,
+			GenericValue,
+			GenericConstrainHandler[number]["name"]
+		>
+	>;
 }
 
 export class CreateNewTypeError extends kindHeritage(
@@ -124,6 +170,7 @@ export function createNewType<
 	const GenericConstrainHandler extends(
 		| ConstraintHandler<
 			string,
+			EligiblePrimitive,
 			readonly DDataParser.DataParserChecker<
 				DDataParser.DataParserCheckerDefinition,
 				DDataParser.Output<GenericDataParser>
@@ -132,6 +179,7 @@ export function createNewType<
 		| readonly [
 			ConstraintHandler<
 				string,
+				EligiblePrimitive,
 				readonly DDataParser.DataParserChecker<
 					DDataParser.DataParserCheckerDefinition,
 					DDataParser.Output<GenericDataParser>
@@ -139,6 +187,7 @@ export function createNewType<
 			>,
 			...ConstraintHandler<
 				string,
+				EligiblePrimitive,
 				readonly DDataParser.DataParserChecker<
 					DDataParser.DataParserCheckerDefinition,
 					DDataParser.Output<GenericDataParser>
@@ -155,50 +204,94 @@ export function createNewType<
 		DDataParser.Output<GenericDataParser>,
 		DArray.ArrayCoalescing<GenericConstrainHandler>
 	> {
+	const constrains = DArray.coalescing(constraint ?? []);
+
 	const checkers = A.flatMap(
-		DArray.coalescing(constraint ?? []),
+		constrains,
 		({ checkers }) => checkers,
 	);
 
-	const dataParserWithChecker = constraint
+	const dataParserWithCheckers = constraint
 		? dataParser.addChecker(...checkers as never)
 		: dataParser;
 
-	function create(data: unknown) {
-		const result = dataParserWithChecker.parse(data);
+	const constraintKindValue = pipe(
+		constrains,
+		DArray.map(({ name }) => DObject.entry(name, null)),
+		DObject.fromEntries,
+	);
+
+	function create(data: any) {
+		const result = dataParserWithCheckers.parse(unwrap(data));
 
 		if (DEither.isLeft(result)) {
 			return DEither.left(
 				"createNewTypeError",
 				unwrap(result),
 			);
+		} else if (constrainedTypeKind.has(data)) {
+			return DEither.right(
+				"createNewType",
+				newTypeKind.setTo(
+					constrainedTypeKind.addTo(
+						data,
+						{
+							...constrainedTypeKind.getValue(data),
+							...constraintKindValue,
+						},
+					) as never,
+					name,
+				),
+			);
 		} else {
 			return DEither.right(
 				"createNewType",
 				newTypeKind.setTo(
-					wrapValue(unwrap(result)),
+					constrainedTypeKind.setTo(
+						wrapValue(unwrap(result)),
+						constraintKindValue,
+					),
 					name,
 				),
-			) as never;
+			);
 		}
 	}
 
 	function createOrThrow(data: unknown) {
-		const result = dataParserWithChecker.parse(data);
+		const result = create(data);
 
 		if (DEither.isLeft(result)) {
 			throw new CreateNewTypeError(name, data, unwrap(result));
 		} else {
-			return unwrap(result) as never;
+			return unwrap(result);
 		}
+	}
+
+	function is(input: WrappedValue<unknown>) {
+		if (
+			!newTypeKind.has(input)
+			|| newTypeKind.getValue(input) !== name
+		) {
+			return false;
+		}
+
+		// eslint-disable-next-line @typescript-eslint/prefer-for-of
+		for (let index = 0; index < constrains.length; index++) {
+			if (!constrains[index]!.is(input)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	return {
 		name,
-		dataParser: dataParserWithChecker,
+		dataParser: dataParserWithCheckers,
 		create,
 		createOrThrow,
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
+		is,
 	} as never;
 }

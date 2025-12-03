@@ -1,8 +1,9 @@
-import { createErrorKind, kindHeritage, unwrap, type Kind, type WrappedValue } from "@scripts";
+import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, isWrappedValue, AnyValue } from "@scripts";
 import { createCleanKind } from "../kind";
+import { type Primitive, type Primitives, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DArray from "../../array";
 import * as DEither from "../../either";
-import * as DDataParser from "../../dataParser";
+import type * as DDataParser from "../../dataParser";
 
 export * from "./defaultConstraint";
 
@@ -26,14 +27,17 @@ export const constraintHandlerKind = createCleanKind("constraint-handler");
 
 export interface ConstraintHandler<
 	GenericName extends string = string,
+	GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[],
 > extends Kind<typeof constraintHandlerKind.definition> {
 	readonly name: GenericName;
 
 	readonly checkers: GenericCheckers;
 
+	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+
 	create<
-		GenericData extends DDataParser.InputChecker<GenericCheckers[number]>,
+		GenericData extends GenericPrimitiveValue,
 	>(
 		data: GenericData
 	): (
@@ -47,11 +51,38 @@ export interface ConstraintHandler<
 		>
 	);
 
-	createOrThrow<
-		GenericDate extends DDataParser.InputChecker<GenericCheckers[number]>,
+	create<
+		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
 	>(
-		data: GenericDate
-	): ConstrainedType<GenericName, GenericDate>;
+		data: GenericPrimitive
+	): (
+		| DEither.EitherRight<
+			"createConstrainedType",
+			(
+				& GenericPrimitive
+				& ConstrainedType<GenericName, Unwrap<GenericPrimitive>>
+			)
+		>
+		| DEither.EitherLeft<
+			"createConstrainedTypeError",
+			DDataParser.DataParserError
+		>
+	);
+
+	createOrThrow<
+		GenericData extends GenericPrimitiveValue,
+	>(
+		data: GenericData
+	): ConstrainedType<GenericName, GenericData>;
+
+	createOrThrow<
+		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
+	>(
+		data: GenericPrimitive
+	): (
+		& GenericPrimitive
+		& ConstrainedType<GenericName, Unwrap<GenericPrimitive>>
+	);
 
 	createWithUnknown<
 		GenericData extends unknown,
@@ -60,7 +91,7 @@ export interface ConstraintHandler<
 	): (
 		| DEither.EitherRight<
 			"createConstrainedType",
-			ConstrainedType<GenericName, DDataParser.InputChecker<GenericCheckers[number]>>
+			ConstrainedType<GenericName, GenericPrimitiveValue>
 		>
 		| DEither.EitherLeft<
 			"createConstrainedTypeError",
@@ -72,7 +103,14 @@ export interface ConstraintHandler<
 		GenericData extends unknown,
 	>(
 		data: GenericData
-	): ConstrainedType<GenericName, DDataParser.InputChecker<GenericCheckers[number]>>;
+	): ConstrainedType<GenericName, GenericPrimitiveValue>;
+
+	is<
+		GenericInput extends WrappedValue,
+	>(input: GenericInput): input is Extract<
+		GenericInput,
+		ConstrainedType<GenericName, GenericPrimitiveValue>
+	>;
 }
 
 export class CreateConstrainedTypeError extends kindHeritage(
@@ -91,59 +129,68 @@ export class CreateConstrainedTypeError extends kindHeritage(
 
 export function createConstraint<
 	GenericName extends string,
-	GenericCheckerInput extends unknown,
+	GenericPrimitiveValue extends EligiblePrimitive,
 	const GenericChecker extends(
 		| DDataParser.DataParserChecker<
 			DDataParser.DataParserCheckerDefinition,
-			GenericCheckerInput
+			GenericPrimitiveValue
 		>
 		| readonly [
 			DDataParser.DataParserChecker<
 				DDataParser.DataParserCheckerDefinition,
-				GenericCheckerInput
+				GenericPrimitiveValue
 			>,
 			...DDataParser.DataParserChecker<
 				DDataParser.DataParserCheckerDefinition,
-				NoInfer<GenericCheckerInput>
+				GenericPrimitiveValue
 			>[],
 		]
 	) = never,
 >(
 	name: GenericName,
+	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>,
 	checker: GenericChecker,
 ): ConstraintHandler<
 		GenericName,
+		GenericPrimitiveValue,
 		DArray.ArrayCoalescing<GenericChecker>
 	> {
 	const checkers = DArray.coalescing(checker);
+	const dataParserWithCheckers = primitiveHandler
+		.dataParser
+		.addChecker(...checkers as never);
 
-	function create(data: GenericCheckerInput) {
-		let value = data;
-		// eslint-disable-next-line @typescript-eslint/prefer-for-of
-		for (let index = 0; index < checkers.length; index++) {
-			const result = checkers[index]!.exec(value, checkers[index]!);
+	function create(data: any) {
+		const result = dataParserWithCheckers.parse(unwrap(data));
 
-			if (result === DDataParser.SymbolDataParserErrorIssue) {
-				return DEither.left(
-					"createConstrainedTypeError",
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						checkers[index]!,
-						result,
-					),
-				);
-			}
-
-			value = result;
+		if (DEither.isLeft(result)) {
+			return DEither.left(
+				"createConstrainedTypeError",
+				unwrap(result),
+			);
+		} else if (constrainedTypeKind.has(data)) {
+			return DEither.right(
+				"createConstrainedType",
+				constrainedTypeKind.addTo(
+					data,
+					{
+						...constrainedTypeKind.getValue(data),
+						[name]: null,
+					},
+				),
+			);
+		} else {
+			return DEither.right(
+				"createConstrainedType",
+				constrainedTypeKind.setTo(
+					wrapValue(unwrap(result)),
+					{ [name]: null },
+				),
+			);
 		}
-
-		return DEither.right(
-			"createConstrainedType",
-			value,
-		);
 	}
 
-	function createOrThrow(data: GenericCheckerInput) {
+	function createOrThrow(data: unknown) {
 		const result = create(data);
 
 		if (DEither.isLeft(result)) {
@@ -153,13 +200,26 @@ export function createConstraint<
 		}
 	}
 
+	function is(input: WrappedValue<unknown>) {
+		if (
+			constrainedTypeKind.has(input)
+			&& constrainedTypeKind.getValue(input)[name] === null
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
 	return {
 		name,
+		primitiveHandler,
 		checkers,
 		create,
 		createOrThrow,
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
+		is,
 	} as never;
 }
 
