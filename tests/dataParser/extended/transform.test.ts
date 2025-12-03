@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
@@ -9,7 +9,14 @@ describe("extended.transform", () => {
 			(value) => `#${value}`,
 		);
 
-		expect(parser.parse(5)).toStrictEqual(DEither.success("#5"));
+		const result = parser.parse(5);
+		expect(result).toStrictEqual(DEither.success("#5"));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string>,
+			"strict"
+		>;
 	});
 
 	it("propagates inner failure", () => {

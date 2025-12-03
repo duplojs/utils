@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
@@ -9,7 +9,14 @@ describe("extended.tuple", () => {
 			extended.number(),
 		]);
 
-		expect(parser.parse(["a", 1])).toStrictEqual(DEither.success(["a", 1]));
+		const result = parser.parse(["a", 1]);
+		expect(result).toStrictEqual(DEither.success(["a", 1]));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<[string, number]>,
+			"strict"
+		>;
 	});
 
 	it("support min/max checker", () => {

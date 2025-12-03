@@ -1,14 +1,18 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output, type DataParser } from "../base";
+import { type Input, type Output, type DataParser } from "../base";
 
 type _DataParserArrayExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionArray,
 > = (
-	& dataParsers.DataParserArray<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.arrayKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		Output<GenericDefinition["element"]>[],
+		Input<GenericDefinition["element"]>[]
+	>
 );
 
 export interface DataParserArrayExtended<

@@ -1,14 +1,18 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output } from "../base";
+import { type Input, type Output } from "../base";
 
 type _DataParserTupleExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionTuple,
 > = (
-	& dataParsers.DataParserTuple<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.tupleKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		Output<dataParsers.DataParserTuple<GenericDefinition>>,
+		Input<dataParsers.DataParserTuple<GenericDefinition>>
+	>
 );
 
 export interface DataParserTupleExtended<

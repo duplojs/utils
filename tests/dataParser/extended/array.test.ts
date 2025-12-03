@@ -1,11 +1,18 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.array", () => {
 	it("parses array elements", () => {
 		const parser = extended.array(extended.number());
-		expect(parser.parse([1, 2])).toStrictEqual(DEither.success([1, 2]));
+		const result = parser.parse([1, 2]);
+		expect(result).toStrictEqual(DEither.success([1, 2]));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<number[]>,
+			"strict"
+		>;
 	});
 
 	it("supports min/max helpers", () => {

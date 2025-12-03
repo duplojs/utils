@@ -1,4 +1,4 @@
-import { pipe, type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { pipe, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -10,8 +10,12 @@ import * as DArray from "@scripts/array";
 type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
 > = (
-	& dataParsers.DataParserObject<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.objectKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		dataParsers.DataParserObjectShapeOutput<GenericDefinition["shape"]>,
+		dataParsers.DataParserObjectShapeInput<GenericDefinition["shape"]>
+	>
 );
 
 export interface DataParserObjectExtended<

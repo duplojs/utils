@@ -1,11 +1,18 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.nil", () => {
 	it("parses null", () => {
 		const parser = extended.nil();
-		expect(parser.parse(null)).toStrictEqual(DEither.success(null));
+		const result = parser.parse(null);
+		expect(result).toStrictEqual(DEither.success(null));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<null>,
+			"strict"
+		>;
 	});
 
 	it("coerces string when enabled", () => {

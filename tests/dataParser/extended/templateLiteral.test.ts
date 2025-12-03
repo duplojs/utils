@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
@@ -9,9 +9,16 @@ describe("extended.templateLiteral", () => {
 			extended.number(),
 		]);
 
-		expect(parser.parse("item-5")).toStrictEqual(DEither.success("item-5"));
+		const result = parser.parse("item-5");
+		expect(result).toStrictEqual(DEither.success("item-5"));
 		expect(parser.parse("invalid")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<`item-${number}`>,
+			"strict"
+		>;
 	});
 });

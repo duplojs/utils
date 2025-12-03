@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -7,8 +7,12 @@ import { type Output } from "../base";
 type _DataParserEmptyExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionEmpty,
 > = (
-	& dataParsers.DataParserEmpty<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.emptyKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		undefined,
+		undefined
+	>
 );
 
 export interface DataParserEmptyExtended<

@@ -1,14 +1,19 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
+import { type TheDate } from "@scripts/date";
 
 type _DataParserDateExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionDate,
 > = (
-	& dataParsers.DataParserDate<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.dateKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		TheDate,
+		TheDate
+	>
 );
 
 export interface DataParserDateExtended<

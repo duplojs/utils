@@ -1,11 +1,18 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.empty", () => {
 	it("parses undefined", () => {
 		const parser = extended.empty();
-		expect(parser.parse(undefined)).toStrictEqual(DEither.success(undefined));
+		const result = parser.parse(undefined);
+		expect(result).toStrictEqual(DEither.success(undefined));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<undefined>,
+			"strict"
+		>;
 	});
 
 	it("coerces string when enabled", () => {

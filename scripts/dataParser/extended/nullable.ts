@@ -1,14 +1,23 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output, type DataParser } from "../base";
+import { type Input, type Output, type DataParser } from "../base";
 
 type _DataParserNullableExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNullable,
 > = (
-	& dataParsers.DataParserNullable<GenericDefinition>
-	& DataParserExtended
+	& Kind<typeof dataParsers.nullableKind.definition>
+	& DataParserExtended<
+		GenericDefinition,
+		IsEqual<
+			GenericDefinition["coalescingValue"],
+			unknown
+		> extends true
+			? Output<GenericDefinition["inner"]> | null
+			: Output<GenericDefinition["inner"]>,
+		Input<GenericDefinition["inner"]> | null
+	>
 );
 
 export interface DataParserNullableExtended<

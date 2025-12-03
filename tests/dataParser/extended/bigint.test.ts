@@ -1,11 +1,18 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.bigint", () => {
 	it("parses bigint", () => {
 		const parser = extended.bigint();
-		expect(parser.parse(5n)).toStrictEqual(DEither.success(5n));
+		const result = parser.parse(5n);
+		expect(result).toStrictEqual(DEither.success(5n));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<bigint>,
+			"strict"
+		>;
 	});
 
 	it("supports min/max helpers", () => {

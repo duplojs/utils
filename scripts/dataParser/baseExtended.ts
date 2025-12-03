@@ -1,6 +1,6 @@
 import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride } from "@scripts/common";
 import { type MergeDefinition } from "./types";
-import { type Output, type DataParser } from "./base";
+import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
@@ -10,12 +10,24 @@ import { createDataParserKind } from "./kind";
 
 export const extendedKind = createDataParserKind("extended");
 
-type _DataParserExtended = (
-	& DataParser
+type _DataParserExtended<
+	GenericDefinition extends DataParserDefinition,
+	GenericOutput extends unknown,
+	GenericInput extends unknown,
+> = (
+	& DataParser<GenericDefinition, GenericOutput, GenericInput>
 	& Kind<typeof extendedKind.definition>
 );
 
-export interface DataParserExtended extends _DataParserExtended {
+export interface DataParserExtended<
+	GenericDefinition extends DataParserDefinition = DataParserDefinition,
+	GenericOutput extends unknown = unknown,
+	GenericInput extends unknown = GenericOutput,
+> extends _DataParserExtended<
+		GenericDefinition,
+		GenericOutput,
+		GenericInput
+	> {
 	array<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<

@@ -1,13 +1,20 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.literal", () => {
 	it("parses literal values", () => {
 		const parser = extended.literal(["foo", "bar"]);
-		expect(parser.parse("foo")).toStrictEqual(DEither.success("foo"));
+		const result = parser.parse("foo");
+		expect(result).toStrictEqual(DEither.success("foo"));
 		expect(parser.parse("baz")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<"foo" | "bar">,
+			"strict"
+		>;
 	});
 });

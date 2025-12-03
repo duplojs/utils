@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
@@ -10,7 +10,14 @@ describe("extended.record", () => {
 		);
 
 		const value = { foo: "bar" };
-		expect(schema.parse(value)).toStrictEqual(DEither.success({ foo: "bar" }));
+		const result = schema.parse(value);
+		expect(result).toStrictEqual(DEither.success({ foo: "bar" }));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<Partial<Record<string, string>>>,
+			"strict"
+		>;
 	});
 
 	it("fails when key parser rejects", () => {

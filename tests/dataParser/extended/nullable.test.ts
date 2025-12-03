@@ -1,12 +1,20 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.nullable", () => {
 	it("parses null and inner values", () => {
 		const parser = extended.nullable(extended.number());
-		expect(parser.parse(null)).toStrictEqual(DEither.success(null));
-		expect(parser.parse(5)).toStrictEqual(DEither.success(5));
+		const nullResult = parser.parse(null);
+		const numberResult = parser.parse(5);
+		expect(nullResult).toStrictEqual(DEither.success(null));
+		expect(numberResult).toStrictEqual(DEither.success(5));
+
+		type check = ExpectType<
+			typeof nullResult,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<number | null>,
+			"strict"
+		>;
 	});
 
 	it("fails when inner parser fails", () => {

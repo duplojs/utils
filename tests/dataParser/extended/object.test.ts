@@ -14,7 +14,14 @@ describe("extended.object", () => {
 			age: 30,
 		};
 
-		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
+		const result = parser.parse(value);
+		expect(result).toStrictEqual(DEither.success(value));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<typeof value>,
+			"strict"
+		>;
 	});
 
 	it("supports omit", () => {

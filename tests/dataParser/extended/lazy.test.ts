@@ -1,11 +1,18 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.lazy", () => {
 	it("defers parser resolution", () => {
 		const parser = extended.lazy(() => extended.number());
-		expect(parser.parse(3)).toStrictEqual(DEither.success(3));
+		const result = parser.parse(3);
+		expect(result).toStrictEqual(DEither.success(3));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<number>,
+			"strict"
+		>;
 	});
 
 	it("supports recursive definitions", () => {

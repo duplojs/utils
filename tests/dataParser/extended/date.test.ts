@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 import { type TheDate } from "@scripts/date";
 
 const { extended } = DDataParser;
@@ -8,7 +8,14 @@ describe("extended.date", () => {
 		const parser = extended.date();
 		const value: TheDate = "date42+";
 
-		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
+		const result = parser.parse(value);
+		expect(result).toStrictEqual(DEither.success(value));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<TheDate>,
+			"strict"
+		>;
 	});
 
 	it("supports refine helper", () => {
