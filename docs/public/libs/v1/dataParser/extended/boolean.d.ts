@@ -1,9 +1,9 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
-type _DataParserBooleanExtended<GenericDefinition extends dataParsers.DataParserDefinitionBoolean> = (dataParsers.DataParserBoolean<GenericDefinition> & DataParserExtended);
+type _DataParserBooleanExtended<GenericDefinition extends dataParsers.DataParserDefinitionBoolean> = (Kind<typeof dataParsers.booleanKind.definition> & DataParserExtended<GenericDefinition, boolean, boolean>);
 export interface DataParserBooleanExtended<GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean> extends _DataParserBooleanExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserBooleanCheckers,

@@ -1,9 +1,10 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
-type _DataParserDateExtended<GenericDefinition extends dataParsers.DataParserDefinitionDate> = (dataParsers.DataParserDate<GenericDefinition> & DataParserExtended);
+import { type TheDate } from "../../date";
+type _DataParserDateExtended<GenericDefinition extends dataParsers.DataParserDefinitionDate> = (Kind<typeof dataParsers.dateKind.definition> & DataParserExtended<GenericDefinition, TheDate, TheDate>);
 export interface DataParserDateExtended<GenericDefinition extends dataParsers.DataParserDefinitionDate = dataParsers.DataParserDefinitionDate> extends _DataParserDateExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserDateCheckers,
