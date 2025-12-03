@@ -24,7 +24,7 @@ Applique une fonction uniquement lorsque l'Either nullable contient une valeur (
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsNullableFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsNullableFilled<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsNullableFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

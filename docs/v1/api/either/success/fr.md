@@ -26,7 +26,7 @@ Raccourci lisible pour créer un `EitherRight` avec l'information littérale `"s
 
 ## Syntaxe
 
-```ts
+```typescript
 function success<
 	const GenericValue extends unknown
 >(

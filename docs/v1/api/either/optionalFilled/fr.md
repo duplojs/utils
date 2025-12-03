@@ -22,7 +22,7 @@ Construit un `EitherRight<"optional">` lorsque la valeur est définie.
 
 ## Syntaxe
 
-```ts
+```typescript
 function optionalFilled<
 	const GenericValue extends unknown
 >(

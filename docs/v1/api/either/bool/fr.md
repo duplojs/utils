@@ -22,7 +22,7 @@ Convertit n'importe quelle valeur en monade booléenne (`EitherBoolTruthy` ou `E
 
 ## Syntaxe
 
-```ts
+```typescript
 function bool<
 	const GenericValue extends unknown = undefined
 >(

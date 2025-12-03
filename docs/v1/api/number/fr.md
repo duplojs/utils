@@ -16,7 +16,7 @@ Fonctions pour manipuler les nombres de manière immutable et type-safe. Toutes 
 
 La bibliothèque expose les namespaces `DNumber` et `N` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DNumber, N } from "@duplojs/utils";
 import * as DNumber from "@duplojs/utils/number";
 import * as N from "@duplojs/utils/number";

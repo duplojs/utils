@@ -20,13 +20,14 @@ interface UseComponentOptions {
 	src: string;
 	readOnly: boolean;
 	majorVersion: MajorVersion;
+	foldLines?: number[];
 }
 
 function initMonaco() {
-	monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-		target: monaco.languages.typescript.ScriptTarget.ESNext,
-		module: monaco.languages.typescript.ModuleKind.ESNext,
-		moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+	monaco.typescript.typescriptDefaults.setCompilerOptions({
+		target: monaco.typescript.ScriptTarget.ESNext,
+		module: monaco.typescript.ModuleKind.ESNext,
+		moduleResolution: monaco.typescript.ModuleResolutionKind.NodeJs,
 		allowNonTsExtensions: true,
 		strict: true,
 		esModuleInterop: true,
@@ -79,12 +80,12 @@ function setMonacoDeclarationTypes({
 }) {
 	for (const { path, text } of dtsFiles) {
 		const uri = `file:///node_modules/${packageName}/${path}`;
-		monaco.languages.typescript.typescriptDefaults.addExtraLib(text, uri);
+		monaco.typescript.typescriptDefaults.addExtraLib(text, uri);
 	}
 }
 
 function resetMonacoDeclarationTypes(monaco: Monaco) {
-	monaco.languages.typescript.typescriptDefaults.setExtraLibs([]);
+	monaco.typescript.typescriptDefaults.setExtraLibs([]);
 }
 
 async function fetchDocCodeFile(src: string) {
@@ -99,7 +100,7 @@ export function useComponent(
 	container: Ref<HTMLElement | undefined>,
 	options: UseComponentOptions,
 ) {
-	const { majorVersion, readOnly, src } = options;
+	const { majorVersion, readOnly, src, foldLines: initialFoldLines } = options;
 	const packageName = "@duplojs/utils";
 	const { isDark } = useData();
 	const { loadDtsFiles } = useMonacoFilesStore();
@@ -143,6 +144,10 @@ export function useComponent(
 			minimap: { enabled: false },
 			fontSize: 14,
 		});
+
+		if (initialFoldLines && initialFoldLines.length > 0) {
+			foldLines(initialFoldLines);
+		}
 	}
 
 	function disposeEditor() {
@@ -151,6 +156,20 @@ export function useComponent(
 			editor.dispose();
 			editor = null;
 		}
+	}
+
+	function foldLines(lines: number[]) {
+		if (!editor) {
+			return;
+		}
+		const selectionLines = lines.filter(
+			(line) => Number.isInteger(line) && line > 0,
+		);
+		if (selectionLines.length === 0) {
+			return;
+		}
+
+		editor.trigger("foldAfterLoad", "editor.fold", { selectionLines });
 	}
 
 	watch(isDark, (newIsDark) => {
@@ -166,5 +185,6 @@ export function useComponent(
 		editor: () => editor,
 		initializeEditor,
 		disposeEditor,
+		foldLines,
 	};
 }

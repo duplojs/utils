@@ -24,7 +24,7 @@ Exécute une fonction uniquement lorsque l'entrée est un `EitherLeft`. Sinon, l
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsLeft<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsLeft<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsLeft<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

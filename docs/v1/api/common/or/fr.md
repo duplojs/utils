@@ -4,8 +4,8 @@ prev:
   text: "and"
   link: "/v1/api/common/and/fr"
 next:
-  text: "not"
-  link: "/v1/api/common/not/fr"
+  text: "equal"
+  link: "/v1/api/common/equal/fr"
 ---
 
 # or
@@ -17,25 +17,87 @@ La fonction **`or()`** combine plusieurs prédicats ou type guards : si au moins
 <MonacoTSEditor
   src="/v1/api/common/or/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="850px"
+   :foldLines="[2]"
 />
 
 ## Syntaxe
 
 ```typescript
-function or<Input>(
-	predicates: [(input: Input) => boolean, (input: Input) => boolean, ...(input: Input) => boolean[]]
-): (input: Input) => boolean
+type ExtractPredicate<
+	GenericPredicatedInput extends readonly AnyFunction<any[], boolean>[]
+> = GenericPredicatedInput extends readonly [
+	(input: any, ...args: any[]) => input is infer InferredPredicate,
+	...infer InferredRest extends readonly AnyPredicate[]
+] ? InferredRest extends readonly []
+	? InferredPredicate
+	: ExtractPredicate<InferredRest> extends infer InferredResult
+		? IsEqual<InferredResult, never> extends true
+			? never
+			: InferredPredicate | InferredResult
+		: never
+	: never;
+```
 
-function or<Input>(
-	input: Input,
-	predicates: [(input: Input) => boolean, (input: Input) => boolean, ...(input: Input) => boolean[]]
-): boolean
+### Signatures classiques
+
+```typescript
+// Type Guard predicate
+function or<
+	GenericInput extends unknown,
+	const GenericArrayPredicatedInput extends readonly [
+		(input: GenericInput) => input is any,
+		(input: GenericInput) => input is any,
+		...((input: GenericInput) => input is any)[]
+	]
+>(
+	input: GenericInput,
+	predicatedList: GenericArrayPredicatedInput
+): input is Extract<GenericInput, ExtractPredicate<GenericArrayPredicatedInput>>;
+
+// Boolean predicate
+function or<
+	GenericInput extends unknown
+>(
+	input: GenericInput,
+	predicatedList: [
+		(input: GenericInput) => boolean,
+		(input: GenericInput) => boolean,
+		...((input: GenericInput) => boolean)[]
+	]
+): boolean;
+```
+
+### Signatures currifiées
+
+```typescript
+// Type Guard predicate
+function or<
+	GenericInput extends unknown,
+	const GenericArrayPredicatedInput extends readonly [
+		(input: GenericInput) => input is any,
+		(input: GenericInput) => input is any,
+		...((input: GenericInput) => input is any)[]
+	]
+>(
+	predicatedList: GenericArrayPredicatedInput
+): (input: GenericInput) => input is Extract<GenericInput, ExtractPredicate<GenericArrayPredicatedInput>>;
+
+// Boolean predicate
+function or<
+	GenericInput extends unknown
+>(
+	predicatedList: [
+		(input: GenericInput) => boolean,
+		(input: GenericInput) => boolean,
+		...((input: GenericInput) => boolean)[]
+	]
+): (input: GenericInput) => boolean;
 ```
 
 ## Paramètres
 
-- `predicates` : Tableau de fonctions testant l'entrée (peuvent être des type guards).
+- `predicatedList` : Tableau de fonctions testant l'entrée (peuvent être des type guards).
 - `input` (surcharge directe) : Valeur testée.
 
 ## Valeur de retour

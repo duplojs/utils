@@ -1,15 +1,53 @@
-import { or } from "@duplojs/utils";
+import { type ExpectType, O, or, when } from "@duplojs/utils";
 
 type Event =
-	| { type: "click"; x: number; y: number }
-	| { type: "keydown"; key: string }
-	| { type: "hover"; target: string };
+	| {
+		type: "click";
+		x: number;
+		y: number;
+	}
+	| {
+		type: "keydown";
+		key: string;
+	}
+	| {
+		type: "hover";
+		target: string;
+	};
 
-const isClick = (e: Event): e is Extract<Event, { type: "click" }> => e.type === "click";
-const isHover = (e: Event): e is Extract<Event, { type: "hover" }> => e.type === "hover";
+const input = {
+	type: "hover",
+	target: "#btn",
+} as Event;
 
-const isPointerEvent = or<Event>([isClick, isHover]);
+const result = when(
+	input,
+	or([
+		O.discriminate("type", "click"),
+		O.discriminate("type", "hover"),
+	]),
+	(value) => {
+		type check = ExpectType<
+			typeof value,
+			{
+				type: "click";
+				x: number;
+				y: number;
+			} | {
+				type: "hover";
+				target: string;
+			},
+			"strict"
+		>;
+		return true;
+	},
+);
 
-const evt: Event = { type: "hover", target: "#btn" };
-const result = isPointerEvent(evt);
-// result: true (type guard -> evt est click ou hover)
+type check = ExpectType<
+	typeof result,
+	true | {
+		type: "keydown";
+		key: string;
+	},
+	"strict"
+>;

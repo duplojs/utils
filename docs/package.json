@@ -9,7 +9,7 @@
   "dependencies": {
     "vitepress-plugin-group-icons": "1.6.3",
     "vue": "3.5.22",
-    "monaco-editor": "0.53.0"
+    "monaco-editor": " 0.55.1"
   },
   "devDependencies": {
     "vitepress": "1.6.4"

@@ -26,7 +26,7 @@ Alias pratique pour créer un `EitherLeft` avec l'information figée à `"error"
 
 ## Syntaxe
 
-```ts
+```typescript
 function error<
 	const GenericValue extends unknown
 >(

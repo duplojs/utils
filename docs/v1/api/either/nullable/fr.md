@@ -22,7 +22,7 @@ Encapsule une valeur `null` ou non-`null` dans un `Either`, tout en conservant l
 
 ## Syntaxe
 
-```ts
+```typescript
 function nullable<
 	const GenericValue extends unknown = null
 >(

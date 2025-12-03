@@ -24,7 +24,7 @@ Applique un callback uniquement quand l'Either est `NullishEmpty`.
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsNullishEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsNullishEmpty<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsNullishEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

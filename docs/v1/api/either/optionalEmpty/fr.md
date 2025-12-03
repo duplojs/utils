@@ -22,7 +22,7 @@ Construit un `EitherLeft<"optional">` contenant `undefined`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function optionalEmpty(): EitherOptionalEmpty;
 ```
 

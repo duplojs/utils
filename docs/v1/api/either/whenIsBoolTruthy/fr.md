@@ -24,7 +24,7 @@ Callback exécuté uniquement pour les valeurs `EitherBoolTruthy`. Sinon, la val
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsBoolTruthy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsBoolTruthy<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsBoolTruthy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

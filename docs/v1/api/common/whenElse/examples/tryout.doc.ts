@@ -1,17 +1,24 @@
-import { whenElse } from "@duplojs/utils";
+import { whenElse, equal, type ExpectType, justReturn } from "@duplojs/utils";
 
-type Shape =
-	| { kind: "circle"; radius: number }
-	| { kind: "square"; size: number };
+const input = true ? "true" : "false";
 
-const describe = whenElse<Shape, string, string>(
-	shape => shape.kind === "circle",
-	shape => `Circle area ≈ ${Math.PI * shape.radius * shape.radius}`,
-	shape => `Square area = ${shape.size * shape.size}`
+const result = whenElse(
+	input,
+	equal("true"),
+	(value) => {
+		type check = ExpectType<
+			typeof value,
+			"true",
+			"strict"
+		>;
+
+		return true;
+	},
+	justReturn(false),
 );
 
-const circle = describe({ kind: "circle", radius: 2 });
-// "Circle area ≈ 12.566370614359172"
-
-const square = describe({ kind: "square", size: 3 });
-// "Square area = 9"
+type check = ExpectType<
+	typeof result,
+	true | false,
+	"strict"
+>;

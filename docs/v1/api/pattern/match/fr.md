@@ -38,7 +38,7 @@ next:
 
 ### Signature classique
 
-```ts
+```typescript
 function match<
 	GenericInput extends AnyValue,
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
@@ -58,7 +58,7 @@ function match<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function match<
 	GenericInput extends AnyValue,
 	...
@@ -74,7 +74,7 @@ function match<
 
 ### Signature version builder
 
-```ts
+```typescript
 function match<
 	GenericInput extends AnyValue
 >(input: GenericInput): MatchBuilder<GenericInput>

@@ -22,7 +22,7 @@ Construit un `EitherLeft` en associant **une information métier obligatoire** (
 
 ## Syntaxe
 
-```ts
+```typescript
 function left<
 	GenericInformation extends string, 
 	const GenericValue extends unknown = undefined

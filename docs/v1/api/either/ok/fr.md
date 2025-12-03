@@ -26,7 +26,7 @@ Retourne un `EitherRight<"ok", never>` : un succès vide qui sert à confirmer q
 
 ## Syntaxe
 
-```ts
+```typescript
 function ok(): EitherOk
 ```
 

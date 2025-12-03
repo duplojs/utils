@@ -16,7 +16,7 @@ Fonctions pour manipuler des dates et heures via le type propriétaire **`TheDat
 
 La bibliothèque expose les namespaces `DDate` et `D` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DDate, D } from "@duplojs/utils";
 import * as DDate from "@duplojs/utils/date";
 import * as D from "@duplojs/utils/date";

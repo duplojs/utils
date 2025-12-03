@@ -17,20 +17,66 @@ La fonction **`and()`** combine plusieurs prédicats ou type guards. Tous doiven
 <MonacoTSEditor
   src="/v1/api/common/and/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="870px"
+  :foldLines="[3, 11]"
 />
 
 ## Syntaxe
 
-```typescript
-function and<Input>(
-	predicates: [(input: Input) => boolean, (input: Input) => boolean, ...(input: Input) => boolean[]]
-): (input: Input) => boolean
+### Signature classique
 
-function and<Input>(
-	input: Input,
-	predicates: [(input: Input) => boolean, (input: Input) => boolean, ...(input: Input) => boolean[]]
-): boolean
+```typescript
+// Type Guard predicate
+function and<
+	GenericInput extends unknown,
+	GenericArrayPredicatedInput extends [
+		(input: GenericInput) => input is any,
+		(input: GenericInput) => input is any,
+		...((input: GenericInput) => input is any)[]
+	]
+>(
+	input: GenericInput,
+	predicatedList: GenericArrayPredicatedInput
+): input is ComputeResult<GenericInput, GenericArrayPredicatedInput>;
+
+// Boolean predicate
+function and<
+	GenericInput extends unknown
+>(
+	input: GenericInput,
+	predicatedList: [
+		(input: GenericInput) => boolean,
+		(input: GenericInput) => boolean,
+		...((input: GenericInput) => boolean)[]
+	]
+): boolean;
+```
+
+### Signature currifiées
+
+```typescript
+// Type Guard predicate
+function and<
+	GenericInput extends unknown,
+	GenericArrayPredicatedInput extends [
+		(input: GenericInput) => input is any,
+		(input: GenericInput) => input is any,
+		...((input: GenericInput) => input is any)[]
+	]
+>(
+	predicatedList: GenericArrayPredicatedInput
+): (input: GenericInput) => input is ComputeResult<GenericInput, GenericArrayPredicatedInput>;
+
+// Boolean predicate
+function and<
+	GenericInput extends unknown
+>(
+	predicatedList: [
+		(input: GenericInput) => boolean,
+		(input: GenericInput) => boolean,
+		...((input: GenericInput) => boolean)[]
+	]
+): (input: GenericInput) => boolean;
 ```
 
 ## Paramètres

@@ -22,7 +22,7 @@ Type guard qui vérifie qu'un `optional` contient une valeur.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isOptionalFilled<
 	GenericInput extends unknown
 >(

@@ -22,7 +22,7 @@ Crée un `Future` résolu avec un `EitherLeft<"future">`, idéal pour propager u
 
 ## Syntaxe
 
-```ts
+```typescript
 function futureError(value: unknown): Future<EitherFutureError>;
 ```
 

@@ -22,7 +22,7 @@ Type guard qui vérifie si une valeur est un `EitherLeft`. Idéal pour sécurise
 
 ## Syntaxe
 
-```ts
+```typescript
 function isLeft<
 	GenericInput extends unknown
 >(

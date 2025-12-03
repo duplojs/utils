@@ -24,7 +24,7 @@ Applique un callback uniquement lorsque la valeur booléenne est falsy.
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsBoolFalsy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsBoolFalsy<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsBoolFalsy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

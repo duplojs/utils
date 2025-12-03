@@ -22,7 +22,7 @@ Force la création d'un `EitherRight<"bool">` en marquant explicitement une vale
 
 ## Syntaxe
 
-```ts
+```typescript
 function boolTruthy<
 	const GenericValue extends unknown
 >(

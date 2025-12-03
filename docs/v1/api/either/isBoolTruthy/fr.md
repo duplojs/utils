@@ -22,7 +22,7 @@ Type guard qui vérifie si un `Either` issu des helpers booléens est truthy.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isBoolTruthy<
 	GenericInput extends unknown
 >(

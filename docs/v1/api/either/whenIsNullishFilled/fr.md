@@ -24,7 +24,7 @@ Exécute un callback uniquement lorsque l'Either contient une valeur définie (`
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsNullishFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsNullishFilled<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsNullishFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

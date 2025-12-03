@@ -22,7 +22,7 @@ Version asynchrone de `rightPipe`. Gère automatiquement les promesses, `Future`
 
 ## Syntaxe
 
-```ts
+```typescript
 function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>, 
 	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>

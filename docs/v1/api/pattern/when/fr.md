@@ -24,7 +24,7 @@ next:
 
 ### Signature currifiées
 
-```ts
+```typescript
 // Type Guard
 function when<
 	GenericInput extends AnyValue, 
@@ -55,7 +55,7 @@ export declare function when<
 
 ### Signatures classiques
 
-```ts
+```typescript
 // Type Guard
 function when<
 	GenericInput extends AnyValue, 

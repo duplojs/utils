@@ -16,7 +16,7 @@ Fonctions pour manipuler les objets de manière immutable et type-safe. Toutes l
 
 La bibliothèque expose les namespaces `DObject` et `O` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DObject, O } from "@duplojs/utils";
 import * as DObject from "@duplojs/utils/object";
 import * as O from "@duplojs/utils/object";
