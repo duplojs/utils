@@ -4,8 +4,8 @@ prev:
   text: "isType"
   link: "/v1/api/common/isType/fr"
 next:
-  text: "Common"
-  link: "/v1/api/common/fr"
+  text: "loop"
+  link: "/v1/api/common/loop/fr"
 ---
 
 # instanceOf
@@ -17,25 +17,37 @@ La fonction **`instanceOf()`** crée un type guard basé sur un ou plusieurs con
 <MonacoTSEditor
   src="/v1/api/common/instanceOf/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="400px"
 />
 
 ## Syntaxe
 
-```typescript
-function instanceOf<Input, Ctor extends new (...args: any) => any>(
-	input: Input,
-	ctor: Ctor | Ctor[]
-): input is InstanceType<Ctor>
+### Signature classique
 
-function instanceOf<Input, Ctor extends new (...args: any) => any>(
-	ctor: Ctor | Ctor[]
-): (input: Input) => input is InstanceType<Ctor>
+```typescript
+function instanceOf<
+	GenericInput extends unknown,
+	GenericConstructor extends AnyConstructor
+>(
+	input: GenericInput,
+	constructor: GenericConstructor | GenericConstructor[]
+): input is Extract<GenericInput, InstanceType<GenericConstructor>>;
+```
+
+### Signature currifiée
+
+```typescript
+function instanceOf<
+	GenericInput extends unknown,
+	GenericConstructor extends AnyConstructor
+>(
+	constructor: GenericConstructor | GenericConstructor[]
+): (input: GenericInput) => input is Extract<GenericInput, InstanceType<GenericConstructor>>;
 ```
 
 ## Paramètres
 
-- `ctor` : Constructeur ou tableau de constructeurs acceptés.
+- `constructor` : Constructeur ou tableau de constructeurs acceptés.
 - `input` (surcharge directe) : Valeur testée.
 
 ## Valeur de retour

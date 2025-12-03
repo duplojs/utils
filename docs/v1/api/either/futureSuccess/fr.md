@@ -22,7 +22,7 @@ Crée un `Future` résolu avec un `EitherRight<"future">`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function futureSuccess<
 	const GenericValue extends unknown
 >(

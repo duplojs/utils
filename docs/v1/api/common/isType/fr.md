@@ -17,20 +17,32 @@ La fonction **`isType()`** crée un type guard basé sur `typeof`, `Array.isArra
 <MonacoTSEditor
   src="/v1/api/common/isType/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ## Syntaxe
 
-```typescript
-function isType<Input>(
-	type: "string" | "number" | "boolean" | "function" | "bigint" | "undefined" | "null" | "symbol" | "object" | "iterable" | "asyncIterable" | "array"
-): (input: Input) => boolean
+### Signature classique
 
-function isType<Input>(
-	input: Input,
-	type: "string" | ... | "array"
-): boolean
+```typescript
+function isType<
+	GenericInput extends unknown,
+	GenericType extends EligibleType<GenericInput>
+>(
+	input: GenericInput,
+	type: GenericType
+): input is ComputeResult<GenericInput, Type[GenericType]>;
+```
+
+### Signature currifiée
+
+```typescript
+function isType<
+	GenericInput extends unknown,
+	GenericType extends EligibleType<GenericInput>
+>(
+	type: GenericType
+): (input: GenericInput) => input is ComputeResult<GenericInput, Type[GenericType]>;
 ```
 
 ## Paramètres

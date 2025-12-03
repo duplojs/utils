@@ -22,7 +22,7 @@ Construit un `EitherRight<"nullish">` avec une valeur non-nulle/non-undefined.
 
 ## Syntaxe
 
-```ts
+```typescript
 function nullishFilled<
 	const GenericValue extends unknown
 >(

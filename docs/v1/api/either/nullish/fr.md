@@ -22,7 +22,7 @@ Transforme une valeur potentiellement `null`/`undefined` en `Either`. Permet de 
 
 ## Syntaxe
 
-```ts
+```typescript
 function nullish<const GenericValue extends unknown = undefined>(
   value: GenericValue
 ): GenericValue extends NullishValue

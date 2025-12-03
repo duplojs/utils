@@ -22,7 +22,7 @@ Chaîne des transformations synchrones sur un `Either` tant qu'il reste `Right`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function rightPipe<
 	GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue
 >(

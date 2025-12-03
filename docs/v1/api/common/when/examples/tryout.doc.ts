@@ -1,23 +1,23 @@
-import { DPE, E, pipe, when } from "@duplojs/utils";
+import { when, equal, type ExpectType } from "@duplojs/utils";
 
-const input = {
-	name: "Bob",
-	role: "admin",
-};
-const inputSchema = DPE.object({
-	name: DPE.string(),
-	role: DPE.union([
-		DPE.literal("admin"),
-		DPE.literal("client"),
-		DPE.literal("manager"),
-	]),
-});
+const input = true ? "true" : "false";
 
-pipe(
+const result = when(
 	input,
-	(value) => inputSchema.parse(value),
-	E.whenHasInformation(
-		"success",
-		(value) => value,
-	),
-)
+	equal("true"),
+	(value) => {
+		type check = ExpectType<
+			typeof value,
+			"true",
+			"strict"
+		>;
+
+		return true;
+	},
+);
+
+type check = ExpectType<
+	typeof result,
+	true | "false",
+	"strict"
+>;

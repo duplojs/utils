@@ -22,7 +22,7 @@ Construit explicitement un `EitherLeft<"nullable">` contenant `null`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function nullableEmpty(): EitherNullableEmpty;
 ```
 

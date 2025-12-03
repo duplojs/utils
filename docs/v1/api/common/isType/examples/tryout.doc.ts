@@ -1,14 +1,14 @@
-import { isType } from "@duplojs/utils";
+import { type ExpectType, isType } from "@duplojs/utils";
 
-type Value = string | number | string[] | null;
+type Input = string | number | string[] | null;
 
-const isStringArray = isType<Value>("array");
-const isNumber = isType<Value>("number");
+const input = 4 as Input;
 
-const values: Value[] = ["hello", 42, ["a", "b"], null];
+if (isType(input, "number")) {
+	type check = ExpectType<
+		typeof input,
+		number,
+		"strict"
+	>;
+}
 
-const onlyNumbers = values.filter(isNumber);
-// onlyNumbers: number[]
-
-const onlyArrays = values.filter(isStringArray);
-// onlyArrays: string[][]

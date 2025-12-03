@@ -1,10 +1,12 @@
-import { equal } from "@duplojs/utils";
+import { equal, type ExpectType } from "@duplojs/utils";
 
 type Status = "pending" | "success" | "error";
 
-const isFinal = equal<Status, "success" | "error">(["success", "error"]);
-
-const status: Status = "success";
-if (isFinal(status)) {
-	// status est affiné à "success" | "error"
+const input = "success" as Status;
+if (equal(input, ["success", "error"])) {
+	type check = ExpectType<
+		typeof input,
+		"success" | "error",
+		"strict"
+	>;
 }

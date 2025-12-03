@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "not"
-  link: "/v1/api/common/not/fr"
+  text: "or"
+  link: "/v1/api/common/or/fr"
 next:
   text: "isType"
   link: "/v1/api/common/isType/fr"
@@ -17,14 +17,67 @@ La fonction **`equal()`** compare une valeur à un ou plusieurs littéraux. Avec
 <MonacoTSEditor
   src="/v1/api/common/equal/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="300px"
 />
 
 ## Syntaxe
 
 ```typescript
-function equal<Input, Value>(input: Input, value: Value | Value[]): input is Value
-function equal<Input, Value>(value: Value | Value[]): (input: Input) => boolean
+type EligibleEqual = string | null | number | undefined | bigint | boolean | symbol;
+
+type ExpectLiteral<
+	GenericValue extends EligibleEqual
+> = Or<
+	[
+		UnionContain<GenericValue, string>,
+		UnionContain<GenericValue, number>,
+		UnionContain<GenericValue, boolean>,
+		UnionContain<GenericValue, bigint>,
+		UnionContain<GenericValue, symbol>
+	]
+> extends true ? never : GenericValue;
+```
+
+### Signatures classiques
+
+```typescript
+// Type Guard predicate
+function equal<
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>
+>(
+	input: GenericInput,
+	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
+): input is GenericValue;
+
+// Boolean predicate
+function equal<
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>
+>(
+	input: GenericInput,
+	value: GenericValue | GenericValue[]
+): boolean;
+```
+
+### Signatures currifiées
+
+```typescript
+// Type guard
+function equal<
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>
+>(
+	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
+): (input: GenericInput) => input is NoInfer<GenericValue>;
+
+// Boolean predicate
+function equal<
+	GenericInput extends EligibleEqual | object,
+	GenericValue extends Exclude<GenericInput, object>
+>(
+	value: GenericValue | GenericValue[]
+): (input: GenericInput) => boolean;
 ```
 
 ## Paramètres

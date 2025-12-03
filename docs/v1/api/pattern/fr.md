@@ -16,7 +16,7 @@ Le pattern matching permet de déstructurer n'importe quelle donnée (union, tup
 
 La bibliothèque expose les namespaces `DPattern` et `P` depuis l'entrée principale **ou** en import direct (tree-shaking friendly).
 
-```ts
+```typescript
 import { DPattern, P } from "@duplojs/utils";
 import * as DPattern from "@duplojs/utils/pattern";
 import * as P from "@duplojs/utils/pattern";

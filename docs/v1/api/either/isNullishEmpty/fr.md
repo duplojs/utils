@@ -22,7 +22,7 @@ Type guard détectant un `EitherNullishEmpty`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isNullishEmpty<
 	GenericInput extends unknown
 >(

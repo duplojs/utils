@@ -24,7 +24,7 @@ Applique une fonction uniquement lorsqu'un `optional` est vide (`undefined`).
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsOptionalEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsOptionalEmpty<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsOptionalEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

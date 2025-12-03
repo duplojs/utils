@@ -16,7 +16,7 @@ Fonctions pour manipuler les tableaux de manière immutable et type-safe. Toutes
 
 La bibliothèque expose les namespaces `DArray` et `A` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DArray, A } from "@duplojs/utils";
 import * as DArray from "@duplojs/utils/array";
 import * as A from "@duplojs/utils/array";

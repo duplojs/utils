@@ -22,7 +22,7 @@ Type guard qui vérifie si une valeur est un `EitherRight`. Permet d'accéder au
 
 ## Syntaxe
 
-```ts
+```typescript
 function isRight<
 	GenericInput extends unknown
 >(

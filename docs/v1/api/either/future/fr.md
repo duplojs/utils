@@ -22,7 +22,7 @@ Classe `Future<T>` : une promesse enrichie capable de transporter des `Either` e
 
 ## Syntaxe
 
-```ts
+```typescript
 function future<
 	GenericEither extends AnyValue
 >(value: GenericEither): Future<GenericEither>;

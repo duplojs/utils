@@ -24,7 +24,7 @@ Applique une fonction uniquement quand l'entrée est un `EitherRight`. Sinon, la
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsRight<
 	const GenericInput extends unknown, 
 	const GenericOutput
@@ -36,7 +36,7 @@ function whenIsRight<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsRight<
 	const GenericInput extends unknown, 
 	const GenericOutput

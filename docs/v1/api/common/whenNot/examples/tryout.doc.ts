@@ -1,19 +1,23 @@
-import { whenNot } from "@duplojs/utils";
+import { equal, type ExpectType, justReturn, whenNot } from "@duplojs/utils";
 
-type User = { name: string; banned?: boolean };
+const input = true ? "true" : "false";
 
-const safeName = whenNot(
-	{ name: "Mallory" } as User,
-	user => Boolean(user.banned),
-	user => `${user.name} (guest)`
+const result = whenNot(
+	input,
+	equal("true"),
+	(value) => {
+		type check = ExpectType<
+			typeof value,
+			"false",
+			"strict"
+		>;
+
+		return false;
+	},
 );
 
-// safeName: "Mallory (guest)"
-
-const mapper = whenNot<User, string>(
-	user => Boolean(user.banned),
-	user => `${user.name} (guest)`
-);
-
-const result = mapper({ name: "Trent", banned: true });
-// result: { name: "Trent", banned: true }
+type check = ExpectType<
+	typeof result,
+	"true" | false,
+	"strict"
+>;

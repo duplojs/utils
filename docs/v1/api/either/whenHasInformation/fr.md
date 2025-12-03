@@ -24,7 +24,7 @@ Pattern matching fonctionnel basé sur l'information littérale d'un `Either`. L
 
 ### Signature classique
 
-```ts
+```typescript
 function whenHasInformation<
   const GenericInput extends unknown,
   GenericInformation extends ReturnType<typeof eitherInformationKind.getValue<GenericInput>>,
@@ -38,7 +38,7 @@ function whenHasInformation<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenHasInformation<
   const GenericInput extends unknown,
   GenericInformation extends ReturnType<typeof eitherInformationKind.getValue<GenericInput>>,

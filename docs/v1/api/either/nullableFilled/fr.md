@@ -22,7 +22,7 @@ Construit un `EitherRight<"nullable">` pour une valeur non nulle.
 
 ## Syntaxe
 
-```ts
+```typescript
 function nullableFilled<
 	const GenericValue extends unknown
 >(

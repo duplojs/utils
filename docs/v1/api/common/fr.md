@@ -16,9 +16,11 @@ Utilitaires transversaux pour composer des fonctions, gérer les promesses, mani
 
 Toutes les fonctions sont exportées depuis l'entrée principale ou via l'import direct (tree-shaking friendly).
 
-```ts
+```typescript
 import { pipe, when, clone } from "@duplojs/utils";
-import * as Common from "@duplojs/utils/common";
+import * as DCommon from "@duplojs/utils/common";
+import * as C from "@duplojs/utils/common";
+import { pipe, when, clone } from "@duplojs/utils/common";
 ```
 
 ## Composition et piping
@@ -61,9 +63,6 @@ Combine plusieurs type guards / prédicats en une intersection.
 ### [or](/v1/api/common/or/fr)
 Combine plusieurs prédicats en une union, pratique pour filtrer des unions discriminées.
 
-### [not](/v1/api/common/not/fr)
-Inverse n'importe quel type guard.
-
 ### [equal](/v1/api/common/equal/fr)
 Compare à une ou plusieurs valeurs littérales avec support des type guards sur les primitives.
 
@@ -100,7 +99,7 @@ Transforme un objet de promesses en promesse d'objet avec des valeurs résolues 
 
 ## Conversions et formats
 
-### [toJSON](/v1/api/common/toJson/fr)
+### [toJSON](/v1/api/common/toJSON/fr)
 Prépare une valeur pour la sérialisation JSON.
 
 ### [toTransform](/v1/api/common/toTransform/fr)
@@ -118,7 +117,7 @@ Convertit des tailles (`"10mb"`, `"2gb"`, …) en nombre d'octets.
 ### [escapeRegExp](/v1/api/common/escapeRegExp/fr)
 Échappe les caractères spéciaux pour créer une regex depuis une chaîne sûre.
 
-### [interpolation](/v1/api/common/interpolation/fr)
+### [createInterpolation](/v1/api/common/createInterpolation/fr)
 Génère des templates typés avec des placeholders `{id}` et un mapping strict des remplacements.
 
 ## Wrappers, clones et valeurs enrichies

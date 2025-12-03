@@ -24,7 +24,7 @@ next:
 
 ### Signature classique
 
-```ts
+```typescript
 function isMatch<
 	GenericInput extends AnyValue, 
 	const GenericPattern extends Pattern<GenericInput>
@@ -36,7 +36,7 @@ function isMatch<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function isMatch<
 	GenericInput extends AnyValue, 
 	const GenericPattern extends Pattern<GenericInput>

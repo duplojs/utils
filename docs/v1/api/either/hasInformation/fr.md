@@ -22,7 +22,7 @@ Type guard basé sur l'information littérale stockée dans l'Either. Permet de 
 
 ## Syntaxe
 lo
-```ts
+```typescript
 function hasInformation<
   const GenericInput extends unknown,
   GenericInformation extends ReturnType<typeof eitherInformationKind.getValue<GenericInput>>

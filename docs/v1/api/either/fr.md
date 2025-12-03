@@ -16,7 +16,7 @@ Monade `Either` pour la gestion d'erreurs fonctionnelle et type-safe. Permet de 
 
 La bibliothèque expose les namespaces `DEither` et `E` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DEither, E } from "@duplojs/utils";
 import * as DEither from "@duplojs/utils/either";
 import * as E from "@duplojs/utils/either";
@@ -34,7 +34,7 @@ La monade `Either` possède deux constructeurs :
 - **`E.left`** : représente une erreur (le côté "mauvais")
 - **`E.right`** : représente une valeur valide (le côté "bon")
 
-```ts
+```typescript
 if (result > 0) {
   return E.right("success", result);
 } else {
@@ -71,7 +71,7 @@ La vraie force de cette lib réside dans l'**ajout obligatoire d'une info** à c
 
 Une monade peut contenir plusieurs erreurs et plusieurs succès différents. Sans contextualisation, vous êtes obligé de faire du pattern matching générique ou de refaire des validations pour savoir réellement ce que contient la monade.
 
-```ts
+```typescript
 // Sans info : ambigu, qu'est-ce qu'on a vraiment ?
 const result = someFunction();
 if (E.isRight(result)) {
@@ -84,7 +84,7 @@ if (E.isRight(result)) {
 
 L'info est une **string littérale** qui contextualise la sortie. Elle reste dans le type, ce qui permet à TypeScript de vous aider lors du pattern matching.
 
-```ts
+```typescript
 const result = someFunction();
 
 if (E.isRight(result) && E.hasInformation(result, "user.created")) {

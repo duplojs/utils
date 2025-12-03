@@ -22,7 +22,7 @@ Encapsule une valeur `undefined`/définie dans un `Either`, utile pour propager 
 
 ## Syntaxe
 
-```ts
+```typescript
 function optional<
 	const GenericValue extends unknown = undefined
 >(

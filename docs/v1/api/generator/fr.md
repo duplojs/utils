@@ -16,7 +16,7 @@ Fonctions pour manipuler les générateurs JavaScript de manière fonctionnelle 
 
 La bibliothèque expose les namespaces `DGenerator` et `G` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DGenerator, G } from "@duplojs/utils";
 import * as DGenerator from "@duplojs/utils/generator";
 import * as G from "@duplojs/utils/generator";

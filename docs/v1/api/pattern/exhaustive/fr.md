@@ -22,7 +22,7 @@ next:
 
 ## Syntaxe
 
-```ts
+```typescript
 function exhaustive<
 	const GenericValue extends unknown, 
 	GenericResult extends PatternResult<GenericValue>

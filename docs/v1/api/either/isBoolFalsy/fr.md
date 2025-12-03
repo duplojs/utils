@@ -22,7 +22,7 @@ Type guard qui détecte un `EitherBoolFalsy`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isBoolFalsy<
 	GenericInput extends unknown>
 (

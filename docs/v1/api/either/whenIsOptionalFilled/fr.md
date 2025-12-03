@@ -24,7 +24,7 @@ Applique un callback uniquement lorsque l'Either optionnel contient une valeur (
 
 ### Signature classique
 
-```ts
+```typescript
 function whenIsOptionalFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
@@ -36,7 +36,7 @@ function whenIsOptionalFilled<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function whenIsOptionalFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid

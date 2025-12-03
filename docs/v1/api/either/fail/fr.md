@@ -26,7 +26,7 @@ Retourne un `EitherLeft<"fail", never>` : parfait pour signaler un échec sans t
 
 ## Syntaxe
 
-```ts
+```typescript
 function fail(): EitherFail
 ```
 

@@ -1,15 +1,17 @@
-import { instanceOf } from "@duplojs/utils";
+import { type ExpectType, instanceOf } from "@duplojs/utils";
 
-class HttpError extends Error {
-	status: number;
-	constructor(status: number, message: string) {
-		super(message);
-		this.status = status;
-	}
+const input = new Error() as Error | Date;
+
+if (instanceOf(input, Error)) {
+	type check = ExpectType<
+		typeof input,
+		Error,
+		"strict"
+	>;
+} else {
+	type check = ExpectType<
+		typeof input,
+		Date,
+		"strict"
+	>;
 }
-
-const isHttpError = instanceOf<unknown, typeof HttpError>(HttpError);
-
-const errors: unknown[] = [new Error("oops"), new HttpError(404, "not found")];
-const onlyHttpErrors = errors.filter(isHttpError);
-// onlyHttpErrors: HttpError[]

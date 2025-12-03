@@ -24,7 +24,7 @@ next:
 
 ### Signature classique
 
-```ts
+```typescript
 function otherwise<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
@@ -38,7 +38,7 @@ function otherwise<
 
 ### Signature currifiée
 
-```ts
+```typescript
 function otherwise<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 

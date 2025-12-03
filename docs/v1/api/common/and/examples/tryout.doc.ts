@@ -1,16 +1,50 @@
-import { and } from "@duplojs/utils";
+import { and, type ExpectType, O, pipe, when } from "@duplojs/utils";
 
-type Animal =
-	| { species: "cat"; name: string }
-	| { species: "dog"; name: string; vaccinated: boolean }
-	| { species: "dog"; name: string; vaccinated?: undefined };
+interface Admin {
+	type: "admin";
+	status: "active";
+	meta: {
+		role: "super";
+	};
+}
 
-const isDog = (a: Animal): a is Extract<Animal, { species: "dog" }> => a.species === "dog";
-const isVaccinated = (a: Animal): a is Extract<Animal, { vaccinated: boolean }> =>
-	(a as any).vaccinated === true;
+interface Viewer {
+	type: "viewer";
+	status: "active";
+	meta: {
+		role: "reader";
+	};
+}
 
-const isVaccinatedDog = and<Animal>([isDog, isVaccinated]);
+type User = Admin | Viewer;
 
-const rover: Animal = { species: "dog", name: "Rover", vaccinated: true };
-const result = isVaccinatedDog(rover);
-// result: true (type guard -> rover est un chien vacciné)
+const result = pipe(
+	{
+		type: "admin",
+		status: "active",
+		meta: {
+			role: "super",
+		},
+	} as User,
+	when(
+		and([
+			O.discriminate("type", "admin"),
+			O.discriminate("status", "active"),
+		]),
+		(value) => {
+			type check = ExpectType<
+				typeof value,
+				Admin,
+				"strict"
+			>;
+
+			return "myValue";
+		},
+	),
+);
+
+type check = ExpectType<
+	typeof result,
+	string | Viewer,
+	"strict"
+>;

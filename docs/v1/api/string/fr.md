@@ -16,7 +16,7 @@ Fonctions pour manipuler les chaînes de caractères de manière immutable et ty
 
 La bibliothèque expose les namespaces `DString` et `S` depuis l'entrée principale **ou** en import direct (tree-shaking friendly), ce qui permet de ne charger que ce dont vous avez besoin.
 
-```ts
+```typescript
 import { DString, S } from "@duplojs/utils";
 import * as DString from "@duplojs/utils/string";
 import * as S from "@duplojs/utils/string";

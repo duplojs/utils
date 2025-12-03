@@ -22,7 +22,7 @@ Type guard qui vérifie que l'Either nullable contient bien une valeur.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isNullableFilled<
 	GenericInput extends unknown
 >(

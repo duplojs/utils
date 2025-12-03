@@ -8,12 +8,14 @@ interface Props {
     width?: CSSProperties["width"];
     height?: CSSProperties["height"];
     readOnly?: boolean;
+	foldLines?: number[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
     width: "100%",
     height: "300px",
     readOnly: false,
+	foldLines: () => [],
 });
 
 const container = ref<HTMLElement>();
@@ -24,6 +26,7 @@ useComponent(
 		src: props.src,
 		readOnly: props.readOnly,
 		majorVersion: props.majorVersion,
+		foldLines: props.foldLines,
 	}
 );
 </script>

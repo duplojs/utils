@@ -22,7 +22,7 @@ Construit un `EitherLeft<"bool">` pour une valeur explicitement falsy (`0`, `""`
 
 ## Syntaxe
 
-```ts
+```typescript
 function boolFalsy<
 	const GenericValue extends BoolFalsyValue = undefined
 >(

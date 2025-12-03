@@ -22,7 +22,7 @@ Type guard qui détecte un `EitherOptionalEmpty`.
 
 ## Syntaxe
 
-```ts
+```typescript
 function isOptionalEmpty<
 	GenericInput extends unknown
 >(

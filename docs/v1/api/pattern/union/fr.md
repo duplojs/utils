@@ -22,7 +22,7 @@ next:
 
 ## Syntaxe
 
-```ts
+```typescript
 function union<
 	GenericInput extends unknown, 
 	const GenericPatterns extends readonly [
