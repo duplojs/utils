@@ -1,78 +1,185 @@
-import { DClean, DEither, DDataParser, type ExpectType, unwrap, wrapValue } from "@scripts";
+import { DClean, DDataParser, DEither, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
 
 describe("createNewType", () => {
-	it("creates a wrapped new type with parser success", () => {
-		const parser = DDataParser.string();
-		const handler = DClean.createNewType("my-string", parser);
+	const constraint = DClean.createConstraint(
+		"short",
+		DClean.String,
+		DDataParser.checkerStringMax(5),
+	);
 
+	const handler = DClean.createNewType(
+		"Label",
+		DDataParser.string(),
+		[constraint],
+	);
+
+	it("create returns new type on valid input", () => {
 		const result = handler.create("hello");
 
-		expect(unwrap(result)).toStrictEqual(
-			DClean.newTypeKind.setTo(wrapValue("hello"), "my-string"),
+		expect(result).toStrictEqual(
+			DEither.right(
+				"createNewType",
+				DClean.newTypeKind.setTo(
+					DClean.constrainedTypeKind.setTo(
+						wrapValue("hello"),
+						{ short: null },
+					),
+					"Label",
+				),
+			),
 		);
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherRight<"createNewType", DClean.NewType<"my-string", "hello">>
-			| DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>,
+			| DEither.EitherRight<
+				"createNewType",
+				DClean.NewType<
+					"Label",
+					"hello",
+					typeof constraint["name"]
+				>
+			>
+			| DEither.EitherLeft<
+				"createNewTypeError",
+				DDataParser.DataParserError
+			>,
 			"strict"
 		>;
 	});
 
-	it("applies constraints to the new type", () => {
-		const handler = DClean.createNewType(
-			"my-number",
-			DDataParser.number(),
-			[DClean.Positive],
+	it("create returns error on invalid input", () => {
+		const result = handler.create("too long");
+
+		const expectedError = DDataParser.addIssue(
+			DDataParser.createError(),
+			constraint.checkers[0],
+			"too long",
 		);
 
-		const ok = handler.create(5);
-		expect(DEither.isRight(ok)).toBe(true);
-
-		const ko = handler.create(0);
-		expect(DEither.isLeft(ko)).toBe(true);
+		expect(result).toStrictEqual(
+			DEither.left(
+				"createNewTypeError",
+				expectedError,
+			),
+		);
 
 		type Check = ExpectType<
-			typeof ok,
-			| DEither.EitherRight<"createNewType", DClean.NewType<"my-number", 5, "positive">>
-			| DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>,
+			typeof result,
+			(
+				| DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>
+				| DEither.EitherRight<"createNewType", DClean.NewType<"Label", "too long", "short">>
+			),
 			"strict"
 		>;
 	});
 
-	it("returns error when parser fails", () => {
-		const parser = DDataParser.string();
-		const handler = DClean.createNewType("my-string", parser);
+	it("create keeps constraint metadata when already constrained", () => {
+		const base = constraint.createOrThrow("cool");
 
-		const result = handler.create(123 as unknown as string);
+		const result = handler.create(base);
 
-		expect(DEither.isLeft(result)).toBe(true);
+		expect(result).toStrictEqual(
+			DEither.right(
+				"createNewType",
+				DClean.newTypeKind.setTo(
+					DClean.constrainedTypeKind.addTo(
+						base,
+						{
+							...DClean.constrainedTypeKind.getValue(base),
+							short: null,
+						},
+					),
+					"Label",
+				),
+			),
+		);
+	});
+
+	it("createOrThrow returns new type and is() accepts it", () => {
+		const value = handler.createOrThrow("mini");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("mini"),
+					{ short: null },
+				),
+				"Label",
+			),
+		);
+
+		expect(handler.is(value)).toBe(true);
+
+		type Check = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"Label",
+				"mini",
+				typeof constraint["name"]
+			>,
+			"strict"
+		>;
 	});
 
 	it("createOrThrow throws on invalid input", () => {
-		const parser = DDataParser.number();
-		const handler = DClean.createNewType("my-number", parser);
-
-		expect(() => handler.createOrThrow("not-a-number" as any)).toThrow(DClean.CreateNewTypeError);
+		expect(() => handler.createOrThrow("longer than five"))
+			.toThrow(DClean.CreateNewTypeError);
 	});
 
-	it("createOrThrow returns unwrapped value on success", () => {
-		const parser = DDataParser.number();
-		const handler = DClean.createNewType("my-number", parser);
+	it("is returns false for non matching wrapped value", () => {
+		const value = wrapValue("x") as WrappedValue<string> | DClean.NewType<"Label", string, "short">;
+		const predicate = handler.is(value);
 
-		const value = handler.createOrThrow(42);
+		expect(predicate).toBe(false);
 
-		expect(value).toBe(42);
+		if (predicate) {
+			type Check = ExpectType<
+				typeof value,
+				DClean.NewType<"Label", string, "short">,
+				"strict"
+			>;
+		}
+
+		expect(
+			handler.is(
+				DClean.newTypeKind.addTo(
+					wrapValue("x"),
+					"Label",
+				),
+			),
+		).toBe(false);
 	});
 
-	it("aliases createWithUnknown and createWithUnknownOrThrow behave identically", () => {
-		const parser = DDataParser.string();
-		const handler = DClean.createNewType("alias", parser);
+	it("createWithUnknown matches create", () => {
+		const createResult = handler.create("test");
+		const result = handler.createWithUnknown("test");
 
-		const success = handler.createWithUnknown("ok");
-		const successAlias = handler.create("ok");
+		expect(result).toStrictEqual(createResult);
+	});
 
-		expect(success).toStrictEqual(successAlias);
-		expect(handler.createWithUnknownOrThrow("ok")).toBe(handler.createOrThrow("ok"));
+	it("createWithUnknownOrThrow matches createOrThrow", () => {
+		const createResult = handler.createOrThrow("test");
+		const result = handler.createWithUnknownOrThrow("test");
+
+		expect(result).toStrictEqual(createResult);
+	});
+
+	it("create newType without constraint", () => {
+		const UserId = DClean.createNewType(
+			"userId",
+			DDataParser.number(),
+		);
+
+		expect(
+			UserId.createOrThrow(1),
+		).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				DClean.newTypeKind.setTo(
+					wrapValue(1),
+					"userId",
+				),
+				{},
+			),
+		);
 	});
 });
