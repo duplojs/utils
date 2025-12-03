@@ -1,12 +1,12 @@
 import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue } from "../common";
 import { type MergeDefinition } from "./types";
-import { type Output, type DataParser } from "./base";
+import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 export declare const extendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
-type _DataParserExtended = (DataParser & Kind<typeof extendedKind.definition>);
-export interface DataParserExtended extends _DataParserExtended {
+type _DataParserExtended<GenericDefinition extends DataParserDefinition, GenericOutput extends unknown, GenericInput extends unknown> = (DataParser<GenericDefinition, GenericOutput, GenericInput> & Kind<typeof extendedKind.definition>);
+export interface DataParserExtended<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends _DataParserExtended<GenericDefinition, GenericOutput, GenericInput> {
     array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
         element: GenericThis;
     }>>;
@@ -48,6 +48,6 @@ export declare function dataParserExtendedInit<GenericDataParser extends DataPar
     [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
 }>): GenericDataParserExtended;
 export declare namespace dataParserExtendedInit {
-    var overrideHandler: import("../common").OverrideHandler<DataParserExtended>;
+    var overrideHandler: import("../common").OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, AnyValue>>, unknown, unknown>>;
 }
 export {};
