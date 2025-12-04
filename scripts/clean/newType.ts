@@ -301,7 +301,7 @@ export function createNewType<
 }
 
 export type GetNewType<
-	GenericHandler extends NewTypeHandler,
+	GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>,
 > = Extract<
 	GenericHandler extends any
 		? NewType<
