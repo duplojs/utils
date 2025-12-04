@@ -72,7 +72,7 @@ Type guard basé sur `typeof`, `Array.isArray`, itérables, etc.
 ### [instanceOf](/v1/api/common/instanceOf/fr)
 Type guard basé sur un ou plusieurs constructeurs (`instanceof` typé).
 
-## Boucles, retry et temporisation
+## Boucles
 
 ### [loop](/v1/api/common/loop/fr)
 Boucle contrôlée par callbacks `next` / `exit` avec accès au compteur et à la sortie précédente.
@@ -80,13 +80,7 @@ Boucle contrôlée par callbacks `next` / `exit` avec accès au compteur et à l
 ### [asyncLoop](/v1/api/common/asyncLoop/fr)
 Version asynchrone de `loop` qui accepte des itérations retournant des promesses.
 
-### [asyncRetry](/v1/api/common/asyncRetry/fr)
-Relance une fonction asynchrone jusqu'à ce qu'une condition soit remplie (max retry, délai, log optionnel).
-
-### [sleep](/v1/api/common/sleep/fr)
-Pause asynchrone pour attendre un certain temps.
-
-## Promesses et orchestration
+## Promesses
 
 ### [externalPromise](/v1/api/common/externalPromise/fr)
 Crée une promesse avec ses méthodes `resolve`/`reject` exposées pour être contrôlée de l'extérieur.
@@ -94,10 +88,16 @@ Crée une promesse avec ses méthodes `resolve`/`reject` exposées pour être co
 ### [promiseObject](/v1/api/common/promiseObject/fr)
 Transforme un objet de promesses en promesse d'objet avec des valeurs résolues et typées.
 
+## Autres
+
+### [asyncRetry](/v1/api/common/asyncRetry/fr)
+Relance une fonction asynchrone jusqu'à ce qu'une condition soit remplie (max retry, délai, log optionnel).
+
+### [sleep](/v1/api/common/sleep/fr)
+Pause asynchrone pour attendre un certain temps.
+
 ### [memo](/v1/api/common/memo/fr)
 Évalue une fonction une seule fois et réutilise le résultat (memoization lazy).
-
-## Conversions et formats
 
 ### [toJSON](/v1/api/common/toJSON/fr)
 Prépare une valeur pour la sérialisation JSON.
@@ -120,10 +120,14 @@ Convertit des tailles (`"10mb"`, `"2gb"`, …) en nombre d'octets.
 ### [createInterpolation](/v1/api/common/createInterpolation/fr)
 Génère des templates typés avec des placeholders `{id}` et un mapping strict des remplacements.
 
-## Wrappers, clones et valeurs enrichies
-
 ### [wrapValue](/v1/api/common/wrapValue/fr)
 Enveloppe une valeur dans un conteneur marqué pour l'identifier ou éviter les collisions.
+
+### [isWrappedValue](/v1/api/common/isWrappedValue/fr)
+Type guard pour vérifier si une valeur est un `WrappedValue`.
+
+### [isRuntimeWrappedValueKey](/v1/api/common/isRuntimeWrappedValueKey/fr)
+Vérifie si une clé de chaîne correspond au marqueur runtime d'un `WrappedValue`.
 
 ### [toWrappedValue](/v1/api/common/toWrappedValue/fr)
 Assure qu'une valeur est wrappée (idempotent si déjà enveloppée).
@@ -132,7 +136,7 @@ Assure qu'une valeur est wrappée (idempotent si déjà enveloppée).
 Récupère la valeur interne d'un wrapper.
 
 ### [addWrappedProperties](/v1/api/common/addWrappedProperties/fr)
-Ajoute dynamiquement des propriétés dérivées à une valeur wrappée tout en conservant le type.
+Ajoute dynamiquement des propriétés dérivées à une valeur wrappée.
 
 ### [clone](/v1/api/common/clone/fr)
 Clone profond et typé d'une valeur (objets, tableaux, etc.).
@@ -140,15 +144,8 @@ Clone profond et typé d'une valeur (objets, tableaux, etc.).
 ### [simpleClone](/v1/api/common/simpleClone/fr)
 Clone léger pour dupliquer rapidement une valeur sans logique avancée.
 
-## Kinds, enums et métadonnées
-
-### [kind](/v1/api/common/kind/fr)
-Crée des tags runtime/type (`createKind`, `createKindNamespace`, `kindHeritage`, helpers de vérification).
-
 ### [createEnum](/v1/api/common/createEnum/fr)
 Crée un enum string immuable avec helpers `has` et `toTuple`.
-
-## Architecture, état et surcharges
 
 ### [globalStore](/v1/api/common/globalStore/fr)
 Store global typé (singleton par clé) avec accès lecture/écriture.

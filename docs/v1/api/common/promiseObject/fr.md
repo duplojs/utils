@@ -4,8 +4,8 @@ prev:
   text: "externalPromise"
   link: "/v1/api/common/externalPromise/fr"
 next:
-  text: "memo"
-  link: "/v1/api/common/memo/fr"
+  text: "asyncRetry"
+  link: "/v1/api/common/asyncRetry/fr"
 ---
 
 # promiseObject

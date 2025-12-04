@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "sleep"
-  link: "/v1/api/common/sleep/fr"
+  text: "asyncLoop"
+  link: "/v1/api/common/asyncLoop/fr"
 next:
   text: "promiseObject"
   link: "/v1/api/common/promiseObject/fr"
