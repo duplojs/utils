@@ -24,43 +24,17 @@ La méthode **`abs()`** retourne la valeur absolue d'un nombre. La valeur absolu
 
 ```typescript
 function abs<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dont on souhaite obtenir la valeur absolue.
+- `input` : Le nombre dont on souhaite obtenir la valeur absolue.
 
 ## Valeur de retour
 
 La valeur absolue du nombre donné. Retourne toujours un nombre positif ou zéro.
-
-## Exemples
-
-### Calculer la différence absolue
-
-<MonacoTSEditor
-  	src="/v1/api/number/abs/examples/calculateDifference.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Normaliser des températures
-
-<MonacoTSEditor
-  	src="/v1/api/number/abs/examples/normalizeTemperatures.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
-
-### Calculer la distance entre des points
-
-<MonacoTSEditor
-  	src="/v1/api/number/abs/examples/calculateDistance.doc.ts"
-  	majorVersion="v1"
-	height="600px"
-/>
 
 ## Voir aussi
 

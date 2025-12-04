@@ -25,15 +25,15 @@ La fonction **`toWrappedValue()`** garantit qu'une valeur est enveloppée : si e
 ```typescript
 function toWrappedValue<
 	GenericInnerValue extends AnyValue,
-	GenericValue extends MaybeWrapped<GenericInnerValue>
+	GenericInput extends MaybeWrapped<GenericInnerValue>
 >(
-	value: GenericValue
-): GenericValue extends WrappedValue ? GenericValue : WrappedValue<GenericValue>;
+	input: GenericInput
+): GenericInput extends WrappedValue ? GenericInput : WrappedValue<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur (déjà wrappée ou non) à normaliser en `WrappedValue`.
+- `input` : Valeur (déjà wrappée ou non) à normaliser en `WrappedValue`.
 
 ## Valeur de retour
 

@@ -24,43 +24,17 @@ La méthode **`asin()`** retourne l'arc sinus d'un nombre, c'est-à-dire l'angle
 
 ```typescript
 function asin<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Un nombre entre -1 et 1 représentant le sinus d'un angle.
+- `input` : Un nombre entre -1 et 1 représentant le sinus d'un angle.
 
 ## Valeur de retour
 
 L'angle en radians (entre -π/2 et π/2) dont le sinus est égal à la valeur donnée. Retourne `NaN` si la valeur est hors de l'intervalle [-1, 1].
-
-## Exemples
-
-### Calculer un angle à partir d'un ratio
-
-<MonacoTSEditor
-  	src="/v1/api/number/asin/examples/calculateAngle.doc.ts"
-  	majorVersion="v1"
-	height="750px"
-/>
-
-### Trouver l'angle d'élévation
-
-<MonacoTSEditor
-  	src="/v1/api/number/asin/examples/elevationAngle.doc.ts"
-  	majorVersion="v1"
-	height="900px"
-/>
-
-### Navigation et trajectoires
-
-<MonacoTSEditor
-  	src="/v1/api/number/asin/examples/trajectory.doc.ts"
-  	majorVersion="v1"
-	height="1050px"
-/>
 
 ## Voir aussi
 

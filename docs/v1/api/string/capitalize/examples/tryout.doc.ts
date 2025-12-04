@@ -1,5 +1,10 @@
-import { DString } from "@duplojs/utils";
+import { S, type ExpectType } from "@duplojs/utils";
 
-const input = "hello world";
-const result = DString.capitalize(input);
-// result: Hello world
+const input = "zeriix";
+const result = S.capitalize(input);
+
+type check = ExpectType<
+	typeof result,
+	"Zeriix",
+	"strict"
+>;

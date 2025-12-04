@@ -17,20 +17,22 @@ La méthode **`keys()`** retourne un tableau des clés d'un objet avec un typage
 <MonacoTSEditor
   src="/v1/api/object/keys/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Syntaxe
 
 ```typescript
-function keys<GenericObject extends object>(
-	object: GenericObject
-): (Exclude<keyof GenericObject, symbol>)[]
+function keys<
+	GenericInput extends object
+>(
+	input: GenericInput
+): (Exclude<keyof GenericInput, symbol>)[]
 ```
 
 ## Paramètres
 
-- `object` : L'objet dont on veut récupérer les clés.
+- `input` : L'objet dont on veut récupérer les clés.
 
 ## Valeur de retour
 

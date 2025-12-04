@@ -23,7 +23,7 @@ next:
 ## Paramètres
 
 - `key` : parser pour les clés (`DP.string()`, `DP.templateLiteral(...)`, `DP.literal([...])`, etc.).
-- `value` : parser appliqué à chaque entrée (`DP.number()`, `DP.object(...)`, ...).
+- `input` : parser appliqué à chaque entrée (`DP.number()`, `DP.object(...)`, ...).
 - `checkers` : `checkerRefine` pour exprimer des contraintes globales (clés requises, somme minimale, etc.).
 - `errorMessage` : message générique si l'entrée n'est pas un objet indexable.
 

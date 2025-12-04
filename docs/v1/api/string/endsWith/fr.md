@@ -17,7 +17,8 @@ La méthode **`endsWith()`** vérifie si une chaîne de caractères se termine p
 <MonacoTSEditor
   src="/v1/api/string/endsWith/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="320px"
+  :foldLines="[11]"
 />
 
 ## Syntaxe
@@ -26,12 +27,12 @@ La méthode **`endsWith()`** vérifie si une chaîne de caractères se termine p
 
 ```typescript
 function endsWith<
-	GenericString extends string, 
+	GenericInput extends string, 
 	GenericSearchString extends string
 >(
-	input: GenericString, 
+	input: GenericInput, 
 	searchString: GenericSearchString
-): input is Extract<GenericString, `${string}${GenericSearchString}`>;
+): input is Extract<GenericInput, `${string}${GenericSearchString}`>;
 ```
 
 ### Signature currifiée
@@ -39,12 +40,12 @@ function endsWith<
 ```typescript
 function endsWith<
 	GenericSearchString extends string, 
-	GenericString extends string
+	GenericInput extends string
 >(
 	searchString: GenericSearchString
 ): (
-	input: GenericString
-) => input is Extract<GenericString, `${string}${GenericSearchString}`>;
+	input: GenericInput
+) => input is Extract<GenericInput, `${string}${GenericSearchString}`>;
 ```
 
 ## Paramètres
@@ -56,32 +57,6 @@ function endsWith<
 ## Valeur de retour
 
 Un booléen indiquant si `input` se termine par `searchString`. Le type de retour utilise une assertion de type conditionnelle pour affiner le type de `input` si la condition est vraie.
-
-## Exemples
-
-<MonacoTSEditor
-  src="/v1/api/string/endsWith/examples/typeGuard.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-:bulb: **Astuce** : Vous pouvez utiliser `endsWith()` pour effectuer des vérifications de type en utilisant des assertions de type conditionnelles.
-
-### Filtrer des langages de script
-
-<MonacoTSEditor
-  src="/v1/api/string/endsWith/examples/filterScriptLanguages.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
-### Grouper par extension
-
-<MonacoTSEditor
-  src="/v1/api/string/endsWith/examples/groupByExtension.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
 
 ## Voir aussi
 

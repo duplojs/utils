@@ -36,32 +36,6 @@ function trimEnd<
 
 Une nouvelle chaîne de caractères représentant la chaîne appelante sans les espaces à la fin.
 
-## Exemples
-
-### Supprimer le slash final d'une URL
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimEnd/examples/removeTrailingSlash.doc.ts"
-  	majorVersion="v1"
-	height="480px"
-/>
-
-### Nettoyer l'extension d'un fichier
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimEnd/examples/cleanFileExtension.doc.ts"
-  	majorVersion="v1"
-	height="680px"
-/>
-
-### Formater la sortie de commande
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimEnd/examples/formatCommandOutput.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
 ## Voir aussi
 
 - [`trim`](/v1/api/string/trim/fr) - Supprime les espaces au début et à la fin

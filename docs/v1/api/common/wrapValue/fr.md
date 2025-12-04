@@ -24,15 +24,15 @@ La fonction **`wrapValue()`** enveloppe une valeur dans un conteneur marqué (`S
 
 ```typescript
 function wrapValue<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-	value: GenericValue
-): WrappedValue<GenericValue>;
+	input: GenericInput
+): WrappedValue<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à envelopper.
+- `input` : Valeur à envelopper.
 
 ## Valeur de retour
 

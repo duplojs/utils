@@ -52,24 +52,6 @@ function repeat<
 
 Une nouvelle chaîne de caractères résultant de la répétition de la chaîne originale `count` fois.
 
-## Exemples
-
-### Créer des séparateurs
-
-<MonacoTSEditor
-  src="/v1/api/string/repeat/examples/createSeparators.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
-### Créer un pattern
-
-<MonacoTSEditor
-  src="/v1/api/string/repeat/examples/createPattern.doc.ts"
-  majorVersion="v1"
-  height="350px"
-/>
-
 ## Voir aussi 
 
 - [normalize](/v1/api/string/normalize/fr) : Normalise une chaîne de caractères selon une forme Unicode spécifiée.

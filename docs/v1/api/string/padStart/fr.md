@@ -55,24 +55,6 @@ function padStart<
 
 Une nouvelle chaîne de caractères de la longueur indiquée, complétée avec la chaîne fournie depuis le début.
 
-## Exemples
-
-### Formater des IDs
-
-<MonacoTSEditor
-  src="/v1/api/string/padStart/examples/formatIds.doc.ts"
-  majorVersion="v1"
-  height="180px"
-/>
-
-### Formater des codes
-
-<MonacoTSEditor
-  src="/v1/api/string/padStart/examples/formatCodes.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
 ## Voir aussi
 
 - [`padEnd`](/v1/api/string/padEnd/fr) - Complète la chaîne à la fin

@@ -17,7 +17,7 @@ La méthode **`entries()`** retourne un tableau des paires clé-valeur d'un obje
 <MonacoTSEditor
   src="/v1/api/object/entries/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Syntaxe
@@ -25,10 +25,10 @@ La méthode **`entries()`** retourne un tableau des paires clé-valeur d'un obje
 ```typescript
 type GetEntry<
 	GenericKey extends ObjectKey,
-	GenericValue extends unknown,
-> = GenericValue extends any
+	GenericInput extends unknown,
+> = GenericInput extends any
 	? GenericKey extends string | number
-		? [`${GenericKey}`, GenericValue]
+		? [`${GenericKey}`, GenericInput]
 		: never
 	: never;
 
@@ -44,14 +44,16 @@ type GetEntries<
 		: InferredResult[]
 	: never;
 
-function entries<GenericObject extends object>(
-	object: GenericObject
-): SimplifyTopLevel<GetEntries<GenericObject>>
+function entries<
+	GenericInput extends object
+>(
+	input: GenericInput
+): SimplifyTopLevel<GetEntries<GenericInput>>
 ```
 
 ## Paramètres
 
-- `object` : L'objet dont on veut récupérer les paires clé-valeur.
+- `input` : L'objet dont on veut récupérer les paires clé-valeur.
 
 ## Valeur de retour
 

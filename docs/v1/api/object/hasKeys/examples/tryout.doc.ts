@@ -1,8 +1,22 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
-const input: {
+interface Input {
 	name: string;
 	age?: number;
-} = { name: "Alice" };
-const result = O.hasKeys(input, "age");
-// result: false
+}
+
+const input = {
+	name: "Alice",
+	age: 30,
+} as Input;
+
+if (O.hasKeys(input, "age")) {
+	type check = ExpectType<
+		typeof input,
+		{
+			age: number;
+			name: string;
+		},
+		"strict"
+	>;
+}

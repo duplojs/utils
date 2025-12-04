@@ -73,16 +73,6 @@ function reduce<
 
 La valeur finale accumulée.
 
-## Exemples
-
-### Agréger des données structurées
-
-<MonacoTSEditor
-  src="/v1/api/generator/reduce/examples/aggregateData.doc.ts"
-  majorVersion="v1"
-  height="950px"
-/>
-
 ## Voir aussi
 
 - [`asyncReduce`](/v1/api/generator/asyncReduce/fr) - Version asynchrone de reduce

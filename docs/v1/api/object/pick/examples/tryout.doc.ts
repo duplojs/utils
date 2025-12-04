@@ -1,4 +1,4 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 const input = {
 	name: "William",
@@ -6,4 +6,12 @@ const input = {
 	city: "Paris",
 } as const;
 const result = O.pick(input, ["name", "city"]);
-// result: { name: "William", city: "Paris" }
+
+type check = ExpectType<
+	typeof result,
+	{
+		readonly name: "William";
+		readonly city: "Paris";
+	},
+	"strict"
+>;

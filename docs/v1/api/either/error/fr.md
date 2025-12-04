@@ -28,19 +28,19 @@ Alias pratique pour créer un `EitherLeft` avec l'information figée à `"error"
 
 ```typescript
 function error<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherError<GenericValue>
+  input: GenericInput
+): EitherError<GenericInput>
 ```
 
 ## Paramètres
 
-- `value` : Donnée à attacher à l'erreur (message, objet, contexte...)
+- `input` : Donnée à attacher à l'erreur (message, objet, contexte...)
 
 ## Valeur de retour
 
-Un `EitherLeft<"error", GenericValue>` que vous pouvez consommer avec `E.isLeft`, `E.whenHasInformation` ou `E.hasInformation(result, "error")`.
+Un `EitherLeft<"error", GenericInput>` que vous pouvez consommer avec `E.isLeft`, `E.whenHasInformation` ou `E.hasInformation(result, "error")`.
 
 ## Cas d'usage
 

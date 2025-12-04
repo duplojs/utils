@@ -24,43 +24,17 @@ La méthode **`round()`** arrondit un nombre à l'entier le plus proche. Si la p
 
 ```typescript
 function round<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à arrondir.
+- `input` : Le nombre à arrondir.
 
 ## Valeur de retour
 
 Le nombre arrondi à l'entier le plus proche.
-
-## Exemples
-
-### Formater des prix avec TVA
-
-<MonacoTSEditor
-  	src="/v1/api/number/round/examples/formatPrices.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Calculer une moyenne arrondie
-
-<MonacoTSEditor
-  	src="/v1/api/number/round/examples/calculateAverage.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Convertir des unités
-
-<MonacoTSEditor
-  	src="/v1/api/number/round/examples/convertUnits.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
 
 ## Voir aussi
 

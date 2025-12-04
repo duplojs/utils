@@ -25,8 +25,10 @@ La méthode **`toFixed()`** formate un nombre en utilisant la notation à point 
 ### Signature classique
 
 ```typescript
-function toFixed<GenericValue extends number>(
-	value: GenericValue,
+function toFixed<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	digits: number
 ): string
 ```
@@ -34,14 +36,16 @@ function toFixed<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function toFixed<GenericValue extends number>(
+function toFixed<
+	GenericInput extends number
+>(
 	digits: number
-): (value: GenericValue) => string
+): (input: GenericInput) => string
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à formater (uniquement en signature classique).
+- `input` : Le nombre à formater (uniquement en signature classique).
 - `digits` : Le nombre de chiffres après la virgule (entre 0 et 100).
 
 ## Valeur de retour
@@ -49,24 +53,6 @@ function toFixed<GenericValue extends number>(
 **Signature classique** : retourne une chaîne de caractères représentant le nombre avec le nombre de décimales spécifié.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et la formate avec le nombre de décimales spécifié.
-
-## Exemples
-
-### Formater des prix
-
-<MonacoTSEditor
-  	src="/v1/api/number/toFixed/examples/formatPrices.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Formater des mesures scientifiques
-
-<MonacoTSEditor
-  	src="/v1/api/number/toFixed/examples/scientific.doc.ts"
-  	majorVersion="v1"
-	height="500px"
-/>
 
 ## Voir aussi
 

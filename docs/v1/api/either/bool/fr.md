@@ -24,17 +24,17 @@ Convertit n'importe quelle valeur en monade booléenne (`EitherBoolTruthy` ou `E
 
 ```typescript
 function bool<
-	const GenericValue extends unknown = undefined
+	const GenericInput extends unknown = undefined
 >(
-  value: GenericValue
-): GenericValue extends BoolFalsyValue
-  ? EitherBoolFalsy<GenericValue>
-  : EitherBoolTruthy<GenericValue> | EitherBoolFalsy<BoolFalsyValue>;
+  input: GenericInput
+): GenericInput extends BoolFalsyValue
+  ? EitherBoolFalsy<GenericInput>
+  : EitherBoolTruthy<GenericInput> | EitherBoolFalsy<BoolFalsyValue>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à interpréter. Les falsy standards (`""`, `0`, `false`, `null`, `undefined`) produisent un `Left`.
+- `input` : Valeur à interpréter. Les falsy standards (`""`, `0`, `false`, `null`, `undefined`) produisent un `Left`.
 
 ## Valeur de retour
 

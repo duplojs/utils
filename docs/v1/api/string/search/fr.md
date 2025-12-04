@@ -52,24 +52,6 @@ function search<
 
 L'index de la première occurrence du motif dans la chaîne, ou `undefined` si aucune correspondance n'est trouvée.
 
-## Exemples
-
-### Trouver un pattern
-
-<MonacoTSEditor
-	src="/v1/api/string/search/examples/findPattern.doc.ts"
-	majorVersion="v1"
-	height="200px"
-/>
-
-### Rechercher avec une regex
-
-<MonacoTSEditor
-	src="/v1/api/string/search/examples/searchWithRegex.doc.ts"
-	majorVersion="v1"
-	height="200px"
-/>
-
 ## Voir aussi
 
 - [indexOf](/v1/api/string/indexOf/fr) : Retourne l'index de la première occurrence d'une sous-chaîne.

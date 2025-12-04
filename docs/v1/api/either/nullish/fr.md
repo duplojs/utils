@@ -23,16 +23,16 @@ Transforme une valeur potentiellement `null`/`undefined` en `Either`. Permet de 
 ## Syntaxe
 
 ```typescript
-function nullish<const GenericValue extends unknown = undefined>(
-  value: GenericValue
-): GenericValue extends NullishValue
-  ? EitherNullishEmpty<GenericValue>
-  : EitherNullishFilled<GenericValue>;
+function nullish<const GenericInput extends unknown = undefined>(
+  input: GenericInput
+): GenericInput extends NullishValue
+  ? EitherNullishEmpty<GenericInput>
+  : EitherNullishFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à encapsuler (`null`, `undefined` ou toute autre valeur).
+- `input` : Valeur à encapsuler (`null`, `undefined` ou toute autre valeur).
 
 ## Valeur de retour
 

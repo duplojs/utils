@@ -24,15 +24,15 @@ La fonction **`toString()`** convertit un littéral (`number`, `string`, `bigint
 
 ```typescript
 function toString<
-	GenericValue extends number | string | bigint | boolean | null | undefined
+	GenericInput extends number | string | bigint | boolean | null | undefined
 >(
-	value: GenericValue
-): `${GenericValue}`;
+	input: GenericInput
+): `${GenericInput}`;
 ```
 
 ## Paramètres
 
-- `value` : Littéral à convertir en chaîne typée.
+- `input` : Littéral à convertir en chaîne typée.
 
 ## Valeur de retour
 

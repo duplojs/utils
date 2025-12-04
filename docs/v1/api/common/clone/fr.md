@@ -24,12 +24,12 @@ La fonction **`clone()`** réalise une copie profonde typée d'une valeur en pr�
 
 ```typescript
 type SimplifyTypeForce<
-	GenericValue extends unknown
-> = GenericValue extends object 
+	GenericInput extends unknown
+> = GenericInput extends object 
 	? {
-    	[Prop in keyof GenericValue]: SimplifyTypeForce<GenericValue[Prop]>;
+    	[Prop in keyof GenericInput]: SimplifyTypeForce<GenericInput[Prop]>;
 	} 
-	: GenericValue;
+	: GenericInput;
 
 function clone<
 	GenericInput extends unknown = unknown

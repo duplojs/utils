@@ -24,19 +24,19 @@ Construit un `EitherLeft<"bool">` pour une valeur explicitement falsy (`0`, `""`
 
 ```typescript
 function boolFalsy<
-	const GenericValue extends BoolFalsyValue = undefined
+	const GenericInput extends BoolFalsyValue = undefined
 >(
-  value?: GenericValue
-): EitherBoolFalsy<GenericValue>;
+  input?: GenericInput
+): EitherBoolFalsy<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur falsy (optionnelle).
+- `input` : Valeur falsy (optionnelle).
 
 ## Valeur de retour
 
-Un `EitherLeft<"bool", GenericValue>` permettant de représenter un faux explicite.
+Un `EitherLeft<"bool", GenericInput>` permettant de représenter un faux explicite.
 
 ## Voir aussi
 

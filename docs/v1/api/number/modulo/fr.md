@@ -25,8 +25,10 @@ La méthode **`modulo()`** retourne le reste de la division euclidienne de deux 
 ### Signature classique
 
 ```typescript
-function modulo<GenericValue extends number>(
-	value: GenericValue,
+function modulo<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	divisor: number
 ): number
 ```
@@ -34,47 +36,23 @@ function modulo<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function modulo<GenericValue extends number>(
+function modulo<
+	GenericInput extends number
+>(
 	divisor: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dividende (le nombre à diviser, uniquement en signature classique).
+- `input` : Le nombre dividende (le nombre à diviser, uniquement en signature classique).
 - `divisor` : Le nombre diviseur (le nombre par lequel diviser).
 
 ## Valeur de retour
 
-**Signature classique** : retourne le reste de la division euclidienne de `value` par `divisor`. Le résultat a le même signe que le dividende.
+**Signature classique** : retourne le reste de la division euclidienne de `input` par `divisor`. Le résultat a le même signe que le dividende.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et retourne le reste de sa division par le diviseur.
-
-## Exemples
-
-### Vérifier la parité
-
-<MonacoTSEditor
-  	src="/v1/api/number/modulo/examples/checkParity.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Calculer la pagination
-
-<MonacoTSEditor
-  	src="/v1/api/number/modulo/examples/pagination.doc.ts"
-  	majorVersion="v1"
-	height="650px"
-/>
-
-### Rotation circulaire
-
-<MonacoTSEditor
-  	src="/v1/api/number/modulo/examples/circularRotation.doc.ts"
-  	majorVersion="v1"
-	height="600px"
-/>
 
 ## Voir aussi
 

@@ -42,11 +42,11 @@ function fillAll<GenericElement>(
 ## Paramètres
 
 - `array` : Tableau source.
-- `value` : Valeur qui sera copiée à chaque position.
+- `input` : Valeur qui sera copiée à chaque position.
 
 ## Valeur de retour
 
-Un nouveau tableau où tous les éléments valent `value`.
+Un nouveau tableau où tous les éléments valent `input`.
 
 ## Voir aussi
 

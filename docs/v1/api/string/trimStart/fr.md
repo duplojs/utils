@@ -36,32 +36,6 @@ function trimStart<
 
 Une nouvelle chaîne de caractères représentant la chaîne appelante sans les espaces au début.
 
-## Exemples
-
-### Supprimer l'indentation
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimStart/examples/removeIndentation.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
-### Parser un préfixe de log
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimStart/examples/parseLogPrefix.doc.ts"
-  	majorVersion="v1"
-	height="680px"
-/>
-
-### Nettoyer les commentaires
-
-<MonacoTSEditor
-  	src="/v1/api/string/trimStart/examples/cleanComments.doc.ts"
-  	majorVersion="v1"
-	height="560px"
-/>
-
 ## Voir aussi
 
 - [`trim`](/v1/api/string/trim/fr) - Supprime les espaces au début et à la fin

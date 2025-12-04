@@ -25,17 +25,17 @@ Construit un `EitherRight` en associant **une information métier obligatoire** 
 ```typescript
 function right<
 	GenericInformation extends string, 
-	const GenericValue extends unknown = undefined
+	const GenericInput extends unknown = undefined
 >(
   information: GenericInformation,
-  value?: GenericValue
-): EitherRight<GenericInformation, GenericValue>
+  value?: GenericInput
+): EitherRight<GenericInformation, GenericInput>
 ```
 
 ## Paramètres
 
 - `information` : string littérale qui décrit précisément le succès (ex. `"user.created"`). Cette information reste dans le type.
-- `value` : payload optionnel associé au succès. Si omis, le type inféré devient `undefined`.
+- `input` : payload optionnel associé au succès. Si omis, le type inféré devient `undefined`.
 
 ## Valeur de retour
 

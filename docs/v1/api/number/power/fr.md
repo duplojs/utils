@@ -25,8 +25,10 @@ La méthode **`power()`** élève un nombre à une puissance donnée. Elle calcu
 ### Signature classique
 
 ```typescript
-function power<GenericValue extends number>(
-	value: GenericValue,
+function power<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	exponent: number
 ): number
 ```
@@ -34,39 +36,23 @@ function power<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function power<GenericValue extends number>(
+function power<
+	GenericInput extends number
+>(
 	exponent: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre de base à élever à une puissance (uniquement en signature classique).
+- `input` : Le nombre de base à élever à une puissance (uniquement en signature classique).
 - `exponent` : L'exposant auquel élever le nombre.
 
 ## Valeur de retour
 
-**Signature classique** : retourne le résultat de `value` élevé à la puissance `exponent`. Équivaut à `value ** exponent` ou `Math.pow(value, exponent)`.
+**Signature classique** : retourne le résultat de `input` élevé à la puissance `exponent`. Équivaut à `value ** exponent` ou `Math.pow(value, exponent)`.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et l'élève à la puissance de l'exposant.
-
-## Exemples
-
-### Calculer des aires
-
-<MonacoTSEditor
-  	src="/v1/api/number/power/examples/calculateArea.doc.ts"
-  	majorVersion="v1"
-	height="250px"
-/>
-
-### Croissance exponentielle
-
-<MonacoTSEditor
-  	src="/v1/api/number/power/examples/exponentialGrowth.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
 
 ## Voir aussi
 

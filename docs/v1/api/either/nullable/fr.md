@@ -24,17 +24,17 @@ Encapsule une valeur `null` ou non-`null` dans un `Either`, tout en conservant l
 
 ```typescript
 function nullable<
-	const GenericValue extends unknown = null
+	const GenericInput extends unknown = null
 >(
-  value: GenericValue
-): GenericValue extends null
+  input: GenericInput
+): GenericInput extends null
   ? EitherNullableEmpty
-  : EitherNullableFilled<GenericValue>;
+  : EitherNullableFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Peut être `null` ou une valeur concrète.
+- `input` : Peut être `null` ou une valeur concrète.
 
 ## Valeur de retour
 

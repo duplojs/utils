@@ -24,43 +24,17 @@ La méthode **`floor()`** arrondit un nombre vers le bas à l'entier inférieur 
 
 ```typescript
 function floor<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à arrondir vers le bas.
+- `input` : Le nombre à arrondir vers le bas.
 
 ## Valeur de retour
 
 Le plus grand entier inférieur ou égal au nombre donné.
-
-## Exemples
-
-### Calculer le nombre de pages
-
-<MonacoTSEditor
-  	src="/v1/api/number/floor/examples/calculatePages.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Appliquer des remises
-
-<MonacoTSEditor
-  	src="/v1/api/number/floor/examples/applyDiscounts.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Convertir des secondes en minutes
-
-<MonacoTSEditor
-  	src="/v1/api/number/floor/examples/calculateTime.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
 
 ## Voir aussi
 

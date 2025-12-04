@@ -24,12 +24,12 @@ La fonction **`toTransform()`** applique récursivement les méthodes `toTransfo
 ## Syntaxe
 
 ```typescript
-type ToTransform<GenericValue extends unknown> =
-	GenericValue extends number | string | null | undefined
-		? GenericValue
-		: GenericValue extends { toTransform: AnyFunction }
-			? ReturnType<GenericValue["toTransform"]>
-			: GenericValue extends [infer InferredFirst, ...infer InferredRest]
+type ToTransform<GenericInput extends unknown> =
+	GenericInput extends number | string | null | undefined
+		? GenericInput
+		: GenericInput extends { toTransform: AnyFunction }
+			? ReturnType<GenericInput["toTransform"]>
+			: GenericInput extends [infer InferredFirst, ...infer InferredRest]
 				? [
 					ToTransform<InferredFirst>,
 					...(
@@ -40,22 +40,22 @@ type ToTransform<GenericValue extends unknown> =
 							: []
 					)
 				]
-				: GenericValue extends any[]
-					? ToTransform<GenericValue[number]>[]
-					: GenericValue extends Record<number, unknown>
+				: GenericInput extends any[]
+					? ToTransform<GenericInput[number]>[]
+					: GenericInput extends Record<number, unknown>
 						? {
-							[Prop in keyof GenericValue]: ToTransform<GenericValue[Prop]>;
+							[Prop in keyof GenericInput]: ToTransform<GenericInput[Prop]>;
 						}
-						: GenericValue;
+						: GenericInput;
 
-function toTransform<GenericValue extends unknown>(
-	value: GenericValue
-): ToTransform<GenericValue>;
+function toTransform<GenericInput extends unknown>(
+	input: GenericInput
+): ToTransform<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à transformer via `toTransform` (si présent) ou par parcours récursif.
+- `input` : Valeur à transformer via `toTransform` (si présent) ou par parcours récursif.
 
 ## Valeur de retour
 

@@ -53,32 +53,6 @@ function match<
 
 Un tableau de correspondances (`RegExpMatchArray`) si une ou plusieurs correspondances sont trouvées, ou `undefined` si aucune correspondance n'est trouvée.
 
-## Exemples
-
-### Filtrer des frameworks
-
-<MonacoTSEditor
-  src="/v1/api/string/match/examples/filterFrameworks.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Extraire des nombres
-
-<MonacoTSEditor
-  src="/v1/api/string/match/examples/extractNumbers.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Valider un pattern
-
-<MonacoTSEditor
-  src="/v1/api/string/match/examples/validatePattern.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
 ## Voir aussi
 
 - [search](/v1/api/string/search/fr) : Recherche une correspondance avec une expression régulière.

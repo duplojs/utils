@@ -24,43 +24,17 @@ La méthode **`acos()`** retourne l'arc cosinus d'un nombre, c'est-à-dire l'ang
 
 ```typescript
 function acos<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Un nombre entre -1 et 1 représentant le cosinus d'un angle.
+- `input` : Un nombre entre -1 et 1 représentant le cosinus d'un angle.
 
 ## Valeur de retour
 
 L'angle en radians (entre 0 et π) dont le cosinus est égal à la valeur donnée. Retourne `NaN` si la valeur est hors de l'intervalle [-1, 1].
-
-## Exemples
-
-### Calculer l'angle entre deux vecteurs
-
-<MonacoTSEditor
-  	src="/v1/api/number/acos/examples/vectorAngle.doc.ts"
-  	majorVersion="v1"
-	height="1550px"
-/>
-
-### Trouver l'angle dans un triangle
-
-<MonacoTSEditor
-  	src="/v1/api/number/acos/examples/triangleAngle.doc.ts"
-  	majorVersion="v1"
-	height="1050px"
-/>
-
-### Distance sur une sphère
-
-<MonacoTSEditor
-  	src="/v1/api/number/acos/examples/sphericalDistance.doc.ts"
-  	majorVersion="v1"
-	height="1350px"
-/>
 
 ## Voir aussi
 

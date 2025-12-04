@@ -1,4 +1,4 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 const input = {
 	name: "Alice",
@@ -10,3 +10,13 @@ const update = {
 };
 const result = O.assign(input, update);
 // result: { name: "Alice", age: 31, city: "Paris" }
+
+type check = ExpectType<
+	typeof result,
+	{
+		name: string;
+		age: number;
+		city: string;
+	},
+	"strict"
+>;

@@ -26,9 +26,9 @@ Vérifie qu'un `TheDate` est strictement inférieur à un seuil.
 
 ```typescript
 function less<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
-	input: GenericValue,
+	input: GenericInput,
 	threshold: TheDate
 ): boolean
 ```
@@ -37,10 +37,10 @@ function less<
 
 ```typescript
 function less<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
 	threshold: TheDate
-): (input: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres

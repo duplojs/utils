@@ -50,16 +50,6 @@ function charAt<
 
 Une chaîne de caractères représentant le caractère à l'index spécifié. Si l'index est hors limites, retourne une chaîne vide (`""`).
 
-## Exemples
-
-### Créer un acronyme
-
-<MonacoTSEditor
-  src="/v1/api/string/charAt/examples/createAcronym.doc.ts"
-  majorVersion="v1"
-  height="280px"
-/>
-
 ## Voir aussi
 
 - [`indexOf`](/v1/api/string/indexOf/fr) - Trouve l'index d'une sous-chaîne

@@ -55,24 +55,6 @@ function substring<
 
 Une nouvelle chaîne de caractères contenant la section spécifiée de la chaîne d'origine.
 
-## Exemples
-
-### Extraction de domaine d'email
-
-<MonacoTSEditor
-  	src="/v1/api/string/substring/examples/extractEmailDomain.doc.ts"
-  	majorVersion="v1"
-	height="610px"
-/>
-
-### Parsing de format de date
-
-<MonacoTSEditor
-  	src="/v1/api/string/substring/examples/parseDateFormat.doc.ts"
-  	majorVersion="v1"
-	height="1200px"
-/>
-
 ## Voir aussi
 
 - [`slice`](/v1/api/string/slice/fr) - Extrait une section d'une chaîne avec support des index négatifs

@@ -60,16 +60,6 @@ function normalize<
 
 Une nouvelle chaîne de caractères normalisée selon la forme spécifiée.
 
-## Exemples
-
-### Normaliser des accents
-
-<MonacoTSEditor
-  src="/v1/api/string/normalize/examples/normalizeAccents.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
 ## Voir aussi
 
 - [toUpperCase](/v1/api/string/toUpperCase/fr) : Convertit toute la chaîne en majuscules.

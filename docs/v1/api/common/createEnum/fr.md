@@ -24,20 +24,20 @@ La fonction **`createEnum()`** crée un enum string immuable et typé. L’objet
 
 ```typescript
 type Enum<
-	GenericValues extends [string, ...string[]]
+	GenericInputs extends [string, ...string[]]
 > = {
-	[Prop in GenericValues[number]]: Prop;
+	[Prop in GenericInputs[number]]: Prop;
 } & {
-	toTuple(): GenericValues;
-	has(value: string): value is GenericValues[number];
+	toTuple(): GenericInputs;
+	has(value: string): value is GenericInputs[number];
 };
 
 function createEnum<
-	GenericValue extends string,
-	GenericValues extends [GenericValue, ...GenericValue[]]
+	GenericInput extends string,
+	GenericInputs extends [GenericInput, ...GenericInput[]]
 >(
-	values: GenericValues
-): Enum<GenericValues>;
+	values: GenericInputs
+): Enum<GenericInputs>;
 
 type GetEnumValue<
 	GenericEnum extends Enum<any>

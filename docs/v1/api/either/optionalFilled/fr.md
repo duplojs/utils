@@ -24,19 +24,19 @@ Construit un `EitherRight<"optional">` lorsque la valeur est définie.
 
 ```typescript
 function optionalFilled<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherOptionalFilled<GenericValue>;
+  input: GenericInput
+): EitherOptionalFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur définie.
+- `input` : Valeur définie.
 
 ## Valeur de retour
 
-`EitherOptionalFilled<GenericValue>`.
+`EitherOptionalFilled<GenericInput>`.
 
 ## Voir aussi
 

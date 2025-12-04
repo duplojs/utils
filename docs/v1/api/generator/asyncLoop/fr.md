@@ -52,24 +52,6 @@ async function asyncLoop<
 
 Un `AsyncGenerator` qui émet les valeurs passées à `next()` et `exit()`.
 
-## Exemples
-
-### Générer une séquence avec délai
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncLoop/examples/delayedSequence.doc.ts"
-  majorVersion="v1"
-  height="550px"
-/>
-
-### Récupérer des données paginées
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncLoop/examples/fetchPaginated.doc.ts"
-  majorVersion="v1"
-  height="750px"
-/>
-
 ## Voir aussi
 
 - [`loop`](/v1/api/generator/loop/fr) - Version synchrone de asyncLoop

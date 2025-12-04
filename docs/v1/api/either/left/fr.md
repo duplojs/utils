@@ -25,17 +25,17 @@ Construit un `EitherLeft` en associant **une information métier obligatoire** (
 ```typescript
 function left<
 	GenericInformation extends string, 
-	const GenericValue extends unknown = undefined
+	const GenericInput extends unknown = undefined
 >(
   information: GenericInformation,
-  value?: GenericValue
-): EitherLeft<GenericInformation, GenericValue>
+  input?: GenericInput
+): EitherLeft<GenericInformation, GenericInput>
 ```
 
 ## Paramètres
 
 - `information` : string littérale qui précise le type d'erreur (ex. `"user.notFound"`).
-- `value` : payload optionnel qui transporte les données utiles pour diagnostiquer le problème.
+- `input` : payload optionnel qui transporte les données utiles pour diagnostiquer le problème.
 
 ## Valeur de retour
 

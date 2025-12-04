@@ -56,24 +56,6 @@ function map<
 
 Un nouveau `Generator` émettant les valeurs transformées.
 
-## Exemples
-
-### Transformer des données structurées
-
-<MonacoTSEditor
-  src="/v1/api/generator/map/examples/transformData.doc.ts"
-  majorVersion="v1"
-  height="650px"
-/>
-
-### Utiliser l'index dans la transformation
-
-<MonacoTSEditor
-  src="/v1/api/generator/map/examples/withIndex.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
 ## Voir aussi
 
 - [`asyncMap`](/v1/api/generator/asyncMap/fr) - Version asynchrone de map

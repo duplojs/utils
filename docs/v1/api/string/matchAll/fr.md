@@ -52,32 +52,6 @@ function matchAll<
 
 Un itérateur (`RegExpStringIterator<RegExpMatchArray>`) qui permet de parcourir toutes les correspondances trouvées dans la chaîne `input`.
 
-## Exemples
-
-### Extraire tous les emails
-
-<MonacoTSEditor
-  src="/v1/api/string/matchAll/examples/extractEmails.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Compter les occurrences
-
-<MonacoTSEditor
-  src="/v1/api/string/matchAll/examples/countOccurrences.doc.ts"
-  majorVersion="v1"
-  height="240px"
-/>
-
-### Extraire des groupes de capture
-
-<MonacoTSEditor
-  src="/v1/api/string/matchAll/examples/extractGroups.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
 ## Voir aussi
 
 - [match](/v1/api/string/match/fr) : Recherche une correspondance avec une expression régulière.

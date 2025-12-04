@@ -17,7 +17,7 @@ La méthode **`omit()`** crée un nouvel objet en excluant certaines propriété
 <MonacoTSEditor
   src="/v1/api/object/omit/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="400px"
 />
 
 ## Syntaxe
@@ -39,8 +39,8 @@ function omit<
 ```typescript
 function omit<
 	GenericInput extends object,
-	GenericValue extends boolean,
-	GenericOmitValue extends Partial<Record<keyof GenericInput, GenericValue>> | readonly (keyof GenericInput)[]
+	GenericInput extends boolean,
+	GenericOmitValue extends Partial<Record<keyof GenericInput, GenericInput>> | readonly (keyof GenericInput)[]
 >(
 	omitValue: GenericOmitValue
 ): (input: GenericInput) => SimplifyTopLevel<Omit<GenericInput, ...>>

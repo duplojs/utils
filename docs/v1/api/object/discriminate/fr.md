@@ -17,7 +17,7 @@ La méthode **`discriminate()`** discrimine un objet par la valeur d'une propri�
 <MonacoTSEditor
   src="/v1/api/object/discriminate/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="520px"
 />
 
 ## Syntaxe
@@ -28,13 +28,13 @@ La méthode **`discriminate()`** discrimine un objet par la valeur d'une propri�
 function discriminate<
 	GenericInput extends object,
 	GenericKey extends keyof GenericInput,
-	GenericValue extends EligibleEqual
+	GenericInput extends EligibleEqual
 >(
 	input: GenericInput,
 	key: GenericKey,
-	value: (MaybeArray<(GenericValue & Extract<GenericInput[GenericKey], EligibleEqual>)> | MaybeArray<Extract<GenericInput[GenericKey], EligibleEqual>>)
+	value: (MaybeArray<(GenericInput & Extract<GenericInput[GenericKey], EligibleEqual>)> | MaybeArray<Extract<GenericInput[GenericKey], EligibleEqual>>)
 ): input is Extract<GenericInput, {
-	[Prop in GenericKey]: GenericValue;
+	[Prop in GenericKey]: GenericInput;
 }>
 ```
 
@@ -44,12 +44,12 @@ function discriminate<
 function discriminate<
 	GenericInput extends object,
 	GenericKey extends keyof GenericInput,
-	GenericValue extends EligibleEqual
+	GenericInput extends EligibleEqual
 >(
 	key: GenericKey,
 	value: ...
 ): (input: GenericInput) => input is Extract<GenericInput, {
-	[Prop in GenericKey]: GenericValue;
+	[Prop in GenericKey]: GenericInput;
 }>
 ```
 
@@ -57,7 +57,7 @@ function discriminate<
 
 - `input` : L'objet à discriminer (souvent un type union).
 - `key` : La clé de la propriété discriminante.
-- `value` : La valeur (ou tableau de valeurs) attendue pour la discrimination.
+- `input` : La valeur (ou tableau de valeurs) attendue pour la discrimination.
 
 ## Valeur de retour
 

@@ -24,17 +24,17 @@ Encapsule une valeur `undefined`/définie dans un `Either`, utile pour propager 
 
 ```typescript
 function optional<
-	const GenericValue extends unknown = undefined
+	const GenericInput extends unknown = undefined
 >(
-  value: GenericValue
-): GenericValue extends undefined
+  input: GenericInput
+): GenericInput extends undefined
   ? EitherOptionalEmpty
-  : EitherOptionalFilled<GenericValue>;
+  : EitherOptionalFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Peut être `undefined` ou une valeur concrète.
+- `input` : Peut être `undefined` ou une valeur concrète.
 
 ## Valeur de retour
 

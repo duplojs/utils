@@ -26,9 +26,9 @@ Variante inclusive de [`between`](./between/fr) : vérifie qu'un `TheDate` se tr
 
 ```typescript
 function betweenThan<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
-	input: GenericValue,
+	input: GenericInput,
 	greater: TheDate,
 	less: TheDate
 ): boolean
@@ -38,11 +38,11 @@ function betweenThan<
 
 ```typescript
 function betweenThan<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
 	greater: TheDate,
 	less: TheDate
-): (input: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres

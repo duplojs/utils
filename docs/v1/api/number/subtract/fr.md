@@ -25,8 +25,10 @@ La méthode **`subtract()`** soustrait un nombre d'un autre. Elle supporte deux 
 ### Signature classique
 
 ```typescript
-function subtract<GenericValue extends number>(
-	value: GenericValue,
+function subtract<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	subtrahend: number
 ): number
 ```
@@ -34,14 +36,16 @@ function subtract<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function subtract<GenericValue extends number>(
+function subtract<
+	GenericInput extends number
+>(
 	subtrahend: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre duquel soustraire (uniquement en signature classique).
+- `input` : Le nombre duquel soustraire (uniquement en signature classique).
 - `subtrahend` : Le nombre à soustraire.
 
 ## Valeur de retour
@@ -49,32 +53,6 @@ function subtract<GenericValue extends number>(
 **Signature classique** : retourne le résultat de la soustraction `value - subtrahend`.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et soustrait le subtrahend.
-
-## Exemples
-
-### Calculer des réductions
-
-<MonacoTSEditor
-  	src="/v1/api/number/subtract/examples/calculateDiscount.doc.ts"
-  	majorVersion="v1"
-	height="820px"
-/>
-
-### Calculer un budget restant
-
-<MonacoTSEditor
-  	src="/v1/api/number/subtract/examples/calculateRemaining.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Calculer des âges
-
-<MonacoTSEditor
-  	src="/v1/api/number/subtract/examples/calculateAge.doc.ts"
-  	majorVersion="v1"
-	height="750px"
-/>
 
 ## Voir aussi
 

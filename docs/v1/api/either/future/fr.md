@@ -30,7 +30,7 @@ function future<
 
 ## Paramètres
 
-- `value` : Peut être un `Either`, une promesse ou n'importe quelle valeur. `Future` normalise tout pour retourner un `Either` dans un contexte async.
+- `input` : Peut être un `Either`, une promesse ou n'importe quelle valeur. `Future` normalise tout pour retourner un `Either` dans un contexte async.
 
 ## Valeur de retour
 

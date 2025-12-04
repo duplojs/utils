@@ -22,7 +22,7 @@ next:
 
 ## Paramètres
 
-- `value` : valeur autorisée ou tableau de valeurs (automatiquement normalisé en tableau).
+- `input` : valeur autorisée ou tableau de valeurs (automatiquement normalisé en tableau).
 - `errorMessage` : message personnalisé si l'entrée ne correspond pas à la liste blanche.
 - `checkers` : `checkerRefine` pour ajouter de la logique métier.
 

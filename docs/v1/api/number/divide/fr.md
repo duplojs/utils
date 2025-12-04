@@ -25,8 +25,10 @@ La méthode **`divide()`** effectue la division de deux nombres. Elle peut être
 ### Signature classique
 
 ```typescript
-function divide<GenericValue extends number>(
-	value: GenericValue,
+function divide<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	divisor: number
 ): number
 ```
@@ -34,14 +36,16 @@ function divide<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function divide<GenericValue extends number>(
+function divide<
+	GenericInput extends number
+>(
 	divisor: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à diviser (dividende, uniquement en signature classique).
+- `input` : Le nombre à diviser (dividende, uniquement en signature classique).
 - `divisor` : Le nombre par lequel diviser (diviseur).
 
 ## Valeur de retour
@@ -49,32 +53,6 @@ function divide<GenericValue extends number>(
 **Signature classique** : retourne le résultat de la division `value / divisor`.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et la divise par le diviseur.
-
-## Exemples
-
-### Calculer une moyenne
-
-<MonacoTSEditor
-  	src="/v1/api/number/divide/examples/calculateAverage.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Diviser un budget
-
-<MonacoTSEditor
-  	src="/v1/api/number/divide/examples/splitBudget.doc.ts"
-  	majorVersion="v1"
-	height="650px"
-/>
-
-### Calculer des ratios
-
-<MonacoTSEditor
-  	src="/v1/api/number/divide/examples/calculateRatio.doc.ts"
-  	majorVersion="v1"
-	height="800px"
-/>
 
 ## Voir aussi
 

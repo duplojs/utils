@@ -25,8 +25,10 @@ La méthode **`max()`** retourne la plus grande valeur parmi les nombres fournis
 ### Signature classique
 
 ```typescript
-function max<GenericValue extends number>(
-	value: GenericValue,
+function max<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	comparison: number
 ): number
 ```
@@ -34,14 +36,16 @@ function max<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function max<GenericValue extends number>(
+function max<
+	GenericInput extends number
+>(
 	comparison: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : La valeur à comparer (uniquement en signature classique).
+- `input` : La valeur à comparer (uniquement en signature classique).
 - `comparison` : Le nombre de comparaison.
 
 ## Valeur de retour
@@ -49,18 +53,6 @@ function max<GenericValue extends number>(
 **Signature classique** : retourne le plus grand des deux nombres.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et retourne le plus grand des deux nombres.
-
-## Exemples
-
-### Trouver le prix le plus élevé
-
-### Comparer des métriques
-
-<MonacoTSEditor
-  	src="/v1/api/number/max/examples/compareMetrics.doc.ts"
-  	majorVersion="v1"
-	height="800px"
-/>
 
 ## Voir aussi
 

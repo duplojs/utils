@@ -17,7 +17,7 @@ La méthode **`assign()`** fusionne plusieurs objets ensemble (similaire à Obje
 <MonacoTSEditor
   src="/v1/api/object/assign/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="500px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ La méthode **`assign()`** fusionne plusieurs objets ensemble (similaire à Obje
 ```typescript
 function assign<
 	GenericInput extends object,
-	GenericValue extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
+	GenericUpdate extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
 >(
 	input: GenericInput,
-	value: GenericValue
-): AssignObjects<GenericInput, GenericValue>
+	update: GenericUpdate
+): AssignObjects<GenericInput, GenericUpdate>
 ```
 
 ### Signature currifiee
@@ -39,16 +39,16 @@ function assign<
 ```typescript
 function assign<
 	GenericInput extends object,
-	GenericValue extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
+	GenericUpdate extends Partial<Record<keyof GenericInput, unknown>> & AnyObject
 >(
-	value: GenericValue
-): (input: GenericInput) => AssignObjects<GenericInput, GenericValue>
+	input: GenericUpdate
+): (input: GenericInput) => AssignObjects<GenericInput, GenericUpdate>
 ```
 
 ## Paramètres
 
 - `input` : L'objet de base.
-- `value` : L'objet à fusionner avec l'objet de base.
+- `update` : L'objet à fusionner avec l'objet de base.
 
 ## Valeur de retour
 

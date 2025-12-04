@@ -17,7 +17,8 @@ La méthode **`startsWith()`** vérifie si une chaîne de caractères commence p
 <MonacoTSEditor
   	src="/v1/api/string/startsWith/examples/tryout.doc.ts"
   	majorVersion="v1"
-	height="200px"
+	height="320px"
+	:foldLines="[11]"
 />
 
 ## Syntaxe
@@ -29,22 +30,22 @@ function startsWith<
 	GenericString extends string, 
 	GenericSearchString extends string
 >(
-	nput: GenericString, 
+	input: GenericInput, 
 	searchString: GenericSearchString
-): input is Extract<GenericString, `${GenericSearchString}${string}`>
+): input is Extract<GenericInput, `${GenericSearchString}${string}`>
 ```
 
 ### Signature currifiée
 
 ```typescript
 function startsWith<
-	GenericSearchString extends string, 
-	GenericString extends string
+	GenericInput extends string,
+	GenericSearchString extends string
 >(
 	searchString: GenericSearchString
 ): (
-	input: GenericString
-) => input is Extract<GenericString, `${GenericSearchString}${string}`>;
+	input: GenericInput
+) => input is Extract<GenericInput, `${GenericSearchString}${string}`>;
 ```
 
 ## Paramètres
@@ -55,34 +56,6 @@ function startsWith<
 ## Valeur de retour
 
 Retourne `true` si `input` commence par `searchString` et false si ce n'est pas le cas.
-
-## Exemples
-
-### Type Guard avec unions de chaînes
-
-<MonacoTSEditor
-  	src="/v1/api/string/startsWith/examples/typeGuard.doc.ts"
-  	majorVersion="v1"
-	height="250px"
-/>
-
-:bulb: **Astuce** : Vous pouvez utiliser `startsWith()` pour effectuer des vérifications de type en utilisant des assertions de type conditionnelles.
-
-### Filtrage de logs par niveau
-
-<MonacoTSEditor
-  	src="/v1/api/string/startsWith/examples/filterLogsByLevel.doc.ts"
-  	majorVersion="v1"
-	height="1600px"
-/>
-
-### Routage de commandes CLI
-
-<MonacoTSEditor
-  	src="/v1/api/string/startsWith/examples/routeCliCommands.doc.ts"
-  	majorVersion="v1"
-	height="1300px"
-/>
 
 ## Voir aussi
 

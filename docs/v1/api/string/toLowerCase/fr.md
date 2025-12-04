@@ -18,44 +18,26 @@ La méthode **`toLowerCase()`** retourne une nouvelle chaîne de caractères ave
 <MonacoTSEditor
   src="/v1/api/string/toLowerCase/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
 
 ```typescript
 function toLowerCase<
-	GenericString extends string
+	GenericInput extends string
 >(
-	input: GenericString
-): Lowercase<GenericString>;
+	input: GenericInput
+): Lowercase<GenericInput>;
 ```
 
 ## Paramètres
 
-- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericString extends string`) pour permettre une inférence précise du type littéral.
+- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericInput extends string`) pour permettre une inférence précise du type littéral.
 
 ### Valeur de retour
 
-Une nouvelle chaîne de caractères avec tous les caractères en minuscules. Le type de retour est inféré précisément grâce au type utilitaire `Lowercase<GenericString>` de TypeScript.
-
-## Exemples
-
-### Extraire le nom d'utilsateur d'une address mail
-
-<MonacoTSEditor
-  src="/v1/api/string/toLowerCase/examples/extractUsernameInEmail.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Normaliser et diviser une chaîne
-
-<MonacoTSEditor
-  src="/v1/api/string/toLowerCase/examples/normalizeAndSplit.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
+Une nouvelle chaîne de caractères avec tous les caractères en minuscules. Le type de retour est inféré précisément grâce au type utilitaire `Lowercase<GenericInput>` de TypeScript.
 
 ## Voir aussi 
 

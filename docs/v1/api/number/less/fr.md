@@ -25,8 +25,10 @@ La méthode **`less()`** vérifie si un nombre est inférieur ou égal (<=) à u
 ### Signature classique
 
 ```typescript
-function less<GenericValue extends number>(
-	value: GenericValue,
+function less<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	threshold: number
 ): boolean
 ```
@@ -34,14 +36,16 @@ function less<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function less<GenericValue extends number>(
+function less<
+	GenericInput extends number
+>(
 	threshold: number
-): (value: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à comparer (uniquement en signature classique).
+- `input` : Le nombre à comparer (uniquement en signature classique).
 - `threshold` : Le seuil de comparaison.
 
 ## Valeur de retour
@@ -57,32 +61,6 @@ La fonction `less` effectue une comparaison inclusive (<=), ce qui signifie qu'e
 **Exemples de différence :**
 - `less(5, 5)` retourne `true` (5 <= 5)
 - `lessThan(5, 5)` retourne `false` (5 n'est pas < 5)
-
-## Exemples
-
-### Filtrer les produits abordables
-
-<MonacoTSEditor
-  	src="/v1/api/number/less/examples/filterAffordable.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
-### Valider la capacité
-
-<MonacoTSEditor
-  	src="/v1/api/number/less/examples/validateCapacity.doc.ts"
-  	majorVersion="v1"
-	height="900px"
-/>
-
-### Catégoriser par score
-
-<MonacoTSEditor
-  	src="/v1/api/number/less/examples/categorizeByScore.doc.ts"
-  	majorVersion="v1"
-	height="500px"
-/>
 
 ## Voir aussi
 

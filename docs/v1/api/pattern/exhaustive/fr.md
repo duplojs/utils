@@ -24,8 +24,8 @@ next:
 
 ```typescript
 function exhaustive<
-	const GenericValue extends unknown, 
-	GenericResult extends PatternResult<GenericValue>
+	const GenericInput extends unknown, 
+	GenericResult extends PatternResult<GenericInput>
 >(result: GenericResult): Unwrap<GenericResult>;
 ```
 

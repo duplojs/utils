@@ -1,4 +1,9 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 const result = O.entry("name", "Alice");
-// result: ["name", "Alice"]
+
+type check = ExpectType<
+	typeof result,
+	readonly ["name", string],
+	"strict"
+>;

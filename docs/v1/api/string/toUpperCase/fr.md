@@ -17,44 +17,26 @@ La méthode **`toUpperCase()`** retourne une nouvelle chaîne de caractères ave
 <MonacoTSEditor
   src="/v1/api/string/toUpperCase/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
 
 ```typescript
 function toUpperCase<
-	GenericString extends string
+	GenericInput extends string
 >(
-	input: GenericString
-): Uppercase<GenericString>;
+	input: GenericInput
+): Uppercase<GenericInput>;
 ```
 
 ## Paramètres
 
-- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericString extends string`) pour permettre une inférence précise du type littéral.
+- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericInput extends string`) pour permettre une inférence précise du type littéral.
 
 ### Valeur de retour
 
-Une nouvelle chaîne de caractères avec tous les caractères en majuscules. Le type de retour est inféré précisément grâce au type utilitaire `Uppercase<GenericString>` de TypeScript.
-
-## Exemples
-
-### Formater des mots-clés SQL
-
-<MonacoTSEditor
-  	src="/v1/api/string/toUpperCase/examples/formatSqlKeywords.doc.ts"
-  	majorVersion="v1"
-	height="250px"
-/>
-
-### Générer un nom de constante
-
-<MonacoTSEditor
-  	src="/v1/api/string/toUpperCase/examples/generateConstantName.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
+Une nouvelle chaîne de caractères avec tous les caractères en majuscules. Le type de retour est inféré précisément grâce au type utilitaire `Uppercase<GenericInput>` de TypeScript.
 
 ## Voir aussi
 

@@ -23,36 +23,20 @@ La méthode **`sqrt()`** retourne la racine carrée d'un nombre. La racine carr�
 ## Syntaxe
 
 ```typescript
-function sqrt<GenericValue extends number>(
-	value: GenericValue
+function sqrt<
+	GenericInput extends number
+>(
+	input: GenericInput
 ): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dont on souhaite calculer la racine carrée.
+- `input` : Le nombre dont on souhaite calculer la racine carrée.
 
 ## Valeur de retour
 
 La racine carrée du nombre donné. Si le nombre est négatif, retourne `NaN`.
-
-## Exemples
-
-### Calculer la distance entre deux points
-
-<MonacoTSEditor
-  	src="/v1/api/number/sqrt/examples/distance.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
-
-### Normaliser des valeurs
-
-<MonacoTSEditor
-  	src="/v1/api/number/sqrt/examples/normalize.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
 
 ## Voir aussi
 

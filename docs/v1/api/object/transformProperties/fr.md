@@ -17,7 +17,7 @@ La méthode **`transformProperties()`** transforme plusieurs propriétés d'un o
 <MonacoTSEditor
   src="/v1/api/object/transformProperties/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="350px"
 />
 
 ## Syntaxe
@@ -29,7 +29,7 @@ function transformProperties<
 	GenericObjectInput extends object,
 	GenericTransformObject extends TransformObject<GenericObjectInput>
 >(
-	obj: GenericObjectInput,
+	input: GenericObjectInput,
 	transformObject: FixDeepFunctionInfer<TransformObject<GenericObjectInput>, GenericTransformObject>
 ): ComputesResult<GenericObjectInput, GenericTransformObject>
 ```
@@ -42,12 +42,12 @@ function transformProperties<
 	GenericTransformObject extends TransformObject<NoInfer<GenericObjectInput>>
 >(
 	transformObject: TransformObject<NoInfer<GenericObjectInput>> & GenericTransformObject
-): (obj: GenericObjectInput) => ComputesResult<NoInfer<GenericObjectInput>, NoInfer<GenericTransformObject>>
+): (input: GenericObjectInput) => ComputesResult<NoInfer<GenericObjectInput>, NoInfer<GenericTransformObject>>
 ```
 
 ## Paramètres
 
-- `obj` : L'objet source.
+- `input` : L'objet source.
 - `transformObject` : Un objet où chaque clé correspond à une propriété à transformer et la valeur est une fonction de transformation.
 
 ## Valeur de retour

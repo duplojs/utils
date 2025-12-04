@@ -56,24 +56,6 @@ function asyncMap<
 
 Un `AsyncGenerator` émettant les valeurs transformées.
 
-## Exemples
-
-### Traiter des données de manière asynchrone
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncMap/examples/processAsync.doc.ts"
-  majorVersion="v1"
-  height="650px"
-/>
-
-### Enrichir des données avec index
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncMap/examples/enrichData.doc.ts"
-  majorVersion="v1"
-  height="650px"
-/>
-
 ## Voir aussi
 
 - [`map`](/v1/api/generator/map/fr) - Version synchrone de asyncMap

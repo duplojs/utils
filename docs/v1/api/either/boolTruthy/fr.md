@@ -24,19 +24,19 @@ Force la création d'un `EitherRight<"bool">` en marquant explicitement une vale
 
 ```typescript
 function boolTruthy<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherBoolTruthy<GenericValue>;
+  input: GenericInput
+): EitherBoolTruthy<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur considérée comme truthy.
+- `input` : Valeur considérée comme truthy.
 
 ## Valeur de retour
 
-Un `EitherRight<"bool", GenericValue>` garantissant que la branche `Right` représente le cas truthy.
+Un `EitherRight<"bool", GenericInput>` garantissant que la branche `Right` représente le cas truthy.
 
 ## Voir aussi
 

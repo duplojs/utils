@@ -17,7 +17,7 @@ La méthode **`fromEntries()`** construit un objet à partir d'un tableau de pai
 <MonacoTSEditor
   src="/v1/api/object/fromEntries/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Syntaxe
@@ -31,16 +31,16 @@ type ComputeEntries<
 
 function fromEntries<
 	GenericKey extends ObjectKey,
-	GenericValue extends AnyValue,
-	GenericEntry extends readonly [GenericKey, GenericValue]
+	GenericInput extends AnyValue,
+	GenericEntry extends readonly [GenericKey, GenericInput]
 >(
-	entries: readonly GenericEntry[]
+	input: readonly GenericEntry[]
 ): ComputeEntries<GenericEntry>
 ```
 
 ## Paramètres
 
-- `entries` : Un tableau de tuples `[clé, valeur]`.
+- `input` : Un tableau de tuples `[clé, valeur]`.
 
 ## Valeur de retour
 
