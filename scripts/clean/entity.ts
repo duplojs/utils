@@ -8,8 +8,11 @@ import * as DObject from "../object";
 import * as DArray from "../array";
 import * as DPattern from "../pattern";
 
-export type EntitySimplePropertyDefinition = NewTypeHandler;
-export type EntityUnionPropertyDefinition = [NewTypeHandler, ...NewTypeHandler[]];
+export type EntitySimplePropertyDefinition = NewTypeHandler<string, unknown, readonly any[]>;
+export type EntityUnionPropertyDefinition = [
+	EntitySimplePropertyDefinition,
+	...EntitySimplePropertyDefinition[],
+];
 export interface EntityAdvancedPropertyDefinition {
 	type: (
 		| EntitySimplePropertyDefinition
@@ -191,7 +194,7 @@ export function createEntity<
 		GenericName,
 		GenericPropertiesDefinition
 	> {
-	function create(properties: EntityProperties) {
+	function theNew(properties: EntityProperties) {
 		return entityKind.addTo(properties, name);
 	}
 
@@ -294,13 +297,15 @@ export function createEntity<
 			]),
 		),
 		DArray.map(
-			([key, value]) => value === null
-				? null
-				: DObject.entry(key, value),
+			([key, value]) => value !== null && DObject.entry(key, value),
 		),
 		DArray.filter(isType("array")),
 		DObject.fromEntries,
 		DDataParser.object,
+		(dataParser) => DDataParser.transform(
+			dataParser,
+			(value) => entityKind.setTo(value, name),
+		),
 	);
 
 	function map(rawProperties: EntityRawProperties) {
@@ -313,7 +318,10 @@ export function createEntity<
 			);
 		}
 
-		return unwrap(result);
+		return DEither.right(
+			"createEntity",
+			unwrap(result),
+		);
 	}
 
 	function mapOrThrow(rawProperties: EntityRawProperties) {
@@ -330,7 +338,7 @@ export function createEntity<
 		name,
 		propertiesDefinition,
 		mapDataParser,
-		create,
+		new: theNew,
 		map,
 		mapOrThrow,
 	}) as never;

@@ -183,7 +183,7 @@ export function tuple<
 					}
 				}
 
-				popErrorPath(error);
+				void (self.definition.shape.length && popErrorPath(error));
 
 				return output as never;
 			},
@@ -221,7 +221,7 @@ export function tuple<
 					}
 				}
 
-				popErrorPath(error);
+				void (self.definition.shape.length && popErrorPath(error));
 
 				return output as never;
 			},

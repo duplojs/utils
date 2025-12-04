@@ -1,5 +1,5 @@
 import { String } from "@scripts/clean/primitive";
-import { type Constraint, createConstraint } from "..";
+import { type Constraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 
 export const Email = createConstraint(
