@@ -116,14 +116,14 @@ function createPrimitive<
 		return DEither.isRight(result);
 	}
 
-	return {
+	return primitiveHandlerKind.setTo({
 		dataParser,
 		create,
 		createOrThrow,
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	} as never;
+	}) as never;
 }
 
 export const String = createPrimitive(DDataParser.string());
