@@ -24,43 +24,17 @@ La méthode **`negate()`** inverse le signe d'un nombre. Un nombre positif devie
 
 ```typescript
 function negate<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dont on souhaite inverser le signe.
+- `input` : Le nombre dont on souhaite inverser le signe.
 
 ## Valeur de retour
 
 Le nombre avec le signe inversé. Si le nombre est positif, retourne sa version négative. Si le nombre est négatif, retourne sa version positive.
-
-## Exemples
-
-### Inverser des transactions
-
-<MonacoTSEditor
-  	src="/v1/api/number/negate/examples/invertBalance.doc.ts"
-  	majorVersion="v1"
-	height="250px"
-/>
-
-### Calculer une position
-
-<MonacoTSEditor
-  	src="/v1/api/number/negate/examples/calculateOpposite.doc.ts"
-  	majorVersion="v1"
-	height="750px"
-/>
-
-### Inverser des changements de température
-
-<MonacoTSEditor
-  	src="/v1/api/number/negate/examples/temperatureDelta.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
 
 ## Voir aussi
 

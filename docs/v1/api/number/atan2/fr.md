@@ -25,7 +25,9 @@ La méthode **`atan2()`** retourne l'arc tangente du quotient de ses arguments (
 ### Signature classique
 
 ```typescript
-function atan2<GenericAxisY extends number>(
+function atan2<
+	GenericAxisY extends number
+>(
 	axisY: GenericAxisY,
 	axisX: number
 ): number
@@ -34,7 +36,9 @@ function atan2<GenericAxisY extends number>(
 ### Signature currifiée
 
 ```typescript
-function atan2<GenericAxisY extends number>(
+function atan2<
+	GenericAxisY extends number
+>(
 	axisX: number
 ): (axisY: GenericAxisY) => number
 ```
@@ -51,24 +55,6 @@ function atan2<GenericAxisY extends number>(
 **Signature classique** : retourne l'angle en radians (entre -π et π) entre l'axe des x positifs et le point (axisX, axisY).
 
 **Signature currifiée** : retourne une fonction qui prend la coordonnée y et calcule l'angle correspondant.
-
-## Exemples
-
-### Rotation et orientation d'objets
-
-<MonacoTSEditor
-  	src="/v1/api/number/atan2/examples/rotation.doc.ts"
-  	majorVersion="v1"
-	height="1450px"
-/>
-
-### Navigation et cap géographique
-
-<MonacoTSEditor
-  	src="/v1/api/number/atan2/examples/compass.doc.ts"
-  	majorVersion="v1"
-	height="2200px"
-/>
 
 ## Voir aussi
 

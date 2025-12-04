@@ -24,15 +24,15 @@ Crée un `Future` résolu avec un `EitherRight<"future">`.
 
 ```typescript
 function futureSuccess<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): Future<EitherFutureSuccess<GenericValue>>;
+  input: GenericInput
+): Future<EitherFutureSuccess<GenericInput>>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à exposer dans le futur.
+- `input` : Valeur à exposer dans le futur.
 
 ## Valeur de retour
 

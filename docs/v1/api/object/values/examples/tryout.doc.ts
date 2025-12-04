@@ -1,9 +1,13 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
-const input = {
+const result = O.values({
 	name: "William",
 	age: 24,
 	city: "Normandie",
-} as const;
-const result = O.values(input);
-// result: ["William", 24, "Normandie"]
+});
+
+type check = ExpectType<
+	typeof result,
+	("William" | 24 | "Normandie")[],
+	"strict"
+>;

@@ -24,43 +24,19 @@ La méthode **`sin()`** retourne le sinus d'un angle exprimé en radians. Le sin
 
 ```typescript
 function sin<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(
+	input: GenericInput
+): number
 ```
 
 ## Paramètres
 
-- `value` : L'angle en radians dont on souhaite calculer le sinus.
+- `input` : L'angle en radians dont on souhaite calculer le sinus.
 
 ## Valeur de retour
 
 Le sinus de l'angle donné, une valeur comprise entre -1 et 1.
-
-## Exemples
-
-### Calculer une position verticale
-
-<MonacoTSEditor
-  	src="/v1/api/number/sin/examples/verticalPosition.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Animation d'oscillation
-
-<MonacoTSEditor
-  	src="/v1/api/number/sin/examples/oscillation.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
-
-### Générer une onde sinusoïdale
-
-<MonacoTSEditor
-  	src="/v1/api/number/sin/examples/waveform.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
 
 ## Voir aussi
 

@@ -24,43 +24,17 @@ La méthode **`cos()`** retourne le cosinus d'un angle exprimé en radians. Le c
 
 ```typescript
 function cos<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : L'angle en radians dont on souhaite calculer le cosinus.
+- `input` : L'angle en radians dont on souhaite calculer le cosinus.
 
 ## Valeur de retour
 
 Le cosinus de l'angle donné, une valeur comprise entre -1 et 1.
-
-## Exemples
-
-### Calculer une position horizontale
-
-<MonacoTSEditor
-  	src="/v1/api/number/cos/examples/horizontalPosition.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Animation circulaire
-
-<MonacoTSEditor
-  	src="/v1/api/number/cos/examples/circularMotion.doc.ts"
-  	majorVersion="v1"
-	height="550px"
-/>
-
-### Calculer un angle de phase
-
-<MonacoTSEditor
-  	src="/v1/api/number/cos/examples/phaseAngle.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
 
 ## Voir aussi
 

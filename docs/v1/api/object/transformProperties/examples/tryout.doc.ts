@@ -1,4 +1,4 @@
-import { N, O, DString } from "@duplojs/utils";
+import { N, O, S } from "@duplojs/utils";
 
 const input = {
 	name: "alice",
@@ -7,7 +7,7 @@ const input = {
 const result = O.transformProperties(
 	input,
 	{
-		name: DString.toUpperCase,
+		name: S.toUpperCase,
 		age: N.add(1),
 	},
 );

@@ -23,16 +23,16 @@ La fonction **`coalescing()`** parcourt un tableau (ou une liste d'arguments) et
 ## Syntaxe
 
 ```typescript
-function coalescing<GenericValue extends AnyValue>(
-	value: GenericValue
-): ArrayCoalescing<GenericValue>
+function coalescing<GenericInput extends AnyValue>(
+	input: GenericInput
+): ArrayCoalescing<GenericInput>
 ```
 
 `ArrayCoalescing` infère la première valeur définie présente dans le tableau, ce qui permet de conserver un typage précis.
 
 ## Paramètres
 
-- `value` : Tableau ou tuple contenant des valeurs possiblement `nullish`.
+- `input` : Tableau ou tuple contenant des valeurs possiblement `nullish`.
 
 ## Valeur de retour
 

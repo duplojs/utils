@@ -23,12 +23,12 @@ La fonction **`toJSON()`** prépare une valeur pour la sérialisation JSON en re
 ## Syntaxe
 
 ```typescript
-type ToJSON<GenericValue extends unknown> =
-	GenericValue extends number | string | null | undefined
-		? GenericValue
-		: GenericValue extends { toJSON: AnyFunction }
-			? ReturnType<GenericValue["toJSON"]>
-			: GenericValue extends [infer InferredFirst, ...infer InferredRest]
+type ToJSON<GenericInput extends unknown> =
+	GenericInput extends number | string | null | undefined
+		? GenericInput
+		: GenericInput extends { toJSON: AnyFunction }
+			? ReturnType<GenericInput["toJSON"]>
+			: GenericInput extends [infer InferredFirst, ...infer InferredRest]
 				? [
 					ToJSON<InferredFirst>,
 					...(
@@ -39,25 +39,25 @@ type ToJSON<GenericValue extends unknown> =
 							: []
 					)
 				]
-				: GenericValue extends any[]
-					? ToJSON<GenericValue[number]>[]
-					: GenericValue extends Record<number, unknown>
+				: GenericInput extends any[]
+					? ToJSON<GenericInput[number]>[]
+					: GenericInput extends Record<number, unknown>
 						? {
-							[Prop in keyof GenericValue as GenericValue[Prop] extends AnyFunction ? never : Prop]:
-								ToJSON<GenericValue[Prop]>;
+							[Prop in keyof GenericInput as GenericInput[Prop] extends AnyFunction ? never : Prop]:
+								ToJSON<GenericInput[Prop]>;
 						}
 						: undefined;
 
 function toJSON<
-	GenericValue extends unknown
+	GenericInput extends unknown
 >(
-	value: GenericValue
-): ToJSON<GenericValue>;
+	input: GenericInput
+): ToJSON<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur à transformer en structure JSON-safe.
+- `input` : Valeur à transformer en structure JSON-safe.
 
 ## Valeur de retour
 

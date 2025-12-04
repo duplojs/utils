@@ -24,13 +24,13 @@ La fonction **`forward()`** renvoie l'argument passé sans le modifier. Utile po
 
 ```typescript
 function forward<
-	GenericValue extends unknown
->(value: GenericValue): GenericValue;
+	GenericInput extends unknown
+>(input: GenericInput): GenericInput;
 ```
 
 ## Paramètres
 
-- `value` : La valeur à renvoyer telle quelle.
+- `input` : La valeur à renvoyer telle quelle.
 
 ## Valeur de retour
 

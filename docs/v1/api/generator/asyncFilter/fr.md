@@ -68,16 +68,6 @@ function asyncFilter<
 
 Un `AsyncGenerator` contenant les éléments filtrés.
 
-## Exemples
-
-### Valider des données de manière asynchrone
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncFilter/examples/validateAsync.doc.ts"
-  majorVersion="v1"
-  height="550px"
-/>
-
 ## Voir aussi
 
 - [`filter`](/v1/api/generator/filter/fr) - Version synchrone de asyncFilter

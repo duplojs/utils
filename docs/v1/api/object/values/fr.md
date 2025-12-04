@@ -17,17 +17,19 @@ La méthode **`values()`** retourne un tableau des valeurs d'un objet.
 <MonacoTSEditor
   src="/v1/api/object/values/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Syntaxe
 
 ```typescript
-function values<GenericValue extends AnyValue>(
+function values<
+	GenericValue extends AnyValue
+>(
 	object: {
 		[key: string]: GenericValue;
-	} | ArrayLike<GenericValue>
-): GenericValue[]
+	} | ArrayLike<GenericInput>
+): GenericInput[]
 ```
 
 ## Paramètres

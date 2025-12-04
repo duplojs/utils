@@ -25,8 +25,10 @@ La méthode **`greaterThan()`** vérifie si un nombre est strictement supérieur
 ### Signature classique
 
 ```typescript
-function greaterThan<GenericValue extends number>(
-	value: GenericValue,
+function greaterThan<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	threshold: number
 ): boolean
 ```
@@ -34,14 +36,16 @@ function greaterThan<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function greaterThan<GenericValue extends number>(
+function greaterThan<
+	GenericInput extends number
+>(
 	threshold: number
-): (value: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à comparer (uniquement en signature classique).
+- `input` : Le nombre à comparer (uniquement en signature classique).
 - `threshold` : Le seuil de comparaison.
 
 ## Valeur de retour
@@ -57,32 +61,6 @@ La fonction `greaterThan` effectue une comparaison stricte (>), ce qui signifie 
 **Exemples de différence :**
 - `greaterThan(5, 5)` retourne `false` (5 n'est pas > 5)
 - `greater(5, 5)` retourne `true` (5 >= 5)
-
-## Exemples
-
-### Filtrer les prix élevés
-
-<MonacoTSEditor
-  	src="/v1/api/number/greaterThan/examples/filterHighPrices.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
-### Détecter les excès
-
-<MonacoTSEditor
-  	src="/v1/api/number/greaterThan/examples/detectExcess.doc.ts"
-  	majorVersion="v1"
-	height="900px"
-/>
-
-### Compter les dépassements
-
-<MonacoTSEditor
-  	src="/v1/api/number/greaterThan/examples/countExceeding.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
 
 ## Voir aussi
 

@@ -23,30 +23,30 @@ La fonction **`createInterpolation()`** génère une fonction de templating typ�
 ## Syntaxe
 
 ```typescript
-type ExtractInterpolationId<GenericValue extends string> =
-	GenericValue extends `${string}{${infer InferredInterpolationId}}${infer InferredEndValue}`
+type ExtractInterpolationId<GenericInput extends string> =
+	GenericInput extends `${string}{${infer InferredInterpolationId}}${infer InferredEndValue}`
 		? InferredInterpolationId | ExtractInterpolationId<InferredEndValue>
 		: never;
 
 type ReplaceInterpolationIdByValues<
-	GenericValue extends string,
+	GenericInput extends string,
 	GenericInterpolationValues extends Record<string, string>
-> = GenericValue extends `${infer InferredStartValue}{${infer InferredInterpolationId}}${infer InferredEndValue}`
+> = GenericInput extends `${infer InferredStartValue}{${infer InferredInterpolationId}}${infer InferredEndValue}`
 	? InferredInterpolationId extends keyof GenericInterpolationValues
 		? `${InferredStartValue}${GenericInterpolationValues[InferredInterpolationId]}${ReplaceInterpolationIdByValues<InferredEndValue, GenericInterpolationValues>}`
 		: `${InferredStartValue}${string}...`
-	: GenericValue;
+	: GenericInput;
 
 type CreateInterpolationContract<
 	GenericInterpolationFunction extends (value: Record<string, string>) => string
 > = ReplaceInterpolationIdByValues<ReturnType<GenericInterpolationFunction>, {}>;
 
 function createInterpolation<
-	GenericValue extends string,
-	GenericInterpolationId extends ExtractInterpolationId<GenericValue>,
+	GenericInput extends string,
+	GenericInterpolationId extends ExtractInterpolationId<GenericInput>,
 	GenericStrict extends boolean
 >(
-	value: GenericValue,
+	input: GenericInput,
 	strict?: GenericStrict
 ): <
 	GenericInterpolationMapperValue extends string,
@@ -56,13 +56,13 @@ function createInterpolation<
 		? []
 		: [interpolationValues: GenericInterpolationValues]
 ) => IsEqual<GenericStrict, true> extends true
-	? ReplaceInterpolationIdByValues<GenericValue, GenericInterpolationValues>
+	? ReplaceInterpolationIdByValues<GenericInput, GenericInterpolationValues>
 	: string;
 ```
 
 ## Paramètres
 
-- `value` : Chaîne modèle contenant des placeholders `{id}`.
+- `input` : Chaîne modèle contenant des placeholders `{id}`.
 - `strict` : Booléen (optionnel). Si `true`, tous les ids doivent être fournis sinon une erreur est levée.
 
 ## Valeur de retour

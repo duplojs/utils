@@ -17,7 +17,7 @@ La méthode **`getProperty()`** récupère la valeur d'une propriété d'un obje
 <MonacoTSEditor
   src="/v1/api/object/getProperty/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="350px"
 />
 
 ## Syntaxe
@@ -48,11 +48,11 @@ type MergeTopLevelUnionObject<
 
 ```typescript
 function getProperty<
-	GenericObject extends object,
-	GenericFullObject extends MergeTopLevelUnionObject<GenericObject>,
+	GenericInput extends object,
+	GenericFullObject extends MergeTopLevelUnionObject<GenericInput>,
 	GenericKey extends keyof GenericFullObject
 >(
-	obj: GenericObject,
+	input: GenericInput,
 	key: GenericKey
 ): GenericFullObject[GenericKey]
 ```
@@ -61,17 +61,17 @@ function getProperty<
 
 ```typescript
 function getProperty<
-	GenericObject extends object,
-	GenericFullObject extends MergeTopLevelUnionObject<GenericObject>,
+	GenericInput extends object,
+	GenericFullObject extends MergeTopLevelUnionObject<GenericInput>,
 	GenericKey extends keyof GenericFullObject
 >(
 	key: GenericKey
-): (obj: GenericObject) => GenericFullObject[GenericKey]
+): (input: GenericInput) => GenericFullObject[GenericKey]
 ```
 
 ## Paramètres
 
-- `obj` : L'objet source.
+- `input` : L'objet source.
 - `key` : La clé de la propriété à récupérer.
 
 ## Valeur de retour

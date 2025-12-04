@@ -25,8 +25,10 @@ La méthode **`add()`** additionne deux nombres ou crée une fonction d'addition
 ### Signature classique
 
 ```typescript
-function add<GenericValue extends number>(
-	value: GenericValue,
+function add<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	operand: number
 ): number
 ```
@@ -34,14 +36,16 @@ function add<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function add<GenericValue extends number>(
+function add<
+	GenericInput extends number
+>(
 	operand: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre de base auquel ajouter l'opérande (uniquement en signature classique).
+- `input` : Le nombre de base auquel ajouter l'opérande (uniquement en signature classique).
 - `operand` : Le nombre à ajouter à la valeur.
 
 ## Valeur de retour
@@ -49,32 +53,6 @@ function add<GenericValue extends number>(
 **Signature classique** : retourne la somme des deux nombres.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et lui ajoute l'opérande.
-
-## Exemples
-
-### Calculer un total
-
-<MonacoTSEditor
-  	src="/v1/api/number/add/examples/calculateTotal.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Incrémenter des scores
-
-<MonacoTSEditor
-  	src="/v1/api/number/add/examples/incrementScores.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Accumuler des valeurs
-
-<MonacoTSEditor
-  	src="/v1/api/number/add/examples/accumulateValues.doc.ts"
-  	majorVersion="v1"
-	height="800px"
-/>
 
 ## Voir aussi
 

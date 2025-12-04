@@ -42,7 +42,7 @@ function includes<GenericArrayValue extends unknown>(
 ## Paramètres
 
 - `array` : Le tableau dans lequel rechercher.
-- `value` : La valeur à rechercher dans le tableau.
+- `input` : La valeur à rechercher dans le tableau.
 
 ## Valeur de retour
 

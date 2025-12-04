@@ -17,15 +17,15 @@ La méthode **`getDeepProperty()`** récupère la valeur d'une propriété profo
 <MonacoTSEditor
   src="/v1/api/object/getDeepProperty/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
 
 ```typescript
 type ObjectProjection<
-	GenericInput extends object,
-> = FlatObject<GenericInput> extends infer InferredResult extends object
+	GenericObject extends object,
+> = FlatObject<GenericObject> extends infer InferredResult extends object
 	? Omit<
 		Pick<
 			InferredResult,

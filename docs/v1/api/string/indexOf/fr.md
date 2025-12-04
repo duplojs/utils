@@ -52,32 +52,6 @@ function indexOf<
 
 L'index de la première occurrence de la sous-chaîne, ou undefined si la sous-chaîne n'est pas trouvée.
 
-## Exemples
-
-### Trouver la position de "js" dans des frameworks
-
-<MonacoTSEditor
-  src="/v1/api/string/indexOf/examples/findFrameworks.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
-### Extraire le domaine d'emails
-
-<MonacoTSEditor
-  src="/v1/api/string/indexOf/examples/extractDomain.doc.ts"
-  majorVersion="v1"
-  height="350px"
-/>
-
-### Compter les occurrences
-
-<MonacoTSEditor
-  src="/v1/api/string/indexOf/examples/countOccurrences.doc.ts"
-  majorVersion="v1"
-  height="280px"
-/>
-
 ## Voir aussi
 
 - [includes](/v1/api/string/includes/fr) : Vérifie si une chaîne contient une sous-chaîne.

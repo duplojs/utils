@@ -1,10 +1,16 @@
-import { DString } from "@duplojs/utils";
+import { type ExpectType, S } from "@duplojs/utils";
 
-const key = "name" as string;
-const user = {
+const obj = {
 	name: "John",
 	age: 30,
 };
 
-const result = DString.isKeyof(key, user);
-// result: true
+const key = "name" as string;
+
+if (S.isKeyof(key, obj)) {
+	type check = ExpectType<
+		typeof key,
+		"name" | "age",
+		"strict"
+	>;
+}

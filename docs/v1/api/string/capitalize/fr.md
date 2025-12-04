@@ -17,44 +17,26 @@ La méthode **`capitalize()`** retourne une nouvelle chaîne de caractères avec
 <MonacoTSEditor
   src="/v1/api/string/capitalize/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
 
 ```typescript
 function capitalize<
-	GenericString extends string
+	GenericInput extends string
 >(
-	input: GenericString
-): Capitalize<GenericString>
+	input: GenericInput
+): Capitalize<GenericInput>
 ```
 
 ## Paramètres
 
-- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericString extends string`) pour permettre une inférence précise du type littéral.
+- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericInput extends string`) pour permettre une inférence précise du type littéral.
 
 ### Valeur de retour
 
-Une nouvelle chaîne de caractères avec la première lettre en majuscule. Le type de retour est inféré précisément grâce au type utilitaire `Capitalize<GenericString>` de TypeScript.
-
-## Exemples
-
-### Capitaliser chaque mot d'une phrase
-
-<MonacoTSEditor
-  src="/v1/api/string/capitalize/examples/capitalizeEachWordingSentence.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Formater un nom d'utilisateur
-
-<MonacoTSEditor
-  src="/v1/api/string/capitalize/examples/formatUsername.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
+Une nouvelle chaîne de caractères avec la première lettre en majuscule. Le type de retour est inféré précisément grâce au type utilitaire `Capitalize<GenericInput>` de TypeScript.
 
 ## Voir aussi
 

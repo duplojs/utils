@@ -1,8 +1,15 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
-const input = {
-	name: "Alice",
-	age: 30,
-} as const;
-const result = O.getProperty(input, "name");
-// result: "Alice"
+const result = O.getProperty(
+	{
+		name: "Alice",
+		age: 30,
+	} as const,
+	"name",
+);
+
+type check = ExpectType<
+	typeof result,
+	"Alice",
+	"strict"
+>;

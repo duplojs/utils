@@ -30,8 +30,8 @@ type AwaitedPromiseObject<
 };
 
 function promiseObject<
-	GenericValue extends AnyValue,
-	GenericObject extends Record<string, MaybePromise<GenericValue>>
+	GenericInput extends AnyValue,
+	GenericObject extends Record<string, MaybePromise<GenericInput>>
 >(
 	object: GenericObject
 ): Promise<SimplifyTopLevel<AwaitedPromiseObject<GenericObject>>>;

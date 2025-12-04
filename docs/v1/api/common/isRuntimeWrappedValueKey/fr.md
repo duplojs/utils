@@ -28,7 +28,7 @@ function isRuntimeWrappedValueKey(value: string): boolean;
 
 ## Paramètres
 
-- `value` : Chaîne à comparer au marqueur runtime des valeurs wrappées.
+- `input` : Chaîne à comparer au marqueur runtime des valeurs wrappées.
 
 ## Valeur de retour
 

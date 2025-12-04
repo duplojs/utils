@@ -24,19 +24,19 @@ Construit un `EitherRight<"nullish">` avec une valeur non-nulle/non-undefined.
 
 ```typescript
 function nullishFilled<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherNullishFilled<GenericValue>;
+  input: GenericInput
+): EitherNullishFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur définie.
+- `input` : Valeur définie.
 
 ## Valeur de retour
 
-`EitherNullishFilled<GenericValue>` représentant un cas « présent ».
+`EitherNullishFilled<GenericInput>` représentant un cas « présent ».
 
 ## Voir aussi
 

@@ -50,16 +50,6 @@ function execute<
 
 `void` pour les générateurs synchrones, `Promise<void>` pour les générateurs asynchrones.
 
-## Exemples
-
-### Consommer un générateur filtré
-
-<MonacoTSEditor
-  src="/v1/api/generator/execute/examples/consumeFiltered.doc.ts"
-  majorVersion="v1"
-  height="350px"
-/>
-
 ## Voir aussi
 
 - [`loop`](/v1/api/generator/loop/fr) - Crée un générateur avec une boucle personnalisée

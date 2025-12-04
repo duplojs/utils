@@ -28,15 +28,15 @@ Raccourci lisible pour créer un `EitherRight` avec l'information littérale `"s
 
 ```typescript
 function success<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherSuccess<GenericValue>
+  input: GenericInput
+): EitherSuccess<GenericInput>
 ```
 
 ## Paramètres
 
-- `value` : La valeur réussie à exposer. Son type est préservé.
+- `input` : La valeur réussie à exposer. Son type est préservé.
 
 ## Valeur de retour
 

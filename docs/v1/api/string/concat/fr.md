@@ -50,24 +50,6 @@ function concat<
 
 Une nouvelle chaîne de caractères contenant le texte combiné des chaînes fournies.
 
-## Exemples
-
-### Formater une liste
-
-<MonacoTSEditor
-  src="/v1/api/string/concat/examples/formatList.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
-### Construire un chemin
-
-<MonacoTSEditor
-  src="/v1/api/string/concat/examples/buildPath.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
 ## Voir aussi
 
 - [`repeat`](/v1/api/string/repeat/fr) - Répète une chaîne un nombre de fois donné

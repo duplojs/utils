@@ -24,43 +24,19 @@ La méthode **`tan()`** retourne la tangente d'un angle exprimé en radians. La 
 
 ```typescript
 function tan<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(
+	input: GenericInput
+): number
 ```
 
 ## Paramètres
 
-- `value` : L'angle en radians dont on souhaite calculer la tangente.
+- `input` : L'angle en radians dont on souhaite calculer la tangente.
 
 ## Valeur de retour
 
 La tangente de l'angle donné. La valeur tend vers l'infini lorsque l'angle approche π/2 (90°) ou -π/2 (-90°).
-
-## Exemples
-
-### Calculer une pente
-
-<MonacoTSEditor
-  	src="/v1/api/number/tan/examples/calculateSlope.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Calculer la hauteur d'un objet
-
-<MonacoTSEditor
-  	src="/v1/api/number/tan/examples/calculateHeight.doc.ts"
-  	majorVersion="v1"
-	height="650px"
-/>
-
-### Perspective et projection
-
-<MonacoTSEditor
-  	src="/v1/api/number/tan/examples/perspective.doc.ts"
-  	majorVersion="v1"
-	height="650px"
-/>
 
 ## Voir aussi
 

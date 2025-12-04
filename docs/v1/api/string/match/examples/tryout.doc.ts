@@ -1,7 +1,7 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "foo_foo_foo";
-const result = DString.match(input, /f.o_/);
+const result = S.match(input, /f.o_/);
 // result: ["foo_"]
-const result2 = DString.match(input, "foo");
+const result2 = S.match(input, "foo");
 // result2: ["foo"]

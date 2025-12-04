@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "CafÃ©";
-const result = DString.normalize(input, "NFD");
+const result = S.normalize(input, "NFD");
 // result: "Café"

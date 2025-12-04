@@ -17,7 +17,7 @@ La méthode **`transformProperty()`** transforme une propriété spécifique d'u
 <MonacoTSEditor
   src="/v1/api/object/transformProperty/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="450px"
 />
 
 ## Syntaxe
@@ -26,34 +26,34 @@ La méthode **`transformProperty()`** transforme une propriété spécifique d'u
 
 ```typescript
 function transformProperty<
-	GenericObject extends object,
-	GenericKey extends keyof GenericObject,
+	GenericInput extends object,
+	GenericKey extends keyof GenericInput,
 	GenericNewValue extends unknown
 >(
-	obj: GenericObject,
+	input: GenericInput,
 	key: GenericKey,
-	transform: (value: GenericObject[GenericKey]) => GenericNewValue
+	transform: (value: GenericInput[GenericKey]) => GenericNewValue
 ): SimplifyTopLevel<{
 	[Prop in GenericKey]: GenericNewValue;
-} & Omit<GenericObject, GenericKey>>
+} & Omit<GenericInput, GenericKey>>
 ```
 
 ### Signature currifiee
 
 ```typescript
 function transformProperty<
-	GenericObject extends object,
-	GenericKey extends keyof GenericObject,
+	GenericInput extends object,
+	GenericKey extends keyof GenericInput,
 	GenericNewValue extends unknown
 >(
 	key: GenericKey,
-	transform: (value: GenericObject[GenericKey]) => GenericNewValue
-): (obj: GenericObject) => SimplifyTopLevel<...>
+	transform: (value: GenericInput[GenericKey]) => GenericNewValue
+): (input: GenericInput) => SimplifyTopLevel<...>
 ```
 
 ## Paramètres
 
-- `obj` : L'objet source.
+- `input` : L'objet source.
 - `key` : La clé de la propriété à transformer.
 - `transform` : La fonction de transformation qui prend l'ancienne valeur et retourne la nouvelle.
 

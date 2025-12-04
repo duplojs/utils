@@ -46,13 +46,13 @@ function fill<GenericElement>(
 ## Paramètres
 
 - `array` : Tableau source.
-- `value` : Valeur qui remplacera chaque élément de la section ciblée.
+- `input` : Valeur qui remplacera chaque élément de la section ciblée.
 - `start` : Index de début (inclus).
 - `end` : Index de fin (exclus).
 
 ## Valeur de retour
 
-Un nouveau tableau dont la section `[start, end)` contient `value`. Le reste du tableau reste inchangé.
+Un nouveau tableau dont la section `[start, end)` contient `input`. Le reste du tableau reste inchangé.
 
 ## Voir aussi
 

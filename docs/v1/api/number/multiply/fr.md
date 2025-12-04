@@ -25,8 +25,10 @@ La méthode **`multiply()`** multiplie deux nombres entre eux. Elle peut être u
 ### Signature classique
 
 ```typescript
-function multiply<GenericValue extends number>(
-	value: GenericValue,
+function multiply<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	operand: number
 ): number
 ```
@@ -34,14 +36,16 @@ function multiply<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function multiply<GenericValue extends number>(
+function multiply<
+	GenericInput extends number
+>(
 	operand: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à multiplier (multiplicande, uniquement en signature classique).
+- `input` : Le nombre à multiplier (multiplicande, uniquement en signature classique).
 - `operand` : Le nombre multiplicateur.
 
 ## Valeur de retour
@@ -49,32 +53,6 @@ function multiply<GenericValue extends number>(
 **Signature classique** : retourne le produit de la multiplication des deux nombres.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et la multiplie par l'opérande.
-
-## Exemples
-
-### Calculer des prix TTC
-
-<MonacoTSEditor
-  	src="/v1/api/number/multiply/examples/calculatePriceWithTax.doc.ts"
-  	majorVersion="v1"
-	height="250px"
-/>
-
-### Convertir des unités
-
-<MonacoTSEditor
-  	src="/v1/api/number/multiply/examples/convertUnits.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Calculer des surfaces
-
-<MonacoTSEditor
-  	src="/v1/api/number/multiply/examples/calculateArea.doc.ts"
-  	majorVersion="v1"
-	height="650px"
-/>
 
 ## Voir aussi
 

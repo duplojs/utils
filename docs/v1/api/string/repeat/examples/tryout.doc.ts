@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "abc";
-const result = DString.repeat(input, 3);
+const result = S.repeat(input, 3);
 // result: "abcabcabc"

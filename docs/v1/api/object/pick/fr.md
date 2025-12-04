@@ -17,7 +17,7 @@ La méthode **`pick()`** crée un nouvel objet en sélectionnant uniquement cert
 <MonacoTSEditor
   src="/v1/api/object/pick/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="400px"
 />
 
 ## Syntaxe
@@ -39,8 +39,8 @@ function pick<
 ```typescript
 function pick<
 	GenericInput extends object,
-	GenericValue extends boolean,
-	GenericPickValue extends Partial<Record<keyof GenericInput, GenericValue>> | readonly (keyof GenericInput)[]
+	GenericInput extends boolean,
+	GenericPickValue extends Partial<Record<keyof GenericInput, GenericInput>> | readonly (keyof GenericInput)[]
 >(
 	pickValue: GenericPickValue
 ): (input: GenericInput) => SimplifyTopLevel<Pick<GenericInput, ...>>

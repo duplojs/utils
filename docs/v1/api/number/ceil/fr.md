@@ -24,43 +24,17 @@ La méthode **`ceil()`** arrondit un nombre vers le haut à l'entier supérieur 
 
 ```typescript
 function ceil<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à arrondir vers le haut.
+- `input` : Le nombre à arrondir vers le haut.
 
 ## Valeur de retour
 
 Le plus petit entier supérieur ou égal au nombre donné.
-
-## Exemples
-
-### Calculer le nombre de boîtes nécessaires
-
-<MonacoTSEditor
-  	src="/v1/api/number/ceil/examples/calculateNeededBoxes.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
-
-### Calculer les frais d'expédition
-
-<MonacoTSEditor
-  	src="/v1/api/number/ceil/examples/calculateShippingCost.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Calculer des étapes de progression
-
-<MonacoTSEditor
-  	src="/v1/api/number/ceil/examples/calculateProgressSteps.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
 
 ## Voir aussi
 

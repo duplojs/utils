@@ -23,9 +23,9 @@ La méthode **`is()`** vérifie si une valeur est un tableau (type guard).
 ## Syntaxe
 
 ```typescript
-function is<GenericValue extends unknown>(
-	arg: GenericValue
-): arg is GenericValue extends any[] ? GenericValue : never
+function is<GenericInput extends unknown>(
+	arg: GenericInput
+): arg is GenericInput extends any[] ? GenericInput : never
 ```
 
 ## Paramètres

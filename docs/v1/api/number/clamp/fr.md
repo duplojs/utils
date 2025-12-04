@@ -25,8 +25,10 @@ La méthode **`clamp()`** limite un nombre dans un intervalle donné. Si la vale
 ### Signature classique
 
 ```typescript
-function clamp<GenericValue extends number>(
-	value: GenericValue,
+function clamp<
+	GenericInput extends number
+>(
+	input: GenericInput,
 	lowerBound: number,
 	upperBound: number
 ): number
@@ -35,15 +37,17 @@ function clamp<GenericValue extends number>(
 ### Signature currifiée
 
 ```typescript
-function clamp<GenericValue extends number>(
+function clamp<
+	GenericInput extends number
+>(
 	lowerBound: number,
 	upperBound: number
-): (value: GenericValue) => number
+): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre à limiter dans l'intervalle (uniquement en signature classique).
+- `input` : Le nombre à limiter dans l'intervalle (uniquement en signature classique).
 - `lowerBound` : La borne inférieure de l'intervalle.
 - `upperBound` : La borne supérieure de l'intervalle.
 
@@ -52,32 +56,6 @@ function clamp<GenericValue extends number>(
 **Signature classique** : retourne un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` et `upperBound` sont inversés, la fonction les réordonne automatiquement.
 
 **Signature currifiée** : retourne une fonction qui prend une valeur et la limite dans l'intervalle spécifié.
-
-## Exemples
-
-### Limiter une vitesse
-
-<MonacoTSEditor
-  	src="/v1/api/number/clamp/examples/speedLimit.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
-### Contrôler le volume audio
-
-<MonacoTSEditor
-  	src="/v1/api/number/clamp/examples/audioVolume.doc.ts"
-  	majorVersion="v1"
-	height="350px"
-/>
-
-### Normaliser des pourcentages
-
-<MonacoTSEditor
-  	src="/v1/api/number/clamp/examples/percentage.doc.ts"
-  	majorVersion="v1"
-	height="400px"
-/>
 
 ## Voir aussi
 

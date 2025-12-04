@@ -1,5 +1,10 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 const input = { user: { address: { city: "Paris" } } } as const;
 const result = O.getDeepProperty(input, "user.address.city");
-// result: "Paris"
+
+type check = ExpectType<
+	typeof result,
+	"Paris",
+	"strict"
+>;

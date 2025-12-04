@@ -51,24 +51,6 @@ function loop<
 
 Un `Generator` qui émet les valeurs passées à `next()` et `exit()`.
 
-## Exemples
-
-### Générer une séquence numérique
-
-<MonacoTSEditor
-  src="/v1/api/generator/loop/examples/generateSequence.doc.ts"
-  majorVersion="v1"
-  height="600px"
-/>
-
-### Séquence géométrique avec previousOutput
-
-<MonacoTSEditor
-  src="/v1/api/generator/loop/examples/geometricSequence.doc.ts"
-  majorVersion="v1"
-  height="700px"
-/>
-
 ## Voir aussi
 
 - [`asyncLoop`](/v1/api/generator/asyncLoop/fr) - Version asynchrone de loop

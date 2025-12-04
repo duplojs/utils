@@ -24,9 +24,9 @@ La fonction **`memo()`** évalue une fonction une seule fois puis mémorise le r
 
 ```typescript
 interface Memoized<
-	GenericValue extends unknown
+	GenericInput extends unknown
 > {
-	readonly value: GenericValue;
+	readonly input: GenericInput;
 }
 
 function memo<
@@ -42,7 +42,7 @@ function memo<
 
 ## Valeur de retour
 
-Un objet `Memoized` avec la propriété `value` contenant le résultat unique.
+Un objet `Memoized` avec la propriété `input` contenant le résultat unique.
 
 ## Voir aussi
 

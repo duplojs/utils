@@ -36,32 +36,6 @@ function trim<
 
 Une nouvelle chaîne de caractères représentant la chaîne appelante sans les espaces en début et en fin.
 
-## Exemples
-
-### Nettoyer les entrées utilisateur
-
-<MonacoTSEditor
-  	src="/v1/api/string/trim/examples/sanitizeUserInput.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
-### Parser les lignes de configuration
-
-<MonacoTSEditor
-  	src="/v1/api/string/trim/examples/parseConfigLines.doc.ts"
-  	majorVersion="v1"
-	height="450px"
-/>
-
-### Normaliser une requête de recherche
-
-<MonacoTSEditor
-  	src="/v1/api/string/trim/examples/normalizeQuery.doc.ts"
-  	majorVersion="v1"
-	height="300px"
-/>
-
 ## Voir aussi
 
 - [`trimStart`](/v1/api/string/trimStart/fr) - Supprime les espaces au début uniquement

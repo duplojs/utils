@@ -17,7 +17,7 @@ La méthode **`isKeyof()`** vérifie si une clé existe dans un objet et affine 
 <MonacoTSEditor
   src="/v1/api/string/isKeyof/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="350px"
 />
 
 ## Syntaxe
@@ -53,40 +53,6 @@ function isKeyof<
 ## Valeur de retour
 
 Un booléen indiquant si la clé existe dans l'objet. Le type de retour utilise une assertion de type conditionnelle pour affiner le type de `key` si la condition est vraie.
-
-## Exemples
-
-<MonacoTSEditor
-  src="/v1/api/string/isKeyof/examples/typeGuard.doc.ts"
-  majorVersion="v1"
-  height="350px"
-/>
-
-:bulb: **Astuce** : Cette fonction est particulièrement utile pour les type guards et permet d'affiner le type d'une clé dynamique.
-
-### Filtrer les clés valides
-
-<MonacoTSEditor
-  src="/v1/api/string/isKeyof/examples/filterValidKeys.doc.ts"
-  majorVersion="v1"
-  height="270px"
-/>
-
-### Accès sécurisé aux propriétés
-
-<MonacoTSEditor
-  src="/v1/api/string/isKeyof/examples/safeAccess.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
-### Valider une clé avec Either
-
-<MonacoTSEditor
-  src="/v1/api/string/isKeyof/examples/validateKeys.doc.ts"
-  majorVersion="v1"
-  height="440px"
-/>
 
 ## Voir aussi
 

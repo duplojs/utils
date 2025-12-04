@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "DuploJS";
-const result = DString.charAt(input, 0);
+const result = S.charAt(input, 0);
 // result: "D"

@@ -26,16 +26,16 @@ La fonction **`equal()`** compare une valeur à un ou plusieurs littéraux. Avec
 type EligibleEqual = string | null | number | undefined | bigint | boolean | symbol;
 
 type ExpectLiteral<
-	GenericValue extends EligibleEqual
+	GenericInput extends EligibleEqual
 > = Or<
 	[
-		UnionContain<GenericValue, string>,
-		UnionContain<GenericValue, number>,
-		UnionContain<GenericValue, boolean>,
-		UnionContain<GenericValue, bigint>,
-		UnionContain<GenericValue, symbol>
+		UnionContain<GenericInput, string>,
+		UnionContain<GenericInput, number>,
+		UnionContain<GenericInput, boolean>,
+		UnionContain<GenericInput, bigint>,
+		UnionContain<GenericInput, symbol>
 	]
-> extends true ? never : GenericValue;
+> extends true ? never : GenericInput;
 ```
 
 ### Signatures classiques
@@ -44,19 +44,19 @@ type ExpectLiteral<
 // Type Guard predicate
 function equal<
 	GenericInput extends EligibleEqual | object,
-	GenericValue extends Exclude<GenericInput, object>
+	GenericInput extends Exclude<GenericInput, object>
 >(
 	input: GenericInput,
-	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
-): input is GenericValue;
+	value: ExpectLiteral<GenericInput> | ExpectLiteral<GenericInput>[]
+): input is GenericInput;
 
 // Boolean predicate
 function equal<
 	GenericInput extends EligibleEqual | object,
-	GenericValue extends Exclude<GenericInput, object>
+	GenericInput extends Exclude<GenericInput, object>
 >(
 	input: GenericInput,
-	value: GenericValue | GenericValue[]
+	input: GenericInput | GenericInput[]
 ): boolean;
 ```
 
@@ -66,23 +66,23 @@ function equal<
 // Type guard
 function equal<
 	GenericInput extends EligibleEqual | object,
-	GenericValue extends Exclude<GenericInput, object>
+	GenericInput extends Exclude<GenericInput, object>
 >(
-	value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]
-): (input: GenericInput) => input is NoInfer<GenericValue>;
+	value: ExpectLiteral<GenericInput> | ExpectLiteral<GenericInput>[]
+): (input: GenericInput) => input is NoInfer<GenericInput>;
 
 // Boolean predicate
 function equal<
 	GenericInput extends EligibleEqual | object,
-	GenericValue extends Exclude<GenericInput, object>
+	GenericInput extends Exclude<GenericInput, object>
 >(
-	value: GenericValue | GenericValue[]
+	input: GenericInput | GenericInput[]
 ): (input: GenericInput) => boolean;
 ```
 
 ## Paramètres
 
-- `value` : Littéral ou tableau de littéraux autorisés.
+- `input` : Littéral ou tableau de littéraux autorisés.
 - `input` (surcharge directe) : Valeur à comparer.
 
 ## Valeur de retour

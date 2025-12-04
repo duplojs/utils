@@ -17,45 +17,26 @@ La méthode **`uncapitalize()`** retourne une nouvelle chaîne de caractères av
 <MonacoTSEditor
   src="/v1/api/string/uncapitalize/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe
 
 ```typescript
 function uncapitalize<
-	GenericString extends string
+	GenericInput extends string
 >(
-	input: GenericString
-): Uncapitalize<GenericString>
+	input: GenericInput
+): Uncapitalize<GenericInput>
 ```
 
 ## Paramètres
 
-- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericString extends string`) pour permettre une inférence précise du type littéral.
+- `input` : La chaîne de caractères à modifier. Le type est générique (`GenericInput extends string`) pour permettre une inférence précise du type littéral.
 
 ### Valeur de retour
 
-Une nouvelle chaîne de caractères avec la première lettre en minuscule. Le type de retour est inféré précisément grâce au type utilitaire `Uncapitalize<GenericString>` de TypeScript.
-
-## Exemples
-
-### Normaliser une constante en variable
-
-<MonacoTSEditor
-  src="/v1/api/string/uncapitalize/examples/constantToVariable.doc.ts"
-  majorVersion="v1"
-  height="450px"
-/>
-
-### Formater une clé d'objet
-
-<MonacoTSEditor
-  src="/v1/api/string/uncapitalize/examples/formatObjectKey.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
+Une nouvelle chaîne de caractères avec la première lettre en minuscule. Le type de retour est inféré précisément grâce au type utilitaire `Uncapitalize<GenericInput>` de TypeScript.
 ## Voir aussi
 
 - [`capitalize`](/v1/api/string/capitalize/fr) - Met en majuscule la première lettre

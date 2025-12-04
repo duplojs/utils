@@ -84,7 +84,7 @@ interface ArrayReduceFunctionParams<GenericElement = unknown, GenericOutput = un
 	exit<GenericExitValue>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
 }
 
-function reduceFrom<GenericValue>(value: GenericValue): ArrayReduceFromResult<GenericValue>;
+function reduceFrom<GenericInput>(input: GenericInput): ArrayReduceFromResult<GenericInput>;
 ```
 
 ## Paramètres

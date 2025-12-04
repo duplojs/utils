@@ -24,15 +24,15 @@ Construit un `EitherRight<"nullable">` pour une valeur non nulle.
 
 ```typescript
 function nullableFilled<
-	const GenericValue extends unknown
+	const GenericInput extends unknown
 >(
-  value: GenericValue
-): EitherNullableFilled<GenericValue>;
+  input: GenericInput
+): EitherNullableFilled<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : Valeur définie.
+- `input` : Valeur définie.
 
 ## Valeur de retour
 

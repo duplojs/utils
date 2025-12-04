@@ -55,32 +55,6 @@ function lastIndexOf<
 
 L'index de la dernière occurrence de la sous-chaîne, ou undefined si la sous-chaîne n'est pas trouvée.
 
-## Exemples
-
-### Trouver le dernier séparateur
-
-<MonacoTSEditor
-  src="/v1/api/string/lastIndexOf/examples/findSeparator.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
-### Extraire le nom de fichier
-
-<MonacoTSEditor
-  src="/v1/api/string/lastIndexOf/examples/extractFileName.doc.ts"
-  majorVersion="v1"
-  height="320px"
-/>
-
-### Trouver la dernière occurrence
-
-<MonacoTSEditor
-  src="/v1/api/string/lastIndexOf/examples/findLastOccurrence.doc.ts"
-  majorVersion="v1"
-  height="200px"
-/>
-
 ## Voir aussi
 
 - [match](/v1/api/string/match/fr) : Récupère les correspondances d'une chaîne contre une expression régulière.

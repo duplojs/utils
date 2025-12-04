@@ -1,7 +1,7 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "DuploJS Utils";
-const result = DString.search(input, "JS");
+const result = S.search(input, "JS");
 // result: 5
-const result2 = DString.search(input, "js");
+const result2 = S.search(input, "js");
 // result2: undefined

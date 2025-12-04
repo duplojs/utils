@@ -26,9 +26,9 @@ Vérifie qu'un `TheDate` est strictement compris entre deux bornes (`greater` pu
 
 ```typescript
 function between<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
-	input: GenericValue,
+	input: GenericInput,
 	greater: TheDate,
 	less: TheDate
 ): boolean
@@ -38,11 +38,11 @@ function between<
 
 ```typescript
 function between<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
 	greater: TheDate,
 	less: TheDate
-): (input: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres

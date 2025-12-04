@@ -72,24 +72,6 @@ function asyncReduce<
 
 Une `Promise` qui résout avec la valeur finale accumulée.
 
-## Exemples
-
-### Traiter des tâches asynchrones
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncReduce/examples/processAsync.doc.ts"
-  majorVersion="v1"
-  height="550px"
-/>
-
-### Valider et collecter des données
-
-<MonacoTSEditor
-  src="/v1/api/generator/asyncReduce/examples/validateAndCollect.doc.ts"
-  majorVersion="v1"
-  height="550px"
-/>
-
 ## Voir aussi
 
 - [`reduce`](/v1/api/generator/reduce/fr) - Version synchrone de asyncReduce

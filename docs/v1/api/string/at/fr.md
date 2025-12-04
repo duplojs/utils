@@ -50,24 +50,6 @@ function at<
 
 Une chaîne de caractères représentant le caractère à l'index spécifié, ou `undefined` si l'index est hors limites.
 
-## Exemples
-
-### Extraire l'extension de fichiers
-
-<MonacoTSEditor
-  src="/v1/api/string/at/examples/extractExtension.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
-### Filtrer par dernier caractère
-
-<MonacoTSEditor
-  src="/v1/api/string/at/examples/checkLastChar.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
 ## Voir aussi
 
 - [`charAt`](/v1/api/string/charAt/fr) - Retourne le caractère à un index (sans support des index négatifs)

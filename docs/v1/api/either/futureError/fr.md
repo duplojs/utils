@@ -28,7 +28,7 @@ function futureError(value: unknown): Future<EitherFutureError>;
 
 ## Paramètres
 
-- `value` : Information d'erreur à exposer.
+- `input` : Information d'erreur à exposer.
 
 ## Valeur de retour
 

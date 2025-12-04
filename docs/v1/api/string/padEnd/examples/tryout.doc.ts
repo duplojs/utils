@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "abc";
-const result = DString.padEnd(input, 6, ".");
+const result = S.padEnd(input, 6, ".");
 // result: "abc..."

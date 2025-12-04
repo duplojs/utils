@@ -25,31 +25,31 @@ La fonction **`set()`** remplace la valeur à un index donné et retourne un nou
 ### Signature classique
 
 ```typescript
-function set<GenericValue>(
-	array: readonly GenericValue[],
+function set<GenericInput>(
+	array: readonly GenericInput[],
 	index: number,
-	value: GenericValue
-): GenericValue[]
+	input: GenericInput
+): GenericInput[]
 ```
 
 ### Signature currifiée
 
 ```typescript
-function set<GenericValue>(
+function set<GenericInput>(
 	index: number,
-	value: GenericValue
-): (array: readonly GenericValue[]) => GenericValue[]
+	input: GenericInput
+): (array: readonly GenericInput[]) => GenericInput[]
 ```
 
 ## Paramètres
 
 - `array` : Le tableau source.
 - `index` : L'index à remplacer (supporte les valeurs supérieures à la longueur, une nouvelle cellule est alors ajoutée).
-- `value` : La nouvelle valeur.
+- `input` : La nouvelle valeur.
 
 ## Valeur de retour
 
-Un nouveau tableau dont l'élément à `index` correspond à `value`. Les autres éléments sont copiés tels quels.
+Un nouveau tableau dont l'élément à `index` correspond à `input`. Les autres éléments sont copiés tels quels.
 
 ## Voir aussi
 

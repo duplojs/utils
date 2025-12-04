@@ -1,4 +1,4 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 type Shape = {
 	type: "circle";
@@ -11,5 +11,14 @@ const input: Shape = {
 	type: "circle",
 	radius: 10,
 };
-const result = O.discriminate(input, "type", "circle");
-// result: true
+
+if (O.discriminate(input, "type", "circle")) {
+	type check = ExpectType<
+		typeof input,
+		{
+			type: "circle";
+			radius: number;
+		},
+		"strict"
+	>;
+}

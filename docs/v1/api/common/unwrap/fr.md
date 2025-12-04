@@ -30,8 +30,8 @@ type Unwrap<
 		: GenericAnyValue;
 
 function unwrap<
-	GenericValue extends AnyValue,
-	GenericAnyValue extends AnyValue | WrappedValue<GenericValue>
+	GenericInput extends AnyValue,
+	GenericAnyValue extends AnyValue | WrappedValue<GenericInput>
 >(
 	anyValue: GenericAnyValue
 ): Unwrap<GenericAnyValue>;

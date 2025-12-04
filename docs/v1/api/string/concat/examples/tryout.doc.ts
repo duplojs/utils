@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "Duplo";
-const result = DString.concat(input, "JS", " Utils");
+const result = S.concat(input, "JS", " Utils");
 // result: "DuploJS Utils"

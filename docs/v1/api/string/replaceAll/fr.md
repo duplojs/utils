@@ -53,24 +53,6 @@ function replaceAll<
 
 Une nouvelle chaîne de caractères avec toutes les occurrences du motif remplacées par la chaîne de remplacement.
 
-## Exemples
-
-### Nettoyer du texte
-
-<MonacoTSEditor
-  src="/v1/api/string/replaceAll/examples/sanitizeText.doc.ts"
-  majorVersion="v1"
-  height="180px"
-/>
-
-### Transformer du code
-
-<MonacoTSEditor
-  src="/v1/api/string/replaceAll/examples/cleanupCode.doc.ts"
-  majorVersion="v1"
-  height="300px"
-/>
-
 ## Voir aussi
 
 - [replace](/v1/api/string/replace/fr) : Remplace la première occurrence d'un motif dans une chaîne de caractères.

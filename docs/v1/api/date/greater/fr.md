@@ -26,9 +26,9 @@ La fonction **`greater()`** vérifie si un `TheDate` est strictement supérieur 
 
 ```typescript
 function greater<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
-	input: GenericValue,
+	input: GenericInput,
 	threshold: TheDate
 ): boolean
 ```
@@ -37,10 +37,10 @@ function greater<
 
 ```typescript
 function greater<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
 	threshold: TheDate
-): (input: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres

@@ -1,7 +1,7 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "DuploJS Utils";
-const result = DString.substring(input, 7);
+const result = S.substring(input, 7);
 // result: " Utils"
-const result2 = DString.substring(input, 0, 6);
+const result2 = S.substring(input, 0, 6);
 // result2: "DuploJ"

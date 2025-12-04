@@ -66,24 +66,6 @@ function filter<
 
 Un nouveau `Generator` contenant les éléments filtrés.
 
-## Exemples
-
-### Filtrer des objets
-
-<MonacoTSEditor
-  src="/v1/api/generator/filter/examples/filterObjects.doc.ts"
-  majorVersion="v1"
-  height="700px"
-/>
-
-### Filtrer avec index
-
-<MonacoTSEditor
-  src="/v1/api/generator/filter/examples/withIndex.doc.ts"
-  majorVersion="v1"
-  height="350px"
-/>
-
 ## Voir aussi
 
 - [`asyncFilter`](/v1/api/generator/asyncFilter/fr) - Version asynchrone de filter

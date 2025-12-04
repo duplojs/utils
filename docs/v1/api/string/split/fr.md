@@ -26,25 +26,25 @@ La méthode **`split()`** divise une chaîne de caractères en un tableau de sou
 
 ```typescript
 function split<
-	GenericString extends string, 
+	GenericInput extends string, 
 	GenericSeparator extends string, 
 	GenericLimit extends number
 >(
-	input: GenericString, 
+	input: GenericInput, 
 	separator: GenericSeparator | RegExp, 
 	params?: StringSplitParams<GenericLimit>
-): Split<GenericString, GenericSeparator, GenericLimit>;
+): Split<GenericInput, GenericSeparator, GenericLimit>;
 ```
 
 ### Signature currifiée
 
 ```typescript
 function split<
-	GenericString extends string, 
+	GenericInput extends string, 
 	GenericSeparator extends string
 >(
 	separator: GenericSeparator | RegExp
-): (input: GenericString) => Split<GenericString, GenericSeparator>;
+): (input: GenericInput) => Split<GenericInput, GenericSeparator>;
 ```
 
 ## Paramètres
@@ -56,32 +56,6 @@ function split<
 ## Valeur de retour
 
 Un tableau de chaînes de caractères. Le type de retour est inféré grâce au type utilitaire `SplitString`.
-
-## Exemples
-
-### Extraire la hiérarchie d’une URL
-
-<MonacoTSEditor
-  src="/v1/api/string/split/examples/splitUrl.doc.ts"
-  majorVersion="v1"
-  height="250px"
-/>
-
-### Extraire les titres d’un document Markdown
-
-<MonacoTSEditor
-  src="/v1/api/string/split/examples/splitMarkdownTitles.doc.ts"
-  majorVersion="v1"
-  height="1700px"
-/>
-
-### Masquage de données sensibles
-
-<MonacoTSEditor
-  	src="/v1/api/string/split/examples/maskSensitiveData.doc.ts"
-  	majorVersion="v1"
-	height="420px"
-/>
 
 ## Voir aussi
 

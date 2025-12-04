@@ -25,7 +25,9 @@ La méthode **`override()`** remplace les propriétés d'un objet par celles d'u
 ### Signature classique
 
 ```typescript
-function override<GenericInput extends object>(
+function override<
+	GenericInput extends object
+>(
 	input: GenericInput,
 	value: Partial<NoInfer<GenericInput>>
 ): GenericInput
@@ -34,7 +36,9 @@ function override<GenericInput extends object>(
 ### Signature currifiee
 
 ```typescript
-function override<GenericInput extends object>(
+function override<
+	GenericInput extends object
+>(
 	value: Partial<NoInfer<GenericInput>>
 ): (input: GenericInput) => GenericInput
 ```
@@ -42,7 +46,7 @@ function override<GenericInput extends object>(
 ## Paramètres
 
 - `input` : L'objet de base.
-- `value` : Un objet partiel contenant les propriétés à remplacer.
+- `input` : Un objet partiel contenant les propriétés à remplacer.
 
 ## Valeur de retour
 

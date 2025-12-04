@@ -1,6 +1,16 @@
-import { O } from "@duplojs/utils";
+import { type ExpectType, O } from "@duplojs/utils";
 
 type User = { profile: { role: "admin" } } | { profile: { role: "user" } };
 const input: User = { profile: { role: "admin" } };
-const result = O.deepDiscriminate(input, "profile.role", "admin");
-// result: true
+
+if (O.deepDiscriminate(input, "profile.role", "admin")) {
+	type check = ExpectType<
+		typeof input,
+		{
+			profile: {
+				role: "admin";
+			};
+		},
+		"strict"
+	>;
+}

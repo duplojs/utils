@@ -1,5 +1,5 @@
-import { DString } from "@duplojs/utils";
+import { S } from "@duplojs/utils";
 
 const input = "  DuploJS  ";
-const result = DString.trimStart(input);
+const result = S.trimStart(input);
 // result: "DuploJS  "

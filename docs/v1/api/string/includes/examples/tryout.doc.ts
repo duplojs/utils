@@ -1,6 +1,17 @@
-import { DString } from "@duplojs/utils";
+import { type ExpectType, S } from "@duplojs/utils";
 
-const input = "DuplpoJS is great.";
+const maybe = true ? "DuplpoJS" : "DuploTS";
 
-const result = DString.includes(input, "JS");
-// result: true
+if (S.includes(maybe, "JS")) {
+	type check = ExpectType<
+		typeof maybe,
+		"DuplpoJS",
+		"strict"
+	>;
+} else {
+	type check = ExpectType<
+		typeof maybe,
+		"DuploTS",
+		"strict"
+	>;
+}

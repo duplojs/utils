@@ -1,4 +1,4 @@
-import { N, O, DString } from "@duplojs/utils";
+import { N, O, S } from "@duplojs/utils";
 
 const input = {
 	firstName: "Alice",
@@ -10,7 +10,7 @@ const majority = 18;
 const result = O.to(
 	input,
 	{
-		fullName: ({ firstName, lastName }) => DString.concat(firstName, " ", lastName),
+		fullName: ({ firstName, lastName }) => S.concat(firstName, " ", lastName),
 		isAdult: ({ age }) => N.greater(age, majority),
 	},
 );

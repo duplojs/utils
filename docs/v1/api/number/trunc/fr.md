@@ -24,43 +24,17 @@ La méthode **`trunc()`** tronque la partie décimale d'un nombre, retournant un
 
 ```typescript
 function trunc<
-	GenericValue extends number,
->(value: GenericValue): number
+	GenericInput extends number,
+>(input: GenericInput): number
 ```
 
 ## Paramètres
 
-- `value` : Le nombre dont on souhaite tronquer la partie décimale.
+- `input` : Le nombre dont on souhaite tronquer la partie décimale.
 
 ## Valeur de retour
 
 La partie entière du nombre donné (supprime les décimales sans arrondir).
-
-## Exemples
-
-### Extraire la partie entière
-
-<MonacoTSEditor
-  	src="/v1/api/number/trunc/examples/extractIntegerPart.doc.ts"
-  	majorVersion="v1"
-	height="500px"
-/>
-
-### Formater des montants en euros et centimes
-
-<MonacoTSEditor
-  	src="/v1/api/number/trunc/examples/formatCurrency.doc.ts"
-  	majorVersion="v1"
-	height="500px"
-/>
-
-### Convertir des coordonnées décimales
-
-<MonacoTSEditor
-  	src="/v1/api/number/trunc/examples/processCoordinates.doc.ts"
-  	majorVersion="v1"
-	height="1000px"
-/>
 
 ## Voir aussi
 

@@ -24,19 +24,19 @@ Construit explicitement un `EitherLeft<"nullish">` avec `null` ou `undefined`.
 
 ```typescript
 function nullishEmpty<
-	const GenericValue extends NullishValue = undefined
+	const GenericInput extends NullishValue = undefined
 >(
-  value?: GenericValue
-): EitherNullishEmpty<GenericValue>;
+  value?: GenericInput
+): EitherNullishEmpty<GenericInput>;
 ```
 
 ## Paramètres
 
-- `value` : `null` ou `undefined` (optionnel).
+- `input` : `null` ou `undefined` (optionnel).
 
 ## Valeur de retour
 
-`EitherNullishEmpty<GenericValue>` permettant de signaler explicitement l'absence de valeur.
+`EitherNullishEmpty<GenericInput>` permettant de signaler explicitement l'absence de valeur.
 
 ## Voir aussi
 

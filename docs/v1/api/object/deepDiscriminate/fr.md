@@ -29,13 +29,13 @@ function deepDiscriminate<
 	GenericInput extends object,
 	GenericObjectProjection extends ObjectProjection<GenericInput>,
 	GenericPath extends keyof GenericObjectProjection,
-	GenericValue extends EligibleEqual
+	GenericInput extends EligibleEqual
 >(
 	input: GenericInput,
 	path: GenericPath,
-	value: (MaybeArray<(GenericValue & GenericObjectProjection[GenericPath])> | MaybeArray<GenericObjectProjection[GenericPath]>)
+	value: (MaybeArray<(GenericInput & GenericObjectProjection[GenericPath])> | MaybeArray<GenericObjectProjection[GenericPath]>)
 ): input is Extract<GenericInput, UnFlatObject<{
-	[Prop in GenericPath]: GenericValue;
+	[Prop in GenericPath]: GenericInput;
 }>>
 ```
 
@@ -46,12 +46,12 @@ function deepDiscriminate<
 	GenericInput extends object,
 	GenericObjectProjection extends ObjectProjection<GenericInput>,
 	GenericPath extends keyof GenericObjectProjection,
-	GenericValue extends EligibleEqual
+	GenericInput extends EligibleEqual
 >(
 	path: GenericPath,
 	value: ...
 ): (input: GenericInput) => input is Extract<GenericInput, UnFlatObject<{
-	[Prop in GenericPath]: GenericValue;
+	[Prop in GenericPath]: GenericInput;
 }>>
 ```
 
@@ -59,7 +59,7 @@ function deepDiscriminate<
 
 - `input` : L'objet à discriminer (souvent un type union).
 - `path` : Le chemin vers la propriété discriminante (ex: "user.role").
-- `value` : La valeur (ou tableau de valeurs) attendue pour la discrimination.
+- `input` : La valeur (ou tableau de valeurs) attendue pour la discrimination.
 
 ## Valeur de retour
 

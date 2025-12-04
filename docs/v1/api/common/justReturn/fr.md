@@ -27,11 +27,11 @@ La fonction **`justReturn()`** construit une fonction constante : elle ignore so
 ```typescript
 function justReturn<
 	GenericInput extends unknown, 
-	GenericValue extends AnyValue
+	GenericInput extends AnyValue
 >(
 	input: GenericInput, 
-	value: GenericValue
-): GenericValue;
+	input: GenericInput
+): GenericInput;
 ```
 
 ### Signature currifiée
@@ -39,21 +39,21 @@ function justReturn<
 ```typescript
 function justReturn<
 	GenericInput extends unknown, 
-	GenericValue extends AnyValue
+	GenericInput extends AnyValue
 >(
-	value: GenericValue
-): (input: GenericInput) => GenericValue;
+	input: GenericInput
+): (input: GenericInput) => GenericInput;
 ```
 
 ## Paramètres
 
-- `value` : La valeur constante à renvoyer.
+- `input` : La valeur constante à renvoyer.
 - `input` (surcharge directe) : Une valeur ignorée, utile pour rester compatible avec des callbacks.
 
 ## Valeur de retour
 
-- Surcharge currifiée : une fonction qui renvoie toujours `value` quel que soit l'argument reçu.
-- Surcharge directe : la valeur `value`.
+- Surcharge currifiée : une fonction qui renvoie toujours `input` quel que soit l'argument reçu.
+- Surcharge directe : la valeur `input`.
 
 ## Voir aussi
 

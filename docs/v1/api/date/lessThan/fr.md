@@ -26,9 +26,9 @@ Vérifie qu'un `TheDate` est inférieur ou égal à un seuil.
 
 ```typescript
 function lessThan<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
-	input: GenericValue,
+	input: GenericInput,
 	threshold: TheDate
 ): boolean
 ```
@@ -37,10 +37,10 @@ function lessThan<
 
 ```typescript
 function lessThan<
-	GenericValue extends TheDate
+	GenericInput extends TheDate
 >(
 	threshold: TheDate
-): (input: GenericValue) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres

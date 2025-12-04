@@ -29,7 +29,7 @@ function entry<
 >(
 	key: GenericKey,
 	value: GenericValue
-): readonly [GenericKey, GenericValue]
+): readonly [GenericKey, GenericInput]
 ```
 
 ## Paramètres
