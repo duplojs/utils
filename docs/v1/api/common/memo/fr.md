@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "promiseObject"
-  link: "/v1/api/common/promiseObject/fr"
+  text: "sleep"
+  link: "/v1/api/common/sleep/fr"
 next:
   text: "toJSON"
   link: "/v1/api/common/toJSON/fr"

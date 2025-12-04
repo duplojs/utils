@@ -5,13 +5,6 @@ hero:
   name: "@duplojs/utils"
   text: "Fonctionnel & Immutable"
   tagline: "Des utilitaires robustes avec une excellente expérience développeur."
-  actions:
-    - theme: brand
-      text: Documentation Française
-      link: /v1/fr.md
-    - theme: alt
-      text: English Documentation
-      link: /v1/en.md
 
 features:
   - icon: 🛡️

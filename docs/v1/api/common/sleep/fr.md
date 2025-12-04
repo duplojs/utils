@@ -4,8 +4,8 @@ prev:
   text: "asyncRetry"
   link: "/v1/api/common/asyncRetry/fr"
 next:
-  text: "externalPromise"
-  link: "/v1/api/common/externalPromise/fr"
+  text: "memo"
+  link: "/v1/api/common/memo/fr"
 ---
 
 # sleep

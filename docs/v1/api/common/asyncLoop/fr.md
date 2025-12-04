@@ -4,8 +4,8 @@ prev:
   text: "loop"
   link: "/v1/api/common/loop/fr"
 next:
-  text: "asyncRetry"
-  link: "/v1/api/common/asyncRetry/fr"
+  text: "externalPromise"
+  link: "/v1/api/common/externalPromise/fr"
 ---
 
 # asyncLoop
