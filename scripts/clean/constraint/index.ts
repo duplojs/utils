@@ -1,6 +1,6 @@
-import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, isWrappedValue, AnyValue } from "@scripts";
+import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue } from "@scripts";
 import { createCleanKind } from "../kind";
-import { type Primitive, type Primitives, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DArray from "../../array";
 import * as DEither from "../../either";
 import type * as DDataParser from "../../dataParser";
@@ -211,7 +211,7 @@ export function createConstraint<
 		return false;
 	}
 
-	return {
+	return constraintHandlerKind.setTo({
 		name,
 		primitiveHandler,
 		checkers,
@@ -220,7 +220,7 @@ export function createConstraint<
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	} as never;
+	}) as never;
 }
 
 export type Constraint<

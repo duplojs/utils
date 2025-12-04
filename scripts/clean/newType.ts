@@ -1,10 +1,11 @@
-import { type Kind, type DDataParser, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe, type NeverCoalescing } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";
 import * as DObject from "../object";
+import type * as DDataParser from "../dataParser";
 
 export const newTypeKind = createCleanKind<"new-type", string>("new-type");
 
@@ -46,7 +47,7 @@ export interface NewTypeHandler<
 	readonly constrains: GenericConstrainHandler;
 
 	create<
-		GenericData extends GenericValue,
+		const GenericData extends GenericValue,
 	>(
 		data: GenericData
 	): (
@@ -87,7 +88,7 @@ export interface NewTypeHandler<
 	);
 
 	createOrThrow<
-		GenericData extends GenericValue,
+		const GenericData extends GenericValue,
 	>(
 		data: GenericData
 	): NewType<
@@ -202,7 +203,9 @@ export function createNewType<
 ): NewTypeHandler<
 		GenericName,
 		DDataParser.Output<GenericDataParser>,
-		DArray.ArrayCoalescing<GenericConstrainHandler>
+		DArray.ArrayCoalescing<
+			NeverCoalescing<GenericConstrainHandler, readonly []>
+		>
 	> {
 	const constrains = DArray.coalescing(constraint ?? []);
 
@@ -285,13 +288,27 @@ export function createNewType<
 		return true;
 	}
 
-	return {
+	return newTypeHandlerKind.setTo({
 		name,
 		dataParser: dataParserWithCheckers,
+		constrains,
 		create,
 		createOrThrow,
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	} as never;
+	}) as never;
 }
+
+export type GetNewType<
+	GenericHandler extends NewTypeHandler,
+> = Extract<
+	GenericHandler extends any
+		? NewType<
+			GenericHandler["name"],
+			DDataParser.Output<GenericHandler["dataParser"]>,
+			GenericHandler["constrains"][number]["name"]
+		>
+		: never,
+	any
+>;

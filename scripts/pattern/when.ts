@@ -1,4 +1,4 @@
-import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual } from "@scripts/common";
+import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual, type EscapeVoid} from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
 export function when<
@@ -11,7 +11,7 @@ export function when<
 	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
 		input: GenericInputValue
@@ -25,7 +25,7 @@ export function when<
 	)
 ) => (
 	| GenericInputPatternResult
-	| Exclude<BreakGenericLink<GenericInputValue>, GenericPredicatedInput>
+	| Exclude<BreakGenericLink<GenericInput>, GenericPredicatedInput | PatternResult>
 	| PatternResult<GenericOutput>
 );
 
@@ -38,7 +38,7 @@ export function when<
 		PatternResult
 	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
 		input: GenericInputValue
@@ -66,7 +66,7 @@ export function when<
 	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: (
 		| GenericInput
@@ -79,7 +79,7 @@ export function when<
 	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput
 ): (
 	| GenericInputPatternResult
-	| Exclude<GenericInputValue, GenericPredicatedInput>
+	| Exclude<BreakGenericLink<GenericInput>, GenericPredicatedInput | PatternResult>
 	| PatternResult<GenericOutput>
 );
 
@@ -92,7 +92,7 @@ export function when<
 		PatternResult
 	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: (
 		| GenericInput
