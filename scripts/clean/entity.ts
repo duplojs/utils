@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type GetNewType, type NewTypeHandler, newTypeHandlerKind, newTypeKind } from "./newType";
 import { constrainedTypeKind } from "./constraint";
@@ -9,20 +9,23 @@ import * as DArray from "../array";
 import * as DPattern from "../pattern";
 
 export type EntitySimplePropertyDefinition = NewTypeHandler<string, unknown, readonly any[]>;
-export type EntityUnionPropertyDefinition = [
+export type EntityUnionPropertyDefinition = readonly [
 	EntitySimplePropertyDefinition,
 	...EntitySimplePropertyDefinition[],
 ];
+
+export interface EntityAdvancedArrayPropertyDefinition {
+	min?: number;
+	max?: number;
+}
+
 export interface EntityAdvancedPropertyDefinition {
 	type: (
 		| EntitySimplePropertyDefinition
 		| EntityUnionPropertyDefinition
 	);
 	nullable?: true;
-	inArray?: true | {
-		min?: number;
-		max?: number;
-	};
+	inArray?: true | EntityAdvancedArrayPropertyDefinition;
 }
 
 export type EntityPropertyDefinition = (
@@ -55,7 +58,7 @@ export type EntityProperties<
 								: never
 					> extends infer InferredValue
 						? (
-							true extends GenericPropertiesDefinition[Prop]["inArray"]
+							IsEqual<GenericPropertiesDefinition[Prop]["inArray"], true> extends true
 								? readonly InferredValue[]
 								: GenericPropertiesDefinition[Prop]["inArray"] extends object
 									? GenericPropertiesDefinition[Prop]["inArray"]["min"] extends number
@@ -184,12 +187,48 @@ export class CreateEntityError extends kindHeritage(
 	}
 }
 
+export interface PropertiesDefinitionParams {
+	union<
+		const GenericUnionPropertyDefinition extends EntityUnionPropertyDefinition,
+	>(
+		...type: GenericUnionPropertyDefinition
+	): { type: GenericUnionPropertyDefinition };
+	nullable<
+		const GenericPropertyDefinition extends EntityPropertyDefinition,
+	>(
+		definition: GenericPropertyDefinition,
+	): GenericPropertyDefinition extends EntityAdvancedPropertyDefinition
+		? DObject.AssignObjects<
+			GenericPropertyDefinition,
+			{ nullable: true }
+		>
+		: {
+			type: GenericPropertyDefinition;
+			nullable: true;
+		};
+	array<
+		const GenericPropertyDefinition extends EntityPropertyDefinition,
+		const GenericAdvancedArrayPropertyDefinition extends EntityAdvancedArrayPropertyDefinition = never,
+	>(
+		definition: GenericPropertyDefinition,
+		params?: GenericAdvancedArrayPropertyDefinition,
+	): GenericPropertyDefinition extends EntityAdvancedPropertyDefinition
+		? DObject.AssignObjects<
+			GenericPropertyDefinition,
+			{ inArray: NeverCoalescing<GenericAdvancedArrayPropertyDefinition, true> }
+		>
+		: {
+			type: GenericPropertyDefinition;
+			inArray: NeverCoalescing<GenericAdvancedArrayPropertyDefinition, true>;
+		};
+}
+
 export function createEntity<
 	GenericName extends string,
 	const GenericPropertiesDefinition extends EntityPropertiesDefinition,
 >(
 	name: GenericName,
-	propertiesDefinition: GenericPropertiesDefinition,
+	getPropertiesDefinition: (params: PropertiesDefinitionParams) => GenericPropertiesDefinition,
 ): EntityHandler<
 		GenericName,
 		GenericPropertiesDefinition
@@ -198,7 +237,9 @@ export function createEntity<
 		return entityKind.addTo(properties, name);
 	}
 
-	function simplePropertyDefinitionToDataParser(simplePropertyDefinition: EntitySimplePropertyDefinition) {
+	function simplePropertyDefinitionToDataParser(
+		simplePropertyDefinition: EntitySimplePropertyDefinition,
+	) {
 		const constraintKindValue = pipe(
 			simplePropertyDefinition.constrains,
 			DArray.map(({ name }) => DObject.entry(name, null)),
@@ -217,7 +258,9 @@ export function createEntity<
 		);
 	}
 
-	function unionPropertyDefinitionToDataParser(unionPropertyDefinition: EntityUnionPropertyDefinition) {
+	function unionPropertyDefinitionToDataParser(
+		unionPropertyDefinition: EntityUnionPropertyDefinition,
+	): DDataParser.DataParser | null {
 		return pipe(
 			unionPropertyDefinition,
 			DArray.map(
@@ -230,6 +273,34 @@ export function createEntity<
 			DPattern.otherwise(justReturn(null)),
 		);
 	}
+
+	const params: PropertiesDefinitionParams = {
+		union: (...type) => ({ type }),
+		array: (definition, params) => (
+			newTypeHandlerKind.has(definition) || definition instanceof Array
+				? {
+					type: definition,
+					inArray: params ?? true,
+				}
+				: {
+					...definition,
+					inArray: params ?? true,
+				}
+		) as never,
+		nullable: (definition) => (
+			newTypeHandlerKind.has(definition) || definition instanceof Array
+				? {
+					type: definition,
+					nullable: true,
+				}
+				: {
+					...definition,
+					nullable: true,
+				}
+		) as never,
+	};
+
+	const propertiesDefinition = getPropertiesDefinition(params);
 
 	const mapDataParser = pipe(
 		forward<EntityPropertiesDefinition>(propertiesDefinition),
