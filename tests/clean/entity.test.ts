@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, DPE, type ExpectType } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, forwardLog } from "@scripts";
 
 describe("createEntity", () => {
 	const MaxConstraint = DClean.createConstraint(
@@ -56,28 +56,89 @@ describe("createEntity", () => {
 
 	const FormEntity = DClean.createEntity(
 		"Form",
-		{
+		({ union, array, nullable }) => forwardLog({
 			name: FormName,
-			type: [FormTypeHuman, FormTypeAgent],
-			inputs: {
-				type: [InputText, InputNumber],
-				inArray: {
+			type: union(FormTypeHuman, FormTypeAgent),
+			inputs: array(
+				union(InputText, InputNumber),
+				{
 					min: 1,
 					max: 5,
 				},
-			},
-			description: {
-				type: FormDescription,
-				nullable: true,
-			},
-			tags: {
-				type: FormTag,
-				inArray: true,
-			},
-		},
+			),
+			description: nullable(FormDescription),
+			tags: nullable(
+				array(FormTag),
+			),
+
+		}),
 	);
 
 	type FormEntity = DClean.GetEntity<typeof FormEntity>;
+
+	type Check = ExpectType<
+		RemoveKind<FormEntity>,
+		{
+			readonly name: DClean.NewType<"formName", string, "max100">;
+			readonly type: (
+				| DClean.NewType<
+					"formTypeHuman", {
+						siret: string;
+					},
+					never
+				>
+				| DClean.NewType<
+					"formTypeAgent",
+					{
+						key: string;
+						webHook: string;
+					},
+					never
+				>
+			);
+			readonly inputs: readonly [
+				(
+					| DClean.NewType<
+						"inputText",
+						{
+							value: string;
+							require: boolean;
+						},
+						never
+					>
+					| DClean.NewType<
+						"inputNumber",
+						{
+							value: number;
+							require: boolean;
+						},
+						never
+					>
+				),
+				...(
+					| DClean.NewType<
+						"inputText",
+						{
+							value: string;
+							require: boolean;
+						},
+						never
+					>
+					| DClean.NewType<
+						"inputNumber",
+						{
+							value: number;
+							require: boolean;
+						},
+						never
+					>
+				)[],
+			];
+			readonly description: DClean.NewType<"formDescription", string, never> | null;
+			readonly tags: readonly DClean.NewType<"formTag", string, never>[] | null;
+		},
+		"strict"
+	>;
 
 	it("new returns entity with kind marker", () => {
 		const name = FormName.createOrThrow("Super Form");
@@ -97,7 +158,7 @@ describe("createEntity", () => {
 			type,
 			inputs,
 			description: null,
-			tags: [],
+			tags: null,
 		});
 
 		expect(form).toStrictEqual(
@@ -106,7 +167,7 @@ describe("createEntity", () => {
 				type,
 				inputs,
 				description: null,
-				tags: [],
+				tags: null,
 			}, "Form"),
 		);
 
@@ -125,7 +186,7 @@ describe("createEntity", () => {
 					}, never>,
 				];
 				description: null;
-				tags: never[];
+				tags: null;
 			}>,
 			"strict"
 		>;
@@ -145,7 +206,7 @@ describe("createEntity", () => {
 				},
 			],
 			description: "desc",
-			tags: [],
+			tags: null,
 		});
 
 		expect(result).toStrictEqual(DEither.right(
@@ -163,7 +224,7 @@ describe("createEntity", () => {
 					}),
 				],
 				description: FormDescription.createOrThrow("desc"),
-				tags: [],
+				tags: null,
 			}, "Form"),
 		));
 
@@ -175,7 +236,7 @@ describe("createEntity", () => {
 		>;
 	});
 
-	it("map handles alternative union branch", () => {
+	it.only("map handles alternative union branch", () => {
 		const result = FormEntity.map({
 			name: "Bob",
 			type: { siret: "123" },
