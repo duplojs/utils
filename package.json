@@ -10,6 +10,9 @@
   },
   "scripts": {
     "build": "rollup --config",
+    "build:docs-meta": "node scripts/generate-docs-metadata.js",
+    "docs:dev": "npm run docs:dev --workspace=docs",
+    "docs:build": "npm run docs:build --workspace=docs",
     "test:tu": "vitest --coverage",
     "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",
@@ -107,12 +110,13 @@
     "rollup-plugin-tsc-alias": "1.1.4",
     "tslib": "2.8.1",
     "tsx": "4.20.5",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   },
   "workspaces": [
-    "integration"
+    "integration", 
+    "docs"
   ],
   "keywords": [],
   "engines": {

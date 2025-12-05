@@ -26,6 +26,13 @@ export default [
 		ignores: ["**/*.test.ts", "**/*.bench.ts", "test/**/*.ts", "**/*.d.ts"],
 	},
 	{
-		ignores: ["coverage", "dist"]
+		files: ["**/*.doc.ts"],
+		rules: {
+			"@typescript-eslint/no-confusing-void-expression": "off",
+			"no-nested-ternary": "off",
+		},
+	},
+	{
+		ignores: ["coverage", "dist", "docs/public/*", "docs/.vitepress/cache/*"]
 	}
 ];

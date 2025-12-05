@@ -1,0 +1,13 @@
+export declare const minTimestamp = -8640000000000000;
+export declare const maxTimestamp = 8640000000000000;
+export declare const millisecondInOneWeek = 604800000;
+export declare const millisecondsInOneDay = 86400000;
+export declare const millisecondInOneHour = 3600000;
+export declare const millisecondInOneMinute = 60000;
+export declare const daysInOneWeek = 7;
+export declare const monthtsInOneYear = 12;
+export declare const minutesInOneHour = 60;
+export declare const secondsInOneMinute = 60;
+export declare const millisecondsInOneSecond = 1000;
+export declare const hoursInOneDay = 24;
+export declare const theDateRegex: RegExp;

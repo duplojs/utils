@@ -1,0 +1,11 @@
+import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { templateLiteral as templateLiteral$1 } from '../parsers/templateLiteral/index.mjs';
+import { createOverride } from '../../common/override.mjs';
+
+function templateLiteral(template, definition) {
+    const self = dataParserExtendedInit(templateLiteral$1(template, definition), {});
+    return templateLiteral.overrideHandler.apply(self);
+}
+templateLiteral.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/templateLiteral");
+
+export { templateLiteral };

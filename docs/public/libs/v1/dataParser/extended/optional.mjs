@@ -1,0 +1,11 @@
+import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { optional as optional$1 } from '../parsers/optional.mjs';
+import { createOverride } from '../../common/override.mjs';
+
+function optional(inner, definition) {
+    const self = dataParserExtendedInit(optional$1(inner, definition), {});
+    return optional.overrideHandler.apply(self);
+}
+optional.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/optional");
+
+export { optional };
