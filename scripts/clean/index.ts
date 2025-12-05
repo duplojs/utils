@@ -3,3 +3,5 @@ export * from "./newType";
 export * from "./entity";
 export * from "./constraint";
 export * from "./primitive";
+export * from "./repository";
+export * from "./useCase";

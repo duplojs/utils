@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, forwardLog } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType } from "@scripts";
 
 describe("createEntity", () => {
 	const MaxConstraint = DClean.createConstraint(
@@ -56,7 +56,7 @@ describe("createEntity", () => {
 
 	const FormEntity = DClean.createEntity(
 		"Form",
-		({ union, array, nullable }) => forwardLog({
+		({ union, array, nullable }) => ({
 			name: FormName,
 			type: union(FormTypeHuman, FormTypeAgent),
 			inputs: array(
@@ -70,7 +70,7 @@ describe("createEntity", () => {
 			tags: nullable(
 				array(FormTag),
 			),
-
+			test: array(nullable(FormTag)),
 		}),
 	);
 
@@ -136,6 +136,7 @@ describe("createEntity", () => {
 			];
 			readonly description: DClean.NewType<"formDescription", string, never> | null;
 			readonly tags: readonly DClean.NewType<"formTag", string, never>[] | null;
+			readonly test: readonly DClean.NewType<"formTag", string, never>[] | null;
 		},
 		"strict"
 	>;
@@ -159,6 +160,7 @@ describe("createEntity", () => {
 			inputs,
 			description: null,
 			tags: null,
+			test: [],
 		});
 
 		expect(form).toStrictEqual(
@@ -168,6 +170,7 @@ describe("createEntity", () => {
 				inputs,
 				description: null,
 				tags: null,
+				test: [],
 			}, "Form"),
 		);
 
@@ -187,6 +190,7 @@ describe("createEntity", () => {
 				];
 				description: null;
 				tags: null;
+				test: never[];
 			}>,
 			"strict"
 		>;
@@ -207,6 +211,7 @@ describe("createEntity", () => {
 			],
 			description: "desc",
 			tags: null,
+			test: [],
 		});
 
 		expect(result).toStrictEqual(DEither.right(
@@ -225,6 +230,7 @@ describe("createEntity", () => {
 				],
 				description: FormDescription.createOrThrow("desc"),
 				tags: null,
+				test: [],
 			}, "Form"),
 		));
 
@@ -236,7 +242,7 @@ describe("createEntity", () => {
 		>;
 	});
 
-	it.only("map handles alternative union branch", () => {
+	it("map handles alternative union branch", () => {
 		const result = FormEntity.map({
 			name: "Bob",
 			type: { siret: "123" },
@@ -248,6 +254,7 @@ describe("createEntity", () => {
 			],
 			description: null,
 			tags: [],
+			test: null,
 		});
 
 		expect(result).toStrictEqual(
@@ -264,6 +271,7 @@ describe("createEntity", () => {
 					],
 					description: null,
 					tags: [],
+					test: null,
 				}, "Form"),
 			),
 		);
@@ -276,6 +284,7 @@ describe("createEntity", () => {
 			inputs: [],
 			description: null,
 			tags: [],
+			test: null,
 		});
 
 		expect(result).toStrictEqual(
@@ -305,6 +314,7 @@ describe("createEntity", () => {
 			})),
 			description: "desc",
 			tags: [],
+			test: null,
 		});
 
 		expect(result).toStrictEqual(
@@ -332,6 +342,7 @@ describe("createEntity", () => {
 			],
 			description: "optional",
 			tags: [],
+			test: null,
 		});
 
 		expect(form).toStrictEqual(DClean.entityKind.setTo({
@@ -348,6 +359,7 @@ describe("createEntity", () => {
 			],
 			description: FormDescription.createOrThrow("optional"),
 			tags: [],
+			test: null,
 		}, "Form"));
 
 		type Check = ExpectType<
