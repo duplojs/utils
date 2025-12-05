@@ -22,13 +22,17 @@ La méthode **`sortString()`** trie un tableau de chaînes selon l'ordre souhait
 
 ## Syntaxe
 
+```typescript
+type Sort = "asc" | "dsc";
+```
+
 ### Signature classique
 
 ```typescript
-type Sort = "asc" | "dsc";
-
-function sortString<GenericArray extends readonly string[]>(
-	array: GenericArray,
+function sortString<
+	GenericInput extends readonly string[]
+>(
+	input: GenericInput,
 	sort: Sort
 ): string[]
 ```
@@ -36,16 +40,16 @@ function sortString<GenericArray extends readonly string[]>(
 ### Signature currifiée
 
 ```typescript
-type Sort = "asc" | "dsc";
-
-function sortString<GenericArray extends readonly string[]>(
+function sortString<
+	GenericInput extends readonly string[]
+>(
 	sort: Sort
-): (array: GenericArray) => string[]
+): (input: GenericInput) => string[]
 ```
 
 ## Paramètres
 
-- `array` : Le tableau de chaînes à trier.
+- `input` : Le tableau de chaînes à trier.
 - `sort` : L'ordre (`"asc"` ou `"dsc"`).
 
 ## Valeur de retour

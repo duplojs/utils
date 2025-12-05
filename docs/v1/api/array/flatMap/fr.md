@@ -17,7 +17,8 @@ La méthode **`flatMap()`** applique une fonction de transformation sur chaque �
 <MonacoTSEditor
   src="/v1/api/array/flatMap/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="750px"
+  height="550px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe
@@ -26,12 +27,12 @@ La méthode **`flatMap()`** applique une fonction de transformation sur chaque �
 
 ```typescript
 function flatMap<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown
 >(
-	array: readonly GenericElement[],
+	input:  GenericInput,
 	theFunction: (
-		element: GenericElement,
+		element: GenericInput[number],
 		params: ArrayMapParams
 	) => GenericOutput
 ): FlatArray<GenericOutput, 1>[]
@@ -41,14 +42,14 @@ function flatMap<
 
 ```typescript
 function flatMap<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown
 >(
 	theFunction: (
-		element: GenericArray[number],
+		element: GenericInput[number],
 		params: ArrayMapParams
 	) => GenericOutput
-): (array: GenericArray) => FlatArray<GenericOutput, 1>[]
+): (input: GenericInput) => FlatArray<GenericOutput, 1>[]
 ```
 
 ### Paramètres auxiliaires
@@ -61,7 +62,7 @@ interface ArrayMapParams {
 
 ## Paramètres
 
-- `array` : Le tableau source.
+- `input` : Le tableau source.
 - `theFunction` : Fonction appliquée sur chaque élément. Elle retourne un tableau (ou une valeur) qui sera aplati d'un niveau.
 - `params.index` : Position de l'élément courant.
 

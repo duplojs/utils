@@ -23,14 +23,16 @@ La méthode **`sum()`** additionne toutes les valeurs numériques d'un tableau i
 ## Syntaxe
 
 ```typescript
-function sum<GenericArray extends readonly number[]>(
-	array: GenericArray
+function sum<
+	GenericInput extends readonly number[]
+>(
+	input: GenericInput
 ): number
 ```
 
 ## Paramètres
 
-- `array` : Tableau de nombres à additionner.
+- `input` : Tableau de nombres à additionner.
 
 ## Valeur de retour
 

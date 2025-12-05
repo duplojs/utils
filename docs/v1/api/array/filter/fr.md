@@ -17,61 +17,62 @@ La méthode **`filter()`** sélectionne les éléments d'un tableau qui satisfon
 <MonacoTSEditor
   src="/v1/api/array/filter/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="400px"
+  :foldLines="[2,34]"
 />
 
 ## Syntaxe
 
-### Signature classique (type guard)
+### Signature classique
 
 ```typescript
+// Type Guard
 function filter<
-	GenericElement extends unknown,
-	GenericOutput extends GenericElement
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	predicate: (
-		item: GenericElement,
+		element: GenericInput[number],
 		params: ArrayFilterParams
-	) => item is GenericOutput
+	) => element is GenericOutput
 ): GenericOutput[]
+
+// Boolean
+function filter<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput,
+	predicate: (
+		element: GenericInput[number],
+		params: ArrayFilterParams
+	) => boolean
+): GenericInput[number][]
 ```
 
-### Signature currifiée (type guard)
+### Signature currifiée
 
 ```typescript
+// Type Guard
 function filter<
-	GenericArray extends readonly unknown[],
-	GenericOutput extends GenericArray[number]
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
 >(
 	predicate: (
-		item: GenericArray[number],
+		element: GenericInput[number],
 		params: ArrayFilterParams
-	) => item is GenericOutput
-): (array: GenericArray) => GenericOutput[]
-```
+	) => element is GenericOutput
+): (input: GenericInput) => GenericOutput[]
 
-### Signature classique (prédicat booléen)
-
-```typescript
-function filter<GenericElement extends unknown>(
-	array: readonly GenericElement[],
+// Boolean
+function filter<
+	GenericInput extends readonly unknown[]
+>(
 	predicate: (
-		item: GenericElement,
+		element: GenericInput[number],
 		params: ArrayFilterParams
 	) => boolean
-): GenericElement[]
-```
-
-### Signature currifiée (prédicat booléen)
-
-```typescript
-function filter<GenericArray extends readonly unknown[]>(
-	predicate: (
-		item: GenericArray[number],
-		params: ArrayFilterParams
-	) => boolean
-): (array: GenericArray) => GenericArray[number][]
+): (array: GenericInput) => GenericInput[number][]
 ```
 
 ### Paramètres auxiliaires
@@ -84,7 +85,7 @@ interface ArrayFilterParams {
 
 ## Paramètres
 
-- `array` : Le tableau à filtrer.
+- `input` : Le tableau à filtrer.
 - `predicate` : Fonction appliquée à chaque élément. Elle décide si l'élément est conservé et peut agir comme type guard.
 - `params.index` : Position de l'élément courant dans le tableau d'origine.
 

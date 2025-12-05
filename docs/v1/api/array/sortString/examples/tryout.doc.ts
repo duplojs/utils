@@ -1,6 +1,6 @@
 import { A, pipe } from "@duplojs/utils";
 
-const input = ["delta", "bravo", "alpha", "charlie"] as const;
+const input = ["delta", "bravo", "alpha", "charlie"];
 
 const result = A.sortString(input, "asc");
 // result: ["alpha", "bravo", "charlie", "delta"]

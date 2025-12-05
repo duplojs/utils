@@ -18,6 +18,7 @@ La méthode **`reduce()`** agrège les éléments d'un tableau de gauche à droi
   src="/v1/api/array/reduce/examples/tryout.doc.ts"
   majorVersion="v1"
   height="850px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe
@@ -26,15 +27,15 @@ La méthode **`reduce()`** agrège les éléments d'un tableau de gauche à droi
 
 ```typescript
 function reduce<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends ArrayEligibleReduceFromValue,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput[number],
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit
@@ -45,19 +46,19 @@ function reduce<
 
 ```typescript
 function reduce<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends ArrayEligibleReduceFromValue,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput[number],
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit
 ): (
-	array: readonly GenericElement[]
+	input: GenericInput
 ) => ArrayReduceFromValue<GenericReduceFrom> | (IsEqual<GenericExit, ArrayReduceExit> extends true ? never : GenericExit["-exit"])
 ```
 
@@ -72,24 +73,26 @@ interface ArrayReduceExit<GenericOutput = unknown> {
 	"-exit": GenericOutput;
 }
 
-interface ArrayReduceFunctionParams<GenericElement = unknown, GenericOutput = unknown> {
-	element: GenericElement;
-	index: number;
-	lastValue: GenericOutput;
-	next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
-	nextWithObject?: (
-		object1: GenericOutput,
-		object2: Partial<GenericOutput>
-	) => ArrayReduceNext<GenericOutput>;
-	exit<GenericExitValue>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
+interface ArrayReduceFunctionParams<
+	GenericElement extends unknown = unknown, 
+	GenericOutput extends unknown = unknown
+> {
+    element: GenericElement;
+    index: number;
+    lastValue: GenericOutput;
+    nextWithObject: GenericOutput extends object ? (object1: GenericOutput, object2: Partial<GenericOutput>) => ArrayReduceNext<GenericOutput> : undefined;
+    next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
+    exit<GenericExitValue extends unknown>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
 }
 
-function reduceFrom<GenericInput>(input: GenericInput): ArrayReduceFromResult<GenericInput>;
+function reduceFrom<
+	GenericInput extends unknown
+>(input: GenericInput): ArrayReduceFromResult<GenericInput>;
 ```
 
 ## Paramètres
 
-- `array` : Le tableau à agréger.
+- `input` : Le tableau à agréger.
 - `startValue` : Valeur initiale. Pour des objets/tuples, enveloppez-la avec `reduceFrom()` afin de conserver un typage précis.
 - `theFunction` : Fonction appelée pour chaque élément. Elle reçoit l'élément, l'index, la dernière valeur et des helpers `next`, `nextWithObject` et `exit`.
 - `params.element` : L'élément courant du tableau.

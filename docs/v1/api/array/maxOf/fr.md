@@ -23,14 +23,16 @@ La fonction **`maxOf()`** retourne la plus grande valeur numérique d'un tableau
 ## Syntaxe
 
 ```typescript
-function maxOf<GenericArray extends readonly number[]>(
-	values: GenericArray
+function maxOf<
+	GenericInput extends readonly number[]
+>(
+	input: GenericInput
 ): number | undefined
 ```
 
 ## Paramètres
 
-- `values` : Tableau de nombres dont on cherche le maximum.
+- `input` : Tableau de nombres dont on cherche le maximum.
 
 ## Valeur de retour
 

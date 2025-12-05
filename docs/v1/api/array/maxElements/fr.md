@@ -25,8 +25,10 @@ La fonction **`maxElements()`** vérifie qu'un tableau contient au plus un certa
 ### Signature classique
 
 ```typescript
-function maxElements<GenericArray extends readonly unknown[]>(
-	array: GenericArray,
+function maxElements<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput,
 	maxLength: number
 ): boolean
 ```
@@ -34,14 +36,16 @@ function maxElements<GenericArray extends readonly unknown[]>(
 ### Signature currifiée
 
 ```typescript
-function maxElements<GenericArray extends readonly unknown[]>(
+function maxElements<
+	GenericInput extends readonly unknown[]
+>(
 	maxLength: number
-): (array: GenericArray) => boolean
+): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `array` : Tableau dont on souhaite limiter la taille.
+- `input` : Tableau dont on souhaite limiter la taille.
 - `maxLength` : Nombre maximum autorisé.
 
 ## Valeur de retour

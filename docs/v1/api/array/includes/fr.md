@@ -25,8 +25,10 @@ La méthode **`includes()`** vérifie si un tableau contient un élément donné
 ### Signature classique
 
 ```typescript
-function includes<GenericArrayValue extends unknown>(
-	array: readonly GenericArrayValue[], 
+function includes<
+	GenericArrayValue extends unknown
+>(
+	input: readonly GenericArrayValue[], 
 	value: NoInfer<GenericArrayValue>
 ): boolean
 ```
@@ -34,15 +36,17 @@ function includes<GenericArrayValue extends unknown>(
 ### Signature currifiée
 
 ```typescript
-function includes<GenericArrayValue extends unknown>(
+function includes<
+	GenericArrayValue extends unknown
+>(
 	value: NoInfer<GenericArrayValue>
-): (array: readonly GenericArrayValue[]) => boolean
+): (input: readonly GenericArrayValue[]) => boolean
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dans lequel rechercher.
-- `input` : La valeur à rechercher dans le tableau.
+- `input` : Le tableau dans lequel rechercher.
+- `value` : La valeur à rechercher dans le tableau.
 
 ## Valeur de retour
 

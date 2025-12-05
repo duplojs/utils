@@ -17,7 +17,8 @@ La méthode **`group()`** regroupe les éléments d'un tableau selon une clé ca
 <MonacoTSEditor
   src="/v1/api/array/group/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="1100px"
+  height="460px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe
@@ -26,11 +27,14 @@ La méthode **`group()`** regroupe les éléments d'un tableau selon une clé ca
 
 ```typescript
 function group<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericOutput extends ArrayGroupFunctionOutput
 >(
-	array: readonly GenericElement[],
-	theFunction: (element: GenericElement, params: ArrayGroupFunctionParams) => GenericOutput
+	input: GenericInput,
+	theFunction: (
+		element: GenericInput[number], 
+		params: ArrayGroupFunctionParams
+	) => GenericOutput
 ): ArrayGroupResult<GenericOutput>
 ```
 
@@ -38,20 +42,23 @@ function group<
 
 ```typescript
 function group<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 	GenericOutput extends ArrayGroupFunctionOutput
 >(
 	theFunction: (
-		element: GenericArray[number],
+		element: GenericInput[number],
 		params: ArrayGroupFunctionParams
 	) => GenericOutput
-): (array: GenericArray) => ArrayGroupResult<GenericOutput>
+): (input: GenericInput) => ArrayGroupResult<GenericOutput>
 ```
 
 ### Paramètres auxiliaires
 
 ```typescript
-interface ArrayGroupFunctionOutput<GenericGroupName extends string = string, GenericGroupValue = unknown> {
+interface ArrayGroupFunctionOutput<
+	GenericGroupName extends string = string, 
+	GenericGroupValue extends unknown = unknown
+> {
 	group: GenericGroupName;
 	value: GenericGroupValue;
 }
@@ -61,10 +68,19 @@ interface ArrayGroupFunctionParams {
 	output: typeof groupOutput;
 }
 
-function groupOutput<GenericGroupValue extends unknown, GenericGroupName extends string>(group: GenericGroupName): (
+function groupOutput<
+	GenericGroupValue extends unknown, 
+	GenericGroupName extends string
+>(
+	group: GenericGroupName
+): (
 	value: GenericGroupValue
 ) => ArrayGroupFunctionOutput<GenericGroupName, GenericGroupValue>;
-function groupOutput<GenericGroupValue extends unknown, GenericGroupName extends string>(
+
+function groupOutput<
+	GenericGroupValue extends unknown, 
+	GenericGroupName extends string
+>(
 	group: GenericGroupName,
 	value: GenericGroupValue
 ): ArrayGroupFunctionOutput<GenericGroupName, GenericGroupValue>;
@@ -72,7 +88,7 @@ function groupOutput<GenericGroupValue extends unknown, GenericGroupName extends
 
 ## Paramètres
 
-- `array` : Le tableau à parcourir pour créer les groupes.
+- `input` : Le tableau à parcourir pour créer les groupes.
 - `theFunction` : Fonction appliquée à chaque élément. Elle retourne un objet `{ group, value }` décrivant le nom du groupe cible et la valeur à ajouter.
 - `params.index` : L'index actuel dans le tableau d'entrée.
 - `params.output` : Raccourci pour construire un objet de sortie via `groupOutput`, ce qui garantit la cohérence du typage.

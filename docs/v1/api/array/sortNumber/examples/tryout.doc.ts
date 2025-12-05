@@ -1,6 +1,6 @@
 import { A, pipe } from "@duplojs/utils";
 
-const input = [42, 7, 19, 7] as const;
+const input = [42, 7, 19, 7];
 
 const result = A.sortNumber(input, "asc");
 // result: [7, 7, 19, 42]

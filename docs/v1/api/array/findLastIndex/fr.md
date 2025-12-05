@@ -25,24 +25,43 @@ La méthode **`findLastIndex()`** retourne l'index du dernier élément d'un tab
 ### Signature classique
 
 ```typescript
-function findLastIndex<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
-	predicate: (element: GenericElement, params: { index: number }) => boolean
+function findLastIndex<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastIndexParams
+	) => boolean
 ): number | undefined
 ```
 
 ### Signature currifiée
 
 ```typescript
-function findLastIndex<GenericArray extends readonly unknown[]>(
-	predicate: (element: GenericArray[number], params: { index: number }) => boolean
-): (array: GenericArray) => number | undefined
+function findLastIndex<
+	GenericInput extends readonly unknown[]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastIndexParams
+	) => boolean
+): (input: GenericInput) => number | undefined
+```
+
+### Paramètres auxiliaires
+
+```typescript
+interface ArrayFindLastIndexParams {
+	index: number;
+}
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dans lequel rechercher.
+- `input` : Le tableau dans lequel rechercher.
 - `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
+- `params.index` : Position de l'élément en cours dans le tableau.
 
 ## Valeur de retour
 

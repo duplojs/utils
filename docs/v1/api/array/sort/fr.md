@@ -17,7 +17,8 @@ La méthode **`sort()`** trie les éléments d'un tableau en utilisant une fonct
 <MonacoTSEditor
   src="/v1/api/array/sort/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="720px"
+  height="400px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe
@@ -25,23 +26,33 @@ La méthode **`sort()`** trie les éléments d'un tableau en utilisant une fonct
 ### Signature classique
 
 ```typescript
-function sort<GenericElement extends unknown>(
-	array: readonly GenericElement[],
-	compareFn: (first: GenericElement, second: GenericElement) => number
+function sort<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
+	compareFn: (
+		first: GenericElement, 
+		second: GenericElement
+	) => number
 ): GenericElement[]
 ```
 
 ### Signature currifiée
 
 ```typescript
-function sort<GenericElement extends unknown>(
-	compareFn: (first: GenericElement, second: GenericElement) => number
-): (array: readonly GenericElement[]) => GenericElement[]
+function sort<
+	GenericElement extends unknown
+>(
+	compareFn: (
+		first: GenericElement, 
+		second: GenericElement
+	) => number
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Le tableau à trier.
+- `input` : Le tableau à trier.
 - `compareFn` : Fonction qui compare deux éléments. Elle doit retourner un nombre négatif, nul ou positif pour définir l'ordre relatif.
 
 ## Valeur de retour

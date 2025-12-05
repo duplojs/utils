@@ -1,6 +1,6 @@
 import { A, equal } from "@duplojs/utils";
 
-const steps = ["todo", "inProgress", "review", "done"] as const;
+const steps = ["todo", "inProgress", "review", "done"];
 
 const result = A.findAndSpliceReplace(
 	steps,

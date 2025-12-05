@@ -10,7 +10,3 @@ const result2 = A.lastIndexOf(input, 20, 2);
 
 const result3 = A.lastIndexOf(input, 100);
 // result3: undefined
-
-const findLast20 = A.lastIndexOf(20);
-const result4 = findLast20(input);
-// result4: 3

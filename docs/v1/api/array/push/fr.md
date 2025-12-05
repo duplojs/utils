@@ -25,25 +25,29 @@ La fonction **`push()`** ajoute un ou plusieurs éléments à la fin du tableau 
 ### Signature classique
 
 ```typescript
-function push<GenericElement>(
-	array: readonly GenericElement[],
-	item: NoInfer<GenericElement>,
-	...items: NoInfer<GenericElement>[]
+function push<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
+	element: NoInfer<GenericElement>,
+	...elements: NoInfer<GenericElement>[]
 ): GenericElement[]
 ```
 
 ### Signature currifiée
 
 ```typescript
-function push<GenericElement>(
-	item: NoInfer<GenericElement>
-): (array: readonly GenericElement[]) => GenericElement[]
+function push<
+	GenericElement extends unknown
+>(
+	element: NoInfer<GenericElement>
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
-- `item`, `...items` : Valeurs à ajouter à la fin.
+- `input` : Tableau source.
+- `element`, `...elements` : Valeurs à ajouter à la fin.
 
 ## Valeur de retour
 

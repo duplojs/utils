@@ -17,7 +17,7 @@ La fonction **`minElements()`** vérifie qu'un tableau contient au moins un nomb
 <MonacoTSEditor
   src="/v1/api/array/minElements/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="300px"
 />
 
 ## Syntaxe
@@ -26,14 +26,14 @@ La fonction **`minElements()`** vérifie qu'un tableau contient au moins un nomb
 
 ```typescript
 function minElements<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 	GenericLength extends number
 >(
-	array: GenericArray,
+	input: GenericInput,
 	minLength: GenericLength
-): array is [
-	...CreateTuple<GenericArray[number], GenericLength>,
-	...GenericArray[number][]
+): input is [
+	...CreateTuple<GenericInput[number], GenericLength>,
+	...GenericInput[number][]
 ]
 ```
 
@@ -41,21 +41,21 @@ function minElements<
 
 ```typescript
 function minElements<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 	GenericLength extends number
 >(
 	minLength: GenericLength
 ): (
-	array: GenericArray
-) => array is [
-	...CreateTuple<GenericArray[number], GenericLength>,
-	...GenericArray[number][]
+	input: GenericInput
+) => input is [
+	...CreateTuple<GenericInput[number], GenericLength>,
+	...GenericInput[number][]
 ]
 ```
 
 ## Paramètres
 
-- `array` : Tableau dont on souhaite garantir un nombre minimal d'éléments.
+- `input` : Tableau dont on souhaite garantir un nombre minimal d'éléments.
 - `minLength` : Nombre minimum attendu.
 
 ## Valeur de retour

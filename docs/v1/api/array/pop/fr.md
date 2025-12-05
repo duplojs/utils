@@ -23,14 +23,16 @@ La fonction **`pop()`** retourne un nouveau tableau sans son dernier élément. 
 ## Syntaxe
 
 ```typescript
-function pop<const GenericArray extends readonly unknown[]>(
-	array: GenericArray
-): GenericArray extends AnyTuple ? PopTuple<GenericArray> : GenericArray
+function pop<
+	const GenericInput extends readonly unknown[]
+>(
+	input: GenericInput
+): GenericInput extends AnyTuple ? PopTuple<GenericInput> : GenericInput
 ```
 
 ## Paramètres
 
-- `array` : Tableau dont on veut retirer le dernier élément.
+- `input` : Tableau dont on veut retirer le dernier élément.
 
 ## Valeur de retour
 

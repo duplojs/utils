@@ -10,33 +10,34 @@ next:
 
 # coalescing
 
-La fonction **`coalescing()`** parcourt un tableau (ou une liste d'arguments) et retourne la première valeur non `null` et non `undefined`.
+La fonction **`coalescing()`** prend une valeur ou un tableau et le normalise en tableau. Si la valeur n'est pas déjà un tableau, elle est enveloppée dans un tableau.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/v1/api/array/coalescing/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="400px"
 />
 
 ## Syntaxe
-
 ```typescript
-function coalescing<GenericInput extends AnyValue>(
+function coalescing<
+	GenericInput extends AnyValue
+>(
 	input: GenericInput
 ): ArrayCoalescing<GenericInput>
 ```
 
-`ArrayCoalescing` infère la première valeur définie présente dans le tableau, ce qui permet de conserver un typage précis.
+`ArrayCoalescing` retourne un tableau si l'entrée n'en est pas une, ou conserve le tableau d'entrée. Cela permet de garantir que le résultat est toujours un tableau.
 
 ## Paramètres
 
-- `input` : Tableau ou tuple contenant des valeurs possiblement `nullish`.
+- `input` : Une valeur ou un tableau de valeurs.
 
 ## Valeur de retour
 
-La première valeur non `null`/`undefined`, ou `undefined` si toutes les valeurs sont `nullish`.
+Un tableau. Si `input` est déjà un tableau, il est retourné tel quel. Sinon, la valeur est enveloppée dans un tableau.
 
 ## Voir aussi
 

@@ -1,9 +1,12 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
 const input = ["todo", "inProgress", "done"] as const;
 
 const result = A.shift(input);
-// result: ["inProgress", "done"]
 
-const result2 = A.shift(result);
-// result2: ["done"]
+type check = ExpectType<
+	typeof result,
+	["inProgress", "done"],
+	"strict"
+>;
+

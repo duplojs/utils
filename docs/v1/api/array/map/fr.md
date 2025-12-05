@@ -26,12 +26,12 @@ La méthode **`map()`** applique une fonction de transformation sur chaque élé
 
 ```typescript
 function map<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	theFunction: (
-		element: GenericElement,
+		element: GenericInput[number],
 		params: ArrayMapParams
 	) => GenericOutput
 ): GenericOutput[]
@@ -41,14 +41,14 @@ function map<
 
 ```typescript
 function map<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown
 >(
 	theFunction: (
-		element: GenericArray[number],
+		element: GenericInput[number],
 		params: ArrayMapParams
 	) => GenericOutput
-): (array: GenericArray) => GenericOutput[]
+): (input: GenericInput) => GenericOutput[]
 ```
 
 ### Paramètres auxiliaires
@@ -61,7 +61,7 @@ interface ArrayMapParams {
 
 ## Paramètres
 
-- `array` : Le tableau à transformer.
+- `input` : Le tableau à transformer.
 - `theFunction` : Fonction appliquée à chaque élément. Elle reçoit l'élément courant et un objet fournissant l'index.
 - `params.index` : Position de l'élément en cours dans le tableau source.
 

@@ -25,8 +25,10 @@ La fonction **`findAndSpliceInsert()`** cherche le premier élément qui satisfa
 ### Signature classique
 
 ```typescript
-function findAndSpliceInsert<GenericElement>(
-	array: readonly GenericElement[],
+function findAndSpliceInsert<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
@@ -38,18 +40,20 @@ function findAndSpliceInsert<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function findAndSpliceInsert<GenericElement>(
+function findAndSpliceInsert<
+	GenericElement extends unknown
+>(
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
 	) => boolean,
 	elements: GenericElement[]
-): (array: readonly GenericElement[]) => GenericElement[] | undefined
+): (input: readonly GenericElement[]) => GenericElement[] | undefined
 ```
 
 ## Paramètres
 
-- `array` : Tableau d'origine.
+- `input` : Tableau d'origine.
 - `predicate` : Fonction déterminant où insérer.
 - `elements` : Tableau d'éléments à insérer avant l'élément trouvé.
 

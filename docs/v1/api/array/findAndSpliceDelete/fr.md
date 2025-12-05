@@ -17,7 +17,8 @@ La fonction **`findAndSpliceDelete()`** recherche le premier élément qui satis
 <MonacoTSEditor
   src="/v1/api/array/findAndSpliceDelete/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="400px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe
@@ -25,8 +26,10 @@ La fonction **`findAndSpliceDelete()`** recherche le premier élément qui satis
 ### Signature classique
 
 ```typescript
-function findAndSpliceDelete<GenericElement>(
-	array: readonly GenericElement[],
+function findAndSpliceDelete<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
@@ -38,18 +41,20 @@ function findAndSpliceDelete<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function findAndSpliceDelete<GenericElement>(
+function findAndSpliceDelete<
+	GenericElement extends unknown
+>(
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
 	) => boolean,
 	deleteCount: number
-): (array: readonly GenericElement[]) => GenericElement[] | undefined
+): (input: readonly GenericElement[]) => GenericElement[] | undefined
 ```
 
 ## Paramètres
 
-- `array` : Tableau à parcourir.
+- `input` : Tableau à parcourir.
 - `predicate` : Fonction qui identifie l'élément à supprimer. Reçoit l'élément et son index.
 - `deleteCount` : Nombre d'éléments à retirer à partir de l'élément trouvé.
 

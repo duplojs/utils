@@ -1,6 +1,6 @@
 import { A, N } from "@duplojs/utils";
 
-const steps = [
+const input = [
 	{
 		id: "todo",
 		priority: 1,
@@ -17,11 +17,11 @@ const steps = [
 		id: "done",
 		priority: 4,
 	},
-] as const;
+];
 
 const result = A.findAndSpliceDelete(
-	steps,
-	(step) => N.greaterThan(step.priority, 2),
+	input,
+	({ priority }) => N.greaterThan(priority, 2),
 	1,
 );
 // result: [

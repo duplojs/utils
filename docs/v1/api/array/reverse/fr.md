@@ -23,14 +23,16 @@ La méthode **`reverse()`** renvoie une copie d'un tableau avec les éléments d
 ## Syntaxe
 
 ```typescript
-function reverse<GenericArray extends readonly unknown[]>(
-	array: GenericArray
-): GenericArray extends AnyTuple ? ReverseTuple<GenericArray> : GenericArray
+function reverse<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput
+): GenericInput extends AnyTuple ? ReverseTuple<GenericInput> : GenericInput
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dont on souhaite inverser l'ordre.
+- `input` : Le tableau dont on souhaite inverser l'ordre.
 
 ## Valeur de retour
 
