@@ -25,8 +25,10 @@ La fonction **`spliceReplace()`** remplace une portion du tableau par un ensembl
 ### Signature classique
 
 ```typescript
-function spliceReplace<GenericElement>(
-	array: readonly GenericElement[],
+function spliceReplace<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	indexFrom: number,
 	elements: GenericElement[]
 ): GenericElement[]
@@ -35,15 +37,17 @@ function spliceReplace<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function spliceReplace<GenericElement>(
+function spliceReplace<
+	GenericElement extends unknown
+>(
 	indexFrom: number,
 	elements: GenericElement[]
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
+- `input` : Tableau source.
 - `indexFrom` : Index du premier élément remplacé.
 - `elements` : Tableau de remplacement qui écrase autant d'éléments que sa longueur.
 

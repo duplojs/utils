@@ -25,24 +25,68 @@ La méthode **`find()`** retourne le premier élément d'un tableau qui satisfai
 ### Signature classique
 
 ```typescript
-function find<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
-	predicate: (element: GenericElement, params: { index: number }) => boolean
-): GenericElement | undefined
+// Type Guard
+function find<
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindParams
+	) => element is GenericOutput
+): GenericOutput | undefined
+
+// Boolean
+function find<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindParams
+	) => boolean
+): GenericInput[number] | undefined
 ```
 
 ### Signature currifiée
 
 ```typescript
-function find<GenericArray extends readonly unknown[]>(
-	predicate: (element: GenericArray[number], params: { index: number }) => boolean
-): (array: GenericArray) => GenericArray[number] | undefined
+// Type Guard
+function find<
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindParams
+	) => element is GenericOutput
+): (input: GenericInput) => GenericOutput | undefined
+
+// Boolean
+function find<
+	GenericInput extends readonly unknown[]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindParams
+	) => boolean
+): (input: GenericInput) => GenericInput[number] | undefined
+```
+
+### Paramètres auxiliaires
+
+```typescript
+interface ArrayFindParams {
+	index: number;
+}
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dans lequel rechercher.
-- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
+- `input` : Le tableau dans lequel rechercher.
+- `predicate` : Fonction de prédicat qui teste chaque élément (et peut servir de type guard). Reçoit l'élément et un objet contenant l'index.
+- `params.index` : Position de l'élément en cours dans le tableau.
 
 ## Valeur de retour
 

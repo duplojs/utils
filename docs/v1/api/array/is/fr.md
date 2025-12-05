@@ -17,20 +17,22 @@ La méthode **`is()`** vérifie si une valeur est un tableau (type guard).
 <MonacoTSEditor
   src="/v1/api/array/is/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="300px"
 />
 
 ## Syntaxe
 
 ```typescript
-function is<GenericInput extends unknown>(
-	arg: GenericInput
-): arg is GenericInput extends any[] ? GenericInput : never
+function is<
+	GenericInput extends unknown
+>(
+	input: GenericInput
+): input is GenericInput extends any[] ? GenericInput : never
 ```
 
 ## Paramètres
 
-- `arg` : La valeur à tester.
+- `input` : La valeur à tester.
 
 ## Valeur de retour
 

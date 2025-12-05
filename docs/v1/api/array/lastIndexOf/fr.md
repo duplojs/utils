@@ -25,8 +25,10 @@ La méthode **`lastIndexOf()`** retourne l'index de la dernière occurrence d'un
 ### Signature classique
 
 ```typescript
-function lastIndexOf<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
+function lastIndexOf<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[], 
 	element: GenericElement, 
 	fromIndex?: number
 ): number | undefined
@@ -35,14 +37,16 @@ function lastIndexOf<GenericElement extends unknown>(
 ### Signature currifiée
 
 ```typescript
-function lastIndexOf<GenericElement extends unknown>(
+function lastIndexOf<
+	GenericElement extends unknown
+>(
 	element: GenericElement
-): (array: readonly GenericElement[]) => number | undefined
+): (input: readonly GenericElement[]) => number | undefined
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dans lequel rechercher.
+- `input` : Le tableau dans lequel rechercher.
 - `element` : L'élément à rechercher.
 - `fromIndex` : L'index de départ pour la recherche en sens inverse (optionnel).
 

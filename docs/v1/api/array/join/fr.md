@@ -25,25 +25,31 @@ La méthode **`join()`** concatène les éléments d'un tableau de chaînes en i
 ### Signature classique
 
 ```typescript
-function join<GenericArray extends readonly string[], GenericSeparator extends string>(
-	array: GenericArray,
+function join<
+	GenericInput extends readonly string[], 
+	GenericSeparator extends string
+>(
+	input: GenericInput,
 	separator: GenericSeparator
-): GenericArray extends AnyTuple ? ComputeResult<GenericArray, GenericSeparator> : string
+): GenericInput extends AnyTuple ? ComputeResult<GenericInput, GenericSeparator> : string
 ```
 
 ### Signature currifiée
 
 ```typescript
-function join<GenericArray extends readonly string[], GenericSeparator extends string>(
+function join<
+	GenericInput extends readonly string[], 
+	GenericSeparator extends string
+>(
 	separator: GenericSeparator
 ): (
-	array: GenericArray
-) => GenericArray extends AnyTuple ? ComputeResult<GenericArray, GenericSeparator> : string
+	input: GenericInput
+) => GenericInput extends AnyTuple ? ComputeResult<GenericInput, GenericSeparator> : string
 ```
 
 ## Paramètres
 
-- `array` : Le tableau (ou tuple) de chaînes à concaténer.
+- `input` : Le tableau (ou tuple) de chaînes à concaténer.
 - `separator` : La chaîne insérée entre chaque élément.
 
 ## Valeur de retour

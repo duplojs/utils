@@ -25,8 +25,10 @@ La fonction **`findAndSpliceReplace()`** cherche un élément avec un prédicat 
 ### Signature classique
 
 ```typescript
-function findAndSpliceReplace<GenericElement>(
-	array: readonly GenericElement[],
+function findAndSpliceReplace<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
@@ -38,18 +40,20 @@ function findAndSpliceReplace<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function findAndSpliceReplace<GenericElement>(
+function findAndSpliceReplace<
+	GenericElement extends unknown
+>(
 	predicate: (
 		element: GenericElement,
 		params: { index: number }
 	) => boolean,
 	elements: GenericElement[]
-): (array: readonly GenericElement[]) => GenericElement[] | undefined
+): (input: readonly GenericElement[]) => GenericElement[] | undefined
 ```
 
 ## Paramètres
 
-- `array` : Tableau à modifier.
+- `input` : Tableau à modifier.
 - `predicate` : Condition pour trouver la position à remplacer.
 - `elements` : Valeurs qui remplaceront celles présentes à partir de l'index trouvé. Leur nombre détermine combien d'éléments sont écrasés.
 

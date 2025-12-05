@@ -25,8 +25,10 @@ La fonction **`spliceInsert()`** insère un tableau d'éléments à un index pr�
 ### Signature classique
 
 ```typescript
-function spliceInsert<GenericElement>(
-	array: readonly GenericElement[],
+function spliceInsert<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	indexFrom: number,
 	elements: GenericElement[]
 ): GenericElement[]
@@ -35,15 +37,17 @@ function spliceInsert<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function spliceInsert<GenericElement>(
+function spliceInsert<
+	GenericElement extends unknown
+>(
 	indexFrom: number,
 	elements: GenericElement[]
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
+- `input` : Tableau source.
 - `indexFrom` : Position à laquelle insérer les nouvelles valeurs.
 - `elements` : Tableau des valeurs à insérer.
 

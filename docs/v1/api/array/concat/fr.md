@@ -25,8 +25,10 @@ La fonction **`concat()`** fusionne plusieurs tableaux en un nouveau tableau con
 ### Signature classique
 
 ```typescript
-function concat<GenericElement>(
-	array: readonly GenericElement[],
+function concat<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	elements: readonly GenericElement[],
 	...elementsRest: readonly GenericElement[][]
 ): GenericElement[]
@@ -35,14 +37,16 @@ function concat<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function concat<GenericElement>(
+function concat<
+	GenericElement extends unknown
+>(
 	elements: readonly GenericElement[]
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau de base.
+- `input` : Tableau de base.
 - `elements`, `...elementsRest` : Tableaux supplémentaires à enchaîner.
 
 ## Valeur de retour

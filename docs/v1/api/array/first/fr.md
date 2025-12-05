@@ -23,16 +23,18 @@ La méthode **`first()`** retourne le premier élément d'un tableau.
 ## Syntaxe
 
 ```typescript
-function first<GenericArray extends readonly unknown[]>(
-	array: GenericArray
-): GenericArray extends AnyTuple 
-	? GenericArray[0] 
-	: GenericArray[number] | undefined
+function first<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput
+): GenericInput extends AnyTuple 
+	? GenericInput[0] 
+	: GenericInput[number] | undefined
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dont on veut récupérer le premier élément.
+- `input` : Le tableau dont on veut récupérer le premier élément.
 
 ## Valeur de retour
 

@@ -23,16 +23,18 @@ La méthode **`last()`** retourne le dernier élément d'un tableau.
 ## Syntaxe
 
 ```typescript
-function last<GenericArray extends readonly unknown[]>(
-	array: GenericArray
-): GenericArray extends readonly [...any[], infer InferredValue] 
+function last<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput
+): GenericInput extends readonly [...any[], infer InferredValue] 
 	? InferredValue 
-	: GenericArray[number] | undefined
+	: GenericInput[number] | undefined
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dont on veut récupérer le dernier élément.
+- `input` : Le tableau dont on veut récupérer le dernier élément.
 
 ## Valeur de retour
 

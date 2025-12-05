@@ -25,8 +25,10 @@ La fonction **`unshift()`** ajoute un ou plusieurs éléments au début du table
 ### Signature classique
 
 ```typescript
-function unshift<GenericElement>(
-	array: readonly GenericElement[],
+function unshift<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	element: NoInfer<GenericElement>,
 	...elements: NoInfer<GenericElement>[]
 ): GenericElement[]
@@ -35,14 +37,16 @@ function unshift<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function unshift<GenericElement>(
+function unshift<
+	GenericElement extends unknown
+>(
 	element: NoInfer<GenericElement>
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
+- `input` : Tableau source.
 - `element`, `...elements` : Valeurs insérées au début (dans l'ordre fourni).
 
 ## Valeur de retour

@@ -25,34 +25,38 @@ La fonction **`fill()`** remplit une portion d'un tableau avec une valeur donné
 ### Signature classique
 
 ```typescript
-function fill<GenericElement>(
-	array: readonly GenericElement[],
-	value: GenericElement,
-	start: number,
+function fill<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
+	element: GenericElement, 
+	start: number, 
 	end: number
-): GenericElement[]
+): GenericElement[];
 ```
 
 ### Signature currifiée
 
 ```typescript
-function fill<GenericElement>(
-	value: GenericElement,
-	start: number,
+function fill<
+	GenericElement extends unknown
+>(
+	element: GenericElement, 
+	start: number, 
 	end: number
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[];
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
-- `input` : Valeur qui remplacera chaque élément de la section ciblée.
+- `input` : Tableau source.
+- `element` : Valeur qui remplacera chaque élément de la section ciblée.
 - `start` : Index de début (inclus).
 - `end` : Index de fin (exclus).
 
 ## Valeur de retour
 
-Un nouveau tableau dont la section `[start, end)` contient `input`. Le reste du tableau reste inchangé.
+Un nouveau tableau dont la section `[start, end)` contient `element`. Le reste du tableau reste inchangé.
 
 ## Voir aussi
 

@@ -1,11 +1,17 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
-const fallbacks = [undefined, null, "value", "backup"] as const;
+const result = A.coalescing("test");
 
-const result = A.coalescing(fallbacks);
-// result: "value"
+type check1 = ExpectType<
+	typeof result,
+	["test"],
+	"strict"
+>;
 
-const pureNullish = [undefined, null] as const;
+const result2 = A.coalescing(result);
 
-const result2 = A.coalescing(pureNullish);
-// result2: undefined
+type check2 = ExpectType<
+	typeof result2,
+	["test"],
+	"strict"
+>;

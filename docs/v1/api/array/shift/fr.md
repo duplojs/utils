@@ -23,14 +23,16 @@ La fonction **`shift()`** retire le premier élément d'un tableau et renvoie un
 ## Syntaxe
 
 ```typescript
-function shift<const GenericArray extends readonly unknown[]>(
-	array: GenericArray
-): GenericArray extends AnyTuple ? ShiftTuple<GenericArray> : GenericArray
+function shift<
+	const GenericInput extends readonly unknown[]
+>(
+	input: GenericInput
+): GenericInput extends AnyTuple ? ShiftTuple<GenericInput> : GenericInput
 ```
 
 ## Paramètres
 
-- `array` : Tableau dont on veut retirer le premier élément.
+- `input` : Tableau dont on veut retirer le premier élément.
 
 ## Valeur de retour
 

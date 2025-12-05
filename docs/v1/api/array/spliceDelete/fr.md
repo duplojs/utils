@@ -25,25 +25,29 @@ La fonction **`spliceDelete()`** supprime un nombre donné d'éléments à parti
 ### Signature classique
 
 ```typescript
-function spliceDelete<GenericElement>(
-	array: readonly GenericElement[],
+function spliceDelete<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput,
 	indexTo: number,
 	deleteCount: number
-): GenericElement[]
+): GenericInput
 ```
 
 ### Signature currifiée
 
 ```typescript
-function spliceDelete<GenericElement>(
+function spliceDelete<
+	GenericInput extends readonly unknown[]
+>(
 	indexTo: number,
 	deleteCount: number
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: GenericInput) => GenericInput
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
+- `input` : Tableau source.
 - `indexTo` : Index où débute la suppression.
 - `deleteCount` : Nombre d'éléments à retirer.
 

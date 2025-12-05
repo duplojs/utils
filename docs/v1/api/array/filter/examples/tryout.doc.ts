@@ -1,4 +1,4 @@
-import { A, N } from "@duplojs/utils";
+import { A, type ExpectType, N } from "@duplojs/utils";
 
 const input = [
 	{
@@ -31,3 +31,25 @@ const result = A.filter(
 //  { id: "T2", status: "done", estimate: 8 },
 //  { id: "T4", status: "todo", estimate: 13 },
 // ]
+
+type check = ExpectType<
+	typeof result,
+	({
+		readonly id: "T1";
+		readonly status: "todo";
+		readonly estimate: 2;
+	} | {
+		readonly id: "T2";
+		readonly status: "done";
+		readonly estimate: 8;
+	} | {
+		readonly id: "T3";
+		readonly status: "done";
+		readonly estimate: 5;
+	} | {
+		readonly id: "T4";
+		readonly status: "todo";
+		readonly estimate: 13;
+	})[],
+	"strict"
+>;

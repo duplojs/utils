@@ -1,4 +1,4 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
 const input = {
 	name: "John",
@@ -14,4 +14,9 @@ const result = A.toTuple(
 		(value) => value.city,
 	],
 );
-// result: ["John", 30, "Paris"]
+
+type check = ExpectType<
+	typeof result,
+	["John", 30, "Paris"],
+	"strict"
+>;

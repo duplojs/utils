@@ -1,6 +1,6 @@
 import { A, N } from "@duplojs/utils";
 
-const input = [5, 10, 15] as const;
+const input = [5, 10, 15];
 
 const result = A.map(
 	input,

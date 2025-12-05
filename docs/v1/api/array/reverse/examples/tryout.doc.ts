@@ -1,11 +1,11 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
 const input = ["todo", "inProgress", "done"] as const;
 
 const result = A.reverse(input);
-// result: ["done", "inProgress", "todo"]
 
-const input2 = [1, 2, 3, 4] as const;
-
-const result2 = A.reverse(input2);
-// result2: [4, 3, 2, 1]
+type check = ExpectType<
+	typeof result,
+	["done", "inProgress", "todo"],
+	"strict"
+>;

@@ -1,4 +1,4 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
 const input = [
 	{
@@ -25,10 +25,12 @@ const result = A.flatMap(
 		}),
 	),
 );
-// result: [
-//  { id: "C1", tag: "web" },
-//  { id: "C1", tag: "js" },
-//  { id: "C2", tag: "infra" },
-//  { id: "C3", tag: "api" },
-//  { id: "C3", tag: "queue" },
-// ]
+
+type check = ExpectType<
+	typeof result,
+	{
+		id: "C1" | "C2" | "C3";
+		tag: "api" | "queue" | "web" | "js" | "infra";
+	}[],
+	"strict"
+>;

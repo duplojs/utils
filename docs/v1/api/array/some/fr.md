@@ -25,23 +25,33 @@ La méthode **`some()`** vérifie si au moins un élément d'un tableau satisfai
 ### Signature classique
 
 ```typescript
-function some<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
-	predicate: (element: GenericElement, params: { index: number }) => boolean
+function some<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: { index: number }
+	) => boolean
 ): boolean
 ```
 
 ### Signature currifiée
 
 ```typescript
-function some<GenericArray extends readonly unknown[]>(
-	predicate: (element: GenericArray[number], params: { index: number }) => boolean
-): (array: GenericArray) => boolean
+function some<
+	GenericInput extends readonly unknown[]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: { index: number }
+	) => boolean
+): (array: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `array` : Le tableau à tester.
+- `input` : Le tableau à tester.
 - `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
 
 ## Valeur de retour

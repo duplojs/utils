@@ -25,24 +25,68 @@ La méthode **`findLast()`** retourne le dernier élément d'un tableau qui sati
 ### Signature classique
 
 ```typescript
-function findLast<GenericElement extends unknown>(
-	input: readonly GenericElement[], 
-	predicate: (element: GenericElement, params: { index: number }) => boolean
-): GenericElement | undefined
+// Type Guard
+function findLast<
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastParams
+	) => element is GenericOutput
+): GenericOutput | undefined
+
+// Boolean
+function findLast<
+	GenericInput extends readonly unknown[]
+>(
+	input: GenericInput, 
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastParams
+	) => boolean
+): GenericInput[number] | undefined
 ```
 
 ### Signature currifiée
 
 ```typescript
-function findLast<GenericArray extends readonly unknown[]>(
-	predicate: (element: GenericArray[number], params: { index: number }) => boolean
-): (input: GenericArray) => GenericArray[number] | undefined
+// Type Guard
+function findLast<
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastParams
+	) => element is GenericOutput
+): (input: GenericInput) => GenericOutput | undefined
+
+// Boolean
+function findLast<
+	GenericInput extends readonly unknown[]
+>(
+	predicate: (
+		element: GenericInput[number], 
+		params: ArrayFindLastParams
+	) => boolean
+): (input: GenericInput) => GenericInput[number] | undefined
+```
+
+### Paramètres auxiliaires
+
+```typescript
+interface ArrayFindLastParams {
+	index: number;
+}
 ```
 
 ## Paramètres
 
 - `input` : Le tableau dans lequel rechercher.
-- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
+- `predicate` : Fonction de prédicat qui teste chaque élément (et peut agir en type guard). Reçoit l'élément et un objet contenant l'index.
+- `params.index` : Position de l'élément en cours dans le tableau.
 
 ## Valeur de retour
 

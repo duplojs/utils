@@ -23,7 +23,9 @@ La méthode **`length()`** retourne la longueur d'un tableau.
 ## Syntaxe
 
 ```typescript
-function length<GenericInput extends readonly unknown[]>(
+function length<
+	GenericInput extends readonly unknown[]
+>(
 	input: GenericInput
 ): GenericInput["length"]
 ```

@@ -1,4 +1,4 @@
-import { A, pipe } from "@duplojs/utils";
+import { A, type ExpectType, pipe } from "@duplojs/utils";
 
 const input = [
 	{
@@ -32,18 +32,13 @@ const result = A.group(
 	input,
 	(task, { output }) => output(task.status, task.title),
 );
-// result: {
-//  todo: ["Setup the editor", "Create an example"],
-//  inProgress: ["Write the docs"],
-//  done: ["Update the tests", "Review the changes"],
-// }
 
-const result2 = pipe(
-	input,
-	A.group((task, { output }) => output(task.status, task.id)),
-);
-// result2: {
-//  todo: ["T1", "T4"],
-//  inProgress: ["T2"],
-//  done: ["T3", "T5"],
-// }
+type check = ExpectType<
+	typeof result,
+	{
+		todo?: ("Setup the editor" | "Write the docs" | "Update the tests" | "Create an example" | "Review the changes")[] | undefined;
+		inProgress?: ("Setup the editor" | "Write the docs" | "Update the tests" | "Create an example" | "Review the changes")[] | undefined;
+		done?: ("Setup the editor" | "Write the docs" | "Update the tests" | "Create an example" | "Review the changes")[] | undefined;
+	},
+	"strict"
+>;

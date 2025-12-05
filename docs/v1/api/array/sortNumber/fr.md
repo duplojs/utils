@@ -22,13 +22,17 @@ La méthode **`sortNumber()`** trie un tableau de nombres en ordre croissant (`"
 
 ## Syntaxe
 
+```typescript
+type Sort = "asc" | "dsc";
+```
+
 ### Signature classique
 
 ```typescript
-type Sort = "asc" | "dsc";
-
-function sortNumber<GenericArray extends readonly number[]>(
-	array: GenericArray,
+function sortNumber<
+	GenericInput extends readonly number[]
+>(
+	input: GenericInput,
 	sort: Sort
 ): number[]
 ```
@@ -36,16 +40,16 @@ function sortNumber<GenericArray extends readonly number[]>(
 ### Signature currifiée
 
 ```typescript
-type Sort = "asc" | "dsc";
-
-function sortNumber<GenericArray extends readonly number[]>(
+function sortNumber<
+	GenericInput extends readonly number[]
+>(
 	sort: Sort
-): (array: GenericArray) => number[]
+): (input: GenericInput) => number[]
 ```
 
 ## Paramètres
 
-- `array` : Le tableau de nombres à trier.
+- `input` : Le tableau de nombres à trier.
 - `sort` : L'ordre désiré (`"asc"` pour croissant, `"dsc"` pour décroissant).
 
 ## Valeur de retour

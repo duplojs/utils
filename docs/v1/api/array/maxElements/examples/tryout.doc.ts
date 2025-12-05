@@ -1,11 +1,11 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
-const input = ["todo", "inProgress"] as const;
+const input = ["todo", "inProgress"];
 
-const result = A.maxElements(input, 3);
-// result: true
-
-const backlog = ["todo", "inProgress", "done", "archived"] as const;
-
-const result2 = A.maxElements(backlog, 3);
-// result2: false
+if (A.maxElements(input, 3)) {
+	type check = ExpectType<
+		typeof input,
+		string[],
+		"strict"
+	>;
+}

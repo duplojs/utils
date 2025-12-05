@@ -1,9 +1,11 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
-const input = [10, 20, 30, 40, 50];
+const input = ["hello", 42, true] as const;
+
 const result = A.first(input);
-// result: 10
 
-const tuple = ["hello", 42, true] as const;
-const result2 = A.first(tuple);
-// result2: "hello"
+type check = ExpectType<
+	typeof result,
+	"hello",
+	"strict"
+>;

@@ -25,8 +25,10 @@ La méthode **`indexOf()`** retourne l'index de la première occurrence d'un él
 ### Signature classique
 
 ```typescript
-function indexOf<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
+function indexOf<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[], 
 	element: GenericElement, 
 	fromIndex?: number
 ): number | undefined
@@ -35,14 +37,16 @@ function indexOf<GenericElement extends unknown>(
 ### Signature currifiée
 
 ```typescript
-function indexOf<GenericElement extends unknown>(
+function indexOf<
+	GenericElement extends unknown
+>(
 	element: GenericElement
-): (array: readonly GenericElement[]) => number | undefined
+): (input: readonly GenericElement[]) => number | undefined
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dans lequel rechercher.
+- `input` : Le tableau dans lequel rechercher.
 - `element` : L'élément à rechercher.
 - `fromIndex` : L'index de départ pour la recherche (optionnel).
 

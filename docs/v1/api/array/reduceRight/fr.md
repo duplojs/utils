@@ -17,7 +17,7 @@ La méthode **`reduceRight()`** fonctionne comme `reduce()` mais parcourt le tab
 <MonacoTSEditor
   src="/v1/api/array/reduceRight/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="640px"
+  height="400px"
 />
 
 ## Syntaxe
@@ -26,15 +26,15 @@ La méthode **`reduceRight()`** fonctionne comme `reduce()` mais parcourt le tab
 
 ```typescript
 function reduceRight<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput[number],
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit
@@ -45,19 +45,19 @@ function reduceRight<
 
 ```typescript
 function reduceRight<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput[number],
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit
 ): (
-	array: readonly GenericElement[]
+	input: GenericInput
 ) => ArrayReduceFromValue<GenericReduceFrom> | (IsEqual<GenericExit, ArrayReduceExit> extends true ? never : GenericExit["-exit"])
 ```
 

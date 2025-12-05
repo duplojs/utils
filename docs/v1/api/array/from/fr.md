@@ -17,21 +17,22 @@ La méthode **`from()`** crée un tableau à partir d'un itérable, d'un objet a
 <MonacoTSEditor
   src="/v1/api/array/from/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="550px"
+  :foldLines="[5,14,28]"
 />
 
 ## Syntaxe
 
 ```typescript
 function from<
-	const GenericArray extends (ArrayLike<unknown> | Iterable<unknown> | AsyncIterable<unknown>)
+	const GenericInput extends (ArrayLike<unknown> | Iterable<unknown> | AsyncIterable<unknown>)
 >(
-	input: GenericArray
-): GenericArray extends AsyncIterable<infer InferredValue> 
+	input: GenericInput
+): GenericInput extends AsyncIterable<infer InferredValue> 
 	? Promise<InferredValue[]> 
-	: GenericArray extends Iterable<infer InferredValue> 
+	: GenericInput extends Iterable<infer InferredValue> 
 		? InferredValue[] 
-		: GenericArray extends ArrayLike<infer InferredValue> 
+		: GenericInput extends ArrayLike<infer InferredValue> 
 			? InferredValue[] 
 			: never
 ```

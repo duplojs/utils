@@ -23,18 +23,20 @@ La fonction **`minOf()`** retourne la plus petite valeur numérique d'un tableau
 ## Syntaxe
 
 ```typescript
-function minOf<GenericArray extends readonly number[]>(
-	values: GenericArray
+function minOf<
+	GenericInput extends readonly number[]
+>(
+	input: GenericArray
 ): number | undefined
 ```
 
 ## Paramètres
 
-- `values` : Tableau de nombres à analyser.
+- `input` : Tableau de nombres à analyser.
 
 ## Valeur de retour
 
-Le plus petit nombre présent dans `values`, ou `undefined` si le tableau est vide.
+Le plus petit nombre présent dans `input`, ou `undefined` si le tableau est vide.
 
 ## Voir aussi
 

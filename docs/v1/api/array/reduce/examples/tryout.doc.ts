@@ -1,4 +1,4 @@
-import { A, N, pipe } from "@duplojs/utils";
+import { A, type ExpectType, N, pipe } from "@duplojs/utils";
 
 const input = [
 	{
@@ -20,7 +20,12 @@ const result = A.reduce(
 	0,
 	({ element, lastValue, next }) => next(N.add(lastValue, element.amount)),
 );
-// result: 1120
+
+type check = ExpectType<
+	typeof result,
+	number,
+	"strict"
+>;
 
 const result2 = pipe(
 	input,
@@ -35,4 +40,12 @@ const result2 = pipe(
 		}),
 	),
 );
-// result2: { total: 1120, count: 3 }
+
+type check2 = ExpectType<
+	typeof result2,
+	{
+		total: number;
+		count: number;
+	},
+	"strict"
+>;

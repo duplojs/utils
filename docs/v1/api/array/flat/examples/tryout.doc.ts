@@ -1,24 +1,15 @@
-import { A } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
-const input = [
-	["feature", "request"],
-	["bug", "fix"],
-] as const;
+const input = [["frontend", ["ui", "ux"]], [["backend"], ["api", ["queue"]]]] as const;
 
-const result = A.flat(input);
-// result: ["feature", "request", "bug", "fix"]
+const result = A.flat(
+	input,
+	2,
+);
 
-const input2 = [
-	["frontend", ["ui", "ux"]],
-	[["backend"], ["api", ["queue"]]],
-] as const;
+type check = ExpectType<
+	typeof result,
+	("frontend" | "ui" | "ux" | "backend" | "api" | readonly ["queue"])[],
+	"strict"
+>;
 
-const result2 = A.flat(input2, 2);
-// result2: [
-//  "frontend",
-//  "ui",
-//  "ux",
-//  "backend",
-//  "api",
-//  "queue",
-// ]

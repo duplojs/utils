@@ -26,15 +26,17 @@ La méthode **`at()`** retourne l'élément à un index donné (supporte les ind
 
 ```typescript
 function at<
-	GenericTuple extends readonly unknown[], 
+	GenericInputTuple extends readonly unknown[], 
 	GenericIndex extends number
 >(
-	array: GenericTuple, 
+	input: GenericInputTuple, 
 	index: GenericIndex
-): AtTuple<GenericTuple, GenericIndex>
+): AtTuple<GenericInputTuple, GenericIndex>
 
-function at<GenericElement extends unknown>(
-	array: readonly GenericElement[], 
+function at<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[], 
 	index: number
 ): GenericElement | undefined
 ```
@@ -43,20 +45,22 @@ function at<GenericElement extends unknown>(
 
 ```typescript
 function at<
-	GenericTuple extends readonly unknown[], 
+	GenericInputTuple extends readonly unknown[], 
 	GenericIndex extends number
 >(
 	index: GenericIndex
-): (array: GenericTuple) => AtTuple<GenericTuple, GenericIndex>
+): (input: GenericInputTuple) => AtTuple<GenericInputTuple, GenericIndex>
 
-function at<GenericElement extends unknown>(
+function at<
+	GenericElement extends unknown
+>(
 	index: number
-): (array: readonly GenericElement[]) => GenericElement | undefined
+): (input: readonly GenericElement[]) => GenericElement | undefined
 ```
 
 ## Paramètres
 
-- `array` : Le tableau dont on veut récupérer un élément.
+- `input` : Le tableau dont on veut récupérer un élément.
 - `index` : L'index de l'élément à récupérer (peut être négatif pour compter depuis la fin).
 
 ## Valeur de retour

@@ -1,17 +1,12 @@
-import { A, pipe } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
-const input = ["login", "dashboard", "settings"] as const;
+const input = ["login", "dashboard", "settings"];
 
-const result = A.minElements(input, 2);
-// result: true (input est typé avec ≥ 2 éléments)
+if (A.minElements(input, 2)) {
+	type check = ExpectType<
+		typeof input,
+		[string, string, ...string[]],
+		"strict"
+	>;
+}
 
-const shortList = ["draft"] as const;
-
-const result2 = A.minElements(shortList, 2);
-// result2: false
-
-const result3 = pipe(
-	input,
-	A.minElements(3),
-);
-// result3: true

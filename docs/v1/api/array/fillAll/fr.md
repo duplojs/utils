@@ -25,28 +25,32 @@ La fonction **`fillAll()`** remplace tous les éléments d'un tableau par une va
 ### Signature classique
 
 ```typescript
-function fillAll<GenericElement>(
-	array: readonly GenericElement[],
-	value: GenericElement
+function fillAll<
+	GenericElement extends unknown 
+>(
+	input: readonly GenericElement[],
+	element: GenericElement
 ): GenericElement[]
 ```
 
 ### Signature currifiée
 
 ```typescript
-function fillAll<GenericElement>(
-	value: GenericElement
-): (array: readonly GenericElement[]) => GenericElement[]
+function fillAll<
+	GenericElement extends unknown
+>(
+	element: GenericElement
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
-- `input` : Valeur qui sera copiée à chaque position.
+- `input` : Tableau source.
+- `element` : Valeur qui sera copiée à chaque position.
 
 ## Valeur de retour
 
-Un nouveau tableau où tous les éléments valent `input`.
+Un nouveau tableau où tous les éléments valent `element`.
 
 ## Voir aussi
 

@@ -25,8 +25,10 @@ La fonction **`copyWithin()`** copie une portion du tableau vers un autre emplac
 ### Signature classique
 
 ```typescript
-function copyWithin<GenericElement>(
-	array: readonly GenericElement[],
+function copyWithin<
+	GenericElement extends unknown
+>(
+	input: readonly GenericElement[],
 	target: number,
 	start: number,
 	end?: number
@@ -36,16 +38,18 @@ function copyWithin<GenericElement>(
 ### Signature currifiée
 
 ```typescript
-function copyWithin<GenericElement>(
+function copyWithin<
+	GenericElement extends unknown
+>(
 	target: number,
 	start: number,
 	end?: number
-): (array: readonly GenericElement[]) => GenericElement[]
+): (input: readonly GenericElement[]) => GenericElement[]
 ```
 
 ## Paramètres
 
-- `array` : Tableau source.
+- `input` : Tableau source.
 - `target` : Index à partir duquel la portion copiée sera écrite.
 - `start` : Début de la portion à copier (inclus).
 - `end` : Fin de la portion (exclus). Par défaut, la fin du tableau.

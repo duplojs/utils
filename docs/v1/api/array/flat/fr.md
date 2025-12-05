@@ -17,24 +17,24 @@ La méthode **`flat()`** aplati un tableau imbriqué jusqu'à la profondeur dema
 <MonacoTSEditor
   src="/v1/api/array/flat/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="400px"
 />
 
 ## Syntaxe
 
 ```typescript
 function flat<
-	const GenericArray extends readonly unknown[],
-	const Depth extends number = 1
+	const GenericInput extends readonly unknown[],
+	const GenericDepth extends number = 1
 >(
-	array: GenericArray,
-	depth?: Depth
-): FlatArray<GenericArray, Depth>[]
+	input: GenericInput,
+	depth?: GenericDepth
+): FlatArray<GenericInput, GenericDepth>[]
 ```
 
 ## Paramètres
 
-- `array` : Le tableau potentiellement imbriqué à aplatir.
+- `input` : Le tableau potentiellement imbriqué à aplatir.
 - `depth` : Le nombre de niveaux à dérouler. Par défaut `1`.
 
 ## Valeur de retour

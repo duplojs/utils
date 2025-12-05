@@ -1,6 +1,6 @@
-import { A, S, equal, pipe } from "@duplojs/utils";
+import { A, S, equal } from "@duplojs/utils";
 
-const input = ["Docs", "API", "Array"] as const;
+const input = ["Docs", "API", "Array"];
 
 const result = A.reduceRight(
 	input,
@@ -12,13 +12,4 @@ const result = A.reduceRight(
 		return next(S.concat(element, " / ", lastValue));
 	},
 );
-// result: "Docs / API / Array"
-
-const result2 = pipe(
-	input,
-	A.reduceRight(
-		"",
-		({ element, lastValue, next }) => next(S.concat("[", element, "]", lastValue)),
-	),
-);
-// result2: "[Docs][API][Array]"
+// result: "Array / API / Docs"
