@@ -6,7 +6,7 @@ describe("base parser", () => {
 	const dataParserTestKind = createDataParserKind("checker-test");
 
 	it("dataParserCheckerInit", () => {
-		const exec = (input: AnyValue) => input;
+		const exec = (input: unknown) => input;
 
 		const result = DDataParser.dataParserCheckerInit(
 			dataParserTestKind as never,

@@ -118,14 +118,12 @@ export function createKind<
 	GenericKindValue extends unknown = unknown,
 >(
 	name: GenericName & ForbiddenKindCharacters<GenericName>,
-) {
-	type $<
-		GenericName extends string,
-	> = KindDefinition<
-		GenericName,
-		GenericKindValue
-	>;
-
+): KindHandler<
+		KindDefinition<
+			GenericName,
+			GenericKindValue
+		>
+	> {
 	const runTimeKey = `${keyKindPrefix}${name}`;
 
 	return {
@@ -159,7 +157,7 @@ export function createKind<
 		getValue(input) {
 			return input[runTimeKey as never];
 		},
-	} satisfies KindHandler<$<GenericName>> as KindHandler<$<GenericName>>;
+	};
 }
 
 export interface ReservedKindNamespace {
@@ -167,6 +165,7 @@ export interface ReservedKindNamespace {
 	DuplojsUtilsDataParser: true;
 	DuplojsUtilsBuilder: true;
 	DuplojsUtilsError: true;
+	DuplojsUtilsClean: true;
 }
 
 type ForbiddenKindNamespace<
@@ -192,14 +191,12 @@ export function createKindNamespace<
 	) => {
 		const kindHandler = createKind(`@${namespace}/${name}`);
 
-		type $<
-			GenericName extends string,
-		> = KindDefinition<
-			GenericName,
-			GenericKindValue
+		return kindHandler as KindHandler<
+			KindDefinition<
+				`@${GenericNamespace}/${GenericName}`,
+				GenericKindValue
+			>
 		>;
-
-		return kindHandler as KindHandler<$<`@${GenericNamespace}/${GenericName}`>>;
 	};
 }
 
@@ -225,11 +222,7 @@ export function kindHeritage<
 	kind: GenericKindHandler | GenericKindHandler[],
 	parent?: GenericParent,
 ) {
-	type $<
-		GenericName extends string,
-	> = KindDefinition<GenericName>;
-
-	const uniqueKind = createKind(uniqueName as string) as KindHandler<$<GenericUniqueName>>;
+	const uniqueKind = createKind(uniqueName as string) as KindHandler<KindDefinition<GenericUniqueName>>;
 
 	const kinds = kind instanceof Array
 		? kind

@@ -27,7 +27,7 @@ export type DataParserLiteralCheckers<
 );
 
 export interface DataParserDefinitionLiteral extends DataParserDefinition<DataParserLiteralCheckers> {
-	readonly value: LiteralValue[];
+	readonly value: readonly LiteralValue[];
 }
 
 export const literalKind = createDataParserKind("literal");

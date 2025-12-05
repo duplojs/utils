@@ -117,7 +117,9 @@ describe("base extended", () => {
 	});
 
 	it("method who add checker", () => {
-		const schema = DDataParser.extended.number().min(5).max(10);
+		const schema = DDataParser.extended.number()
+			.min(5)
+			.max(10);
 
 		expect(schema.parse(5)).toStrictEqual(
 			DEither.success(5),

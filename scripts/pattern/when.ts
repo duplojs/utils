@@ -1,4 +1,4 @@
-import { type AnyValue, type AnyFunction, type BreakGenericLink } from "@scripts/common";
+import { type AnyValue, type AnyFunction, type BreakGenericLink, type EscapeVoid } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
 export function when<
@@ -6,7 +6,7 @@ export function when<
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
 		input: GenericInputValue
@@ -20,7 +20,7 @@ export function when<
 	)
 ) => (
 	| GenericInputPatternResult
-	| Exclude<BreakGenericLink<GenericInputValue>, GenericPredicatedInput>
+	| Exclude<BreakGenericLink<GenericInput>, GenericPredicatedInput | PatternResult>
 	| PatternResult<GenericOutput>
 );
 
@@ -28,7 +28,7 @@ export function when<
 	GenericInput extends AnyValue,
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
 		input: GenericInputValue
@@ -51,7 +51,7 @@ export function when<
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: (
 		| GenericInput
@@ -64,7 +64,7 @@ export function when<
 	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput
 ): (
 	| GenericInputPatternResult
-	| Exclude<GenericInputValue, GenericPredicatedInput>
+	| Exclude<BreakGenericLink<GenericInput>, GenericPredicatedInput | PatternResult>
 	| PatternResult<GenericOutput>
 );
 
@@ -72,7 +72,7 @@ export function when<
 	GenericInput extends AnyValue,
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
-	GenericOutput extends AnyValue,
+	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	input: (
 		| GenericInput

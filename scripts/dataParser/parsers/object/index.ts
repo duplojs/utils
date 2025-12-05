@@ -178,7 +178,7 @@ export function object<
 					}
 				}
 
-				popErrorPath(error);
+				void (self.definition.optimizedShape.value.length && popErrorPath(error));
 
 				return output;
 			},
@@ -212,7 +212,7 @@ export function object<
 					}
 				}
 
-				popErrorPath(error);
+				void (self.definition.optimizedShape.value.length && popErrorPath(error));
 
 				return output;
 			},
