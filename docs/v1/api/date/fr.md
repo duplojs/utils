@@ -4,8 +4,8 @@ prev:
   text: "DataParser"
   link: "/v1/api/data-parser/fr"
 next:
-  text: "Référence API"
-  link: "/v1/api/fr"
+  text: "Clean"
+  link: "/v1/api/clean/fr"
 ---
 
 # Date
