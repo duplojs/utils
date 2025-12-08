@@ -17,7 +17,7 @@ La fonction **`asyncFilter()`** filtre les éléments d'un générateur selon un
 <MonacoTSEditor
   src="/v1/api/generator/asyncFilter/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="450px"
 />
 
 ## Syntaxe
@@ -30,7 +30,10 @@ function asyncFilter<
 	GenericOutput extends GenericElement,
 >(
 	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>,
-	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => item is GenericOutput
+	predicate: (
+		item: GenericElement, 
+		params: AsyncGeneratorFilterParams
+	) => item is GenericOutput
 ): AsyncGenerator<GenericOutput, unknown, unknown>
 ```
 
@@ -41,7 +44,10 @@ function asyncFilter<
 	GenericElement extends unknown,
 >(
 	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>,
-	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => boolean
+	predicate: (
+		item: GenericElement, 
+		params: AsyncGeneratorFilterParams
+	) => boolean
 ): AsyncGenerator<GenericElement, unknown, unknown>
 ```
 
@@ -51,7 +57,10 @@ function asyncFilter<
 function asyncFilter<
 	GenericElement extends unknown,
 >(
-	predicate: (item: GenericElement, params: AsyncGeneratorFilterParams) => boolean
+	predicate: (
+		item: GenericElement, 
+		params: AsyncGeneratorFilterParams
+	) => boolean
 ): (
 	iterator: Iterable<GenericElement> | AsyncIterable<GenericElement>
 ) => AsyncGenerator<GenericElement, unknown, unknown>

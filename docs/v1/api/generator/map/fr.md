@@ -17,7 +17,7 @@ La fonction **`map()`** transforme chaque élément d'un générateur en appliqu
 <MonacoTSEditor
   src="/v1/api/generator/map/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="450px"
+  height="400px"
 />
 
 ## Syntaxe
@@ -30,7 +30,10 @@ function map<
 	const GenericOutput extends unknown,
 >(
 	iterator: Iterable<GenericInput>,
-	theFunction: (arg: GenericInput, params: GeneratorMapParams) => GenericOutput
+	theFunction: (
+		arg: GenericInput, 
+		params: GeneratorMapParams
+	) => GenericOutput
 ): Generator<GenericOutput, unknown, unknown>
 ```
 
@@ -41,7 +44,10 @@ function map<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,
 >(
-	theFunction: (arg: GenericInput, params: GeneratorMapParams) => GenericOutput
+	theFunction: (
+		arg: GenericInput, 
+		params: GeneratorMapParams
+	) => GenericOutput
 ): (iterator: Iterable<GenericInput>) => Generator<GenericOutput, unknown, unknown>
 ```
 

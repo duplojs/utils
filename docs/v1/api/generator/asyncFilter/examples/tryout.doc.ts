@@ -1,11 +1,20 @@
-import { G, N, equal } from "@duplojs/utils";
+import { G } from "@duplojs/utils";
 
-const divisor = 2;
-const remainder = 0;
-const input = [0, 1, 2, 3, 4, 5];
+const ids = [201, 202, 203, 204];
 
-const result = G.asyncFilter(
-	input,
-	(value) => equal(N.modulo(value, divisor), remainder),
+const response = await fetch("https://api.example.com/orders/status");
+const { statuses } = await response.json() as {
+	statuses: {
+		id: number;
+		status: string;
+	}[];
+};
+const statusById = new Map(statuses.map(({ id, status }) => [id, status]));
+
+const iterator = G.asyncFilter(ids, (id) => statusById.get(id) === "paid");
+
+const result = await G.asyncReduce(
+	iterator,
+	G.reduceFrom<number[]>([]),
+	({ element, lastValue, next }) => next([...lastValue, element]),
 );
-// result: AsyncGenerator<number, unknown, unknown>

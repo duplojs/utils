@@ -1,16 +1,16 @@
-import { G, N, pipe } from "@duplojs/utils";
+import { G, pipe } from "@duplojs/utils";
 
-const multiplier = 2;
-const input = [0, 1, 2];
+const ids = [1, 2, 3];
 
 const result = await pipe(
-	input,
-	G.asyncMap(async(value) => Promise.resolve(
-		N.multiply(value, multiplier),
-	)),
+	ids,
+	G.asyncMap(async(id) => {
+		const response = await fetch(`https://api.example.com/items/${id}`);
+		const { price } = await response.json() as { price: number };
+		return price;
+	}),
 	G.asyncReduce(
 		G.reduceFrom<number[]>([]),
 		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );
-// result: [0, 2, 4]

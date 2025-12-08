@@ -1,18 +1,16 @@
-import { G, equal, whenElse } from "@duplojs/utils";
+import { G, pipe } from "@duplojs/utils";
 
-const maxValue = 5;
-const result = G.loop(
-	(
-		{
-			count,
-			next,
-			exit,
-		}: G.GeneratorLoopParams<number>,
-	) => whenElse(
-		count,
-		equal(maxValue),
-		exit,
-		next,
+const limit = 4;
+
+const result = pipe(
+	G.loop(({ count, next, exit }: G.GeneratorLoopParams<number>) => {
+		if (count > limit) {
+			return exit();
+		}
+		return next(count * 2);
+	}),
+	G.reduce(
+		G.reduceFrom<number[]>([]),
+		({ element, lastValue, next }) => next([...lastValue, element]),
 	),
 );
-// result: Generator<number, unknown, unknown>

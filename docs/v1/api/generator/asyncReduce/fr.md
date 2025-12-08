@@ -3,6 +3,9 @@ outline: [2, 3]
 prev:
   text: "reduce"
   link: "/v1/api/generator/reduce/fr"
+next:
+  text: "Generator"
+  link: "/v1/api/generator/fr"
 ---
 
 # asyncReduce
@@ -14,7 +17,7 @@ La fonction **`asyncReduce()`** réduit un générateur à une seule valeur en a
 <MonacoTSEditor
   src="/v1/api/generator/asyncReduce/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="400px"
 />
 
 ## Syntaxe

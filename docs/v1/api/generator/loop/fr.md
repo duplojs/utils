@@ -17,7 +17,7 @@ La fonction **`loop()`** crée un générateur personnalisé en utilisant une fo
 <MonacoTSEditor
   src="/v1/api/generator/loop/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="450px"
+  height="400px"
 />
 
 ## Syntaxe

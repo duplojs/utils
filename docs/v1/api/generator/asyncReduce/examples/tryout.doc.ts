@@ -1,9 +1,13 @@
 import { G, N } from "@duplojs/utils";
 
-const input = [0, 1, 2, 3, 4];
+const values = [10, 20, 30];
+
 const result = await G.asyncReduce(
-	input,
+	values,
 	G.reduceFrom(0),
-	({ element, lastValue, next }) => next(N.add(lastValue, element)),
+	async({ element, lastValue, next }) => {
+		const response = await fetch("https://api.example.com/tax");
+		const { rate } = await response.json() as { rate: number };
+		return next(N.add(lastValue, N.multiply(element, rate)));
+	},
 );
-// result: 10

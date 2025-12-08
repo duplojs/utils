@@ -17,7 +17,7 @@ La fonction **`execute()`** consomme entièrement un générateur en itérant su
 <MonacoTSEditor
   src="/v1/api/generator/execute/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="400px"
 />
 
 ## Syntaxe

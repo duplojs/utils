@@ -17,7 +17,7 @@ La fonction **`reduce()`** réduit un générateur à une seule valeur en appliq
 <MonacoTSEditor
   src="/v1/api/generator/reduce/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="400px"
 />
 
 ## Syntaxe

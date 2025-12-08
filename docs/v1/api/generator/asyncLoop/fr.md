@@ -17,7 +17,7 @@ La fonction **`asyncLoop()`** crée un générateur asynchrone personnalisé en 
 <MonacoTSEditor
   src="/v1/api/generator/asyncLoop/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="550px"
 />
 
 ## Syntaxe

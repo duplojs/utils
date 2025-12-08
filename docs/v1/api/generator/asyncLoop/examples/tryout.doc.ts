@@ -1,18 +1,24 @@
-import { G, equal, whenElse } from "@duplojs/utils";
+import { G } from "@duplojs/utils";
 
-const maxCount = 3;
-const result = G.asyncLoop(
-	async(
-		{
-			count,
-			next,
-			exit,
-		}: G.GeneratorLoopParams<number>,
-	) => whenElse(
+const limit = 3;
+
+const iterator = G.asyncLoop(async(
+	{
 		count,
-		equal(maxCount),
+		next,
 		exit,
-		async() => next(await Promise.resolve(count)),
-	),
+	}: G.GeneratorLoopParams<number>,
+) => {
+	if (count === limit) {
+		return exit();
+	}
+	const response = await fetch(`https://api.example.com/pages/${count + 1}`);
+	const { id } = await response.json() as { id: number };
+	return next(id);
+});
+
+const result = await G.asyncReduce(
+	iterator,
+	G.reduceFrom<number[]>([]),
+	({ element, lastValue, next }) => next([...lastValue, element]),
 );
-// result: AsyncGenerator<number, unknown, unknown>
