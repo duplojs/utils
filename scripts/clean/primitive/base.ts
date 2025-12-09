@@ -1,7 +1,7 @@
 import { createErrorKind, type Kind, kindHeritage, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
-import { createCleanKind } from "./kind";
-import * as DDataParser from "../dataParser";
-import * as DEither from "../either";
+import { createCleanKind } from "../kind";
+import * as DDataParser from "../../dataParser";
+import * as DEither from "../../either";
 
 export type EligiblePrimitive = string | number | boolean | bigint;
 
@@ -138,11 +138,15 @@ export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
 export const Boolean = createPrimitive(DDataParser.boolean());
 export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 
+export const Date = createPrimitive(DDataParser.date());
+export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
+
 export type Primitives = (
 	| String
 	| Number
 	| BigInt
 	| Boolean
+	| Date
 );
 
 export type PrimitiveHandlers = (
@@ -150,4 +154,5 @@ export type PrimitiveHandlers = (
 	| typeof Number
 	| typeof BigInt
 	| typeof Boolean
+	| typeof Date
 );

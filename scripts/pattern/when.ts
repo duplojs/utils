@@ -1,4 +1,4 @@
-import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual, type EscapeVoid} from "@scripts/common";
+import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual, type EscapeVoid } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
 export function when<
