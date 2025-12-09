@@ -8,14 +8,23 @@ import { type MatchBuilder, matchBuilder } from "./builder";
 export * from "./builder";
 
 export function match<
-	GenericInput extends AnyValue,
+	GenericInput extends unknown,
 >(
 	input: GenericInput
-): MatchBuilder<GenericInput>;
+): MatchBuilder<
+	IsEqual<GenericInput, unknown> extends true
+		? AnyValue
+		: GenericInput
+>;
 
 export function match<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	const GenericPattern extends Pattern<GenericInputValue>,
 	GenericPatternValue extends PatternValue<GenericPattern>,
@@ -58,8 +67,13 @@ export function match<
 )>;
 
 export function match<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	const GenericPattern extends Pattern<GenericInputValue>,
 	GenericPatternValue extends PatternValue<GenericPattern>,
@@ -117,7 +131,7 @@ export function match(
 	if (args.length === 2) {
 		const [pattern, theFunction] = args;
 
-		return (input: AnyValue) => match(input, pattern, theFunction);
+		return (input: unknown) => match(input, pattern, theFunction);
 	}
 
 	const [input, pattern, theFunction] = args;

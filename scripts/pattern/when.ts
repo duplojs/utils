@@ -1,9 +1,14 @@
-import { type AnyValue, type AnyFunction, type BreakGenericLink } from "@scripts/common";
+import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
 export function when<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
 	GenericOutput extends AnyValue,
@@ -25,8 +30,13 @@ export function when<
 );
 
 export function when<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericOutput extends AnyValue,
 >(
@@ -47,8 +57,13 @@ export function when<
 );
 
 export function when<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
 	GenericOutput extends AnyValue,
@@ -69,8 +84,13 @@ export function when<
 );
 
 export function when<
-	GenericInput extends AnyValue,
-	GenericInputValue extends Exclude<GenericInput, PatternResult>,
+	GenericInput extends unknown,
+	GenericInputValue extends Exclude<
+		IsEqual<GenericInput, unknown> extends true
+			? AnyValue
+			: GenericInput,
+		PatternResult
+	>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericOutput extends AnyValue,
 >(
@@ -90,13 +110,13 @@ export function when<
 );
 
 export function when(
-	...args: [AnyValue, AnyFunction, AnyFunction]
+	...args: [unknown, AnyFunction, AnyFunction]
 		| [AnyFunction, AnyFunction]
 ) {
 	if (args.length === 2) {
 		const [predicate, theFunction] = args;
 
-		return (input: AnyValue) => when(input, predicate as never, theFunction);
+		return (input: unknown) => when(input, predicate as never, theFunction);
 	}
 
 	const [input, predicate, theFunction] = args;

@@ -1,4 +1,5 @@
 import { DPattern, DString, forward, type ExpectType } from "@scripts";
+import { type AnyValue } from "@scripts/common/types/anyValue";
 
 describe("pattern match", () => {
 	it("match literal string", () => {
@@ -413,5 +414,23 @@ describe("pattern match", () => {
 			string,
 			"strict"
 		>;
+	});
+
+	it("transforms unknown input into AnyValue in predicate pattern", () => {
+		const result = DPattern.match(
+			"test" as unknown,
+			(value) => {
+				type Check = ExpectType<
+					typeof value,
+					AnyValue,
+					"strict"
+				>;
+
+				return true;
+			},
+			(value) => value,
+		);
+
+		expect(result).toStrictEqual(DPattern.result("test"));
 	});
 });
