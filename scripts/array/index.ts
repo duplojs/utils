@@ -44,3 +44,4 @@ export * from "./coalescing";
 export * from "./toTuple";
 export * from "./notIncludes";
 export * from "./chunk";
+export * from "./insert";
