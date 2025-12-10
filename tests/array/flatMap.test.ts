@@ -14,6 +14,22 @@ describe("flatMap", () => {
 		>;
 	});
 
+	it("provides self reference equal to input", () => {
+		const arr = [1, 2, 3];
+		const selfRefs: typeof arr[] = [];
+
+		const result = DArray.flatMap(
+			arr,
+			(value, { self }) => {
+				selfRefs.push(self);
+				return [value, value + 10];
+			},
+		);
+
+		expect(selfRefs.every((ref) => ref === arr)).toBe(true);
+		expect(result).toStrictEqual([1, 11, 2, 12, 3, 13]);
+	});
+
 	it("simple", () => {
 		const arr = [[1], [2, 3], [], [4]];
 		const result = DArray.flatMap(arr, (arr) => arr);

@@ -18,10 +18,10 @@ export interface ArrayReduceExit<
 }
 
 export interface ArrayReduceFunctionParams<
-	GenericElement extends unknown = unknown,
+	GenericInputArray extends readonly unknown[] = unknown[],
 	GenericOutput extends unknown = unknown,
 > {
-	element: GenericElement;
+	element: GenericInputArray[number];
 	index: number;
 	lastValue: GenericOutput;
 	nextWithObject: GenericOutput extends object
@@ -34,6 +34,7 @@ export interface ArrayReduceFunctionParams<
 	exit<
 		GenericExitValue extends unknown,
 	>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
+	self: GenericInputArray;
 }
 
 const arrayReduceFromKind = createKind(
@@ -64,33 +65,33 @@ export type ArrayReduceFromValue<
 	: ToLargeEnsemble<GenericValue>;
 
 export function reduce<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends ArrayEligibleReduceFromValue,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
-): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom> | (
+): (input: GenericInput) => ArrayReduceFromValue<GenericReduceFrom> | (
 	IsEqual<GenericExit, ArrayReduceExit> extends true
 		? never
 		: GenericExit["-exit"]
 );
 
 export function reduce<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
@@ -101,27 +102,26 @@ export function reduce<
 );
 
 export function reduce(
-	...args: [unknown, AnyFunction]
-		| [readonly unknown[], unknown, AnyFunction]
+	...args: [unknown, AnyFunction] | [readonly unknown[], unknown, AnyFunction]
 ): any {
 	if (args.length === 2) {
 		const [fromValue, theFunction] = args;
 
-		return (array: unknown[]) => reduce(
-			array,
+		return (input: unknown[]) => reduce(
+			input,
 			fromValue as never,
 			theFunction as never,
 		);
 	}
 
-	const [array, fromValue, theFunction] = args;
+	const [input, fromValue, theFunction] = args;
 
 	let lastValue = unwrap(
 		fromValue as any,
 	);
 
-	for (let index = 0; index < array.length; index++) {
-		const element = array[index]!;
+	for (let index = 0; index < input.length; index++) {
+		const element = input[index]!;
 
 		const result = theFunction({
 			element,
@@ -134,6 +134,7 @@ export function reduce(
 			) as never,
 			exit: (output: any) => ({ "-exit": output }),
 			next: (output: any) => ({ "-next": output }),
+			self: input,
 		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {

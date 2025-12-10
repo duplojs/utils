@@ -1,44 +1,69 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
-interface ArrayFilterParams {
+interface ArrayFilterParams<
+	GenericInputArray extends readonly unknown[],
+> {
 	index: number;
+	self: GenericInputArray;
 }
 
 // Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericArray instead of GenericElement
+// which causes `never` types. Using GenericInput instead of GenericElement
 // preserves the array structure and avoids this inference bug.
 export function filter<
-	GenericArray extends readonly unknown[],
-	GenericOutput extends GenericArray[number],
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number],
 >(
-	predicate: (item: GenericArray[number], params: ArrayFilterParams) => item is GenericOutput,
-): (array: GenericArray) => GenericOutput[];
+	predicate: (
+		item: GenericInput[number],
+		params: ArrayFilterParams<GenericInput>
+	) => item is GenericOutput,
+): (input: GenericInput) => GenericOutput[];
+
 export function filter<
-	GenericElement extends unknown,
-	GenericOutput extends GenericElement,
+	GenericInput extends readonly unknown[],
+	GenericOutput extends GenericInput[number],
 >(
-	array: readonly GenericElement[],
-	predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput,
+	input: GenericInput,
+	predicate: (
+		item: GenericInput[number],
+		params: ArrayFilterParams<GenericInput>
+	) => item is GenericOutput,
 ): GenericOutput[];
+
 export function filter<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 >(
-	predicate: (item: GenericArray[number], params: ArrayFilterParams) => boolean,
-): (array: GenericArray) => GenericArray[number][];
+	predicate: (
+		item: GenericInput[number],
+		params: ArrayFilterParams<GenericInput>
+	) => boolean,
+): (input: GenericInput) => GenericInput[number][];
+
 export function filter<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 >(
-	array: readonly GenericElement[],
-	predicate: (item: GenericElement, params: ArrayFilterParams) => boolean,
-): GenericElement[];
+	input: GenericInput,
+	predicate: (
+		item: GenericInput[number],
+		params: ArrayFilterParams<GenericInput>
+	) => boolean,
+): GenericInput[number][];
+
 export function filter(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => filter(array, predicate as never);
+		return (input: unknown[]) => filter(input, predicate as never);
 	}
 
-	const [array, predicate] = args;
+	const [input, predicate] = args;
 
-	return array.filter((item, index) => predicate(item, { index }));
+	return input.filter((item, index) => predicate(
+		item,
+		{
+			index,
+			self: input,
+		},
+	));
 }

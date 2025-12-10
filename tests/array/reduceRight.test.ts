@@ -19,6 +19,23 @@ describe("reduceRight", () => {
 		>;
 	});
 
+	it("provides self reference equal to input", () => {
+		const input = ["a", "b", "c"];
+		const selfRefs: typeof input[] = [];
+
+		const result = DArray.reduceRight(
+			input,
+			"",
+			({ element, lastValue, next, self }) => {
+				selfRefs.push(self);
+				return next(lastValue + element);
+			},
+		);
+
+		expect(selfRefs.every((ref) => ref === input)).toBe(true);
+		expect(result).toBe("cba");
+	});
+
 	it("array to objet", () => {
 		const result = DArray.reduceRight(
 			["one", "two", "three"],
