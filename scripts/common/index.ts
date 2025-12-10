@@ -29,7 +29,6 @@ export * from "./forward";
 export * from "./when";
 export * from "./whenNot";
 export * from "./equal";
-export * from "./not";
 export * from "./isType";
 export * from "./and";
 export * from "./or";
