@@ -5,3 +5,4 @@ export * from "./constraint";
 export * from "./primitive";
 export * from "./repository";
 export * from "./useCase";
+export * from "./flag";

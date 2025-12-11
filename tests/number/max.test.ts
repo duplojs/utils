@@ -7,7 +7,7 @@ describe("max", () => {
 	});
 
 	it("returns the maximum through pipe", () => {
-		const result = pipe([4, 7], DNumber.max);
+		const result = pipe([4, 7] as const, DNumber.max);
 		expect(result).toBe(7);
 	});
 });

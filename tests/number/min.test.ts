@@ -7,7 +7,7 @@ describe("min", () => {
 	});
 
 	it("returns the minimum through pipe", () => {
-		const result = pipe([4, 7], DNumber.min);
+		const result = pipe([4, 7] as const, DNumber.min);
 		expect(result).toBe(4);
 	});
 });

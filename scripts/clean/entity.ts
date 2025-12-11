@@ -121,13 +121,13 @@ export const entityKind = createCleanKind<
 	string
 >("entity");
 
-export type Entity<
+export interface Entity<
 	GenericName extends string = string,
-	GenericProperties extends EntityProperties = EntityProperties,
-> = (
-	& Kind<typeof entityKind.definition, GenericName>
-	& GenericProperties
-);
+> extends Kind<
+		typeof entityKind.definition,
+		GenericName
+	> {
+}
 
 const entityHandlerKind = createCleanKind("entity-handler");
 
@@ -148,17 +148,14 @@ export interface EntityHandler<
 		GenericProperties extends EntityProperties<GenericPropertiesDefinition>,
 	>(
 		properties: GenericProperties
-	): Entity<GenericName, GenericProperties>;
+	): Entity<GenericName> & GenericProperties;
 
 	map(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
 	): (
 		| DEither.EitherRight<
 			"createEntity",
-			Entity<
-				GenericName,
-				EntityProperties<GenericPropertiesDefinition>
-			>
+			Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
 		>
 		| DEither.EitherLeft<
 			"createEntityError",
@@ -168,10 +165,7 @@ export interface EntityHandler<
 
 	mapOrThrow(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
-	): Entity<
-		GenericName,
-		EntityProperties<GenericPropertiesDefinition>
-	>;
+	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
 }
 
 export class CreateEntityError extends kindHeritage(

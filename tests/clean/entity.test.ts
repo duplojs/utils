@@ -176,7 +176,8 @@ describe("createEntity", () => {
 
 		type Check = ExpectType<
 			typeof form,
-			DClean.Entity<"Form", {
+			& DClean.Entity<"Form">
+			& {
 				name: DClean.NewType<"formName", "Super Form", "max100">;
 				type: DClean.NewType<"formTypeAgent", {
 					readonly key: "k";
@@ -191,7 +192,7 @@ describe("createEntity", () => {
 				description: null;
 				tags: null;
 				test: never[];
-			}>,
+			},
 			"strict"
 		>;
 	});
