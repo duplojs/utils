@@ -16,3 +16,7 @@ export * from "./each";
 export * from "./createOrThrow";
 export * from "./round";
 export * from "./isSafeTimestamp";
+export * from "./min";
+export * from "./max";
+export * from "./sort";
+export * from "./is";
