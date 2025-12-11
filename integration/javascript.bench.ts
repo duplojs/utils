@@ -115,7 +115,7 @@ describe("better compare", () => {
 	});
 });
 
-describe.only("instance", () => {
+describe("instance", () => {
 	const eitherError = DEither.error("test");
 
 	const keyWV = keyWrappedValue;

@@ -10,7 +10,7 @@ describe("coalescing", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			["foo"],
+			readonly ["foo"],
 			"strict"
 		>;
 	});
@@ -38,7 +38,7 @@ describe("coalescing", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			number[] | [string],
+			number[] | readonly [string],
 			"strict"
 		>;
 	});

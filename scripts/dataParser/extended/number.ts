@@ -73,6 +73,17 @@ export interface DataParserNumberExtended<
 			[dataParsers.DataParserCheckerNumberMax]
 		>
 	>;
+
+	int(
+		definition?: Partial<
+			dataParsers.DataParserCheckerDefinitionInt
+		>
+	): DataParserNumberExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			[dataParsers.DataParserCheckerInt]
+		>
+	>;
 }
 
 export function number<
@@ -105,6 +116,11 @@ export function number<
 						max,
 						definition,
 					),
+				);
+			},
+			int(self, definition) {
+				return self.addChecker(
+					dataParsers.checkerInt(definition),
 				);
 			},
 		},

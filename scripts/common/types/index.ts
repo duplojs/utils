@@ -40,4 +40,5 @@ export * from "./anyPredicate";
 export * from "./removeFromUnion";
 export * from "./unwrapArray";
 export * from "./onlyLiteral";
+export * from "./sortType";
 

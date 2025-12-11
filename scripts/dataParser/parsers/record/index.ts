@@ -208,7 +208,7 @@ export function record<
 					}
 				}
 
-				popErrorPath(error);
+				void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
 
 				if (output === SymbolDataParserError) {
 					return output;
@@ -261,7 +261,7 @@ export function record<
 					}
 				}
 
-				popErrorPath(error);
+				void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
 
 				if (output === SymbolDataParserError) {
 					return output;

@@ -116,7 +116,7 @@ export function array<
 					}
 				}
 
-				popErrorPath(error);
+				void (data.length && popErrorPath(error));
 
 				return output as never;
 			},
@@ -143,7 +143,7 @@ export function array<
 					}
 				}
 
-				popErrorPath(error);
+				void (data.length && popErrorPath(error));
 
 				return output as never;
 			},

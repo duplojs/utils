@@ -26,6 +26,15 @@ describe("extended.number", () => {
 		);
 	});
 
+	it("supports int helpers", () => {
+		const parser = extended.number().int();
+
+		expect(parser.parse(6.5)).toStrictEqual(
+			DEither.error(expect.any(Object)),
+		);
+		expect(parser.parse(3)).toStrictEqual(DEither.success(3));
+	});
+
 	it("provides int helper", () => {
 		const parser = extended.int();
 		expect(parser.parse(3)).toStrictEqual(DEither.success(3));

@@ -36,7 +36,7 @@ export function checkerRefine<
 	definition?: GenericDefinition,
 ): DataParserCheckerRefine<
 		AssignObjects<
-			NeverCoalescing<GenericDefinition, {}>,
+			NeverCoalescing<GenericDefinition, DataParserCheckerDefinitionRefine>,
 			{ theFunction(input: GenericInput): boolean }
 		>
 	> {
