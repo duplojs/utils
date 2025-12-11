@@ -74,4 +74,50 @@ describe("extended.object", () => {
 
 		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
 	});
+
+	it("supports partial", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+		}).partial();
+
+		const partialValue = { name: "alice" };
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			{
+				name?: string;
+				age?: number;
+			},
+			"strict"
+		>;
+
+		expect(parser.parse(partialValue)).toStrictEqual(DEither.success(partialValue));
+	});
+
+	it("supports required", () => {
+		const parser = extended.object({
+			name: extended.optional(extended.string()),
+			age: extended.optional(extended.number()),
+		}).required();
+
+		const value = {
+			name: "alice",
+			age: 30,
+		};
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			{
+				name: string;
+				age: number;
+			},
+			"strict"
+		>;
+
+		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
+
+		const missing = { name: "alice" };
+		expect(DEither.isLeft(parser.parse(missing))).toBe(true);
+	});
 });

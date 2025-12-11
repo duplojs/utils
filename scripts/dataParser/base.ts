@@ -65,7 +65,7 @@ export interface DataParserDefinition<
 	GenericChecker extends DataParserChecker = DataParserChecker,
 > {
 	readonly errorMessage?: string;
-	readonly checkers: readonly (GenericChecker)[];
+	readonly checkers: readonly GenericChecker[];
 }
 
 export interface DataParser<

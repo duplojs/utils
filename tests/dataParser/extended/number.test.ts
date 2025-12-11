@@ -36,9 +36,15 @@ describe("extended.number", () => {
 	});
 
 	it("provides int helper", () => {
-		const parser = extended.int();
+		const parser = extended.number().int();
 		expect(parser.parse(3)).toStrictEqual(DEither.success(3));
 		expect(parser.parse(3.5)).toStrictEqual(
+			DEither.error(expect.any(Object)),
+		);
+
+		const direct = extended.int();
+		expect(direct.parse(10)).toStrictEqual(DEither.success(10));
+		expect(direct.parse(10.1)).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
 	});
