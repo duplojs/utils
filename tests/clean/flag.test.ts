@@ -25,6 +25,7 @@ describe("createFlag", () => {
 
 		const withAdmin = isAdmin.append(baseUser, true);
 		expect(DClean.flagKind.getValue(withAdmin)).toEqual({ isAdmin: true });
+		expect(isAdmin.getValue(withAdmin)).toStrictEqual(true);
 
 		type Check1 = ExpectType<
 			typeof withAdmin,
@@ -43,6 +44,7 @@ describe("createFlag", () => {
 			isAdmin: true,
 			beta: "on",
 		});
+		expect(beta.getValue(withBeta)).toStrictEqual("on");
 
 		type Check2 = ExpectType<
 			typeof withBeta,
@@ -63,6 +65,7 @@ describe("createFlag", () => {
 			beta: "on",
 			marker: undefined,
 		});
+		expect(marker.getValue(withMarker)).toStrictEqual(undefined);
 
 		type Check3 = ExpectType<
 			typeof withMarker,
