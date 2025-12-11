@@ -71,7 +71,7 @@ export interface NewTypeHandler<
 		data: GenericPrimitive
 	): (
 		| DEither.EitherRight<
-			"createConstrainedType",
+			"createNewType",
 			(
 				& GenericPrimitive
 				& NewType<
@@ -82,7 +82,7 @@ export interface NewTypeHandler<
 			)
 		>
 		| DEither.EitherLeft<
-			"createConstrainedTypeError",
+			"createNewTypeError",
 			DDataParser.DataParserError
 		>
 	);
