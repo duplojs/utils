@@ -84,6 +84,26 @@ describe("reduce", () => {
 		>;
 	});
 
+	it("array push", () => {
+		const result = DArray.reduce(
+			[1, 2, 3],
+			DArray.reduceFrom<number[]>([]),
+			({ nextPush, lastValue, element }) => pipe(
+				element,
+				(value) => value + 1,
+				(value) => nextPush(lastValue, value),
+			),
+		);
+
+		expect(result).toStrictEqual([2, 3, 4]);
+
+		type check = ExpectType<
+			typeof result,
+			number[],
+			"strict"
+		>;
+	});
+
 	it("use in pipe", () => {
 		const result = pipe(
 			[1, 2, 3],

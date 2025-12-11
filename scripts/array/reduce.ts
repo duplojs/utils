@@ -4,6 +4,7 @@ import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { override } from "@scripts/object";
 import { type IsEqual, type ToLargeEnsemble } from "@scripts/common";
+import { push } from "./push";
 
 export interface ArrayReduceNext<
 	GenericOutput extends unknown = unknown,
@@ -35,6 +36,12 @@ export interface ArrayReduceFunctionParams<
 		GenericExitValue extends unknown,
 	>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
 	self: GenericInputArray;
+	nextPush: GenericOutput extends readonly any[]
+		? (
+			array: GenericOutput,
+			...values: GenericOutput
+		) => ArrayReduceNext<GenericOutput>
+		: undefined;
 }
 
 const arrayReduceFromKind = createKind(
@@ -55,6 +62,27 @@ export function reduceFrom<
 		wrapValue(value),
 	);
 }
+
+export const reduceTools: Pick<
+	ArrayReduceFunctionParams<any, any>,
+	"exit" | "next" | "nextWithObject" | "nextPush"
+> = {
+	exit(output: any) {
+		return { "-exit": output };
+	},
+	next(output: any) {
+		return { "-next": output };
+	},
+	nextWithObject(object1: object, object2: object) {
+		return { "-next": override(object1, object2) };
+	},
+	nextPush(
+		array: readonly unknown[],
+		...[value, ...values]: [unknown, ...unknown[]]
+	) {
+		return { "-next": push(array, value, ...values) };
+	},
+};
 
 export type ArrayEligibleReduceFromValue = number | string | bigint | boolean | ArrayReduceFromResult;
 
@@ -127,14 +155,8 @@ export function reduce(
 			element,
 			index,
 			lastValue,
-			nextWithObject: (
-				(object1: object, object2: object) => ({
-					"-next": override(object1, object2),
-				})
-			) as never,
-			exit: (output: any) => ({ "-exit": output }),
-			next: (output: any) => ({ "-next": output }),
 			self: input,
+			...reduceTools,
 		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {

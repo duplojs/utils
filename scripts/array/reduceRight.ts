@@ -1,7 +1,6 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { unwrap } from "@scripts/common/unwrap";
-import { override } from "@scripts/object";
-import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext } from "./reduce";
+import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext, reduceTools } from "./reduce";
 import { type IsEqual } from "@scripts/common";
 
 export function reduceRight<
@@ -67,14 +66,8 @@ export function reduceRight(
 			element,
 			index,
 			lastValue,
-			nextWithObject: (
-				(object1: object, object2: object) => ({
-					"-next": override(object1, object2),
-				})
-			) as never,
-			exit: (output: any) => ({ "-exit": output }),
-			next: (output: any) => ({ "-next": output }),
 			self: input,
+			...reduceTools,
 		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {
