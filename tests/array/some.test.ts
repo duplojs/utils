@@ -25,6 +25,22 @@ describe("some", () => {
 		expect(result).toBe(false);
 	});
 
+	it("provides self reference equal to input", () => {
+		const arr = [5, 6, 7];
+		const selfRefs: typeof arr[] = [];
+
+		const result = DArray.some(
+			arr,
+			(value, { self }) => {
+				selfRefs.push(self);
+				return value === 6;
+			},
+		);
+
+		expect(selfRefs.every((ref) => ref === arr)).toBe(true);
+		expect(result).toBe(true);
+	});
+
 	it("works with pipe (curried)", () => {
 		const arr = [10, 20, 30];
 		const result = pipe(

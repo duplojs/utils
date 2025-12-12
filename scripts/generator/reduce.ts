@@ -2,8 +2,8 @@ import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createKind, type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
 import { unwrap, type Unwrap } from "@scripts/common/unwrap";
-import { override } from "@scripts/object";
 import { type IsEqual, type ToLargeEnsemble } from "@scripts/common";
+import { reduceTools } from "@scripts/array";
 
 export interface GeneratorReduceNext<
 	GenericOutput extends unknown = unknown,
@@ -34,6 +34,12 @@ export interface GeneratorReduceFunctionParams<
 	exit<
 		GenericExitValue extends unknown,
 	>(output: GenericExitValue): GeneratorReduceExit<GenericExitValue>;
+	nextPush: GenericOutput extends readonly any[]
+		? (
+			array: GenericOutput,
+			...values: GenericOutput
+		) => GeneratorReduceExit<GenericOutput>
+		: undefined;
 }
 
 const generatorReduceFromKind = createKind(
@@ -126,13 +132,7 @@ export function reduce(
 			element,
 			index,
 			lastValue,
-			nextWithObject: (
-				(object1: object, object2: object) => ({
-					"-next": override(object1, object2),
-				})
-			) as never,
-			exit: (output: any) => ({ "-exit": output }),
-			next: (output: any) => ({ "-next": output }),
+			...reduceTools,
 		}) as GeneratorReduceExit | GeneratorReduceNext;
 
 		if ("-exit" in result) {

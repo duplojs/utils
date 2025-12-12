@@ -1,28 +1,31 @@
 import { type AnyFunction } from "@scripts/common";
 
-interface ArrayEveryParams {
+interface ArrayEveryParams<
+	GenericInputArray extends readonly unknown[],
+> {
 	index: number;
+	self: GenericInputArray;
 }
 
 // Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericArray instead of GenericElement
-// preserves the array structure and avoids this inference bug.
+// which causes `never` types. Using GenericInput instead of GenericElement
+// preserves the input structure and avoids this inference bug.
 export function every<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 >(
 	predicate: (
-		element: GenericArray[number],
-		params: ArrayEveryParams
+		element: GenericInput[number],
+		params: ArrayEveryParams<GenericInput>
 	) => boolean,
-): (array: GenericArray) => boolean;
+): (input: GenericInput) => boolean;
 
 export function every<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	predicate: (
-		element: GenericElement,
-		params: ArrayEveryParams
+		element: GenericInput[number],
+		params: ArrayEveryParams<GenericInput>
 	) => boolean,
 ): boolean;
 
@@ -30,10 +33,16 @@ export function every(...args: [AnyFunction] | [readonly unknown[], AnyFunction]
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => every(array, predicate as never);
+		return (input: unknown[]) => every(input, predicate as never);
 	}
 
-	const [array, predicate] = args;
+	const [input, predicate] = args;
 
-	return array.every((element, index) => predicate(element, { index }));
+	return input.every((element, index) => predicate(
+		element,
+		{
+			index,
+			self: input,
+		},
+	));
 }

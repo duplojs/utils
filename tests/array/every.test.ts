@@ -19,6 +19,22 @@ describe("every", () => {
 		expect(result).toBe(true);
 	});
 
+	it("provides self reference equal to input", () => {
+		const arr = [1, 2, 3];
+		const selfRefs: typeof arr[] = [];
+
+		const result = DArray.every(
+			arr,
+			(value, { self }) => {
+				selfRefs.push(self);
+				return value > 0;
+			},
+		);
+
+		expect(selfRefs.every((ref) => ref === arr)).toBe(true);
+		expect(result).toBe(true);
+	});
+
 	it("use in pipe", () => {
 		const result = pipe(
 			[3, 12, 14],

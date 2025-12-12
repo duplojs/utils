@@ -1,4 +1,4 @@
-import { type Kind, type IsEqual, type Or } from "@scripts/common";
+import { type Kind, type IsEqual, type Or, type GetKindValue } from "@scripts/common";
 import { type Entity } from "./entity";
 import { createCleanKind } from "./kind";
 
@@ -30,6 +30,15 @@ export interface FlagHandler<
 		& GenericInputEntity
 		& Flag<GenericName, GenericInputValue>
 	);
+
+	getValue<
+		GenericInputEntity extends GenericEntity & Flag<GenericName, GenericValue>,
+	>(
+		entity: GenericInputEntity
+	): GetKindValue<
+		typeof flagKind,
+		GenericInputEntity
+	>[GenericName];
 }
 
 export interface Flag<
@@ -72,6 +81,9 @@ export function createFlag<
 				entity,
 				flagValue,
 			);
+		},
+		getValue(entity: Entity) {
+			return flagKind.getValue(entity as never)[name];
 		},
 	}) satisfies Record<keyof FlagHandler, unknown> as never;
 }

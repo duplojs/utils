@@ -120,11 +120,13 @@ export function number<
 			},
 			int(self, definition) {
 				return self.addChecker(
-					dataParsers.checkerInt(definition),
+					dataParsers.checkerInt(
+						definition,
+					),
 				);
 			},
 		},
-	) as never;
+	);
 
 	return number.overrideHandler.apply(self) as never;
 }

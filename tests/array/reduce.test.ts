@@ -19,6 +19,23 @@ describe("reduce", () => {
 		>;
 	});
 
+	it("provides self reference equal to input", () => {
+		const input = [1, 2, 3];
+		const selfRefs: typeof input[] = [];
+
+		const result = DArray.reduce(
+			input,
+			0,
+			({ element, lastValue, next, self }) => {
+				selfRefs.push(self);
+				return next(lastValue + element);
+			},
+		);
+
+		expect(selfRefs.every((ref) => ref === input)).toBe(true);
+		expect(result).toBe(6);
+	});
+
 	it("array to objet", () => {
 		const result = DArray.reduce(
 			[1, 2, 3],
@@ -63,6 +80,26 @@ describe("reduce", () => {
 			Record<number, null> | {
 				100: null;
 			},
+			"strict"
+		>;
+	});
+
+	it("array push", () => {
+		const result = DArray.reduce(
+			[1, 2, 3],
+			DArray.reduceFrom<number[]>([]),
+			({ nextPush, lastValue, element }) => pipe(
+				element,
+				(value) => value + 1,
+				(value) => nextPush(lastValue, value),
+			),
+		);
+
+		expect(result).toStrictEqual([2, 3, 4]);
+
+		type check = ExpectType<
+			typeof result,
+			number[],
 			"strict"
 		>;
 	});

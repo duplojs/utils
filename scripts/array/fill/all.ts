@@ -1,14 +1,14 @@
 export function fillAll<
 	GenericElement extends unknown,
 >(
-	value: GenericElement,
-): (array: readonly GenericElement[]) => GenericElement[];
+	element: GenericElement,
+): (input: readonly unknown[]) => GenericElement[];
 
 export function fillAll<
 	GenericElement extends unknown,
 >(
-	array: readonly GenericElement[],
-	value: GenericElement,
+	input: readonly unknown[],
+	element: GenericElement,
 ): GenericElement[];
 
 export function fillAll(...args: [readonly unknown[], unknown] | [unknown]) {

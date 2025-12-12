@@ -1,4 +1,4 @@
-import { DDataParser, DEither, isType, not } from "@scripts";
+import { DDataParser, DEither, isType } from "@scripts";
 
 describe("DDataParser checker refine", () => {
 	it("refine string", () => {
@@ -19,7 +19,7 @@ describe("DDataParser checker refine", () => {
 
 	it("refine literal", () => {
 		const schema = DDataParser.literal([12, null]).addChecker(
-			DDataParser.checkerRefine(not(isType("null"))),
+			DDataParser.checkerRefine((input) => !isType(input, "null")),
 		);
 
 		expect(schema.parse(12)).toStrictEqual(DEither.success(12));

@@ -1,37 +1,36 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { unwrap } from "@scripts/common/unwrap";
-import { override } from "@scripts/object";
-import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext } from "./reduce";
+import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext, reduceTools } from "./reduce";
 import { type IsEqual } from "@scripts/common";
 
 export function reduceRight<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
-): (array: readonly GenericElement[]) => ArrayReduceFromValue<GenericReduceFrom> | (
+): (input: GenericInput) => ArrayReduceFromValue<GenericReduceFrom> | (
 	IsEqual<GenericExit, ArrayReduceExit> extends true
 		? never
 		: GenericExit["-exit"]
 );
 
 export function reduceRight<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,
 	GenericExit extends ArrayReduceExit = ArrayReduceExit<never>,
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	startValue: GenericReduceFrom,
 	theFunction: (
 		params: ArrayReduceFunctionParams<
-			GenericElement,
+			GenericInput,
 			ArrayReduceFromValue<GenericReduceFrom>
 		>
 	) => ArrayReduceNext<ArrayReduceFromValue<GenericReduceFrom>> | GenericExit,
@@ -42,39 +41,33 @@ export function reduceRight<
 );
 
 export function reduceRight(
-	...args: [unknown, AnyFunction]
-		| [readonly unknown[], unknown, AnyFunction]
+	...args: [unknown, AnyFunction] | [readonly unknown[], unknown, AnyFunction]
 ): any {
 	if (args.length === 2) {
 		const [fromValue, theFunction] = args;
 
-		return (array: unknown[]) => reduceRight(
-			array,
+		return (input: unknown[]) => reduceRight(
+			input,
 			fromValue as never,
 			theFunction as never,
 		);
 	}
 
-	const [array, fromValue, theFunction] = args;
+	const [input, fromValue, theFunction] = args;
 
 	let lastValue = unwrap(
 		fromValue as any,
 	);
 
-	for (let index = array.length - 1; index >= 0; index--) {
-		const element = array[index]!;
+	for (let index = input.length - 1; index >= 0; index--) {
+		const element = input[index]!;
 
 		const result = theFunction({
 			element,
 			index,
 			lastValue,
-			nextWithObject: (
-				(object1: object, object2: object) => ({
-					"-next": override(object1, object2),
-				})
-			) as never,
-			exit: (output: any) => ({ "-exit": output }),
-			next: (output: any) => ({ "-next": output }),
+			self: input,
+			...reduceTools,
 		}) as ArrayReduceExit | ArrayReduceNext;
 
 		if ("-exit" in result) {

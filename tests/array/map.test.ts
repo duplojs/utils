@@ -25,6 +25,19 @@ describe("map", () => {
 		>;
 	});
 
+	it("provides self reference equal to input", () => {
+		const arr = ["x", "y", "z"];
+		const selfRefs: typeof arr[] = [];
+
+		const result = DArray.map(arr, (item, { self }) => {
+			selfRefs.push(self);
+			return item.toUpperCase();
+		});
+
+		expect(selfRefs.every((ref) => ref === arr)).toBe(true);
+		expect(result).toEqual(["X", "Y", "Z"]);
+	});
+
 	it("works with pipe (curried)", () => {
 		const arr = [1, 2, 3];
 		const result = pipe(
@@ -60,8 +73,8 @@ describe("map", () => {
 			DArray.map(
 				innerPipe(
 					DObject.transformProperties({
-						id: (id) => DNumber.multiply(id, 10),
-						name: (name) => DString.capitalize(name),
+						id: DNumber.multiply(10),
+						name: DString.capitalize,
 					}),
 					(user) => `${user.name} (${user.id})`,
 				),

@@ -1,11 +1,8 @@
-import { pipe, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
-import * as DObject from "@scripts/object";
-import * as DString from "@scripts/string";
-import * as DArray from "@scripts/array";
 
 type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
@@ -94,6 +91,32 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>
 	>;
+
+	partial<
+		const GenericSubDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+		> = never,
+	>(
+		definition?: GenericDefinition,
+	): ReturnType<
+		typeof dataParsers.partial<
+			dataParsers.DataParserObject<GenericDefinition>,
+			GenericSubDefinition
+		>
+	>;
+
+	required<
+		const GenericSubDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+		> = never,
+	>(
+		definition?: GenericDefinition,
+	): ReturnType<
+		typeof dataParsers.required<
+			dataParsers.DataParserObject<GenericDefinition>,
+			GenericSubDefinition
+		>
+	>;
 }
 
 export function object<
@@ -116,32 +139,24 @@ export function object<
 	>(
 		dataParsers.object(shape, definition) as never,
 		{
-			omit: (self, omitObject, definition) => {
-				const newShape = pipe(
-					self.definition.shape,
-					DObject.entries,
-					DArray.filter(([key]) => !DString.isKeyof(key, omitObject)),
-					DObject.fromEntries,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-			pick: (self, omitObject, definition) => {
-				const newShape = pipe(
-					self.definition.shape,
-					DObject.entries,
-					DArray.filter(([key]) => DString.isKeyof(key, omitObject)),
-					DObject.fromEntries,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
+			omit: (self, omitObject, definition) => dataParsers.omit(
+				self,
+				omitObject,
+				definition,
+			),
+			pick: (self, pickObject, definition) => dataParsers.pick(
+				self,
+				pickObject,
+				definition,
+			),
+			partial: (self, definition) => dataParsers.partial(
+				self,
+				definition,
+			),
+			required: (self, definition) => dataParsers.required(
+				self,
+				definition,
+			),
 		},
 	) as never;
 

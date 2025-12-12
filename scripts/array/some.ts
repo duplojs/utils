@@ -1,28 +1,31 @@
 import { type AnyFunction } from "@scripts/common";
 
-interface ArraySomeParams {
+interface ArraySomeParams<
+	GenericInputArray extends readonly unknown[],
+> {
 	index: number;
+	self: GenericInputArray;
 }
 
 // Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericArray instead of GenericElement
+// which causes `never` types. Using GenericInput instead of GenericElement
 // preserves the array structure and avoids this inference bug.
 export function some<
-	GenericArray extends readonly unknown[],
+	GenericInput extends readonly unknown[],
 >(
 	predicate: (
-		element: GenericArray[number],
-		params: ArraySomeParams
+		element: GenericInput[number],
+		params: ArraySomeParams<GenericInput>
 	) => boolean,
-): (array: GenericArray) => boolean;
+): (input: GenericInput) => boolean;
 
 export function some<
-	GenericElement extends unknown,
+	GenericInput extends readonly unknown[],
 >(
-	array: readonly GenericElement[],
+	input: GenericInput,
 	predicate: (
-		element: GenericElement,
-		params: ArraySomeParams
+		element: GenericInput[number],
+		params: ArraySomeParams<GenericInput>
 	) => boolean,
 ): boolean;
 
@@ -30,10 +33,16 @@ export function some(...args: [AnyFunction] | [readonly unknown[], AnyFunction])
 	if (args.length === 1) {
 		const [predicate] = args;
 
-		return (array: unknown[]) => some(array, predicate as never);
+		return (input: unknown[]) => some(input, predicate as never);
 	}
 
-	const [array, predicate] = args;
+	const [input, predicate] = args;
 
-	return array.some((element, index) => predicate(element, { index }));
+	return input.some((element, index) => predicate(
+		element,
+		{
+			index,
+			self: input,
+		},
+	));
 }
