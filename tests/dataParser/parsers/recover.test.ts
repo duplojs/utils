@@ -2,11 +2,11 @@ import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("DDataParser recover", () => {
 	it("parses inner value when valid", () => {
-		const schema = DDataParser.recover(DDataParser.number(), "test");
+		const schema = DDataParser.recover(DDataParser.number(), 12);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			string,
+			number,
 			"strict"
 		>;
 
