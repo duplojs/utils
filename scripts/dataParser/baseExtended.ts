@@ -307,3 +307,12 @@ export function dataParserExtendedInit<
 }
 
 dataParserExtendedInit.overrideHandler = createOverride<DataParserExtended>("@duplojs/utils/data-parser-extended/base");
+
+export type ContractExtended<
+	GenericOutput extends unknown,
+	GenericInput extends unknown = GenericOutput,
+> = DataParserExtended<
+	DataParserDefinition<never>,
+	GenericOutput,
+	GenericInput
+>;
