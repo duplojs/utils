@@ -3,7 +3,6 @@ import { type EitherRight, isRight } from "../right";
 import { futureSuccess, type EitherFutureSuccess } from "./success";
 import { futureError, type EitherFutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
-import { type MaybePromise } from "@scripts/common/types/maybePromise";
 import { type AnyValue } from "@scripts/common";
 
 type Either = EitherRight | EitherLeft;
@@ -16,13 +15,15 @@ type ComputeEitherFutureSuccessResult<
 
 type ComputeEitherFutureErrorResult<
 	GenericValue extends unknown,
-> = GenericValue extends Promise<unknown>
-	? EitherFutureError
-	: never;
+> = GenericValue extends Future<any>
+	? GenericValue
+	: GenericValue extends Promise<unknown>
+		? EitherFutureError
+		: never;
 
 type ComputeFutureEitherResult<
 	GenericValue extends unknown = unknown,
-> =
+> = (
 	| Extract<
 		Awaited<GenericValue>,
 		Either
@@ -30,7 +31,8 @@ type ComputeFutureEitherResult<
 	| ComputeEitherFutureSuccessResult<
 		Awaited<GenericValue>
 	>
-	| ComputeEitherFutureErrorResult<GenericValue>;
+	| ComputeEitherFutureErrorResult<GenericValue>
+);
 
 export type FutureEitherAllResult<
 	GenericArray extends readonly unknown[] | [],
@@ -73,17 +75,14 @@ export class Future<
 
 	public [kind] = null as unknown;
 
-	// @ts-expect-error override signature error
+	// default declaration
 	public override then<
-		const GenericOutput extends AnyValue,
+		TResult1 = ComputeFutureEitherResult<GenericValue>,
+		TResult2 = never,
 	>(
-		theFunction: (
-			result: Extract<ComputeFutureEitherResult<GenericValue>, any>
-		) => MaybePromise<GenericOutput>,
-	) {
-		return new Future<GenericOutput>(
-			super.then(theFunction) as never,
-		);
+		onfulfilled?: ((value: ComputeFutureEitherResult<GenericValue>) => TResult1 | PromiseLike<TResult1>) | null,
+	): Promise<TResult1 | TResult2> {
+		return super.then(onfulfilled);
 	}
 
 	public static override get [Symbol.species]() {
@@ -98,9 +97,8 @@ export class Future<
 			&& kind in value;
 	}
 
-	public static override all<
-		const GenericValue extends unknown,
-		GenericArray extends readonly GenericValue[] | [],
+	public static rightAll<
+		const GenericArray extends readonly unknown[],
 	>(values: GenericArray): FutureEitherAllResult<GenericArray> {
 		return new Future(
 			Promise.all(
