@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "betweenThan"
-  link: "/v1/api/date/betweenThan/fr"
+  text: "min"
+  link: "/v1/api/date/min/fr"
 next:
   text: "each"
   link: "/v1/api/date/each/fr"

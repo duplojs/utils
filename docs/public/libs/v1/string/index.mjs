@@ -25,6 +25,7 @@ export { normalize } from './normalize.mjs';
 export { test } from './test.mjs';
 export { isIn } from './isIn.mjs';
 export { length } from './length.mjs';
+export { sort } from './sort.mjs';
 export { at } from './at/default.mjs';
 export { first } from './at/first.mjs';
 export { last } from './at/last.mjs';

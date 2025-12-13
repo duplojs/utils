@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "spliceReplace"
-  link: "/v1/api/array/spliceReplace/fr"
+  text: "findAndReplace"
+  link: "/v1/api/array/findAndReplace/fr"
 next:
   text: "findAndSpliceInsert"
   link: "/v1/api/array/findAndSpliceInsert/fr"

@@ -31,7 +31,7 @@ function array(element, definition) {
                     output.push(result);
                 }
             }
-            popErrorPath(error);
+            void (data.length && popErrorPath(error));
             return output;
         },
         async: async (data, error, self) => {
@@ -53,7 +53,7 @@ function array(element, definition) {
                     output.push(result);
                 }
             }
-            popErrorPath(error);
+            void (data.length && popErrorPath(error));
             return output;
         },
     });

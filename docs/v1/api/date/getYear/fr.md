@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "isSafeTimestamp"
-  link: "/v1/api/date/isSafeTimestamp/fr"
+  text: "is"
+  link: "/v1/api/date/is/fr"
 next:
   text: "getMonth"
   link: "/v1/api/date/getMonth/fr"

@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "lastIndexOf"
-  link: "/v1/api/array/lastIndexOf/fr"
+  text: "isLastIndex"
+  link: "/v1/api/array/isLastIndex/fr"
 next:
   text: "findLast"
   link: "/v1/api/array/findLast/fr"

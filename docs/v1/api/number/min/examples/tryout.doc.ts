@@ -1,4 +1,11 @@
-import { N } from "@duplojs/utils";
+import { N, type ExpectType } from "@duplojs/utils";
 
-const result = N.min(10, 25);
-// result: 10
+const tuple = [10, 3, 25] as const;
+
+const result = N.min(tuple);
+
+type check = ExpectType<
+	typeof result,
+	number,
+	"strict"
+>;

@@ -1,2 +1,2 @@
-export declare function max<GenericValue extends number>(comparison: number): (value: GenericValue) => number;
-export declare function max<GenericValue extends number>(value: GenericValue, comparison: number): number;
+import { type AnyTuple } from "../common";
+export declare function max<GenericInput extends AnyTuple<number>>(input: GenericInput): number;

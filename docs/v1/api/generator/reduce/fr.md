@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "asyncFilter"
-  link: "/v1/api/generator/asyncFilter/fr"
+  text: "chunk"
+  link: "/v1/api/generator/chunk/fr"
 next:
   text: "asyncReduce"
   link: "/v1/api/generator/asyncReduce/fr"

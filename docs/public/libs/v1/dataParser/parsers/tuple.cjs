@@ -43,7 +43,7 @@ function tuple(shape, definition) {
                     }
                 }
             }
-            error.popErrorPath(error$1);
+            void (self.definition.shape.length && error.popErrorPath(error$1));
             return output;
         },
         async: async (data, error$1, self) => {
@@ -74,7 +74,7 @@ function tuple(shape, definition) {
                     }
                 }
             }
-            error.popErrorPath(error$1);
+            void (self.definition.shape.length && error.popErrorPath(error$1));
             return output;
         },
     });

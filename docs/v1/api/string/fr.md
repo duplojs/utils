@@ -113,5 +113,8 @@ Supprime les espaces en fin de chaîne.
 ### [concat](/v1/api/string/concat/fr)
 Concatène plusieurs chaînes ensemble.
 
+### [sort](/v1/api/string/sort/fr)
+Trie un tableau de chaînes en ordre croissant ou décroissant.
+
 ### [isKeyof](/v1/api/string/isKeyof/fr)
 Vérifie si une chaîne est une clé valide d'un objet (type guard).

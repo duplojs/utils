@@ -1,10 +1,13 @@
 function every(...args) {
     if (args.length === 1) {
         const [predicate] = args;
-        return (array) => every(array, predicate);
+        return (input) => every(input, predicate);
     }
-    const [array, predicate] = args;
-    return array.every((element, index) => predicate(element, { index }));
+    const [input, predicate] = args;
+    return input.every((element, index) => predicate(element, {
+        index,
+        self: input,
+    }));
 }
 
 export { every };

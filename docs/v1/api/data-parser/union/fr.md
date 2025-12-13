@@ -4,8 +4,8 @@ prev:
   text: "record"
   link: "/v1/api/data-parser/record/fr"
 next:
-  text: "optional"
-  link: "/v1/api/data-parser/optional/fr"
+  text: "partial"
+  link: "/v1/api/data-parser/partial/fr"
 ---
 
 # union
@@ -37,7 +37,7 @@ Un `DataParserUnion`. `schema.parse(data)` renvoie `DEither.success<OutputUnion>
 <MonacoTSEditor
   src="/v1/api/data-parser/union/examples/extended.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="400px"
 />
 
 ## Voir aussi

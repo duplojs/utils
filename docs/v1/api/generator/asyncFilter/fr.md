@@ -4,8 +4,8 @@ prev:
   text: "filter"
   link: "/v1/api/generator/filter/fr"
 next:
-  text: "reduce"
-  link: "/v1/api/generator/reduce/fr"
+  text: "chunk"
+  link: "/v1/api/generator/chunk/fr"
 ---
 
 # asyncFilter

@@ -4,8 +4,8 @@ prev:
   text: "toISOString"
   link: "/v1/api/date/toISOString/fr"
 next:
-  text: "getYear"
-  link: "/v1/api/date/getYear/fr"
+  text: "is"
+  link: "/v1/api/date/is/fr"
 ---
 
 # isSafeTimestamp

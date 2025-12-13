@@ -30,6 +30,7 @@ var toFixed = require('./toFixed.cjs');
 var sqrt = require('./sqrt.cjs');
 var between = require('./between.cjs');
 var betweenThan = require('./betweenThan.cjs');
+var sort = require('./sort.cjs');
 
 
 
@@ -63,3 +64,4 @@ exports.toFixed = toFixed.toFixed;
 exports.sqrt = sqrt.sqrt;
 exports.between = between.between;
 exports.betweenThan = betweenThan.betweenThan;
+exports.sort = sort.sort;

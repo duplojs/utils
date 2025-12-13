@@ -1,10 +1,13 @@
 function flatMap(...args) {
     if (args.length === 1) {
         const [theFunction] = args;
-        return (array) => flatMap(array, theFunction);
+        return (input) => flatMap(input, theFunction);
     }
-    const [array, theFunction] = args;
-    return array.flatMap((element, index) => theFunction(element, { index }));
+    const [input, theFunction] = args;
+    return input.flatMap((element, index) => theFunction(element, {
+        index,
+        self: input,
+    }));
 }
 
 export { flatMap };

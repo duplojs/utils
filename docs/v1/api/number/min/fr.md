@@ -17,42 +17,26 @@ La méthode **`min()`** retourne la plus petite valeur parmi les nombres fournis
 <MonacoTSEditor
   src="/v1/api/number/min/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="300px"
 />
 
 ## Syntaxe
 
-### Signature classique
-
 ```typescript
 function min<
-	GenericInput extends number
+	GenericInput extends AnyTuple<number>
 >(
-	input: GenericInput,
-	comparison: number
+	input: GenericInput
 ): number
-```
-
-### Signature currifiée
-
-```typescript
-function min<
-	GenericInput extends number
->(
-	comparison: number
-): (input: GenericInput) => number
 ```
 
 ## Paramètres
 
-- `input` : La valeur à comparer (uniquement en signature classique).
-- `comparison` : Le nombre de comparaison.
+- `input` : Tuple de nombres à comparer.
 
 ## Valeur de retour
 
-**Signature classique** : retourne le plus petit des deux nombres.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et retourne le plus petit des deux nombres.
+Le plus petit nombre du tuple fourni.
 
 ## Voir aussi
 

@@ -4,8 +4,8 @@ prev:
   text: "spliceInsert"
   link: "/v1/api/array/spliceInsert/fr"
 next:
-  text: "findAndSpliceDelete"
-  link: "/v1/api/array/findAndSpliceDelete/fr"
+  text: "findAndReplace"
+  link: "/v1/api/array/findAndReplace/fr"
 ---
 
 # spliceReplace

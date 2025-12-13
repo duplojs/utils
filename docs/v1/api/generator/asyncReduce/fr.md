@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "reduce"
-  link: "/v1/api/generator/reduce/fr"
+  text: "chunk"
+  link: "/v1/api/generator/chunk/fr"
 next:
   text: "Generator"
   link: "/v1/api/generator/fr"

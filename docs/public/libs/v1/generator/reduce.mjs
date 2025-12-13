@@ -1,7 +1,7 @@
 import { createKind } from '../common/kind.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
 import { unwrap } from '../common/unwrap.mjs';
-import { override } from '../object/override.mjs';
+import { reduceTools } from '../array/reduce.mjs';
 
 const generatorReduceFromKind = createKind("generator-reduce-from");
 function reduceFrom(value) {
@@ -20,11 +20,7 @@ function reduce(...args) {
             element,
             index,
             lastValue,
-            nextWithObject: ((object1, object2) => ({
-                "-next": override(object1, object2),
-            })),
-            exit: (output) => ({ "-exit": output }),
-            next: (output) => ({ "-next": output }),
+            ...reduceTools,
         });
         if ("-exit" in result) {
             return result["-exit"];

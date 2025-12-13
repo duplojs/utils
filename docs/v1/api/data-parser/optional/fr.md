@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "union"
-  link: "/v1/api/data-parser/union/fr"
+  text: "required"
+  link: "/v1/api/data-parser/required/fr"
 next:
   text: "nullable"
   link: "/v1/api/data-parser/nullable/fr"

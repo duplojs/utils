@@ -28,3 +28,4 @@ export * from "./normalize";
 export * from "./test";
 export * from "./isIn";
 export * from "./length";
+export * from "./sort";

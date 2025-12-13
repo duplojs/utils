@@ -15,6 +15,9 @@ function number(definition) {
         max(self, max$1, definition) {
             return self.addChecker(max.checkerNumberMax(max$1, definition));
         },
+        int(self, definition) {
+            return self.addChecker(int$1.checkerInt(definition));
+        },
     });
     return number.overrideHandler.apply(self);
 }

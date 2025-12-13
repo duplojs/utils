@@ -4,8 +4,8 @@ prev:
   text: "fillAll"
   link: "/v1/api/array/fillAll/fr"
 next:
-  text: "push"
-  link: "/v1/api/array/push/fr"
+  text: "insert"
+  link: "/v1/api/array/insert/fr"
 ---
 
 # copyWithin

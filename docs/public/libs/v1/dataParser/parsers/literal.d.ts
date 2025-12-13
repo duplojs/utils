@@ -8,7 +8,7 @@ export interface DataParserLiteralCheckerCustom<GenericInput extends LiteralValu
 }
 export type DataParserLiteralCheckers<GenericInput extends LiteralValue = LiteralValue> = (DataParserLiteralCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserLiteralCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
 export interface DataParserDefinitionLiteral extends DataParserDefinition<DataParserLiteralCheckers> {
-    readonly value: LiteralValue[];
+    readonly value: readonly LiteralValue[];
 }
 export declare const literalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>>;
 type _DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral> = (DataParser<GenericDefinition, GenericDefinition["value"][number], GenericDefinition["value"][number]> & Kind<typeof literalKind.definition>);

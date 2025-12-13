@@ -3,10 +3,13 @@
 function map(...args) {
     if (args.length === 1) {
         const [theFunction] = args;
-        return (array) => map(array, theFunction);
+        return (input) => map(input, theFunction);
     }
-    const [array, theFunction] = args;
-    return array.map((element, index) => theFunction(element, { index }));
+    const [input, theFunction] = args;
+    return input.map((element, index) => theFunction(element, {
+        index,
+        self: input,
+    }));
 }
 
 exports.map = map;

@@ -1,6 +1,7 @@
-interface ArraySomeParams {
+interface ArraySomeParams<GenericInputArray extends readonly unknown[]> {
     index: number;
+    self: GenericInputArray;
 }
-export declare function some<GenericArray extends readonly unknown[]>(predicate: (element: GenericArray[number], params: ArraySomeParams) => boolean): (array: GenericArray) => boolean;
-export declare function some<GenericElement extends unknown>(array: readonly GenericElement[], predicate: (element: GenericElement, params: ArraySomeParams) => boolean): boolean;
+export declare function some<GenericInput extends readonly unknown[]>(predicate: (element: GenericInput[number], params: ArraySomeParams<GenericInput>) => boolean): (input: GenericInput) => boolean;
+export declare function some<GenericInput extends readonly unknown[]>(input: GenericInput, predicate: (element: GenericInput[number], params: ArraySomeParams<GenericInput>) => boolean): boolean;
 export {};

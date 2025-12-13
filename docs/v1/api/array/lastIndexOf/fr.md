@@ -4,8 +4,8 @@ prev:
   text: "indexOf"
   link: "/v1/api/array/indexOf/fr"
 next:
-  text: "find"
-  link: "/v1/api/array/find/fr"
+  text: "isLastIndex"
+  link: "/v1/api/array/isLastIndex/fr"
 ---
 
 # lastIndexOf

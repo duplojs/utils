@@ -4,8 +4,8 @@ prev:
   text: "asyncMap"
   link: "/v1/api/generator/asyncMap/fr"
 next:
-  text: "asyncFilter"
-  link: "/v1/api/generator/asyncFilter/fr"
+  text: "chunk"
+  link: "/v1/api/generator/chunk/fr"
 ---
 
 # filter

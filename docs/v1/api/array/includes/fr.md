@@ -4,8 +4,8 @@ prev:
   text: "length"
   link: "/v1/api/array/length/fr"
 next:
-  text: "indexOf"
-  link: "/v1/api/array/indexOf/fr"
+  text: "notIncludes"
+  link: "/v1/api/array/notIncludes/fr"
 ---
 
 # includes

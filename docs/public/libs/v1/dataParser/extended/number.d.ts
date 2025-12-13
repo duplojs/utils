@@ -21,6 +21,9 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
     max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.DataParserCheckerNumberMax
     ]>>;
+    int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.DataParserCheckerInt
+    ]>>;
 }
 export declare function number<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNumber> = never>(definition?: GenericDefinition): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace number {

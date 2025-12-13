@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "trimEnd"
-  link: "/v1/api/string/trimEnd/fr"
+  text: "sort"
+  link: "/v1/api/string/sort/fr"
 next:
   text: "isKeyof"
   link: "/v1/api/string/isKeyof/fr"

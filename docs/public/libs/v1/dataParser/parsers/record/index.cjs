@@ -45,7 +45,7 @@ function record(key, value, definition) {
                     output[resultKey] = resultValue;
                 }
             }
-            error.popErrorPath(error$1);
+            void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
             if (output === base.SymbolDataParserError) {
                 return output;
             }
@@ -83,7 +83,7 @@ function record(key, value, definition) {
                     output[resultKey] = resultValue;
                 }
             }
-            error.popErrorPath(error$1);
+            void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
             if (output === base.SymbolDataParserError) {
                 return output;
             }

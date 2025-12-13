@@ -4,11 +4,11 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 var memo = require('../../../common/memo.cjs');
-var forward = require('../../../common/forward.cjs');
 var pipe = require('../../../common/pipe.cjs');
 var map = require('../../../array/map.cjs');
 var filter = require('../../../array/filter.cjs');
 var entries = require('../../../object/entries.cjs');
+var forward = require('../../../common/forward.cjs');
 var override = require('../../../common/override.cjs');
 
 const objectKind = kind.createDataParserKind("object");
@@ -43,7 +43,7 @@ function object(shape, definition) {
                     output[entry.key] = result;
                 }
             }
-            error.popErrorPath(error$1);
+            void (self.definition.optimizedShape.value.length && error.popErrorPath(error$1));
             return output;
         },
         async: async (data, error$1, self) => {
@@ -65,7 +65,7 @@ function object(shape, definition) {
                     output[entry.key] = result;
                 }
             }
-            error.popErrorPath(error$1);
+            void (self.definition.optimizedShape.value.length && error.popErrorPath(error$1));
             return output;
         },
     });

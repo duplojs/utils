@@ -4,8 +4,8 @@ prev:
   text: "trimStart"
   link: "/v1/api/string/trimStart/fr"
 next:
-  text: "concat"
-  link: "/v1/api/string/concat/fr"
+  text: "sort"
+  link: "/v1/api/string/sort/fr"
 ---
 
 # trimEnd

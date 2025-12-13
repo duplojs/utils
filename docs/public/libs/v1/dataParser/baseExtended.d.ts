@@ -48,6 +48,7 @@ export declare function dataParserExtendedInit<GenericDataParser extends DataPar
     [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
 }>): GenericDataParserExtended;
 export declare namespace dataParserExtendedInit {
-    var overrideHandler: import("../common").OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, AnyValue>>, unknown, unknown>>;
+    var overrideHandler: import("../common").OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
+export type ContractExtended<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParserExtended<DataParserDefinition<never>, GenericOutput, GenericInput>;
 export {};

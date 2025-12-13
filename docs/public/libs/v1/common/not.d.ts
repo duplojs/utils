@@ -1,2 +1,0 @@
-export declare function not<GenericInput extends unknown, GenericPredicatedInput extends GenericInput>(predicate: (input: GenericInput) => input is GenericPredicatedInput): (input: GenericInput) => input is Exclude<GenericInput, GenericPredicatedInput>;
-export declare function not<GenericInput extends unknown, GenericPredicatedInput extends GenericInput>(input: GenericInput, predicate: (input: GenericInput) => input is GenericPredicatedInput): input is Exclude<GenericInput, GenericPredicatedInput>;

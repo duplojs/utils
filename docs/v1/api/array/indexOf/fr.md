@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "includes"
-  link: "/v1/api/array/includes/fr"
+  text: "notIncludes"
+  link: "/v1/api/array/notIncludes/fr"
 next:
   text: "lastIndexOf"
   link: "/v1/api/array/lastIndexOf/fr"

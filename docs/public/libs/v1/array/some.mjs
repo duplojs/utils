@@ -1,10 +1,13 @@
 function some(...args) {
     if (args.length === 1) {
         const [predicate] = args;
-        return (array) => some(array, predicate);
+        return (input) => some(input, predicate);
     }
-    const [array, predicate] = args;
-    return array.some((element, index) => predicate(element, { index }));
+    const [input, predicate] = args;
+    return input.some((element, index) => predicate(element, {
+        index,
+        self: input,
+    }));
 }
 
 export { some };

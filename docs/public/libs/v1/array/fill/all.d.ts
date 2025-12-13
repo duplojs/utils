@@ -1,2 +1,2 @@
-export declare function fillAll<GenericElement extends unknown>(value: GenericElement): (array: readonly GenericElement[]) => GenericElement[];
-export declare function fillAll<GenericElement extends unknown>(array: readonly GenericElement[], value: GenericElement): GenericElement[];
+export declare function fillAll<GenericElement extends unknown>(element: GenericElement): (input: readonly unknown[]) => GenericElement[];
+export declare function fillAll<GenericElement extends unknown>(input: readonly unknown[], element: GenericElement): GenericElement[];

@@ -3,10 +3,10 @@
 function push(...args) {
     if (args.length === 1) {
         const [item] = args;
-        return (array) => push(array, item);
+        return (input) => push(input, item);
     }
-    const [array, ...items] = args;
-    return [...array, ...items];
+    const [input, ...items] = args;
+    return [...input, ...items];
 }
 
 exports.push = push;

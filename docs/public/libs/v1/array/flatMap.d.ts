@@ -1,6 +1,7 @@
-interface ArrayMapParams {
+interface ArrayFlatMapParams<GenericInputArray extends readonly unknown[]> {
     index: number;
+    self: GenericInputArray;
 }
-export declare function flatMap<GenericArray extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericArray[number], params: ArrayMapParams) => GenericOutput): (array: GenericArray) => FlatArray<GenericOutput, 1>[];
-export declare function flatMap<GenericElement extends unknown, GenericOutput extends unknown>(array: readonly GenericElement[], theFunction: (element: GenericElement, params: ArrayMapParams) => GenericOutput): FlatArray<GenericOutput, 1>[];
+export declare function flatMap<GenericInput extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericInput[number], params: ArrayFlatMapParams<GenericInput>) => GenericOutput): (input: GenericInput) => FlatArray<GenericOutput, 1>[];
+export declare function flatMap<GenericInput extends readonly unknown[], GenericOutput extends unknown>(input: GenericInput, theFunction: (element: GenericInput[number], params: ArrayFlatMapParams<GenericInput>) => GenericOutput): FlatArray<GenericOutput, 1>[];
 export {};

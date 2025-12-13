@@ -2,11 +2,11 @@ import { dataParserInit, SymbolDataParserError, dataParserKind } from '../../bas
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { memo } from '../../../common/memo.mjs';
-import { forward } from '../../../common/forward.mjs';
 import { pipe } from '../../../common/pipe.mjs';
 import { map } from '../../../array/map.mjs';
 import { filter } from '../../../array/filter.mjs';
 import { entries } from '../../../object/entries.mjs';
+import { forward } from '../../../common/forward.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const objectKind = createDataParserKind("object");
@@ -41,7 +41,7 @@ function object(shape, definition) {
                     output[entry.key] = result;
                 }
             }
-            popErrorPath(error);
+            void (self.definition.optimizedShape.value.length && popErrorPath(error));
             return output;
         },
         async: async (data, error, self) => {
@@ -63,7 +63,7 @@ function object(shape, definition) {
                     output[entry.key] = result;
                 }
             }
-            popErrorPath(error);
+            void (self.definition.optimizedShape.value.length && popErrorPath(error));
             return output;
         },
     });

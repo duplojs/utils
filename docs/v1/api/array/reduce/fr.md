@@ -74,15 +74,17 @@ interface ArrayReduceExit<GenericOutput = unknown> {
 }
 
 interface ArrayReduceFunctionParams<
-	GenericElement extends unknown = unknown, 
+	GenericInputArray extends readonly unknown[] = unknown[],
 	GenericOutput extends unknown = unknown
 > {
-    element: GenericElement;
-    index: number;
-    lastValue: GenericOutput;
-    nextWithObject: GenericOutput extends object ? (object1: GenericOutput, object2: Partial<GenericOutput>) => ArrayReduceNext<GenericOutput> : undefined;
-    next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
-    exit<GenericExitValue extends unknown>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
+	element: GenericInputArray[number];
+	index: number;
+	lastValue: GenericOutput;
+	self: GenericInputArray;
+	nextWithObject: GenericOutput extends object ? (object1: GenericOutput, object2: Partial<GenericOutput>) => ArrayReduceNext<GenericOutput> : undefined;
+	next(output: GenericOutput): ArrayReduceNext<GenericOutput>;
+	exit<GenericExitValue extends unknown>(output: GenericExitValue): ArrayReduceExit<GenericExitValue>;
+	nextPush: GenericOutput extends readonly any[] ? (array: GenericOutput, ...values: GenericOutput) => ArrayReduceNext<GenericOutput> : undefined;
 }
 
 function reduceFrom<
@@ -94,17 +96,19 @@ function reduceFrom<
 
 - `input` : Le tableau à agréger.
 - `startValue` : Valeur initiale. Pour des objets/tuples, enveloppez-la avec `reduceFrom()` afin de conserver un typage précis.
-- `theFunction` : Fonction appelée pour chaque élément. Elle reçoit l'élément, l'index, la dernière valeur et des helpers `next`, `nextWithObject` et `exit`.
+- `theFunction` : Fonction appelée pour chaque élément. Elle reçoit l'élément, l'index, la dernière valeur, le tableau complet et des helpers (`next`, `nextWithObject`, `nextPush`, `exit`).
 - `params.element` : L'élément courant du tableau.
 - `params.index` : Position de l'élément dans le tableau.
+- `params.self` : Le tableau complet (utile pour comparer à la longueur ou accéder à un voisin).
 - `params.lastValue` : État accumulé avant l'élément courant.
 - `params.next()` : Retourne la nouvelle valeur à propager à l'itération suivante.
 - `params.nextWithObject()` : Raccourci pour fusionner partiellement un objet tout en conservant le typage.
+- `params.nextPush()` : Si `lastValue` est un tableau, ajoute un ou plusieurs éléments et renvoie le nouvel état en une étape.
 - `params.exit()` : Permet d'arrêter immédiatement la réduction et de retourner une valeur personnalisée.
 
 ## Valeur de retour
 
-La dernière valeur fournie à `next()` (ou à `nextWithObject()`), ou bien la valeur passée à `exit()` si une sortie anticipée est déclenchée. Le tableau original reste inchangé.
+La dernière valeur fournie à `next()`, `nextWithObject()` ou `nextPush()`, ou bien la valeur passée à `exit()` si une sortie anticipée est déclenchée. Le tableau original reste inchangé.
 
 ## Voir aussi
 

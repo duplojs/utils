@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "flatMap"
-  link: "/v1/api/array/flatMap/fr"
+  text: "chunk"
+  link: "/v1/api/array/chunk/fr"
 next:
   text: "sort"
   link: "/v1/api/array/sort/fr"

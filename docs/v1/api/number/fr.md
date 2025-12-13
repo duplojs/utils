@@ -63,10 +63,10 @@ Arrondit un nombre vers le bas.
 Retourne la partie entière d'un nombre.
 
 ### [max](/v1/api/number/max/fr)
-Retourne le plus grand de plusieurs nombres.
+Retourne le plus grand nombre d'un tuple.
 
 ### [min](/v1/api/number/min/fr)
-Retourne le plus petit de plusieurs nombres.
+Retourne le plus petit nombre d'un tuple.
 
 ### [clamp](/v1/api/number/clamp/fr)
 Limite un nombre entre une valeur minimale et maximale.

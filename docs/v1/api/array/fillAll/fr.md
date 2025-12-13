@@ -28,7 +28,7 @@ La fonction **`fillAll()`** remplace tous les éléments d'un tableau par une va
 function fillAll<
 	GenericElement extends unknown 
 >(
-	input: readonly GenericElement[],
+	input: readonly unknown[],
 	element: GenericElement
 ): GenericElement[]
 ```
@@ -40,17 +40,17 @@ function fillAll<
 	GenericElement extends unknown
 >(
 	element: GenericElement
-): (input: readonly GenericElement[]) => GenericElement[]
+): (input: readonly unknown[]) => GenericElement[]
 ```
 
 ## Paramètres
 
 - `input` : Tableau source.
-- `element` : Valeur qui sera copiée à chaque position.
+- `element` : Valeur qui sera copiée à chaque position (le type de sortie est basé sur cette valeur).
 
 ## Valeur de retour
 
-Un nouveau tableau où tous les éléments valent `element`.
+Un nouveau tableau où tous les éléments valent `element`, typé à partir de cette valeur. Le tableau initial reste inchangé.
 
 ## Voir aussi
 

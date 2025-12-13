@@ -3,7 +3,7 @@
 var kind = require('../common/kind.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 var unwrap = require('../common/unwrap.cjs');
-var override = require('../object/override.cjs');
+var reduce$1 = require('../array/reduce.cjs');
 
 const generatorReduceFromKind = kind.createKind("generator-reduce-from");
 function reduceFrom(value) {
@@ -22,11 +22,7 @@ function reduce(...args) {
             element,
             index,
             lastValue,
-            nextWithObject: ((object1, object2) => ({
-                "-next": override.override(object1, object2),
-            })),
-            exit: (output) => ({ "-exit": output }),
-            next: (output) => ({ "-next": output }),
+            ...reduce$1.reduceTools,
         });
         if ("-exit" in result) {
             return result["-exit"];

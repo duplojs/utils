@@ -8,7 +8,7 @@ export declare const dataParserCheckerRefineKind: import("../../common").KindHan
 type _DataParserCheckerRefine<GenericDefinition extends DataParserCheckerDefinitionRefine> = (Kind<typeof dataParserCheckerRefineKind.definition> & DataParserChecker<GenericDefinition, string>);
 export interface DataParserCheckerRefine<GenericDefinition extends DataParserCheckerDefinitionRefine = DataParserCheckerDefinitionRefine> extends _DataParserCheckerRefine<GenericDefinition> {
 }
-export declare function checkerRefine<GenericInput extends unknown, const GenericDefinition extends Partial<Omit<DataParserCheckerDefinitionRefine, "theFunction">> = never>(theFunction: (input: GenericInput) => boolean, definition?: GenericDefinition): DataParserCheckerRefine<AssignObjects<NeverCoalescing<GenericDefinition, {}>, {
+export declare function checkerRefine<GenericInput extends unknown, const GenericDefinition extends Partial<Omit<DataParserCheckerDefinitionRefine, "theFunction">> = never>(theFunction: (input: GenericInput) => boolean, definition?: GenericDefinition): DataParserCheckerRefine<AssignObjects<NeverCoalescing<GenericDefinition, DataParserCheckerDefinitionRefine>, {
     theFunction(input: GenericInput): boolean;
 }>>;
 export type CheckerRefineImplementation<GenericInput extends unknown> = DataParserCheckerRefine<AssignObjects<DataParserCheckerDefinitionRefine, {

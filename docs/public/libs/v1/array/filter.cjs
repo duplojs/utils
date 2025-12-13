@@ -3,10 +3,13 @@
 function filter(...args) {
     if (args.length === 1) {
         const [predicate] = args;
-        return (array) => filter(array, predicate);
+        return (input) => filter(input, predicate);
     }
-    const [array, predicate] = args;
-    return array.filter((item, index) => predicate(item, { index }));
+    const [input, predicate] = args;
+    return input.filter((item, index) => predicate(item, {
+        index,
+        self: input,
+    }));
 }
 
 exports.filter = filter;

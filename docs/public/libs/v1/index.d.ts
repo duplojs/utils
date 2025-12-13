@@ -21,3 +21,5 @@ export * as DPE from "./dataParser/extended";
 export * as DDataParserExtended from "./dataParser/extended";
 export * as D from "./date";
 export * as DDate from "./date";
+export * as C from "./clean";
+export * as DClean from "./clean";

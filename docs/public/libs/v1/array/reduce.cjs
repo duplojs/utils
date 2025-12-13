@@ -3,30 +3,42 @@
 var kind = require('../common/kind.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 var unwrap = require('../common/unwrap.cjs');
+var push = require('./push.cjs');
 var override = require('../object/override.cjs');
 
 const arrayReduceFromKind = kind.createKind("array-reduce-from");
 function reduceFrom(value) {
     return arrayReduceFromKind.setTo(wrapValue.wrapValue(value));
 }
+const reduceTools = {
+    exit(output) {
+        return { "-exit": output };
+    },
+    next(output) {
+        return { "-next": output };
+    },
+    nextWithObject(object1, object2) {
+        return { "-next": override.override(object1, object2) };
+    },
+    nextPush(array, ...[value, ...values]) {
+        return { "-next": push.push(array, value, ...values) };
+    },
+};
 function reduce(...args) {
     if (args.length === 2) {
         const [fromValue, theFunction] = args;
-        return (array) => reduce(array, fromValue, theFunction);
+        return (input) => reduce(input, fromValue, theFunction);
     }
-    const [array, fromValue, theFunction] = args;
+    const [input, fromValue, theFunction] = args;
     let lastValue = unwrap.unwrap(fromValue);
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
+    for (let index = 0; index < input.length; index++) {
+        const element = input[index];
         const result = theFunction({
             element,
             index,
             lastValue,
-            nextWithObject: ((object1, object2) => ({
-                "-next": override.override(object1, object2),
-            })),
-            exit: (output) => ({ "-exit": output }),
-            next: (output) => ({ "-next": output }),
+            self: input,
+            ...reduceTools,
         });
         if ("-exit" in result) {
             return result["-exit"];
@@ -38,3 +50,4 @@ function reduce(...args) {
 
 exports.reduce = reduce;
 exports.reduceFrom = reduceFrom;
+exports.reduceTools = reduceTools;

@@ -49,11 +49,17 @@ Retourne la longueur du tableau.
 ### [includes](/v1/api/array/includes/fr)
 Vérifie si un tableau contient un élément.
 
+### [notIncludes](/v1/api/array/notIncludes/fr)
+Vérifie qu'un tableau ne contient pas une valeur donnée (type guard).
+
 ### [indexOf](/v1/api/array/indexOf/fr)
 Retourne l'index de la première occurrence d'un élément.
 
 ### [lastIndexOf](/v1/api/array/lastIndexOf/fr)
 Retourne l'index de la dernière occurrence d'un élément.
+
+### [isLastIndex](/v1/api/array/isLastIndex/fr)
+Indique si un index correspond au dernier élément du tableau.
 
 ### [find](/v1/api/array/find/fr)
 Trouve le premier élément qui satisfait une condition.
@@ -84,11 +90,17 @@ Applique une fonction à chaque élément et retourne un nouveau tableau.
 ### [filter](/v1/api/array/filter/fr)
 Filtre les éléments selon une condition.
 
+### [slice](/v1/api/array/slice/fr)
+Extrait une portion du tableau sans le modifier.
+
 ### [flat](/v1/api/array/flat/fr)
 Aplatit un tableau imbriqué d'un niveau spécifié.
 
 ### [flatMap](/v1/api/array/flatMap/fr)
 Applique une fonction puis aplatit le résultat d'un niveau.
+
+### [chunk](/v1/api/array/chunk/fr)
+Découpe un tableau en blocs de taille fixe.
 
 ### [reverse](/v1/api/array/reverse/fr)
 Inverse l'ordre des éléments du tableau.
@@ -147,6 +159,9 @@ Remplit tout le tableau avec une valeur.
 ### [copyWithin](/v1/api/array/copyWithin/fr)
 Copie une section du tableau vers un autre emplacement.
 
+### [insert](/v1/api/array/insert/fr)
+Ajoute une valeur en fin de tableau (arguments inversés pour le currying).
+
 ## Ajout et suppression
 
 ### [push](/v1/api/array/push/fr)
@@ -174,6 +189,9 @@ Insère des éléments à un index spécifique.
 Remplace des éléments à partir d'un index.
 
 ## Recherche et modification
+
+### [findAndReplace](/v1/api/array/findAndReplace/fr)
+Trouve un élément et le remplace par une nouvelle valeur.
 
 ### [findAndSpliceDelete](/v1/api/array/findAndSpliceDelete/fr)
 Trouve et supprime un élément.

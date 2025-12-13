@@ -31,7 +31,7 @@ function some<
 	input: GenericInput, 
 	predicate: (
 		element: GenericInput[number], 
-		params: { index: number }
+		params: ArraySomeParams<GenericInput>
 	) => boolean
 ): boolean
 ```
@@ -42,17 +42,30 @@ function some<
 function some<
 	GenericInput extends readonly unknown[]
 >(
-	predicate: (
-		element: GenericInput[number], 
-		params: { index: number }
-	) => boolean
+predicate: (
+	element: GenericInput[number], 
+	params: ArraySomeParams<GenericInput>
+) => boolean
 ): (array: GenericInput) => boolean
+```
+
+### Paramètres auxiliaires
+
+```typescript
+interface ArraySomeParams<
+	GenericInputArray extends readonly unknown[]
+> {
+    index: number;
+    self: GenericInputArray;
+}
 ```
 
 ## Paramètres
 
 - `input` : Le tableau à tester.
-- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
+- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément, son index et le tableau complet.
+- `params.index` : Position de l'élément courant.
+- `params.self` : Le tableau complet (utile pour comparer la position ou accéder à un voisin).
 
 ## Valeur de retour
 

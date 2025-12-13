@@ -1,8 +1,9 @@
-interface ArrayFilterParams {
+interface ArrayFilterParams<GenericInputArray extends readonly unknown[]> {
     index: number;
+    self: GenericInputArray;
 }
-export declare function filter<GenericArray extends readonly unknown[], GenericOutput extends GenericArray[number]>(predicate: (item: GenericArray[number], params: ArrayFilterParams) => item is GenericOutput): (array: GenericArray) => GenericOutput[];
-export declare function filter<GenericElement extends unknown, GenericOutput extends GenericElement>(array: readonly GenericElement[], predicate: (item: GenericElement, params: ArrayFilterParams) => item is GenericOutput): GenericOutput[];
-export declare function filter<GenericArray extends readonly unknown[]>(predicate: (item: GenericArray[number], params: ArrayFilterParams) => boolean): (array: GenericArray) => GenericArray[number][];
-export declare function filter<GenericElement extends unknown>(array: readonly GenericElement[], predicate: (item: GenericElement, params: ArrayFilterParams) => boolean): GenericElement[];
+export declare function filter<GenericInput extends readonly unknown[], GenericOutput extends GenericInput[number]>(predicate: (item: GenericInput[number], params: ArrayFilterParams<GenericInput>) => item is GenericOutput): (input: GenericInput) => GenericOutput[];
+export declare function filter<GenericInput extends readonly unknown[], GenericOutput extends GenericInput[number]>(input: GenericInput, predicate: (item: GenericInput[number], params: ArrayFilterParams<GenericInput>) => item is GenericOutput): GenericOutput[];
+export declare function filter<GenericInput extends readonly unknown[]>(predicate: (item: GenericInput[number], params: ArrayFilterParams<GenericInput>) => boolean): (input: GenericInput) => GenericInput[number][];
+export declare function filter<GenericInput extends readonly unknown[]>(input: GenericInput, predicate: (item: GenericInput[number], params: ArrayFilterParams<GenericInput>) => boolean): GenericInput[number][];
 export {};

@@ -43,6 +43,9 @@ Transforme chaque élément d'un générateur en appliquant une fonction.
 ### [asyncMap](/v1/api/generator/asyncMap/fr)
 Transforme chaque élément d'un générateur avec une fonction asynchrone.
 
+### [chunk](/v1/api/generator/chunk/fr)
+Découpe un itérable en blocs de taille fixe et retourne un générateur de tableaux.
+
 ## Filtrage
 
 ### [filter](/v1/api/generator/filter/fr)

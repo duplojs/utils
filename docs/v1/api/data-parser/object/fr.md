@@ -4,8 +4,8 @@ prev:
   text: "unknown"
   link: "/v1/api/data-parser/unknown/fr"
 next:
-  text: "array"
-  link: "/v1/api/data-parser/array/fr"
+  text: "partial"
+  link: "/v1/api/data-parser/partial/fr"
 ---
 
 # object

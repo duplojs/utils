@@ -4,8 +4,8 @@ prev:
   text: "flat"
   link: "/v1/api/array/flat/fr"
 next:
-  text: "reverse"
-  link: "/v1/api/array/reverse/fr"
+  text: "chunk"
+  link: "/v1/api/array/chunk/fr"
 ---
 
 # flatMap
@@ -33,7 +33,7 @@ function flatMap<
 	input:  GenericInput,
 	theFunction: (
 		element: GenericInput[number],
-		params: ArrayMapParams
+		params: ArrayFlatMapParams<GenericInput>
 	) => GenericOutput
 ): FlatArray<GenericOutput, 1>[]
 ```
@@ -47,7 +47,7 @@ function flatMap<
 >(
 	theFunction: (
 		element: GenericInput[number],
-		params: ArrayMapParams
+		params: ArrayFlatMapParams<GenericInput>
 	) => GenericOutput
 ): (input: GenericInput) => FlatArray<GenericOutput, 1>[]
 ```
@@ -55,8 +55,11 @@ function flatMap<
 ### Paramètres auxiliaires
 
 ```typescript
-interface ArrayMapParams {
+interface ArrayFlatMapParams<
+	GenericInputArray extends readonly unknown[]
+> {
 	index: number;
+	self: GenericInputArray;
 }
 ```
 
@@ -65,6 +68,7 @@ interface ArrayMapParams {
 - `input` : Le tableau source.
 - `theFunction` : Fonction appliquée sur chaque élément. Elle retourne un tableau (ou une valeur) qui sera aplati d'un niveau.
 - `params.index` : Position de l'élément courant.
+- `params.self` : Le tableau complet (pratique pour comparer la longueur ou accéder aux voisins pendant la transformation).
 
 ## Valeur de retour
 

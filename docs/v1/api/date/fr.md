@@ -56,6 +56,9 @@ Retourne la représentation ISO 8601 d'un `TheDate`.
 ### [isSafeTimestamp](/v1/api/date/isSafeTimestamp/fr)
 Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.
 
+### [is](/v1/api/date/is/fr)
+Vérifie qu'une chaîne correspond au format `TheDate` (type guard).
+
 ## Lecture des composants
 
 ### [getYear](/v1/api/date/getYear/fr)
@@ -173,6 +176,15 @@ Contrôle l'appartenance à un intervalle ouvert.
 
 ### [betweenThan](/v1/api/date/betweenThan/fr)  
 Variante incluant les bornes.
+
+### [sort](/v1/api/date/sort/fr)  
+Trie un tableau de dates en ordre croissant ou décroissant.
+
+### [max](/v1/api/date/max/fr)  
+Retourne la date la plus récente d'un tuple.
+
+### [min](/v1/api/date/min/fr)  
+Retourne la date la plus ancienne d'un tuple.
 
 ### Autres utilitaires
 

@@ -1,2 +1,2 @@
-export declare function min<GenericValue extends number>(comparison: number): (value: GenericValue) => number;
-export declare function min<GenericValue extends number>(value: GenericValue, comparison: number): number;
+import { type AnyTuple } from "../common";
+export declare function min<GenericInput extends AnyTuple<number>>(input: GenericInput): number;

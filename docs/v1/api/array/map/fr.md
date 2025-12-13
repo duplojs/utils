@@ -32,7 +32,7 @@ function map<
 	input: GenericInput,
 	theFunction: (
 		element: GenericInput[number],
-		params: ArrayMapParams
+		params: ArrayMapParams<GenericInput>
 	) => GenericOutput
 ): GenericOutput[]
 ```
@@ -46,7 +46,7 @@ function map<
 >(
 	theFunction: (
 		element: GenericInput[number],
-		params: ArrayMapParams
+		params: ArrayMapParams<GenericInput>
 	) => GenericOutput
 ): (input: GenericInput) => GenericOutput[]
 ```
@@ -54,16 +54,20 @@ function map<
 ### Paramètres auxiliaires
 
 ```typescript
-interface ArrayMapParams {
+interface ArrayMapParams<
+	GenericInputArray extends readonly unknown[]
+> {
 	index: number;
+	self: GenericInputArray;
 }
 ```
 
 ## Paramètres
 
 - `input` : Le tableau à transformer.
-- `theFunction` : Fonction appliquée à chaque élément. Elle reçoit l'élément courant et un objet fournissant l'index.
+- `theFunction` : Fonction appliquée à chaque élément. Elle reçoit l'élément courant et un objet fournissant l'index et le tableau complet.
 - `params.index` : Position de l'élément en cours dans le tableau source.
+- `params.self` : Le tableau complet (pratique pour comparer la position courante ou accéder aux voisins).
 
 ## Valeur de retour
 

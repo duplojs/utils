@@ -31,7 +31,7 @@ function every<
 	input: GenericInput, 
 	predicate: (
 		element: GenericInput[number], 
-		params: { index: number }
+		params: ArrayEveryParams<GenericInput>
 	) => boolean
 ): boolean
 ```
@@ -42,17 +42,30 @@ function every<
 function every<
 	GenericInput extends readonly unknown[]
 >(
-	predicate: (
-		element: GenericInput[number], 
-		params: { index: number }
-	) => boolean
+predicate: (
+	element: GenericInput[number], 
+	params: ArrayEveryParams<GenericInput>
+) => boolean
 ): (input: GenericInput) => boolean
+```
+
+### Paramètres auxiliaires
+
+```typescript
+interface ArrayEveryParams<
+	GenericInputArray extends readonly unknown[]
+> {
+	index: number;
+	self: GenericInputArray;
+}
 ```
 
 ## Paramètres
 
 - `input` : Le tableau à tester.
-- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément et un objet contenant l'index.
+- `predicate` : Fonction de prédicat qui teste chaque élément. Reçoit l'élément, son index et le tableau complet.
+- `params.index` : Position de l'élément courant.
+- `params.self` : Le tableau complet (pratique pour comparer ou consulter un voisin).
 
 ## Valeur de retour
 

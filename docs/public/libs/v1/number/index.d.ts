@@ -29,3 +29,4 @@ export * from "./sqrt";
 export * from "./types";
 export * from "./between";
 export * from "./betweenThan";
+export * from "./sort";

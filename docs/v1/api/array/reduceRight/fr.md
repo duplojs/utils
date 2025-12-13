@@ -63,11 +63,14 @@ function reduceRight<
 
 ## Paramètres
 
-Identiques à ceux de [`reduce`](/v1/api/array/reduce/fr), mais l'itération commence par le dernier élément du tableau.
+Identiques à ceux de [`reduce`](/v1/api/array/reduce/fr), mais l'itération commence par le dernier élément du tableau.  
+En particulier :
+- `params.self` expose le tableau complet (pratique pour connaître la longueur ou comparer un index).
+- `params.nextPush()` ajoute des valeurs à `lastValue` lorsqu'il s'agit d'un tableau, sans devoir appeler `next()` après un `push`.
 
 ## Valeur de retour
 
-Le résultat de l'accumulation de droite à gauche, ou la valeur passée à `exit()` si une sortie anticipée se produit.
+Le résultat de l'accumulation de droite à gauche (via `next()`, `nextWithObject()` ou `nextPush()`), ou la valeur passée à `exit()` si une sortie anticipée se produit.
 
 ## Voir aussi
 

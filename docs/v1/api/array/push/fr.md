@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "copyWithin"
-  link: "/v1/api/array/copyWithin/fr"
+  text: "insert"
+  link: "/v1/api/array/insert/fr"
 next:
   text: "pop"
   link: "/v1/api/array/pop/fr"

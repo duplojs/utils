@@ -9,6 +9,7 @@ var reduce = require('./reduce.cjs');
 var asyncReduce = require('./asyncReduce.cjs');
 var loop = require('./loop.cjs');
 var asyncLoop = require('./asyncLoop.cjs');
+var chunk = require('./chunk.cjs');
 
 
 
@@ -22,3 +23,4 @@ exports.reduceFrom = reduce.reduceFrom;
 exports.asyncReduce = asyncReduce.asyncReduce;
 exports.loop = loop.loop;
 exports.asyncLoop = asyncLoop.asyncLoop;
+exports.chunk = chunk.chunk;
