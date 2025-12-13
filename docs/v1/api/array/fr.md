@@ -108,12 +108,6 @@ Inverse l'ordre des éléments du tableau.
 ### [sort](/v1/api/array/sort/fr)
 Trie les éléments du tableau.
 
-### [sortNumber](/v1/api/array/sortNumber/fr)
-Trie un tableau de nombres.
-
-### [sortString](/v1/api/array/sortString/fr)
-Trie un tableau de chaînes de caractères.
-
 ## Agrégation
 
 ### [reduce](/v1/api/array/reduce/fr)

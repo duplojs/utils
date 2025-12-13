@@ -4,8 +4,8 @@ prev:
   text: "reverse"
   link: "/v1/api/array/reverse/fr"
 next:
-  text: "sortNumber"
-  link: "/v1/api/array/sortNumber/fr"
+  text: "reduce"
+  link: "/v1/api/array/reduce/fr"
 ---
 
 # sort
@@ -61,8 +61,7 @@ Un nouveau tableau contenant les mêmes éléments triés selon la fonction four
 
 ## Voir aussi
 
-- [`sortNumber`](/v1/api/array/sortNumber/fr) - Trie rapidement des nombres en ordre croissant ou décroissant
-- [`sortString`](/v1/api/array/sortString/fr) - Trie des chaînes avec un ordre contrôlé
+- [`reverse`](/v1/api/array/reverse/fr) - Inverse l'ordre des éléments
 
 ## Sources
 

@@ -1,9 +1,9 @@
-import { DPE, E, equal, not, unwrap } from "@duplojs/utils";
+import { DPE, E, equal, unwrap } from "@duplojs/utils";
 
 const schema = DPE
 	.literal(["admin", "editor", "reader"])
 	.refine(
-		not(equal("reader")),
+		(value) => !equal(value, "reader"),
 		{
 			errorMessage: "role.reader-forbidden",
 		},

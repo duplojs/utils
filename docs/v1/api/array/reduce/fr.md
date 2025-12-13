@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "sortString"
-  link: "/v1/api/array/sortString/fr"
+  text: "sort"
+  link: "/v1/api/array/sort/fr"
 next:
   text: "reduceRight"
   link: "/v1/api/array/reduceRight/fr"
