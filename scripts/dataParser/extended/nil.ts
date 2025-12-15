@@ -38,6 +38,17 @@ export interface DataParserNilExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionNil,
+	>(
+		definition: GenericDefinition
+	): DataParserNilExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionNil,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

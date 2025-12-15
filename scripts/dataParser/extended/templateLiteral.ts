@@ -39,6 +39,17 @@ export interface DataParserTemplateLiteralExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral,
+	>(
+		definition: GenericDefinition
+	): DataParserTemplateLiteralExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionTemplateLiteral,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

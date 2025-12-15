@@ -38,6 +38,17 @@ export interface DataParserTupleExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionTuple,
+	>(
+		definition: GenericDefinition
+	): DataParserTupleExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionTuple,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

@@ -38,6 +38,17 @@ export interface DataParserUnionExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionUnion,
+	>(
+		definition: GenericDefinition
+	): DataParserUnionExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionUnion,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

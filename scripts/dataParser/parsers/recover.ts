@@ -62,6 +62,17 @@ export interface DataParserRecover<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionRecover,
+	>(
+		definition: GenericDefinition
+	): DataParserRecover<
+		MergeDefinition<
+			DataParserDefinitionRecover,
+			GenericDefinition
+		>
+	>;
 }
 
 export function recover<
@@ -86,12 +97,10 @@ export function recover<
 	const self = dataParserInit<DataParserRecover>(
 		recoverKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				inner,
-				recoveredValue,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			inner,
+			recoveredValue,
 		},
 		{
 			sync: (data, error, self) => {

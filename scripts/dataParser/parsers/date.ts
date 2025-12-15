@@ -60,6 +60,17 @@ export interface DataParserDate<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionDate,
+	>(
+		definition: GenericDefinition
+	): DataParserDate<
+		MergeDefinition<
+			DataParserDefinitionDate,
+			GenericDefinition
+		>
+	>;
 }
 
 export function date<
@@ -75,11 +86,9 @@ export function date<
 	const self = dataParserInit<DataParserDate>(
 		dateKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {

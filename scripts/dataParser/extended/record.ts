@@ -38,6 +38,17 @@ export interface DataParserRecordExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionRecord,
+	>(
+		definition: GenericDefinition
+	): DataParserRecordExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionRecord,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

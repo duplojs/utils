@@ -43,6 +43,17 @@ export interface DataParserOptionalExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionOptional,
+	>(
+		definition: GenericDefinition
+	): DataParserOptionalExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionOptional,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

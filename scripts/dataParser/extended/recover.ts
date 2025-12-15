@@ -38,6 +38,17 @@ export interface DataParserRecoverExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionRecover,
+	>(
+		definition: GenericDefinition
+	): DataParserRecoverExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionRecover,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

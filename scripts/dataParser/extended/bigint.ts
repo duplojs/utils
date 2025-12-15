@@ -38,6 +38,17 @@ export interface DataParserBigIntExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionBigInt,
+	>(
+		definition: GenericDefinition
+	): DataParserBigIntExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionBigInt,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

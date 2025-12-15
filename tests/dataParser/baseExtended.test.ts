@@ -1,4 +1,4 @@
-import { DDataParser, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {
@@ -151,6 +151,30 @@ describe("base extended", () => {
 		expect(schema.parse({})).toStrictEqual(
 			DEither.error(
 				expect.any(Object),
+			),
+		);
+	});
+
+	it("construct", () => {
+		const newParser = DDataParser.extended.number().construct({
+			errorMessage: "tt",
+			checkers: [],
+			coerce: false,
+		});
+
+		expect(newParser).toStrictEqual(
+			pipe(
+				{
+					definition: {
+						errorMessage: "tt",
+						checkers: [],
+						coerce: false,
+					},
+				},
+				DDataParser.extendedKind.addTo,
+				DDataParser.numberKind.addTo,
+				DDataParser.dataParserKind.addTo,
+				(value) => expect.objectContaining(value),
 			),
 		);
 	});

@@ -68,6 +68,17 @@ export interface DataParserTransform<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionTransform,
+	>(
+		definition: GenericDefinition
+	): DataParserTransform<
+		MergeDefinition<
+			DataParserDefinitionTransform,
+			GenericDefinition
+		>
+	>;
 }
 
 export function transform<
@@ -95,12 +106,10 @@ export function transform<
 	const self = dataParserInit<DataParserTransform>(
 		transformKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				inner,
-				theFunction,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			inner,
+			theFunction,
 		},
 		{
 			sync: (data, error, self) => {

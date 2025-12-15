@@ -69,6 +69,17 @@ export interface DataParserNullable<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionNullable,
+	>(
+		definition: GenericDefinition
+	): DataParserNullable<
+		MergeDefinition<
+			DataParserDefinitionNullable,
+			GenericDefinition
+		>
+	>;
 }
 
 export function nullable<
@@ -93,12 +104,10 @@ export function nullable<
 	const self = dataParserInit<DataParserNullable>(
 		nullableKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				inner,
-				coalescingValue: definition?.coalescingValue ?? null,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			inner,
+			coalescingValue: definition?.coalescingValue ?? null,
 		},
 		{
 			sync: (data, error, self) => {

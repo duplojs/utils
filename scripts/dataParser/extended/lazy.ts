@@ -38,6 +38,17 @@ export interface DataParserLazyExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionLazy,
+	>(
+		definition: GenericDefinition
+	): DataParserLazyExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionLazy,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

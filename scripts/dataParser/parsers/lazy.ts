@@ -61,6 +61,17 @@ export interface DataParserLazy<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionLazy,
+	>(
+		definition: GenericDefinition
+	): DataParserLazy<
+		MergeDefinition<
+			DataParserDefinitionLazy,
+			GenericDefinition
+		>
+	>;
 }
 
 export function lazy<
@@ -80,11 +91,9 @@ export function lazy<
 	const self = dataParserInit<DataParserLazy>(
 		lazyKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				getter: memo(getter),
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			getter: memo(getter),
 		},
 		{
 			sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),

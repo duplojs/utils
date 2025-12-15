@@ -62,6 +62,17 @@ export interface DataParserPipe<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionPipe,
+	>(
+		definition: GenericDefinition
+	): DataParserPipe<
+		MergeDefinition<
+			DataParserDefinitionPipe,
+			GenericDefinition
+		>
+	>;
 }
 
 export function pipe<
@@ -86,12 +97,10 @@ export function pipe<
 	const self = dataParserInit<DataParserPipe>(
 		pipeKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				input,
-				output,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			input,
+			output,
 		},
 		{
 			sync: (data, error, self) => {
