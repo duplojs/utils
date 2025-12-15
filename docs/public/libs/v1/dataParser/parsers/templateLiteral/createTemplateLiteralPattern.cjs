@@ -11,13 +11,11 @@ var index$1 = require('../string/index.cjs');
 var union = require('../union.cjs');
 var innerPipe = require('../../../common/innerPipe.cjs');
 var regex = require('../string/checkers/regex.cjs');
-var when$1 = require('../../../common/when.cjs');
 var max = require('../string/checkers/max.cjs');
 var min = require('../string/checkers/min.cjs');
 var email = require('../string/checkers/email.cjs');
 var int = require('../number/checkers/int.cjs');
 var justReturn = require('../../../common/justReturn.cjs');
-var isType = require('../../../common/isType.cjs');
 var escapeRegExp = require('../../../common/escapeRegExp.cjs');
 var or = require('../../../common/or.cjs');
 var pipe = require('../../../common/pipe.cjs');
@@ -28,6 +26,8 @@ var replace = require('../../../string/replace.cjs');
 var exhaustive = require('../../../pattern/exhaustive.cjs');
 var to = require('../../../object/to.cjs');
 var find = require('../../../array/find.cjs');
+var when$1 = require('../../../common/when.cjs');
+var isType = require('../../../common/isType.cjs');
 
 function createTemplateLiteralPattern(templatePart) {
     return pipe.pipe(templatePart, map.map(innerPipe.innerPipe(when.when(or.or([

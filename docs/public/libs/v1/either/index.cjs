@@ -35,6 +35,8 @@ var ok = require('./right/ok.cjs');
 var pipe = require('./right/pipe.cjs');
 var success$1 = require('./right/success.cjs');
 var when$1 = require('./right/when.cjs');
+var group = require('./right/group.cjs');
+var asyncGroup = require('./right/asyncGroup.cjs');
 
 
 
@@ -107,3 +109,5 @@ exports.rightPipe = pipe.rightPipe;
 exports.eitherSuccessKind = success$1.eitherSuccessKind;
 exports.success = success$1.success;
 exports.whenIsRight = when$1.whenIsRight;
+exports.group = group.group;
+exports.asyncGroup = asyncGroup.asyncGroup;

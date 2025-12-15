@@ -9,13 +9,11 @@ import { stringKind } from '../string/index.mjs';
 import { unionKind } from '../union.mjs';
 import { innerPipe } from '../../../common/innerPipe.mjs';
 import { checkerStringRegexKind } from '../string/checkers/regex.mjs';
-import { when as when$1 } from '../../../common/when.mjs';
 import { checkerStringMaxKind } from '../string/checkers/max.mjs';
 import { checkerStringMinKind } from '../string/checkers/min.mjs';
 import { checkerEmailKind } from '../string/checkers/email.mjs';
 import { checkerIntKind } from '../number/checkers/int.mjs';
 import { justReturn } from '../../../common/justReturn.mjs';
-import { isType } from '../../../common/isType.mjs';
 import { escapeRegExp } from '../../../common/escapeRegExp.mjs';
 import { or } from '../../../common/or.mjs';
 import { pipe } from '../../../common/pipe.mjs';
@@ -26,6 +24,8 @@ import { replace } from '../../../string/replace.mjs';
 import { exhaustive } from '../../../pattern/exhaustive.mjs';
 import { to } from '../../../object/to.mjs';
 import { find } from '../../../array/find.mjs';
+import { when as when$1 } from '../../../common/when.mjs';
+import { isType } from '../../../common/isType.mjs';
 
 function createTemplateLiteralPattern(templatePart) {
     return pipe(templatePart, map(innerPipe(when(or([

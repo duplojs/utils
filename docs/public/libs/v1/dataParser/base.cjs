@@ -2,10 +2,10 @@
 
 var error = require('./error.cjs');
 var kind = require('./kind.cjs');
-var pipe = require('../common/pipe.cjs');
 var simpleClone = require('../common/simpleClone.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 var override = require('../common/override.cjs');
+var pipe = require('../common/pipe.cjs');
 var error$1 = require('../either/left/error.cjs');
 var success = require('../either/right/success.cjs');
 

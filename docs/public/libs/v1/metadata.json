@@ -1308,6 +1308,9 @@
               "name": "maybeArray.d.ts"
             },
             {
+              "name": "maybeGetter.d.ts"
+            },
+            {
               "name": "maybePromise.d.ts"
             },
             {
@@ -3148,6 +3151,15 @@
           "name": "right",
           "files": [
             {
+              "name": "asyncGroup.cjs"
+            },
+            {
+              "name": "asyncGroup.d.ts"
+            },
+            {
+              "name": "asyncGroup.mjs"
+            },
+            {
               "name": "asyncPipe.cjs"
             },
             {
@@ -3164,6 +3176,15 @@
             },
             {
               "name": "create.mjs"
+            },
+            {
+              "name": "group.cjs"
+            },
+            {
+              "name": "group.d.ts"
+            },
+            {
+              "name": "group.mjs"
             },
             {
               "name": "index.d.ts"

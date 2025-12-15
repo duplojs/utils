@@ -1,10 +1,10 @@
 import { type SimplifyTopLevel } from "../common/types/simplifyTopLevel";
-export interface ArrayGroupFunctionOutput<GenericGroupeName extends string = string, GenericGroupeValue extends unknown = unknown> {
-    group: GenericGroupeName;
-    value: GenericGroupeValue;
+export interface ArrayGroupFunctionOutput<GenericGroupName extends string = string, GenericGroupValue extends unknown = unknown> {
+    group: GenericGroupName;
+    value: GenericGroupValue;
 }
-export declare function groupOutput<GenericGroupeValue extends unknown, GenericGroupeName extends string>(group: GenericGroupeName): (value: GenericGroupeValue) => ArrayGroupFunctionOutput<GenericGroupeName, GenericGroupeValue>;
-export declare function groupOutput<GenericGroupeValue extends unknown, GenericGroupeName extends string>(group: GenericGroupeName, value: GenericGroupeValue): ArrayGroupFunctionOutput<GenericGroupeName, GenericGroupeValue>;
+export declare function groupOutput<GenericGroupValue extends unknown, GenericGroupName extends string>(group: GenericGroupName): (value: GenericGroupValue) => ArrayGroupFunctionOutput<GenericGroupName, GenericGroupValue>;
+export declare function groupOutput<GenericGroupValue extends unknown, GenericGroupName extends string>(group: GenericGroupName, value: GenericGroupValue): ArrayGroupFunctionOutput<GenericGroupName, GenericGroupValue>;
 export interface ArrayGroupFunctionParams {
     index: number;
     output: typeof groupOutput;

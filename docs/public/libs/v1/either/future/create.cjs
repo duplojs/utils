@@ -25,9 +25,9 @@ class Future extends Promise {
             .catch((error$1) => error.futureError(error$1))));
     }
     [kind] = null;
-    // @ts-expect-error override signature error
-    then(theFunction) {
-        return new Future(super.then(theFunction));
+    // default declaration
+    then(onfulfilled) {
+        return super.then(onfulfilled);
     }
     static get [Symbol.species]() {
         return Promise;
@@ -37,7 +37,7 @@ class Future extends Promise {
             && value?.constructor?.name === "Future"
             && kind in value;
     }
-    static all(values) {
+    static rightAll(values) {
         return new Future(Promise.all(values.map((value) => new Future(value))));
     }
 }

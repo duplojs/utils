@@ -1,9 +1,9 @@
 import { createError, addIssue, addPromiseIssue, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from './error.mjs';
 import { createDataParserKind } from './kind.mjs';
-import { pipe } from '../common/pipe.mjs';
 import { simpleClone } from '../common/simpleClone.mjs';
 import { keyWrappedValue } from '../common/wrapValue.mjs';
 import { createOverride } from '../common/override.mjs';
+import { pipe } from '../common/pipe.mjs';
 import { error } from '../either/left/error.mjs';
 import { success } from '../either/right/success.mjs';
 
