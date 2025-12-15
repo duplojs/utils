@@ -65,6 +65,17 @@ export interface DataParserLiteral<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionLiteral,
+	>(
+		definition: GenericDefinition
+	): DataParserLiteral<
+		MergeDefinition<
+			DataParserDefinitionLiteral,
+			GenericDefinition
+		>
+	>;
 }
 
 export function literal<
@@ -84,11 +95,9 @@ export function literal<
 	const self = dataParserInit<DataParserLiteral>(
 		literalKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				value: DArray.coalescing(value),
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			value: DArray.coalescing(value),
 		},
 		(data, _error, self) => {
 			if (self.definition.value.includes(data as never)) {

@@ -67,6 +67,17 @@ export interface DataParserArray<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionArray,
+	>(
+		definition: GenericDefinition
+	): DataParserArray<
+		MergeDefinition<
+			DataParserDefinitionArray,
+			GenericDefinition
+		>
+	>;
 }
 
 export function array<
@@ -86,11 +97,9 @@ export function array<
 	const self = dataParserInit<DataParserArray>(
 		arrayKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				element,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			element,
 		},
 		{
 			sync: (data, error, self) => {

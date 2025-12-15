@@ -200,6 +200,17 @@ export interface DataParserTemplateLiteral<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionTemplateLiteral,
+	>(
+		definition: GenericDefinition
+	): DataParserTemplateLiteral<
+		MergeDefinition<
+			DataParserDefinitionTemplateLiteral,
+			GenericDefinition
+		>
+	>;
 }
 
 export function templateLiteral<
@@ -224,12 +235,10 @@ export function templateLiteral<
 	const self = dataParserInit<DataParserTemplateLiteral>(
 		templateLiteralKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				template,
-				pattern,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			template,
+			pattern,
 		},
 		(data, _error, self) => {
 			if (typeof data === "string" && self.definition.pattern.test(data)) {

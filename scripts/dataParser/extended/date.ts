@@ -39,6 +39,17 @@ export interface DataParserDateExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionDate,
+	>(
+		definition: GenericDefinition
+	): DataParserDateExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionDate,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

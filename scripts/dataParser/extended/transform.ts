@@ -39,6 +39,17 @@ export interface DataParserTransformExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionTransform,
+	>(
+		definition: GenericDefinition
+	): DataParserTransformExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionTransform,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

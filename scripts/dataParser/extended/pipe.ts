@@ -38,6 +38,17 @@ export interface DataParserPipeExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionPipe,
+	>(
+		definition: GenericDefinition
+	): DataParserPipeExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionPipe,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

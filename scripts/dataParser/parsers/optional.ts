@@ -69,6 +69,17 @@ export interface DataParserOptional<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionOptional,
+	>(
+		definition: GenericDefinition
+	): DataParserOptional<
+		MergeDefinition<
+			DataParserDefinitionOptional,
+			GenericDefinition
+		>
+	>;
 }
 
 export function optional<
@@ -93,12 +104,10 @@ export function optional<
 	const self = dataParserInit<DataParserOptional>(
 		optionalKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				inner,
-				coalescingValue: definition?.coalescingValue,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			inner,
+			coalescingValue: definition?.coalescingValue,
 		},
 		{
 			sync: (data, error, self) => {

@@ -64,6 +64,17 @@ export interface DataParserUnion<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionUnion,
+	>(
+		definition: GenericDefinition
+	): DataParserUnion<
+		MergeDefinition<
+			DataParserDefinitionUnion,
+			GenericDefinition
+		>
+	>;
 }
 
 export function union<
@@ -83,11 +94,9 @@ export function union<
 	const self = dataParserInit<DataParserUnion>(
 		unionKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				options,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			options,
 		},
 		{
 			sync: (data, error, self) => {

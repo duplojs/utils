@@ -43,6 +43,17 @@ export interface DataParserNullableExtended<
 		>
 	>;
 
+	construct<
+		const GenericDefinition extends dataParsers.DataParserDefinitionNullable,
+	>(
+		definition: GenericDefinition
+	): DataParserNullableExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionNullable,
+			GenericDefinition
+		>
+	>;
+
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<

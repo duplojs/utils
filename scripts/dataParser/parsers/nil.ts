@@ -58,6 +58,17 @@ export interface DataParserNil<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionNil,
+	>(
+		definition: GenericDefinition
+	): DataParserNil<
+		MergeDefinition<
+			DataParserDefinitionNil,
+			GenericDefinition
+		>
+	>;
 }
 
 export function nil<
@@ -73,11 +84,9 @@ export function nil<
 	const self = dataParserInit<DataParserNil>(
 		nilKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (data === null) {

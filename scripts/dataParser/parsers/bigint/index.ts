@@ -65,6 +65,17 @@ export interface DataParserBigInt<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionBigInt,
+	>(
+		definition: GenericDefinition
+	): DataParserBigInt<
+		MergeDefinition<
+			DataParserDefinitionBigInt,
+			GenericDefinition
+		>
+	>;
 }
 
 export function bigint<
@@ -80,11 +91,9 @@ export function bigint<
 	const self = dataParserInit<DataParserBigInt>(
 		bigIntKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {

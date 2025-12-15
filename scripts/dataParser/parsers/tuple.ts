@@ -122,6 +122,17 @@ export interface DataParserTuple<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionTuple,
+	>(
+		definition: GenericDefinition
+	): DataParserTuple<
+		MergeDefinition<
+			DataParserDefinitionTuple,
+			GenericDefinition
+		>
+	>;
 }
 
 export function tuple<
@@ -141,12 +152,10 @@ export function tuple<
 	const self = dataParserInit<DataParserTuple>(
 		tupleKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				rest: definition?.rest,
-				shape,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			rest: definition?.rest,
+			shape,
 		},
 		{
 			sync: (data, error, self) => {

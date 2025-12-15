@@ -55,6 +55,17 @@ export interface DataParserUnknown<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionUnknown,
+	>(
+		definition: GenericDefinition
+	): DataParserUnknown<
+		MergeDefinition<
+			DataParserDefinitionUnknown,
+			GenericDefinition
+		>
+	>;
 }
 
 export function unknown<
@@ -70,10 +81,8 @@ export function unknown<
 	const self = dataParserInit<DataParserUnknown>(
 		unknownKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
 		},
 		(data) => data,
 	) as never;

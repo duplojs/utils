@@ -66,6 +66,17 @@ export interface DataParserNumber<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionNumber,
+	>(
+		definition: GenericDefinition
+	): DataParserNumber<
+		MergeDefinition<
+			DataParserDefinitionNumber,
+			GenericDefinition
+		>
+	>;
 }
 
 export function number<
@@ -81,11 +92,9 @@ export function number<
 	const self = dataParserInit<DataParserNumber>(
 		numberKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {

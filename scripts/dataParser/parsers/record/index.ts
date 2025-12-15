@@ -139,6 +139,17 @@ export interface DataParserRecord<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionRecord,
+	>(
+		definition: GenericDefinition
+	): DataParserRecord<
+		MergeDefinition<
+			DataParserDefinitionRecord,
+			GenericDefinition
+		>
+	>;
 }
 
 export function record<
@@ -161,13 +172,11 @@ export function record<
 	const self = dataParserInit<DataParserRecord>(
 		recordKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				key,
-				value,
-				requireKey: findRecordRequiredKey(key),
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			key,
+			value,
+			requireKey: findRecordRequiredKey(key),
 		},
 		{
 			sync: (data, error, self) => {

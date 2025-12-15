@@ -50,10 +50,8 @@ describe("base parser", () => {
 		const parser = DDataParser.dataParserInit(
 			dataParserTestKind as never,
 			{
-				definition: {
-					errorMessage: "invalid",
-					checkers: [checker],
-				},
+				errorMessage: "invalid",
+				checkers: [checker],
 			},
 			exec as never,
 		);
@@ -79,6 +77,7 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							construct: expect.any(Function),
 						},
 						null as never,
 					),
@@ -142,11 +141,8 @@ describe("base parser", () => {
 			const parser = DDataParser.dataParserInit(
 				dataParserTestKind as never,
 				{
-					definition: {
-						errorMessage: "invalid",
-						checkers: [],
-					},
-
+					errorMessage: "invalid",
+					checkers: [],
 				},
 				exec,
 			);
@@ -174,6 +170,7 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							construct: expect.any(Function),
 						},
 						null as never,
 					),
@@ -198,37 +195,64 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							construct: expect.any(Function),
 						},
 						null as never,
 					),
 				),
 			);
 		});
-	});
 
-	it("promise issue", () => {
-		const parser = DDataParser.dataParserInit(
-			dataParserTestKind as never,
-			{
-				definition: {
+		it("construct", () => {
+			const newParser = parser.construct({
+				errorMessage: "test",
+				checkers: [],
+			} as never);
+
+			expect(newParser).toStrictEqual(
+				dataParserTestKind.addTo(
+					DDataParser.dataParserKind.addTo(
+						{
+							definition: {
+								errorMessage: "test",
+								checkers: [],
+							},
+							exec: expect.any(Function),
+							parse: expect.any(Function),
+							asyncExec: expect.any(Function),
+							asyncParse: expect.any(Function),
+							addChecker: expect.any(Function),
+							clone: expect.any(Function),
+							construct: expect.any(Function),
+						},
+						null as never,
+					),
+				),
+			);
+		});
+
+		it("promise issue", () => {
+			const parser = DDataParser.dataParserInit(
+				dataParserTestKind as never,
+				{
 					errorMessage: "invalid",
 					checkers: [],
 				},
-			},
-			() => SymbolDataParserErrorPromiseIssue,
-		);
+				() => SymbolDataParserErrorPromiseIssue,
+			);
 
-		const result = parser.parse(-1);
+			const result = parser.parse(-1);
 
-		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.addPromiseIssue(
-					DDataParser.createError(),
-					parser as never,
-					-1,
+			expect(result).toStrictEqual(
+				DEither.error(
+					DDataParser.addPromiseIssue(
+						DDataParser.createError(),
+						parser as never,
+						-1,
+					),
 				),
-			),
-		);
+			);
+		});
 	});
 
 	describe("async dataParserInit", () => {
@@ -257,10 +281,8 @@ describe("base parser", () => {
 		const parser = DDataParser.dataParserInit(
 			dataParserTestKind as never,
 			{
-				definition: {
-					errorMessage: "invalid",
-					checkers: [checker],
-				},
+				errorMessage: "invalid",
+				checkers: [checker],
 			},
 			{
 				sync: exec as never,
@@ -329,11 +351,8 @@ describe("base parser", () => {
 			const parser = DDataParser.dataParserInit(
 				dataParserTestKind as never,
 				{
-					definition: {
-						errorMessage: "invalid",
-						checkers: [],
-					},
-
+					errorMessage: "invalid",
+					checkers: [],
 				},
 				exec,
 			);
@@ -348,10 +367,8 @@ describe("base parser", () => {
 			const parser = DDataParser.dataParserInit(
 				dataParserTestKind as never,
 				{
-					definition: {
-						errorMessage: "invalid",
-						checkers: [],
-					},
+					errorMessage: "invalid",
+					checkers: [],
 				},
 				() => SymbolDataParserErrorPromiseIssue,
 			);

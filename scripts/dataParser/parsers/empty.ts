@@ -58,6 +58,17 @@ export interface DataParserEmpty<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionEmpty,
+	>(
+		definition: GenericDefinition
+	): DataParserEmpty<
+		MergeDefinition<
+			DataParserDefinitionEmpty,
+			GenericDefinition
+		>
+	>;
 }
 
 export function empty<
@@ -73,11 +84,9 @@ export function empty<
 	const self = dataParserInit<DataParserEmpty>(
 		emptyKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (data === undefined) {

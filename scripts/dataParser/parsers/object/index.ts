@@ -111,6 +111,17 @@ export interface DataParserObject<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionObject,
+	>(
+		definition: GenericDefinition
+	): DataParserObject<
+		MergeDefinition<
+			DataParserDefinitionObject,
+			GenericDefinition
+		>
+	>;
 }
 
 export function object<
@@ -132,22 +143,20 @@ export function object<
 	const self = dataParserInit<DataParserObject>(
 		objectKind,
 		{
-			definition: {
-				shape,
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				optimizedShape: memo(
-					() => pipe(
-						forward<DataParserObjectShape>(shape),
-						DObject.entries,
-						DArray.filter((entry) => dataParserKind.has(entry[1])),
-						DArray.map(([key, value]) => ({
-							key,
-							value,
-						})),
-					),
+			shape,
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			optimizedShape: memo(
+				() => pipe(
+					forward<DataParserObjectShape>(shape),
+					DObject.entries,
+					DArray.filter((entry) => dataParserKind.has(entry[1])),
+					DArray.map(([key, value]) => ({
+						key,
+						value,
+					})),
 				),
-			},
+			),
 		},
 		{
 			sync: (data, error, self) => {

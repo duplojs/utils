@@ -68,6 +68,17 @@ export interface DataParserString<
 			GenericChecker
 		>
 	>;
+
+	construct<
+		const GenericDefinition extends DataParserDefinitionString,
+	>(
+		definition: GenericDefinition
+	): DataParserString<
+		MergeDefinition<
+			DataParserDefinitionString,
+			GenericDefinition
+		>
+	>;
 }
 
 export function string<
@@ -83,11 +94,9 @@ export function string<
 	const self = dataParserInit<DataParserString>(
 		stringKind,
 		{
-			definition: {
-				errorMessage: definition?.errorMessage,
-				checkers: definition?.checkers ?? [],
-				coerce: definition?.coerce ?? false,
-			},
+			errorMessage: definition?.errorMessage,
+			checkers: definition?.checkers ?? [],
+			coerce: definition?.coerce ?? false,
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {

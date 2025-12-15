@@ -99,6 +99,7 @@ export interface DataParser<
 	>;
 	addChecker(...args: never): DataParser;
 	clone(): this;
+	construct(definition: never): DataParser;
 }
 
 interface DataParserInitExecParams<
@@ -139,12 +140,7 @@ export function dataParserInit<
 		GetKindHandler<GenericDataParser>,
 		typeof dataParserKind
 	>,
-	params: NoInfer<
-		Omit<
-			RemoveKind<GenericDataParser>,
-			"parse" | "exec" | "asyncParse" | "asyncExec" | "addChecker" | "clone"
-		>
-	>,
+	definition: GenericDataParser["definition"],
 	exec: (
 		| DataParserInitExecParams<GenericDataParser>
 		| DataParserInitExecParams<GenericDataParser>["sync"]
@@ -227,7 +223,7 @@ export function dataParserInit<
 
 	const dataParser = pipe(
 		{
-			...params,
+			definition,
 			exec: middleExec,
 			asyncExec: middleAsyncExec,
 			parse(data: unknown) {
@@ -273,17 +269,19 @@ export function dataParserInit<
 			addChecker: (...checkers: any[]) => dataParserInit(
 				kind,
 				simpleClone({
-					...params,
-					definition: {
-						...params.definition,
-						checkers: [...params.definition.checkers, ...checkers],
-					},
+					...definition,
+					checkers: [...definition.checkers, ...checkers],
 				}),
 				exec,
 			),
 			clone: () => dataParserInit(
 				kind,
-				simpleClone(params),
+				simpleClone(definition),
+				exec,
+			),
+			construct: (definition: never) => dataParserInit(
+				kind,
+				definition,
 				exec,
 			),
 		} satisfies Record<keyof RemoveKind<DataParser>, any>,
