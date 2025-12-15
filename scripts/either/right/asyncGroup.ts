@@ -8,45 +8,45 @@ import * as DEither from "..";
 type Either = MaybePromise<EitherRight | EitherLeft>;
 
 type ComputeResult<
-	GenericGroupe extends Record<string, MayBeGetter<Either>>,
+	GenericGroup extends Record<string, MayBeGetter<Either>>,
 > = Promise<
 	| DEither.EitherSuccess<
 		SimplifyTopLevel<{
-			[Prop in keyof GenericGroupe]: GenericGroupe[Prop] extends AnyFunction
+			[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 				? Unwrap<
 					Extract<
-						Awaited<ReturnType<GenericGroupe[Prop]>>,
+						Awaited<ReturnType<GenericGroup[Prop]>>,
 						EitherRight
 					>
 				>
 				: Unwrap<
 					Extract<
-						Awaited<GenericGroupe[Prop]>,
+						Awaited<GenericGroup[Prop]>,
 						EitherRight
 					>
 				>
 		}>
 	>
 	| {
-		[Prop in keyof GenericGroupe]: GenericGroupe[Prop] extends AnyFunction
+		[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 			? Extract<
-				Awaited<ReturnType<GenericGroupe[Prop]>>,
+				Awaited<ReturnType<GenericGroup[Prop]>>,
 				EitherLeft
 			>
 			: Extract<
-				Awaited<GenericGroupe[Prop]>,
+				Awaited<GenericGroup[Prop]>,
 				EitherLeft
 			>
-	}[keyof GenericGroupe]
+	}[keyof GenericGroup]
 >;
 
-export function asyncGroupe<
-	GenericGroupe extends Record<string, MayBeGetter<Either>>,
+export function asyncGroup<
+	GenericGroup extends Record<string, MayBeGetter<Either>>,
 >(
-	groupe: GenericGroupe,
+	group: GenericGroup,
 ) {
 	return asyncPipe(
-		groupe,
+		group,
 		DObject.entries,
 		DGenerator.asyncReduce(
 			DGenerator.reduceFrom<Record<string, unknown>>({}),
@@ -73,7 +73,7 @@ export function asyncGroupe<
 			DEither.success,
 		),
 	) as Extract<
-		ComputeResult<GenericGroupe>,
+		ComputeResult<GenericGroup>,
 		any
 	>;
 }

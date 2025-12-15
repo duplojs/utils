@@ -3,32 +3,32 @@ import { reduce, reduceFrom } from "./reduce";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
 export interface ArrayGroupFunctionOutput<
-	GenericGroupeName extends string = string,
-	GenericGroupeValue extends unknown = unknown,
+	GenericGroupName extends string = string,
+	GenericGroupValue extends unknown = unknown,
 > {
-	group: GenericGroupeName;
-	value: GenericGroupeValue;
+	group: GenericGroupName;
+	value: GenericGroupValue;
 }
 
 export function groupOutput<
-	GenericGroupeValue extends unknown,
-	GenericGroupeName extends string,
+	GenericGroupValue extends unknown,
+	GenericGroupName extends string,
 >(
-	group: GenericGroupeName,
-): (value: GenericGroupeValue) => ArrayGroupFunctionOutput<
-	GenericGroupeName,
-	GenericGroupeValue
+	group: GenericGroupName,
+): (value: GenericGroupValue) => ArrayGroupFunctionOutput<
+	GenericGroupName,
+	GenericGroupValue
 >;
 
 export function groupOutput<
-	GenericGroupeValue extends unknown,
-	GenericGroupeName extends string,
+	GenericGroupValue extends unknown,
+	GenericGroupName extends string,
 >(
-	group: GenericGroupeName,
-	value: GenericGroupeValue,
+	group: GenericGroupName,
+	value: GenericGroupValue,
 ): ArrayGroupFunctionOutput<
-	GenericGroupeName,
-	GenericGroupeValue
+	GenericGroupName,
+	GenericGroupValue
 >;
 
 export function groupOutput(

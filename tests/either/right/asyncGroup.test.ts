@@ -1,8 +1,8 @@
 import { DEither, type ExpectType } from "@scripts";
 
-describe("either.right.asyncGroupe", () => {
+describe("either.right.asyncGroup", () => {
 	it("aggregates all right values into a success", async() => {
-		const result = await DEither.asyncGroupe({
+		const result = await DEither.asyncGroup({
 			first: DEither.future(DEither.bool(1 as number)),
 			second: () => Promise.resolve(DEither.optional("second" as string | undefined)),
 		});
@@ -29,7 +29,7 @@ describe("either.right.asyncGroupe", () => {
 	it("returns first left and stops further evaluation", async() => {
 		const spy = vi.fn(() => DEither.right("skipped", 3));
 
-		const result = await DEither.asyncGroupe({
+		const result = await DEither.asyncGroup({
 			first: () => Promise.resolve(DEither.bool(1 as number)),
 			error: () => DEither.optional(undefined as string | undefined),
 			skipped: spy,

@@ -1,9 +1,9 @@
 
 import { DEither, type ExpectType } from "@scripts";
 
-describe("either.right.groupe", () => {
+describe("either.right.group", () => {
 	it("aggregates all right values into an object", () => {
-		const result = DEither.groupe({
+		const result = DEither.group({
 			first: DEither.bool(1 as number),
 			second: () => DEither.optional("second" as string | undefined),
 		});
@@ -30,7 +30,7 @@ describe("either.right.groupe", () => {
 	it("returns first left and stops further evaluation", () => {
 		const spy = vi.fn(() => DEither.right("skipped", 3));
 
-		const result = DEither.groupe({
+		const result = DEither.group({
 			first: () => DEither.bool(1 as number),
 			error: DEither.optional(undefined as string | undefined),
 			skipped: spy,

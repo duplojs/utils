@@ -3,50 +3,50 @@ import { type EitherLeft } from "../left";
 import { type EitherRight } from "./create";
 import * as DObject from "../../object";
 import * as DArray from "../../array";
-import * as DEither from "../../either";
+import * as DEither from "..";
 
 type Either = EitherRight | EitherLeft;
 
 type ComputeResult<
-	GenericGroupe extends Record<string, MayBeGetter<Either>>,
+	GenericGroup extends Record<string, MayBeGetter<Either>>,
 > = (
 	| DEither.EitherSuccess<
 		SimplifyTopLevel<{
-			[Prop in keyof GenericGroupe]: GenericGroupe[Prop] extends AnyFunction
+			[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 				? Unwrap<
 					Extract<
-						ReturnType<GenericGroupe[Prop]>,
+						ReturnType<GenericGroup[Prop]>,
 						EitherRight
 					>
 				>
 				: Unwrap<
 					Extract<
-						GenericGroupe[Prop],
+						GenericGroup[Prop],
 						EitherRight
 					>
 				>
 		}>
 	>
 	| {
-		[Prop in keyof GenericGroupe]: GenericGroupe[Prop] extends AnyFunction
+		[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 			? Extract<
-				ReturnType<GenericGroupe[Prop]>,
+				ReturnType<GenericGroup[Prop]>,
 				EitherLeft
 			>
 			: Extract<
-				GenericGroupe[Prop],
+				GenericGroup[Prop],
 				EitherLeft
 			>
-	}[keyof GenericGroupe]
+	}[keyof GenericGroup]
 );
 
-export function groupe<
-	GenericGroupe extends Record<string, MayBeGetter<Either>>,
+export function group<
+	GenericGroup extends Record<string, MayBeGetter<Either>>,
 >(
-	groupe: GenericGroupe,
+	group: GenericGroup,
 ) {
 	return pipe(
-		groupe,
+		group,
 		DObject.entries,
 		DArray.reduce(
 			DArray.reduceFrom<Record<string, unknown>>({}),
@@ -73,7 +73,7 @@ export function groupe<
 			DEither.success,
 		),
 	) as Extract<
-		ComputeResult<GenericGroupe>,
+		ComputeResult<GenericGroup>,
 		any
 	>;
 }

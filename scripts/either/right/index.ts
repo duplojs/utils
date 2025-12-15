@@ -5,5 +5,5 @@ export * from "./ok";
 export * from "./pipe";
 export * from "./success";
 export * from "./when";
-export * from "./groupe";
-export * from "./asyncGroupe";
+export * from "./group";
+export * from "./asyncGroup";
