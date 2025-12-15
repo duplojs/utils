@@ -111,18 +111,18 @@ describe("FutureEither", () => {
 			});
 
 		expect(await result).toStrictEqual(
-			futureSuccess(2),
+			2,
 		);
 
 		type check = ExpectType<
 			typeof result,
-			Future<2>,
+			Promise<number>,
 			"strict"
 		>;
 	});
 
 	it("all", async() => {
-		const result = Future.all([
+		const result = Future.rightAll([
 			15,
 			Promise.resolve({ test: 15 }),
 			new Future("test"),
