@@ -28,23 +28,22 @@ type ComputeResultWithPickIsObject<
 
 export function pick<
 	GenericInput extends object,
-	GenericValue extends boolean,
-	GenericPickValue extends Partial<Record<keyof GenericInput, GenericValue>> | readonly (keyof GenericInput)[],
+	const GenericPickValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
 >(
 	pickValue: GenericPickValue
 ): (input: GenericInput) => GenericPickValue extends Partial<Record<keyof GenericInput, boolean>>
 	? ComputeResultWithPickIsObject<GenericInput, GenericPickValue>
-	: SimplifyTopLevel<Pick<GenericInput, Adaptor<GenericPickValue, ObjectKey[]>[number]>>;
+	: SimplifyTopLevel<Pick<GenericInput, Adaptor<GenericPickValue, readonly ObjectKey[]>[number]>>;
 
 export function pick<
 	GenericInput extends object,
-	GenericPickValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
+	const GenericPickValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
 >(
 	input: GenericInput,
 	pickValue: GenericPickValue
 ): GenericPickValue extends Partial<Record<keyof GenericInput, boolean>>
 	? ComputeResultWithPickIsObject<GenericInput, GenericPickValue>
-	: SimplifyTopLevel<Pick<GenericInput, Adaptor<GenericPickValue, ObjectKey[]>[number]>>;
+	: SimplifyTopLevel<Pick<GenericInput, Adaptor<GenericPickValue, readonly ObjectKey[]>[number]>>;
 
 export function pick(
 	...args:

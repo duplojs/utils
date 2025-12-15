@@ -1,31 +1,25 @@
-import { type AnyValue } from "@scripts/common";
-import { type GeneratorLoopParams } from "./loop";
-
-interface LoopOutputExistResult<
-	GenericOutput extends any,
-> {
-	"-exitData": GenericOutput | undefined;
-}
-
-interface LoopOutputNextResult<
-	GenericOutput extends any,
-> {
-	"-nextData": GenericOutput | undefined;
-}
+import { type MaybePromise } from "@scripts/common";
+import { type LoopOutputExistResult, type LoopOutputNextResult, type GeneratorLoopParams } from "./loop";
 
 export async function *asyncLoop<
-	GenericRawExitOutput extends AnyValue = undefined,
-	GenericRawNextOutput extends AnyValue = undefined,
->(
-	loop: (params: GeneratorLoopParams<GenericRawNextOutput>) => Promise<
+	GenericRawNextOutput extends unknown,
+	GenericOutput extends MaybePromise<
 		| LoopOutputNextResult<GenericRawNextOutput>
+		| LoopOutputExistResult<unknown>
 		| LoopOutputNextResult<undefined>
-		| LoopOutputExistResult<GenericRawExitOutput>
 		| LoopOutputExistResult<undefined>
 	>,
+>(
+	loop: (params: GeneratorLoopParams<GenericRawNextOutput>) => GenericOutput,
 ): AsyncGenerator<
 		Exclude<
-			GenericRawExitOutput | GenericRawNextOutput,
+			Awaited<GenericOutput> extends infer InferredOutput
+				? InferredOutput extends LoopOutputNextResult
+					? InferredOutput["-nextData"]
+					: InferredOutput extends LoopOutputExistResult
+						? InferredOutput["-exitData"]
+						: never
+				: never,
 			undefined
 		>,
 		unknown,

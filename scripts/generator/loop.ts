@@ -1,15 +1,15 @@
 import { type AnyValue } from "@scripts/common";
 
-interface LoopOutputExistResult<
-	GenericOutput extends any,
+export interface LoopOutputExistResult<
+	GenericOutput extends unknown = unknown,
 > {
-	"-exitData": GenericOutput | undefined;
+	"-exitData": GenericOutput;
 }
 
-interface LoopOutputNextResult<
-	GenericOutput extends any,
+export interface LoopOutputNextResult<
+	GenericOutput extends unknown = unknown,
 > {
-	"-nextData": GenericOutput | undefined;
+	"-nextData": GenericOutput;
 }
 
 export interface GeneratorLoopParams<

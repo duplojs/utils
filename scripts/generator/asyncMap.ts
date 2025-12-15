@@ -8,16 +8,24 @@ export function asyncMap<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,
 >(
-	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => Promise<GenericOutput>
-): (iterator: AsyncIterable<GenericInput> | Iterable<GenericInput>) => AsyncGenerator<GenericOutput, unknown, unknown>;
+	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => GenericOutput
+): (iterator: AsyncIterable<GenericInput> | Iterable<GenericInput>) => AsyncGenerator<
+	Awaited<GenericOutput>,
+	unknown,
+	unknown
+>;
 
 export function asyncMap<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,
 >(
 	iterator: AsyncIterable<GenericInput> | Iterable<GenericInput>,
-	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => Promise<GenericOutput>
-): AsyncGenerator<GenericOutput, unknown, unknown>;
+	theFunction: (arg: GenericInput, params: AsyncGeneratorMapParams) => GenericOutput
+): AsyncGenerator<
+	Awaited<GenericOutput>,
+	unknown,
+	unknown
+>;
 
 export function asyncMap(
 	...args: [AsyncIterable<unknown> | Iterable<unknown>, AnyFunction]
@@ -32,7 +40,7 @@ export function asyncMap(
 	let index = 0;
 	return (async function *() {
 		for await (const element of iterator) {
-			yield theFunction(element, { index });
+			yield await theFunction(element, { index });
 			index++;
 		}
 	})();

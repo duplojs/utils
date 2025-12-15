@@ -63,17 +63,15 @@ describe("pick", () => {
 				prop1: undefined as true | undefined,
 				prop2: true,
 			}),
+			DObject.pick(["prop1"]),
 		);
 
-		expect(result).toStrictEqual({
-			prop2: 1,
-		});
+		expect(result).toStrictEqual({});
 
 		type check = ExpectType<
 			typeof result,
 			{
 				prop1?: string | undefined;
-				prop2: number;
 			},
 			"strict"
 		>;

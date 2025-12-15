@@ -22,23 +22,22 @@ type ComputeResultWithOmitIsObject<
 
 export function omit<
 	GenericInput extends object,
-	GenericValue extends boolean,
-	GenericOmitValue extends Partial<Record<keyof GenericInput, GenericValue>> | readonly (keyof GenericInput)[],
+	const GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
 >(
 	omitValue: GenericOmitValue
 ): (input: GenericInput) => GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>>
 	? ComputeResultWithOmitIsObject<GenericInput, GenericOmitValue>
-	: SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, ObjectKey[]>[number]>>;
+	: SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, readonly ObjectKey[]>[number]>>;
 
 export function omit<
 	GenericInput extends object,
-	GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
+	const GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],
 >(
 	input: GenericInput,
 	omitValue: GenericOmitValue
 ): GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>>
 	? ComputeResultWithOmitIsObject<GenericInput, GenericOmitValue>
-	: SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, ObjectKey[]>[number]>>;
+	: SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, readonly ObjectKey[]>[number]>>;
 
 export function omit(
 	...args:

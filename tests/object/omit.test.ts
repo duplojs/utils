@@ -67,10 +67,10 @@ describe("omit", () => {
 				prop2: true,
 				prop3: undefined as boolean | undefined,
 			}),
+			DObject.omit(["prop1"]),
 		);
 
 		expect(result).toStrictEqual({
-			prop1: "test",
 			prop3: [
 				1,
 				"test",
@@ -80,7 +80,6 @@ describe("omit", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				prop1?: string | undefined;
 				prop3?: (string | number)[] | undefined;
 			},
 			"strict"
