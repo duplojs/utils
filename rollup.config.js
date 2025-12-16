@@ -1,8 +1,11 @@
+//@ts-check
+
 import typescript from "@rollup/plugin-typescript";
 import del from "rollup-plugin-delete";
 import tscAlias from "rollup-plugin-tsc-alias";
+import { generateMetadataPlugin } from "@duplojs/dev-tools/generateMetadata";
+import { declarationIncludesPlugin } from "@duplojs/dev-tools/declarationIncludes";
 import { defineConfig } from "rollup";
-import { generateMetadataPlugin } from "./rollup-plugins/generate-metadata.js";
 
 export default defineConfig({
 	input: "scripts/index.ts",
@@ -29,6 +32,6 @@ export default defineConfig({
 		del({ targets: "dist" }),
 		typescript({ tsconfig: "tsconfig.build.json" }),
 		tscAlias({ configFile: "tsconfig.build.json" }),
-		generateMetadataPlugin(),
+		generateMetadataPlugin({packageName: "@duplojs/utils"}),
 	],
 });
