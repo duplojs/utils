@@ -1,9 +1,6 @@
 {
   "extends": "../tsconfig.app.json",
   "compilerOptions": {
- 	"types": ["vitepress/client"],
-	"jsx": "preserve",
-    "lib": ["esnext", "dom", "dom.iterable"],
 	"baseUrl": "./",
 	"paths": {
 		"@duplojs/utils": ["public/libs/v1/index"],
@@ -19,11 +16,8 @@
 		"@duplojs/utils/pattern": ["public/libs/v1/pattern/index"],
 		"@duplojs/utils/string": ["public/libs/v1/string/index"],
 		"@duplojs/utils/date": ["public/libs/v1/date/index"],
+		"@duplojs/utils/clean": ["public/libs/v1/clean/index"],
 	}
   },
-  "include": [
-	".vitepress/**/*.vue",
-	"v1/**/*.ts",
-	".vitepress/**/*.ts",
-  ],
+  "include": ["v1/**/*.doc.ts", "public/v1/**/*.d.ts"],
 }

@@ -8,3 +8,4 @@ export { asyncReduce } from './asyncReduce.mjs';
 export { loop } from './loop.mjs';
 export { asyncLoop } from './asyncLoop.mjs';
 export { chunk } from './chunk.mjs';
+export { asyncChunk } from './asyncChunk.mjs';

@@ -8,3 +8,4 @@ export * from "./asyncReduce";
 export * from "./loop";
 export * from "./asyncLoop";
 export * from "./chunk";
+export * from "./asyncChunk";

@@ -6,11 +6,9 @@ import { createOverride } from '../../../common/override.mjs';
 const arrayKind = createDataParserKind("array");
 function array(element, definition) {
     const self = dataParserInit(arrayKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            element,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        element,
     }, {
         sync: (data, error, self) => {
             if (!(data instanceof Array)) {

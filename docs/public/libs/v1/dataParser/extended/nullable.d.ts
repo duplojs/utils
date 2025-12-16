@@ -12,6 +12,7 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
         dataParsers.DataParserNullableCheckers<Output<this>>,
         ...dataParsers.DataParserNullableCheckers<Output<this>>[]
     ], GenericChecker>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends dataParsers.DataParserDefinitionNullable>(definition: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;

@@ -10,14 +10,13 @@
   },
   "scripts": {
     "build": "rollup --config",
-    "build:docs-meta": "node scripts/generate-docs-metadata.js",
     "docs:dev": "npm run docs:dev --workspace=docs",
     "docs:build": "npm run docs:build --workspace=docs",
     "test:tu": "vitest --coverage",
     "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
-    "test:types": "tsc -p tsconfig.test.json",
+    "test:types": "tsc -p tsconfig.test.json && npm -w docs run test:types",
     "test:lint": "eslint",
     "test:lint:fix": "eslint --fix",
     "prepare": "husky"
@@ -121,7 +120,7 @@
     "vitest": "3.2.4"
   },
   "workspaces": [
-    "integration", 
+    "integration",
     "docs"
   ],
   "keywords": [],

@@ -2,11 +2,11 @@ import { E, pipe, type ExpectType } from "@duplojs/utils";
 
 const result = pipe(
 	E.bool(true ? "value" : null),
-	E.whenIsBoolFalsy(() => "error"),
+	E.whenIsBoolFalsy(() => "falsy" as const),
 );
 
 type check = ExpectType<
 	typeof result,
-	E.EitherBoolTruthy<"value"> | "error",
+	E.EitherBoolTruthy<"value"> | "falsy",
 	"strict"
 >;

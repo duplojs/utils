@@ -8,11 +8,9 @@ var override = require('../../../common/override.cjs');
 const arrayKind = kind.createDataParserKind("array");
 function array(element, definition) {
     const self = base.dataParserInit(arrayKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            element,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        element,
     }, {
         sync: (data, error$1, self) => {
             if (!(data instanceof Array)) {

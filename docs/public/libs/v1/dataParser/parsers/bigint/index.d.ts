@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerBigIntMin, type DataParserCheckerBigIntMax } from "./checkers";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "../../../object";
@@ -21,6 +21,7 @@ export interface DataParserBigInt<GenericDefinition extends DataParserDefinition
         DataParserBigIntCheckers,
         ...DataParserBigIntCheckers[]
     ], GenericChecker>): DataParserBigInt<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionBigInt>(definition: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, GenericDefinition>>;
 }
 export declare function bigint<const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never>(definition?: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace bigint {

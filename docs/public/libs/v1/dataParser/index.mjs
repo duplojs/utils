@@ -12,10 +12,10 @@ export { checkerStringMax, checkerStringMaxKind } from './parsers/string/checker
 export { checkerStringMin, checkerStringMinKind } from './parsers/string/checkers/min.mjs';
 export { checkerStringRegex, checkerStringRegexKind } from './parsers/string/checkers/regex.mjs';
 export { string, stringKind } from './parsers/string/index.mjs';
-export { omit } from './parsers/object/omit.mjs';
-export { pick } from './parsers/object/pick.mjs';
-export { partial } from './parsers/object/partial.mjs';
-export { required } from './parsers/object/required.mjs';
+export { omit, omitShape } from './parsers/object/omit.mjs';
+export { pick, pickShape } from './parsers/object/pick.mjs';
+export { partial, partialShape } from './parsers/object/partial.mjs';
+export { required, requiredShape } from './parsers/object/required.mjs';
 export { object, objectKind } from './parsers/object/index.mjs';
 export { checkerInt, checkerIntKind, int } from './parsers/number/checkers/int.mjs';
 export { checkerNumberMin, checkerNumberMinKind } from './parsers/number/checkers/min.mjs';

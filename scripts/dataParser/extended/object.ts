@@ -1,8 +1,13 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride, pipe } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { identifier } from "../identifier";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
+import * as DObject from "@scripts/object";
+import * as DString from "@scripts/string";
+import * as DArray from "@scripts/array";
+import * as DEither from "@scripts/either";
 
 type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
@@ -74,11 +79,17 @@ export interface DataParserObjectExtended<
 	>(
 		omitObject: GenericOmitObject,
 		definition?: GenericDefinition,
-	): ReturnType<
-		typeof dataParsers.omit<
-			dataParsers.DataParserObject<GenericDefinition>,
-			GenericOmitObject,
-			GenericSubDefinition
+	): DataParserObjectExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionObject,
+				NeverCoalescing<GenericSubDefinition, {}> & {
+					readonly shape: SimplifyTopLevel<
+						Omit<
+							GenericDefinition["shape"],
+							keyof GenericOmitObject
+						>
+					>;
+				}
 		>
 	>;
 
@@ -95,11 +106,20 @@ export interface DataParserObjectExtended<
 	>(
 		pickObject: GenericPickObject,
 		definition?: GenericDefinition,
-	): ReturnType<
-		typeof dataParsers.pick<
-			dataParsers.DataParserObject<GenericDefinition>,
-			GenericPickObject,
-			GenericSubDefinition
+	): DataParserObjectExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionObject,
+				NeverCoalescing<GenericSubDefinition, {}> & {
+					readonly shape: SimplifyTopLevel<
+						Pick<
+							GenericDefinition["shape"],
+							Adaptor<
+								keyof GenericPickObject,
+								keyof GenericDefinition["shape"]
+							>
+						>
+					>;
+				}
 		>
 	>;
 
@@ -109,10 +129,14 @@ export interface DataParserObjectExtended<
 		> = never,
 	>(
 		definition?: GenericDefinition,
-	): ReturnType<
-		typeof dataParsers.partial<
-			dataParsers.DataParserObject<GenericDefinition>,
-			GenericSubDefinition
+	): DataParserObjectExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionObject,
+			NeverCoalescing<GenericSubDefinition, {}> & {
+				readonly shape: dataParsers.PartialDataParserObject<
+					GenericDefinition["shape"]
+				>;
+			}
 		>
 	>;
 
@@ -122,10 +146,14 @@ export interface DataParserObjectExtended<
 		> = never,
 	>(
 		definition?: GenericDefinition,
-	): ReturnType<
-		typeof dataParsers.required<
-			dataParsers.DataParserObject<GenericDefinition>,
-			GenericSubDefinition
+	): DataParserObjectExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionObject,
+			NeverCoalescing<GenericSubDefinition, {}> & {
+				readonly shape: dataParsers.RequireDataParserObject<
+					GenericDefinition["shape"]
+				>;
+			}
 		>
 	>;
 }
@@ -150,24 +178,48 @@ export function object<
 	>(
 		dataParsers.object(shape, definition) as never,
 		{
-			omit: (self, omitObject, definition) => dataParsers.omit(
-				self,
-				omitObject,
-				definition,
-			),
-			pick: (self, pickObject, definition) => dataParsers.pick(
-				self,
-				pickObject,
-				definition,
-			),
-			partial: (self, definition) => dataParsers.partial(
-				self,
-				definition,
-			),
-			required: (self, definition) => dataParsers.required(
-				self,
-				definition,
-			),
+			omit: (self, omitObject, definition) => {
+				const newShape = dataParsers.omitShape(
+					self.definition.shape,
+					omitObject,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+			pick: (self, pickObject, definition) => {
+				const newShape = dataParsers.pickShape(
+					self.definition.shape,
+					pickObject,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+			partial: (self, definition) => {
+				const newShape = dataParsers.partialShape(
+					self.definition.shape,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+			required: (self, definition) => {
+				const newShape = dataParsers.requiredShape(
+					self.definition.shape,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
 		},
 	) as never;
 

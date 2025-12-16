@@ -2,7 +2,7 @@ import { E, pipe, type ExpectType } from "@duplojs/utils";
 
 const result = pipe(
 	E.nullish(true ? "value" : null),
-	E.whenIsNullishEmpty(() => "nullish"),
+	E.whenIsNullishEmpty(() => "nullish" as const),
 );
 
 type check = ExpectType<

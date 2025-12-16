@@ -35,6 +35,7 @@ export interface DataParserObject<GenericDefinition extends DataParserDefinition
         DataParserObjectCheckers<Output<this>>,
         ...DataParserObjectCheckers<Output<this>>[]
     ], GenericChecker>): DataParserObject<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionObject>(definition: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, GenericDefinition>>;
 }
 export declare function object<const GenericShape extends DataParserObjectShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;

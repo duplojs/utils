@@ -1,7 +1,7 @@
 import { onMounted, onBeforeUnmount, watch, type Ref } from "vue";
 import { useData } from "vitepress";
 import * as monaco from "monaco-editor";
-import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
+import TsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 import { useMonacoFilesStore } from "./useMonacoFilesStore";
 
 declare global {
@@ -109,7 +109,7 @@ export function useComponent(
 
 	if (typeof window !== "undefined") {
 		window.MonacoEnvironment = {
-			getWorker: () => new tsWorker(),
+			getWorker: () => new TsWorker(),
 		};
 	}
 

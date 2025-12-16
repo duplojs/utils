@@ -6,11 +6,9 @@ import { createOverride } from '../../../common/override.mjs';
 const numberKind = createDataParserKind("number");
 function number(definition) {
     const self = dataParserInit(numberKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (self.definition.coerce) {
             try {

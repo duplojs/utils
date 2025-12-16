@@ -9,12 +9,10 @@ const templateLiteralKind = createDataParserKind("template-literal");
 function templateLiteral(template, definition) {
     const pattern = pipe(createTemplateLiteralPattern(template), (result) => new RegExp(`^${result}$`));
     const self = dataParserInit(templateLiteralKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            template,
-            pattern,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        template,
+        pattern,
     }, (data, _error, self) => {
         if (typeof data === "string" && self.definition.pattern.test(data)) {
             return data;

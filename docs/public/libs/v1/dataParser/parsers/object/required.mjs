@@ -10,9 +10,12 @@ import { entry } from '../../../object/entry.mjs';
 import { entries } from '../../../object/entries.mjs';
 import { fromEntries } from '../../../object/fromEntries.mjs';
 
+function requiredShape(shape) {
+    return pipe(shape, entries, map(([key, dataParser]) => pipe(identifier(dataParser, optionalKind), whenIsRight((dataParser) => dataParser.definition.inner), whenIsLeft(forward), (dataParser) => entry(key, dataParser))), fromEntries);
+}
 function required(dataParser, definition) {
-    const newShape = pipe(dataParser.definition.shape, entries, map(([key, dataParser]) => pipe(identifier(dataParser, optionalKind), whenIsRight((dataParser) => dataParser.definition.inner), whenIsLeft(forward), (dataParser) => entry(key, dataParser))), fromEntries);
+    const newShape = requiredShape(dataParser.definition.shape);
     return object(newShape, definition);
 }
 
-export { required };
+export { required, requiredShape };

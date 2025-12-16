@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserBooleanCheckerCustom {
@@ -19,6 +19,7 @@ export interface DataParserBoolean<GenericDefinition extends DataParserDefinitio
         DataParserBooleanCheckers,
         ...DataParserBooleanCheckers[]
     ], GenericChecker>): DataParserBoolean<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionBoolean>(definition: GenericDefinition): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, GenericDefinition>>;
 }
 export declare function boolean<const GenericDefinition extends Partial<DataParserDefinitionBoolean> = never>(definition?: GenericDefinition): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace boolean {

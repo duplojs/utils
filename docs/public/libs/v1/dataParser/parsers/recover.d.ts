@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserRecoverCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,6 +20,7 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
         DataParserRecoverCheckers<Output<this>>,
         ...DataParserRecoverCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecover<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionRecover>(definition: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, GenericDefinition>>;
 }
 export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;

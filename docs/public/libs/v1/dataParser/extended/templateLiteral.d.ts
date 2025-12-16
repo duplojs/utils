@@ -12,6 +12,7 @@ export interface DataParserTemplateLiteralExtended<GenericDefinition extends dat
         dataParsers.DataParserTemplateLiteralCheckers<Output<this>>,
         ...dataParsers.DataParserTemplateLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTemplateLiteralExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral>(definition: GenericDefinition): DataParserTemplateLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionTemplateLiteral, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTemplateLiteralExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;

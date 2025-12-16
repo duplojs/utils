@@ -5,9 +5,12 @@ import { isKeyof } from '../../../string/isKeyof.mjs';
 import { entries } from '../../../object/entries.mjs';
 import { fromEntries } from '../../../object/fromEntries.mjs';
 
-function pick(dataParser, omitObject, definition) {
-    const newShape = pipe(dataParser.definition.shape, entries, filter(([key]) => isKeyof(key, omitObject)), fromEntries);
+function pickShape(shape, pickObject) {
+    return pipe(shape, entries, filter(([key]) => isKeyof(key, pickObject)), fromEntries);
+}
+function pick(dataParser, pickObject, definition) {
+    const newShape = pickShape(dataParser.definition.shape, pickObject);
     return object(newShape, definition);
 }
 
-export { pick };
+export { pick, pickShape };

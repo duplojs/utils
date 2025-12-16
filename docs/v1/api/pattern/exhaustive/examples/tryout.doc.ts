@@ -15,8 +15,13 @@ type Shape =
 		height: number;
 	};
 
+const input: Shape = {
+	kind: "square",
+	size: 1,
+} as Shape;
+
 pipe(
-	null as unknown as Shape,
+	input,
 	P.match(
 		{ kind: "circle" },
 		forward,
@@ -25,6 +30,6 @@ pipe(
 		{ kind: "square" },
 		forward,
 	),
-	// An unhandled case
+	//@ts-expect-error this make an error
 	P.exhaustive,
 );

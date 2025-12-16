@@ -1,4 +1,4 @@
-import { type MergeDefinition } from "../../types";
+import { type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject } from ".";
 import { type NeverCoalescing, type SimplifyTopLevel } from "../../../common";
 import { type DataParserOptionalCheckers, type DataParserOptional } from "../optional";
@@ -9,6 +9,7 @@ export type PartialDataParserObject<GenericShape extends DataParserObjectShape> 
         coalescingValue: unknown;
     }>;
 }>;
+export declare function partialShape(shape: DataParserObjectShape): DataParserObjectShape;
 export declare function partial<GenericDataParserObject extends DataParserObject, const GenericDefinition extends Partial<Omit<DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(dataParser: GenericDataParserObject, definition?: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: PartialDataParserObject<GenericDataParserObject["definition"]["shape"]>;
 }>>;

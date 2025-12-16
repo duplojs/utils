@@ -8,11 +8,9 @@ var override = require('../../common/override.cjs');
 const booleanKind = kind.createDataParserKind("boolean");
 function boolean(definition) {
     const self = base.dataParserInit(booleanKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (typeof data === "boolean") {
             return data;

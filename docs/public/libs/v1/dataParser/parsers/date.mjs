@@ -8,11 +8,9 @@ import { createOverride } from '../../common/override.mjs';
 const dateKind = createDataParserKind("date");
 function date(definition) {
     const self = dataParserInit(dateKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (self.definition.coerce) {
             if (data instanceof Date) {

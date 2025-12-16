@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserLiteral } from "../literal";
@@ -35,6 +35,7 @@ export interface DataParserRecord<GenericDefinition extends DataParserDefinition
         DataParserRecordCheckers<Output<this>>,
         ...DataParserRecordCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecord<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionRecord>(definition: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, GenericDefinition>>;
 }
 export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;

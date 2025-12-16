@@ -5,12 +5,10 @@ import { createOverride } from '../../common/override.mjs';
 const pipeKind = createDataParserKind("pipe");
 function pipe(input, output, definition) {
     const self = dataParserInit(pipeKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            input,
-            output,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        input,
+        output,
     }, {
         sync: (data, error, self) => {
             const result = self.definition.input.exec(data, error);

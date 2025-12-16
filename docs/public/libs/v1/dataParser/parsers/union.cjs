@@ -8,11 +8,9 @@ var override = require('../../common/override.cjs');
 const unionKind = kind.createDataParserKind("union");
 function union(options, definition) {
     const self = base.dataParserInit(unionKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            options,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        options,
     }, {
         sync: (data, error$1, self) => {
             for (const dataParser of self.definition.options) {

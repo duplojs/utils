@@ -8,11 +8,9 @@ var override = require('../../../common/override.cjs');
 const stringKind = kind.createDataParserKind("string");
 function string(definition) {
     const self = base.dataParserInit(stringKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (self.definition.coerce) {
             try {

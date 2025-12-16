@@ -8,13 +8,11 @@ import { createOverride } from '../../../common/override.mjs';
 const recordKind = createDataParserKind("record");
 function record(key, value, definition) {
     const self = dataParserInit(recordKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            key,
-            value,
-            requireKey: findRecordRequiredKey(key),
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        key,
+        value,
+        requireKey: findRecordRequiredKey(key),
     }, {
         sync: (data, error, self) => {
             if (!data

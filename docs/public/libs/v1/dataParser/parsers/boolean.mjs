@@ -6,11 +6,9 @@ import { createOverride } from '../../common/override.mjs';
 const booleanKind = createDataParserKind("boolean");
 function boolean(definition) {
     const self = dataParserInit(booleanKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (typeof data === "boolean") {
             return data;

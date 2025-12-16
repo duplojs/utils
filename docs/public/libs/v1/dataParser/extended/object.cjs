@@ -10,10 +10,22 @@ var override = require('../../common/override.cjs');
 
 function object(shape, definition) {
     const self = baseExtended.dataParserExtendedInit(index.object(shape, definition), {
-        omit: (self, omitObject, definition) => omit.omit(self, omitObject, definition),
-        pick: (self, pickObject, definition) => pick.pick(self, pickObject, definition),
-        partial: (self, definition) => partial.partial(self, definition),
-        required: (self, definition) => required.required(self, definition),
+        omit: (self, omitObject, definition) => {
+            const newShape = omit.omitShape(self.definition.shape, omitObject);
+            return object(newShape, definition);
+        },
+        pick: (self, pickObject, definition) => {
+            const newShape = pick.pickShape(self.definition.shape, pickObject);
+            return object(newShape, definition);
+        },
+        partial: (self, definition) => {
+            const newShape = partial.partialShape(self.definition.shape);
+            return object(newShape, definition);
+        },
+        required: (self, definition) => {
+            const newShape = required.requiredShape(self.definition.shape);
+            return object(newShape, definition);
+        },
     });
     return object.overrideHandler.apply(self);
 }

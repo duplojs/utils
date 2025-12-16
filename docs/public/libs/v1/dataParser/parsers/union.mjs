@@ -6,11 +6,9 @@ import { createOverride } from '../../common/override.mjs';
 const unionKind = createDataParserKind("union");
 function union(options, definition) {
     const self = dataParserInit(unionKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            options,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        options,
     }, {
         sync: (data, error, self) => {
             for (const dataParser of self.definition.options) {

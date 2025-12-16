@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserUnknownCheckerCustom {
@@ -18,6 +18,7 @@ export interface DataParserUnknown<GenericDefinition extends DataParserDefinitio
         DataParserUnknownCheckers,
         ...DataParserUnknownCheckers[]
     ], GenericChecker>): DataParserUnknown<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionUnknown>(definition: GenericDefinition): DataParserUnknown<MergeDefinition<DataParserDefinitionUnknown, GenericDefinition>>;
 }
 export declare function unknown<const GenericDefinition extends Partial<DataParserDefinitionUnknown> = never>(definition?: GenericDefinition): DataParserUnknown<MergeDefinition<DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace unknown {

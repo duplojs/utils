@@ -7,12 +7,10 @@ var override = require('../../common/override.cjs');
 const pipeKind = kind.createDataParserKind("pipe");
 function pipe(input, output, definition) {
     const self = base.dataParserInit(pipeKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            input,
-            output,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        input,
+        output,
     }, {
         sync: (data, error, self) => {
             const result = self.definition.input.exec(data, error);

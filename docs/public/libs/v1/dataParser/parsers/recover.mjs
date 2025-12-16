@@ -5,12 +5,10 @@ import { createOverride } from '../../common/override.mjs';
 const recoverKind = createDataParserKind("recover");
 function recover(inner, recoveredValue, definition) {
     const self = dataParserInit(recoverKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            recoveredValue,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        recoveredValue,
     }, {
         sync: (data, error, self) => {
             const result = self.definition.inner.exec(data, error);

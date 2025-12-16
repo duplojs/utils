@@ -8,11 +8,9 @@ var override = require('../../common/override.cjs');
 const lazyKind = kind.createDataParserKind("lazy");
 function lazy(getter, definition) {
     const self = base.dataParserInit(lazyKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            getter: memo.memo(getter),
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        getter: memo.memo(getter),
     }, {
         sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
         async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),

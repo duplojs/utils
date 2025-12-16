@@ -8,12 +8,10 @@ var override = require('../../common/override.cjs');
 const tupleKind = kind.createDataParserKind("tuple");
 function tuple(shape, definition) {
     const self = base.dataParserInit(tupleKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            rest: definition?.rest,
-            shape,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        rest: definition?.rest,
+        shape,
     }, {
         sync: (data, error$1, self) => {
             if (!(data instanceof Array)) {

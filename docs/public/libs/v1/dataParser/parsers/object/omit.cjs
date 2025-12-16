@@ -7,9 +7,13 @@ var isKeyof = require('../../../string/isKeyof.cjs');
 var entries = require('../../../object/entries.cjs');
 var fromEntries = require('../../../object/fromEntries.cjs');
 
+function omitShape(shape, omitObject) {
+    return pipe.pipe(shape, entries.entries, filter.filter(([key]) => !isKeyof.isKeyof(key, omitObject)), fromEntries.fromEntries);
+}
 function omit(dataParser, omitObject, definition) {
-    const newShape = pipe.pipe(dataParser.definition.shape, entries.entries, filter.filter(([key]) => !isKeyof.isKeyof(key, omitObject)), fromEntries.fromEntries);
+    const newShape = omitShape(dataParser.definition.shape, omitObject);
     return index.object(newShape, definition);
 }
 
 exports.omit = omit;
+exports.omitShape = omitShape;

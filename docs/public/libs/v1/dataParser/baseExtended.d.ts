@@ -43,6 +43,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
         inner: GenericThis;
         recoveredValue: GenericRecoveredValue;
     }>>;
+    construct(definition: never): DataParserExtended;
 }
 export declare function dataParserExtendedInit<GenericDataParser extends DataParser, GenericDataParserExtended extends GenericDataParser & DataParserExtended>(dataParser: NoInfer<GenericDataParser>, rest: NoInfer<{
     [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];

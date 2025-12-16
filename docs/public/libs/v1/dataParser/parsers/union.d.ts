@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
@@ -20,6 +20,7 @@ export interface DataParserUnion<GenericDefinition extends DataParserDefinitionU
         DataParserUnionCheckers<Output<this>>,
         ...DataParserUnionCheckers<Output<this>>[]
     ], GenericChecker>): DataParserUnion<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionUnion>(definition: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, GenericDefinition>>;
 }
 export declare function union<GenericOptions extends UnionOptions, const GenericDefinition extends Partial<Omit<DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
     options: GenericOptions;

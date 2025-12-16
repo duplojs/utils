@@ -7,12 +7,10 @@ var override = require('../../common/override.cjs');
 const nullableKind = kind.createDataParserKind("nullable");
 function nullable(inner, definition) {
     const self = base.dataParserInit(nullableKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            coalescingValue: definition?.coalescingValue ?? null,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        coalescingValue: definition?.coalescingValue ?? null,
     }, {
         sync: (data, error, self) => {
             if (data === null) {

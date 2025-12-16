@@ -9,7 +9,7 @@ function asyncMap(...args) {
     let index = 0;
     return (async function* () {
         for await (const element of iterator) {
-            yield theFunction(element, { index });
+            yield await theFunction(element, { index });
             index++;
         }
     })();

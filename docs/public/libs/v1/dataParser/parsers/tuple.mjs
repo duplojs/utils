@@ -6,12 +6,10 @@ import { createOverride } from '../../common/override.mjs';
 const tupleKind = createDataParserKind("tuple");
 function tuple(shape, definition) {
     const self = dataParserInit(tupleKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            rest: definition?.rest,
-            shape,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        rest: definition?.rest,
+        shape,
     }, {
         sync: (data, error, self) => {
             if (!(data instanceof Array)) {

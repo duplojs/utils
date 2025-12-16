@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserPipeCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,6 +20,7 @@ export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPi
         DataParserPipeCheckers<Output<this>>,
         ...DataParserPipeCheckers<Output<this>>[]
     ], GenericChecker>): DataParserPipe<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionPipe>(definition: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, GenericDefinition>>;
 }
 export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionPipe, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
     input: GenericInput;

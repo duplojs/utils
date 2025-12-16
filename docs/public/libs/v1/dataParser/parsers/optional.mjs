@@ -5,12 +5,10 @@ import { createOverride } from '../../common/override.mjs';
 const optionalKind = createDataParserKind("optional");
 function optional(inner, definition) {
     const self = dataParserInit(optionalKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            coalescingValue: definition?.coalescingValue,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        coalescingValue: definition?.coalescingValue,
     }, {
         sync: (data, error, self) => {
             if (data === undefined) {

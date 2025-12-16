@@ -7,12 +7,10 @@ var override = require('../../common/override.cjs');
 const optionalKind = kind.createDataParserKind("optional");
 function optional(inner, definition) {
     const self = base.dataParserInit(optionalKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            coalescingValue: definition?.coalescingValue,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        coalescingValue: definition?.coalescingValue,
     }, {
         sync: (data, error, self) => {
             if (data === undefined) {

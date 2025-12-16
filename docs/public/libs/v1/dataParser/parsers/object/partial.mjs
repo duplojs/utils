@@ -10,9 +10,12 @@ import { entry } from '../../../object/entry.mjs';
 import { entries } from '../../../object/entries.mjs';
 import { fromEntries } from '../../../object/fromEntries.mjs';
 
+function partialShape(shape) {
+    return pipe(shape, entries, map(([key, dataParser]) => pipe(identifier(dataParser, optionalKind), whenIsRight(forward), whenIsLeft(optional), (dataParser) => entry(key, dataParser))), fromEntries);
+}
 function partial(dataParser, definition) {
-    const newShape = pipe(dataParser.definition.shape, entries, map(([key, dataParser]) => pipe(identifier(dataParser, optionalKind), whenIsRight(forward), whenIsLeft(optional), (dataParser) => entry(key, dataParser))), fromEntries);
+    const newShape = partialShape(dataParser.definition.shape);
     return object(newShape, definition);
 }
 
-export { partial };
+export { partial, partialShape };

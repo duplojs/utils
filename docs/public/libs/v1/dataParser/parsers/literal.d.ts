@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
@@ -20,6 +20,7 @@ export interface DataParserLiteral<GenericDefinition extends DataParserDefinitio
         DataParserLiteralCheckers<Output<this>>,
         ...DataParserLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserLiteral<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionLiteral>(definition: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, GenericDefinition>>;
 }
 export declare function literal<const GenericValue extends LiteralValue, const GenericDefinition extends Partial<Omit<DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
     value: GenericValue[];

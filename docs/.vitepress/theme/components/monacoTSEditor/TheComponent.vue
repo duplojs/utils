@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CSSProperties, ref } from "vue";
+import { type CSSProperties, ref } from "vue";
 import { useComponent, type MajorVersion } from "./useComponent";
 
 interface Props {

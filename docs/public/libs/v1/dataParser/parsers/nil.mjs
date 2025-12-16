@@ -6,11 +6,9 @@ import { createOverride } from '../../common/override.mjs';
 const nilKind = createDataParserKind("nil");
 function nil(definition) {
     const self = dataParserInit(nilKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            coerce: definition?.coerce ?? false,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (data === null) {
             return data;

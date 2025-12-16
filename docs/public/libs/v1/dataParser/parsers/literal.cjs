@@ -9,11 +9,9 @@ var override = require('../../common/override.cjs');
 const literalKind = kind.createDataParserKind("literal");
 function literal(value, definition) {
     const self = base.dataParserInit(literalKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            value: coalescing.coalescing(value),
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        value: coalescing.coalescing(value),
     }, (data, _error, self) => {
         if (self.definition.value.includes(data)) {
             return data;

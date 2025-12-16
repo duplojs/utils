@@ -6,12 +6,10 @@ import { createOverride } from '../../common/override.mjs';
 const transformKind = createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
     const self = dataParserInit(transformKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            theFunction,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        theFunction,
     }, {
         sync: (data, error, self) => {
             const innerResult = self.definition.inner.exec(data, error);

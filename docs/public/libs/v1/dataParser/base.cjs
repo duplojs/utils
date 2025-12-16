@@ -27,7 +27,7 @@ const DPE = error.createError();
 const EE = error$1.error(null);
 const ES = success.success(null);
 const KWV = wrapValue.keyWrappedValue;
-function dataParserInit(kind, params, exec) {
+function dataParserInit(kind, definition, exec) {
     const formattedExec = typeof exec === "object"
         ? exec
         : {
@@ -85,7 +85,7 @@ function dataParserInit(kind, params, exec) {
         return result;
     }
     const dataParser = pipe.pipe({
-        ...params,
+        definition,
         exec: middleExec,
         asyncExec: middleAsyncExec,
         parse(data) {
@@ -125,13 +125,11 @@ function dataParserInit(kind, params, exec) {
             };
         },
         addChecker: (...checkers) => dataParserInit(kind, simpleClone.simpleClone({
-            ...params,
-            definition: {
-                ...params.definition,
-                checkers: [...params.definition.checkers, ...checkers],
-            },
+            ...definition,
+            checkers: [...definition.checkers, ...checkers],
         }), exec),
-        clone: () => dataParserInit(kind, simpleClone.simpleClone(params), exec),
+        clone: () => dataParserInit(kind, simpleClone.simpleClone(definition), exec),
+        construct: (definition) => dataParserInit(kind, definition, exec),
     }, (value) => dataParserKind.setTo(value, null), kind.setTo, dataParserInit.overrideHandler.apply);
     return dataParser;
 }

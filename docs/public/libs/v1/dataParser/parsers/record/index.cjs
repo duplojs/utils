@@ -9,13 +9,11 @@ var override = require('../../../common/override.cjs');
 const recordKind = kind.createDataParserKind("record");
 function record(key, value, definition) {
     const self = base.dataParserInit(recordKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            key,
-            value,
-            requireKey: findRecordRequiredKey.findRecordRequiredKey(key),
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        key,
+        value,
+        requireKey: findRecordRequiredKey.findRecordRequiredKey(key),
     }, {
         sync: (data, error$1, self) => {
             if (!data

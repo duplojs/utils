@@ -7,12 +7,10 @@ var override = require('../../common/override.cjs');
 const recoverKind = kind.createDataParserKind("recover");
 function recover(inner, recoveredValue, definition) {
     const self = base.dataParserInit(recoverKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            recoveredValue,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        recoveredValue,
     }, {
         sync: (data, error, self) => {
             const result = self.definition.inner.exec(data, error);

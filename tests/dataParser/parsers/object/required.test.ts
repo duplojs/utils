@@ -43,6 +43,18 @@ describe("object.required", () => {
 				active: true,
 			}),
 		);
+
+		if (DEither.isRight(result)) {
+			type _Out = ExpectType<
+				typeof result,
+				DEither.EitherSuccess<{
+					name: string;
+					age: number;
+					active: boolean;
+				}>,
+				"strict"
+			>;
+		}
 	});
 
 	it("fails when a required field is missing", () => {

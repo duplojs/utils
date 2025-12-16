@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerArrayMin, type DataParserCheckerArrayMax } from "./checkers";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "../../../object";
@@ -21,6 +21,7 @@ export interface DataParserArray<GenericDefinition extends DataParserDefinitionA
         DataParserArrayCheckers<Output<this>>,
         ...DataParserArrayCheckers<Output<this>>[]
     ], GenericChecker>): DataParserArray<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionArray>(definition: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, GenericDefinition>>;
 }
 export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
     element: GenericElement;

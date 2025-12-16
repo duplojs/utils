@@ -1,7 +1,7 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition, type DataParser, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
-import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "../error";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "../../dataParser/error";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserTransformCheckerCustom<GenericInput extends unknown = unknown> {
@@ -21,6 +21,7 @@ export interface DataParserTransform<GenericDefinition extends DataParserDefinit
         DataParserTransformCheckers<Output<this>>,
         ...DataParserTransformCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTransform<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionTransform>(definition: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, GenericDefinition>>;
 }
 export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<DataParserDefinitionTransform, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;

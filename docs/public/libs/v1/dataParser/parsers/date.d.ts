@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 import { type TheDate } from "../../date";
@@ -20,6 +20,7 @@ export interface DataParserDate<GenericDefinition extends DataParserDefinitionDa
         DataParserDateCheckers,
         ...DataParserDateCheckers[]
     ], GenericChecker>): DataParserDate<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionDate>(definition: GenericDefinition): DataParserDate<MergeDefinition<DataParserDefinitionDate, GenericDefinition>>;
 }
 export declare function date<const GenericDefinition extends Partial<DataParserDefinitionDate> = never>(definition?: GenericDefinition): DataParserDate<MergeDefinition<DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace date {

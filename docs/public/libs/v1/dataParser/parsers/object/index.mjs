@@ -12,15 +12,13 @@ import { createOverride } from '../../../common/override.mjs';
 const objectKind = createDataParserKind("object");
 function object(shape, definition) {
     const self = dataParserInit(objectKind, {
-        definition: {
-            shape,
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            optimizedShape: memo(() => pipe(forward(shape), entries, filter((entry) => dataParserKind.has(entry[1])), map(([key, value]) => ({
-                key,
-                value,
-            })))),
-        },
+        shape,
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        optimizedShape: memo(() => pipe(forward(shape), entries, filter((entry) => dataParserKind.has(entry[1])), map(([key, value]) => ({
+            key,
+            value,
+        })))),
     }, {
         sync: (data, error, self) => {
             if (!data

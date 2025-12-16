@@ -12,7 +12,7 @@ const result = partialUser.parse({ email: "admin@example.com" });
 
 if (E.isRight(result)) {
 	type check = ExpectType<
-			typeof result,
+		typeof result,
 		E.EitherSuccess<{
 			id?: number | undefined;
 			role?: "admin" | undefined;

@@ -14,15 +14,13 @@ var override = require('../../../common/override.cjs');
 const objectKind = kind.createDataParserKind("object");
 function object(shape, definition) {
     const self = base.dataParserInit(objectKind, {
-        definition: {
-            shape,
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            optimizedShape: memo.memo(() => pipe.pipe(forward.forward(shape), entries.entries, filter.filter((entry) => base.dataParserKind.has(entry[1])), map.map(([key, value]) => ({
-                key,
-                value,
-            })))),
-        },
+        shape,
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        optimizedShape: memo.memo(() => pipe.pipe(forward.forward(shape), entries.entries, filter.filter((entry) => base.dataParserKind.has(entry[1])), map.map(([key, value]) => ({
+            key,
+            value,
+        })))),
     }, {
         sync: (data, error$1, self) => {
             if (!data

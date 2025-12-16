@@ -8,12 +8,10 @@ var override = require('../../common/override.cjs');
 const transformKind = kind.createDataParserKind("transform");
 function transform(inner, theFunction, definition) {
     const self = base.dataParserInit(transformKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            inner,
-            theFunction,
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        inner,
+        theFunction,
     }, {
         sync: (data, error$1, self) => {
             const innerResult = self.definition.inner.exec(data, error$1);

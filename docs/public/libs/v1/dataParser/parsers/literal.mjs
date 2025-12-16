@@ -7,11 +7,9 @@ import { createOverride } from '../../common/override.mjs';
 const literalKind = createDataParserKind("literal");
 function literal(value, definition) {
     const self = dataParserInit(literalKind, {
-        definition: {
-            errorMessage: definition?.errorMessage,
-            checkers: definition?.checkers ?? [],
-            value: coalescing(value),
-        },
+        errorMessage: definition?.errorMessage,
+        checkers: definition?.checkers ?? [],
+        value: coalescing(value),
     }, (data, _error, self) => {
         if (self.definition.value.includes(data)) {
             return data;

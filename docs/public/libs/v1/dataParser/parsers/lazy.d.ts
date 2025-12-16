@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserLazyCheckerCustom<GenericInput extends unknown = unknown> {
@@ -19,6 +19,7 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
         DataParserLazyCheckers<Output<this>>,
         ...DataParserLazyCheckers<Output<this>>[]
     ], GenericChecker>): DataParserLazy<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends DataParserDefinitionLazy>(definition: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, GenericDefinition>>;
 }
 export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
     getter: Memoized<GenericDataParser>;

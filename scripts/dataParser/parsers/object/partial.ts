@@ -19,6 +19,24 @@ export type PartialDataParserObject<
 		}>
 }>;
 
+export function partialShape(
+	shape: DataParserObjectShape,
+): DataParserObjectShape {
+	return pipe(
+		shape,
+		DObject.entries,
+		DArray.map(
+			([key, dataParser]) => pipe(
+				identifier(dataParser, optionalKind),
+				DEither.whenIsRight(forward),
+				DEither.whenIsLeft(optional),
+				(dataParser) => DObject.entry(key, dataParser),
+			),
+		),
+		DObject.fromEntries,
+	);
+}
+
 export function partial<
 	GenericDataParserObject extends DataParserObject,
 	const GenericDefinition extends Partial<
@@ -37,22 +55,10 @@ export function partial<
 			}
 		>
 	> {
-	const newShape = pipe(
-		dataParser.definition.shape,
-		DObject.entries,
-		DArray.map(
-			([key, dataParser]) => pipe(
-				identifier(dataParser, optionalKind),
-				DEither.whenIsRight(forward),
-				DEither.whenIsLeft(optional),
-				(dataParser) => DObject.entry(key, dataParser),
-			),
-		),
-		DObject.fromEntries,
-	);
+	const newShape = partialShape(dataParser.definition.shape);
 
 	return object(
 		newShape,
 		definition,
-	) as never;
+	);
 }
