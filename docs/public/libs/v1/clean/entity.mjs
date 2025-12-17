@@ -108,6 +108,9 @@ function createEntity(name, getPropertiesDefinition) {
         }
         return unwrap(result);
     }
+    function is(input) {
+        return entityKind.has(input) && entityKind.getValue(input) === name;
+    }
     return entityHandlerKind.setTo({
         name,
         propertiesDefinition,
@@ -115,6 +118,7 @@ function createEntity(name, getPropertiesDefinition) {
         new: theNew,
         map: map$1,
         mapOrThrow,
+        is,
     });
 }
 

@@ -15,7 +15,7 @@ declare const kind = "kind-future-either";
 export declare class Future<const GenericValue extends unknown = unknown> extends Promise<ComputeFutureEitherResult<GenericValue>> {
     constructor(value: GenericValue);
     [kind]: unknown;
-    then<TResult1 = ComputeFutureEitherResult<GenericValue>, TResult2 = never>(onfulfilled?: ((value: ComputeFutureEitherResult<GenericValue>) => TResult1 | PromiseLike<TResult1>) | null): Promise<TResult1 | TResult2>;
+    then<TResult1 = Extract<ComputeFutureEitherResult<GenericValue>, any>, TResult2 = never>(onfulfilled?: ((value: Extract<ComputeFutureEitherResult<GenericValue>, any>) => TResult1 | PromiseLike<TResult1>) | null): Promise<TResult1 | TResult2>;
     static get [Symbol.species](): PromiseConstructor;
     static instanceof<GenericValue extends unknown>(value: GenericValue): value is Extract<GenericValue, Future<any>>;
     static rightAll<const GenericArray extends readonly unknown[]>(values: GenericArray): FutureEitherAllResult<GenericArray>;

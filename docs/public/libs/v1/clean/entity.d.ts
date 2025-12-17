@@ -43,6 +43,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
     "new"<GenericProperties extends EntityProperties<GenericPropertiesDefinition>>(properties: GenericProperties): Entity<GenericName> & GenericProperties;
     map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.EitherRight<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.EitherLeft<"createEntityError", DDataParser.DataParserError>);
     mapOrThrow(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+    is<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, Entity<GenericName>>;
 }
 declare const CreateEntityError_base: new (params: {
     "@DuplojsUtilsError/create-entity-error"?: unknown;
