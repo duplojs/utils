@@ -166,6 +166,15 @@ export interface EntityHandler<
 	mapOrThrow(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+
+	is<
+		GenericInput extends unknown,
+	>(
+		input: GenericInput
+	): input is Extract<
+		GenericInput,
+		Entity<GenericName>
+	>;
 }
 
 export class CreateEntityError extends kindHeritage(
@@ -399,6 +408,10 @@ export function createEntity<
 		return unwrap(result);
 	}
 
+	function is(input: unknown) {
+		return entityKind.has(input) && entityKind.getValue(input) === name;
+	}
+
 	return entityHandlerKind.setTo({
 		name,
 		propertiesDefinition,
@@ -406,6 +419,7 @@ export function createEntity<
 		new: theNew,
 		map,
 		mapOrThrow,
+		is,
 	}) as never;
 }
 

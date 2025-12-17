@@ -383,4 +383,51 @@ describe("createEntity", () => {
 			],
 		} as never)).toThrow(DClean.CreateEntityError);
 	});
+
+	it("is returns true only for matching entity name", () => {
+		const OtherEntity = DClean.createEntity(
+			"Other",
+			() => ({
+				name: FormName,
+			}),
+		);
+
+		const formFromMap = FormEntity.mapOrThrow({
+			name: "Alice",
+			type: {
+				key: "agent",
+				webHook: "hook",
+			},
+			inputs: [
+				{
+					value: "hello",
+					require: true,
+				},
+			],
+			description: null,
+			tags: [],
+			test: null,
+		});
+
+		const formFromNew = FormEntity.new({
+			name: FormName.createOrThrow("Bob"),
+			type: FormTypeHuman.createOrThrow({ siret: "123" }),
+			inputs: [
+				InputNumber.createOrThrow({
+					value: 1,
+					require: false,
+				}),
+			],
+			description: null,
+			tags: null,
+			test: [],
+		});
+
+		const other = OtherEntity.mapOrThrow({ name: "X" });
+
+		expect(FormEntity.is(formFromMap)).toBe(true);
+		expect(FormEntity.is(formFromNew)).toBe(true);
+		expect(FormEntity.is(other)).toBe(false);
+		expect(FormEntity.is({ name: "Alice" })).toBe(false);
+	});
 });
