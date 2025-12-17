@@ -77,10 +77,18 @@ export class Future<
 
 	// default declaration
 	public override then<
-		TResult1 = ComputeFutureEitherResult<GenericValue>,
+		TResult1 = Extract<
+			ComputeFutureEitherResult<GenericValue>,
+			any
+		>,
 		TResult2 = never,
 	>(
-		onfulfilled?: ((value: ComputeFutureEitherResult<GenericValue>) => TResult1 | PromiseLike<TResult1>) | null,
+		onfulfilled?: ((
+			value: Extract<
+				ComputeFutureEitherResult<GenericValue>,
+				any
+			>
+		) => TResult1 | PromiseLike<TResult1>) | null,
 	): Promise<TResult1 | TResult2> {
 		return super.then(onfulfilled);
 	}
