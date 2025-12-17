@@ -9,6 +9,23 @@ export default defineConfig({
 	base: "/",
 	cleanUrls: true,
 
+	transformPageData(pageData) {
+		const frontmatter = pageData.frontmatter ?? {};
+
+		if (frontmatter.layout === "home") {
+			return pageData;
+		}
+
+		if (typeof frontmatter.pageClass === "string" && frontmatter.pageClass.length > 0) {
+			return pageData;
+		}
+
+		frontmatter.pageClass = "layout-wide";
+		pageData.frontmatter = frontmatter;
+
+		return pageData;
+	},
+
 	head: [
 		[
 			"link",
@@ -137,9 +154,26 @@ export default defineConfig({
 					prev: "Page précédente",
 					next: "Page suivante",
 				},
+				sidebar: {
+					"/v1/guide/": [
+						{
+							text: "Commencer",
+							items: [
+								{
+									text: "Introduction",
+									link: "/v1/guide/fr",
+								},
+							],
+						},
+					],
+				},
 				outline: { label: "Sur cette page" },
 				returnToTopLabel: "Retour en haut",
 				darkModeSwitchLabel: "Mode sombre",
+				footer: {
+					copyright: "Copyright © 2025-présent Contributeurs de DuploJS",
+					message: "Diffusé sous licence MIT.",
+				},
 			},
 		},
 	},

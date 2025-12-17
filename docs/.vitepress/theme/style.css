@@ -93,26 +93,26 @@
  * Component: Layout
  * -------------------------------------------------------------------------- */
 
-:root {
-  --vp-layout-max-width: 100%;
-}
-
-.VPDoc .container,
-.VPDoc .content,
-.vp-doc,
-.VPContent {
+.VPContent.layout-wide,
+.layout-wide .VPContent {
   max-width: 100% !important;
 }
 
-.VPDoc.has-aside .content-container {
+.layout-wide .VPDoc .container,
+.layout-wide .VPDoc .content,
+.layout-wide .vp-doc {
+  max-width: 100% !important;
+}
+
+.layout-wide .VPDoc.has-aside .content-container {
   max-width: 80% !important;
 }
 
-.VPDoc:not(.has-sidebar) .content {
+.layout-wide .VPDoc:not(.has-sidebar) .content {
   max-width: 1200px !important;
 }
 
-.vp-doc .container {
+.layout-wide .vp-doc .container {
   max-width: 1200px !important;
 }
 
@@ -150,8 +150,9 @@
 }
 
 .VPNavBarTitle .VPImage {
-	width: 65% !important;
 	height: 65% !important;
+	width: auto !important;
+	object-fit: contain;
 }
 
 /**

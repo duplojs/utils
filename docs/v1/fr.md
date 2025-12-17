@@ -3,54 +3,14 @@ layout: home
 
 hero:
   name: "@duplojs/utils"
-  text: "Fonctionnel & Immutable"
+  text: "Utilitaires TypeScript"
   tagline: "Des utilitaires robustes avec une excellente expérience développeur."
-
-features:
-  - icon: 🛡️
-    title: Robuste & Type-Safe
-    details: Types TypeScript complets, immutabilité par défaut, et gestion d'erreurs intégrée pour un code fiable.
-
-  - icon: 🚀
-    title: DX d'abord
-    details: Noms familiers, transition douce vers la FP, pas besoin de tout réapprendre pour être productif.
-
-  - icon: ⚡
-    title: Fonctionnel sans dogme
-    details: Pattern matching, pipes, monades... Utilisez ce dont vous avez besoin quand vous en avez besoin.
-
-  - icon: 🔧
-    title: Drop-in replacement
-    details: Remplacez progressivement vos méthodes natives par des versions fonctionnelles et immutables.
-
-  - icon: 🎯
-    title: Zero Dependencies
-    details: Aucune dépendance externe, bundle optimisé, compatible avec tous les environnements.
-
-  - icon: 📚
-    title: Bien documenté
-    details: Exemples concrets, guides étape par étape, et références API complètes pour chaque fonction.
+  image: "/assets/images/logo.png"
+  actions:
+    - theme: brand
+      text: Commencer
+      link: /v1/guide/fr
+    - theme: alt
+      text: Voir sur GitHub
+      link: https://github.com/duplojs/utils
 ---
-
-
-## Installation
-
-::: code-group
-```bash [npm]
-npm install @duplojs/utils
-```
-```bash [yarn]
-yarn add @duplojs/utils
-```
-```bash [pnpm]
-pnpm add @duplojs/utils
-```
-:::
-
-## Exemple rapide
-
-<MonacoTSEditor
-  src="/v1/fastExample.doc.ts"
-  majorVersion="v1"
-  height="400px"
-/>
