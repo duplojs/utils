@@ -117,7 +117,7 @@ Convertit des tailles (`"10mb"`, `"2gb"`, …) en nombre d'octets.
 ### [escapeRegExp](/v1/api/common/escapeRegExp/fr)
 Échappe les caractères spéciaux pour créer une regex depuis une chaîne sûre.
 
-### [createInterpolation](/v1/api/common/createInterpolation/fr)
+### [interpolation](/v1/api/common/interpolation/fr)
 Génère des templates typés avec des placeholders `{id}` et un mapping strict des remplacements.
 
 ### [wrapValue](/v1/api/common/wrapValue/fr)

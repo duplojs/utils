@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "lazy"
-  link: "/v1/api/data-parser/lazy/fr"
+  text: "pipe"
+  link: "/v1/api/data-parser/pipe/fr"
 next:
   text: "refine"
   link: "/v1/api/data-parser/refine/fr"

@@ -10,7 +10,7 @@ next:
 
 # betweenThan
 
-Variante inclusive de [`between`](./between/fr) : vérifie qu'un `TheDate` se trouve entre deux bornes en incluant les extrêmes.
+Variante inclusive de [`between`](/v1/api/date/between/fr) : vérifie qu'un `TheDate` se trouve entre deux bornes en incluant les extrêmes.
 
 ## Exemple interactif
 

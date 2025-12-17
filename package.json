@@ -10,8 +10,9 @@
   },
   "scripts": {
     "build": "rollup --config",
-    "docs:dev": "npm run docs:dev --workspace=docs",
-    "docs:build": "npm run docs:build --workspace=docs",
+    "docs:dev": "npm -w docs run docs:dev",
+    "docs:build": "npm -w docs run docs:build",
+    "docs:preview": "npm -w docs run docs:preview",
     "test:tu": "vitest --coverage",
     "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",

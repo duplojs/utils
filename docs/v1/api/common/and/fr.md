@@ -91,4 +91,3 @@ Un booléen (ou un type guard si les prédicats en sont) vrai uniquement si tous
 ## Voir aussi
 
 - [`or`](/v1/api/common/or/fr) - Union de prédicats
-- [`not`](/v1/api/common/not/fr) - Inversion d'un type guard

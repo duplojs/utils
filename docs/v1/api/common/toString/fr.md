@@ -40,5 +40,5 @@ Une chaîne littérale typée correspondant exactement à la valeur fournie.
 
 ## Voir aussi
 
-- [`toJSON`](/v1/api/common/toJson/fr) - Prépare pour JSON
+- [`toJSON`](/v1/api/common/toJSON/fr) - Prépare pour JSON
 - [`stringToMillisecond`](/v1/api/common/stringToMillisecond/fr) - Parse des durées

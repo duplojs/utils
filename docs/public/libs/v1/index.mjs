@@ -48,7 +48,7 @@ export { simpleClone } from './common/simpleClone.mjs';
 export { sleep } from './common/sleep.mjs';
 export { InvalidBytesInStringError, stringToBytes } from './common/stringToBytes.mjs';
 export { InvalidMillisecondInStringError, stringToMillisecond } from './common/stringToMillisecond.mjs';
-export { toJSON } from './common/toJson.mjs';
+export { toJSON } from './common/toJSON.mjs';
 export { toTransform } from './common/toTransform.mjs';
 export { toWrappedValue } from './common/toWrappedValue.mjs';
 export { unwrap } from './common/unwrap.mjs';

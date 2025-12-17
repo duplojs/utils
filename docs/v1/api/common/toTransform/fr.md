@@ -2,7 +2,7 @@
 outline: [2, 3]
 prev:
   text: "toJSON"
-  link: "/v1/api/common/toJson/fr"
+  link: "/v1/api/common/toJSON/fr"
 next:
   text: "toString"
   link: "/v1/api/common/toString/fr"
@@ -63,4 +63,4 @@ Une valeur transformée selon les méthodes `toTransform` rencontrées, adaptée
 
 ## Voir aussi
 
-- [`toJSON`](/v1/api/common/toJson/fr) - Prépare pour la sérialisation JSON
+- [`toJSON`](/v1/api/common/toJSON/fr) - Prépare pour la sérialisation JSON

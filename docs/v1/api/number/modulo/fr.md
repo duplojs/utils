@@ -58,7 +58,6 @@ function modulo<
 
 - [`divide`](/v1/api/number/divide/fr) - Divise deux nombres
 - [`floor`](/v1/api/number/floor/fr) - Arrondit un nombre à l'entier inférieur
-- [`equals`](/v1/api/number/equals/fr) - Vérifie l'égalité entre deux nombres
 
 ## Sources
 

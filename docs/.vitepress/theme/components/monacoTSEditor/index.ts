@@ -1,1 +1,3 @@
-export { default as MonacoTSEditor } from "./TheComponent.vue";
+import { defineClientComponent } from "vitepress";
+
+export const MonacoTSEditor = defineClientComponent(() => import("./TheComponent.vue"));

@@ -13,7 +13,7 @@ export * from "./simpleClone";
 export * from "./sleep";
 export * from "./stringToBytes";
 export * from "./stringToMillisecond";
-export * from "./toJson";
+export * from "./toJSON";
 export * from "./toTransform";
 export * from "./toWrappedValue";
 export * from "./unwrap";

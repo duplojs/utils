@@ -107,4 +107,3 @@ Un booléen (ou un type guard si les prédicats en sont) vrai si au moins un pr�
 ## Voir aussi
 
 - [`and`](/v1/api/common/and/fr) - Intersection de prédicats
-- [`not`](/v1/api/common/not/fr) - Inversion d'un type guard

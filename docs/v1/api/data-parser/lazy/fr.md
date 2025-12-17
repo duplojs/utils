@@ -4,8 +4,8 @@ prev:
   text: "nullable"
   link: "/v1/api/data-parser/nullable/fr"
 next:
-  text: "transform"
-  link: "/v1/api/data-parser/transform/fr"
+  text: "pipe"
+  link: "/v1/api/data-parser/pipe/fr"
 ---
 
 # lazy

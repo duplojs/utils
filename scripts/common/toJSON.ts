@@ -1,3 +1,4 @@
+import { type ObjectKey } from "./types";
 import { type AnyFunction } from "./types/anyFunction";
 import { type IsEqual } from "./types/isEqual";
 
@@ -20,7 +21,7 @@ export type ToJSON<
 			]
 			: GenericValue extends any[]
 				? ToJSON<GenericValue[number]>[]
-				: GenericValue extends Record<number, unknown>
+				: GenericValue extends object
 					? {
 						[
 						Prop in keyof GenericValue as GenericValue[Prop] extends AnyFunction
