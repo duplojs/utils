@@ -4,8 +4,8 @@ prev:
   text: "rightPipe"
   link: "/v1/api/either/rightPipe/fr"
 next:
-  text: "hasInformation"
-  link: "/v1/api/either/hasInformation/fr"
+  text: "group"
+  link: "/v1/api/either/group/fr"
 ---
 
 # rightAsyncPipe

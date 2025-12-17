@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "rightAsyncPipe"
-  link: "/v1/api/either/rightAsyncPipe/fr"
+  text: "asyncGroup"
+  link: "/v1/api/either/asyncGroup/fr"
 next:
   text: "whenHasInformation"
   link: "/v1/api/either/whenHasInformation/fr"

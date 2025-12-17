@@ -159,6 +159,12 @@ Chaîne des transformations synchrones tant que les résultats restent `Right`, 
 ### [rightAsyncPipe](/v1/api/either/rightAsyncPipe/fr)
 Version asynchrone acceptant promesses, `Future` ou `Either` et s'arrêtant automatiquement sur un `Left`.
 
+### [group](/v1/api/either/group/fr)
+Agrège plusieurs `Either` synchrones et renvoie le premier `Left` ou un objet des valeurs `Right`.
+
+### [asyncGroup](/v1/api/either/asyncGroup/fr)
+Version asynchrone de `group` acceptant promesses et `Future`.
+
 ## Informations & matching
 
 ### [hasInformation](/v1/api/either/hasInformation/fr)
