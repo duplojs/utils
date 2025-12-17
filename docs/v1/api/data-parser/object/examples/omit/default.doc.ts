@@ -1,4 +1,4 @@
-import { DP, E, unwrap } from "@duplojs/utils";
+import { DP, type E, type ExpectType } from "@duplojs/utils";
 
 const schema = DP.object({
 	id: DP.number(),
@@ -20,8 +20,12 @@ const result = omitSchema.parse({
 	email: "contact@duplojs.dev",
 });
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-} else {
-	const error = unwrap(result);
-}
+type check = ExpectType<
+	typeof result,
+	E.EitherError<DP.DataParserError>
+	| E.EitherSuccess<{
+		id: number;
+		email: string;
+	}>,
+	"strict"
+>;

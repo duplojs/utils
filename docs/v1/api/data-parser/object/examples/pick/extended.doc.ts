@@ -1,11 +1,13 @@
-import { DPE, E, unwrap } from "@duplojs/utils";
+import { DPE, type E, type ExpectType } from "@duplojs/utils";
 
 const schema = DPE
 	.object({
 		id: DPE.number(),
 		displayName: DPE.string(),
 		email: DPE.string(),
-		role: DPE.literal(["user", "admin", "support"]),
+		role: DPE.literal(
+			["user", "admin", "support"],
+		),
 	})
 	.pick({
 		id: true,
@@ -17,8 +19,12 @@ const result = schema.parse({
 	displayName: "mathcovax",
 });
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-} else {
-	const error = unwrap(result);
-}
+type check = ExpectType<
+	typeof result,
+	E.EitherError<DPE.DataParserError>
+	| E.EitherSuccess<{
+		id: number;
+		displayName: string;
+	}>,
+	"strict"
+>;

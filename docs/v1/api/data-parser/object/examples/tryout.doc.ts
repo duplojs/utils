@@ -1,4 +1,4 @@
-import { unwrap, type ExpectType, E, DP } from "@duplojs/utils";
+import { type ExpectType, type E, DP } from "@duplojs/utils";
 
 const schema = DP.object({
 	name: DP.string(),
@@ -10,21 +10,11 @@ const result = schema.parse({
 	age: 24,
 });
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-	type check = ExpectType<
-		typeof value,
-		{
-			name: string;
-			age: number;
-		},
-		"strict"
-	>;
-} else {
-	const error = unwrap(result);
-	type check = ExpectType<
-		typeof error,
-		DP.DataParserError,
-		"strict"
-	>;
-}
+type check = ExpectType<
+	typeof result,
+	E.EitherError<DP.DataParserError> | E.EitherSuccess<{
+		name: string;
+		age: number;
+	}>,
+	"strict"
+>;

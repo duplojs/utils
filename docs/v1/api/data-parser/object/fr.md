@@ -4,8 +4,8 @@ prev:
   text: "unknown"
   link: "/v1/api/data-parser/unknown/fr"
 next:
-  text: "partial"
-  link: "/v1/api/data-parser/partial/fr"
+  text: "array"
+  link: "/v1/api/data-parser/array/fr"
 ---
 
 # object
@@ -17,7 +17,7 @@ Décrit un objet typé via un dictionnaire de parsers. `DDataParser.object()` co
 <MonacoTSEditor
   src="/v1/api/data-parser/object/examples/tryout.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="500px"
 />
 
 ## Paramètres
@@ -37,7 +37,15 @@ Un `DataParserObject` avec les méthodes `parse`, `asyncParse`, `exec`, `asyncEx
 <MonacoTSEditor
   src="/v1/api/data-parser/object/examples/checkers.doc.ts"
   majorVersion="v1"
-  height="600px"
+  height="700px"
+/>
+
+### Mode étendu
+
+<MonacoTSEditor
+  src="/v1/api/data-parser/object/examples/extended.doc.ts"
+  majorVersion="v1"
+  height="700px"
 />
 
 ### Projection avec `pick`
@@ -50,7 +58,7 @@ Sélectionnez uniquement les champs exposés publiquement depuis un schéma plus
     <MonacoTSEditor
       src="/v1/api/data-parser/object/examples/pick/default.doc.ts"
       majorVersion="v1"
-      height="600px"
+      height="700px"
     />
   </div>
   <div>
@@ -58,7 +66,7 @@ Sélectionnez uniquement les champs exposés publiquement depuis un schéma plus
     <MonacoTSEditor
       src="/v1/api/data-parser/object/examples/pick/extended.doc.ts"
       majorVersion="v1"
-      height="600px"
+      height="700px"
     />
   </div>
 </div>
@@ -73,7 +81,7 @@ Retirez les secrets (mot de passe, tokens, etc.) avant de renvoyer vos objets.
     <MonacoTSEditor
       src="/v1/api/data-parser/object/examples/omit/default.doc.ts"
       majorVersion="v1"
-      height="600px"
+      height="700px"
     />
   </div>
   <div>
@@ -81,18 +89,56 @@ Retirez les secrets (mot de passe, tokens, etc.) avant de renvoyer vos objets.
     <MonacoTSEditor
       src="/v1/api/data-parser/object/examples/omit/extended.doc.ts"
       majorVersion="v1"
-      height="600px"
+      height="700px"
     />
   </div>
 </div>
 
-### Mode étendu
+### Schéma de mise à jour avec `partial`
 
-<MonacoTSEditor
-  src="/v1/api/data-parser/object/examples/extended.doc.ts"
-  majorVersion="v1"
-  height="620px"
-/>
+Rendez toutes les clés optionnelles (utile pour les payloads de patch/update), sans perdre les validations des champs.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Version standard</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/partial/default.doc.ts"
+      majorVersion="v1"
+      height="560px"
+    />
+  </div>
+  <div>
+    <p><strong>Version étendue</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/partial/extended.doc.ts"
+      majorVersion="v1"
+      height="560px"
+    />
+  </div>
+</div>
+
+### Champs obligatoires avec `required`
+
+Retirez l'optionnalité (wrappers `optional`) sur un schéma d'objet : pratique après un `partial` ou si vous avez marqué des champs optionnels trop tôt.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Version standard</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/required/default.doc.ts"
+      majorVersion="v1"
+      height="560px"
+    />
+  </div>
+  <div>
+    <p><strong>Version étendue</strong></p>
+    <MonacoTSEditor
+      src="/v1/api/data-parser/object/examples/required/extended.doc.ts"
+      majorVersion="v1"
+      height="560px"
+    />
+  </div>
+</div>
 
 ## Voir aussi
 

@@ -83,12 +83,6 @@ Décrit une map clé/valeur avec validation séparée sur les clés et sur les v
 ### [union](/v1/api/data-parser/union/fr)
 Essaie plusieurs parsers dans l'ordre, retourne le premier qui réussit et reporte les erreurs détaillées sinon.
 
-### [partial](/v1/api/data-parser/partial/fr)
-Rend toutes les clés d'un objet optionnelles.
-
-### [required](/v1/api/data-parser/required/fr)
-Rend obligatoires les clés optionnelles d'un objet.
-
 ## Variants & optionnalité
 
 ### [optional](/v1/api/data-parser/optional/fr)

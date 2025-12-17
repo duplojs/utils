@@ -4,8 +4,8 @@ prev:
   text: "record"
   link: "/v1/api/data-parser/record/fr"
 next:
-  text: "partial"
-  link: "/v1/api/data-parser/partial/fr"
+  text: "optional"
+  link: "/v1/api/data-parser/optional/fr"
 ---
 
 # union

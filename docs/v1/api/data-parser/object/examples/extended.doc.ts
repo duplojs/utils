@@ -1,4 +1,4 @@
-import { DPE, E, unwrap, A, N, innerPipe, O } from "@duplojs/utils";
+import { DPE, type E, A, N, innerPipe, O, type ExpectType } from "@duplojs/utils";
 
 const schema = DPE
 	.object({
@@ -21,8 +21,11 @@ const result = schema.parse({
 	tags: ["api", "parser"],
 });
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-} else {
-	const error = unwrap(result);
-}
+type check = ExpectType<
+	typeof result,
+	E.EitherError<DPE.DataParserError> | E.EitherSuccess<{
+		name: string;
+		tags: string[];
+	}>,
+	"strict"
+>;
