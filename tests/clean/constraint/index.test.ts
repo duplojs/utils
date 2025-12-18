@@ -25,7 +25,7 @@ describe("createConstraint", () => {
 			typeof result,
 			| DEither.EitherRight<
 				"createConstrainedType",
-				DClean.Constraint<typeof constraint, "hello">
+				DClean.GetConstraint<typeof constraint, "hello">
 			>
 			| DEither.EitherLeft<
 				"createConstrainedTypeError",
@@ -109,7 +109,7 @@ describe("createConstraint", () => {
 
 		type Check = ExpectType<
 			typeof constrained,
-			DClean.Constraint<typeof constraint, "world">,
+			DClean.GetConstraint<typeof constraint, "world">,
 			"strict"
 		>;
 	});
@@ -120,7 +120,7 @@ describe("createConstraint", () => {
 	});
 
 	it("is detects constrained type", () => {
-		const value = wrapValue("x") as WrappedValue<string> | DClean.Constraint<typeof constraint, string>;
+		const value = wrapValue("x") as WrappedValue<string> | DClean.GetConstraint<typeof constraint, string>;
 
 		const predicate = constraint.is(value);
 
@@ -129,7 +129,7 @@ describe("createConstraint", () => {
 		if (predicate) {
 			type Check = ExpectType<
 				typeof value,
-				DClean.Constraint<typeof constraint, string>,
+				DClean.GetConstraint<typeof constraint, string>,
 				"strict"
 			>;
 		}
@@ -142,7 +142,7 @@ describe("createConstraint", () => {
 		if (predicateConstrained) {
 			type Check = ExpectType<
 				typeof constrained,
-				DClean.Constraint<typeof constraint, "cool">,
+				DClean.GetConstraint<typeof constraint, "cool">,
 				"strict"
 			>;
 		}

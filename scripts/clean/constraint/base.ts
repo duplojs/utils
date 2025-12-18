@@ -221,7 +221,7 @@ export function createConstraint<
 	}) as never;
 }
 
-export type Constraint<
+export type GetConstraint<
 	GenericConstrainHandler extends ConstraintHandler,
 	GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>
 	= DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>,
