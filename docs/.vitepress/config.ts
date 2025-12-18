@@ -57,6 +57,10 @@ export default defineConfig({
 					{
 						src: "**/*.doc.ts",
 						dest: "./",
+						transform: {
+							encoding: "utf-8",
+							handler: (content) => content.replace("@ts-expect-error", ""),
+						},
 					},
 				],
 			}),
@@ -115,32 +119,12 @@ export default defineConfig({
 								link: "/v1/api/common/fr",
 							},
 							{
-								text: "String",
-								link: "/v1/api/string/fr",
-							},
-							{
-								text: "Number",
-								link: "/v1/api/number/fr",
-							},
-							{
 								text: "Array",
 								link: "/v1/api/array/fr",
 							},
 							{
-								text: "Object",
-								link: "/v1/api/object/fr",
-							},
-							{
-								text: "Pattern",
-								link: "/v1/api/pattern/fr",
-							},
-							{
-								text: "Generator",
-								link: "/v1/api/generator/fr",
-							},
-							{
-								text: "Either",
-								link: "/v1/api/either/fr",
+								text: "Clean",
+								link: "/v1/api/clean/fr",
 							},
 							{
 								text: "DataParser",
@@ -151,8 +135,32 @@ export default defineConfig({
 								link: "/v1/api/date/fr",
 							},
 							{
-								text: "Clean",
-								link: "/v1/api/clean/fr",
+								text: "Either",
+								link: "/v1/api/either/fr",
+							},
+							{
+								text: "Generator",
+								link: "/v1/api/generator/fr",
+							},
+							{
+								text: "String",
+								link: "/v1/api/string/fr",
+							},
+							{
+								text: "Number",
+								link: "/v1/api/number/fr",
+							},
+							{
+								text: "Object",
+								link: "/v1/api/object/fr",
+							},
+							{
+								text: "Pattern",
+								link: "/v1/api/pattern/fr",
+							},
+							{
+								text: "String",
+								link: "/v1/api/string/fr",
 							},
 						],
 					},
