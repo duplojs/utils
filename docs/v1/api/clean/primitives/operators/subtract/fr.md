@@ -50,5 +50,5 @@ Un `Number` wrappé contenant le résultat.
 
 ## Voir aussi
 
-- [`add`](/v1/api/clean/add/fr)
-- [`multiply`](/v1/api/clean/multiply/fr)
+- [`add`](/v1/api/clean/primitives/operators/add/fr)
+- [`multiply`](/v1/api/clean/primitives/operators/multiply/fr)

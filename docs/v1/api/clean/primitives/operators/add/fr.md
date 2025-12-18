@@ -50,6 +50,6 @@ Un `Number` wrappé contenant la somme.
 
 ## Voir aussi
 
-- [`subtract`](/v1/api/clean/subtract/fr)
-- [`multiply`](/v1/api/clean/multiply/fr)
-- [`divide`](/v1/api/clean/divide/fr)
+- [`subtract`](/v1/api/clean/primitives/operators/subtract/fr)
+- [`multiply`](/v1/api/clean/primitives/operators/multiply/fr)
+- [`divide`](/v1/api/clean/primitives/operators/divide/fr)

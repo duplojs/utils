@@ -36,4 +36,4 @@ Un `Number` wrappé contenant le maximum.
 
 ## Voir aussi
 
-- [`min`](/v1/api/clean/min/fr)
+- [`min`](/v1/api/clean/primitives/operators/min/fr)

@@ -36,6 +36,6 @@ Un `Number` wrappé contenant la longueur.
 
 ## Voir aussi
 
-- [`lengthEqual`](/v1/api/clean/lengthEqual/fr)
-- [`lengthGreaterThan`](/v1/api/clean/lengthGreaterThan/fr)
-- [`lengthLessThan`](/v1/api/clean/lengthLessThan/fr)
+- [`lengthEqual`](/v1/api/clean/primitives/operators/lengthEqual/fr)
+- [`lengthGreaterThan`](/v1/api/clean/primitives/operators/lengthGreaterThan/fr)
+- [`lengthLessThan`](/v1/api/clean/primitives/operators/lengthLessThan/fr)

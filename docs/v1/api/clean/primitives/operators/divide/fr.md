@@ -50,4 +50,4 @@ Un `Number` wrappé contenant le quotient.
 
 ## Voir aussi
 
-- [`multiply`](/v1/api/clean/multiply/fr)
+- [`multiply`](/v1/api/clean/primitives/operators/multiply/fr)

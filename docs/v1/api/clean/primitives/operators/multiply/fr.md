@@ -50,5 +50,5 @@ Un `Number` wrappé contenant le produit.
 
 ## Voir aussi
 
-- [`add`](/v1/api/clean/add/fr)
-- [`divide`](/v1/api/clean/divide/fr)
+- [`add`](/v1/api/clean/primitives/operators/add/fr)
+- [`divide`](/v1/api/clean/primitives/operators/divide/fr)

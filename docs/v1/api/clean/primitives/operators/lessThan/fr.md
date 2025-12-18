@@ -50,4 +50,4 @@ function lessThan(
 
 ## Voir aussi
 
-- [`greaterThan`](/v1/api/clean/greaterThan/fr)
+- [`greaterThan`](/v1/api/clean/primitives/operators/greaterThan/fr)

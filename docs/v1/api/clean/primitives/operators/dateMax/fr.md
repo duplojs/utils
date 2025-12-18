@@ -47,4 +47,4 @@ Une `Date` wrappée contenant la plus grande date.
 
 ## Voir aussi
 
-- [`dateMin`](/v1/api/clean/dateMin/fr)
+- [`dateMin`](/v1/api/clean/primitives/operators/dateMin/fr)

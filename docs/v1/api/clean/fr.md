@@ -44,59 +44,59 @@ Déclare un use case avec des dépendances (repositories ou autres use cases).
 
 ## Opérations sur primitives
 
-### [equal](/v1/api/clean/primitives/equal/fr)
+### [equal](/v1/api/clean/primitives/operators/equal/fr)
 Compare deux primitives wrappées (ou une primitive et une valeur brute) avec un type guard.
 
-### [add](/v1/api/clean/primitives/add/fr)
+### [add](/v1/api/clean/primitives/operators/add/fr)
 Additionne deux `Number` (supporte la version currifiée).
 
-### [subtract](/v1/api/clean/primitives/subtract/fr)
+### [subtract](/v1/api/clean/primitives/operators/subtract/fr)
 Soustrait un nombre à un `Number` (supporte la version currifiée).
 
-### [multiply](/v1/api/clean/primitives/multiply/fr)
+### [multiply](/v1/api/clean/primitives/operators/multiply/fr)
 Multiplie un `Number` (supporte la version currifiée).
 
-### [divide](/v1/api/clean/primitives/divide/fr)
+### [divide](/v1/api/clean/primitives/operators/divide/fr)
 Divise un `Number` (supporte la version currifiée).
 
-### [min](/v1/api/clean/primitives/min/fr)
+### [min](/v1/api/clean/primitives/operators/min/fr)
 Retourne le minimum d'un tuple de `Number`.
 
-### [max](/v1/api/clean/primitives/max/fr)
+### [max](/v1/api/clean/primitives/operators/max/fr)
 Retourne le maximum d'un tuple de `Number`.
 
-### [greaterThan](/v1/api/clean/primitives/greaterThan/fr)
+### [greaterThan](/v1/api/clean/primitives/operators/greaterThan/fr)
 Teste si un `Number` est strictement supérieur à un seuil.
 
-### [lessThan](/v1/api/clean/primitives/lessThan/fr)
+### [lessThan](/v1/api/clean/primitives/operators/lessThan/fr)
 Teste si un `Number` est strictement inférieur à un seuil.
 
-### [concat](/v1/api/clean/primitives/concat/fr)
+### [concat](/v1/api/clean/primitives/operators/concat/fr)
 Concatène des `String` (supporte la version currifiée).
 
-### [length](/v1/api/clean/primitives/length/fr)
+### [length](/v1/api/clean/primitives/operators/length/fr)
 Retourne la longueur d'un `String` sous forme de `Number`.
 
-### [lengthEqual](/v1/api/clean/primitives/lengthEqual/fr)
+### [lengthEqual](/v1/api/clean/primitives/operators/lengthEqual/fr)
 Teste si la longueur d'un `String` est égale à une valeur.
 
-### [lengthGreaterThan](/v1/api/clean/primitives/lengthGreaterThan/fr)
+### [lengthGreaterThan](/v1/api/clean/primitives/operators/lengthGreaterThan/fr)
 Teste si la longueur d'un `String` est supérieure à une valeur.
 
-### [lengthLessThan](/v1/api/clean/primitives/lengthLessThan/fr)
+### [lengthLessThan](/v1/api/clean/primitives/operators/lengthLessThan/fr)
 Teste si la longueur d'un `String` est inférieure à une valeur.
 
-### [dateGreaterThan](/v1/api/clean/primitives/dateGreaterThan/fr)
+### [dateGreaterThan](/v1/api/clean/primitives/operators/dateGreaterThan/fr)
 Teste si une `Date` est postérieure à un seuil.
 
-### [dateLessThan](/v1/api/clean/primitives/dateLessThan/fr)
+### [dateLessThan](/v1/api/clean/primitives/operators/dateLessThan/fr)
 Teste si une `Date` est antérieure à un seuil.
 
-### [dateMin](/v1/api/clean/primitives/dateMin/fr)
+### [dateMin](/v1/api/clean/primitives/operators/dateMin/fr)
 Retourne la plus petite date d'une liste.
 
-### [dateMax](/v1/api/clean/primitives/dateMax/fr)
+### [dateMax](/v1/api/clean/primitives/operators/dateMax/fr)
 Retourne la plus grande date d'une liste.
 
-### [sort](/v1/api/clean/primitives/sort/fr)
+### [sort](/v1/api/clean/primitives/operators/sort/fr)
 Trie un tableau de primitives (`String`, `Number` ou `Date`) en `"ASC"` / `"DSC"`.

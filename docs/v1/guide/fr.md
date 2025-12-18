@@ -45,7 +45,7 @@ Il faut commencer par définir les bons paramètres dans votre `tsconfig`.
 - [Common](/v1/api/common/fr) Fonctions généralistes qui ne sont pas attribuées particulièrement à un type.
 - [Array](/v1/api/array/fr) Fonctions orientées pour manipuler les tableaux et les tuples.
 - [Clean](/v1/api/clean/fr) Outils de définition de structures métier.
-- [DataParser](/v1/api/data-parser/fr) Création de schémas de validation de données.
+- [DataParser](/v1/api/dataParser/fr) Création de schémas de validation de données.
 - [Date](/v1/api/date/fr) Fonctions de manipulation de dates.
 - [Either](/v1/api/either/fr) Outils de définition de résultats.
 - [Generator](/v1/api/generator/fr) Fonctions pour manipuler les itérables avec des générateurs.

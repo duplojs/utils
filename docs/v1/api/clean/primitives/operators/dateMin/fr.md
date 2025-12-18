@@ -47,4 +47,4 @@ Une `Date` wrappée contenant la plus petite date.
 
 ## Voir aussi
 
-- [`dateMax`](/v1/api/clean/dateMax/fr)
+- [`dateMax`](/v1/api/clean/primitives/operators/dateMax/fr)

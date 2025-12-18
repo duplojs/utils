@@ -50,5 +50,5 @@ function dateGreaterThan(
 
 ## Voir aussi
 
-- [`dateLessThan`](/v1/api/clean/dateLessThan/fr)
-- [`dateMin`](/v1/api/clean/dateMin/fr)
+- [`dateLessThan`](/v1/api/clean/primitives/operators/dateLessThan/fr)
+- [`dateMin`](/v1/api/clean/primitives/operators/dateMin/fr)

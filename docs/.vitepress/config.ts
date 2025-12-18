@@ -128,7 +128,7 @@ export default defineConfig({
 							},
 							{
 								text: "DataParser",
-								link: "/v1/api/data-parser/fr",
+								link: "/v1/api/dataParser/fr",
 							},
 							{
 								text: "Date",

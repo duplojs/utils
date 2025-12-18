@@ -2,7 +2,7 @@
 outline: [2, 3]
 prev:
   text: "DataParser"
-  link: "/v1/api/data-parser/fr"
+  link: "/v1/api/dataParser/fr"
 next:
   text: "Clean"
   link: "/v1/api/clean/fr"

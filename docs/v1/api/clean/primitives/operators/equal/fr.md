@@ -47,5 +47,5 @@ Un boolean (type guard côté TypeScript) indiquant si les valeurs unwrap sont s
 
 ## Voir aussi
 
-- [`greaterThan`](/v1/api/clean/greaterThan/fr)
-- [`lessThan`](/v1/api/clean/lessThan/fr)
+- [`greaterThan`](/v1/api/clean/primitives/operators/greaterThan/fr)
+- [`lessThan`](/v1/api/clean/primitives/operators/lessThan/fr)

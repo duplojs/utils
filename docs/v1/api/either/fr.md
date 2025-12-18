@@ -5,7 +5,7 @@ prev:
   link: '/v1/api/generator/fr'
 next:
   text: 'DataParser'
-  link: '/v1/api/data-parser/fr'
+  link: '/v1/api/dataParser/fr'
 ---
 
 # Either

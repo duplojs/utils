@@ -49,7 +49,3 @@ function sort(
 ## Valeur de retour
 
 Un nouveau tableau trié, dont les éléments sont **wrappés**.
-
-## Voir aussi
-
-- [`primitives`](/v1/api/clean/primitives/fr)
