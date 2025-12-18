@@ -86,6 +86,6 @@ Exemple de test de type :
 type check = ExpectType<
   typeof valeurTestée,
   TypeAttendu,
-  "strict"
+  "strict" // obligatoirement strict et rien d'autre
 >
 ```

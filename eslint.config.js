@@ -30,6 +30,7 @@ export default [
 		rules: {
 			"@typescript-eslint/no-confusing-void-expression": "off",
 			"no-nested-ternary": "off",
+			"@stylistic/js/line-comment-position": "off"
 		},
 	},
 	{

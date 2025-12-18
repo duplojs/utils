@@ -138,6 +138,10 @@ export default defineConfig({
 								text: "Date",
 								link: "/v1/api/date/fr",
 							},
+							{
+								text: "Clean",
+								link: "/v1/api/clean/fr",
+							},
 						],
 					},
 					{
