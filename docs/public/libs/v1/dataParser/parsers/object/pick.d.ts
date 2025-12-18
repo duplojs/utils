@@ -1,4 +1,4 @@
-import { type MergeDefinition } from "../../types";
+import { type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject } from ".";
 import { type SimplifyTopLevel, type NeverCoalescing, type Adaptor } from "../../../common";
 export declare function pickShape(shape: DataParserObjectShape, pickObject: Partial<Record<string, true>>): DataParserObjectShape;
