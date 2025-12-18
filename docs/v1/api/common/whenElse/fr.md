@@ -12,6 +12,10 @@ next:
 
 La fonction **`whenElse()`** offre deux branches explicites : si le prédicat est vrai, on exécute `theFunction`, sinon `elseFunction`. Les types de retour restent disjoints et préservés.
 
+::: warning
+Typage très instable - Typescript n'est pas très gentil avec nous
+:::
+
 ## Exemple interactif
 
 <MonacoTSEditor

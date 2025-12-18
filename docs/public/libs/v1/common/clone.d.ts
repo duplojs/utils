@@ -1,2 +1,2 @@
-import { type SimplifyTypeForce } from "../common/types/simplifyTypeForce";
+import { type SimplifyTypeForce } from "./types/simplifyTypeForce";
 export declare function clone<T extends unknown = unknown>(unknownValue: T): SimplifyTypeForce<T>;

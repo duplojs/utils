@@ -13,4 +13,5 @@ export declare function createFlag<GenericEntity extends Entity = never, Generic
     IsEqual<GenericEntity, never>,
     IsEqual<GenericName, never>
 ]> extends true ? never : NoInfer<GenericName>): FlagHandler<GenericEntity, GenericName, GenericValue>;
+export type GetFlag<GenericHandler extends FlagHandler<any, any, any>> = Extract<Flag<GenericHandler["name"], ReturnType<GenericHandler["getValue"]>>, any>;
 export {};

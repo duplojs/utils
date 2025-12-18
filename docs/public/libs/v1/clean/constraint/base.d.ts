@@ -32,5 +32,5 @@ export declare function createConstraint<GenericName extends string, GenericPrim
     DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]
 ]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>, checker: GenericChecker): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>>;
-export type Constraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
+export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
 export {};

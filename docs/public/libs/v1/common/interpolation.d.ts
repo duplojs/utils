@@ -1,4 +1,4 @@
-import { type IsEqual } from "../common/types/isEqual";
+import { type IsEqual } from "./types/isEqual";
 export type ExtractInterpolationId<GenericValue extends string> = GenericValue extends `${string}{${infer InferredInterpolationId}}${infer InferredEndValue}` ? InferredInterpolationId | ExtractInterpolationId<InferredEndValue> : never;
 export type ReplaceInterpolationIdByValues<GenericValue extends string, GenericInterpolationValues extends Record<string, string>> = GenericValue extends `${infer InferredStartValue}{${infer InferredInterpolationId}}${infer InferredEndValue}` ? InferredInterpolationId extends keyof GenericInterpolationValues ? `${InferredStartValue}${GenericInterpolationValues[InferredInterpolationId]}${ReplaceInterpolationIdByValues<InferredEndValue, GenericInterpolationValues>}` : `${InferredStartValue}${string}${ReplaceInterpolationIdByValues<InferredEndValue, GenericInterpolationValues>}` : GenericValue;
 export type CreateInterpolationContract<GenericInterpolationFunction extends ((value: Record<string, string>) => string)> = ReplaceInterpolationIdByValues<ReturnType<GenericInterpolationFunction>, {}>;

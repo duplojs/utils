@@ -1,4 +1,4 @@
-import { type MergeDefinition } from "../../../dataParser/types";
+import { type MergeDefinition } from "../../types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject } from ".";
 import { type NeverCoalescing, type SimplifyTopLevel } from "../../../common";
 import { type DataParserOptional } from "../optional";
