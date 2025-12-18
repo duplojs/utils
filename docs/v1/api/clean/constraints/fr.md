@@ -1,68 +1,162 @@
 ---
 outline: [2, 3]
 prev:
-  text: "createConstraint"
-  link: "/v1/api/clean/createConstraint/fr"
+  text: "Primitives"
+  link: "/v1/api/clean/primitives/fr"
 next:
-  text: "createRepository"
-  link: "/v1/api/clean/createRepository/fr"
+  text: "NewType"
+  link: "/v1/api/clean/newType/fr"
 ---
 
-# constraints
+# Contraintes
 
-Contraintes prêtes à l'emploi (basées sur `createConstraint`). Elles sont conçues pour être utilisées directement (`C.Int.create(...)`) ou injectées dans `createNewType(..., constraint)`.
+Une contrainte permet de définir une règle que le typage ne pourra pas vérifier à lui seul. Par exemple, une contrainte peut vérifier qu'une chaîne de caractères respecte un format particulier (email, URL, …), ou qu'un nombre est dans une certaine plage.
+Une contrainte s'applique à une [primitive](/v1/api/clean/primitives/fr).
 
-## Email
+## Fonctionnement
 
-Contrainte email (basée sur `String`).
+Une contrainte est créée à partir :
+- d'une primitive (ex: `C.String`, `C.Number`)
+- d'un ou plusieurs checkers du `DDataParser` (`DP.checkerEmail()`, `DP.checkerInt()`, ...)
+
+Au runtime, une contrainte valide la valeur, puis ajoute un marquage interne (par nom de contrainte).
+Côté TypeScript, ce marquage se reflète dans le type : on peut alors écrire des fonctions qui acceptent « n'importe quelle valeur portant cette contrainte », qu'il s'agisse d'une primitive contrainte ou d'un `NewType` qui embarque la même contrainte.
+
+## Exemple
+
+<MonacoTSEditor
+  src="/v1/api/clean/constraints/examples/tryout.doc.ts"
+  majorVersion="v1"
+  height="480px"
+/>
+
+## Créer une contrainte
+
+Pour créer une contrainte, utilisez `C.createConstraint(name, primitive, checker)` puis récupérez son type via `C.GetConstraint`.
+
+Ce type (ex: `SlugConstraint`) sert ensuite :
+- comme « contrat » (ex: paramètre de fonction)
+- comme contrainte à appliquer lors de la création d'un `NewType` (`C.createNewType(..., SlugConstraint)`)
+
+## Méthodes et Propriétés
+
+Une contrainte est un *handler* (comme une primitive). Elle expose donc des méthodes de création/validation et quelques propriétés.
+
+### Méthodes
+
+#### `create()`
+
+```typescript
+function create(
+	value: RawType | Primitive<RawType>
+): EitherRight<ConstrainedType<ConstraintName, RawType>> | EitherLeft<DP.DataParserError>
+```
+
+#### `createOrThrow()`
+
+```typescript
+function createOrThrow(
+	value: RawType | Primitive<RawType>
+): ConstrainedType<ConstraintName, RawType>
+```
+
+Lève `C.CreateConstrainedTypeError` en cas d'échec de validation.
+
+#### `createWithUnknown()`
+
+```typescript
+function createWithUnknown(
+	value: unknown
+): EitherRight<ConstrainedType<ConstraintName, RawType>> | EitherLeft<DP.DataParserError>
+```
+
+#### `createWithUnknownOrThrow()`
+
+```typescript
+function createWithUnknownOrThrow(
+	value: unknown
+): ConstrainedType<ConstraintName, RawType>
+```
+
+Lève `C.CreateConstrainedTypeError` en cas d'échec de validation.
+
+#### `is()`
+
+```typescript
+function is(
+	value: unknown
+): value is ConstrainedType<ConstraintName, RawType>
+```
+
+### Propriétés
+
+#### `name`
+
+Le nom unique de la contrainte (ex: `"email"`, `"int"`, ...).
+
+#### `checkers`
+
+La liste des checkers du `DDataParser` utilisés pour valider la valeur.
+
+#### `primitiveHandler`
+
+La primitive sur laquelle s'applique la contrainte (ex: `C.String`, `C.Number`).
+
+## Contraintes fournies par la librairie
+
+La librairie exporte quelques contraintes prêtes à l'emploi via `C.*` :
+
+### `Email`
+
+Valide une chaîne au format email.
 
 <MonacoTSEditor
   src="/v1/api/clean/constraints/examples/email.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="240px"
 />
 
-## Url
+### `Url`
 
-Contrainte URL (basée sur `String`).
+Valide une chaîne au format URL.
 
 <MonacoTSEditor
   src="/v1/api/clean/constraints/examples/url.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="240px"
 />
 
-## Int
+### `Int`
 
-Contrainte entier (basée sur `Number`).
+Valide un nombre entier.
 
 <MonacoTSEditor
   src="/v1/api/clean/constraints/examples/int.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="240px"
 />
 
-## Positive
+### `Positive`
 
-Contrainte nombre strictement positif (basée sur `Number`).
+Valide un nombre strictement positif (>= 1).
 
 <MonacoTSEditor
   src="/v1/api/clean/constraints/examples/positive.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="240px"
 />
 
-## Negative
+### `Negative`
 
-Contrainte nombre strictement négatif (basée sur `Number`).
+Valide un nombre strictement négatif (<= -1).
 
 <MonacoTSEditor
   src="/v1/api/clean/constraints/examples/negative.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="240px"
 />
 
 ## Voir aussi
 
-- [`createConstraint`](/v1/api/clean/createConstraint/fr)
-- [`createNewType`](/v1/api/clean/createNewType/fr)
+- [Primitives](/v1/api/clean/primitives/fr)
+- [NewType](/v1/api/clean/newType/fr)
