@@ -1,6 +1,7 @@
 import "vue";
 import { defineConfig } from "vitepress";
 import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
 	title: "@duplojs/utils",
@@ -48,7 +49,18 @@ export default defineConfig({
 	},
 
 	vite: {
-		plugins: [groupIconVitePlugin()],
+		plugins: [
+			groupIconVitePlugin(),
+			viteStaticCopy({
+				structured: true,
+				targets: [
+					{
+						src: "**/*.doc.ts",
+						dest: "./",
+					},
+				],
+			}),
+		],
 		optimizeDeps: {
 			include: ["monaco-editor"],
 		},

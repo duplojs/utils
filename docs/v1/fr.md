@@ -14,3 +14,22 @@ hero:
       text: Voir sur GitHub
       link: https://github.com/duplojs/utils
 ---
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Type native 💀</strong></p>
+    <MonacoTSEditor
+      src="/v1/examples/native.doc.ts"
+      majorVersion="v1"
+      height="400px"
+    />
+  </div>
+  <div>
+    <p><strong>Type @duplojs/utils 🤩</strong></p>
+    <MonacoTSEditor
+      src="/v1/examples/utils.doc.ts"
+      majorVersion="v1"
+      height="400px"
+    />
+  </div>
+</div>
