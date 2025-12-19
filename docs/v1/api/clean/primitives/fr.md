@@ -20,7 +20,7 @@ Résultat : des données plus sûres, plus explicites et mieux alignées avec le
 une page sélectionnée n’est pas un simple number, mais une primitive dédiée, indépendante de toute entité métier.
 
 <MonacoTSEditor
-  src="/v1/api/clean/primitives/operators/examples/first.doc.ts"
+  src="/v1/api/clean/primitives/examples/first.doc.ts"
   majorVersion="v1"
   height="250px"
 />
@@ -32,7 +32,7 @@ Sécuriser les données en évitant l’usage de valeurs brutes.
 Unifier les types : lorsque plusieurs NewTypes interagissent, leur point commun retombe sur une primitive simple (number, string, etc.).
 
 <MonacoTSEditor
-  src="/v1/api/clean/primitives/operators/examples/second.doc.ts"
+  src="/v1/api/clean/primitives/examples/second.doc.ts"
   majorVersion="v1"
   height="320px"
 />
@@ -42,7 +42,7 @@ Unifier les types : lorsque plusieurs NewTypes interagissent, leur point commun 
 ## Primitives disponibles
  
 <MonacoTSEditor
-  src="/v1/api/clean/primitives/operators/examples/tryout.doc.ts"
+  src="/v1/api/clean/primitives/examples/tryout.doc.ts"
   majorVersion="v1"
   height="400px"
 />

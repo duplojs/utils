@@ -97,10 +97,10 @@ export default defineConfig({
 	},
 
 	locales: {
-		root: {
+		fr: {
 			label: "Français",
 			lang: "fr",
-			link: "v1/fr",
+			link: "/fr",
 			themeConfig: {
 				nav: [
 					{
@@ -158,10 +158,6 @@ export default defineConfig({
 								text: "Pattern",
 								link: "/v1/api/pattern/fr",
 							},
-							{
-								text: "String",
-								link: "/v1/api/string/fr",
-							},
 						],
 					},
 					{
@@ -197,6 +193,105 @@ export default defineConfig({
 				footer: {
 					copyright: "Copyright © 2025-présent Contributeurs de DuploJS",
 					message: "Diffusé sous licence MIT.",
+				},
+			},
+		},
+		root: {
+			label: "English",
+			lang: "en",
+			link: "/en",
+			themeConfig: {
+				nav: [
+					{
+						text: "Guide",
+						link: "/v1/guide/en",
+					},
+					{
+						text: "API",
+						items: [
+							{
+								text: "Overview",
+								link: "/v1/api/en",
+							},
+							{
+								text: "Common",
+								link: "/v1/api/common/en",
+							},
+							{
+								text: "Array",
+								link: "/v1/api/array/en",
+							},
+							{
+								text: "Clean",
+								link: "/v1/api/clean/en",
+							},
+							{
+								text: "DataParser",
+								link: "/v1/api/dataParser/en",
+							},
+							{
+								text: "Date",
+								link: "/v1/api/date/en",
+							},
+							{
+								text: "Either",
+								link: "/v1/api/either/en",
+							},
+							{
+								text: "Generator",
+								link: "/v1/api/generator/en",
+							},
+							{
+								text: "String",
+								link: "/v1/api/string/en",
+							},
+							{
+								text: "Number",
+								link: "/v1/api/number/en",
+							},
+							{
+								text: "Object",
+								link: "/v1/api/object/en",
+							},
+							{
+								text: "Pattern",
+								link: "/v1/api/pattern/en",
+							},
+						],
+					},
+					{
+						text: "v1.x",
+						items: [
+							{
+								text: "v1.x (Current)",
+								link: "/v1/en",
+							},
+						],
+					},
+				],
+				docFooter: {
+					prev: "Previous page",
+					next: "Next page",
+				},
+				sidebar: {
+					"/v1/guide/": [
+						{
+							text: "Getting Started",
+							items: [
+								{
+									text: "Introduction",
+									link: "/v1/guide/en",
+								},
+							],
+						},
+					],
+				},
+				outline: { label: "On this page" },
+				returnToTopLabel: "Return to top",
+				darkModeSwitchLabel: "Dark mode",
+				footer: {
+					copyright: "Copyright © 2025-present DuploJS Contributors",
+					message: "Released under the MIT license.",
 				},
 			},
 		},
