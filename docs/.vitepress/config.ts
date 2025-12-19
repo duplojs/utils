@@ -32,7 +32,7 @@ export default defineConfig({
 			"link",
 			{
 				rel: "icon",
-				href: "/assets/images/logo.ico",
+				href: "/images/logo.ico",
 			},
 		],
 	],
@@ -71,14 +71,14 @@ export default defineConfig({
 		define: {
 			global: "globalThis",
 		},
-		assetsInclude: ["**/*.doc.ts", "public/*"],
+		assetsInclude: ["public/*"],
 		server: {
 			host: true,
 		},
 	},
 
 	themeConfig: {
-		logo: "/assets/images/logo.png",
+		logo: "/images/logo.png",
 
 		socialLinks: [
 			{
@@ -100,72 +100,72 @@ export default defineConfig({
 		fr: {
 			label: "Français",
 			lang: "fr",
-			link: "/fr",
+			link: "/fr/",
 			themeConfig: {
 				nav: [
 					{
 						text: "Guide",
-						link: "/v1/guide/fr",
+						link: "/fr/v1/guide/",
 					},
 					{
 						text: "API",
 						items: [
 							{
 								text: "Overview",
-								link: "/v1/api/fr",
+								link: "/fr/v1/api/",
 							},
 							{
 								text: "Common",
-								link: "/v1/api/common/fr",
+								link: "/fr/v1/api/common/",
 							},
 							{
 								text: "Array",
-								link: "/v1/api/array/fr",
+								link: "/fr/v1/api/array/",
 							},
 							{
 								text: "Clean",
-								link: "/v1/api/clean/fr",
+								link: "/fr/v1/api/clean/",
 							},
 							{
 								text: "DataParser",
-								link: "/v1/api/dataParser/fr",
+								link: "/fr/v1/api/dataParser/",
 							},
 							{
 								text: "Date",
-								link: "/v1/api/date/fr",
+								link: "/fr/v1/api/date/",
 							},
 							{
 								text: "Either",
-								link: "/v1/api/either/fr",
+								link: "/fr/v1/api/either/",
 							},
 							{
 								text: "Generator",
-								link: "/v1/api/generator/fr",
+								link: "/fr/v1/api/generator/",
 							},
 							{
 								text: "String",
-								link: "/v1/api/string/fr",
+								link: "/fr/v1/api/string/",
 							},
 							{
 								text: "Number",
-								link: "/v1/api/number/fr",
+								link: "/fr/v1/api/number/",
 							},
 							{
 								text: "Object",
-								link: "/v1/api/object/fr",
+								link: "/fr/v1/api/object/",
 							},
 							{
 								text: "Pattern",
-								link: "/v1/api/pattern/fr",
+								link: "/fr/v1/api/pattern/",
 							},
 						],
 					},
 					{
-						text: "v1.x",
+						text: "latest",
 						items: [
 							{
-								text: "v1.x (Current)",
-								link: "/v1/fr",
+								text: "latest",
+								link: "/fr/v1/guide/",
 							},
 						],
 					},
@@ -175,13 +175,13 @@ export default defineConfig({
 					next: "Page suivante",
 				},
 				sidebar: {
-					"/v1/guide/": [
+					"/fr/v1/guide/": [
 						{
 							text: "Commencer",
 							items: [
 								{
 									text: "Introduction",
-									link: "/v1/guide/fr",
+									link: "/fr/v1/guide/",
 								},
 							],
 						},
@@ -199,72 +199,72 @@ export default defineConfig({
 		root: {
 			label: "English",
 			lang: "en",
-			link: "/en",
+			link: "/en/",
 			themeConfig: {
 				nav: [
 					{
 						text: "Guide",
-						link: "/v1/guide/en",
+						link: "/en/v1/guide/",
 					},
 					{
 						text: "API",
 						items: [
 							{
 								text: "Overview",
-								link: "/v1/api/en",
+								link: "/en/v1/api/",
 							},
 							{
 								text: "Common",
-								link: "/v1/api/common/en",
+								link: "/en/v1/api/common/",
 							},
 							{
 								text: "Array",
-								link: "/v1/api/array/en",
+								link: "/en/v1/api/array/",
 							},
 							{
 								text: "Clean",
-								link: "/v1/api/clean/en",
+								link: "/en/v1/api/clean/",
 							},
 							{
 								text: "DataParser",
-								link: "/v1/api/dataParser/en",
+								link: "/en/v1/api/dataParser/",
 							},
 							{
 								text: "Date",
-								link: "/v1/api/date/en",
+								link: "/en/v1/api/date/",
 							},
 							{
 								text: "Either",
-								link: "/v1/api/either/en",
+								link: "/en/v1/api/either/",
 							},
 							{
 								text: "Generator",
-								link: "/v1/api/generator/en",
+								link: "/en/v1/api/generator/",
 							},
 							{
 								text: "String",
-								link: "/v1/api/string/en",
+								link: "/en/v1/api/string/",
 							},
 							{
 								text: "Number",
-								link: "/v1/api/number/en",
+								link: "/en/v1/api/number/",
 							},
 							{
 								text: "Object",
-								link: "/v1/api/object/en",
+								link: "/en/v1/api/object/",
 							},
 							{
 								text: "Pattern",
-								link: "/v1/api/pattern/en",
+								link: "/en/v1/api/pattern/",
 							},
 						],
 					},
 					{
-						text: "v1.x",
+						text: "latest",
 						items: [
 							{
-								text: "v1.x (Current)",
-								link: "/v1/en",
+								text: "latest",
+								link: "/en/",
 							},
 						],
 					},
@@ -274,13 +274,13 @@ export default defineConfig({
 					next: "Next page",
 				},
 				sidebar: {
-					"/v1/guide/": [
+					"/en/v1/guide/": [
 						{
 							text: "Getting Started",
 							items: [
 								{
 									text: "Introduction",
-									link: "/v1/guide/en",
+									link: "/en/v1/guide/",
 								},
 							],
 						},

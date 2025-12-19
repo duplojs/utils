@@ -1,0 +1,60 @@
+---
+outline: [2, 3]
+prev:
+  text: "subtractHours"
+  link: "/fr/v1/api/date/subtractHours"
+next:
+  text: "subtractSeconds"
+  link: "/fr/v1/api/date/subtractSeconds"
+---
+
+# subtractMinutes
+
+Soustrait un nombre positif de minutes d'un `TheDate`.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/examples/v1/api/date/subtractMinutes/tryout.doc.ts"
+  majorVersion="v1"
+  height="300px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function subtractMinutes<
+	GenericInput extends TheDate, 
+	GenericMinute extends number
+>(
+	input: GenericInput,
+	minute: PositiveNumber<GenericMinute>
+): TheDate
+```
+
+### Signature currifiée
+
+```typescript
+function subtractMinutes<
+	GenericInput extends TheDate, 
+	GenericMinute extends number
+>(
+	minute: PositiveNumber<GenericMinute>
+): (input: GenericInput) => TheDate
+```
+
+## Paramètres
+
+- `minute` : Minutes à retirer.
+- `input` : Date cible.
+
+## Valeur de retour
+
+Un `TheDate` reculé du nombre de minutes demandé.
+
+## Voir aussi
+
+- [`subtractSeconds`](/fr/v1/api/date/subtractSeconds)
+- [`addMinutes`](/fr/v1/api/date/addMinutes)

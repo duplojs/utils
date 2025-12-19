@@ -1,0 +1,44 @@
+---
+outline: [2, 3]
+prev:
+  text: "nullish"
+  link: "/fr/v1/api/either/nullish"
+next:
+  text: "nullishFilled"
+  link: "/fr/v1/api/either/nullishFilled"
+---
+
+# nullishEmpty
+
+Construit explicitement un `EitherLeft<"nullish">` avec `null` ou `undefined`.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/examples/v1/api/either/nullishEmpty/tryout.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+## Syntaxe
+
+```typescript
+function nullishEmpty<
+	const GenericInput extends NullishValue = undefined
+>(
+  value?: GenericInput
+): EitherNullishEmpty<GenericInput>;
+```
+
+## Paramètres
+
+- `input` : `null` ou `undefined` (optionnel).
+
+## Valeur de retour
+
+`EitherNullishEmpty<GenericInput>` permettant de signaler explicitement l'absence de valeur.
+
+## Voir aussi
+
+- [`whenIsNullishEmpty`](/fr/v1/api/either/whenIsNullishEmpty).
+- [`nullishFilled`](/fr/v1/api/either/nullishFilled).

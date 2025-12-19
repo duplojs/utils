@@ -41,14 +41,14 @@ DClean
 
 ## Structure de la documentation
 - `docs/{fr,en}/index.md`: pages homes
-- `docs/{fr,en}/latest/guide/*.md` : guides
-- `docs/{fr,en}/latest/api/{namespace}/index.md` : sommaire + présentation du namespace
-- `docs/{fr,en}/latest/api/{namespace}/{function}/index.md` : documentation d’une fonction
-- `docs/public/latest/api/{namespace}/{function}/tryout.doc.ts` : exemple simple
-- `docs/public/latest/api/{namespace}/{function}/otherExample.doc.ts` : cas spécifiques (rare)
+- `docs/{fr,en}/v1/guide/*.md` : guides
+- `docs/{fr,en}/v1/api/{namespace}/index.md` : sommaire + présentation du namespace
+- `docs/{fr,en}/v1/api/{namespace}/{function}.md` : documentation d’une fonction
+- `docs/public/examples/v1/api/{namespace}/{function}/tryout.doc.ts` : exemple simple
+- `docs/public/examples/v1/api/{namespace}/{function}/otherExample.doc.ts` : cas spécifiques (rare)
 
 ## Format obligatoire d’une page API (fonction)
-Chaque page `docs/{fr,en}/lastest/api/{namespace}/{function}/index.md` doit contenir :
+Chaque page `docs/{fr,en}/v1/api/{namespace}/{function}.md` doit contenir :
 
 ### Frontmatter YAML
 - `outline`: [2, 3]
