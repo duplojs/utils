@@ -24,17 +24,17 @@ interface UserRepository {
 	findById(id: User.Id): Promise<E.EitherSuccess<User.Entity> | E.EitherFail>;
 }
 
-const userRepositoryHandler = C.createRepository<UserRepository>();
+const UserRepository = C.createRepository<UserRepository>();
 
-const findUserUseCaseHandler = C.createUseCase(
-	{ userRepository: userRepositoryHandler },
+const FindUserUseCase = C.createUseCase(
+	{ UserRepository },
 	(
 		{ userRepository },
 	) => (userId: User.Id) => userRepository.findById(userId),
 );
 
 /* Infrastructure Layer */
-const userRepository = userRepositoryHandler.createImplementation({
+const userRepository = UserRepository.createImplementation({
 	findById(userId) {
 		// database call
 		const user = User.Entity.mapOrThrow({
@@ -48,12 +48,12 @@ const userRepository = userRepositoryHandler.createImplementation({
 });
 
 // instance one use case
-const findUserUseCase = findUserUseCaseHandler.getUseCase({ userRepository });
+const findUserUseCase = FindUserUseCase.getUseCase({ userRepository });
 
 // instance many use cases
 const useCases = C.useCaseInstances(
 	{
-		findUserUseCase: findUserUseCaseHandler,
+		FindUserUseCase,
 		//...
 	},
 	{

@@ -3,6 +3,7 @@ import { type RepositoryHandler } from "./repository";
 import { createCleanKind } from "./kind";
 import * as DObject from "../object";
 import * as DArray from "../array";
+import * as DString from "../string";
 
 export type UseCaseDependencies = Record<
 	string,
@@ -12,7 +13,13 @@ export type UseCaseDependencies = Record<
 export type UseCaseDependenciesValue<
 	GenericDependencies extends UseCaseDependencies,
 > = SimplifyTopLevel<{
-	[Prop in keyof GenericDependencies]: GenericDependencies[Prop] extends RepositoryHandler
+	[
+	Prop in keyof GenericDependencies as (
+		Prop extends string
+			? Uncapitalize<Prop>
+			: Prop
+	)
+	]: GenericDependencies[Prop] extends RepositoryHandler
 		? ReturnType<GenericDependencies[Prop]["createImplementation"]>
 		: GenericDependencies[Prop] extends UseCaseHandler
 			? ReturnType<GenericDependencies[Prop]["getUseCase"]>
@@ -26,7 +33,11 @@ export type GetAllRepositories<
 		[Prop in keyof GenericDependenciesValue]: (
 			GenericDependenciesValue[Prop] extends RepositoryHandler
 				? [
-					Prop,
+					(
+						Prop extends string
+							? Uncapitalize<Prop>
+							: Prop
+					),
 					ReturnType<
 						GenericDependenciesValue[Prop]["createImplementation"]
 					>,
@@ -80,10 +91,10 @@ export function createUseCase<
 				DObject.entries,
 				DArray.map(
 					([key, value]) => DObject.entry(
-						key,
+						DString.uncapitalize(key),
 						useCaseHandlerKind.has(value)
 							? value.getUseCase(repositories as never)
-							: repositories[key]!,
+							: repositories[DString.uncapitalize(key)]!,
 					),
 				),
 				DObject.fromEntries,
@@ -97,11 +108,13 @@ export function useCaseInstances<
 >(
 	useCases: GenericUseCases,
 	repositories: SimplifyTopLevel<
-		UnionToIntersection<{
-			[Prop in keyof GenericUseCases]: Parameters<
-				GenericUseCases[Prop]["getUseCase"]
-			>[0]
-		}[keyof GenericUseCases]>
+		UnionToIntersection<
+			{
+				[Prop in keyof GenericUseCases]: Parameters<
+					GenericUseCases[Prop]["getUseCase"]
+				>[0]
+			}[keyof GenericUseCases]
+		>
 	>,
 ): UseCaseDependenciesValue<GenericUseCases> {
 	return pipe(
@@ -109,7 +122,7 @@ export function useCaseInstances<
 		DObject.entries,
 		DArray.map(
 			([key, useCase]) => DObject.entry(
-				key,
+				DString.uncapitalize(key),
 				useCase.getUseCase(repositories as never),
 			),
 		),

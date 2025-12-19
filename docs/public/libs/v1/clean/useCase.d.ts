@@ -2,11 +2,11 @@ import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToInterse
 import { type RepositoryHandler } from "./repository";
 export type UseCaseDependencies = Record<string, RepositoryHandler | UseCaseHandler>;
 export type UseCaseDependenciesValue<GenericDependencies extends UseCaseDependencies> = SimplifyTopLevel<{
-    [Prop in keyof GenericDependencies]: GenericDependencies[Prop] extends RepositoryHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
+    [Prop in keyof GenericDependencies as (Prop extends string ? Uncapitalize<Prop> : Prop)]: GenericDependencies[Prop] extends RepositoryHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
 }>;
 export type GetAllRepositories<GenericDependenciesValue extends UseCaseDependencies> = GenericDependenciesValue extends any ? ({
     [Prop in keyof GenericDependenciesValue]: (GenericDependenciesValue[Prop] extends RepositoryHandler ? [
-        Prop,
+        (Prop extends string ? Uncapitalize<Prop> : Prop),
         ReturnType<GenericDependenciesValue[Prop]["createImplementation"]>
     ] : GenericDependenciesValue[Prop] extends UseCaseHandler ? GetAllRepositories<GenericDependenciesValue[Prop]["dependencies"]> : never);
 })[keyof GenericDependenciesValue] : never;
