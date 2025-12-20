@@ -1,7 +1,16 @@
 {
   "name": "@duplojs/utils",
   "version": "0.0.0",
-  "author": "mathcovax",
+  "author": {
+    "name": "mathcovax",
+    "url": "https://github.com/mathcovax"
+  },
+  "contributors": [
+    {
+      "name": "zeriix",
+      "url": "https://github.com/ZeRiix"
+    }
+  ],
   "license": "MIT",
   "type": "module",
   "repository": {
@@ -124,7 +133,25 @@
     "integration",
     "docs"
   ],
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "utils",
+    "functional-programming",
+    "immutable",
+    "pipe",
+    "curry",
+    "data-parser",
+    "pattern-matching",
+    "either",
+    "monad",
+    "array-utils",
+    "object-utils",
+    "string-utils",
+    "date-utils",
+    "ddd",
+    "clean-architecture",
+    "duplojs"
+  ],
   "engines": {
     "node": ">=22.15.1"
   }

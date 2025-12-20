@@ -12,7 +12,7 @@ next:
 
 Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to `match`, `when`, `otherwise`, and `exhaustive`. Each branch returns a `PatternResult`, which avoids fragile `switch` statements, simplifies chaining with `pipe`, and guarantees exhaustiveness at compile time.
 
-## How to import?
+## How to import ?
 
 The library exposes the `DPattern` and `P` namespaces from the main entry **or** via direct import (tree-shaking friendly).
 
