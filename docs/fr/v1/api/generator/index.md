@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
-  text: 'Pattern'
-  link: '/fr/v1/api/pattern/'
-next:
   text: 'Either'
   link: '/fr/v1/api/either/'
+next:
+  text: 'String'
+  link: '/fr/v1/api/string/'
 ---
 
 # Generator

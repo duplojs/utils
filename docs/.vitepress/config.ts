@@ -112,7 +112,7 @@ export default defineConfig({
 						items: [
 							{
 								text: "Overview",
-								link: "/fr/v1/api/",
+								link: "/en/v1/api/",
 							},
 							{
 								text: "Common",
@@ -139,7 +139,7 @@ export default defineConfig({
 								link: "/fr/v1/api/either/",
 							},
 							{
-								text: "Generator",
+								text: "Gfrerator",
 								link: "/fr/v1/api/generator/",
 							},
 							{
@@ -264,7 +264,7 @@ export default defineConfig({
 						items: [
 							{
 								text: "v1.x (LTS)",
-								link: "/en/",
+								link: "/en/v1/guide/",
 							},
 						],
 					},

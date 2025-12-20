@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
+  text: 'Date'
+  link: '/fr/v1/api/date/'
+next:
   text: 'Generator'
   link: '/fr/v1/api/generator/'
-next:
-  text: 'DataParser'
-  link: '/fr/v1/api/dataParser/'
 ---
 
 # Either

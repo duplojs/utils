@@ -4,8 +4,8 @@ prev:
   text: 'String'
   link: '/fr/v1/api/string/'
 next:
-  text: 'Date'
-  link: '/fr/v1/api/date/'
+  text: 'Object'
+  link: '/fr/v1/api/object/'
 ---
 
 # Number

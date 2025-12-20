@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: 'Common'
-  link: '/fr/v1/api/common/'
+  text: 'Generator'
+  link: '/fr/v1/api/generator/'
 next:
   text: 'Number'
   link: '/fr/v1/api/number/'

@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
-  text: "Date"
-  link: "/fr/v1/api/date/"
+  text: "Array"
+  link: "/fr/v1/api/array/"
 next:
-  text: "Référence API"
-  link: "/fr/v1/api/"
+  text: "DataParser"
+  link: "/fr/v1/api/dataParser/"
 ---
 
 # Clean

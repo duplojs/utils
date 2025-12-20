@@ -4,8 +4,8 @@ prev:
   text: "Référence API"
   link: "/fr/v1/api/"
 next:
-  text: "String"
-  link: "/fr/v1/api/string/"
+  text: "Array"
+  link: "/fr/v1/api/array/"
 ---
 
 # Common

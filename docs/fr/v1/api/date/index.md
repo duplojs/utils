@@ -4,8 +4,8 @@ prev:
   text: "DataParser"
   link: "/fr/v1/api/dataParser/"
 next:
-  text: "Clean"
-  link: "/fr/v1/api/clean/"
+  text: "Either"
+  link: "/fr/v1/api/either/"
 ---
 
 # Date

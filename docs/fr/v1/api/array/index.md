@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
-  text: 'Number'
-  link: '/fr/v1/api/number/'
+  text: 'Common'
+  link: '/fr/v1/api/common/'
 next:
-  text: 'Object'
-  link: '/fr/v1/api/object/'
+  text: 'Clean'
+  link: '/fr/v1/api/clean/'
 ---
 
 # Array

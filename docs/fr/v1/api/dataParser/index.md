@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "Either"
-  link: "/fr/v1/api/either/"
+  text: "Clean"
+  link: "/fr/v1/api/clean/"
 next:
   text: "Date"
   link: "/fr/v1/api/date/"

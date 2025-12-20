@@ -4,8 +4,8 @@ prev:
   text: 'Object'
   link: '/fr/v1/api/object/'
 next:
-  text: 'Generator'
-  link: '/fr/v1/api/generator/'
+  text: 'Référence API'
+  link: '/fr/v1/api/'
 ---
 
 # Pattern
@@ -43,4 +43,3 @@ Teste impérativement si une valeur correspond à un motif et renvoie un type gu
 
 ### [union](/fr/v1/api/pattern/union)
 Compose plusieurs motifs dans un seul helper réutilisable (`ToolPattern`). Garantit que l'entrée correspond à l'un des motifs passés (en profondeur sur objets/tableaux).
-
