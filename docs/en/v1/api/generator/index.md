@@ -24,40 +24,40 @@ import * as G from "@duplojs/utils/generator";
 
 ## Execution
 
-### [execute](/fr/v1/api/generator/execute)
+### [execute](/en/v1/api/generator/execute)
 Executes a generator and returns all its values in an array.
 
 ## Iteration
 
-### [loop](/fr/v1/api/generator/loop)
+### [loop](/en/v1/api/generator/loop)
 Iterates over each element of a generator with a callback function.
 
-### [asyncLoop](/fr/v1/api/generator/asyncLoop)
+### [asyncLoop](/en/v1/api/generator/asyncLoop)
 Iterates over each element of a generator with an async callback function.
 
 ## Transformation
 
-### [map](/fr/v1/api/generator/map)
+### [map](/en/v1/api/generator/map)
 Transforms each element of a generator by applying a function.
 
-### [asyncMap](/fr/v1/api/generator/asyncMap)
+### [asyncMap](/en/v1/api/generator/asyncMap)
 Transforms each element of a generator with an async function.
 
-### [chunk](/fr/v1/api/generator/chunk)
+### [chunk](/en/v1/api/generator/chunk)
 Splits an iterable into fixed-size chunks and returns a generator of arrays.
 
 ## Filtering
 
-### [filter](/fr/v1/api/generator/filter)
+### [filter](/en/v1/api/generator/filter)
 Filters the elements of a generator according to a predicate.
 
-### [asyncFilter](/fr/v1/api/generator/asyncFilter)
+### [asyncFilter](/en/v1/api/generator/asyncFilter)
 Filters the elements of a generator with an async predicate.
 
 ## Reduction
 
-### [reduce](/fr/v1/api/generator/reduce)
+### [reduce](/en/v1/api/generator/reduce)
 Reduces a generator to a single value by applying an accumulator function.
 
-### [asyncReduce](/fr/v1/api/generator/asyncReduce)
+### [asyncReduce](/en/v1/api/generator/asyncReduce)
 Reduces a generator to a single value with an async accumulator function.
