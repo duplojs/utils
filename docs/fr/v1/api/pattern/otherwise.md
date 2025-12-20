@@ -17,7 +17,8 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/otherwise/tryout.doc.ts"
   majorVersion="v1"
-  height="800px"
+  height="600px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe

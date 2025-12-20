@@ -55,5 +55,5 @@ type check = ExpectType<
 	"strict"
 >;
 
-// @ts-expect-error - not major
+// @ts-expect-error not major
 void drinkAlcohol(user);

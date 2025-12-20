@@ -5,19 +5,19 @@ prev:
   link: "/en/v1/api/clean/"
 next:
   text: "Constraints"
-  link: "/fr/v1/api/clean/constraints"
+  link: "/en/v1/api/clean/constraints"
 ---
 
 # Primitives
 
-Business primitives are an alternative to raw TypeScript strings and numbers.
+Business primitives are an alternative to raw TypeScript string and number.
 
 Rather than manipulating bare values, each primitive is wrapped in a container.
 Result: safer, more explicit data, better aligned with the domain.
 
 ## Example
 
-a selected page is not a simple number, but a dedicated primitive, independent from any business entity.
+a selected page is not a simple number, but a dedicated primitive, independent of any business entity.
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/first.doc.ts"
@@ -29,7 +29,7 @@ Primitives have two goals:
 
 Secure data by avoiding the use of raw values.
 
-Unify types: when multiple NewTypes interact, their common point falls back to a simple primitive (number, string, etc.).
+Unify types: when several NewTypes interact, their common point falls back to a simple primitive (number, string, etc.).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/second.doc.ts"
@@ -47,7 +47,7 @@ Unify types: when multiple NewTypes interact, their common point falls back to a
   height="400px"
 />
 
-## Methods and properties
+## Methods and Properties
 
 ### Methods
 
@@ -99,59 +99,60 @@ Corresponds to the [dataParser](/en/v1/api/dataParser/) that validates the primi
 
 ## Operators
 
-### [equal](/fr/v1/api/clean/primitives/operators/equal)
+### [equal](/en/v1/api/clean/primitives/operators/equal)
 Compares two wrapped primitives (or a primitive and a raw value) with a type guard.
 
-### [add](/fr/v1/api/clean/primitives/operators/add)
+### [add](/en/v1/api/clean/primitives/operators/add)
 Adds two `Number` (supports the curried version).
 
-### [subtract](/fr/v1/api/clean/primitives/operators/subtract)
+### [subtract](/en/v1/api/clean/primitives/operators/subtract)
 Subtracts a number from a `Number` (supports the curried version).
 
-### [multiply](/fr/v1/api/clean/primitives/operators/multiply)
+### [multiply](/en/v1/api/clean/primitives/operators/multiply)
 Multiplies a `Number` (supports the curried version).
 
-### [divide](/fr/v1/api/clean/primitives/operators/divide)
+### [divide](/en/v1/api/clean/primitives/operators/divide)
 Divides a `Number` (supports the curried version).
 
-### [min](/fr/v1/api/clean/primitives/operators/min)
+### [min](/en/v1/api/clean/primitives/operators/min)
 Returns the minimum of a `Number` tuple.
 
-### [max](/fr/v1/api/clean/primitives/operators/max)
+### [max](/en/v1/api/clean/primitives/operators/max)
 Returns the maximum of a `Number` tuple.
 
-### [greaterThan](/fr/v1/api/clean/primitives/operators/greaterThan)
+### [greaterThan](/en/v1/api/clean/primitives/operators/greaterThan)
 Checks whether a `Number` is strictly greater than a threshold.
 
-### [lessThan](/fr/v1/api/clean/primitives/operators/lessThan)
+### [lessThan](/en/v1/api/clean/primitives/operators/lessThan)
 Checks whether a `Number` is strictly less than a threshold.
 
-### [concat](/fr/v1/api/clean/primitives/operators/concat)
+### [concat](/en/v1/api/clean/primitives/operators/concat)
 Concatenates `String` (supports the curried version).
 
-### [length](/fr/v1/api/clean/primitives/operators/length)
+### [length](/en/v1/api/clean/primitives/operators/length)
 Returns the length of a `String` as a `Number`.
 
-### [lengthEqual](/fr/v1/api/clean/primitives/operators/lengthEqual)
+### [lengthEqual](/en/v1/api/clean/primitives/operators/lengthEqual)
 Checks whether the length of a `String` equals a value.
 
-### [lengthGreaterThan](/fr/v1/api/clean/primitives/operators/lengthGreaterThan)
+### [lengthGreaterThan](/en/v1/api/clean/primitives/operators/lengthGreaterThan)
 Checks whether the length of a `String` is greater than a value.
 
-### [lengthLessThan](/fr/v1/api/clean/primitives/operators/lengthLessThan)
+### [lengthLessThan](/en/v1/api/clean/primitives/operators/lengthLessThan)
 Checks whether the length of a `String` is less than a value.
 
-### [dateGreaterThan](/fr/v1/api/clean/primitives/operators/dateGreaterThan)
+### [dateGreaterThan](/en/v1/api/clean/primitives/operators/dateGreaterThan)
 Checks whether a `Date` is after a threshold.
 
-### [dateLessThan](/fr/v1/api/clean/primitives/operators/dateLessThan)
+### [dateLessThan](/en/v1/api/clean/primitives/operators/dateLessThan)
 Checks whether a `Date` is before a threshold.
 
-### [dateMin](/fr/v1/api/clean/primitives/operators/dateMin)
+### [dateMin](/en/v1/api/clean/primitives/operators/dateMin)
 Returns the smallest date in a list.
 
-### [dateMax](/fr/v1/api/clean/primitives/operators/dateMax)
+### [dateMax](/en/v1/api/clean/primitives/operators/dateMax)
 Returns the largest date in a list.
 
-### [sort](/fr/v1/api/clean/primitives/operators/sort)
+### [sort](/en/v1/api/clean/primitives/operators/sort)
 Sorts an array of primitives (`String`, `Number`, or `Date`) in `"ASC"` / `"DSC"`.
+

@@ -20,7 +20,8 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/match/tryout.doc.ts"
   majorVersion="v1"
-  height="750px"
+  height="500px"
+  :foldLines="[2]"
 />
 
 <details>

@@ -17,7 +17,8 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/exhaustive/tryoutError.doc.ts"
   majorVersion="v1"
-  height="650px"
+  height="500px"
+  :foldLines="[2]"
 />
 
 ## Syntaxe

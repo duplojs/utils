@@ -15,7 +15,7 @@ function catchSlug(input: SlugContraint) {
 
 void catchSlug(UserSlug.createOrThrow("super-slug"));
 
-// @ts-expect-error - not-slug
+// @ts-expect-error not-slug
 void catchSlug(C.String.createOrThrow("not-slug"));
 
 void catchSlug(SlugContraint.createOrThrow("slug"));
