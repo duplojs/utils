@@ -23,19 +23,12 @@ La méthode **`fromEntries()`** construit un objet à partir d'un tableau de pai
 ## Syntaxe
 
 ```typescript
-type ComputeEntries<
-	GenericEntry extends ObjectEntry,
-> = SimplifyTopLevel<{
-	[Entry in GenericEntry as Entry[0]]?: Entry[1]
-}>;
-
 function fromEntries<
-	GenericKey extends ObjectKey,
-	GenericInput extends AnyValue,
-	GenericEntry extends readonly [GenericKey, GenericInput]
+	GenericKey extends ObjectKey, 
+	const GenericEntry extends readonly [GenericKey, unknown]
 >(
-	input: readonly GenericEntry[]
-): ComputeEntries<GenericEntry>
+	entries: readonly GenericEntry[]
+): ComputeEntries<GenericEntry>;
 ```
 
 ## Paramètres

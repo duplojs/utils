@@ -2,17 +2,17 @@
 outline: [2, 3]
 prev:
   text: "pick"
-  link: "/fr/v1/api/object/pick"
+  link: "/en/v1/api/object/pick"
 next:
   text: "assign"
-  link: "/fr/v1/api/object/assign"
+  link: "/en/v1/api/object/assign"
 ---
 
 # omit
 
-La méthode **`omit()`** crée un nouvel objet en excluant certaines propriétés.
+The **`omit()`** method creates a new object by excluding certain properties.
 
-## Exemple interactif
+## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/object/omit/tryout.doc.ts"
@@ -20,9 +20,9 @@ La méthode **`omit()`** crée un nouvel objet en excluant certaines propriété
   height="400px"
 />
 
-## Syntaxe
+## Syntax
 
-### Signature classique
+### Classic signature
 
 ```typescript
 function omit<
@@ -34,7 +34,7 @@ function omit<
 ): SimplifyTopLevel<Omit<GenericInput, ...>>
 ```
 
-### Signature currifiee
+### Curried signature
 
 ```typescript
 function omit<
@@ -45,15 +45,15 @@ function omit<
 ): (input: GenericInput) => SimplifyTopLevel<Omit<GenericInput, ...>>
 ```
 
-## Paramètres
+## Parameters
 
-- `input` : L'objet source.
-- `omitValue` : Les clés à exclure (tableau de clés ou objet avec valeurs booléennes).
+- `input`: The source object.
+- `omitValue`: The keys to exclude (array of keys or object with boolean values).
 
-## Valeur de retour
+## Return value
 
-Un nouvel objet sans les propriétés exclues.
+A new object without the excluded properties.
 
-## Voir aussi
+## See also
 
-- [`pick`](/fr/v1/api/object/pick) - Crée un objet en sélectionnant certaines propriétés
+- [`pick`](/en/v1/api/object/pick) - Creates an object by selecting certain properties

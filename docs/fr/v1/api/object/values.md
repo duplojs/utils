@@ -26,10 +26,8 @@ La méthode **`values()`** retourne un tableau des valeurs d'un objet.
 function values<
 	GenericValue extends AnyValue
 >(
-	object: {
-		[key: string]: GenericValue;
-	} | ArrayLike<GenericInput>
-): GenericInput[]
+	object: Record<string, GenericValue>
+): GenericValue[];
 ```
 
 ## Paramètres

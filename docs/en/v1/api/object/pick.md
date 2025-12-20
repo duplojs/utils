@@ -2,17 +2,17 @@
 outline: [2, 3]
 prev:
   text: "getDeepProperty"
-  link: "/fr/v1/api/object/getDeepProperty"
+  link: "/en/v1/api/object/getDeepProperty"
 next:
   text: "omit"
-  link: "/fr/v1/api/object/omit"
+  link: "/en/v1/api/object/omit"
 ---
 
 # pick
 
-La méthode **`pick()`** crée un nouvel objet en sélectionnant uniquement certaines propriétés.
+The **`pick()`** method creates a new object by selecting only certain properties.
 
-## Exemple interactif
+## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/object/pick/tryout.doc.ts"
@@ -20,9 +20,9 @@ La méthode **`pick()`** crée un nouvel objet en sélectionnant uniquement cert
   height="400px"
 />
 
-## Syntaxe
+## Syntax
 
-### Signature classique
+### Classic signature
 
 ```typescript
 function pick<
@@ -34,7 +34,7 @@ function pick<
 ): SimplifyTopLevel<Pick<GenericInput, ...>>
 ```
 
-### Signature currifiee
+### Curried signature
 
 ```typescript
 function pick<
@@ -45,15 +45,15 @@ function pick<
 ): (input: GenericInput) => SimplifyTopLevel<Pick<GenericInput, ...>>
 ```
 
-## Paramètres
+## Parameters
 
-- `input` : L'objet source.
-- `pickValue` : Les clés à conserver (tableau de clés ou objet avec valeurs booléennes).
+- `input`: The source object.
+- `pickValue`: The keys to keep (array of keys or object with boolean values).
 
-## Valeur de retour
+## Return value
 
-Un nouvel objet contenant uniquement les propriétés sélectionnées.
+A new object containing only the selected properties.
 
-## Voir aussi
+## See also
 
-- [`omit`](/fr/v1/api/object/omit) - Crée un objet en excluant certaines propriétés
+- [`omit`](/en/v1/api/object/omit) - Creates an object by excluding certain properties
