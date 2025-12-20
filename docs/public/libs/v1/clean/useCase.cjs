@@ -14,7 +14,7 @@ function createUseCase(dependencies, getUseCase) {
         dependencies,
         getUseCase: (repositories) => getUseCase(pipe.pipe(dependencies, entries.entries, map.map(([key, value]) => entry.entry(uncapitalize.uncapitalize(key), useCaseHandlerKind.has(value)
             ? value.getUseCase(repositories)
-            : repositories[key])), fromEntries.fromEntries)),
+            : repositories[uncapitalize.uncapitalize(key)])), fromEntries.fromEntries)),
     });
 }
 function useCaseInstances(useCases, repositories) {

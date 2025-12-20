@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "filter"
-  link: "/fr/v1/api/array/filter"
+  text: "select"
+  link: "/fr/v1/api/array/select"
 next:
   text: "flat"
   link: "/fr/v1/api/array/flat"

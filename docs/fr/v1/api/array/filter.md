@@ -4,8 +4,8 @@ prev:
   text: "map"
   link: "/fr/v1/api/array/map"
 next:
-  text: "slice"
-  link: "/fr/v1/api/array/slice"
+  text: "select"
+  link: "/fr/v1/api/array/select"
 ---
 
 # filter

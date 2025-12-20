@@ -1689,6 +1689,9 @@
           "name": "indexOf.d.ts"
         },
         {
+          "name": "select.d.ts"
+        },
+        {
           "name": "pop.mjs"
         },
         {
@@ -1900,10 +1903,16 @@
           "name": "minOf.cjs"
         },
         {
+          "name": "select.cjs"
+        },
+        {
           "name": "copyWithin.cjs"
         },
         {
           "name": "filter.cjs"
+        },
+        {
+          "name": "select.mjs"
         },
         {
           "name": "concat.cjs"

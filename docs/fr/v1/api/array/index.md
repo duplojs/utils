@@ -90,6 +90,9 @@ Applique une fonction à chaque élément et retourne un nouveau tableau.
 ### [filter](/fr/v1/api/array/filter)
 Filtre les éléments selon une condition.
 
+### [select](/fr/v1/api/array/select)
+Filtre et transforme en une seule passe (avec inférence de la sortie).
+
 ### [slice](/fr/v1/api/array/slice)
 Extrait une portion du tableau sans le modifier.
 

@@ -44,6 +44,7 @@ DClean
 - `docs/{fr,en}/v1/guide/*.md` : guides
 - `docs/{fr,en}/v1/api/{namespace}/index.md` : sommaire + présentation du namespace
 - `docs/{fr,en}/v1/api/{namespace}/{function}.md` : documentation d’une fonction
+- `docs/{fr,en}/v1/api/{namespace}/{concept + function}.md` : cas spécifiques (rare)
 - `docs/public/examples/v1/api/{namespace}/{function}/tryout.doc.ts` : exemple simple
 - `docs/public/examples/v1/api/{namespace}/{function}/otherExample.doc.ts` : cas spécifiques (rare)
 
