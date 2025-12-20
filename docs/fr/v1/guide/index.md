@@ -41,7 +41,8 @@ Il faut commencer par définir les bons paramètres dans votre `tsconfig`.
 }
 ```
 
-### La librairie est organisée par domaines :
+### Organisation de la librairie 
+La librairie est organisée par domaines :
 - [Common](/fr/v1/api/common/) Fonctions généralistes qui ne sont pas attribuées particulièrement à un type.
 - [Array](/fr/v1/api/array/) Fonctions orientées pour manipuler les tableaux et les tuples.
 - [Clean](/fr/v1/api/clean/) Outils de définition de structures métier.
@@ -54,8 +55,8 @@ Il faut commencer par définir les bons paramètres dans votre `tsconfig`.
 - [Pattern](/fr/v1/api/pattern/) Outils de pattern matching.
 - [String](/fr/v1/api/string/) Fonctions de manipulation de chaînes de caractères.
 
-### Si vous avez des contrainte de treeschaking
-Vous pouvez importer les les diférente parti de la librairy de cette manier :
+### Treeschaking et path d'importation.
+Vous pouvez importer les diférente parti de la librairy de la manier suivante pour optimisé le build de vos projet:
 ```ts
 import * as Common from "@duplojs/utils/common";
 import * as A from "@duplojs/utils/array";
@@ -71,3 +72,9 @@ import * as P from "@duplojs/utils/pattern";
 import * as S from "@duplojs/utils/string";
 ```
 
+### Enjoy !
+<MonacoTSEditor
+src="/examples/v1/guide/tryout.doc.ts"
+majorVersion="v1"
+height="700px"
+/>

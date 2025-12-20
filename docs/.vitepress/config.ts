@@ -161,10 +161,10 @@ export default defineConfig({
 						],
 					},
 					{
-						text: "latest",
+						text: "v1.x (LTS)",
 						items: [
 							{
-								text: "latest",
+								text: "v1.x (LTS)",
 								link: "/fr/v1/guide/",
 							},
 						],
@@ -260,10 +260,10 @@ export default defineConfig({
 						],
 					},
 					{
-						text: "latest",
+						text: "v1.x (LTS)",
 						items: [
 							{
-								text: "latest",
+								text: "v1.x (LTS)",
 								link: "/en/",
 							},
 						],

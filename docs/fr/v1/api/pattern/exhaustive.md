@@ -15,7 +15,7 @@ next:
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/pattern/exhaustive/tryout.doc.exclude.ts"
+  src="/examples/v1/api/pattern/exhaustive/tryoutError.doc.ts"
   majorVersion="v1"
   height="650px"
 />

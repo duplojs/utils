@@ -19,5 +19,5 @@
 		"@duplojs/utils/clean": ["public/libs/v1/clean/index"],
 	}
   },
-  "include": ["public/examples/v1/**/*.doc.ts", "public/libs/v1/**/*.d.ts"],
+  "include": ["examples/v1/**/*.doc.ts", "public/libs/v1/**/*.d.ts"],
 }

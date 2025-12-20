@@ -19,7 +19,7 @@ hero:
   <div>
     <p><strong>Native type 💀</strong></p>
     <MonacoTSEditor
-      src="/examples/v1/examples/native.doc.ts"
+      src="/examples/v1/native.doc.ts"
       majorVersion="v1"
       height="400px"
     />
@@ -27,7 +27,7 @@ hero:
   <div>
     <p><strong>@duplojs/utils type 🤩</strong></p>
     <MonacoTSEditor
-       src="/examples/v1/examples/utils.doc.ts"
+       src="/examples/v1/utils.doc.ts"
       majorVersion="v1"
       height="400px"
     />
