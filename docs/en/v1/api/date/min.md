@@ -1,0 +1,42 @@
+---
+outline: [2, 3]
+prev:
+  text: "max"
+  link: "/en/v1/api/date/max"
+next:
+  text: "round"
+  link: "/en/v1/api/date/round"
+---
+
+# min
+
+The **`min()`** function returns the oldest date of a tuple of `TheDate`.
+
+## Interactive example
+
+<MonacoTSEditor
+  src="/examples/v1/api/date/min/tryout.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+## Syntax
+
+```typescript
+function min<
+  GenericInput extends AnyTuple<TheDate>
+>(input: GenericInput): TheDate
+```
+
+## Parameters
+
+- `input`: Tuple of dates in `TheDate` format.
+
+## Return value
+
+The minimum date of the tuple, as a `TheDate`.
+
+## See also
+
+- [`max`](/en/v1/api/date/max) - Returns the maximum date
+- [`sort`](/en/v1/api/date/sort) - Sorts an array of dates

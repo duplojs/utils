@@ -2,17 +2,17 @@
 outline: [2, 3]
 prev:
   text: "addDays"
-  link: "/fr/v1/api/date/addDays"
+  link: "/en/v1/api/date/addDays"
 next:
   text: "addMinutes"
-  link: "/fr/v1/api/date/addMinutes"
+  link: "/en/v1/api/date/addMinutes"
 ---
 
 # addHours
 
-Ajoute un nombre positif d'heures à un `TheDate` sans manipuler directement les millisecondes.
+Adds a positive number of hours to a `TheDate` without manipulating milliseconds directly.
 
-## Exemple interactif
+## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/date/addHours/tryout.doc.ts"
@@ -20,9 +20,9 @@ Ajoute un nombre positif d'heures à un `TheDate` sans manipuler directement les
   height="300px"
 />
 
-## Syntaxe
+## Syntax
 
-### Signature classique
+### Classic signature
 
 ```typescript
 function addHours<
@@ -34,7 +34,7 @@ function addHours<
 ): TheDate
 ```
 
-### Signature currifiée
+### Curried signature
 
 ```typescript
 function addHours<
@@ -45,16 +45,16 @@ function addHours<
 ): (input: GenericInput) => TheDate
 ```
 
-## Paramètres
+## Parameters
 
-- `hour` : Nombre d'heures strictement positif.
-- `input` : `TheDate` à décaler.
+- `hour`: Strictly positive number of hours.
+- `input`: `TheDate` to shift.
 
-## Valeur de retour
+## Return value
 
-Un `TheDate` avancé du nombre d'heures demandé.
+A `TheDate` moved forward by the requested number of hours.
 
-## Voir aussi
+## See also
 
-- [`addMinutes`](/fr/v1/api/date/addMinutes)
-- [`subtractHours`](/fr/v1/api/date/subtractHours)
+- [`addMinutes`](/en/v1/api/date/addMinutes)
+- [`subtractHours`](/en/v1/api/date/subtractHours)

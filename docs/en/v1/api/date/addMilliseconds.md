@@ -1,0 +1,57 @@
+---
+outline: [2, 3]
+prev:
+  text: "addSeconds"
+  link: "/en/v1/api/date/addSeconds"
+next:
+  text: "subtractYears"
+  link: "/en/v1/api/date/subtractYears"
+---
+
+# addMilliseconds
+
+Adds a positive number of milliseconds to a `TheDate`.
+
+## Interactive example
+
+<MonacoTSEditor
+  src="/examples/v1/api/date/addMilliseconds/tryout.doc.ts"
+  majorVersion="v1"
+  height="300px"
+/>
+
+## Syntax
+
+### Classic signature
+
+```typescript
+function addMilliseconds<
+	GenericInput extends TheDate, 
+	GenericMillisecond extends number
+>(
+	input: GenericInput,
+	millisecond: PositiveNumber<GenericMillisecond>
+): TheDate
+```
+
+### Curried signature
+
+```typescript
+function addMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(
+	millisecond: PositiveNumber<GenericMillisecond>
+): (input: GenericInput) => TheDate
+```
+
+## Parameters
+
+- `millisecond`: Strictly positive number of milliseconds.
+- `input`: `TheDate` to adjust.
+
+## Return value
+
+A `TheDate` moved forward by the requested number of milliseconds.
+
+## See also
+
+- [`addSeconds`](/en/v1/api/date/addSeconds)
+- [`subtractMilliseconds`](/en/v1/api/date/subtractMilliseconds)

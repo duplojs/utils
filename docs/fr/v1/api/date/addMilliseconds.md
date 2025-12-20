@@ -25,7 +25,10 @@ Ajoute un nombre positif de millisecondes à un `TheDate`.
 ### Signature classique
 
 ```typescript
-function addMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(
+function addMilliseconds<
+	GenericInput extends TheDate, 
+	GenericMillisecond extends number
+>(
 	input: GenericInput,
 	millisecond: PositiveNumber<GenericMillisecond>
 ): TheDate
@@ -34,7 +37,10 @@ function addMilliseconds<GenericInput extends TheDate, GenericMillisecond extend
 ### Signature currifiée
 
 ```typescript
-function addMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(
+function addMilliseconds<
+	GenericInput extends TheDate, 
+	GenericMillisecond extends number
+>(
 	millisecond: PositiveNumber<GenericMillisecond>
 ): (input: GenericInput) => TheDate
 ```

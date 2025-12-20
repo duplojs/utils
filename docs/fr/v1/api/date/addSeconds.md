@@ -25,7 +25,10 @@ Ajoute un nombre positif de secondes à un `TheDate`.
 ### Signature classique
 
 ```typescript
-function addSeconds<GenericInput extends TheDate, GenericSecond extends number>(
+function addSeconds<
+	GenericInput extends TheDate, 
+	GenericSecond extends number
+>(
 	input: GenericInput,
 	second: PositiveNumber<GenericSecond>
 ): TheDate
@@ -34,7 +37,10 @@ function addSeconds<GenericInput extends TheDate, GenericSecond extends number>(
 ### Signature currifiée
 
 ```typescript
-function addSeconds<GenericInput extends TheDate, GenericSecond extends number>(
+function addSeconds<
+	GenericInput extends TheDate, 
+	GenericSecond extends number
+>(
 	second: PositiveNumber<GenericSecond>
 ): (input: GenericInput) => TheDate
 ```

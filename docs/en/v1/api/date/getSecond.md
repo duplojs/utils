@@ -2,17 +2,17 @@
 outline: [2, 3]
 prev:
   text: "getMinute"
-  link: "/fr/v1/api/date/getMinute"
+  link: "/en/v1/api/date/getMinute"
 next:
   text: "getMilliseconds"
-  link: "/fr/v1/api/date/getMilliseconds"
+  link: "/en/v1/api/date/getMilliseconds"
 ---
 
 # getSecond
 
-La fonction **`getSecond()`** renvoie les secondes (0–59) d'un `TheDate`, ajustées par un fuseau horaire optionnel.
+The **`getSecond()`** function returns the seconds (0–59) of a `TheDate`, adjusted by an optional time zone.
 
-## Exemple interactif
+## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/date/getSecond/tryout.doc.ts"
@@ -20,7 +20,7 @@ La fonction **`getSecond()`** renvoie les secondes (0–59) d'un `TheDate`, ajus
   height="320px"
 />
 
-## Syntaxe
+## Syntax
 
 ```typescript
 function getSecond<
@@ -31,19 +31,19 @@ function getSecond<
 ): number
 ```
 
-## Paramètres
+## Parameters
 
-- `input` : `TheDate` cible.
-- `timezone` : Fuseau IANA (optionnel).
+- `input`: Target `TheDate`.
+- `timezone`: IANA zone (optional).
 
-## Valeur de retour
+## Return value
 
-Secondes entre 0 et 59.
+Seconds between 0 and 59.
 
-## Voir aussi
+## See also
 
-- [`getMinute`](/fr/v1/api/date/getMinute)
-- [`getMilliseconds`](/fr/v1/api/date/getMilliseconds)
+- [`getMinute`](/en/v1/api/date/getMinute)
+- [`getMilliseconds`](/en/v1/api/date/getMilliseconds)
 
 ## Sources
 

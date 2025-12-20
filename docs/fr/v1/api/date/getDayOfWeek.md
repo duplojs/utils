@@ -23,7 +23,9 @@ La fonction **`getDayOfWeek()`** retourne le jour de la semaine d'un `TheDate` (
 ## Syntaxe
 
 ```typescript
-function getDayOfWeek<GenericInput extends TheDate>(
+function getDayOfWeek<
+	GenericInput extends TheDate
+>(
 	input: GenericInput,
 	timezone?: Timezone
 ): number
