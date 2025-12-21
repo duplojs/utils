@@ -47,4 +47,4 @@ Minute (0–59).
 
 ## Sources
 
-- [MDN Web Docs - Date.prototype.getUTCMinutes()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCMinutes)
+- [MDN Web Docs - Date.prototype.getUTCMinutes()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCMinutes)

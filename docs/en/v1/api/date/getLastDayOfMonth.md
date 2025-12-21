@@ -43,4 +43,4 @@ A `TheDate` set to the last day of the same month (midnight UTC).
 
 ## Sources
 
-- [MDN Web Docs - Date](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Date)
+- [MDN Web Docs - Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)

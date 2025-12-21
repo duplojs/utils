@@ -47,4 +47,4 @@ Seconds between 0 and 59.
 
 ## Sources
 
-- [MDN Web Docs - Date.prototype.getUTCSeconds()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCSeconds)
+- [MDN Web Docs - Date.prototype.getUTCSeconds()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCSeconds)
