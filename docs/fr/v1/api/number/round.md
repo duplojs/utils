@@ -25,7 +25,9 @@ La méthode **`round()`** arrondit un nombre à l'entier le plus proche. Si la p
 ```typescript
 function round<
 	GenericInput extends number,
->(input: GenericInput): number
+>(
+	input: GenericInput
+): number
 ```
 
 ## Paramètres
