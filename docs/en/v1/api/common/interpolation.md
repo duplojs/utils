@@ -2,17 +2,17 @@
 outline: [2, 3]
 prev:
   text: "escapeRegExp"
-  link: "/fr/v1/api/common/escapeRegExp"
+  link: "/en/v1/api/common/escapeRegExp"
 next:
   text: "wrapValue"
-  link: "/fr/v1/api/common/wrapValue"
+  link: "/en/v1/api/common/wrapValue"
 ---
 
 # createInterpolation
 
-La fonction **`createInterpolation()`** génère une fonction de templating typée : les placeholders `{id}` de la chaîne sont exigés au runtime et vérifiés au compile-time. En mode strict, une erreur est levée si un id manque.
+The **`createInterpolation()`** function generates a typed templating function: the `{id}` placeholders of the string are required at runtime and checked at compile time. In strict mode, an error is thrown if an id is missing.
 
-## Exemple interactif
+## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/common/interpolation/tryout.doc.ts"
@@ -20,7 +20,7 @@ La fonction **`createInterpolation()`** génère une fonction de templating typ�
   height="350px"
 />
 
-## Syntaxe
+## Syntax
 
 ```typescript
 function createInterpolation<
@@ -42,15 +42,15 @@ function createInterpolation<
 	: string;
 ```
 
-## Paramètres
+## Parameters
 
-- `input` : Chaîne modèle contenant des placeholders `{id}`.
-- `strict` : Booléen (optionnel). Si `true`, tous les ids doivent être fournis sinon une erreur est levée.
+- `input` : Template string containing `{id}` placeholders.
+- `strict` : Boolean (optional). If `true`, all ids must be provided or an error is thrown.
 
-## Valeur de retour
+## Return value
 
-Une fonction d'interpolation typée qui exige un objet de valeurs pour chaque id présent dans le template et retourne la chaîne interpolée (ou `string` en mode non strict).
+A typed interpolation function that requires a values object for each id present in the template and returns the interpolated string (or `string` in non-strict mode).
 
-## Voir aussi
+## See also
 
-- [`escapeRegExp`](/fr/v1/api/common/escapeRegExp) - Échapper une chaîne avant usage en regex
+- [`escapeRegExp`](/en/v1/api/common/escapeRegExp) - Escape a string before regex usage
