@@ -50,9 +50,7 @@ function modulo<
 
 ## Return value
 
-**Classic signature**: returns the remainder of the Euclidean division of `input` by `divisor`. The result has the same sign as the dividend.
-
-**Curried signature**: returns a function that takes a value and returns the remainder of its division by the divisor.
+returns the remainder of the Euclidean division of `input` by `divisor`. The result has the same sign as the dividend (`input % divisor`).
 
 ## See also
 

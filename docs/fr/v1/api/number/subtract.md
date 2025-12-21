@@ -50,9 +50,7 @@ function subtract<
 
 ## Valeur de retour
 
-**Signature classique** : retourne le résultat de la soustraction `value - subtrahend`.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et soustrait le subtrahend.
+retourne le résultat de la soustraction (`value - subtrahend`).
 
 ## Voir aussi
 

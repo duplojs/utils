@@ -53,9 +53,7 @@ function clamp<
 
 ## Valeur de retour
 
-**Signature classique** : retourne un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` et `upperBound` sont inversés, la fonction les réordonne automatiquement.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et la limite dans l'intervalle spécifié.
+retourne un nombre limité dans l'intervalle `[lowerBound, upperBound]`. Si `lowerBound` et `upperBound` sont inversés, la fonction les réordonne automatiquement.
 
 ## Voir aussi
 

@@ -50,9 +50,7 @@ function power<
 
 ## Valeur de retour
 
-**Signature classique** : retourne le résultat de `input` élevé à la puissance `exponent`. Équivaut à `value ** exponent` ou `Math.pow(value, exponent)`.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et l'élève à la puissance de l'exposant.
+retourne le résultat de `input` élevé à la puissance `exponent`. Équivaut à `value ** exponent` ou `Math.pow(value, exponent)`.
 
 ## Voir aussi
 

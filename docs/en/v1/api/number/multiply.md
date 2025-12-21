@@ -50,9 +50,7 @@ function multiply<
 
 ## Return value
 
-**Classic signature**: returns the product of the two numbers.
-
-**Curried signature**: returns a function that takes a value and multiplies it by the operand.
+returns the product of the two numbers (`input * operand`).
 
 ## See also
 

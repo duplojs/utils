@@ -50,17 +50,7 @@ function lessThan<
 
 ## Valeur de retour
 
-**Signature classique** : retourne `true` si la valeur est strictement inférieure au seuil, `false` sinon.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et vérifie si elle est < au seuil.
-
-## Description
-
-La fonction `lessThan` effectue une comparaison stricte (<), ce qui signifie qu'elle retourne `true` uniquement si la valeur est strictement inférieure au seuil (et non égale). Cela la différencie de `less` qui effectue une comparaison inclusive (<=).
-
-**Exemples de différence :**
-- `lessThan(5, 5)` retourne `false` (5 n'est pas < 5)
-- `less(5, 5)` retourne `true` (5 <= 5)
+retourne `true` si la valeur est strictement inférieure au seuil, `false` sinon.
 
 ## Voir aussi
 

@@ -50,9 +50,7 @@ function toFixed<
 
 ## Return value
 
-**Classic signature**: returns a string representing the number with the specified number of decimals.
-
-**Curried signature**: returns a function that takes a value and formats it with the specified number of decimals.
+returns a string representing the number with the specified number of decimals.
 
 ## See also
 

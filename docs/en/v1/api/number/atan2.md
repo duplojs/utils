@@ -52,9 +52,7 @@ function atan2<
 
 ## Return value
 
-**Classic signature**: returns the angle in radians (between -π and π) between the positive x-axis and the point (axisX, axisY).
-
-**Curried signature**: returns a function that takes the y coordinate and computes the corresponding angle.
+returns the angle in radians (between -π and π) between the positive x-axis and the point (`axisX`, `axisY`).
 
 ## See also
 

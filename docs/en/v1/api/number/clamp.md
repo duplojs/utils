@@ -53,9 +53,7 @@ function clamp<
 
 ## Return value
 
-**Classic signature**: returns a number clamped to the interval `[lowerBound, upperBound]`. If `lowerBound` and `upperBound` are inverted, the function automatically reorders them.
-
-**Curried signature**: returns a function that takes a value and clamps it to the specified interval.
+returns a number clamped to the interval `[lowerBound, upperBound]`. If `lowerBound` and `upperBound` are inverted, the function automatically reorders them.
 
 ## See also
 

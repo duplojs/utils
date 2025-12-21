@@ -50,9 +50,7 @@ function toFixed<
 
 ## Valeur de retour
 
-**Signature classique** : retourne une chaîne de caractères représentant le nombre avec le nombre de décimales spécifié.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et la formate avec le nombre de décimales spécifié.
+retourne une chaîne de caractères représentant le nombre avec le nombre de décimales spécifié.
 
 ## Voir aussi
 

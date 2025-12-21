@@ -50,9 +50,7 @@ function divide<
 
 ## Return value
 
-**Classic signature**: returns the result of the division `value / divisor`.
-
-**Curried signature**: returns a function that takes a value and divides it by the divisor.
+returns the result of the division (`input / divisor`).
 
 ## See also
 

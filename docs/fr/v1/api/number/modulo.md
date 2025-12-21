@@ -50,9 +50,7 @@ function modulo<
 
 ## Valeur de retour
 
-**Signature classique** : retourne le reste de la division euclidienne de `input` par `divisor`. Le résultat a le même signe que le dividende.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et retourne le reste de sa division par le diviseur.
+retourne le reste de la division euclidienne de `input` par `divisor`. Le résultat a le même signe que le dividende (`input % divisor`).
 
 ## Voir aussi
 

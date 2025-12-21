@@ -52,9 +52,8 @@ function atan2<
 
 ## Valeur de retour
 
-**Signature classique** : retourne l'angle en radians (entre -π et π) entre l'axe des x positifs et le point (axisX, axisY).
+retourne l'angle en radians (entre -π et π) entre l'axe des x positifs et le point (`axisX`, `axisY`).
 
-**Signature currifiée** : retourne une fonction qui prend la coordonnée y et calcule l'angle correspondant.
 
 ## Voir aussi
 

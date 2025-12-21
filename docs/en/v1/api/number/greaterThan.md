@@ -50,17 +50,7 @@ function greaterThan<
 
 ## Return value
 
-**Classic signature**: returns `true` if the value is strictly greater than the threshold, `false` otherwise.
-
-**Curried signature**: returns a function that takes a value and checks whether it is > the threshold.
-
-## Description
-
-The `greaterThan` function performs a strict comparison (>), meaning it returns `true` only if the value is strictly greater than the threshold (and not equal). This differs from `greater`, which performs an inclusive comparison (>=).
-
-**Examples of the difference:**
-- `greaterThan(5, 5)` returns `false` (5 is not > 5)
-- `greater(5, 5)` returns `true` (5 >= 5)
+returns `true` if the value is strictly greater than the threshold, `false` otherwise.
 
 ## See also
 

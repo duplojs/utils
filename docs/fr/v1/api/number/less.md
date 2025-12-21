@@ -50,17 +50,7 @@ function less<
 
 ## Valeur de retour
 
-**Signature classique** : retourne `true` si la valeur est inférieure ou égale au seuil, `false` sinon.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et vérifie si elle est <= au seuil.
-
-## Description
-
-La fonction `less` effectue une comparaison inclusive (<=), ce qui signifie qu'elle retourne `true` si la valeur est strictement inférieure OU égale au seuil. Cela la différencie de `lessThan` qui effectue une comparaison stricte (<).
-
-**Exemples de différence :**
-- `less(5, 5)` retourne `true` (5 <= 5)
-- `lessThan(5, 5)` retourne `false` (5 n'est pas < 5)
+retourne `true` si la valeur est inférieure ou égale au seuil, `false` sinon.
 
 ## Voir aussi
 

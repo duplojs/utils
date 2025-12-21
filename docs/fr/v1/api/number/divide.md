@@ -50,9 +50,7 @@ function divide<
 
 ## Valeur de retour
 
-**Signature classique** : retourne le résultat de la division `value / divisor`.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et la divise par le diviseur.
+retourne le résultat de la division (`input / divisor`).
 
 ## Voir aussi
 

@@ -50,9 +50,7 @@ function multiply<
 
 ## Valeur de retour
 
-**Signature classique** : retourne le produit de la multiplication des deux nombres.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et la multiplie par l'opérande.
+retourne le produit de la multiplication des deux nombres (`input * operand`).
 
 ## Voir aussi
 

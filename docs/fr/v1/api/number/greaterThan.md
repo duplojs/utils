@@ -50,17 +50,7 @@ function greaterThan<
 
 ## Valeur de retour
 
-**Signature classique** : retourne `true` si la valeur est strictement supérieure au seuil, `false` sinon.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et vérifie si elle est > au seuil.
-
-## Description
-
-La fonction `greaterThan` effectue une comparaison stricte (>), ce qui signifie qu'elle retourne `true` uniquement si la valeur est strictement supérieure au seuil (et non égale). Cela la différencie de `greater` qui effectue une comparaison inclusive (>=).
-
-**Exemples de différence :**
-- `greaterThan(5, 5)` retourne `false` (5 n'est pas > 5)
-- `greater(5, 5)` retourne `true` (5 >= 5)
+retourne `true` si la valeur est strictement supérieure au seuil, `false` sinon.
 
 ## Voir aussi
 

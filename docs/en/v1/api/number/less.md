@@ -50,17 +50,7 @@ function less<
 
 ## Return value
 
-**Classic signature**: returns `true` if the value is less than or equal to the threshold, `false` otherwise.
-
-**Curried signature**: returns a function that takes a value and checks whether it is <= the threshold.
-
-## Description
-
-The `less` function performs an inclusive comparison (<=), meaning it returns `true` if the value is strictly less OR equal to the threshold. This differs from `lessThan`, which performs a strict comparison (<).
-
-**Examples of the difference:**
-- `less(5, 5)` returns `true` (5 <= 5)
-- `lessThan(5, 5)` returns `false` (5 is not < 5)
+returns `true` if the value is less than or equal to the threshold, `false` otherwise.
 
 ## See also
 

@@ -50,9 +50,7 @@ function add<
 
 ## Valeur de retour
 
-**Signature classique** : retourne la somme des deux nombres.
-
-**Signature currifiée** : retourne une fonction qui prend une valeur et lui ajoute l'opérande.
+retourne la somme des deux nombres (`input + operand`).
 
 ## Voir aussi
 

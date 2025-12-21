@@ -50,9 +50,7 @@ function subtract<
 
 ## Return value
 
-**Classic signature**: returns the result of the subtraction `value - subtrahend`.
-
-**Curried signature**: returns a function that takes a value and subtracts the subtrahend.
+**Classic signature**: returns the result of the subtraction (`value - subtrahend`).
 
 ## See also
 

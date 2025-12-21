@@ -50,9 +50,7 @@ function power<
 
 ## Return value
 
-**Classic signature**: returns the result of `input` raised to the power `exponent`. Equivalent to `value ** exponent` or `Math.pow(value, exponent)`.
-
-**Curried signature**: returns a function that takes a value and raises it to the exponent's power.
+returns the result of `input` raised to the power `exponent`. Equivalent to `value ** exponent` or `Math.pow(value, exponent)`.
 
 ## See also
 
