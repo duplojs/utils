@@ -115,163 +115,163 @@ The info must be explicit and representative. Use clear names like `"emailAlread
 
 ## `Right` constructors
 
-### [right](/fr/v1/api/either/right)
+### [right](/en/v1/api/either/right)
 Builds a typed `EitherRight` with mandatory business information (optional payload).
 
-### [success](/fr/v1/api/either/success)
+### [success](/en/v1/api/either/success)
 Shortcut to return a success `right("success", value)` in an expressive way.
 
-### [ok](/fr/v1/api/either/ok)
+### [ok](/en/v1/api/either/ok)
 Returns a `Right` without a value (`void`) tagged with the literal information `"ok"`.
 
 ## `Left` constructors
 
-### [left](/fr/v1/api/either/left)
+### [left](/en/v1/api/either/left)
 Builds an `EitherLeft` by providing business information and optionally a value.
 
-### [error](/fr/v1/api/either/error)
+### [error](/en/v1/api/either/error)
 Shortcut to signal a typed error `left("error", value)`.
 
-### [fail](/fr/v1/api/either/fail)
+### [fail](/en/v1/api/either/fail)
 Returns a `Left` without payload tagged `"fail"` for generic failure cases.
 
 ## `Right` checks
 
-### [isRight](/fr/v1/api/either/isRight)
+### [isRight](/en/v1/api/either/isRight)
 Type guard that checks whether a value is an `EitherRight`.
 
-### [whenIsRight](/fr/v1/api/either/whenIsRight)
+### [whenIsRight](/en/v1/api/either/whenIsRight)
 Runs a function only when the input is `Right`, otherwise forwards the original value.
 
 ## `Left` checks
 
-### [isLeft](/fr/v1/api/either/isLeft)
+### [isLeft](/en/v1/api/either/isLeft)
 Type guard that detects an `EitherLeft`.
 
-### [whenIsLeft](/fr/v1/api/either/whenIsLeft)
+### [whenIsLeft](/en/v1/api/either/whenIsLeft)
 Allows applying a function when receiving a `Left` and then continuing the flow.
 
 ## `Right`-oriented pipelines
 
-### [rightPipe](/fr/v1/api/either/rightPipe)
+### [rightPipe](/en/v1/api/either/rightPipe)
 Chains synchronous transformations as long as results are `Right`, and stops at the first `Left`.
 
-### [rightAsyncPipe](/fr/v1/api/either/rightAsyncPipe)
+### [rightAsyncPipe](/en/v1/api/either/rightAsyncPipe)
 Async version that accepts promises, `Future`, or `Either` and automatically stops on a `Left`.
 
-### [group](/fr/v1/api/either/group)
+### [group](/en/v1/api/either/group)
 Aggregates multiple synchronous `Either` and returns the first `Left` or an object of `Right` values.
 
-### [asyncGroup](/fr/v1/api/either/asyncGroup)
+### [asyncGroup](/en/v1/api/either/asyncGroup)
 Async version of `group` that accepts promises and `Future`.
 
 ## Information & matching
 
-### [hasInformation](/fr/v1/api/either/hasInformation)
+### [hasInformation](/en/v1/api/either/hasInformation)
 Type guard based on the literal information to precisely target a business case.
 
-### [whenHasInformation](/fr/v1/api/either/whenHasInformation)
+### [whenHasInformation](/en/v1/api/either/whenHasInformation)
 Pattern matching that triggers a function when the information (or a list of infos) matches.
 
 ## Boolean helpers
 
-### [bool](/fr/v1/api/either/bool)
+### [bool](/en/v1/api/either/bool)
 Converts any value into a boolean `Either` (`Right` if truthy, `Left` if falsy) while preserving typing.
 
-### [boolTruthy](/fr/v1/api/either/boolTruthy)
+### [boolTruthy](/en/v1/api/either/boolTruthy)
 Forces the creation of a `Right<"bool">` by explicitly marking a truthy value.
 
-### [boolFalsy](/fr/v1/api/either/boolFalsy)
+### [boolFalsy](/en/v1/api/either/boolFalsy)
 Builds a `Left<"bool">` from a falsy value (`undefined`, `null`, `""`, `0`, `false`).
 
-### [isBoolTruthy](/fr/v1/api/either/isBoolTruthy)
+### [isBoolTruthy](/en/v1/api/either/isBoolTruthy)
 Specialized type guard for `boolTruthy`.
 
-### [whenIsBoolTruthy](/fr/v1/api/either/whenIsBoolTruthy)
+### [whenIsBoolTruthy](/en/v1/api/either/whenIsBoolTruthy)
 Triggers a function only when a value (or the result of `bool`) is truthy.
 
-### [isBoolFalsy](/fr/v1/api/either/isBoolFalsy)
+### [isBoolFalsy](/en/v1/api/either/isBoolFalsy)
 Specialized type guard for `boolFalsy`.
 
-### [whenIsBoolFalsy](/fr/v1/api/either/whenIsBoolFalsy)
+### [whenIsBoolFalsy](/en/v1/api/either/whenIsBoolFalsy)
 Triggers a function only when a value (or the result of `bool`) is falsy.
 
 ## Handling nullish values
 
-### [nullish](/fr/v1/api/either/nullish)
+### [nullish](/en/v1/api/either/nullish)
 Transforms a potentially `null`/`undefined` value into an `Either`, filled on the right if the value exists.
 
-### [nullishEmpty](/fr/v1/api/either/nullishEmpty)
+### [nullishEmpty](/en/v1/api/either/nullishEmpty)
 Explicitly builds a `Left<"nullish">` with a `null` or `undefined` value.
 
-### [nullishFilled](/fr/v1/api/either/nullishFilled)
+### [nullishFilled](/en/v1/api/either/nullishFilled)
 Builds a `Right<"nullish">` from a defined value.
 
-### [isNullishEmpty](/fr/v1/api/either/isNullishEmpty)
+### [isNullishEmpty](/en/v1/api/either/isNullishEmpty)
 Type guard to detect a `nullishEmpty`.
 
-### [whenIsNullishEmpty](/fr/v1/api/either/whenIsNullishEmpty)
+### [whenIsNullishEmpty](/en/v1/api/either/whenIsNullishEmpty)
 Applies a function only for the `nullishEmpty` case.
 
-### [isNullishFilled](/fr/v1/api/either/isNullishFilled)
+### [isNullishFilled](/en/v1/api/either/isNullishFilled)
 Type guard to detect a `nullishFilled`.
 
-### [whenIsNullishFilled](/fr/v1/api/either/whenIsNullishFilled)
+### [whenIsNullishFilled](/en/v1/api/either/whenIsNullishFilled)
 Applies a function when the nullish value is actually defined (`Right`).
 
 ## Handling nullable values
 
-### [nullable](/fr/v1/api/either/nullable)
+### [nullable](/en/v1/api/either/nullable)
 Wraps a possible `null` in an `Either`, which forces handling the absence of a value.
 
-### [nullableEmpty](/fr/v1/api/either/nullableEmpty)
+### [nullableEmpty](/en/v1/api/either/nullableEmpty)
 Builds a `Left<"nullable">` containing `null`.
 
-### [nullableFilled](/fr/v1/api/either/nullableFilled)
+### [nullableFilled](/en/v1/api/either/nullableFilled)
 Builds a `Right<"nullable">` with a non-null value.
 
-### [isNullableEmpty](/fr/v1/api/either/isNullableEmpty)
+### [isNullableEmpty](/en/v1/api/either/isNullableEmpty)
 Type guard for `nullableEmpty`.
 
-### [whenIsNullableEmpty](/fr/v1/api/either/whenIsNullableEmpty)
+### [whenIsNullableEmpty](/en/v1/api/either/whenIsNullableEmpty)
 Callback triggered only when the value is `null`.
 
-### [isNullableFilled](/fr/v1/api/either/isNullableFilled)
+### [isNullableFilled](/en/v1/api/either/isNullableFilled)
 Type guard for `nullableFilled`.
 
-### [whenIsNullableFilled](/fr/v1/api/either/whenIsNullableFilled)
+### [whenIsNullableFilled](/en/v1/api/either/whenIsNullableFilled)
 Callback triggered when the nullable value is present (`Right`).
 
 ## Handling optional values
 
-### [optional](/fr/v1/api/either/optional)
+### [optional](/en/v1/api/either/optional)
 Wraps a possibly `undefined` value in an `Either`, useful for optional fields.
 
-### [optionalEmpty](/fr/v1/api/either/optionalEmpty)
+### [optionalEmpty](/en/v1/api/either/optionalEmpty)
 Builds a `Left<"optional">` containing `undefined`.
 
-### [optionalFilled](/fr/v1/api/either/optionalFilled)
+### [optionalFilled](/en/v1/api/either/optionalFilled)
 Builds a `Right<"optional">` with a defined value.
 
-### [isOptionalEmpty](/fr/v1/api/either/isOptionalEmpty)
+### [isOptionalEmpty](/en/v1/api/either/isOptionalEmpty)
 Type guard for `optionalEmpty`.
 
-### [whenIsOptionalEmpty](/fr/v1/api/either/whenIsOptionalEmpty)
+### [whenIsOptionalEmpty](/en/v1/api/either/whenIsOptionalEmpty)
 Callback triggered only when an optional is empty.
 
-### [isOptionalFilled](/fr/v1/api/either/isOptionalFilled)
+### [isOptionalFilled](/en/v1/api/either/isOptionalFilled)
 Type guard for `optionalFilled`.
 
-### [whenIsOptionalFilled](/fr/v1/api/either/whenIsOptionalFilled)
+### [whenIsOptionalFilled](/en/v1/api/either/whenIsOptionalFilled)
 Callback triggered when an optional contains a value.
 
 ## Futures and asynchronism
 
-### [future](/fr/v1/api/either/future)
+### [future](/en/v1/api/either/future)
 Converts a value (or an `Either`) into a `Future`, a class derived from `Promise` with `Future.all` support.
 
-### [futureSuccess](/fr/v1/api/either/futureSuccess)
+### [futureSuccess](/en/v1/api/either/futureSuccess)
 Builds an `EitherRight<"future">` to explicitly signal a successful resolution.
 
-### [futureError](/fr/v1/api/either/futureError)
+### [futureError](/en/v1/api/either/futureError)
 Builds an `EitherLeft<"future">` to represent a standardized async error.

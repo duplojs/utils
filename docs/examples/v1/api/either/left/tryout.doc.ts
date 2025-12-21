@@ -1,4 +1,3 @@
-
 import { E, N, P, pipe, type ExpectType } from "@duplojs/utils";
 
 const input = 0 as number;
