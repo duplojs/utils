@@ -139,7 +139,7 @@ export default defineConfig({
 								link: "/fr/v1/api/either/",
 							},
 							{
-								text: "Gfrerator",
+								text: "Generator",
 								link: "/fr/v1/api/generator/",
 							},
 							{
@@ -182,6 +182,28 @@ export default defineConfig({
 								{
 									text: "Introduction",
 									link: "/fr/v1/guide/",
+								},
+								{
+									text: "Démarrage rapide",
+									link: "/fr/v1/guide/quickStart",
+								},
+
+							],
+						},
+						{
+							text: "Conceptes",
+							items: [
+								{
+									text: "La curryfication",
+									link: "/fr/v1/guide/curryfication",
+								},
+								{
+									text: "Le pipe",
+									link: "/fr/v1/guide/pipe",
+								},
+								{
+									text: "Either",
+									link: "/fr/v1/guide/either",
 								},
 							],
 						},

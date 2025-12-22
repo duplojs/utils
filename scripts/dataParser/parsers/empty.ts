@@ -19,7 +19,9 @@ export type DataParserEmptyCheckers = (
 	| CheckerRefineImplementation<undefined>
 );
 
-export interface DataParserDefinitionEmpty extends DataParserDefinition<DataParserEmptyCheckers> {
+export interface DataParserDefinitionEmpty extends DataParserDefinition<
+	DataParserEmptyCheckers
+> {
 	readonly coerce: boolean;
 }
 

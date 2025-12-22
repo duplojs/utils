@@ -50,7 +50,9 @@ export type DataParserRecordCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers> {
+export interface DataParserDefinitionRecord extends DataParserDefinition<
+	DataParserRecordCheckers
+> {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
 	readonly requireKey: string[] | null;

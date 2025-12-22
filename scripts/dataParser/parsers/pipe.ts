@@ -22,7 +22,9 @@ export type DataParserPipeCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionPipe extends DataParserDefinition<DataParserPipeCheckers> {
+export interface DataParserDefinitionPipe extends DataParserDefinition<
+	DataParserPipeCheckers
+> {
 	readonly input: DataParser;
 	readonly output: DataParser;
 }

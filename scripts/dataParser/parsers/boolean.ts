@@ -19,7 +19,9 @@ export type DataParserBooleanCheckers = (
 	| CheckerRefineImplementation<boolean>
 );
 
-export interface DataParserDefinitionBoolean extends DataParserDefinition<DataParserBooleanCheckers> {
+export interface DataParserDefinitionBoolean extends DataParserDefinition<
+	DataParserBooleanCheckers
+> {
 	readonly coerce: boolean;
 }
 

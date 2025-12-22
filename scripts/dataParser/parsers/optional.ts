@@ -24,7 +24,9 @@ export type DataParserOptionalCheckers<
 
 export interface DataParserDefinitionOptional<
 	GenericCoalescingValue extends unknown = unknown,
-> extends DataParserDefinition<DataParserOptionalCheckers> {
+> extends DataParserDefinition<
+		DataParserOptionalCheckers
+	> {
 	readonly inner: DataParser;
 	readonly coalescingValue: GenericCoalescingValue;
 }

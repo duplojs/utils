@@ -22,7 +22,9 @@ export type DataParserLazyCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers> {
+export interface DataParserDefinitionLazy extends DataParserDefinition<
+	DataParserLazyCheckers
+> {
 	getter: Memoized<DataParser>;
 }
 

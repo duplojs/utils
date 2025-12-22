@@ -22,7 +22,9 @@ export type DataParserRecoverCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionRecover extends DataParserDefinition<DataParserRecoverCheckers> {
+export interface DataParserDefinitionRecover extends DataParserDefinition<
+	DataParserRecoverCheckers
+> {
 	readonly inner: DataParser;
 	readonly recoveredValue: unknown;
 }

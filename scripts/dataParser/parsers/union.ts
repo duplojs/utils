@@ -25,7 +25,9 @@ export type DataParserUnionCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionUnion extends DataParserDefinition<DataParserUnionCheckers> {
+export interface DataParserDefinitionUnion extends DataParserDefinition<
+	DataParserUnionCheckers
+> {
 	readonly options: UnionOptions;
 }
 

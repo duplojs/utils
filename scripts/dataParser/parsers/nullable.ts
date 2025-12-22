@@ -24,7 +24,9 @@ export type DataParserNullableCheckers<
 
 export interface DataParserDefinitionNullable<
 	GenericCoalescingValue extends unknown = unknown,
-> extends DataParserDefinition<DataParserNullableCheckers> {
+> extends DataParserDefinition<
+		DataParserNullableCheckers
+	> {
 	readonly inner: DataParser;
 	readonly coalescingValue: GenericCoalescingValue;
 }
