@@ -4,7 +4,7 @@ prev:
   link: "/fr/v1/guide/pipe"
 ---
 
-# Le either
+# Either
 
 [[toc]]
 

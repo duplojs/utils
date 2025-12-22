@@ -45,8 +45,13 @@ DClean
 - `docs/{fr,en}/v1/api/{namespace}/index.md` : sommaire + présentation du namespace
 - `docs/{fr,en}/v1/api/{namespace}/{function}.md` : documentation d’une fonction
 - `docs/{fr,en}/v1/api/{namespace}/{concept + function}.md` : cas spécifiques (rare)
-- `docs/public/examples/v1/api/{namespace}/{function}/tryout.doc.ts` : exemple simple
-- `docs/public/examples/v1/api/{namespace}/{function}/otherExample.doc.ts` : cas spécifiques (rare)
+- `docs/examples/v1/api/{namespace}/{function}/tryout.doc.ts` : exemple simple
+- `docs/examples/v1/api/{namespace}/{function}/otherExample.doc.ts` : cas spécifiques
+
+## Régle des exemples de code de la documentation
+- les commentaires doivent être en anglais
+- les noms de variable doivent être suppérieur a 2 char
+- les exempel doivent étre wrappé quand il y a plus de 1 element dans une structure
 
 ## Format obligatoire d’une page API (fonction)
 Chaque page `docs/{fr,en}/v1/api/{namespace}/{function}.md` doit contenir :
