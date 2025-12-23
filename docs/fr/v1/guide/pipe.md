@@ -62,7 +62,7 @@ Avec `@duplojs/utils`, tu peux pré-configurer chaque étape :
 import { A, N, pipe } from "@duplojs/utils";
 
 const numbers = [2, 12, 7, 42];
-const isGreaterThan10 = N.greaterThan<number>(10);
+const isGreaterThan10 = N.greaterThan(10);
 
 const count = pipe(
 	numbers,
@@ -74,7 +74,7 @@ const count = pipe(
 ```
 
 Ici :
-- `N.greaterThan<number>(10)` retourne un prédicat `(num) => boolean`
+- `N.greaterThan(10)` retourne un prédicat `(num) => boolean`
 - `A.filter(predicate)` retourne une fonction `(array) => filteredArray`
 - `A.map(mapper)` retourne une fonction `(array) => mappedArray`
 
@@ -87,6 +87,59 @@ La différence, c'est que le pipe repose sur des **fonctions pures importées** 
 - côté **personnalisation**, tu peux insérer n'importe quelle fonction (de la librairie ou de ton projet) à n'importe quelle étape, sans devoir étendre une classe, ajouter des méthodes, ou construire un builder générique ;
 - côté **typage**, les fonctions curryfiées + le pipe conservent un typage précis à chaque étape, alors que rendre un builder “super personnalisable” avec du typage avancé devient vite plus complexe (surtout quand tu veux que chaque étape influence le type final).
 
+## Gérer des branches conditionnelles (`when`, `whenNot`)
+
+Dans un pipeline, tu vas souvent vouloir faire des étapes **conditionnelles** : appliquer une transformation *uniquement si* une condition est vraie.
+
+`@duplojs/utils` fournit pour ça des helpers comme `when` et `whenNot`.
+
+Le point important (et parfois déroutant au début) : `when` **peut changer la forme du flux**.
+Si `when` renvoie parfois “la valeur transformée” et parfois “la valeur d'origine”, le type de sortie peut devenir une **union**, et les étapes suivantes doivent gérer les deux cas.
+
+```ts
+import { S, pipe, when } from "@duplojs/utils";
+
+const maybeTokens = pipe(
+	"foo,bar",
+	when(
+		S.includes(","),
+		S.split(","),
+	),
+);
+// Type: string | string[]
+```
+
+Quand tu veux garder un flux plus simple à lire, une approche est de **normaliser** le flux juste après : par exemple transformer la sortie en tableau quoi qu'il arrive.
+
+```ts
+import { S, isType, pipe, when, whenNot } from "@duplojs/utils";
+
+const tokens = pipe(
+	"foo,bar",
+	when(
+		S.includes(","),
+		S.split(","),
+	),
+	whenNot(
+		isType("array"),
+		(value) => [value],
+	),
+);
+// Type: string[]
+```
+
+### Try it (conditionnels)
+
+<MonacoTSEditor
+src="/examples/v1/guide/pipe/conditionals.doc.ts"
+majorVersion="v1"
+height="780px"
+/>
+
+Quelques conseils si le “flux” te paraît complexe :
+- applique rapidement une étape de **normalisation** (ex: toujours un tableau) quand une étape conditionnelle introduit une union ;
+- garde des prédicats et des transformations **nommés** (petites fonctions) ;
+
 ## Point-free style
 
 Le **point-free style** (ou “tacite”) consiste à définir une fonction **sans nommer explicitement l'argument** qu'elle reçoit, en ne manipulant que de la composition.
@@ -96,10 +149,9 @@ Dans `@duplojs/utils`, `innerPipe` est particulièrement utile : c'est la versio
 ```ts
 import { A, N, innerPipe } from "@duplojs/utils";
 
-const isGreaterThan10 = N.greaterThan<number>(10);
-
 const normalizeNumbers = innerPipe(
-	A.filter(isGreaterThan10),
+	(numbers: number[]) => numbers,
+	A.filter(N.greaterThan(10)),
 	A.map((num) => num * 2),
 );
 
@@ -119,11 +171,9 @@ Quand tu veux “logger au milieu” sans casser le flux, utilise `forwardLog` :
 ```ts
 import { A, N, forwardLog, pipe } from "@duplojs/utils";
 
-const isGreaterThan10 = N.greaterThan<number>(10);
-
 const output = pipe(
 	[2, 12, 7, 42],
-	A.filter(isGreaterThan10),
+	A.filter(N.greaterThan(10)),
 	forwardLog,
 	A.map((num) => num * 2),
 );
@@ -140,5 +190,5 @@ const output = pipe(
 <MonacoTSEditor
 src="/examples/v1/guide/pipe/tryout.doc.ts"
 majorVersion="v1"
-height="1420px"
+height="1270px"
 />

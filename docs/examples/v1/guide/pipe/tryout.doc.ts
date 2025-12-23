@@ -2,14 +2,10 @@ import { A, N, O, forwardLog, innerPipe, pipe, type ExpectType } from "@duplojs/
 
 const numbers = [2, 12, 7, 42];
 
-const isGreaterThan10 = N.greaterThan<number>(10);
-const keepGreaterThan10 = A.filter<readonly number[]>(isGreaterThan10);
-const doubleAll = A.map<readonly number[], number>((num) => num * 2);
-
 const doubledNumbers = pipe(
 	numbers,
-	keepGreaterThan10,
-	doubleAll,
+	A.filter(N.greaterThan(10)),
+	A.map((num) => num * 2),
 );
 
 type CheckDoubledNumbers = ExpectType<
@@ -23,10 +19,7 @@ interface Person {
 	age: number;
 }
 
-const getName = O.getProperty<Person, Person, "name">("name");
-const isAdult = (person: Person) => N.greaterThan(17)(person.age);
-
-const people = [
+const people: Person[] = [
 	{
 		name: "Ada",
 		age: 36,
@@ -35,15 +28,12 @@ const people = [
 		name: "Bob",
 		age: 12,
 	},
-] as const;
-
-const keepAdults = A.filter<readonly Person[]>(isAdult);
-const getNames = A.map<readonly Person[], string>(getName);
+];
 
 const adultNames = pipe(
 	people,
-	keepAdults,
-	getNames,
+	A.filter(({ age }) => N.greater(age, 18)),
+	A.map(O.getProperty("name")),
 );
 
 type CheckAdultNames = ExpectType<
@@ -53,9 +43,10 @@ type CheckAdultNames = ExpectType<
 >;
 
 const normalizeNumbers = innerPipe(
-	keepGreaterThan10,
+	(numbers: number[]) => numbers,
+	A.filter(N.greaterThan(10)),
 	forwardLog,
-	doubleAll,
+	A.map(N.multiply(2)),
 );
 
 const normalized = normalizeNumbers(numbers);

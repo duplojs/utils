@@ -22,96 +22,11 @@ import * as DEither from "@duplojs/utils/either";
 import * as E from "@duplojs/utils/either";
 ```
 
-### Qu'est-ce qu'une monade Either ? {.toc-hidden}
-<details>
-<summary>Qu'est-ce qu'une monade Either ?</summary>
+## Guide
 
-::: info
-Une monade `Either` est un conteneur qui représente une valeur qui peut être dans l'un de deux états : **`succès`** ou **`erreur`**. Elle permet une gestion d'erreurs élégante et type-safe sans lever d'exceptions.
-:::
+Une explication complète (concept, info obligatoire, pattern matching, pipelines et variantes) est disponible ici :
 
-La monade `Either` possède deux constructeurs :
-- **`E.left`** : représente une erreur (le côté "mauvais")
-- **`E.right`** : représente une valeur valide (le côté "bon")
-
-```typescript
-if (result > 0) {
-  return E.right("success", result);
-} else {
-  return E.left("error", result);
-}
-```
-
-::: warning
-L'ordre importe : `Left` est conventionnellement utilisé pour les erreurs et `Right` pour les succès. Ne les inversez pas dans votre logique métier.
-:::
-
-**Avantages** :
-- **Type-safe** : Le compilateur TypeScript force à gérer les deux cas
-- **Pas d'exceptions** : Évite les try-catch et les comportements imprévisibles
-- **Composable** : Les opérations Either peuvent être chaînées avec `map`, `flatMap`, etc.
-- **Lisible** : Le code devient plus explicite sur les chemins d'erreur
-
-::: tip
-Vous pouvez chaîner les opérations Either pour une gestion d'erreurs élégante sans imbrication de conditions.
-:::
-
-</details>
-
-
-### La puissance de la contextualisation avec Info {.toc-hidden}
-<details>
-<summary>La puissance de la contextualisation avec Info</summary>
-
-::: info
-La vraie force de cette lib réside dans l'**ajout obligatoire d'une info** à chaque état (succès ou erreur). Cette info reste à la fois sur la monade ET dans le typage TypeScript, permettant un pattern matching précis et type-safe.
-:::
-
-**Le problème sans info** :
-
-Une monade peut contenir plusieurs erreurs et plusieurs succès différents. Sans contextualisation, vous êtes obligé de faire du pattern matching générique ou de refaire des validations pour savoir réellement ce que contient la monade.
-
-```typescript
-// Sans info : ambigu, qu'est-ce qu'on a vraiment ?
-const result = someFunction();
-if (E.isRight(result)) {
-  // Mais quel succès ? On ne sait pas vraiment
-  const value = unwrap(result);
-}
-```
-
-**La solution avec info** :
-
-L'info est une **string littérale** qui contextualise la sortie. Elle reste dans le type, ce qui permet à TypeScript de vous aider lors du pattern matching.
-
-```typescript
-const result = someFunction();
-
-if (E.isRight(result) && E.hasInformation(result, "user.created")) {
-	// TypeScript sait exactement quel succès !
-	const newUser = unwrap(result);
-} else if (E.isRight(result) && E.hasInformation(result, "user.updated")) {
-	// Un autre succès, complètement différent
-	const updatedUser = unwrap(result);
-} else if (E.isLeft(result) && E.hasInformation(result, "emailAlreadyExists")) {
-	// Une erreur spécifique, facile à gérer
-	const conflict = unwrap(result);
-	...
-}
-
-```
-
-**Avantages de cette approche** :
-- **Pas de validation supplémentaire** : L'info suffit à identifier précisément l'état
-- **Exhaustivité garantie** : TypeScript force à gérer tous les cas possibles
-- **Sémantique claire** : Le code documente lui-même ce qui se passe
-- **Évite les erreurs génériques** : Plus besoin de monades génériques, chaque cas est explicite
-
-::: warning
-L'info doit être explicite et représentative. Utilisez des noms clairs comme `"emailAlreadyExists"`, `"validationFailed"`, `"user.created"` plutôt que des codes génériques.
-:::
-
-</details>
+- [Guide Either](/fr/v1/guide/either)
 
 ## Constructeurs `Right`
 
