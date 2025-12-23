@@ -13,7 +13,7 @@
 - **Pure helpers by domain**: `array`, `object`, `string`, `number`, `date`, `generator`, `pattern` (match/exhaustive).
 
 ## Documentation
-- https://utils.duplojs.dev/v1/en
+- https://utils.duplojs.dev
 
 ## Install
 
