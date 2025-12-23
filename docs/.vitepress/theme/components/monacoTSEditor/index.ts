@@ -1,3 +1,3 @@
-import { defineClientComponent } from "vitepress";
+import TheContainer from "./TheContainer.vue";
 
-export const MonacoTSEditor = defineClientComponent(() => import("./TheComponent.vue"));
+export const MonacoTSEditor = TheContainer;

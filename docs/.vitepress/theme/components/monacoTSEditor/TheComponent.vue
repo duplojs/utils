@@ -2,7 +2,7 @@
 import { type CSSProperties, ref } from "vue";
 import { useComponent, type MajorVersion } from "./useComponent";
 
-interface Props {
+export interface Props {
     src: string;
     majorVersion: MajorVersion;
     width?: CSSProperties["width"];
@@ -36,9 +36,7 @@ useComponent(
         ref="container"
         :style="{
 			width: width, 
-			height: height, 
-			border: '1px solid var(--vp-c-border)', 
-			margin: '16px 0',
+			height: height,
 		}"
     />
 </template>
