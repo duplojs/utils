@@ -1,7 +1,7 @@
 ---
 prev:
   text: "La curryfication"
-  link: "/fr/v1/guide/curryfication"
+  link: "/fr/v1/guide/currying"
 next:
   text: "Either"
   link: "/fr/v1/guide/either"

@@ -33,3 +33,41 @@ hero:
     />
   </div>
 </div>
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Native type 🤬</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/entriesNative.doc.ts"
+      majorVersion="v1"
+      height="500px"
+    />
+  </div>
+  <div>
+    <p><strong>@duplojs/utils Type 💪</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/entriesUtils.doc.ts"
+      majorVersion="v1"
+      height="500px"
+    />
+  </div>
+</div>
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Native type 🐒</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/reduceNative.doc.ts"
+      majorVersion="v1"
+      height="550px"
+    />
+  </div>
+  <div>
+    <p><strong>@duplojs/utils Type 🦁</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/reduceUtils.doc.ts"
+      majorVersion="v1"
+      height="550px"
+    />
+  </div>
+</div>

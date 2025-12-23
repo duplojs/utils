@@ -195,7 +195,7 @@ export default defineConfig({
 							items: [
 								{
 									text: "La curryfication",
-									link: "/fr/v1/guide/curryfication",
+									link: "/fr/v1/guide/currying",
 								},
 								{
 									text: "Le pipe",
@@ -303,6 +303,27 @@ export default defineConfig({
 								{
 									text: "Introduction",
 									link: "/en/v1/guide/",
+								},
+								{
+									text: "Quick Start",
+									link: "/en/v1/guide/quickStart",
+								},
+							],
+						},
+						{
+							text: "Concepts",
+							items: [
+								{
+									text: "Currying",
+									link: "/en/v1/guide/currying",
+								},
+								{
+									text: "Pipe",
+									link: "/en/v1/guide/pipe",
+								},
+								{
+									text: "Either",
+									link: "/en/v1/guide/either",
 								},
 							],
 						},

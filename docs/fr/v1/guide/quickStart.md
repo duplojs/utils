@@ -4,7 +4,7 @@ prev:
   link: "/fr/v1/guide/"
 next:
   text: "La curryfication"
-  link: "/fr/v1/guide/curryfication"
+  link: "/fr/v1/guide/currying"
 ---
 
 # Démarrage rapide
