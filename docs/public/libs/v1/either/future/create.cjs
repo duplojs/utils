@@ -1,0 +1,49 @@
+'use strict';
+
+var success = require('./success.cjs');
+var error = require('./error.cjs');
+var is = require('../right/is.cjs');
+var is$1 = require('../left/is.cjs');
+
+const kind = "kind-future-either";
+class Future extends Promise {
+    constructor(value) {
+        super((resolve) => void resolve((value instanceof Promise
+            ? value
+            : Promise.resolve(value))
+            .then((value) => {
+            if (is.isRight(value)) {
+                return value;
+            }
+            else if (is$1.isLeft(value)) {
+                return value;
+            }
+            else {
+                return success.futureSuccess(value);
+            }
+        })
+            .catch((error$1) => error.futureError(error$1))));
+    }
+    [kind] = null;
+    // default declaration
+    then(onfulfilled) {
+        return super.then(onfulfilled);
+    }
+    static get [Symbol.species]() {
+        return Promise;
+    }
+    static instanceof(value) {
+        return typeof value === "object"
+            && value?.constructor?.name === "Future"
+            && kind in value;
+    }
+    static rightAll(values) {
+        return new Future(Promise.all(values.map((value) => new Future(value))));
+    }
+}
+function future(value) {
+    return new Future(value);
+}
+
+exports.Future = Future;
+exports.future = future;

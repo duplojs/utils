@@ -1,7 +1,16 @@
 {
   "name": "@duplojs/utils",
   "version": "0.0.0",
-  "author": "mathcovax",
+  "author": {
+    "name": "mathcovax",
+    "url": "https://github.com/mathcovax"
+  },
+  "contributors": [
+    {
+      "name": "zeriix",
+      "url": "https://github.com/ZeRiix"
+    }
+  ],
   "license": "MIT",
   "type": "module",
   "repository": {
@@ -10,11 +19,14 @@
   },
   "scripts": {
     "build": "rollup --config",
+    "docs:dev": "npm -w docs run docs:dev",
+    "docs:build": "npm -w docs run docs:build",
+    "docs:preview": "npm -w docs run docs:preview",
     "test:tu": "vitest --coverage",
     "test:tu:bench": "vitest bench",
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
-    "test:types": "tsc -p tsconfig.test.json",
+    "test:types": "tsc -p tsconfig.test.json && npm -w docs run test:types",
     "test:lint": "eslint",
     "test:lint:fix": "eslint --fix",
     "prepare": "husky"
@@ -100,6 +112,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
+    "@duplojs/dev-tools": "0.1.0",
     "@duplojs/eslint": "0.5.0",
     "@rollup/plugin-typescript": "12.1.4",
     "@types/node": "24.3.0",
@@ -117,9 +130,28 @@
     "vitest": "3.2.4"
   },
   "workspaces": [
-    "integration"
+    "integration",
+    "docs"
   ],
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "utils",
+    "functional-programming",
+    "immutable",
+    "pipe",
+    "curry",
+    "data-parser",
+    "pattern-matching",
+    "either",
+    "monad",
+    "array-utils",
+    "object-utils",
+    "string-utils",
+    "date-utils",
+    "ddd",
+    "clean-architecture",
+    "duplojs"
+  ],
   "engines": {
     "node": ">=22.15.1"
   }

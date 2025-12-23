@@ -15,6 +15,26 @@ export type RequireDataParserObject<
 		: GenericShape[Prop]
 }>;
 
+export function requiredShape(
+	shape: DataParserObjectShape,
+): DataParserObjectShape {
+	return pipe(
+		shape,
+		DObject.entries,
+		DArray.map(
+			([key, dataParser]) => pipe(
+				identifier(dataParser, optionalKind),
+				DEither.whenIsRight(
+					(dataParser) => dataParser.definition.inner,
+				),
+				DEither.whenIsLeft(forward),
+				(dataParser) => DObject.entry(key, dataParser),
+			),
+		),
+		DObject.fromEntries,
+	);
+}
+
 export function required<
 	GenericDataParserObject extends DataParserObject,
 	const GenericDefinition extends Partial<
@@ -33,21 +53,7 @@ export function required<
 			}
 		>
 	> {
-	const newShape = pipe(
-		dataParser.definition.shape,
-		DObject.entries,
-		DArray.map(
-			([key, dataParser]) => pipe(
-				identifier(dataParser, optionalKind),
-				DEither.whenIsRight(
-					(dataParser) => dataParser.definition.inner,
-				),
-				DEither.whenIsLeft(forward),
-				(dataParser) => DObject.entry(key, dataParser),
-			),
-		),
-		DObject.fromEntries,
-	);
+	const newShape = requiredShape(dataParser.definition.shape);
 
 	return object(
 		newShape,

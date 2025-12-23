@@ -1,0 +1,54 @@
+---
+outline: [2, 3]
+prev:
+  text: "add"
+  link: "/fr/v1/api/clean/primitives/operators/add"
+next:
+  text: "multiply"
+  link: "/fr/v1/api/clean/primitives/operators/multiply"
+---
+
+# subtract
+
+`subtract()` soustrait un nombre à un `Number` (wrappé ou brut). Supporte la version currifiée.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/primitives/operators/subtract/tryout.doc.ts"
+  majorVersion="v1"
+  height="320px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function subtract(
+	value: Number, 
+	subtrahend: Number | number
+): Number
+```
+
+### Signature currifiée
+
+```typescript
+function subtract(
+	subtrahend: Number | number
+): (value: Number) => Number
+```
+
+## Paramètres
+
+- `value` : valeur de base (signature classique uniquement).
+- `subtrahend` : valeur à soustraire.
+
+## Valeur de retour
+
+Un `Number` wrappé contenant le résultat.
+
+## Voir aussi
+
+- [`add`](/fr/v1/api/clean/primitives/operators/add)
+- [`multiply`](/fr/v1/api/clean/primitives/operators/multiply)

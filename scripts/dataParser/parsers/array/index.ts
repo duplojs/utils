@@ -28,7 +28,9 @@ export type DataParserArrayCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionArray extends DataParserDefinition {
+export interface DataParserDefinitionArray extends DataParserDefinition<
+	DataParserArrayCheckers
+> {
 	readonly element: DataParser;
 }
 

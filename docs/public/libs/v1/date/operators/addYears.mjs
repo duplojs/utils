@@ -1,0 +1,17 @@
+import { toNative } from '../toNative.mjs';
+
+function addYears(...args) {
+    if (args.length === 1) {
+        const [year] = args;
+        return (input) => addYears(input, year);
+    }
+    const [input, year] = args;
+    const absoluteYear = Math.abs(year);
+    const date = toNative(input);
+    date.setUTCFullYear(date.getUTCFullYear() + absoluteYear);
+    const timestamp = date.getTime();
+    const isNegative = timestamp < 0;
+    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+}
+
+export { addYears };

@@ -19,7 +19,9 @@ export type DataParserNilCheckers = (
 	| CheckerRefineImplementation<null>
 );
 
-export interface DataParserDefinitionNil extends DataParserDefinition<DataParserNilCheckers> {
+export interface DataParserDefinitionNil extends DataParserDefinition<
+	DataParserNilCheckers
+> {
 	readonly coerce: boolean;
 }
 

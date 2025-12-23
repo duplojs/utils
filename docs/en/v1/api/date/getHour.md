@@ -1,0 +1,50 @@
+---
+outline: [2, 3]
+prev:
+  text: "getDayOfYear"
+  link: "/en/v1/api/date/getDayOfYear"
+next:
+  text: "getMinute"
+  link: "/en/v1/api/date/getMinute"
+---
+
+# getHour
+
+The **`getHour()`** function returns the hour (0–23) of a `TheDate`, adjusted by an optional timezone.
+
+## Interactive example
+
+<MonacoTSEditor
+  src="/examples/v1/api/date/getHour/tryout.doc.ts"
+  majorVersion="v1"
+  height="320px"
+/>
+
+## Syntax
+
+```typescript
+function getHour<
+	GenericInput extends TheDate
+>(
+	input: GenericInput,
+	timezone?: Timezone
+): number
+```
+
+## Parameters
+
+- `input`: `TheDate` value.
+- `timezone`: Timezone (optional).
+
+## Return value
+
+An integer between 0 and 23.
+
+## See also
+
+- [`getMinute`](/en/v1/api/date/getMinute)
+- [`getSecond`](/en/v1/api/date/getSecond)
+
+## Sources
+
+- [MDN Web Docs - Date.prototype.getUTCHours()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCHours)

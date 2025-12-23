@@ -10,47 +10,47 @@ describe("createUseCase and useCaseInstances", () => {
 	}>();
 
 	const LogUseCase = DClean.createUseCase(
-		{ logRepo: LogRepository },
-		({ logRepo }) => <T extends string>(message: T) => {
-			logRepo.log(message);
+		{ LogRepository },
+		({ logRepository }) => <T extends string>(message: T) => {
+			logRepository.log(message);
 			return message.length;
 		},
 	);
 
 	const GreetUseCase = DClean.createUseCase(
 		{
-			userRepo: UserRepository,
-			logger: LogUseCase,
+			UserRepository,
+			LogUseCase,
 		},
-		({ userRepo, logger }) => async(id: number) => {
-			const name = await userRepo.getName(id);
-			logger(`hello ${name}`);
+		({ userRepository, logUseCase }) => async(id: number) => {
+			const name = await userRepository.getName(id);
+			logUseCase(`hello ${name}`);
 			return `Hello ${name}`;
 		},
 	);
 
 	it("createUseCase wires repositories and nested use cases", async() => {
 		const logSpy = vi.fn();
-		const logImpl = LogRepository.createImplementation({
+		const logRepository = LogRepository.createImplementation({
 			log: logSpy,
 		});
 
-		const userImpl = UserRepository.createImplementation({
+		const userRepository = UserRepository.createImplementation({
 			getName: (id) => Promise.resolve(`User${id}`),
 		});
 
-		const greet = GreetUseCase.getUseCase({
-			logRepo: logImpl,
-			userRepo: userImpl,
+		const greetUseCase = GreetUseCase.getUseCase({
+			logRepository,
+			userRepository,
 		});
 
-		const result = await greet(5);
+		const result = await greetUseCase(5);
 
 		expect(result).toBe("Hello User5");
 		expect(logSpy).toHaveBeenCalledWith("hello User5");
 
 		type Check = ExpectType<
-			typeof greet,
+			typeof greetUseCase,
 			(id: number) => Promise<string>,
 			"strict"
 		>;
@@ -59,25 +59,23 @@ describe("createUseCase and useCaseInstances", () => {
 	it("useCaseInstances resolves all use cases with shared repositories", async() => {
 		const logSpy = vi.fn();
 
-		const repositories = {
-			logRepo: LogRepository.createImplementation({
-				log: logSpy,
-			}),
-			userRepo: UserRepository.createImplementation({
-				getName: (id) => Promise.resolve(`Name${id}`),
-			}),
-		};
-
 		const instances = DClean.useCaseInstances(
 			{
-				log: LogUseCase,
-				greet: GreetUseCase,
+				LogUseCase,
+				GreetUseCase,
 			},
-			repositories,
+			{
+				logRepository: LogRepository.createImplementation({
+					log: logSpy,
+				}),
+				userRepository: UserRepository.createImplementation({
+					getName: (id) => Promise.resolve(`Name${id}`),
+				}),
+			},
 		);
 
-		const greetResult = await instances.greet(2);
-		const logResult = instances.log("hi");
+		const greetResult = await instances.greetUseCase(2);
+		const logResult = instances.logUseCase("hi");
 
 		expect(greetResult).toBe("Hello Name2");
 		expect(logResult).toBe(2);
@@ -86,8 +84,8 @@ describe("createUseCase and useCaseInstances", () => {
 		type Check = ExpectType<
 			typeof instances,
 			{
-				log<T extends string>(message: T): number;
-				greet(id: number): Promise<string>;
+				logUseCase<T extends string>(message: T): number;
+				greetUseCase(id: number): Promise<string>;
 			},
 			"strict"
 		>;

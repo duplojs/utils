@@ -18,6 +18,7 @@ export default defineConfig({
 				"**/*.test.ts", 
 				"bin", 
 				"dist",
+				"docs",
 			],
 			thresholds: {
 				lines: 100,

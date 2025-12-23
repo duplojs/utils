@@ -1,0 +1,26 @@
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing } from "../../common";
+import { type DataParserExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import * as dataParsers from "../parsers";
+import { type Input, type Output, type DataParser } from "../base";
+type _DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable> = (Kind<typeof dataParsers.nullableKind.definition> & DataParserExtended<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | null : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | null>);
+export interface DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable = dataParsers.DataParserDefinitionNullable> extends _DataParserNullableExtended<GenericDefinition> {
+    addChecker<GenericChecker extends readonly [
+        dataParsers.DataParserNullableCheckers<Output<this>>,
+        ...dataParsers.DataParserNullableCheckers<Output<this>>[]
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        dataParsers.DataParserNullableCheckers<Output<this>>,
+        ...dataParsers.DataParserNullableCheckers<Output<this>>[]
+    ], GenericChecker>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends dataParsers.DataParserDefinitionNullable>(definition: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, GenericDefinition>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.CheckerRefineImplementation<Output<this>>
+    ]>>;
+}
+export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser> | null>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
+    inner: GenericDataParser;
+}>>;
+export declare namespace nullable {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserNullableExtended<dataParsers.DataParserDefinitionNullable<unknown>>>;
+}
+export {};

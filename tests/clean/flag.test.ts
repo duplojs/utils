@@ -15,6 +15,13 @@ describe("createFlag", () => {
 
 	it("creates a handler with the provided name", () => {
 		const isAdmin = DClean.createFlag<User, "isAdmin", boolean>("isAdmin");
+
+		type check = ExpectType<
+			DClean.GetFlag<typeof isAdmin>,
+			DClean.Flag<"isAdmin", boolean>,
+			"strict"
+		>;
+
 		expect(isAdmin.name).toBe("isAdmin");
 	});
 

@@ -76,7 +76,9 @@ export type DataParserTupleCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers> {
+export interface DataParserDefinitionTuple extends DataParserDefinition<
+	DataParserTupleCheckers
+> {
 	readonly shape: TupleShape;
 	readonly rest?: DataParser;
 }

@@ -1,0 +1,8 @@
+import { type ObjectKey, type SimplifyTopLevel } from "../common";
+import { type Adaptor } from "../common/types/adaptor";
+import { type GetPropsWithValue } from "./types/getPropsWithValue";
+import { type PartialKeys } from "./types";
+type ComputeResultWithOmitIsObject<GenericInput extends object, GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>>> = SimplifyTopLevel<Omit<GenericInput, GetPropsWithValue<GenericOmitValue, true>> extends infer InferredValue extends object ? PartialKeys<InferredValue, Adaptor<GetPropsWithValue<GenericOmitValue, boolean> | GetPropsWithValue<GenericOmitValue, boolean | undefined> | GetPropsWithValue<GenericOmitValue, true | undefined>, keyof InferredValue>> : never>;
+export declare function omit<GenericInput extends object, const GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[]>(omitValue: GenericOmitValue): (input: GenericInput) => GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> ? ComputeResultWithOmitIsObject<GenericInput, GenericOmitValue> : SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, readonly ObjectKey[]>[number]>>;
+export declare function omit<GenericInput extends object, const GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[]>(input: GenericInput, omitValue: GenericOmitValue): GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> ? ComputeResultWithOmitIsObject<GenericInput, GenericOmitValue> : SimplifyTopLevel<Omit<GenericInput, Adaptor<GenericOmitValue, readonly ObjectKey[]>[number]>>;
+export {};

@@ -26,7 +26,9 @@ export type DataParserLiteralCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionLiteral extends DataParserDefinition<DataParserLiteralCheckers> {
+export interface DataParserDefinitionLiteral extends DataParserDefinition<
+	DataParserLiteralCheckers
+> {
 	readonly value: readonly LiteralValue[];
 }
 

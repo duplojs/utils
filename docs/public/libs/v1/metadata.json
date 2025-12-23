@@ -1,0 +1,4419 @@
+{
+  "name": "@duplojs/utils",
+  "files": [
+    {
+      "name": "either",
+      "files": [
+        {
+          "name": "left",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "error.cjs"
+            },
+            {
+              "name": "fail.cjs"
+            },
+            {
+              "name": "is.cjs"
+            },
+            {
+              "name": "error.mjs"
+            },
+            {
+              "name": "error.d.ts"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "when.d.ts"
+            },
+            {
+              "name": "fail.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "when.cjs"
+            },
+            {
+              "name": "when.mjs"
+            },
+            {
+              "name": "fail.d.ts"
+            },
+            {
+              "name": "is.mjs"
+            },
+            {
+              "name": "is.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "hasInformation.d.ts"
+        },
+        {
+          "name": "nullable",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "filled.cjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "filled.mjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            },
+            {
+              "name": "filled.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "optional",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "filled.cjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "filled.mjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            },
+            {
+              "name": "filled.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "kind.mjs"
+        },
+        {
+          "name": "right",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "success.cjs"
+            },
+            {
+              "name": "asyncPipe.d.ts"
+            },
+            {
+              "name": "pipe.cjs"
+            },
+            {
+              "name": "is.cjs"
+            },
+            {
+              "name": "group.d.ts"
+            },
+            {
+              "name": "asyncGroup.d.ts"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "group.mjs"
+            },
+            {
+              "name": "ok.d.ts"
+            },
+            {
+              "name": "pipe.mjs"
+            },
+            {
+              "name": "success.d.ts"
+            },
+            {
+              "name": "when.d.ts"
+            },
+            {
+              "name": "asyncPipe.mjs"
+            },
+            {
+              "name": "success.mjs"
+            },
+            {
+              "name": "asyncPipe.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "when.cjs"
+            },
+            {
+              "name": "asyncGroup.mjs"
+            },
+            {
+              "name": "ok.cjs"
+            },
+            {
+              "name": "when.mjs"
+            },
+            {
+              "name": "group.cjs"
+            },
+            {
+              "name": "ok.mjs"
+            },
+            {
+              "name": "asyncGroup.cjs"
+            },
+            {
+              "name": "is.mjs"
+            },
+            {
+              "name": "pipe.d.ts"
+            },
+            {
+              "name": "is.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "nullish",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "filled.cjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "filled.mjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            },
+            {
+              "name": "filled.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "future",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "success.cjs"
+            },
+            {
+              "name": "error.cjs"
+            },
+            {
+              "name": "error.mjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "error.d.ts"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "maybeFutureEither.d.ts"
+            },
+            {
+              "name": "success.d.ts"
+            },
+            {
+              "name": "success.mjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            }
+          ]
+        },
+        {
+          "name": "whenHasInformation.cjs"
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "hasInformation.mjs"
+        },
+        {
+          "name": "whenHasInformation.d.ts"
+        },
+        {
+          "name": "whenHasInformation.mjs"
+        },
+        {
+          "name": "bool",
+          "files": [
+            {
+              "name": "create.cjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "create.mjs"
+            },
+            {
+              "name": "truthy.mjs"
+            },
+            {
+              "name": "falsy.cjs"
+            },
+            {
+              "name": "falsy.d.ts"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "create.d.ts"
+            },
+            {
+              "name": "truthy.cjs"
+            },
+            {
+              "name": "falsy.mjs"
+            },
+            {
+              "name": "truthy.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            }
+          ]
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "hasInformation.cjs"
+        },
+        {
+          "name": "kind.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "dataParser",
+      "files": [
+        {
+          "name": "identifier.d.ts"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "error.cjs"
+        },
+        {
+          "name": "error.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "checkers.d.ts"
+            },
+            {
+              "name": "addCheckersToDefinition.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "mergeDefinition.d.ts"
+            },
+            {
+              "name": "dataParsers.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "base.cjs"
+        },
+        {
+          "name": "error.d.ts"
+        },
+        {
+          "name": "kind.mjs"
+        },
+        {
+          "name": "identifier.mjs"
+        },
+        {
+          "name": "identifier.cjs"
+        },
+        {
+          "name": "baseExtended.cjs"
+        },
+        {
+          "name": "parsers",
+          "files": [
+            {
+              "name": "bigint",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "min.cjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "date.cjs"
+            },
+            {
+              "name": "optional.d.ts"
+            },
+            {
+              "name": "refine.mjs"
+            },
+            {
+              "name": "date.d.ts"
+            },
+            {
+              "name": "nullable.cjs"
+            },
+            {
+              "name": "union.cjs"
+            },
+            {
+              "name": "recover.cjs"
+            },
+            {
+              "name": "tuple.d.ts"
+            },
+            {
+              "name": "lazy.cjs"
+            },
+            {
+              "name": "nil.d.ts"
+            },
+            {
+              "name": "nil.cjs"
+            },
+            {
+              "name": "object",
+              "files": [
+                {
+                  "name": "partial.d.ts"
+                },
+                {
+                  "name": "required.d.ts"
+                },
+                {
+                  "name": "omit.d.ts"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "required.cjs"
+                },
+                {
+                  "name": "partial.cjs"
+                },
+                {
+                  "name": "pick.cjs"
+                },
+                {
+                  "name": "pick.mjs"
+                },
+                {
+                  "name": "omit.mjs"
+                },
+                {
+                  "name": "omit.cjs"
+                },
+                {
+                  "name": "pick.d.ts"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "required.mjs"
+                },
+                {
+                  "name": "partial.mjs"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "transform.d.ts"
+            },
+            {
+              "name": "pipe.cjs"
+            },
+            {
+              "name": "lazy.d.ts"
+            },
+            {
+              "name": "transform.mjs"
+            },
+            {
+              "name": "literal.mjs"
+            },
+            {
+              "name": "nullable.mjs"
+            },
+            {
+              "name": "transform.cjs"
+            },
+            {
+              "name": "record",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "findRecordRequiredKey.cjs"
+                },
+                {
+                  "name": "findRecordRequiredKey.mjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "findRecordRequiredKey.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "recover.mjs"
+            },
+            {
+              "name": "array",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "min.cjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "optional.mjs"
+            },
+            {
+              "name": "pipe.mjs"
+            },
+            {
+              "name": "string",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "email.mjs"
+                    },
+                    {
+                      "name": "url.mjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "regex.d.ts"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "regex.mjs"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "url.d.ts"
+                    },
+                    {
+                      "name": "regex.cjs"
+                    },
+                    {
+                      "name": "email.cjs"
+                    },
+                    {
+                      "name": "email.d.ts"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "url.cjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "coerce",
+              "files": [
+                {
+                  "name": "date.cjs"
+                },
+                {
+                  "name": "date.d.ts"
+                },
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "nil.d.ts"
+                },
+                {
+                  "name": "nil.cjs"
+                },
+                {
+                  "name": "bigint.mjs"
+                },
+                {
+                  "name": "bigint.d.ts"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.mjs"
+                },
+                {
+                  "name": "string.mjs"
+                },
+                {
+                  "name": "empty.mjs"
+                },
+                {
+                  "name": "string.d.ts"
+                },
+                {
+                  "name": "date.mjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "string.cjs"
+                },
+                {
+                  "name": "boolean.mjs"
+                },
+                {
+                  "name": "empty.cjs"
+                },
+                {
+                  "name": "empty.d.ts"
+                },
+                {
+                  "name": "nil.mjs"
+                },
+                {
+                  "name": "boolean.cjs"
+                },
+                {
+                  "name": "index.mjs"
+                },
+                {
+                  "name": "bigint.cjs"
+                },
+                {
+                  "name": "boolean.d.ts"
+                }
+              ]
+            },
+            {
+              "name": "refine.d.ts"
+            },
+            {
+              "name": "lazy.mjs"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "unknown.d.ts"
+            },
+            {
+              "name": "unknown.cjs"
+            },
+            {
+              "name": "tuple.mjs"
+            },
+            {
+              "name": "date.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "recover.d.ts"
+            },
+            {
+              "name": "nullable.d.ts"
+            },
+            {
+              "name": "unknown.mjs"
+            },
+            {
+              "name": "tuple.cjs"
+            },
+            {
+              "name": "literal.d.ts"
+            },
+            {
+              "name": "boolean.mjs"
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "nil.mjs"
+            },
+            {
+              "name": "boolean.cjs"
+            },
+            {
+              "name": "templateLiteral",
+              "files": [
+                {
+                  "name": "createTemplateLiteralPattern.mjs"
+                },
+                {
+                  "name": "createTemplateLiteralPattern.cjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "createTemplateLiteralPattern.d.ts"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "literal.cjs"
+            },
+            {
+              "name": "union.mjs"
+            },
+            {
+              "name": "optional.cjs"
+            },
+            {
+              "name": "refine.cjs"
+            },
+            {
+              "name": "pipe.d.ts"
+            },
+            {
+              "name": "union.d.ts"
+            },
+            {
+              "name": "boolean.d.ts"
+            },
+            {
+              "name": "number",
+              "files": [
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "int.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "int.cjs"
+                    },
+                    {
+                      "name": "int.mjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "min.cjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "baseExtended.mjs"
+        },
+        {
+          "name": "base.d.ts"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "extended",
+          "files": [
+            {
+              "name": "date.cjs"
+            },
+            {
+              "name": "optional.d.ts"
+            },
+            {
+              "name": "record.mjs"
+            },
+            {
+              "name": "record.d.ts"
+            },
+            {
+              "name": "date.d.ts"
+            },
+            {
+              "name": "number.d.ts"
+            },
+            {
+              "name": "nullable.cjs"
+            },
+            {
+              "name": "union.cjs"
+            },
+            {
+              "name": "recover.cjs"
+            },
+            {
+              "name": "tuple.d.ts"
+            },
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "lazy.cjs"
+            },
+            {
+              "name": "nil.d.ts"
+            },
+            {
+              "name": "templateLiteral.cjs"
+            },
+            {
+              "name": "nil.cjs"
+            },
+            {
+              "name": "transform.d.ts"
+            },
+            {
+              "name": "pipe.cjs"
+            },
+            {
+              "name": "lazy.d.ts"
+            },
+            {
+              "name": "bigint.mjs"
+            },
+            {
+              "name": "object.cjs"
+            },
+            {
+              "name": "bigint.d.ts"
+            },
+            {
+              "name": "transform.mjs"
+            },
+            {
+              "name": "number.cjs"
+            },
+            {
+              "name": "literal.mjs"
+            },
+            {
+              "name": "nullable.mjs"
+            },
+            {
+              "name": "transform.cjs"
+            },
+            {
+              "name": "recover.mjs"
+            },
+            {
+              "name": "optional.mjs"
+            },
+            {
+              "name": "pipe.mjs"
+            },
+            {
+              "name": "number.mjs"
+            },
+            {
+              "name": "array.cjs"
+            },
+            {
+              "name": "coerce",
+              "files": [
+                {
+                  "name": "date.cjs"
+                },
+                {
+                  "name": "date.d.ts"
+                },
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "nil.d.ts"
+                },
+                {
+                  "name": "nil.cjs"
+                },
+                {
+                  "name": "bigint.mjs"
+                },
+                {
+                  "name": "bigint.d.ts"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.mjs"
+                },
+                {
+                  "name": "string.mjs"
+                },
+                {
+                  "name": "empty.mjs"
+                },
+                {
+                  "name": "string.d.ts"
+                },
+                {
+                  "name": "date.mjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "string.cjs"
+                },
+                {
+                  "name": "boolean.mjs"
+                },
+                {
+                  "name": "empty.cjs"
+                },
+                {
+                  "name": "empty.d.ts"
+                },
+                {
+                  "name": "nil.mjs"
+                },
+                {
+                  "name": "boolean.cjs"
+                },
+                {
+                  "name": "index.mjs"
+                },
+                {
+                  "name": "bigint.cjs"
+                },
+                {
+                  "name": "boolean.d.ts"
+                }
+              ]
+            },
+            {
+              "name": "object.mjs"
+            },
+            {
+              "name": "lazy.mjs"
+            },
+            {
+              "name": "string.mjs"
+            },
+            {
+              "name": "empty.mjs"
+            },
+            {
+              "name": "array.mjs"
+            },
+            {
+              "name": "unknown.d.ts"
+            },
+            {
+              "name": "unknown.cjs"
+            },
+            {
+              "name": "array.d.ts"
+            },
+            {
+              "name": "string.d.ts"
+            },
+            {
+              "name": "tuple.mjs"
+            },
+            {
+              "name": "date.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "string.cjs"
+            },
+            {
+              "name": "recover.d.ts"
+            },
+            {
+              "name": "nullable.d.ts"
+            },
+            {
+              "name": "unknown.mjs"
+            },
+            {
+              "name": "record.cjs"
+            },
+            {
+              "name": "tuple.cjs"
+            },
+            {
+              "name": "literal.d.ts"
+            },
+            {
+              "name": "boolean.mjs"
+            },
+            {
+              "name": "empty.cjs"
+            },
+            {
+              "name": "empty.d.ts"
+            },
+            {
+              "name": "nil.mjs"
+            },
+            {
+              "name": "boolean.cjs"
+            },
+            {
+              "name": "literal.cjs"
+            },
+            {
+              "name": "index.mjs"
+            },
+            {
+              "name": "union.mjs"
+            },
+            {
+              "name": "optional.cjs"
+            },
+            {
+              "name": "templateLiteral.mjs"
+            },
+            {
+              "name": "templateLiteral.d.ts"
+            },
+            {
+              "name": "pipe.d.ts"
+            },
+            {
+              "name": "union.d.ts"
+            },
+            {
+              "name": "bigint.cjs"
+            },
+            {
+              "name": "boolean.d.ts"
+            },
+            {
+              "name": "object.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "baseExtended.d.ts"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "kind.d.ts"
+        },
+        {
+          "name": "base.mjs"
+        }
+      ]
+    },
+    {
+      "name": "index.cjs"
+    },
+    {
+      "name": "object",
+      "files": [
+        {
+          "name": "discriminate.cjs"
+        },
+        {
+          "name": "transformProperty.d.ts"
+        },
+        {
+          "name": "entries.d.ts"
+        },
+        {
+          "name": "transformProperties.cjs"
+        },
+        {
+          "name": "entry.cjs"
+        },
+        {
+          "name": "entry.mjs"
+        },
+        {
+          "name": "to.d.ts"
+        },
+        {
+          "name": "entries.cjs"
+        },
+        {
+          "name": "assign.mjs"
+        },
+        {
+          "name": "override.mjs"
+        },
+        {
+          "name": "omit.d.ts"
+        },
+        {
+          "name": "discriminate.mjs"
+        },
+        {
+          "name": "entry.d.ts"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "assign.d.ts"
+        },
+        {
+          "name": "deepDiscriminate.cjs"
+        },
+        {
+          "name": "keys.mjs"
+        },
+        {
+          "name": "override.d.ts"
+        },
+        {
+          "name": "keys.d.ts"
+        },
+        {
+          "name": "to.cjs"
+        },
+        {
+          "name": "values.mjs"
+        },
+        {
+          "name": "getProperty.d.ts"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "assignObjects.d.ts"
+            },
+            {
+              "name": "UnionObjectToIntersection.d.ts"
+            },
+            {
+              "name": "partialKeys.d.ts"
+            },
+            {
+              "name": "flatObject.d.ts"
+            },
+            {
+              "name": "unFlatObject.d.ts"
+            },
+            {
+              "name": "getPropsWithValue.d.ts"
+            },
+            {
+              "name": "getPropsWithValueExtends.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "requiredKeys.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "transformProperties.d.ts"
+        },
+        {
+          "name": "pick.cjs"
+        },
+        {
+          "name": "pick.mjs"
+        },
+        {
+          "name": "fromEntries.mjs"
+        },
+        {
+          "name": "getProperty.mjs"
+        },
+        {
+          "name": "fromEntries.cjs"
+        },
+        {
+          "name": "to.mjs"
+        },
+        {
+          "name": "transformProperties.mjs"
+        },
+        {
+          "name": "discriminate.d.ts"
+        },
+        {
+          "name": "deepDiscriminate.d.ts"
+        },
+        {
+          "name": "fromEntries.d.ts"
+        },
+        {
+          "name": "hasKeys.cjs"
+        },
+        {
+          "name": "getDeepProperty.d.ts"
+        },
+        {
+          "name": "values.d.ts"
+        },
+        {
+          "name": "hasKeys.mjs"
+        },
+        {
+          "name": "getDeepProperty.cjs"
+        },
+        {
+          "name": "keys.cjs"
+        },
+        {
+          "name": "omit.mjs"
+        },
+        {
+          "name": "omit.cjs"
+        },
+        {
+          "name": "pick.d.ts"
+        },
+        {
+          "name": "assign.cjs"
+        },
+        {
+          "name": "getDeepProperty.mjs"
+        },
+        {
+          "name": "override.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "getProperty.cjs"
+        },
+        {
+          "name": "transformProperty.cjs"
+        },
+        {
+          "name": "transformProperty.mjs"
+        },
+        {
+          "name": "deepDiscriminate.mjs"
+        },
+        {
+          "name": "entries.mjs"
+        },
+        {
+          "name": "values.cjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "hasKeys.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "array",
+      "files": [
+        {
+          "name": "push.mjs"
+        },
+        {
+          "name": "reduce.mjs"
+        },
+        {
+          "name": "join.mjs"
+        },
+        {
+          "name": "insert.mjs"
+        },
+        {
+          "name": "from.cjs"
+        },
+        {
+          "name": "filter.mjs"
+        },
+        {
+          "name": "sort.cjs"
+        },
+        {
+          "name": "coalescing.d.ts"
+        },
+        {
+          "name": "insert.d.ts"
+        },
+        {
+          "name": "copyWithin.mjs"
+        },
+        {
+          "name": "shift.d.ts"
+        },
+        {
+          "name": "set.mjs"
+        },
+        {
+          "name": "notIncludes.cjs"
+        },
+        {
+          "name": "minElements.cjs"
+        },
+        {
+          "name": "findLastIndex.d.ts"
+        },
+        {
+          "name": "minOf.mjs"
+        },
+        {
+          "name": "reduceRight.cjs"
+        },
+        {
+          "name": "fill",
+          "files": [
+            {
+              "name": "default.cjs"
+            },
+            {
+              "name": "default.mjs"
+            },
+            {
+              "name": "all.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "default.d.ts"
+            },
+            {
+              "name": "all.mjs"
+            },
+            {
+              "name": "all.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "reduce.cjs"
+        },
+        {
+          "name": "chunk.d.ts"
+        },
+        {
+          "name": "every.d.ts"
+        },
+        {
+          "name": "notIncludes.mjs"
+        },
+        {
+          "name": "push.d.ts"
+        },
+        {
+          "name": "coalescing.mjs"
+        },
+        {
+          "name": "maxOf.mjs"
+        },
+        {
+          "name": "sum.mjs"
+        },
+        {
+          "name": "findLast.mjs"
+        },
+        {
+          "name": "flatMap.cjs"
+        },
+        {
+          "name": "includes.cjs"
+        },
+        {
+          "name": "length.cjs"
+        },
+        {
+          "name": "insert.cjs"
+        },
+        {
+          "name": "length.d.ts"
+        },
+        {
+          "name": "shift.cjs"
+        },
+        {
+          "name": "push.cjs"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "toTuple.d.ts"
+        },
+        {
+          "name": "set.cjs"
+        },
+        {
+          "name": "maxElements.cjs"
+        },
+        {
+          "name": "flat.cjs"
+        },
+        {
+          "name": "flat.d.ts"
+        },
+        {
+          "name": "from.mjs"
+        },
+        {
+          "name": "sort.d.ts"
+        },
+        {
+          "name": "minElements.mjs"
+        },
+        {
+          "name": "findAndSplice",
+          "files": [
+            {
+              "name": "insert.mjs"
+            },
+            {
+              "name": "insert.d.ts"
+            },
+            {
+              "name": "delete.mjs"
+            },
+            {
+              "name": "insert.cjs"
+            },
+            {
+              "name": "replace.cjs"
+            },
+            {
+              "name": "replace.d.ts"
+            },
+            {
+              "name": "delete.cjs"
+            },
+            {
+              "name": "delete.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "replace.mjs"
+            }
+          ]
+        },
+        {
+          "name": "findIndex.cjs"
+        },
+        {
+          "name": "concat.mjs"
+        },
+        {
+          "name": "some.mjs"
+        },
+        {
+          "name": "maxElements.mjs"
+        },
+        {
+          "name": "is.cjs"
+        },
+        {
+          "name": "indexOf.d.ts"
+        },
+        {
+          "name": "select.d.ts"
+        },
+        {
+          "name": "pop.mjs"
+        },
+        {
+          "name": "group.d.ts"
+        },
+        {
+          "name": "maxElements.d.ts"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "extractTuple.d.ts"
+            },
+            {
+              "name": "atTuple.d.ts"
+            },
+            {
+              "name": "createTuple.d.ts"
+            },
+            {
+              "name": "mergeUnionTuple.d.ts"
+            },
+            {
+              "name": "reverseTuple.d.ts"
+            },
+            {
+              "name": "popTuple.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "excludeTuple.d.ts"
+            },
+            {
+              "name": "ArrayCoalescing.d.ts"
+            },
+            {
+              "name": "tupleHasSpread.d.ts"
+            },
+            {
+              "name": "shiftTuple.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "coalescing.cjs"
+        },
+        {
+          "name": "slice.mjs"
+        },
+        {
+          "name": "sort.mjs"
+        },
+        {
+          "name": "findLast.d.ts"
+        },
+        {
+          "name": "unshift.cjs"
+        },
+        {
+          "name": "map.mjs"
+        },
+        {
+          "name": "minElements.d.ts"
+        },
+        {
+          "name": "group.mjs"
+        },
+        {
+          "name": "findLastIndex.cjs"
+        },
+        {
+          "name": "find.cjs"
+        },
+        {
+          "name": "toTuple.cjs"
+        },
+        {
+          "name": "shift.mjs"
+        },
+        {
+          "name": "find.d.ts"
+        },
+        {
+          "name": "flatMap.mjs"
+        },
+        {
+          "name": "reduceRight.mjs"
+        },
+        {
+          "name": "slice.d.ts"
+        },
+        {
+          "name": "findAndReplace.cjs"
+        },
+        {
+          "name": "every.mjs"
+        },
+        {
+          "name": "isLastIndex.d.ts"
+        },
+        {
+          "name": "reverse.mjs"
+        },
+        {
+          "name": "isLastIndex.cjs"
+        },
+        {
+          "name": "filter.d.ts"
+        },
+        {
+          "name": "findIndex.d.ts"
+        },
+        {
+          "name": "findLastIndex.mjs"
+        },
+        {
+          "name": "map.d.ts"
+        },
+        {
+          "name": "pop.d.ts"
+        },
+        {
+          "name": "join.d.ts"
+        },
+        {
+          "name": "at",
+          "files": [
+            {
+              "name": "default.cjs"
+            },
+            {
+              "name": "last.d.ts"
+            },
+            {
+              "name": "default.mjs"
+            },
+            {
+              "name": "first.mjs"
+            },
+            {
+              "name": "last.mjs"
+            },
+            {
+              "name": "last.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "first.cjs"
+            },
+            {
+              "name": "default.d.ts"
+            },
+            {
+              "name": "first.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "reduceRight.d.ts"
+        },
+        {
+          "name": "from.d.ts"
+        },
+        {
+          "name": "find.mjs"
+        },
+        {
+          "name": "copyWithin.d.ts"
+        },
+        {
+          "name": "isLastIndex.mjs"
+        },
+        {
+          "name": "reverse.d.ts"
+        },
+        {
+          "name": "lastIndexOf.mjs"
+        },
+        {
+          "name": "minOf.d.ts"
+        },
+        {
+          "name": "notIncludes.d.ts"
+        },
+        {
+          "name": "flatMap.d.ts"
+        },
+        {
+          "name": "some.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "set.d.ts"
+        },
+        {
+          "name": "every.cjs"
+        },
+        {
+          "name": "slice.cjs"
+        },
+        {
+          "name": "minOf.cjs"
+        },
+        {
+          "name": "select.cjs"
+        },
+        {
+          "name": "copyWithin.cjs"
+        },
+        {
+          "name": "filter.cjs"
+        },
+        {
+          "name": "select.mjs"
+        },
+        {
+          "name": "concat.cjs"
+        },
+        {
+          "name": "join.cjs"
+        },
+        {
+          "name": "sum.d.ts"
+        },
+        {
+          "name": "flat.mjs"
+        },
+        {
+          "name": "findAndReplace.mjs"
+        },
+        {
+          "name": "concat.d.ts"
+        },
+        {
+          "name": "pop.cjs"
+        },
+        {
+          "name": "indexOf.mjs"
+        },
+        {
+          "name": "findIndex.mjs"
+        },
+        {
+          "name": "some.d.ts"
+        },
+        {
+          "name": "includes.mjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "group.cjs"
+        },
+        {
+          "name": "chunk.mjs"
+        },
+        {
+          "name": "findAndReplace.d.ts"
+        },
+        {
+          "name": "splice",
+          "files": [
+            {
+              "name": "insert.mjs"
+            },
+            {
+              "name": "insert.d.ts"
+            },
+            {
+              "name": "delete.mjs"
+            },
+            {
+              "name": "insert.cjs"
+            },
+            {
+              "name": "replace.cjs"
+            },
+            {
+              "name": "replace.d.ts"
+            },
+            {
+              "name": "delete.cjs"
+            },
+            {
+              "name": "delete.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "replace.mjs"
+            }
+          ]
+        },
+        {
+          "name": "maxOf.cjs"
+        },
+        {
+          "name": "chunk.cjs"
+        },
+        {
+          "name": "unshift.mjs"
+        },
+        {
+          "name": "is.mjs"
+        },
+        {
+          "name": "lastIndexOf.d.ts"
+        },
+        {
+          "name": "unshift.d.ts"
+        },
+        {
+          "name": "toTuple.mjs"
+        },
+        {
+          "name": "length.mjs"
+        },
+        {
+          "name": "is.d.ts"
+        },
+        {
+          "name": "reduce.d.ts"
+        },
+        {
+          "name": "findLast.cjs"
+        },
+        {
+          "name": "indexOf.cjs"
+        },
+        {
+          "name": "map.cjs"
+        },
+        {
+          "name": "includes.d.ts"
+        },
+        {
+          "name": "sum.cjs"
+        },
+        {
+          "name": "maxOf.d.ts"
+        },
+        {
+          "name": "lastIndexOf.cjs"
+        },
+        {
+          "name": "reverse.cjs"
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "files": [
+        {
+          "name": "endsWith.d.ts"
+        },
+        {
+          "name": "isIn.d.ts"
+        },
+        {
+          "name": "split.mjs"
+        },
+        {
+          "name": "uncapitalize.cjs"
+        },
+        {
+          "name": "test.mjs"
+        },
+        {
+          "name": "sort.cjs"
+        },
+        {
+          "name": "padEnd.d.ts"
+        },
+        {
+          "name": "startsWith.cjs"
+        },
+        {
+          "name": "padStart.d.ts"
+        },
+        {
+          "name": "repeat.mjs"
+        },
+        {
+          "name": "charAt.cjs"
+        },
+        {
+          "name": "substring.mjs"
+        },
+        {
+          "name": "split.d.ts"
+        },
+        {
+          "name": "padEnd.mjs"
+        },
+        {
+          "name": "isKeyof.mjs"
+        },
+        {
+          "name": "isKeyof.d.ts"
+        },
+        {
+          "name": "matchAll.mjs"
+        },
+        {
+          "name": "toLowerCase.d.ts"
+        },
+        {
+          "name": "includes.cjs"
+        },
+        {
+          "name": "length.cjs"
+        },
+        {
+          "name": "replaceAll.cjs"
+        },
+        {
+          "name": "length.d.ts"
+        },
+        {
+          "name": "replace.cjs"
+        },
+        {
+          "name": "capitalize.mjs"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "split.cjs"
+        },
+        {
+          "name": "replace.d.ts"
+        },
+        {
+          "name": "normalize.cjs"
+        },
+        {
+          "name": "substring.d.ts"
+        },
+        {
+          "name": "padStart.cjs"
+        },
+        {
+          "name": "sort.d.ts"
+        },
+        {
+          "name": "substring.cjs"
+        },
+        {
+          "name": "concat.mjs"
+        },
+        {
+          "name": "indexOf.d.ts"
+        },
+        {
+          "name": "replaceAll.mjs"
+        },
+        {
+          "name": "isIn.mjs"
+        },
+        {
+          "name": "padStart.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "endsWith.d.ts"
+            },
+            {
+              "name": "normalizeForm.d.ts"
+            },
+            {
+              "name": "forbiddenString.d.ts"
+            },
+            {
+              "name": "number.d.ts"
+            },
+            {
+              "name": "split.d.ts"
+            },
+            {
+              "name": "stringLength.d.ts"
+            },
+            {
+              "name": "last.d.ts"
+            },
+            {
+              "name": "templateLiteralContainLargeType.d.ts"
+            },
+            {
+              "name": "digit.d.ts"
+            },
+            {
+              "name": "startsWith.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "first.d.ts"
+            },
+            {
+              "name": "includes.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "test.cjs"
+        },
+        {
+          "name": "slice.mjs"
+        },
+        {
+          "name": "sort.mjs"
+        },
+        {
+          "name": "endsWith.mjs"
+        },
+        {
+          "name": "toLowerCase.cjs"
+        },
+        {
+          "name": "search.cjs"
+        },
+        {
+          "name": "test.d.ts"
+        },
+        {
+          "name": "toLowerCase.mjs"
+        },
+        {
+          "name": "slice.d.ts"
+        },
+        {
+          "name": "padEnd.cjs"
+        },
+        {
+          "name": "toUpperCase.d.ts"
+        },
+        {
+          "name": "toUpperCase.mjs"
+        },
+        {
+          "name": "search.d.ts"
+        },
+        {
+          "name": "match.d.ts"
+        },
+        {
+          "name": "search.mjs"
+        },
+        {
+          "name": "match.cjs"
+        },
+        {
+          "name": "startsWith.mjs"
+        },
+        {
+          "name": "isKeyof.cjs"
+        },
+        {
+          "name": "trim",
+          "files": [
+            {
+              "name": "default.cjs"
+            },
+            {
+              "name": "default.mjs"
+            },
+            {
+              "name": "end.d.ts"
+            },
+            {
+              "name": "end.cjs"
+            },
+            {
+              "name": "end.mjs"
+            },
+            {
+              "name": "start.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "default.d.ts"
+            },
+            {
+              "name": "start.cjs"
+            },
+            {
+              "name": "start.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "capitalize.d.ts"
+        },
+        {
+          "name": "at",
+          "files": [
+            {
+              "name": "default.cjs"
+            },
+            {
+              "name": "last.d.ts"
+            },
+            {
+              "name": "default.mjs"
+            },
+            {
+              "name": "first.mjs"
+            },
+            {
+              "name": "last.mjs"
+            },
+            {
+              "name": "last.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "first.cjs"
+            },
+            {
+              "name": "default.d.ts"
+            },
+            {
+              "name": "first.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "startsWith.d.ts"
+        },
+        {
+          "name": "lastIndexOf.mjs"
+        },
+        {
+          "name": "isIn.cjs"
+        },
+        {
+          "name": "toUpperCase.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "match.mjs"
+        },
+        {
+          "name": "repeat.cjs"
+        },
+        {
+          "name": "slice.cjs"
+        },
+        {
+          "name": "matchAll.d.ts"
+        },
+        {
+          "name": "capitalize.cjs"
+        },
+        {
+          "name": "uncapitalize.d.ts"
+        },
+        {
+          "name": "concat.cjs"
+        },
+        {
+          "name": "concat.d.ts"
+        },
+        {
+          "name": "indexOf.mjs"
+        },
+        {
+          "name": "replaceAll.d.ts"
+        },
+        {
+          "name": "repeat.d.ts"
+        },
+        {
+          "name": "includes.mjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "matchAll.cjs"
+        },
+        {
+          "name": "normalize.mjs"
+        },
+        {
+          "name": "charAt.d.ts"
+        },
+        {
+          "name": "uncapitalize.mjs"
+        },
+        {
+          "name": "replace.mjs"
+        },
+        {
+          "name": "lastIndexOf.d.ts"
+        },
+        {
+          "name": "length.mjs"
+        },
+        {
+          "name": "normalize.d.ts"
+        },
+        {
+          "name": "indexOf.cjs"
+        },
+        {
+          "name": "endsWith.cjs"
+        },
+        {
+          "name": "includes.d.ts"
+        },
+        {
+          "name": "charAt.mjs"
+        },
+        {
+          "name": "lastIndexOf.cjs"
+        }
+      ]
+    },
+    {
+      "name": "pattern",
+      "files": [
+        {
+          "name": "result.d.ts"
+        },
+        {
+          "name": "otherwise.d.ts"
+        },
+        {
+          "name": "result.cjs"
+        },
+        {
+          "name": "exhaustive.mjs"
+        },
+        {
+          "name": "match",
+          "files": [
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "builder.d.ts"
+            },
+            {
+              "name": "builder.mjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "index.mjs"
+            },
+            {
+              "name": "builder.cjs"
+            }
+          ]
+        },
+        {
+          "name": "exhaustive.d.ts"
+        },
+        {
+          "name": "union.cjs"
+        },
+        {
+          "name": "isMatch.d.ts"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "otherwise.mjs"
+        },
+        {
+          "name": "exhaustive.cjs"
+        },
+        {
+          "name": "result.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "pattern.mjs"
+            },
+            {
+              "name": "complexMatchedValue",
+              "files": [
+                {
+                  "name": "primitive.d.ts"
+                },
+                {
+                  "name": "maybeAll.d.ts"
+                },
+                {
+                  "name": "array.d.ts"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "object.d.ts"
+                }
+              ]
+            },
+            {
+              "name": "pattern.d.ts"
+            },
+            {
+              "name": "complexUnMatchedValue",
+              "files": [
+                {
+                  "name": "getIncompleteUnion.d.ts"
+                },
+                {
+                  "name": "primitive.d.ts"
+                },
+                {
+                  "name": "unionObject.d.ts"
+                },
+                {
+                  "name": "maybeAll.d.ts"
+                },
+                {
+                  "name": "array.d.ts"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "object.d.ts"
+                }
+              ]
+            },
+            {
+              "name": "pattern.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "otherwise.cjs"
+        },
+        {
+          "name": "when.d.ts"
+        },
+        {
+          "name": "isMatch.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "isMatch.mjs"
+        },
+        {
+          "name": "when.cjs"
+        },
+        {
+          "name": "when.mjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "union.mjs"
+        },
+        {
+          "name": "union.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "date",
+      "files": [
+        {
+          "name": "operators",
+          "files": [
+            {
+              "name": "addDays.d.ts"
+            },
+            {
+              "name": "addMonths.d.ts"
+            },
+            {
+              "name": "subtractDays.mjs"
+            },
+            {
+              "name": "subtractDays.cjs"
+            },
+            {
+              "name": "greaterThan.mjs"
+            },
+            {
+              "name": "subtractSeconds.d.ts"
+            },
+            {
+              "name": "addWeeks.d.ts"
+            },
+            {
+              "name": "subtractSeconds.mjs"
+            },
+            {
+              "name": "addWeeks.cjs"
+            },
+            {
+              "name": "subtractWeeks.cjs"
+            },
+            {
+              "name": "addHours.mjs"
+            },
+            {
+              "name": "subtractWeeks.mjs"
+            },
+            {
+              "name": "subtractMinutes.mjs"
+            },
+            {
+              "name": "less.d.ts"
+            },
+            {
+              "name": "less.mjs"
+            },
+            {
+              "name": "subtractHours.mjs"
+            },
+            {
+              "name": "addSeconds.cjs"
+            },
+            {
+              "name": "subtractMilliseconds.cjs"
+            },
+            {
+              "name": "lessThan.cjs"
+            },
+            {
+              "name": "addDays.mjs"
+            },
+            {
+              "name": "subtractYears.d.ts"
+            },
+            {
+              "name": "greaterThan.cjs"
+            },
+            {
+              "name": "greater.d.ts"
+            },
+            {
+              "name": "subtractMonths.cjs"
+            },
+            {
+              "name": "betweenThan.cjs"
+            },
+            {
+              "name": "addSeconds.d.ts"
+            },
+            {
+              "name": "addMinutes.d.ts"
+            },
+            {
+              "name": "addMilliseconds.cjs"
+            },
+            {
+              "name": "addHours.d.ts"
+            },
+            {
+              "name": "subtractMinutes.d.ts"
+            },
+            {
+              "name": "addYears.cjs"
+            },
+            {
+              "name": "subtractMilliseconds.d.ts"
+            },
+            {
+              "name": "greater.cjs"
+            },
+            {
+              "name": "between.d.ts"
+            },
+            {
+              "name": "subtractMonths.mjs"
+            },
+            {
+              "name": "addMinutes.mjs"
+            },
+            {
+              "name": "between.mjs"
+            },
+            {
+              "name": "addSeconds.mjs"
+            },
+            {
+              "name": "addHours.cjs"
+            },
+            {
+              "name": "subtractSeconds.cjs"
+            },
+            {
+              "name": "addDays.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "greaterThan.d.ts"
+            },
+            {
+              "name": "subtractMinutes.cjs"
+            },
+            {
+              "name": "lessThan.mjs"
+            },
+            {
+              "name": "addMilliseconds.mjs"
+            },
+            {
+              "name": "subtractWeeks.d.ts"
+            },
+            {
+              "name": "betweenThan.d.ts"
+            },
+            {
+              "name": "greater.mjs"
+            },
+            {
+              "name": "less.cjs"
+            },
+            {
+              "name": "addMinutes.cjs"
+            },
+            {
+              "name": "betweenThan.mjs"
+            },
+            {
+              "name": "subtractHours.d.ts"
+            },
+            {
+              "name": "addYears.d.ts"
+            },
+            {
+              "name": "lessThan.d.ts"
+            },
+            {
+              "name": "between.cjs"
+            },
+            {
+              "name": "subtractMilliseconds.mjs"
+            },
+            {
+              "name": "subtractDays.d.ts"
+            },
+            {
+              "name": "subtractYears.mjs"
+            },
+            {
+              "name": "addMilliseconds.d.ts"
+            },
+            {
+              "name": "addMonths.mjs"
+            },
+            {
+              "name": "subtractHours.cjs"
+            },
+            {
+              "name": "subtractYears.cjs"
+            },
+            {
+              "name": "addWeeks.mjs"
+            },
+            {
+              "name": "addYears.mjs"
+            },
+            {
+              "name": "subtractMonths.d.ts"
+            },
+            {
+              "name": "addMonths.cjs"
+            }
+          ]
+        },
+        {
+          "name": "isSafeTimestamp.d.ts"
+        },
+        {
+          "name": "max.cjs"
+        },
+        {
+          "name": "isSafeTimestamp.mjs"
+        },
+        {
+          "name": "create.cjs"
+        },
+        {
+          "name": "sort.cjs"
+        },
+        {
+          "name": "max.mjs"
+        },
+        {
+          "name": "each.cjs"
+        },
+        {
+          "name": "toTimestamp.d.ts"
+        },
+        {
+          "name": "toTimestamp.mjs"
+        },
+        {
+          "name": "tomorrow.mjs"
+        },
+        {
+          "name": "each.mjs"
+        },
+        {
+          "name": "today.cjs"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "getters",
+          "files": [
+            {
+              "name": "getHour.cjs"
+            },
+            {
+              "name": "getHour.d.ts"
+            },
+            {
+              "name": "getMilliseconds.cjs"
+            },
+            {
+              "name": "getFirstDayOfMonth.mjs"
+            },
+            {
+              "name": "getSecond.d.ts"
+            },
+            {
+              "name": "getLastDayOfMonth.cjs"
+            },
+            {
+              "name": "getLastDayOfMonth.d.ts"
+            },
+            {
+              "name": "getMilliseconds.mjs"
+            },
+            {
+              "name": "getSecond.cjs"
+            },
+            {
+              "name": "getFirstDayOfMonth.d.ts"
+            },
+            {
+              "name": "getLastDayOfWeek.mjs"
+            },
+            {
+              "name": "getDayOfMonth.mjs"
+            },
+            {
+              "name": "getWeekOfYear.d.ts"
+            },
+            {
+              "name": "getFirstDayOfMonth.cjs"
+            },
+            {
+              "name": "getDayOfWeek.d.ts"
+            },
+            {
+              "name": "getMinute.cjs"
+            },
+            {
+              "name": "getMinute.d.ts"
+            },
+            {
+              "name": "getDayOfYear.cjs"
+            },
+            {
+              "name": "getSecond.mjs"
+            },
+            {
+              "name": "getFirstDayOfWeek.mjs"
+            },
+            {
+              "name": "getMinute.mjs"
+            },
+            {
+              "name": "getMonth.mjs"
+            },
+            {
+              "name": "getYear.d.ts"
+            },
+            {
+              "name": "getLastDayOfWeek.d.ts"
+            },
+            {
+              "name": "getLastDayOfMonth.mjs"
+            },
+            {
+              "name": "getDayOfMonth.d.ts"
+            },
+            {
+              "name": "getLastDayOfWeek.cjs"
+            },
+            {
+              "name": "getFirstDayOfWeek.d.ts"
+            },
+            {
+              "name": "getDayOfYear.mjs"
+            },
+            {
+              "name": "getWeekOfYear.mjs"
+            },
+            {
+              "name": "getDayOfWeek.mjs"
+            },
+            {
+              "name": "getYear.cjs"
+            },
+            {
+              "name": "getDayOfMonth.cjs"
+            },
+            {
+              "name": "getMilliseconds.d.ts"
+            },
+            {
+              "name": "getDayOfYear.d.ts"
+            },
+            {
+              "name": "getDayOfWeek.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "getYear.mjs"
+            },
+            {
+              "name": "getFirstDayOfWeek.cjs"
+            },
+            {
+              "name": "getMonth.cjs"
+            },
+            {
+              "name": "getWeekOfYear.cjs"
+            },
+            {
+              "name": "getHour.mjs"
+            },
+            {
+              "name": "getMonth.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "now.d.ts"
+        },
+        {
+          "name": "sort.d.ts"
+        },
+        {
+          "name": "max.d.ts"
+        },
+        {
+          "name": "closestTo.cjs"
+        },
+        {
+          "name": "is.cjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "theDate.d.ts"
+            },
+            {
+              "name": "time.d.ts"
+            },
+            {
+              "name": "month.d.ts"
+            },
+            {
+              "name": "isLeapYear.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "timezone.d.ts"
+            },
+            {
+              "name": "unit.d.ts"
+            },
+            {
+              "name": "timezone.cjs"
+            },
+            {
+              "name": "timezone.mjs"
+            }
+          ]
+        },
+        {
+          "name": "toISOString.cjs"
+        },
+        {
+          "name": "sort.mjs"
+        },
+        {
+          "name": "constants.mjs"
+        },
+        {
+          "name": "closestTo.d.ts"
+        },
+        {
+          "name": "create.mjs"
+        },
+        {
+          "name": "now.cjs"
+        },
+        {
+          "name": "toNative.cjs"
+        },
+        {
+          "name": "each.d.ts"
+        },
+        {
+          "name": "min.d.ts"
+        },
+        {
+          "name": "yesterday.cjs"
+        },
+        {
+          "name": "now.mjs"
+        },
+        {
+          "name": "min.mjs"
+        },
+        {
+          "name": "yesterday.mjs"
+        },
+        {
+          "name": "round.mjs"
+        },
+        {
+          "name": "constants.cjs"
+        },
+        {
+          "name": "toISOString.mjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "create.d.ts"
+        },
+        {
+          "name": "yesterday.d.ts"
+        },
+        {
+          "name": "toNative.d.ts"
+        },
+        {
+          "name": "closestTo.mjs"
+        },
+        {
+          "name": "createOrThrow.cjs"
+        },
+        {
+          "name": "constants.d.ts"
+        },
+        {
+          "name": "min.cjs"
+        },
+        {
+          "name": "tomorrow.cjs"
+        },
+        {
+          "name": "createOrThrow.d.ts"
+        },
+        {
+          "name": "tomorrow.d.ts"
+        },
+        {
+          "name": "createOrThrow.mjs"
+        },
+        {
+          "name": "round.cjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "toISOString.d.ts"
+        },
+        {
+          "name": "today.d.ts"
+        },
+        {
+          "name": "isSafeTimestamp.cjs"
+        },
+        {
+          "name": "round.d.ts"
+        },
+        {
+          "name": "is.mjs"
+        },
+        {
+          "name": "is.d.ts"
+        },
+        {
+          "name": "toTimestamp.cjs"
+        },
+        {
+          "name": "today.mjs"
+        },
+        {
+          "name": "toNative.mjs"
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "files": [
+        {
+          "name": "createKindIdentifier.mjs"
+        },
+        {
+          "name": "innerPipe.cjs"
+        },
+        {
+          "name": "forward.cjs"
+        },
+        {
+          "name": "toWrappedValue.cjs"
+        },
+        {
+          "name": "justReturn.mjs"
+        },
+        {
+          "name": "loop.mjs"
+        },
+        {
+          "name": "isType.cjs"
+        },
+        {
+          "name": "externalPromise.mjs"
+        },
+        {
+          "name": "toTransform.cjs"
+        },
+        {
+          "name": "clone.mjs"
+        },
+        {
+          "name": "toTransform.mjs"
+        },
+        {
+          "name": "override.mjs"
+        },
+        {
+          "name": "instanceOf.cjs"
+        },
+        {
+          "name": "whenNot.mjs"
+        },
+        {
+          "name": "toJSON.cjs"
+        },
+        {
+          "name": "enum.d.ts"
+        },
+        {
+          "name": "errorKindNamespace.d.ts"
+        },
+        {
+          "name": "forwardLog.d.ts"
+        },
+        {
+          "name": "justReturn.cjs"
+        },
+        {
+          "name": "asyncInnerPipe.mjs"
+        },
+        {
+          "name": "unwrap.cjs"
+        },
+        {
+          "name": "globalStore.d.ts"
+        },
+        {
+          "name": "unwrap.d.ts"
+        },
+        {
+          "name": "sleep.mjs"
+        },
+        {
+          "name": "errorKindNamespace.mjs"
+        },
+        {
+          "name": "asyncPipe.d.ts"
+        },
+        {
+          "name": "asyncRetry.mjs"
+        },
+        {
+          "name": "builder.d.ts"
+        },
+        {
+          "name": "toWrappedValue.mjs"
+        },
+        {
+          "name": "externalPromise.cjs"
+        },
+        {
+          "name": "override.d.ts"
+        },
+        {
+          "name": "escapeRegExp.cjs"
+        },
+        {
+          "name": "pipe.cjs"
+        },
+        {
+          "name": "instanceOf.mjs"
+        },
+        {
+          "name": "instanceOf.d.ts"
+        },
+        {
+          "name": "toTransform.d.ts"
+        },
+        {
+          "name": "and.d.ts"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "removeDuplicateInUnion.d.ts"
+            },
+            {
+              "name": "removeFromUnion.d.ts"
+            },
+            {
+              "name": "sortType.d.ts"
+            },
+            {
+              "name": "deepRemoveReadonly.d.ts"
+            },
+            {
+              "name": "unionContain.d.ts"
+            },
+            {
+              "name": "objectEntry.d.ts"
+            },
+            {
+              "name": "anyConstructor.d.ts"
+            },
+            {
+              "name": "forcePredicate.d.ts"
+            },
+            {
+              "name": "onlyLiteral.d.ts"
+            },
+            {
+              "name": "escapeVoid.d.ts"
+            },
+            {
+              "name": "not.d.ts"
+            },
+            {
+              "name": "objectKey.d.ts"
+            },
+            {
+              "name": "adaptor.d.ts"
+            },
+            {
+              "name": "unionToTuple.d.ts"
+            },
+            {
+              "name": "breakGenericLink.d.ts"
+            },
+            {
+              "name": "maybeWrapped.d.ts"
+            },
+            {
+              "name": "and.d.ts"
+            },
+            {
+              "name": "or.d.ts"
+            },
+            {
+              "name": "expectType.d.ts"
+            },
+            {
+              "name": "anyFunction.d.ts"
+            },
+            {
+              "name": "unionToIntersection.d.ts"
+            },
+            {
+              "name": "anyTuple.d.ts"
+            },
+            {
+              "name": "escapeAny.d.ts"
+            },
+            {
+              "name": "predicate.d.ts"
+            },
+            {
+              "name": "anyObject.d.ts"
+            },
+            {
+              "name": "lastUnionElement.d.ts"
+            },
+            {
+              "name": "simplifyTypeForce.d.ts"
+            },
+            {
+              "name": "neverCoalescing.d.ts"
+            },
+            {
+              "name": "deepPartial.d.ts"
+            },
+            {
+              "name": "removeReadonly.d.ts"
+            },
+            {
+              "name": "maybePromise.d.ts"
+            },
+            {
+              "name": "fixDeepFunctionInfer.d.ts"
+            },
+            {
+              "name": "toLargeEnsemble.d.ts"
+            },
+            {
+              "name": "anyPredicate.d.ts"
+            },
+            {
+              "name": "maybeGetter.d.ts"
+            },
+            {
+              "name": "simplifyTopLevel.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "addOne.d.ts"
+            },
+            {
+              "name": "maybeArray.d.ts"
+            },
+            {
+              "name": "simplifyType.d.ts"
+            },
+            {
+              "name": "IsExtends.d.ts"
+            },
+            {
+              "name": "anyValue.d.ts"
+            },
+            {
+              "name": "isEqual.d.ts"
+            },
+            {
+              "name": "isStringLIteral.d.ts"
+            },
+            {
+              "name": "unwrapArray.d.ts"
+            },
+            {
+              "name": "isUnion.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "innerPipe.d.ts"
+        },
+        {
+          "name": "or.d.ts"
+        },
+        {
+          "name": "equal.mjs"
+        },
+        {
+          "name": "forward.d.ts"
+        },
+        {
+          "name": "or.mjs"
+        },
+        {
+          "name": "whenNot.d.ts"
+        },
+        {
+          "name": "asyncLoop.d.ts"
+        },
+        {
+          "name": "and.cjs"
+        },
+        {
+          "name": "wrapValue.cjs"
+        },
+        {
+          "name": "simpleClone.cjs"
+        },
+        {
+          "name": "kind.mjs"
+        },
+        {
+          "name": "pipe.mjs"
+        },
+        {
+          "name": "interpolation.d.ts"
+        },
+        {
+          "name": "toJSON.d.ts"
+        },
+        {
+          "name": "asyncRetry.cjs"
+        },
+        {
+          "name": "addWrappedProperties.d.ts"
+        },
+        {
+          "name": "stringToBytes.d.ts"
+        },
+        {
+          "name": "loop.cjs"
+        },
+        {
+          "name": "loop.d.ts"
+        },
+        {
+          "name": "isType.d.ts"
+        },
+        {
+          "name": "builder.mjs"
+        },
+        {
+          "name": "globalStore.mjs"
+        },
+        {
+          "name": "interpolation.mjs"
+        },
+        {
+          "name": "externalPromise.d.ts"
+        },
+        {
+          "name": "enum.mjs"
+        },
+        {
+          "name": "unwrap.mjs"
+        },
+        {
+          "name": "interpolation.cjs"
+        },
+        {
+          "name": "escapeRegExp.d.ts"
+        },
+        {
+          "name": "sleep.d.ts"
+        },
+        {
+          "name": "createKindIdentifier.cjs"
+        },
+        {
+          "name": "stringToMillisecond.mjs"
+        },
+        {
+          "name": "asyncLoop.cjs"
+        },
+        {
+          "name": "simpleClone.d.ts"
+        },
+        {
+          "name": "whenElse.cjs"
+        },
+        {
+          "name": "isType.mjs"
+        },
+        {
+          "name": "when.d.ts"
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "stringToBytes.mjs"
+        },
+        {
+          "name": "forward.mjs"
+        },
+        {
+          "name": "promiseObject.d.ts"
+        },
+        {
+          "name": "asyncPipe.mjs"
+        },
+        {
+          "name": "sleep.cjs"
+        },
+        {
+          "name": "override.cjs"
+        },
+        {
+          "name": "asyncLoop.mjs"
+        },
+        {
+          "name": "memo.cjs"
+        },
+        {
+          "name": "promiseObject.mjs"
+        },
+        {
+          "name": "toJSON.mjs"
+        },
+        {
+          "name": "asyncPipe.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "toString.d.ts"
+        },
+        {
+          "name": "whenElse.mjs"
+        },
+        {
+          "name": "justReturn.d.ts"
+        },
+        {
+          "name": "errorKindNamespace.cjs"
+        },
+        {
+          "name": "whenElse.d.ts"
+        },
+        {
+          "name": "when.cjs"
+        },
+        {
+          "name": "equal.cjs"
+        },
+        {
+          "name": "clone.d.ts"
+        },
+        {
+          "name": "enum.cjs"
+        },
+        {
+          "name": "addWrappedProperties.cjs"
+        },
+        {
+          "name": "asyncInnerPipe.d.ts"
+        },
+        {
+          "name": "asyncInnerPipe.cjs"
+        },
+        {
+          "name": "innerPipe.mjs"
+        },
+        {
+          "name": "stringToMillisecond.cjs"
+        },
+        {
+          "name": "wrapValue.d.ts"
+        },
+        {
+          "name": "and.mjs"
+        },
+        {
+          "name": "toString.mjs"
+        },
+        {
+          "name": "globalStore.cjs"
+        },
+        {
+          "name": "forwardLog.cjs"
+        },
+        {
+          "name": "forwardLog.mjs"
+        },
+        {
+          "name": "or.cjs"
+        },
+        {
+          "name": "toWrappedValue.d.ts"
+        },
+        {
+          "name": "when.mjs"
+        },
+        {
+          "name": "stringToBytes.cjs"
+        },
+        {
+          "name": "clone.cjs"
+        },
+        {
+          "name": "memo.mjs"
+        },
+        {
+          "name": "whenNot.cjs"
+        },
+        {
+          "name": "equal.d.ts"
+        },
+        {
+          "name": "stringToMillisecond.d.ts"
+        },
+        {
+          "name": "builder.cjs"
+        },
+        {
+          "name": "promiseObject.cjs"
+        },
+        {
+          "name": "simpleClone.mjs"
+        },
+        {
+          "name": "pipe.d.ts"
+        },
+        {
+          "name": "toString.cjs"
+        },
+        {
+          "name": "addWrappedProperties.mjs"
+        },
+        {
+          "name": "kind.d.ts"
+        },
+        {
+          "name": "wrapValue.mjs"
+        },
+        {
+          "name": "escapeRegExp.mjs"
+        },
+        {
+          "name": "createKindIdentifier.d.ts"
+        },
+        {
+          "name": "asyncRetry.d.ts"
+        },
+        {
+          "name": "memo.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "index.d.ts"
+    },
+    {
+      "name": "generator",
+      "files": [
+        {
+          "name": "reduce.mjs"
+        },
+        {
+          "name": "asyncFilter.d.ts"
+        },
+        {
+          "name": "loop.mjs"
+        },
+        {
+          "name": "execute.mjs"
+        },
+        {
+          "name": "filter.mjs"
+        },
+        {
+          "name": "reduce.cjs"
+        },
+        {
+          "name": "chunk.d.ts"
+        },
+        {
+          "name": "asyncChunk.mjs"
+        },
+        {
+          "name": "asyncMap.mjs"
+        },
+        {
+          "name": "asyncChunk.d.ts"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "map.mjs"
+        },
+        {
+          "name": "asyncMap.d.ts"
+        },
+        {
+          "name": "asyncLoop.d.ts"
+        },
+        {
+          "name": "asyncMap.cjs"
+        },
+        {
+          "name": "loop.cjs"
+        },
+        {
+          "name": "loop.d.ts"
+        },
+        {
+          "name": "asyncReduce.d.ts"
+        },
+        {
+          "name": "asyncFilter.cjs"
+        },
+        {
+          "name": "filter.d.ts"
+        },
+        {
+          "name": "asyncFilter.mjs"
+        },
+        {
+          "name": "map.d.ts"
+        },
+        {
+          "name": "asyncLoop.cjs"
+        },
+        {
+          "name": "execute.d.ts"
+        },
+        {
+          "name": "asyncLoop.mjs"
+        },
+        {
+          "name": "asyncReduce.mjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "execute.cjs"
+        },
+        {
+          "name": "asyncReduce.cjs"
+        },
+        {
+          "name": "filter.cjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "chunk.mjs"
+        },
+        {
+          "name": "chunk.cjs"
+        },
+        {
+          "name": "reduce.d.ts"
+        },
+        {
+          "name": "map.cjs"
+        },
+        {
+          "name": "asyncChunk.cjs"
+        }
+      ]
+    },
+    {
+      "name": "clean",
+      "files": [
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "useCase.mjs"
+        },
+        {
+          "name": "repository.d.ts"
+        },
+        {
+          "name": "repository.cjs"
+        },
+        {
+          "name": "kind.mjs"
+        },
+        {
+          "name": "repository.mjs"
+        },
+        {
+          "name": "constraint",
+          "files": [
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            },
+            {
+              "name": "defaultConstraint",
+              "files": [
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.mjs"
+                },
+                {
+                  "name": "string.mjs"
+                },
+                {
+                  "name": "string.d.ts"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "string.cjs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "flag.cjs"
+        },
+        {
+          "name": "entity.d.ts"
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "flag.d.ts"
+        },
+        {
+          "name": "flag.mjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "entity.mjs"
+        },
+        {
+          "name": "newType.d.ts"
+        },
+        {
+          "name": "entity.cjs"
+        },
+        {
+          "name": "useCase.d.ts"
+        },
+        {
+          "name": "useCase.cjs"
+        },
+        {
+          "name": "newType.cjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "primitive",
+          "files": [
+            {
+              "name": "operations",
+              "files": [
+                {
+                  "name": "sort.cjs"
+                },
+                {
+                  "name": "sort.d.ts"
+                },
+                {
+                  "name": "equal.mjs"
+                },
+                {
+                  "name": "sort.mjs"
+                },
+                {
+                  "name": "string",
+                  "files": [
+                    {
+                      "name": "lengthEqual.cjs"
+                    },
+                    {
+                      "name": "length.cjs"
+                    },
+                    {
+                      "name": "length.d.ts"
+                    },
+                    {
+                      "name": "lengthLessThan.cjs"
+                    },
+                    {
+                      "name": "concat.mjs"
+                    },
+                    {
+                      "name": "lengthGreaterThan.cjs"
+                    },
+                    {
+                      "name": "lengthLessThan.mjs"
+                    },
+                    {
+                      "name": "lengthEqual.d.ts"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "lengthLessThan.d.ts"
+                    },
+                    {
+                      "name": "lengthGreaterThan.mjs"
+                    },
+                    {
+                      "name": "concat.cjs"
+                    },
+                    {
+                      "name": "lengthGreaterThan.d.ts"
+                    },
+                    {
+                      "name": "lengthEqual.mjs"
+                    },
+                    {
+                      "name": "concat.d.ts"
+                    },
+                    {
+                      "name": "length.mjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "date",
+                  "files": [
+                    {
+                      "name": "dateMin.d.ts"
+                    },
+                    {
+                      "name": "dateLessThan.d.ts"
+                    },
+                    {
+                      "name": "dateGreaterThan.cjs"
+                    },
+                    {
+                      "name": "dateMin.mjs"
+                    },
+                    {
+                      "name": "dateMax.cjs"
+                    },
+                    {
+                      "name": "dateMax.mjs"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "dateGreaterThan.mjs"
+                    },
+                    {
+                      "name": "dateMin.cjs"
+                    },
+                    {
+                      "name": "dateLessThan.mjs"
+                    },
+                    {
+                      "name": "dateGreaterThan.d.ts"
+                    },
+                    {
+                      "name": "dateMax.d.ts"
+                    },
+                    {
+                      "name": "dateLessThan.cjs"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "equal.cjs"
+                },
+                {
+                  "name": "equal.d.ts"
+                },
+                {
+                  "name": "number",
+                  "files": [
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "greaterThan.mjs"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "divide.d.ts"
+                    },
+                    {
+                      "name": "divide.mjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "lessThan.cjs"
+                    },
+                    {
+                      "name": "greaterThan.cjs"
+                    },
+                    {
+                      "name": "multiply.d.ts"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "multiply.mjs"
+                    },
+                    {
+                      "name": "min.mjs"
+                    },
+                    {
+                      "name": "subtract.d.ts"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "subtract.cjs"
+                    },
+                    {
+                      "name": "greaterThan.d.ts"
+                    },
+                    {
+                      "name": "lessThan.mjs"
+                    },
+                    {
+                      "name": "multiply.cjs"
+                    },
+                    {
+                      "name": "add.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "lessThan.d.ts"
+                    },
+                    {
+                      "name": "add.d.ts"
+                    },
+                    {
+                      "name": "subtract.mjs"
+                    },
+                    {
+                      "name": "divide.cjs"
+                    },
+                    {
+                      "name": "add.cjs"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "base.mjs"
+            }
+          ]
+        },
+        {
+          "name": "newType.mjs"
+        },
+        {
+          "name": "kind.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "index.mjs"
+    },
+    {
+      "name": "number",
+      "files": [
+        {
+          "name": "acos.mjs"
+        },
+        {
+          "name": "max.cjs"
+        },
+        {
+          "name": "sin.d.ts"
+        },
+        {
+          "name": "sqrt.cjs"
+        },
+        {
+          "name": "sort.cjs"
+        },
+        {
+          "name": "greaterThan.mjs"
+        },
+        {
+          "name": "max.mjs"
+        },
+        {
+          "name": "cos.cjs"
+        },
+        {
+          "name": "power.d.ts"
+        },
+        {
+          "name": "trunc.cjs"
+        },
+        {
+          "name": "atan2.cjs"
+        },
+        {
+          "name": "cos.mjs"
+        },
+        {
+          "name": "tan.cjs"
+        },
+        {
+          "name": "divide.d.ts"
+        },
+        {
+          "name": "divide.mjs"
+        },
+        {
+          "name": "less.d.ts"
+        },
+        {
+          "name": "less.mjs"
+        },
+        {
+          "name": "index.cjs"
+        },
+        {
+          "name": "modulo.d.ts"
+        },
+        {
+          "name": "modulo.mjs"
+        },
+        {
+          "name": "tan.d.ts"
+        },
+        {
+          "name": "tan.mjs"
+        },
+        {
+          "name": "sort.d.ts"
+        },
+        {
+          "name": "trunc.d.ts"
+        },
+        {
+          "name": "max.d.ts"
+        },
+        {
+          "name": "sin.mjs"
+        },
+        {
+          "name": "lessThan.cjs"
+        },
+        {
+          "name": "clamp.cjs"
+        },
+        {
+          "name": "floor.d.ts"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "positiveNumber.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            }
+          ]
+        },
+        {
+          "name": "atan.d.ts"
+        },
+        {
+          "name": "toFixed.d.ts"
+        },
+        {
+          "name": "greaterThan.cjs"
+        },
+        {
+          "name": "sort.mjs"
+        },
+        {
+          "name": "abs.cjs"
+        },
+        {
+          "name": "acos.cjs"
+        },
+        {
+          "name": "asin.mjs"
+        },
+        {
+          "name": "asin.d.ts"
+        },
+        {
+          "name": "toFixed.mjs"
+        },
+        {
+          "name": "greater.d.ts"
+        },
+        {
+          "name": "multiply.d.ts"
+        },
+        {
+          "name": "betweenThan.cjs"
+        },
+        {
+          "name": "min.d.ts"
+        },
+        {
+          "name": "power.cjs"
+        },
+        {
+          "name": "multiply.mjs"
+        },
+        {
+          "name": "acos.d.ts"
+        },
+        {
+          "name": "min.mjs"
+        },
+        {
+          "name": "asin.cjs"
+        },
+        {
+          "name": "ceil.d.ts"
+        },
+        {
+          "name": "atan2.mjs"
+        },
+        {
+          "name": "greater.cjs"
+        },
+        {
+          "name": "ceil.cjs"
+        },
+        {
+          "name": "between.d.ts"
+        },
+        {
+          "name": "atan2.d.ts"
+        },
+        {
+          "name": "between.mjs"
+        },
+        {
+          "name": "abs.mjs"
+        },
+        {
+          "name": "atan.mjs"
+        },
+        {
+          "name": "subtract.d.ts"
+        },
+        {
+          "name": "round.mjs"
+        },
+        {
+          "name": "abs.d.ts"
+        },
+        {
+          "name": "cos.d.ts"
+        },
+        {
+          "name": "negate.mjs"
+        },
+        {
+          "name": "toFixed.cjs"
+        },
+        {
+          "name": "ceil.mjs"
+        },
+        {
+          "name": "sin.cjs"
+        },
+        {
+          "name": "index.d.ts"
+        },
+        {
+          "name": "subtract.cjs"
+        },
+        {
+          "name": "floor.cjs"
+        },
+        {
+          "name": "greaterThan.d.ts"
+        },
+        {
+          "name": "lessThan.mjs"
+        },
+        {
+          "name": "sqrt.mjs"
+        },
+        {
+          "name": "betweenThan.d.ts"
+        },
+        {
+          "name": "multiply.cjs"
+        },
+        {
+          "name": "greater.mjs"
+        },
+        {
+          "name": "less.cjs"
+        },
+        {
+          "name": "sqrt.d.ts"
+        },
+        {
+          "name": "add.mjs"
+        },
+        {
+          "name": "betweenThan.mjs"
+        },
+        {
+          "name": "clamp.mjs"
+        },
+        {
+          "name": "min.cjs"
+        },
+        {
+          "name": "lessThan.d.ts"
+        },
+        {
+          "name": "between.cjs"
+        },
+        {
+          "name": "round.cjs"
+        },
+        {
+          "name": "add.d.ts"
+        },
+        {
+          "name": "floor.mjs"
+        },
+        {
+          "name": "index.mjs"
+        },
+        {
+          "name": "subtract.mjs"
+        },
+        {
+          "name": "atan.cjs"
+        },
+        {
+          "name": "divide.cjs"
+        },
+        {
+          "name": "round.d.ts"
+        },
+        {
+          "name": "trunc.mjs"
+        },
+        {
+          "name": "modulo.cjs"
+        },
+        {
+          "name": "negate.d.ts"
+        },
+        {
+          "name": "power.mjs"
+        },
+        {
+          "name": "add.cjs"
+        },
+        {
+          "name": "clamp.d.ts"
+        },
+        {
+          "name": "negate.cjs"
+        }
+      ]
+    }
+  ]
+}

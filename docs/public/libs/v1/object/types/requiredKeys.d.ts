@@ -1,0 +1,2 @@
+import { type SimplifyTopLevel } from "../../common/types/simplifyTopLevel";
+export type RequiredKeys<GenericObject extends object, GenericKeys extends keyof GenericObject = keyof GenericObject> = SimplifyTopLevel<Required<Pick<GenericObject, GenericKeys>> & GenericObject>;

@@ -1,0 +1,4 @@
+import { type ToLargeEnsemble, type Unwrap } from "../../../common";
+import { type Primitive, type Primitives, type Date } from "../base";
+export declare function equal<GenericInput extends Primitives, GenericValue extends (GenericInput extends Date ? (Date | Unwrap<Date>) : (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>))>(value: GenericValue): (input: GenericInput) => input is GenericInput & Primitive<Unwrap<GenericValue>>;
+export declare function equal<GenericInput extends Primitives, GenericValue extends (GenericInput extends Date ? (Date | Unwrap<Date>) : (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>))>(input: GenericInput, value: GenericValue): input is GenericInput & Primitive<Unwrap<GenericValue>>;

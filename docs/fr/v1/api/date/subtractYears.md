@@ -1,0 +1,60 @@
+---
+outline: [2, 3]
+prev:
+  text: "addMilliseconds"
+  link: "/fr/v1/api/date/addMilliseconds"
+next:
+  text: "subtractMonths"
+  link: "/fr/v1/api/date/subtractMonths"
+---
+
+# subtractYears
+
+Soustrait un nombre positif d'années d'un `TheDate`.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/examples/v1/api/date/subtractYears/tryout.doc.ts"
+  majorVersion="v1"
+  height="320px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function subtractYears<
+	GenericInput extends TheDate, 
+	GenericYear extends number
+>(
+	input: GenericInput,
+	year: PositiveNumber<GenericYear>
+): TheDate
+```
+
+### Signature currifiée
+
+```typescript
+function subtractYears<
+	GenericInput extends TheDate, 
+	GenericYear extends number
+>(
+	year: PositiveNumber<GenericYear>
+): (input: GenericInput) => TheDate
+```
+
+## Paramètres
+
+- `year` : Nombre d'années à soustraire.
+- `input` : Date d'origine.
+
+## Valeur de retour
+
+Un `TheDate` reculé du nombre d'années indiqué.
+
+## Voir aussi
+
+- [`addYears`](/fr/v1/api/date/addYears)
+- [`subtractMonths`](/fr/v1/api/date/subtractMonths)

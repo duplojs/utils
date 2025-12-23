@@ -1,0 +1,3 @@
+import { type MaybePromise } from "../common";
+import { type LoopOutputExistResult, type LoopOutputNextResult, type GeneratorLoopParams } from "./loop";
+export declare function asyncLoop<GenericRawNextOutput extends unknown, GenericOutput extends MaybePromise<LoopOutputNextResult<GenericRawNextOutput> | LoopOutputExistResult<unknown> | LoopOutputNextResult<undefined> | LoopOutputExistResult<undefined>>>(loop: (params: GeneratorLoopParams<GenericRawNextOutput>) => GenericOutput): AsyncGenerator<Exclude<Awaited<GenericOutput> extends infer InferredOutput ? InferredOutput extends LoopOutputNextResult ? InferredOutput["-nextData"] : InferredOutput extends LoopOutputExistResult ? InferredOutput["-exitData"] : never : never, undefined>, unknown, unknown>;

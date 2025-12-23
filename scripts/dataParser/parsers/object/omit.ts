@@ -1,9 +1,21 @@
 import { type MergeDefinition } from "@scripts/dataParser/types";
-import { object, type DataParserDefinitionObject, type DataParserObject } from ".";
+import { type DataParserObjectShape, object, type DataParserDefinitionObject, type DataParserObject } from ".";
 import { type SimplifyTopLevel, type NeverCoalescing, pipe } from "@scripts/common";
 import * as DObject from "@scripts/object";
 import * as DString from "@scripts/string";
 import * as DArray from "@scripts/array";
+
+export function omitShape(
+	shape: DataParserObjectShape,
+	omitObject: Partial<Record<string, true>>,
+): DataParserObjectShape {
+	return pipe(
+		shape,
+		DObject.entries,
+		DArray.filter(([key]) => !DString.isKeyof(key, omitObject)),
+		DObject.fromEntries,
+	);
+}
 
 export function omit<
 	GenericDataParserObject extends DataParserObject,
@@ -33,11 +45,9 @@ export function omit<
 			}
 		>
 	> {
-	const newShape = pipe(
+	const newShape = omitShape(
 		dataParser.definition.shape,
-		DObject.entries,
-		DArray.filter(([key]) => !DString.isKeyof(key, omitObject)),
-		DObject.fromEntries,
+		omitObject,
 	);
 
 	return object(

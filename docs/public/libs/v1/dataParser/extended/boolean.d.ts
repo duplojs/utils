@@ -1,0 +1,24 @@
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
+import { type DataParserExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import * as dataParsers from "../parsers";
+import { type Output } from "../base";
+type _DataParserBooleanExtended<GenericDefinition extends dataParsers.DataParserDefinitionBoolean> = (Kind<typeof dataParsers.booleanKind.definition> & DataParserExtended<GenericDefinition, boolean, boolean>);
+export interface DataParserBooleanExtended<GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean> extends _DataParserBooleanExtended<GenericDefinition> {
+    addChecker<GenericChecker extends readonly [
+        dataParsers.DataParserBooleanCheckers,
+        ...dataParsers.DataParserBooleanCheckers[]
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        dataParsers.DataParserBooleanCheckers,
+        ...dataParsers.DataParserBooleanCheckers[]
+    ], GenericChecker>): DataParserBooleanExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends dataParsers.DataParserDefinitionBoolean>(definition: GenericDefinition): DataParserBooleanExtended<MergeDefinition<dataParsers.DataParserDefinitionBoolean, GenericDefinition>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserBooleanExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.CheckerRefineImplementation<Output<this>>
+    ]>>;
+}
+export declare function boolean<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionBoolean> = never>(definition?: GenericDefinition): DataParserBooleanExtended<MergeDefinition<dataParsers.DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
+export declare namespace boolean {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserBooleanExtended<dataParsers.DataParserDefinitionBoolean>>;
+}
+export {};

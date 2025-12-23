@@ -46,3 +46,4 @@ export * from "./notIncludes";
 export * from "./chunk";
 export * from "./insert";
 export * from "./isLastIndex";
+export * from "./select";

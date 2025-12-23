@@ -68,7 +68,9 @@ export type DataParserObjectCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionObject extends DataParserDefinition<DataParserObjectCheckers> {
+export interface DataParserDefinitionObject extends DataParserDefinition<
+	DataParserObjectCheckers
+> {
 	readonly shape: DataParserObjectShape;
 	readonly optimizedShape: Memoized<{
 		readonly key: string;

@@ -160,7 +160,9 @@ export type DataParserTemplateLiteralCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<DataParserTemplateLiteralCheckers> {
+export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<
+	DataParserTemplateLiteralCheckers
+> {
 	readonly template: TemplateLiteralShape;
 	readonly pattern: RegExp;
 }

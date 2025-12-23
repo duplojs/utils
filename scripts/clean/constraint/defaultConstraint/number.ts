@@ -1,5 +1,5 @@
 import { Number } from "@scripts/clean/primitive";
-import { type Constraint, createConstraint } from "../base";
+import { type GetConstraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 
 export const Int = createConstraint(
@@ -7,18 +7,18 @@ export const Int = createConstraint(
 	Number,
 	DDataParser.checkerInt(),
 );
-export type Int = Constraint<typeof Int>;
+export type Int = GetConstraint<typeof Int>;
 
 export const Positive = createConstraint(
 	"positive",
 	Number,
 	DDataParser.checkerNumberMin(1),
 );
-export type Positive = Constraint<typeof Positive>;
+export type Positive = GetConstraint<typeof Positive>;
 
 export const Negative = createConstraint(
 	"negative",
 	Number,
 	DDataParser.checkerNumberMax(-1),
 );
-export type Negative = Constraint<typeof Negative>;
+export type Negative = GetConstraint<typeof Negative>;

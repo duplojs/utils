@@ -1,0 +1,63 @@
+---
+outline: [2, 3]
+prev:
+  text: "from"
+  link: "/fr/v1/api/array/from"
+next:
+  text: "at"
+  link: "/fr/v1/api/array/at"
+---
+
+# toTuple
+
+La méthode **`toTuple()`** convertit une valeur en tuple en appliquant une série de fonctions de transformation.
+
+## Exemple interactif
+
+<MonacoTSEditor
+  src="/examples/v1/api/array/toTuple/tryout.doc.ts"
+  majorVersion="v1"
+  height="500px"
+/>
+
+## Syntaxe
+
+### Signature classique
+
+```typescript
+function toTuple<
+	GenericInput extends unknown, 
+	GenericShapeTuple extends ShapeTuple<GenericInput>
+>(
+	input: GenericInput, 
+	shapeObject: ShapeTuple<GenericInput> & GenericShapeTuple
+): ComputesResult<GenericShapeTuple>
+```
+
+### Signature currifiée
+
+```typescript
+function toTuple<
+	GenericInput extends unknown, 
+	GenericShapeTuple extends ShapeTuple<NoInfer<GenericInput>>
+>(
+	shapeObject: ShapeTuple<NoInfer<GenericInput>> & GenericShapeTuple
+): (input: GenericInput) => ComputesResult<NoInfer<GenericShapeTuple>>
+```
+
+## Paramètres
+
+- `input` : La valeur d'entrée à transformer en tuple.
+- `shapeObject` : Un tableau de fonctions à appliquer sur l'entrée pour créer le tuple.
+
+## Valeur de retour
+
+Un tuple contenant les résultats de chaque fonction appliquée sur l'entrée, avec un typage strict.
+
+## Voir aussi
+
+- [`from`](/fr/v1/api/array/from) - Crée un tableau à partir d'un itérable
+
+## Sources
+
+- [MDN Web Docs - Tuple](https://developer.mozilla.org/en-US/docs/Glossary/Tuple)

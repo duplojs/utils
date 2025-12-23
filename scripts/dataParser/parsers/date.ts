@@ -21,7 +21,9 @@ export type DataParserDateCheckers = (
 	| CheckerRefineImplementation<TheDate>
 );
 
-export interface DataParserDefinitionDate extends DataParserDefinition<DataParserDateCheckers> {
+export interface DataParserDefinitionDate extends DataParserDefinition<
+	DataParserDateCheckers
+> {
 	readonly coerce: boolean;
 }
 

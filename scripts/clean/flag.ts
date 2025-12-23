@@ -87,3 +87,13 @@ export function createFlag<
 		},
 	}) satisfies Record<keyof FlagHandler, unknown> as never;
 }
+
+export type GetFlag<
+	GenericHandler extends FlagHandler<any, any, any>,
+> = Extract<
+	Flag<
+		GenericHandler["name"],
+		ReturnType<GenericHandler["getValue"]>
+	>,
+	any
+>;

@@ -1,5 +1,5 @@
 import { String } from "@scripts/clean/primitive";
-import { type Constraint, createConstraint } from "../base";
+import { type GetConstraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 
 export const Email = createConstraint(
@@ -7,11 +7,11 @@ export const Email = createConstraint(
 	String,
 	DDataParser.checkerEmail(),
 );
-export type Email = Constraint<typeof Email>;
+export type Email = GetConstraint<typeof Email>;
 
 export const Url = createConstraint(
 	"url",
 	String,
 	DDataParser.checkerUrl(),
 );
-export type Url = Constraint<typeof Url>;
+export type Url = GetConstraint<typeof Url>;

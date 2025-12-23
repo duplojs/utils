@@ -8,7 +8,7 @@ export interface DataParserCheckerDefinitionRefine extends DataParserCheckerDefi
 	theFunction(input: unknown): boolean;
 }
 
-export const dataParserCheckerRefineKind = createDataParserKind("checker-string-max");
+export const dataParserCheckerRefineKind = createDataParserKind("refine");
 
 type _DataParserCheckerRefine<
 	GenericDefinition extends DataParserCheckerDefinitionRefine,

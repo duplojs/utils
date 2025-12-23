@@ -1,0 +1,1 @@
+export declare const createCleanKind: <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & import("../string").ForbiddenString<GenericName, "@" | "/">) => import("../common").KindHandler<import("../common").KindDefinition<`@DuplojsUtilsClean/${GenericName}`, GenericKindValue>>;

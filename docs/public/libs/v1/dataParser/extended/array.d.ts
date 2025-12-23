@@ -1,0 +1,32 @@
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
+import { type DataParserExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import * as dataParsers from "../parsers";
+import { type Input, type Output, type DataParser } from "../base";
+type _DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray> = (Kind<typeof dataParsers.arrayKind.definition> & DataParserExtended<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]>);
+export interface DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray = dataParsers.DataParserDefinitionArray> extends _DataParserArrayExtended<GenericDefinition> {
+    addChecker<GenericChecker extends readonly [
+        dataParsers.DataParserArrayCheckers<Output<this>>,
+        ...dataParsers.DataParserArrayCheckers<Output<this>>[]
+    ]>(...args: FixDeepFunctionInfer<readonly [
+        dataParsers.DataParserArrayCheckers<Output<this>>,
+        ...dataParsers.DataParserArrayCheckers<Output<this>>[]
+    ], GenericChecker>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    construct<const GenericDefinition extends dataParsers.DataParserDefinitionArray>(definition: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, GenericDefinition>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.CheckerRefineImplementation<Output<this>>
+    ]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.DataParserCheckerArrayMin
+    ]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
+        dataParsers.DataParserCheckerArrayMax
+    ]>>;
+}
+export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+    element: GenericElement;
+}>>;
+export declare namespace array {
+    var overrideHandler: import("../../common").OverrideHandler<DataParserArrayExtended<dataParsers.DataParserDefinitionArray>>;
+}
+export {};

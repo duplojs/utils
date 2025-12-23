@@ -18,7 +18,9 @@ export type DataParserUnknownCheckers = (
 	| CheckerRefineImplementation<unknown>
 );
 
-export interface DataParserDefinitionUnknown extends DataParserDefinition<DataParserUnknownCheckers> {}
+export interface DataParserDefinitionUnknown extends DataParserDefinition<
+	DataParserUnknownCheckers
+> {}
 
 export const unknownKind = createDataParserKind("unknown");
 

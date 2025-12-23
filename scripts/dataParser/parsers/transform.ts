@@ -23,7 +23,9 @@ export type DataParserTransformCheckers<
 	| CheckerRefineImplementation<GenericInput>
 );
 
-export interface DataParserDefinitionTransform extends DataParserDefinition<DataParserTransformCheckers> {
+export interface DataParserDefinitionTransform extends DataParserDefinition<
+	DataParserTransformCheckers
+> {
 	readonly inner: DataParser;
 	theFunction(input: any, error: DataParserError): unknown;
 }
