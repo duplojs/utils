@@ -99,6 +99,10 @@ export interface DataParser<
 	>;
 	addChecker(...args: never): DataParser;
 	clone(): this;
+
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct(definition: never): DataParser;
 }
 

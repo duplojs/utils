@@ -12,6 +12,9 @@ export interface DataParserNilExtended<GenericDefinition extends dataParsers.Dat
         dataParsers.DataParserNilCheckers,
         ...dataParsers.DataParserNilCheckers[]
     ], GenericChecker>): DataParserNilExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionNil>(definition: GenericDefinition): DataParserNilExtended<MergeDefinition<dataParsers.DataParserDefinitionNil, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNilExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

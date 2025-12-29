@@ -8,7 +8,7 @@ export * from "./checkers";
 export interface DataParserArrayCheckerCustom<GenericInput extends unknown[] = unknown[]> {
 }
 export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = (DataParserArrayCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserArrayCheckerCustom<GenericInput>, DataParserChecker>] | DataParserCheckerArrayMin | DataParserCheckerArrayMax | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionArray extends DataParserDefinition {
+export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
     readonly element: DataParser;
 }
 export declare const arrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;
@@ -21,6 +21,9 @@ export interface DataParserArray<GenericDefinition extends DataParserDefinitionA
         DataParserArrayCheckers<Output<this>>,
         ...DataParserArrayCheckers<Output<this>>[]
     ], GenericChecker>): DataParserArray<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionArray>(definition: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, GenericDefinition>>;
 }
 export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {

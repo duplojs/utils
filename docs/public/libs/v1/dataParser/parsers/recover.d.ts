@@ -20,6 +20,9 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
         DataParserRecoverCheckers<Output<this>>,
         ...DataParserRecoverCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecover<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionRecover>(definition: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, GenericDefinition>>;
 }
 export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {

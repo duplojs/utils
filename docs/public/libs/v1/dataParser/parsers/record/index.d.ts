@@ -35,6 +35,9 @@ export interface DataParserRecord<GenericDefinition extends DataParserDefinition
         DataParserRecordCheckers<Output<this>>,
         ...DataParserRecordCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecord<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionRecord>(definition: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, GenericDefinition>>;
 }
 export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {

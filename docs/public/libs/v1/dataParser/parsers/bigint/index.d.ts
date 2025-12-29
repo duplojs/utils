@@ -21,6 +21,9 @@ export interface DataParserBigInt<GenericDefinition extends DataParserDefinition
         DataParserBigIntCheckers,
         ...DataParserBigIntCheckers[]
     ], GenericChecker>): DataParserBigInt<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionBigInt>(definition: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, GenericDefinition>>;
 }
 export declare function bigint<const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never>(definition?: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;

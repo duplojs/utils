@@ -43,6 +43,9 @@ export interface DataParserNullableExtended<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends dataParsers.DataParserDefinitionNullable,
 	>(

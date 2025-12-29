@@ -21,6 +21,9 @@ export interface DataParserString<GenericDefinition extends DataParserDefinition
         DataParserStringCheckers,
         ...DataParserStringCheckers[]
     ], GenericChecker>): DataParserString<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionString>(definition: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, GenericDefinition>>;
 }
 export declare function string<const GenericDefinition extends Partial<DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;

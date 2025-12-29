@@ -33,6 +33,9 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
     asyncParse(data: unknown): Promise<DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>>;
     addChecker(...args: never): DataParser;
     clone(): this;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct(definition: never): DataParser;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {

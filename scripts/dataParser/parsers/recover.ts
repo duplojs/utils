@@ -65,6 +65,9 @@ export interface DataParserRecover<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionRecover,
 	>(

@@ -19,6 +19,9 @@ export interface DataParserEmpty<GenericDefinition extends DataParserDefinitionE
         DataParserEmptyCheckers,
         ...DataParserEmptyCheckers[]
     ], GenericChecker>): DataParserEmpty<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionEmpty>(definition: GenericDefinition): DataParserEmpty<MergeDefinition<DataParserDefinitionEmpty, GenericDefinition>>;
 }
 export declare function empty<const GenericDefinition extends Partial<DataParserDefinitionEmpty> = never>(definition?: GenericDefinition): DataParserEmpty<MergeDefinition<DataParserDefinitionEmpty, NeverCoalescing<GenericDefinition, {}>>>;

@@ -61,6 +61,9 @@ export interface DataParserNil<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionNil,
 	>(

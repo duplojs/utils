@@ -4,6 +4,7 @@ import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";
 import type * as DDataParser from "../dataParser";
+import { type DataParserContainTransform } from "./types";
 export declare const newTypeKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type", string>>;
 type _NewType<GenericName extends string, GenericValue extends unknown, GenericConstrainName extends string> = (Kind<typeof newTypeKind.definition, GenericName> & Kind<typeof constrainedTypeKind.definition, Record<GenericConstrainName, unknown>> & WrappedValue<GenericValue>);
 export interface NewType<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstrainName extends string = never> extends _NewType<GenericName, GenericValue, GenericConstrainName> {
@@ -33,6 +34,6 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstrainHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | readonly [
     ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>,
     ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]
-]) = never>(name: GenericName, dataParser: GenericDataParser, constraint?: GenericConstrainHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericDataParser>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstrainHandler, readonly []>>>;
+]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstrainHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericDataParser>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstrainHandler, readonly []>>>;
 export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constrains"][number]["name"]> : never, any>;
 export {};

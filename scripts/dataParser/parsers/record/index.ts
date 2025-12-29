@@ -142,6 +142,9 @@ export interface DataParserRecord<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionRecord,
 	>(

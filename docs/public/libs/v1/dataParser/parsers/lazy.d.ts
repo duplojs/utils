@@ -19,6 +19,9 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
         DataParserLazyCheckers<Output<this>>,
         ...DataParserLazyCheckers<Output<this>>[]
     ], GenericChecker>): DataParserLazy<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionLazy>(definition: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, GenericDefinition>>;
 }
 export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {

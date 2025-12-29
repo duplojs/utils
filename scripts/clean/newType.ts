@@ -6,6 +6,7 @@ import * as DEither from "../either";
 import * as DArray from "../array";
 import * as DObject from "../object";
 import type * as DDataParser from "../dataParser";
+import { type DataParserContainTransform } from "./types";
 
 export const newTypeKind = createCleanKind<"new-type", string>("new-type");
 
@@ -198,7 +199,7 @@ export function createNewType<
 	) = never,
 >(
 	name: GenericName,
-	dataParser: GenericDataParser,
+	dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>,
 	constraint?: GenericConstrainHandler,
 ): NewTypeHandler<
 		GenericName,

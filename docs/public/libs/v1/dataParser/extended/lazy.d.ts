@@ -12,6 +12,9 @@ export interface DataParserLazyExtended<GenericDefinition extends dataParsers.Da
         dataParsers.DataParserLazyCheckers<Output<this>>,
         ...dataParsers.DataParserLazyCheckers<Output<this>>[]
     ], GenericChecker>): DataParserLazyExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionLazy>(definition: GenericDefinition): DataParserLazyExtended<MergeDefinition<dataParsers.DataParserDefinitionLazy, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserLazyExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

@@ -13,6 +13,9 @@ export interface DataParserDateExtended<GenericDefinition extends dataParsers.Da
         dataParsers.DataParserDateCheckers,
         ...dataParsers.DataParserDateCheckers[]
     ], GenericChecker>): DataParserDateExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionDate>(definition: GenericDefinition): DataParserDateExtended<MergeDefinition<dataParsers.DataParserDefinitionDate, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserDateExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

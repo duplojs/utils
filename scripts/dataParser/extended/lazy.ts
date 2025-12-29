@@ -38,6 +38,9 @@ export interface DataParserLazyExtended<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends dataParsers.DataParserDefinitionLazy,
 	>(

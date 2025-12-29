@@ -21,6 +21,9 @@ export interface DataParserNumber<GenericDefinition extends DataParserDefinition
         DataParserNumberCheckers,
         ...DataParserNumberCheckers[]
     ], GenericChecker>): DataParserNumber<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionNumber>(definition: GenericDefinition): DataParserNumber<MergeDefinition<DataParserDefinitionNumber, GenericDefinition>>;
 }
 export declare function number<const GenericDefinition extends Partial<DataParserDefinitionNumber> = never>(definition?: GenericDefinition): DataParserNumber<MergeDefinition<DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;

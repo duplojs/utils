@@ -1,4 +1,5 @@
-import { DClean, DDataParser, DEither, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
+import { createNewType } from "@scripts/clean";
 
 describe("createNewType", () => {
 	const constraint = DClean.createConstraint(
@@ -180,6 +181,14 @@ describe("createNewType", () => {
 				),
 				{},
 			),
+		);
+	});
+
+	it("forbidden create newType with transform data parser", () => {
+		const forbiddenNewType = createNewType(
+			"forbiddenType",
+			// @ts-expect-error forbidden transform dataParser.
+			DPE.string().transform(() => 0),
 		);
 	});
 });

@@ -13,6 +13,9 @@ export interface DataParserTransformExtended<GenericDefinition extends dataParse
         dataParsers.DataParserTransformCheckers<Output<this>>,
         ...dataParsers.DataParserTransformCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTransformExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionTransform>(definition: GenericDefinition): DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTransformExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

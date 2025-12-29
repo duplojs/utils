@@ -4,7 +4,7 @@ import { type AssignObjects } from "../../object";
 export interface DataParserCheckerDefinitionRefine extends DataParserCheckerDefinition {
     theFunction(input: unknown): boolean;
 }
-export declare const dataParserCheckerRefineKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-max", unknown>>;
+export declare const dataParserCheckerRefineKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/refine", unknown>>;
 type _DataParserCheckerRefine<GenericDefinition extends DataParserCheckerDefinitionRefine> = (Kind<typeof dataParserCheckerRefineKind.definition> & DataParserChecker<GenericDefinition, string>);
 export interface DataParserCheckerRefine<GenericDefinition extends DataParserCheckerDefinitionRefine = DataParserCheckerDefinitionRefine> extends _DataParserCheckerRefine<GenericDefinition> {
 }

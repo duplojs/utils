@@ -20,6 +20,9 @@ export interface DataParserOptional<GenericDefinition extends DataParserDefiniti
         DataParserOptionalCheckers<Output<this>>,
         ...DataParserOptionalCheckers<Output<this>>[]
     ], GenericChecker>): DataParserOptional<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionOptional>(definition: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, GenericDefinition>>;
 }
 export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionOptional<Output<GenericDataParser> | undefined>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {

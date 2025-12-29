@@ -19,6 +19,9 @@ export interface DataParserBoolean<GenericDefinition extends DataParserDefinitio
         DataParserBooleanCheckers,
         ...DataParserBooleanCheckers[]
     ], GenericChecker>): DataParserBoolean<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionBoolean>(definition: GenericDefinition): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, GenericDefinition>>;
 }
 export declare function boolean<const GenericDefinition extends Partial<DataParserDefinitionBoolean> = never>(definition?: GenericDefinition): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;

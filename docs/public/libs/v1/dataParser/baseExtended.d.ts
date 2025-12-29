@@ -43,6 +43,9 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
         inner: GenericThis;
         recoveredValue: GenericRecoveredValue;
     }>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct(definition: never): DataParserExtended;
 }
 export declare function dataParserExtendedInit<GenericDataParser extends DataParser, GenericDataParserExtended extends GenericDataParser & DataParserExtended>(dataParser: NoInfer<GenericDataParser>, rest: NoInfer<{

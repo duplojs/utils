@@ -20,6 +20,9 @@ export interface DataParserNullable<GenericDefinition extends DataParserDefiniti
         DataParserNullableCheckers<Output<this>>,
         ...DataParserNullableCheckers<Output<this>>[]
     ], GenericChecker>): DataParserNullable<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionNullable>(definition: GenericDefinition): DataParserNullable<MergeDefinition<DataParserDefinitionNullable, GenericDefinition>>;
 }
 export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionNullable<Output<GenericDataParser> | null>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullable<MergeDefinition<DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {

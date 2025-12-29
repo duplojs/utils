@@ -66,6 +66,9 @@ export interface DataParserBigInt<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionBigInt,
 	>(

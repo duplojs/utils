@@ -60,6 +60,9 @@ export interface DataParserTemplateLiteral<GenericDefinition extends DataParserD
         DataParserTemplateLiteralCheckers<Output<this>>,
         ...DataParserTemplateLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTemplateLiteral<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionTemplateLiteral>(definition: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, GenericDefinition>>;
 }
 export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">> = never>(template: GenericTemplate, definition?: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {

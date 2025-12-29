@@ -114,6 +114,9 @@ export interface DataParserObject<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionObject,
 	>(

@@ -63,6 +63,9 @@ export interface DataParserDate<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionDate,
 	>(

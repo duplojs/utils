@@ -187,6 +187,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct(definition: never): DataParserExtended;
 }
 

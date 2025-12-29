@@ -70,6 +70,9 @@ export interface DataParserArray<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionArray,
 	>(

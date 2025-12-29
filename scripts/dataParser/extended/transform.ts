@@ -39,6 +39,9 @@ export interface DataParserTransformExtended<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends dataParsers.DataParserDefinitionTransform,
 	>(

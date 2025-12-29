@@ -2,7 +2,7 @@ import { dataParserCheckerInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
-const dataParserCheckerRefineKind = createDataParserKind("checker-string-max");
+const dataParserCheckerRefineKind = createDataParserKind("refine");
 function checkerRefine(theFunction, definition) {
     return dataParserCheckerInit(dataParserCheckerRefineKind, {
         definition: {

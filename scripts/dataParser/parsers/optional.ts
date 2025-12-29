@@ -72,6 +72,9 @@ export interface DataParserOptional<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionOptional,
 	>(

@@ -20,6 +20,9 @@ export interface DataParserLiteral<GenericDefinition extends DataParserDefinitio
         DataParserLiteralCheckers<Output<this>>,
         ...DataParserLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserLiteral<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionLiteral>(definition: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, GenericDefinition>>;
 }
 export declare function literal<const GenericValue extends LiteralValue, const GenericDefinition extends Partial<Omit<DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {

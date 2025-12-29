@@ -67,6 +67,9 @@ export interface DataParserUnion<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionUnion,
 	>(

@@ -38,6 +38,9 @@ export interface DataParserLiteralExtended<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends dataParsers.DataParserDefinitionLiteral,
 	>(

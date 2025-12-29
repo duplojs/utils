@@ -61,6 +61,9 @@ export interface DataParserBoolean<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionBoolean,
 	>(

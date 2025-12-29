@@ -4,7 +4,7 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 
-const dataParserCheckerRefineKind = kind.createDataParserKind("checker-string-max");
+const dataParserCheckerRefineKind = kind.createDataParserKind("refine");
 function checkerRefine(theFunction, definition) {
     return base.dataParserCheckerInit(dataParserCheckerRefineKind, {
         definition: {

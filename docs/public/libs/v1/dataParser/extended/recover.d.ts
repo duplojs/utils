@@ -12,6 +12,9 @@ export interface DataParserRecoverExtended<GenericDefinition extends dataParsers
         dataParsers.DataParserRecoverCheckers<Output<this>>,
         ...dataParsers.DataParserRecoverCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecoverExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionRecover>(definition: GenericDefinition): DataParserRecoverExtended<MergeDefinition<dataParsers.DataParserDefinitionRecover, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserRecoverExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

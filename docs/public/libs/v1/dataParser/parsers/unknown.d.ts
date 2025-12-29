@@ -18,6 +18,9 @@ export interface DataParserUnknown<GenericDefinition extends DataParserDefinitio
         DataParserUnknownCheckers,
         ...DataParserUnknownCheckers[]
     ], GenericChecker>): DataParserUnknown<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionUnknown>(definition: GenericDefinition): DataParserUnknown<MergeDefinition<DataParserDefinitionUnknown, GenericDefinition>>;
 }
 export declare function unknown<const GenericDefinition extends Partial<DataParserDefinitionUnknown> = never>(definition?: GenericDefinition): DataParserUnknown<MergeDefinition<DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;

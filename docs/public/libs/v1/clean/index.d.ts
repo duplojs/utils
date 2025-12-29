@@ -1,3 +1,4 @@
+export * from "./types";
 export * from "./kind";
 export * from "./newType";
 export * from "./entity";

@@ -20,6 +20,9 @@ export interface DataParserUnion<GenericDefinition extends DataParserDefinitionU
         DataParserUnionCheckers<Output<this>>,
         ...DataParserUnionCheckers<Output<this>>[]
     ], GenericChecker>): DataParserUnion<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionUnion>(definition: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, GenericDefinition>>;
 }
 export declare function union<GenericOptions extends UnionOptions, const GenericDefinition extends Partial<Omit<DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {

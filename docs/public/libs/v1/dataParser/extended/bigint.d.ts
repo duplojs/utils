@@ -12,6 +12,9 @@ export interface DataParserBigIntExtended<GenericDefinition extends dataParsers.
         dataParsers.DataParserBigIntCheckers,
         ...dataParsers.DataParserBigIntCheckers[]
     ], GenericChecker>): DataParserBigIntExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends dataParsers.DataParserDefinitionBigInt>(definition: GenericDefinition): DataParserBigIntExtended<MergeDefinition<dataParsers.DataParserDefinitionBigInt, GenericDefinition>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserBigIntExtended<AddCheckersToDefinition<GenericDefinition, [
         dataParsers.CheckerRefineImplementation<Output<this>>

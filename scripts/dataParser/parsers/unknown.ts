@@ -58,6 +58,9 @@ export interface DataParserUnknown<
 		>
 	>;
 
+	/**
+	 * @deprecated Method with unreliable typing.
+	 */
 	construct<
 		const GenericDefinition extends DataParserDefinitionUnknown,
 	>(

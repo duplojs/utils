@@ -19,6 +19,9 @@ export interface DataParserNil<GenericDefinition extends DataParserDefinitionNil
         DataParserNilCheckers,
         ...DataParserNilCheckers[]
     ], GenericChecker>): DataParserNil<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionNil>(definition: GenericDefinition): DataParserNil<MergeDefinition<DataParserDefinitionNil, GenericDefinition>>;
 }
 export declare function nil<const GenericDefinition extends Partial<DataParserDefinitionNil> = never>(definition?: GenericDefinition): DataParserNil<MergeDefinition<DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;

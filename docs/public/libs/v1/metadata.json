@@ -426,6 +426,9 @@
           "name": "types",
           "files": [
             {
+              "name": "contain.d.ts"
+            },
+            {
               "name": "checkers.d.ts"
             },
             {
@@ -3785,6 +3788,17 @@
         },
         {
           "name": "useCase.mjs"
+        },
+        {
+          "name": "types",
+          "files": [
+            {
+              "name": "dataParserContainTransform.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            }
+          ]
         },
         {
           "name": "repository.d.ts"

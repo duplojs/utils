@@ -20,6 +20,9 @@ export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPi
         DataParserPipeCheckers<Output<this>>,
         ...DataParserPipeCheckers<Output<this>>[]
     ], GenericChecker>): DataParserPipe<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionPipe>(definition: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, GenericDefinition>>;
 }
 export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionPipe, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {

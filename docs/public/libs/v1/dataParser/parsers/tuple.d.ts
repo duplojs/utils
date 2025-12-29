@@ -36,6 +36,9 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
         DataParserTupleCheckers<Output<this>>,
         ...DataParserTupleCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTuple<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionTuple>(definition: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, GenericDefinition>>;
 }
 export declare function tuple<GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {

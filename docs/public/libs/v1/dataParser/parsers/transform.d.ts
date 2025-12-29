@@ -21,6 +21,9 @@ export interface DataParserTransform<GenericDefinition extends DataParserDefinit
         DataParserTransformCheckers<Output<this>>,
         ...DataParserTransformCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTransform<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    /**
+     * @deprecated Method with unreliable typing.
+     */
     construct<const GenericDefinition extends DataParserDefinitionTransform>(definition: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, GenericDefinition>>;
 }
 export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<DataParserDefinitionTransform, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
