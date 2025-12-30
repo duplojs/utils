@@ -1,12 +1,11 @@
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function addYears<
 	GenericInput extends TheDate,
 	GenericYear extends number,
 >(
-	year: PositiveNumber<GenericYear>,
+	year: GenericYear,
 ): (input: GenericInput) => TheDate;
 
 export function addYears<
@@ -14,7 +13,7 @@ export function addYears<
 	GenericYear extends number,
 >(
 	input: GenericInput,
-	year: PositiveNumber<GenericYear>,
+	year: GenericYear,
 ): TheDate;
 
 export function addYears(...args: [TheDate, number] | [number]) {
@@ -24,10 +23,9 @@ export function addYears(...args: [TheDate, number] | [number]) {
 	}
 
 	const [input, year] = args;
-	const absoluteYear = Math.abs(year);
 
 	const date = toNative(input);
-	date.setUTCFullYear(date.getUTCFullYear() + absoluteYear);
+	date.setUTCFullYear(date.getUTCFullYear() + year);
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

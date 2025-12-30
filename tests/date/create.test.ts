@@ -213,16 +213,62 @@ describe("create", () => {
 		>;
 	});
 
-	it("create from safe date string before Christ", () => {
-		const result = DDate.create("275760-09-13", { hour: "01" });
+	it("type safe with create", () => {
+		DDate.create("275759-09-13");
 
-		expect(result).toBe("date0+");
+		DDate.create("275-09-13");
 
-		type check = ExpectType<
-			typeof result,
-			DDate.TheDate,
-			"strict"
-		>;
+		DDate.create("274522-09-13");
+
+		DDate.create("-271820-09-13");
+
+		DDate.create("-271-09-13");
+
+		DDate.create("-269005-09-13");
+
+		DDate.create(
+			// @ts-expect-error greater than limit
+			"275760-09-13",
+		);
+
+		DDate.create(
+			// @ts-expect-error greater than limit
+			"285860-09-13",
+		);
+
+		DDate.create(
+			// @ts-expect-error greater than limit
+			"99995656-09-13",
+		);
+
+		DDate.create(
+			// @ts-expect-error less than limit
+			"-271821-09-13",
+		);
+
+		DDate.create(
+			// @ts-expect-error less than limit
+			"-281821-09-13",
+		);
+
+		DDate.create(
+			// @ts-expect-error less than limit
+			"-99995656-09-13",
+		);
+
+		DDate.create("2000-02-29");
+
+		DDate.create("2800-02-29");
+
+		DDate.create(
+			// @ts-expect-error wrong leap year
+			"2700-02-29",
+		);
+
+		DDate.create(
+			// @ts-expect-error wrong leap year
+			"2001-02-29",
+		);
 	});
 
 	it("returns error for invalid input", () => {

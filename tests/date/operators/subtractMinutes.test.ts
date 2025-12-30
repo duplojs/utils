@@ -22,16 +22,13 @@ describe("subtractMinutes", () => {
 		>;
 	});
 
-	it("treats negative numbers as their absolute value", () => {
+	it("supports negative numbers", () => {
 		const result = DDate.subtractMinutes(
 			baseDate,
 			(-45 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-31", {
-			hour: "23",
-			minute: "15",
-		}));
+		expect(result).toBe(DDate.create("2020-01-01", { minute: "45" }));
 
 		type check = ExpectType<
 			typeof result,

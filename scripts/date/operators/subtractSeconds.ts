@@ -1,13 +1,12 @@
 import { millisecondsInOneSecond } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function subtractSeconds<
 	GenericInput extends TheDate,
 	GenericSecond extends number,
 >(
-	second: PositiveNumber<GenericSecond>,
+	second: GenericSecond,
 ): (input: GenericInput) => TheDate;
 
 export function subtractSeconds<
@@ -15,7 +14,7 @@ export function subtractSeconds<
 	GenericSecond extends number,
 >(
 	input: GenericInput,
-	second: PositiveNumber<GenericSecond>,
+	second: GenericSecond,
 ): TheDate;
 
 export function subtractSeconds(...args: [TheDate, number] | [number]) {
@@ -27,8 +26,7 @@ export function subtractSeconds(...args: [TheDate, number] | [number]) {
 	const [input, second] = args;
 
 	const date = toNative(input);
-	const absoluteSecond = Math.abs(second);
-	date.setTime(date.getTime() - (absoluteSecond * millisecondsInOneSecond));
+	date.setTime(date.getTime() - (second * millisecondsInOneSecond));
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

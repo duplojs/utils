@@ -1,13 +1,12 @@
 import { millisecondInOneMinute } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function addMinutes<
 	GenericInput extends TheDate,
 	GenericMinute extends number,
 >(
-	minute: PositiveNumber<GenericMinute>,
+	minute: GenericMinute,
 ): (input: GenericInput) => TheDate;
 
 export function addMinutes<
@@ -15,7 +14,7 @@ export function addMinutes<
 	GenericMinute extends number,
 >(
 	input: GenericInput,
-	minute: PositiveNumber<GenericMinute>,
+	minute: GenericMinute,
 ): TheDate;
 
 export function addMinutes(...args: [TheDate, number] | [number]) {
@@ -25,10 +24,9 @@ export function addMinutes(...args: [TheDate, number] | [number]) {
 	}
 
 	const [input, minute] = args;
-	const absoluteMinute = Math.abs(minute);
 
 	const date = toNative(input);
-	date.setTime(date.getTime() + (absoluteMinute * millisecondInOneMinute));
+	date.setTime(date.getTime() + (minute * millisecondInOneMinute));
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

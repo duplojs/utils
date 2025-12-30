@@ -1,0 +1,20 @@
+import type * as DString from "@scripts/string";
+import type * as DArray from "@scripts/array";
+import { type AnyTuple, type Adaptor } from "@scripts/common";
+import { type IsPositive } from "./isPositive";
+
+export type Absolute<
+	GenericValue extends number,
+> = IsPositive<GenericValue> extends true
+	? GenericValue
+	: DArray.JoinTuple<
+		DArray.ShiftTuple<
+			Adaptor<
+				DString.Split<`${GenericValue}`, "">,
+				AnyTuple<string>
+			>
+		>,
+		""
+	> extends `${infer InferredResult extends number}`
+		? InferredResult
+		: never;

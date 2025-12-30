@@ -19,13 +19,13 @@ describe("subtractMonths", () => {
 		>;
 	});
 
-	it("treats negative numbers as their absolute value", () => {
+	it("supports negative numbers", () => {
 		const result = DDate.subtractMonths(
 			baseDate,
 			(-4 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-09-01"));
+		expect(result).toBe(DDate.create("2020-05-01"));
 
 		type check = ExpectType<
 			typeof result,

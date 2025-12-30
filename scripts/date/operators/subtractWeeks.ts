@@ -1,13 +1,12 @@
 import { millisecondInOneWeek } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function subtractWeeks<
 	GenericInput extends TheDate,
 	GenericWeek extends number,
 >(
-	week: PositiveNumber<GenericWeek>,
+	week: GenericWeek,
 ): (input: GenericInput) => TheDate;
 
 export function subtractWeeks<
@@ -15,7 +14,7 @@ export function subtractWeeks<
 	GenericWeek extends number,
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>,
+	week: GenericWeek,
 ): TheDate;
 
 export function subtractWeeks(...args: [TheDate, number] | [number]) {
@@ -27,8 +26,7 @@ export function subtractWeeks(...args: [TheDate, number] | [number]) {
 	const [input, week] = args;
 
 	const date = toNative(input);
-	const absoluteWeek = Math.abs(week);
-	date.setTime(date.getTime() - (absoluteWeek * millisecondInOneWeek));
+	date.setTime(date.getTime() - (week * millisecondInOneWeek));
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

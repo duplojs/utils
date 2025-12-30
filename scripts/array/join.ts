@@ -1,19 +1,5 @@
-import { type IsEqual } from "@scripts/common";
-import { type Adaptor } from "@scripts/common/types/adaptor";
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
-import { type ShiftTuple } from "./types";
-
-type ComputeResult<
-	GenericArray extends readonly string[],
-	GenericSeparator extends string,
-	Depth extends readonly unknown[] = [],
-> = Depth["length"] extends 40
-	? string
-	: GenericArray extends AnyTuple
-		? IsEqual<GenericArray["length"], 1> extends true
-			? GenericArray[0]
-			: `${GenericArray[0]}${GenericSeparator}${ComputeResult<Adaptor<ShiftTuple<GenericArray>, readonly string[]>, GenericSeparator, [...Depth, 0]>}`
-		: string;
+import { type JoinTuple } from "./types";
 
 export function join<
 	GenericArray extends readonly string[],
@@ -21,7 +7,7 @@ export function join<
 >(
 	separator: GenericSeparator
 ): (array: GenericArray) => GenericArray extends AnyTuple
-	? ComputeResult<
+	? JoinTuple<
 		GenericArray,
 		GenericSeparator
 	>
@@ -34,7 +20,7 @@ export function join<
 	array: GenericArray,
 	separator: GenericSeparator,
 ): GenericArray extends AnyTuple
-	? ComputeResult<
+	? JoinTuple<
 		GenericArray,
 		GenericSeparator
 	>

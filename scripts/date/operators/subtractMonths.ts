@@ -1,12 +1,11 @@
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function subtractMonths<
 	GenericInput extends TheDate,
 	GenericMonth extends number,
 >(
-	month: PositiveNumber<GenericMonth>,
+	month: GenericMonth,
 ): (input: GenericInput) => TheDate;
 
 export function subtractMonths<
@@ -14,7 +13,7 @@ export function subtractMonths<
 	GenericMonth extends number,
 >(
 	input: GenericInput,
-	month: PositiveNumber<GenericMonth>,
+	month: GenericMonth,
 ): TheDate;
 
 export function subtractMonths(...args: [TheDate, number] | [number]) {
@@ -26,8 +25,7 @@ export function subtractMonths(...args: [TheDate, number] | [number]) {
 	const [input, month] = args;
 
 	const date = toNative(input);
-	const absoluteMonth = Math.abs(month);
-	date.setUTCMonth(date.getUTCMonth() - absoluteMonth);
+	date.setUTCMonth(date.getUTCMonth() - month);
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

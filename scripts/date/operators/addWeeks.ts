@@ -1,13 +1,12 @@
 import { millisecondInOneWeek } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function addWeeks<
 	GenericInput extends TheDate,
 	GenericWeek extends number,
 >(
-	week: PositiveNumber<GenericWeek>,
+	week: GenericWeek,
 ): (input: GenericInput) => TheDate;
 
 export function addWeeks<
@@ -15,7 +14,7 @@ export function addWeeks<
 	GenericWeek extends number,
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>,
+	week: GenericWeek,
 ): TheDate;
 
 export function addWeeks(...args: [TheDate, number] | [number]) {
@@ -25,10 +24,9 @@ export function addWeeks(...args: [TheDate, number] | [number]) {
 	}
 
 	const [input, week] = args;
-	const absoluteWeek = Math.abs(week);
 
 	const date = toNative(input);
-	date.setTime(date.getTime() + (absoluteWeek * millisecondInOneWeek));
+	date.setTime(date.getTime() + (week * millisecondInOneWeek));
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;
 

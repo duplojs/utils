@@ -1,13 +1,12 @@
 import { millisecondsInOneDay } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function subtractDays<
 	GenericInput extends TheDate,
 	GenericDay extends number,
 >(
-	day: PositiveNumber<GenericDay>,
+	day: GenericDay,
 ): (input: GenericInput) => TheDate;
 
 export function subtractDays<
@@ -15,7 +14,7 @@ export function subtractDays<
 	GenericDay extends number,
 >(
 	input: GenericInput,
-	day: PositiveNumber<GenericDay>,
+	day: GenericDay,
 ): TheDate;
 
 export function subtractDays(...args: [TheDate, number] | [number]) {
@@ -27,8 +26,7 @@ export function subtractDays(...args: [TheDate, number] | [number]) {
 	const [input, day] = args;
 
 	const date = toNative(input);
-	const absoluteDay = Math.abs(day);
-	date.setTime(date.getTime() - (absoluteDay * millisecondsInOneDay));
+	date.setTime(date.getTime() - (day * millisecondsInOneDay));
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;

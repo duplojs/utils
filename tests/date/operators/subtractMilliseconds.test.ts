@@ -24,18 +24,13 @@ describe("subtractMilliseconds", () => {
 		>;
 	});
 
-	it("treats negative numbers as their absolute value", () => {
+	it("supports negative numbers", () => {
 		const result = DDate.subtractMilliseconds(
 			baseDate,
 			(-400 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-31", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "600",
-		}));
+		expect(result).toBe(DDate.create("2020-01-01", { millisecond: "400" }));
 
 		type check = ExpectType<
 			typeof result,

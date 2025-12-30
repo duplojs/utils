@@ -1,13 +1,12 @@
 import { millisecondInOneHour } from "../constants";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
-import type { PositiveNumber } from "../../number/types";
 
 export function subtractHours<
 	GenericInput extends TheDate,
 	GenericHour extends number,
 >(
-	hour: PositiveNumber<GenericHour>,
+	hour: GenericHour,
 ): (input: GenericInput) => TheDate;
 
 export function subtractHours<
@@ -15,7 +14,7 @@ export function subtractHours<
 	GenericHour extends number,
 >(
 	input: GenericInput,
-	hour: PositiveNumber<GenericHour>,
+	hour: GenericHour,
 ): TheDate;
 
 export function subtractHours(...args: [TheDate, number] | [number]) {
@@ -27,8 +26,7 @@ export function subtractHours(...args: [TheDate, number] | [number]) {
 	const [input, hour] = args;
 
 	const date = toNative(input);
-	const absoluteHour = Math.abs(hour);
-	date.setTime(date.getTime() - (absoluteHour * millisecondInOneHour));
+	date.setTime(date.getTime() - (hour * millisecondInOneHour));
 
 	const timestamp = date.getTime();
 	const isNegative = timestamp < 0;
