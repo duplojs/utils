@@ -7,9 +7,8 @@ function addDays(...args) {
         return (input) => addDays(input, day);
     }
     const [input, day] = args;
-    const absoluteDay = Math.abs(day);
     const date = toNative(input);
-    date.setTime(date.getTime() + (absoluteDay * millisecondsInOneDay));
+    date.setTime(date.getTime() + (day * millisecondsInOneDay));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

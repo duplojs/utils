@@ -8,8 +8,7 @@ function subtractSeconds(...args) {
     }
     const [input, second] = args;
     const date = toNative(input);
-    const absoluteSecond = Math.abs(second);
-    date.setTime(date.getTime() - (absoluteSecond * millisecondsInOneSecond));
+    date.setTime(date.getTime() - (second * millisecondsInOneSecond));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

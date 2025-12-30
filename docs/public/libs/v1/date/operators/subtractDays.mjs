@@ -8,8 +8,7 @@ function subtractDays(...args) {
     }
     const [input, day] = args;
     const date = toNative(input);
-    const absoluteDay = Math.abs(day);
-    date.setTime(date.getTime() - (absoluteDay * millisecondsInOneDay));
+    date.setTime(date.getTime() - (day * millisecondsInOneDay));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

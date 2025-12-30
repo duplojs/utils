@@ -9,8 +9,7 @@ function subtractYears(...args) {
     }
     const [input, year] = args;
     const date = toNative.toNative(input);
-    const absoluteYear = Math.abs(year);
-    date.setUTCFullYear(date.getUTCFullYear() - absoluteYear);
+    date.setUTCFullYear(date.getUTCFullYear() - year);
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

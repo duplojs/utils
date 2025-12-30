@@ -7,9 +7,8 @@ function addHours(...args) {
         return (input) => addHours(input, hour);
     }
     const [input, hour] = args;
-    const absoluteHour = Math.abs(hour);
     const date = toNative(input);
-    date.setTime(date.getTime() + (absoluteHour * millisecondInOneHour));
+    date.setTime(date.getTime() + (hour * millisecondInOneHour));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

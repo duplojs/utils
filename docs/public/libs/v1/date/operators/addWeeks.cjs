@@ -9,9 +9,8 @@ function addWeeks(...args) {
         return (input) => addWeeks(input, week);
     }
     const [input, week] = args;
-    const absoluteWeek = Math.abs(week);
     const date = toNative.toNative(input);
-    date.setTime(date.getTime() + (absoluteWeek * constants.millisecondInOneWeek));
+    date.setTime(date.getTime() + (week * constants.millisecondInOneWeek));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

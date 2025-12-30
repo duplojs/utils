@@ -8,8 +8,7 @@ function subtractMinutes(...args) {
     }
     const [input, minute] = args;
     const date = toNative(input);
-    const absoluteMinute = Math.abs(minute);
-    date.setTime(date.getTime() - (absoluteMinute * millisecondInOneMinute));
+    date.setTime(date.getTime() - (minute * millisecondInOneMinute));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

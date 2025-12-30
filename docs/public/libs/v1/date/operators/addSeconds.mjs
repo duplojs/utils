@@ -7,9 +7,8 @@ function addSeconds(...args) {
         return (input) => addSeconds(input, second);
     }
     const [input, second] = args;
-    const absoluteSecond = Math.abs(second);
     const date = toNative(input);
-    date.setTime(date.getTime() + (absoluteSecond * millisecondsInOneSecond));
+    date.setTime(date.getTime() + (second * millisecondsInOneSecond));
     const timestamp = date.getTime();
     const isNegative = timestamp < 0;
     return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;

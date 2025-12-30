@@ -1716,6 +1716,9 @@
               "name": "createTuple.d.ts"
             },
             {
+              "name": "joinTuple.d.ts"
+            },
+            {
               "name": "mergeUnionTuple.d.ts"
             },
             {
@@ -3000,6 +3003,9 @@
               "name": "isLeapYear.d.ts"
             },
             {
+              "name": "isSafeYear.d.ts"
+            },
+            {
               "name": "index.d.ts"
             },
             {
@@ -4219,10 +4225,16 @@
           "name": "types",
           "files": [
             {
-              "name": "positiveNumber.d.ts"
+              "name": "index.d.ts"
             },
             {
-              "name": "index.d.ts"
+              "name": "absolute.d.ts"
+            },
+            {
+              "name": "forbiddenNegative.d.ts"
+            },
+            {
+              "name": "isPositive.d.ts"
             }
           ]
         },
