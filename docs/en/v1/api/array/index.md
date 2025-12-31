@@ -44,6 +44,9 @@ Returns the last element of the array.
 ### [length](/en/v1/api/array/length)
 Returns the length of the array.
 
+### [lengthEqual](/en/v1/api/array/lengthEqual)
+Checks that an array has an exact length.
+
 ## Search and test
 
 ### [includes](/en/v1/api/array/includes)

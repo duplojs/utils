@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "length"
-  link: "/en/v1/api/array/length"
+  text: "lengthEqual"
+  link: "/en/v1/api/array/lengthEqual"
 next:
   text: "notIncludes"
   link: "/en/v1/api/array/notIncludes"

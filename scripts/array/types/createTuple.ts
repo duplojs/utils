@@ -6,14 +6,16 @@ export type CreateTuple<
 	GenericLastTuple extends unknown[] = [],
 > = IsEqual<GenericLength, number> extends true
 	? GenericValue[]
-	: [...GenericLastTuple, GenericValue] extends infer InferredResult extends any[]
-		? IsEqual<InferredResult["length"], GenericLength> extends true
-			? InferredResult
-			: IsEqual<InferredResult["length"], 1000> extends true
-				? [...InferredResult, ...GenericValue[]]
-				: CreateTuple<
-					GenericValue,
-					GenericLength,
-					InferredResult
-				>
-		: never;
+	: IsEqual<GenericLength, 0> extends true
+		? []
+		: [...GenericLastTuple, GenericValue] extends infer InferredResult extends any[]
+			? IsEqual<InferredResult["length"], GenericLength> extends true
+				? InferredResult
+				: IsEqual<InferredResult["length"], 1000> extends true
+					? [...InferredResult, ...GenericValue[]]
+					: CreateTuple<
+						GenericValue,
+						GenericLength,
+						InferredResult
+					>
+			: never;

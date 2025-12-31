@@ -41,6 +41,7 @@ export { chunk } from './chunk.mjs';
 export { insert } from './insert.mjs';
 export { isLastIndex } from './isLastIndex.mjs';
 export { select, selectTools } from './select.mjs';
+export { lengthEqual } from './lengthEqual.mjs';
 export { spliceDelete } from './splice/delete.mjs';
 export { spliceInsert } from './splice/insert.mjs';
 export { spliceReplace } from './splice/replace.mjs';

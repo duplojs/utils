@@ -1496,6 +1496,9 @@
           "name": "join.mjs"
         },
         {
+          "name": "lengthEqual.cjs"
+        },
+        {
           "name": "insert.mjs"
         },
         {
@@ -1885,6 +1888,9 @@
           "name": "minOf.d.ts"
         },
         {
+          "name": "lengthEqual.d.ts"
+        },
+        {
           "name": "notIncludes.d.ts"
         },
         {
@@ -1931,6 +1937,9 @@
         },
         {
           "name": "flat.mjs"
+        },
+        {
+          "name": "lengthEqual.mjs"
         },
         {
           "name": "findAndReplace.mjs"
