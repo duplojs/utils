@@ -4,8 +4,8 @@ prev:
   text: "toTuple"
   link: "/en/v1/api/array/toTuple"
 next:
-  text: "includes"
-  link: "/en/v1/api/array/includes"
+  text: "lengthEqual"
+  link: "/en/v1/api/array/lengthEqual"
 ---
 
 # length

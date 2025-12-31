@@ -44,6 +44,9 @@ Retourne le dernier élément du tableau.
 ### [length](/fr/v1/api/array/length)
 Retourne la longueur du tableau.
 
+### [lengthEqual](/fr/v1/api/array/lengthEqual)
+Vérifie qu'un tableau a une longueur exacte.
+
 ## Recherche et test
 
 ### [includes](/fr/v1/api/array/includes)

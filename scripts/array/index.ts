@@ -47,3 +47,4 @@ export * from "./chunk";
 export * from "./insert";
 export * from "./isLastIndex";
 export * from "./select";
+export * from "./lengthEqual";
