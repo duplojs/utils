@@ -59,7 +59,7 @@ export default defineConfig({
 						dest: "./",
 						transform: {
 							encoding: "utf-8",
-							handler: (content) => content.replace(/^.*@ts-expect-error.*\n/gm, ""),
+							handler: (content) => content.replace(/ ?@ts-expect-error/g, ""),
 						},
 					},
 				],

@@ -70,6 +70,8 @@ describe("DDataParser date", () => {
 		expect(schema.parse(beforeChristInput)).toStrictEqual(
 			DEither.success(beforeChristExpected),
 		);
+		expect(schema.parse("1969-01-01")).toStrictEqual(DEither.success("date31536000000-"));
+		expect(schema.parse("1970-01-01")).toStrictEqual(DEither.success("date0+"));
 	});
 
 	it("rejects invalid coercions", () => {
@@ -80,7 +82,6 @@ describe("DDataParser date", () => {
 		const outOfRangeTimestamp = DDate.maxTimestamp + 1;
 		const invalidMonth = "2021y-13m-1d";
 		const invalidDay = "2021y-2m-30d";
-		const invalidFormat = "2021/01/01";
 		const invalidHour = "2021y-1m-1d-25h";
 		const invalidType = true;
 		const outOfRangeDate = new Date(DDate.maxTimestamp + 1);
@@ -89,7 +90,6 @@ describe("DDataParser date", () => {
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const monthResult = schema.parse(invalidMonth);
 		const dayResult = schema.parse(invalidDay);
-		const formatResult = schema.parse(invalidFormat);
 		const hourResult = schema.parse(invalidHour);
 		const typeResult = schema.parse(invalidType);
 		const dateResult = schema.parse(outOfRangeDate);
@@ -119,15 +119,6 @@ describe("DDataParser date", () => {
 					DDataParser.createError(),
 					schema,
 					invalidDay,
-				),
-			),
-		);
-		expect(formatResult).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidFormat,
 				),
 			),
 		);

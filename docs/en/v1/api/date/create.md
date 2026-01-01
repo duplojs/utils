@@ -30,14 +30,18 @@ function create<
 ): MayBe
 
 function create<
-	GenericInput extends `${"-" | ""}${number}-${MonthWithDay}`
+	GenericInput extends `${number}-${MonthWithDay}`
 >(
-	input: GenericInput & LeapYearConstraint,
+	input: GenericInput & YearConstraint,
 	params?: { hour?: Hour; minute?: Minute; second?: Second; millisecond?: Millisecond }
 ): TheDate
 ```
 
-`LeapYearConstraint` ensures that February 29 is only accepted when the year is a leap year.
+`YearConstraint` ensures that February 29 is only accepted when the year is a leap year and that the defined year stays within supported limits.
+
+:::info
+The second declaration is only for declaring known constant dates ahead of time. Very useful for unit tests or default values.
+:::
 
 ## Parameters
 
