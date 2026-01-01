@@ -1,4 +1,4 @@
-export { daysInOneWeek, hoursInOneDay, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimestamp, minutesInOneHour, monthtsInOneYear, secondsInOneMinute, theDateRegex } from './constants.mjs';
+export { daysInOneWeek, hoursInOneDay, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimestamp, minutesInOneHour, monthsInOneYear, secondsInOneMinute, theDateRegex } from './constants.mjs';
 export { create } from './create.mjs';
 export { now } from './now.mjs';
 export { today } from './today.mjs';
