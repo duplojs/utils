@@ -80,13 +80,16 @@ Agrège plusieurs `Either` synchrones et renvoie le premier `Left` ou un objet d
 ### [asyncGroup](/fr/v1/api/either/asyncGroup)
 Version asynchrone de `group` acceptant promesses et `Future`.
 
-## Informations & matching
+## Autre
 
 ### [hasInformation](/fr/v1/api/either/hasInformation)
 Type guard basé sur l'information littérale pour cibler précisément un cas métier.
 
 ### [whenHasInformation](/fr/v1/api/either/whenHasInformation)
 Pattern matching qui déclenche une fonction quand l'information (ou une liste d'infos) correspond.
+
+### [safeCallback](/fr/v1/api/either/safeCallback)
+Exécute un callback en capturant les exceptions dans un `Left<"callback">`.
 
 ## Helpers booléens
 

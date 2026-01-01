@@ -3,6 +3,7 @@
 var hasInformation = require('./hasInformation.cjs');
 var whenHasInformation = require('./whenHasInformation.cjs');
 var kind = require('./kind.cjs');
+var safeCallback = require('./safeCallback.cjs');
 var create = require('./bool/create.cjs');
 var falsy = require('./bool/falsy.cjs');
 var truthy = require('./bool/truthy.cjs');
@@ -44,6 +45,9 @@ exports.hasInformation = hasInformation.hasInformation;
 exports.whenHasInformation = whenHasInformation.whenHasInformation;
 exports.createEitherKind = kind.createEitherKind;
 exports.eitherInformationKind = kind.eitherInformationKind;
+exports.callbackError = safeCallback.callbackError;
+exports.eitherCallbackErrorKind = safeCallback.eitherCallbackErrorKind;
+exports.safeCallback = safeCallback.safeCallback;
 exports.bool = create.bool;
 exports.boolFalsy = falsy.boolFalsy;
 exports.eitherBoolFalsyKind = falsy.eitherBoolFalsyKind;
