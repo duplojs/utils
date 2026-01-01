@@ -30,6 +30,14 @@ function date(definition) {
                 const isNegative = data < 0;
                 return `date${Math.abs(data)}${isNegative ? "-" : "+"}`;
             }
+            if (typeof data === "string") {
+                const date = new Date(data);
+                const timestamp = date.getTime();
+                if (isSafeTimestamp.isSafeTimestamp(timestamp)) {
+                    const isNegative = timestamp < 0;
+                    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+                }
+            }
         }
         const theDateMatch = typeof data === "string" && data.match(constants.theDateRegex);
         if (theDateMatch) {

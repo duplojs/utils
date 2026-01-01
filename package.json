@@ -112,7 +112,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@duplojs/dev-tools": "0.1.0",
+    "@duplojs/dev-tools": "0.2.0",
     "@duplojs/eslint": "0.5.0",
     "@rollup/plugin-typescript": "12.1.4",
     "@types/node": "24.3.0",

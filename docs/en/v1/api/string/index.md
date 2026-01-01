@@ -116,5 +116,8 @@ Concatenates multiple strings together.
 ### [sort](/en/v1/api/string/sort)
 Sorts an array of strings in ascending or descending order.
 
+### [sortCompare](/en/v1/api/string/sortCompare)
+Compares two strings using locale-aware sorting rules.
+
 ### [isKeyof](/en/v1/api/string/isKeyof)
 Checks whether a string is a valid key of an object (type guard).

@@ -4,8 +4,8 @@ prev:
   text: "betweenThan"
   link: "/fr/v1/api/string/trimEnd"
 next:
-  text: "concat"
-  link: "/fr/v1/api/string/concat"
+  text: "sortCompare"
+  link: "/fr/v1/api/string/sortCompare"
 ---
 
 # sort

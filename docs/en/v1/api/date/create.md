@@ -17,7 +17,7 @@ The **`create()`** function builds a `TheDate` from a `Date`, a timestamp, or a 
 <MonacoTSEditor
   src="/examples/v1/api/date/create/tryout.doc.ts"
   majorVersion="v1"
-  height="360px"
+  height="640px"
 />
 
 ## Syntax
