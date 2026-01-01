@@ -116,5 +116,8 @@ Concatène plusieurs chaînes ensemble.
 ### [sort](/fr/v1/api/string/sort)
 Trie un tableau de chaînes en ordre croissant ou décroissant.
 
+### [sortCompare](/fr/v1/api/string/sortCompare)
+Compare deux chaînes avec des règles de tri sensibles à la locale.
+
 ### [isKeyof](/fr/v1/api/string/isKeyof)
 Vérifie si une chaîne est une clé valide d'un objet (type guard).

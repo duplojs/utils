@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "sort"
-  link: "/en/v1/api/string/sort"
+  text: "sortCompare"
+  link: "/en/v1/api/string/sortCompare"
 next:
   text: "isKeyof"
   link: "/en/v1/api/string/isKeyof"
