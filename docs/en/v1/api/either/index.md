@@ -165,13 +165,16 @@ Aggregates multiple synchronous `Either` and returns the first `Left` or an obje
 ### [asyncGroup](/en/v1/api/either/asyncGroup)
 Async version of `group` that accepts promises and `Future`.
 
-## Information & matching
+## Other
 
 ### [hasInformation](/en/v1/api/either/hasInformation)
 Type guard based on the literal information to precisely target a business case.
 
 ### [whenHasInformation](/en/v1/api/either/whenHasInformation)
 Pattern matching that triggers a function when the information (or a list of infos) matches.
+
+### [safeCallback](/en/v1/api/either/safeCallback)
+Runs a callback and captures exceptions into a `Left<"callback">`.
 
 ## Boolean helpers
 

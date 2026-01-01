@@ -4,8 +4,8 @@ prev:
   text: "hasInformation"
   link: "/fr/v1/api/either/hasInformation"
 next:
-  text: "bool"
-  link: "/fr/v1/api/either/bool"
+  text: "safeCallback"
+  link: "/fr/v1/api/either/safeCallback"
 ---
 
 # whenHasInformation

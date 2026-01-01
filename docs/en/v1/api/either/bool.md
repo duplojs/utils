@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "whenHasInformation"
-  link: "/en/v1/api/either/whenHasInformation"
+  text: "safeCallback"
+  link: "/en/v1/api/either/safeCallback"
 next:
   text: "boolTruthy"
   link: "/en/v1/api/either/boolTruthy"

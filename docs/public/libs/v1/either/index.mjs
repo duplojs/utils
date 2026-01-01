@@ -1,6 +1,7 @@
 export { hasInformation } from './hasInformation.mjs';
 export { whenHasInformation } from './whenHasInformation.mjs';
 export { createEitherKind, eitherInformationKind } from './kind.mjs';
+export { callbackError, eitherCallbackErrorKind, safeCallback } from './safeCallback.mjs';
 export { bool } from './bool/create.mjs';
 export { boolFalsy, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy } from './bool/falsy.mjs';
 export { boolTruthy, eitherBoolTruthyKind, isBoolTruthy, whenIsBoolTruthy } from './bool/truthy.mjs';

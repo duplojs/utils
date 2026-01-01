@@ -61,6 +61,9 @@
           "name": "hasInformation.d.ts"
         },
         {
+          "name": "safeCallback.d.ts"
+        },
+        {
           "name": "nullable",
           "files": [
             {
@@ -153,6 +156,9 @@
         },
         {
           "name": "kind.mjs"
+        },
+        {
+          "name": "safeCallback.mjs"
         },
         {
           "name": "right",
@@ -351,6 +357,9 @@
         },
         {
           "name": "whenHasInformation.mjs"
+        },
+        {
+          "name": "safeCallback.cjs"
         },
         {
           "name": "bool",
