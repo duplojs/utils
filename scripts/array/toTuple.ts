@@ -20,6 +20,9 @@ type ComputesResult<
 		: [ReturnType<InferredFirst>]
 	: never;
 
+/**
+ * {@include array/toTuple/index.md}
+ */
 export function toTuple<
 	GenericInput extends unknown,
 	GenericShapeTuple extends ShapeTuple<NoInfer<GenericInput>>,

@@ -1,5 +1,8 @@
 import { type CreateTuple } from "./types";
 
+/**
+ * {@include array/lengthEqual/index.md}
+ */
 export function lengthEqual<
 	GenericArray extends readonly unknown[],
 	GenericLength extends number,

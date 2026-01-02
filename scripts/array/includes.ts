@@ -1,4 +1,7 @@
 
+/**
+ * {@include array/includes/index.md}
+ */
 export function includes<
 	GenericArrayValue extends unknown,
 >(
@@ -23,4 +26,3 @@ export function includes(...args: [readonly unknown[], unknown] | [unknown]) {
 
 	return array.includes(value);
 }
-

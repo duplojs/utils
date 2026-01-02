@@ -1,3 +1,6 @@
+/**
+ * {@include array/insert/index.md}
+ */
 export function insert<
 	GenericElement extends unknown,
 >(

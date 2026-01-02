@@ -1,3 +1,6 @@
+/**
+ * {@include array/sum/index.md}
+ */
 export function sum<
 	GenericArray extends readonly number[],
 >(array: GenericArray): number {

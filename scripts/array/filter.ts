@@ -10,6 +10,9 @@ interface ArrayFilterParams<
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericInput instead of GenericElement
 // preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/filter/index.md}
+ */
 export function filter<
 	GenericInput extends readonly unknown[],
 	GenericOutput extends GenericInput[number],

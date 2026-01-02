@@ -1,3 +1,6 @@
+/**
+ * {@include array/isLastIndex/index.md}
+ */
 export function isLastIndex<
 	GenericInput extends readonly unknown[],
 >(
