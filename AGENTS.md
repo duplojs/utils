@@ -96,3 +96,20 @@ type check = ExpectType<
   "strict" // obligatoirement strict et rien d'autre
 >
 ```
+
+## Structure de la jsDoc
+
+Chaque fonction de chaque domaine possède une documentation jsDoc dans le dossier `jsDoc/{namespace}/{function}/index.md`.
+a ce fichier y est accolé une série d'exemples dans le dossier `jsDoc/{namespace}/{function}/example.ts`.
+
+Chaque fichier `index.md` doit contenir les sections suivantes dans l'ordre :
+1. Description de la fonction
+	1.1 Description courte
+	1.2 Description des styles d'appel supportés (classique et currifié)
+	1.3 Description du comportement
+2. Exemple d'utilisation avec `@example` (les exemples doivent être importer avec la balise `{@include ...[lineStart,lineEnd]}`)
+3. Remarques additionnelles avec `@remarks` (optionnel)
+4. Section Voir aussi avec `@see` (doit contenir au moins un lien vers la documentation en ligne)
+Chaque fichier `example.ts` doit contenir au moins 3 exemples d'utilisation de la fonction, couvrant les cas d'usage les plus courants.
+
+:warning: certaines fonctions en plus des overload `classque` et currifié peuvent aussi avoir des overloads predicate (`classique predicate` et `currifié predicate`). il est important donc de l'expliquer dans la description courte et les styles d'appel supportés. et aussi de montrer un exemple qui utilise un if pour la version `classique predicate` et un exemple qui utilise un pipe + when pour la version `currifié predicate`.

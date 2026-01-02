@@ -1,5 +1,8 @@
 import type { AtTuple } from "../types";
 
+/**
+ * {@include array/at/index.md}
+ */
 export function at<
 	GenericTuple extends readonly unknown[],
 	GenericIndex extends number,

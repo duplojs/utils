@@ -4,6 +4,9 @@ interface ArrayFindAndSpliceInsertIndexParams {
 	index: number;
 }
 
+/**
+ * {@include array/findAndSpliceInsert/index.md}
+ */
 export function findAndSpliceInsert<
 	GenericElement extends unknown,
 >(
