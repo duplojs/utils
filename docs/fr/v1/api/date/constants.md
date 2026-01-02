@@ -24,7 +24,7 @@ Expose les constantes bas niveau utilisées par les helpers date (durées usuell
 
 - `minTimestamp` / `maxTimestamp`
 - `millisecondsInOneDay`, `millisecondInOneWeek`, `millisecondInOneHour`, etc.
-- `secondsInOneMinute`, `minutesInOneHour`, `hoursInOneDay`, `daysInOneWeek`, `monthtsInOneYear`.
+- `secondsInOneMinute`, `minutesInOneHour`, `hoursInOneDay`, `daysInOneWeek`, `monthsInOneYear`.
 - `theDateRegex` : expression régulière qui valide les chaînes `TheDate`.
 
 ## Utilisation

@@ -1,4 +1,4 @@
-import { DDataParser, DEither, type Kind, pipe, type ExpectType, createKindIdentifier } from "@scripts";
+import { DDataParser, type Kind, pipe, type ExpectType, createKindIdentifier, when } from "@scripts";
 
 describe("createKindIdentifier", () => {
 	const identifier = createKindIdentifier<
@@ -7,33 +7,50 @@ describe("createKindIdentifier", () => {
 		| DDataParser.DataParsersExtended
 	>();
 
-	it("success", () => {
-		const schema = DDataParser.string();
+	it("predicate with identified data parser", () => {
+		const schema = DDataParser.string() as DDataParser.DataParserString | DDataParser.DataParserNumber;
 
-		const result = identifier(
+		const predicate = identifier(
 			schema,
 			DDataParser.stringKind,
 		);
 
-		expect(result).toStrictEqual(
-			DEither.success(schema),
-		);
+		expect(predicate).toStrictEqual(true);
 
-		type Check = ExpectType<
-			typeof result,
-			| DEither.EitherSuccess<typeof schema>
-			| DEither.EitherSuccess<
-				| DDataParser.DataParserString<DDataParser.DataParserDefinitionString>
-				| DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>
-			>,
-			"strict"
-		>;
+		if (predicate) {
+			type check = ExpectType<
+				typeof schema,
+				DDataParser.DataParserString<DDataParser.DataParserDefinitionString>,
+				"strict"
+			>;
+		}
 	});
 
-	it("error", () => {
+	it("predicate wrong value", () => {
 		const schema = DDataParser.string();
 
-		const result = identifier(
+		const predicate = identifier(
+			schema,
+			DDataParser.numberKind,
+		);
+
+		expect(predicate).toStrictEqual(false);
+
+		if (predicate) {
+			type check = ExpectType<
+				typeof schema,
+				never,
+				"strict"
+			>;
+		}
+	});
+
+	it("predicate on union", () => {
+		const schema = DDataParser.string() as DDataParser.DataParserString
+			| DDataParser.DataParser
+			| DDataParser.DataParserNumber;
+
+		const predicate = identifier(
 			schema,
 			[
 				DDataParser.stringKind,
@@ -41,18 +58,15 @@ describe("createKindIdentifier", () => {
 			],
 		);
 
-		expect(result).toStrictEqual(
-			DEither.error(schema),
-		);
+		expect(predicate).toStrictEqual(false);
 
-		type Check = ExpectType<
-			typeof result,
-			| DEither.EitherError<typeof schema>
-			| DEither.EitherSuccess<
-				DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>
-			>,
-			"strict"
-		>;
+		if (predicate) {
+			type check = ExpectType<
+				typeof schema,
+				DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>,
+				"strict"
+			>;
+		}
 	});
 
 	it("use in pipe", () => {
@@ -60,30 +74,38 @@ describe("createKindIdentifier", () => {
 
 		const result = pipe(
 			schema,
-			identifier([
-				DDataParser.stringKind,
-				DDataParser.extendedKind,
-			]),
+			when(
+				identifier([
+					DDataParser.stringKind,
+					DDataParser.extendedKind,
+				]),
+				(schema) => {
+					type check = ExpectType<
+						typeof schema,
+						DDataParser.extended.DataParserStringExtended<{
+							readonly errorMessage?: string | undefined;
+							readonly coerce: boolean;
+							readonly checkers: readonly [];
+						}>,
+						"strict"
+					>;
+
+					return true;
+				},
+			),
 		);
 
-		expect(result).toStrictEqual(
-			DEither.success(schema),
-		);
-
-		type Check = ExpectType<
-			typeof result,
-			| DEither.EitherSuccess<typeof schema>
-			| DEither.EitherSuccess<
-				DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>
-			>,
-			"strict"
-		>;
+		expect(result).toStrictEqual(true);
 	});
 
 	it("test types", () => {
-		const schema = DDataParser.string() as DDataParser.DataParser;
+		const schema = DDataParser.string() as unknown as (
+			& DDataParser.DataParser
+			& Kind<typeof DDataParser.stringKind["definition"]>
+			& Kind<typeof DDataParser.extendedKind["definition"]>
+		);
 
-		const result = identifier(
+		const predicate = identifier(
 			schema,
 			[
 				DDataParser.stringKind,
@@ -91,36 +113,14 @@ describe("createKindIdentifier", () => {
 			],
 		);
 
-		type Check = ExpectType<
-			typeof result,
-			| DEither.EitherError<typeof schema>
-			| DEither.EitherSuccess<
-				DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>
-			>,
-			"strict"
-		>;
-
-		const schema1 = DDataParser.string() as unknown as (
-			& DDataParser.DataParser
-			& Kind<typeof DDataParser.stringKind["definition"]>
-			& Kind<typeof DDataParser.extendedKind["definition"]>
-		);
-
-		const result1 = identifier(
-			schema1,
-			[
-				DDataParser.stringKind,
-				DDataParser.extendedKind,
-			],
-		);
-
-		type Check1 = ExpectType<
-			typeof result1,
-			| DEither.EitherSuccess<typeof schema1>
-			| DEither.EitherSuccess<
-				DDataParser.extended.DataParserStringExtended<DDataParser.DataParserDefinitionString>
-			>,
-			"strict"
-		>;
+		if (predicate) {
+			type Check1 = ExpectType<
+				typeof schema,
+				& DDataParser.DataParser
+				& Kind<typeof DDataParser.stringKind["definition"]>
+				& Kind<typeof DDataParser.extendedKind["definition"]>,
+				"strict"
+			>;
+		}
 	});
 });

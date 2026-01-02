@@ -16,59 +16,59 @@ export function createKindIdentifier<
 	function identifier<
 		GenericKindHandler extends KindHandlers,
 		GenericInput extends GenericParent,
-		GenericResult extends Extract<
-			GenericChildren,
-			UnionToIntersection<
-				GenericKindHandler extends KindHandler
-					? Kind<GenericKindHandler["definition"]>
-					: never
-			>
+		GenericGroupedKind extends UnionToIntersection<
+			GenericKindHandler extends KindHandler
+				? Kind<GenericKindHandler["definition"]>
+				: never
 		>,
 	>(
 		kind: GenericKindHandler | GenericKindHandler[]
 	): (
 		input: GenericInput
-	) => (
-		| (
-			GenericInput extends any
-				? UnionContain<
-					GetKindHandler<GenericInput>,
-					GenericKindHandler
-				> extends true
-					? DEither.EitherSuccess<GenericInput>
-					: DEither.EitherError<GenericInput>
-				: never
-		)
-		| DEither.EitherSuccess<GenericResult>
-	);
+	) =>
+		// @ts-expect-error force predicate
+		input is (
+			| (
+				UnionContain<GenericInput, GenericParent> extends true
+					? Extract<
+						GenericChildren,
+						GenericGroupedKind
+					>
+					: never
+			)
+			| Extract<
+				GenericInput,
+				GenericGroupedKind
+			>
+		);
 
 	function identifier<
 		GenericKindHandler extends KindHandlers,
 		GenericInput extends GenericParent,
-		GenericResult extends Extract<
-			GenericChildren,
-			UnionToIntersection<
-				GenericKindHandler extends KindHandler
-					? Kind<GenericKindHandler["definition"]>
-					: never
-			>
+		GenericGroupedKind extends UnionToIntersection<
+			GenericKindHandler extends KindHandler
+				? Kind<GenericKindHandler["definition"]>
+				: never
 		>,
 	>(
 		input: GenericInput,
 		kind: GenericKindHandler | GenericKindHandler[]
-	): (
-		| (
-			GenericInput extends any
-				? UnionContain<
-					GetKindHandler<GenericInput>,
-					GenericKindHandler
-				> extends true
-					? DEither.EitherSuccess<GenericInput>
-					: DEither.EitherError<GenericInput>
-				: never
-		)
-		| DEither.EitherSuccess<GenericResult>
-	);
+	):
+		// @ts-expect-error force predicate
+		input is (
+			| (
+				UnionContain<GenericInput, GenericParent> extends true
+					? Extract<
+						GenericChildren,
+						GenericGroupedKind
+					>
+					: never
+			)
+			| Extract<
+				GenericInput,
+				GenericGroupedKind
+			>
+		);
 
 	function identifier(
 		...args: | [unknown, KindHandler | KindHandler[]]
@@ -86,11 +86,11 @@ export function createKindIdentifier<
 
 		for (const kind of formattedKind) {
 			if (!kind.has(input)) {
-				return DEither.error(input);
+				return false;
 			}
 		}
 
-		return DEither.success(input);
+		return true;
 	}
 
 	return identifier;

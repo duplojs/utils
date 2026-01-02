@@ -1,11 +1,10 @@
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject, object } from ".";
-import { forward, pipe, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { pipe, whenNot, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserOptionalCheckers, type DataParserOptional, optionalKind, optional } from "../optional";
 import { identifier } from "@scripts/dataParser/identifier";
 import * as DObject from "@scripts/object";
 import * as DArray from "@scripts/array";
-import * as DEither from "@scripts/either";
 
 export type PartialDataParserObject<
 	GenericShape extends DataParserObjectShape,
@@ -27,9 +26,11 @@ export function partialShape(
 		DObject.entries,
 		DArray.map(
 			([key, dataParser]) => pipe(
-				identifier(dataParser, optionalKind),
-				DEither.whenIsRight(forward),
-				DEither.whenIsLeft(optional),
+				dataParser,
+				whenNot(
+					identifier(optionalKind),
+					optional,
+				),
 				(dataParser) => DObject.entry(key, dataParser),
 			),
 		),

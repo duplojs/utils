@@ -1,6 +1,6 @@
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject, object } from ".";
-import { forward, pipe, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { forward, pipe, when, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserOptional, optionalKind } from "../optional";
 import { identifier } from "@scripts/dataParser/identifier";
 import * as DObject from "@scripts/object";
@@ -23,8 +23,9 @@ export function requiredShape(
 		DObject.entries,
 		DArray.map(
 			([key, dataParser]) => pipe(
-				identifier(dataParser, optionalKind),
-				DEither.whenIsRight(
+				dataParser,
+				when(
+					identifier(optionalKind),
 					(dataParser) => dataParser.definition.inner,
 				),
 				DEither.whenIsLeft(forward),
