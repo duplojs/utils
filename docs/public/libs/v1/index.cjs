@@ -54,6 +54,7 @@ var createKindIdentifier = require('./common/createKindIdentifier.cjs');
 var forwardLog = require('./common/forwardLog.cjs');
 var override = require('./common/override.cjs');
 var errorKindNamespace = require('./common/errorKindNamespace.cjs');
+var hasKinds = require('./common/hasKinds.cjs');
 
 
 
@@ -135,3 +136,4 @@ exports.createKindIdentifier = createKindIdentifier.createKindIdentifier;
 exports.forwardLog = forwardLog.forwardLog;
 exports.createOverride = override.createOverride;
 exports.createErrorKind = errorKindNamespace.createErrorKind;
+exports.hasKinds = hasKinds.hasKinds;

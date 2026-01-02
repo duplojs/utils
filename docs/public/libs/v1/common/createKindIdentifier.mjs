@@ -1,6 +1,4 @@
 import { coalescing } from '../array/coalescing.mjs';
-import { error } from '../either/left/error.mjs';
-import { success } from '../either/right/success.mjs';
 
 function createKindIdentifier() {
     function identifier(...args) {
@@ -12,10 +10,10 @@ function createKindIdentifier() {
         const formattedKind = coalescing(kind);
         for (const kind of formattedKind) {
             if (!kind.has(input)) {
-                return error(input);
+                return false;
             }
         }
-        return success(input);
+        return true;
     }
     return identifier;
 }

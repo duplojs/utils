@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "instanceOf"
-  link: "/fr/v1/api/common/instanceOf"
+  text: "hasKinds"
+  link: "/fr/v1/api/common/hasKinds"
 next:
   text: "asyncLoop"
   link: "/fr/v1/api/common/asyncLoop"

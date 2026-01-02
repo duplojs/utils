@@ -1225,6 +1225,15 @@
           "name": "globalStore.mjs"
         },
         {
+          "name": "hasKinds.cjs"
+        },
+        {
+          "name": "hasKinds.d.ts"
+        },
+        {
+          "name": "hasKinds.mjs"
+        },
+        {
           "name": "index.d.ts"
         },
         {

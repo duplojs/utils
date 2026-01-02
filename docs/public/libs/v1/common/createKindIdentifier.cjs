@@ -1,8 +1,6 @@
 'use strict';
 
 var coalescing = require('../array/coalescing.cjs');
-var error = require('../either/left/error.cjs');
-var success = require('../either/right/success.cjs');
 
 function createKindIdentifier() {
     function identifier(...args) {
@@ -14,10 +12,10 @@ function createKindIdentifier() {
         const formattedKind = coalescing.coalescing(kind);
         for (const kind of formattedKind) {
             if (!kind.has(input)) {
-                return error.error(input);
+                return false;
             }
         }
-        return success.success(input);
+        return true;
     }
     return identifier;
 }

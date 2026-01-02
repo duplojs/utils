@@ -72,6 +72,9 @@ Type guard basé sur `typeof`, `Array.isArray`, itérables, etc.
 ### [instanceOf](/fr/v1/api/common/instanceOf)
 Type guard basé sur un ou plusieurs constructeurs (`instanceof` typé).
 
+### [hasKinds](/fr/v1/api/common/hasKinds)
+Type guard qui vérifie qu'une valeur possède tous les kinds attendus.
+
 ## Boucles
 
 ### [loop](/fr/v1/api/common/loop)
