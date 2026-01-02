@@ -76,4 +76,6 @@ export { createKindIdentifier } from './common/createKindIdentifier.mjs';
 export { forwardLog } from './common/forwardLog.mjs';
 export { createOverride } from './common/override.mjs';
 export { createErrorKind } from './common/errorKindNamespace.mjs';
+export { truthy } from './common/truthy.mjs';
+export { falsy } from './common/falsy.mjs';
 export { hasKinds } from './common/hasKinds.mjs';

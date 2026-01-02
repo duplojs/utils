@@ -1,4 +1,4 @@
-import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
+import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink, type FalsyValue } from "@scripts/common";
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
@@ -7,14 +7,12 @@ import { bool } from "./create";
 import { left, type EitherLeft, isLeft } from "../left";
 import { type EitherRight, isRight } from "../right";
 
-export type BoolFalsyValue = 0 | "" | undefined | null | false;
-
 export const eitherBoolFalsyKind = createEitherKind(
 	"bool-falsy",
 );
 
 type _EitherBoolFalsy<
-	GenericValue extends BoolFalsyValue = BoolFalsyValue,
+	GenericValue extends FalsyValue = FalsyValue,
 > = (
 	& EitherLeft<"bool", GenericValue>
 	& Kind<typeof eitherBoolKind.definition>
@@ -22,13 +20,13 @@ type _EitherBoolFalsy<
 );
 
 export interface EitherBoolFalsy<
-	GenericValue extends BoolFalsyValue = BoolFalsyValue,
+	GenericValue extends FalsyValue = FalsyValue,
 > extends _EitherBoolFalsy<GenericValue> {
 
 }
 
 export function boolFalsy<
-	const GenericValue extends BoolFalsyValue = undefined,
+	const GenericValue extends FalsyValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherBoolFalsy<GenericValue> {
 	return eitherBoolKind.setTo(
 		eitherBoolFalsyKind.setTo(

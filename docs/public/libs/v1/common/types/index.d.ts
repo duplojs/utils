@@ -42,3 +42,4 @@ export * from "./unwrapArray";
 export * from "./onlyLiteral";
 export * from "./sortType";
 export * from "./maybeGetter";
+export * from "./falsyValue";

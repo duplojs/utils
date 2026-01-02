@@ -1,16 +1,19 @@
 export function concat<
-	GenericElement extends unknown,
+	GenericFirstArray extends readonly unknown[],
+	GenericSecondArray extends readonly unknown[],
 >(
-	elements: readonly GenericElement[],
-): (array: readonly GenericElement[]) => GenericElement[];
+	elements: GenericSecondArray,
+): (array: GenericFirstArray) => (GenericFirstArray[number] | GenericSecondArray[number])[];
 
 export function concat<
-	GenericElement extends unknown,
+	GenericFirstArray extends readonly unknown[],
+	GenericSecondArray extends readonly unknown[],
+	GenericRest extends readonly unknown[][],
 >(
-	array: readonly GenericElement[],
-	elements: readonly GenericElement[],
-	...elementsRest: readonly GenericElement[][]
-): GenericElement[];
+	array: GenericFirstArray,
+	elements: GenericSecondArray,
+	...elementsRest: GenericRest
+): (GenericFirstArray[number] | GenericSecondArray[number] | GenericRest[number][number])[];
 
 export function concat(...args: [readonly unknown[], readonly unknown[], ...unknown[]] | [readonly unknown[]]) {
 	if (args.length === 1) {

@@ -977,6 +977,9 @@
               "name": "expectType.d.ts"
             },
             {
+              "name": "falsyValue.d.ts"
+            },
+            {
               "name": "fixDeepFunctionInfer.d.ts"
             },
             {
@@ -1198,6 +1201,15 @@
           "name": "externalPromise.mjs"
         },
         {
+          "name": "falsy.cjs"
+        },
+        {
+          "name": "falsy.d.ts"
+        },
+        {
+          "name": "falsy.mjs"
+        },
+        {
           "name": "forward.cjs"
         },
         {
@@ -1415,6 +1427,15 @@
         },
         {
           "name": "toWrappedValue.mjs"
+        },
+        {
+          "name": "truthy.cjs"
+        },
+        {
+          "name": "truthy.d.ts"
+        },
+        {
+          "name": "truthy.mjs"
         },
         {
           "name": "unwrap.cjs"

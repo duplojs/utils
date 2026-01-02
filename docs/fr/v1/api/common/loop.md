@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "hasKinds"
-  link: "/fr/v1/api/common/hasKinds"
+  text: "falsy"
+  link: "/fr/v1/api/common/falsy"
 next:
   text: "asyncLoop"
   link: "/fr/v1/api/common/asyncLoop"

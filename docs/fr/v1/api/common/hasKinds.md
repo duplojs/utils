@@ -4,8 +4,8 @@ prev:
   text: "instanceOf"
   link: "/fr/v1/api/common/instanceOf"
 next:
-  text: "loop"
-  link: "/fr/v1/api/common/loop"
+  text: "truthy"
+  link: "/fr/v1/api/common/truthy"
 ---
 
 # hasKinds

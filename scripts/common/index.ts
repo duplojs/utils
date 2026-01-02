@@ -42,4 +42,6 @@ export * from "./createKindIdentifier";
 export * from "./forwardLog";
 export * from "./override";
 export * from "./errorKindNamespace";
+export * from "./truthy";
+export * from "./falsy";
 export * from "./hasKinds";
