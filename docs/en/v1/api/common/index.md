@@ -75,6 +75,9 @@ Type guard based on one or more constructors (typed `instanceof`).
 ### [hasKinds](/en/v1/api/common/hasKinds)
 Type guard that checks a value carries all expected kinds.
 
+### [hasSomeKinds](/en/v1/api/common/hasSomeKinds)
+Type guard that checks a value carries at least one expected kind.
+
 ### [truthy](/en/v1/api/common/truthy)
 Type guard that keeps only truthy values.
 

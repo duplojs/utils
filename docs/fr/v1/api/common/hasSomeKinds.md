@@ -1,21 +1,21 @@
 ---
 outline: [2, 3]
 prev:
-  text: "instanceOf"
-  link: "/fr/v1/api/common/instanceOf"
+  text: "hasKinds"
+  link: "/fr/v1/api/common/hasKinds"
 next:
-  text: "hasSomeKinds"
-  link: "/fr/v1/api/common/hasSomeKinds"
+  text: "truthy"
+  link: "/fr/v1/api/common/truthy"
 ---
 
-# hasKinds
+# hasSomeKinds
 
-La fonction **`hasKinds()`** vérifie qu'une valeur possède tous les kinds demandés et agit comme type guard vers leur intersection.
+La fonction **`hasSomeKinds()`** vérifie qu'une valeur possède au moins un des kinds demandés et agit comme type guard vers leur union.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/common/hasKinds/tryout.doc.ts"
+  src="/examples/v1/api/common/hasSomeKinds/tryout.doc.ts"
   majorVersion="v1"
   height="520px"
 />
@@ -25,7 +25,7 @@ La fonction **`hasKinds()`** vérifie qu'une valeur possède tous les kinds dema
 ### Signature classique
 
 ```typescript
-function hasKinds<
+function hasSomeKinds<
 	GenericInput extends unknown,
 	GenericKindHandler extends KindHandler,
 >(
@@ -33,29 +33,25 @@ function hasKinds<
 	kinds: [GenericKindHandler, ...GenericKindHandler[]]
 ): input is Extract<
 	GenericInput,
-	UnionToIntersection<
-		GenericKindHandler extends any
-			? Kind<GenericKindHandler["definition"]>
-			: never
-	>
+	GenericKindHandler extends any
+		? Kind<GenericKindHandler["definition"]>
+		: never
 >;
 ```
 
 ### Signature currifiée
 
 ```typescript
-function hasKinds<
+function hasSomeKinds<
 	GenericInput extends unknown,
 	GenericKindHandler extends KindHandler,
 >(
 	kinds: [GenericKindHandler, ...GenericKindHandler[]]
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
-	UnionToIntersection<
-		GenericKindHandler extends any
-			? Kind<GenericKindHandler["definition"]>
-			: never
-	>
+	GenericKindHandler extends any
+		? Kind<GenericKindHandler["definition"]>
+		: never
 >;
 ```
 
@@ -66,9 +62,9 @@ function hasKinds<
 
 ## Valeur de retour
 
-Un type guard qui est vrai si `input` possède tous les kinds listés.
+Un type guard qui est vrai si `input` possède au moins un des kinds listés.
 
 ## Voir aussi
 
+- [`hasKinds`](/fr/v1/api/common/hasKinds) - Vérifie que tous les kinds sont présents
 - [`kind`](/fr/v1/api/common/kind) - Créer et manipuler des kinds
-- [`instanceOf`](/fr/v1/api/common/instanceOf) - Type guard basé sur `instanceof`

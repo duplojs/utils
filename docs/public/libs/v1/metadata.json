@@ -1246,6 +1246,15 @@
           "name": "hasKinds.mjs"
         },
         {
+          "name": "hasSomeKinds.cjs"
+        },
+        {
+          "name": "hasSomeKinds.d.ts"
+        },
+        {
+          "name": "hasSomeKinds.mjs"
+        },
+        {
           "name": "index.d.ts"
         },
         {

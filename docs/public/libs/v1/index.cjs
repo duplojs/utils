@@ -56,6 +56,7 @@ var override = require('./common/override.cjs');
 var errorKindNamespace = require('./common/errorKindNamespace.cjs');
 var truthy = require('./common/truthy.cjs');
 var falsy = require('./common/falsy.cjs');
+var hasSomeKinds = require('./common/hasSomeKinds.cjs');
 var hasKinds = require('./common/hasKinds.cjs');
 
 
@@ -140,4 +141,5 @@ exports.createOverride = override.createOverride;
 exports.createErrorKind = errorKindNamespace.createErrorKind;
 exports.truthy = truthy.truthy;
 exports.falsy = falsy.falsy;
+exports.hasSomeKinds = hasSomeKinds.hasSomeKinds;
 exports.hasKinds = hasKinds.hasKinds;

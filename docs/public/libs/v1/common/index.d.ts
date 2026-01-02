@@ -43,4 +43,5 @@ export * from "./override";
 export * from "./errorKindNamespace";
 export * from "./truthy";
 export * from "./falsy";
+export * from "./hasSomeKinds";
 export * from "./hasKinds";
