@@ -8,4 +8,4 @@ A.map(
 		() => `${element}:last`,
 		() => element,
 	),
-);
+); // ["alpha", "beta", "omega:last"]

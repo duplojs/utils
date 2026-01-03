@@ -6,7 +6,7 @@ Adds an element to the end of an array.
 
 The input array is not mutated.
 
-@example
+
 ```ts
 {@include array/insert/example.ts[3,13]}
 ```

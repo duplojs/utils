@@ -4,7 +4,7 @@ Signature: `length(array)` → returns the length
 
 The input array is not mutated.
 
-@example
+
 ```ts
 {@include array/length/example.ts[3,7]}
 ```

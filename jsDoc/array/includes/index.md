@@ -4,9 +4,9 @@ Checks if an array includes a given value.
 - Classic: `includes(array, value)` → returns a boolean
 - Curried: `includes(value)` → returns a function waiting for the array
 
-@example
+
 ```ts
-{@include array/includes/example.ts[3,19]}
+{@include array/includes/example.ts[3,20]}
 ```
 
 @remarks

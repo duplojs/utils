@@ -7,7 +7,7 @@ Splits an array into chunks of a given size.
 Each chunk contains up to `size` items, and the last chunk may be smaller.
 The input array is not mutated.
 
-@example
+
 ```ts
 {@include array/chunk/example.ts[3,9]}
 ```

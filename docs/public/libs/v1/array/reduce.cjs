@@ -7,6 +7,9 @@ var push = require('./push.cjs');
 var override = require('../object/override.cjs');
 
 const arrayReduceFromKind = kind.createKind("array-reduce-from");
+/**
+ * {@include array/reduceFrom/index.md}
+ */
 function reduceFrom(value) {
     return arrayReduceFromKind.setTo(wrapValue.wrapValue(value));
 }

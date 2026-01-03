@@ -56,7 +56,9 @@ var _delete$1 = require('./findAndSplice/delete.cjs');
 var insert$1 = require('./findAndSplice/insert.cjs');
 var replace$1 = require('./findAndSplice/replace.cjs');
 
-
+/**
+ * {@include array/index.md}
+ */
 
 exports.filter = filter.filter;
 exports.find = find.find;

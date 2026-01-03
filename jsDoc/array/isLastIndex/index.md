@@ -6,7 +6,7 @@ Checks if an index is the last index of an array.
 
 The input array is not mutated.
 
-@example
+
 ```ts
 {@include array/isLastIndex/example.ts[3,11]}
 ```

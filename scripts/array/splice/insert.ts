@@ -1,3 +1,6 @@
+/**
+ * {@include array/spliceInsert/index.md}
+ */
 export function spliceInsert<GenericElement extends unknown>(
 	indexFrom: number,
 	elements: GenericElement[],

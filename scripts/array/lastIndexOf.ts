@@ -1,3 +1,6 @@
+/**
+ * {@include array/lastIndexOf/index.md}
+ */
 export function lastIndexOf<
 	GenericElement extends unknown,
 >(

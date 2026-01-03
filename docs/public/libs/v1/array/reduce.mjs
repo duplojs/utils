@@ -5,6 +5,9 @@ import { push } from './push.mjs';
 import { override } from '../object/override.mjs';
 
 const arrayReduceFromKind = createKind("array-reduce-from");
+/**
+ * {@include array/reduceFrom/index.md}
+ */
 function reduceFrom(value) {
     return arrayReduceFromKind.setTo(wrapValue(value));
 }

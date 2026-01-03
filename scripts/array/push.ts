@@ -1,3 +1,6 @@
+/**
+ * {@include array/push/index.md}
+ */
 export function push<
 	GenericElement extends unknown,
 >(

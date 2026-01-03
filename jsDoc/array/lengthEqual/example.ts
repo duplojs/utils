@@ -1,6 +1,9 @@
 import { A, pipe, when } from "@scripts";
 
-A.lengthEqual([1, 2, 3], 2); // false
+A.lengthEqual(
+	[1, 2, 3],
+	2,
+); // false
 
 const numbersList = [1, 2];
 
@@ -13,7 +16,7 @@ pipe(
 	when(
 		A.lengthEqual(2),
 		(items) => {
-		// items has length 2
+			// items has length 2
 		},
 	),
 );

@@ -10,6 +10,9 @@ export interface ArrayGroupFunctionOutput<
 	value: GenericGroupValue;
 }
 
+/**
+ * {@include array/groupOutput/index.md}
+ */
 export function groupOutput<
 	GenericGroupValue extends unknown,
 	GenericGroupName extends string,
@@ -62,6 +65,9 @@ export type ArrayGroupResult<
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericArray instead of GenericElement
 // preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/group/index.md}
+ */
 export function group<
 	GenericArray extends readonly unknown[],
 	GenericOutput extends ArrayGroupFunctionOutput,

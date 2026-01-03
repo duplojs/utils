@@ -7,9 +7,9 @@ Finds the first element matching a predicate and inserts elements.
 The predicate receives `(element, { index })`.
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/findAndSpliceInsert/example.ts[3,21]}
+{@include array/findAndSpliceInsert/example.ts[3,19]}
 ```
 
 @remarks

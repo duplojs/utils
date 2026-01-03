@@ -1,3 +1,6 @@
+/**
+ * {@include array/unshift/index.md}
+ */
 export function unshift<
 	GenericElement extends unknown,
 >(

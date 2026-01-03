@@ -1,3 +1,6 @@
+/**
+ * {@include array/maxElements/index.md}
+ */
 export function maxElements<
 	GenericArray extends readonly unknown[],
 >(maxLength: number): (array: GenericArray) => boolean;

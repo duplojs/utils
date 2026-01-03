@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * {@include array/sum/index.md}
+ */
 function sum(array) {
     let result = 0;
     for (const number of array) {

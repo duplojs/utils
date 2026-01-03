@@ -8,10 +8,7 @@ A.findAndSpliceInsert(
 
 pipe(
 	["alpha", "beta"],
-	A.findAndSpliceInsert(
-		(value) => value === "alpha",
-		["start"],
-	),
+	A.findAndSpliceInsert((value) => value === "alpha", ["start"]),
 ); // ["start", "alpha", "beta"]
 
 A.findAndSpliceInsert(
