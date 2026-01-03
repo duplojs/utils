@@ -1,3 +1,6 @@
+/**
+ * {@include array/slice/index.md}
+ */
 export function slice<
 	GenericElement extends unknown,
 >(

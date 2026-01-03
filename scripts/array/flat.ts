@@ -1,3 +1,6 @@
+/**
+ * {@include array/flat/index.md}
+ */
 export function flat<
 	const GenericArray extends readonly unknown[],
 	const Depth extends number = 1,

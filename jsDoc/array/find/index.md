@@ -9,9 +9,9 @@ Finds the first element matching a predicate.
 The predicate receives `(element, { index })`.
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/find/example.ts[3,11]}
+{@include array/find/example.ts[3,12]}
 ```
 
 @remarks

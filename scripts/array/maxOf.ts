@@ -1,3 +1,6 @@
+/**
+ * {@include array/maxOf/index.md}
+ */
 export function maxOf<
 	GenericArray extends readonly number[],
 >(values: GenericArray): number | undefined {

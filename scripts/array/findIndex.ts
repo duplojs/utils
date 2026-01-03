@@ -7,6 +7,9 @@ interface ArrayFindIndexParams {
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericArray instead of GenericElement
 // preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/findIndex/index.md}
+ */
 export function findIndex<
 	GenericArray extends readonly unknown[],
 >(

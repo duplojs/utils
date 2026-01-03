@@ -9,9 +9,9 @@ Checks that an array does not include a value.
 Uses same-value-zero comparison.
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/notIncludes/example.ts[3,17]}
+{@include array/notIncludes/example.ts[3,18]}
 ```
 
 @remarks

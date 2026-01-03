@@ -8,9 +8,9 @@ Checks if an array has a specific length.
 
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/lengthEqual/example.ts[3,19]}
+{@include array/lengthEqual/example.ts[3,23]}
 ```
 
 @remarks

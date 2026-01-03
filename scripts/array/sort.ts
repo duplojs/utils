@@ -1,5 +1,8 @@
 import { type AnyFunction } from "@scripts/common";
 
+/**
+ * {@include array/sort/index.md}
+ */
 export function sort<GenericElement extends unknown>(
 	compareFn: (
 		first: GenericElement,

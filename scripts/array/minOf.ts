@@ -1,3 +1,6 @@
+/**
+ * {@include array/minOf/index.md}
+ */
 export function minOf<
 	GenericArray extends readonly number[],
 >(values: GenericArray): number | undefined {

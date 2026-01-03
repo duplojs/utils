@@ -7,7 +7,7 @@ Concatenates arrays into a new array.
 All arrays are concatenated in order.
 The input array is not mutated.
 
-@example
+
 ```ts
 {@include array/concat/example.ts[3,8]}
 ```

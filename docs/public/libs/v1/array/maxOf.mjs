@@ -1,3 +1,6 @@
+/**
+ * {@include array/maxOf/index.md}
+ */
 function maxOf(values) {
     const [first, ...rest] = values;
     if (first === undefined) {

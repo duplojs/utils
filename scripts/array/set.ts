@@ -1,3 +1,6 @@
+/**
+ * {@include array/set/index.md}
+ */
 export function set<
 	GenericValue extends unknown,
 >(

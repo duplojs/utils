@@ -7,7 +7,5 @@ A.filter(
 
 pipe(
 	<const>[1, "alpha", null],
-	A.filter(
-		isType("string"),
-	),
+	A.filter(isType("string")),
 ); // "alpha"[]

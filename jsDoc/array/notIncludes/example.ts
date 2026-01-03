@@ -11,7 +11,7 @@ pipe(
 	when(
 		A.notIncludes(null),
 		(items) => {
-		// items is string[]
+			// items is string[]
 		},
 	),
 );

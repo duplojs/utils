@@ -53,3 +53,7 @@ export { fillAll } from './fill/all.mjs';
 export { findAndSpliceDelete } from './findAndSplice/delete.mjs';
 export { findAndSpliceInsert } from './findAndSplice/insert.mjs';
 export { findAndSpliceReplace } from './findAndSplice/replace.mjs';
+
+/**
+ * {@include array/index.md}
+ */

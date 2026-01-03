@@ -7,9 +7,9 @@ Finds the first element matching a predicate and replaces it.
 The predicate receives `(element, { index })`.
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/findAndReplace/example.ts[3,10]}
+{@include array/findAndReplace/example.ts[3,19]}
 ```
 
 @remarks

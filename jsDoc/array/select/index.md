@@ -8,9 +8,9 @@ The function receives `{ element, index, self, select, skip }`.
 Use `select(value)` to keep a value or `skip()` to ignore it.
 The input array is not mutated.
 
-@example
+
 ```ts
-{@include array/select/example.ts[3,20]}
+{@include array/select/example.ts[3,17]}
 ```
 
 @remarks

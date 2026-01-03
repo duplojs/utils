@@ -8,10 +8,7 @@ A.findAndSpliceReplace(
 
 pipe(
 	["alpha", "beta", "gamma"],
-	A.findAndSpliceReplace(
-		(value) => value === "beta",
-		["delta"],
-	),
+	A.findAndSpliceReplace((value) => value === "beta", ["delta"]),
 ); // ["alpha", "delta", "gamma"]
 
 A.findAndSpliceReplace(

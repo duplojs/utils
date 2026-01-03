@@ -7,7 +7,7 @@ Checks whether all elements satisfy a predicate.
 The predicate receives `(element, { index, self })`, where `index` is the element position
 and `self` is the original array.
 
-@example
+
 ```ts
 {@include array/every/example.ts[3,16]}
 ```
