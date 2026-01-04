@@ -5,7 +5,6 @@
  * - Classic: `clamp(value, lowerBound, upperBound)` → returns a number
  * - Curried: `clamp(lowerBound, upperBound)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.clamp(
  * 	5,

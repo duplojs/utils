@@ -3,7 +3,6 @@
  * 
  * Signature: `sqrt(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.sqrt(9); // 3
  * 

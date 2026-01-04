@@ -11,7 +11,6 @@ import { type RequiredKeys } from "./types/requiredKeys";
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * const partialObj: {
  * 	name?: string;

@@ -4,7 +4,6 @@ Checks if a number is within a range (inclusive).
 - Classic: `between(value, greater, less)` → returns a boolean
 - Curried: `between(greater, less)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/between/example.ts[3,19]}
 ```

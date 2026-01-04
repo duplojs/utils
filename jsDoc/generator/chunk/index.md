@@ -7,7 +7,6 @@ Splits an iterable into fixed-size chunks.
 The last chunk may be smaller than the size.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/chunk/example.ts[3,10]}
 ```

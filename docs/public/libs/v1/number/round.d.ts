@@ -3,7 +3,6 @@
  * 
  * Signature: `round(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.round(1.4); // 1
  * 

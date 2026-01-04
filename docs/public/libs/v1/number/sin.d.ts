@@ -3,7 +3,6 @@
  * 
  * Signature: `sin(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.sin(0); // 0
  * 

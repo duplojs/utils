@@ -12,7 +12,6 @@ type MergeTopLevelUnionObject<GenericObject extends object, GenericFullObjectKey
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.getProperty(
  * 	{

@@ -10,7 +10,6 @@ import { type EligibleEqual, type MaybeArray } from "../common";
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * const shapeObj = {
  * 	kind: "circle",

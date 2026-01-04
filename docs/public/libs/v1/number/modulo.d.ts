@@ -5,7 +5,6 @@
  * - Classic: `modulo(value, operand)` → returns a number
  * - Curried: `modulo(operand)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.modulo(
  * 	10,

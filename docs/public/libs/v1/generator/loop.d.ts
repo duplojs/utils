@@ -19,7 +19,6 @@ export interface GeneratorLoopParams<GenericRawNextOutput extends any> {
  * The loop receives `{ count, previousOutput, next, exit }`.
  * The generator ends when `exit` is returned.
  * 
- * @example
  * ```ts
  * const limit = 4;
  * 

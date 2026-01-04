@@ -3,7 +3,6 @@
  * 
  * Signature: `trunc(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.trunc(1.9); // 1
  * 

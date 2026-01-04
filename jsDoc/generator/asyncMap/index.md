@@ -7,7 +7,6 @@ Maps values from an iterable to an async generator.
 The function receives `(item, { index })`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/asyncMap/example.ts[3,20]}
 ```

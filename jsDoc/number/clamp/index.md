@@ -4,7 +4,6 @@ Clamps a number between a lower and upper bound.
 - Classic: `clamp(value, lowerBound, upperBound)` → returns a number
 - Curried: `clamp(lowerBound, upperBound)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/clamp/example.ts[3,19]}
 ```

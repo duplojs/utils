@@ -2,7 +2,6 @@ Negates a number.
 
 Signature: `negate(value)` → returns a number
 
-@example
 ```ts
 {@include number/negate/example.ts[3,11]}
 ```

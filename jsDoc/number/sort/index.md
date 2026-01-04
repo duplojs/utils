@@ -4,7 +4,6 @@ Sorts numbers in ascending or descending order.
 - Classic: `sort(array, type)` → returns a new array
 - Curried: `sort(type)` → returns a function waiting for the array
 
-@example
 ```ts
 {@include number/sort/example.ts[3,17]}
 ```

@@ -4,7 +4,6 @@ import { type ObjectKey } from "../common";
  * 
  * Signature: `entry(key, value)` → returns a tuple
  * 
- * @example
  * ```ts
  * O.entry(
  * 	"name",

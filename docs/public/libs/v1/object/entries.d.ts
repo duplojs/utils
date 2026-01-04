@@ -12,7 +12,6 @@ export type GetEntries<GenericObject extends object> = GenericObject extends rea
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.entries(
  * 	{

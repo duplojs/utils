@@ -2,7 +2,6 @@ Returns the sine of a number (in radians).
 
 Signature: `sin(value)` → returns a number
 
-@example
 ```ts
 {@include number/sin/example.ts[3,13]}
 ```

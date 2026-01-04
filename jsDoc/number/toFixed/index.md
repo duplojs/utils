@@ -4,7 +4,6 @@ Formats a number using fixed-point notation.
 - Classic: `toFixed(value, digits)` → returns a string
 - Curried: `toFixed(digits)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/toFixed/example.ts[3,17]}
 ```

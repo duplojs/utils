@@ -13,7 +13,6 @@ type ComputeResultWithOmitIsObject<GenericInput extends object, GenericOmitValue
  * The `omitValue` can be a key array or a map of keys to booleans.
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.omit(
  * 	{

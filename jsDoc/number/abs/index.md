@@ -2,7 +2,6 @@ Returns the absolute value of a number.
 
 Signature: `abs(value)` → returns a number
 
-@example
 ```ts
 {@include number/abs/example.ts[3,13]}
 ```

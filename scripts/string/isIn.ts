@@ -1,3 +1,6 @@
+/**
+ * {@include string/isIn/index.md}
+ */
 export function isIn<
 	GenericInput extends string,
 	GenericValue extends GenericInput,

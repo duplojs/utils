@@ -5,7 +5,6 @@
  * - Classic: `multiply(value, operand)` → returns a number
  * - Curried: `multiply(operand)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.multiply(
  * 	3,

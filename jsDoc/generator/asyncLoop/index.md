@@ -5,7 +5,6 @@ Signature: `asyncLoop(loopFunction)` → returns an async generator
 The loop receives `{ count, previousOutput, next, exit }`.
 The generator ends when `exit` is returned.
 
-@example
 ```ts
 {@include generator/asyncLoop/example.ts[3,28]}
 ```

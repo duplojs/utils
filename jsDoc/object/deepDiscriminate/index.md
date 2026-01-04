@@ -8,7 +8,6 @@ Checks a deep property value and narrows the object type.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/deepDiscriminate/example.ts[3,32]}
 ```

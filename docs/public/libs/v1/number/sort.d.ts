@@ -6,7 +6,6 @@ import { type SortType } from "../common";
  * - Classic: `sort(array, type)` → returns a new array
  * - Curried: `sort(type)` → returns a function waiting for the array
  * 
- * @example
  * ```ts
  * N.sort(
  * 	[3, 1, 2],

@@ -3,7 +3,6 @@
  * 
  * Signature: `abs(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.abs(-5); // 5
  * 

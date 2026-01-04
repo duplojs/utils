@@ -6,7 +6,6 @@ Builds an object from an input using a shape of functions.
 
 The input value is not mutated.
 
-@example
 ```ts
 {@include object/to/example.ts[3,28]}
 ```

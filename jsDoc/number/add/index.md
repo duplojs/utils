@@ -4,7 +4,6 @@ Adds two numbers.
 - Classic: `add(value, operand)` → returns a number
 - Curried: `add(operand)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/add/example.ts[3,11]}
 ```

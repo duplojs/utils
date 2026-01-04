@@ -7,7 +7,6 @@ Reduces an iterable to a single value.
 The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush }`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/reduce/example.ts[3,18]}
 ```

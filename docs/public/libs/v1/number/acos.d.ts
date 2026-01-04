@@ -3,7 +3,6 @@
  * 
  * Signature: `acos(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.acos(1); // 0
  * 

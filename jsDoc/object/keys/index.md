@@ -4,7 +4,6 @@ Signature: `keys(object)` → returns keys
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/keys/example.ts[3,16]}
 ```

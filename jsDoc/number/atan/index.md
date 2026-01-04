@@ -2,7 +2,6 @@ Returns the arctangent (in radians) of a number.
 
 Signature: `atan(value)` → returns a number
 
-@example
 ```ts
 {@include number/atan/example.ts[3,13]}
 ```

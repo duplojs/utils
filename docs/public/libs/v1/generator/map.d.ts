@@ -11,7 +11,6 @@ interface GeneratorMapParams {
  * The function receives `(item, { index })`.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const values = [8, 12, 20];
  * const rate = 1.1;

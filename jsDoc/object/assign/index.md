@@ -6,7 +6,6 @@ Assigns properties from one object to another.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/assign/example.ts[3,24]}
 ```

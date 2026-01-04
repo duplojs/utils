@@ -11,7 +11,6 @@ interface AsyncGeneratorMapParams {
  * The function receives `(item, { index })`.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const ids = [1, 2, 3];
  * 

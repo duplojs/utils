@@ -6,7 +6,6 @@ import { type AnyValue } from "../common/types/anyValue";
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.values(
  * 	{

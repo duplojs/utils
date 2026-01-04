@@ -2,7 +2,6 @@ Removes the fractional part of a number.
 
 Signature: `trunc(value)` → returns a number
 
-@example
 ```ts
 {@include number/trunc/example.ts[3,13]}
 ```

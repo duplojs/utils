@@ -9,7 +9,6 @@ Filters values from an iterable.
 The predicate receives `(item, { index })`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/filter/example.ts[3,17]}
 ```

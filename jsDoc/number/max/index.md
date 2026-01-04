@@ -2,7 +2,6 @@ Returns the largest value in a number tuple.
 
 Signature: `max(tuple)` → returns a number
 
-@example
 ```ts
 {@include number/max/example.ts[3,11]}
 ```

@@ -2,7 +2,6 @@ Creates an entry tuple from a key and value.
 
 Signature: `entry(key, value)` → returns a tuple
 
-@example
 ```ts
 {@include object/entry/example.ts[3,17]}
 ```

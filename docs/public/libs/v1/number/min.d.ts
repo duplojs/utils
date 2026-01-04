@@ -4,7 +4,6 @@ import { type AnyTuple } from "../common";
  * 
  * Signature: `min(tuple)` → returns a number
  * 
- * @example
  * ```ts
  * N.min([1, 5, 2]); // 1
  * 

@@ -3,7 +3,6 @@
  * 
  * Signature: `atan(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.atan(0); // 0
  * 

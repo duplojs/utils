@@ -4,7 +4,6 @@ Subtracts a number from another.
 - Classic: `subtract(value, operand)` → returns a number
 - Curried: `subtract(operand)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/subtract/example.ts[3,17]}
 ```

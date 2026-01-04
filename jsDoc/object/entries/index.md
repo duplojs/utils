@@ -4,7 +4,6 @@ Signature: `entries(object)` → returns entries
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/entries/example.ts[3,14]}
 ```

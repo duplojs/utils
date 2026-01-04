@@ -4,7 +4,6 @@ Divides a number by another.
 - Classic: `divide(value, operand)` → returns a number
 - Curried: `divide(operand)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/divide/example.ts[3,17]}
 ```

@@ -5,7 +5,6 @@
  * - Classic: `toFixed(value, digits)` → returns a string
  * - Curried: `toFixed(digits)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.toFixed(
  * 	3.1415,

@@ -6,7 +6,6 @@ import { type EscapeVoid } from "../common";
  * 
  * This is useful for running generators with side effects.
  * 
- * @example
  * ```ts
  * const source = [5, 10, 15, 20];
  * 

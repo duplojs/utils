@@ -1,3 +1,6 @@
+/**
+ * {@include string/toUpperCase/index.md}
+ */
 export function toUpperCase<
 	GenericString extends string,
 >(input: GenericString) {

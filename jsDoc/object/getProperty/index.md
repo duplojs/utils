@@ -6,7 +6,6 @@ Gets a property value by key.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/getProperty/example.ts[3,23]}
 ```

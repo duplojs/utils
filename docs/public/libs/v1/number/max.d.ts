@@ -4,7 +4,6 @@ import { type AnyTuple } from "../common";
  * 
  * Signature: `max(tuple)` → returns a number
  * 
- * @example
  * ```ts
  * N.max([1, 5, 2]); // 5
  * 

@@ -27,7 +27,6 @@ export interface GeneratorReduceFromResult<GenericValue extends unknown = unknow
  * 
  * This is useful for preserving object and array types in reductions.
  * 
- * @example
  * ```ts
  * const result = G.reduce(
  * 	[1, 2],
@@ -55,7 +54,7 @@ export type GeneratorReduceFromValue<GenericValue extends GeneratorEligibleReduc
  * The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush }`.
  * The input iterator is not mutated.
  * 
- * @example
+
  * ```ts
  * const values = [4, 8, 12];
  * 

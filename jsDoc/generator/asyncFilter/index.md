@@ -9,7 +9,6 @@ Filters values from an iterable with async support.
 The predicate receives `(item, { index })`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/asyncFilter/example.ts[3,27]}
 ```

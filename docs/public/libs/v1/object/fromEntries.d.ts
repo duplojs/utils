@@ -11,7 +11,6 @@ type ComputeEntries<GenericEntry extends ObjectEntry> = UnionContain<ObjectKey, 
  * 
  * The input array is not mutated.
  * 
- * @example
  * ```ts
  * O.fromEntries(
  * 	[

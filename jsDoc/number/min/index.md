@@ -2,7 +2,6 @@ Returns the smallest value in a number tuple.
 
 Signature: `min(tuple)` → returns a number
 
-@example
 ```ts
 {@include number/min/example.ts[3,11]}
 ```

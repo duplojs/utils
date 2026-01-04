@@ -2,7 +2,6 @@ Rounds a number down to the previous integer.
 
 Signature: `floor(value)` → returns a number
 
-@example
 ```ts
 {@include number/floor/example.ts[3,13]}
 ```

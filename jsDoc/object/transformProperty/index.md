@@ -6,7 +6,6 @@ Transforms a single object property.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/transformProperty/example.ts[3,25]}
 ```

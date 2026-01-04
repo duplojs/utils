@@ -3,7 +3,6 @@
  * 
  * Signature: `negate(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.negate(5); // -5
  * 

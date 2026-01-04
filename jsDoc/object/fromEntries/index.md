@@ -4,7 +4,6 @@ Signature: `fromEntries(entries)` → returns an object
 
 The input array is not mutated.
 
-@example
 ```ts
 {@include object/fromEntries/example.ts[3,23]}
 ```

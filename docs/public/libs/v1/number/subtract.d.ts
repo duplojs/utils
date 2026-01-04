@@ -5,7 +5,6 @@
  * - Classic: `subtract(value, operand)` → returns a number
  * - Curried: `subtract(operand)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.subtract(
  * 	10,

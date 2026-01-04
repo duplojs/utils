@@ -2,7 +2,6 @@ Returns the tangent of a number (in radians).
 
 Signature: `tan(value)` → returns a number
 
-@example
 ```ts
 {@include number/tan/example.ts[3,13]}
 ```

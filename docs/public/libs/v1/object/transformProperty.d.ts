@@ -8,7 +8,6 @@ import { type SimplifyTopLevel } from "../common";
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.transformProperty(
  * 	{

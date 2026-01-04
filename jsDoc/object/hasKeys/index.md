@@ -8,7 +8,6 @@ Checks if an object has specific keys defined.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/hasKeys/example.ts[3,27]}
 ```

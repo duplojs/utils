@@ -1,3 +1,6 @@
+/**
+ * {@include string/test/index.md}
+ */
 export function test<
 	GenericInput extends string,
 >(regExp: RegExp): (input: GenericInput) => boolean;

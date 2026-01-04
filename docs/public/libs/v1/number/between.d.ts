@@ -5,7 +5,6 @@
  * - Classic: `between(value, greater, less)` → returns a boolean
  * - Curried: `between(greater, less)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.between(
  * 	5,

@@ -8,7 +8,6 @@
  * The last chunk may be smaller than the size.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const input = G.loop(
  * 	({ count, next, exit }: G.GeneratorLoopParams<number>) => N.greater(count, 7)

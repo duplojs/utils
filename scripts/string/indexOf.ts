@@ -1,3 +1,6 @@
+/**
+ * {@include string/indexOf/index.md}
+ */
 export function indexOf<
 	GenericInput extends string,
 >(

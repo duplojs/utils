@@ -13,7 +13,6 @@ type ObjectProjection<GenericInput extends object> = FlatObject<GenericInput> ex
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * const userObj = {
  * 	profile: {

@@ -2,7 +2,6 @@ Rounds a number up to the next integer.
 
 Signature: `ceil(value)` → returns a number
 
-@example
 ```ts
 {@include number/ceil/example.ts[3,13]}
 ```

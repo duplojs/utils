@@ -2,7 +2,6 @@ Returns the cosine of a number (in radians).
 
 Signature: `cos(value)` → returns a number
 
-@example
 ```ts
 {@include number/cos/example.ts[3,13]}
 ```

@@ -4,7 +4,6 @@ Signature: `values(object)` → returns values
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/values/example.ts[3,16]}
 ```

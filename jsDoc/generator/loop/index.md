@@ -5,7 +5,6 @@ Signature: `loop(loopFunction)` → returns a generator
 The loop receives `{ count, previousOutput, next, exit }`.
 The generator ends when `exit` is returned.
 
-@example
 ```ts
 {@include generator/loop/example.ts[3,20]}
 ```

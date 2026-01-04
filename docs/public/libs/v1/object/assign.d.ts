@@ -9,7 +9,6 @@ import { type AssignObjects } from "./types";
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.assign(
  * 	{

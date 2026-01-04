@@ -4,7 +4,6 @@ Signature: `execute(iterator)` → returns `void` or `Promise<void>`
 
 This is useful for running generators with side effects.
 
-@example
 ```ts
 {@include generator/execute/example.ts[3,19]}
 ```

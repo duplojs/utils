@@ -7,7 +7,6 @@ Maps values from an iterable to a new generator.
 The function receives `(item, { index })`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/map/example.ts[3,17]}
 ```

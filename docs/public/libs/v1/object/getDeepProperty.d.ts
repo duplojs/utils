@@ -11,7 +11,6 @@ type ObjectProjection<GenericInput extends object> = FlatObject<GenericInput> ex
  * The path uses dot notation.
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.getDeepProperty(
  * 	{

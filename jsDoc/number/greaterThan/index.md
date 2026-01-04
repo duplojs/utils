@@ -4,7 +4,6 @@ Checks if a value is strictly greater than a threshold.
 - Classic: `greaterThan(value, threshold)` → returns a boolean
 - Curried: `greaterThan(threshold)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/greaterThan/example.ts[3,17]}
 ```

@@ -2,7 +2,6 @@ Returns the arccosine (in radians) of a number.
 
 Signature: `acos(value)` → returns a number
 
-@example
 ```ts
 {@include number/acos/example.ts[3,13]}
 ```

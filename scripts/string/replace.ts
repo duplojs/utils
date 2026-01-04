@@ -10,6 +10,9 @@ export type StringReplacer = (
 	params: StringReplacerParams
 ) => string;
 
+/**
+ * {@include string/replace/index.md}
+ */
 export function replace<
 	GenericInput extends string,
 >(

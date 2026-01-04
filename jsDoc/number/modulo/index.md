@@ -4,7 +4,6 @@ Computes the remainder of a division.
 - Classic: `modulo(value, operand)` → returns a number
 - Curried: `modulo(operand)` → returns a function waiting for the value
 
-@example
 ```ts
 {@include number/modulo/example.ts[3,17]}
 ```

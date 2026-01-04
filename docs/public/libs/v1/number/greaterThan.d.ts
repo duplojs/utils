@@ -5,7 +5,6 @@
  * - Classic: `greaterThan(value, threshold)` → returns a boolean
  * - Curried: `greaterThan(threshold)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.greaterThan(
  * 	10,

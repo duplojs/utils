@@ -3,7 +3,6 @@
  * 
  * Signature: `floor(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.floor(1.9); // 1
  * 

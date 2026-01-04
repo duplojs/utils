@@ -7,7 +7,6 @@ Gets a nested property value using a path.
 The path uses dot notation.
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/getDeepProperty/example.ts[3,29]}
 ```

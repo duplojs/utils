@@ -14,7 +14,6 @@ type ComputesResult<GenericObjectInput extends object, GenericTransformObject ex
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.transformProperties(
  * 	{

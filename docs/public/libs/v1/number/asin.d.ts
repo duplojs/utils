@@ -3,7 +3,6 @@
  * 
  * Signature: `asin(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.asin(0); // 0
  * 

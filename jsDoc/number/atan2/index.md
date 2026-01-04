@@ -4,7 +4,6 @@ Returns the arctangent of the quotient of its arguments.
 - Classic: `atan2(axisY, axisX)` → returns a number
 - Curried: `atan2(axisX)` → returns a function waiting for axisY
 
-@example
 ```ts
 {@include number/atan2/example.ts[3,11]}
 ```

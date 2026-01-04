@@ -6,7 +6,6 @@ Overrides object properties, ignoring undefined values.
 
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/override/example.ts[3,30]}
 ```

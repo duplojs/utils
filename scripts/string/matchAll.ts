@@ -1,3 +1,6 @@
+/**
+ * {@include string/matchAll/index.md}
+ */
 export function matchAll<
 	GenericInput extends string,
 >(

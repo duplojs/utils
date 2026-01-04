@@ -1,3 +1,6 @@
+/**
+ * {@include string/substring/index.md}
+ */
 export function substring<
 	GenericInput extends string,
 >(

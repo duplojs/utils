@@ -13,7 +13,6 @@ interface AsyncGeneratorFilterParams {
  * The predicate receives `(item, { index })`.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const ids = [201, 202, 203, 204];
  * 

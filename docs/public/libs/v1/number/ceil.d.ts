@@ -3,7 +3,6 @@
  * 
  * Signature: `ceil(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.ceil(1.2); // 2
  * 

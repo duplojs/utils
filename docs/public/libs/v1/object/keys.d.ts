@@ -5,7 +5,6 @@
  * 
  * The input object is not mutated.
  * 
- * @example
  * ```ts
  * O.keys(
  * 	{

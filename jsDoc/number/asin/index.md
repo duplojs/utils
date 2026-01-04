@@ -2,7 +2,6 @@ Returns the arcsine (in radians) of a number.
 
 Signature: `asin(value)` → returns a number
 
-@example
 ```ts
 {@include number/asin/example.ts[3,13]}
 ```

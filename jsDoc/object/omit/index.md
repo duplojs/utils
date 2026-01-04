@@ -7,7 +7,6 @@ Removes properties from an object.
 The `omitValue` can be a key array or a map of keys to booleans.
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/omit/example.ts[3,29]}
 ```

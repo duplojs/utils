@@ -3,7 +3,6 @@
  * 
  * Signature: `cos(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.cos(0); // 1
  * 

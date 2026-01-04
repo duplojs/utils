@@ -5,7 +5,6 @@
  * - Classic: `add(value, operand)` → returns a number
  * - Curried: `add(operand)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.add(10, 5); // 15
  * 

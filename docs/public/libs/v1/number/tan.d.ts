@@ -3,7 +3,6 @@
  * 
  * Signature: `tan(value)` → returns a number
  * 
- * @example
  * ```ts
  * N.tan(0); // 0
  * 

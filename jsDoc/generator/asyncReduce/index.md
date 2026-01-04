@@ -7,7 +7,6 @@ Reduces an iterable to a single value with async support.
 The function receives `{ element, index, lastValue, next, exit, nextWithObject }`.
 The input iterator is not mutated.
 
-@example
 ```ts
 {@include generator/asyncReduce/example.ts[3,14]}
 ```

@@ -2,7 +2,6 @@ Returns the square root of a number.
 
 Signature: `sqrt(value)` → returns a number
 
-@example
 ```ts
 {@include number/sqrt/example.ts[3,13]}
 ```

@@ -13,7 +13,6 @@ interface GeneratorFilterParams {
  * The predicate receives `(item, { index })`.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const values = [9, 12, 15, 18, 21];
  * const threshold = 15;

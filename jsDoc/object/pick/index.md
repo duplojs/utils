@@ -7,7 +7,6 @@ Selects properties from an object.
 The `pickValue` can be a key array or a map of keys to booleans.
 The input object is not mutated.
 
-@example
 ```ts
 {@include object/pick/example.ts[3,30]}
 ```

@@ -5,7 +5,6 @@
  * - Classic: `betweenThan(value, greaterThan, lessThan)` → returns a boolean
  * - Curried: `betweenThan(greaterThan, lessThan)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.betweenThan(
  * 	5,

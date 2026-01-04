@@ -10,7 +10,6 @@ import { type IsEqual, type MaybePromise } from "../common";
  * The function receives `{ element, index, lastValue, next, exit, nextWithObject }`.
  * The input iterator is not mutated.
  * 
- * @example
  * ```ts
  * const values = [10, 20, 30];
  * 

@@ -5,7 +5,6 @@
  * - Classic: `divide(value, operand)` → returns a number
  * - Curried: `divide(operand)` → returns a function waiting for the value
  * 
- * @example
  * ```ts
  * N.divide(
  * 	10,

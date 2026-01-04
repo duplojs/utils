@@ -14,7 +14,6 @@ type ComputesResult<GenericShapeObject extends ShapeObject<any>> = SimplifyTopLe
  * 
  * The input value is not mutated.
  * 
- * @example
  * ```ts
  * O.to(
  * 	{
