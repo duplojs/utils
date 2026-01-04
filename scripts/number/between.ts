@@ -1,3 +1,6 @@
+/**
+ * {@include number/between/index.md}
+ */
 export function between<
 	GenericInput extends number,
 >(

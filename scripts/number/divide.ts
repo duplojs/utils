@@ -1,3 +1,6 @@
+/**
+ * {@include number/divide/index.md}
+ */
 export function divide<
 	GenericValue extends number,
 >(divisor: number): (value: GenericValue) => number;

@@ -1,3 +1,6 @@
+/**
+ * {@include number/multiply/index.md}
+ */
 export function multiply<
 	GenericValue extends number,
 >(operand: number): (value: GenericValue) => number;
