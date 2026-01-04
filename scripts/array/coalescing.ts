@@ -1,6 +1,9 @@
 import { type AnyValue } from "@scripts/common";
 import { type ArrayCoalescing } from "./types";
 
+/**
+ * {@include array/coalescing/index.md}
+ */
 export function coalescing<
 	GenericValue extends AnyValue,
 >(

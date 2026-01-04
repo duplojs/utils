@@ -1,3 +1,6 @@
+/**
+ * {@include number/abs/index.md}
+ */
 export function abs<
 	GenericValue extends number,
 >(value: GenericValue): number {

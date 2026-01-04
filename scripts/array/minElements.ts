@@ -1,5 +1,8 @@
 import { type CreateTuple } from "./types/createTuple";
 
+/**
+ * {@include array/minElements/index.md}
+ */
 export function minElements<
 	GenericArray extends readonly unknown[],
 	GenericLength extends number,

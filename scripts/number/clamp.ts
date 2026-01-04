@@ -1,3 +1,6 @@
+/**
+ * {@include number/clamp/index.md}
+ */
 export function clamp<
 	GenericValue extends number,
 >(lowerBound: number, upperBound: number): (value: GenericValue) => number;

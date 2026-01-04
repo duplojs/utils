@@ -1,3 +1,6 @@
+/**
+ * {@include number/cos/index.md}
+ */
 export function cos<
 	GenericValue extends number,
 >(value: GenericValue): number {

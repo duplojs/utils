@@ -3,6 +3,9 @@ import { unwrap } from "@scripts/common/unwrap";
 import { type ArrayReduceFunctionParams, type ArrayReduceFromResult, type ArrayReduceFromValue, type ArrayReduceExit, type ArrayReduceNext, reduceTools } from "./reduce";
 import { type IsEqual } from "@scripts/common";
 
+/**
+ * {@include array/reduceRight/index.md}
+ */
 export function reduceRight<
 	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends number | string | bigint | boolean | ArrayReduceFromResult,

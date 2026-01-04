@@ -1,3 +1,6 @@
+/**
+ * {@include array/indexOf/index.md}
+ */
 export function indexOf<
 	GenericElement extends unknown,
 >(

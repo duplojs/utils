@@ -1,6 +1,9 @@
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
 import { type JoinTuple } from "./types";
 
+/**
+ * {@include array/join/index.md}
+ */
 export function join<
 	GenericArray extends readonly string[],
 	GenericSeparator extends string,

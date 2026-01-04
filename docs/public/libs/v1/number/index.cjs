@@ -32,7 +32,9 @@ var between = require('./between.cjs');
 var betweenThan = require('./betweenThan.cjs');
 var sort = require('./sort.cjs');
 
-
+/**
+ * {@include number/index.md}
+ */
 
 exports.abs = abs.abs;
 exports.acos = acos.acos;

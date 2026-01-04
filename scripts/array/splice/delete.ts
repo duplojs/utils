@@ -1,3 +1,6 @@
+/**
+ * {@include array/spliceDelete/index.md}
+ */
 export function spliceDelete<GenericElement extends unknown>(
 	indexTo: number,
 	deleteCount: number,
@@ -24,4 +27,3 @@ export function spliceDelete(
 
 	return copy;
 }
-

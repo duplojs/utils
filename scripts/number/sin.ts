@@ -1,3 +1,6 @@
+/**
+ * {@include number/sin/index.md}
+ */
 export function sin<
 	GenericValue extends number,
 >(value: GenericValue): number {

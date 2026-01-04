@@ -4,6 +4,9 @@ interface ArrayFindAndSpliceReplaceIndexParams {
 	index: number;
 }
 
+/**
+ * {@include array/findAndSpliceReplace/index.md}
+ */
 export function findAndSpliceReplace<
 	GenericElement extends unknown,
 >(
@@ -39,4 +42,3 @@ export function findAndSpliceReplace(
 
 	return undefined;
 }
-
