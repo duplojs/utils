@@ -1,3 +1,6 @@
+/**
+ * {@include number/round/index.md}
+ */
 export function round<
 	GenericValue extends number,
 >(value: GenericValue): number {

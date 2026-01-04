@@ -1,3 +1,6 @@
+/**
+ * {@include number/greaterThan/index.md}
+ */
 export function greaterThan<
 	GenericValue extends number,
 >(threshold: number): (value: GenericValue) => boolean;

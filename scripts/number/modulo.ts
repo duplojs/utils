@@ -1,3 +1,6 @@
+/**
+ * {@include number/modulo/index.md}
+ */
 export function modulo<
 	GenericValue extends number,
 >(divisor: number): (value: GenericValue) => number;

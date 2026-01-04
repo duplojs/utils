@@ -29,3 +29,7 @@ export { sqrt } from './sqrt.mjs';
 export { between } from './between.mjs';
 export { betweenThan } from './betweenThan.mjs';
 export { sort } from './sort.mjs';
+
+/**
+ * {@include number/index.md}
+ */

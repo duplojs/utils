@@ -1,3 +1,6 @@
+/**
+ * {@include number/subtract/index.md}
+ */
 export function subtract<
 	GenericValue extends number,
 >(subtrahend: number): (value: GenericValue) => number;
