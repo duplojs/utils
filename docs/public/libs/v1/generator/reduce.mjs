@@ -4,6 +4,9 @@ import { unwrap } from '../common/unwrap.mjs';
 import { reduceTools } from '../array/reduce.mjs';
 
 const generatorReduceFromKind = createKind("generator-reduce-from");
+/**
+ * {@include generator/reduceFrom/index.md}
+ */
 function reduceFrom(value) {
     return generatorReduceFromKind.setTo(wrapValue(value));
 }

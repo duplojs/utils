@@ -4,6 +4,9 @@ interface AsyncGeneratorMapParams {
 	index: number;
 }
 
+/**
+ * {@include generator/asyncMap/index.md}
+ */
 export function asyncMap<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,

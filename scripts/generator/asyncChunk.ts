@@ -1,3 +1,6 @@
+/**
+ * {@include generator/asyncChunk/index.md}
+ */
 export function asyncChunk<
 	const GenericElement extends unknown,
 >(

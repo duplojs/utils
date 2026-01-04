@@ -25,6 +25,9 @@ export interface GeneratorLoopParams<
 	>(output?: GenericOutput): LoopOutputExistResult<GenericOutput>;
 }
 
+/**
+ * {@include generator/loop/index.md}
+ */
 export function *loop<
 	GenericRawExitOutput extends AnyValue = undefined,
 	GenericRawNextOutput extends AnyValue = undefined,

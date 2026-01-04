@@ -12,6 +12,8 @@ import * as A from "@duplojs/utils/array";
 ```
 
 What you will find in this namespace:
+- iteration and transforms (`A.map`, `A.filter`, `A.reduce`)
+- reduce helpers (`A.reduceFrom`)
 - element access helpers (`A.at`, `A.first`, `A.last`)
 - search and predicates (`A.find`, `A.findIndex`, `A.some`, `A.every`)
 - transforms (`A.map`, `A.flatMap`, `A.select`, `A.group`)
@@ -19,3 +21,5 @@ What you will find in this namespace:
 - slicing and composition (`A.slice`, `A.concat`, `A.chunk`, `A.copyWithin`)
 
 @see https://utils.duplojs.dev/en/v1/api/array
+
+@namespace A
