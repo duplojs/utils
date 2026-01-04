@@ -10,6 +10,9 @@ type ComputeEntries<
 		[Entry in GenericEntry as Entry[0]]?: Entry[1]
 	}>;
 
+/**
+ * {@include object/fromEntries/index.md}
+ */
 export function fromEntries<
 	GenericKey extends ObjectKey,
 	const GenericEntry extends readonly [GenericKey, unknown],

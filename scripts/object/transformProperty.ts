@@ -1,5 +1,8 @@
 import { type AnyFunction, type SimplifyTopLevel, type ObjectKey } from "@scripts/common";
 
+/**
+ * {@include object/transformProperty/index.md}
+ */
 export function transformProperty<
 	GenericObject extends object,
 	GenericKey extends keyof GenericObject,

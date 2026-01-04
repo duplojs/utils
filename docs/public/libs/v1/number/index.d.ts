@@ -19,7 +19,6 @@
  * - math utilities (`N.min`, `N.max`, `N.sqrt`, `N.power`)
  * 
  * @see https://utils.duplojs.dev/en/v1/api/number
- * @see https://utils.duplojs.dev/fr/v1/api/number
  * 
  * @namespace N
  * 

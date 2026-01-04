@@ -1,6 +1,9 @@
 import { type ObjectKey } from "@scripts/common";
 import { type RequiredKeys } from "./types/requiredKeys";
 
+/**
+ * {@include object/hasKeys/index.md}
+ */
 export function hasKeys<
 	GenericObject extends object,
 	GenericKeys extends keyof GenericObject,

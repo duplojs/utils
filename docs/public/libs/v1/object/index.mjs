@@ -16,3 +16,7 @@ export { deepDiscriminate } from './deepDiscriminate.mjs';
 export { getDeepProperty } from './getDeepProperty.mjs';
 export { discriminate } from './discriminate.mjs';
 export { entry } from './entry.mjs';
+
+/**
+ * {@include object/index.md}
+ */
