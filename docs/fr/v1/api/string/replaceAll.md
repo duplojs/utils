@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode replaceAll() retourne une nouvelle chaîne de caractères dans laquelle toutes les occurrences d'un motif spécifié sont remplacées par une chaîne de remplacement."
 prev:
   text: "replace"
   link: "/fr/v1/api/string/replace"

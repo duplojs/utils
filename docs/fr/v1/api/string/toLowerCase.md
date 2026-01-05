@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode toLowerCase() retourne une nouvelle chaîne de caractères avec tous les caractères en minuscules."
 prev:
   text: "uncapitalize"
   link: "/fr/v1/api/string/uncapitalize"

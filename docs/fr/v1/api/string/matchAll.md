@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode matchAll() prend une expression régulière en argument et retourne un itérateur de toutes les correspondances trouvées dans une chaîne de caractères."
 prev:
   text: "match"
   link: "/fr/v1/api/string/match"

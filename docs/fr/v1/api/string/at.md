@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: La méthode at() retourne le caractère à l'index spécifié dans une chaîne de caractères, avec support des index négatifs.
+description: "La méthode at() retourne le caractère à l'index spécifié dans une chaîne de caractères, avec support des index négatifs."
 prev:
   text: "charAt"
   link: "/fr/v1/api/string/charAt"

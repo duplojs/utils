@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The trim() method removes whitespace from the start and end of a string. Whitespace includes spaces, tabs, line breaks, and other Unicode whitespace characters."
 prev:
   text: "padEnd"
   link: "/en/v1/api/string/padEnd"

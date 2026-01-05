@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode split() divise une chaîne de caractères en un tableau de sous-chaînes en utilisant un séparateur spécifié."
 prev:
   text: 'substring'
   link: '/fr/v1/api/string/substring'

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The capitalize() method returns a new string with the first letter uppercased."
 prev:
   text: 'String'
   link: '/en/v1/api/string/'

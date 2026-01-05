@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode endsWith() vérifie si une chaîne de caractères se termine par une sous-chaîne spécifique, en tenant compte d'une position optionnelle."
 prev:
   text: "startsWith"
   link: "/fr/v1/api/string/startsWith"

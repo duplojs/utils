@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The lastIndexOf() method returns the index of the last occurrence of a substring in a string, or undefined if the substring is not found."
 prev:
   text: "indexOf"
   link: "/en/v1/api/string/indexOf"

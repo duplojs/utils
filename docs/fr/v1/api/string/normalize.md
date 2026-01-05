@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode normalize() retourne une nouvelle chaîne de caractères normalisée selon la forme Unicode spécifiée."
 prev:
   text: "toUpperCase"
   link: "/fr/v1/api/string/toUpperCase"

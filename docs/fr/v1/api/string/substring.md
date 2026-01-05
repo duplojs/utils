@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode substring() retourne une sous-chaîne de caractères entre deux index, sans modifier la chaîne d'origine."
 prev:
   text: "slice"
   link: "/fr/v1/api/string/slice"

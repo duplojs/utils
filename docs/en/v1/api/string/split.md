@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The split() method divides a string into an array of substrings using a specified separator."
 prev:
   text: 'substring'
   link: '/en/v1/api/string/substring'

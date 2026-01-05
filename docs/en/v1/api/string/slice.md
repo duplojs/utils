@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The slice() method extracts a section of a string and returns a new string without modifying the original string."
 prev:
   text: "at"
   link: "/en/v1/api/string/at"

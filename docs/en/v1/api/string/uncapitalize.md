@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The uncapitalize() method returns a new string with the first letter lowercased."
 prev:
   text: 'capitalize'
   link: '/en/v1/api/string/capitalize'

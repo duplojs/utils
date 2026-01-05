@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode concat() combine le texte de plusieurs chaînes de caractères et retourne une nouvelle chaîne."
 prev:
   text: "sortCompare"
   link: "/fr/v1/api/string/sortCompare"

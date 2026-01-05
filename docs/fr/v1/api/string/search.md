@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode search() recherche une correspondance avec une sous-chaîne ou une expression régulière dans une chaîne de caractères et retourne l'index de la première occurrence trouvée. Si aucune correspondance n'est trouvée, elle retourne undefined."
 prev:
   text: "lastIndexOf"
   link: "/fr/v1/api/string/lastIndexOf"

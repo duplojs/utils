@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The trimStart() method removes whitespace at the start of a string. Whitespace includes spaces, tabs, line breaks, and other Unicode whitespace characters."
 prev:
   text: "trim"
   link: "/en/v1/api/string/trim"
