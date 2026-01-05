@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode toFixed() formate un nombre en utilisant la notation à point fixe avec un nombre spécifié de décimales. Elle retourne une représentation sous forme de chaîne du nombre."
 prev:
   text: "sqrt"
   link: "/fr/v1/api/number/sqrt"

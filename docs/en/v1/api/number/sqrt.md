@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sqrt() method returns the square root of a number. The square root of a number x is the value y such that y² = x."
 prev:
   text: "clamp"
   link: "/en/v1/api/number/clamp"

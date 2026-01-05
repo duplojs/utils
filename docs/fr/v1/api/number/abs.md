@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode abs() retourne la valeur absolue d'un nombre. La valeur absolue d'un nombre est sa distance à zéro, toujours positive ou nulle."
 prev:
   text: "negate"
   link: "/fr/v1/api/number/negate"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The floor() method rounds a number down to the nearest integer less than or equal to it. This function is useful to ensure a number never exceeds a certain integer value."
 prev:
   text: "ceil"
   link: "/en/v1/api/number/ceil"

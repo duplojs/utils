@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode negate() inverse le signe d'un nombre. Un nombre positif devient négatif et vice versa. C'est l'équivalent de multiplier par -1."
 prev:
   text: "power"
   link: "/fr/v1/api/number/power"

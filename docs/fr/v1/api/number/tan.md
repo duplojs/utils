@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode tan() retourne la tangente d'un angle exprimé en radians. La tangente est le rapport entre le sinus et le cosinus d'un angle (tan = sin/cos)."
 prev:
   text: "cos"
   link: "/fr/v1/api/number/cos"

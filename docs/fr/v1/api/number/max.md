@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode max() retourne la plus grande valeur parmi les nombres fournis. Elle permet de comparer plusieurs valeurs et d'obtenir le maximum."
 prev:
   text: "trunc"
   link: "/fr/v1/api/number/trunc"

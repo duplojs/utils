@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode add() additionne deux nombres ou crée une fonction d'addition partielle. Elle peut être utilisée de manière currifiée pour faciliter la composition fonctionnelle."
 next:
   text: "subtract"
   link: "/fr/v1/api/number/subtract"
