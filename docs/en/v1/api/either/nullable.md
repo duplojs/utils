@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Wraps a null or non-null value in an Either, while keeping the information on whether it is filled or empty."
 prev:
   text: "whenIsNullishFilled"
   link: "/en/v1/api/either/whenIsNullishFilled"

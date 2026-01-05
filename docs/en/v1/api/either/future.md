@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Future<T> class: an enhanced promise capable of carrying Either values and exposing helpers like Future.all."
 prev:
   text: "whenIsOptionalFilled"
   link: "/en/v1/api/either/whenIsOptionalFilled"

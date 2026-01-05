@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Applique un callback uniquement lorsque l'Either optionnel contient une valeur (OptionalFilled)."
 prev:
   text: "isOptionalFilled"
   link: "/fr/v1/api/either/isOptionalFilled"

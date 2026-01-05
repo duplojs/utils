@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Retourne un EitherRight<\"ok\", never> : un succès vide qui sert à confirmer qu'une opération s'est bien déroulée sans donnée supplémentaire."
 prev:
   text: "success"
   link: "/fr/v1/api/either/success"

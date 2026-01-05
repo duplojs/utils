@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Crée un Future résolu avec un EitherLeft<\"future\">, idéal pour propager un rejet standardisé."
 prev:
   text: "futureSuccess"
   link: "/fr/v1/api/either/futureSuccess"

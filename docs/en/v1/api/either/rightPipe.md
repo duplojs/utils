@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Chains synchronous transformations on an Either as long as it remains Right. The pipeline stops as soon as a Left is returned."
 prev:
   text: "futureError"
   link: "/en/v1/api/either/futureError"

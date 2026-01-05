@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un EitherRight<\"optional\"> lorsque la valeur est définie."
 prev:
   text: "optionalEmpty"
   link: "/fr/v1/api/either/optionalEmpty"

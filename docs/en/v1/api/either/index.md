@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Either monad for functional, type-safe error handling. It represents a value that can be either a success (Right) or an error (Left), avoiding the use of exceptions."
 prev:
   text: 'Date'
   link: '/en/v1/api/date/'

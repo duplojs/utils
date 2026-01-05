@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard qui vérifie si une valeur est un EitherRight. Permet d'accéder au payload sans conversion explicite."
 prev:
   text: "fail"
   link: "/fr/v1/api/either/fail"

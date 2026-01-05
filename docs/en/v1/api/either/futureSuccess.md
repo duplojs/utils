@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Creates a Future resolved with an EitherRight<\"future\">."
 prev:
   text: "future"
   link: "/en/v1/api/either/future"

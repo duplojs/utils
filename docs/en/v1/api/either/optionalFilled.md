@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds an EitherRight<\"optional\"> when the value is defined."
 prev:
   text: "optionalEmpty"
   link: "/en/v1/api/either/optionalEmpty"
