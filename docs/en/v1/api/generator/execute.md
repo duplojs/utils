@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The execute() function fully consumes a generator by iterating over all its elements without returning a value. Used to end a chain of transformations on a generator."
 prev:
   text: "Generator"
   link: "/en/v1/api/generator/"

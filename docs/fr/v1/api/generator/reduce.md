@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction reduce() réduit un générateur à une seule valeur en appliquant une fonction d'accumulation sur chaque élément. Permet aussi de sortir prématurément avec exit()."
 prev:
   text: "chunk"
   link: "/fr/v1/api/generator/chunk"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncFilter() function filters the elements of a generator according to an asynchronous predicate. It returns an asynchronous generator containing only the elements that satisfy the condition."
 prev:
   text: "filter"
   link: "/en/v1/api/generator/filter"

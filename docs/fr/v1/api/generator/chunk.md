@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: La fonction chunk() découpe un itérable (générateur ou tableau) en blocs de taille fixe et renvoie un générateur de tableaux. Le dernier bloc peut être plus court si la taille ne divise pas exactement l'entrée.
+description: "La fonction chunk() découpe un itérable (générateur ou tableau) en blocs de taille fixe et renvoie un générateur de tableaux. Le dernier bloc peut être plus court si la taille ne divise pas exactement l'entrée."
 prev:
   text: "filter"
   link: "/fr/v1/api/generator/filter"

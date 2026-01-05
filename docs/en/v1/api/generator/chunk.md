@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: The chunk() function splits an iterable (generator or array) into fixed-size blocks and returns a generator of arrays. The last block can be shorter if the size does not evenly divide the input.
+description: "The chunk() function splits an iterable (generator or array) into fixed-size blocks and returns a generator of arrays. The last block can be shorter if the size does not evenly divide the input."
 prev:
   text: "filter"
   link: "/en/v1/api/generator/filter"
