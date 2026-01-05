@@ -1,4 +1,5 @@
 ---
+description: "@duplojs/utils est une brique centrale de l’écosystème DuploJS. Elle illustre notre vision du développement TypeScript : une approche axée sur la robustesse, la lisibilité et la qualité du typage."
 next:
   text: "Démarrage rapide"
   link: "/fr/v1/guide/quickStart"
