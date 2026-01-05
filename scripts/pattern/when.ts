@@ -1,6 +1,9 @@
 import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual, type EscapeVoid } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
+/**
+ * {@include pattern/when/index.md}
+ */
 export function when<
 	GenericInput extends unknown,
 	GenericInputValue extends Exclude<

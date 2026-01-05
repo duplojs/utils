@@ -1,6 +1,9 @@
 import { type AnyFunction, type AnyValue, unwrap, type Unwrap } from "@scripts/common";
 import { isResult, type PatternResult } from "./result";
 
+/**
+ * {@include pattern/otherwise/index.md}
+ */
 export function otherwise<
 	GenericInput extends AnyValue,
 	GenericInputValue extends Exclude<GenericInput, PatternResult>,
