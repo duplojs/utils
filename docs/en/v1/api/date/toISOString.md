@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
-  text: "toTimestamp"
-  link: "/en/v1/api/date/toTimestamp"
+  text: "applyTimezone"
+  link: "/en/v1/api/date/applyTimezone"
 next:
-  text: "isSafeTimestamp"
-  link: "/en/v1/api/date/isSafeTimestamp"
+  text: "format"
+  link: "/en/v1/api/date/format"
 ---
 
 # toISOString

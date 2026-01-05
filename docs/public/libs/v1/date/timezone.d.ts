@@ -1,4 +1,4 @@
-import { type GetEnumValue } from "../../common/enum";
+import { type GetEnumValue } from "../common/enum";
 export declare const timezone: {
     "Africa/Abidjan": "Africa/Abidjan";
     "Africa/Accra": "Africa/Accra";

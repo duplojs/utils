@@ -11,3 +11,4 @@ export declare const secondsInOneMinute = 60;
 export declare const millisecondsInOneSecond = 1000;
 export declare const hoursInOneDay = 24;
 export declare const theDateRegex: RegExp;
+export declare const isoDateRegex: RegExp;

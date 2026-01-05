@@ -21,7 +21,7 @@ jobs:
           sed -i 's/"version":.*".*"/"version": "'${{ steps.get_version.outputs.version }}'"/' package.json
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           registry-url: 'https://registry.npmjs.org/'
           scope: '@mathcovax'
       - run: npm install -g npm@latest

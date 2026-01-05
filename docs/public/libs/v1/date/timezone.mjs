@@ -1,8 +1,6 @@
-'use strict';
+import { createEnum } from '../common/enum.mjs';
 
-var _enum = require('../../common/enum.cjs');
-
-const timezone = _enum.createEnum([
+const timezone = createEnum([
     "Africa/Abidjan",
     "Africa/Accra",
     "Africa/Addis_Ababa",
@@ -603,4 +601,4 @@ const timezone = _enum.createEnum([
     "localtime",
 ]);
 
-exports.timezone = timezone;
+export { timezone };
