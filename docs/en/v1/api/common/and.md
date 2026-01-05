@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The and() function combines several predicates or type guards. All must succeed for the result to be true and the type to be narrowed to the intersection."
 prev:
   text: "whenElse"
   link: "/en/v1/api/common/whenElse"

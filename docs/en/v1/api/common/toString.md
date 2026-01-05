@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toString() function converts a literal (number, string, bigint, boolean, null, undefined) into a typed template string."
 prev:
   text: "toTransform"
   link: "/en/v1/api/common/toTransform"

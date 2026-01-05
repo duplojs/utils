@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The createBuilder() function lets you create a builder whose methods can be defined after declaration (and even redefined) while keeping strict typing."
 prev:
   text: "globalStore"
   link: "/en/v1/api/common/globalStore"

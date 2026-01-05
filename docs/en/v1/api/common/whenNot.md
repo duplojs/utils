@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The whenNot() function applies a transformation only when the predicate fails (or when the type guard does not match). Otherwise, the input is returned as is. Exists in immediate and curried versions."
 prev:
   text: "when"
   link: "/en/v1/api/common/when"

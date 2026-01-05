@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction forward() renvoie l'argument passé sans le modifier. Utile pour homogénéiser une API qui attend une fonction, ou pour améliorer la lisibilité dans un pipeline."
 prev:
   text: "asyncInnerPipe"
   link: "/fr/v1/api/common/asyncInnerPipe"

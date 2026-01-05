@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sleep() function creates an asynchronous pause for a number of milliseconds."
 prev:
   text: "asyncRetry"
   link: "/en/v1/api/common/asyncRetry"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Utilitaires transversaux pour composer des fonctions, gérer les promesses, manipuler des wrappers/kinds et appliquer des conversions runtime partagées par toute la librairie."
 prev:
   text: "Référence API"
   link: "/fr/v1/api/"

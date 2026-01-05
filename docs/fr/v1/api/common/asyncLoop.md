@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction asyncLoop() est la variante asynchrone de loop. Chaque itération peut retourner une promesse avant de décider de continuer (next) ou de sortir (exit)."
 prev:
   text: "loop"
   link: "/fr/v1/api/common/loop"

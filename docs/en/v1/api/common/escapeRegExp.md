@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The escapeRegExp() function escapes special characters in a string so it can be reused in a regular expression without altering its meaning."
 prev:
   text: "stringToBytes"
   link: "/en/v1/api/common/stringToBytes"

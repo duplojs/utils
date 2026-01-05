@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction createExternalPromise() crée une promesse contrôlable depuis l'extérieur : elle expose resolve, reject et la promesse associée."
 prev:
   text: "asyncLoop"
   link: "/fr/v1/api/common/asyncLoop"
