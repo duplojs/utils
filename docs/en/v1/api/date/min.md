@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The min() function returns the oldest date of a tuple of TheDate."
 prev:
   text: "minTime"
   link: "/en/v1/api/date/minTime"

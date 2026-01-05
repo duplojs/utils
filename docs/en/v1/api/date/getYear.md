@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getYear() function returns the year corresponding to a TheDate. An IANA timezone can be provided to adjust the result."
 prev:
   text: "isTime"
   link: "/en/v1/api/date/isTime"

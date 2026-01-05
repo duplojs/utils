@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Adds a positive number of weeks (multiples of 7 days) to a TheDate."
 prev:
   text: "addMonths"
   link: "/en/v1/api/date/addMonths"

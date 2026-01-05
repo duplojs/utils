@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Vérifie qu'un TheDate est strictement compris entre deux bornes (greater puis less)."
 prev:
   text: "lessThan"
   link: "/fr/v1/api/date/lessThan"

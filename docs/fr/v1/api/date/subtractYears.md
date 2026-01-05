@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Soustrait un nombre positif d'années d'un TheDate."
 prev:
   text: "addTime"
   link: "/fr/v1/api/date/addTime"

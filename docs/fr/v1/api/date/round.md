@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Arrondit un TheDate à l'unité spécifiée (unit)."
 prev:
   text: "min"
   link: "/fr/v1/api/date/min"

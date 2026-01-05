@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toTimestamp() function returns the millisecond timestamp of a TheDate. It throws InvalidTheDateError if the value is inconsistent."
 prev:
   text: "toNative"
   link: "/en/v1/api/date/toNative"

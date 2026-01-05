@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getMinute() renvoie les minutes (0–59) d'un TheDate, avec un fuseau IANA optionnel."
 prev:
   text: "getHour"
   link: "/fr/v1/api/date/getHour"

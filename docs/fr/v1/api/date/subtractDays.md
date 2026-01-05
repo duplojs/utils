@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Soustrait un nombre positif de jours d'un TheDate."
 prev:
   text: "subtractWeeks"
   link: "/fr/v1/api/date/subtractWeeks"

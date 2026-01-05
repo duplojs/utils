@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toISOString() function transforms a TheDate into an ISO 8601 string (YYYY-MM-DDTHH:mm:ss.sssZ)."
 prev:
   text: "applyTimezone"
   link: "/en/v1/api/date/applyTimezone"

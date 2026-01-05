@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate dates and times via the proprietary type TheDate (`type TheDate = date${number}${\"-\" | \"+\"}```). This serializable format encodes a safe Unix timestamp, travels through HTTP protocols without loss, and guarantees immutable manipulation."
 prev:
   text: "DataParser"
   link: "/en/v1/api/dataParser/"

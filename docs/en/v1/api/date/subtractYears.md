@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Subtracts a positive number of years from a TheDate."
 prev:
   text: "addTime"
   link: "/en/v1/api/date/addTime"

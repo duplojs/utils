@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getMinute() function returns the minutes (0–59) of a TheDate, with an optional IANA timezone."
 prev:
   text: "getHour"
   link: "/en/v1/api/date/getHour"

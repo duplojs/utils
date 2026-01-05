@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getMilliseconds() renvoie les millisecondes (0–999) d'un TheDate."
 prev:
   text: "getSecond"
   link: "/fr/v1/api/date/getSecond"

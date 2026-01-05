@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sort() function sorts an array of TheDate according to the desired order (ASC or DSC) and returns a new sorted array."
 prev:
   text: "betweenThanTime"
   link: "/en/v1/api/date/betweenThanTime"

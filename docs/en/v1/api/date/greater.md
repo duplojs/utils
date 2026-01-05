@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The greater() function checks whether a TheDate is strictly greater than a threshold."
 prev:
   text: "subtractTime"
   link: "/en/v1/api/date/subtractTime"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction toNative() convertit un TheDate en Date JavaScript."
 prev:
   text: "tomorrow"
   link: "/fr/v1/api/date/tomorrow"

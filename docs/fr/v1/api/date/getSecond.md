@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getSecond() renvoie les secondes (0–59) d'un TheDate, ajustées par un fuseau horaire optionnel."
 prev:
   text: "getMinute"
   link: "/fr/v1/api/date/getMinute"

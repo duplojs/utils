@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getLastDayOfWeek() retourne le dimanche correspondant à la semaine du TheDate fourni."
 prev:
   text: "getFirstDayOfWeek"
   link: "/fr/v1/api/date/getFirstDayOfWeek"

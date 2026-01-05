@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction sort() trie un tableau de TheDate selon l'ordre souhaité (ASC ou DSC) et retourne un nouveau tableau trié."
 prev:
   text: "betweenThanTime"
   link: "/fr/v1/api/date/betweenThanTime"

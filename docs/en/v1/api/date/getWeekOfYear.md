@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getWeekOfYear() function calculates the ISO 8601 week number (1–53) for a TheDate, with an optional timezone."
 prev:
   text: "getDayOfWeek"
   link: "/en/v1/api/date/getDayOfWeek"

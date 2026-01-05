@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The isSafeTimestamp() function checks that a timestamp is between minTimestamp and maxTimestamp, the limits imposed by the JavaScript engine."
 prev:
   text: "format"
   link: "/en/v1/api/date/format"
