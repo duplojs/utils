@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.checkerRefine(predicate, options?) creates a custom checker. It plugs in everywhere (schema.addChecker, checkers option, extended.refine API) and reuses the error engine (path, message, rejected value)."
 prev:
   text: "transform"
   link: "/en/v1/api/dataParser/transform"

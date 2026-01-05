@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.nil() only accepts null. Useful to explicitly describe fields that must be null or to combine with optional/nullable."
 prev:
   text: "templateLiteral"
   link: "/en/v1/api/dataParser/templateLiteral"

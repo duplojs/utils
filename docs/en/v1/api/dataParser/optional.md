@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Allows undefined while keeping a strict parser for the present value. DDataParser.optional(inner) returns the output of inner when a value is provided and lets undefined pass otherwise."
 prev:
   text: "union"
   link: "/en/v1/api/dataParser/union"

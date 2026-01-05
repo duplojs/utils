@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un parser pour les chaînes de caractères. DDataParser.string() garantit que l'entrée est bien une chaîne (avec support optionnel de la coercition), applique les checkers fournis et retourne un Either typé contenant soit la valeur validée, soit un DataParserError détaillé."
 prev:
   text: "Data Parser"
   link: "/fr/v1/api/dataParser/"

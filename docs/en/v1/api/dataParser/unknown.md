@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.unknown() lets any value through but keeps the error and checker mechanics. Ideal as a permissive entry point before chaining a pipe or adding your checkerRefine."
 prev:
   text: "empty"
   link: "/en/v1/api/dataParser/empty"

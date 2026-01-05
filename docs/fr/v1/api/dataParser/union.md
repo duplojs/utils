@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.union() essaie plusieurs parsers dans l'ordre fourni et retourne le premier succès. En cas d'échec, toutes les issues sont agrégées pour aider au debugging."
 prev:
   text: "record"
   link: "/fr/v1/api/dataParser/record"

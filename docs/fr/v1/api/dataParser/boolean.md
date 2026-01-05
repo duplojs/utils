@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un parser pour les booléens. DDataParser.boolean() vérifie l'entrée, supporte la coercition (\"true\", 1, etc.) et autorise des checkers personnalisés via checkerRefine."
 prev:
   text: "number"
   link: "/fr/v1/api/dataParser/number"

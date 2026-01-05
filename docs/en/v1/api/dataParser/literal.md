@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.literal() restricts the input to one or more exact values (string, number, bigint, boolean, null, undefined). Handy for expressing runtime enums without losing TypeScript inference."
 prev:
   text: "time"
   link: "/en/v1/api/dataParser/time"

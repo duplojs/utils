@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.pipe(input, output) compose deux parsers : le premier valide/transforme l’entrée, puis son résultat est passé au second. Pratique pour enchaîner coercition → validation stricte → transformation, sans écrire de logique manuelle."
 prev:
   text: "lazy"
   link: "/fr/v1/api/dataParser/lazy"

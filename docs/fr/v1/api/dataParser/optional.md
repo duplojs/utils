@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Autorise undefined tout en conservant un parser strict pour la valeur présente. DDataParser.optional(inner) renvoie la sortie d'inner lorsqu'une valeur est fournie et laisse passer undefined sinon."
 prev:
   text: "union"
   link: "/fr/v1/api/dataParser/union"

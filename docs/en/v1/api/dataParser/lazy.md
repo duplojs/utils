@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.lazy(() => parser) lets you describe recursive structures (trees, categories, menus, etc.) by deferring parser resolution. The getter is evaluated only at runtime, which avoids circular references."
 prev:
   text: "nullable"
   link: "/en/v1/api/dataParser/nullable"

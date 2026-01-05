@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un parser pour une forme de chaîne déterministe (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() prend un tableau mêlant parties primitives et sous-parsers (string, number, literal, ...) et retourne un parser string fortement typé."
 prev:
   text: "literal"
   link: "/fr/v1/api/dataParser/literal"
