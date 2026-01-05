@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction lengthEqual() vérifie qu'un tableau contient exactement un nombre donné d'éléments. Elle agit comme un type guard pour inférer un tuple de taille fixe."
 prev:
   text: "length"
   link: "/fr/v1/api/array/length"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The push() function adds one or more elements to the end of the array and returns a new instance, leaving the input intact."
 prev:
   text: "insert"
   link: "/en/v1/api/array/insert"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction unshift() ajoute un ou plusieurs éléments au début du tableau et retourne une copie enrichie."
 prev:
   text: "pop"
   link: "/fr/v1/api/array/pop"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The is() method checks whether a value is an array (type guard)."
 prev:
   text: "some"
   link: "/en/v1/api/array/some"

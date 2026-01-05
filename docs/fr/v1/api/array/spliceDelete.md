@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction spliceDelete() supprime un nombre donné d'éléments à partir d'un index et retourne un nouveau tableau épuré."
 prev:
   text: "concat"
   link: "/fr/v1/api/array/concat"

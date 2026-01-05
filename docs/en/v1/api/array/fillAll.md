@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The fillAll() function replaces all the elements of an array with a single value and returns the result without altering the input."
 prev:
   text: "fill"
   link: "/en/v1/api/array/fill"

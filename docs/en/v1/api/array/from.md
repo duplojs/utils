@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The from() method creates an array from an iterable, an array-like object, or an async iterable."
 prev:
   text: "Array"
   link: "/en/v1/api/array/"

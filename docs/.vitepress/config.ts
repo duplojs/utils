@@ -3,12 +3,17 @@ import { defineConfig } from "vitepress";
 import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
+const hostname = "https://utils.duplojs.dev";
+const ogImage = new URL("/images/logo.png", hostname).toString();
+
 export default defineConfig({
 	title: "@duplojs/utils",
-	description: "Utilitaires fonctionnels et immutables avec une excellente expérience développeur",
 
 	base: "/",
 	cleanUrls: true,
+	sitemap: {
+		hostname,
+	},
 
 	transformPageData(pageData) {
 		const frontmatter = pageData.frontmatter ?? {};
@@ -33,6 +38,34 @@ export default defineConfig({
 			{
 				rel: "icon",
 				href: "/images/logo.ico",
+			},
+		],
+		[
+			"meta",
+			{
+				property: "og:type",
+				content: "website",
+			},
+		],
+		[
+			"meta",
+			{
+				property: "og:image",
+				content: ogImage,
+			},
+		],
+		[
+			"meta",
+			{
+				name: "twitter:card",
+				content: "summary_large_image",
+			},
+		],
+		[
+			"meta",
+			{
+				name: "twitter:image",
+				content: ogImage,
 			},
 		],
 	],
@@ -98,6 +131,7 @@ export default defineConfig({
 
 	locales: {
 		fr: {
+			description: "Utilitaires fonctionnels et immutables avec une excellente expérience développeur",
 			label: "Français",
 			lang: "fr",
 			link: "/fr/",
@@ -219,6 +253,7 @@ export default defineConfig({
 			},
 		},
 		root: {
+			description: "Functional and unchanging utilities with an excellent developer experience",
 			label: "English",
 			lang: "en",
 			link: "/en/",

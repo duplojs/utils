@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction maxElements() vérifie qu'un tableau contient au plus un certain nombre d'éléments. Elle est pratique pour refuser une liste trop longue avant un traitement coûteux."
 prev:
   text: "minElements"
   link: "/fr/v1/api/array/minElements"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode lastIndexOf() retourne l'index de la dernière occurrence d'un élément dans un tableau."
 prev:
   text: "indexOf"
   link: "/fr/v1/api/array/indexOf"

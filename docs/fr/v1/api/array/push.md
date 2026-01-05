@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction push() ajoute un ou plusieurs éléments à la fin du tableau et renvoie une nouvelle instance, l'entrée restant intacte."
 prev:
   text: "insert"
   link: "/fr/v1/api/array/insert"

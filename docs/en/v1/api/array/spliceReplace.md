@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The spliceReplace() function replaces a portion of the array with a set of new values. It is an immutable shortcut to splice with deleteCount equal to the number of elements to insert."
 prev:
   text: "spliceInsert"
   link: "/en/v1/api/array/spliceInsert"

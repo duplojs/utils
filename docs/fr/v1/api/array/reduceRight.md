@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode reduceRight() fonctionne comme reduce() mais parcourt le tableau de droite à gauche. Elle est utile pour composer des fonctions, reconstruire une structure depuis la fin ou traiter une pile."
 prev:
   text: "reduce"
   link: "/fr/v1/api/array/reduce"

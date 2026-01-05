@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction isLastIndex() indique si un index correspond au dernier élément d'un tableau. Elle est currifiée pour s'intégrer facilement dans des compositions ou des réductions."
 prev:
   text: "lastIndexOf"
   link: "/fr/v1/api/array/lastIndexOf"

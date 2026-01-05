@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The coalescing() function takes a value or an array and normalizes it into an array. If the value is not already an array, it is wrapped in an array."
 prev:
   text: "findAndSpliceReplace"
   link: "/en/v1/api/array/findAndSpliceReplace"

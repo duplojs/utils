@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode find() retourne le premier élément d'un tableau qui satisfait une condition donnée."
 prev:
   text: "isLastIndex"
   link: "/fr/v1/api/array/isLastIndex"

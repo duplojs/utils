@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction copyWithin() copie une portion du tableau vers un autre emplacement tout en restant pure (le tableau original est cloné)."
 prev:
   text: "fillAll"
   link: "/fr/v1/api/array/fillAll"

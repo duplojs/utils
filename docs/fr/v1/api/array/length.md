@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode length() retourne la longueur d'un tableau."
 prev:
   text: "toTuple"
   link: "/fr/v1/api/array/toTuple"

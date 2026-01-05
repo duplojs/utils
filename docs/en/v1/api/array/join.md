@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The join() method concatenates the elements of an array of strings, inserting a separator between each of them. It respects the structure of tuples to statically compute the resulting string."
 prev:
   text: "reduceRight"
   link: "/en/v1/api/array/reduceRight"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The maxElements() function checks that an array contains at most a certain number of elements. It is handy for rejecting a list that is too long before an expensive process."
 prev:
   text: "minElements"
   link: "/en/v1/api/array/minElements"

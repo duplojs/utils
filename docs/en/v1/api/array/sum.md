@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sum() method adds all the numeric values of an immutable array and returns the total sum as a number."
 prev:
   text: "group"
   link: "/en/v1/api/array/group"

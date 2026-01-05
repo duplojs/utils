@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The set() function replaces the value at a given index and returns a new array without modifying the original."
 prev:
   text: "maxElements"
   link: "/en/v1/api/array/maxElements"

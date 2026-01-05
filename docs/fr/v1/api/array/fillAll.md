@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction fillAll() remplace tous les éléments d'un tableau par une valeur unique et renvoie le résultat sans altérer l'entrée."
 prev:
   text: "fill"
   link: "/fr/v1/api/array/fill"

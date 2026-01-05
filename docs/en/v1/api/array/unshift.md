@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The unshift() function adds one or more elements to the beginning of the array and returns an enriched copy."
 prev:
   text: "pop"
   link: "/en/v1/api/array/pop"

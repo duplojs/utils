@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode some() vérifie si au moins un élément d'un tableau satisfait une condition donnée."
 prev:
   text: "every"
   link: "/fr/v1/api/array/every"

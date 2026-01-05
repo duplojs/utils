@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction pop() retourne un nouveau tableau sans son dernier élément. Les tuples sont mis à jour de façon exacte (via PopTuple)."
 prev:
   text: "push"
   link: "/fr/v1/api/array/push"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction findAndSpliceInsert() cherche le premier élément qui satisfait un prédicat et insère un tableau d'éléments à cet endroit sans supprimer l'élément trouvé."
 prev:
   text: "findAndSpliceDelete"
   link: "/fr/v1/api/array/findAndSpliceDelete"

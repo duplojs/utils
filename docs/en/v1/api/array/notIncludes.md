@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The notIncludes() function checks that an array does not contain a given value and acts as a type guard to exclude this value from the typing."
 prev:
   text: "includes"
   link: "/en/v1/api/array/includes"

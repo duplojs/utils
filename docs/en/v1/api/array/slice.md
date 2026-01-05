@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The slice() function creates a copy of a portion of an array between start and end (excluded) without modifying the original. It mirrors Array.prototype.slice with a curried API."
 prev:
   text: "select"
   link: "/en/v1/api/array/select"
