@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode override() remplace les propriétés d'un objet par celles d'un autre, en ignorant les valeurs undefined."
 prev:
   text: "assign"
   link: "/fr/v1/api/object/assign"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode entry() crée une paire clé-valeur typée (tuple)."
 prev:
   text: "entries"
   link: "/fr/v1/api/object/entries"

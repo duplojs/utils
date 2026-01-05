@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode fromEntries() construit un objet à partir d'un tableau de paires clé-valeur."
 prev:
   text: "entry"
   link: "/fr/v1/api/object/entry"

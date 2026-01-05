@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode values() retourne un tableau des valeurs d'un objet."
 prev:
   text: "countKeys"
   link: "/fr/v1/api/object/countKeys"

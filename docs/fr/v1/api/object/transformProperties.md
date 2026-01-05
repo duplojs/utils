@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode transformProperties() transforme plusieurs propriétés d'un objet via des fonctions."
 prev:
   text: "transformProperty"
   link: "/fr/v1/api/object/transformProperty"

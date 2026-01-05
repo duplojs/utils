@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The entries() method returns an array of an object's key-value pairs with strict typing."
 prev:
   text: "values"
   link: "/en/v1/api/object/values"

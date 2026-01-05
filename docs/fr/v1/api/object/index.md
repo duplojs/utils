@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Fonctions pour manipuler les objets de manière immutable et type-safe. Toutes les fonctions préservent l'objet original et retournent une nouvelle valeur."
 prev:
   text: 'Number'
   link: '/fr/v1/api/number/'

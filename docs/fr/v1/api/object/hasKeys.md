@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode hasKeys() vérifie si un objet possède certaines clés (type guard)."
 prev:
   text: "to"
   link: "/fr/v1/api/object/to"

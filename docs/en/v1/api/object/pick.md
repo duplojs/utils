@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The pick() method creates a new object by selecting only certain properties."
 prev:
   text: "getDeepProperty"
   link: "/en/v1/api/object/getDeepProperty"

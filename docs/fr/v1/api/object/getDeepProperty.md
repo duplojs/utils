@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode getDeepProperty() récupère la valeur d'une propriété profonde via un chemin (path notation)."
 prev:
   text: "getProperty"
   link: "/fr/v1/api/object/getProperty"

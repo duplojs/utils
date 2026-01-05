@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The hasKeys() method checks whether an object has certain keys (type guard)."
 prev:
   text: "to"
   link: "/en/v1/api/object/to"

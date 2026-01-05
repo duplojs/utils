@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The fromEntries() method builds an object from an array of key-value pairs."
 prev:
   text: "entry"
   link: "/en/v1/api/object/entry"
