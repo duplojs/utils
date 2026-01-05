@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "An entity represents a business data structure, composed of several properties. Each property is typed via a NewType."
 prev:
   text: "NewType"
   link: "/en/v1/api/clean/newType"
