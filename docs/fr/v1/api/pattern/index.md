@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Le pattern matching permet de déstructurer n'importe quelle donnée (union, tuple, objet, littéral, prédicat) et d'orchestrer un flux de contrôle typé grâce à match, when, otherwise et exhaustive. Chaque branche renvoie un PatternResult, ce qui évite les switch fragiles, simplifie le chaînage avec pipe et garantit l'exhaustivité au moment de la compilation."
 prev:
   text: 'Object'
   link: '/fr/v1/api/object/'

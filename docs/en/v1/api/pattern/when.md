@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "when() adds a guard in the pattern matching pipeline. As soon as predicate returns true, the associated function is executed and its result is wrapped in a PatternResult. With a type guard, the branch is automatically typed with the predicated shape."
 prev:
   text: "match"
   link: "/en/v1/api/pattern/match"

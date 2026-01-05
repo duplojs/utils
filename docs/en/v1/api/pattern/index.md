@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to match, when, otherwise, and exhaustive. Each branch returns a PatternResult, which avoids fragile switch statements, simplifies chaining with pipe, and guarantees exhaustiveness at compile time."
 prev:
   text: 'Object'
   link: '/en/v1/api/object/'
