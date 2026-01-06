@@ -36,7 +36,7 @@ describe("is", () => {
 
 		if (result) {
 			type check = ExpectType<
-			typeof value,
+				typeof value,
 				string[],
 				"strict"
 			>;
