@@ -1573,6 +1573,15 @@
                 },
                 {
                   "name": "string.mjs"
+                },
+                {
+                  "name": "time.cjs"
+                },
+                {
+                  "name": "time.d.ts"
+                },
+                {
+                  "name": "time.mjs"
                 }
               ]
             },
@@ -1737,6 +1746,15 @@
             },
             {
               "name": "templateLiteral.mjs"
+            },
+            {
+              "name": "time.cjs"
+            },
+            {
+              "name": "time.d.ts"
+            },
+            {
+              "name": "time.mjs"
             },
             {
               "name": "transform.cjs"
@@ -1933,6 +1951,15 @@
                 },
                 {
                   "name": "string.mjs"
+                },
+                {
+                  "name": "time.cjs"
+                },
+                {
+                  "name": "time.d.ts"
+                },
+                {
+                  "name": "time.mjs"
                 }
               ]
             },
@@ -2136,6 +2163,46 @@
                 },
                 {
                   "name": "createTemplateLiteralPattern.mjs"
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
+              "name": "time",
+              "files": [
+                {
+                  "name": "checkers",
+                  "files": [
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "max.cjs"
+                    },
+                    {
+                      "name": "max.d.ts"
+                    },
+                    {
+                      "name": "max.mjs"
+                    },
+                    {
+                      "name": "min.cjs"
+                    },
+                    {
+                      "name": "min.d.ts"
+                    },
+                    {
+                      "name": "min.mjs"
+                    }
+                  ]
                 },
                 {
                   "name": "index.cjs"
@@ -2607,6 +2674,24 @@
               "name": "betweenThan.mjs"
             },
             {
+              "name": "betweenThanTime.cjs"
+            },
+            {
+              "name": "betweenThanTime.d.ts"
+            },
+            {
+              "name": "betweenThanTime.mjs"
+            },
+            {
+              "name": "betweenTime.cjs"
+            },
+            {
+              "name": "betweenTime.d.ts"
+            },
+            {
+              "name": "betweenTime.mjs"
+            },
+            {
               "name": "greater.cjs"
             },
             {
@@ -2623,6 +2708,24 @@
             },
             {
               "name": "greaterThan.mjs"
+            },
+            {
+              "name": "greaterThanTime.cjs"
+            },
+            {
+              "name": "greaterThanTime.d.ts"
+            },
+            {
+              "name": "greaterThanTime.mjs"
+            },
+            {
+              "name": "greaterTime.cjs"
+            },
+            {
+              "name": "greaterTime.d.ts"
+            },
+            {
+              "name": "greaterTime.mjs"
             },
             {
               "name": "index.d.ts"
@@ -2644,6 +2747,24 @@
             },
             {
               "name": "lessThan.mjs"
+            },
+            {
+              "name": "lessThanTime.cjs"
+            },
+            {
+              "name": "lessThanTime.d.ts"
+            },
+            {
+              "name": "lessThanTime.mjs"
+            },
+            {
+              "name": "lessTime.cjs"
+            },
+            {
+              "name": "lessTime.d.ts"
+            },
+            {
+              "name": "lessTime.mjs"
             },
             {
               "name": "subtractDays.cjs"
@@ -2951,6 +3072,15 @@
         },
         {
           "name": "sort.mjs"
+        },
+        {
+          "name": "sortTimes.cjs"
+        },
+        {
+          "name": "sortTimes.d.ts"
+        },
+        {
+          "name": "sortTimes.mjs"
         },
         {
           "name": "timezone.cjs"

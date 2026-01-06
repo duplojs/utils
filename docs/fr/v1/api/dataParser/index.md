@@ -51,6 +51,9 @@ Valide les `bigint` avec checkers `min`/`max` dédiés, utile pour les identifia
 ### [date](/fr/v1/api/dataParser/date)
 Valide un `TheDate`, un `Date` natif ou un timestamp avant conversion vers `TheDate`.
 
+### [time](/fr/v1/api/dataParser/time)
+Valide un `TheTime` avec checkers `min`, `max` et support de la coercition.
+
 ### [literal](/fr/v1/api/dataParser/literal)
 Impose une valeur exacte (`"admin"`, `42`, `true`, etc.) en sortie.
 

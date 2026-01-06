@@ -1,16 +1,7 @@
 import { createTheDate } from "../createTheDate";
 import { createTheTime } from "../createTheTime";
-import { theTimeRegex } from "../constants";
 import { toTimestamp } from "../toTimestamp";
 import type { TheDate, TheTime } from "../types";
-import { is } from "../is";
-
-function timeToTimestamp(input: TheTime) {
-	const match = input.match(theTimeRegex);
-	const { value, sign } = match!.groups as Record<"value" | "sign", string>;
-
-	return Number(sign === "-" ? `-${value}` : value);
-}
 
 export function addTime<
 	GenericInput extends TheDate,
@@ -47,11 +38,11 @@ export function addTime(
 	}
 
 	const [input, time] = args;
-	const timeTimestamp = timeToTimestamp(time);
+	const timeTimestamp = toTimestamp(time);
 
-	if (is(input)) {
+	if (input.startsWith("date")) {
 		return createTheDate(toTimestamp(input) + timeTimestamp);
 	}
 
-	return createTheTime(timeToTimestamp(input) + timeTimestamp);
+	return createTheTime(toTimestamp(input) + timeTimestamp);
 }

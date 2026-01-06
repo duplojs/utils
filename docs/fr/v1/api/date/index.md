@@ -198,8 +198,31 @@ Contrôle l'appartenance à un intervalle ouvert.
 ### [betweenThan](/fr/v1/api/date/betweenThan)  
 Variante incluant les bornes.
 
+### Comparaison (`TheTime`)
+
+### [greaterTime](/fr/v1/api/date/greaterTime)  
+Vérifie si une durée est strictement supérieure à une autre.
+
+### [greaterThanTime](/fr/v1/api/date/greaterThanTime)  
+Compare en incluant l'égalité pour `TheTime`.
+
+### [lessTime](/fr/v1/api/date/lessTime)  
+Vérifie si une durée est strictement inférieure.
+
+### [lessThanTime](/fr/v1/api/date/lessThanTime)  
+Compare en incluant l'égalité pour l'infériorité.
+
+### [betweenTime](/fr/v1/api/date/betweenTime)  
+Contrôle l'appartenance d'un `TheTime` à un intervalle ouvert.
+
+### [betweenThanTime](/fr/v1/api/date/betweenThanTime)  
+Variante inclusive pour `TheTime`.
+
 ### [sort](/fr/v1/api/date/sort)  
 Trie un tableau de dates en ordre croissant ou décroissant.
+
+### [sortTimes](/fr/v1/api/date/sortTimes)  
+Trie un tableau de durées en ordre croissant ou décroissant.
 
 ### [max](/fr/v1/api/date/max)  
 Retourne la date la plus récente d'un tuple.

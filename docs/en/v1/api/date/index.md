@@ -198,8 +198,31 @@ Checks membership in an open interval.
 ### [betweenThan](/en/v1/api/date/betweenThan)  
 Variant that includes bounds.
 
+### Comparison (`TheTime`)
+
+### [greaterTime](/en/v1/api/date/greaterTime)  
+Checks if a duration is strictly greater than another.
+
+### [greaterThanTime](/en/v1/api/date/greaterThanTime)  
+Inclusive comparison for `TheTime`.
+
+### [lessTime](/en/v1/api/date/lessTime)  
+Checks if a duration is strictly less than another.
+
+### [lessThanTime](/en/v1/api/date/lessThanTime)  
+Inclusive comparison for lower bound on `TheTime`.
+
+### [betweenTime](/en/v1/api/date/betweenTime)  
+Checks if a `TheTime` is within an open interval.
+
+### [betweenThanTime](/en/v1/api/date/betweenThanTime)  
+Inclusive range comparison for `TheTime`.
+
 ### [sort](/en/v1/api/date/sort)  
 Sorts an array of dates in ascending or descending order.
+
+### [sortTimes](/en/v1/api/date/sortTimes)  
+Sorts an array of durations in ascending or descending order.
 
 ### [max](/en/v1/api/date/max)  
 Returns the most recent date of a tuple.

@@ -1,0 +1,29 @@
+import { type SortType } from "@scripts/common";
+import { createTheTime } from "./createTheTime";
+import { toTimestamp } from "./toTimestamp";
+import { type TheTime } from "./types";
+
+export function sortTimes<
+	GenericArray extends readonly TheTime[],
+>(type: SortType): (array: GenericArray) => TheTime[];
+export function sortTimes<
+	GenericArray extends readonly TheTime[],
+>(array: GenericArray, type: SortType): TheTime[];
+export function sortTimes(...args: [readonly TheTime[], SortType] | [SortType]) {
+	if (args.length === 1) {
+		const [type] = args;
+
+		return (array: readonly TheTime[]) => sortTimes(array, type);
+	}
+
+	const [array, type] = args;
+
+	return array
+		.map(toTimestamp)
+		.sort(
+			type === "DSC"
+				? (first, second) => second - first
+				: (first, second) => first - second,
+		)
+		.map(createTheTime);
+}

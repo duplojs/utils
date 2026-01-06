@@ -1,2 +1,2 @@
-import type { TheDate } from "./types";
-export declare function toTimestamp<GenericInput extends TheDate>(input: GenericInput): number;
+import type { TheDate, TheTime } from "./types";
+export declare function toTimestamp<GenericInput extends TheDate | TheTime>(input: GenericInput): number;

@@ -18,4 +18,6 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerInt
 	| AllDataParser.DataParserCheckerEmail
 	| AllDataParser.DataParserCheckerRefine
+	| AllDataParser.DataParserCheckerTimeMin
+	| AllDataParser.DataParserCheckerTimeMax
 );

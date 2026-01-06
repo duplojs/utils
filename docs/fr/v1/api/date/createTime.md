@@ -25,7 +25,7 @@ La fonction **`createTime()`** construit un `TheTime` à partir d'une valeur en 
 ```typescript
 function createTime(
 	input: number,
-	unit?: keyof SpoolingTime
+	unit?: Units
 ): TheTime
 
 function createTime<

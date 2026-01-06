@@ -21,6 +21,7 @@ export type DataParsers = (
 	| AllDataParser.DataParserTransform
 	| AllDataParser.DataParserBoolean
 	| AllDataParser.DataParserDate
+	| AllDataParser.DataParserTime
 	| AllDataParser.DataParserNil
 	| AllDataParser.DataParserEmpty
 	| AllDataParser.DataParserTemplateLiteral
@@ -50,6 +51,7 @@ export type DataParsersExtended = (
 	| AllDataParserExtended.DataParserTransformExtended
 	| AllDataParserExtended.DataParserBooleanExtended
 	| AllDataParserExtended.DataParserDateExtended
+	| AllDataParserExtended.DataParserTimeExtended
 	| AllDataParserExtended.DataParserNilExtended
 	| AllDataParserExtended.DataParserEmptyExtended
 	| AllDataParserExtended.DataParserTemplateLiteralExtended

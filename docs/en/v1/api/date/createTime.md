@@ -25,7 +25,7 @@ The **`createTime()`** function builds a `TheTime` from a millisecond value or f
 ```typescript
 function createTime(
 	input: number,
-	unit?: keyof SpoolingTime
+	unit?: Units
 ): TheTime
 
 function createTime<

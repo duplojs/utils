@@ -10,7 +10,7 @@ next:
 
 # toTimestamp
 
-La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate`.
+La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate` ou d'un `TheTime`.
 
 ## Exemple interactif
 
@@ -24,7 +24,7 @@ La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate
 
 ```typescript
 function toTimestamp<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | TheTime
 >(
 	input: GenericInput
 ): number
@@ -32,7 +32,7 @@ function toTimestamp<
 
 ## Paramètres
 
-- `input` : La date à convertir.
+- `input` : La date ou la durée à convertir.
 
 ## Valeur de retour
 

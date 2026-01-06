@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "date"
-  link: "/en/v1/api/dataParser/date"
+  text: "time"
+  link: "/en/v1/api/dataParser/time"
 next:
   text: "templateLiteral"
   link: "/en/v1/api/dataParser/templateLiteral"

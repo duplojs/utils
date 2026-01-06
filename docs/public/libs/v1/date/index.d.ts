@@ -19,6 +19,7 @@ export * from "./isSafeTimestamp";
 export * from "./min";
 export * from "./max";
 export * from "./sort";
+export * from "./sortTimes";
 export * from "./is";
 export * from "./isTime";
 export * from "./timezone";
