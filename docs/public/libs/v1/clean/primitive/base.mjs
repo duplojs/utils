@@ -5,6 +5,7 @@ import { number } from '../../dataParser/parsers/number/index.mjs';
 import { bigint } from '../../dataParser/parsers/bigint/index.mjs';
 import { boolean } from '../../dataParser/parsers/boolean.mjs';
 import { date } from '../../dataParser/parsers/date.mjs';
+import { time } from '../../dataParser/parsers/time/index.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { isRight } from '../../either/right/is.mjs';
@@ -60,5 +61,6 @@ const Number = createPrimitive(number());
 const BigInt = createPrimitive(bigint());
 const Boolean = createPrimitive(boolean());
 const Date = createPrimitive(date());
+const Time = createPrimitive(time());
 
-export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, primitiveHandlerKind };
+export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, primitiveHandlerKind };

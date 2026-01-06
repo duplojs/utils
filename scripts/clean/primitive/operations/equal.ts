@@ -1,5 +1,5 @@
 import { unwrap, type ToLargeEnsemble, type Unwrap } from "@scripts/common";
-import { type Primitive, type Primitives, type Date } from "../base";
+import { type Primitive, type Primitives, type Date, type Time } from "../base";
 
 export function equal<
 	GenericInput extends Primitives,
@@ -9,16 +9,21 @@ export function equal<
 				| Date
 				| Unwrap<Date>
 			)
-			: (
-				| Primitive<
-					ToLargeEnsemble<
+			: GenericInput extends Time
+				? (
+					| Time
+					| Unwrap<Time>
+				)
+				: (
+					| Primitive<
+						ToLargeEnsemble<
+							Unwrap<GenericInput>
+						>
+					>
+					| ToLargeEnsemble<
 						Unwrap<GenericInput>
 					>
-				>
-				| ToLargeEnsemble<
-					Unwrap<GenericInput>
-				>
-			)
+				)
 	),
 >(
 	value: GenericValue,
@@ -32,16 +37,21 @@ export function equal<
 				| Date
 				| Unwrap<Date>
 			)
-			: (
-				| Primitive<
-					ToLargeEnsemble<
+			: GenericInput extends Time
+				? (
+					| Time
+					| Unwrap<Time>
+				)
+				: (
+					| Primitive<
+						ToLargeEnsemble<
+							Unwrap<GenericInput>
+						>
+					>
+					| ToLargeEnsemble<
 						Unwrap<GenericInput>
 					>
-				>
-				| ToLargeEnsemble<
-					Unwrap<GenericInput>
-				>
-			)
+				)
 	),
 >(
 	input: GenericInput,

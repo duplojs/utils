@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "dateMax"
-  link: "/fr/v1/api/clean/primitives/operators/operators/dateMax"
+  text: "timeMax"
+  link: "/fr/v1/api/clean/primitives/operators/timeMax"
 next:
   text: "Clean"
   link: "/fr/v1/api/clean/"
@@ -10,7 +10,7 @@ next:
 
 # sort
 
-`sort()` trie un tableau de primitives wrappées (`String`, `Number`, `Date`) en `"ASC"` ou `"DSC"`. Supporte la version currifiée pour s'intégrer facilement dans un pipeline.
+`sort()` trie un tableau de primitives wrappées (`String`, `Number`, `Date`, `Time`) en `"ASC"` ou `"DSC"`. Supporte la version currifiée pour s'intégrer facilement dans un pipeline.
 
 ## Exemple interactif
 
@@ -26,7 +26,7 @@ next:
 
 ```typescript
 function sort(
-	input: readonly (String | Number | Date | string | number | TheDate)[], 
+	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[], 
 	type: SortType
 ): any[]
 ```
@@ -37,7 +37,7 @@ function sort(
 function sort(
 	type: SortType
 ): (
-	input: readonly (String | Number | Date | string | number | TheDate)[]
+	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[]
 ) => any[]
 ```
 

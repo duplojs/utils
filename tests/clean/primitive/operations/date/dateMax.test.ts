@@ -6,12 +6,7 @@ describe("clean primitive dateMax", () => {
 	const jan10 = DClean.Date.createOrThrow(DDate.create("2024-01-10"));
 
 	it("returns latest date in direct form", () => {
-		const result = DClean.dateMax(jan01, jan05, jan10);
-		expect(unwrap(result)).toBe(DDate.create("2024-01-10"));
-	});
-
-	it("returns latest date in curried form", () => {
-		const result = DClean.dateMax(jan01)(jan10, jan05);
+		const result = DClean.dateMax([jan01, jan05, jan10]);
 		expect(unwrap(result)).toBe(DDate.create("2024-01-10"));
 	});
 });

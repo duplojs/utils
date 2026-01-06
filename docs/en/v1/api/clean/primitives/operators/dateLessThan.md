@@ -4,8 +4,8 @@ prev:
   text: "dateGreaterThan"
   link: "/en/v1/api/clean/primitives/operators/dateGreaterThan"
 next:
-  text: "dateMin"
-  link: "/en/v1/api/clean/primitives/operators/dateMin"
+  text: "dateAddTime"
+  link: "/en/v1/api/clean/primitives/operators/dateAddTime"
 ---
 
 # dateLessThan

@@ -10,7 +10,7 @@ next:
 
 # tomorrow
 
-La fonction **`tomorrow()`** retourne le début de la journée suivante (minuit UTC) sous forme de `TheDate`.
+La fonction **`tomorrow()`** retourne `now()` + 1 jour sous forme de `TheDate`.
 
 ## Exemple interactif
 
@@ -32,7 +32,7 @@ Aucun.
 
 ## Valeur de retour
 
-Un `TheDate` représentant minuit du jour suivant.
+Un `TheDate` représentant le jour suivant a la même heure.
 
 ## Voir aussi
 

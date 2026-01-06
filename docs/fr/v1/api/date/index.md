@@ -227,6 +227,12 @@ Trie un tableau de durées en ordre croissant ou décroissant.
 ### [max](/fr/v1/api/date/max)  
 Retourne la date la plus récente d'un tuple.
 
+### [maxTime](/fr/v1/api/date/maxTime)  
+Retourne la durée la plus grande d'un tuple.
+
+### [minTime](/fr/v1/api/date/minTime)  
+Retourne la durée la plus petite d'un tuple.
+
 ### [min](/fr/v1/api/date/min)  
 Retourne la date la plus ancienne d'un tuple.
 

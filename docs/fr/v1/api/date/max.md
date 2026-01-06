@@ -4,8 +4,8 @@ prev:
   text: "sortTimes"
   link: "/fr/v1/api/date/sortTimes"
 next:
-  text: "min"
-  link: "/fr/v1/api/date/min"
+  text: "maxTime"
+  link: "/fr/v1/api/date/maxTime"
 ---
 
 # max

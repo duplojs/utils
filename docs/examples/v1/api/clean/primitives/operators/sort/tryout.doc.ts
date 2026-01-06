@@ -10,6 +10,6 @@ const result = C.sort(input, "ASC");
 
 type check = ExpectType<
 	typeof result,
-	C.Primitive<number>[],
+	(C.Primitive<3> | C.Primitive<1> | C.Primitive<2>)[],
 	"strict"
 >;

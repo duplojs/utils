@@ -10,7 +10,7 @@ next:
 
 # tomorrow
 
-The **`tomorrow()`** function returns the start of the next day as a `TheDate`.
+The **`tomorrow()`** function returns `now()` + 1 day as a `TheDate`.
 
 ## Interactive example
 
@@ -32,9 +32,13 @@ None.
 
 ## Return value
 
-A `TheDate` set to midnight of the next day.
+A `TheDate` representing the next day at the same hour.
 
 ## See also
 
-- [`today`](/en/v1/api/date/today) – Start of current day.
-- [`yesterday`](/en/v1/api/date/yesterday) – Start of previous day.
+- [`today`](/en/v1/api/date/today)
+- [`yesterday`](/en/v1/api/date/yesterday)
+
+## Sources
+
+- [MDN Web Docs - Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)

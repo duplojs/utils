@@ -3,6 +3,8 @@ import { sort as sort$1 } from '../../../number/sort.mjs';
 import { wrapValue } from '../../../common/wrapValue.mjs';
 import { is } from '../../../date/is.mjs';
 import { sort as sort$2 } from '../../../date/sort.mjs';
+import { isTime } from '../../../date/isTime.mjs';
+import { sortTimes } from '../../../date/sortTimes.mjs';
 import { sort as sort$3 } from '../../../string/sort.mjs';
 
 function sort(...args) {
@@ -22,6 +24,10 @@ function sort(...args) {
     }
     else if (is(first)) {
         return sort$2(rawArray, type)
+            .map(wrapValue);
+    }
+    else if (isTime(first)) {
+        return sortTimes(rawArray, type)
             .map(wrapValue);
     }
     else {

@@ -2,14 +2,18 @@ import { isWrappedValue, wrapValue, type WrappedValue } from "@scripts/common/wr
 import { type MaybeWrapped } from "./types/maybeWrapped";
 import { type AnyValue } from "./types";
 
+export type ToWrappedValue<
+	GenericValue extends unknown,
+> = GenericValue extends WrappedValue
+	? GenericValue
+	: WrappedValue<GenericValue>;
+
 export function toWrappedValue<
 	GenericInnerValue extends AnyValue,
 	GenericValue extends MaybeWrapped<GenericInnerValue>,
 >(
 	value: GenericValue,
-): GenericValue extends WrappedValue
-		? GenericValue
-		: WrappedValue<GenericValue> {
+): ToWrappedValue<GenericValue> {
 	return isWrappedValue(value)
 		? value as never
 		: wrapValue(value) as never;

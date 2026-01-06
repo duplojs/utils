@@ -227,6 +227,12 @@ Sorts an array of durations in ascending or descending order.
 ### [max](/en/v1/api/date/max)  
 Returns the most recent date of a tuple.
 
+### [maxTime](/en/v1/api/date/maxTime)  
+Returns the largest duration of a tuple.
+
+### [minTime](/en/v1/api/date/minTime)  
+Returns the smallest duration of a tuple.
+
 ### [min](/en/v1/api/date/min)  
 Returns the oldest date of a tuple.
 

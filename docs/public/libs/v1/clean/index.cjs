@@ -26,9 +26,15 @@ var lengthLessThan = require('./primitive/operations/string/lengthLessThan.cjs')
 var concat = require('./primitive/operations/string/concat.cjs');
 var dateGreaterThan = require('./primitive/operations/date/dateGreaterThan.cjs');
 var dateLessThan = require('./primitive/operations/date/dateLessThan.cjs');
+var dateAddTime = require('./primitive/operations/date/dateAddTime.cjs');
+var dateSubtractTime = require('./primitive/operations/date/dateSubtractTime.cjs');
 var dateMin = require('./primitive/operations/date/dateMin.cjs');
 var dateMax = require('./primitive/operations/date/dateMax.cjs');
 var sort = require('./primitive/operations/sort.cjs');
+var timeGreaterThan = require('./primitive/operations/time/timeGreaterThan.cjs');
+var timeLessThan = require('./primitive/operations/time/timeLessThan.cjs');
+var timeMin = require('./primitive/operations/time/timeMin.cjs');
+var timeMax = require('./primitive/operations/time/timeMax.cjs');
 
 
 
@@ -62,6 +68,7 @@ exports.CreatePrimitiveError = base$1.CreatePrimitiveError;
 exports.Date = base$1.Date;
 exports.Number = base$1.Number;
 exports.String = base$1.String;
+exports.Time = base$1.Time;
 exports.primitiveHandlerKind = base$1.primitiveHandlerKind;
 exports.equal = equal.equal;
 exports.add = add.add;
@@ -79,6 +86,12 @@ exports.lengthLessThan = lengthLessThan.lengthLessThan;
 exports.concat = concat.concat;
 exports.dateGreaterThan = dateGreaterThan.dateGreaterThan;
 exports.dateLessThan = dateLessThan.dateLessThan;
+exports.dateAddTime = dateAddTime.dateAddTime;
+exports.dateSubtractTime = dateSubtractTime.dateSubtractTime;
 exports.dateMin = dateMin.dateMin;
 exports.dateMax = dateMax.dateMax;
 exports.sort = sort.sort;
+exports.timeGreaterThan = timeGreaterThan.timeGreaterThan;
+exports.timeLessThan = timeLessThan.timeLessThan;
+exports.timeMin = timeMin.timeMin;
+exports.timeMax = timeMax.timeMax;
