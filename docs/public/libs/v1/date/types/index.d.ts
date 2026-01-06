@@ -4,3 +4,4 @@ export * from "./unit";
 export * from "./month";
 export * from "./time";
 export * from "./isSafeYear";
+export * from "./spoolingDate";

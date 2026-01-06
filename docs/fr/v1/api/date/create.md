@@ -10,14 +10,14 @@ next:
 
 # create
 
-La fonction **`create()`** construit un `TheDate` à partir d'un `Date`, d'un timestamp ou d'une partition littérale (`YYYY-MM-DD`). Elle renvoie un `Either` (`MayBe`) qui contient soit la date valide, soit une erreur typée.
+La fonction **`create()`** construit un `TheDate` à partir d'un `Date`, d'un timestamp ou d'une partition littérale (`YYYY-MM-DD`). Elle peut aussi assembler un `SpoolingDate` (source + overrides + timezone). Elle renvoie un `Either` (`MayBe`) qui contient soit la date valide, soit une erreur typée.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/date/create/tryout.doc.ts"
   majorVersion="v1"
-  height="640px"
+  height="740px"
 />
 
 ## Syntaxe
@@ -25,6 +25,12 @@ La fonction **`create()`** construit un `TheDate` à partir d'un `Date`, d'un ti
 ```typescript
 function create<
 	GenericInput extends TheDate | Date | number
+>(
+	input: GenericInput
+): MayBe
+
+function create<
+	GenericInput extends SpoolingDate
 >(
 	input: GenericInput
 ): MayBe
@@ -45,13 +51,22 @@ La seconde déclaration sert uniquement à déclarer des dates constantes connue
 
 ## Paramètres
 
-- `input` : Date d'origine (`TheDate`, `Date`, timestamp ou chaîne). Les chaînes respectent le format `YYYY-MM-DD` (préfixe négatif accepté pour les années BC).
+- `input` : Date d'origine. Accepte un `TheDate`, un `Date`, un timestamp, une chaîne `YYYY-MM-DD` (préfixe négatif accepté pour les années BC) ou un `SpoolingDate` (`value` en `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionnellement horodaté) avec des overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) et une `timezone` si nécessaire.
 - `params` : Optionnel. Permet de fournir directement les composantes horaires (`hour`, `minute`, `second`, `millisecond`).
 
 ## Valeur de retour
 
 - Dans la signature générique : `EitherRight<"date-created", TheDate>` en cas de succès ou `EitherLeft<"date-created-error", null>` en cas d'échec.
 - Dans la signature littérale : retourne directement un `TheDate` si la date est valide, sinon une erreur de type compile-time.
+- Avec `SpoolingDate` : retourne un `MayBe` après application éventuelle de la timezone et des overrides.
+
+## Formats supportés
+
+- `Date` natif
+- Timestamp (`number`)
+- `TheDate` (`date{timestamp}{+|-}`)
+- Chaîne `YYYY-MM-DD` (optionnellement horodatée en ISO pour `SpoolingDate`)
+- `SpoolingDate` avec `timezone` et overrides sur les composantes de date/heure
 
 ## Voir aussi
 

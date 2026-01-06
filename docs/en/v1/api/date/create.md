@@ -10,7 +10,7 @@ next:
 
 # create
 
-The **`create()`** function builds a `TheDate` from a `Date`, a timestamp, or a literal partition (`YYYY-MM-DD`). It returns an `Either` (`MayBe`) containing either the valid date or a typed error.
+The **`create()`** function builds a `TheDate` from a `Date`, a timestamp, or a literal partition (`YYYY-MM-DD`). It can also assemble a `SpoolingDate` (source + overrides + timezone). It returns an `Either` (`MayBe`) containing either the valid date or a typed error.
 
 ## Interactive example
 
@@ -25,6 +25,12 @@ The **`create()`** function builds a `TheDate` from a `Date`, a timestamp, or a 
 ```typescript
 function create<
 	GenericInput extends TheDate | Date | number
+>(
+	input: GenericInput
+): MayBe
+
+function create<
+	GenericInput extends SpoolingDate
 >(
 	input: GenericInput
 ): MayBe
@@ -45,13 +51,22 @@ The second declaration is only for declaring known constant dates ahead of time.
 
 ## Parameters
 
-- `input`: Source date (`TheDate`, `Date`, timestamp, or string). Strings follow the `YYYY-MM-DD` format (negative prefix accepted for BC years).
+- `input`: Source date. Accepts a `TheDate`, a `Date`, a timestamp, a `YYYY-MM-DD` string (negative prefix accepted for BC years), or a `SpoolingDate` (`value` as `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionally with time) with overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) and an optional `timezone`.
 - `params`: Optional. Lets you directly provide time components (`hour`, `minute`, `second`, `millisecond`).
 
 ## Return value
 
 - Generic signature: `EitherRight<"date-created", TheDate>` on success or `EitherLeft<"date-created-error", null>` on failure.
 - Literal signature: directly returns a `TheDate` if the date is valid, otherwise a compile-time error.
+- With `SpoolingDate`: returns a `MayBe` after applying overrides and an optional timezone.
+
+## Supported formats
+
+- Native `Date`
+- Timestamp (`number`)
+- `TheDate` (`date{timestamp}{+|-}`)
+- `YYYY-MM-DD` string (optionally ISO timestamp when using `SpoolingDate`)
+- `SpoolingDate` with `timezone` and date/time overrides
 
 ## See also
 

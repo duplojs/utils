@@ -10,6 +10,23 @@ const mayBeDateFromTimestamp = D.create(
 	1_700_000_000_000,
 );
 
+// Either<"date-created", TheDate>
+const mayBeDateFromIsoSpooling = D.create(
+	{
+		value: "2024-10-05T12:00:00Z",
+		timezone: "Europe/Paris",
+	},
+);
+
+// Either<"date-created", TheDate>
+const mayBeDateWithOverrides = D.create(
+	{
+		value: 1_700_000_000_000,
+		hour: 9,
+		minute: 45,
+	},
+);
+
 // "date1709183400000+"
 const dateFromSafeFormat = D.create(
 	"2024-02-29",
