@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction format() affiche un TheDate selon un format personnalisé et un fuseau horaire choisi."
 prev:
   text: "toISOString"
   link: "/fr/v1/api/date/toISOString"

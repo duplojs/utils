@@ -4,7 +4,7 @@ import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-i
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const hostname = "https://utils.duplojs.dev";
-const ogImage = new URL("/images/logo.png", hostname).toString();
+const ogImage = new URL("/images/ogImage.png", hostname).toString();
 
 export default defineConfig({
 	title: "@duplojs/utils",

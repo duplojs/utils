@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The applyTimezone() function shifts a TheDate by applying the offset of an IANA timezone."
 prev:
   text: "getTimezoneOffset"
   link: "/en/v1/api/date/getTimezoneOffset"

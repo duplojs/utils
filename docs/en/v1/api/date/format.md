@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The format() function displays a TheDate using a custom format string and the chosen timezone."
 prev:
   text: "toISOString"
   link: "/en/v1/api/date/toISOString"
