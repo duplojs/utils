@@ -50,8 +50,17 @@ Convertit un `TheDate` en `Date` JavaScript.
 ### [toTimestamp](/fr/v1/api/date/toTimestamp)
 Expose le timestamp en millisecondes et valide la cohérence de la valeur.
 
+### [getTimezoneOffset](/fr/v1/api/date/getTimezoneOffset)
+Retourne le décalage en millisecondes pour un `TheDate`.
+
+### [applyTimezone](/fr/v1/api/date/applyTimezone)
+Applique un décalage de fuseau horaire à un `TheDate`.
+
 ### [toISOString](/fr/v1/api/date/toISOString)
 Retourne la représentation ISO 8601 d'un `TheDate`.
+
+### [format](/fr/v1/api/date/format)
+Affiche un `TheDate` avec un format personnalisé et un fuseau horaire.
 
 ### [isSafeTimestamp](/fr/v1/api/date/isSafeTimestamp)
 Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.

@@ -21,6 +21,10 @@ describe("createOrThrow", () => {
 		expect(() => DDate.createOrThrow(DDate.maxTimestamp + 1)).toThrow(DDate.CreateTheDateError);
 	});
 
+	it("throws with wrong spooling Date", () => {
+		expect(() => DDate.createOrThrow({ value: NaN })).toThrow(DDate.CreateTheDateError);
+	});
+
 	it("throws when timestamp hits the limits", () => {
 		expect(() => DDate.createOrThrow(DDate.maxTimestamp)).toThrow(DDate.CreateTheDateError);
 		expect(() => DDate.createOrThrow(DDate.minTimestamp)).toThrow(DDate.CreateTheDateError);

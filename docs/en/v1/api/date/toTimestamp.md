@@ -4,8 +4,8 @@ prev:
   text: "toNative"
   link: "/en/v1/api/date/toNative"
 next:
-  text: "toISOString"
-  link: "/en/v1/api/date/toISOString"
+  text: "getTimezoneOffset"
+  link: "/en/v1/api/date/getTimezoneOffset"
 ---
 
 # toTimestamp

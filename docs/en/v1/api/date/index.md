@@ -50,8 +50,17 @@ Converts a `TheDate` to a JavaScript `Date`.
 ### [toTimestamp](/en/v1/api/date/toTimestamp)
 Exposes the timestamp in milliseconds and validates the coherence of the value.
 
+### [getTimezoneOffset](/en/v1/api/date/getTimezoneOffset)
+Returns the timezone offset in milliseconds for a `TheDate`.
+
+### [applyTimezone](/en/v1/api/date/applyTimezone)
+Applies a timezone offset to a `TheDate`.
+
 ### [toISOString](/en/v1/api/date/toISOString)
 Returns the ISO 8601 representation of a `TheDate`.
+
+### [format](/en/v1/api/date/format)
+Displays a `TheDate` with a custom format and timezone.
 
 ### [isSafeTimestamp](/en/v1/api/date/isSafeTimestamp)
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.

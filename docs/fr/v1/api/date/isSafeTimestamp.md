@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "toISOString"
-  link: "/fr/v1/api/date/toISOString"
+  text: "format"
+  link: "/fr/v1/api/date/format"
 next:
   text: "is"
   link: "/fr/v1/api/date/is"

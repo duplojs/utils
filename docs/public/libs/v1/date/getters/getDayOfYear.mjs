@@ -1,3 +1,4 @@
+import { millisecondsInOneDay } from '../constants.mjs';
 import { toNative } from '../toNative.mjs';
 
 function getDayOfYear(input, timezone = "UTC") {
@@ -25,7 +26,7 @@ function getDayOfYear(input, timezone = "UTC") {
     const yearStart = Date.UTC(year, 0, 1);
     const currentDate = Date.UTC(year, month, day);
     const millisecondsDiff = currentDate - yearStart;
-    const dayOfYear = Math.floor(millisecondsDiff / 86400000) + 1;
+    const dayOfYear = Math.floor(millisecondsDiff / millisecondsInOneDay) + 1;
     return dayOfYear;
 }
 

@@ -1,4 +1,4 @@
-import { type TheDate, type Timezone, toNative } from "..";
+import { millisecondsInOneDay, type TheDate, type Timezone, toNative } from "..";
 
 export function getDayOfYear<
 	GenericInput extends TheDate,
@@ -33,7 +33,7 @@ export function getDayOfYear<
 	const yearStart = Date.UTC(year, 0, 1);
 	const currentDate = Date.UTC(year, month, day);
 	const millisecondsDiff = currentDate - yearStart;
-	const dayOfYear = Math.floor(millisecondsDiff / 86400000) + 1;
+	const dayOfYear = Math.floor(millisecondsDiff / millisecondsInOneDay) + 1;
 
 	return dayOfYear;
 }

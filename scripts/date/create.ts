@@ -1,39 +1,50 @@
-import { theDateRegex } from "./constants";
+import { isoDateRegex, theDateRegex } from "./constants";
 import { isSafeTimestamp } from "./isSafeTimestamp";
-import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate } from "./types";
-import { type EitherLeft, left, right, type EitherRight } from "@scripts/either";
+import { type Hour, type IsLeapYear, type IsSafeYear, type Millisecond, type Minute, type Second, type TheDate } from "./types";
+import * as DEither from "@scripts/either";
 import { type MonthWithDay } from "./types/month";
 import type * as DString from "@scripts/string";
+import { type And, type IsEqual, type Not, type IsExtends, unwrap } from "@scripts/common";
+import { type SpoolingDate } from "./types/spoolingDate";
+import { applyTimezone } from "./applyTimezone";
+import { is } from "./is";
+import { toNative } from "./toNative";
+import { timezone } from "./timezone";
 
-export type MayBe = EitherRight<"date-created", TheDate> | EitherLeft<"date-created-error", null>;
+export type MayBe = DEither.EitherRight<"date-created", TheDate> | DEither.EitherLeft<"date-created-error", null>;
 
 type SafeDate = `${number}-${MonthWithDay}`;
 
 declare const SymbolForbiddenDate: unique symbol;
 
 type ForbiddenDate<
-	GenericDate extends SafeDate,
-> = (
-	& (
-		DString.Includes<GenericDate, "."> extends true
-			? { [SymbolForbiddenDate]: "Year can't be includes a float number." }
-			: GenericDate
+	GenericDate extends string,
+> = And<[
+	IsExtends<GenericDate, SafeDate>,
+	Not<IsEqual<GenericDate, SafeDate>>,
+]> extends true
+	? (
+		& (
+			DString.Includes<GenericDate, "."> extends true
+				? { [SymbolForbiddenDate]: "Year can't be includes a float number." }
+				: GenericDate
+		)
+		& (
+			GenericDate extends `${infer InferredYear extends number}-02-29`
+				? IsLeapYear<InferredYear> extends true
+					? GenericDate
+					: { [SymbolForbiddenDate]: "Is not a leap year." }
+				: GenericDate
+		)
+		& (
+			GenericDate extends `${infer InferredYear extends number}-${MonthWithDay}`
+				? IsSafeYear<InferredYear> extends true
+					? GenericDate
+					: { [SymbolForbiddenDate]: "Support that the years between -271820 and 275759." }
+				: GenericDate
+		)
 	)
-	& (
-		GenericDate extends `${infer InferredYear extends number}-02-29`
-			? IsLeapYear<InferredYear> extends true
-				? GenericDate
-				: { [SymbolForbiddenDate]: "Is not a leap year." }
-			: GenericDate
-	)
-	& (
-		GenericDate extends `${infer InferredYear extends number}-${MonthWithDay}`
-			? IsSafeYear<InferredYear> extends true
-				? GenericDate
-				: { [SymbolForbiddenDate]: "Support that the years between -271820 and 275759." }
-			: GenericDate
-	)
-);
+	: GenericDate;
 
 interface SafeDateParams {
 	hour?: Hour;
@@ -51,6 +62,12 @@ export function create<
 ): MayBe;
 
 export function create<
+	GenericInput extends SpoolingDate,
+>(
+	input: GenericInput,
+): MayBe;
+
+export function create<
 	GenericInput extends SafeDate,
 >(
 	input: GenericInput & ForbiddenDate<GenericInput>,
@@ -58,53 +75,19 @@ export function create<
 ): TheDate;
 
 export function create(
-	input: Date | number | string,
+	input: Date | number | string | SpoolingDate,
 	params?: SafeDateParams,
 ): MayBe | TheDate {
-	if (input instanceof Date) {
-		const timestamp = input.getTime();
-
-		if (!isSafeTimestamp(timestamp)) {
-			return left("date-created-error", null);
-		}
-
-		const isNegative = timestamp < 0;
-
-		return right(
-			"date-created",
-			`date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`,
-		);
-	}
-
 	if (typeof input === "number") {
-		if (!isSafeTimestamp(input)) {
-			return left("date-created-error", null);
-		}
-
-		const isNegative = input < 0;
-
-		return right(
-			"date-created",
-			`date${Math.abs(input)}${isNegative ? "-" : "+"}`,
-		);
+		return createFromTimestamp(input);
 	}
 
-	const theDateMatch = typeof input === "string" && input.match(theDateRegex);
+	if (input instanceof Date) {
+		return createFromDate(input);
+	}
 
-	if (theDateMatch) {
-		const { value, sign } = theDateMatch.groups as Record<"value" | "sign", string>;
-		const magnitude = Number(value);
-
-		const timestamp = sign === "-" ? -magnitude : magnitude;
-
-		if (!isSafeTimestamp(timestamp)) {
-			return left("date-created-error", null);
-		}
-
-		return right(
-			"date-created",
-			input as TheDate,
-		);
+	if (typeof input === "string" && is(input)) {
+		return createFromTheDate(input);
 	}
 
 	const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
@@ -119,14 +102,109 @@ export function create(
 
 		const timestamp = date.getTime();
 
-		if (!isSafeTimestamp(timestamp)) {
-			return "date0+";
-		}
-
-		const isNegative = timestamp < 0;
-
-		return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+		return `date${Math.abs(timestamp)}${timestamp < 0 ? "-" : "+"}`;
 	}
 
-	return left("date-created-error", null);
+	if (typeof input === "object") {
+		let inputValueResult: MayBe | undefined = undefined;
+
+		if (input.value instanceof Date) {
+			inputValueResult = createFromDate(input.value);
+		} else if (typeof input.value === "number") {
+			inputValueResult = createFromTimestamp(input.value);
+		} else if (is(input.value)) {
+			inputValueResult = createFromTheDate(input.value);
+		} else {
+			const isoDateMatch = input.value.match(isoDateRegex);
+			if (isoDateMatch) {
+				const { year, month, date, hour, minute, second, millisecond } = isoDateMatch.groups as Partial<
+					Record<
+						"year" | "month" | "date" | "hour" | "minute" | "second" | "millisecond",
+						string
+					>
+				>;
+
+				inputValueResult = createFromTimestamp(
+					Date.UTC(
+						Number(year),
+						Number(month) - 1,
+						Number(date),
+						Number(hour),
+						Number(minute),
+						Number(second),
+						Number(millisecond),
+					),
+				);
+			}
+		}
+
+		if (!inputValueResult || DEither.isLeft(inputValueResult)) {
+			return inputValueResult || DEither.left("date-created-error", null);
+		}
+
+		const date = toNative(
+			unwrap(inputValueResult),
+		);
+
+		void (input.year && date.setUTCFullYear(input.year));
+		void (input.month && date.setMonth(input.month));
+		void (input.day && date.setDate(input.day));
+		void (input.hour && date.setHours(input.hour));
+		void (input.minute && date.setMinutes(input.minute));
+		void (input.second && date.setSeconds(input.second));
+		void (input.millisecond && date.setMilliseconds(input.millisecond));
+
+		const result = createFromDate(date);
+
+		if (DEither.isLeft(result)) {
+			return result;
+		}
+
+		const timezone = input.timezone;
+
+		if (!timezone) {
+			return result;
+		}
+
+		return DEither.whenIsLeft(
+			DEither.safeCallback(
+				() => DEither.right(
+					"date-created",
+					applyTimezone(unwrap(result), timezone),
+				),
+			),
+			() => DEither.left("date-created-error", null),
+		);
+	}
+
+	return DEither.left("date-created-error", null);
+}
+
+function createFromTimestamp(input: number): MayBe {
+	if (!isSafeTimestamp(input)) {
+		return DEither.left("date-created-error", null);
+	}
+
+	return DEither.right(
+		"date-created",
+		`date${Math.abs(input)}${input < 0 ? "-" : "+"}`,
+	);
+}
+
+function createFromDate(input: Date): MayBe {
+	return createFromTimestamp(input.getTime());
+}
+
+function createFromTheDate(input: TheDate): MayBe {
+	const theDateMatch = input.match(theDateRegex);
+
+	const { value, sign } = theDateMatch!.groups as Record<"value" | "sign", string>;
+
+	return createFromTimestamp(
+		Number(
+			sign === "-"
+				? `-${value}`
+				: value,
+		),
+	);
 }

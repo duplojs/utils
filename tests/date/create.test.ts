@@ -282,4 +282,157 @@ describe("create", () => {
 			"strict"
 		>;
 	});
+
+	it("create from spooling date with Date value", () => {
+		const nativeDate = new Date("2020-01-01T00:00:00.000Z");
+		const result = DDate.create({ value: nativeDate });
+
+		expect(result).toStrictEqual(DEither.right("date-created", "date1577836800000+"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with number value", () => {
+		const result = DDate.create({ value: 1609459200000 });
+
+		expect(result).toStrictEqual(DEither.right("date-created", "date1609459200000+"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with TheDate value", () => {
+		const result = DDate.create({ value: "date1000-" });
+
+		expect(result).toStrictEqual(DEither.right("date-created", "date1000-"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with string value and timezone", () => {
+		const result = DDate.create({
+			value: "2024-01-01T00:00:00.000Z",
+			timezone: "America/New_York",
+		});
+
+		const baseDate = DDate.createOrThrow(1704067200000);
+		const offset = DDate.getTimezoneOffset(baseDate, "America/New_York");
+		const expected = DDate.createOrThrow(
+			DDate.toTimestamp(baseDate) - offset,
+		);
+
+		expect(result).toStrictEqual(DEither.right("date-created", expected));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with string value without timezone", () => {
+		const result = DDate.create({
+			value: "2024-01-01T00:00:00.000Z",
+		});
+
+		expect(result).toStrictEqual(DEither.right("date-created", "date1704067200000+"));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with overrides", () => {
+		const inputValue = new Date("2020-01-01T00:00:00.000Z");
+		const result = DDate.create({
+			value: inputValue,
+			year: 2022,
+			month: 1,
+			day: 2,
+			hour: 3,
+			minute: 4,
+			second: 5,
+			millisecond: 6,
+		});
+
+		const expectedDate = new Date(inputValue.getTime());
+		expectedDate.setUTCFullYear(2022);
+		expectedDate.setMonth(1);
+		expectedDate.setDate(2);
+		expectedDate.setHours(3);
+		expectedDate.setMinutes(4);
+		expectedDate.setSeconds(5);
+		expectedDate.setMilliseconds(6);
+		const expectedTimestamp = expectedDate.getTime();
+		const expected = `date${Math.abs(expectedTimestamp)}${expectedTimestamp < 0 ? "-" : "+"}` as DDate.TheDate;
+
+		expect(result).toStrictEqual(DEither.right("date-created", expected));
+
+		expect(
+			DDate.create({
+				value: inputValue,
+				year: 10000000000,
+			}),
+		).toStrictEqual(
+			DEither.left("date-created-error", null),
+		);
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("returns error for spooling date with invalid timezone", () => {
+		const result = DDate.create({
+			value: "2024-01-01T00:00:00.000Z",
+			timezone: "Invalid/Timezone" as any,
+		});
+
+		expect(result).toStrictEqual(DEither.left("date-created-error", null));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("returns error for spooling date with invalid ISO value", () => {
+		const result = DDate.create({ value: "2024-01-01" });
+
+		expect(result).toStrictEqual(DEither.left("date-created-error", null));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("returns error for invalid spooling date value", () => {
+		const result = DDate.create({ value: "not-a-date" });
+
+		expect(result).toStrictEqual(DEither.left("date-created-error", null));
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
 });

@@ -7,14 +7,17 @@ import { createErrorKind } from '../common/errorKindNamespace.mjs';
 class CreateTheDateError extends kindHeritage("create-the-date-error", createErrorKind("create-the-date-error"), Error) {
     input;
     constructor(input) {
-        super({}, [`Invalid input: ${input.toString()}`]);
+        super({}, [`Invalid date input: ${input.toString()}`]);
         this.input = input;
     }
 }
 function createOrThrow(input) {
     const result = create(input);
     if (isLeft(result)) {
-        throw new CreateTheDateError(input);
+        throw new CreateTheDateError(typeof input === "object"
+            && "value" in input
+            ? input.value
+            : input);
     }
     return unwrap(result);
 }

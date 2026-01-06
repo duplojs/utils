@@ -2726,24 +2726,27 @@
               "name": "month.d.ts"
             },
             {
+              "name": "spoolingDate.d.ts"
+            },
+            {
               "name": "theDate.d.ts"
             },
             {
               "name": "time.d.ts"
             },
             {
-              "name": "timezone.cjs"
-            },
-            {
-              "name": "timezone.d.ts"
-            },
-            {
-              "name": "timezone.mjs"
-            },
-            {
               "name": "unit.d.ts"
             }
           ]
+        },
+        {
+          "name": "applyTimezone.cjs"
+        },
+        {
+          "name": "applyTimezone.d.ts"
+        },
+        {
+          "name": "applyTimezone.mjs"
         },
         {
           "name": "closestTo.cjs"
@@ -2789,6 +2792,24 @@
         },
         {
           "name": "each.mjs"
+        },
+        {
+          "name": "format.cjs"
+        },
+        {
+          "name": "format.d.ts"
+        },
+        {
+          "name": "format.mjs"
+        },
+        {
+          "name": "getTimezoneOffset.cjs"
+        },
+        {
+          "name": "getTimezoneOffset.d.ts"
+        },
+        {
+          "name": "getTimezoneOffset.mjs"
         },
         {
           "name": "index.cjs"
@@ -2861,6 +2882,15 @@
         },
         {
           "name": "sort.mjs"
+        },
+        {
+          "name": "timezone.cjs"
+        },
+        {
+          "name": "timezone.d.ts"
+        },
+        {
+          "name": "timezone.mjs"
         },
         {
           "name": "today.cjs"
