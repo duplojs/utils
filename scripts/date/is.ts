@@ -2,6 +2,9 @@ import { theDateRegex } from "./constants";
 import { isSafeTimestamp } from "./isSafeTimestamp";
 import { type TheDate } from "./types";
 
+/**
+ * {@include date/is/index.md}
+ */
 export function is(
 	input: string,
 ): input is TheDate {

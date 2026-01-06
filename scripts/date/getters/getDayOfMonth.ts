@@ -1,5 +1,8 @@
 import { type TheDate, type Timezone, toNative } from "..";
 
+/**
+ * {@include date/getDayOfMonth/index.md}
+ */
 export function getDayOfMonth<
 	GenericInput extends TheDate,
 >(

@@ -21,6 +21,58 @@ interface SafeDateParams {
     second?: Second;
     millisecond?: Millisecond;
 }
+/**
+ * Creates a TheDate from various inputs.
+ * 
+ * Signature: `create(input)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * // Either<"date-created", TheDate>
+ * const mayBeDateFromNativeDate = D.create(
+ * 	new Date("2024-06-20T12:00:00Z"),
+ * );
+ * 
+ * // Either<"date-created", TheDate>
+ * const mayBeDateFromTimestamp = D.create(
+ * 	1_700_000_000_000,
+ * );
+ * 
+ * // "date1709183400000+"
+ * const dateFromSafeFormat = D.create(
+ * 	"2024-02-29",
+ * 	{
+ * 		hour: "10",
+ * 		minute: "30",
+ * 	},
+ * );
+ * 
+ * const dateWrongLeapYear = D.create(
+ * 	// @ts-expect-error Safe with leap year.
+ * 	"2023-02-29",
+ * );
+ * 
+ * const dateWrongRangeYear = D.create(
+ * 	// @ts-expect-error Safe against dates that fall outside the supported date range.
+ * 	"-596126-12-30",
+ * );
+ * 
+ * pipe(
+ * 	"2024-02-29",
+ * 	D.create,
+ * ); // "date1709183400000+"
+ * 
+ * ```
+ * 
+ * @remarks
+ * - Returns an Either tagged "date-created" or "date-created-error" for invalid inputs.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/date/create
+ * 
+ * @namespace D
+ * 
+ */
 export declare function create<GenericInput extends TheDate | Date | number>(input: GenericInput): MayBe;
 export declare function create<GenericInput extends SpoolingDate>(input: GenericInput): MayBe;
 export declare function create<GenericInput extends SafeDate>(input: GenericInput & ForbiddenDate<GenericInput>, params?: SafeDateParams): TheDate;

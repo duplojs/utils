@@ -53,6 +53,9 @@ interface SafeDateParams {
 
 const safeDateRegex = /^(?<year>-?[0-9]+)-(?<monthWithDay>[0-1][0-9]-[0-3][0-9])$/;
 
+/**
+ * {@include date/create/index.md}
+ */
 export function create<
 	GenericInput extends TheDate | Date | number,
 >(

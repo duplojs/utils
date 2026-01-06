@@ -4,6 +4,9 @@ import type { Timezone } from "./timezone";
 
 type FormatToken = "YYYY" | "YY" | "MM" | "DD" | "HH" | "mm" | "ss" | "SSS" | "ZZ";
 
+/**
+ * {@include date/format/index.md}
+ */
 export function format<
 	GenericInput extends TheDate,
 	GenericFormat extends string,

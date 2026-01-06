@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getLastDayOfWeek/index.md}
+ */
 function getLastDayOfWeek(input) {
     const nativeDate = toNative.toNative(input);
     const dayOfWeek = nativeDate.getUTCDay();

@@ -3,6 +3,9 @@ import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/addMinutes/index.md}
+ */
 export function addMinutes<
 	GenericInput extends TheDate,
 	GenericMinute extends number,

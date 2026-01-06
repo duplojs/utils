@@ -78,7 +78,9 @@ var lessThan = require('./operators/lessThan.cjs');
 var lessThanTime = require('./operators/lessThanTime.cjs');
 var lessTime = require('./operators/lessTime.cjs');
 
-
+/**
+ * {@include date/index.md}
+ */
 
 exports.daysInOneWeek = constants.daysInOneWeek;
 exports.hoursInOneDay = constants.hoursInOneDay;

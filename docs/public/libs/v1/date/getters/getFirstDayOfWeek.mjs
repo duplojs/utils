@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getFirstDayOfWeek/index.md}
+ */
 function getFirstDayOfWeek(input) {
     const nativeDate = toNative(input);
     const dayOfWeek = nativeDate.getUTCDay();

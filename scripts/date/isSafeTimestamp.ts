@@ -1,5 +1,8 @@
 import { maxTimestamp, minTimestamp } from "./constants";
 
+/**
+ * {@include date/isSafeTimestamp/index.md}
+ */
 export function isSafeTimestamp(timestamp: number) {
 	if (!Number.isSafeInteger(timestamp)) {
 		return false;

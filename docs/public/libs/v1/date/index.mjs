@@ -75,3 +75,7 @@ export { less } from './operators/less.mjs';
 export { lessThan } from './operators/lessThan.mjs';
 export { lessThanTime } from './operators/lessThanTime.mjs';
 export { lessTime } from './operators/lessTime.mjs';
+
+/**
+ * {@include date/index.md}
+ */

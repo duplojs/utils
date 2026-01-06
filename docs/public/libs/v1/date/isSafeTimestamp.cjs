@@ -2,6 +2,9 @@
 
 var constants = require('./constants.cjs');
 
+/**
+ * {@include date/isSafeTimestamp/index.md}
+ */
 function isSafeTimestamp(timestamp) {
     if (!Number.isSafeInteger(timestamp)) {
         return false;

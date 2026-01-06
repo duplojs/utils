@@ -3,6 +3,9 @@
 var constants = require('../constants.cjs');
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getDayOfYear/index.md}
+ */
 function getDayOfYear(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     let year = 0;

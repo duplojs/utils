@@ -3,6 +3,9 @@ import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/subtractHours/index.md}
+ */
 export function subtractHours<
 	GenericInput extends TheDate,
 	GenericHour extends number,

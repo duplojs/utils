@@ -1,3 +1,6 @@
+/**
+ * {@include date/index.md}
+ */
 export * from "./types";
 export * from "./constants";
 export * from "./create";

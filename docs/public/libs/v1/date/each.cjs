@@ -22,6 +22,9 @@ const stepMapper = {
         return date.getTime();
     },
 };
+/**
+ * {@include date/each/index.md}
+ */
 function each(range, unit = "day") {
     const startTimestamp = toTimestamp.toTimestamp(range.start);
     const endTimestamp = toTimestamp.toTimestamp(range.end);
