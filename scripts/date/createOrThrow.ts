@@ -1,8 +1,7 @@
 import { createErrorKind, kindHeritage, unwrap } from "@scripts/common";
 import { create } from "./create";
-import type { TheDate } from "./types";
+import type { TheDate, SpoolingDate } from "./types";
 import * as DEither from "@scripts/either";
-import { type SpoolingDate } from "./types/spoolingDate";
 
 export class CreateTheDateError extends kindHeritage(
 	"create-the-date-error",

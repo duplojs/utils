@@ -5,3 +5,4 @@ export * from "./month";
 export * from "./time";
 export * from "./isSafeYear";
 export * from "./spoolingDate";
+export * from "./theTime";

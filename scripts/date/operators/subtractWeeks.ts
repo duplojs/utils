@@ -1,4 +1,5 @@
 import { millisecondInOneWeek } from "../constants";
+import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
@@ -28,8 +29,5 @@ export function subtractWeeks(...args: [TheDate, number] | [number]) {
 	const date = toNative(input);
 	date.setTime(date.getTime() - (week * millisecondInOneWeek));
 
-	const timestamp = date.getTime();
-	const isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return createTheDate(date.getTime());
 }

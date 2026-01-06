@@ -10,7 +10,7 @@ next:
 
 # toTimestamp
 
-La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate`. Elle lève `InvalidTheDateError` si la valeur est incohérente.
+La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate`.
 
 ## Exemple interactif
 
