@@ -4,8 +4,8 @@ prev:
   text: "subtractSeconds"
   link: "/fr/v1/api/date/subtractSeconds"
 next:
-  text: "greater"
-  link: "/fr/v1/api/date/greater"
+  text: "subtractTime"
+  link: "/fr/v1/api/date/subtractTime"
 ---
 
 # subtractMilliseconds

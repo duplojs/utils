@@ -1,3 +1,4 @@
+import { createTheDate } from '../createTheDate.mjs';
 import { toNative } from '../toNative.mjs';
 
 function subtractMilliseconds(...args) {
@@ -8,9 +9,7 @@ function subtractMilliseconds(...args) {
     const [input, millisecond] = args;
     const date = toNative(input);
     date.setTime(date.getTime() - millisecond);
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate(date.getTime());
 }
 
 export { subtractMilliseconds };

@@ -1,3 +1,4 @@
+import { createTheDate } from '../createTheDate.mjs';
 import { toNative } from '../toNative.mjs';
 
 function addMonths(...args) {
@@ -8,9 +9,7 @@ function addMonths(...args) {
     const [input, month] = args;
     const date = toNative(input);
     date.setUTCMonth(date.getUTCMonth() + month);
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate(date.getTime());
 }
 
 export { addMonths };

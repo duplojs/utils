@@ -30,6 +30,9 @@ Construit un `TheDate` depuis un `Date`, un timestamp ou un autre `TheDate` et r
 ### [createOrThrow](/fr/v1/api/date/createOrThrow)
 Version stricte de `create` qui lance `CreateTheDateError` en cas d'entrée invalide.
 
+### [createTime](/fr/v1/api/date/createTime)
+Construit un `TheTime` à partir de millisecondes ou d'un objet de temps structuré.
+
 ### [now](/fr/v1/api/date/now)
 Retourne le timestamp exact du moment courant sous forme de `TheDate`.
 
@@ -67,6 +70,9 @@ Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.
 
 ### [is](/fr/v1/api/date/is)
 Vérifie qu'une chaîne correspond au format `TheDate` (type guard).
+
+### [isTime](/fr/v1/api/date/isTime)
+Vérifie qu'une chaîne correspond au format `TheTime` (type guard).
 
 ## Lecture des composants
 
@@ -140,6 +146,9 @@ Ajoute des secondes.
 ### [addMilliseconds](/fr/v1/api/date/addMilliseconds)  
 Ajoute des millisecondes en restant type-safe.
 
+### [addTime](/fr/v1/api/date/addTime)  
+Ajoute une durée `TheTime` à un `TheDate` ou un `TheTime`.
+
 ### Soustractions
 
 ### [subtractYears](/fr/v1/api/date/subtractYears)  
@@ -165,6 +174,9 @@ Soustrait des secondes.
 
 ### [subtractMilliseconds](/fr/v1/api/date/subtractMilliseconds)  
 Soustrait des millisecondes.
+
+### [subtractTime](/fr/v1/api/date/subtractTime)  
+Soustrait une durée `TheTime` à un `TheDate` ou un `TheTime`.
 
 ### Comparaison
 

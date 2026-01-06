@@ -5,12 +5,13 @@ var isSafeTimestamp = require('./isSafeTimestamp.cjs');
 var applyTimezone = require('./applyTimezone.cjs');
 var is = require('./is.cjs');
 var toNative = require('./toNative.cjs');
+var createTheDate = require('./createTheDate.cjs');
+var create$1 = require('../either/right/create.cjs');
 var is$1 = require('../either/left/is.cjs');
-var create$1 = require('../either/left/create.cjs');
+var create$2 = require('../either/left/create.cjs');
 var unwrap = require('../common/unwrap.cjs');
 var when = require('../either/left/when.cjs');
 var safeCallback = require('../either/safeCallback.cjs');
-var create$2 = require('../either/right/create.cjs');
 
 const safeDateRegex = /^(?<year>-?[0-9]+)-(?<monthWithDay>[0-1][0-9]-[0-3][0-9])$/;
 function create(input, params) {
@@ -18,10 +19,10 @@ function create(input, params) {
         return createFromTimestamp(input);
     }
     if (input instanceof Date) {
-        return createFromDate(input);
+        return createFromTimestamp(input.getTime());
     }
     if (typeof input === "string" && is.is(input)) {
-        return createFromTheDate(input);
+        return create$1.right("date-created", input);
     }
     const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
     if (safeDateMatch) {
@@ -34,13 +35,13 @@ function create(input, params) {
     if (typeof input === "object") {
         let inputValueResult = undefined;
         if (input.value instanceof Date) {
-            inputValueResult = createFromDate(input.value);
+            inputValueResult = createFromTimestamp(input.value.getTime());
         }
         else if (typeof input.value === "number") {
             inputValueResult = createFromTimestamp(input.value);
         }
         else if (is.is(input.value)) {
-            inputValueResult = createFromTheDate(input.value);
+            inputValueResult = create$1.right("date-created", input.value);
         }
         else {
             const isoDateMatch = input.value.match(constants.isoDateRegex);
@@ -50,7 +51,7 @@ function create(input, params) {
             }
         }
         if (!inputValueResult || is$1.isLeft(inputValueResult)) {
-            return inputValueResult || create$1.left("date-created-error", null);
+            return inputValueResult || create$2.left("date-created-error", null);
         }
         const date = toNative.toNative(unwrap.unwrap(inputValueResult));
         void (input.year && date.setUTCFullYear(input.year));
@@ -60,7 +61,7 @@ function create(input, params) {
         void (input.minute && date.setMinutes(input.minute));
         void (input.second && date.setSeconds(input.second));
         void (input.millisecond && date.setMilliseconds(input.millisecond));
-        const result = createFromDate(date);
+        const result = createFromTimestamp(date.getTime());
         if (is$1.isLeft(result)) {
             return result;
         }
@@ -68,25 +69,15 @@ function create(input, params) {
         if (!timezone) {
             return result;
         }
-        return when.whenIsLeft(safeCallback.safeCallback(() => create$2.right("date-created", applyTimezone.applyTimezone(unwrap.unwrap(result), timezone))), () => create$1.left("date-created-error", null));
+        return when.whenIsLeft(safeCallback.safeCallback(() => create$1.right("date-created", applyTimezone.applyTimezone(unwrap.unwrap(result), timezone))), () => create$2.left("date-created-error", null));
     }
-    return create$1.left("date-created-error", null);
+    return create$2.left("date-created-error", null);
 }
 function createFromTimestamp(input) {
     if (!isSafeTimestamp.isSafeTimestamp(input)) {
-        return create$1.left("date-created-error", null);
+        return create$2.left("date-created-error", null);
     }
-    return create$2.right("date-created", `date${Math.abs(input)}${input < 0 ? "-" : "+"}`);
-}
-function createFromDate(input) {
-    return createFromTimestamp(input.getTime());
-}
-function createFromTheDate(input) {
-    const theDateMatch = input.match(constants.theDateRegex);
-    const { value, sign } = theDateMatch.groups;
-    return createFromTimestamp(Number(sign === "-"
-        ? `-${value}`
-        : value));
+    return create$1.right("date-created", createTheDate.createTheDate(input));
 }
 
 exports.create = create;

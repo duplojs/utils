@@ -1,5 +1,6 @@
 'use strict';
 
+var createTheDate = require('../createTheDate.cjs');
 var toNative = require('../toNative.cjs');
 
 function subtractYears(...args) {
@@ -10,9 +11,7 @@ function subtractYears(...args) {
     const [input, year] = args;
     const date = toNative.toNative(input);
     date.setUTCFullYear(date.getUTCFullYear() - year);
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate.createTheDate(date.getTime());
 }
 
 exports.subtractYears = subtractYears;

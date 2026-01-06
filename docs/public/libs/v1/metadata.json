@@ -2562,6 +2562,15 @@
               "name": "addSeconds.mjs"
             },
             {
+              "name": "addTime.cjs"
+            },
+            {
+              "name": "addTime.d.ts"
+            },
+            {
+              "name": "addTime.mjs"
+            },
+            {
               "name": "addWeeks.cjs"
             },
             {
@@ -2691,6 +2700,15 @@
               "name": "subtractSeconds.mjs"
             },
             {
+              "name": "subtractTime.cjs"
+            },
+            {
+              "name": "subtractTime.d.ts"
+            },
+            {
+              "name": "subtractTime.mjs"
+            },
+            {
               "name": "subtractWeeks.cjs"
             },
             {
@@ -2729,7 +2747,13 @@
               "name": "spoolingDate.d.ts"
             },
             {
+              "name": "spoolingTime.d.ts"
+            },
+            {
               "name": "theDate.d.ts"
+            },
+            {
+              "name": "theTime.d.ts"
             },
             {
               "name": "time.d.ts"
@@ -2785,6 +2809,33 @@
           "name": "createOrThrow.mjs"
         },
         {
+          "name": "createTheDate.cjs"
+        },
+        {
+          "name": "createTheDate.d.ts"
+        },
+        {
+          "name": "createTheDate.mjs"
+        },
+        {
+          "name": "createTheTime.cjs"
+        },
+        {
+          "name": "createTheTime.d.ts"
+        },
+        {
+          "name": "createTheTime.mjs"
+        },
+        {
+          "name": "createTime.cjs"
+        },
+        {
+          "name": "createTime.d.ts"
+        },
+        {
+          "name": "createTime.mjs"
+        },
+        {
           "name": "each.cjs"
         },
         {
@@ -2837,6 +2888,24 @@
         },
         {
           "name": "isSafeTimestamp.mjs"
+        },
+        {
+          "name": "isTime.cjs"
+        },
+        {
+          "name": "isTime.d.ts"
+        },
+        {
+          "name": "isTime.mjs"
+        },
+        {
+          "name": "makeSafeTimestamp.cjs"
+        },
+        {
+          "name": "makeSafeTimestamp.d.ts"
+        },
+        {
+          "name": "makeSafeTimestamp.mjs"
         },
         {
           "name": "max.cjs"

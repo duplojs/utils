@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "createOrThrow"
-  link: "/fr/v1/api/date/createOrThrow"
+  text: "createTime"
+  link: "/fr/v1/api/date/createTime"
 next:
   text: "today"
   link: "/fr/v1/api/date/today"

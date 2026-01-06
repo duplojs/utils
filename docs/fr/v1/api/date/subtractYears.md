@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "addMilliseconds"
-  link: "/fr/v1/api/date/addMilliseconds"
+  text: "addTime"
+  link: "/fr/v1/api/date/addTime"
 next:
   text: "subtractMonths"
   link: "/fr/v1/api/date/subtractMonths"

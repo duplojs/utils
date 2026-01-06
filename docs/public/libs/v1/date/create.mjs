@@ -1,14 +1,15 @@
-import { isoDateRegex, theDateRegex } from './constants.mjs';
+import { isoDateRegex } from './constants.mjs';
 import { isSafeTimestamp } from './isSafeTimestamp.mjs';
 import { applyTimezone } from './applyTimezone.mjs';
 import { is } from './is.mjs';
 import { toNative } from './toNative.mjs';
+import { createTheDate } from './createTheDate.mjs';
+import { right } from '../either/right/create.mjs';
 import { isLeft } from '../either/left/is.mjs';
 import { left } from '../either/left/create.mjs';
 import { unwrap } from '../common/unwrap.mjs';
 import { whenIsLeft } from '../either/left/when.mjs';
 import { safeCallback } from '../either/safeCallback.mjs';
-import { right } from '../either/right/create.mjs';
 
 const safeDateRegex = /^(?<year>-?[0-9]+)-(?<monthWithDay>[0-1][0-9]-[0-3][0-9])$/;
 function create(input, params) {
@@ -16,10 +17,10 @@ function create(input, params) {
         return createFromTimestamp(input);
     }
     if (input instanceof Date) {
-        return createFromDate(input);
+        return createFromTimestamp(input.getTime());
     }
     if (typeof input === "string" && is(input)) {
-        return createFromTheDate(input);
+        return right("date-created", input);
     }
     const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
     if (safeDateMatch) {
@@ -32,13 +33,13 @@ function create(input, params) {
     if (typeof input === "object") {
         let inputValueResult = undefined;
         if (input.value instanceof Date) {
-            inputValueResult = createFromDate(input.value);
+            inputValueResult = createFromTimestamp(input.value.getTime());
         }
         else if (typeof input.value === "number") {
             inputValueResult = createFromTimestamp(input.value);
         }
         else if (is(input.value)) {
-            inputValueResult = createFromTheDate(input.value);
+            inputValueResult = right("date-created", input.value);
         }
         else {
             const isoDateMatch = input.value.match(isoDateRegex);
@@ -58,7 +59,7 @@ function create(input, params) {
         void (input.minute && date.setMinutes(input.minute));
         void (input.second && date.setSeconds(input.second));
         void (input.millisecond && date.setMilliseconds(input.millisecond));
-        const result = createFromDate(date);
+        const result = createFromTimestamp(date.getTime());
         if (isLeft(result)) {
             return result;
         }
@@ -74,17 +75,7 @@ function createFromTimestamp(input) {
     if (!isSafeTimestamp(input)) {
         return left("date-created-error", null);
     }
-    return right("date-created", `date${Math.abs(input)}${input < 0 ? "-" : "+"}`);
-}
-function createFromDate(input) {
-    return createFromTimestamp(input.getTime());
-}
-function createFromTheDate(input) {
-    const theDateMatch = input.match(theDateRegex);
-    const { value, sign } = theDateMatch.groups;
-    return createFromTimestamp(Number(sign === "-"
-        ? `-${value}`
-        : value));
+    return right("date-created", createTheDate(input));
 }
 
 export { create };

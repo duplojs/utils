@@ -2,7 +2,8 @@ import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { isSafeTimestamp } from '../../date/isSafeTimestamp.mjs';
-import { theDateRegex } from '../../date/constants.mjs';
+import { createTheDate } from '../../date/createTheDate.mjs';
+import { is } from '../../date/is.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const dateKind = createDataParserKind("date");
@@ -18,30 +19,23 @@ function date(definition) {
                 if (!isSafeTimestamp(timestamp)) {
                     return SymbolDataParserErrorIssue;
                 }
-                const isNegative = timestamp < 0;
-                return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+                return createTheDate(timestamp);
             }
             if (typeof data === "number") {
                 if (!isSafeTimestamp(data)) {
                     return SymbolDataParserErrorIssue;
                 }
-                const isNegative = data < 0;
-                return `date${Math.abs(data)}${isNegative ? "-" : "+"}`;
+                return createTheDate(data);
             }
             if (typeof data === "string") {
                 const date = new Date(data);
                 const timestamp = date.getTime();
                 if (isSafeTimestamp(timestamp)) {
-                    const isNegative = timestamp < 0;
-                    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+                    return createTheDate(timestamp);
                 }
             }
         }
-        const theDateMatch = typeof data === "string" && data.match(theDateRegex);
-        if (theDateMatch) {
-            if (!isSafeTimestamp(Number(theDateMatch.groups?.value))) {
-                return SymbolDataParserErrorIssue;
-            }
+        if (typeof data === "string" && is(data)) {
             return data;
         }
         return SymbolDataParserErrorIssue;

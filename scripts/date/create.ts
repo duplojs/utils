@@ -1,4 +1,4 @@
-import { isoDateRegex, theDateRegex } from "./constants";
+import { isoDateRegex } from "./constants";
 import { isSafeTimestamp } from "./isSafeTimestamp";
 import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "@scripts/either";
@@ -81,11 +81,11 @@ export function create(
 	}
 
 	if (input instanceof Date) {
-		return createFromDate(input);
+		return createFromTimestamp(input.getTime());
 	}
 
 	if (typeof input === "string" && is(input)) {
-		return createFromTheDate(input);
+		return DEither.right("date-created", input);
 	}
 
 	const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
@@ -107,11 +107,11 @@ export function create(
 		let inputValueResult: MayBe | undefined = undefined;
 
 		if (input.value instanceof Date) {
-			inputValueResult = createFromDate(input.value);
+			inputValueResult = createFromTimestamp(input.value.getTime());
 		} else if (typeof input.value === "number") {
 			inputValueResult = createFromTimestamp(input.value);
 		} else if (is(input.value)) {
-			inputValueResult = createFromTheDate(input.value);
+			inputValueResult = DEither.right("date-created", input.value);
 		} else {
 			const isoDateMatch = input.value.match(isoDateRegex);
 			if (isoDateMatch) {
@@ -152,7 +152,7 @@ export function create(
 		void (input.second && date.setSeconds(input.second));
 		void (input.millisecond && date.setMilliseconds(input.millisecond));
 
-		const result = createFromDate(date);
+		const result = createFromTimestamp(date.getTime());
 
 		if (DEither.isLeft(result)) {
 			return result;
@@ -186,23 +186,5 @@ function createFromTimestamp(input: number): MayBe {
 	return DEither.right(
 		"date-created",
 		createTheDate(input),
-	);
-}
-
-function createFromDate(input: Date): MayBe {
-	return createFromTimestamp(input.getTime());
-}
-
-function createFromTheDate(input: TheDate): MayBe {
-	const theDateMatch = input.match(theDateRegex);
-
-	const { value, sign } = theDateMatch!.groups as Record<"value" | "sign", string>;
-
-	return createFromTimestamp(
-		Number(
-			sign === "-"
-				? `-${value}`
-				: value,
-		),
 	);
 }

@@ -4,8 +4,8 @@ prev:
   text: "addSeconds"
   link: "/fr/v1/api/date/addSeconds"
 next:
-  text: "subtractYears"
-  link: "/fr/v1/api/date/subtractYears"
+  text: "addTime"
+  link: "/fr/v1/api/date/addTime"
 ---
 
 # addMilliseconds

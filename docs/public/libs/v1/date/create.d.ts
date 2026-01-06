@@ -1,9 +1,7 @@
-import { type Hour, type IsLeapYear, type IsSafeYear, type Millisecond, type Minute, type Second, type TheDate } from "./types";
+import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "../either";
-import { type MonthWithDay } from "./types/month";
 import type * as DString from "../string";
 import { type And, type IsEqual, type Not, type IsExtends } from "../common";
-import { type SpoolingDate } from "./types/spoolingDate";
 export type MayBe = DEither.EitherRight<"date-created", TheDate> | DEither.EitherLeft<"date-created-error", null>;
 type SafeDate = `${number}-${MonthWithDay}`;
 declare const SymbolForbiddenDate: unique symbol;
