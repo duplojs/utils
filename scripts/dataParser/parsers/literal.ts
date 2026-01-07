@@ -89,12 +89,12 @@ export function literal<
 		Omit<DataParserDefinitionLiteral, "value">
 	> = never,
 >(
-	value: GenericValue | GenericValue[],
+	value: GenericValue | readonly GenericValue[],
 	definition?: GenericDefinition,
 ): DataParserLiteral<
 		MergeDefinition<
 			DataParserDefinitionLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { value: GenericValue[] }
+			NeverCoalescing<GenericDefinition, {}> & { value: readonly GenericValue[] }
 		>
 	> {
 	const self = dataParserInit<DataParserLiteral>(
