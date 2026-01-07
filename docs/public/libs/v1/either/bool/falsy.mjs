@@ -7,6 +7,15 @@ import { isRight } from '../right/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherBoolFalsyKind = createEitherKind("bool-falsy");
+/**
+ * {@include either/boolFalsy/index.md}
+ */
+/**
+ * {@include either/isBoolFalsy/index.md}
+ */
+/**
+ * {@include either/whenIsBoolFalsy/index.md}
+ */
 function boolFalsy(value = undefined) {
     return eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(left("bool", value)));
 }

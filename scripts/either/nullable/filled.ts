@@ -27,6 +27,15 @@ export interface EitherNullableFilled<
 
 type Either = EitherRight | EitherLeft;
 
+/**
+ * {@include either/isNullableFilled/index.md}
+ */
+/**
+ * {@include either/nullableFilled/index.md}
+ */
+/**
+ * {@include either/whenIsNullableFilled/index.md}
+ */
 export function nullableFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullableFilled<GenericValue> {

@@ -7,6 +7,15 @@ import { isRight } from '../right/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherNullableEmptyKind = createEitherKind("nullable-empty");
+/**
+ * {@include either/isNullableEmpty/index.md}
+ */
+/**
+ * {@include either/nullableEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsNullableEmpty/index.md}
+ */
 function nullableEmpty() {
     return eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(left("nullable", null)));
 }

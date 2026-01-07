@@ -7,6 +7,15 @@ import { isLeft } from '../left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherBoolTruthyKind = createEitherKind("bool-truthy");
+/**
+ * {@include either/boolTruthy/index.md}
+ */
+/**
+ * {@include either/isBoolTruthy/index.md}
+ */
+/**
+ * {@include either/whenIsBoolTruthy/index.md}
+ */
 function boolTruthy(value) {
     return eitherBoolKind.setTo(eitherBoolTruthyKind.setTo(right("bool", value)));
 }

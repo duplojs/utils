@@ -23,6 +23,15 @@ export interface EitherOptionalEmpty extends _EitherOptionalEmpty {
 
 type Either = EitherRight | EitherLeft;
 
+/**
+ * {@include either/isOptionalEmpty/index.md}
+ */
+/**
+ * {@include either/optionalEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalEmpty/index.md}
+ */
 export function optionalEmpty(): EitherOptionalEmpty {
 	return eitherOptionalKind.setTo(
 		eitherOptionalEmptyKind.setTo(

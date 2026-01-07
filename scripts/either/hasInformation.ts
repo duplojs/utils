@@ -5,6 +5,9 @@ import { eitherInformationKind } from "./kind";
 
 type Either = EitherRight | EitherLeft;
 
+/**
+ * {@include either/hasInformation/index.md}
+ */
 export function hasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(

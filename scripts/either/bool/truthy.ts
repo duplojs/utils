@@ -25,6 +25,15 @@ export interface EitherBoolTruthy<
 
 }
 
+/**
+ * {@include either/boolTruthy/index.md}
+ */
+/**
+ * {@include either/isBoolTruthy/index.md}
+ */
+/**
+ * {@include either/whenIsBoolTruthy/index.md}
+ */
 export function boolTruthy<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherBoolTruthy<GenericValue> {

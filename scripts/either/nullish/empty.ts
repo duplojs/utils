@@ -27,6 +27,15 @@ export interface EitherNullishEmpty<
 
 }
 
+/**
+ * {@include either/isNullishEmpty/index.md}
+ */
+/**
+ * {@include either/nullishEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsNullishEmpty/index.md}
+ */
 export function nullishEmpty<
 	const GenericValue extends NullishValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherNullishEmpty<GenericValue> {
