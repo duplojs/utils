@@ -1,19 +1,22 @@
 import { D } from "@duplojs/utils";
 
-const timeA = D.createTime(2, "second");
-// timeA: "time2000+"
+const timeFromUnit = D.createTime(2, "second");
+// timeFromUnit: "time2000+"
 
-const timeB = D.createTime({
+// Either<"time-created", TheTime>
+const maybeFromSpooling = D.createTime({
 	hour: 1,
 	minute: 30,
 	second: 15,
 });
-// timeB: "time5415000+"
 
-const timeC = D.createTime({
+// Either<"time-created", TheTime>
+const maybeFromIso = D.createTime({
 	value: "01:02:03.004",
 });
-// timeC: "time3723004+"
 
-const timeD = D.createTime(-500);
-// timeD: "time500-"
+// Either<"time-created", TheTime>
+const maybeFromValue = D.createTime(-500);
+
+const fromTheTime = D.createTime("time250+");
+// fromTheTime: "time250+"

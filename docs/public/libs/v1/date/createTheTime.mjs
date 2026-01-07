@@ -1,7 +1,7 @@
-import { makeSafeTimestamp } from './makeSafeTimestamp.mjs';
+import { makeSafeTimeValue } from './makeSafeTimeValue.mjs';
 
 function createTheTime(timestamp) {
-    const safeTimestamp = makeSafeTimestamp(timestamp);
+    const safeTimestamp = makeSafeTimeValue(timestamp);
     return `time${Math.abs(safeTimestamp)}${safeTimestamp < 0 ? "-" : "+"}`;
 }
 

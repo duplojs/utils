@@ -62,6 +62,11 @@ describe("makeSafeTimestamp", () => {
 		>;
 	});
 
+	it("rounds fractional values", () => {
+		expect(DDate.makeSafeTimestamp(1.4)).toBe(1);
+		expect(DDate.makeSafeTimestamp(-2.6)).toBe(-3);
+	});
+
 	it("keeps boundary values", () => {
 		const maxResult = DDate.makeSafeTimestamp(DDate.maxTimestamp);
 		const minResult = DDate.makeSafeTimestamp(DDate.minTimestamp);

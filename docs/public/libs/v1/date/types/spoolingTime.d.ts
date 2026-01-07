@@ -1,5 +1,5 @@
 export interface SpoolingTime {
-    value?: string;
+    value?: string | number;
     week?: number;
     day?: number;
     hour?: number;

@@ -73,10 +73,10 @@ describe("DDataParser time", () => {
 			coerce: true,
 			errorMessage: "time.invalid",
 		});
-		const outOfRangeTimestamp = DDate.maxTimestamp + 1;
+		const outOfRangeTimestamp = DDate.maxTimeValue + 1;
 		const invalidString = "not-a-time";
 		const invalidType = true;
-		const unsafeTheTime = `time${DDate.maxTimestamp}+` as TheTime;
+		const unsafeTheTime = `time${DDate.maxTimeValue}+` as TheTime;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const stringResult = schema.parse(invalidString);
@@ -119,5 +119,29 @@ describe("DDataParser time", () => {
 				),
 			),
 		);
+	});
+
+	it("rejects ISO time coercion when creation fails", () => {
+		const schema = DDataParser.time({
+			coerce: true,
+			errorMessage: "time.invalid",
+		});
+		const input = "01:02";
+		const createTimeSpy = vi.spyOn(DDate, "createTime")
+			.mockReturnValueOnce(DEither.left("time-created-error", null) as never);
+
+		const result = schema.parse(input);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					input,
+				),
+			),
+		);
+		expect(createTimeSpy).toHaveBeenCalledWith({ value: input });
+		createTimeSpy.mockRestore();
 	});
 });

@@ -38,9 +38,9 @@ describe("createTheTime", () => {
 	});
 
 	it("clamps above maxTimestamp", () => {
-		const result = DDate.createTheTime(DDate.maxTimestamp + 1);
+		const result = DDate.createTheTime(DDate.maxTimeValue + 1);
 
-		expect(result).toBe(`time${DDate.maxTimestamp}+`);
+		expect(result).toBe(`time${DDate.maxTimeValue}+`);
 
 		type check = ExpectType<
 			typeof result,
@@ -50,9 +50,9 @@ describe("createTheTime", () => {
 	});
 
 	it("clamps below minTimestamp", () => {
-		const result = DDate.createTheTime(DDate.minTimestamp - 1);
+		const result = DDate.createTheTime(DDate.minTimeValue - 1);
 
-		expect(result).toBe(`time${Math.abs(DDate.minTimestamp)}-`);
+		expect(result).toBe(`time${Math.abs(DDate.minTimeValue)}-`);
 
 		type check = ExpectType<
 			typeof result,

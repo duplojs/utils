@@ -4,11 +4,11 @@ const schema = DP.coerce
 	.time()
 	.addChecker(
 		DP.checkerTimeMin(
-			DDate.createTime(60000),
+			DDate.createTime(60000, "millisecond"),
 			{ errorMessage: "time.min" },
 		),
 		DP.checkerTimeMax(
-			DDate.createTime(3600000),
+			DDate.createTime(3600000, "millisecond"),
 			{ errorMessage: "time.max" },
 		),
 	);

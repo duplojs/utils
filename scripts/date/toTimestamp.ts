@@ -1,9 +1,9 @@
 import { theDateRegex, theTimeRegex } from "./constants";
 import { makeSafeTimestamp } from "./makeSafeTimestamp";
-import type { TheDate, TheTime } from "./types";
+import type { TheDate } from "./types";
 
 export function toTimestamp<
-	GenericInput extends TheDate | TheTime,
+	GenericInput extends TheDate,
 >(input: GenericInput) {
 	const match = input.startsWith("date")
 		? input.match(theDateRegex)

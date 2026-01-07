@@ -17,9 +17,9 @@ describe("clean primitive sort", () => {
 	const d2 = DClean.Date.createOrThrow(DDate.create("2024-01-01"));
 	const d3 = DClean.Date.createOrThrow(DDate.create("2024-01-05"));
 
-	const t1 = DClean.Time.createOrThrow(DDate.createTime(1000));
-	const t2 = DClean.Time.createOrThrow(DDate.createTime(5000));
-	const t3 = DClean.Time.createOrThrow(DDate.createTime(10000));
+	const t1 = DClean.Time.createOrThrow(DDate.createTime(1, "second"));
+	const t2 = DClean.Time.createOrThrow(DDate.createTime(5, "second"));
+	const t3 = DClean.Time.createOrThrow(DDate.createTime(10, "second"));
 
 	it("sorts numbers ascending and descending", () => {
 		const asc = DClean.sort([n1, n2, n3], "ASC").map(unwrap);
@@ -70,14 +70,14 @@ describe("clean primitive sort", () => {
 		);
 
 		expect(asc).toEqual([
-			DDate.createTime(1000),
-			DDate.createTime(5000),
-			DDate.createTime(10000),
+			DDate.createTime(1, "second"),
+			DDate.createTime(5, "second"),
+			DDate.createTime(10, "second"),
 		]);
 		expect(dsc).toEqual([
-			DDate.createTime(10000),
-			DDate.createTime(5000),
-			DDate.createTime(1000),
+			DDate.createTime(10, "second"),
+			DDate.createTime(5, "second"),
+			DDate.createTime(1, "second"),
 		]);
 	});
 

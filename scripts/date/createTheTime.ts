@@ -1,8 +1,8 @@
-import { makeSafeTimestamp } from "./makeSafeTimestamp";
+import { makeSafeTimeValue } from "./makeSafeTimeValue";
 import { type TheTime } from "./types";
 
 export function createTheTime(timestamp: number): TheTime {
-	const safeTimestamp = makeSafeTimestamp(timestamp);
+	const safeTimestamp = makeSafeTimeValue(timestamp);
 
 	return `time${Math.abs(safeTimestamp)}${safeTimestamp < 0 ? "-" : "+"}`;
 }

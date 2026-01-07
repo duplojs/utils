@@ -1,9 +1,9 @@
 import { DClean, DDate } from "@scripts";
 
 describe("clean primitive timeGreaterThan", () => {
-	const time01 = DClean.Time.createOrThrow(DDate.createTime(1000));
-	const time05 = DClean.Time.createOrThrow(DDate.createTime(5000));
-	const time10 = DClean.Time.createOrThrow(DDate.createTime(10000));
+	const time01 = DClean.Time.createOrThrow(DDate.createTime(1, "second"));
+	const time05 = DClean.Time.createOrThrow(DDate.createTime(5, "second"));
+	const time10 = DClean.Time.createOrThrow(DDate.createTime(10, "second"));
 
 	it("works directly", () => {
 		expect(DClean.timeGreaterThan(time05, time01)).toBe(true);

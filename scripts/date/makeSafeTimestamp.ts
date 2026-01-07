@@ -13,5 +13,7 @@ export function makeSafeTimestamp(timestamp: number) {
 		return minTimestamp;
 	}
 
-	return timestamp;
+	return Number.isInteger(timestamp)
+		? timestamp
+		: Math.round(timestamp);
 }

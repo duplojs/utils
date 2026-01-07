@@ -1,7 +1,7 @@
 import { type SortType } from "@scripts/common";
 import { createTheTime } from "./createTheTime";
-import { toTimestamp } from "./toTimestamp";
 import { type TheTime } from "./types";
+import { toTimeValue } from "./toTimeValue";
 
 export function sortTimes<
 	GenericArray extends readonly TheTime[],
@@ -19,7 +19,7 @@ export function sortTimes(...args: [readonly TheTime[], SortType] | [SortType]) 
 	const [array, type] = args;
 
 	return array
-		.map(toTimestamp)
+		.map(toTimeValue)
 		.sort(
 			type === "DSC"
 				? (first, second) => second - first

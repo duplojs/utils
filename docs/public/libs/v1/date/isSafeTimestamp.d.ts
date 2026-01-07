@@ -1,1 +1,1 @@
-export declare function isSafeTimestamp(input: number): boolean;
+export declare function isSafeTimestamp(timestamp: number): boolean;

@@ -3019,6 +3019,15 @@
           "name": "createTime.mjs"
         },
         {
+          "name": "createTimeOrThrow.cjs"
+        },
+        {
+          "name": "createTimeOrThrow.d.ts"
+        },
+        {
+          "name": "createTimeOrThrow.mjs"
+        },
+        {
           "name": "each.cjs"
         },
         {
@@ -3073,6 +3082,15 @@
           "name": "isSafeTimestamp.mjs"
         },
         {
+          "name": "isSafeTimeValue.cjs"
+        },
+        {
+          "name": "isSafeTimeValue.d.ts"
+        },
+        {
+          "name": "isSafeTimeValue.mjs"
+        },
+        {
           "name": "isTime.cjs"
         },
         {
@@ -3089,6 +3107,15 @@
         },
         {
           "name": "makeSafeTimestamp.mjs"
+        },
+        {
+          "name": "makeSafeTimeValue.cjs"
+        },
+        {
+          "name": "makeSafeTimeValue.d.ts"
+        },
+        {
+          "name": "makeSafeTimeValue.mjs"
         },
         {
           "name": "max.cjs"
@@ -3215,6 +3242,15 @@
         },
         {
           "name": "toTimestamp.mjs"
+        },
+        {
+          "name": "toTimeValue.cjs"
+        },
+        {
+          "name": "toTimeValue.d.ts"
+        },
+        {
+          "name": "toTimeValue.mjs"
         },
         {
           "name": "yesterday.cjs"
@@ -3769,6 +3805,12 @@
             },
             {
               "name": "index.d.ts"
+            },
+            {
+              "name": "isGreater.d.ts"
+            },
+            {
+              "name": "isLess.d.ts"
             },
             {
               "name": "isPositive.d.ts"
@@ -4520,6 +4562,9 @@
             },
             {
               "name": "number.d.ts"
+            },
+            {
+              "name": "replace.d.ts"
             },
             {
               "name": "split.d.ts"

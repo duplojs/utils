@@ -12,7 +12,9 @@ function makeSafeTimestamp(timestamp) {
     if (timestamp < constants.minTimestamp) {
         return constants.minTimestamp;
     }
-    return timestamp;
+    return Number.isInteger(timestamp)
+        ? timestamp
+        : Math.round(timestamp);
 }
 
 exports.makeSafeTimestamp = makeSafeTimestamp;

@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -7,6 +7,7 @@ import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
 import { type TheTime } from "@scripts/date";
 import * as DDate from "@scripts/date";
+import * as DEither from "@scripts/either";
 import { type DataParserCheckerTimeMax, type DataParserCheckerTimeMin } from "./checkers";
 
 export * from "./checkers";
@@ -103,7 +104,7 @@ export function time<
 		(data, _error, self) => {
 			if (self.definition.coerce) {
 				if (typeof data === "number") {
-					if (!DDate.isSafeTimestamp(data)) {
+					if (!DDate.isSafeTimeValue(data)) {
 						return SymbolDataParserErrorIssue;
 					}
 
@@ -111,7 +112,13 @@ export function time<
 				}
 
 				if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
-					return DDate.createTime({ value: data });
+					const result = DDate.createTime({ value: data });
+
+					if (DEither.isLeft(result)) {
+						return SymbolDataParserErrorIssue;
+					}
+
+					return unwrap(result);
 				}
 			}
 

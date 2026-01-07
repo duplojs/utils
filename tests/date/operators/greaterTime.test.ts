@@ -1,11 +1,11 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
 
 describe("greaterTime", () => {
-	const thresholdTime = DDate.createTime(60000);
+	const thresholdTime = DDate.createTime(60, "second");
 
 	it("returns true when input is greater than threshold", () => {
 		const result = DDate.greaterTime(
-			DDate.createTime(120000),
+			DDate.createTime(120, "second"),
 			thresholdTime,
 		);
 
@@ -23,12 +23,12 @@ describe("greaterTime", () => {
 	});
 
 	it("returns false when input is less than threshold", () => {
-		expect(DDate.greaterTime(DDate.createTime(30000), thresholdTime)).toBe(false);
+		expect(DDate.greaterTime(DDate.createTime(30, "second"), thresholdTime)).toBe(false);
 	});
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.createTime(90000),
+			DDate.createTime(90, "second"),
 			DDate.greaterTime(thresholdTime),
 		);
 

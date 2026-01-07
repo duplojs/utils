@@ -1,5 +1,7 @@
-export const minTimestamp = -8640000000000000;
-export const maxTimestamp = 8640000000000000;
+export const minTimestamp = -8_640_000_000_000_000;
+export const maxTimestamp = 8_640_000_000_000_000;
+export const minTimeValue = -9_007_199_254_740_991;
+export const maxTimeValue = 9_007_199_254_740_991;
 export const millisecondInOneWeek = 604800000;
 export const millisecondsInOneDay = 86400000;
 export const millisecondInOneHour = 3600000;

@@ -1,4 +1,4 @@
-import { toTimestamp } from '../toTimestamp.mjs';
+import { toTimeValue } from '../toTimeValue.mjs';
 
 function lessTime(...args) {
     if (args.length === 1) {
@@ -6,8 +6,8 @@ function lessTime(...args) {
         return (input) => lessTime(input, threshold);
     }
     const [input, threshold] = args;
-    const inputTimestamp = toTimestamp(input);
-    const thresholdTimestamp = toTimestamp(threshold);
+    const inputTimestamp = toTimeValue(input);
+    const thresholdTimestamp = toTimeValue(threshold);
     return inputTimestamp <= thresholdTimestamp;
 }
 

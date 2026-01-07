@@ -25,30 +25,6 @@ describe("toTimestamp", () => {
 		>;
 	});
 
-	it("toTimestamp converts TheTime to number", () => {
-		const result = DDate.toTimestamp(DDate.createTime(60000));
-
-		expect(result).toBe(60000);
-
-		type check = ExpectType<
-			typeof result,
-			number,
-			"strict"
-		>;
-	});
-
-	it("toTimestamp converts negative TheTime to number", () => {
-		const result = DDate.toTimestamp(DDate.createTime(-120000));
-
-		expect(result).toBe(-120000);
-
-		type check = ExpectType<
-			typeof result,
-			number,
-			"strict"
-		>;
-	});
-
 	it("clamps above maxTimestamp", () => {
 		const result = DDate.toTimestamp("date8640000000000001+");
 
@@ -86,5 +62,13 @@ describe("toTimestamp", () => {
 			number,
 			"strict"
 		>;
+	});
+
+	it("handles legacy TheTime input", () => {
+		const result = DDate.toTimestamp(
+			"time1000+" as unknown as DDate.TheDate,
+		);
+
+		expect(result).toBe(1000);
 	});
 });

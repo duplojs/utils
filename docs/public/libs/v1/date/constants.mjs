@@ -1,5 +1,7 @@
 const minTimestamp = -864e13;
-const maxTimestamp = 8640000000000000;
+const maxTimestamp = 8_640_000_000_000_000;
+const minTimeValue = -9007199254740991;
+const maxTimeValue = 9_007_199_254_740_991;
 const millisecondInOneWeek = 604800000;
 const millisecondsInOneDay = 86400000;
 const millisecondInOneHour = 3600000;
@@ -15,4 +17,4 @@ const isoDateRegex = /^(?<year>-?[0-9]{4})-(?<month>[0-9]{2})-(?<date>[0-9]{2})(
 const theTimeRegex = /^time-?(?<value>\d{1,16})(?<sign>[+-])$/;
 const isoTimeRegex = /^(?<sign>[+-])?(?<hour>[0-9]{2}):(?<minute>[0-9]{2})(?::(?<second>[0-9]{2})(?:\.(?<millisecond>[0-9]{3}))?Z?)?$/;
 
-export { daysInOneWeek, hoursInOneDay, isoDateRegex, isoTimeRegex, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimestamp, minutesInOneHour, monthsInOneYear, secondsInOneMinute, theDateRegex, theTimeRegex };
+export { daysInOneWeek, hoursInOneDay, isoDateRegex, isoTimeRegex, maxTimeValue, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimeValue, minTimestamp, minutesInOneHour, monthsInOneYear, secondsInOneMinute, theDateRegex, theTimeRegex };

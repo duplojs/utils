@@ -1,12 +1,12 @@
 import { pipe, type ExpectType, DDate } from "@scripts";
 
 describe("betweenTime", () => {
-	const lowerTime = DDate.createTime(30000);
-	const upperTime = DDate.createTime(90000);
+	const lowerTime = DDate.createTime(30, "second");
+	const upperTime = DDate.createTime(90, "second");
 
 	it("returns true when input is within inclusive range", () => {
 		const result = DDate.betweenTime(
-			DDate.createTime(60000),
+			DDate.createTime(60, "second"),
 			lowerTime,
 			upperTime,
 		);
@@ -27,7 +27,7 @@ describe("betweenTime", () => {
 
 	it("returns false when input is outside range", () => {
 		const result = DDate.betweenTime(
-			DDate.createTime(120000),
+			DDate.createTime(120, "second"),
 			lowerTime,
 			upperTime,
 		);
@@ -37,7 +37,7 @@ describe("betweenTime", () => {
 
 	it("use in pipe", () => {
 		const result = pipe(
-			DDate.createTime(60000),
+			DDate.createTime(60, "second"),
 			DDate.betweenTime(lowerTime, upperTime),
 		);
 

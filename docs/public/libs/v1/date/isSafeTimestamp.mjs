@@ -1,10 +1,10 @@
 import { minTimestamp, maxTimestamp } from './constants.mjs';
 
-function isSafeTimestamp(input) {
-    if (!Number.isSafeInteger(input)) {
+function isSafeTimestamp(timestamp) {
+    if (!Number.isSafeInteger(timestamp)) {
         return false;
     }
-    if (input <= minTimestamp || input >= maxTimestamp) {
+    if (timestamp <= minTimestamp || timestamp >= maxTimestamp) {
         return false;
     }
     return true;

@@ -1,8 +1,8 @@
 import { createTheTime } from './createTheTime.mjs';
-import { toTimestamp } from './toTimestamp.mjs';
+import { toTimeValue } from './toTimeValue.mjs';
 
 function minTime(input) {
-    return createTheTime(Math.min(...input.map(toTimestamp)));
+    return createTheTime(Math.min(...input.map(toTimeValue)));
 }
 
 export { minTime };

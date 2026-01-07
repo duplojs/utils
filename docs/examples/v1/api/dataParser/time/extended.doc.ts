@@ -3,7 +3,7 @@ import { E, unwrap, DPE, DP, DDate } from "@duplojs/utils";
 const schema = DPE
 	.time()
 	.min(
-		DDate.createTime(0),
+		DDate.createTime(0, "millisecond"),
 	);
 
 const result = schema.parse("00:05:00");

@@ -1,6 +1,6 @@
 'use strict';
 
-var toTimestamp = require('../toTimestamp.cjs');
+var toTimeValue = require('../toTimeValue.cjs');
 
 function greaterThanTime(...args) {
     if (args.length === 1) {
@@ -8,8 +8,8 @@ function greaterThanTime(...args) {
         return (input) => greaterThanTime(input, threshold);
     }
     const [input, threshold] = args;
-    const inputTimestamp = toTimestamp.toTimestamp(input);
-    const thresholdTimestamp = toTimestamp.toTimestamp(threshold);
+    const inputTimestamp = toTimeValue.toTimeValue(input);
+    const thresholdTimestamp = toTimeValue.toTimeValue(threshold);
     return inputTimestamp > thresholdTimestamp;
 }
 

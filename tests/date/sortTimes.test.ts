@@ -1,9 +1,9 @@
 import { DDate, pipe } from "@scripts";
 
 describe("DDate sortTimes", () => {
-	const time01 = DDate.createTime(1000);
-	const time05 = DDate.createTime(5000);
-	const time10 = DDate.createTime(10000);
+	const time01 = DDate.createTime(1, "second");
+	const time05 = DDate.createTime(5, "second");
+	const time10 = DDate.createTime(10, "second");
 
 	it("sorts ascending and descending", () => {
 		const asc = DDate.sortTimes([time05, time10, time01], "ASC");

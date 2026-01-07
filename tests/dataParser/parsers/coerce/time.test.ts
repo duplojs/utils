@@ -14,8 +14,8 @@ describe("coerce.time", () => {
 
 	it("rejects unsafe or invalid inputs", () => {
 		const parser = DDataParser.coerce.time({ errorMessage: "time.invalid" });
-		const tooHigh = DDate.maxTimestamp + 1;
-		const invalidTheTime = `time${DDate.maxTimestamp}+` as TheTime;
+		const tooHigh = DDate.maxTimeValue + 1;
+		const invalidTheTime = `time${DDate.maxTimeValue}+` as TheTime;
 		const invalidType = true;
 		const invalidString = "not-a-time";
 

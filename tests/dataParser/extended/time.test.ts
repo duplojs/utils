@@ -31,10 +31,8 @@ describe("extended.time", () => {
 	});
 
 	it("supports time min/max checkers", () => {
-		const minChecker = DDataParser.checkerTimeMin("time60000+");
-		const maxChecker = DDataParser.checkerTimeMax("time60000+");
-		const minParser = extended.time().min(DDate.createTime(60000));
-		const maxParser = extended.time().max(DDate.createTime(60000));
+		const minParser = extended.time().min(DDate.createTime(1, "minute"));
+		const maxParser = extended.time().max(DDate.createTime(1, "minute"));
 
 		expect(minParser.parse("time30000+")).toStrictEqual(
 			DEither.error(expect.any(Object)),

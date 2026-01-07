@@ -1,4 +1,4 @@
-import { toTimestamp } from '../toTimestamp.mjs';
+import { toTimeValue } from '../toTimeValue.mjs';
 
 function greaterThanTime(...args) {
     if (args.length === 1) {
@@ -6,8 +6,8 @@ function greaterThanTime(...args) {
         return (input) => greaterThanTime(input, threshold);
     }
     const [input, threshold] = args;
-    const inputTimestamp = toTimestamp(input);
-    const thresholdTimestamp = toTimestamp(threshold);
+    const inputTimestamp = toTimeValue(input);
+    const thresholdTimestamp = toTimeValue(threshold);
     return inputTimestamp > thresholdTimestamp;
 }
 

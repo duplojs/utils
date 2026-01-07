@@ -1,6 +1,7 @@
 import { createTheDate } from "../createTheDate";
 import { createTheTime } from "../createTheTime";
 import { toTimestamp } from "../toTimestamp";
+import { toTimeValue } from "../toTimeValue";
 import type { TheDate, TheTime } from "../types";
 
 export function subtractTime<
@@ -38,11 +39,11 @@ export function subtractTime(
 	}
 
 	const [input, time] = args;
-	const timeTimestamp = toTimestamp(time);
+	const timeTimestamp = toTimeValue(time);
 
 	if (input.startsWith("date")) {
-		return createTheDate(toTimestamp(input) - timeTimestamp);
+		return createTheDate(toTimestamp(input as TheDate) - timeTimestamp);
 	}
 
-	return createTheTime(toTimestamp(input) - timeTimestamp);
+	return createTheTime(toTimeValue(input as TheTime) - timeTimestamp);
 }

@@ -10,3 +10,4 @@ export * from "./forbiddenString";
 export * from "./number";
 export * from "./digit";
 export * from "./templateLiteralContainLargeType";
+export * from "./replace";

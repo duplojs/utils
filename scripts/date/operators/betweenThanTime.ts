@@ -1,4 +1,4 @@
-import { toTimestamp } from "../toTimestamp";
+import { toTimeValue } from "../toTimeValue";
 import type { TheTime } from "../types";
 
 export function betweenThanTime<
@@ -24,9 +24,9 @@ export function betweenThanTime(...args: [TheTime, TheTime] | [TheTime, TheTime,
 
 	const [input, greater, less] = args;
 
-	const inputTimestamp = toTimestamp(input);
-	const greaterTimestamp = toTimestamp(greater);
-	const lessTimestamp = toTimestamp(less);
+	const inputTimestamp = toTimeValue(input);
+	const greaterTimestamp = toTimeValue(greater);
+	const lessTimestamp = toTimeValue(less);
 
 	return inputTimestamp > greaterTimestamp && inputTimestamp < lessTimestamp;
 }

@@ -23,9 +23,11 @@ Exposes the low-level constants used by the date helpers (common durations, time
 ## Content
 
 - `minTimestamp` / `maxTimestamp`
+- `minTimeValue` / `maxTimeValue`
 - `millisecondsInOneDay`, `millisecondInOneWeek`, `millisecondInOneHour`, etc.
 - `secondsInOneMinute`, `minutesInOneHour`, `hoursInOneDay`, `daysInOneWeek`, `monthsInOneYear`.
 - `theDateRegex`: regular expression that validates `TheDate` strings.
+- `theTimeRegex`: regular expression that validates `TheTime` strings.
 
 ## Usage
 

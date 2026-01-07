@@ -4,13 +4,13 @@ prev:
   text: "toNative"
   link: "/en/v1/api/date/toNative"
 next:
-  text: "getTimezoneOffset"
-  link: "/en/v1/api/date/getTimezoneOffset"
+  text: "toTimeValue"
+  link: "/en/v1/api/date/toTimeValue"
 ---
 
 # toTimestamp
 
-The **`toTimestamp()`** function returns the millisecond timestamp of a `TheDate` or a `TheTime`.
+The **`toTimestamp()`** function returns the millisecond timestamp of a `TheDate`.
 
 ## Interactive example
 
@@ -24,7 +24,7 @@ The **`toTimestamp()`** function returns the millisecond timestamp of a `TheDate
 
 ```typescript
 function toTimestamp<
-	GenericInput extends TheDate | TheTime
+	GenericInput extends TheDate
 >(
 	input: GenericInput
 ): number
@@ -32,7 +32,7 @@ function toTimestamp<
 
 ## Parameters
 
-- `input`: The date or duration to convert.
+- `input`: The `TheDate` to convert.
 
 ## Return value
 

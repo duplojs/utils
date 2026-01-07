@@ -1,4 +1,4 @@
-import { toTimestamp } from "../toTimestamp";
+import { toTimeValue } from "../toTimeValue";
 import type { TheTime } from "../types";
 
 export function lessThanTime<
@@ -17,8 +17,8 @@ export function lessThanTime(...args: [TheTime] | [TheTime, TheTime]) {
 
 	const [input, threshold] = args;
 
-	const inputTimestamp = toTimestamp(input);
-	const thresholdTimestamp = toTimestamp(threshold);
+	const inputTimestamp = toTimeValue(input);
+	const thresholdTimestamp = toTimeValue(threshold);
 
 	return inputTimestamp < thresholdTimestamp;
 }

@@ -2,7 +2,7 @@ import { DClean, DDate, unwrap } from "@scripts";
 
 describe("clean primitive dateSubtractTime", () => {
 	const baseDate = DClean.Date.createOrThrow(DDate.create("2024-01-02"));
-	const oneDay = DClean.Time.createOrThrow(DDate.createTime(86400000));
+	const oneDay = DClean.Time.createOrThrow(DDate.createTime(1, "hour"));
 
 	it("subtracts time directly", () => {
 		const result = DClean.dateSubtractTime(baseDate, oneDay);
@@ -10,7 +10,7 @@ describe("clean primitive dateSubtractTime", () => {
 		expect(unwrap(result)).toBe(
 			DDate.subtractTime(
 				DDate.create("2024-01-02"),
-				DDate.createTime(86400000),
+				DDate.createTime(1, "hour"),
 			),
 		);
 	});
@@ -21,7 +21,7 @@ describe("clean primitive dateSubtractTime", () => {
 		expect(unwrap(result)).toBe(
 			DDate.subtractTime(
 				DDate.create("2024-01-02"),
-				DDate.createTime(86400000),
+				DDate.createTime(1, "hour"),
 			),
 		);
 	});

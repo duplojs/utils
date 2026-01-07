@@ -2,11 +2,11 @@
 
 var constants = require('./constants.cjs');
 
-function isSafeTimestamp(input) {
-    if (!Number.isSafeInteger(input)) {
+function isSafeTimestamp(timestamp) {
+    if (!Number.isSafeInteger(timestamp)) {
         return false;
     }
-    if (input <= constants.minTimestamp || input >= constants.maxTimestamp) {
+    if (timestamp <= constants.minTimestamp || timestamp >= constants.maxTimestamp) {
         return false;
     }
     return true;

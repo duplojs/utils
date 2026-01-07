@@ -1,5 +1,5 @@
 import { createTheTime } from './createTheTime.mjs';
-import { toTimestamp } from './toTimestamp.mjs';
+import { toTimeValue } from './toTimeValue.mjs';
 
 function sortTimes(...args) {
     if (args.length === 1) {
@@ -8,7 +8,7 @@ function sortTimes(...args) {
     }
     const [array, type] = args;
     return array
-        .map(toTimestamp)
+        .map(toTimeValue)
         .sort(type === "DSC"
         ? (first, second) => second - first
         : (first, second) => first - second)

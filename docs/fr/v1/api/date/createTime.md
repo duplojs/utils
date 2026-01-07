@@ -4,8 +4,8 @@ prev:
   text: "createOrThrow"
   link: "/fr/v1/api/date/createOrThrow"
 next:
-  text: "now"
-  link: "/fr/v1/api/date/now"
+  text: "createTimeOrThrow"
+  link: "/fr/v1/api/date/createTimeOrThrow"
 ---
 
 # createTime
@@ -24,27 +24,35 @@ La fonction **`createTime()`** construit un `TheTime` à partir d'une valeur en 
 
 ```typescript
 function createTime(
-	input: number,
-	unit?: Units
+	input: number & TimeConstraint,
+	unit: Units
 ): TheTime
 
 function createTime<
-	GenericInput extends SpoolingTime
+	GenericInput extends number | TheTime | SpoolingTime
 >(
 	input: GenericInput
-): TheTime
+): MayBeTime
 ```
+
+`TimeConstraint` garantit que l'appel strict `(number, unit)` n'accepte que des valeurs littérales et que celles-ci restent dans les bornes supportées par chaque unité.
+
+:::info
+Utilisez cette surcharge stricte pour des constantes connues à l'avance (tests, valeurs par défaut). Pour des valeurs dynamiques, préférez la signature qui renvoie un `MayBeTime`.
+:::
 
 ## Paramètres
 
-- `input`: Une valeur en millisecondes ou un objet `SpoolingTime` (week, day, hour, minute, second, millisecond, value).
-- `unit`: Unité optionnelle pour l'entrée numérique. Par défaut `"millisecond"`.
+- `input`: Une valeur en millisecondes, un `TheTime` ou un objet `SpoolingTime` (week, day, hour, minute, second, millisecond, value).
+- `unit`: Unité requise pour l'entrée numérique avec la surcharge stricte (`"millisecond"`, `"second"`, `"minute"`, `"hour"`, `"day"`, `"week"`).
 
 ## Valeur de retour
 
-Une chaîne `TheTime` représentant la durée calculée.
+- `TheTime` quand la fonction est appelée avec `(number, unit)` ou avec un `TheTime` (retourné tel quel).
+- `MayBeTime` (Either) quand la fonction est appelée avec un nombre ou un `SpoolingTime`.
 
 ## Voir aussi
 
 - [`create`](/fr/v1/api/date/create) – Construit un `TheDate`.
+- [`createTimeOrThrow`](/fr/v1/api/date/createTimeOrThrow) – Lance une exception au lieu de renvoyer un `MayBeTime`.
 - [`toTimestamp`](/fr/v1/api/date/toTimestamp) – Extrait le timestamp d'un `TheDate`.

@@ -1,8 +1,8 @@
 import { createTheTime } from './createTheTime.mjs';
-import { toTimestamp } from './toTimestamp.mjs';
+import { toTimeValue } from './toTimeValue.mjs';
 
 function maxTime(input) {
-    return createTheTime(Math.max(...input.map(toTimestamp)));
+    return createTheTime(Math.max(...input.map(toTimeValue)));
 }
 
 export { maxTime };

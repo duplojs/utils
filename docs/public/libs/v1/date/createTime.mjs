@@ -1,5 +1,9 @@
 import { isoTimeRegex, millisecondsInOneSecond, millisecondInOneMinute, millisecondInOneHour, millisecondsInOneDay, millisecondInOneWeek } from './constants.mjs';
 import { createTheTime } from './createTheTime.mjs';
+import { isSafeTimeValue } from './isSafeTimeValue.mjs';
+import { isTime } from './isTime.mjs';
+import { left } from '../either/left/create.mjs';
+import { right } from '../either/right/create.mjs';
 
 const unitsMapper = {
     week: millisecondInOneWeek,
@@ -10,29 +14,46 @@ const unitsMapper = {
     millisecond: 1,
 };
 function createTime(input, unit) {
+    if (typeof input === "number" && unit) {
+        return createTheTime(input * unitsMapper[unit]);
+    }
     if (typeof input === "number") {
-        return createTheTime(input * unitsMapper[unit ?? "millisecond"]);
+        return createFromTimeValue(input * unitsMapper[unit ?? "millisecond"]);
     }
-    const { value = "", week = 0, day = 0, hour = 0, minute = 0, second = 0, millisecond = 0, } = input;
+    if (typeof input === "string" && isTime(input)) {
+        return input;
+    }
+    const { value = 0, week = 0, day = 0, hour = 0, minute = 0, second = 0, millisecond = 0, } = input;
     let fromValue = 0;
-    const theTimeMatch = value.match(isoTimeRegex);
-    if (theTimeMatch) {
-        const { sign = "+", hour, minute, second = 0, millisecond = 0, } = theTimeMatch.groups;
-        fromValue = (Number(hour) * millisecondInOneHour)
-            + (Number(minute) * millisecondInOneMinute)
-            + (Number(second) * millisecondsInOneSecond)
-            + Number(millisecond);
-        fromValue = sign === "-"
-            ? -fromValue
-            : fromValue;
+    if (typeof value === "number") {
+        fromValue = value;
     }
-    return createTheTime(fromValue
+    else {
+        const theTimeMatch = value.match(isoTimeRegex);
+        if (theTimeMatch) {
+            const { sign = "+", hour, minute, second = 0, millisecond = 0, } = theTimeMatch.groups;
+            fromValue = (Number(hour) * millisecondInOneHour)
+                + (Number(minute) * millisecondInOneMinute)
+                + (Number(second) * millisecondsInOneSecond)
+                + Number(millisecond);
+            fromValue = sign === "-"
+                ? -fromValue
+                : fromValue;
+        }
+    }
+    return createFromTimeValue(fromValue
         + (week * millisecondInOneWeek)
         + (day * millisecondsInOneDay)
         + (hour * millisecondInOneHour)
         + (minute * millisecondInOneMinute)
         + (second * millisecondsInOneSecond)
         + millisecond);
+}
+function createFromTimeValue(input) {
+    if (!isSafeTimeValue(input)) {
+        return left("time-created-error", null);
+    }
+    return right("time-created", createTheTime(input));
 }
 
 export { createTime };

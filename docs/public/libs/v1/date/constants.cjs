@@ -1,7 +1,9 @@
 'use strict';
 
 const minTimestamp = -864e13;
-const maxTimestamp = 8640000000000000;
+const maxTimestamp = 8_640_000_000_000_000;
+const minTimeValue = -9007199254740991;
+const maxTimeValue = 9_007_199_254_740_991;
 const millisecondInOneWeek = 604800000;
 const millisecondsInOneDay = 86400000;
 const millisecondInOneHour = 3600000;
@@ -21,12 +23,14 @@ exports.daysInOneWeek = daysInOneWeek;
 exports.hoursInOneDay = hoursInOneDay;
 exports.isoDateRegex = isoDateRegex;
 exports.isoTimeRegex = isoTimeRegex;
+exports.maxTimeValue = maxTimeValue;
 exports.maxTimestamp = maxTimestamp;
 exports.millisecondInOneHour = millisecondInOneHour;
 exports.millisecondInOneMinute = millisecondInOneMinute;
 exports.millisecondInOneWeek = millisecondInOneWeek;
 exports.millisecondsInOneDay = millisecondsInOneDay;
 exports.millisecondsInOneSecond = millisecondsInOneSecond;
+exports.minTimeValue = minTimeValue;
 exports.minTimestamp = minTimestamp;
 exports.minutesInOneHour = minutesInOneHour;
 exports.monthsInOneYear = monthsInOneYear;

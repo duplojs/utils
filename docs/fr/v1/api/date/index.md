@@ -33,6 +33,9 @@ Version stricte de `create` qui lance `CreateTheDateError` en cas d'entrée inva
 ### [createTime](/fr/v1/api/date/createTime)
 Construit un `TheTime` à partir de millisecondes ou d'un objet de temps structuré.
 
+### [createTimeOrThrow](/fr/v1/api/date/createTimeOrThrow)
+Version stricte de `createTime` qui lance une exception en cas d'entrée invalide.
+
 ### [now](/fr/v1/api/date/now)
 Retourne le timestamp exact du moment courant sous forme de `TheDate`.
 
@@ -52,6 +55,12 @@ Convertit un `TheDate` en `Date` JavaScript.
 
 ### [toTimestamp](/fr/v1/api/date/toTimestamp)
 Expose le timestamp en millisecondes et valide la cohérence de la valeur.
+
+### [toTimeValue](/fr/v1/api/date/toTimeValue)
+Convertit un `TheTime` en millisecondes en appliquant les bornes de sécurité.
+
+### [isSafeTimeValue](/fr/v1/api/date/isSafeTimeValue)
+Vérifie qu'une valeur de temps est un entier sûr dans les bornes.
 
 ### [getTimezoneOffset](/fr/v1/api/date/getTimezoneOffset)
 Retourne le décalage en millisecondes pour un `TheDate`.
