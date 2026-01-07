@@ -7,10 +7,62 @@ export interface Primitive<GenericValue extends EligiblePrimitive> extends Wrapp
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
 export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive> extends Kind<typeof primitiveHandlerKind.definition> {
     readonly dataParser: DDataParser.Contract<GenericValue>;
+    /**
+     * Creates a primitive value and returns an Either.
+     * 
+     * ```ts
+     * const result = C.String.create("hello");
+     * 
+     * if (E.isRight(result)) {
+     * 	// result: E.EitherRight<"createNewType", C.Primitive<"hello">>
+     * }
+     * ```
+     * 
+     */
     create<GenericData extends GenericValue>(data: GenericData): (DEither.EitherRight<"createNewType", Primitive<GenericData>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a primitive value and throws on error.
+     * 
+     * ```ts
+     * const value = C.Number.createOrThrow(42);
+     * // C.Primitive<42>
+     * ```
+     * 
+     */
     createOrThrow<GenericData extends GenericValue>(data: GenericData): Primitive<GenericData>;
+    /**
+     * Creates a primitive value from an unknown input and returns an Either.
+     * 
+     * ```ts
+     * const unknownValue: unknown = "world";
+     * const maybe = C.String.createWithUnknown(unknownValue);
+     * // E.EitherLeft<"createNewTypeError", DataParserError> | E.EitherRight<"createNewType", C.Primitive<string>>
+     * ```
+     * 
+     */
     createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createNewType", Primitive<GenericValue>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a primitive value from an unknown input and throws on error.
+     * 
+     * ```ts
+     * const strictValue = C.String.createWithUnknownOrThrow("ok");
+     * // C.Primitive<string>
+     * ```
+     * 
+     */
     createWithUnknownOrThrow<GenericData extends unknown>(data: GenericData): Primitive<GenericValue>;
+    /**
+     * Checks if a value is a primitive of this handler (type guard).
+     * 
+     * ```ts
+     * const input = true ? C.Number.createOrThrow(42) : C.String.createOrThrow("value");
+     * 
+     * if (C.Number.is(input)) {
+     * 	// input: C.Primitive<number>
+     * }
+     * ```
+     * 
+     */
     is<GenericInput extends WrappedValue>(input: GenericInput): input is Extract<GenericInput, Primitive<GenericValue>>;
 }
 declare const CreatePrimitiveError_base: new (params: {

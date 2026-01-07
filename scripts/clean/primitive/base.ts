@@ -17,6 +17,10 @@ export interface PrimitiveHandler<
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 > extends Kind<typeof primitiveHandlerKind.definition> {
 	readonly dataParser: DDataParser.Contract<GenericValue>;
+
+	/**
+	 * {@include clean/primitive/create.md}
+	 */
 	create<
 		GenericData extends GenericValue,
 	>(
@@ -32,12 +36,18 @@ export interface PrimitiveHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/primitive/createOrThrow.md}
+	 */
 	createOrThrow<
 		GenericData extends GenericValue,
 	>(
 		data: GenericData
 	): Primitive<GenericData>;
 
+	/**
+	 * {@include clean/primitive/createWithUnknown.md}
+	 */
 	createWithUnknown<
 		GenericData extends unknown,
 	>(
@@ -53,12 +63,18 @@ export interface PrimitiveHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/primitive/createWithUnknownOrThrow.md}
+	 */
 	createWithUnknownOrThrow<
 		GenericData extends unknown,
 	>(
 		data: GenericData
 	): Primitive<GenericValue>;
 
+	/**
+	 * {@include clean/primitive/is.md}
+	 */
 	is<
 		GenericInput extends WrappedValue,
 	>(input: GenericInput): input is Extract<GenericInput, Primitive<GenericValue>>;
