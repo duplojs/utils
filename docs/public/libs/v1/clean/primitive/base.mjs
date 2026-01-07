@@ -56,11 +56,29 @@ function createPrimitive(dataParser) {
         is,
     });
 }
+/**
+ * {@include clean/String/index.md}
+ */
 const String = createPrimitive(string());
+/**
+ * {@include clean/Number/index.md}
+ */
 const Number = createPrimitive(number());
+/**
+ * {@include clean/BigInt/index.md}
+ */
 const BigInt = createPrimitive(bigint());
+/**
+ * {@include clean/Boolean/index.md}
+ */
 const Boolean = createPrimitive(boolean());
+/**
+ * {@include clean/Date/index.md}
+ */
 const Date = createPrimitive(date());
+/**
+ * {@include clean/Time/index.md}
+ */
 const Time = createPrimitive(time());
 
 export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, primitiveHandlerKind };

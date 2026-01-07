@@ -2,6 +2,9 @@ import { unwrap } from "@scripts/common";
 import { type Time } from "../../base";
 import { type TheTime, greaterThanTime } from "@scripts/date";
 
+/**
+ * {@include clean/timeGreaterThan/index.md}
+ */
 export function timeGreaterThan(threshold: Time | TheTime): (primitive: Time) => boolean;
 
 export function timeGreaterThan(primitive: Time, threshold: Time | TheTime): boolean;

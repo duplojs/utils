@@ -23,6 +23,9 @@ class CreateConstrainedTypeError extends kind$1.kindHeritage("create-constrained
         this.dataParserError = dataParserError;
     }
 }
+/**
+ * {@include clean/createConstraint/index.md}
+ */
 function createConstraint(name, primitiveHandler, checker) {
     const checkers = coalescing.coalescing(checker);
     const dataParserWithCheckers = primitiveHandler

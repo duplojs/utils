@@ -1,6 +1,9 @@
 import { unwrap, wrapValue } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/subtract/index.md}
+ */
 export function subtract(subtrahend: Number | number): (value: Number) => Number;
 
 export function subtract(value: Number, subtrahend: Number | number): Number;

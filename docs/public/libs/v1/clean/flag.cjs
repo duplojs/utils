@@ -4,6 +4,9 @@ var kind = require('./kind.cjs');
 
 const flagHandlerKind = kind.createCleanKind("flag-handler");
 const flagKind = kind.createCleanKind("flag");
+/**
+ * {@include clean/createFlag/index.md}
+ */
 function createFlag(name) {
     return flagHandlerKind.setTo({
         name,

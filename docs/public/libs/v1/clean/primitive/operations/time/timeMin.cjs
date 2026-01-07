@@ -5,6 +5,9 @@ var wrapValue = require('../../../../common/wrapValue.cjs');
 var createTheTime = require('../../../../date/createTheTime.cjs');
 var unwrap = require('../../../../common/unwrap.cjs');
 
+/**
+ * {@include clean/timeMin/index.md}
+ */
 function timeMin(input) {
     return wrapValue.wrapValue(createTheTime.createTheTime(Math.min(...input.map(unwrap.unwrap).map(toTimeValue.toTimeValue))));
 }

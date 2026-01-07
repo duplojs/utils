@@ -37,12 +37,80 @@ export interface Entity<GenericName extends string = string> extends Kind<typeof
 }
 declare const entityHandlerKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/entity-handler", unknown>>;
 export interface EntityHandler<GenericName extends string = string, GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition> extends Kind<typeof entityHandlerKind.definition> {
+    /**
+     * The entity name used as a runtime identifier (for example "User").
+     * 
+     */
     readonly name: GenericName;
+    /**
+     * The properties schema returned by the definition callback.
+     * 
+     */
     readonly propertiesDefinition: GenericPropertiesDefinition;
+    /**
+     * The DataParser derived from the properties definition. Useful to reuse validation outside entity creation.
+     * 
+     */
     readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, EntityRawProperties<GenericPropertiesDefinition>>;
+	/**
+	* Builds an entity from already typed properties.
+	* 
+	* ```ts
+	* export function create(params: {
+	* 	id: Id;
+	* 	name: Name;
+	* }) {
+	* 	return Entity.new({
+	* 		...params,
+	* 		nick: null,
+	* 		roles: [defaultRole],
+	* 	});
+	* ```
+	* 
+	*/
     "new"<const GenericProperties extends EntityProperties<GenericPropertiesDefinition>>(properties: GenericProperties): Entity<GenericName> & GenericProperties;
+	/**
+	* Validates raw properties and returns an Either with the typed entity.
+	* 
+	* ```ts
+	* if (User.Entity.is(result)) {
+	* 	// result: C.Entity<"User">
+	* }
+	* 
+	* const mappedResult = User.Entity.map({
+	* 	id: 3,
+	* 	name: "Eve",
+	* 	roles: ["manager"],
+	* 	nick: null,
+	* ```
+	* 
+	*/
     map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.EitherRight<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.EitherLeft<"createEntityError", DDataParser.DataParserError>);
+    /**
+     * Validates raw properties and throws on error.
+     * 
+     * ```ts
+     * const mapped = User.Entity.mapOrThrow({
+     * 	id: 2,
+     * 	name: "Bob",
+     * 	roles: ["client"],
+     * 	nick: "Bobby",
+     * });
+     * ```
+     * 
+     */
     mapOrThrow(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+    /**
+    * Checks if a value is an entity of this handler (type guard).
+    * 
+    * ```ts
+    * const result = true ? mapped : null;
+    * 
+    * if (User.Entity.is(result)) {
+    * 	// result: C.Entity<"User">
+    * ```
+    * 
+    */
     is<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, Entity<GenericName>>;
 }
 declare const CreateEntityError_base: new (params: {
@@ -70,6 +138,79 @@ export interface PropertiesDefinitionParams {
         inArray: NeverCoalescing<GenericAdvancedArrayPropertyDefinition, true>;
     };
 }
+/**
+ * Creates an entity handler from a property definition.
+ * 
+ * **Supported call styles:**
+ * - Classic: `createEntity(name, getPropertiesDefinition)` -> returns a handler
+ * 
+ * Entities model business structures by composing NewTypes. The handler builds entities from typed properties or from raw inputs with validation.
+ * 
+ * ```ts
+ * namespace User {
+ * 	export const Id = C.createNewType("user-id", DP.number(), C.Positive);
+ * 	export type Id = C.GetNewType<typeof Id>;
+ * 	export const Name = C.createNewType("user-name", DP.string());
+ * 	export type Name = C.GetNewType<typeof Name>;
+ * 	export const Role = C.createNewType("UserRole", DP.literal(["admin", "client", "manager"]));
+ * 
+ * 	export const Entity = C.createEntity("User", ({ array, nullable }) => ({
+ * 		id: Id,
+ * 		name: Name,
+ * 		roles: array(Role, { min: 1 }),
+ * 		nick: nullable(Name),
+ * 	}));
+ * 	export type Entity = C.GetEntity<typeof Entity>;
+ * 
+ * 	const defaultRole = Role.createOrThrow("client");
+ * 
+ * 	export function create(params: {
+ * 		id: Id;
+ * 		name: Name;
+ * 	}) {
+ * 		return Entity.new({
+ * 			...params,
+ * 			nick: null,
+ * 			roles: [defaultRole],
+ * 		});
+ * 	}
+ * }
+ * 
+ * const mapped = User.Entity.mapOrThrow({
+ * 	id: 2,
+ * 	name: "Bob",
+ * 	roles: ["client"],
+ * 	nick: "Bobby",
+ * });
+ * 
+ * const result = true ? mapped : null;
+ * 
+ * if (User.Entity.is(result)) {
+ * 	// result: C.Entity<"User">
+ * }
+ * 
+ * const mappedResult = User.Entity.map({
+ * 	id: 3,
+ * 	name: "Eve",
+ * 	roles: ["manager"],
+ * 	nick: null,
+ * });
+ * 
+ * if (E.isRight(mappedResult)) {
+ * 	// mappedResult: E.EitherRight<"createEntity", C.Entity<"User">>
+ * }
+ * 
+ * ```
+ * 
+ * @remarks
+ * - The definition callback can use helpers like `array`, `nullable`, and `union` to enrich properties.
+ * - Use `map`/`mapOrThrow` to build from raw inputs; `new` expects already typed values.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/entity
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createEntity<GenericName extends string, const GenericPropertiesDefinition extends EntityPropertiesDefinition>(name: GenericName, getPropertiesDefinition: (params: PropertiesDefinitionParams) => GenericPropertiesDefinition & DObject.ForbiddenKey<GenericPropertiesDefinition, "_entityName" | "_flags">): EntityHandler<GenericName, GenericPropertiesDefinition>;
 export type GetEntity<GenericEntityHandler extends EntityHandler<string, any>> = Extract<ReturnType<GenericEntityHandler["new"]>, any>;
 export {};

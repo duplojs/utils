@@ -7,6 +7,9 @@ import { entries } from '../object/entries.mjs';
 import { fromEntries } from '../object/fromEntries.mjs';
 
 const useCaseHandlerKind = createCleanKind("use-case-handler");
+/**
+ * {@include clean/createUseCase/index.md}
+ */
 function createUseCase(dependencies, getUseCase) {
     return useCaseHandlerKind.setTo({
         dependencies,
@@ -15,6 +18,9 @@ function createUseCase(dependencies, getUseCase) {
             : repositories[uncapitalize(key)])), fromEntries)),
     });
 }
+/**
+ * {@include clean/useCaseInstances/index.md}
+ */
 function useCaseInstances(useCases, repositories) {
     return pipe(useCases, entries, map(([key, useCase]) => entry(uncapitalize(key), useCase.getUseCase(repositories))), fromEntries);
 }

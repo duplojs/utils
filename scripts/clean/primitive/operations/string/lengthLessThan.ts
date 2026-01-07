@@ -1,6 +1,9 @@
 import { unwrap } from "@scripts/common";
 import { type Number, type String } from "../../base";
 
+/**
+ * {@include clean/lengthLessThan/index.md}
+ */
 export function lengthLessThan(length: Number | number): (primitive: String) => boolean;
 
 export function lengthLessThan(primitive: String, length: Number | number): boolean;

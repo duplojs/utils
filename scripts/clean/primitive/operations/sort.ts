@@ -4,6 +4,9 @@ import * as DDate from "@scripts/date";
 import * as DNumber from "@scripts/number";
 import * as DString from "@scripts/string";
 
+/**
+ * {@include clean/sort/index.md}
+ */
 export function sort<
 	GenericInput extends (
 		| readonly (Date | DDate.TheDate)[]

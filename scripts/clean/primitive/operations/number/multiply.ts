@@ -1,6 +1,9 @@
 import { unwrap, wrapValue } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/multiply/index.md}
+ */
 export function multiply(multiplier: Number | number): (value: Number) => Number;
 
 export function multiply(value: Number, multiplier: Number | number): Number;

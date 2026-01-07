@@ -58,11 +58,29 @@ function createPrimitive(dataParser) {
         is: is$2,
     });
 }
+/**
+ * {@include clean/String/index.md}
+ */
 const String = createPrimitive(index.string());
+/**
+ * {@include clean/Number/index.md}
+ */
 const Number = createPrimitive(index$1.number());
+/**
+ * {@include clean/BigInt/index.md}
+ */
 const BigInt = createPrimitive(index$2.bigint());
+/**
+ * {@include clean/Boolean/index.md}
+ */
 const Boolean = createPrimitive(boolean.boolean());
+/**
+ * {@include clean/Date/index.md}
+ */
 const Date = createPrimitive(date.date());
+/**
+ * {@include clean/Time/index.md}
+ */
 const Time = createPrimitive(index$3.time());
 
 exports.BigInt = BigInt;

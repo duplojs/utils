@@ -2,6 +2,9 @@ import { Number } from "@scripts/clean/primitive";
 import { type GetConstraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 
+/**
+ * {@include clean/Int/index.md}
+ */
 export const Int = createConstraint(
 	"int",
 	Number,
@@ -9,6 +12,9 @@ export const Int = createConstraint(
 );
 export type Int = GetConstraint<typeof Int>;
 
+/**
+ * {@include clean/Positive/index.md}
+ */
 export const Positive = createConstraint(
 	"positive",
 	Number,
@@ -16,6 +22,9 @@ export const Positive = createConstraint(
 );
 export type Positive = GetConstraint<typeof Positive>;
 
+/**
+ * {@include clean/Negative/index.md}
+ */
 export const Negative = createConstraint(
 	"negative",
 	Number,

@@ -122,6 +122,10 @@ export default defineConfig({
 				icon: "npm",
 				link: "https://www.npmjs.com/package/@duplojs/utils",
 			},
+			{
+				icon: "linkedin",
+				link: "https://linkedin.com/company/duplojs",
+			},
 		],
 
 		search: {

@@ -1,6 +1,9 @@
 import { unwrap, wrapValue } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/add/index.md}
+ */
 export function add(operand: Number | number): (value: Number) => Number;
 
 export function add(value: Number, operand: Number | number): Number;
