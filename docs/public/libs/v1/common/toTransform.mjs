@@ -1,3 +1,6 @@
+/**
+ * {@include common/toTransform/index.md}
+ */
 function toTransform(value) {
     if (typeof value === "string"
         || typeof value === "number"

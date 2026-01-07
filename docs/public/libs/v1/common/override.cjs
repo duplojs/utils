@@ -4,6 +4,9 @@ var globalStore = require('./globalStore.cjs');
 
 const SymbolOverrideStore = Symbol.for("@duplojs/utils/override");
 const overrideStore = globalStore.createGlobalStore(SymbolOverrideStore, {});
+/**
+ * {@include common/override/index.md}
+ */
 function createOverride(overrideName) {
     const overridePropertiesStore = overrideStore.value[overrideName] ?? {};
     overrideStore.value[overrideName] ||= overridePropertiesStore;

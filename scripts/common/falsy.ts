@@ -1,5 +1,8 @@
 import { type FalsyValue, type UnionContain } from "./types";
 
+/**
+ * {@include common/falsy/index.md}
+ */
 export function falsy<
 	GenericInput extends unknown,
 >(input: GenericInput):

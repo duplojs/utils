@@ -1,3 +1,6 @@
+/**
+ * {@include common/externalPromise/index.md}
+ */
 export function createExternalPromise<
 	GenericPromiseValue extends unknown,
 >() {

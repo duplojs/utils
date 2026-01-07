@@ -7,6 +7,9 @@ import { type AnyValue } from "./types/anyValue";
 
 type MaybePromiseLike<GenericValue extends unknown> = MaybePromise<GenericValue> | MaybeFutureEither<GenericValue>;
 
+/**
+ * {@include common/asyncInnerPipe/index.md}
+ */
 export function asyncInnerPipe<
 	GenericInput extends AnyValue,
 	GenericOutputPipe1 extends AnyValue | EscapeVoid,

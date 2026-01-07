@@ -1,3 +1,6 @@
+/**
+ * {@include common/memo/index.md}
+ */
 function memo(theFunction) {
     const payload = {
         get value() {

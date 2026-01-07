@@ -1,3 +1,6 @@
+/**
+ * {@include common/index.md}
+ */
 export * from "./types";
 
 export * from "./addWrappedProperties";

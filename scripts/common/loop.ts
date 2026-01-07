@@ -25,6 +25,9 @@ export interface LoopParams<
 	>(output?: GenericOutput): LoopOutputExistResult<GenericOutput>;
 }
 
+/**
+ * {@include common/loop/index.md}
+ */
 export function loop<
 	GenericRawExitOutput extends AnyValue = undefined,
 	GenericRawNextOutput extends AnyValue = undefined,

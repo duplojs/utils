@@ -7,6 +7,9 @@ import { type MaybePromise } from "./types/maybePromise";
 
 type MaybePromiseLike<GenericValue extends unknown> = MaybePromise<GenericValue> | MaybeFutureEither<GenericValue>;
 
+/**
+ * {@include common/asyncPipe/index.md}
+ */
 export function asyncPipe<
 	GenericInput extends MaybePromiseLike<AnyValue>,
 	GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>,
@@ -362,6 +365,9 @@ export function asyncPipe<
 	Awaited<BreakGenericLink<GenericOutputPipe15>>
 >;
 
+/**
+ * {@include common/asyncPipe/index.md}
+ */
 export async function asyncPipe(input: AnyValue, ...pipes: AnyFunction[]) {
 	let acc = await input;
 

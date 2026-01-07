@@ -22,6 +22,9 @@ export interface GlobalStoreHandler<
 	set(value: GenericValue): void;
 }
 
+/**
+ * {@include common/globalStore/index.md}
+ */
 export function createGlobalStore<
 	GenericStoreName extends keyof GlobalStore,
 >(

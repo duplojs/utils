@@ -3,6 +3,41 @@ import { type BreakGenericLink, type EscapeVoid } from "./types";
 import { type AnyValue } from "./types/anyValue";
 import { type MaybePromise } from "./types/maybePromise";
 type MaybePromiseLike<GenericValue extends unknown> = MaybePromise<GenericValue> | MaybeFutureEither<GenericValue>;
+/**
+ * The asyncPipe() method chains asynchronous functions (promises or FutureEither) in series. Each step waits for the previous one to resolve and the last value is returned in a promise.
+ * 
+ * Signature: `asyncPipe(input, pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const input = {
+ * 	host: "api.local",
+ * 	retries: 1,
+ * };
+ * 
+ * const result = await asyncPipe(
+ * 	input,
+ * 	({ host, retries }) => ({
+ * 		url: `https://${host}/health`,
+ * 		retries,
+ * 	}),
+ * 	// fake HTTP request
+ * 	async({ url, retries }) => Promise.resolve({
+ * 		url,
+ * 		status: 200,
+ * 		retries,
+ * 	}),
+ * 	({ status, url, retries }) => `${status} on ${url} (retries: ${retries})`,
+ * );
+ * // result: "200 on https://api.local/health (retries: 1)"
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/asyncPipe
+ * 
+ * @namespace C
+ * 
+ */
 export declare function asyncPipe<GenericInput extends MaybePromiseLike<AnyValue>, GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>>(input: GenericInput, pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1): Promise<Awaited<BreakGenericLink<GenericOutputPipe1>>>;
 export declare function asyncPipe<GenericInput extends MaybePromiseLike<AnyValue>, GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>, GenericOutputPipe2 extends MaybePromiseLike<AnyValue | EscapeVoid>>(input: GenericInput, pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1, pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2): Promise<Awaited<BreakGenericLink<GenericOutputPipe2>>>;
 export declare function asyncPipe<GenericInput extends MaybePromiseLike<AnyValue>, GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>, GenericOutputPipe2 extends MaybePromiseLike<AnyValue | EscapeVoid>, GenericOutputPipe3 extends MaybePromiseLike<AnyValue | EscapeVoid>>(input: GenericInput, pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1, pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2, pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3): Promise<Awaited<BreakGenericLink<GenericOutputPipe3>>>;

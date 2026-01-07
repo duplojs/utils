@@ -19,6 +19,9 @@ const unitMapper = {
     w: 604_800_000,
 };
 const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>ms|s|m|h|d|w)/;
+/**
+ * {@include common/stringToMillisecond/index.md}
+ */
 function stringToMillisecond(millisecondInString, ...millisecondInStrings) {
     if (typeof millisecondInString === "number") {
         return millisecondInString;

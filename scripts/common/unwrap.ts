@@ -5,6 +5,9 @@ export type Unwrap<
 	? inferredValue
 	: GenericAnyValue;
 
+/**
+ * {@include common/unwrap/index.md}
+ */
 export function unwrap<
 	const GenericValue extends unknown,
 >(

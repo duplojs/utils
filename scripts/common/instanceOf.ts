@@ -1,6 +1,9 @@
 import * as DArray from "@scripts/array";
 import { type AnyConstructor } from "./types";
 
+/**
+ * {@include common/instanceOf/index.md}
+ */
 export function instanceOf<
 	GenericInput extends unknown,
 	GenericConstructor extends AnyConstructor,

@@ -26,6 +26,9 @@ export type ToTransform<
 					}
 					: GenericValue;
 
+/**
+ * {@include common/toTransform/index.md}
+ */
 export function toTransform<
 	GenericValue extends unknown,
 >(

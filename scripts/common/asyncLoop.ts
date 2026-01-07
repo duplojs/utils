@@ -13,6 +13,9 @@ interface LoopOutputNextResult<
 	"-nextData": GenericOutput;
 }
 
+/**
+ * {@include common/asyncLoop/index.md}
+ */
 export async function asyncLoop<
 	GenericRawExitOutput extends AnyValue = undefined,
 	GenericRawNextOutput extends AnyValue = undefined,

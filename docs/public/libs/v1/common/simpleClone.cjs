@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * {@include common/simpleClone/index.md}
+ */
 function simpleClone(unknownValue) {
     if (!unknownValue) {
         return unknownValue;

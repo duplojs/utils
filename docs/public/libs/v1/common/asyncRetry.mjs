@@ -1,5 +1,8 @@
 import { sleep } from './sleep.mjs';
 
+/**
+ * {@include common/asyncRetry/index.md}
+ */
 async function useAsyncRetry(retryFunction, shouldRetry, options) {
     for (let currentTry = 1; true; currentTry++) {
         const result = await retryFunction();
@@ -15,6 +18,9 @@ async function useAsyncRetry(retryFunction, shouldRetry, options) {
         }
     }
 }
+/**
+ * {@include common/asyncRetry/index.md}
+ */
 function createAsyncRetry(retryFunction, checkFunction, options) {
     return ((...args) => useAsyncRetry(() => retryFunction(...args), checkFunction, options));
 }

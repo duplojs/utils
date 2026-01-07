@@ -1,5 +1,34 @@
 import { type BreakGenericLink, type EscapeVoid } from "./types";
 import { type AnyValue } from "./types/anyValue";
+/**
+ * The pipe() method chains up to 15 synchronous functions, passing the output of one as the input of the next. It returns the last computed value and stays fully typed at each step.
+ * 
+ * Signature: `pipe(input, pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const input = {
+ * 	price: 10,
+ * 	quantity: 3,
+ * };
+ * const tvaRate = 1.2;
+ * const digit = 2;
+ * 
+ * const result = pipe(
+ * 	input,
+ * 	({ price, quantity }) => price * quantity,
+ * 	(value) => value * tvaRate,
+ * 	(value) => `${value.toFixed(digit)}€`,
+ * );
+ * // result: "36€"
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/pipe
+ * 
+ * @namespace C
+ * 
+ */
 export declare function pipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid>(input: GenericInput, pipe1: (input: GenericInput) => GenericOutputPipe1): BreakGenericLink<GenericOutputPipe1>;
 export declare function pipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid>(input: GenericInput, pipe1: (input: GenericInput) => GenericOutputPipe1, pipe2: (input: GenericOutputPipe1) => GenericOutputPipe2): BreakGenericLink<GenericOutputPipe2>;
 export declare function pipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid, GenericOutputPipe3 extends AnyValue | EscapeVoid>(input: GenericInput, pipe1: (input: GenericInput) => GenericOutputPipe1, pipe2: (input: GenericOutputPipe1) => GenericOutputPipe2, pipe3: (input: GenericOutputPipe2) => GenericOutputPipe3): BreakGenericLink<GenericOutputPipe3>;

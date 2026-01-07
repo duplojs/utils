@@ -30,6 +30,9 @@ export type MillisecondInString =
 	| `${number}${keyof typeof unitMapper}`
 	| `${number}.${number}${keyof typeof unitMapper}`;
 
+/**
+ * {@include common/stringToMillisecond/index.md}
+ */
 export function stringToMillisecond(
 	millisecondInString: MillisecondInString | number,
 	...millisecondInStrings: (MillisecondInString | number)[]

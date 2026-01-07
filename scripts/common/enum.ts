@@ -11,6 +11,9 @@ export type Enum<
 	}
 >;
 
+/**
+ * {@include common/createEnum/index.md}
+ */
 export function createEnum<
 	GenericValue extends string,
 	GenericValues extends [GenericValue, ...GenericValue[]],
