@@ -1,6 +1,7 @@
 'use strict';
 
 var constants = require('../constants.cjs');
+var createTheDate = require('../createTheDate.cjs');
 var toNative = require('../toNative.cjs');
 
 function subtractWeeks(...args) {
@@ -11,9 +12,7 @@ function subtractWeeks(...args) {
     const [input, week] = args;
     const date = toNative.toNative(input);
     date.setTime(date.getTime() - (week * constants.millisecondInOneWeek));
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate.createTheDate(date.getTime());
 }
 
 exports.subtractWeeks = subtractWeeks;

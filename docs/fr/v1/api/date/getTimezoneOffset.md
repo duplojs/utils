@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "toTimestamp"
-  link: "/fr/v1/api/date/toTimestamp"
+  text: "isSafeTimeValue"
+  link: "/fr/v1/api/date/isSafeTimeValue"
 next:
   text: "applyTimezone"
   link: "/fr/v1/api/date/applyTimezone"

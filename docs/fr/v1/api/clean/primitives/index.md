@@ -147,11 +147,29 @@ Teste si une `Date` est postérieure à un seuil.
 ### [dateLessThan](/fr/v1/api/clean/primitives/operators/dateLessThan)
 Teste si une `Date` est antérieure à un seuil.
 
+### [dateAddTime](/fr/v1/api/clean/primitives/operators/dateAddTime)
+Ajoute une durée à une `Date`.
+
+### [dateSubtractTime](/fr/v1/api/clean/primitives/operators/dateSubtractTime)
+Soustrait une durée à une `Date`.
+
 ### [dateMin](/fr/v1/api/clean/primitives/operators/dateMin)
 Retourne la plus petite date d'une liste.
 
 ### [dateMax](/fr/v1/api/clean/primitives/operators/dateMax)
 Retourne la plus grande date d'une liste.
 
+### [timeGreaterThan](/fr/v1/api/clean/primitives/operators/timeGreaterThan)
+Teste si un `Time` est strictement supérieur à un seuil.
+
+### [timeLessThan](/fr/v1/api/clean/primitives/operators/timeLessThan)
+Teste si un `Time` est strictement inférieur à un seuil.
+
+### [timeMin](/fr/v1/api/clean/primitives/operators/timeMin)
+Retourne la plus petite durée d'une liste.
+
+### [timeMax](/fr/v1/api/clean/primitives/operators/timeMax)
+Retourne la plus grande durée d'une liste.
+
 ### [sort](/fr/v1/api/clean/primitives/operators/sort)
-Trie un tableau de primitives (`String`, `Number` ou `Date`) en `"ASC"` / `"DSC"`.
+Trie un tableau de primitives (`String`, `Number`, `Date` ou `Time`) en `"ASC"` / `"DSC"`.

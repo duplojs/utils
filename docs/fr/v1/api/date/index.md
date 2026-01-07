@@ -30,6 +30,12 @@ Construit un `TheDate` depuis un `Date`, un timestamp ou un autre `TheDate` et r
 ### [createOrThrow](/fr/v1/api/date/createOrThrow)
 Version stricte de `create` qui lance `CreateTheDateError` en cas d'entrée invalide.
 
+### [createTime](/fr/v1/api/date/createTime)
+Construit un `TheTime` à partir de millisecondes ou d'un objet de temps structuré.
+
+### [createTimeOrThrow](/fr/v1/api/date/createTimeOrThrow)
+Version stricte de `createTime` qui lance une exception en cas d'entrée invalide.
+
 ### [now](/fr/v1/api/date/now)
 Retourne le timestamp exact du moment courant sous forme de `TheDate`.
 
@@ -50,6 +56,12 @@ Convertit un `TheDate` en `Date` JavaScript.
 ### [toTimestamp](/fr/v1/api/date/toTimestamp)
 Expose le timestamp en millisecondes et valide la cohérence de la valeur.
 
+### [toTimeValue](/fr/v1/api/date/toTimeValue)
+Convertit un `TheTime` en millisecondes en appliquant les bornes de sécurité.
+
+### [isSafeTimeValue](/fr/v1/api/date/isSafeTimeValue)
+Vérifie qu'une valeur de temps est un entier sûr dans les bornes.
+
 ### [getTimezoneOffset](/fr/v1/api/date/getTimezoneOffset)
 Retourne le décalage en millisecondes pour un `TheDate`.
 
@@ -67,6 +79,9 @@ Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.
 
 ### [is](/fr/v1/api/date/is)
 Vérifie qu'une chaîne correspond au format `TheDate` (type guard).
+
+### [isTime](/fr/v1/api/date/isTime)
+Vérifie qu'une chaîne correspond au format `TheTime` (type guard).
 
 ## Lecture des composants
 
@@ -140,6 +155,9 @@ Ajoute des secondes.
 ### [addMilliseconds](/fr/v1/api/date/addMilliseconds)  
 Ajoute des millisecondes en restant type-safe.
 
+### [addTime](/fr/v1/api/date/addTime)  
+Ajoute une durée `TheTime` à un `TheDate` ou un `TheTime`.
+
 ### Soustractions
 
 ### [subtractYears](/fr/v1/api/date/subtractYears)  
@@ -166,6 +184,9 @@ Soustrait des secondes.
 ### [subtractMilliseconds](/fr/v1/api/date/subtractMilliseconds)  
 Soustrait des millisecondes.
 
+### [subtractTime](/fr/v1/api/date/subtractTime)  
+Soustrait une durée `TheTime` à un `TheDate` ou un `TheTime`.
+
 ### Comparaison
 
 ### [greater](/fr/v1/api/date/greater)  
@@ -186,11 +207,40 @@ Contrôle l'appartenance à un intervalle ouvert.
 ### [betweenThan](/fr/v1/api/date/betweenThan)  
 Variante incluant les bornes.
 
+### Comparaison (`TheTime`)
+
+### [greaterTime](/fr/v1/api/date/greaterTime)  
+Vérifie si une durée est strictement supérieure à une autre.
+
+### [greaterThanTime](/fr/v1/api/date/greaterThanTime)  
+Compare en incluant l'égalité pour `TheTime`.
+
+### [lessTime](/fr/v1/api/date/lessTime)  
+Vérifie si une durée est strictement inférieure.
+
+### [lessThanTime](/fr/v1/api/date/lessThanTime)  
+Compare en incluant l'égalité pour l'infériorité.
+
+### [betweenTime](/fr/v1/api/date/betweenTime)  
+Contrôle l'appartenance d'un `TheTime` à un intervalle ouvert.
+
+### [betweenThanTime](/fr/v1/api/date/betweenThanTime)  
+Variante inclusive pour `TheTime`.
+
 ### [sort](/fr/v1/api/date/sort)  
 Trie un tableau de dates en ordre croissant ou décroissant.
 
+### [sortTimes](/fr/v1/api/date/sortTimes)  
+Trie un tableau de durées en ordre croissant ou décroissant.
+
 ### [max](/fr/v1/api/date/max)  
 Retourne la date la plus récente d'un tuple.
+
+### [maxTime](/fr/v1/api/date/maxTime)  
+Retourne la durée la plus grande d'un tuple.
+
+### [minTime](/fr/v1/api/date/minTime)  
+Retourne la durée la plus petite d'un tuple.
 
 ### [min](/fr/v1/api/date/min)  
 Retourne la date la plus ancienne d'un tuple.

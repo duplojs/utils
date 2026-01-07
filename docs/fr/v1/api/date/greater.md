@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "subtractMilliseconds"
-  link: "/fr/v1/api/date/subtractMilliseconds"
+  text: "subtractTime"
+  link: "/fr/v1/api/date/subtractTime"
 next:
   text: "greaterThan"
   link: "/fr/v1/api/date/greaterThan"

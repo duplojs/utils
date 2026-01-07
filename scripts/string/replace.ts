@@ -1,5 +1,3 @@
-import { escapeRegExp } from "@scripts/common";
-
 export interface StringReplacerParams {
 	matchedValue: string;
 	groups: string[];

@@ -10,7 +10,7 @@ next:
 
 # dateMin
 
-`dateMin()` retourne la plus petite date d'une liste (wrappée ou `DDate.TheDate`). Peut s'utiliser en version variadique ou en version partiellement appliquée.
+`dateMin()` retourne la plus petite date d'une liste (wrappée ou `DDate.TheDate`).
 
 ## Exemple interactif
 
@@ -22,24 +22,15 @@ next:
 
 ## Syntaxe
 
-### Signature classique (variadique)
+### Signature classique
 
 ```typescript
-function dateMin(...input: AnyTuple<Date | TheDate>): Date
-```
-
-### Signature partielle
-
-```typescript
-function dateMin(
-	first: Date | TheDate
-): (...rest: (Date | TheDate)[]) => Date
+function dateMin(input: AnyTuple<Date | TheDate>): Date
 ```
 
 ## Paramètres
 
 - `input` : dates à comparer (au moins une).
-- `first` / `rest` : version partielle (`dateMin(first)(...rest)`).
 
 ## Valeur de retour
 

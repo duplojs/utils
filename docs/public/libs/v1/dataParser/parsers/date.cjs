@@ -4,7 +4,8 @@ var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
 var isSafeTimestamp = require('../../date/isSafeTimestamp.cjs');
-var constants = require('../../date/constants.cjs');
+var createTheDate = require('../../date/createTheDate.cjs');
+var is = require('../../date/is.cjs');
 var override = require('../../common/override.cjs');
 
 const dateKind = kind.createDataParserKind("date");
@@ -20,30 +21,23 @@ function date(definition) {
                 if (!isSafeTimestamp.isSafeTimestamp(timestamp)) {
                     return error.SymbolDataParserErrorIssue;
                 }
-                const isNegative = timestamp < 0;
-                return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+                return createTheDate.createTheDate(timestamp);
             }
             if (typeof data === "number") {
                 if (!isSafeTimestamp.isSafeTimestamp(data)) {
                     return error.SymbolDataParserErrorIssue;
                 }
-                const isNegative = data < 0;
-                return `date${Math.abs(data)}${isNegative ? "-" : "+"}`;
+                return createTheDate.createTheDate(data);
             }
             if (typeof data === "string") {
                 const date = new Date(data);
                 const timestamp = date.getTime();
                 if (isSafeTimestamp.isSafeTimestamp(timestamp)) {
-                    const isNegative = timestamp < 0;
-                    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+                    return createTheDate.createTheDate(timestamp);
                 }
             }
         }
-        const theDateMatch = typeof data === "string" && data.match(constants.theDateRegex);
-        if (theDateMatch) {
-            if (!isSafeTimestamp.isSafeTimestamp(Number(theDateMatch.groups?.value))) {
-                return error.SymbolDataParserErrorIssue;
-            }
+        if (typeof data === "string" && is.is(data)) {
             return data;
         }
         return error.SymbolDataParserErrorIssue;

@@ -1,11 +1,11 @@
 import { maxTimestamp, minTimestamp } from "./constants";
 
-export function isSafeTimestamp(input: number) {
-	if (!Number.isSafeInteger(input)) {
+export function isSafeTimestamp(timestamp: number) {
+	if (!Number.isSafeInteger(timestamp)) {
 		return false;
 	}
 
-	if (input <= minTimestamp || input >= maxTimestamp) {
+	if (timestamp <= minTimestamp || timestamp >= maxTimestamp) {
 		return false;
 	}
 

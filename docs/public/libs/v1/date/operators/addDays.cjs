@@ -2,6 +2,7 @@
 
 var toNative = require('../toNative.cjs');
 var constants = require('../constants.cjs');
+var createTheDate = require('../createTheDate.cjs');
 
 function addDays(...args) {
     if (args.length === 1) {
@@ -11,9 +12,7 @@ function addDays(...args) {
     const [input, day] = args;
     const date = toNative.toNative(input);
     date.setTime(date.getTime() + (day * constants.millisecondsInOneDay));
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate.createTheDate(date.getTime());
 }
 
 exports.addDays = addDays;

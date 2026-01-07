@@ -4,8 +4,8 @@ prev:
   text: "create"
   link: "/fr/v1/api/date/create"
 next:
-  text: "now"
-  link: "/fr/v1/api/date/now"
+  text: "createTime"
+  link: "/fr/v1/api/date/createTime"
 ---
 
 # createOrThrow

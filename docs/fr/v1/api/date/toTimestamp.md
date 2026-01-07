@@ -4,13 +4,13 @@ prev:
   text: "toNative"
   link: "/fr/v1/api/date/toNative"
 next:
-  text: "getTimezoneOffset"
-  link: "/fr/v1/api/date/getTimezoneOffset"
+  text: "toTimeValue"
+  link: "/fr/v1/api/date/toTimeValue"
 ---
 
 # toTimestamp
 
-La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate`. Elle lève `InvalidTheDateError` si la valeur est incohérente.
+La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate`.
 
 ## Exemple interactif
 
@@ -32,7 +32,7 @@ function toTimestamp<
 
 ## Paramètres
 
-- `input` : La date à convertir.
+- `input` : Le `TheDate` à convertir.
 
 ## Valeur de retour
 

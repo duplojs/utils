@@ -22,6 +22,9 @@ export { checkerNumberMin, checkerNumberMinKind } from './parsers/number/checker
 export { checkerNumberMax, checkerNumberMaxKind } from './parsers/number/checkers/max.mjs';
 export { number, numberKind } from './parsers/number/index.mjs';
 export { date, dateKind } from './parsers/date.mjs';
+export { checkerTimeMin, checkerTimeMinKind } from './parsers/time/checkers/min.mjs';
+export { checkerTimeMax, checkerTimeMaxKind } from './parsers/time/checkers/max.mjs';
+export { time, timeKind } from './parsers/time/index.mjs';
 export { literal, literalKind } from './parsers/literal.mjs';
 export { union, unionKind } from './parsers/union.mjs';
 export { checkerArrayMin, checkerArrayMinKind } from './parsers/array/checkers/min.mjs';

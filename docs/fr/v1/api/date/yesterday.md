@@ -10,7 +10,7 @@ next:
 
 # yesterday
 
-La fonction **`yesterday()`** retourne le début de la journée précédente (minuit UTC) sous forme de `TheDate`.
+La fonction **`yesterday()`** retourne `now()` - 1 jour sous forme de `TheDate`.
 
 ## Exemple interactif
 
@@ -32,7 +32,7 @@ Aucun.
 
 ## Valeur de retour
 
-Un `TheDate` représentant minuit du jour précédent.
+Un `TheDate` représentant le jour précédent a la même heure.
 
 ## Voir aussi
 

@@ -5,8 +5,8 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
-import { type TheDate, theDateRegex } from "@scripts/date";
-import { isSafeTimestamp } from "@scripts/date/isSafeTimestamp";
+import { type TheDate } from "@scripts/date";
+import * as DDate from "@scripts/date";
 
 export interface DataParserDateCheckerCustom {}
 
@@ -100,46 +100,31 @@ export function date<
 				if (data instanceof Date) {
 					const timestamp = data.getTime();
 
-					if (!isSafeTimestamp(timestamp)) {
+					if (!DDate.isSafeTimestamp(timestamp)) {
 						return SymbolDataParserErrorIssue;
 					}
-
-					const isNegative = timestamp < 0;
-
-					return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+					return DDate.createTheDate(timestamp);
 				}
 
 				if (typeof data === "number") {
-					if (!isSafeTimestamp(data)) {
+					if (!DDate.isSafeTimestamp(data)) {
 						return SymbolDataParserErrorIssue;
 					}
 
-					const isNegative = data < 0;
-
-					return `date${Math.abs(data)}${isNegative ? "-" : "+"}`;
+					return DDate.createTheDate(data);
 				}
 
 				if (typeof data === "string") {
 					const date = new Date(data);
-
 					const timestamp = date.getTime();
-
-					if (isSafeTimestamp(timestamp)) {
-						const isNegative = timestamp < 0;
-
-						return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+					if (DDate.isSafeTimestamp(timestamp)) {
+						return DDate.createTheDate(timestamp);
 					}
 				}
 			}
 
-			const theDateMatch = typeof data === "string" && data.match(theDateRegex);
-
-			if (theDateMatch) {
-				if (!isSafeTimestamp(Number(theDateMatch.groups?.value))) {
-					return SymbolDataParserErrorIssue;
-				}
-
-				return data as TheDate;
+			if (typeof data === "string" && DDate.is(data)) {
+				return data;
 			}
 
 			return SymbolDataParserErrorIssue;

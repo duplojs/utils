@@ -4,8 +4,8 @@ prev:
   text: "bigint"
   link: "/en/v1/api/dataParser/bigint"
 next:
-  text: "literal"
-  link: "/en/v1/api/dataParser/literal"
+  text: "time"
+  link: "/en/v1/api/dataParser/time"
 ---
 
 # date

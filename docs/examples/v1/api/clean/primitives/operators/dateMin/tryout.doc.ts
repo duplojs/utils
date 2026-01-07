@@ -6,7 +6,7 @@ const dates = [
 	C.Date.createOrThrow(D.create("2024-01-05")),
 ] as const;
 
-const result = C.dateMin(...dates);
+const result = C.dateMin(dates);
 // 2024-01-01
 
 type check = ExpectType<

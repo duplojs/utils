@@ -4,6 +4,7 @@ export * from "./array";
 export * from "./bigint";
 export * from "./number";
 export * from "./date";
+export * from "./time";
 export * from "./transform";
 export * from "./union";
 export * from "./boolean";

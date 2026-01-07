@@ -1,3 +1,4 @@
+import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
@@ -27,8 +28,5 @@ export function subtractYears(...args: [TheDate, number] | [number]) {
 	const date = toNative(input);
 	date.setUTCFullYear(date.getUTCFullYear() - year);
 
-	const timestamp = date.getTime();
-	const isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return createTheDate(date.getTime());
 }

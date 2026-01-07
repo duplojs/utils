@@ -1,4 +1,5 @@
 import { millisecondInOneHour } from '../constants.mjs';
+import { createTheDate } from '../createTheDate.mjs';
 import { toNative } from '../toNative.mjs';
 
 function addHours(...args) {
@@ -9,9 +10,7 @@ function addHours(...args) {
     const [input, hour] = args;
     const date = toNative(input);
     date.setTime(date.getTime() + (hour * millisecondInOneHour));
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate(date.getTime());
 }
 
 export { addHours };

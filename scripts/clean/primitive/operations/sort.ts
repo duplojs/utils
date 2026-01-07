@@ -1,22 +1,38 @@
-import { type Date, type Number, type String } from "../base";
-import { unwrap, wrapValue, type SortType } from "@scripts/common";
+import { type Date, type Number, type String, type Time } from "../base";
+import { type ToWrappedValue, unwrap, wrapValue, type SortType } from "@scripts/common";
 import * as DDate from "@scripts/date";
 import * as DNumber from "@scripts/number";
 import * as DString from "@scripts/string";
 
-export function sort(type: SortType): (input: readonly (Date | DDate.TheDate)[]) => Date[];
-export function sort(input: readonly (Date | DDate.TheDate)[], type: SortType): Date[];
+export function sort<
+	GenericInput extends (
+		| readonly (Date | DDate.TheDate)[]
+		| readonly (Number | number)[]
+		| readonly (String | string)[]
+		| readonly (Time | DDate.TheTime)[]
+	),
+>(
+	type: SortType
+): (
+	input: GenericInput
+) => ToWrappedValue<GenericInput[number]>[];
 
-export function sort(type: SortType): (input: readonly (Number | number)[]) => Number[];
-export function sort(input: readonly (Number | number)[], type: SortType): Number[];
-
-export function sort(type: SortType): (input: readonly (String | string)[]) => String[];
-export function sort(input: readonly (String | string)[], type: SortType): String[];
+export function sort<
+	GenericInput extends (
+		| readonly (Date | DDate.TheDate)[]
+		| readonly (Number | number)[]
+		| readonly (String | string)[]
+		| readonly (Time | DDate.TheTime)[]
+	),
+>(
+	input: GenericInput,
+	type: SortType,
+): ToWrappedValue<GenericInput[number]>[];
 
 export function sort(
 	...args:
 		| [SortType]
-		| [readonly (Date | Number | String | number | string)[], SortType]
+		| [readonly (Date | Number | String | Time | number | string)[], SortType]
 ): any {
 	if (args.length === 1) {
 		const [type] = args;
@@ -41,6 +57,10 @@ export function sort(
 	} else if (DDate.is(first)) {
 		return DDate
 			.sort(rawArray as never, type)
+			.map(wrapValue);
+	} else if (DDate.isTime(first)) {
+		return DDate
+			.sortTimes(rawArray as never, type)
 			.map(wrapValue);
 	} else {
 		return DString

@@ -4,13 +4,13 @@ prev:
   text: "dateMin"
   link: "/fr/v1/api/clean/primitives/operators/dateMin"
 next:
-  text: "sort"
-  link: "/fr/v1/api/clean/primitives/operators/sort"
+  text: "timeGreaterThan"
+  link: "/fr/v1/api/clean/primitives/operators/timeGreaterThan"
 ---
 
 # dateMax
 
-`dateMax()` retourne la plus grande date d'une liste (wrappée ou `DDate.TheDate`). Peut s'utiliser en version variadique ou en version partiellement appliquée.
+`dateMax()` retourne la plus grande date d'une liste (wrappée ou `DDate.TheDate`).
 
 ## Exemple interactif
 
@@ -22,24 +22,15 @@ next:
 
 ## Syntaxe
 
-### Signature classique (variadique)
+### Signature classique
 
 ```typescript
-function dateMax(...input: AnyTuple<Date | TheDate>): Date
-```
-
-### Signature partielle
-
-```typescript
-function dateMax(
-	first: Date | TheDate
-): (...rest: (Date | TheDate)[]) => Date
+function dateMax(input: AnyTuple<Date | TheDate>): Date
 ```
 
 ## Paramètres
 
 - `input` : dates à comparer (au moins une).
-- `first` / `rest` : version partielle (`dateMax(first)(...rest)`).
 
 ## Valeur de retour
 

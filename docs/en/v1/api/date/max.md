@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 prev:
-  text: "sort"
-  link: "/en/v1/api/date/sort"
+  text: "sortTimes"
+  link: "/en/v1/api/date/sortTimes"
 next:
-  text: "min"
-  link: "/en/v1/api/date/min"
+  text: "maxTime"
+  link: "/en/v1/api/date/maxTime"
 ---
 
 # max

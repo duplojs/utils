@@ -4,6 +4,7 @@ const {
 	BigInt,
 	Boolean,
 	Date,
+	Time,
 	Number,
 	String,
 } = C;

@@ -4,8 +4,8 @@ prev:
   text: "between"
   link: "/fr/v1/api/date/between"
 next:
-  text: "sort"
-  link: "/fr/v1/api/date/sort"
+  text: "greaterTime"
+  link: "/fr/v1/api/date/greaterTime"
 ---
 
 # betweenThan

@@ -141,12 +141,16 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 export const Date = createPrimitive(DDataParser.date());
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 
+export const Time = createPrimitive(DDataParser.time());
+export type Time = ReturnType<typeof Time["createWithUnknownOrThrow"]>;
+
 export type Primitives = (
 	| String
 	| Number
 	| BigInt
 	| Boolean
 	| Date
+	| Time
 );
 
 export type PrimitiveHandlers = (
@@ -155,4 +159,5 @@ export type PrimitiveHandlers = (
 	| typeof BigInt
 	| typeof Boolean
 	| typeof Date
+	| typeof Time
 );

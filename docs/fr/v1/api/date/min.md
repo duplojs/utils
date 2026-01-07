@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "max"
-  link: "/fr/v1/api/date/max"
+  text: "minTime"
+  link: "/fr/v1/api/date/minTime"
 next:
   text: "round"
   link: "/fr/v1/api/date/round"

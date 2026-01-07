@@ -4,8 +4,8 @@ prev:
   text: "isSafeTimestamp"
   link: "/fr/v1/api/date/isSafeTimestamp"
 next:
-  text: "getYear"
-  link: "/fr/v1/api/date/getYear"
+  text: "isTime"
+  link: "/fr/v1/api/date/isTime"
 ---
 
 # is

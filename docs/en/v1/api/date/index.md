@@ -30,6 +30,12 @@ Builds a `TheDate` from a `Date`, a timestamp, or another `TheDate` and returns 
 ### [createOrThrow](/en/v1/api/date/createOrThrow)
 Strict version of `create` that throws `CreateTheDateError` when the input is invalid.
 
+### [createTime](/en/v1/api/date/createTime)
+Builds a `TheTime` from milliseconds or a structured time object.
+
+### [createTimeOrThrow](/en/v1/api/date/createTimeOrThrow)
+Strict version of `createTime` that throws on invalid input.
+
 ### [now](/en/v1/api/date/now)
 Returns the exact timestamp of the current moment as a `TheDate`.
 
@@ -50,6 +56,12 @@ Converts a `TheDate` to a JavaScript `Date`.
 ### [toTimestamp](/en/v1/api/date/toTimestamp)
 Exposes the timestamp in milliseconds and validates the coherence of the value.
 
+### [toTimeValue](/en/v1/api/date/toTimeValue)
+Converts a `TheTime` into milliseconds while applying safe bounds.
+
+### [isSafeTimeValue](/en/v1/api/date/isSafeTimeValue)
+Checks that a time value is a safe integer within bounds.
+
 ### [getTimezoneOffset](/en/v1/api/date/getTimezoneOffset)
 Returns the timezone offset in milliseconds for a `TheDate`.
 
@@ -67,6 +79,9 @@ Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.
 
 ### [is](/en/v1/api/date/is)
 Checks that a string matches the `TheDate` format (type guard).
+
+### [isTime](/en/v1/api/date/isTime)
+Checks that a string matches the `TheTime` format (type guard).
 
 ## Component reading
 
@@ -140,6 +155,9 @@ Adds seconds.
 ### [addMilliseconds](/en/v1/api/date/addMilliseconds)  
 Adds milliseconds while staying type-safe.
 
+### [addTime](/en/v1/api/date/addTime)  
+Adds a `TheTime` duration to a `TheDate` or `TheTime`.
+
 ### Subtractions
 
 ### [subtractYears](/en/v1/api/date/subtractYears)  
@@ -166,6 +184,9 @@ Subtracts seconds.
 ### [subtractMilliseconds](/en/v1/api/date/subtractMilliseconds)  
 Subtracts milliseconds.
 
+### [subtractTime](/en/v1/api/date/subtractTime)  
+Subtracts a `TheTime` duration from a `TheDate` or `TheTime`.
+
 ### Comparison
 
 ### [greater](/en/v1/api/date/greater)  
@@ -186,11 +207,40 @@ Checks membership in an open interval.
 ### [betweenThan](/en/v1/api/date/betweenThan)  
 Variant that includes bounds.
 
+### Comparison (`TheTime`)
+
+### [greaterTime](/en/v1/api/date/greaterTime)  
+Checks if a duration is strictly greater than another.
+
+### [greaterThanTime](/en/v1/api/date/greaterThanTime)  
+Inclusive comparison for `TheTime`.
+
+### [lessTime](/en/v1/api/date/lessTime)  
+Checks if a duration is strictly less than another.
+
+### [lessThanTime](/en/v1/api/date/lessThanTime)  
+Inclusive comparison for lower bound on `TheTime`.
+
+### [betweenTime](/en/v1/api/date/betweenTime)  
+Checks if a `TheTime` is within an open interval.
+
+### [betweenThanTime](/en/v1/api/date/betweenThanTime)  
+Inclusive range comparison for `TheTime`.
+
 ### [sort](/en/v1/api/date/sort)  
 Sorts an array of dates in ascending or descending order.
 
+### [sortTimes](/en/v1/api/date/sortTimes)  
+Sorts an array of durations in ascending or descending order.
+
 ### [max](/en/v1/api/date/max)  
 Returns the most recent date of a tuple.
+
+### [maxTime](/en/v1/api/date/maxTime)  
+Returns the largest duration of a tuple.
+
+### [minTime](/en/v1/api/date/minTime)  
+Returns the smallest duration of a tuple.
 
 ### [min](/en/v1/api/date/min)  
 Returns the oldest date of a tuple.

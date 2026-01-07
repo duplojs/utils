@@ -5,6 +5,8 @@ var sort$1 = require('../../../number/sort.cjs');
 var wrapValue = require('../../../common/wrapValue.cjs');
 var is = require('../../../date/is.cjs');
 var sort$2 = require('../../../date/sort.cjs');
+var isTime = require('../../../date/isTime.cjs');
+var sortTimes = require('../../../date/sortTimes.cjs');
 var sort$3 = require('../../../string/sort.cjs');
 
 function sort(...args) {
@@ -24,6 +26,10 @@ function sort(...args) {
     }
     else if (is.is(first)) {
         return sort$2.sort(rawArray, type)
+            .map(wrapValue.wrapValue);
+    }
+    else if (isTime.isTime(first)) {
+        return sortTimes.sortTimes(rawArray, type)
             .map(wrapValue.wrapValue);
     }
     else {

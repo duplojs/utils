@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "is"
-  link: "/fr/v1/api/date/is"
+  text: "isTime"
+  link: "/fr/v1/api/date/isTime"
 next:
   text: "getMonth"
   link: "/fr/v1/api/date/getMonth"

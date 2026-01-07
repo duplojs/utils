@@ -1,5 +1,6 @@
 'use strict';
 
+var createTheDate = require('../createTheDate.cjs');
 var toNative = require('../toNative.cjs');
 
 function subtractMilliseconds(...args) {
@@ -10,9 +11,7 @@ function subtractMilliseconds(...args) {
     const [input, millisecond] = args;
     const date = toNative.toNative(input);
     date.setTime(date.getTime() - millisecond);
-    const timestamp = date.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return createTheDate.createTheDate(date.getTime());
 }
 
 exports.subtractMilliseconds = subtractMilliseconds;

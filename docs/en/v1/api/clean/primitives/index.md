@@ -147,12 +147,29 @@ Checks whether a `Date` is after a threshold.
 ### [dateLessThan](/en/v1/api/clean/primitives/operators/dateLessThan)
 Checks whether a `Date` is before a threshold.
 
+### [dateAddTime](/en/v1/api/clean/primitives/operators/dateAddTime)
+Adds a duration to a `Date`.
+
+### [dateSubtractTime](/en/v1/api/clean/primitives/operators/dateSubtractTime)
+Subtracts a duration from a `Date`.
+
 ### [dateMin](/en/v1/api/clean/primitives/operators/dateMin)
 Returns the smallest date in a list.
 
 ### [dateMax](/en/v1/api/clean/primitives/operators/dateMax)
 Returns the largest date in a list.
 
-### [sort](/en/v1/api/clean/primitives/operators/sort)
-Sorts an array of primitives (`String`, `Number`, or `Date`) in `"ASC"` / `"DSC"`.
+### [timeGreaterThan](/en/v1/api/clean/primitives/operators/timeGreaterThan)
+Checks whether a `Time` is strictly greater than a threshold.
 
+### [timeLessThan](/en/v1/api/clean/primitives/operators/timeLessThan)
+Checks whether a `Time` is strictly less than a threshold.
+
+### [timeMin](/en/v1/api/clean/primitives/operators/timeMin)
+Returns the smallest duration in a list.
+
+### [timeMax](/en/v1/api/clean/primitives/operators/timeMax)
+Returns the largest duration in a list.
+
+### [sort](/en/v1/api/clean/primitives/operators/sort)
+Sorts an array of primitives (`String`, `Number`, `Date`, or `Time`) in `"ASC"` / `"DSC"`.
