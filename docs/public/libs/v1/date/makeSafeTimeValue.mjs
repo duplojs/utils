@@ -1,5 +1,8 @@
 import { maxTimeValue, minTimeValue } from './constants.mjs';
 
+/**
+ * {@include date/makeSafeTimeValue/index.md}
+ */
 function makeSafeTimeValue(timeValue) {
     if (Number.isNaN(timeValue)) {
         return 0;

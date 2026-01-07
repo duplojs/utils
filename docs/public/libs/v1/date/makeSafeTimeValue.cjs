@@ -2,6 +2,9 @@
 
 var constants = require('./constants.cjs');
 
+/**
+ * {@include date/makeSafeTimeValue/index.md}
+ */
 function makeSafeTimeValue(timeValue) {
     if (Number.isNaN(timeValue)) {
         return 0;

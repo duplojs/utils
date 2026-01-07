@@ -38,3 +38,4 @@ export * from "./createTheDate";
 export * from "./createTheTime";
 export * from "./createTime";
 export * from "./createTimeOrThrow";
+export * from "./makeSafeTimeValue";

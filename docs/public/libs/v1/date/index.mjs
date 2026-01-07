@@ -31,6 +31,7 @@ export { createTheDate } from './createTheDate.mjs';
 export { createTheTime } from './createTheTime.mjs';
 export { createTime } from './createTime.mjs';
 export { CreateTheTimeError, createTimeOrThrow } from './createTimeOrThrow.mjs';
+export { makeSafeTimeValue } from './makeSafeTimeValue.mjs';
 export { getDayOfMonth } from './getters/getDayOfMonth.mjs';
 export { getDayOfWeek } from './getters/getDayOfWeek.mjs';
 export { getFirstDayOfWeek } from './getters/getFirstDayOfWeek.mjs';
