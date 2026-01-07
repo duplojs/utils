@@ -26,6 +26,7 @@ export { timezone } from './timezone.mjs';
 export { getTimezoneOffset } from './getTimezoneOffset.mjs';
 export { applyTimezone } from './applyTimezone.mjs';
 export { format } from './format.mjs';
+export { formatTime } from './formatTime.mjs';
 export { makeSafeTimestamp } from './makeSafeTimestamp.mjs';
 export { createTheDate } from './createTheDate.mjs';
 export { createTheTime } from './createTheTime.mjs';

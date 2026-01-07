@@ -62,6 +62,7 @@ export * from "./timezone";
 export * from "./getTimezoneOffset";
 export * from "./applyTimezone";
 export * from "./format";
+export * from "./formatTime";
 export * from "./makeSafeTimestamp";
 export * from "./createTheDate";
 export * from "./createTheTime";

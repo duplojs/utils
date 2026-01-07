@@ -75,6 +75,9 @@ Returns the ISO 8601 representation of a `TheDate`.
 ### [format](/en/v1/api/date/format)
 Displays a `TheDate` with a custom format and timezone.
 
+### [formatTime](/en/v1/api/date/formatTime)
+Formats a `TheTime` using a custom format string.
+
 ### [isSafeTimestamp](/en/v1/api/date/isSafeTimestamp)
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.
 

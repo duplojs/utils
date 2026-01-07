@@ -5,8 +5,8 @@ prev:
   text: "toISOString"
   link: "/fr/v1/api/date/toISOString"
 next:
-  text: "isSafeTimestamp"
-  link: "/fr/v1/api/date/isSafeTimestamp"
+  text: "formatTime"
+  link: "/fr/v1/api/date/formatTime"
 ---
 
 # format

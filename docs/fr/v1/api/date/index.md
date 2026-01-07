@@ -75,6 +75,9 @@ Retourne la représentation ISO 8601 d'un `TheDate`.
 ### [format](/fr/v1/api/date/format)
 Affiche un `TheDate` avec un format personnalisé et un fuseau horaire.
 
+### [formatTime](/fr/v1/api/date/formatTime)
+Formate un `TheTime` via une chaîne de format personnalisée.
+
 ### [isSafeTimestamp](/fr/v1/api/date/isSafeTimestamp)
 Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.
 
