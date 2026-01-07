@@ -7,7 +7,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.spliceReplace(
  * 	[1, 2, 3],

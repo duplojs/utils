@@ -3,14 +3,6 @@
 var constants = require('./constants.cjs');
 var makeSafeTimestamp = require('./makeSafeTimestamp.cjs');
 
-class InvalidTheDateError extends kind.kindHeritage("invalid-the-Date-error", errorKindNamespace.createErrorKind("invalid-the-Date-error"), Error) {
-    theDate;
-    constructor(theDate) {
-        super({}, ["TheDate is invalid."]);
-        this.theDate = theDate;
-    }
-}
-
 /**
  * {@include date/toTimestamp/index.md}
  */

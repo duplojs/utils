@@ -8,7 +8,7 @@
  * All arrays are concatenated in order.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.concat(["alpha"], ["beta"], ["gamma"]); // ["alpha", "beta", "gamma"]
  * 

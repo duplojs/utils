@@ -7,7 +7,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.slice(
  * 	[1, 2, 3, 4],

@@ -1,5 +1,5 @@
 import { type AnyTuple } from "../common";
-import { type ShiftTuple } from "../array/types/shiftTuple";
+import { type ShiftTuple } from "./types/shiftTuple";
 /**
  * Removes the first element from an array.
  * 
@@ -7,7 +7,7 @@ import { type ShiftTuple } from "../array/types/shiftTuple";
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.shift(
  * 	[1, 2, 3],

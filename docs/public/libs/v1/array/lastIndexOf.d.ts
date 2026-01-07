@@ -7,7 +7,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.lastIndexOf(
  * 	[1, 2, 1],

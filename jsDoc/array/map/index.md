@@ -8,7 +8,6 @@ The mapping function receives `(element, { index, self })`, where `index` is the
 position and `self` is the original array.
 The input array is not mutated.
 
-
 ```ts
 {@include array/map/example.ts[3,11]}
 ```

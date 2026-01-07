@@ -7,7 +7,6 @@ Maps each element and flattens the result by one level.
 The mapping function receives `(element, { index, self })`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/flatMap/example.ts[3,17]}
 ```

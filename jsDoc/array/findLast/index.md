@@ -8,7 +8,6 @@ Finds the last element matching a predicate.
 
 The predicate receives `(element, { index })`.
 
-
 ```ts
 {@include array/findLast/example.ts[3,17]}
 ```

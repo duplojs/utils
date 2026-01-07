@@ -8,7 +8,7 @@
  * Negative indices are supported.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.set(
  * 	[1, 2, 3],

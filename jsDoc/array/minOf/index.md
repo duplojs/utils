@@ -4,7 +4,6 @@ Signature: `minOf(array)` → returns a number or `undefined`
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/minOf/example.ts[3,14]}
 ```

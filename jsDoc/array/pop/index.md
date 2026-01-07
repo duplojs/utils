@@ -4,7 +4,6 @@ Signature: `pop(array)` → returns a new array
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/pop/example.ts[3,14]}
 ```

@@ -6,7 +6,6 @@ Finds the index of the first element matching a predicate.
 
 The predicate receives `(element, { index })`.
 
-
 ```ts
 {@include array/findIndex/example.ts[3,17]}
 ```

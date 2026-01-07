@@ -4,7 +4,6 @@ Signature: `flat(array, depth?)` → returns a new array
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/flat/example.ts[3,15]}
 ```

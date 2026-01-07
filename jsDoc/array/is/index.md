@@ -3,7 +3,6 @@ Checks whether a value is an array.
 Signature: `is(value)` → returns a boolean
 
 This is a type guard.
-
 ```ts
 {@include array/is/example.ts[3,10]}
 ```

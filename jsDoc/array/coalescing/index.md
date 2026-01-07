@@ -5,7 +5,6 @@ Signature: `coalescing(value)` → returns an array
 If the value is already an array, it is returned as-is.
 The input value is not mutated.
 
-
 ```ts
 {@include array/coalescing/example.ts[3,7]}
 ```

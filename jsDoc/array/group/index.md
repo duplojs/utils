@@ -7,7 +7,6 @@ Groups elements into an object by a group name.
 The function receives `(element, { index, output })`, where `output` is `groupOutput`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/group/example.ts[3,19]}
 ```

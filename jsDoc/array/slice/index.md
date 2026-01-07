@@ -6,7 +6,6 @@ Slices a portion of an array.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/slice/example.ts[3,18]}
 ```

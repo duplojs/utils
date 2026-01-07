@@ -54,7 +54,6 @@ export type GeneratorReduceFromValue<GenericValue extends GeneratorEligibleReduc
  * The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush }`.
  * The input iterator is not mutated.
  * 
-
  * ```ts
  * const values = [4, 8, 12];
  * 

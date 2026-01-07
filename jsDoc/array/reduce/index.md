@@ -7,7 +7,6 @@ Reduces an array to a single value.
 The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush, self }`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/reduce/example.ts[3,19]}
 ```

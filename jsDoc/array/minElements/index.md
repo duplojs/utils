@@ -8,7 +8,6 @@ Checks if an array has at least a given length.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/minElements/example.ts[3,26]}
 ```

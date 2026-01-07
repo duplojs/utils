@@ -7,7 +7,6 @@ Fills part of an array with a given value.
 The fill operation applies from `start` (inclusive) to `end` (exclusive).
 The input array is not mutated.
 
-
 ```ts
 {@include array/fill/example.ts[3,17]}
 ```

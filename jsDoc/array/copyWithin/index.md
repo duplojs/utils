@@ -7,7 +7,6 @@ Copies a sequence within an array to another position.
 The copy uses the range `[start, end)` and writes from `target`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/copyWithin/example.ts[3,10]}
 ```

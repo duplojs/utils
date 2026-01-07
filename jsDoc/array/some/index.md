@@ -8,7 +8,6 @@ The predicate receives `(element, { index, self })`, where `index` is the elemen
 and `self` is the original array.
 The input array is not mutated.
 
-
 ```ts
 {@include array/some/example.ts[3,22]}
 ```

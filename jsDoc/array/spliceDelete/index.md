@@ -6,7 +6,6 @@ Deletes a segment from an array using splice semantics.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/spliceDelete/example.ts[3,12]}
 ```

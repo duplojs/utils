@@ -7,7 +7,6 @@ Accesses an element at a given index, supporting negative indices.
 **Negative indices:** `-1` is the last element, `-2` is second-to-last, etc.
 Returns `undefined` if out of bounds.
 
-
 ```ts
 {@include array/at/example.ts[3,10]}
 ```

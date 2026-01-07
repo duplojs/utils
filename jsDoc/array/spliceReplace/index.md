@@ -6,7 +6,6 @@ Replaces a segment using splice semantics.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/spliceReplace/example.ts[3,19]}
 ```

@@ -13,7 +13,7 @@ interface ArrayMapParams<GenericInputArray extends readonly unknown[]> {
  * position and `self` is the original array.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.map(
  * 	[1, 2, 3],

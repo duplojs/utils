@@ -6,7 +6,6 @@ Inserts elements into an array using splice semantics.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/spliceInsert/example.ts[3,19]}
 ```

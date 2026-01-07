@@ -4,7 +4,6 @@ Signature: `from(input)` → returns an array or a promise
 
 Async iterables return a `Promise` of an array.
 
-
 ```ts
 {@include array/from/example.ts[3,17]}
 ```

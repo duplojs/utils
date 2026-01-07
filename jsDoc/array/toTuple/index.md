@@ -7,7 +7,6 @@ Transforms a value into a tuple using a shape of functions.
 Each function in the shape receives the same input.
 The input value is not mutated.
 
-
 ```ts
 {@include array/toTuple/example.ts[3,16]}
 ```

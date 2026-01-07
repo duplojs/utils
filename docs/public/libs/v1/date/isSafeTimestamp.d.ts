@@ -1,7 +1,7 @@
 /**
  * Checks whether a timestamp is safe.
  * 
- * Signature: `isSafeTimestamp(timestamp)` → returns a value
+ * Signature: `isSafeTimestamp(input)` → returns a value
  * 
  * The input value is not mutated.
  * 

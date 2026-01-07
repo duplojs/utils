@@ -6,7 +6,6 @@ Joins array elements into a string.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/join/example.ts[3,16]}
 ```

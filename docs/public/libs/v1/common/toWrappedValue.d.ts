@@ -1,8 +1,7 @@
-import { type WrappedValue } from "../common/wrapValue";
+import { type WrappedValue } from "./wrapValue";
 import { type MaybeWrapped } from "./types/maybeWrapped";
 import { type AnyValue } from "./types";
 export type ToWrappedValue<GenericValue extends unknown> = GenericValue extends WrappedValue ? GenericValue : WrappedValue<GenericValue>;
-
 /**
  * The toWrappedValue() function ensures a value is wrapped: if it is already a WrappedValue, it is returned as is, otherwise it is wrapped.
  * 

@@ -8,7 +8,7 @@
  * Each chunk contains up to `size` items, and the last chunk may be smaller.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.chunk([1, 2, 3, 4, 5], 2);
  * // [[1, 2], [3, 4], [5]]

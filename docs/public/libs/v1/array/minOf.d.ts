@@ -5,7 +5,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.minOf(
  * 	[1, 5, 2],

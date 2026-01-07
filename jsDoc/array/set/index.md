@@ -7,7 +7,6 @@ Sets an element at a given index.
 Negative indices are supported.
 The input array is not mutated.
 
-
 ```ts
 {@include array/set/example.ts[3,19]}
 ```

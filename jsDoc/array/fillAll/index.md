@@ -6,7 +6,6 @@ Fills all elements of an array with a given value.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/fillAll/example.ts[3,17]}
 ```

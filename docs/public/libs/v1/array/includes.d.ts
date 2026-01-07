@@ -5,7 +5,7 @@
  * - Classic: `includes(array, value)` → returns a boolean
  * - Curried: `includes(value)` → returns a function waiting for the array
  * 
-
+ * 
  * ```ts
  * const numbersList = [1, 2, 3];
  * 

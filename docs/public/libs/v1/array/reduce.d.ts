@@ -28,7 +28,7 @@ export interface ArrayReduceFromResult<GenericValue extends unknown = unknown> e
  * 
  * This is useful for preserving object and array types in reductions.
  * 
-
+ * 
  * ```ts
  * A.reduce(
  * 	[1, 2],
@@ -70,7 +70,7 @@ export type ArrayReduceFromValue<GenericValue extends ArrayEligibleReduceFromVal
  * The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush, self }`.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.reduce(
  * 	[1, 2, 3],

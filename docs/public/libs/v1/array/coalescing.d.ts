@@ -8,6 +8,7 @@ import { type ArrayCoalescing } from "./types";
  * If the value is already an array, it is returned as-is.
  * The input value is not mutated.
  * 
+ * 
  * ```ts
  * A.coalescing(1); // [1]
  * 

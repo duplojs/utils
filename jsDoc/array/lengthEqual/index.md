@@ -8,7 +8,6 @@ Checks if an array has a specific length.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/lengthEqual/example.ts[3,23]}
 ```

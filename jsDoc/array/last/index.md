@@ -5,7 +5,6 @@ Signature: `last(array)` → returns the last element
 Returns `undefined` when the array is empty.
 The input array is not mutated.
 
-
 ```ts
 {@include array/last/example.ts[3,7]}
 ```

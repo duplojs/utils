@@ -4,7 +4,6 @@ Signature: `reduceFrom(value)` → returns a reduce start wrapper
 
 This is useful for preserving object and array types in reductions.
 
-
 ```ts
 {@include array/reduceFrom/example.ts[3,20]}
 ```

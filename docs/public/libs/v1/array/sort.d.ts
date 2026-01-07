@@ -7,7 +7,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.sort(
  * 	[3, 1, 2],

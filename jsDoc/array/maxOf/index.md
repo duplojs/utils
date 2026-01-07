@@ -4,7 +4,6 @@ Signature: `maxOf(array)` → returns a number or `undefined`
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/maxOf/example.ts[3,14]}
 ```

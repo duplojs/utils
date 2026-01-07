@@ -24,7 +24,7 @@ export declare const selectTools: Pick<ArraySelectParams<any>, "skip" | "select"
  * Use `select(value)` to keep a value or `skip()` to ignore it.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.select(
  * 	[1, 2, 3],

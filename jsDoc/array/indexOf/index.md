@@ -6,7 +6,6 @@ Finds the first index of a value.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/indexOf/example.ts[3,18]}
 ```

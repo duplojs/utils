@@ -14,7 +14,7 @@ interface ArrayFilterParams<GenericInputArray extends readonly unknown[]> {
  * The predicate receives `(item, { index, self })`.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.filter(
  * 	[1, 2, 3, 4],

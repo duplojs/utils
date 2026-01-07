@@ -9,7 +9,6 @@ Filters an array by a predicate, with classic and curried styles.
 The predicate receives `(item, { index, self })`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/filter/example.ts[3,12]}
 ```

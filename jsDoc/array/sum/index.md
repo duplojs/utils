@@ -4,7 +4,6 @@ Signature: `sum(array)` → returns the total
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/sum/example.ts[3,7]}
 ```

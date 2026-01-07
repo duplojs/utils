@@ -6,7 +6,6 @@ Gets the first element of an array.
 Returns `undefined` when the array is empty.
 The input array is not mutated.
 
-
 ```ts
 {@include array/first/example.ts[3,7]}
 ```

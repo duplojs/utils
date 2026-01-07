@@ -4,7 +4,6 @@ Creates a group output object for `group`.
 - Classic: `groupOutput(group, value)` → returns a group output
 - Curried: `groupOutput(group)` → returns a function waiting for the value
 
-
 ```ts
 {@include array/groupOutput/example.ts[3,17]}
 ```

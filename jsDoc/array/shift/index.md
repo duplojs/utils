@@ -4,7 +4,6 @@ Signature: `shift(array)` → returns a new array
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/shift/example.ts[3,14]}
 ```

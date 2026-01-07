@@ -6,7 +6,6 @@ Checks whether an array has at most a given length.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/maxElements/example.ts[3,17]}
 ```

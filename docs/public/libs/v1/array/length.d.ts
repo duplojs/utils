@@ -5,7 +5,7 @@
  * 
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.length([1, 2, 3]); // 3
  * 

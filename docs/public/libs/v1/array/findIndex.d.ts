@@ -10,7 +10,7 @@ interface ArrayFindIndexParams {
  * 
  * The predicate receives `(element, { index })`.
  * 
-
+ * 
  * ```ts
  * A.findIndex(
  * 	[1, 2, 3],

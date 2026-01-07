@@ -6,7 +6,6 @@ Sorts an array using a compare function.
 
 The input array is not mutated.
 
-
 ```ts
 {@include array/sort/example.ts[3,11]}
 ```

@@ -11,7 +11,7 @@ interface ArrayFindAndSpliceReplaceIndexParams {
  * The predicate receives `(element, { index })`.
  * The input array is not mutated.
  * 
-
+ * 
  * ```ts
  * A.findAndSpliceReplace(
  * 	[1, 2, 3, 4],

@@ -7,7 +7,6 @@ Reduces an array from right to left.
 The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush, self }`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/reduceRight/example.ts[3,19]}
 ```

@@ -10,7 +10,7 @@ interface ArrayFindLastIndexParams {
  * 
  * The predicate receives `(element, { index })`.
  * 
-
+ * 
  * ```ts
  * A.findLastIndex(
  * 	[1, 2, 3, 2],

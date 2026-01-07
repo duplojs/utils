@@ -7,7 +7,6 @@ Finds the first element matching a predicate and deletes a segment.
 The predicate receives `(element, { index })`.
 The input array is not mutated.
 
-
 ```ts
 {@include array/findAndSpliceDelete/example.ts[3,19]}
 ```
