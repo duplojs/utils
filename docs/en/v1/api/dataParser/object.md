@@ -94,6 +94,29 @@ Remove secrets (password, tokens, etc.) before returning your objects.
   </div>
 </div>
 
+### Extension with `extends`
+
+Rebuild a schema while keeping a base and adding extra properties.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Standard version</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/api/dataParser/object/extend/default.doc.ts"
+      majorVersion="v1"
+      height="660px"
+    />
+  </div>
+  <div>
+    <p><strong>Extended version</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/api/dataParser/object/extend/extended.doc.ts"
+      majorVersion="v1"
+      height="660px"
+    />
+  </div>
+</div>
+
 ### Update schema with `partial`
 
 Make all keys optional (useful for patch/update payloads) without losing field validations.

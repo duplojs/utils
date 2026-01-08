@@ -94,6 +94,29 @@ Retirez les secrets (mot de passe, tokens, etc.) avant de renvoyer vos objets.
   </div>
 </div>
 
+### Extension avec `extends`
+
+Recréez un schéma en gardant une base et en ajoutant des propriétés supplémentaires.
+
+<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <div>
+    <p><strong>Version standard</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/api/dataParser/object/extend/default.doc.ts"
+      majorVersion="v1"
+      height="660px"
+    />
+  </div>
+  <div>
+    <p><strong>Version étendue</strong></p>
+    <MonacoTSEditor
+      src="/examples/v1/api/dataParser/object/extend/extended.doc.ts"
+      majorVersion="v1"
+      height="660px"
+    />
+  </div>
+</div>
+
 ### Schéma de mise à jour avec `partial`
 
 Rendez toutes les clés optionnelles (utile pour les payloads de patch/update), sans perdre les validations des champs.

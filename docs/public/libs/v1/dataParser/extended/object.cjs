@@ -4,6 +4,7 @@ var baseExtended = require('../baseExtended.cjs');
 var index = require('../parsers/object/index.cjs');
 var required = require('../parsers/object/required.cjs');
 var partial = require('../parsers/object/partial.cjs');
+var _extends = require('../parsers/object/extends.cjs');
 var pick = require('../parsers/object/pick.cjs');
 var omit = require('../parsers/object/omit.cjs');
 var override = require('../../common/override.cjs');
@@ -16,6 +17,10 @@ function object(shape, definition) {
         },
         pick: (self, pickObject, definition) => {
             const newShape = pick.pickShape(self.definition.shape, pickObject);
+            return object(newShape, definition);
+        },
+        extends: (self, extension, definition) => {
+            const newShape = _extends.extendsShape(self.definition.shape, extension);
             return object(newShape, definition);
         },
         partial: (self, definition) => {

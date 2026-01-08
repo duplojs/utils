@@ -19,7 +19,7 @@ function createFlag(name) {
         },
         has(entity) {
             return flagKind.has(entity)
-                && flagKind.getValue(entity)[name] !== undefined;
+                && name in flagKind.getValue(entity);
         },
     });
 }

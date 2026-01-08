@@ -1,13 +1,9 @@
-import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride, pipe } from "@scripts/common";
+import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
-import { identifier } from "../identifier";
 import * as dataParsers from "../parsers";
 import { type Output } from "../base";
-import * as DObject from "@scripts/object";
-import * as DString from "@scripts/string";
-import * as DArray from "@scripts/array";
-import * as DEither from "@scripts/either";
+import { type AssignObjects } from "@scripts/object";
 
 type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
@@ -126,6 +122,26 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	extends<
+		const GenericExtension extends dataParsers.DataParserObjectShape,
+		const GenericSubDefinition extends Partial<
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+		> = never,
+	>(
+		extension: GenericExtension,
+		definition?: GenericDefinition,
+	): DataParserObjectExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionObject,
+			NeverCoalescing<GenericSubDefinition, {}> & {
+				readonly shape: AssignObjects<
+					GenericDefinition["shape"],
+					GenericExtension
+				>;
+			}
+		>
+	>;
+
 	partial<
 		const GenericSubDefinition extends Partial<
 			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
@@ -196,6 +212,17 @@ export function object<
 				const newShape = dataParsers.pickShape(
 					self.definition.shape,
 					pickObject,
+				);
+
+				return object(
+					newShape,
+					definition,
+				);
+			},
+			extends: (self, extension, definition) => {
+				const newShape = dataParsers.extendsShape(
+					self.definition.shape,
+					extension,
 				);
 
 				return object(

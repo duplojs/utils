@@ -16,6 +16,7 @@ export { omit, omitShape } from './parsers/object/omit.mjs';
 export { pick, pickShape } from './parsers/object/pick.mjs';
 export { partial, partialShape } from './parsers/object/partial.mjs';
 export { required, requiredShape } from './parsers/object/required.mjs';
+export { extends, extendsShape } from './parsers/object/extends.mjs';
 export { object, objectKind } from './parsers/object/index.mjs';
 export { checkerInt, checkerIntKind, int } from './parsers/number/checkers/int.mjs';
 export { checkerNumberMin, checkerNumberMinKind } from './parsers/number/checkers/min.mjs';

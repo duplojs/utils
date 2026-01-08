@@ -8,6 +8,7 @@ export * from "./omit";
 export * from "./pick";
 export * from "./partial";
 export * from "./required";
+export * from "./extends";
 export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 export type DataParserObjectShapeOutput<GenericShape extends DataParserObjectShape> = {
     -readonly [Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition> ? Prop : never]: Output<GenericShape[Prop]>;

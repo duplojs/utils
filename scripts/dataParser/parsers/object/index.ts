@@ -12,6 +12,7 @@ export * from "./omit";
 export * from "./pick";
 export * from "./partial";
 export * from "./required";
+export * from "./extends";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 

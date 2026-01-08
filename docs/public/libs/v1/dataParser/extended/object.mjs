@@ -2,6 +2,7 @@ import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { object as object$1 } from '../parsers/object/index.mjs';
 import { requiredShape } from '../parsers/object/required.mjs';
 import { partialShape } from '../parsers/object/partial.mjs';
+import { extendsShape } from '../parsers/object/extends.mjs';
 import { pickShape } from '../parsers/object/pick.mjs';
 import { omitShape } from '../parsers/object/omit.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -14,6 +15,10 @@ function object(shape, definition) {
         },
         pick: (self, pickObject, definition) => {
             const newShape = pickShape(self.definition.shape, pickObject);
+            return object(newShape, definition);
+        },
+        extends: (self, extension, definition) => {
+            const newShape = extendsShape(self.definition.shape, extension);
             return object(newShape, definition);
         },
         partial: (self, definition) => {

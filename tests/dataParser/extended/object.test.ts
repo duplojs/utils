@@ -75,6 +75,33 @@ describe("extended.object", () => {
 		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
 	});
 
+	it("supports extends", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+		}).extends({
+			city: extended.string(),
+		});
+
+		const value = {
+			name: "alice",
+			age: 30,
+			city: "Paris",
+		};
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			{
+				name: string;
+				age: number;
+				city: string;
+			},
+			"strict"
+		>;
+
+		expect(parser.parse(value)).toStrictEqual(DEither.success(value));
+	});
+
 	it("supports partial", () => {
 		const parser = extended.object({
 			name: extended.string(),

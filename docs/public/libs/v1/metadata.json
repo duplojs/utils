@@ -2090,6 +2090,15 @@
               "name": "object",
               "files": [
                 {
+                  "name": "extends.cjs"
+                },
+                {
+                  "name": "extends.d.ts"
+                },
+                {
+                  "name": "extends.mjs"
+                },
+                {
                   "name": "index.cjs"
                 },
                 {
