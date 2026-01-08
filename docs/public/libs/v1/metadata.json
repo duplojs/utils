@@ -977,6 +977,15 @@
           "name": "repository.mjs"
         },
         {
+          "name": "unwrapEntity.cjs"
+        },
+        {
+          "name": "unwrapEntity.d.ts"
+        },
+        {
+          "name": "unwrapEntity.mjs"
+        },
+        {
           "name": "useCase.cjs"
         },
         {
@@ -1025,6 +1034,9 @@
             },
             {
               "name": "deepPartial.d.ts"
+            },
+            {
+              "name": "DeepReadonly.d.ts"
             },
             {
               "name": "deepRemoveReadonly.d.ts"
@@ -4118,6 +4130,9 @@
             },
             {
               "name": "flatObject.d.ts"
+            },
+            {
+              "name": "forbiddenKey.d.ts"
             },
             {
               "name": "getPropsWithValue.d.ts"

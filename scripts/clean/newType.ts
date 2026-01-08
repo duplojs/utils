@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe, type NeverCoalescing } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
@@ -203,7 +203,7 @@ export function createNewType<
 	constraint?: GenericConstrainHandler,
 ): NewTypeHandler<
 		GenericName,
-		DDataParser.Output<GenericDataParser>,
+		DeepReadonly<DDataParser.Output<GenericDataParser>>,
 		DArray.ArrayCoalescing<
 			NeverCoalescing<GenericConstrainHandler, readonly []>
 		>

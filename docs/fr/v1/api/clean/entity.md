@@ -4,8 +4,8 @@ prev:
   text: "NewType"
   link: "/fr/v1/api/clean/newType"
 next:
-  text: "Flag"
-  link: "/fr/v1/api/clean/flag"
+  text: "unwrapEntity"
+  link: "/fr/v1/api/clean/unwrapEntity"
 ---
 
 # Entités
@@ -132,4 +132,5 @@ type User = C.GetEntity<typeof User>;
 ## Voir aussi
 
 - [`newType`](/fr/v1/api/clean/newType)
+- [`unwrapEntity`](/fr/v1/api/clean/unwrapEntity)
 - [`flag`](/fr/v1/api/clean/flag)

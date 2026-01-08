@@ -6,3 +6,4 @@ export * from "./getPropsWithValue";
 export * from "./flatObject";
 export * from "./getPropsWithValueExtends";
 export * from "./unFlatObject";
+export * from "./forbiddenKey";

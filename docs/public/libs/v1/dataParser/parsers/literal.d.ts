@@ -25,8 +25,8 @@ export interface DataParserLiteral<GenericDefinition extends DataParserDefinitio
      */
     construct<const GenericDefinition extends DataParserDefinitionLiteral>(definition: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, GenericDefinition>>;
 }
-export declare function literal<const GenericValue extends LiteralValue, const GenericDefinition extends Partial<Omit<DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
-    value: GenericValue[];
+export declare function literal<const GenericValue extends LiteralValue, const GenericDefinition extends Partial<Omit<DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | readonly GenericValue[], definition?: GenericDefinition): DataParserLiteral<MergeDefinition<DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
+    value: readonly GenericValue[];
 }>>;
 export declare namespace literal {
     var overrideHandler: import("../../common").OverrideHandler<DataParserLiteral<DataParserDefinitionLiteral>>;

@@ -145,7 +145,7 @@ export interface EntityHandler<
 	>;
 
 	"new"<
-		GenericProperties extends EntityProperties<GenericPropertiesDefinition>,
+		const GenericProperties extends EntityProperties<GenericPropertiesDefinition>,
 	>(
 		properties: GenericProperties
 	): Entity<GenericName> & GenericProperties;
@@ -231,7 +231,12 @@ export function createEntity<
 	const GenericPropertiesDefinition extends EntityPropertiesDefinition,
 >(
 	name: GenericName,
-	getPropertiesDefinition: (params: PropertiesDefinitionParams) => GenericPropertiesDefinition,
+	getPropertiesDefinition: (
+		params: PropertiesDefinitionParams
+	) => GenericPropertiesDefinition & DObject.ForbiddenKey<
+		GenericPropertiesDefinition,
+			"_entityName" | "_flags"
+	>,
 ): EntityHandler<
 		GenericName,
 		GenericPropertiesDefinition

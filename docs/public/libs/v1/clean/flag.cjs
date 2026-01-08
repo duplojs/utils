@@ -19,6 +19,10 @@ function createFlag(name) {
         getValue(entity) {
             return flagKind.getValue(entity)[name];
         },
+        has(entity) {
+            return flagKind.has(entity)
+                && flagKind.getValue(entity)[name] !== undefined;
+        },
     });
 }
 

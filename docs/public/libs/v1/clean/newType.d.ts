@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type Unwrap, type NeverCoalescing } from "..";
+import { type Kind, type WrappedValue, type Unwrap, type NeverCoalescing, type DeepReadonly } from "..";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
@@ -34,6 +34,6 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstrainHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | readonly [
     ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>,
     ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]
-]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstrainHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericDataParser>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstrainHandler, readonly []>>>;
+]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstrainHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstrainHandler, readonly []>>>;
 export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constrains"][number]["name"]> : never, any>;
 export {};

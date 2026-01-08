@@ -83,15 +83,15 @@ describe("createEntity", () => {
 			readonly type: (
 				| DClean.NewType<
 					"formTypeHuman", {
-						siret: string;
+						readonly siret: string;
 					},
 					never
 				>
 				| DClean.NewType<
 					"formTypeAgent",
 					{
-						key: string;
-						webHook: string;
+						readonly key: string;
+						readonly webHook: string;
 					},
 					never
 				>
@@ -101,16 +101,16 @@ describe("createEntity", () => {
 					| DClean.NewType<
 						"inputText",
 						{
-							value: string;
-							require: boolean;
+							readonly value: string;
+							readonly require: boolean;
 						},
 						never
 					>
 					| DClean.NewType<
 						"inputNumber",
 						{
-							value: number;
-							require: boolean;
+							readonly value: number;
+							readonly require: boolean;
 						},
 						never
 					>
@@ -119,16 +119,16 @@ describe("createEntity", () => {
 					| DClean.NewType<
 						"inputText",
 						{
-							value: string;
-							require: boolean;
+							readonly value: string;
+							readonly require: boolean;
 						},
 						never
 					>
 					| DClean.NewType<
 						"inputNumber",
 						{
-							value: number;
-							require: boolean;
+							readonly value: number;
+							readonly require: boolean;
 						},
 						never
 					>
@@ -178,20 +178,20 @@ describe("createEntity", () => {
 			typeof form,
 			& DClean.Entity<"Form">
 			& {
-				name: DClean.NewType<"formName", "Super Form", "max100">;
-				type: DClean.NewType<"formTypeAgent", {
+				readonly name: DClean.NewType<"formName", "Super Form", "max100">;
+				readonly type: DClean.NewType<"formTypeAgent", {
 					readonly key: "k";
 					readonly webHook: "url";
 				}, never>;
-				inputs: readonly [
+				readonly inputs: readonly [
 					DClean.NewType<"inputNumber", {
 						readonly value: 2;
 						readonly require: false;
 					}, never>,
 				];
-				description: null;
-				tags: null;
-				test: never[];
+				readonly description: null;
+				readonly tags: null;
+				readonly test: readonly [];
 			},
 			"strict"
 		>;

@@ -39,7 +39,7 @@ describe("createFlag", () => {
 			(
 				& DClean.Entity<"User">
 				& {
-					id: DClean.NewType<"id", 1, never>;
+					readonly id: DClean.NewType<"id", 1, never>;
 				}
 				& DClean.Flag<"isAdmin", true>
 			),
@@ -58,7 +58,7 @@ describe("createFlag", () => {
 			(
 				& DClean.Entity<"User">
 				& {
-					id: DClean.NewType<"id", 1, never>;
+					readonly id: DClean.NewType<"id", 1, never>;
 				}
 				& DClean.Flag<"isAdmin", true>
 				& DClean.Flag<"beta", "on">
@@ -79,7 +79,7 @@ describe("createFlag", () => {
 			(
 				& DClean.Entity<"User">
 				& {
-					id: DClean.NewType<"id", 1, never>;
+					readonly id: DClean.NewType<"id", 1, never>;
 				}
 				& DClean.Flag<"isAdmin", true>
 				& DClean.Flag<"beta", "on">
@@ -90,5 +90,19 @@ describe("createFlag", () => {
 
 		expect(withMarker.id).toStrictEqual(Id.createOrThrow(1));
 		expect(DClean.flagKind.has(withMarker)).toBe(true);
+	});
+
+	it("checks if a flag is present on the entity", () => {
+		const isAdmin = DClean.createFlag<User, "isAdmin", boolean>("isAdmin");
+		const marker = DClean.createFlag<User, "marker">("marker");
+
+		expect(isAdmin.has(baseUser)).toBe(false);
+		expect(marker.has(baseUser)).toBe(false);
+
+		const withAdmin = isAdmin.append(baseUser, true);
+		expect(isAdmin.has(withAdmin)).toBe(true);
+
+		const withMarker = marker.append(baseUser);
+		expect(marker.has(withMarker)).toBe(true);
 	});
 });

@@ -39,6 +39,15 @@ export interface FlagHandler<
 		typeof flagKind,
 		GenericInputEntity
 	>[GenericName];
+
+	has<
+		GenericInputEntity extends GenericEntity,
+	>(
+		entity: GenericInputEntity
+	): Extract<
+		GenericInputEntity,
+		Flag<GenericName, any>
+	>;
 }
 
 export interface Flag<
@@ -84,6 +93,10 @@ export function createFlag<
 		},
 		getValue(entity: Entity) {
 			return flagKind.getValue(entity as never)[name];
+		},
+		has(entity: Entity) {
+			return flagKind.has(entity as never)
+				&& name in flagKind.getValue(entity as never);
 		},
 	}) satisfies Record<keyof FlagHandler, unknown> as never;
 }

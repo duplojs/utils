@@ -4,6 +4,7 @@ export { CreateEntityError, createEntity, entityKind } from './entity.mjs';
 export { createRepository, repositoryHandlerKind } from './repository.mjs';
 export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.mjs';
 export { createFlag, flagKind } from './flag.mjs';
+export { unwrapEntity } from './unwrapEntity.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';
 export { Int, Negative, Positive } from './constraint/defaultConstraint/number.mjs';
 export { Email, Url } from './constraint/defaultConstraint/string.mjs';

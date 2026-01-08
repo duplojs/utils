@@ -6,6 +6,7 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
     readonly name: GenericName;
     append<GenericInputEntity extends GenericEntity, GenericInputValue extends GenericValue>(entity: GenericInputEntity, ...args: IsEqual<GenericValue, never> extends true ? [] : [GenericInputValue]): (GenericInputEntity & Flag<GenericName, GenericInputValue>);
     getValue<GenericInputEntity extends GenericEntity & Flag<GenericName, GenericValue>>(entity: GenericInputEntity): GetKindValue<typeof flagKind, GenericInputEntity>[GenericName];
+    has<GenericInputEntity extends GenericEntity>(entity: GenericInputEntity): Extract<GenericInputEntity, Flag<GenericName, any>>;
 }
 export interface Flag<GenericName extends string = string, GenericValue extends unknown = never> extends Kind<typeof flagKind.definition, Record<GenericName, GenericValue>> {
 }

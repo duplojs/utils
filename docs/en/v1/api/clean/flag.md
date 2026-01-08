@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "Entities"
-  link: "/en/v1/api/clean/entity"
+  text: "unwrapEntity"
+  link: "/en/v1/api/clean/unwrapEntity"
 next:
   text: "Repository"
   link: "/en/v1/api/clean/repository"
@@ -27,6 +27,7 @@ Its purpose is to indicate that a verification has taken place, or that a partic
 
 - adding the flag to an entity via `append(...)`
 - retrieving the associated value (optional) via `getValue(...)`
+- checking if the flag is present via `has(...)`
 
 Once the flag is added, the entity typing is enriched: you can require `Entity & MyFlag` in a function, to ensure that a business step has indeed been performed.
 
@@ -70,6 +71,16 @@ Retrieves the value associated with the flag.
 function getValue(
 	entity: Entity & Flag<FlagName, FlagValue>
 ): FlagValue
+```
+
+#### `has()`
+
+Checks whether the flag is present on the entity.
+
+```typescript
+function has(
+	entity: Entity
+): boolean
 ```
 
 ### Properties

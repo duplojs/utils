@@ -33,6 +33,9 @@ Creates a `NewType` (brand) backed by a `DataParser`, with optional constraints.
 ## [Entities](/en/v1/api/clean/entity)
 Represents business data structures.
 
+## [unwrapEntity](/en/v1/api/clean/unwrapEntity)
+Turns an entity into a plain object with its metadata.
+
 ## [Flag](/en/v1/api/clean/flag)
 Dynamically adds information (flag) on an entity, with strict typing.
 

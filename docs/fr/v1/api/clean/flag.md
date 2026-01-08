@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "Entités"
-  link: "/fr/v1/api/clean/entity"
+  text: "unwrapEntity"
+  link: "/fr/v1/api/clean/unwrapEntity"
 next:
   text: "Repository"
   link: "/fr/v1/api/clean/repository"
@@ -27,6 +27,7 @@ Il a pour but d'indiquer qu'une vérification a eu lieu, ou qu'une opération pa
 
 - d'ajouter le flag à une entité via `append(...)`
 - de récupérer la valeur associée (optionnelle) via `getValue(...)`
+- de vérifier la présence du flag via `has(...)`
 
 Une fois le flag ajouté, le typage de l'entité est enrichi : vous pouvez exiger `Entity & MyFlag` dans une fonction, pour garantir qu'une étape métier a bien été effectuée.
 
@@ -70,6 +71,16 @@ Récupère la valeur associée au flag.
 function getValue(
 	entity: Entity & Flag<FlagName, FlagValue>
 ): FlagValue
+```
+
+#### `has()`
+
+Vérifie si le flag est présent sur l'entité.
+
+```typescript
+function has(
+	entity: Entity
+): boolean
 ```
 
 ### Propriétés
