@@ -1,12 +1,10 @@
 import { type GetPropsWithValueExtends } from "../object";
-import { type Adaptor, type AnyFunction, type AnyValue, type ObjectKey } from "./types";
+import { type AnyConstructor, type Adaptor, type AnyFunction, type AnyValue, type ObjectKey } from "./types";
 declare const SymbolOverrideStore: unique symbol;
+type OverrideClass = AnyConstructor<[], Record<ObjectKey, unknown>>;
 declare module "./globalStore" {
     interface GlobalStore {
-        [SymbolOverrideStore]: Record<string, [
-            ObjectKey,
-            Exclude<AnyValue, AnyFunction> | AnyFunction<[object, ...unknown[]]>
-        ][]>;
+        [SymbolOverrideStore]: Record<string, OverrideClass>;
     }
 }
 export interface OverrideHandler<GenericInterface extends object> {

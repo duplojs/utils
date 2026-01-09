@@ -4,8 +4,8 @@ prev:
   text: "Common"
   link: "/fr/v1/api/common/"
 next:
-  text: "innerPipe"
-  link: "/fr/v1/api/common/innerPipe"
+  text: "pipeCall"
+  link: "/fr/v1/api/common/pipeCall"
 ---
 
 # pipe

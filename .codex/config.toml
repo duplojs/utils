@@ -6,13 +6,13 @@ approval_policy = "untrusted"
 sandbox_mode = "workspace-write"
 sandbox_workspace_write.network_access = true
 
-[features]
-skills = true
-web_search_request = false
-
 project_root_markers = [".git"]
 project_doc_max_bytes = 32768 # 3MB
 project_doc_fallback_filenames = ["AGENTS.md"]
+
+[features]
+skills = true
+web_search_request = false
 
 [history]
 persistence = "save-all"

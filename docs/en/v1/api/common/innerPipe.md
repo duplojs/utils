@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "pipe"
-  link: "/en/v1/api/common/pipe"
+  text: "pipeCall"
+  link: "/en/v1/api/common/pipeCall"
 next:
   text: "asyncPipe"
   link: "/en/v1/api/common/asyncPipe"

@@ -47,3 +47,4 @@ export * from "./falsy";
 export * from "./hasSomeKinds";
 export * from "./hasKinds";
 export * from "./toCurriedPredicate";
+export * from "./pipeCall";

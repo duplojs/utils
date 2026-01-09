@@ -1431,6 +1431,15 @@
           "name": "pipe.mjs"
         },
         {
+          "name": "pipeCall.cjs"
+        },
+        {
+          "name": "pipeCall.d.ts"
+        },
+        {
+          "name": "pipeCall.mjs"
+        },
+        {
           "name": "promiseObject.cjs"
         },
         {
@@ -1474,6 +1483,15 @@
         },
         {
           "name": "stringToMillisecond.mjs"
+        },
+        {
+          "name": "toCurriedPredicate.cjs"
+        },
+        {
+          "name": "toCurriedPredicate.d.ts"
+        },
+        {
+          "name": "toCurriedPredicate.mjs"
         },
         {
           "name": "toJSON.cjs"
