@@ -68,8 +68,6 @@ export function createOverride<
 		apply(overrideInterface) {
 			const cachedOverrideProperties: Record<string, unknown> = {};
 
-			const cachedKey = Object.keys(overrideInterface);
-
 			const self = new Proxy(
 				{},
 				{
@@ -90,12 +88,12 @@ export function createOverride<
 					},
 					ownKeys() {
 						return [
-							...cachedKey,
+							...Object.keys(overrideInterface),
 							...cachedStoreKey,
 						];
 					},
 					has(target, prop) {
-						return cachedKey.includes(prop as never)
+						return Object.keys(overrideInterface).includes(prop as never)
 							|| cachedStoreKey.includes(prop as never);
 					},
 					getOwnPropertyDescriptor() {
