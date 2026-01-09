@@ -1,9 +1,6 @@
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import { createGlobalStore } from "./globalStore";
-import { type Adaptor, type AnyFunction, type AnyValue, type ObjectKey } from "./types";
-import * as DObject from "@scripts/object";
-import * as DArray from "@scripts/array";
-import { pipe } from "./pipe";
+import { type Adaptor, type AnyFunction, type AnyValue } from "./types";
+import type * as DObject from "@scripts/object";
 
 const SymbolOverrideStore = Symbol.for("@duplojs/utils/override");
 
@@ -11,7 +8,7 @@ declare module "./globalStore" {
 	interface GlobalStore {
 		[SymbolOverrideStore]: Record<
 			string,
-			[ObjectKey, Exclude<AnyValue, AnyFunction> | AnyFunction<[object, ...unknown[]]>][]
+			Record<string, unknown>
 		>;
 	}
 }
@@ -22,7 +19,7 @@ export interface OverrideHandler<
 	GenericInterface extends object,
 > {
 	setMethod<
-		GenericProperty extends GetPropsWithValueExtends<
+		GenericProperty extends DObject.GetPropsWithValueExtends<
 			GenericInterface,
 			AnyFunction
 		>,
@@ -37,7 +34,7 @@ export interface OverrideHandler<
 	setPropertyDefaultValue<
 		GenericProperty extends Exclude<
 			keyof GenericInterface,
-			GetPropsWithValueExtends<
+			DObject.GetPropsWithValueExtends<
 				GenericInterface,
 				AnyFunction
 			>
@@ -55,38 +52,62 @@ export function createOverride<
 >(
 	overrideName: string,
 ): OverrideHandler<GenericInterface> {
-	const store = overrideStore.value[overrideName] ?? [];
-
-	overrideStore.set({
-		...overrideStore.value,
-		[overrideName]: store,
-	});
+	const overridePropertiesStore = overrideStore.value[overrideName] ?? {};
+	overrideStore.value[overrideName] ||= overridePropertiesStore;
+	let cachedStoreKey = Object.keys(overridePropertiesStore);
 
 	return {
 		setMethod(prop, theFunction) {
-			store.push([prop, theFunction]);
+			overridePropertiesStore[prop] = theFunction;
+			cachedStoreKey = Object.keys(overridePropertiesStore);
 		},
 		setPropertyDefaultValue(prop, value) {
-			store.push([prop, value]);
+			overridePropertiesStore[prop as string] = value;
+			cachedStoreKey = Object.keys(overridePropertiesStore);
 		},
 		apply(overrideInterface) {
-			const self = {
-				...overrideInterface,
-				...pipe(
-					store,
-					DArray.map(
-						([key, value]) => DObject.entry(
-							key,
-							typeof value === "function"
-								? (...args: unknown[]) => value(self, ...args)
-								: value,
-						),
-					),
-					DObject.fromEntries,
-				),
-			};
+			const cachedOverrideProperties: Record<string, unknown> = {};
 
-			return self;
+			const cachedKey = Object.keys(overrideInterface);
+
+			const self = new Proxy(
+				{},
+				{
+					get(target, prop: string) {
+						if (overridePropertiesStore[prop]) {
+							if (!cachedOverrideProperties[prop]) {
+								cachedOverrideProperties[prop] = typeof overridePropertiesStore[prop] === "function"
+									? (...args: unknown[]) => (
+										overridePropertiesStore[prop] as AnyFunction
+									)(self, ...args)
+									: overridePropertiesStore[prop];
+							}
+
+							return cachedOverrideProperties[prop];
+						}
+
+						return overrideInterface[prop as keyof typeof overrideInterface];
+					},
+					ownKeys() {
+						return [
+							...cachedKey,
+							...cachedStoreKey,
+						];
+					},
+					has(target, prop) {
+						return cachedKey.includes(prop as never)
+							|| cachedStoreKey.includes(prop as never);
+					},
+					getOwnPropertyDescriptor() {
+						return {
+							enumerable: true,
+							configurable: true,
+						};
+					},
+				},
+			);
+
+			return self as never;
 		},
 	};
 }

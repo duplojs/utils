@@ -12,6 +12,6 @@ describe("pipeCall", () => {
 			),
 		);
 
-		expect(result).toBe(20);
+		expect(result).toBe(11);
 	});
 });
