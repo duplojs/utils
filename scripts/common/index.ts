@@ -46,3 +46,4 @@ export * from "./truthy";
 export * from "./falsy";
 export * from "./hasSomeKinds";
 export * from "./hasKinds";
+export * from "./toCurriedPredicate";
