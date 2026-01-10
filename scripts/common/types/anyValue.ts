@@ -1,4 +1,13 @@
 
 import { type AnyFunction } from "./anyFunction";
 
-export type AnyValue = string | number | boolean | object | null | bigint | AnyFunction | undefined | symbol;
+export type AnyValue = string
+	| number
+	| boolean
+	| object
+	| null
+	| bigint
+	| AnyFunction
+	| undefined
+	| symbol
+	| AnyValue[];

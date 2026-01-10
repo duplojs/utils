@@ -3,24 +3,50 @@ import { createGlobalStore } from './globalStore.mjs';
 const SymbolOverrideStore = Symbol.for("@duplojs/utils/override");
 const overrideStore = createGlobalStore(SymbolOverrideStore, {});
 function createOverride(overrideName) {
-    const OverrideConstructor = overrideStore.value[overrideName] ?? (class {
-    });
-    overrideStore.value[overrideName] ||= OverrideConstructor;
+    const overridePropertiesStore = overrideStore.value[overrideName] ?? {};
+    overrideStore.value[overrideName] ||= overridePropertiesStore;
+    let cachedStoreKey = Object.keys(overridePropertiesStore);
     return {
         setMethod(prop, theFunction) {
-            OverrideConstructor.prototype[prop] = function (...args) {
-                return theFunction(this, ...args);
-            };
+            overridePropertiesStore[prop] = theFunction;
+            cachedStoreKey = Object.keys(overridePropertiesStore);
         },
         setPropertyDefaultValue(prop, value) {
-            OverrideConstructor.prototype[prop] = value;
+            overridePropertiesStore[prop] = value;
+            cachedStoreKey = Object.keys(overridePropertiesStore);
         },
-        apply(toOverrideInterface) {
-            const newInstance = new OverrideConstructor();
-            for (const prop in toOverrideInterface) {
-                newInstance[prop] = toOverrideInterface[prop];
-            }
-            return newInstance;
+        apply(overrideInterface) {
+            const cachedOverrideProperties = {};
+            const self = new Proxy({}, {
+                get(target, prop) {
+                    if (overridePropertiesStore[prop]) {
+                        if (!cachedOverrideProperties[prop]) {
+                            cachedOverrideProperties[prop] = typeof overridePropertiesStore[prop] === "function"
+                                ? (...args) => overridePropertiesStore[prop](self, ...args)
+                                : overridePropertiesStore[prop];
+                        }
+                        return cachedOverrideProperties[prop];
+                    }
+                    return overrideInterface[prop];
+                },
+                ownKeys() {
+                    return [
+                        ...Object.keys(overrideInterface),
+                        ...cachedStoreKey,
+                    ];
+                },
+                has(target, prop) {
+                    return Object.keys(overrideInterface).includes(prop)
+                        || cachedStoreKey.includes(prop);
+                },
+                getOwnPropertyDescriptor() {
+                    return {
+                        enumerable: true,
+                        configurable: true,
+                    };
+                },
+            });
+            return self;
         },
     };
 }

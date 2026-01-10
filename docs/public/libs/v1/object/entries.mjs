@@ -5,5 +5,11 @@ function entries(object) {
     return Object.entries(object)
         .filter(([key]) => !isRuntimeWrappedValueKey(key) && !isRuntimeKind(key));
 }
+/**
+ * @deprecated Not ignore kind key.
+ */
+entries.unsafe = function (object) {
+    return Object.entries(object);
+};
 
 export { entries };

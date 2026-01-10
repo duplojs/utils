@@ -1,5 +1,4 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { createKind, DObject, wrapValue } from "@scripts";
+import { type AnyValue, createKind, DObject, type ExpectType, wrapValue } from "@scripts";
 
 describe("entries", () => {
 	it("normal usage", () => {
@@ -50,6 +49,42 @@ describe("entries", () => {
 		type check = ExpectType<
 			typeof entries,
 			[`${number}`, number][],
+			"strict"
+		>;
+	});
+
+	it("entry of objet", () => {
+		const input = {} as object;
+
+		const entries = DObject.entries(input);
+
+		expect(entries).toStrictEqual([]);
+
+		type check = ExpectType<
+			typeof entries,
+			[string, AnyValue][],
+			"strict"
+		>;
+	});
+
+	it("unsafe Entries", () => {
+		const myKind = createKind("test");
+
+		const entries = DObject.entries.unsafe(
+			myKind.addTo(
+				wrapValue(1),
+			),
+		);
+
+		expect(entries).toStrictEqual(
+			myKind.addTo(
+				wrapValue(1),
+			),
+		);
+
+		type check = ExpectType<
+			typeof entries,
+			[string, AnyValue][],
 			"strict"
 		>;
 	});
