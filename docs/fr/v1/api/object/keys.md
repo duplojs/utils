@@ -4,8 +4,8 @@ prev:
   text: "Object"
   link: "/fr/v1/api/object/"
 next:
-  text: "values"
-  link: "/fr/v1/api/object/values"
+  text: "countKeys"
+  link: "/fr/v1/api/object/countKeys"
 ---
 
 # keys

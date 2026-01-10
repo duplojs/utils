@@ -27,6 +27,9 @@ import * as O from "@duplojs/utils/object";
 ### [keys](/en/v1/api/object/keys)
 Returns an array of an object's keys with precise typing.
 
+### [countKeys](/en/v1/api/object/countKeys)
+Counts the number of an object's keys while ignoring internal keys.
+
 ### [values](/en/v1/api/object/values)
 Returns an array of an object's values.
 

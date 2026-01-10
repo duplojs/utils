@@ -27,6 +27,9 @@ import * as O from "@duplojs/utils/object";
 ### [keys](/fr/v1/api/object/keys)
 Retourne un tableau des clés d'un objet avec un typage précis.
 
+### [countKeys](/fr/v1/api/object/countKeys)
+Compte le nombre de clés d'un objet en ignorant les clés internes.
+
 ### [values](/fr/v1/api/object/values)
 Retourne un tableau des valeurs d'un objet.
 

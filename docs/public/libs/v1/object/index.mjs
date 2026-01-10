@@ -2,6 +2,7 @@ export { entries } from './entries.mjs';
 export { fromEntries } from './fromEntries.mjs';
 export { hasKeys } from './hasKeys.mjs';
 export { keys } from './keys.mjs';
+export { countKeys } from './countKeys.mjs';
 export { values } from './values.mjs';
 export { getProperty } from './getProperty.mjs';
 export { transformProperties } from './transformProperties.mjs';

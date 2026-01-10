@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "keys"
-  link: "/en/v1/api/object/keys"
+  text: "countKeys"
+  link: "/en/v1/api/object/countKeys"
 next:
   text: "entries"
   link: "/en/v1/api/object/entries"

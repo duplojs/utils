@@ -77,8 +77,10 @@ describe("entries", () => {
 		);
 
 		expect(entries).toStrictEqual(
-			myKind.addTo(
-				wrapValue(1),
+			Object.entries(
+				myKind.addTo(
+					wrapValue(1),
+				),
 			),
 		);
 
