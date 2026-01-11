@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un EitherRight en associant une information métier obligatoire (string littérale) et un payload optionnel. C'est la brique de base pour signaler un succès contextualisé."
 prev:
   text: "Either"
   link: "/fr/v1/api/either/"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction select() a un rôle proche de [filter](/fr/v1/api/array/filter), mais permet en plus de transformer les éléments conservés. Elle est particulièrement utile pour obtenir une discrimination de type côté sortie, sans devoir écrire un type guard explicite (la sortie est inférée à partir des valeurs passées à select())."
 prev:
   text: "filter"
   link: "/fr/v1/api/array/filter"

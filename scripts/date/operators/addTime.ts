@@ -4,6 +4,9 @@ import { toTimestamp } from "../toTimestamp";
 import { toTimeValue } from "../toTimeValue";
 import type { TheDate, TheTime } from "../types";
 
+/**
+ * {@include date/addTime/index.md}
+ */
 export function addTime<
 	GenericInput extends TheDate,
 >(

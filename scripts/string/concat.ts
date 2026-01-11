@@ -1,3 +1,6 @@
+/**
+ * {@include string/concat/index.md}
+ */
 export function concat<
 	GenericInput extends string,
 >(

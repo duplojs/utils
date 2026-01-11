@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction asyncLoop() crée un générateur asynchrone personnalisé en utilisant une fonction de boucle asynchrone. Permet de générer des séquences de valeurs de manière lazy avec des opérations asynchrones."
 prev:
   text: "loop"
   link: "/fr/v1/api/generator/loop"

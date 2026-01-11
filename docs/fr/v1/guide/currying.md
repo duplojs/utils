@@ -1,4 +1,5 @@
 ---
+description: "La curryfication consiste à transformer une fonction qui prend plusieurs paramètres en une suite de fonctions qui prennent un seul paramètre."
 prev:
   text: "Démarrage rapide"
   link: "/fr/v1/guide/quickStart"

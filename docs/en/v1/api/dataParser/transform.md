@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.transform(inner, fn) applies a parser, then transforms the validated value (synchronously or asynchronously) before returning it. Ideal to create business objects (URL, Date, DTOs) without a manual pipe."
 prev:
   text: "pipe"
   link: "/en/v1/api/dataParser/pipe"

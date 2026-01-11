@@ -4,33 +4,49 @@ interface ArrayFindParams {
 	index: number;
 }
 
-// Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericArray instead of GenericElement
-// preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/find/index.md}
+ */
 export function find<
 	GenericArray extends readonly unknown[],
 	GenericOutput extends GenericArray[number],
 >(
-	predicate: (element: GenericArray[number], params: ArrayFindParams) => element is GenericOutput,
+	predicate: (
+		element: GenericArray[number],
+		params: ArrayFindParams
+	) => element is GenericOutput,
 ): (array: GenericArray) => GenericOutput | undefined;
+
 export function find<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,
 >(
 	array: readonly GenericElement[],
-	predicate: (element: GenericElement, params: ArrayFindParams) => element is GenericOutput,
+	predicate: (
+		element: GenericElement,
+		params: ArrayFindParams
+	) => element is GenericOutput,
 ): GenericOutput | undefined;
+
 export function find<
 	GenericArray extends readonly unknown[],
 >(
-	predicate: (element: GenericArray[number], params: ArrayFindParams) => boolean,
+	predicate: (
+		element: GenericArray[number],
+		params: ArrayFindParams
+	) => boolean,
 ): (array: GenericArray) => GenericArray[number] | undefined;
+
 export function find<
 	GenericElement extends unknown,
 >(
 	array: readonly GenericElement[],
-	predicate: (element: GenericElement, params: ArrayFindParams) => boolean,
+	predicate: (
+		element: GenericElement,
+		params: ArrayFindParams
+	) => boolean,
 ): GenericElement | undefined;
+
 export function find(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [predicate] = args;

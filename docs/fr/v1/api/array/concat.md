@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction concat() fusionne plusieurs tableaux en un nouveau tableau continu."
 prev:
   text: "shift"
   link: "/fr/v1/api/array/shift"

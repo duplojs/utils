@@ -1,3 +1,6 @@
+/**
+ * {@include number/toFixed/index.md}
+ */
 export function toFixed<
 	GenericValue extends number,
 >(digits: number): (value: GenericValue) => string;

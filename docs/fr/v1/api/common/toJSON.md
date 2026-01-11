@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction toJSON() prépare une valeur pour la sérialisation JSON en respectant les méthodes toJSON des objets, en parcourant tableaux/tuples et en excluant les fonctions."
 prev:
   text: "memo"
   link: "/fr/v1/api/common/memo"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The flatMap() method applies a transform function to each element and then automatically flattens the result by one level. It therefore combines map() and flat(1) in a single step."
 prev:
   text: "flat"
   link: "/en/v1/api/array/flat"

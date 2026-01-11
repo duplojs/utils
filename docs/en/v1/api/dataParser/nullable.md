@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Allows null while applying a strict parser when the value is present. DDataParser.nullable(inner) returns null or the output of inner."
 prev:
   text: "optional"
   link: "/en/v1/api/dataParser/optional"

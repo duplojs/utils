@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction createGlobalStore() permet de créer un store global (singleton) partagé dans tout le process. C’est utile pour stocker une valeur mutable accessible depuis n’importe quel module, sans avoir à la passer en paramètre."
 prev:
   text: "createEnum"
   link: "/fr/v1/api/common/createEnum"
@@ -21,7 +22,7 @@ Le store est global et mutable : évitez d’en faire un “state manager”. Ne
 <MonacoTSEditor
   src="/examples/v1/api/common/globalStore/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="630px"
 />
 
 ## Typage : déclarer vos stores

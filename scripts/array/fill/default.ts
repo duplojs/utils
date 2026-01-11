@@ -1,3 +1,6 @@
+/**
+ * {@include array/fill/index.md}
+ */
 export function fill<
 	GenericElement extends unknown,
 >(

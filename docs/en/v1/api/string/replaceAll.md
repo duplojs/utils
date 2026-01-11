@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The replaceAll() method returns a new string in which all occurrences of a specified pattern are replaced by a replacement string."
 prev:
   text: "replace"
   link: "/en/v1/api/string/replace"

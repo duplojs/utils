@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Fonctions pour manipuler les nombres de manière immutable et type-safe. Toutes les fonctions préservent les valeurs originales et retournent une nouvelle valeur."
 prev:
   text: 'String'
   link: '/fr/v1/api/string/'

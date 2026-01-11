@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit explicitement un EitherLeft<\"nullable\"> contenant null."
 prev:
   text: "nullable"
   link: "/fr/v1/api/either/nullable"

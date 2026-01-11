@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findIndex() method returns the index of the first element of an array that satisfies a given condition."
 prev:
   text: "findLast"
   link: "/en/v1/api/array/findLast"

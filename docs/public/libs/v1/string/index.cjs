@@ -36,7 +36,9 @@ var _default$1 = require('./trim/default.cjs');
 var end = require('./trim/end.cjs');
 var start = require('./trim/start.cjs');
 
-
+/**
+ * {@include string/index.md}
+ */
 
 exports.isKeyof = isKeyof.isKeyof;
 exports.split = split.split;

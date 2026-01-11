@@ -2,6 +2,9 @@ import { createGlobalStore } from './globalStore.mjs';
 
 const SymbolOverrideStore = Symbol.for("@duplojs/utils/override");
 const overrideStore = createGlobalStore(SymbolOverrideStore, {});
+/**
+ * {@include common/override/index.md}
+ */
 function createOverride(overrideName) {
     const overridePropertiesStore = overrideStore.value[overrideName] ?? {};
     overrideStore.value[overrideName] ||= overridePropertiesStore;

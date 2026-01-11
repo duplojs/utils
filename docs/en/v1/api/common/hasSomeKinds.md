@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The hasSomeKinds() function checks that a value carries at least one of the requested kinds and acts as a type guard toward their union."
 prev:
   text: "hasKinds"
   link: "/en/v1/api/common/hasKinds"

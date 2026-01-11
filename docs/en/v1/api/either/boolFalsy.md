@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds an EitherLeft<\"bool\"> for an explicitly falsy value (0, \"\", null, undefined, false)."
 prev:
   text: "boolTruthy"
   link: "/en/v1/api/either/boolTruthy"

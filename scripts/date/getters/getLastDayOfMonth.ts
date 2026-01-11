@@ -1,6 +1,9 @@
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/getLastDayOfMonth/index.md}
+ */
 export function getLastDayOfMonth(input: TheDate): TheDate {
 	const nativeDate = toNative(input);
 

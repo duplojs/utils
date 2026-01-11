@@ -1,6 +1,9 @@
 import { nullableEmpty, type EitherNullableEmpty } from "./empty";
 import { nullableFilled, type EitherNullableFilled } from "./filled";
 
+/**
+ * {@include either/nullable/index.md}
+ */
 export function nullable<
 	const GenericValue extends unknown = null,
 >(value: GenericValue): GenericValue extends null

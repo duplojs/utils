@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction asyncGroup() exécute en parallèle des Either synchrones ou asynchrones (promesses, Future) et renvoie le premier Left rencontré. Si tous sont Right, elle agrège leurs valeurs dans un objet typé."
 prev:
   text: "group"
   link: "/fr/v1/api/either/group"

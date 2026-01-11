@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sort() function sorts an array of strings in ascending (ASC) or descending (DSC) order and returns a new array."
 prev:
   text: "betweenThan"
   link: "/en/v1/api/string/trimEnd"

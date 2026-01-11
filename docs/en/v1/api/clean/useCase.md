@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "A useCase is a function of the application layer that materializes a business request. Each useCase corresponds to a specific business action and contains the logic necessary for its execution."
 prev:
   text: "Repository"
   link: "/en/v1/api/clean/repository"

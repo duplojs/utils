@@ -5,6 +5,9 @@ import { type ComplexMatchedValue } from "./types";
 
 const SymbolToolPatternFunction = Symbol.for(SymbolToolPatternFunctionLabel);
 
+/**
+ * {@include pattern/isMatch/index.md}
+ */
 export function isMatch<
 	GenericInput extends AnyValue,
 	const GenericPattern extends Pattern<GenericInput>,

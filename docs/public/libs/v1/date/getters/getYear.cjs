@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getYear/index.md}
+ */
 function getYear(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     if (timezone === "UTC") {

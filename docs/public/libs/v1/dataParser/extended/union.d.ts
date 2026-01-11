@@ -20,6 +20,34 @@ export interface DataParserUnionExtended<GenericDefinition extends dataParsers.D
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;
 }
+/**
+ * Creates an extended data parser that accepts one of multiple parsers.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.union(options, definition?)` -> returns a union parser
+ * 
+ * Tries each option in order until one succeeds, then returns its output.
+ * 
+ * ```ts
+ * const parser = DPE.union([DPE.string(), DPE.number()]);
+ * const result = parser.parse("hello");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string | number
+ * }
+ * 
+ * const literals = DPE.union([DPE.literal("on"), DPE.literal("off")]);
+ * const literalResult = literals.parse("off");
+ * 
+ * const mixed = DPE.union([DPE.number(), DPE.boolean()]);
+ * const mixedResult = mixed.parse(true);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/union
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare function union<GenericOptions extends dataParsers.UnionOptions, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
     options: GenericOptions;
 }>>;

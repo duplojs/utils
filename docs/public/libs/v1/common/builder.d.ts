@@ -30,5 +30,93 @@ export declare class MissingBuilderMethodsError extends MissingBuilderMethodsErr
     method: string;
     constructor(method: string);
 }
+/**
+ * The createBuilder() function lets you create a builder whose methods can be defined after declaration (and even redefined) while keeping strict typing.
+ * 
+ * Signature: `createBuilder(builderName)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * interface UrlAccumulator {
+ * 	base: string;
+ * 	path: string[];
+ * 	query: Record<string, string>;
+ * }
+ * 
+ * interface UrlBuilder extends Builder<UrlAccumulator> {
+ * 	path(segment: string): UrlBuilder;
+ * 	query(key: string, value: string): UrlBuilder;
+ * 	build(): string;
+ * }
+ * 
+ * const urlBuilderHandler = createBuilder<UrlBuilder>("urlBuilder");
+ * 
+ * urlBuilderHandler
+ * 	.set("path", ({ args, accumulator, next }) => {
+ * 		const [segment] = args;
+ * 		return next({
+ * 			...accumulator,
+ * 			path: [...accumulator.path, segment],
+ * 		});
+ * 	})
+ * 	.set("query", ({ args, accumulator, next }) => {
+ * 		const [key, value] = args;
+ * 		return next({
+ * 			...accumulator,
+ * 			query: {
+ * 				...accumulator.query,
+ * 				[key]: value,
+ * 			},
+ * 		});
+ * 	})
+ * 	.set("build", ({ accumulator }) => pipe(
+ * 		accumulator,
+ * 		DObject.to({
+ * 			base: DObject.getProperty("base"),
+ * 			path: ({ path }) => DArray.join(path, "/"),
+ * 			query: ({ query }) => DObject.entries(query),
+ * 		}),
+ * 		({ base, path, query }) => {
+ * 			const url = new URL(base);
+ * 			url.pathname = path;
+ * 			DArray.map(
+ * 				query,
+ * 				([key, value]) => void url.searchParams.set(key, value),
+ * 			);
+ * 			return url.toString();
+ * 		},
+ * 	));
+ * 
+ * // "https://example.com/users?page=1"
+ * const url = urlBuilderHandler
+ * 	.use({
+ * 		base: "https://example.com",
+ * 		path: [],
+ * 		query: {},
+ * 	})
+ * 	.path("users")
+ * 	.query("page", "1")
+ * 	.build();
+ * 
+ * // Override (le dernier set gagne)
+ * urlBuilderHandler.set("build", ({ accumulator }) => `${accumulator.base}/${accumulator.path.join("/")}`);
+ * 
+ * // "https://example.com/docs"
+ * const overridden = urlBuilderHandler
+ * 	.use({
+ * 		base: "https://example.com",
+ * 		path: [],
+ * 		query: {},
+ * 	})
+ * 	.path("docs")
+ * 	.build();
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/builder
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createBuilder<GenericBuilder extends Builder>(builderName: string): BuilderHandler<GenericBuilder>;
 export {};

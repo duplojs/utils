@@ -1,0 +1,10 @@
+import { D, pipe } from "@scripts";
+
+const input = D.create("2024-06-20");
+const result = D.addSeconds(input, 5);
+// result: "date1718841605000+"
+
+pipe(
+	input,
+	D.addSeconds(5),
+); // result: "date1718841605000+"

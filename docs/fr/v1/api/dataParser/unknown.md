@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.unknown() laisse passer n'importe quelle valeur mais conserve la mécanique d'erreurs et de checkers. Idéal pour un point d'entrée permissif avant d'enchaîner un pipe ou d'ajouter vos checkerRefine."
 prev:
   text: "empty"
   link: "/fr/v1/api/dataParser/empty"

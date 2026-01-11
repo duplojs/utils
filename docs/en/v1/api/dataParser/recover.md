@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.recover(inner, fallback) wraps a parser and returns its output when it succeeds or a fallback value when it fails. Handy to ensure a safe value while still collecting errors (useful for partial DTOs, logs, migrations, etc.)."
 prev:
   text: "refine"
   link: "/en/v1/api/dataParser/refine"

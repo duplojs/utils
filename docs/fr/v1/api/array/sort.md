@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode sort() trie les éléments d'un tableau en utilisant une fonction de comparaison personnalisée et retourne un nouveau tableau trié."
 prev:
   text: "reverse"
   link: "/fr/v1/api/array/reverse"

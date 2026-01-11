@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode entries() retourne un tableau des paires clé-valeur d'un objet avec un typage strict."
 prev:
   text: "values"
   link: "/fr/v1/api/object/values"

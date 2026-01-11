@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction spliceInsert() insère un tableau d'éléments à un index précis sans supprimer les valeurs existantes."
 prev:
   text: "spliceDelete"
   link: "/fr/v1/api/array/spliceDelete"

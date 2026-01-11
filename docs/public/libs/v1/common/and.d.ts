@@ -8,6 +8,59 @@ type ExtractPredicate<GenericInput extends unknown, GenericPredicatedInput exten
     ...infer InferredRest extends AnyFunction<any[], boolean>[]
 ] ? InferredRest extends readonly [] ? InferredPredicate : InferredPredicate | ExtractPredicate<GenericInput, InferredRest> : GenericInput;
 type ComputeResult<GenericInput extends unknown, GenericPredicatedInput extends AnyFunction<any[], boolean>[]> = ExtractIntersection<GenericInput, GenericPredicatedInput> extends infer InferredResult extends GenericInput ? IsEqual<InferredResult, never> extends true ? GenericInput & UnionToIntersection<ExtractPredicate<GenericInput, GenericPredicatedInput>> : InferredResult : never;
+/**
+ * The and() function combines several predicates or type guards. All must succeed for the result to be true and the type to be narrowed to the intersection.
+ * 
+ * **Supported call styles:**
+ * - Classic: `and(input, predicates)` → returns a value
+ * - Curried: `and(predicates)` → returns a function waiting for the input
+ * - Classic predicate: `and(input, predicates)` → narrows the input type
+ * - Curried predicate: `and(predicates)` → narrows the input type
+ * 
+ * Predicate overloads (type guards) narrow the output type.
+ * 
+ * ```ts
+ * interface Admin {
+ * 	type: "admin";
+ * 	status: "active";
+ * 	meta: {
+ * 		role: "super";
+ * 	};
+ * }
+ * 
+ * interface Viewer {
+ * 	type: "viewer";
+ * 	status: "active";
+ * 	meta: {
+ * 		role: "reader";
+ * 	};
+ * }
+ * 
+ * const result = pipe(
+ * 	{
+ * 		type: "admin",
+ * 		status: "active",
+ * 		meta: {
+ * 			role: "super",
+ * 		},
+ * 	} as Admin | Viewer,
+ * 	when(
+ * 		and([
+ * 			DObject.discriminate("type", "admin"),
+ * 			DObject.discriminate("status", "active"),
+ * 		]),
+ * 		(value) => {
+ * 			// type: Admin
+ * 		},
+ * 	),
+ * );
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/and
+ * 
+ * @namespace C
+ * 
+ */
 export declare function and<GenericInput extends unknown, GenericArrayPredicatedInput extends [
     (input: GenericInput) => input is any,
     (input: GenericInput) => input is any,

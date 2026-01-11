@@ -65,6 +65,9 @@ export interface DataParserTimeExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/time/min/index.md}
+	 */
 	min(
 		min: TheTime,
 		definition?: Partial<
@@ -77,6 +80,9 @@ export interface DataParserTimeExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/time/max/index.md}
+	 */
 	max(
 		max: TheTime,
 		definition?: Partial<
@@ -90,6 +96,9 @@ export interface DataParserTimeExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/time/index.md}
+ */
 export function time<
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionTime> = never,
 >(

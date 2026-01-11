@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode first() retourne le premier élément d'un tableau."
 prev:
   text: "at"
   link: "/fr/v1/api/array/at"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The lastIndexOf() method returns the index of the last occurrence of an element in an array."
 prev:
   text: "indexOf"
   link: "/en/v1/api/array/indexOf"

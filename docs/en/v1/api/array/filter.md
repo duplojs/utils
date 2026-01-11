@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The filter() method selects the elements of an array that satisfy a predicate and returns a new array. It can also serve as a type guard to refine the typing of the kept elements."
 prev:
   text: "map"
   link: "/en/v1/api/array/map"

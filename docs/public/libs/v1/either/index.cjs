@@ -39,7 +39,9 @@ var when$1 = require('./right/when.cjs');
 var group = require('./right/group.cjs');
 var asyncGroup = require('./right/asyncGroup.cjs');
 
-
+/**
+ * {@include either/index.md}
+ */
 
 exports.hasInformation = hasInformation.hasInformation;
 exports.whenHasInformation = whenHasInformation.whenHasInformation;

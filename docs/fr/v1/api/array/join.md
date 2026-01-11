@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode join() concatène les éléments d'un tableau de chaînes en insérant un séparateur entre chacun d'eux. Elle respecte la structure des tuples pour calculer statiquement la chaîne résultante."
 prev:
   text: "reduceRight"
   link: "/fr/v1/api/array/reduceRight"

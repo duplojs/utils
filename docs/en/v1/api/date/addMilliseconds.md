@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Adds a positive number of milliseconds to a TheDate."
 prev:
   text: "addSeconds"
   link: "/en/v1/api/date/addSeconds"

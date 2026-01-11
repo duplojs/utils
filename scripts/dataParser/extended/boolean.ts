@@ -65,6 +65,9 @@ export interface DataParserBooleanExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/boolean/index.md}
+ */
 export function boolean<
 	const GenericDefinition extends Partial<
 		dataParsers.DataParserDefinitionBoolean

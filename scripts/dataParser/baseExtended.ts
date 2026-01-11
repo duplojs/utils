@@ -1,6 +1,7 @@
 import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
+import type * as DEither from "../either";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
@@ -28,6 +29,37 @@ export interface DataParserExtended<
 		GenericOutput,
 		GenericInput
 	> {
+
+	/**
+	 * {@include dataParser/extended/base/parse/index.md}
+	 */
+	parse(
+		data: unknown,
+	): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+
+	/**
+	 * {@include dataParser/extended/base/asyncParse/index.md}
+	 */
+	asyncParse(
+		data: unknown,
+	): Promise<
+		| DEither.EitherSuccess<GenericOutput>
+		| DEither.EitherError<DataParserError>
+	>;
+
+	/**
+	 * {@include dataParser/extended/base/addChecker/index.md}
+	 */
+	addChecker(...args: never): DataParserExtended;
+
+	/**
+	 * {@include dataParser/extended/base/clone/index.md}
+	 */
+	clone(): this;
+
+	/**
+	 * {@include dataParser/extended/base/array/index.md}
+	 */
 	array<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
@@ -40,6 +72,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/transform/index.md}
+	 */
 	transform<
 		GenericThis extends this = this,
 		GenericOutput extends AnyValue = AnyValue,
@@ -62,6 +97,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/arrayCoalescing/index.md}
+	 */
 	arrayCoalescing<
 		GenericThis extends this = this,
 	>(): dataParsersExtended.DataParserUnionExtended<
@@ -91,6 +129,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/pipe/index.md}
+	 */
 	pipe<
 		GenericThis extends this = this,
 		GenericOutput extends DataParser = DataParser,
@@ -110,6 +151,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/nullable/index.md}
+	 */
 	nullable<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
@@ -129,6 +173,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/optional/index.md}
+	 */
 	optional<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
@@ -148,6 +195,9 @@ export interface DataParserExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/base/or/index.md}
+	 */
 	or<
 		GenericThis extends this = this,
 		GenericDataParser extends DataParser = DataParser,
@@ -168,6 +218,9 @@ export interface DataParserExtended<
 
 	refine(...args: never): DataParserExtended;
 
+	/**
+	 * {@include dataParser/extended/base/recover/index.md}
+	 */
 	recover<
 		GenericThis extends this = this,
 		GenericRecoveredValue extends unknown = unknown,

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findAndSpliceReplace() function looks for an element with a predicate and replaces it, along with the following elements, with an array of new values."
 prev:
   text: "findAndSpliceInsert"
   link: "/en/v1/api/array/findAndSpliceInsert"

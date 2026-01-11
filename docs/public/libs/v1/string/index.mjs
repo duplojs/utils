@@ -33,3 +33,7 @@ export { last } from './at/last.mjs';
 export { trim } from './trim/default.mjs';
 export { trimEnd } from './trim/end.mjs';
 export { trimStart } from './trim/start.mjs';
+
+/**
+ * {@include string/index.md}
+ */

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction unwrap() extrait la valeur interne d'un WrappedValue. Si l'entrée n'est pas wrappée, elle est renvoyée telle quelle."
 prev:
   text: "toWrappedValue"
   link: "/fr/v1/api/common/toWrappedValue"

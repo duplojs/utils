@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode innerPipe() prépare un pipeline synchrone réutilisable : elle retourne une fonction qui appliquera la chaîne de transformations à n'importe quel input compatible."
 prev:
   text: "pipeCall"
   link: "/fr/v1/api/common/pipeCall"

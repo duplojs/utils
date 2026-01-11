@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The shift() function removes the first element of an array and returns a shortened copy. For tuples, the type is updated exactly thanks to ShiftTuple."
 prev:
   text: "unshift"
   link: "/en/v1/api/array/unshift"

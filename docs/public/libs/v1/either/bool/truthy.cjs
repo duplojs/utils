@@ -9,6 +9,15 @@ var is$1 = require('../left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
 const eitherBoolTruthyKind = kind.createEitherKind("bool-truthy");
+/**
+ * {@include either/boolTruthy/index.md}
+ */
+/**
+ * {@include either/isBoolTruthy/index.md}
+ */
+/**
+ * {@include either/whenIsBoolTruthy/index.md}
+ */
 function boolTruthy(value) {
     return base.eitherBoolKind.setTo(eitherBoolTruthyKind.setTo(create.right("bool", value)));
 }

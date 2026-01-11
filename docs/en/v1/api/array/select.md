@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The select() function is close to [filter](/en/v1/api/array/filter) but also lets you transform the kept elements. It is especially useful to get type discrimination on the output side without having to write an explicit type guard (the output is inferred from the values passed to select())."
 prev:
   text: "filter"
   link: "/en/v1/api/array/filter"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The isLastIndex() function indicates whether an index corresponds to the last element of an array. It is curried to fit easily into compositions or reductions."
 prev:
   text: "lastIndexOf"
   link: "/en/v1/api/array/lastIndexOf"

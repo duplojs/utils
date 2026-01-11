@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction insert() ajoute une valeur à la fin d'un tableau et retourne une nouvelle instance. La signature currifiée accepte d'abord le tableau (array), puis la valeur (input), ce qui facilite la composition. (cette fonction est similaire à push(), mais l'ordre des arguments est inversé)."
 prev:
   text: "copyWithin"
   link: "/fr/v1/api/array/copyWithin"

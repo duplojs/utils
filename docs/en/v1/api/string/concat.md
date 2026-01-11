@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The concat() method combines the text of multiple strings and returns a new string."
 prev:
   text: "sortCompare"
   link: "/en/v1/api/string/sortCompare"

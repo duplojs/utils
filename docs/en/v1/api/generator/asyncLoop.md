@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncLoop() function creates a custom asynchronous generator using an async loop function. It lets you generate sequences of values lazily with asynchronous operations."
 prev:
   text: "loop"
   link: "/en/v1/api/generator/loop"

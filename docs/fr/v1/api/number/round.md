@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode round() arrondit un nombre à l'entier le plus proche. Si la partie décimale est exactement 0.5, le nombre est arrondi vers l'entier supérieur."
 prev:
   text: "abs"
   link: "/fr/v1/api/number/abs"

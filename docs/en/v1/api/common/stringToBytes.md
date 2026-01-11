@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The stringToBytes() function converts a size (\"10mb\", \"2gb\", etc.) or a number into bytes. It throws a typed error if the format is invalid."
 prev:
   text: "stringToMillisecond"
   link: "/en/v1/api/common/stringToMillisecond"

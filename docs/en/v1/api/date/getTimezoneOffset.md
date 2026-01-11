@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getTimezoneOffset() function returns the millisecond offset between a TheDate and an IANA timezone."
 prev:
   text: "isSafeTimeValue"
   link: "/en/v1/api/date/isSafeTimeValue"

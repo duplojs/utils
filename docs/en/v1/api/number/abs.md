@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The abs() method returns the absolute value of a number. The absolute value of a number is its distance from zero, always positive or zero."
 prev:
   text: "negate"
   link: "/en/v1/api/number/negate"

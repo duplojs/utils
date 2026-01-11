@@ -4,6 +4,9 @@ import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const stringKind = createDataParserKind("string");
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 function string(definition) {
     const self = dataParserInit(stringKind, {
         errorMessage: definition?.errorMessage,

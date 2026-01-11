@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds an EitherLeft by associating mandatory business information (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure."
 prev:
   text: "ok"
   link: "/en/v1/api/either/ok"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction isWrappedValue() est un type guard qui vérifie si une valeur est un WrappedValue créé via wrapValue/toWrappedValue."
 prev:
   text: "wrapValue"
   link: "/fr/v1/api/common/wrapValue"

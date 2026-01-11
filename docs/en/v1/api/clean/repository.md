@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "A repository is an abstraction layer between the application and the infrastructure. It encapsulates business operations on data by hiding technical details, thus allowing the application layer to manipulate business data without worrying about their technical implementation."
 prev:
   text: "Flag"
   link: "/en/v1/api/clean/flag"

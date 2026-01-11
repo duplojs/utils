@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode pipe() enchaîne jusqu'à 15 fonctions synchrones en passant la sortie de l'une comme entrée de la suivante. Elle renvoie la dernière valeur calculée et reste entièrement typée à chaque étape."
 prev:
   text: "Common"
   link: "/fr/v1/api/common/"

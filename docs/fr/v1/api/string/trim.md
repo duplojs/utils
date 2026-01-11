@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode trim() supprime les espaces en début et en fin de chaîne. Les espaces incluent les espaces, tabulations, sauts de ligne et autres caractères d'espacement Unicode."
 prev:
   text: "padEnd"
   link: "/fr/v1/api/string/padEnd"

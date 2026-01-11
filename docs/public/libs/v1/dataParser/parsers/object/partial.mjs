@@ -11,6 +11,9 @@ import { fromEntries } from '../../../object/fromEntries.mjs';
 function partialShape(shape) {
     return pipe(shape, entries, map(([key, dataParser]) => pipe(dataParser, whenNot(identifier(optionalKind), optional), (dataParser) => entry(key, dataParser))), fromEntries);
 }
+/**
+ * {@include dataParser/classic/object/partial/index.md}
+ */
 function partial(dataParser, definition) {
     const newShape = partialShape(dataParser.definition.shape);
     return object(newShape, definition);

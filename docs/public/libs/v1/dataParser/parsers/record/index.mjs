@@ -6,6 +6,9 @@ export { findRecordRequiredKeyOnTemplateLiteralPart } from './findRecordRequired
 import { createOverride } from '../../../common/override.mjs';
 
 const recordKind = createDataParserKind("record");
+/**
+ * {@include dataParser/classic/record/index.md}
+ */
 function record(key, value, definition) {
     const self = dataParserInit(recordKind, {
         errorMessage: definition?.errorMessage,

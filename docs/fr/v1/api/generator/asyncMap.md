@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction asyncMap() transforme chaque élément d'un générateur en appliquant une fonction de transformation asynchrone. Retourne un générateur asynchrone avec les valeurs transformées."
 prev:
   text: "map"
   link: "/fr/v1/api/generator/map"

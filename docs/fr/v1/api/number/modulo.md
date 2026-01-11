@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode modulo() retourne le reste de la division euclidienne de deux nombres. Cette opération est utile pour déterminer la parité, créer des rotations circulaires ou gérer la pagination."
 prev:
   text: "divide"
   link: "/fr/v1/api/number/divide"

@@ -23,6 +23,15 @@ export interface EitherNullableEmpty extends _EitherNullableEmpty {
 
 type Either = EitherRight | EitherLeft;
 
+/**
+ * {@include either/isNullableEmpty/index.md}
+ */
+/**
+ * {@include either/nullableEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsNullableEmpty/index.md}
+ */
 export function nullableEmpty(): EitherNullableEmpty {
 	return eitherNullableKind.setTo(
 		eitherNullableEmptyKind.setTo(

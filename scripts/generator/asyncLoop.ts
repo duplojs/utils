@@ -1,6 +1,9 @@
 import { type MaybePromise } from "@scripts/common";
 import { type LoopOutputExistResult, type LoopOutputNextResult, type GeneratorLoopParams } from "./loop";
 
+/**
+ * {@include generator/asyncLoop/index.md}
+ */
 export async function *asyncLoop<
 	GenericRawNextOutput extends unknown,
 	GenericOutput extends MaybePromise<

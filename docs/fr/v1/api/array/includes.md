@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode includes() vérifie si un tableau contient un élément donné."
 prev:
   text: "lengthEqual"
   link: "/fr/v1/api/array/lengthEqual"

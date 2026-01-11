@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The lengthEqual() function checks that an array contains exactly a given number of elements. It acts as a type guard to infer a fixed-length tuple."
 prev:
   text: "length"
   link: "/en/v1/api/array/length"

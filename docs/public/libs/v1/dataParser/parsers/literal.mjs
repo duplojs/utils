@@ -5,6 +5,9 @@ import { coalescing } from '../../array/coalescing.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const literalKind = createDataParserKind("literal");
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 function literal(value, definition) {
     const self = dataParserInit(literalKind, {
         errorMessage: definition?.errorMessage,

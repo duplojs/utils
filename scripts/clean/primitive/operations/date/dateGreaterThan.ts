@@ -2,6 +2,9 @@ import { unwrap } from "@scripts/common";
 import { type Date } from "../../base";
 import { type TheDate, greaterThan } from "@scripts/date";
 
+/**
+ * {@include clean/dateGreaterThan/index.md}
+ */
 export function dateGreaterThan(threshold: Date | TheDate): (primitive: Date) => boolean;
 
 export function dateGreaterThan(primitive: Date, threshold: Date | TheDate): boolean;

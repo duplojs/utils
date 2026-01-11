@@ -1,3 +1,6 @@
+/**
+ * {@include common/promiseObject/index.md}
+ */
 function promiseObject(object) {
     return Promise
         .all(Object.entries(object)

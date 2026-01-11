@@ -5,6 +5,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const optionalKind = kind.createDataParserKind("optional");
+/**
+ * {@include dataParser/classic/optional/index.md}
+ */
 function optional(inner, definition) {
     const self = base.dataParserInit(optionalKind, {
         errorMessage: definition?.errorMessage,

@@ -1,5 +1,8 @@
 import { type EligibleEqual, equal, type MaybeArray } from "@scripts/common";
 
+/**
+ * {@include object/discriminate/index.md}
+ */
 export function discriminate<
 	GenericInput extends object,
 	GenericKey extends keyof GenericInput,

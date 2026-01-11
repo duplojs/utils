@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode from() crée un tableau à partir d'un itérable, d'un objet array-like ou d'un itérable asynchrone."
 prev:
   text: "Array"
   link: "/fr/v1/api/array/"

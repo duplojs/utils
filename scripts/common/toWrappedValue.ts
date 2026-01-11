@@ -8,6 +8,9 @@ export type ToWrappedValue<
 	? GenericValue
 	: WrappedValue<GenericValue>;
 
+/**
+ * {@include common/toWrappedValue/index.md}
+ */
 export function toWrappedValue<
 	GenericInnerValue extends AnyValue,
 	GenericValue extends MaybeWrapped<GenericInnerValue>,

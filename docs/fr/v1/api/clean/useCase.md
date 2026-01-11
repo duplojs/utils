@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Un useCase est une fonction de la couche application qui matérialise une demande métier. Chaque useCase correspond à une action métier spécifique et contient la logique nécessaire à son exécution."
 prev:
   text: "Repository"
   link: "/fr/v1/api/clean/repository"

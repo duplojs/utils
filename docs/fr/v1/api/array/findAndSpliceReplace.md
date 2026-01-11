@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction findAndSpliceReplace() cherche un élément avec un prédicat et le remplace, ainsi que les éléments suivants, par un tableau de nouvelles valeurs."
 prev:
   text: "findAndSpliceInsert"
   link: "/fr/v1/api/array/findAndSpliceInsert"

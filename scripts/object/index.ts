@@ -1,3 +1,6 @@
+/**
+ * {@include object/index.md}
+ */
 export * from "./types";
 
 export * from "./entries";

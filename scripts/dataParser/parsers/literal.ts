@@ -83,6 +83,9 @@ export interface DataParserLiteral<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 export function literal<
 	const GenericValue extends LiteralValue,
 	const GenericDefinition extends Partial<

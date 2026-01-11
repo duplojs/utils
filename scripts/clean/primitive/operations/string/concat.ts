@@ -1,6 +1,9 @@
 import { unwrap, wrapValue } from "@scripts/common";
 import { type String } from "../../base";
 
+/**
+ * {@include clean/concat/index.md}
+ */
 export function concat(
 	text: String | string,
 ): (input: String) => String;

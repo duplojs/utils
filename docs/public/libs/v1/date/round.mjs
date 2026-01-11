@@ -11,6 +11,9 @@ const stepMapper = {
         return date.setUTCHours(0, 0, 0, 0);
     },
 };
+/**
+ * {@include date/round/index.md}
+ */
 function round(input, unit = "day") {
     const date = toNative(input);
     const timestamp = stepMapper[unit](date);

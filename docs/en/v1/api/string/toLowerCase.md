@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toLowerCase() method returns a new string with all characters in lowercase."
 prev:
   text: "uncapitalize"
   link: "/en/v1/api/string/uncapitalize"

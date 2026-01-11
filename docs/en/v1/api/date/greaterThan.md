@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The greaterThan() function checks whether a TheDate is greater than or equal to a threshold."
 prev:
   text: "greater"
   link: "/en/v1/api/date/greater"

@@ -1,3 +1,6 @@
+/**
+ * {@include either/index.md}
+ */
 export * from "./bool";
 export * from "./future";
 export * from "./left";

@@ -1,3 +1,6 @@
+/**
+ * {@include number/index.md}
+ */
 export * from "./abs";
 export * from "./acos";
 export * from "./add";

@@ -8,6 +8,15 @@ var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 
 const eitherOptionalEmptyKind = kind.createEitherKind("optional-empty");
+/**
+ * {@include either/isOptionalEmpty/index.md}
+ */
+/**
+ * {@include either/optionalEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalEmpty/index.md}
+ */
 function optionalEmpty() {
     return base.eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(create.left("optional", undefined)));
 }

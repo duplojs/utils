@@ -1,6 +1,9 @@
 import { type AnyTuple, unwrap, wrapValue } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/min/index.md}
+ */
 export function min(input: AnyTuple<Number | number>): Number {
 	return wrapValue(
 		Math.min(

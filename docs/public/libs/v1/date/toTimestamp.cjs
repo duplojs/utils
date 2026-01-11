@@ -3,6 +3,9 @@
 var constants = require('./constants.cjs');
 var makeSafeTimestamp = require('./makeSafeTimestamp.cjs');
 
+/**
+ * {@include date/toTimestamp/index.md}
+ */
 function toTimestamp(input) {
     const match = input.startsWith("date")
         ? input.match(constants.theDateRegex)

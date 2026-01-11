@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Fonctions pour manipuler les chaînes de caractères de manière immutable et type-safe. Toutes les fonctions préservent la chaîne originale et retournent une nouvelle valeur."
 prev:
   text: 'Generator'
   link: '/fr/v1/api/generator/'

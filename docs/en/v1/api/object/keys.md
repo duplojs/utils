@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The keys() method returns an array of an object's keys with precise typing, excluding symbols."
 prev:
   text: "Object"
   link: "/en/v1/api/object/"

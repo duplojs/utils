@@ -47,6 +47,9 @@ export interface OverrideHandler<
 	apply(overrideInterface: GenericInterface): GenericInterface;
 }
 
+/**
+ * {@include common/override/index.md}
+ */
 export function createOverride<
 	GenericInterface extends object,
 >(

@@ -9,6 +9,9 @@ type ComputeResult<
 		: InferredResult
 	: never;
 
+/**
+ * {@include string/includes/index.md}
+ */
 export function includes<
 	GenericString extends string,
 	GenericSearchString extends string,

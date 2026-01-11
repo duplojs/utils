@@ -22,6 +22,9 @@ const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number>
 	},
 };
 
+/**
+ * {@include date/each/index.md}
+ */
 export function each(
 	range: {
 		start: TheDate;

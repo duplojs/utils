@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Executes a function only when the input is an EitherLeft. Otherwise, the original value is returned as-is."
 prev:
   text: "isLeft"
   link: "/en/v1/api/either/isLeft"

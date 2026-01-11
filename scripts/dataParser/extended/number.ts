@@ -64,6 +64,9 @@ export interface DataParserNumberExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/number/min/index.md}
+	 */
 	min(
 		min: number,
 		definition?: Partial<
@@ -76,6 +79,9 @@ export interface DataParserNumberExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/number/max/index.md}
+	 */
 	max(
 		max: number,
 		definition?: Partial<
@@ -88,6 +94,9 @@ export interface DataParserNumberExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/number/int/index.md}
+	 */
 	int(
 		definition?: Partial<
 			dataParsers.DataParserCheckerDefinitionInt
@@ -100,6 +109,9 @@ export interface DataParserNumberExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/number/index.md}
+ */
 export function number<
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNumber> = never,
 >(
@@ -147,6 +159,9 @@ export function number<
 
 number.overrideHandler = createOverride<DataParserNumberExtended>("@duplojs/utils/data-parser-extended/number");
 
+/**
+ * {@include dataParser/extended/int/index.md}
+ */
 export function int(
 	definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
 ) {

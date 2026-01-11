@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The truthy() function is a type guard that keeps only truthy values (false, 0, \"\", null, undefined are excluded)."
 prev:
   text: "hasSomeKinds"
   link: "/en/v1/api/common/hasSomeKinds"

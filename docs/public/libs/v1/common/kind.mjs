@@ -1,4 +1,7 @@
 const keyKindPrefix = "@duplojs/utils/kind/";
+/**
+ * {@include common/kind/index.md}
+ */
 function createKind(name) {
     const runTimeKey = `${keyKindPrefix}${name}`;
     return {
@@ -27,6 +30,9 @@ function createKind(name) {
         },
     };
 }
+/**
+ * {@include common/kind/index.md}
+ */
 function createKindNamespace(namespace) {
     return (name) => {
         const kindHandler = createKind(`@${namespace}/${name}`);

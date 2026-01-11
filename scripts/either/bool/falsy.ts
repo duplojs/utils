@@ -25,6 +25,15 @@ export interface EitherBoolFalsy<
 
 }
 
+/**
+ * {@include either/boolFalsy/index.md}
+ */
+/**
+ * {@include either/isBoolFalsy/index.md}
+ */
+/**
+ * {@include either/whenIsBoolFalsy/index.md}
+ */
 export function boolFalsy<
 	const GenericValue extends FalsyValue = undefined,
 >(value: GenericValue = undefined as GenericValue): EitherBoolFalsy<GenericValue> {

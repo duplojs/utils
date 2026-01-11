@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The clamp() method limits a number within a given range. If the value is below the lower bound, it returns the lower bound. If it is above the upper bound, it returns the upper bound. Otherwise, it returns the value itself."
 prev:
   text: "min"
   link: "/en/v1/api/number/min"

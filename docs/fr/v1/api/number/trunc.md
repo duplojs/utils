@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode trunc() tronque la partie décimale d'un nombre, retournant uniquement la partie entière. Contrairement à floor(), elle se comporte de manière identique pour les nombres positifs et négatifs en supprimant simplement les décimales."
 prev:
   text: "floor"
   link: "/fr/v1/api/number/floor"

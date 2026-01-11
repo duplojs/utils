@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction findAndReplace() cherche le premier élément qui satisfait un prédicat, le remplace par une nouvelle valeur et retourne le tableau mis à jour. Si aucun élément ne correspond, elle renvoie undefined."
 prev:
   text: "spliceReplace"
   link: "/fr/v1/api/array/spliceReplace"

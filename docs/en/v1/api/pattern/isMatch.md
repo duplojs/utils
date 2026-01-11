@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "isMatch() imperatively tests whether a value matches a pattern and returns a type guard (value is ...). Ideal for simple conditions or to refine the type before entering a pipeline."
 prev:
   text: "exhaustive"
   link: "/en/v1/api/pattern/exhaustive"

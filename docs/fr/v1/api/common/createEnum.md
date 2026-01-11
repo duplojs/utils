@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction createEnum() crée un enum string immuable et typé. L’objet retourné expose les clés/valeurs, la méthode has et toTuple."
 prev:
   text: "simpleClone"
   link: "/fr/v1/api/common/simpleClone"

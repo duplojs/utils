@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getDayOfWeek() function returns the day of the week of a TheDate (1 = Monday, 7 = Sunday) taking an optional timezone into account."
 prev:
   text: "getDayOfMonth"
   link: "/en/v1/api/date/getDayOfMonth"

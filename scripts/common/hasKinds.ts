@@ -1,6 +1,9 @@
 import { type Kind, type KindHandler } from "./kind";
 import { type AnyTuple, type UnionToIntersection } from "./types";
 
+/**
+ * {@include common/hasKinds/index.md}
+ */
 export function hasKinds<
 	GenericInput extends unknown,
 	const GenericKindHandlers extends AnyTuple<KindHandler>,

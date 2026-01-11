@@ -16,6 +16,9 @@ class CreateTheTimeError extends kind.kindHeritage("create-the-time-error", erro
         this.input = input;
     }
 }
+/**
+ * {@include date/createTimeOrThrow/index.md}
+ */
 function createTimeOrThrow(input) {
     const result = createTime.createTime(input);
     if (is.isLeft(result)) {

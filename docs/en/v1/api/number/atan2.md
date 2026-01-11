@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The atan2() method returns the arctangent of the quotient of its arguments (y/x), taking into account the signs of both arguments to determine the correct quadrant. Unlike atan(), it returns an angle between -π and π, covering all quadrants of the trigonometric circle."
 prev:
   text: "atan"
   link: "/en/v1/api/number/atan"

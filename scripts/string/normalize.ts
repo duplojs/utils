@@ -1,5 +1,8 @@
 import { type NormalizeForm } from "./types/normalizeForm";
 
+/**
+ * {@include string/normalize/index.md}
+ */
 export function normalize<
 	GenericInput extends string,
 >(

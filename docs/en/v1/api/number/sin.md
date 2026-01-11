@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sin() method returns the sine of an angle expressed in radians. Sine is a fundamental trigonometric function that returns the y-coordinate of a point on the unit circle."
 prev:
   text: "toFixed"
   link: "/en/v1/api/number/toFixed"

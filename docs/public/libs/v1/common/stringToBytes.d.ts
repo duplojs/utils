@@ -14,5 +14,22 @@ declare const unitMapper: {
     pb: number;
 };
 export type BytesInString = `${number}${keyof typeof unitMapper}`;
+/**
+ * The stringToBytes() function converts a size ("10mb", "2gb", etc.) or a number into bytes. It throws a typed error if the format is invalid.
+ * 
+ * Signature: `stringToBytes(value)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const size = stringToBytes("1.5gb");
+ * // size: number of bytes for 1.5 gigabytes
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/stringToBytes
+ * 
+ * @namespace C
+ * 
+ */
 export declare function stringToBytes(bytesInString: BytesInString | number): number;
 export {};

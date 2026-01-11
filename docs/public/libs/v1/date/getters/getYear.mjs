@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getYear/index.md}
+ */
 function getYear(input, timezone = "UTC") {
     const nativeDate = toNative(input);
     if (timezone === "UTC") {

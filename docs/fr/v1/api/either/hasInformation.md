@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard basé sur l'information littérale stockée dans l'Either. Permet de cibler précisément un cas métier sans introspection supplémentaire."
 prev:
   text: "asyncGroup"
   link: "/fr/v1/api/either/asyncGroup"

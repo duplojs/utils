@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const nilKind = kind.createDataParserKind("nil");
+/**
+ * {@include dataParser/classic/nil/index.md}
+ */
 function nil(definition) {
     const self = base.dataParserInit(nilKind, {
         errorMessage: definition?.errorMessage,

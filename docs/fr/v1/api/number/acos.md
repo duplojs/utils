@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode acos() retourne l'arc cosinus d'un nombre, c'est-à-dire l'angle (en radians) dont le cosinus est égal à la valeur donnée. C'est la fonction inverse de cos()."
 prev:
   text: "asin"
   link: "/fr/v1/api/number/asin"

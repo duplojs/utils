@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncGroup() function runs synchronous or asynchronous Either values in parallel (promises, Future) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object."
 prev:
   text: "group"
   link: "/en/v1/api/either/group"

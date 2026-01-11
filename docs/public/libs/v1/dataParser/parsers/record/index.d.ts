@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserLiteral } from "../literal";
@@ -40,6 +40,43 @@ export interface DataParserRecord<GenericDefinition extends DataParserDefinition
      */
     construct<const GenericDefinition extends DataParserDefinitionRecord>(definition: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, GenericDefinition>>;
 }
+/**
+ * Creates a data parser for records with key and value parsers.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.record(key, value, definition?)` -> returns a record parser
+ * - Curried: not available
+ * 
+ * Validates that the input is an object and parses each key and value with the provided parsers.
+ * 
+ * ```ts
+ * const parser = DP.record(DP.string(), DP.number());
+ * const result = parser.parse({
+ * 	aKey: 1,
+ * 	bKey: 2,
+ * });
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: Record<string, number>
+ * }
+ * 
+ * const keyUnion = DP.union([DP.literal("xPos"), DP.literal("yPos")]);
+ * const strictKeys = DP.record(keyUnion, DP.boolean());
+ * const strictResult = strictKeys.parse({
+ * 	xPos: true,
+ * 	yPos: false,
+ * });
+ * 
+ * const withCheckers = DP.record(DP.string(), DP.string(), {
+ * 	checkers: [DP.checkerRefine((value) => Object.keys(value).length > 0)],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/record
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;
     value: GenericDataParserValue;

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode indexOf() retourne l'index de la première occurrence d'un élément dans un tableau."
 prev:
   text: "notIncludes"
   link: "/fr/v1/api/array/notIncludes"

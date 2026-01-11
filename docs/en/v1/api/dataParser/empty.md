@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.empty() only validates undefined. It is the building block to express intentionally absent fields or to combine with optional/nullable."
 prev:
   text: "nil"
   link: "/en/v1/api/dataParser/nil"

@@ -1,6 +1,9 @@
 import { unwrap } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/greaterThan/index.md}
+ */
 export function greaterThan(threshold: Number | number): (value: Number) => boolean;
 
 export function greaterThan(primitive: Number, threshold: Number | number): boolean;

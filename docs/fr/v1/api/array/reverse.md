@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode reverse() renvoie une copie d'un tableau avec les éléments dans l'ordre inverse, tout en laissant le tableau initial intact. Les tuples conservent un typage exact grâce à ReverseTuple."
 prev:
   text: "chunk"
   link: "/fr/v1/api/array/chunk"

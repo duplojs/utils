@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode sum() additionne toutes les valeurs numériques d'un tableau immuable et retourne la somme totale sous forme de number."
 prev:
   text: "group"
   link: "/fr/v1/api/array/group"

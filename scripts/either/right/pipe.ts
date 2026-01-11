@@ -32,6 +32,9 @@ export type EitherRightPipeResult<
 		EitherLeft
 	>;
 
+/**
+ * {@include either/rightPipe/index.md}
+ */
 export function rightPipe<
 	GenericInput extends AnyValue,
 	GenericOutputPipe1 extends AnyValue,

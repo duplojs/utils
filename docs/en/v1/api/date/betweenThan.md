@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Inclusive variant of between: checks that a TheDate lies between two bounds while including the extremes."
 prev:
   text: "between"
   link: "/en/v1/api/date/between"

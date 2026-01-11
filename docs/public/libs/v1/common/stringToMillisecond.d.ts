@@ -14,5 +14,22 @@ declare const unitMapper: {
     w: number;
 };
 export type MillisecondInString = `${number}${keyof typeof unitMapper}` | `${number}.${number}${keyof typeof unitMapper}`;
+/**
+ * The stringToMillisecond() function converts durations expressed as a string ("10s", "2h", "1.5d", etc.) or a number into milliseconds. It throws a typed error if the format is invalid.
+ * 
+ * Signature: `stringToMillisecond(value)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const duration = stringToMillisecond("1.5d", "2h", 5000);
+ * // duration: number of milliseconds for 1.5 days + 2 hours + 5 seconds
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/stringToMillisecond
+ * 
+ * @namespace C
+ * 
+ */
 export declare function stringToMillisecond(millisecondInString: MillisecondInString | number, ...millisecondInStrings: (MillisecondInString | number)[]): number;
 export {};

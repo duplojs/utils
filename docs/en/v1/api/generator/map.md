@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The map() function transforms each element of a generator by applying a transformation function. It returns a new generator with the transformed values."
 prev:
   text: "asyncLoop"
   link: "/en/v1/api/generator/asyncLoop"

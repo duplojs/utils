@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un EitherLeft typé \"callback\" au lieu de propager l'exception."
 prev:
   text: "whenHasInformation"
   link: "/fr/v1/api/either/whenHasInformation"

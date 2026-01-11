@@ -135,21 +135,37 @@ export interface EntityHandler<
 	GenericName extends string = string,
 	GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition,
 > extends Kind<typeof entityHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createEntity/name.md}
+	 */
 	readonly name: GenericName;
 
+	/**
+	 * {@include clean/createEntity/propertiesDefinition.md}
+	 */
 	readonly propertiesDefinition: GenericPropertiesDefinition;
 
+	/**
+	 * {@include clean/createEntity/mapDataParser.md}
+	 */
 	readonly mapDataParser: DDataParser.Contract<
 		EntityProperties<GenericPropertiesDefinition>,
 		EntityRawProperties<GenericPropertiesDefinition>
 	>;
 
+	/**
+	 * {@include clean/createEntity/new.md}
+	 */
 	"new"<
 		const GenericProperties extends EntityProperties<GenericPropertiesDefinition>,
 	>(
 		properties: GenericProperties
 	): Entity<GenericName> & GenericProperties;
 
+	/**
+	 * {@include clean/createEntity/map.md}
+	 */
 	map(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
 	): (
@@ -163,10 +179,16 @@ export interface EntityHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createEntity/mapOrThrow.md}
+	 */
 	mapOrThrow(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
 
+	/**
+ 	* {@include clean/createEntity/is.md}
+ 	*/
 	is<
 		GenericInput extends unknown,
 	>(
@@ -226,6 +248,9 @@ export interface PropertiesDefinitionParams {
 		};
 }
 
+/**
+ * {@include clean/createEntity/index.md}
+ */
 export function createEntity<
 	GenericName extends string,
 	const GenericPropertiesDefinition extends EntityPropertiesDefinition,

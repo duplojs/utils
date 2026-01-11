@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction loop() crée un générateur personnalisé en utilisant une fonction de boucle. Permet de générer des séquences de valeurs de manière lazy."
 prev:
   text: "execute"
   link: "/fr/v1/api/generator/execute"

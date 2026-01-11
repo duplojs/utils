@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode padStart() complète la chaîne courante avec une chaîne de caractères donnée afin d'obtenir une chaîne de longueur fixe. Le remplissage est appliqué au début de la chaîne courante."
 prev:
   text: "split"
   link: "/fr/v1/api/string/split"

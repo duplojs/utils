@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Explicitly builds an EitherLeft<\"nullish\"> with null or undefined."
 prev:
   text: "nullish"
   link: "/en/v1/api/either/nullish"

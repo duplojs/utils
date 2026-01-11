@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Readable shortcut to create an EitherRight with the literal info \"success\". Ideal for functions that return only one type of success."
 prev:
   text: "right"
   link: "/en/v1/api/either/right"

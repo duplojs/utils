@@ -2,6 +2,55 @@ import { type MaybeFutureEither } from "../either/future/maybeFutureEither";
 import { type MaybePromise, type EscapeVoid, type BreakGenericLink } from "./types";
 import { type AnyValue } from "./types/anyValue";
 type MaybePromiseLike<GenericValue extends unknown> = MaybePromise<GenericValue> | MaybeFutureEither<GenericValue>;
+/**
+ * The asyncInnerPipe() method builds a reusable asynchronous pipeline. It returns a function that accepts a value or a promise, runs each step while waiting for the previous one, then returns a promise of the final result.
+ * 
+ * Signature: `asyncInnerPipe(pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const input = [
+ * 	{
+ * 		host: "api.local",
+ * 		retries: 1,
+ * 	},
+ * 	{
+ * 		host: "api.external",
+ * 		retries: 2,
+ * 	},
+ * ];
+ * 
+ * const result = await asyncPipe(
+ * 	input,
+ * 	A.map(
+ * 		asyncInnerPipe(
+ * 			({ host, retries }) => ({
+ * 				url: `https://${host}/health`,
+ * 				retries,
+ * 			}),
+ * 			// fake HTTP request
+ * 			async({ url, retries }) => Promise.resolve({
+ * 				url,
+ * 				status: 200,
+ * 				retries,
+ * 			}),
+ * 			({ status, url, retries }) => `${status} on ${url} (retries: ${retries})`,
+ * 		),
+ * 	),
+ * );
+ * // result: [
+ * //    "result: "200 on https://api.local/health (retries: 1)",
+ * //    "result: "200 on https://api.external/health (retries: 2)"
+ * // ]
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/asyncInnerPipe
+ * 
+ * @namespace C
+ * 
+ */
 export declare function asyncInnerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => MaybePromiseLike<GenericOutputPipe1>): (input: MaybePromiseLike<GenericInput>) => Promise<Awaited<BreakGenericLink<GenericOutputPipe1>>>;
 export declare function asyncInnerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => MaybePromiseLike<GenericOutputPipe1>, pipe2: (input: GenericOutputPipe1) => MaybePromiseLike<GenericOutputPipe2>): (input: MaybePromiseLike<GenericInput>) => Promise<Awaited<BreakGenericLink<GenericOutputPipe2>>>;
 export declare function asyncInnerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid, GenericOutputPipe3 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => MaybePromiseLike<GenericOutputPipe1>, pipe2: (input: GenericOutputPipe1) => MaybePromiseLike<GenericOutputPipe2>, pipe3: (input: GenericOutputPipe2) => MaybePromiseLike<GenericOutputPipe3>): (input: MaybePromiseLike<GenericInput>) => Promise<Awaited<BreakGenericLink<GenericOutputPipe3>>>;

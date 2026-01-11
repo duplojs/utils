@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Construit un EitherRight<\"nullable\"> pour une valeur non nulle."
 prev:
   text: "nullableEmpty"
   link: "/fr/v1/api/either/nullableEmpty"

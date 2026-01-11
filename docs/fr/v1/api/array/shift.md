@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction shift() retire le premier élément d'un tableau et renvoie une copie raccourcie. Pour les tuples, le type est mis à jour exactement grâce à ShiftTuple."
 prev:
   text: "unshift"
   link: "/fr/v1/api/array/unshift"

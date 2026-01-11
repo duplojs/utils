@@ -39,6 +39,43 @@ type ForbiddenTime<GenericInput extends number, GenericUnit extends Units> = IsE
 ]> extends true ? GenericInput : {
     [SymbolForbiddenTime]: "Support that the weeks between -14892855 and 14892855.";
 } : GenericInput));
+/**
+ * Creates a TheTime from a time value, unit, or spooling time input.
+ * 
+ * Signature: `createTime(input, unit?)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const timeFromUnit = D.createTime(90, "minute");
+ * // timeFromUnit: "time5400000+"
+ * 
+ * const mayBeTime = D.createTime({
+ * 	hour: 1,
+ * 	minute: 15,
+ * });
+ * // Either<"time-created", TheTime>
+ * 
+ * const mayBeIso = D.createTime({
+ * 	value: "+01:30:00",
+ * });
+ * // Either<"time-created", TheTime>
+ * 
+ * const piped = pipe(
+ * 	120,
+ * 	D.createTime,
+ * );
+ * // piped: Either<"time-created", TheTime>
+ * ```
+ * 
+ * @remarks
+ * - Returns an Either tagged "time-created" or "time-created-error" for unsafe inputs.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/date/createTime
+ * 
+ * @namespace D
+ * 
+ */
 export declare function createTime<GenericInput extends number, GenericUnit extends Units = "millisecond">(input: GenericInput & ForbiddenTime<GenericInput, GenericUnit>, unit: GenericUnit): TheTime;
 export declare function createTime<GenericInput extends number | TheTime | SpoolingTime>(input: GenericInput): MayBeTime;
 export {};

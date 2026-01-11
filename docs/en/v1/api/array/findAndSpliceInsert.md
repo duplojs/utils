@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findAndSpliceInsert() function searches for the first element that satisfies a predicate and inserts an array of elements at that position without deleting the found element."
 prev:
   text: "findAndSpliceDelete"
   link: "/en/v1/api/array/findAndSpliceDelete"

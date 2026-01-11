@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode last() retourne le dernier élément d'un tableau."
 prev:
   text: "first"
   link: "/fr/v1/api/array/first"

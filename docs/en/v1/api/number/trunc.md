@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The trunc() method truncates the decimal part of a number, returning only the integer part. Unlike floor(), it behaves the same for positive and negative numbers by simply removing the decimals."
 prev:
   text: "floor"
   link: "/en/v1/api/number/floor"

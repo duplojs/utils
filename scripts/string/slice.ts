@@ -1,3 +1,6 @@
+/**
+ * {@include string/slice/index.md}
+ */
 export function slice<
 	GenericInput extends string,
 >(

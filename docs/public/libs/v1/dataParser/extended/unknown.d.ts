@@ -20,6 +20,32 @@ export interface DataParserUnknownExtended<GenericDefinition extends dataParsers
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;
 }
+/**
+ * Creates an extended data parser that accepts any value.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.unknown(definition?)` -> returns an unknown parser
+ * 
+ * Always succeeds, returning the input value as unknown.
+ * 
+ * ```ts
+ * const parser = DPE.unknown();
+ * const result = parser.parse({ any: "value" });
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: unknown
+ * }
+ * 
+ * const numberResult = parser.parse(123);
+ * 
+ * const nullResult = parser.parse(null);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/unknown
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare function unknown<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionUnknown> = never>(definition?: GenericDefinition): DataParserUnknownExtended<MergeDefinition<dataParsers.DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace unknown {
     var overrideHandler: import("../../common").OverrideHandler<DataParserUnknownExtended<dataParsers.DataParserDefinitionUnknown>>;

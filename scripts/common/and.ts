@@ -44,6 +44,9 @@ type ComputeResult<
 		: InferredResult
 	: never;
 
+/**
+ * {@include common/and/index.md}
+ */
 export function and<
 	GenericInput extends unknown,
 	GenericArrayPredicatedInput extends [

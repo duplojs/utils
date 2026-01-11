@@ -38,6 +38,53 @@ export type GetKindHandler<GenericObject extends Kind<any>> = {
 }[keyof GenericObject[SymbolKind]];
 export declare const keyKindPrefix = "@duplojs/utils/kind/";
 type ForbiddenKindCharacters<GenericValue extends string> = ForbiddenString<GenericValue, "@" | "/">;
+/**
+ * Kinds are a discrimination (type narrowing) mechanism based on adding a marker to an object, but with a few constraints we wanted in our projects:
+ * 
+ * Signature: `createKind(name)` and `createKindNamespace(namespace)` → returns a value
+ * 
+ * ```ts
+ * const userKind = createKind<"user", { id: string }>("user");
+ * 
+ * interface User extends Kind<typeof userKind.definition> {
+ * 	name: string;
+ * }
+ * 
+ * const User = {
+ * 	new(params: {
+ * 		id: string;
+ * 		name: string;
+ * 	}): User {
+ * 		return userKind.addTo(
+ * 			{ name: params.name },
+ * 			{ id: params.id },
+ * 		);
+ * 	},
+ * 	is(input: unknown): input is User {
+ * 		return userKind.has(input);
+ * 	},
+ * };
+ * 
+ * const user = User.new({
+ * 	id: "u_1",
+ * 	name: "Ada",
+ * });
+ * 
+ * if (User.is(user)) {
+ * 	const userId = userKind.getValue(user).id;
+ * }
+ * 
+ * const received: unknown = JSON.parse(JSON.stringify(user));
+ * if (User.is(received)) {
+ * 	const userId = userKind.getValue(received).id;
+ * }
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/kind
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createKind<GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>): KindHandler<KindDefinition<GenericName, GenericKindValue>>;
 export interface ReservedKindNamespace {
     DuplojsUtilsEither: true;
@@ -47,6 +94,53 @@ export interface ReservedKindNamespace {
     DuplojsUtilsClean: true;
 }
 type ForbiddenKindNamespace<GenericValue extends string> = (ForbiddenKindCharacters<GenericValue> & ForbiddenString<GenericValue, GetPropsWithValue<ReservedKindNamespace, true>>);
+/**
+ * Kinds are a discrimination (type narrowing) mechanism based on adding a marker to an object, but with a few constraints we wanted in our projects:
+ * 
+ * Signature: `createKind(name)` and `createKindNamespace(namespace)` → returns a value
+ * 
+ * ```ts
+ * const userKind = createKind<"user", { id: string }>("user");
+ * 
+ * interface User extends Kind<typeof userKind.definition> {
+ * 	name: string;
+ * }
+ * 
+ * const User = {
+ * 	new(params: {
+ * 		id: string;
+ * 		name: string;
+ * 	}): User {
+ * 		return userKind.addTo(
+ * 			{ name: params.name },
+ * 			{ id: params.id },
+ * 		);
+ * 	},
+ * 	is(input: unknown): input is User {
+ * 		return userKind.has(input);
+ * 	},
+ * };
+ * 
+ * const user = User.new({
+ * 	id: "u_1",
+ * 	name: "Ada",
+ * });
+ * 
+ * if (User.is(user)) {
+ * 	const userId = userKind.getValue(user).id;
+ * }
+ * 
+ * const received: unknown = JSON.parse(JSON.stringify(user));
+ * if (User.is(received)) {
+ * 	const userId = userKind.getValue(received).id;
+ * }
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/kind
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createKindNamespace<GenericNamespace extends string>(namespace: GenericNamespace & ForbiddenKindNamespace<GenericNamespace>): <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>) => KindHandler<KindDefinition<`@${GenericNamespace}/${GenericName}`, GenericKindValue>>;
 export type KindHeritageConstructorParams<GenericKindHandler extends KindHandler> = {
     [KindHandler in GenericKindHandler as KindHandler["definition"]["name"]]: KindHandler["definition"]["value"];

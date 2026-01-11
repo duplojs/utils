@@ -9,6 +9,9 @@ var max = require('../parsers/string/checkers/max.cjs');
 var min = require('../parsers/string/checkers/min.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/string/index.md}
+ */
 function string(definition) {
     const self = baseExtended.dataParserExtendedInit(index.string(definition), {
         min(self, min$1, definition) {
@@ -24,11 +27,17 @@ function string(definition) {
     return string.overrideHandler.apply(self);
 }
 string.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/string");
+/**
+ * {@include dataParser/extended/email/index.md}
+ */
 function email(definition) {
     return string({
         checkers: [email$1.checkerEmail(definition)],
     });
 }
+/**
+ * {@include dataParser/extended/url/index.md}
+ */
 function url(definition) {
     return string({
         checkers: [url$1.checkerUrl(definition)],

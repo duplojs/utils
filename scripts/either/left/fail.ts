@@ -13,6 +13,9 @@ export interface EitherFail extends _EitherFail {
 
 }
 
+/**
+ * {@include either/fail/index.md}
+ */
 export function fail(): EitherFail {
 	return eitherFailKind.setTo(
 		left("fail", undefined as never),

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The createInterpolation() function generates a typed templating function: the {id} placeholders of the string are required at runtime and checked at compile time. In strict mode, an error is thrown if an id is missing."
 prev:
   text: "escapeRegExp"
   link: "/en/v1/api/common/escapeRegExp"

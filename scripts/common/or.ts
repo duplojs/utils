@@ -15,6 +15,9 @@ type ExtractPredicate<
 			: never
 	: never;
 
+/**
+ * {@include common/or/index.md}
+ */
 export function or<
 	GenericInput extends unknown,
 	const GenericArrayPredicatedInput extends readonly [

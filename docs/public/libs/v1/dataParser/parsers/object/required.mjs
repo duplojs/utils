@@ -13,6 +13,9 @@ import { fromEntries } from '../../../object/fromEntries.mjs';
 function requiredShape(shape) {
     return pipe(shape, entries, map(([key, dataParser]) => pipe(dataParser, when(identifier(optionalKind), (dataParser) => dataParser.definition.inner), whenIsLeft(forward), (dataParser) => entry(key, dataParser))), fromEntries);
 }
+/**
+ * {@include dataParser/classic/object/required/index.md}
+ */
 function required(dataParser, definition) {
     const newShape = requiredShape(dataParser.definition.shape);
     return object(newShape, definition);

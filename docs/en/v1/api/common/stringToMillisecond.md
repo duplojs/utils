@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The stringToMillisecond() function converts durations expressed as a string (\"10s\", \"2h\", \"1.5d\", etc.) or a number into milliseconds. It throws a typed error if the format is invalid."
 prev:
   text: "toString"
   link: "/en/v1/api/common/toString"

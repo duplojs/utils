@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Callback exécuté uniquement pour les valeurs EitherBoolTruthy. Sinon, la valeur initiale est renvoyée."
 prev:
   text: "isBoolTruthy"
   link: "/fr/v1/api/either/isBoolTruthy"

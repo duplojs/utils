@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The indexOf() method returns the index of the first occurrence of a substring in a string, or undefined if the substring is not found."
 prev:
   text: "endsWith"
   link: "/en/v1/api/string/endsWith"

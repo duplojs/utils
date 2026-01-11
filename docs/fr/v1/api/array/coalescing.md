@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction coalescing() prend une valeur ou un tableau et le normalise en tableau. Si la valeur n'est pas déjà un tableau, elle est enveloppée dans un tableau."
 prev:
   text: "findAndSpliceReplace"
   link: "/fr/v1/api/array/findAndSpliceReplace"

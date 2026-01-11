@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction escapeRegExp() échappe les caractères spéciaux d'une chaîne pour pouvoir la réutiliser dans une expression régulière sans altérer son sens."
 prev:
   text: "stringToBytes"
   link: "/fr/v1/api/common/stringToBytes"

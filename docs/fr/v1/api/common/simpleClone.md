@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction simpleClone() duplique rapidement une valeur sans logique avancée, pratique pour des copies superficielles ou des structures simples."
 prev:
   text: "clone"
   link: "/fr/v1/api/common/clone"

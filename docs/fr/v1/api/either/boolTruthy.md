@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Force la création d'un EitherRight<\"bool\"> en marquant explicitement une valeur truthy."
 prev:
   text: "bool"
   link: "/fr/v1/api/either/bool"

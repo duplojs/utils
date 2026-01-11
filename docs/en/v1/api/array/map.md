@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The map() method applies a transform function to each element of an array and returns a new array containing the results, without modifying the input."
 prev:
   text: "is"
   link: "/en/v1/api/array/is"

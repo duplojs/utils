@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Converts any value into a boolean monad (EitherBoolTruthy or EitherBoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers."
 prev:
   text: "safeCallback"
   link: "/en/v1/api/either/safeCallback"

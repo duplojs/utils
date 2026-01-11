@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard that detects an EitherOptionalEmpty."
 prev:
   text: "optionalFilled"
   link: "/en/v1/api/either/optionalFilled"

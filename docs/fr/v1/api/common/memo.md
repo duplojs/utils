@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction memo() évalue une fonction une seule fois puis mémorise le résultat. Les appels suivants renvoient la même valeur sans recalcul."
 prev:
   text: "sleep"
   link: "/fr/v1/api/common/sleep"

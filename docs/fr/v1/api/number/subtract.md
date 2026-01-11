@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode subtract() soustrait un nombre d'un autre. Elle supporte deux formes d'utilisation : une forme curryfiée pour la composition fonctionnelle et une forme directe pour un calcul immédiat."
 prev:
   text: "add"
   link: "/fr/v1/api/number/add"

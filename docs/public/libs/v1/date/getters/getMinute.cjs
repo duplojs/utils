@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getMinute/index.md}
+ */
 function getMinute(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     if (timezone === "UTC") {

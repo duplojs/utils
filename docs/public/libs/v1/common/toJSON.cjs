@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * {@include common/toJSON/index.md}
+ */
 function toJSON(value) {
     if (typeof value === "string"
         || typeof value === "number"

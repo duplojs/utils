@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode capitalize() retourne une nouvelle chaîne de caractères avec la première lettre en majuscule."
 prev:
   text: 'String'
   link: '/fr/v1/api/string/'

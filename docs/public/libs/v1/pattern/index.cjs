@@ -10,7 +10,9 @@ var when = require('./when.cjs');
 var builder = require('./match/builder.cjs');
 var pattern = require('./types/pattern.cjs');
 
-
+/**
+ * {@include pattern/index.md}
+ */
 
 exports.isResult = result.isResult;
 exports.result = result.result;

@@ -2,6 +2,9 @@
 
 var entries = require('../object/entries.cjs');
 
+/**
+ * {@include common/clone/index.md}
+ */
 function clone(unknownValue) {
     if (!unknownValue) {
         return unknownValue;

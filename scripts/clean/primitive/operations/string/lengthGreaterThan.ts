@@ -1,6 +1,9 @@
 import { unwrap } from "@scripts/common";
 import { type Number, type String } from "../../base";
 
+/**
+ * {@include clean/lengthGreaterThan/index.md}
+ */
 export function lengthGreaterThan(length: Number | number): (primitive: String) => boolean;
 
 export function lengthGreaterThan(primitive: String, length: Number | number): boolean;

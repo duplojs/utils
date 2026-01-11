@@ -1,4 +1,5 @@
 ---
+description: "Un pipe permet d'enchaîner des fonctions en passant la valeur de sortie de l'une comme valeur d'entrée de la suivante."
 prev:
   text: "La curryfication"
   link: "/fr/v1/guide/currying"

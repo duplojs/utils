@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The insert() function adds a value to the end of an array and returns a new instance. The curried signature first accepts the array (array), then the value (input), which makes composition easier. (This function is similar to push(), but the order of arguments is reversed)."
 prev:
   text: "copyWithin"
   link: "/en/v1/api/array/copyWithin"

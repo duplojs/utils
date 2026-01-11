@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Returns an EitherLeft<\"fail\", never>: perfect to signal a failure without carrying extra data."
 prev:
   text: "error"
   link: "/en/v1/api/either/error"

@@ -1,3 +1,6 @@
+/**
+ * {@include common/asyncPipe/index.md}
+ */
 async function asyncPipe(input, ...pipes) {
     let acc = await input;
     for (const pipe of pipes) {

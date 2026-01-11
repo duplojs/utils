@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The falsy() function is a type guard that keeps only falsy values (false, 0, \"\", null, undefined)."
 prev:
   text: "truthy"
   link: "/en/v1/api/common/truthy"

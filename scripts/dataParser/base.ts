@@ -88,16 +88,32 @@ export interface DataParser<
 		data: unknown,
 		error: DataParserError,
 	): Promise<GenericOutput | SymbolDataParserError>;
+
+	/**
+	 * {@include dataParser/classic/base/parse/index.md}
+	 */
 	parse(
 		data: unknown,
 	): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+
+	/**
+	 * {@include dataParser/classic/base/asyncParse/index.md}
+	 */
 	asyncParse(
 		data: unknown,
 	): Promise<
 		| DEither.EitherSuccess<GenericOutput>
 		| DEither.EitherError<DataParserError>
 	>;
+
+	/**
+	 * {@include dataParser/classic/base/addChecker/index.md}
+	 */
 	addChecker(...args: never): DataParser;
+
+	/**
+	 * {@include dataParser/classic/base/clone/index.md}
+	 */
 	clone(): this;
 
 	/**

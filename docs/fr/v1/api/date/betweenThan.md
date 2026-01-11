@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Variante inclusive de between : vérifie qu'un TheDate se trouve entre deux bornes en incluant les extrêmes."
 prev:
   text: "between"
   link: "/fr/v1/api/date/between"

@@ -23,6 +23,9 @@ export interface EitherRight<
 
 }
 
+/**
+ * {@include either/right/index.md}
+ */
 export function right<
 	GenericInformation extends string,
 	const GenericValue extends unknown = undefined,

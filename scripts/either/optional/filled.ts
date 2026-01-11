@@ -27,6 +27,15 @@ export interface EitherOptionalFilled<
 
 type Either = EitherRight | EitherLeft;
 
+/**
+ * {@include either/isOptionalFilled/index.md}
+ */
+/**
+ * {@include either/optionalFilled/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalFilled/index.md}
+ */
 export function optionalFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherOptionalFilled<GenericValue> {

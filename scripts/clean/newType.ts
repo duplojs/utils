@@ -41,12 +41,25 @@ export interface NewTypeHandler<
 	GenericValue extends unknown = unknown,
 	GenericConstrainHandler extends readonly ConstraintHandler[] = readonly [],
 > extends Kind<typeof newTypeHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createNewType/name.md}
+	 */
 	readonly name: GenericName;
 
+	/**
+	 * {@include clean/createNewType/dataParser.md}
+	 */
 	readonly dataParser: DDataParser.Contract<GenericValue>;
 
+	/**
+	 * {@include clean/createNewType/constrains.md}
+	 */
 	readonly constrains: GenericConstrainHandler;
 
+	/**
+	 * {@include clean/createNewType/create.md}
+	 */
 	create<
 		const GenericData extends GenericValue,
 	>(
@@ -88,6 +101,9 @@ export interface NewTypeHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createNewType/createOrThrow.md}
+	 */
 	createOrThrow<
 		const GenericData extends GenericValue,
 	>(
@@ -111,6 +127,9 @@ export interface NewTypeHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createNewType/createWithUnknown.md}
+	 */
 	createWithUnknown<
 		GenericData extends unknown,
 	>(
@@ -130,6 +149,9 @@ export interface NewTypeHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createNewType/createWithUnknownOrThrow.md}
+	 */
 	createWithUnknownOrThrow<
 		GenericData extends unknown,
 	>(
@@ -140,6 +162,9 @@ export interface NewTypeHandler<
 		GenericConstrainHandler[number]["name"]
 	>;
 
+	/**
+	 * {@include clean/createNewType/is.md}
+	 */
 	is<
 		GenericInput extends WrappedValue,
 	>(input: GenericInput): input is Extract<
@@ -166,6 +191,9 @@ export class CreateNewTypeError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include clean/createNewType/index.md}
+ */
 export function createNewType<
 	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParser,

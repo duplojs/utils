@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode floor() arrondit un nombre vers le bas à l'entier inférieur ou égal. Cette fonction est utile pour garantir qu'un nombre ne dépasse jamais une certaine valeur entière."
 prev:
   text: "ceil"
   link: "/fr/v1/api/number/ceil"

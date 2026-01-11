@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction isRuntimeWrappedValueKey() vérifie si une clé de chaîne correspond au marqueur runtime d'un WrappedValue (@duplojs/utils/value)."
 prev:
   text: "isWrappedValue"
   link: "/fr/v1/api/common/isWrappedValue"

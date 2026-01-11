@@ -1,3 +1,6 @@
+/**
+ * {@include string/padStart/index.md}
+ */
 export function padStart<
 	GenericInput extends string,
 >(

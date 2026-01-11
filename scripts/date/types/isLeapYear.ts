@@ -7,6 +7,9 @@ type MultipleOf100 = `${Exclude<DString.Digit, "0">}00`;
 
 type MultipleOf400 = `${Exclude<MultipleOf4, "0">}00`;
 
+/**
+ * {@include date/isLeapYear/index.md}
+ */
 export type IsLeapYear<
 	GenericYear extends number,
 > = `${GenericYear}` extends infer InferredYear

@@ -9,6 +9,67 @@ type _EitherNullableFilled<GenericValue extends unknown = unknown> = (EitherRigh
 export interface EitherNullableFilled<GenericValue extends unknown = unknown> extends _EitherNullableFilled<GenericValue> {
 }
 type Either = EitherRight | EitherLeft;
+/**
+ * Type guard that checks that the nullable Either actually contains a value.
+ * 
+ * Signature: `isNullableFilled(input)` → returns a value
+ * 
+ * Acts as a type guard and narrows the input type when true.
+ * 
+ * ```ts
+ * const maybeValue = E.nullable(true ? "value" : null);
+ * 
+ * if (E.isNullableFilled(maybeValue)) {
+ * 	// type: E.EitherNullableFilled<"value">
+ * }
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/isNullableFilled
+ * 
+ * @namespace E
+ * 
+ */
+/**
+ * Builds an EitherRight<"nullable"> for a non-null value.
+ * 
+ * Signature: `nullableFilled(value)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const result = E.nullableFilled("value");
+ * 
+ * // type: E.EitherNullableFilled<"value">
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/nullableFilled
+ * 
+ * @namespace E
+ * 
+ */
+/**
+ * Applies a function only when the nullable Either contains a value (NullableFilled).
+ * 
+ * **Supported call styles:**
+ * - Classic: `whenIsNullableFilled(input, theFunction)` → returns a value
+ * - Curried: `whenIsNullableFilled(theFunction)` → returns a function waiting for the input
+ * 
+ * If the condition matches, the callback runs; otherwise the original value is returned.
+ * 
+ * ```ts
+ * const result = pipe(
+ * 	E.nullable(true ? "value" : null),
+ * 	E.whenIsNullableFilled(S.capitalize),
+ * );
+ * 
+ * // type: E.EitherNullableEmpty | "Value"
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/whenIsNullableFilled
+ * 
+ * @namespace E
+ * 
+ */
 export declare function nullableFilled<const GenericValue extends unknown>(value: GenericValue): EitherNullableFilled<GenericValue>;
 export declare function isNullableFilled<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherNullableFilled>;
 type ToEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof nullable<GenericValue>>;

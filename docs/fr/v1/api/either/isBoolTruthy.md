@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard qui vérifie si un Either issu des helpers booléens est truthy."
 prev:
   text: "boolFalsy"
   link: "/fr/v1/api/either/boolFalsy"

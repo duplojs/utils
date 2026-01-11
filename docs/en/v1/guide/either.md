@@ -1,4 +1,5 @@
 ---
+description: "An Either represents a value in one of two states: Left (failure) or Right (success)."
 prev:
   text: "Pipe"
   link: "/en/v1/guide/pipe"

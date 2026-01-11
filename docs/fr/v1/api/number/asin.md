@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode asin() retourne l'arc sinus d'un nombre, c'est-à-dire l'angle (en radians) dont le sinus est égal à la valeur donnée. C'est la fonction inverse de sin()."
 prev:
   text: "tan"
   link: "/fr/v1/api/number/tan"

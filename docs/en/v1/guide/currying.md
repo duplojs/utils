@@ -1,4 +1,5 @@
 ---
+description: "Currying transforms a function that takes multiple parameters into a chain of functions that each take one parameter."
 prev:
   text: "Quick Start"
   link: "/en/v1/guide/quickStart"

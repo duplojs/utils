@@ -3,6 +3,9 @@ import type { TheDate } from "../types";
 import { millisecondsInOneDay } from "../constants";
 import { createTheDate } from "../createTheDate";
 
+/**
+ * {@include date/addDays/index.md}
+ */
 export function addDays<
 	GenericInput extends TheDate,
 	GenericDay extends number,

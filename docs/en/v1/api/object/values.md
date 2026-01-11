@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The values() method returns an array of an object's values."
 prev:
   text: "countKeys"
   link: "/en/v1/api/object/countKeys"

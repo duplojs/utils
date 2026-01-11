@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const nilKind = createDataParserKind("nil");
+/**
+ * {@include dataParser/classic/nil/index.md}
+ */
 function nil(definition) {
     const self = dataParserInit(nilKind, {
         errorMessage: definition?.errorMessage,

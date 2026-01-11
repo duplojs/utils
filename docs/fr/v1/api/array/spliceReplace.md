@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction spliceReplace() remplace une portion du tableau par un ensemble de nouvelles valeurs. C'est un raccourci immuable de splice avec deleteCount égal au nombre d'éléments à insérer."
 prev:
   text: "spliceInsert"
   link: "/fr/v1/api/array/spliceInsert"

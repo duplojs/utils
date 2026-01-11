@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The startsWith() method checks whether a string starts with a specific substring."
 prev:
   text: "includes"
   link: "/en/v1/api/string/includes"

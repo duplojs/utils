@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The match() method searches for a match between a string and a regular expression, and returns the results as an array or undefined if no match is found."
 prev:
   text: "search"
   link: "/en/v1/api/string/search"

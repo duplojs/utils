@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The less() method checks whether a number is less than or equal to (<=) a given threshold. It can be used in a curried way to ease functional composition."
 prev:
   text: "greaterThan"
   link: "/en/v1/api/number/greaterThan"

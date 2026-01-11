@@ -7,6 +7,9 @@ var findRecordRequiredKey = require('./findRecordRequiredKey.cjs');
 var override = require('../../../common/override.cjs');
 
 const recordKind = kind.createDataParserKind("record");
+/**
+ * {@include dataParser/classic/record/index.md}
+ */
 function record(key, value, definition) {
     const self = base.dataParserInit(recordKind, {
         errorMessage: definition?.errorMessage,

@@ -1,3 +1,6 @@
+/**
+ * {@include pattern/index.md}
+ */
 export * from "./result";
 export * from "./exhaustive";
 export * from "./otherwise";

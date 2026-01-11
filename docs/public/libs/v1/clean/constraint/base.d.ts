@@ -8,15 +8,73 @@ export interface ConstrainedType<GenericName extends string, GenericValue extend
 }
 export declare const constraintHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraint-handler", unknown>>;
 export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[]> extends Kind<typeof constraintHandlerKind.definition> {
+    /**
+     * The constraint name used as the internal marker (for example "email").
+     * 
+     */
     readonly name: GenericName;
+    /**
+     * The list of DataParser checkers used to validate the primitive.
+     * 
+     */
     readonly checkers: GenericCheckers;
+    /**
+     * The primitive handler on which the constraint applies (String, Number, etc.).
+     * 
+     */
     readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+    /**
+     * Creates a constrained value and returns an Either.
+     * 
+     * ```ts
+     * const result = Between1And10.create(5);
+     * 
+     * if (E.isRight(result)) {
+     * 	// result : E.EitherRight<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
+     * }
+     * ```
+     * 
+     */
     create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.EitherRight<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
     create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.EitherRight<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a constrained value and throws on error.
+     * 
+     * ```ts
+     * const value = Between1And10.createOrThrow(7);
+     * // value: C.ConstrainedType<"between-1-10", 7>
+     * ```
+     * 
+     */
     createOrThrow<GenericData extends GenericPrimitiveValue>(data: GenericData): ConstrainedType<GenericName, GenericData>;
     createOrThrow<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>);
+    /**
+     * Creates a constrained value from an unknown input and returns an Either.
+     * 
+     * ```ts
+     * const unknownValue: unknown = 9;
+     * const maybe = Between1And10.createWithUnknown(unknownValue);
+     * ```
+     * 
+     */
     createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a constrained value from an unknown input and throws on error.
+     * 
+     * ```ts
+     * const strictValue = Between1And10.createWithUnknownOrThrow(unknownValue);
+     * ```
+     * 
+     */
     createWithUnknownOrThrow<GenericData extends unknown>(data: GenericData): ConstrainedType<GenericName, GenericPrimitiveValue>;
+    /**
+     * Checks if a value carries this constraint (type guard).
+     * 
+     * ```ts
+     * Between1And10.is(value); // type guard
+     * ```
+     * 
+     */
     is<GenericInput extends WrappedValue>(input: GenericInput): input is Extract<GenericInput, ConstrainedType<GenericName, GenericPrimitiveValue>>;
 }
 declare const CreateConstrainedTypeError_base: new (params: {
@@ -28,6 +86,54 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
     dataParserError: DDataParser.DataParserError;
     constructor(constrainedTypeName: string, data: unknown, dataParserError: DDataParser.DataParserError);
 }
+/**
+ * Creates a constraint handler to enforce a rule on a primitive.
+ * 
+ * **Supported call styles:**
+ * - Classic: `createConstraint(name, primitive, checker)` -> returns a handler
+ * 
+ * Constraints cover rules that typing cannot express (format, range, custom checks). The handler validates input, tags the value with the constraint name, and can be reused as a contract or plugged into a NewType.
+ * 
+ * ```ts
+ * const Between1And10 = C.createConstraint(
+ * 	"between-1-10",
+ * 	C.Number,
+ * 	[
+ * 		DP.checkerNumberMin(1),
+ * 		DP.checkerNumberMax(10),
+ * 	],
+ * );
+ * 
+ * const result = Between1And10.create(5);
+ * 
+ * if (E.isRight(result)) {
+ * 	// result : E.EitherRight<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
+ * }
+ * 
+ * const value = Between1And10.createOrThrow(7);
+ * // value: C.ConstrainedType<"between-1-10", 7>
+ * 
+ * const primitive = C.Number.createOrThrow(3);
+ * Between1And10.create(primitive);
+ * 
+ * Between1And10.is(value); // type guard
+ * 
+ * const unknownValue: unknown = 9;
+ * const maybe = Between1And10.createWithUnknown(unknownValue);
+ * 
+ * const strictValue = Between1And10.createWithUnknownOrThrow(unknownValue);
+ * 
+ * ```
+ * 
+ * @remarks
+ * - You can pass multiple DataParser checkers by providing an array.
+ * - The handler accepts both raw values and primitive values.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, const GenericChecker extends (DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]

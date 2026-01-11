@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Exécute une fonction uniquement lorsque l'entrée est un EitherLeft. Sinon, la valeur d'origine est renvoyée telle quelle."
 prev:
   text: "isLeft"
   link: "/fr/v1/api/either/isLeft"

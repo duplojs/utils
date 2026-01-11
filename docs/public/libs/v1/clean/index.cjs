@@ -37,7 +37,9 @@ var timeLessThan = require('./primitive/operations/time/timeLessThan.cjs');
 var timeMin = require('./primitive/operations/time/timeMin.cjs');
 var timeMax = require('./primitive/operations/time/timeMax.cjs');
 
-
+/**
+ * {@include clean/index.md}
+ */
 
 exports.createCleanKind = kind.createCleanKind;
 exports.CreateNewTypeError = newType.CreateNewTypeError;

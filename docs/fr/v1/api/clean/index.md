@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Briques essentielles de la Clean Architecture : création d'entités métier, types métier (NewType), cas d'usage, repositories, et plus encore. Facilite la structuration de votre code selon les principes de la Clean Architecture pour une meilleure maintenabilité et testabilité."
 prev:
   text: "Array"
   link: "/fr/v1/api/array/"

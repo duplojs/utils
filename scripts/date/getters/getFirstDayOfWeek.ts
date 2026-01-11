@@ -1,6 +1,9 @@
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/getFirstDayOfWeek/index.md}
+ */
 export function getFirstDayOfWeek(input: TheDate): TheDate {
 	const nativeDate = toNative(input);
 	const dayOfWeek = nativeDate.getUTCDay();

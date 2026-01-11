@@ -55,7 +55,15 @@ export interface UseCaseHandler<
 	GenericDependencies extends UseCaseDependencies = any,
 	GenericUseCase extends(input: any) => any = any,
 > extends Kind<typeof useCaseHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createUseCase/dependencies.md}
+	 */
 	dependencies: GenericDependencies;
+
+	/**
+	 * {@include clean/createUseCase/getUseCase.md}
+	 */
 	getUseCase(
 		repositories: (
 			GetAllRepositories<
@@ -71,6 +79,9 @@ export interface UseCaseHandler<
 	): GenericUseCase;
 }
 
+/**
+ * {@include clean/createUseCase/index.md}
+ */
 export function createUseCase<
 	const GenericDependencies extends UseCaseDependencies,
 	GenericUseCase extends(input: any) => any,
@@ -103,6 +114,9 @@ export function createUseCase<
 	}) as never;
 }
 
+/**
+ * {@include clean/useCaseInstances/index.md}
+ */
 export function useCaseInstances<
 	GenericUseCases extends Record<string, UseCaseHandler>,
 >(

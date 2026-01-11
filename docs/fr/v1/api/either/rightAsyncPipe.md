@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Version asynchrone de rightPipe. Gère automatiquement les promesses, Future et Either, et court-circuite sur le premier Left."
 prev:
   text: "rightPipe"
   link: "/fr/v1/api/either/rightPipe"

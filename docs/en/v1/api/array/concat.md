@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The concat() function merges multiple arrays into a new continuous array."
 prev:
   text: "shift"
   link: "/en/v1/api/array/shift"

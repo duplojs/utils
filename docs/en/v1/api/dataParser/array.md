@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.array() validates homogeneous arrays by applying an element parser and checkers (min, max, refine, ...). Each error includes the faulty index (items[2])."
 prev:
   text: "object"
   link: "/en/v1/api/dataParser/object"

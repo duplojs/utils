@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The DP.coerce.* family applies normalization before running the usual checkers. It is ideal to accept raw payloads (form-data, URLSearchParams, partial JSON) while guaranteeing a strong output type."
 prev:
   text: "recover"
   link: "/en/v1/api/dataParser/recover"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The tan() method returns the tangent of an angle expressed in radians. Tangent is the ratio between the sine and cosine of an angle (tan = sin/cos)."
 prev:
   text: "cos"
   link: "/en/v1/api/number/cos"

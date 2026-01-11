@@ -6,6 +6,9 @@ import { pipe } from '../../../common/pipe.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const templateLiteralKind = createDataParserKind("template-literal");
+/**
+ * {@include dataParser/classic/templateLiteral/index.md}
+ */
 function templateLiteral(template, definition) {
     const pattern = pipe(createTemplateLiteralPattern(template), (result) => new RegExp(`^${result}$`));
     const self = dataParserInit(templateLiteralKind, {

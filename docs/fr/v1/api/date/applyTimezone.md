@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction applyTimezone() ajuste un TheDate en appliquant le décalage d'un fuseau horaire."
 prev:
   text: "getTimezoneOffset"
   link: "/fr/v1/api/date/getTimezoneOffset"

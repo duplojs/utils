@@ -5,6 +5,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const recoverKind = kind.createDataParserKind("recover");
+/**
+ * {@include dataParser/classic/recover/index.md}
+ */
 function recover(inner, recoveredValue, definition) {
     const self = base.dataParserInit(recoverKind, {
         errorMessage: definition?.errorMessage,

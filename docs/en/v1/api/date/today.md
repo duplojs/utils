@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The today() function returns the start of the current day (midnight) as a TheDate."
 prev:
   text: "now"
   link: "/en/v1/api/date/now"

@@ -28,6 +28,9 @@ const unitMapper = {
 
 export type BytesInString = `${number}${keyof typeof unitMapper}`;
 
+/**
+ * {@include common/stringToBytes/index.md}
+ */
 export function stringToBytes(bytesInString: BytesInString | number) {
 	if (typeof bytesInString === "number") {
 		return bytesInString;

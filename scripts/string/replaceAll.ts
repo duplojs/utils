@@ -1,3 +1,6 @@
+/**
+ * {@include string/replaceAll/index.md}
+ */
 export function replaceAll<
 	GenericInput extends string,
 >(

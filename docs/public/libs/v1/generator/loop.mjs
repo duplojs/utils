@@ -1,3 +1,6 @@
+/**
+ * {@include generator/loop/index.md}
+ */
 function* loop(loop) {
     let previousOutput = undefined;
     for (let count = 0; true; count++) {

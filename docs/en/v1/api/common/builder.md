@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The createBuilder() function lets you create a builder whose methods can be defined after declaration (and even redefined) while keeping strict typing."
 prev:
   text: "globalStore"
   link: "/en/v1/api/common/globalStore"
@@ -19,7 +20,7 @@ The idea: you declare a builder interface (method signatures), then you â€œplugâ
 <MonacoTSEditor
   src="/examples/v1/api/common/builder/tryout.doc.ts"
   majorVersion="v1"
-  height="820px"
+  height="1400px"
 />
 
 ## Why is it easily overridable?

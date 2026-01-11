@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The flat() method flattens a nested array up to the requested depth and returns a new array containing the unrolled elements."
 prev:
   text: "slice"
   link: "/en/v1/api/array/slice"

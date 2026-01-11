@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The chunk() function splits an array into subarrays of a fixed size and returns the list of these blocks. The last block may be shorter if the size does not divide the array."
 prev:
   text: "flatMap"
   link: "/en/v1/api/array/flatMap"

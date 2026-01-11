@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getDayOfWeek() retourne le jour de la semaine d'un TheDate (1 = lundi, 7 = dimanche) en tenant compte d'un fuseau horaire optionnel."
 prev:
   text: "getDayOfMonth"
   link: "/fr/v1/api/date/getDayOfMonth"

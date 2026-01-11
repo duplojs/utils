@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.array() valide des tableaux homogènes en appliquant un parser élément et des checkers (min, max, refine, ...). Chaque erreur inclut l'index fautif (items[2])."
 prev:
   text: "object"
   link: "/fr/v1/api/dataParser/object"

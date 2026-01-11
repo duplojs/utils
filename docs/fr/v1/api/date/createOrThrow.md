@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction createOrThrow() construit un TheDate à partir d'un TheDate, d'un Date ou d'un timestamp. Elle lève CreateTheDateError lorsque l'entrée est invalide."
 prev:
   text: "create"
   link: "/fr/v1/api/date/create"

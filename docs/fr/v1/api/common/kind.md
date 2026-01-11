@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Les kinds sont un mécanisme de discrimination de données (type narrowing) basé sur l’ajout d’un marqueur à un objet, mais avec quelques contraintes que nous voulions dans nos projets :"
 prev:
   text: "justReturn"
   link: "/fr/v1/api/common/justReturn"

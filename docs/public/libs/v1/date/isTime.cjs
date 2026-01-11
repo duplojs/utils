@@ -3,6 +3,9 @@
 var constants = require('./constants.cjs');
 var isSafeTimestamp = require('./isSafeTimestamp.cjs');
 
+/**
+ * {@include date/isTime/index.md}
+ */
 function isTime(input) {
     const theTimeMatch = input.match(constants.theTimeRegex);
     if (theTimeMatch) {

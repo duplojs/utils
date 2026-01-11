@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Rounds a TheDate to the specified unit (unit)."
 prev:
   text: "min"
   link: "/en/v1/api/date/min"

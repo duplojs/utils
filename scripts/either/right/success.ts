@@ -17,6 +17,9 @@ export interface EitherSuccess<
 
 }
 
+/**
+ * {@include either/success/index.md}
+ */
 export function success<
 	const GenericValue extends unknown,
 >(

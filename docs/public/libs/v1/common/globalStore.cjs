@@ -4,6 +4,9 @@ const SymbolGlobalStore = Symbol.for("@duplojs/utils/global-store");
 const globalVar = Object;
 Object.defineProperty(globalVar, SymbolGlobalStore, { value: globalVar[SymbolGlobalStore] ?? {} });
 const store = globalVar[SymbolGlobalStore];
+/**
+ * {@include common/globalStore/index.md}
+ */
 function createGlobalStore(storeName, defaultValue) {
     if (store[storeName] === undefined) {
         store[storeName] = defaultValue;

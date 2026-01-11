@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction loop() exécute une boucle contrôlée via les callbacks next et exit. Chaque itération reçoit le compteur et la sortie précédente pour piloter le flux."
 prev:
   text: "falsy"
   link: "/fr/v1/api/common/falsy"

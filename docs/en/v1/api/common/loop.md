@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The loop() function runs a loop controlled via the next and exit callbacks. Each iteration receives the counter and the previous output to drive the flow."
 prev:
   text: "falsy"
   link: "/en/v1/api/common/falsy"

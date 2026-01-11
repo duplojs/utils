@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The first() method returns the first element of an array."
 prev:
   text: "at"
   link: "/en/v1/api/array/at"

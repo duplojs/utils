@@ -11,6 +11,9 @@ import { isTime } from '../../../date/isTime.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const timeKind = createDataParserKind("time");
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 function time(definition) {
     const self = dataParserInit(timeKind, {
         errorMessage: definition?.errorMessage,

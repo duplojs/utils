@@ -70,6 +70,9 @@ export interface DataParserNullableExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/nullable/index.md}
+ */
 export function nullable<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<

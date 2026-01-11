@@ -4,6 +4,9 @@ import { type Pattern, type ToolPattern, SymbolToolPatternFunctionLabel } from "
 
 const SymbolToolPatternFunction = Symbol.for(SymbolToolPatternFunctionLabel);
 
+/**
+ * {@include pattern/union/index.md}
+ */
 export function union<
 	GenericInput extends unknown,
 	const GenericPatterns extends readonly [

@@ -20,6 +20,34 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;
 }
+/**
+ * Creates an extended nullable parser from another parser.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.nullable(inner, definition?)` -> returns a nullable parser
+ * 
+ * Returns null (or a coalescing value) when input is null, otherwise parses with the inner parser.
+ * 
+ * ```ts
+ * const parser = DPE.nullable(DPE.string());
+ * const result = parser.parse(null);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string | null
+ * }
+ * 
+ * const withCoalescing = DPE.nullable(DPE.number(), { coalescingValue: 0 });
+ * const coalesced = withCoalescing.parse(null);
+ * 
+ * const nullableBool = DPE.nullable(DPE.boolean());
+ * const boolResult = nullableBool.parse(true);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/nullable
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser> | null>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;

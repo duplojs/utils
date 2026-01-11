@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getDayOfMonth/index.md}
+ */
 function getDayOfMonth(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     if (timezone === "UTC") {

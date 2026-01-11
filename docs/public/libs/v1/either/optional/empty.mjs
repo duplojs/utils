@@ -6,6 +6,15 @@ import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 
 const eitherOptionalEmptyKind = createEitherKind("optional-empty");
+/**
+ * {@include either/isOptionalEmpty/index.md}
+ */
+/**
+ * {@include either/optionalEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalEmpty/index.md}
+ */
 function optionalEmpty() {
     return eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(left("optional", undefined)));
 }

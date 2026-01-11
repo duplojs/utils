@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "exhaustive() unwraps a PatternResult and checks that all cases have been covered. It is used both with the builder match(...).exhaustive() and in a direct call on any PatternResult. If a pattern is missing, an InvalidExhaustivePatternError is thrown at call time."
 prev:
   text: "otherwise"
   link: "/en/v1/api/pattern/otherwise"

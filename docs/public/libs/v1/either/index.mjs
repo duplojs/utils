@@ -36,3 +36,7 @@ export { eitherSuccessKind, success } from './right/success.mjs';
 export { whenIsRight } from './right/when.mjs';
 export { group } from './right/group.mjs';
 export { asyncGroup } from './right/asyncGroup.mjs';
+
+/**
+ * {@include either/index.md}
+ */

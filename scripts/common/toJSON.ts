@@ -31,6 +31,9 @@ export type ToJSON<
 					}
 					: undefined;
 
+/**
+ * {@include common/toJSON/index.md}
+ */
 export function toJSON<
 	GenericValue extends unknown,
 >(

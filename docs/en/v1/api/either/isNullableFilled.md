@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard that checks that the nullable Either actually contains a value."
 prev:
   text: "whenIsNullableEmpty"
   link: "/en/v1/api/either/whenIsNullableEmpty"

@@ -17,6 +17,9 @@ export class CreateTheTimeError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include date/createTimeOrThrow/index.md}
+ */
 export function createTimeOrThrow(
 	input: number | TheTime | SpoolingTime,
 ): TheTime {

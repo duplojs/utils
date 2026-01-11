@@ -1,5 +1,8 @@
 import { type EscapeVoid } from "@scripts/common";
 
+/**
+ * {@include generator/execute/index.md}
+ */
 export function execute<
 	GenericIterator extends AsyncIterable<unknown> | Iterable<unknown>,
 >(

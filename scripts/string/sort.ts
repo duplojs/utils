@@ -1,5 +1,8 @@
 import { type SortType } from "@scripts/common";
 
+/**
+ * {@include string/sort/index.md}
+ */
 export function sort<
 	GenericArray extends readonly string[],
 >(type: SortType): (array: GenericArray) => string[];

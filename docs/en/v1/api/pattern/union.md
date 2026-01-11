@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "union() composes several patterns into a single reusable ToolPattern. Useful for sharing patterns between match, when, isMatch, or anywhere else a pattern is expected."
 prev:
   text: "isMatch"
   link: "/en/v1/api/pattern/isMatch"

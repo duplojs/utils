@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode slice() extrait une section d'une chaîne de caractères et retourne une nouvelle chaîne, sans modifier la chaîne d'origine."
 prev:
   text: "at"
   link: "/fr/v1/api/string/at"

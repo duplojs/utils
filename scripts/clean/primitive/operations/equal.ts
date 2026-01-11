@@ -1,6 +1,9 @@
 import { unwrap, type ToLargeEnsemble, type Unwrap } from "@scripts/common";
 import { type Primitive, type Primitives, type Date, type Time } from "../base";
 
+/**
+ * {@include clean/equal/index.md}
+ */
 export function equal<
 	GenericInput extends Primitives,
 	GenericValue extends(

@@ -2,6 +2,9 @@ import { createCleanKind } from './kind.mjs';
 
 const flagHandlerKind = createCleanKind("flag-handler");
 const flagKind = createCleanKind("flag");
+/**
+ * {@include clean/createFlag/index.md}
+ */
 function createFlag(name) {
     return flagHandlerKind.setTo({
         name,

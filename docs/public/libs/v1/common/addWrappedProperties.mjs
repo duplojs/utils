@@ -1,3 +1,6 @@
+/**
+ * {@include common/addWrappedProperties/index.md}
+ */
 function addWrappedProperties(wrappedValue, getProperties) {
     const properties = getProperties({
         wrappedValue,

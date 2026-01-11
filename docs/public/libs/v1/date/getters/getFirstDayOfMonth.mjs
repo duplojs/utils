@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getFirstDayOfMonth/index.md}
+ */
 function getFirstDayOfMonth(input) {
     const nativeDate = toNative(input);
     nativeDate.setUTCDate(1);

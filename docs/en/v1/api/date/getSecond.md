@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getSecond() function returns the seconds (0–59) of a TheDate, adjusted by an optional time zone."
 prev:
   text: "getMinute"
   link: "/en/v1/api/date/getMinute"

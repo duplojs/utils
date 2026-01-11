@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The isRuntimeWrappedValueKey() function checks whether a string key matches the runtime marker of a WrappedValue (@duplojs/utils/value)."
 prev:
   text: "isWrappedValue"
   link: "/en/v1/api/common/isWrappedValue"

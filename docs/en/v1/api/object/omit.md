@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The omit() method creates a new object by excluding certain properties."
 prev:
   text: "pick"
   link: "/en/v1/api/object/pick"

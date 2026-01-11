@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The substring() method returns a substring between two indexes without modifying the original string."
 prev:
   text: "slice"
   link: "/en/v1/api/string/slice"

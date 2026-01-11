@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Autorise null tout en appliquant un parser strict lorsque la valeur est présente. DDataParser.nullable(inner) retourne null ou la sortie d'inner."
 prev:
   text: "optional"
   link: "/fr/v1/api/dataParser/optional"

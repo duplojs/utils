@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Cross-cutting utilities to compose functions, handle promises, manipulate wrappers/kinds, and apply runtime conversions shared by the whole library."
 prev:
   text: "API Reference"
   link: "/en/v1/api/"

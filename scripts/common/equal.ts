@@ -14,6 +14,9 @@ type ExpectLiteral<
 	? never
 	: GenericValue;
 
+/**
+ * {@include common/equal/index.md}
+ */
 export function equal<
 	GenericInput extends EligibleEqual | object,
 	GenericValue extends Exclude<GenericInput, object>,

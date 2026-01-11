@@ -3,6 +3,9 @@ import { type EitherLeft } from "./create";
 import { isLeft } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
+/**
+ * {@include either/whenIsLeft/index.md}
+ */
 export function whenIsLeft<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

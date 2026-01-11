@@ -28,12 +28,25 @@ export interface ConstraintHandler<
 	GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[],
 > extends Kind<typeof constraintHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createConstraint/name.md}
+	 */
 	readonly name: GenericName;
 
+	/**
+	 * {@include clean/createConstraint/checkers.md}
+	 */
 	readonly checkers: GenericCheckers;
 
+	/**
+	 * {@include clean/createConstraint/primitiveHandler.md}
+	 */
 	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
 
+	/**
+	 * {@include clean/createConstraint/create.md}
+	 */
 	create<
 		GenericData extends GenericPrimitiveValue,
 	>(
@@ -67,6 +80,9 @@ export interface ConstraintHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createConstraint/createOrThrow.md}
+	 */
 	createOrThrow<
 		GenericData extends GenericPrimitiveValue,
 	>(
@@ -82,6 +98,9 @@ export interface ConstraintHandler<
 		& ConstrainedType<GenericName, Unwrap<GenericPrimitive>>
 	);
 
+	/**
+	 * {@include clean/createConstraint/createWithUnknown.md}
+	 */
 	createWithUnknown<
 		GenericData extends unknown,
 	>(
@@ -97,12 +116,18 @@ export interface ConstraintHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/createConstraint/createWithUnknownOrThrow.md}
+	 */
 	createWithUnknownOrThrow<
 		GenericData extends unknown,
 	>(
 		data: GenericData
 	): ConstrainedType<GenericName, GenericPrimitiveValue>;
 
+	/**
+	 * {@include clean/createConstraint/is.md}
+	 */
 	is<
 		GenericInput extends WrappedValue,
 	>(input: GenericInput): input is Extract<
@@ -125,6 +150,9 @@ export class CreateConstrainedTypeError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include clean/createConstraint/index.md}
+ */
 export function createConstraint<
 	GenericName extends string,
 	GenericPrimitiveValue extends EligiblePrimitive,

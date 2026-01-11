@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Une contrainte permet de définir une règle que le typage ne pourra pas vérifier à lui seul. Par exemple, une contrainte peut vérifier qu'une chaîne de caractères respecte un format particulier (email, URL, …), ou qu'un nombre est dans une certaine plage. Une contrainte s'applique à une primitive."
 prev:
   text: "Primitives"
   link: "/fr/v1/api/clean/primitives"

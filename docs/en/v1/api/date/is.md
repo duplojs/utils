@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The is() function checks that a string matches the TheDate format (date<timestamp><\"-\" | \"+\">). It acts as a type guard."
 prev:
   text: "isSafeTimestamp"
   link: "/en/v1/api/date/isSafeTimestamp"

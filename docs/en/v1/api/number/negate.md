@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The negate() method inverts the sign of a number. A positive number becomes negative and vice versa. It is equivalent to multiplying by -1."
 prev:
   text: "power"
   link: "/en/v1/api/number/power"

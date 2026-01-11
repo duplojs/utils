@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "match() associates a pattern with a function and returns a PatternResult when the value matches this pattern. Use it:"
 prev:
   text: "Pattern"
   link: "/en/v1/api/pattern/"

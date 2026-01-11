@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction sortCompare() compare deux chaînes en s'appuyant sur un Intl.Collator sensible à la locale."
 prev:
   text: "sort"
   link: "/fr/v1/api/string/sort"

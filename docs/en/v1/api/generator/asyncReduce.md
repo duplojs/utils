@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncReduce() function reduces a generator to a single value by applying an asynchronous accumulator function to each element. Asynchronous version of reduce()."
 prev:
   text: "chunk"
   link: "/en/v1/api/generator/chunk"

@@ -64,6 +64,9 @@ export interface DataParserStringExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/string/min/index.md}
+	 */
 	min(
 		min: number,
 		definition?: Partial<
@@ -76,6 +79,9 @@ export interface DataParserStringExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/string/max/index.md}
+	 */
 	max(
 		max: number,
 		definition?: Partial<
@@ -88,6 +94,9 @@ export interface DataParserStringExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/string/regex/index.md}
+	 */
 	regex(
 		regex: RegExp,
 		definition?: Partial<
@@ -101,6 +110,9 @@ export interface DataParserStringExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/string/index.md}
+ */
 export function string<
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionString> = never,
 >(
@@ -140,6 +152,9 @@ export function string<
 
 string.overrideHandler = createOverride<DataParserStringExtended>("@duplojs/utils/data-parser-extended/string");
 
+/**
+ * {@include dataParser/extended/email/index.md}
+ */
 export function email(
 	definition?: Partial<dataParsers.DataParserCheckerDefinitionEmail>,
 ) {
@@ -148,6 +163,9 @@ export function email(
 	});
 }
 
+/**
+ * {@include dataParser/extended/url/index.md}
+ */
 export function url(
 	definition?: Partial<dataParsers.DataParserCheckerDefinitionUrl>,
 ) {

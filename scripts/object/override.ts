@@ -1,3 +1,6 @@
+/**
+ * {@include object/override/index.md}
+ */
 export function override<
 	GenericInput extends object,
 >(

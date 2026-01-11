@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode toUpperCase() retourne une nouvelle chaîne de caractères avec tous les caractères en majuscules."
 prev:
   text: "toLowerCase"
   link: "/fr/v1/api/string/toLowerCase"

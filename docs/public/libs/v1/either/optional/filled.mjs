@@ -7,6 +7,15 @@ import { isLeft } from '../left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherOptionalFilledKind = createEitherKind("optional-filled");
+/**
+ * {@include either/isOptionalFilled/index.md}
+ */
+/**
+ * {@include either/optionalFilled/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalFilled/index.md}
+ */
 function optionalFilled(value) {
     return eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(right("optional", value)));
 }

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction addYears() ajoute un nombre positif d'années à un TheDate. Elle accepte une signature currifiée pour composer des transformations."
 prev:
   text: "getLastDayOfMonth"
   link: "/fr/v1/api/date/getLastDayOfMonth"

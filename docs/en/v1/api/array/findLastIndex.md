@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findLastIndex() method returns the index of the last element of an array that satisfies a given condition."
 prev:
   text: "findIndex"
   link: "/en/v1/api/array/findIndex"

@@ -1,3 +1,6 @@
+/**
+ * {@include array/last/index.md}
+ */
 export function last<
 	GenericArray extends readonly unknown[],
 >(

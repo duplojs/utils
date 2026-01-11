@@ -1,3 +1,6 @@
+/**
+ * {@include generator/chunk/index.md}
+ */
 export function chunk<
 	const GenericElement extends unknown,
 >(

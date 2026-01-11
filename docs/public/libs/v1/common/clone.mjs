@@ -1,5 +1,8 @@
 import { entries } from '../object/entries.mjs';
 
+/**
+ * {@include common/clone/index.md}
+ */
 function clone(unknownValue) {
     if (!unknownValue) {
         return unknownValue;

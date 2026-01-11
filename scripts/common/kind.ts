@@ -113,6 +113,9 @@ type ForbiddenKindCharacters<
 	"@" | "/"
 >;
 
+/**
+ * {@include common/kind/index.md}
+ */
 export function createKind<
 	GenericName extends string,
 	GenericKindValue extends unknown = unknown,
@@ -178,6 +181,9 @@ type ForbiddenKindNamespace<
 	>
 );
 
+/**
+ * {@include common/kind/index.md}
+ */
 export function createKindNamespace<
 	GenericNamespace extends string,
 >(

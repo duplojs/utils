@@ -39,6 +39,9 @@ class Future extends Promise {
         return new Future(Promise.all(values.map((value) => new Future(value))));
     }
 }
+/**
+ * {@include either/future/index.md}
+ */
 function future(value) {
     return new Future(value);
 }

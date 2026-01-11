@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toFixed() method formats a number using fixed-point notation with a specified number of decimals. It returns a string representation of the number."
 prev:
   text: "sqrt"
   link: "/en/v1/api/number/sqrt"

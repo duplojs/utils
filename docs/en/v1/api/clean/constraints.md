@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "A constraint lets you define a rule that typing alone cannot check. For example, a constraint can verify that a string matches a particular format (email, URL, …), or that a number is within a certain range. A constraint applies to a primitive."
 prev:
   text: "Primitives"
   link: "/en/v1/api/clean/primitives"

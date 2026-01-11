@@ -7,6 +7,43 @@ import { type AnyValue, type Unwrap } from "../../common";
 type Either = EitherRight | EitherLeft;
 export type EitherRightAsyncPipeFunction<GenericInput extends AnyValue = AnyValue, GenericOutput extends MaybeFutureEither<AnyValue> = MaybeFutureEither<AnyValue>> = (input: Awaited<GenericInput> extends infer InferredInput ? InferredInput extends Either ? Unwrap<Exclude<InferredInput, EitherLeft>> : InferredInput : never) => GenericOutput;
 export type EitherRightAsyncPipeResult<GenericPipeOutputs extends AnyValue, GenericLastPipeOutput extends AnyValue> = Extract<Awaited<GenericPipeOutputs>, EitherLeft> | (Awaited<GenericLastPipeOutput> extends infer InferredLastResult ? Exclude<InferredLastResult extends Either ? InferredLastResult : EitherSuccess<InferredLastResult>, EitherLeft> : never);
+/**
+ * Asynchronous version of rightPipe. Automatically handles promises, Future, and Either, and short-circuits on the first Left.
+ * 
+ * Signature: `rightAsyncPipe(input, pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const input = E.future(
+ * 	Promise.resolve(
+ * 		true
+ * 			? false
+ * 				? true
+ * 					? E.right("right-1", 1)
+ * 					: E.left("left-1", null)
+ * 				: E.right("right-2", 2)
+ * 			: E.left("left-2", 2),
+ * 	),
+ * );
+ * 
+ * const result = E.rightAsyncPipe(
+ * 	input,
+ * 	(value) => {
+ * 		// type: 1 | 2
+ * 		return value;
+ * 	},
+ * );
+ * ```
+ * 
+ * @remarks
+ * - Stops at the first Left and forwards it as-is.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/rightAsyncPipe
+ * 
+ * @namespace E
+ * 
+ */
 export declare function rightAsyncPipe<GenericInput extends MaybeFutureEither<AnyValue>, GenericOutputPipe1 extends MaybeFutureEither<AnyValue>>(input: GenericInput, pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>): Future<Extract<EitherRightAsyncPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>, any>>;
 export declare function rightAsyncPipe<GenericInput extends MaybeFutureEither<AnyValue>, GenericOutputPipe1 extends MaybeFutureEither<AnyValue>, GenericOutputPipe2 extends MaybeFutureEither<AnyValue>>(input: GenericInput, pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>, pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>): Future<Extract<EitherRightAsyncPipeResult<GenericInput | GenericOutputPipe1 | GenericOutputPipe2, GenericOutputPipe2>, any>>;
 export declare function rightAsyncPipe<GenericInput extends MaybeFutureEither<AnyValue>, GenericOutputPipe1 extends MaybeFutureEither<AnyValue>, GenericOutputPipe2 extends MaybeFutureEither<AnyValue>, GenericOutputPipe3 extends MaybeFutureEither<AnyValue>>(input: GenericInput, pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>, pipe2: EitherRightAsyncPipeFunction<GenericOutputPipe1, GenericOutputPipe2>, pipe3: EitherRightAsyncPipeFunction<GenericOutputPipe2, GenericOutputPipe3>): Future<Extract<EitherRightAsyncPipeResult<GenericInput | GenericOutputPipe1 | GenericOutputPipe2 | GenericOutputPipe3, GenericOutputPipe3>, any>>;

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getDayOfMonth() renvoie le jour du mois (1–31) pour un TheDate et un fuseau optionnel."
 prev:
   text: "getMonth"
   link: "/fr/v1/api/date/getMonth"

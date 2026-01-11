@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds an EitherLeft<\"optional\"> containing undefined."
 prev:
   text: "optional"
   link: "/en/v1/api/either/optional"

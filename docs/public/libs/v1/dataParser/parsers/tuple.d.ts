@@ -1,6 +1,6 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
@@ -41,6 +41,32 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
      */
     construct<const GenericDefinition extends DataParserDefinitionTuple>(definition: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, GenericDefinition>>;
 }
+/**
+ * Creates a data parser for tuples with a fixed shape.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.tuple(shape, definition?)` -> returns a tuple parser
+ * - Curried: not available
+ * 
+ * Validates array inputs against the provided tuple shape, with an optional rest parser.
+ * 
+ * ```ts
+ * const parser = DP.tuple([DP.string(), DP.number()]);
+ * const result = parser.parse(["id", 42]);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: [string, number]
+ * }
+ * 
+ * const withRest = DP.tuple([DP.string()], { rest: DP.number() });
+ * const restResult = withRest.parse(["a", 1, 2, 3]);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/tuple
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function tuple<GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
     shape: GenericShape;
 }>>;

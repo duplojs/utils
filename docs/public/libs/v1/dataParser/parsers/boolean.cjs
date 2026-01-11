@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const booleanKind = kind.createDataParserKind("boolean");
+/**
+ * {@include dataParser/classic/boolean/index.md}
+ */
 function boolean(definition) {
     const self = base.dataParserInit(booleanKind, {
         errorMessage: definition?.errorMessage,

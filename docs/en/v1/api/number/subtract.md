@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The subtract() method subtracts one number from another. It supports two forms: a curried form for functional composition and a direct form for immediate calculation."
 prev:
   text: "add"
   link: "/en/v1/api/number/add"

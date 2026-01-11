@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Executes a callback only when the Either contains a defined value (NullishFilled)."
 prev:
   text: "isNullishFilled"
   link: "/en/v1/api/either/isNullishFilled"

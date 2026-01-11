@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Fonctions pour manipuler les tableaux de manière immutable et type-safe. Toutes les fonctions préservent le tableau original et retournent une nouvelle valeur."
 prev:
   text: 'Common'
   link: '/fr/v1/api/common/'

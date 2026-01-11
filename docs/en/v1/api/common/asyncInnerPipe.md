@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncInnerPipe() method builds a reusable asynchronous pipeline. It returns a function that accepts a value or a promise, runs each step while waiting for the previous one, then returns a promise of the final result."
 prev:
   text: "asyncPipe"
   link: "/en/v1/api/common/asyncPipe"

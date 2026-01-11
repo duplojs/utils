@@ -3,6 +3,9 @@ import { type EitherRight } from "./create";
 import { isRight } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
+/**
+ * {@include either/whenIsRight/index.md}
+ */
 export function whenIsRight<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,

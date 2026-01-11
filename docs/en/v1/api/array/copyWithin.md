@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The copyWithin() function copies a portion of the array to another location while remaining pure (the original array is cloned)."
 prev:
   text: "fillAll"
   link: "/en/v1/api/array/fillAll"

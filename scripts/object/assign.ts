@@ -1,6 +1,9 @@
 import { type AnyObject } from "@scripts/common/types/anyObject";
 import { type AssignObjects } from "./types";
 
+/**
+ * {@include object/assign/index.md}
+ */
 export function assign<
 	GenericInput extends object,
 	GenericValue extends Partial<Record<keyof GenericInput, unknown>> & AnyObject,

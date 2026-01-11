@@ -9,6 +9,15 @@ var is$1 = require('../left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
 const eitherOptionalFilledKind = kind.createEitherKind("optional-filled");
+/**
+ * {@include either/isOptionalFilled/index.md}
+ */
+/**
+ * {@include either/optionalFilled/index.md}
+ */
+/**
+ * {@include either/whenIsOptionalFilled/index.md}
+ */
 function optionalFilled(value) {
     return base.eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(create.right("optional", value)));
 }

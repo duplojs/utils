@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode assign() fusionne plusieurs objets ensemble (similaire à Object.assign mais type-safe)."
 prev:
   text: "omit"
   link: "/fr/v1/api/object/omit"

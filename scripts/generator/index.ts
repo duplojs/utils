@@ -1,3 +1,6 @@
+/**
+ * {@include generator/index.md}
+ */
 export * from "./map";
 export * from "./execute";
 export * from "./asyncMap";

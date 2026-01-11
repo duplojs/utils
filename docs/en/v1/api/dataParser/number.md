@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Validates numbers (integers or floats) with optional constraints. DDataParser.number() ensures the input is a number, applies your checkers (min, max, int, refine, etc.) and returns an Either containing either the validated value or a rich DataParserError."
 prev:
   text: "string"
   link: "/en/v1/api/dataParser/string"

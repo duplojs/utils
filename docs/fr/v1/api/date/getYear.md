@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getYear() retourne l'année correspondant à un TheDate. Un fuseau horaire IANA peut être fourni pour ajuster le résultat."
 prev:
   text: "isTime"
   link: "/fr/v1/api/date/isTime"

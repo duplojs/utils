@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The group() method groups the elements of an array according to a computed key and returns an object indexed by group name with the associated elements."
 prev:
   text: "join"
   link: "/en/v1/api/array/join"

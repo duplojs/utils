@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard that checks whether an Either from the boolean helpers is truthy."
 prev:
   text: "boolFalsy"
   link: "/en/v1/api/either/boolFalsy"

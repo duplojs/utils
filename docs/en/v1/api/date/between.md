@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Checks that a TheDate is strictly between two bounds (greater then less)."
 prev:
   text: "lessThan"
   link: "/en/v1/api/date/lessThan"

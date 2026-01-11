@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds an EitherRight by associating mandatory business information (literal string) and an optional payload. This is the basic brick to signal a contextualized success."
 prev:
   text: "Either"
   link: "/en/v1/api/either/"

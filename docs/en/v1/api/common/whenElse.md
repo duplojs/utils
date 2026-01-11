@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The whenElse() function offers two explicit branches: if the predicate is true, theFunction runs, otherwise elseFunction. Return types stay disjoint and preserved."
 prev:
   text: "whenNot"
   link: "/en/v1/api/common/whenNot"

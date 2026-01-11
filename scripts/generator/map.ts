@@ -4,6 +4,9 @@ interface GeneratorMapParams {
 	index: number;
 }
 
+/**
+ * {@include generator/map/index.md}
+ */
 export function map<
 	const GenericInput extends unknown,
 	const GenericOutput extends unknown,

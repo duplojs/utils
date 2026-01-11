@@ -7,6 +7,9 @@ import { is } from '../../date/is.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const dateKind = createDataParserKind("date");
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 function date(definition) {
     const self = dataParserInit(dateKind, {
         errorMessage: definition?.errorMessage,

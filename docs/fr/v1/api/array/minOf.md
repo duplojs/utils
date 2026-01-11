@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction minOf() retourne la plus petite valeur numérique d'un tableau sans le modifier. Elle accepte aussi bien des tableaux classiques que des tuples immutables."
 prev:
   text: "sum"
   link: "/fr/v1/api/array/sum"

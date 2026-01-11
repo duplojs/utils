@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getLastDayOfMonth/index.md}
+ */
 function getLastDayOfMonth(input) {
     const nativeDate = toNative.toNative(input);
     nativeDate.setUTCMonth(nativeDate.getUTCMonth() + 1, 0);

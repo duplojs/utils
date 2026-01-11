@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction fill() remplit une portion d'un tableau avec une valeur donnée et retourne une copie modifiée."
 prev:
   text: "set"
   link: "/fr/v1/api/array/set"

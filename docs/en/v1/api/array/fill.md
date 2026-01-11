@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The fill() function fills a portion of an array with a given value and returns a modified copy."
 prev:
   text: "set"
   link: "/en/v1/api/array/set"

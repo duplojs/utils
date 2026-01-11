@@ -3,6 +3,9 @@ import { createOrThrow } from "./createOrThrow";
 import { toTimestamp } from "./toTimestamp";
 import { type TheDate } from "./types";
 
+/**
+ * {@include date/sort/index.md}
+ */
 export function sort<
 	GenericArray extends readonly TheDate[],
 >(type: SortType): (array: GenericArray) => TheDate[];

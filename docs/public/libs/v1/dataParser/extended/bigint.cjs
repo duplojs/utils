@@ -6,6 +6,9 @@ var max = require('../parsers/bigint/checkers/max.cjs');
 var min = require('../parsers/bigint/checkers/min.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/bigint/index.md}
+ */
 function bigint(definition) {
     const self = baseExtended.dataParserExtendedInit(index.bigint(definition), {
         min(self, min$1, definition) {

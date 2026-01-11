@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction today() retourne un TheDate fixé au début de la journée courante (minuit UTC)."
 prev:
   text: "now"
   link: "/fr/v1/api/date/now"

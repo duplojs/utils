@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Adds a positive number of minutes to a TheDate."
 prev:
   text: "addHours"
   link: "/en/v1/api/date/addHours"

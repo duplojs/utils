@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The hasKinds() function checks that a value carries all requested kinds and acts as a type guard toward their intersection."
 prev:
   text: "instanceOf"
   link: "/en/v1/api/common/instanceOf"

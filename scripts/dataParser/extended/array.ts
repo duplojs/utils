@@ -64,6 +64,9 @@ export interface DataParserArrayExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/array/min/index.md}
+	 */
 	min(
 		min: number,
 		definition?: Partial<
@@ -76,6 +79,9 @@ export interface DataParserArrayExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/array/max/index.md}
+	 */
 	max(
 		max: number,
 		definition?: Partial<
@@ -89,6 +95,9 @@ export interface DataParserArrayExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/array/index.md}
+ */
 export function array<
 	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<

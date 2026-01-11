@@ -9,6 +9,9 @@ var entries = require('../object/entries.cjs');
 var fromEntries = require('../object/fromEntries.cjs');
 
 const useCaseHandlerKind = kind.createCleanKind("use-case-handler");
+/**
+ * {@include clean/createUseCase/index.md}
+ */
 function createUseCase(dependencies, getUseCase) {
     return useCaseHandlerKind.setTo({
         dependencies,
@@ -17,6 +20,9 @@ function createUseCase(dependencies, getUseCase) {
             : repositories[uncapitalize.uncapitalize(key)])), fromEntries.fromEntries)),
     });
 }
+/**
+ * {@include clean/useCaseInstances/index.md}
+ */
 function useCaseInstances(useCases, repositories) {
     return pipe.pipe(useCases, entries.entries, map.map(([key, useCase]) => entry.entry(uncapitalize.uncapitalize(key), useCase.getUseCase(repositories))), fromEntries.fromEntries);
 }

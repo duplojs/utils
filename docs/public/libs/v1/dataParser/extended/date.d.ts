@@ -21,6 +21,34 @@ export interface DataParserDateExtended<GenericDefinition extends dataParsers.Da
         dataParsers.CheckerRefineImplementation<Output<this>>
     ]>>;
 }
+/**
+ * Creates an extended data parser for TheDate values.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.date(definition?)` -> returns a date parser
+ * 
+ * Validates TheDate values and can coerce from string or timestamp when enabled.
+ * 
+ * ```ts
+ * const parser = DPE.date();
+ * const result = parser.parse("date0+");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: TheDate
+ * }
+ * 
+ * const coerceParser = DPE.coerce.date();
+ * const coerceResult = coerceParser.parse("2024-01-01T00:00:00.000Z");
+ * 
+ * const nullableDate = DPE.date().nullable();
+ * const nullableResult = nullableDate.parse(null);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/date
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare function date<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionDate> = never>(definition?: GenericDefinition): DataParserDateExtended<MergeDefinition<dataParsers.DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace date {
     var overrideHandler: import("../../common").OverrideHandler<DataParserDateExtended<dataParsers.DataParserDefinitionDate>>;

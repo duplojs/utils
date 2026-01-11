@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getFirstDayOfMonth/index.md}
+ */
 function getFirstDayOfMonth(input) {
     const nativeDate = toNative.toNative(input);
     nativeDate.setUTCDate(1);

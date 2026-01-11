@@ -1,6 +1,9 @@
 import { unwrap } from "@scripts/common";
 import { type Number, type String } from "../../base";
 
+/**
+ * {@include clean/lengthEqual/index.md}
+ */
 export function lengthEqual(length: Number | number): (primitive: String) => boolean;
 
 export function lengthEqual(primitive: String, length: Number | number): boolean;

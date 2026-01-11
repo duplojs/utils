@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The charAt() method returns the character at the specified index in a string."
 prev:
   text: 'matchAll'
   link: '/en/v1/api/string/matchAll'

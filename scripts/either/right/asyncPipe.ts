@@ -39,6 +39,9 @@ export type EitherRightAsyncPipeResult<
 			: never
 	);
 
+/**
+ * {@include either/rightAsyncPipe/index.md}
+ */
 export function rightAsyncPipe<
 	GenericInput extends MaybeFutureEither<AnyValue>,
 	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>,

@@ -82,6 +82,9 @@ export interface DataParserNumber<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 export function number<
 	const GenericDefinition extends Partial<DataParserDefinitionNumber> = never,
 >(

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate arrays immutably and type-safely. All functions preserve the original array and return a new value."
 prev:
   text: 'Common'
   link: '/en/v1/api/common/'

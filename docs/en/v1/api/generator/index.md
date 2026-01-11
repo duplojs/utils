@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate JavaScript generators in a functional and type-safe way. Generators allow you to process data sequences lazily, computing values only when they are needed."
 prev:
   text: 'Either'
   link: '/en/v1/api/either/'

@@ -10,6 +10,9 @@ const weekdayMapper = {
 	Saturday: 6,
 };
 
+/**
+ * {@include date/getDayOfWeek/index.md}
+ */
 export function getDayOfWeek<
 	GenericInput extends TheDate,
 >(

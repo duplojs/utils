@@ -6,6 +6,9 @@ export interface Memoized<
 	readonly value: GenericValue;
 }
 
+/**
+ * {@include common/memo/index.md}
+ */
 export function memo<
 	GenericOutput extends AnyValue,
 >(

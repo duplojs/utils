@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The isType() function creates a type guard based on typeof, Array.isArray, iterables, functions, etc. It allows narrowing a union to the checked type."
 prev:
   text: "equal"
   link: "/en/v1/api/common/equal"

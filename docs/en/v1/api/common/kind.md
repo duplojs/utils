@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Kinds are a discrimination (type narrowing) mechanism based on adding a marker to an object, but with a few constraints we wanted in our projects:"
 prev:
   text: "justReturn"
   link: "/en/v1/api/common/justReturn"

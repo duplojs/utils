@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction slice() crée une copie d'une portion de tableau entre start et end (exclu) sans modifier l'original. Elle reprend Array.prototype.slice avec une API currifiée."
 prev:
   text: "select"
   link: "/fr/v1/api/array/select"

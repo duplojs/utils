@@ -1,4 +1,5 @@
 ---
+description: "Une Either représente une valeur dans l'un de deux états : Left (échec) ou Right (succès)."
 prev:
   text: "Le pipe"
   link: "/fr/v1/guide/pipe"

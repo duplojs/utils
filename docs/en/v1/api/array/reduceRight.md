@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The reduceRight() method works like reduce() but iterates through the array from right to left. It is useful for composing functions, rebuilding a structure from the end, or processing a stack."
 prev:
   text: "reduce"
   link: "/en/v1/api/array/reduce"

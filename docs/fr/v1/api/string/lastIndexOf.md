@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode lastIndexOf() retourne l'index de la dernière occurrence d'une sous-chaîne dans une chaîne de caractères, ou undefined si la sous-chaîne n'est pas trouvée."
 prev:
   text: "indexOf"
   link: "/fr/v1/api/string/indexOf"

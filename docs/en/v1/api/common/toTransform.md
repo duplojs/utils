@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toTransform() function recursively applies objects' toTransform methods and traverses arrays/tuples to produce a value ready to be transported (DTO)."
 prev:
   text: "toJSON"
   link: "/en/v1/api/common/toJSON"

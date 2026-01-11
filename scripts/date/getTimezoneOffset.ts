@@ -2,6 +2,9 @@ import { type Timezone } from "./timezone";
 import { toNative } from "./toNative";
 import { type TheDate } from "./types";
 
+/**
+ * {@include date/getTimezoneOffset/index.md}
+ */
 export function getTimezoneOffset(
 	timeZone: Timezone,
 ): (theDate: TheDate) => number;

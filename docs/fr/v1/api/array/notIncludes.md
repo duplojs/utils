@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction notIncludes() vérifie qu'un tableau ne contient pas une valeur donnée et agit comme un type guard pour exclure cette valeur du typage."
 prev:
   text: "includes"
   link: "/fr/v1/api/array/includes"

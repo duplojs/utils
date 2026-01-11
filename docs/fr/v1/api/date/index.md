@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Fonctions pour manipuler des dates et heures via le type propriétaire TheDate (`type TheDate = date${number}${\"-\" | \"+\"}``). Ce format sérialisable encode un timestamp Unix sécurisé, traverse les protocoles HTTP sans perte et garantit une manipulation immutable."
 prev:
   text: "DataParser"
   link: "/fr/v1/api/dataParser/"
@@ -73,6 +74,9 @@ Retourne la représentation ISO 8601 d'un `TheDate`.
 
 ### [format](/fr/v1/api/date/format)
 Affiche un `TheDate` avec un format personnalisé et un fuseau horaire.
+
+### [formatTime](/fr/v1/api/date/formatTime)
+Formate un `TheTime` via une chaîne de format personnalisée.
 
 ### [isSafeTimestamp](/fr/v1/api/date/isSafeTimestamp)
 Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.

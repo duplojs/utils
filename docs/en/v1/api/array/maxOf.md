@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The maxOf() function returns the largest numeric value of an array (or tuple) without touching the original."
 prev:
   text: "minOf"
   link: "/en/v1/api/array/minOf"

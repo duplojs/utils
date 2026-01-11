@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The min() method returns the smallest value among the provided numbers. It lets you compare several values and obtain the minimum."
 prev:
   text: "max"
   link: "/en/v1/api/number/max"

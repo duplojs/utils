@@ -84,6 +84,9 @@ export interface DataParserString<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 export function string<
 	const GenericDefinition extends Partial<DataParserDefinitionString> = never,
 >(

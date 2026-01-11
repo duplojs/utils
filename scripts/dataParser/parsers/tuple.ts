@@ -140,6 +140,9 @@ export interface DataParserTuple<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 export function tuple<
 	GenericShape extends TupleShape,
 	const GenericDefinition extends Partial<

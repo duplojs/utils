@@ -2,6 +2,9 @@ import { unwrap, wrapValue } from "@scripts/common";
 import { type Date, type Time } from "../../base";
 import { type TheTime, subtractTime } from "@scripts/date";
 
+/**
+ * {@include clean/dateSubtractTime/index.md}
+ */
 export function dateSubtractTime(time: Time | TheTime): (primitive: Date) => Date;
 
 export function dateSubtractTime(primitive: Date, time: Time | TheTime): Date;

@@ -1,6 +1,9 @@
 import { toTimestamp } from "../toTimestamp";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/greaterThan/index.md}
+ */
 export function greaterThan<
 	GenericValue extends TheDate,
 >(threshold: TheDate): (input: GenericValue) => boolean;

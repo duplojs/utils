@@ -84,6 +84,9 @@ export interface DataParserTime<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 export function time<
 	const GenericDefinition extends Partial<DataParserDefinitionTime> = never,
 >(

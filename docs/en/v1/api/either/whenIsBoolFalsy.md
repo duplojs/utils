@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Applies a callback only when the boolean value is falsy."
 prev:
   text: "isBoolFalsy"
   link: "/en/v1/api/either/isBoolFalsy"

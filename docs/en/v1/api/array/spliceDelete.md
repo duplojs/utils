@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The spliceDelete() function deletes a given number of elements from an index and returns a new cleaned-up array."
 prev:
   text: "concat"
   link: "/en/v1/api/array/concat"

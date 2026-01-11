@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction wrapValue() enveloppe une valeur dans un conteneur marqué (SymbolWrappedValue) pour l'identifier sans ambiguïté dans des structures composites."
 prev:
   text: "interpolation"
   link: "/fr/v1/api/common/interpolation"

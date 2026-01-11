@@ -19,7 +19,9 @@ var getDeepProperty = require('./getDeepProperty.cjs');
 var discriminate = require('./discriminate.cjs');
 var entry = require('./entry.cjs');
 
-
+/**
+ * {@include object/index.md}
+ */
 
 exports.entries = entries.entries;
 exports.fromEntries = fromEntries.fromEntries;

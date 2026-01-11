@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The spliceInsert() function inserts an array of elements at a precise index without deleting existing values."
 prev:
   text: "spliceDelete"
   link: "/en/v1/api/array/spliceDelete"

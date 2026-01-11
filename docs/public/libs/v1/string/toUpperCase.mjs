@@ -1,3 +1,6 @@
+/**
+ * {@include string/toUpperCase/index.md}
+ */
 function toUpperCase(input) {
     return input.toUpperCase();
 }

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findAndSpliceDelete() function searches for the first element that satisfies a predicate, then deletes deleteCount elements starting from that index."
 prev:
   text: "findAndReplace"
   link: "/en/v1/api/array/findAndReplace"

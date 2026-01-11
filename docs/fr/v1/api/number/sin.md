@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode sin() retourne le sinus d'un angle exprimé en radians. Le sinus est une fonction trigonométrique fondamentale qui retourne la coordonnée y d'un point sur le cercle unité."
 prev:
   text: "toFixed"
   link: "/fr/v1/api/number/toFixed"

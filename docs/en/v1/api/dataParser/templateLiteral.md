@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds a parser for a deterministic string shape (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() takes an array mixing primitive parts and sub-parsers (string, number, literal, ...) and returns a strongly typed string parser."
 prev:
   text: "literal"
   link: "/en/v1/api/dataParser/literal"

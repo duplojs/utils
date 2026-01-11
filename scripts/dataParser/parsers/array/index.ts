@@ -85,6 +85,9 @@ export interface DataParserArray<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 export function array<
 	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<

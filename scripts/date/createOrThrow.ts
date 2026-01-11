@@ -17,6 +17,9 @@ export class CreateTheDateError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include date/createOrThrow/index.md}
+ */
 export function createOrThrow<
 	GenericInput extends TheDate | Date | number,
 >(

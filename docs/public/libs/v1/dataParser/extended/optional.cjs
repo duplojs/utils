@@ -4,6 +4,9 @@ var baseExtended = require('../baseExtended.cjs');
 var optional$1 = require('../parsers/optional.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/optional/index.md}
+ */
 function optional(inner, definition) {
     const self = baseExtended.dataParserExtendedInit(optional$1.optional(inner, definition), {});
     return optional.overrideHandler.apply(self);

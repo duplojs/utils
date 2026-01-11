@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asin() method returns the arcsine of a number, that is, the angle (in radians) whose sine is equal to the given value. It is the inverse function of sin()."
 prev:
   text: "tan"
   link: "/en/v1/api/number/tan"

@@ -6,6 +6,9 @@ var max = require('../parsers/time/checkers/max.cjs');
 var min = require('../parsers/time/checkers/min.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/time/index.md}
+ */
 function time(definition) {
     const self = baseExtended.dataParserExtendedInit(index.time(definition), {
         min(self, min$1, definition) {

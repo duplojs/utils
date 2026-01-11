@@ -3,6 +3,9 @@ import { type BreakGenericLink, type EscapeVoid } from "./types";
 import { type AnyFunction } from "./types/anyFunction";
 import { type AnyValue } from "./types/anyValue";
 
+/**
+ * {@include common/pipe/index.md}
+ */
 export function pipe<
 	GenericInput extends AnyValue,
 	GenericOutputPipe1 extends AnyValue | EscapeVoid,

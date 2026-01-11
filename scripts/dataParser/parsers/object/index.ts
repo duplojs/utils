@@ -130,6 +130,9 @@ export interface DataParserObject<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/object/index.md}
+ */
 export function object<
 	const GenericShape extends DataParserObjectShape,
 	const GenericDefinition extends Partial<

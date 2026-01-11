@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode map() applique une fonction de transformation sur chaque élément d'un tableau et retourne un nouveau tableau contenant les résultats, sans modifier l'entrée."
 prev:
   text: "is"
   link: "/fr/v1/api/array/is"

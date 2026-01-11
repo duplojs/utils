@@ -1,3 +1,6 @@
+/**
+ * {@include common/forwardLog/index.md}
+ */
 export function forwardLog<
 	const GenericInput extends unknown,
 >(

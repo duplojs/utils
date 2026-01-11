@@ -65,6 +65,9 @@ export interface DataParserUnknownExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/unknown/index.md}
+ */
 export function unknown<
 	const GenericDefinition extends Partial<
 		dataParsers.DataParserDefinitionUnknown

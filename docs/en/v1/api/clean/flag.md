@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "A flag lets you add a marker on an entity after its creation. Its purpose is to indicate that a verification has taken place, or that a particular operation has been performed, without modifying the structure of the entity."
 prev:
   text: "unwrapEntity"
   link: "/en/v1/api/clean/unwrapEntity"

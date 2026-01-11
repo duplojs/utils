@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Creates a Future resolved with an EitherLeft<\"future\">, ideal for propagating a standardized rejection."
 prev:
   text: "futureSuccess"
   link: "/en/v1/api/either/futureSuccess"

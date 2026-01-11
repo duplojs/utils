@@ -26,6 +26,9 @@ type ComputeResultWithPickIsObject<
 	>
 >;
 
+/**
+ * {@include object/pick/index.md}
+ */
 export function pick<
 	GenericInput extends object,
 	const GenericPickValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],

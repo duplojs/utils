@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The pop() function returns a new array without its last element. Tuples are updated exactly (via PopTuple)."
 prev:
   text: "push"
   link: "/en/v1/api/array/push"

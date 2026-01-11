@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The loop() function creates a custom generator using a loop function. It lets you generate sequences of values lazily."
 prev:
   text: "execute"
   link: "/en/v1/api/generator/execute"

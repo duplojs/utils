@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Applique une fonction uniquement lorsqu'un optional est vide (undefined)."
 prev:
   text: "isOptionalEmpty"
   link: "/fr/v1/api/either/isOptionalEmpty"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction addMonths() ajoute un nombre positif de mois à un TheDate. Les dépassements d'année et les années bissextiles sont gérés automatiquement."
 prev:
   text: "addYears"
   link: "/fr/v1/api/date/addYears"

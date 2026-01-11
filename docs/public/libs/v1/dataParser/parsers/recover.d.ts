@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserRecoverCheckerCustom<GenericInput extends unknown = unknown> {
@@ -25,6 +25,36 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
      */
     construct<const GenericDefinition extends DataParserDefinitionRecover>(definition: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, GenericDefinition>>;
 }
+/**
+ * Creates a data parser that recovers with a fallback value on error.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.recover(inner, recoveredValue, definition?)` -> returns a recover parser
+ * - Curried: not available
+ * 
+ * Runs the inner parser and returns the recovered value when parsing fails.
+ * 
+ * ```ts
+ * const parser = DP.recover(DP.number(), 0);
+ * const result = parser.parse("not-a-number");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * 
+ * const withString = DP.recover(DP.string(), "fallback");
+ * const stringResult = withString.parse(123);
+ * 
+ * const withCheckers = DP.recover(DP.string(), "fallback", {
+ * 	checkers: [DP.checkerRefine((value) => value.length > 0)],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/recover
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     recoveredValue: GenericRecoveredValue;

@@ -1,3 +1,6 @@
+/**
+ * {@include array/copyWithin/index.md}
+ */
 export function copyWithin<
 	GenericElement extends unknown,
 >(

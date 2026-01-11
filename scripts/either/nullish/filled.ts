@@ -25,6 +25,15 @@ export interface EitherNullishFilled<
 
 }
 
+/**
+ * {@include either/isNullishFilled/index.md}
+ */
+/**
+ * {@include either/nullishFilled/index.md}
+ */
+/**
+ * {@include either/whenIsNullishFilled/index.md}
+ */
 export function nullishFilled<
 	const GenericValue extends unknown,
 >(value: GenericValue): EitherNullishFilled<GenericValue> {

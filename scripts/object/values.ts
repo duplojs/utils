@@ -1,6 +1,9 @@
 import { isRuntimeKind, isRuntimeWrappedValueKey } from "@scripts/common";
 import { type AnyValue } from "@scripts/common/types/anyValue";
 
+/**
+ * {@include object/values/index.md}
+ */
 export function values<
 	GenericValue extends AnyValue,
 >(

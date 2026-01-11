@@ -1,5 +1,5 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../base";
 import * as DDate from "../../../../date";
 export interface DataParserCheckerDefinitionTimeMin extends DataParserCheckerDefinition {
     min: DDate.TheTime;

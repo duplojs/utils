@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The reverse() method returns a copy of an array with the elements in reverse order, while leaving the initial array intact. Tuples retain exact typing thanks to ReverseTuple."
 prev:
   text: "chunk"
   link: "/en/v1/api/array/chunk"

@@ -5,6 +5,9 @@ interface ClosestToParams {
 	tieBreaker?: "favorPast" | "favorFuture";
 }
 
+/**
+ * {@include date/closestTo/index.md}
+ */
 export function closestTo<
 	GenericIterable extends Iterable<TheDate>,
 >(

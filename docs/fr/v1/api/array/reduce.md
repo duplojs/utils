@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode reduce() agrège les éléments d'un tableau de gauche à droite en appliquant une fonction qui transporte un état. Elle supporte les valeurs primitives mais aussi des états complexes via reduceFrom() et permet de quitter la boucle à tout moment grâce à exit()."
 prev:
   text: "sort"
   link: "/fr/v1/api/array/sort"

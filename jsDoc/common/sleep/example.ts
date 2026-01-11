@@ -1,0 +1,8 @@
+import { sleep } from "@scripts";
+
+const start = Date.now();
+
+await sleep(5);
+
+const elapsed = Date.now() - start;
+// elapsed >= 5 (approx)

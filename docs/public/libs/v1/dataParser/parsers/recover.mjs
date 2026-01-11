@@ -3,6 +3,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const recoverKind = createDataParserKind("recover");
+/**
+ * {@include dataParser/classic/recover/index.md}
+ */
 function recover(inner, recoveredValue, definition) {
     const self = dataParserInit(recoverKind, {
         errorMessage: definition?.errorMessage,

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Exécute un callback uniquement lorsque l'Either est NullableEmpty."
 prev:
   text: "isNullableEmpty"
   link: "/fr/v1/api/either/isNullableEmpty"

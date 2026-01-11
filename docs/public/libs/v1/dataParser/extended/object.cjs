@@ -9,6 +9,9 @@ var pick = require('../parsers/object/pick.cjs');
 var omit = require('../parsers/object/omit.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/object/index.md}
+ */
 function object(shape, definition) {
     const self = baseExtended.dataParserExtendedInit(index.object(shape, definition), {
         omit: (self, omitObject, definition) => {

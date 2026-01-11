@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DataParser exposes an override system that lets you add or replace instance methods or properties without forking the library."
 prev:
   text: "coerce.*"
   link: "/en/v1/api/dataParser/coerce"

@@ -5,6 +5,39 @@ import { type AnyValue, type Unwrap } from "../../common";
 type Either = EitherRight | EitherLeft;
 export type EitherRightPipeFunction<GenericInput extends AnyValue = AnyValue, GenericOutput extends AnyValue = AnyValue> = (input: GenericInput extends Either ? Unwrap<Exclude<GenericInput, EitherLeft>> : GenericInput) => GenericOutput;
 export type EitherRightPipeResult<GenericPipeOutputs extends AnyValue, GenericLastPipeOutput extends AnyValue> = Extract<GenericPipeOutputs, EitherLeft> | Exclude<GenericLastPipeOutput extends Either ? GenericLastPipeOutput : EitherSuccess<GenericLastPipeOutput>, EitherLeft>;
+/**
+ * Chains synchronous transformations on an Either as long as it remains Right. The pipeline stops as soon as a Left is returned.
+ * 
+ * Signature: `rightPipe(input, pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const input = true
+ * 	? false
+ * 		? true
+ * 			? E.right("right-1", 1)
+ * 			: E.left("left-1", null)
+ * 		: E.right("right-2", 2)
+ * 	: E.left("left-2", 2);
+ * 
+ * const result = E.rightPipe(
+ * 	input,
+ * 	(value) => {
+ * 		// type: 1 | 2
+ * 		return value;
+ * 	},
+ * );
+ * ```
+ * 
+ * @remarks
+ * - Stops at the first Left and forwards it as-is.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/rightPipe
+ * 
+ * @namespace E
+ * 
+ */
 export declare function rightPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue>(input: GenericInput, pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>): Extract<EitherRightPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>, any>;
 export declare function rightPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue, GenericOutputPipe2 extends AnyValue>(input: GenericInput, pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>, pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>): Extract<EitherRightPipeResult<GenericInput | GenericOutputPipe1 | GenericOutputPipe2, GenericOutputPipe2>, any>;
 export declare function rightPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue, GenericOutputPipe2 extends AnyValue, GenericOutputPipe3 extends AnyValue>(input: GenericInput, pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>, pipe2: EitherRightPipeFunction<GenericOutputPipe1, GenericOutputPipe2>, pipe3: EitherRightPipeFunction<GenericOutputPipe2, GenericOutputPipe3>): Extract<EitherRightPipeResult<GenericInput | GenericOutputPipe1 | GenericOutputPipe2 | GenericOutputPipe3, GenericOutputPipe3>, any>;

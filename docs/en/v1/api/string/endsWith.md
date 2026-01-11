@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The endsWith() method checks whether a string ends with a specific substring, taking an optional position into account."
 prev:
   text: "startsWith"
   link: "/en/v1/api/string/startsWith"

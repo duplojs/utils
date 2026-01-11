@@ -10,6 +10,9 @@ interface ArrayFlatMapParams<
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericArray instead of GenericElement
 // preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/flatMap/index.md}
+ */
 export function flatMap<
 	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown,

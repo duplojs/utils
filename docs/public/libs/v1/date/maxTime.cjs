@@ -3,6 +3,9 @@
 var createTheTime = require('./createTheTime.cjs');
 var toTimeValue = require('./toTimeValue.cjs');
 
+/**
+ * {@include date/maxTime/index.md}
+ */
 function maxTime(input) {
     return createTheTime.createTheTime(Math.max(...input.map(toTimeValue.toTimeValue)));
 }

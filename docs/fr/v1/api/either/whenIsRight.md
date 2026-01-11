@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Applique une fonction uniquement quand l'entrée est un EitherRight. Sinon, la valeur originale est renvoyée telle quelle."
 prev:
   text: "isRight"
   link: "/fr/v1/api/either/isRight"

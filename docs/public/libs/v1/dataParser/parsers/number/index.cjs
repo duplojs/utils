@@ -6,6 +6,9 @@ var kind = require('../../kind.cjs');
 var override = require('../../../common/override.cjs');
 
 const numberKind = kind.createDataParserKind("number");
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 function number(definition) {
     const self = base.dataParserInit(numberKind, {
         errorMessage: definition?.errorMessage,

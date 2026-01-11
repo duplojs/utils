@@ -5,6 +5,9 @@ import { checkerNumberMax } from '../parsers/number/checkers/max.mjs';
 import { checkerNumberMin } from '../parsers/number/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/number/index.md}
+ */
 function number(definition) {
     const self = dataParserExtendedInit(number$1(definition), {
         min(self, min, definition) {
@@ -20,6 +23,9 @@ function number(definition) {
     return number.overrideHandler.apply(self);
 }
 number.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/number");
+/**
+ * {@include dataParser/extended/int/index.md}
+ */
 function int(definition) {
     return number({
         checkers: [checkerInt(definition)],

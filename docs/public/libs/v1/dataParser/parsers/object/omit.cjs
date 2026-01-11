@@ -10,6 +10,9 @@ var fromEntries = require('../../../object/fromEntries.cjs');
 function omitShape(shape, omitObject) {
     return pipe.pipe(shape, entries.entries, filter.filter(([key]) => !isKeyof.isKeyof(key, omitObject)), fromEntries.fromEntries);
 }
+/**
+ * {@include dataParser/classic/object/omit/index.md}
+ */
 function omit(dataParser, omitObject, definition) {
     const newShape = omitShape(dataParser.definition.shape, omitObject);
     return index.object(newShape, definition);

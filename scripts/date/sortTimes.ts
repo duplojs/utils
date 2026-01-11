@@ -3,6 +3,9 @@ import { createTheTime } from "./createTheTime";
 import { type TheTime } from "./types";
 import { toTimeValue } from "./toTimeValue";
 
+/**
+ * {@include date/sortTimes/index.md}
+ */
 export function sortTimes<
 	GenericArray extends readonly TheTime[],
 >(type: SortType): (array: GenericArray) => TheTime[];

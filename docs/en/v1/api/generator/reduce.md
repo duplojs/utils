@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The reduce() function reduces a generator to a single value by applying an accumulator function to each element. It also allows early exit with exit()."
 prev:
   text: "chunk"
   link: "/en/v1/api/generator/chunk"

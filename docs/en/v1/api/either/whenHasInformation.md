@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functional pattern matching based on the literal information of an Either. The function is executed only when the information (or one of the informations) matches."
 prev:
   text: "hasInformation"
   link: "/en/v1/api/either/hasInformation"

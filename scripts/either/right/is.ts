@@ -2,6 +2,9 @@ import { eitherInformationKind } from "../kind";
 import { eitherRightKind, type EitherRight } from "./create";
 import { isWrappedValue } from "@scripts/common/wrapValue";
 
+/**
+ * {@include either/isRight/index.md}
+ */
 export function isRight<
 	GenericInput extends unknown,
 >(

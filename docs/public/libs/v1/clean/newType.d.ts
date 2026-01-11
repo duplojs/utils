@@ -11,15 +11,78 @@ export interface NewType<GenericName extends string = string, GenericValue exten
 }
 export declare const newTypeHandlerKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type-handler", unknown>>;
 export interface NewTypeHandler<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstrainHandler extends readonly ConstraintHandler[] = readonly []> extends Kind<typeof newTypeHandlerKind.definition> {
+    /**
+     * The NewType name used as the brand (for example "userId").
+     * 
+     */
     readonly name: GenericName;
+    /**
+     * The DataParser used to validate and transform raw inputs.
+     * 
+     */
     readonly dataParser: DDataParser.Contract<GenericValue>;
+    /**
+     * The list of constraints applied to this NewType.
+     * 
+     */
     readonly constrains: GenericConstrainHandler;
+    /**
+     * Creates a NewType value and returns an Either.
+     * 
+     * ```ts
+     * const result = UserId.create(12);
+     * ```
+     * 
+     */
     create<const GenericData extends GenericValue>(data: GenericData): (DEither.EitherRight<"createNewType", NewType<GenericName, GenericData, GenericConstrainHandler[number]["name"]>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
     create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.EitherRight<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstrainHandler[number]["name"]>)> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a NewType value and throws on error. Works with raw values or primitives.
+     * 
+     * ```ts
+     * const userId = UserId.createOrThrow(42);
+     * 
+     * const result = UserId.create(12);
+     * 
+     * const fromPrimitive = UserId.createOrThrow(
+     * 	C.Number.createOrThrow(5),
+     * );
+     * ```
+     * 
+     */
     createOrThrow<const GenericData extends GenericValue>(data: GenericData): NewType<GenericName, GenericData, GenericConstrainHandler[number]["name"]>;
     createOrThrow<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstrainHandler[number]["name"]>);
+    /**
+     * Creates a NewType value from an unknown input and returns an Either.
+     * 
+     * ```ts
+     * const unknownValue: unknown = 20;
+     * const maybe = UserId.createWithUnknown(unknownValue);
+     * 
+     * if (E.isRight(maybe)) {
+     * 	// maybe: E.EitherRight<"createNewType", UserId>
+     * }
+     * ```
+     * 
+     */
     createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createNewType", NewType<GenericName, GenericValue, GenericConstrainHandler[number]["name"]>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    /**
+     * Creates a NewType value from an unknown input and throws on error.
+     * 
+     * ```ts
+     * const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
+     * ```
+     * 
+     */
     createWithUnknownOrThrow<GenericData extends unknown>(data: GenericData): NewType<GenericName, GenericValue, GenericConstrainHandler[number]["name"]>;
+    /**
+     * Checks if a value is a NewType of this handler (type guard).
+     * 
+     * ```ts
+     * UserId.is(result); // type guard
+     * ```
+     * 
+     */
     is<GenericInput extends WrappedValue>(input: GenericInput): input is Extract<GenericInput, NewType<GenericName, GenericValue, GenericConstrainHandler[number]["name"]>>;
 }
 declare const CreateNewTypeError_base: new (params: {
@@ -31,6 +94,49 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
     dataParserError: DDataParser.DataParserError;
     constructor(newTypeName: string, data: unknown, dataParserError: DDataParser.DataParserError);
 }
+/**
+ * Creates a NewType handler for a domain-specific value.
+ * 
+ * **Supported call styles:**
+ * - Classic: `createNewType(name, dataParser, constraints?)` -> returns a handler
+ * 
+ * A NewType validates input with a DataParser, applies optional constraints, and brands the value to prevent accidental mix-ups across the domain.
+ * 
+ * ```ts
+ * const UserId = C.createNewType(
+ * 	"user-id",
+ * 	DP.number(),
+ * 	C.Positive,
+ * );
+ * 
+ * type UserId = C.GetNewType<typeof UserId>;
+ * 
+ * const userId = UserId.createOrThrow(42);
+ * 
+ * const result = UserId.create(12);
+ * 
+ * const fromPrimitive = UserId.createOrThrow(
+ * 	C.Number.createOrThrow(5),
+ * );
+ * 
+ * UserId.is(result); // type guard
+ * 
+ * const unknownValue: unknown = 20;
+ * const maybe = UserId.createWithUnknown(unknownValue);
+ * 
+ * if (E.isRight(maybe)) {
+ * 	// maybe: E.EitherRight<"createNewType", UserId>
+ * }
+ * 
+ * const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/newType
+ * 
+ * @namespace C
+ * 
+ */
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstrainHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | readonly [
     ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>,
     ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]

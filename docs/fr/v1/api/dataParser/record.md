@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.record(keyParser, valueParser) valide des dictionnaires dynamiques en vérifiant à la fois la forme des clés (string/literal/template literal/number/union) et les valeurs associées."
 prev:
   text: "tuple"
   link: "/fr/v1/api/dataParser/tuple"

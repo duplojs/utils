@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Un NewType est un type conçu pour répondre aux exigences métier, tout en étant basé sur un type primitif (ou une structure de données) existant. Il permet d'ajouter des contraintes et des règles spécifiques, garantissant que les valeurs respectent les conditions définies par le métier."
 prev:
   text: "Contraintes"
   link: "/fr/v1/api/clean/constraints"

@@ -76,6 +76,9 @@ export interface DataParserBoolean<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/boolean/index.md}
+ */
 export function boolean<
 	const GenericDefinition extends Partial<DataParserDefinitionBoolean> = never,
 >(

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The includes() method checks whether an array contains a given element."
 prev:
   text: "lengthEqual"
   link: "/en/v1/api/array/lengthEqual"

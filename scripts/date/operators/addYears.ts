@@ -2,6 +2,9 @@ import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/addYears/index.md}
+ */
 export function addYears<
 	GenericInput extends TheDate,
 	GenericYear extends number,

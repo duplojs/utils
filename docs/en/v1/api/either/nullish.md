@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Transforms a potentially null/undefined value into an Either. Allows propagating presence/absence in a type-safe way."
 prev:
   text: "whenIsBoolFalsy"
   link: "/en/v1/api/either/whenIsBoolFalsy"

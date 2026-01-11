@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode toTuple() convertit une valeur en tuple en appliquant une série de fonctions de transformation."
 prev:
   text: "from"
   link: "/fr/v1/api/array/from"

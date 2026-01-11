@@ -1,3 +1,6 @@
+/**
+ * {@include string/lastIndexOf/index.md}
+ */
 export function lastIndexOf<
 	GenericInput extends string,
 >(

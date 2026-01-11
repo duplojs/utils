@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getProperty() method retrieves the value of a property from an object."
 prev:
   text: "fromEntries"
   link: "/en/v1/api/object/fromEntries"

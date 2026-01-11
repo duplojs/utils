@@ -1,3 +1,6 @@
+/**
+ * {@include common/externalPromise/index.md}
+ */
 function createExternalPromise() {
     let resolve = undefined;
     let reject = undefined;

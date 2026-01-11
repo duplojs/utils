@@ -104,6 +104,9 @@ export class MissingBuilderMethodsError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include common/builder/index.md}
+ */
 export function createBuilder<
 	GenericBuilder extends Builder,
 >(

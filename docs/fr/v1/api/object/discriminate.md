@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode discriminate() discrimine un objet par la valeur d'une propriété (type guard pour les unions)."
 prev:
   text: "hasKeys"
   link: "/fr/v1/api/object/hasKeys"

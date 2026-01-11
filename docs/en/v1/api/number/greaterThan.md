@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The greaterThan() method checks whether a number is strictly greater (>) than a given threshold. It can be used in a curried way to ease functional composition."
 prev:
   text: "greater"
   link: "/en/v1/api/number/greater"

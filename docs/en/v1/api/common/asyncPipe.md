@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The asyncPipe() method chains asynchronous functions (promises or FutureEither) in series. Each step waits for the previous one to resolve and the last value is returned in a promise."
 prev:
   text: "innerPipe"
   link: "/en/v1/api/common/innerPipe"

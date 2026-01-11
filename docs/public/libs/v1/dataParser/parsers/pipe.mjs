@@ -3,6 +3,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const pipeKind = createDataParserKind("pipe");
+/**
+ * {@include dataParser/classic/pipe/index.md}
+ */
 function pipe(input, output, definition) {
     const self = dataParserInit(pipeKind, {
         errorMessage: definition?.errorMessage,

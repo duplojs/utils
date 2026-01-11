@@ -1,6 +1,9 @@
 import { toTimeValue } from "../toTimeValue";
 import type { TheTime } from "../types";
 
+/**
+ * {@include date/lessThanTime/index.md}
+ */
 export function lessThanTime<
 	GenericValue extends TheTime,
 >(threshold: TheTime): (input: GenericValue) => boolean;

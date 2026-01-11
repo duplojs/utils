@@ -1,4 +1,5 @@
 ---
+description: "A pipe chains functions by passing the output of one as the input of the next."
 prev:
   text: "Currying"
   link: "/en/v1/guide/currying"

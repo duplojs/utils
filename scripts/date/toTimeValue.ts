@@ -2,6 +2,9 @@ import { theTimeRegex } from "./constants";
 import { makeSafeTimeValue } from "./makeSafeTimeValue";
 import { type TheTime } from "./types";
 
+/**
+ * {@include date/toTimeValue/index.md}
+ */
 export function toTimeValue<
 	GenericInput extends TheTime,
 >(input: GenericInput) {

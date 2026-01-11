@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode ceil() arrondit un nombre vers le haut à l'entier supérieur ou égal. Cette fonction est utile pour garantir qu'on a toujours suffisamment de ressources (boîtes, pages, etc.)."
 prev:
   text: "round"
   link: "/fr/v1/api/number/round"

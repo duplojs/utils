@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getFirstDayOfWeek() function returns the Monday corresponding to the week of the provided TheDate."
 prev:
   text: "getMilliseconds"
   link: "/en/v1/api/date/getMilliseconds"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode keys() retourne un tableau des clés d'un objet avec un typage précis, excluant les symboles."
 prev:
   text: "Object"
   link: "/fr/v1/api/object/"

@@ -10,6 +10,9 @@ import { forward } from '../../../common/forward.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const objectKind = createDataParserKind("object");
+/**
+ * {@include dataParser/classic/object/index.md}
+ */
 function object(shape, definition) {
     const self = dataParserInit(objectKind, {
         shape,

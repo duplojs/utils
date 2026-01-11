@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Expose les constantes bas niveau utilisées par les helpers date (durées usuelles, bornes de timestamp, expression régulière TheDate)."
 prev:
   text: "closestTo"
   link: "/fr/v1/api/date/closestTo"

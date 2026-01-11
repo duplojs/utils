@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction chunk() découpe un tableau en sous-tableaux d'une taille fixe et retourne la liste de ces blocs. Le dernier bloc peut être plus court si la taille ne divise pas le tableau."
 prev:
   text: "flatMap"
   link: "/fr/v1/api/array/flatMap"

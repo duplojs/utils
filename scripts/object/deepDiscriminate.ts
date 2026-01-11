@@ -18,6 +18,9 @@ type ObjectProjection<
 	>
 	: never;
 
+/**
+ * {@include object/deepDiscriminate/index.md}
+ */
 export function deepDiscriminate<
 	GenericInput extends object,
 	GenericObjectProjection extends ObjectProjection<GenericInput>,

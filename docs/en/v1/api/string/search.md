@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The search() method searches for a match with a substring or a regular expression in a string and returns the index of the first occurrence found. If no match is found, it returns undefined."
 prev:
   text: "lastIndexOf"
   link: "/en/v1/api/string/lastIndexOf"

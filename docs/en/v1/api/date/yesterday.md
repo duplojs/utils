@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The yesterday() function returns the start of the previous day as a TheDate."
 prev:
   text: "today"
   link: "/en/v1/api/date/today"

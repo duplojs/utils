@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "isMatch() teste impérativement si une valeur correspond à un motif et retourne un type guard (value is ...). Idéal pour des conditions simples ou pour affiner le type avant d'entrer dans un pipeline."
 prev:
   text: "exhaustive"
   link: "/fr/v1/api/pattern/exhaustive"

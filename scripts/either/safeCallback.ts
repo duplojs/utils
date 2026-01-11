@@ -15,6 +15,9 @@ export interface EitherCallbackError extends _EitherCallbackError {
 
 }
 
+/**
+ * {@include either/safeCallback/index.md}
+ */
 export function callbackError(value: unknown): EitherCallbackError {
 	return eitherCallbackErrorKind.setTo(
 		left("callback", value),
