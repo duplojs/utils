@@ -6,6 +6,9 @@ var kind = require('../../kind.cjs');
 var override = require('../../../common/override.cjs');
 
 const stringKind = kind.createDataParserKind("string");
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 function string(definition) {
     const self = base.dataParserInit(stringKind, {
         errorMessage: definition?.errorMessage,

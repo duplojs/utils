@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserLazyCheckerCustom<GenericInput extends unknown = unknown> {
@@ -24,6 +24,45 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
      */
     construct<const GenericDefinition extends DataParserDefinitionLazy>(definition: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, GenericDefinition>>;
 }
+/**
+ * Creates a lazy data parser resolved at runtime.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.lazy(getter, definition?)` -> returns a lazy parser
+ * - Curried: not available
+ * 
+ * Defers parser creation until execution, useful for recursive schemas.
+ * 
+ * ```ts
+ * const parser = DP.lazy(() => DP.string());
+ * const result = parser.parse("lazy");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * interface RecursiveSchema {
+ * 	value: number;
+ * 	next?: RecursiveSchema;
+ * }
+ * 
+ * const recursive: DP.Contract<RecursiveSchema> = DP.lazy(
+ * 	() => DP.object({
+ * 		value: DP.number(),
+ * 		next: DP.optional(recursive),
+ * 	}),
+ * );
+ * const recursiveResult = recursive.parse({
+ * 	value: 1,
+ * 	next: { value: 2 },
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/lazy
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
     getter: Memoized<GenericDataParser>;
 }>>;

@@ -5,6 +5,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const pipeKind = kind.createDataParserKind("pipe");
+/**
+ * {@include dataParser/classic/pipe/index.md}
+ */
 function pipe(input, output, definition) {
     const self = base.dataParserInit(pipeKind, {
         errorMessage: definition?.errorMessage,

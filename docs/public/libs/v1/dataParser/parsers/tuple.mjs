@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const tupleKind = createDataParserKind("tuple");
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 function tuple(shape, definition) {
     const self = dataParserInit(tupleKind, {
         errorMessage: definition?.errorMessage,

@@ -5,6 +5,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const nullableKind = kind.createDataParserKind("nullable");
+/**
+ * {@include dataParser/classic/nullable/index.md}
+ */
 function nullable(inner, definition) {
     const self = base.dataParserInit(nullableKind, {
         errorMessage: definition?.errorMessage,

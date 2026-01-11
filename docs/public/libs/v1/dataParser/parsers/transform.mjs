@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const transformKind = createDataParserKind("transform");
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 function transform(inner, theFunction, definition) {
     const self = dataParserInit(transformKind, {
         errorMessage: definition?.errorMessage,

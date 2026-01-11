@@ -4,6 +4,9 @@ import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const bigIntKind = createDataParserKind("bigint");
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 function bigint(definition) {
     const self = dataParserInit(bigIntKind, {
         errorMessage: definition?.errorMessage,

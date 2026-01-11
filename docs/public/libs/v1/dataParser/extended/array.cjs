@@ -6,6 +6,9 @@ var max = require('../parsers/array/checkers/max.cjs');
 var min = require('../parsers/array/checkers/min.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/array/index.md}
+ */
 function array(element, definition) {
     const self = baseExtended.dataParserExtendedInit(index.array(element, definition), {
         min(self, min$1, definition) {

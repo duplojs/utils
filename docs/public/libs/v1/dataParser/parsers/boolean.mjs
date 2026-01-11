@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const booleanKind = createDataParserKind("boolean");
+/**
+ * {@include dataParser/classic/boolean/index.md}
+ */
 function boolean(definition) {
     const self = dataParserInit(booleanKind, {
         errorMessage: definition?.errorMessage,

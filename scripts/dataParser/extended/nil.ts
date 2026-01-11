@@ -65,6 +65,9 @@ export interface DataParserNilExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/nil/index.md}
+ */
 export function nil<
 	const GenericDefinition extends Partial<
 		dataParsers.DataParserDefinitionNil

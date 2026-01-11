@@ -4,6 +4,9 @@ import { checkerArrayMax } from '../parsers/array/checkers/max.mjs';
 import { checkerArrayMin } from '../parsers/array/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/tuple/index.md}
+ */
 function tuple(shape, definition) {
     const self = dataParserExtendedInit(tuple$1(shape, definition), {
         min(self, min, definition) {

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerUrl, type DataParserCheckerEmail, type DataParserCheckerStringMin, type DataParserCheckerStringMax, type DataParserCheckerStringRegex } from "./checkers";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "../../../object";
@@ -26,6 +26,36 @@ export interface DataParserString<GenericDefinition extends DataParserDefinition
      */
     construct<const GenericDefinition extends DataParserDefinitionString>(definition: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, GenericDefinition>>;
 }
+/**
+ * Creates a data parser for strings.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.string(definition?)` -> returns a string parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a string, optionally applies coerce, and runs the configured checkers.
+ * 
+ * ```ts
+ * const parser = DP.string();
+ * const result = parser.parse("DuploJS");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const withCheckers = DP.string({
+ * 	checkers: [DP.checkerStringMin(3), DP.checkerStringMax(10)],
+ * });
+ * 
+ * const coerceParser = DP.coerce.string();
+ * const coerceResult = coerceParser.parse(123);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function string<const GenericDefinition extends Partial<DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace string {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserString<DataParserDefinitionString>>;

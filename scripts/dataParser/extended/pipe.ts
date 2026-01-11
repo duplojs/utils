@@ -65,6 +65,9 @@ export interface DataParserPipeExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/pipe/index.md}
+ */
 export function pipe<
 	GenericInput extends DataParser,
 	GenericOutput extends DataParser,

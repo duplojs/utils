@@ -7,6 +7,9 @@ import { pickShape } from '../parsers/object/pick.mjs';
 import { omitShape } from '../parsers/object/omit.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/object/index.md}
+ */
 function object(shape, definition) {
     const self = dataParserExtendedInit(object$1(shape, definition), {
         omit: (self, omitObject, definition) => {

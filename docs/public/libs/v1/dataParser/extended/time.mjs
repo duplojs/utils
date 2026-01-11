@@ -4,6 +4,9 @@ import { checkerTimeMax } from '../parsers/time/checkers/max.mjs';
 import { checkerTimeMin } from '../parsers/time/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/time/index.md}
+ */
 function time(definition) {
     const self = dataParserExtendedInit(time$1(definition), {
         min(self, min, definition) {

@@ -157,6 +157,9 @@ export interface DataParserRecord<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/record/index.md}
+ */
 export function record<
 	GenericDataParserKey extends DataParserRecordKey,
 	GenericDataParserValue extends DataParser,

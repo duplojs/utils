@@ -9,6 +9,9 @@ var is = require('../../date/is.cjs');
 var override = require('../../common/override.cjs');
 
 const dateKind = kind.createDataParserKind("date");
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 function date(definition) {
     const self = base.dataParserInit(dateKind, {
         errorMessage: definition?.errorMessage,

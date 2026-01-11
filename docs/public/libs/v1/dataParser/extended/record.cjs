@@ -4,6 +4,9 @@ var baseExtended = require('../baseExtended.cjs');
 var index = require('../parsers/record/index.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/record/index.md}
+ */
 function record(key, value, definition) {
     const self = baseExtended.dataParserExtendedInit(index.record(key, value, definition), {});
     return record.overrideHandler.apply(self);

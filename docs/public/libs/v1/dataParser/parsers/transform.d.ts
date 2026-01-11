@@ -1,7 +1,7 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition, type DataParser, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
-import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "../error";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "../../dataParser/error";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserTransformCheckerCustom<GenericInput extends unknown = unknown> {
@@ -26,6 +26,35 @@ export interface DataParserTransform<GenericDefinition extends DataParserDefinit
      */
     construct<const GenericDefinition extends DataParserDefinitionTransform>(definition: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, GenericDefinition>>;
 }
+/**
+ * Creates a data parser that transforms the output of another parser.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.transform(inner, theFunction, definition?)` -> returns a transform parser
+ * - Curried: not available
+ * 
+ * Runs the inner parser and applies a transformation function to its output.
+ * 
+ * ```ts
+ * const parser = DP.transform(DP.string(), (value) => value.length);
+ * const result = parser.parse("Duplo");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * 
+ * const toUpper = DP.transform(
+ * 	DP.string(),
+ * 	S.toUpperCase,
+ * );
+ * const upperResult = toUpper.parse("duplo");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/transform
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<DataParserDefinitionTransform, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     theFunction(input: Output<GenericDataParser>): GenericOutput;

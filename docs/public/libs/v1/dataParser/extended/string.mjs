@@ -7,6 +7,9 @@ import { checkerStringMax } from '../parsers/string/checkers/max.mjs';
 import { checkerStringMin } from '../parsers/string/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/string/index.md}
+ */
 function string(definition) {
     const self = dataParserExtendedInit(string$1(definition), {
         min(self, min, definition) {
@@ -22,11 +25,17 @@ function string(definition) {
     return string.overrideHandler.apply(self);
 }
 string.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/string");
+/**
+ * {@include dataParser/extended/email/index.md}
+ */
 function email(definition) {
     return string({
         checkers: [checkerEmail(definition)],
     });
 }
+/**
+ * {@include dataParser/extended/url/index.md}
+ */
 function url(definition) {
     return string({
         checkers: [checkerUrl(definition)],

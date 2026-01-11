@@ -65,6 +65,9 @@ export interface DataParserEmptyExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/empty/index.md}
+ */
 export function empty<
 	const GenericDefinition extends Partial<
 		dataParsers.DataParserDefinitionEmpty

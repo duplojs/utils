@@ -65,6 +65,9 @@ export interface DataParserRecoverExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/recover/index.md}
+ */
 export function recover<
 	GenericDataParser extends DataParser,
 	GenericRecoveredValue extends unknown,

@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const transformKind = kind.createDataParserKind("transform");
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 function transform(inner, theFunction, definition) {
     const self = base.dataParserInit(transformKind, {
         errorMessage: definition?.errorMessage,

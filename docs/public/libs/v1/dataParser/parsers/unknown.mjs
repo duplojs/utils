@@ -3,6 +3,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const unknownKind = createDataParserKind("unknown");
+/**
+ * {@include dataParser/classic/unknown/index.md}
+ */
 function unknown(definition) {
     const self = dataParserInit(unknownKind, {
         errorMessage: definition?.errorMessage,

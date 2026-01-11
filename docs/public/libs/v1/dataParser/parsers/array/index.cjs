@@ -6,6 +6,9 @@ var kind = require('../../kind.cjs');
 var override = require('../../../common/override.cjs');
 
 const arrayKind = kind.createDataParserKind("array");
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 function array(element, definition) {
     const self = base.dataParserInit(arrayKind, {
         errorMessage: definition?.errorMessage,

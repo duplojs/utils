@@ -2,6 +2,9 @@ import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { date as date$1 } from '../parsers/date.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/date/index.md}
+ */
 function date(definition) {
     const self = dataParserExtendedInit(date$1(definition), {});
     return date.overrideHandler.apply(self);

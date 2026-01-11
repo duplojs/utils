@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
@@ -25,6 +25,37 @@ export interface DataParserUnion<GenericDefinition extends DataParserDefinitionU
      */
     construct<const GenericDefinition extends DataParserDefinitionUnion>(definition: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, GenericDefinition>>;
 }
+/**
+ * Creates a data parser that accepts one of multiple parsers.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.union(options, definition?)` -> returns a union parser
+ * - Curried: not available
+ * 
+ * Tries each option in order until one succeeds, then returns its output.
+ * 
+ * ```ts
+ * const parser = DP.union([DP.string(), DP.number()]);
+ * const result = parser.parse("hello");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string | number
+ * }
+ * 
+ * const literals = DP.union([DP.literal("on"), DP.literal("off")]);
+ * const literalResult = literals.parse("off");
+ * 
+ * const withCheckers = DP.union(
+ * 	[DP.string(), DP.coerce.number()],
+ * 	{ checkers: [DP.checkerRefine((value) => value !== "forbidden")] },
+ * );
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/union
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function union<GenericOptions extends UnionOptions, const GenericDefinition extends Partial<Omit<DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
     options: GenericOptions;
 }>>;

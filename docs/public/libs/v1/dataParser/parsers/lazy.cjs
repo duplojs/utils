@@ -6,6 +6,9 @@ var memo = require('../../common/memo.cjs');
 var override = require('../../common/override.cjs');
 
 const lazyKind = kind.createDataParserKind("lazy");
+/**
+ * {@include dataParser/classic/lazy/index.md}
+ */
 function lazy(getter, definition) {
     const self = base.dataParserInit(lazyKind, {
         errorMessage: definition?.errorMessage,

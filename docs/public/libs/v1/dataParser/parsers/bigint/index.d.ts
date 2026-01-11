@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerBigIntMin, type DataParserCheckerBigIntMax } from "./checkers";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "../../../object";
@@ -26,6 +26,36 @@ export interface DataParserBigInt<GenericDefinition extends DataParserDefinition
      */
     construct<const GenericDefinition extends DataParserDefinitionBigInt>(definition: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, GenericDefinition>>;
 }
+/**
+ * Creates a data parser for bigint values.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.bigint(definition?)` -> returns a bigint parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a bigint, optionally applies coerce, and runs the configured checkers.
+ * 
+ * ```ts
+ * const parser = DP.bigint();
+ * const result = parser.parse(BigInt(42));
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: bigint
+ * }
+ * 
+ * const withCheckers = DP.bigint({
+ * 	checkers: [DP.checkerBigIntMin(BigInt(1)), DP.checkerBigIntMax(BigInt(10))],
+ * });
+ * 
+ * const coerceParser = DP.coerce.bigint();
+ * const coerceResult = coerceParser.parse("42");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/bigint
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function bigint<const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never>(definition?: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace bigint {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserBigInt<DataParserDefinitionBigInt>>;

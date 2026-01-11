@@ -81,6 +81,9 @@ export interface DataParserBigInt<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 export function bigint<
 	const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never,
 >(
