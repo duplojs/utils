@@ -12,7 +12,6 @@ interface ArrayFindAndSetIndexParams {
  * The predicate receives `(element, { index })`.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.findAndReplace(
  * 	[1, 2, 3],

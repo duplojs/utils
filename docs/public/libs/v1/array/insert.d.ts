@@ -7,7 +7,6 @@
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.insert(
  * 	4,

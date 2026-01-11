@@ -10,7 +10,6 @@ import { type IsEqual } from "../common";
  * The function receives `{ element, index, lastValue, next, exit, nextWithObject, nextPush, self }`.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.reduceRight(
  * 	[1, 2, 3],

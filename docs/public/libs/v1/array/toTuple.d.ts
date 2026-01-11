@@ -17,7 +17,6 @@ type ComputesResult<GenericShapeTuple extends ShapeTuple<any>> = GenericShapeTup
  * Each function in the shape receives the same input.
  * The input value is not mutated.
  * 
- * 
  * ```ts
  * A.toTuple(
  * 	2,

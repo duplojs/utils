@@ -12,7 +12,6 @@ interface ArrayEveryParams<GenericInputArray extends readonly unknown[]> {
  * The predicate receives `(element, { index, self })`, where `index` is the element position
  * and `self` is the original array.
  * 
- * 
  * ```ts
  * A.every(
  * 	[1, 2, 3],

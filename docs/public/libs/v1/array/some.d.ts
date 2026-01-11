@@ -13,7 +13,6 @@ interface ArraySomeParams<GenericInputArray extends readonly unknown[]> {
  * and `self` is the original array.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.some(
  * 	[1, 2, 3],

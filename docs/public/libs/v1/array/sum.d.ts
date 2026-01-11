@@ -5,7 +5,6 @@
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.sum([1, 2, 3]); // 6
  * 

@@ -5,7 +5,6 @@
  * - From the main entry (namespace style or direct named imports)
  * - Via direct import for tree-shaking
  * 
- * 
  * ```ts
  * import { pipe, when, clone } from "@duplojs/utils";
  * import * as DCommon from "@duplojs/utils/common";

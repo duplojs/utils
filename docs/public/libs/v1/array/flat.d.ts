@@ -5,7 +5,6 @@
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.flat(
  * 	[[1], [2]],

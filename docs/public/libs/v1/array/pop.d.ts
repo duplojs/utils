@@ -7,7 +7,6 @@ import { type PopTuple } from "./types";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.pop(
  * 	[1, 2, 3],

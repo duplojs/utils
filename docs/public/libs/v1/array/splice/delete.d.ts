@@ -7,7 +7,6 @@
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.spliceDelete(
  * 	[1, 2, 3, 4],

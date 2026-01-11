@@ -5,7 +5,6 @@
  * 
  * Async iterables return a `Promise` of an array.
  * 
- * 
  * ```ts
  * A.from(
  * 	"ab",

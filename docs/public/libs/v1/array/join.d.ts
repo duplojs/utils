@@ -9,7 +9,6 @@ import { type JoinTuple } from "./types";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.join(
  * 	["alpha", "beta"],

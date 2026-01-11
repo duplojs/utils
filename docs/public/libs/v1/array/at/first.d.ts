@@ -8,7 +8,6 @@ import { type AnyTuple } from "../../common";
  * Returns `undefined` when the array is empty.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.first([1, 2, 3]); // 1
  * 

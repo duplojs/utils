@@ -13,7 +13,6 @@ interface ArrayFindParams {
  * The predicate receives `(element, { index })`.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.find(
  * 	[1, 2, 3],

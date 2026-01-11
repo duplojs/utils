@@ -7,7 +7,6 @@ import { type ShiftTuple } from "./types/shiftTuple";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.shift(
  * 	[1, 2, 3],

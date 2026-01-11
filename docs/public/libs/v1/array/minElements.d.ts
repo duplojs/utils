@@ -10,7 +10,6 @@ import { type CreateTuple } from "./types/createTuple";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.minElements(
  * 	[1],

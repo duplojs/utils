@@ -9,7 +9,6 @@ import type { AtTuple } from "../types";
  * **Negative indices:** `-1` is the last element, `-2` is second-to-last, etc.
  * Returns `undefined` if out of bounds.
  * 
- * 
  * ```ts
  * pipe(
  * 	[10, 20, 30, 40],

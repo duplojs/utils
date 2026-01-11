@@ -10,7 +10,6 @@ import { type CreateTuple } from "./types";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.lengthEqual(
  * 	[1, 2, 3],

@@ -1,5 +1,4 @@
 import { type RequiredKeys } from "./types/requiredKeys";
-
 /**
  * Checks if an object has specific keys defined.
  * 

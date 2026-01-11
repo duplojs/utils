@@ -12,7 +12,6 @@ interface ArrayFlatMapParams<GenericInputArray extends readonly unknown[]> {
  * The mapping function receives `(element, { index, self })`.
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.flatMap(
  * 	[1, 2],

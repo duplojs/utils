@@ -52,39 +52,39 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * 
      */
     readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, EntityRawProperties<GenericPropertiesDefinition>>;
-	/**
-	* Builds an entity from already typed properties.
-	* 
-	* ```ts
-	* export function create(params: {
-	* 	id: Id;
-	* 	name: Name;
-	* }) {
-	* 	return Entity.new({
-	* 		...params,
-	* 		nick: null,
-	* 		roles: [defaultRole],
-	* 	});
-	* ```
-	* 
-	*/
+    /**
+     * Builds an entity from already typed properties.
+     * 
+     * ```ts
+     * 	export function create(params: {
+     * 		id: Id;
+     * 		name: Name;
+     * 	}) {
+     * 		return Entity.new({
+     * 			...params,
+     * 			nick: null,
+     * 			roles: [defaultRole],
+     * 		});
+     * ```
+     * 
+     */
     "new"<const GenericProperties extends EntityProperties<GenericPropertiesDefinition>>(properties: GenericProperties): Entity<GenericName> & GenericProperties;
-	/**
-	* Validates raw properties and returns an Either with the typed entity.
-	* 
-	* ```ts
-	* if (User.Entity.is(result)) {
-	* 	// result: C.Entity<"User">
-	* }
-	* 
-	* const mappedResult = User.Entity.map({
-	* 	id: 3,
-	* 	name: "Eve",
-	* 	roles: ["manager"],
-	* 	nick: null,
-	* ```
-	* 
-	*/
+    /**
+     * Validates raw properties and returns an Either with the typed entity.
+     * 
+     * ```ts
+     * if (User.Entity.is(result)) {
+     * 	// result: C.Entity<"User">
+     * }
+     * 
+     * const mappedResult = User.Entity.map({
+     * 	id: 3,
+     * 	name: "Eve",
+     * 	roles: ["manager"],
+     * 	nick: null,
+     * ```
+     * 
+     */
     map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.EitherRight<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.EitherLeft<"createEntityError", DDataParser.DataParserError>);
     /**
      * Validates raw properties and throws on error.

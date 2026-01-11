@@ -4,7 +4,6 @@
  * Signature: `is(value)` → returns a boolean
  * 
  * This is a type guard.
- * 
  * ```ts
  * A.is([1, 2]); // true
  * 

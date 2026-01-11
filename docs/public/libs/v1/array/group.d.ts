@@ -10,7 +10,6 @@ export interface ArrayGroupFunctionOutput<GenericGroupName extends string = stri
  * - Classic: `groupOutput(group, value)` → returns a group output
  * - Curried: `groupOutput(group)` → returns a function waiting for the value
  * 
- * 
  * ```ts
  * A.groupOutput(
  * 	"even",
@@ -53,7 +52,6 @@ export type ArrayGroupResult<GenericOutput extends ArrayGroupFunctionOutput> = S
  * 
  * The function receives `(element, { index, output })`, where `output` is `groupOutput`.
  * The input array is not mutated.
- * 
  * 
  * ```ts
  * A.group(

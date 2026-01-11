@@ -109,6 +109,51 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
     pick<const GenericPickObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(pickObject: GenericPickObject, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: SimplifyTopLevel<Pick<GenericDefinition["shape"], Adaptor<keyof GenericPickObject, keyof GenericDefinition["shape"]>>>;
     }>>;
+    /**
+     * Extends an object parser with additional properties.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.extends(extension, definition?)` -> returns an object parser
+     * 
+     * Merges the current object shape with the extension and returns a new parser.
+     * 
+     * ```ts
+     * const base = DPE.object({
+     * 	id: DPE.number(),
+     * });
+     * 
+     * const extended = base.extends({
+     * 	name: DPE.string(),
+     * });
+     * 
+     * const result = extended.parse({
+     * 	id: 1,
+     * 	name: "Alex",
+     * });
+     * if (E.isRight(result)) {
+     * 	const value = unwrap(result);
+     * 	// value: { id: number; name: string }
+     * }
+     * 
+     * const withMore = base.extends({
+     * 	active: DPE.boolean(),
+     * });
+     * const withMoreResult = withMore.parse({
+     * 	id: 2,
+     * 	active: true,
+     * });
+     * 
+     * const chained = DPE.object({ id: DPE.number() })
+     * 	.extends({ name: DPE.string() })
+     * 	.partial();
+     * const chainedResult = chained.parse({});
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/object
+     * 
+     * @namespace DPE
+     * 
+     */
     extends<const GenericExtension extends dataParsers.DataParserObjectShape, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(extension: GenericExtension, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: AssignObjects<GenericDefinition["shape"], GenericExtension>;
     }>>;

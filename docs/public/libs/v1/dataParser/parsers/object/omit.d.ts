@@ -1,4 +1,4 @@
-import { type MergeDefinition } from "../../../dataParser/types";
+import { type MergeDefinition } from "../../types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject } from ".";
 import { type SimplifyTopLevel, type NeverCoalescing } from "../../../common";
 export declare function omitShape(shape: DataParserObjectShape, omitObject: Partial<Record<string, true>>): DataParserObjectShape;

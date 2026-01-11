@@ -5,6 +5,7 @@
  * **How to import:**
  * - From the main entry (namespace style)
  * - Via direct import for tree-shaking
+ * 
  * ```ts
  * import { DEither, E } from "@duplojs/utils";
  * import * as DEither from "@duplojs/utils/either";

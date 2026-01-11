@@ -7,7 +7,6 @@ import { type ReverseTuple } from ".";
  * 
  * The input array is not mutated.
  * 
- * 
  * ```ts
  * A.reverse(
  * 	[1, 2, 3],

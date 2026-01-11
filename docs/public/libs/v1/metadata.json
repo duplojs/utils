@@ -3085,6 +3085,15 @@
           "name": "format.mjs"
         },
         {
+          "name": "formatTime.cjs"
+        },
+        {
+          "name": "formatTime.d.ts"
+        },
+        {
+          "name": "formatTime.mjs"
+        },
+        {
           "name": "getTimezoneOffset.cjs"
         },
         {

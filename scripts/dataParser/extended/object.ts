@@ -128,6 +128,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/extends/index.md}
+	 */
 	extends<
 		const GenericExtension extends dataParsers.DataParserObjectShape,
 		const GenericSubDefinition extends Partial<
