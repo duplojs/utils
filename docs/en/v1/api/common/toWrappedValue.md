@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The toWrappedValue() function ensures a value is wrapped: if it is already a WrappedValue, it is returned as is, otherwise it is wrapped."
 prev:
   text: "isRuntimeWrappedValueKey"
   link: "/en/v1/api/common/isRuntimeWrappedValueKey"

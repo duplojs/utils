@@ -4,6 +4,9 @@ import { checkerArrayMax } from '../parsers/array/checkers/max.mjs';
 import { checkerArrayMin } from '../parsers/array/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/array/index.md}
+ */
 function array(element, definition) {
     const self = dataParserExtendedInit(array$1(element, definition), {
         min(self, min, definition) {

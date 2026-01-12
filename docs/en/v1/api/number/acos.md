@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The acos() method returns the arccosine of a number, that is, the angle (in radians) whose cosine is equal to the given value. It is the inverse function of cos()."
 prev:
   text: "asin"
   link: "/en/v1/api/number/asin"

@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getHour/index.md}
+ */
 function getHour(input, timezone = "UTC") {
     const nativeDate = toNative(input);
     if (timezone === "UTC") {

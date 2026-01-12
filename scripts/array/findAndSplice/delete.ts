@@ -4,6 +4,9 @@ interface ArrayFindAndSpliceDeleteIndexParams {
 	index: number;
 }
 
+/**
+ * {@include array/findAndSpliceDelete/index.md}
+ */
 export function findAndSpliceDelete<GenericElement extends unknown>(
 	predicate: (element: GenericElement, params: ArrayFindAndSpliceDeleteIndexParams) => boolean,
 	deleteCount: number,
@@ -35,4 +38,3 @@ export function findAndSpliceDelete(
 
 	return undefined;
 }
-

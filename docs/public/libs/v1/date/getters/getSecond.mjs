@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getSecond/index.md}
+ */
 function getSecond(input, timezone = "UTC") {
     const nativeDate = toNative(input);
     if (timezone === "UTC") {

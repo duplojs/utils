@@ -2,6 +2,9 @@ import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { record as record$1 } from '../parsers/record/index.mjs';
 import { createOverride } from '../../common/override.mjs';
 
+/**
+ * {@include dataParser/extended/record/index.md}
+ */
 function record(key, value, definition) {
     const self = dataParserExtendedInit(record$1(key, value, definition), {});
     return record.overrideHandler.apply(self);

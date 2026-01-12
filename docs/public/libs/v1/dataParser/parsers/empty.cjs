@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const emptyKind = kind.createDataParserKind("empty");
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 function empty(definition) {
     const self = base.dataParserInit(emptyKind, {
         errorMessage: definition?.errorMessage,

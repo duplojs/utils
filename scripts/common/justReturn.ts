@@ -1,5 +1,8 @@
 import { type AnyValue } from "./types";
 
+/**
+ * {@include common/justReturn/index.md}
+ */
 export function justReturn<
 	GenericInput extends unknown,
 	GenericValue extends AnyValue,

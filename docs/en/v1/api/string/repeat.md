@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The repeat() method returns a new string that is the original string repeated a specified number of times."
 prev:
   text: "normalize"
   link: "/en/v1/api/string/normalize"

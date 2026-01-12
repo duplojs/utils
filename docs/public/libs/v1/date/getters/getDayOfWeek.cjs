@@ -11,6 +11,9 @@ const weekdayMapper = {
     Friday: 5,
     Saturday: 6,
 };
+/**
+ * {@include date/getDayOfWeek/index.md}
+ */
 function getDayOfWeek(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     if (timezone === "UTC") {

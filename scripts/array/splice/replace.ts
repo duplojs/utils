@@ -1,3 +1,6 @@
+/**
+ * {@include array/spliceReplace/index.md}
+ */
 export function spliceReplace<
 	GenericElement extends unknown,
 >(
@@ -28,4 +31,3 @@ export function spliceReplace(
 
 	return copy;
 }
-

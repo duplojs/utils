@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode indexOf() retourne l'index de la première occurrence d'une sous-chaîne dans une chaîne de caractères, ou undefined si la sous-chaîne n'est pas trouvée."
 prev:
   text: "endsWith"
   link: "/fr/v1/api/string/endsWith"

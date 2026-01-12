@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Builds a parser for strings. DDataParser.string() guarantees the input is a string (with optional coercion support), applies the provided checkers, and returns a typed Either containing either the validated value or a detailed DataParserError."
 prev:
   text: "Data Parser"
   link: "/en/v1/api/dataParser/"

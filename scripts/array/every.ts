@@ -10,6 +10,9 @@ interface ArrayEveryParams<
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericInput instead of GenericElement
 // preserves the input structure and avoids this inference bug.
+/**
+ * {@include array/every/index.md}
+ */
 export function every<
 	GenericInput extends readonly unknown[],
 >(

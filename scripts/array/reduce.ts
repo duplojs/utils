@@ -55,6 +55,9 @@ export interface ArrayReduceFromResult<
 
 }
 
+/**
+ * {@include array/reduceFrom/index.md}
+ */
 export function reduceFrom<
 	GenericValue extends unknown,
 >(value: GenericValue): ArrayReduceFromResult<GenericValue> {
@@ -92,6 +95,9 @@ export type ArrayReduceFromValue<
 	? Unwrap<GenericValue>
 	: ToLargeEnsemble<GenericValue>;
 
+/**
+ * {@include array/reduce/index.md}
+ */
 export function reduce<
 	GenericInput extends readonly unknown[],
 	GenericReduceFrom extends ArrayEligibleReduceFromValue,

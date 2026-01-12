@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode match() recherche une correspondance entre une chaîne de caractères et une expression régulière, et retourne les résultats sous forme de tableau ou undefined si aucune correspondance n'est trouvée."
 prev:
   text: "search"
   link: "/fr/v1/api/string/search"

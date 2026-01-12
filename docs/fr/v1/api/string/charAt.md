@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode charAt() retourne le caractère à l'index spécifié dans une chaîne de caractères."
 prev:
   text: 'matchAll'
   link: '/fr/v1/api/string/matchAll'

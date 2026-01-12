@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The round() method rounds a number to the nearest integer. If the decimal part is exactly 0.5, the number is rounded to the next higher integer."
 prev:
   text: "abs"
   link: "/en/v1/api/number/abs"

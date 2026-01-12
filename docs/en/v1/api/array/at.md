@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The at() method returns the element at a given index (supports negative indexes)."
 prev:
   text: "toTuple"
   link: "/en/v1/api/array/toTuple"

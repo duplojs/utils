@@ -87,9 +87,12 @@ type ForbiddenTime<
 					? GenericInput
 					: { [SymbolForbiddenTime]: "Support that the weeks between -14892855 and 14892855." }
 				: GenericInput
-		)
+	)
 	);
 
+/**
+ * {@include date/createTime/index.md}
+ */
 export function createTime<
 	GenericInput extends number,
 	GenericUnit extends Units = "millisecond",

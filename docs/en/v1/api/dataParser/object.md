@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Describes a typed object via a dictionary of parsers. DDataParser.object() builds a structured schema, applies each child parser, aggregates errors with their path (user.address.city), and returns the validated immutable value."
 prev:
   text: "unknown"
   link: "/en/v1/api/dataParser/unknown"

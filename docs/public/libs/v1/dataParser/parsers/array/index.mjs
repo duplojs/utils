@@ -4,6 +4,9 @@ import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
 
 const arrayKind = createDataParserKind("array");
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 function array(element, definition) {
     const self = dataParserInit(arrayKind, {
         errorMessage: definition?.errorMessage,

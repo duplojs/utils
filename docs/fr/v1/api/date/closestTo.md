@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Trouve la date la plus proche d'une cible dans un itérable de TheDate. En cas d'égalité, un tieBreaker optionnel permet de favoriser le passé ou le futur."
 prev:
   text: "each"
   link: "/fr/v1/api/date/each"

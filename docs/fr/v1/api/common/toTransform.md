@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction toTransform() applique récursivement les méthodes toTransform des objets et parcours tableaux/tuples pour produire une valeur prête à être transportée (DTO)."
 prev:
   text: "toJSON"
   link: "/fr/v1/api/common/toJSON"

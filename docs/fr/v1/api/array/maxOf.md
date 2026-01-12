@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction maxOf() retourne la plus grande valeur numérique d'un tableau (ou tuple) sans toucher à l'original."
 prev:
   text: "minOf"
   link: "/fr/v1/api/array/minOf"

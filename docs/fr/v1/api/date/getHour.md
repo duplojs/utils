@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getHour() renvoie l'heure (0–23) d'un TheDate, ajustée selon un fuseau horaire optionnel."
 prev:
   text: "getDayOfYear"
   link: "/fr/v1/api/date/getDayOfYear"

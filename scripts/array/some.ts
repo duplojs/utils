@@ -10,6 +10,9 @@ interface ArraySomeParams<
 // Fix: TypeScript can create an intersection from a union during type inference,
 // which causes `never` types. Using GenericInput instead of GenericElement
 // preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/some/index.md}
+ */
 export function some<
 	GenericInput extends readonly unknown[],
 >(

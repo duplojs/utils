@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode startsWith() vérifie si une chaîne de caractères commence par une sous-chaîne spécifique."
 prev:
   text: "includes"
   link: "/fr/v1/api/string/includes"

@@ -18,6 +18,9 @@ type ObjectProjection<
 
 const regexExtractProperty = /([^.]*)(?:\.([^]*))?/;
 
+/**
+ * {@include object/getDeepProperty/index.md}
+ */
 export function getDeepProperty<
 	GenericInput extends object,
 	GenericObjectProjection extends ObjectProjection<GenericInput>,

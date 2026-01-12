@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode to() transforme une valeur en un nouvel objet selon un schéma de transformation."
 prev:
   text: "transformProperties"
   link: "/fr/v1/api/object/transformProperties"

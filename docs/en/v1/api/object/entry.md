@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The entry() method creates a typed key-value pair (tuple)."
 prev:
   text: "entries"
   link: "/en/v1/api/object/entries"

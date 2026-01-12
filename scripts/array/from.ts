@@ -1,3 +1,6 @@
+/**
+ * {@include array/from/index.md}
+ */
 export function from<
 	const GenericArray extends(
 		| ArrayLike<unknown>

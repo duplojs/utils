@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction equal() compare une valeur à un ou plusieurs littéraux. Avec des primitives, elle agit comme type guard et restreint le type aux valeurs fournies."
 prev:
   text: "or"
   link: "/fr/v1/api/common/or"

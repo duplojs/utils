@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const tupleKind = kind.createDataParserKind("tuple");
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 function tuple(shape, definition) {
     const self = base.dataParserInit(tupleKind, {
         errorMessage: definition?.errorMessage,

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getDayOfYear() retourne le jour de l'année (1–366) pour un TheDate, en tenant compte d'un fuseau horaire optionnel."
 prev:
   text: "getWeekOfYear"
   link: "/fr/v1/api/date/getWeekOfYear"

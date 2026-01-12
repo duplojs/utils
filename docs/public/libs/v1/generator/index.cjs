@@ -12,7 +12,9 @@ var asyncLoop = require('./asyncLoop.cjs');
 var chunk = require('./chunk.cjs');
 var asyncChunk = require('./asyncChunk.cjs');
 
-
+/**
+ * {@include generator/index.md}
+ */
 
 exports.map = map.map;
 exports.execute = execute.execute;

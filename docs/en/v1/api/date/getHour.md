@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getHour() function returns the hour (0–23) of a TheDate, adjusted by an optional timezone."
 prev:
   text: "getDayOfYear"
   link: "/en/v1/api/date/getDayOfYear"

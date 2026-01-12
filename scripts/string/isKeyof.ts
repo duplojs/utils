@@ -1,5 +1,8 @@
 import { type ObjectKey } from "@scripts/common/types/objectKey";
 
+/**
+ * {@include string/isKeyof/index.md}
+ */
 export function isKeyof<
 	GenericObject extends object,
 	GenericKey extends ObjectKey,

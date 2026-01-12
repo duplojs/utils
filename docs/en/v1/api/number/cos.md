@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The cos() method returns the cosine of an angle expressed in radians. Cosine is a fundamental trigonometric function that returns the x-coordinate of a point on the unit circle."
 prev:
   text: "sin"
   link: "/en/v1/api/number/sin"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The padEnd() method pads the current string with a given string to obtain a fixed-length string. The padding is applied at the end of the current string."
 prev:
   text: "padStart"
   link: "/en/v1/api/string/padStart"

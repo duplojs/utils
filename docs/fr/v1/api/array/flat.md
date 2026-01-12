@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode flat() aplati un tableau imbriqué jusqu'à la profondeur demandée et retourne un nouveau tableau contenant les éléments déroulés."
 prev:
   text: "slice"
   link: "/fr/v1/api/array/slice"

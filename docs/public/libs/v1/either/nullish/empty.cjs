@@ -9,6 +9,15 @@ var is$1 = require('../right/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
 const eitherNullishEmptyKind = kind.createEitherKind("nullish-empty");
+/**
+ * {@include either/isNullishEmpty/index.md}
+ */
+/**
+ * {@include either/nullishEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsNullishEmpty/index.md}
+ */
 function nullishEmpty(value = undefined) {
     return base.eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(create.left("nullish", value)));
 }

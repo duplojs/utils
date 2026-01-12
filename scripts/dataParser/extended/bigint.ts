@@ -64,6 +64,9 @@ export interface DataParserBigIntExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/bigint/min/index.md}
+	 */
 	min(
 		min: bigint,
 		definition?: Partial<
@@ -76,6 +79,9 @@ export interface DataParserBigIntExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/bigint/max/index.md}
+	 */
 	max(
 		max: bigint,
 		definition?: Partial<
@@ -89,6 +95,9 @@ export interface DataParserBigIntExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/bigint/index.md}
+ */
 export function bigint<
 	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionBigInt> = never,
 >(

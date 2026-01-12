@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The at() method returns the character at the specified index in a string, with support for negative indexes."
 prev:
   text: "charAt"
   link: "/en/v1/api/string/charAt"

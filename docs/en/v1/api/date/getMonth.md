@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getMonth() function returns the month (1–12) corresponding to a TheDate, with optional support for an IANA timezone."
 prev:
   text: "getYear"
   link: "/en/v1/api/date/getYear"

@@ -14,7 +14,15 @@ export interface FlagHandler<
 	GenericName extends string = string,
 	GenericValue extends unknown = never,
 > extends Kind<typeof flagHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createFlag/name.md}
+	 */
 	readonly name: GenericName;
+
+	/**
+	 * {@include clean/createFlag/append.md}
+	 */
 	append<
 		GenericInputEntity extends GenericEntity,
 		GenericInputValue extends GenericValue,
@@ -31,6 +39,9 @@ export interface FlagHandler<
 		& Flag<GenericName, GenericInputValue>
 	);
 
+	/**
+	 * {@include clean/createFlag/getValue.md}
+	 */
 	getValue<
 		GenericInputEntity extends GenericEntity & Flag<GenericName, GenericValue>,
 	>(
@@ -60,6 +71,9 @@ export interface Flag<
 
 }
 
+/**
+ * {@include clean/createFlag/index.md}
+ */
 export function createFlag<
 	GenericEntity extends Entity = never,
 	GenericName extends string = never,

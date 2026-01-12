@@ -4,6 +4,9 @@ var baseExtended = require('../baseExtended.cjs');
 var unknown$1 = require('../parsers/unknown.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/unknown/index.md}
+ */
 function unknown(definition) {
     const self = baseExtended.dataParserExtendedInit(unknown$1.unknown(definition), {});
     return unknown.overrideHandler.apply(self);

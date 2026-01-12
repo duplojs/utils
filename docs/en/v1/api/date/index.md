@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate dates and times via the proprietary type TheDate (`type TheDate = date${number}${\"-\" | \"+\"}```). This serializable format encodes a safe Unix timestamp, travels through HTTP protocols without loss, and guarantees immutable manipulation."
 prev:
   text: "DataParser"
   link: "/en/v1/api/dataParser/"
@@ -73,6 +74,9 @@ Returns the ISO 8601 representation of a `TheDate`.
 
 ### [format](/en/v1/api/date/format)
 Displays a `TheDate` with a custom format and timezone.
+
+### [formatTime](/en/v1/api/date/formatTime)
+Formats a `TheTime` using a custom format string.
 
 ### [isSafeTimestamp](/en/v1/api/date/isSafeTimestamp)
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.

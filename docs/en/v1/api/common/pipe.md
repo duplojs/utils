@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The pipe() method chains up to 15 synchronous functions, passing the output of one as the input of the next. It returns the last computed value and stays fully typed at each step."
 prev:
   text: "Common"
   link: "/en/v1/api/common/"

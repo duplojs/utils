@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Vérifie qu'un TheDate est inférieur ou égal à un seuil."
 prev:
   text: "less"
   link: "/fr/v1/api/date/less"

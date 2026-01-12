@@ -7,6 +7,9 @@ export type GetWrappedProperties<
 	}
 ) => GenericProperties;
 
+/**
+ * {@include common/addWrappedProperties/index.md}
+ */
 export function addWrappedProperties<
 	GenericWrappedValue extends object,
 	GenericGetWrappedProperties extends GetWrappedProperties<GenericWrappedValue>,

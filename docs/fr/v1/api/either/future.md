@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Classe Future<T> : une promesse enrichie capable de transporter des Either et d'exposer des helpers comme Future.all."
 prev:
   text: "whenIsOptionalFilled"
   link: "/fr/v1/api/either/whenIsOptionalFilled"

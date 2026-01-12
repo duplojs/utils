@@ -8,6 +8,9 @@ import { entries } from '../../object/entries.mjs';
 import { success } from './success.mjs';
 import { isLeft } from '../left/is.mjs';
 
+/**
+ * {@include either/group/index.md}
+ */
 function group(group) {
     return pipe(group, entries, reduce(reduceFrom({}), ({ element: [key, value], lastValue, nextWithObject, exit }) => pipe(value, when(isType("function"), (getter) => getter()), when(isLeft, exit), whenIsRight((data) => nextWithObject(lastValue, { [key]: data })))), whenNot(isLeft, success));
 }

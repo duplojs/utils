@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode findLastIndex() retourne l'index du dernier élément d'un tableau qui satisfait une condition donnée."
 prev:
   text: "findIndex"
   link: "/fr/v1/api/array/findIndex"

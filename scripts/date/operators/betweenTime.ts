@@ -1,6 +1,9 @@
 import { toTimeValue } from "../toTimeValue";
 import type { TheTime } from "../types";
 
+/**
+ * {@include date/betweenTime/index.md}
+ */
 export function betweenTime<
 	GenericValue extends TheTime,
 >(

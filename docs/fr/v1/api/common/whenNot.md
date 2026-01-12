@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction whenNot() applique une transformation uniquement quand le prédicat échoue (ou que le type guard ne correspond pas). Sinon, l'entrée est retournée telle quelle. Existe en version immédiate et currifiée."
 prev:
   text: "when"
   link: "/fr/v1/api/common/when"

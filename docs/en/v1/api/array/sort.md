@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The sort() method sorts the elements of an array using a custom comparison function and returns a new sorted array."
 prev:
   text: "reverse"
   link: "/en/v1/api/array/reverse"

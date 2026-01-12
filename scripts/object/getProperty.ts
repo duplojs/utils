@@ -22,6 +22,9 @@ type MergeTopLevelUnionObject<
 	>
 >;
 
+/**
+ * {@include object/getProperty/index.md}
+ */
 export function getProperty<
 	GenericObject extends object,
 	GenericFullObject extends MergeTopLevelUnionObject<GenericObject>,

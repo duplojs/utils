@@ -1,5 +1,8 @@
 import { type AnyTuple } from "@scripts/common";
 
+/**
+ * {@include array/first/index.md}
+ */
 export function first<
 	GenericArray extends readonly unknown[],
 >(

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction tomorrow() retourne le début de la journée suivante (minuit UTC) sous forme de TheDate."
 prev:
   text: "yesterday"
   link: "/fr/v1/api/date/yesterday"

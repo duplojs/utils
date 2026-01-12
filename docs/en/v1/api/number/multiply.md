@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The multiply() method multiplies two numbers together. It can be used in a curried mode to create partially applied multiplication functions."
 prev:
   text: "subtract"
   link: "/en/v1/api/number/subtract"

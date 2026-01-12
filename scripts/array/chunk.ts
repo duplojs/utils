@@ -1,3 +1,6 @@
+/**
+ * {@include array/chunk/index.md}
+ */
 export function chunk<
 	GenericInput extends readonly unknown[],
 >(

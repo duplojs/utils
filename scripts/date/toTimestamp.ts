@@ -2,6 +2,9 @@ import { theDateRegex, theTimeRegex } from "./constants";
 import { makeSafeTimestamp } from "./makeSafeTimestamp";
 import type { TheDate } from "./types";
 
+/**
+ * {@include date/toTimestamp/index.md}
+ */
 export function toTimestamp<
 	GenericInput extends TheDate,
 >(input: GenericInput) {

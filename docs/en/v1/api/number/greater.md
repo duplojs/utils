@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The greater() method checks whether a number is greater than or equal to (>=) a given threshold. It can be used in a curried way to ease functional composition."
 prev:
   text: "atan2"
   link: "/en/v1/api/number/atan2"

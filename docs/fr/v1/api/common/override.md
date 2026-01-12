@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction createOverride() permet d’enregistrer des modifications (valeurs par défaut et/ou méthodes) qui seront appliquées lors de la création d’un objet."
 prev:
   text: "builder"
   link: "/fr/v1/api/common/builder"

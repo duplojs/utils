@@ -2,6 +2,9 @@
 
 var constants = require('./constants.cjs');
 
+/**
+ * {@include date/makeSafeTimestamp/index.md}
+ */
 function makeSafeTimestamp(timestamp) {
     if (Number.isNaN(timestamp)) {
         return 0;

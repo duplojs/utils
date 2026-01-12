@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The addMonths() function adds a positive number of months to a TheDate. Year rollovers and leap years are handled automatically."
 prev:
   text: "addYears"
   link: "/en/v1/api/date/addYears"

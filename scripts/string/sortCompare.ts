@@ -8,6 +8,9 @@ const collator = new Intl.Collator(
 	},
 );
 
+/**
+ * {@include string/sortCompare/index.md}
+ */
 export function sortCompare(
 	valueB: string,
 ): (valueA: string) => number;

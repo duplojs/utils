@@ -58,6 +58,9 @@ type EligibleType<
 		: Prop
 }[keyof Type];
 
+/**
+ * {@include common/isType/index.md}
+ */
 export function isType<
 	GenericInput extends unknown,
 	GenericType extends EligibleType<GenericInput>,

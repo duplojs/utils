@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The create() function builds a TheDate from a Date, a timestamp, or a literal partition (YYYY-MM-DD). It returns an Either (MayBe) containing either the valid date or a typed error."
 prev:
   text: "Date"
   link: "/en/v1/api/date/"

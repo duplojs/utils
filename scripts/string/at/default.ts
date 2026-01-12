@@ -1,3 +1,6 @@
+/**
+ * {@include string/at/index.md}
+ */
 export function at<
 	GenericString extends string,
 	GenericIndex extends number,

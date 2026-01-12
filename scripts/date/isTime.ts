@@ -2,6 +2,9 @@ import { theTimeRegex } from "./constants";
 import { isSafeTimestamp } from "./isSafeTimestamp";
 import { type TheTime } from "./types";
 
+/**
+ * {@include date/isTime/index.md}
+ */
 export function isTime(
 	input: string,
 ): input is TheTime {

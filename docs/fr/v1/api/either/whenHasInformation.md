@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Pattern matching fonctionnel basé sur l'information littérale d'un Either. La fonction n'est exécutée que lorsque l'information (ou l'une des informations) correspond."
 prev:
   text: "hasInformation"
   link: "/fr/v1/api/either/hasInformation"

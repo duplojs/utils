@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction group() exécute plusieurs Either (ou fonctions renvoyant un Either) et renvoie le premier Left rencontré. Si tous sont Right, elle agrège leurs valeurs dans un objet typé."
 prev:
   text: "rightAsyncPipe"
   link: "/fr/v1/api/either/rightAsyncPipe"

@@ -6,6 +6,9 @@ interface CreateAsyncRetryOptions {
 	log?: boolean;
 }
 
+/**
+ * {@include common/asyncRetry/index.md}
+ */
 export async function useAsyncRetry<
 	GenericOutput extends unknown,
 >(
@@ -33,6 +36,9 @@ export async function useAsyncRetry<
 	}
 }
 
+/**
+ * {@include common/asyncRetry/index.md}
+ */
 export function createAsyncRetry<
 	GenericAnyFunction extends((...args: any[]) => Promise<any>),
 >(

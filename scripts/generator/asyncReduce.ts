@@ -4,6 +4,9 @@ import { override } from "@scripts/object";
 import { type GeneratorReduceFromValue, type GeneratorEligibleReduceFromValue, type GeneratorReduceFunctionParams, type GeneratorReduceExit, type GeneratorReduceNext } from "./reduce";
 import { type IsEqual, type MaybePromise } from "@scripts/common";
 
+/**
+ * {@include generator/asyncReduce/index.md}
+ */
 export function asyncReduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends GeneratorEligibleReduceFromValue,

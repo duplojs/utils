@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction minElements() vérifie qu'un tableau contient au moins un nombre donné d'éléments. Elle agit comme un type guard, ce qui permet à TypeScript d'inférer un tuple d'au minimum minLength éléments."
 prev:
   text: "maxOf"
   link: "/fr/v1/api/array/maxOf"

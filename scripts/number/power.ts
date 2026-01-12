@@ -1,3 +1,6 @@
+/**
+ * {@include number/power/index.md}
+ */
 export function power<
 	GenericValue extends number,
 >(exponent: number): (value: GenericValue) => number;

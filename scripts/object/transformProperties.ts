@@ -29,6 +29,9 @@ type ComputesResult<
 	}
 >;
 
+/**
+ * {@include object/transformProperties/index.md}
+ */
 export function transformProperties<
 	GenericObjectInput extends object,
 	GenericTransformObject extends TransformObject<NoInfer<GenericObjectInput>>,

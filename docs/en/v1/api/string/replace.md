@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The replace() method returns a new string in which part of the original string is replaced by another string."
 prev:
   text: "repeat"
   link: "/en/v1/api/string/repeat"

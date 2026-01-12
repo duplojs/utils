@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode atan2() retourne l'arc tangente du quotient de ses arguments (y/x), en tenant compte des signes des deux arguments pour déterminer le quadrant correct. Contrairement à atan(), elle retourne un angle entre -π et π, couvrant tous les quadrants du cercle trigonométrique."
 prev:
   text: "atan"
   link: "/fr/v1/api/number/atan"

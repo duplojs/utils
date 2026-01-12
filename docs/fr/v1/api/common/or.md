@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction or() combine plusieurs prédicats ou type guards : si au moins un passe, le résultat est vrai et le type est affiné à l'union des cas acceptés."
 prev:
   text: "and"
   link: "/fr/v1/api/common/and"

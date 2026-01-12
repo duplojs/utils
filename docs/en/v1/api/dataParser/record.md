@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.record(keyParser, valueParser) validates dynamic dictionaries by checking both the shape of the keys (string/literal/template literal/number/union) and the associated values."
 prev:
   text: "tuple"
   link: "/en/v1/api/dataParser/tuple"

@@ -7,3 +7,7 @@ export { union } from './union.mjs';
 export { when } from './when.mjs';
 export { InvalidExhaustivePatternError, matchBuilder } from './match/builder.mjs';
 export { SymbolToolPatternFunctionLabel } from './types/pattern.mjs';
+
+/**
+ * {@include pattern/index.md}
+ */

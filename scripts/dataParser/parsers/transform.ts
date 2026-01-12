@@ -86,6 +86,9 @@ export interface DataParserTransform<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 export function transform<
 	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,

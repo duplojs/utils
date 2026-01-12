@@ -13,6 +13,9 @@ var isTime = require('../../../date/isTime.cjs');
 var override = require('../../../common/override.cjs');
 
 const timeKind = kind.createDataParserKind("time");
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 function time(definition) {
     const self = base.dataParserInit(timeKind, {
         errorMessage: definition?.errorMessage,

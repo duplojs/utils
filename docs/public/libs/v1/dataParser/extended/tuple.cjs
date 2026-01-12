@@ -6,6 +6,9 @@ var max = require('../parsers/array/checkers/max.cjs');
 var min = require('../parsers/array/checkers/min.cjs');
 var override = require('../../common/override.cjs');
 
+/**
+ * {@include dataParser/extended/tuple/index.md}
+ */
 function tuple(shape, definition) {
     const self = baseExtended.dataParserExtendedInit(tuple$1.tuple(shape, definition), {
         min(self, min$1, definition) {

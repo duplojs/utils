@@ -1,5 +1,6 @@
 import { toNative } from './toNative.mjs';
 
+const formatStringRegex = /YYYY|YY|MM|DD|HH|mm|ss|SSS|ZZ/g;
 function format(...args) {
     if (args.length === 2) {
         const [formatString, timezone] = args;
@@ -29,7 +30,7 @@ function format(...args) {
         SSS: date.getMilliseconds().toString(),
         ZZ: timezone,
     };
-    return formatString.replace(/YYYY|YY|MM|DD|HH|mm|ss|SSS|ZZ/g, (token) => tokens[token]);
+    return formatString.replace(formatStringRegex, (token) => tokens[token]);
 }
 
 export { format };

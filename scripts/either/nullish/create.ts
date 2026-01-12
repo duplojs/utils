@@ -1,6 +1,9 @@
 import { nullishEmpty, type EitherNullishEmpty, type NullishValue } from "./empty";
 import { nullishFilled, type EitherNullishFilled } from "./filled";
 
+/**
+ * {@include either/nullish/index.md}
+ */
 export function nullish<
 	const GenericValue extends unknown = undefined,
 >(value: GenericValue): GenericValue extends NullishValue

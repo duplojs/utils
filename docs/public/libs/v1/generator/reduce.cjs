@@ -6,6 +6,9 @@ var unwrap = require('../common/unwrap.cjs');
 var reduce$1 = require('../array/reduce.cjs');
 
 const generatorReduceFromKind = kind.createKind("generator-reduce-from");
+/**
+ * {@include generator/reduceFrom/index.md}
+ */
 function reduceFrom(value) {
     return generatorReduceFromKind.setTo(wrapValue.wrapValue(value));
 }

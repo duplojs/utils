@@ -1,3 +1,6 @@
+/**
+ * {@include clean/index.md}
+ */
 export * from "./types";
 
 export * from "./kind";

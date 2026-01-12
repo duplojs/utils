@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getDayOfMonth() function returns the day of the month (1–31) for a TheDate with an optional timezone."
 prev:
   text: "getMonth"
   link: "/en/v1/api/date/getMonth"

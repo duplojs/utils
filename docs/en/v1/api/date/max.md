@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The max() function returns the most recent date of a tuple of TheDate."
 prev:
   text: "sortTimes"
   link: "/en/v1/api/date/sortTimes"

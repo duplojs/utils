@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getLastDayOfMonth/index.md}
+ */
 function getLastDayOfMonth(input) {
     const nativeDate = toNative(input);
     nativeDate.setUTCMonth(nativeDate.getUTCMonth() + 1, 0);

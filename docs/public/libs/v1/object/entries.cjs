@@ -3,6 +3,9 @@
 var wrapValue = require('../common/wrapValue.cjs');
 var kind = require('../common/kind.cjs');
 
+/**
+ * {@include object/entries/index.md}
+ */
 function entries(object) {
     return Object.entries(object)
         .filter(([key]) => !wrapValue.isRuntimeWrappedValueKey(key) && !kind.isRuntimeKind(key));

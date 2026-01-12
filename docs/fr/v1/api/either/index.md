@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Monade Either pour la gestion d'erreurs fonctionnelle et type-safe. Permet de représenter une valeur qui peut être soit un succès (Right), soit une erreur (Left), évitant ainsi l'utilisation d'exceptions."
 prev:
   text: 'Date'
   link: '/fr/v1/api/date/'

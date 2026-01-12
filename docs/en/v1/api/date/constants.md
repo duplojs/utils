@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Exposes the low-level constants used by the date helpers (common durations, timestamp bounds, TheDate regular expression)."
 prev:
   text: "closestTo"
   link: "/en/v1/api/date/closestTo"

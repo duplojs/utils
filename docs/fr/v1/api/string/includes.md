@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode includes() vérifie si une chaîne de caractères contient une sous-chaîne spécifiée, en renvoyant true ou false selon le cas."
 prev:
   text: "replaceAll"
   link: "/fr/v1/api/string/replaceAll"

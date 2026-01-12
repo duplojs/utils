@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.date() valide un TheDate (format propriétaire date${number}${\"-\" | \"+\"}), accepte des Date, timestamps ou TheDate existants en entrée et renvoie une valeur immuable safe à travers vos services."
 prev:
   text: "bigint"
   link: "/fr/v1/api/dataParser/bigint"

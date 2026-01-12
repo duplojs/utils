@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode divide() effectue la division de deux nombres. Elle peut être utilisée de manière currifiée pour créer des fonctions de division réutilisables."
 prev:
   text: "multiply"
   link: "/fr/v1/api/number/multiply"

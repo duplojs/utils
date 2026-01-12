@@ -2,6 +2,9 @@
 
 var toNative = require('../toNative.cjs');
 
+/**
+ * {@include date/getWeekOfYear/index.md}
+ */
 function getWeekOfYear(input, timezone = "UTC") {
     const nativeDate = toNative.toNative(input);
     let year = 0;

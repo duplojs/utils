@@ -2,8 +2,13 @@ import { toNative } from "./toNative";
 import type { TheDate } from "./types";
 import type { Timezone } from "./timezone";
 
+const formatStringRegex = /YYYY|YY|MM|DD|HH|mm|ss|SSS|ZZ/g;
+
 type FormatToken = "YYYY" | "YY" | "MM" | "DD" | "HH" | "mm" | "ss" | "SSS" | "ZZ";
 
+/**
+ * {@include date/format/index.md}
+ */
 export function format<
 	GenericInput extends TheDate,
 	GenericFormat extends string,
@@ -25,7 +30,7 @@ export function format<
 
 export function format(
 	...args: [string, Timezone] | [TheDate, string, Timezone]
-): string | ((input: TheDate) => string) {
+) {
 	if (args.length === 2) {
 		const [formatString, timezone] = args;
 		return (input: TheDate) => format(input, formatString, timezone);
@@ -61,5 +66,8 @@ export function format(
 		ZZ: timezone,
 	};
 
-	return formatString.replace(/YYYY|YY|MM|DD|HH|mm|ss|SSS|ZZ/g, (token) => tokens[token as FormatToken]);
+	return formatString.replace(
+		formatStringRegex,
+		(token) => tokens[token as FormatToken],
+	);
 }

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The last() method returns the last element of an array."
 prev:
   text: "first"
   link: "/en/v1/api/array/first"

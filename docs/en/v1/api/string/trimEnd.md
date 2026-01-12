@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The trimEnd() method removes whitespace at the end of a string. Whitespace includes spaces, tabs, line breaks, and other Unicode whitespace characters."
 prev:
   text: "trimStart"
   link: "/en/v1/api/string/trimStart"

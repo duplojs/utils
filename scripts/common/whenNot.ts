@@ -1,5 +1,8 @@
 import { type EscapeVoid, type AnyFunction, type AnyValue, type BreakGenericLink } from "./types";
 
+/**
+ * {@include common/whenNot/index.md}
+ */
 export function whenNot<
 	GenericInput extends AnyValue,
 	GenericPredicatedInput extends GenericInput,

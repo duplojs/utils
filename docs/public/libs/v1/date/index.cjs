@@ -28,11 +28,13 @@ var timezone = require('./timezone.cjs');
 var getTimezoneOffset = require('./getTimezoneOffset.cjs');
 var applyTimezone = require('./applyTimezone.cjs');
 var format = require('./format.cjs');
+var formatTime = require('./formatTime.cjs');
 var makeSafeTimestamp = require('./makeSafeTimestamp.cjs');
 var createTheDate = require('./createTheDate.cjs');
 var createTheTime = require('./createTheTime.cjs');
 var createTime = require('./createTime.cjs');
 var createTimeOrThrow = require('./createTimeOrThrow.cjs');
+var makeSafeTimeValue = require('./makeSafeTimeValue.cjs');
 var getDayOfMonth = require('./getters/getDayOfMonth.cjs');
 var getDayOfWeek = require('./getters/getDayOfWeek.cjs');
 var getFirstDayOfWeek = require('./getters/getFirstDayOfWeek.cjs');
@@ -78,7 +80,9 @@ var lessThan = require('./operators/lessThan.cjs');
 var lessThanTime = require('./operators/lessThanTime.cjs');
 var lessTime = require('./operators/lessTime.cjs');
 
-
+/**
+ * {@include date/index.md}
+ */
 
 exports.daysInOneWeek = constants.daysInOneWeek;
 exports.hoursInOneDay = constants.hoursInOneDay;
@@ -126,12 +130,14 @@ exports.timezone = timezone.timezone;
 exports.getTimezoneOffset = getTimezoneOffset.getTimezoneOffset;
 exports.applyTimezone = applyTimezone.applyTimezone;
 exports.format = format.format;
+exports.formatTime = formatTime.formatTime;
 exports.makeSafeTimestamp = makeSafeTimestamp.makeSafeTimestamp;
 exports.createTheDate = createTheDate.createTheDate;
 exports.createTheTime = createTheTime.createTheTime;
 exports.createTime = createTime.createTime;
 exports.CreateTheTimeError = createTimeOrThrow.CreateTheTimeError;
 exports.createTimeOrThrow = createTimeOrThrow.createTimeOrThrow;
+exports.makeSafeTimeValue = makeSafeTimeValue.makeSafeTimeValue;
 exports.getDayOfMonth = getDayOfMonth.getDayOfMonth;
 exports.getDayOfWeek = getDayOfWeek.getDayOfWeek;
 exports.getFirstDayOfWeek = getFirstDayOfWeek.getFirstDayOfWeek;

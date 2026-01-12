@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction sort() trie un tableau de chaînes en ordre croissant (ASC) ou décroissant (DSC) et retourne un nouveau tableau."
 prev:
   text: "betweenThan"
   link: "/fr/v1/api/string/trimEnd"

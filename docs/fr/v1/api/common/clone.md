@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction clone() réalise une copie profonde typée d'une valeur en préservant sa structure et ses types."
 prev:
   text: "addWrappedProperties"
   link: "/fr/v1/api/common/addWrappedProperties"

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The simpleClone() function quickly duplicates a value without advanced logic, useful for shallow copies or simple structures."
 prev:
   text: "clone"
   link: "/en/v1/api/common/clone"

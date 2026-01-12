@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Checks that a TheDate is strictly less than a threshold."
 prev:
   text: "greaterThan"
   link: "/en/v1/api/date/greaterThan"

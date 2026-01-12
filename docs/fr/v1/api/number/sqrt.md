@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode sqrt() retourne la racine carrée d'un nombre. La racine carrée d'un nombre x est la valeur y telle que y² = x."
 prev:
   text: "clamp"
   link: "/fr/v1/api/number/clamp"

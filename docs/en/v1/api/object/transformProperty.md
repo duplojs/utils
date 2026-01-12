@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The transformProperty() method transforms a specific property of an object via a function."
 prev:
   text: "override"
   link: "/en/v1/api/object/override"

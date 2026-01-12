@@ -2,6 +2,9 @@ import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/subtractMonths/index.md}
+ */
 export function subtractMonths<
 	GenericInput extends TheDate,
 	GenericMonth extends number,

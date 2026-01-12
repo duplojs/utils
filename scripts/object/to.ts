@@ -26,6 +26,9 @@ type ComputesResult<
 	}
 >;
 
+/**
+ * {@include object/to/index.md}
+ */
 export function to<
 	GenericInput extends unknown,
 	GenericShapeObject extends ShapeObject<NoInfer<GenericInput>>,

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getTimezoneOffset() retourne le décalage en millisecondes entre un TheDate et un fuseau horaire IANA."
 prev:
   text: "isSafeTimeValue"
   link: "/fr/v1/api/date/isSafeTimeValue"

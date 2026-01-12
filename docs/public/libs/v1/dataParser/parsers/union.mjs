@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const unionKind = createDataParserKind("union");
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 function union(options, definition) {
     const self = dataParserInit(unionKind, {
         errorMessage: definition?.errorMessage,

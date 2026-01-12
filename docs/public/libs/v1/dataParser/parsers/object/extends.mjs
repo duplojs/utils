@@ -4,6 +4,9 @@ import { assign } from '../../../object/assign.mjs';
 function extendsShape(shape, extension) {
     return assign(shape, extension);
 }
+/**
+ * {@include dataParser/classic/object/extends/index.md}
+ */
 function extend(dataParser, extension, definition) {
     const newShape = extendsShape(dataParser.definition.shape, extension);
     return object(newShape, definition);

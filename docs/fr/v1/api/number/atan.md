@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode atan() retourne l'arc tangente d'un nombre, c'est-à-dire l'angle (en radians) dont la tangente est égale à la valeur donnée. C'est la fonction inverse de tan()."
 prev:
   text: "acos"
   link: "/fr/v1/api/number/acos"

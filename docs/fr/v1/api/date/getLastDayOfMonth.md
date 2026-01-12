@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getLastDayOfMonth() renvoie le dernier jour du mois correspondant au TheDate fourni."
 prev:
   text: "getFirstDayOfMonth"
   link: "/fr/v1/api/date/getFirstDayOfMonth"

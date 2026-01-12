@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The findAndReplace() function searches for the first element that satisfies a predicate, replaces it with a new value, and returns the updated array. If no element matches, it returns undefined."
 prev:
   text: "spliceReplace"
   link: "/en/v1/api/array/spliceReplace"

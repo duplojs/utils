@@ -9,6 +9,15 @@ var is$1 = require('../right/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
 const eitherNullableEmptyKind = kind.createEitherKind("nullable-empty");
+/**
+ * {@include either/isNullableEmpty/index.md}
+ */
+/**
+ * {@include either/nullableEmpty/index.md}
+ */
+/**
+ * {@include either/whenIsNullableEmpty/index.md}
+ */
 function nullableEmpty() {
     return base.eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(create.left("nullable", null)));
 }

@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getWeekOfYear/index.md}
+ */
 function getWeekOfYear(input, timezone = "UTC") {
     const nativeDate = toNative(input);
     let year = 0;

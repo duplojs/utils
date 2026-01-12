@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode lessThan() vérifie si un nombre est strictement inférieur (<) à un seuil donné. Elle peut être utilisée de manière currifiée pour faciliter la composition fonctionnelle."
 prev:
   text: "less"
   link: "/fr/v1/api/number/less"

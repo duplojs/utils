@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserPipeCheckerCustom<GenericInput extends unknown = unknown> {
@@ -25,6 +25,37 @@ export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPi
      */
     construct<const GenericDefinition extends DataParserDefinitionPipe>(definition: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, GenericDefinition>>;
 }
+/**
+ * Creates a data parser pipeline from an input parser to an output parser.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.pipe(input, output, definition?)` -> returns a pipe parser
+ * - Curried: not available
+ * 
+ * Runs the input parser, then feeds its output to the output parser.
+ * 
+ * ```ts
+ * const schema = DP.pipe(
+ * 	DP.coerce.number(),
+ * 	DP.transform(
+ * 		DP.number(),
+ * 		(value) => value + 1,
+ * 	),
+ * );
+ * 
+ * const result = schema.parse("1234");
+ * 
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/pipe
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionPipe, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
     input: GenericInput;
     output: GenericOutput;

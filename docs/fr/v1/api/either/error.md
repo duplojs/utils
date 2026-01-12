@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Alias pratique pour créer un EitherLeft avec l'information figée à \"error\". Utile pour signaler une erreur générique sans avoir à fournir manuellement l'information."
 prev:
   text: "left"
   link: "/fr/v1/api/either/left"

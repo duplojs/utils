@@ -2,6 +2,9 @@ import { type ObjectKey } from "@scripts/common/types/objectKey";
 import { entries } from "../object/entries";
 import { type SimplifyTypeForce } from "@scripts/common/types/simplifyTypeForce";
 
+/**
+ * {@include common/clone/index.md}
+ */
 export function clone<
 	T extends unknown = unknown,
 >(unknownValue: T): SimplifyTypeForce<T> {

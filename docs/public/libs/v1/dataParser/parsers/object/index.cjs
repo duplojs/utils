@@ -12,6 +12,9 @@ var forward = require('../../../common/forward.cjs');
 var override = require('../../../common/override.cjs');
 
 const objectKind = kind.createDataParserKind("object");
+/**
+ * {@include dataParser/classic/object/index.md}
+ */
 function object(shape, definition) {
     const self = base.dataParserInit(objectKind, {
         shape,

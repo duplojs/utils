@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction forwardLog() logge la valeur reçue (side-effect) puis la renvoie inchangée, pratique pour inspecter un pipeline sans le casser."
 prev:
   text: "forward"
   link: "/fr/v1/api/common/forward"

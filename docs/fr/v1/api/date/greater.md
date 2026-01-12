@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction greater() vérifie si un TheDate est strictement supérieur à un seuil."
 prev:
   text: "subtractTime"
   link: "/fr/v1/api/date/subtractTime"

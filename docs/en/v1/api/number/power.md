@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The power() method raises a number to a given exponent. It calculates the value of a number multiplied by itself a certain number of times."
 prev:
   text: "modulo"
   link: "/en/v1/api/number/modulo"

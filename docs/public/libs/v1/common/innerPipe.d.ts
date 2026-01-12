@@ -1,5 +1,40 @@
 import { type BreakGenericLink, type EscapeVoid } from "./types";
 import { type AnyValue } from "./types/anyValue";
+/**
+ * The innerPipe() method prepares a reusable synchronous pipeline: it returns a function that will apply the chain of transformations to any compatible input.
+ * 
+ * Signature: `innerPipe(pipe1, pipe2)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const tvaRate = 1.2;
+ * const digit = 2;
+ * const input = [
+ * 	10,
+ * 	15,
+ * 	23,
+ * 	30.4,
+ * ];
+ * 
+ * const result = pipe(
+ * 	input,
+ * 	A.map(
+ * 		innerPipe(
+ * 			N.multiply(tvaRate),
+ * 			N.toFixed(digit),
+ * 			S.concat("€"),
+ * 		),
+ * 	),
+ * );
+ * // result ["12€", "18€", "27.6€", "36.48€"]
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/common/innerPipe
+ * 
+ * @namespace C
+ * 
+ */
 export declare function innerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => GenericOutputPipe1): (input: GenericInput) => BreakGenericLink<GenericOutputPipe1>;
 export declare function innerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => GenericOutputPipe1, pipe2: (input: GenericOutputPipe1) => GenericOutputPipe2): (input: GenericInput) => BreakGenericLink<GenericOutputPipe2>;
 export declare function innerPipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid, GenericOutputPipe3 extends AnyValue | EscapeVoid>(pipe1: (input: GenericInput) => GenericOutputPipe1, pipe2: (input: GenericOutputPipe1) => GenericOutputPipe2, pipe3: (input: GenericOutputPipe2) => GenericOutputPipe3): (input: GenericInput) => BreakGenericLink<GenericOutputPipe3>;

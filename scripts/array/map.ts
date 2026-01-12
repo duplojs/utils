@@ -7,9 +7,9 @@ interface ArrayMapParams<
 	self: GenericInputArray;
 }
 
-// Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericInput instead of GenericElement
-// preserves the array structure and avoids this inference bug.
+/**
+ * {@include array/map/index.md}
+ */
 export function map<
 	GenericInput extends readonly unknown[],
 	GenericOutput extends unknown,

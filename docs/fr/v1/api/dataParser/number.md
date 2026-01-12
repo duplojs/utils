@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Valide des nombres (entiers ou flottants) avec des contraintes optionnelles. DDataParser.number() assure que l'entrée est bien un nombre, applique vos checkers (min, max, int, refine, etc.) et retourne un Either contenant soit la valeur validée, soit un DataParserError riche."
 prev:
   text: "string"
   link: "/fr/v1/api/dataParser/string"

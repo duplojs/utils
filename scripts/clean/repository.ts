@@ -6,6 +6,10 @@ export const repositoryHandlerKind = createCleanKind("repository-handler");
 export interface RepositoryHandler<
 	GenericRepository extends object = object,
 > extends Kind<typeof repositoryHandlerKind.definition> {
+
+	/**
+	 * {@include clean/createRepository/createImplementation.md}
+	 */
 	createImplementation(
 		implementation: SimplifyTopLevel<{
 			[Prop in keyof GenericRepository]: GenericRepository[Prop] extends AnyFunction
@@ -15,6 +19,9 @@ export interface RepositoryHandler<
 	): GenericRepository;
 }
 
+/**
+ * {@include clean/createRepository/index.md}
+ */
 export function createRepository<
 	GenericRepository extends object,
 >(): RepositoryHandler<GenericRepository> {

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard qui vérifie si une valeur est un EitherLeft. Idéal pour sécuriser un unwrap ou déclencher une branche d'erreur."
 prev:
   text: "whenIsRight"
   link: "/fr/v1/api/either/whenIsRight"

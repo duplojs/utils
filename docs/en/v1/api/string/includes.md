@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The includes() method checks whether a string contains a specified substring, returning true or false accordingly."
 prev:
   text: "replaceAll"
   link: "/en/v1/api/string/replaceAll"

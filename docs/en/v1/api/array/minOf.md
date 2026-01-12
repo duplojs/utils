@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The minOf() function returns the smallest numeric value of an array without modifying it. It accepts both classic arrays and immutable tuples."
 prev:
   text: "sum"
   link: "/en/v1/api/array/sum"

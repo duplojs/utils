@@ -7,6 +7,9 @@ var coalescing = require('../../array/coalescing.cjs');
 var override = require('../../common/override.cjs');
 
 const literalKind = kind.createDataParserKind("literal");
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 function literal(value, definition) {
     const self = base.dataParserInit(literalKind, {
         errorMessage: definition?.errorMessage,

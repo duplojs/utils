@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "match() associe un motif à une fonction et retourne un PatternResult quand la valeur respecte ce motif. Utilisez-le :"
 prev:
   text: "Pattern"
   link: "/fr/v1/api/pattern/"

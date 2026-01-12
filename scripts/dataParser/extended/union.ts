@@ -65,6 +65,9 @@ export interface DataParserUnionExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/union/index.md}
+ */
 export function union<
 	GenericOptions extends dataParsers.UnionOptions,
 	const GenericDefinition extends Partial<

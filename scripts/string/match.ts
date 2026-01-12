@@ -1,3 +1,6 @@
+/**
+ * {@include string/match/index.md}
+ */
 export function match<
 	GenericInput extends string,
 >(

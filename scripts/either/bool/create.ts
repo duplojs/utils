@@ -2,6 +2,9 @@ import { type FalsyValue, type IsEqual } from "@scripts/common";
 import { boolFalsy, type EitherBoolFalsy } from "./falsy";
 import { boolTruthy, type EitherBoolTruthy } from "./truthy";
 
+/**
+ * {@include either/bool/index.md}
+ */
 export function bool<
 	const GenericValue extends unknown = undefined,
 >(value: GenericValue): GenericValue extends FalsyValue

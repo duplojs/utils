@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The getDayOfYear() function returns the day of the year (1–366) for a TheDate, taking an optional timezone into account."
 prev:
   text: "getWeekOfYear"
   link: "/en/v1/api/date/getWeekOfYear"

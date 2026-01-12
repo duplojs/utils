@@ -21,6 +21,9 @@ export interface EitherFutureSuccess<
 
 }
 
+/**
+ * {@include either/futureSuccess/index.md}
+ */
 export function futureSuccess<
 	const GenericValue extends unknown,
 >(

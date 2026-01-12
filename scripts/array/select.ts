@@ -37,6 +37,9 @@ export const selectTools: Pick<
 	},
 };
 
+/**
+ * {@include array/select/index.md}
+ */
 export function select<
 	GenericInput extends readonly unknown[],
 	GenericSelect extends ArraySelectSelect,

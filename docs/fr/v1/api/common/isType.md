@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction isType() crée un type guard basé sur typeof, Array.isArray, itérables, fonctions, etc. Elle permet d'affiner un union vers le type vérifié."
 prev:
   text: "equal"
   link: "/fr/v1/api/common/equal"

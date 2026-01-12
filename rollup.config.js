@@ -32,6 +32,7 @@ export default defineConfig({
 		del({ targets: "dist" }),
 		typescript({ tsconfig: "tsconfig.build.json" }),
 		tscAlias({ configFile: "tsconfig.build.json" }),
-		generateMetadataPlugin({packageName: "@duplojs/utils"}),
+		generateMetadataPlugin({ packageName: "@duplojs/utils" }),
+		declarationIncludesPlugin({ includedPath: "jsDoc" })
 	],
 });

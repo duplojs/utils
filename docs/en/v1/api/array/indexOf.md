@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The indexOf() method returns the index of the first occurrence of an element in an array."
 prev:
   text: "notIncludes"
   link: "/en/v1/api/array/notIncludes"

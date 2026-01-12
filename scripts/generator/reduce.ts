@@ -53,6 +53,9 @@ export interface GeneratorReduceFromResult<
 
 }
 
+/**
+ * {@include generator/reduceFrom/index.md}
+ */
 export function reduceFrom<
 	GenericValue extends unknown,
 >(value: GenericValue): GeneratorReduceFromResult<GenericValue> {
@@ -69,6 +72,9 @@ export type GeneratorReduceFromValue<
 	? Unwrap<GenericValue>
 	: ToLargeEnsemble<GenericValue>;
 
+/**
+ * {@include generator/reduce/index.md}
+ */
 export function reduce<
 	GenericElement extends unknown,
 	GenericReduceFrom extends GeneratorEligibleReduceFromValue,

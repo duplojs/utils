@@ -1,3 +1,6 @@
+/**
+ * {@include number/trunc/index.md}
+ */
 export function trunc<
 	GenericValue extends number,
 >(value: GenericValue): number {

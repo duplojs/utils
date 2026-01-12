@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The length() method returns the length of an array."
 prev:
   text: "toTuple"
   link: "/en/v1/api/array/toTuple"

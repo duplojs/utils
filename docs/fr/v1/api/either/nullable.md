@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Encapsule une valeur null ou non-null dans un Either, tout en conservant l'information sill est remplie ou vide."
 prev:
   text: "whenIsNullishFilled"
   link: "/fr/v1/api/either/whenIsNullishFilled"

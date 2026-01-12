@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Génère un itérateur sur toutes les dates comprises entre deux bornes inclusives, suivant une granularité (Unit)."
 prev:
   text: "round"
   link: "/fr/v1/api/date/round"

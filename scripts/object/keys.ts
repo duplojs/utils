@@ -1,5 +1,8 @@
 import { isRuntimeKind, isRuntimeWrappedValueKey } from "@scripts/common";
 
+/**
+ * {@include object/keys/index.md}
+ */
 export function keys<
 	GenericObject extends object,
 >(object: GenericObject) {

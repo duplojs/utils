@@ -1,6 +1,9 @@
 import { millisecondsInOneDay } from '../constants.mjs';
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getDayOfYear/index.md}
+ */
 function getDayOfYear(input, timezone = "UTC") {
     const nativeDate = toNative(input);
     let year = 0;

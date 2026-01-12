@@ -1,3 +1,6 @@
+/**
+ * {@include common/createEnum/index.md}
+ */
 function createEnum(values) {
     return Object.fromEntries([
         ...values.map((value) => [value, value]),

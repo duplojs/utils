@@ -13,6 +13,9 @@ export interface EitherOk extends _EitherOk {
 
 }
 
+/**
+ * {@include either/ok/index.md}
+ */
 export function ok(): EitherOk {
 	return eitherOkKind.setTo(
 		right("ok", undefined as never),

@@ -80,6 +80,9 @@ export interface DataParserRecover<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/recover/index.md}
+ */
 export function recover<
 	GenericDataParser extends DataParser,
 	GenericRecoveredValue extends Output<GenericDataParser>,

@@ -4,6 +4,9 @@ interface AsyncGeneratorFilterParams {
 	index: number;
 }
 
+/**
+ * {@include generator/asyncFilter/index.md}
+ */
 export function asyncFilter<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,

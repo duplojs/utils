@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.tuple() décrit un tableau positionnel avec des parsers différents par index et, optionnellement, un reste (rest). Parfait pour modéliser des retours multi-valeurs ou des paramètres fixes."
 prev:
   text: "array"
   link: "/fr/v1/api/dataParser/array"

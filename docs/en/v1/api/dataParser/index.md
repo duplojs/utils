@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to build, compose, and run immutable validators. DataParser. or DP. describes the expected shape of data, returns an Either (parse / asyncParse), and produces structured errors ready to be serialized."
 prev:
   text: "Clean"
   link: "/en/v1/api/clean/"

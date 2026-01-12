@@ -2,6 +2,9 @@ import { type RemoveFromUnion } from "@scripts/common";
 
 export type NotIncludeValue = string | null | undefined | boolean | number | bigint | symbol;
 
+/**
+ * {@include array/notIncludes/index.md}
+ */
 export function notIncludes<
 	GenericArrayValue extends unknown,
 	const GenericNotIncludeValue extends RemoveFromUnion<
@@ -40,4 +43,3 @@ export function notIncludes(...args: [readonly unknown[], NotIncludeValue] | [No
 
 	return !array.includes(value);
 }
-

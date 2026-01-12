@@ -2,6 +2,9 @@ import { createTheDate } from "../createTheDate";
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/addMilliseconds/index.md}
+ */
 export function addMilliseconds<
 	GenericInput extends TheDate,
 	GenericMillisecond extends number,

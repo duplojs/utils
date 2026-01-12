@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The minElements() function checks that an array contains at least a given number of elements. It acts as a type guard, which allows TypeScript to infer a tuple of at least minLength elements."
 prev:
   text: "maxOf"
   link: "/en/v1/api/array/maxOf"

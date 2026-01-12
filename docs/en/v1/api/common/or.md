@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The or() function combines several predicates or type guards: if at least one passes, the result is true and the type is narrowed to the union of accepted cases."
 prev:
   text: "and"
   link: "/en/v1/api/common/and"

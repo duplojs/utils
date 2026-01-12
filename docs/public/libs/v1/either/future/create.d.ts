@@ -20,5 +20,28 @@ export declare class Future<const GenericValue extends unknown = unknown> extend
     static instanceof<GenericValue extends unknown>(value: GenericValue): value is Extract<GenericValue, Future<any>>;
     static rightAll<const GenericArray extends readonly unknown[]>(values: GenericArray): FutureEitherAllResult<GenericArray>;
 }
+/**
+ * Future<T> class: an enhanced promise capable of carrying Either values and exposing helpers like Future.all.
+ * 
+ * Signature: `future(value)` → returns a value
+ * 
+ * The input value is not mutated.
+ * 
+ * ```ts
+ * const maybePromise = E.future(
+ * 	Promise.resolve(1),
+ * );
+ * 
+ * await maybePromise.then((value) => {
+ * 	// type: E.EitherFutureSuccess<number> | E.EitherFutureError
+ * 	return value;
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/either/future
+ * 
+ * @namespace E
+ * 
+ */
 export declare function future<GenericEither extends AnyValue>(value: GenericEither): Future<GenericEither>;
 export {};

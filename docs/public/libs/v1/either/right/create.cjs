@@ -4,6 +4,9 @@ var wrapValue = require('../../common/wrapValue.cjs');
 var kind = require('../kind.cjs');
 
 const eitherRightKind = kind.createEitherKind("right");
+/**
+ * {@include either/right/index.md}
+ */
 function right(information, value = undefined) {
     return eitherRightKind.setTo(kind.eitherInformationKind.setTo(wrapValue.wrapValue(value), information));
 }

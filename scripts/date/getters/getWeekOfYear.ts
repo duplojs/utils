@@ -1,5 +1,8 @@
 import { type TheDate, type Timezone, toNative } from "..";
 
+/**
+ * {@include date/getWeekOfYear/index.md}
+ */
 export function getWeekOfYear<
 	GenericInput extends TheDate,
 >(

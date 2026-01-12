@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The padStart() method pads the current string with a given string to reach a fixed length. The padding is applied at the start of the current string."
 prev:
   text: "split"
   link: "/en/v1/api/string/split"

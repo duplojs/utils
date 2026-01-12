@@ -1,3 +1,6 @@
+/**
+ * {@include date/index.md}
+ */
 export * from "./types";
 export * from "./constants";
 export * from "./create";
@@ -30,8 +33,10 @@ export * from "./timezone";
 export * from "./getTimezoneOffset";
 export * from "./applyTimezone";
 export * from "./format";
+export * from "./formatTime";
 export * from "./makeSafeTimestamp";
 export * from "./createTheDate";
 export * from "./createTheTime";
 export * from "./createTime";
 export * from "./createTimeOrThrow";
+export * from "./makeSafeTimeValue";

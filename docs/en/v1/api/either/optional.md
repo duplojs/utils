@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Wraps an undefined/defined value in an Either, useful for propagating optional fields."
 prev:
   text: "whenIsNullableFilled"
   link: "/en/v1/api/either/whenIsNullableFilled"

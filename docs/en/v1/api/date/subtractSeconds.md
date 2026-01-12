@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Subtracts a positive number of seconds from a TheDate."
 prev:
   text: "subtractMinutes"
   link: "/en/v1/api/date/subtractMinutes"

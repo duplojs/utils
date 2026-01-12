@@ -27,6 +27,9 @@ export type GetEntries<
 				: InferredResult[]
 			: never;
 
+/**
+ * {@include object/entries/index.md}
+ */
 export function entries<
 	GenericObject extends object,
 >(object: GenericObject) {

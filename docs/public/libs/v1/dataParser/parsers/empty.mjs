@@ -4,6 +4,9 @@ import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const emptyKind = createDataParserKind("empty");
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 function empty(definition) {
     const self = dataParserInit(emptyKind, {
         errorMessage: definition?.errorMessage,

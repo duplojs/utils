@@ -4,6 +4,9 @@ interface GeneratorFilterParams {
 	index: number;
 }
 
+/**
+ * {@include generator/filter/index.md}
+ */
 export function filter<
 	GenericElement extends unknown,
 	GenericOutput extends GenericElement,

@@ -65,6 +65,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/omit/index.md}
+	 */
 	omit<
 		const GenericOmitObject extends Partial<
 			Record<
@@ -92,6 +95,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/pick/index.md}
+	 */
 	pick<
 		const GenericPickObject extends Partial<
 			Record<
@@ -122,6 +128,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/extends/index.md}
+	 */
 	extends<
 		const GenericExtension extends dataParsers.DataParserObjectShape,
 		const GenericSubDefinition extends Partial<
@@ -142,6 +151,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/partial/index.md}
+	 */
 	partial<
 		const GenericSubDefinition extends Partial<
 			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
@@ -159,6 +171,9 @@ export interface DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/required/index.md}
+	 */
 	required<
 		const GenericSubDefinition extends Partial<
 			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
@@ -177,6 +192,9 @@ export interface DataParserObjectExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/object/index.md}
+ */
 export function object<
 	const GenericShape extends dataParsers.DataParserObjectShape,
 	const GenericDefinition extends Partial<

@@ -8,6 +8,9 @@ export type AwaitedPromiseObject<
 	[Prop in keyof GenericObject]: Awaited<GenericObject[Prop]>
 };
 
+/**
+ * {@include common/promiseObject/index.md}
+ */
 export function promiseObject<
 	GenericValue extends AnyValue,
 	GenericObject extends Record<string, MaybePromise<GenericValue>>,

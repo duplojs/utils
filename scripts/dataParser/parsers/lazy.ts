@@ -79,6 +79,9 @@ export interface DataParserLazy<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/lazy/index.md}
+ */
 export function lazy<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<DataParserDefinitionLazy> = never,

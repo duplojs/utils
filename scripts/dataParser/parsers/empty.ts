@@ -76,6 +76,9 @@ export interface DataParserEmpty<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 export function empty<
 	const GenericDefinition extends Partial<DataParserDefinitionEmpty> = never,
 >(

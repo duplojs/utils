@@ -17,6 +17,10 @@ export interface PrimitiveHandler<
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 > extends Kind<typeof primitiveHandlerKind.definition> {
 	readonly dataParser: DDataParser.Contract<GenericValue>;
+
+	/**
+	 * {@include clean/primitive/create.md}
+	 */
 	create<
 		GenericData extends GenericValue,
 	>(
@@ -32,12 +36,18 @@ export interface PrimitiveHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/primitive/createOrThrow.md}
+	 */
 	createOrThrow<
 		GenericData extends GenericValue,
 	>(
 		data: GenericData
 	): Primitive<GenericData>;
 
+	/**
+	 * {@include clean/primitive/createWithUnknown.md}
+	 */
 	createWithUnknown<
 		GenericData extends unknown,
 	>(
@@ -53,12 +63,18 @@ export interface PrimitiveHandler<
 		>
 	);
 
+	/**
+	 * {@include clean/primitive/createWithUnknownOrThrow.md}
+	 */
 	createWithUnknownOrThrow<
 		GenericData extends unknown,
 	>(
 		data: GenericData
 	): Primitive<GenericValue>;
 
+	/**
+	 * {@include clean/primitive/is.md}
+	 */
 	is<
 		GenericInput extends WrappedValue,
 	>(input: GenericInput): input is Extract<GenericInput, Primitive<GenericValue>>;
@@ -126,21 +142,39 @@ function createPrimitive<
 	}) as never;
 }
 
+/**
+ * {@include clean/String/index.md}
+ */
 export const String = createPrimitive(DDataParser.string());
 export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
 
+/**
+ * {@include clean/Number/index.md}
+ */
 export const Number = createPrimitive(DDataParser.number());
 export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
 
+/**
+ * {@include clean/BigInt/index.md}
+ */
 export const BigInt = createPrimitive(DDataParser.bigint());
 export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
 
+/**
+ * {@include clean/Boolean/index.md}
+ */
 export const Boolean = createPrimitive(DDataParser.boolean());
 export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 
+/**
+ * {@include clean/Date/index.md}
+ */
 export const Date = createPrimitive(DDataParser.date());
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 
+/**
+ * {@include clean/Time/index.md}
+ */
 export const Time = createPrimitive(DDataParser.time());
 export type Time = ReturnType<typeof Time["createWithUnknownOrThrow"]>;
 

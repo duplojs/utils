@@ -1,6 +1,6 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -65,6 +65,36 @@ export interface DataParserTemplateLiteral<GenericDefinition extends DataParserD
      */
     construct<const GenericDefinition extends DataParserDefinitionTemplateLiteral>(definition: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, GenericDefinition>>;
 }
+/**
+ * Creates a data parser for deterministic template literal strings.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.templateLiteral(template, definition?)` -> returns a template literal parser
+ * - Curried: not available
+ * 
+ * Validates that the input matches the provided template literal shape and pattern.
+ * 
+ * ```ts
+ * const parser = DP.templateLiteral(["user-", DP.number()]);
+ * const result = parser.parse("user-42");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const orderParser = DP.templateLiteral(["order-", DP.literal("vip"), "-", DP.number()]);
+ * const orderResult = orderParser.parse("order-vip-12");
+ * 
+ * const withCheckers = DP.templateLiteral(["id-", DP.number()], {
+ * 	checkers: [DP.checkerRefine((value) => value.endsWith("0"))],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/templateLiteral
+ * 
+ * @namespace DP
+ * 
+ */
 export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">> = never>(template: GenericTemplate, definition?: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {
     template: GenericTemplate;
 }>>;

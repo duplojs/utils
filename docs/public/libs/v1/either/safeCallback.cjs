@@ -4,6 +4,9 @@ var kind = require('./kind.cjs');
 var create = require('./left/create.cjs');
 
 const eitherCallbackErrorKind = kind.createEitherKind("callback-error");
+/**
+ * {@include either/safeCallback/index.md}
+ */
 function callbackError(value) {
     return eitherCallbackErrorKind.setTo(create.left("callback", value));
 }

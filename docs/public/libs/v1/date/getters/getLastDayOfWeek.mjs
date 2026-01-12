@@ -1,5 +1,8 @@
 import { toNative } from '../toNative.mjs';
 
+/**
+ * {@include date/getLastDayOfWeek/index.md}
+ */
 function getLastDayOfWeek(input) {
     const nativeDate = toNative(input);
     const dayOfWeek = nativeDate.getUTCDay();

@@ -19,6 +19,9 @@ const unitMapper = {
     tb: Math.pow(1024, 4),
     pb: Math.pow(1024, 5),
 };
+/**
+ * {@include common/stringToBytes/index.md}
+ */
 function stringToBytes(bytesInString) {
     if (typeof bytesInString === "number") {
         return bytesInString;

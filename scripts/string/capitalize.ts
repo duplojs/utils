@@ -1,3 +1,6 @@
+/**
+ * {@include string/capitalize/index.md}
+ */
 export function capitalize<
 	GenericString extends string,
 >(input: GenericString) {

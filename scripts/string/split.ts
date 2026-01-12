@@ -6,6 +6,9 @@ interface StringSplitParams<
 	limit: GenericLimit;
 }
 
+/**
+ * {@include string/split/index.md}
+ */
 export function split<
 	GenericString extends string,
 	GenericSeparator extends string,

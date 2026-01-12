@@ -1,6 +1,9 @@
 import { toTimestamp } from "../toTimestamp";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/between/index.md}
+ */
 export function between<
 	GenericValue extends TheDate,
 >(

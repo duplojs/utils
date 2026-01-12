@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction getWeekOfYear() calcule le numéro de semaine ISO 8601 (1–53) pour un TheDate, avec un fuseau horaire optionnel."
 prev:
   text: "getDayOfWeek"
   link: "/fr/v1/api/date/getDayOfWeek"

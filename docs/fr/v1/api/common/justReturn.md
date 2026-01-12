@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction justReturn() construit une fonction constante : elle ignore son argument et renvoie toujours la même valeur. Elle existe aussi sous forme directe pour retourner immédiatement cette valeur."
 prev:
   text: "forwardLog"
   link: "/fr/v1/api/common/forwardLog"

@@ -6,6 +6,9 @@ var kind = require('../../kind.cjs');
 var override = require('../../../common/override.cjs');
 
 const bigIntKind = kind.createDataParserKind("bigint");
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 function bigint(definition) {
     const self = base.dataParserInit(bigIntKind, {
         errorMessage: definition?.errorMessage,

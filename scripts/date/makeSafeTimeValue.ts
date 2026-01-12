@@ -1,5 +1,8 @@
 import { maxTimeValue, minTimeValue } from "./constants";
 
+/**
+ * {@include date/makeSafeTimeValue/index.md}
+ */
 export function makeSafeTimeValue(timeValue: number) {
 	if (Number.isNaN(timeValue)) {
 		return 0;

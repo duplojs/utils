@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * {@include common/asyncLoop/index.md}
+ */
 async function asyncLoop(loop) {
     let previousOutput = undefined;
     for (let count = 0; true; count++) {

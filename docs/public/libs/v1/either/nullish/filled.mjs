@@ -7,6 +7,15 @@ import { isLeft } from '../left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
 const eitherNullishFilledKind = createEitherKind("nullish-filled");
+/**
+ * {@include either/isNullishFilled/index.md}
+ */
+/**
+ * {@include either/nullishFilled/index.md}
+ */
+/**
+ * {@include either/whenIsNullishFilled/index.md}
+ */
 function nullishFilled(value) {
     return eitherNullishKind.setTo(eitherNullishFilledKind.setTo(right("nullish", value)));
 }

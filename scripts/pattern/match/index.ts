@@ -7,6 +7,9 @@ import { type MatchBuilder, matchBuilder } from "./builder";
 
 export * from "./builder";
 
+/**
+ * {@include pattern/match/index.md}
+ */
 export function match<
 	GenericInput extends unknown,
 >(

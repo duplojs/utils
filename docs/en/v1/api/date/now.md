@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The now() function returns the exact current moment as a TheDate (positive Unix timestamp)."
 prev:
   text: "createTimeOrThrow"
   link: "/en/v1/api/date/createTimeOrThrow"

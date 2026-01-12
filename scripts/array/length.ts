@@ -1,3 +1,6 @@
+/**
+ * {@include array/length/index.md}
+ */
 export function length<
 	GenericInput extends readonly unknown[],
 >(input: GenericInput): GenericInput["length"] {

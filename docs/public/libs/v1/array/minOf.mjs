@@ -1,3 +1,6 @@
+/**
+ * {@include array/minOf/index.md}
+ */
 function minOf(values) {
     const [first, ...rest] = values;
     if (first === undefined) {

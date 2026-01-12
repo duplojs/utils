@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The createExternalPromise() function creates a promise controllable from the outside: it exposes resolve, reject, and the associated promise."
 prev:
   text: "asyncLoop"
   link: "/en/v1/api/common/asyncLoop"

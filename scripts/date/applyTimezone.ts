@@ -4,6 +4,9 @@ import { type Timezone } from "./timezone";
 import { toTimestamp } from "./toTimestamp";
 import { type TheDate } from "./types";
 
+/**
+ * {@include date/applyTimezone/index.md}
+ */
 export function applyTimezone(
 	timeZone: Timezone,
 ): (theDate: TheDate) => TheDate;

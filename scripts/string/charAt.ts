@@ -1,3 +1,6 @@
+/**
+ * {@include string/charAt/index.md}
+ */
 export function charAt<
 	GenericInput extends string,
 >(

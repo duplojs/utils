@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate strings immutably and type-safely. All functions preserve the original string and return a new value."
 prev:
   text: 'Generator'
   link: '/en/v1/api/generator/'

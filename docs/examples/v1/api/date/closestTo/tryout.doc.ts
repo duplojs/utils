@@ -8,4 +8,4 @@ const inputs = [
 
 const target = D.create("2024-06-15");
 const result = D.closestTo(inputs, target);
-// result: "date1717996800000+" (10 juin 2024)
+// result: "date1717996800000+" (10 June 2024)

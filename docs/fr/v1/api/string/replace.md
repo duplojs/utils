@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode replace() retourne une nouvelle chaîne de caractères dans laquelle une partie de la chaîne originale est remplacée par une autre chaîne."
 prev:
   text: "repeat"
   link: "/fr/v1/api/string/repeat"

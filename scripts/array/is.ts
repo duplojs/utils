@@ -1,3 +1,6 @@
+/**
+ * {@include array/is/index.md}
+ */
 export function is<
 	GenericValue extends unknown,
 >(

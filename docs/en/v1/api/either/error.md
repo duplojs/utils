@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Handy alias to create an EitherLeft with the info fixed to \"error\". Useful to signal a generic error without manually providing the info."
 prev:
   text: "left"
   link: "/en/v1/api/either/left"

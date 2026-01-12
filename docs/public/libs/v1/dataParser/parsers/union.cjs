@@ -6,6 +6,9 @@ var kind = require('../kind.cjs');
 var override = require('../../common/override.cjs');
 
 const unionKind = kind.createDataParserKind("union");
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 function union(options, definition) {
     const self = base.dataParserInit(unionKind, {
         errorMessage: definition?.errorMessage,

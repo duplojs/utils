@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode group() regroupe les éléments d'un tableau selon une clé calculée et retourne un objet indexé par nom de groupe avec les éléments associés."
 prev:
   text: "join"
   link: "/fr/v1/api/array/join"

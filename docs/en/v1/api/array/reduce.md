@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The reduce() method aggregates the elements of an array from left to right by applying a function that carries state. It supports primitive values but also complex states via reduceFrom() and lets you exit the loop at any time thanks to exit()."
 prev:
   text: "sort"
   link: "/en/v1/api/array/sort"

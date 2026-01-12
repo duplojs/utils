@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode cos() retourne le cosinus d'un angle exprimé en radians. Le cosinus est une fonction trigonométrique fondamentale qui retourne la coordonnée x d'un point sur le cercle unité."
 prev:
   text: "sin"
   link: "/fr/v1/api/number/sin"

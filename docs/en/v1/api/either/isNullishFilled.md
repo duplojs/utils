@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard that detects an EitherNullishFilled."
 prev:
   text: "whenIsNullishEmpty"
   link: "/en/v1/api/either/whenIsNullishEmpty"

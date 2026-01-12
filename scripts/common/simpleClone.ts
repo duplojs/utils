@@ -1,3 +1,6 @@
+/**
+ * {@include common/simpleClone/index.md}
+ */
 export function simpleClone<
 	GenericObject extends unknown = unknown,
 >(unknownValue: GenericObject): GenericObject {

@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The group() function runs several Either values (or functions returning an Either) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object."
 prev:
   text: "rightAsyncPipe"
   link: "/en/v1/api/either/rightAsyncPipe"

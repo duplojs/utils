@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Functions to manipulate objects immutably and type-safely. All functions preserve the original object and return a new value."
 prev:
   text: 'Number'
   link: '/en/v1/api/number/'

@@ -4,6 +4,9 @@ var isMatch = require('./isMatch.cjs');
 var pattern = require('./types/pattern.cjs');
 
 const SymbolToolPatternFunction = Symbol.for(pattern.SymbolToolPatternFunctionLabel);
+/**
+ * {@include pattern/union/index.md}
+ */
 function union(...patterns) {
     return {
         [SymbolToolPatternFunction]: (input) => {

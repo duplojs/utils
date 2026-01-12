@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Une entité représente une structure de données métier, composée de plusieurs propriétés. Chaque propriété est typée via un NewType."
 prev:
   text: "NewType"
   link: "/fr/v1/api/clean/newType"

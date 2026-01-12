@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Type guard based on the literal information stored in the Either. Lets you precisely target a business case without extra introspection."
 prev:
   text: "asyncGroup"
   link: "/en/v1/api/either/asyncGroup"

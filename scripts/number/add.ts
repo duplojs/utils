@@ -1,3 +1,6 @@
+/**
+ * {@include number/add/index.md}
+ */
 export function add<
 	GenericValue extends number,
 >(operand: number): (value: GenericValue) => number;

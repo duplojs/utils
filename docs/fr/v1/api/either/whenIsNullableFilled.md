@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Applique une fonction uniquement lorsque l'Either nullable contient une valeur (NullableFilled)."
 prev:
   text: "isNullableFilled"
   link: "/fr/v1/api/either/isNullableFilled"

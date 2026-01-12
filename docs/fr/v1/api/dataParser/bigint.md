@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Valide des bigint tout en conservant la précision native. DDataParser.bigint() s'occupe de la coercition facultative (BigInt(value)) et accepte des checkers comme min, max ou refine."
 prev:
   text: "boolean"
   link: "/fr/v1/api/dataParser/boolean"

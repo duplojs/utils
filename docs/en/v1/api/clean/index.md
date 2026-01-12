@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Essential building blocks of Clean Architecture: creation of business entities, business types (NewType), use cases, repositories, and more. Makes it easier to structure your code according to Clean Architecture principles for better maintainability and testability."
 prev:
   text: "Array"
   link: "/en/v1/api/array/"

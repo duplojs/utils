@@ -9,6 +9,9 @@ type ComputeResult<
 		: InferredResult
 	: never;
 
+/**
+ * {@include string/endsWith/index.md}
+ */
 export function endsWith<
 	GenericString extends string,
 	GenericSearchString extends string,

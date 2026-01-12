@@ -1,6 +1,9 @@
 import { toNative } from "../toNative";
 import type { TheDate } from "../types";
 
+/**
+ * {@include date/getFirstDayOfMonth/index.md}
+ */
 export function getFirstDayOfMonth(input: TheDate): TheDate {
 	const nativeDate = toNative(input);
 

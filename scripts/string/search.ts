@@ -1,3 +1,6 @@
+/**
+ * {@include string/search/index.md}
+ */
 export function search<
 	GenericInput extends string,
 >(

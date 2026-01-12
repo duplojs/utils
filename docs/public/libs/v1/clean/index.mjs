@@ -34,3 +34,7 @@ export { timeGreaterThan } from './primitive/operations/time/timeGreaterThan.mjs
 export { timeLessThan } from './primitive/operations/time/timeLessThan.mjs';
 export { timeMin } from './primitive/operations/time/timeMin.mjs';
 export { timeMax } from './primitive/operations/time/timeMax.mjs';
+
+/**
+ * {@include clean/index.md}
+ */

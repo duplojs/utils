@@ -1,6 +1,9 @@
 import { unwrap, wrapValue } from "@scripts/common";
 import { type Number } from "../../base";
 
+/**
+ * {@include clean/divide/index.md}
+ */
 export function divide(divisor: Number | number): (value: Number) => Number;
 
 export function divide(value: Number, divisor: Number | number): Number;

@@ -1,5 +1,8 @@
 import { millisecondsInOneDay, type TheDate, type Timezone, toNative } from "..";
 
+/**
+ * {@include date/getDayOfYear/index.md}
+ */
 export function getDayOfYear<
 	GenericInput extends TheDate,
 >(

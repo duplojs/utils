@@ -73,6 +73,9 @@ export interface DataParserUnknown<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/unknown/index.md}
+ */
 export function unknown<
 	const GenericDefinition extends Partial<DataParserDefinitionUnknown> = never,
 >(

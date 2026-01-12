@@ -48,6 +48,9 @@ class CreateEntityError extends kind$1.kindHeritage("create-entity-error", error
         this.dataParserError = dataParserError;
     }
 }
+/**
+ * {@include clean/createEntity/index.md}
+ */
 function createEntity(name, getPropertiesDefinition) {
     function theNew(properties) {
         return entityKind.addTo(properties, name);

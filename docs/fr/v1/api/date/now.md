@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction now() retourne l'instant exact courant sous forme de TheDate (timestamp Unix positif)."
 prev:
   text: "createTimeOrThrow"
   link: "/fr/v1/api/date/createTimeOrThrow"

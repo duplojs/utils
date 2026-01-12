@@ -78,6 +78,9 @@ export interface DataParserDate<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 export function date<
 	const GenericDefinition extends Partial<DataParserDefinitionDate> = never,
 >(

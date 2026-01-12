@@ -87,6 +87,9 @@ export interface DataParserOptional<
 	>;
 }
 
+/**
+ * {@include dataParser/classic/optional/index.md}
+ */
 export function optional<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<

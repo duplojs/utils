@@ -1,3 +1,6 @@
+/**
+ * {@include array/index.md}
+ */
 export * from "./types";
 
 export * from "./filter";

@@ -15,6 +15,9 @@ const stepMapper: Record<RoundUnit, (date: Date) => number> = {
 	},
 };
 
+/**
+ * {@include date/round/index.md}
+ */
 export function round(input: TheDate, unit: RoundUnit = "day") {
 	const date = toNative(input);
 

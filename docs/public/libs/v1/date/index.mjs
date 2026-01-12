@@ -26,11 +26,13 @@ export { timezone } from './timezone.mjs';
 export { getTimezoneOffset } from './getTimezoneOffset.mjs';
 export { applyTimezone } from './applyTimezone.mjs';
 export { format } from './format.mjs';
+export { formatTime } from './formatTime.mjs';
 export { makeSafeTimestamp } from './makeSafeTimestamp.mjs';
 export { createTheDate } from './createTheDate.mjs';
 export { createTheTime } from './createTheTime.mjs';
 export { createTime } from './createTime.mjs';
 export { CreateTheTimeError, createTimeOrThrow } from './createTimeOrThrow.mjs';
+export { makeSafeTimeValue } from './makeSafeTimeValue.mjs';
 export { getDayOfMonth } from './getters/getDayOfMonth.mjs';
 export { getDayOfWeek } from './getters/getDayOfWeek.mjs';
 export { getFirstDayOfWeek } from './getters/getFirstDayOfWeek.mjs';
@@ -75,3 +77,7 @@ export { less } from './operators/less.mjs';
 export { lessThan } from './operators/lessThan.mjs';
 export { lessThanTime } from './operators/lessThanTime.mjs';
 export { lessTime } from './operators/lessTime.mjs';
+
+/**
+ * {@include date/index.md}
+ */

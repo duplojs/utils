@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode power() élève un nombre à une puissance donnée. Elle calcule la valeur d'un nombre multiplié par lui-même un certain nombre de fois."
 prev:
   text: "modulo"
   link: "/fr/v1/api/number/modulo"

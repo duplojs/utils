@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode every() vérifie si tous les éléments d'un tableau satisfont une condition donnée."
 prev:
   text: "findLastIndex"
   link: "/fr/v1/api/array/findLastIndex"

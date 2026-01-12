@@ -23,6 +23,9 @@ export interface EitherLeft<
 
 }
 
+/**
+ * {@include either/left/index.md}
+ */
 export function left<
 	GenericInformation extends string,
 	const GenericValue extends unknown = undefined,

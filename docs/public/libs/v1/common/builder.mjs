@@ -18,6 +18,9 @@ class MissingBuilderMethodsError extends kindHeritage("missing-builder-methods-e
         this.method = method;
     }
 }
+/**
+ * {@include common/builder/index.md}
+ */
 function createBuilder(builderName) {
     const store = builderStore.value[builderName] ?? {};
     builderStore.set({

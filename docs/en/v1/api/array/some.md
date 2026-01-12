@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The some() method checks whether at least one element of an array satisfies a given condition."
 prev:
   text: "every"
   link: "/en/v1/api/array/every"

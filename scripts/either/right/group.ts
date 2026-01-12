@@ -40,6 +40,9 @@ type ComputeResult<
 	}[keyof GenericGroup]
 );
 
+/**
+ * {@include either/group/index.md}
+ */
 export function group<
 	GenericGroup extends Record<string, MayBeGetter<Either>>,
 >(

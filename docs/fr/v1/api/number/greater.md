@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode greater() vérifie si un nombre est supérieur ou égal (>=) à un seuil donné. Elle peut être utilisée de manière currifiée pour faciliter la composition fonctionnelle."
 prev:
   text: "atan2"
   link: "/fr/v1/api/number/atan2"

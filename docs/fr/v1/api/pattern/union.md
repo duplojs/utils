@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "union() compose plusieurs motifs en un seul ToolPattern réutilisable. Pratique pour partager des motifs entre match, when, isMatch, ou tout autre endroit où un motif est attendu."
 prev:
   text: "isMatch"
   link: "/fr/v1/api/pattern/isMatch"

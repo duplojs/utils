@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode trimStart() supprime les espaces au début d'une chaîne de caractères. Les espaces incluent les espaces, tabulations, sauts de ligne et autres caractères d'espacement Unicode."
 prev:
   text: "trim"
   link: "/fr/v1/api/string/trim"

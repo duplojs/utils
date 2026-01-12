@@ -20,6 +20,9 @@ type ComputeResultWithOmitIsObject<
 		: never
 >;
 
+/**
+ * {@include object/omit/index.md}
+ */
 export function omit<
 	GenericInput extends object,
 	const GenericOmitValue extends Partial<Record<keyof GenericInput, boolean>> | readonly (keyof GenericInput)[],

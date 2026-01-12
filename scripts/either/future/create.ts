@@ -118,6 +118,9 @@ export class Future<
 	}
 }
 
+/**
+ * {@include either/future/index.md}
+ */
 export function future<
 	GenericEither extends AnyValue,
 >(

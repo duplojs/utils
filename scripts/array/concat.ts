@@ -1,3 +1,6 @@
+/**
+ * {@include array/concat/index.md}
+ */
 export function concat<
 	GenericFirstArray extends readonly unknown[],
 	GenericSecondArray extends readonly unknown[],

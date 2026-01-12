@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The every() method checks whether all elements of an array satisfy a given condition."
 prev:
   text: "findLastIndex"
   link: "/en/v1/api/array/findLastIndex"

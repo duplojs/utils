@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "Vérifie qu'un TheDate est strictement inférieur à un seuil."
 prev:
   text: "greaterThan"
   link: "/fr/v1/api/date/greaterThan"

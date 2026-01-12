@@ -1,3 +1,6 @@
+/**
+ * {@include string/repeat/index.md}
+ */
 export function repeat<
 	GenericInput extends string,
 >(

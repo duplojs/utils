@@ -27,6 +27,9 @@ class CreateNewTypeError extends kindHeritage("create-new-type-error", createErr
         this.dataParserError = dataParserError;
     }
 }
+/**
+ * {@include clean/createNewType/index.md}
+ */
 function createNewType(name, dataParser, constraint) {
     const constrains = coalescing(constraint ?? []);
     const checkers = flatMap(constrains, ({ checkers }) => checkers);

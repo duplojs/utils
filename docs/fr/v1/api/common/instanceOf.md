@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La fonction instanceOf() crée un type guard basé sur un ou plusieurs constructeurs. Elle vérifie instanceof en conservant un typage précis."
 prev:
   text: "isType"
   link: "/fr/v1/api/common/isType"

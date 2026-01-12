@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "La méthode is() vérifie si une valeur est un tableau (type guard)."
 prev:
   text: "some"
   link: "/fr/v1/api/array/some"

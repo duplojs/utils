@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The ceil() method rounds a number up to the next integer greater than or equal to it. This function is useful to ensure you always have enough resources (boxes, pages, etc.)."
 prev:
   text: "round"
   link: "/en/v1/api/number/round"

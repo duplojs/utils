@@ -66,6 +66,9 @@ export interface DataParserTemplateLiteralExtended<
 	>;
 }
 
+/**
+ * {@include dataParser/extended/templateLiteral/index.md}
+ */
 export function templateLiteral<
 	const GenericTemplate extends dataParsers.TemplateLiteralShape,
 	const GenericDefinition extends Partial<

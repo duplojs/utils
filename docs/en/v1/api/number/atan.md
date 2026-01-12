@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "The atan() method returns the arctangent of a number, that is, the angle (in radians) whose tangent is equal to the given value. It is the inverse function of tan()."
 prev:
   text: "acos"
   link: "/en/v1/api/number/acos"
