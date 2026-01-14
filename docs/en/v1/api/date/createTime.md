@@ -17,7 +17,7 @@ The **`createTime()`** function builds a `TheTime` from a millisecond value or f
 <MonacoTSEditor
   src="/examples/v1/api/date/createTime/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="502px"
 />
 
 ## Syntax

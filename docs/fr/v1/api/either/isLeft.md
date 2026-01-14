@@ -18,7 +18,7 @@ Type guard qui vérifie si une valeur est un `EitherLeft`. Idéal pour sécurise
 <MonacoTSEditor
   src="/examples/v1/api/either/isLeft/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntaxe

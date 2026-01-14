@@ -18,7 +18,7 @@ La fonction **`fillAll()`** remplace tous les éléments d'un tableau par une va
 <MonacoTSEditor
   src="/examples/v1/api/array/fillAll/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

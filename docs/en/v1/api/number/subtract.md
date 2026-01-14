@@ -18,7 +18,7 @@ The **`subtract()`** method subtracts one number from another. It supports two f
 <MonacoTSEditor
   src="/examples/v1/api/number/subtract/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

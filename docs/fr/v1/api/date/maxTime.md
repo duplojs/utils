@@ -17,7 +17,7 @@ La fonction **`maxTime()`** retourne la plus grande durée d'un tuple de `TheTim
 <MonacoTSEditor
   src="/examples/v1/api/date/maxTime/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="208px"
 />
 
 ## Syntaxe

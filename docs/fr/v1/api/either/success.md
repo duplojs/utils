@@ -22,7 +22,7 @@ Raccourci lisible pour créer un `EitherRight` avec l'information littérale `"s
 <MonacoTSEditor
   src="/examples/v1/api/either/success/tryout.doc.ts"
   majorVersion="v1"
-  height="450px"
+  height="439px"
 />
 
 ## Syntaxe

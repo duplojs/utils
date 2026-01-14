@@ -18,7 +18,7 @@ The **`format()`** function displays a `TheDate` using a custom format string an
 <MonacoTSEditor
   src="/examples/v1/api/date/format/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="145px"
 />
 
 ## Syntax

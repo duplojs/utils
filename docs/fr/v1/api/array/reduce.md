@@ -18,7 +18,7 @@ La méthode **`reduce()`** agrège les éléments d'un tableau de gauche à droi
 <MonacoTSEditor
   src="/examples/v1/api/array/reduce/tryout.doc.ts"
   majorVersion="v1"
-  height="850px"
+  height="859px"
   :foldLines="[2]"
 />
 

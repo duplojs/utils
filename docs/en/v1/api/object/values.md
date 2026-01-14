@@ -18,7 +18,7 @@ The **`values()`** method returns an array of an object's values.
 <MonacoTSEditor
   src="/examples/v1/api/object/values/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

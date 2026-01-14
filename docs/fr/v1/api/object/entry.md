@@ -18,7 +18,7 @@ La méthode **`entry()`** crée une paire clé-valeur typée (tuple).
 <MonacoTSEditor
   src="/examples/v1/api/object/entry/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="229px"
 />
 
 ## Syntaxe

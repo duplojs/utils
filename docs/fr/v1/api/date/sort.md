@@ -18,7 +18,7 @@ La fonction **`sort()`** trie un tableau de `TheDate` selon l'ordre souhaité (`
 <MonacoTSEditor
   src="/examples/v1/api/date/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="355px"
 />
 
 ## Syntaxe

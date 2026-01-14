@@ -18,7 +18,7 @@ The **`minElements()`** function checks that an array contains at least a given 
 <MonacoTSEditor
   src="/examples/v1/api/array/minElements/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="292px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La méthode **`from()`** crée un tableau à partir d'un itérable, d'un objet a
 <MonacoTSEditor
   src="/examples/v1/api/array/from/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="544px"
   :foldLines="[5,14,28]"
 />
 

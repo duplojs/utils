@@ -18,7 +18,7 @@ The **`asin()`** method returns the arcsine of a number, that is, the angle (in 
 <MonacoTSEditor
   src="/examples/v1/api/number/asin/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntax

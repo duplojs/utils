@@ -18,7 +18,7 @@ Type guard that checks whether a value is an `EitherLeft`. Ideal to secure an `u
 <MonacoTSEditor
   src="/examples/v1/api/either/isLeft/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntax

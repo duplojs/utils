@@ -18,7 +18,7 @@ La méthode **`map()`** applique une fonction de transformation sur chaque élé
 <MonacoTSEditor
   src="/examples/v1/api/array/map/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="229px"
 />
 
 ## Syntaxe

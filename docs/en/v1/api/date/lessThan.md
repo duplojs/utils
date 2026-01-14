@@ -18,7 +18,7 @@ Checks that a `TheDate` is less than or equal to a threshold.
 <MonacoTSEditor
   src="/examples/v1/api/date/lessThan/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntax

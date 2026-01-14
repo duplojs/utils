@@ -18,7 +18,7 @@ The **`substring()`** method returns a substring between two indexes without mod
 <MonacoTSEditor
   src="/examples/v1/api/string/substring/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntax

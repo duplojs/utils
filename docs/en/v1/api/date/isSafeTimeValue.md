@@ -17,7 +17,7 @@ The **`isSafeTimeValue()`** function checks that a time value is a safe integer 
 <MonacoTSEditor
   src="/examples/v1/api/date/isSafeTimeValue/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="208px"
 />
 
 ## Syntax

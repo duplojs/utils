@@ -18,7 +18,7 @@ La m√©thode **`flatMap()`** applique une fonction de transformation sur chaque √
 <MonacoTSEditor
   src="/examples/v1/api/array/flatMap/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="544px"
   :foldLines="[2]"
 />
 

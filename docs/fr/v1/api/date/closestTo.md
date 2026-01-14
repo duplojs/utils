@@ -18,7 +18,7 @@ Trouve la date la plus proche d'une cible dans un itérable de `TheDate`. En cas
 <MonacoTSEditor
   src="/examples/v1/api/date/closestTo/tryout.doc.ts"
   majorVersion="v1"
-  height="340px"
+  height="271px"
 />
 
 ## Syntaxe

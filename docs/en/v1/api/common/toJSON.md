@@ -18,7 +18,7 @@ The **`toJSON()`** function prepares a value for JSON serialization while respec
 <MonacoTSEditor
   src="/examples/v1/api/common/toJSON/tryout.doc.ts"
   majorVersion="v1"
-  height="800px"
+  height="838px"
 />
 
 ## Syntax

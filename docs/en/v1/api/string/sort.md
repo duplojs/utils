@@ -18,7 +18,7 @@ The **`sort()`** function sorts an array of strings in ascending (`ASC`) or desc
 <MonacoTSEditor
   src="/examples/v1/api/string/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntax

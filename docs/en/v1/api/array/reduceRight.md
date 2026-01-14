@@ -18,7 +18,7 @@ The **`reduceRight()`** method works like `reduce()` but iterates through the ar
 <MonacoTSEditor
   src="/examples/v1/api/array/reduceRight/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
 />
 
 ## Syntax

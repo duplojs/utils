@@ -18,7 +18,7 @@ La méthode **`asin()`** retourne l'arc sinus d'un nombre, c'est-à-dire l'angle
 <MonacoTSEditor
   src="/examples/v1/api/number/asin/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`getLastDayOfWeek()`** function returns the Sunday corresponding to the we
 <MonacoTSEditor
   src="/examples/v1/api/date/getLastDayOfWeek/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

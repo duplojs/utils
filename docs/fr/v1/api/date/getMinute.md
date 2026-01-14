@@ -18,7 +18,7 @@ La fonction **`getMinute()`** renvoie les minutes (0–59) d'un `TheDate`, avec 
 <MonacoTSEditor
   src="/examples/v1/api/date/getMinute/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

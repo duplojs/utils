@@ -18,7 +18,7 @@ La méthode **`hasKeys()`** vérifie si un objet possède certaines clés (type 
 <MonacoTSEditor
   src="/examples/v1/api/object/hasKeys/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntaxe

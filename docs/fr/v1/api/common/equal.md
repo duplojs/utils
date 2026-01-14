@@ -18,7 +18,7 @@ La fonction **`equal()`** compare une valeur à un ou plusieurs littéraux. Avec
 <MonacoTSEditor
   src="/examples/v1/api/common/equal/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="292px"
 />
 
 ## Syntaxe

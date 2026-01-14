@@ -18,7 +18,7 @@ La fonction **`getYear()`** retourne l'année correspondant à un `TheDate`. Un 
 <MonacoTSEditor
   src="/examples/v1/api/date/getYear/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

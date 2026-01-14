@@ -18,7 +18,7 @@ La fonction **`minOf()`** retourne la plus petite valeur numérique d'un tableau
 <MonacoTSEditor
   src="/examples/v1/api/array/minOf/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="166px"
 />
 
 ## Syntaxe

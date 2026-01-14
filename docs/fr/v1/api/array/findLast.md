@@ -18,7 +18,7 @@ La méthode **`findLast()`** retourne le dernier élément d'un tableau qui sati
 <MonacoTSEditor
   src="/examples/v1/api/array/findLast/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

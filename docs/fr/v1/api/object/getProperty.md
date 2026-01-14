@@ -18,7 +18,7 @@ La méthode **`getProperty()`** récupère la valeur d'une propriété d'un obje
 <MonacoTSEditor
   src="/examples/v1/api/object/getProperty/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="355px"
 />
 
 ## Syntaxe

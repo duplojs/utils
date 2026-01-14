@@ -18,7 +18,7 @@ La fonction **`isLastIndex()`** indique si un index correspond au dernier élém
 <MonacoTSEditor
   src="/examples/v1/api/array/isLastIndex/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe

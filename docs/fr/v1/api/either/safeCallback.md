@@ -18,7 +18,7 @@ Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, l
 <MonacoTSEditor
   src="/examples/v1/api/either/safeCallback/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="229px"
 />
 
 ## Syntaxe

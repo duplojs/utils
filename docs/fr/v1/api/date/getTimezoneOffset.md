@@ -18,7 +18,7 @@ La fonction **`getTimezoneOffset()`** retourne le décalage en millisecondes ent
 <MonacoTSEditor
   src="/examples/v1/api/date/getTimezoneOffset/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntaxe

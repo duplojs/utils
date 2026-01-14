@@ -18,7 +18,7 @@ The **`promiseObject()`** function transforms an object of promises (or values) 
 <MonacoTSEditor
   src="/examples/v1/api/common/promiseObject/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntax

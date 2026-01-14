@@ -18,7 +18,7 @@ La fonction **`fill()`** remplit une portion d'un tableau avec une valeur donné
 <MonacoTSEditor
   src="/examples/v1/api/array/fill/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntaxe

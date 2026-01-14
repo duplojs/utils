@@ -18,7 +18,7 @@ The **`filter()`** method selects the elements of an array that satisfy a predic
 <MonacoTSEditor
   src="/examples/v1/api/array/filter/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="376px"
   :foldLines="[2,34]"
 />
 

@@ -18,7 +18,7 @@ La fonction **`toString()`** convertit un littéral (`number`, `string`, `bigint
 <MonacoTSEditor
   src="/examples/v1/api/common/toString/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="229px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La méthode **`entries()`** retourne un tableau des paires clé-valeur d'un obje
 <MonacoTSEditor
   src="/examples/v1/api/object/entries/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

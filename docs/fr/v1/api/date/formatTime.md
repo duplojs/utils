@@ -18,7 +18,7 @@ La fonction **`formatTime()`** formate un `TheTime` via une chaîne de format pe
 <MonacoTSEditor
   src="/examples/v1/api/date/formatTime/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="208px"
 />
 
 ## Syntaxe

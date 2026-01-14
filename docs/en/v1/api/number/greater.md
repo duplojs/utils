@@ -18,7 +18,7 @@ The **`greater()`** method checks whether a number is greater than or equal to (
 <MonacoTSEditor
   src="/examples/v1/api/number/greater/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La méthode **`cos()`** retourne le cosinus d'un angle exprimé en radians. Le c
 <MonacoTSEditor
   src="/examples/v1/api/number/cos/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

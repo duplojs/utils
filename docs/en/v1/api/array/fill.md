@@ -18,7 +18,7 @@ The **`fill()`** function fills a portion of an array with a given value and ret
 <MonacoTSEditor
   src="/examples/v1/api/array/fill/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`stringToMillisecond()`** function converts durations expressed as a strin
 <MonacoTSEditor
   src="/examples/v1/api/common/stringToMillisecond/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="124px"
 />
 
 ## Syntax

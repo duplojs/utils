@@ -22,7 +22,7 @@ Typage très instable - Typescript n'est pas très gentil avec nous
 <MonacoTSEditor
   src="/examples/v1/api/common/whenElse/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="544px"
 />
 
 ## Syntaxe

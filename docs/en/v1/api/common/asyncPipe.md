@@ -18,7 +18,7 @@ The **`asyncPipe()`** method chains asynchronous functions (promises or `FutureE
 <MonacoTSEditor
   src="/examples/v1/api/common/asyncPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntax

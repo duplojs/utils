@@ -18,7 +18,7 @@ The **`slice()`** function creates a copy of a portion of an array between `star
 <MonacoTSEditor
   src="/examples/v1/api/array/slice/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="166px"
 />
 
 ## Syntax

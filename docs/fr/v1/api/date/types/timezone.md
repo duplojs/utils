@@ -17,7 +17,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/date/types/timezone/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="187px"
 />
 
 `timezone` est un objet clé/valeur dont chaque clé correspond à une zone IANA.

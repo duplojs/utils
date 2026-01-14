@@ -18,7 +18,7 @@ La méthode **`findIndex()`** retourne l'index du premier élément d'un tableau
 <MonacoTSEditor
   src="/examples/v1/api/array/findIndex/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

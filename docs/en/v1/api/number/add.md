@@ -18,7 +18,7 @@ The **`add()`** method adds two numbers or creates a partially applied addition 
 <MonacoTSEditor
   src="/examples/v1/api/number/add/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

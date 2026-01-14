@@ -18,7 +18,7 @@ Soustrait un nombre positif d'années d'un `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractYears/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La fonction **`notIncludes()`** vérifie qu'un tableau ne contient pas une valeu
 <MonacoTSEditor
   src="/examples/v1/api/array/notIncludes/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="355px"
 />
 
 ## Syntaxe

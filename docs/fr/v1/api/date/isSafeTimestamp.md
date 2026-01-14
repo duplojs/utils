@@ -18,7 +18,7 @@ La fonction **`isSafeTimestamp()`** vérifie qu'un timestamp est compris entre `
 <MonacoTSEditor
   src="/examples/v1/api/date/isSafeTimestamp/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="229px"
 />
 
 ## Syntaxe

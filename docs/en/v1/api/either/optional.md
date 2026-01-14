@@ -18,7 +18,7 @@ Wraps an `undefined`/defined value in an `Either`, useful for propagating option
 <MonacoTSEditor
   src="/examples/v1/api/either/optional/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="229px"
 />
 
 ## Syntax

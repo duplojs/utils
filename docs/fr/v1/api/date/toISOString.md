@@ -18,7 +18,7 @@ La fonction **`toISOString()`** transforme un `TheDate` en chaîne ISO 8601 (`YY
 <MonacoTSEditor
   src="/examples/v1/api/date/toISOString/tryout.doc.ts"
   majorVersion="v1"
-  height="270px"
+  height="145px"
 />
 
 ## Syntaxe

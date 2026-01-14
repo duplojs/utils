@@ -18,7 +18,7 @@ Expose les constantes bas niveau utilisées par les helpers date (durées usuell
 <MonacoTSEditor
   src="/examples/v1/api/date/constants/tryout.doc.ts"
   majorVersion="v1"
-  height="360px"
+  height="355px"
 />
 
 ## Contenu

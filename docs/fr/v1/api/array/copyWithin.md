@@ -18,7 +18,7 @@ La fonction **`copyWithin()`** copie une portion du tableau vers un autre emplac
 <MonacoTSEditor
   src="/examples/v1/api/array/copyWithin/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="166px"
 />
 
 ## Syntaxe

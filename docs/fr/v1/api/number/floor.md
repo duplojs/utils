@@ -18,7 +18,7 @@ La méthode **`floor()`** arrondit un nombre vers le bas à l'entier inférieur 
 <MonacoTSEditor
   src="/examples/v1/api/number/floor/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

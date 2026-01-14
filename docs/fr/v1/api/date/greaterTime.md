@@ -17,7 +17,7 @@ La fonction **`greaterTime()`** vérifie si un `TheTime` est strictement supéri
 <MonacoTSEditor
   src="/examples/v1/api/date/greaterTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntaxe

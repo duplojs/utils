@@ -18,7 +18,7 @@ Arrondit un `TheDate` à l'unité spécifiée (`unit`).
 <MonacoTSEditor
   src="/examples/v1/api/date/round/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntaxe

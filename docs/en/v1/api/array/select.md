@@ -18,7 +18,7 @@ The **`select()`** function is close to [`filter`](/en/v1/api/array/filter) but 
 <MonacoTSEditor
   src="/examples/v1/api/array/select/tryout.doc.ts"
   majorVersion="v1"
-  height="950px"
+  height="985px"
   :foldLines="[8]"
 />
 

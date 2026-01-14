@@ -18,7 +18,7 @@ Construit un `EitherRight<"nullable">` pour une valeur non nulle.
 <MonacoTSEditor
   src="/examples/v1/api/either/nullableFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="229px"
 />
 
 ## Syntaxe

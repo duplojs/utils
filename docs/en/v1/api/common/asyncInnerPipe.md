@@ -18,7 +18,7 @@ The **`asyncInnerPipe()`** method builds a reusable asynchronous pipeline. It re
 <MonacoTSEditor
   src="/examples/v1/api/common/asyncInnerPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="810px"
+  height="838px"
 />
 
 ## Syntax

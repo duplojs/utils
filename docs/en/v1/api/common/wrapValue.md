@@ -18,7 +18,7 @@ The **`wrapValue()`** function wraps a value in a marked container (`SymbolWrapp
 <MonacoTSEditor
   src="/examples/v1/api/common/wrapValue/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="229px"
 />
 
 ## Syntax

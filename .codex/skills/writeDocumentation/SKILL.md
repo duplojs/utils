@@ -27,8 +27,10 @@ Chemins:
 - Utiliser des noms de variables de plus de 2 caracteres.
 - Wrapper les structures avec plus d'un element (retours a la ligne, un element par ligne).
 - Utiliser `foldLines` dans `MonacoTSEditor` pour replier du code long si besoin.
-- Le `height` depend du nombre de lignes visibles: `(nbLines * 21px) + 30-50px de marge`.
-- Compter une ligne pliee comme une seule ligne visible.
+- Le `height` depend du nombre de lignes visibles dans le fichier d'exemple.
+- Compter le nombre total de lignes du fichier `*.doc.ts` (ne pas compter la ligne vide finale).
+- Si `foldLines` est present, chaque pli compte comme 1 ligne visible et toutes les lignes cachees du bloc plie (toutes les lignes du bloc sauf la premiere) doivent etre soustraites.
+- Calcul final: `height = (lignes_visibles * 21) + 40`, en pixels.
 - Les index `foldLines` commencent a 0 (index de ligne).
 - Importer uniquement depuis `@duplojs/utils` (jamais de chemin relatif).
 

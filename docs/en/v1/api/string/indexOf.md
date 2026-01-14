@@ -18,7 +18,7 @@ The **`indexOf()`** method returns the index of the first occurrence of a substr
 <MonacoTSEditor
   src="/examples/v1/api/string/indexOf/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntax

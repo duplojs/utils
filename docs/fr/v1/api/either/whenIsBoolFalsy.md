@@ -18,7 +18,7 @@ Applique un callback uniquement lorsque la valeur booléenne est falsy.
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsBoolFalsy/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

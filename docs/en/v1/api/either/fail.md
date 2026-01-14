@@ -22,7 +22,7 @@ Returns an `EitherLeft<"fail", never>`: perfect to signal a failure without carr
 <MonacoTSEditor
   src="/examples/v1/api/either/fail/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntax

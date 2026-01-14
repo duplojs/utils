@@ -22,7 +22,7 @@ Returns an `EitherRight<"ok", never>`: an empty success that confirms an operati
 <MonacoTSEditor
   src="/examples/v1/api/either/ok/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="418px"
 />
 
 ## Syntax

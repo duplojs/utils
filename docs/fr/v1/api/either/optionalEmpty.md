@@ -18,7 +18,7 @@ Construit un `EitherLeft<"optional">` contenant `undefined`.
 <MonacoTSEditor
   src="/examples/v1/api/either/optionalEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="229px"
 />
 
 ## Syntaxe

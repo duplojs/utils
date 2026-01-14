@@ -18,7 +18,7 @@ The **`isKeyof()`** method checks whether a key exists in an object and narrows 
 <MonacoTSEditor
   src="/examples/v1/api/string/isKeyof/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="376px"
 />
 
 ## Syntax

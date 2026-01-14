@@ -18,7 +18,7 @@ La méthode **`pipe()`** enchaîne jusqu'à 15 fonctions synchrones en passant l
 <MonacoTSEditor
   src="/examples/v1/api/common/pipe/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="376px"
 />
 
 ## Syntaxe
@@ -54,7 +54,7 @@ La valeur retournée par la dernière fonction de la chaîne, avec un typage pr�
 <MonacoTSEditor
   src="/examples/v1/api/common/pipe/withCurriedFunctions.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="397px"
 />
 
 ## Voir aussi

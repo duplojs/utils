@@ -18,7 +18,7 @@ Forces the creation of an `EitherRight<"bool">` by explicitly marking a truthy v
 <MonacoTSEditor
   src="/examples/v1/api/either/boolTruthy/tryout.doc.ts"
   majorVersion="v1"
-  height="380px"
+  height="397px"
 />
 
 ## Syntax

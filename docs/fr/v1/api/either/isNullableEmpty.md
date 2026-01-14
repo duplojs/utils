@@ -18,7 +18,7 @@ Type guard qui détecte un `EitherNullableEmpty`.
 <MonacoTSEditor
   src="/examples/v1/api/either/isNullableEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

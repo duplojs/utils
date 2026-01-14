@@ -18,7 +18,7 @@ La méthode **`group()`** regroupe les éléments d'un tableau selon une clé ca
 <MonacoTSEditor
   src="/examples/v1/api/array/group/tryout.doc.ts"
   majorVersion="v1"
-  height="460px"
+  height="439px"
   :foldLines="[2]"
 />
 

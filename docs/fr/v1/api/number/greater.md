@@ -18,7 +18,7 @@ La méthode **`greater()`** vérifie si un nombre est supérieur ou égal (>=) �
 <MonacoTSEditor
   src="/examples/v1/api/number/greater/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntaxe

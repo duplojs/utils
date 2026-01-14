@@ -18,7 +18,7 @@ The **`min()`** function returns the oldest date of a tuple of `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/min/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="271px"
 />
 
 ## Syntax

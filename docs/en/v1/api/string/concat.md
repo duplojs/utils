@@ -18,7 +18,7 @@ The **`concat()`** method combines the text of multiple strings and returns a ne
 <MonacoTSEditor
   src="/examples/v1/api/string/concat/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

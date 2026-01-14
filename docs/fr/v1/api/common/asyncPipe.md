@@ -18,7 +18,7 @@ La méthode **`asyncPipe()`** enchaîne des fonctions asynchrones (promesses ou 
 <MonacoTSEditor
   src="/examples/v1/api/common/asyncPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`trim()`** method removes whitespace from the start and end of a string. W
 <MonacoTSEditor
   src="/examples/v1/api/string/trim/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

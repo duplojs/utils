@@ -18,7 +18,7 @@ The **`lessThan()`** method checks whether a number is strictly less (<) than a 
 <MonacoTSEditor
   src="/examples/v1/api/number/lessThan/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

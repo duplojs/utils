@@ -18,7 +18,7 @@ The **`override()`** method replaces the properties of an object with those of a
 <MonacoTSEditor
   src="/examples/v1/api/object/override/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

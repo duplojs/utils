@@ -18,7 +18,7 @@ La méthode **`sqrt()`** retourne la racine carrée d'un nombre. La racine carr�
 <MonacoTSEditor
   src="/examples/v1/api/number/sqrt/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

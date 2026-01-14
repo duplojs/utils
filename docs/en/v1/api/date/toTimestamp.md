@@ -18,7 +18,7 @@ The **`toTimestamp()`** function returns the millisecond timestamp of a `TheDate
 <MonacoTSEditor
   src="/examples/v1/api/date/toTimestamp/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="145px"
 />
 
 ## Syntax

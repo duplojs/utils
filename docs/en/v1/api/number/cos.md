@@ -18,7 +18,7 @@ The **`cos()`** method returns the cosine of an angle expressed in radians. Cosi
 <MonacoTSEditor
   src="/examples/v1/api/number/cos/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntax

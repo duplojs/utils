@@ -18,7 +18,7 @@ La méthode **`concat()`** combine le texte de plusieurs chaînes de caractères
 <MonacoTSEditor
   src="/examples/v1/api/string/concat/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

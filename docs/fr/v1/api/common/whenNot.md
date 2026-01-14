@@ -18,7 +18,7 @@ La fonction **`whenNot()`** applique une transformation uniquement quand le pré
 <MonacoTSEditor
   src="/examples/v1/api/common/whenNot/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntaxe

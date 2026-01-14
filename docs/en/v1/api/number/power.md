@@ -18,7 +18,7 @@ The **`power()`** method raises a number to a given exponent. It calculates the 
 <MonacoTSEditor
   src="/examples/v1/api/number/power/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

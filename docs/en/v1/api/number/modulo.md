@@ -18,7 +18,7 @@ The **`modulo()`** method returns the remainder of the Euclidean division of two
 <MonacoTSEditor
   src="/examples/v1/api/number/modulo/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

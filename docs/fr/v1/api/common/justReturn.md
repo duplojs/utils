@@ -18,7 +18,7 @@ La fonction **`justReturn()`** construit une fonction constante : elle ignore so
 <MonacoTSEditor
   src="/examples/v1/api/common/justReturn/tryout.doc.ts"
   majorVersion="v1"
-  height="730px"
+  height="754px"
 />
 
 ## Syntaxe

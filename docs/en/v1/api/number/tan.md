@@ -18,7 +18,7 @@ The **`tan()`** method returns the tangent of an angle expressed in radians. Tan
 <MonacoTSEditor
   src="/examples/v1/api/number/tan/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntax

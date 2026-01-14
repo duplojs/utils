@@ -18,7 +18,7 @@ La fonction **`coalescing()`** prend une valeur ou un tableau et le normalise en
 <MonacoTSEditor
   src="/examples/v1/api/array/coalescing/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe

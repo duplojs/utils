@@ -17,7 +17,7 @@ The **`toTimeValue()`** function converts a `TheTime` string into a numeric valu
 <MonacoTSEditor
   src="/examples/v1/api/date/toTimeValue/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="208px"
 />
 
 ## Syntax

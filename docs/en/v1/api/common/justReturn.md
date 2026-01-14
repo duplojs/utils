@@ -18,7 +18,7 @@ The **`justReturn()`** function builds a constant function: it ignores its argum
 <MonacoTSEditor
   src="/examples/v1/api/common/justReturn/tryout.doc.ts"
   majorVersion="v1"
-  height="730px"
+  height="754px"
 />
 
 ## Syntax

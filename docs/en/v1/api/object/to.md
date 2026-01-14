@@ -18,7 +18,7 @@ The **`to()`** method transforms a value into a new object according to a transf
 <MonacoTSEditor
   src="/examples/v1/api/object/to/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ Subtracts a positive number of hours from a `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractHours/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

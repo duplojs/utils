@@ -18,7 +18,7 @@ La méthode **`round()`** arrondit un nombre à l'entier le plus proche. Si la p
 <MonacoTSEditor
   src="/examples/v1/api/number/round/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

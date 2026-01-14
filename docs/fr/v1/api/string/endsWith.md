@@ -18,7 +18,7 @@ La méthode **`endsWith()`** vérifie si une chaîne de caractères se termine p
 <MonacoTSEditor
   src="/examples/v1/api/string/endsWith/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="334px"
   :foldLines="[11]"
 />
 

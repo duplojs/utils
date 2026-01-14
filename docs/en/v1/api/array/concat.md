@@ -18,7 +18,7 @@ The **`concat()`** function merges multiple arrays into a new continuous array.
 <MonacoTSEditor
   src="/examples/v1/api/array/concat/tryout.doc.ts"
   majorVersion="v1"
-  height="290px"
+  height="292px"
 />
 
 ## Syntax

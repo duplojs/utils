@@ -18,7 +18,7 @@ La méthode **`max()`** retourne la plus grande valeur parmi les nombres fournis
 <MonacoTSEditor
   src="/examples/v1/api/number/max/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntaxe

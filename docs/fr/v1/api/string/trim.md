@@ -18,7 +18,7 @@ La méthode **`trim()`** supprime les espaces en début et en fin de chaîne. Le
 <MonacoTSEditor
   src="/examples/v1/api/string/trim/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

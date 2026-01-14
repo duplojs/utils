@@ -18,7 +18,7 @@ La fonction **`tomorrow()`** retourne `now()` + 1 jour sous forme de `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/tomorrow/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="124px"
 />
 
 ## Syntaxe

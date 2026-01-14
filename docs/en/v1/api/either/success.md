@@ -22,7 +22,7 @@ Readable shortcut to create an `EitherRight` with the literal info `"success"`. 
 <MonacoTSEditor
   src="/examples/v1/api/either/success/tryout.doc.ts"
   majorVersion="v1"
-  height="450px"
+  height="439px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ Force la création d'un `EitherRight<"bool">` en marquant explicitement une vale
 <MonacoTSEditor
   src="/examples/v1/api/either/boolTruthy/tryout.doc.ts"
   majorVersion="v1"
-  height="380px"
+  height="397px"
 />
 
 ## Syntaxe

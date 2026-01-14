@@ -18,7 +18,7 @@ La fonction **`createEnum()`** crée un enum string immuable et typé. L’objet
 <MonacoTSEditor
   src="/examples/v1/api/common/createEnum/tryout.doc.ts"
   majorVersion="v1"
-  height="600px"
+  height="649px"
 />
 
 ## Syntaxe

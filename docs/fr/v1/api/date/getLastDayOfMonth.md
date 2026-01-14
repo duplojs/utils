@@ -18,7 +18,7 @@ La fonction **`getLastDayOfMonth()`** renvoie le dernier jour du mois correspond
 <MonacoTSEditor
   src="/examples/v1/api/date/getLastDayOfMonth/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La fonction **`getSecond()`** renvoie les secondes (0–59) d'un `TheDate`, ajus
 <MonacoTSEditor
   src="/examples/v1/api/date/getSecond/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

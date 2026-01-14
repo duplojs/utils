@@ -18,7 +18,7 @@ Chains synchronous transformations on an `Either` as long as it remains `Right`.
 <MonacoTSEditor
   src="/examples/v1/api/either/rightPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="470px"
+  height="481px"
 />
 
 ## Syntax

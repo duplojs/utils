@@ -18,7 +18,7 @@ La fonction **`asyncGroup()`** exécute en parallèle des `Either` synchrones ou
 <MonacoTSEditor
   src="/examples/v1/api/either/asyncGroup/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="565px"
 />
 
 ## Paramètres

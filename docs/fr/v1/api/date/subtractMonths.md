@@ -18,7 +18,7 @@ Soustrait un nombre positif de mois d'un `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractMonths/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`pop()`** function returns a new array without its last element. Tuples ar
 <MonacoTSEditor
   src="/examples/v1/api/array/pop/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

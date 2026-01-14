@@ -18,7 +18,7 @@ Type guard qui vérifie si une valeur est un `EitherRight`. Permet d'accéder au
 <MonacoTSEditor
   src="/examples/v1/api/either/isRight/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`findLastIndex()`** method returns the index of the last element of an arr
 <MonacoTSEditor
   src="/examples/v1/api/array/findLastIndex/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntax

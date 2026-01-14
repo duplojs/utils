@@ -18,7 +18,7 @@ La méthode **`matchAll()`** prend une expression régulière en argument et ret
 <MonacoTSEditor
   src="/examples/v1/api/string/matchAll/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="292px"
 />
 
 ## Syntaxe

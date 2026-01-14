@@ -18,7 +18,7 @@ Construit un `EitherRight` en associant **une information métier obligatoire** 
 <MonacoTSEditor
   src="/examples/v1/api/either/right/tryout.doc.ts"
   majorVersion="v1"
-  height="800px"
+  height="796px"
 />
 
 ## Syntaxe

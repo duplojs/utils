@@ -18,7 +18,7 @@ The **`getFirstDayOfWeek()`** function returns the Monday corresponding to the w
 <MonacoTSEditor
   src="/examples/v1/api/date/getFirstDayOfWeek/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

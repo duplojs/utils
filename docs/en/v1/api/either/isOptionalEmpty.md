@@ -18,7 +18,7 @@ Type guard that detects an `EitherOptionalEmpty`.
 <MonacoTSEditor
   src="/examples/v1/api/either/isOptionalEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

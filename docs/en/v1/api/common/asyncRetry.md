@@ -18,7 +18,7 @@ The helpers **`useAsyncRetry()`** and **`createAsyncRetry()`** rerun an async fu
 <MonacoTSEditor
   src="/examples/v1/api/common/asyncRetry/tryout.doc.ts"
   majorVersion="v1"
-  height="600px"
+  height="607px"
   :foldLines="[12, 28]"
 />
 

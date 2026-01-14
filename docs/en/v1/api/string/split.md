@@ -18,7 +18,7 @@ The **`split()`** method divides a string into an array of substrings using a sp
 <MonacoTSEditor
   src="/examples/v1/api/string/split/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntax

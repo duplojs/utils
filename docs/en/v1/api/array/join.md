@@ -18,7 +18,7 @@ The **`join()`** method concatenates the elements of an array of strings, insert
 <MonacoTSEditor
   src="/examples/v1/api/array/join/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntax

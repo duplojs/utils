@@ -18,7 +18,7 @@ La fonction **`createExternalPromise()`** crée une promesse contrôlable depuis
 <MonacoTSEditor
   src="/examples/v1/api/common/externalPromise/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="187px"
 />
 
 ## Syntaxe

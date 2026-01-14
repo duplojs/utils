@@ -18,7 +18,7 @@ Applies a callback only when the optional Either contains a value (`OptionalFill
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsOptionalFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntax

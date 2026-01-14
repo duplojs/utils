@@ -18,7 +18,7 @@ La fonction **`escapeRegExp()`** échappe les caractères spéciaux d'une chaîn
 <MonacoTSEditor
   src="/examples/v1/api/common/escapeRegExp/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntaxe

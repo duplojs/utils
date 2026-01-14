@@ -18,7 +18,7 @@ Type guard based on the literal information stored in the Either. Lets you preci
 <MonacoTSEditor
   src="/examples/v1/api/either/hasInformation/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La fonction **`memo()`** évalue une fonction une seule fois puis mémorise le r
 <MonacoTSEditor
   src="/examples/v1/api/common/memo/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="292px"
 />
 
 ## Syntaxe

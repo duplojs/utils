@@ -18,7 +18,7 @@ Executes a function only when the input is an `EitherLeft`. Otherwise, the origi
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsLeft/tryout.doc.ts"
   majorVersion="v1"
-  height="340px"
+  height="376px"
 />
 
 ## Syntax

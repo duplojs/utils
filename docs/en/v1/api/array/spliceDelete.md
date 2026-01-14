@@ -18,7 +18,7 @@ The **`spliceDelete()`** function deletes a given number of elements from an ind
 <MonacoTSEditor
   src="/examples/v1/api/array/spliceDelete/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="166px"
 />
 
 ## Syntax

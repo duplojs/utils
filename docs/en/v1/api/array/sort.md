@@ -18,7 +18,7 @@ The **`sort()`** method sorts the elements of an array using a custom comparison
 <MonacoTSEditor
   src="/examples/v1/api/array/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
   :foldLines="[2]"
 />
 

@@ -18,7 +18,7 @@ La fonction **`maxElements()`** vérifie qu'un tableau contient au plus un certa
 <MonacoTSEditor
   src="/examples/v1/api/array/maxElements/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntaxe

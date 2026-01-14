@@ -20,7 +20,7 @@ L’idée : vous déclarez une interface de builder (les signatures des méthode
 <MonacoTSEditor
   src="/examples/v1/api/common/builder/tryout.doc.ts"
   majorVersion="v1"
-  height="1400px"
+  height="1426px"
 />
 
 ## Pourquoi c’est overridable facilement ?

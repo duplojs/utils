@@ -18,7 +18,7 @@ The **`simpleClone()`** function quickly duplicates a value without advanced log
 <MonacoTSEditor
   src="/examples/v1/api/common/simpleClone/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntax

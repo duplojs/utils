@@ -18,7 +18,7 @@ The **`match()`** method searches for a match between a string and a regular exp
 <MonacoTSEditor
   src="/examples/v1/api/string/match/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntax

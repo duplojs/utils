@@ -18,7 +18,7 @@ The **`entries()`** method returns an array of an object's key-value pairs with 
 <MonacoTSEditor
   src="/examples/v1/api/object/entries/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

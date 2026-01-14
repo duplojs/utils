@@ -17,7 +17,7 @@ La fonction **`sortTimes()`** trie un tableau de `TheTime` selon l'ordre souhait
 <MonacoTSEditor
   src="/examples/v1/api/date/sortTimes/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="355px"
 />
 
 ## Syntaxe

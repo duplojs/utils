@@ -18,7 +18,7 @@ The **`round()`** method rounds a number to the nearest integer. If the decimal 
 <MonacoTSEditor
   src="/examples/v1/api/number/round/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

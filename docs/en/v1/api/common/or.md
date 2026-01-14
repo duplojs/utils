@@ -18,7 +18,7 @@ The **`or()`** function combines several predicates or type guards: if at least 
 <MonacoTSEditor
   src="/examples/v1/api/common/or/tryout.doc.ts"
   majorVersion="v1"
-  height="850px"
+  height="859px"
    :foldLines="[2]"
 />
 

@@ -18,7 +18,7 @@ Applies a callback only when the Either is `NullishEmpty`.
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsNullishEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="292px"
 />
 
 ## Syntax

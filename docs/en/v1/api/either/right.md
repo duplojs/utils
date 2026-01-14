@@ -18,7 +18,7 @@ Builds an `EitherRight` by associating **mandatory business information** (liter
 <MonacoTSEditor
   src="/examples/v1/api/either/right/tryout.doc.ts"
   majorVersion="v1"
-  height="800px"
+  height="796px"
 />
 
 ## Syntax

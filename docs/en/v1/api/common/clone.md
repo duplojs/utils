@@ -18,7 +18,7 @@ The **`clone()`** function performs a typed deep copy of a value while preservin
 <MonacoTSEditor
   src="/examples/v1/api/common/clone/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="439px"
 />
 
 ## Syntax

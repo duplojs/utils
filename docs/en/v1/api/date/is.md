@@ -18,7 +18,7 @@ The **`is()`** function checks that a string matches the `TheDate` format (`date
 <MonacoTSEditor
   src="/examples/v1/api/date/is/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

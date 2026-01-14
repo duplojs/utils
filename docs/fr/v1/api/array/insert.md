@@ -18,7 +18,7 @@ La fonction **`insert()`** ajoute une valeur à la fin d'un tableau et retourne 
 <MonacoTSEditor
   src="/examples/v1/api/array/insert/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="334px"
 />
 
 ## Syntaxe

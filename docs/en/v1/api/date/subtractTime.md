@@ -17,7 +17,7 @@ The **`subtractTime()`** function subtracts a `TheTime` duration from a `TheDate
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="250px"
 />
 
 ## Syntax

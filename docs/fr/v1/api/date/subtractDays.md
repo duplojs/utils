@@ -18,7 +18,7 @@ Soustrait un nombre positif de jours d'un `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractDays/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntaxe

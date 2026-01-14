@@ -18,7 +18,7 @@ La méthode **`includes()`** vérifie si un tableau contient un élément donné
 <MonacoTSEditor
   src="/examples/v1/api/array/includes/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="166px"
 />
 
 ## Syntaxe

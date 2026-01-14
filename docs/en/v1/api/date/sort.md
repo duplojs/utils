@@ -18,7 +18,7 @@ The **`sort()`** function sorts an array of `TheDate` according to the desired o
 <MonacoTSEditor
   src="/examples/v1/api/date/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="355px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La méthode **`ceil()`** arrondit un nombre vers le haut à l'entier supérieur 
 <MonacoTSEditor
   src="/examples/v1/api/number/ceil/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`shift()`** function removes the first element of an array and returns a s
 <MonacoTSEditor
   src="/examples/v1/api/array/shift/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntax

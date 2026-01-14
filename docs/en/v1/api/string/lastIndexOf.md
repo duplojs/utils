@@ -18,7 +18,7 @@ The **`lastIndexOf()`** method returns the index of the last occurrence of a sub
 <MonacoTSEditor
   src="/examples/v1/api/string/lastIndexOf/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntax

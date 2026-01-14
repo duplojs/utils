@@ -18,7 +18,7 @@ The **`addMonths()`** function adds a positive number of months to a `TheDate`. 
 <MonacoTSEditor
   src="/examples/v1/api/date/addMonths/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="229px"
 />
 
 ## Syntax

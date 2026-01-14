@@ -18,7 +18,7 @@ The **`memo()`** function evaluates a function only once then memorizes the resu
 <MonacoTSEditor
   src="/examples/v1/api/common/memo/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="292px"
 />
 
 ## Syntax

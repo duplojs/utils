@@ -18,7 +18,7 @@ La méthode **`at()`** retourne le caractère à l'index spécifié dans une cha
 <MonacoTSEditor
   src="/examples/v1/api/string/at/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La fonction **`pipeCall()`** enveloppe une fonction pour eviter que son premier 
 <MonacoTSEditor
   src="/examples/v1/api/common/pipeCall/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="502px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`isRuntimeWrappedValueKey()`** function checks whether a string key matche
 <MonacoTSEditor
   src="/examples/v1/api/common/isRuntimeWrappedValueKey/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="124px"
 />
 
 ## Syntax

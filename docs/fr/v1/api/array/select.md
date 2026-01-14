@@ -18,7 +18,7 @@ La fonction **`select()`** a un rôle proche de [`filter`](/fr/v1/api/array/filt
 <MonacoTSEditor
   src="/examples/v1/api/array/select/tryout.doc.ts"
   majorVersion="v1"
-  height="950px"
+  height="985px"
   :foldLines="[8]"
 />
 

@@ -18,7 +18,7 @@ The **`flatMap()`** method applies a transform function to each element and then
 <MonacoTSEditor
   src="/examples/v1/api/array/flatMap/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="544px"
   :foldLines="[2]"
 />
 

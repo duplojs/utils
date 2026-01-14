@@ -18,7 +18,7 @@ La méthode **`transformProperties()`** transforme plusieurs propriétés d'un o
 <MonacoTSEditor
   src="/examples/v1/api/object/transformProperties/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="334px"
 />
 
 ## Syntaxe

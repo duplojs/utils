@@ -18,7 +18,7 @@ The **`group()`** function runs several `Either` values (or functions returning 
 <MonacoTSEditor
   src="/examples/v1/api/either/group/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="439px"
 />
 
 ## Parameters

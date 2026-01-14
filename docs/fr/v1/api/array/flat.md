@@ -18,7 +18,7 @@ La méthode **`flat()`** aplati un tableau imbriqué jusqu'à la profondeur dema
 <MonacoTSEditor
   src="/examples/v1/api/array/flat/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
 />
 
 ## Syntaxe

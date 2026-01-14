@@ -18,7 +18,7 @@ The **`loop()`** function runs a loop controlled via the `next` and `exit` callb
 <MonacoTSEditor
   src="/examples/v1/api/common/loop/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`insert()`** function adds a value to the end of an array and returns a ne
 <MonacoTSEditor
   src="/examples/v1/api/array/insert/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="334px"
 />
 
 ## Syntax

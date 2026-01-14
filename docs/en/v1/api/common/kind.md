@@ -30,7 +30,7 @@ The two examples below show classic solutions to discriminate a union, with thei
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withClass.doc.ts"
   majorVersion="v1"
-  height="900px"
+  height="2224px"
 />
 
 The main drawback is that after a JSON pass (or any transport), the instance is lost and we fall back to “flat” objects that are no longer identifiable.
@@ -40,7 +40,7 @@ The main drawback is that after a JSON pass (or any transport), the instance is 
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withPorp.doc.ts"
   majorVersion="v1"
-  height="900px"
+  height="2035px"
 />
 
 This approach is very effective, but the discriminant becomes a “business” property: it is accessible, serialized, and can collide with external data.
@@ -59,7 +59,7 @@ At the typing level, `Kind<...>` uses a **`Symbol`** to “hide” this info and
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withKind.doc.ts"
   majorVersion="v1"
-  height="980px"
+  height="2182px"
 />
 
 ### Kind accumulation
@@ -113,7 +113,7 @@ A `KindHandler` exposes notably:
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/use.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="796px"
 />
 
 ## See also

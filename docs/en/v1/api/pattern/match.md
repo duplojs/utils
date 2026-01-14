@@ -21,7 +21,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/match/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="439px"
   :foldLines="[2]"
 />
 
@@ -31,7 +31,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/match/builder.doc.ts"
   majorVersion="v1"
-  height="770px"
+  height="775px"
 />
 
 </details>

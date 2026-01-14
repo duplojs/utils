@@ -18,7 +18,7 @@ The **`instanceOf()`** function creates a type guard based on one or several con
 <MonacoTSEditor
   src="/examples/v1/api/common/instanceOf/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

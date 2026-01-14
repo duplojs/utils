@@ -18,7 +18,7 @@ The **`falsy()`** function is a type guard that keeps only falsy values (`false`
 <MonacoTSEditor
   src="/examples/v1/api/common/falsy/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="418px"
 />
 
 ## Syntax

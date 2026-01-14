@@ -20,7 +20,7 @@ It uses the locale `"en-US-u-kn-true"` with `{ usage: "sort", sensitivity: "vari
 <MonacoTSEditor
   src="/examples/v1/api/string/sortCompare/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="229px"
 />
 
 ## Syntax

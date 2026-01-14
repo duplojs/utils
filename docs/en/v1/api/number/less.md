@@ -18,7 +18,7 @@ The **`less()`** method checks whether a number is less than or equal to (<=) a 
 <MonacoTSEditor
   src="/examples/v1/api/number/less/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

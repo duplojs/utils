@@ -18,7 +18,7 @@ Asynchronous version of `rightPipe`. Automatically handles promises, `Future`, a
 <MonacoTSEditor
   src="/examples/v1/api/either/rightAsyncPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="550px"
+  height="565px"
 />
 
 ## Syntax

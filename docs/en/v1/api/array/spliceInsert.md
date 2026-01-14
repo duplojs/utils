@@ -18,7 +18,7 @@ The **`spliceInsert()`** function inserts an array of elements at a precise inde
 <MonacoTSEditor
   src="/examples/v1/api/array/spliceInsert/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="166px"
 />
 
 ## Syntax

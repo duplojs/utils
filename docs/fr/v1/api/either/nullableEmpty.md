@@ -18,7 +18,7 @@ Construit explicitement un `EitherLeft<"nullable">` contenant `null`.
 <MonacoTSEditor
   src="/examples/v1/api/either/nullableEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="229px"
 />
 
 ## Syntaxe

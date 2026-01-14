@@ -18,7 +18,7 @@ La fonction **`when()`** applique une transformation si un prédicat est vrai (o
 <MonacoTSEditor
   src="/examples/v1/api/common/when/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntaxe

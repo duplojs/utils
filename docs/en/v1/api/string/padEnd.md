@@ -18,7 +18,7 @@ The **`padEnd()`** method pads the current string with a given string to obtain 
 <MonacoTSEditor
   src="/examples/v1/api/string/padEnd/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`sleep()`** function creates an asynchronous pause for a number of millise
 <MonacoTSEditor
   src="/examples/v1/api/common/sleep/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="208px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`lastIndexOf()`** method returns the index of the last occurrence of an el
 <MonacoTSEditor
   src="/examples/v1/api/array/lastIndexOf/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="292px"
 />
 
 ## Syntax

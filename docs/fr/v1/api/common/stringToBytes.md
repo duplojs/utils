@@ -18,7 +18,7 @@ La fonction **`stringToBytes()`** convertit une taille (`"10mb"`, `"2gb"`, etc.)
 <MonacoTSEditor
   src="/examples/v1/api/common/stringToBytes/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="124px"
 />
 
 ## Syntaxe

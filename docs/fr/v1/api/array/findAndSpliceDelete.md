@@ -18,7 +18,7 @@ La fonction **`findAndSpliceDelete()`** recherche le premier élément qui satis
 <MonacoTSEditor
   src="/examples/v1/api/array/findAndSpliceDelete/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
   :foldLines="[2]"
 />
 

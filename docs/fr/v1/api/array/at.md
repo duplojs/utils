@@ -18,7 +18,7 @@ La méthode **`at()`** retourne l'élément à un index donné (supporte les ind
 <MonacoTSEditor
   src="/examples/v1/api/array/at/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntaxe

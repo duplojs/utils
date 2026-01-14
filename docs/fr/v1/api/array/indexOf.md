@@ -18,7 +18,7 @@ La méthode **`indexOf()`** retourne l'index de la première occurrence d'un él
 <MonacoTSEditor
   src="/examples/v1/api/array/indexOf/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntaxe

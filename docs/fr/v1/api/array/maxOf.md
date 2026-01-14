@@ -18,7 +18,7 @@ La fonction **`maxOf()`** retourne la plus grande valeur numérique d'un tableau
 <MonacoTSEditor
   src="/examples/v1/api/array/maxOf/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="166px"
 />
 
 ## Syntaxe

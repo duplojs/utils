@@ -29,7 +29,7 @@ Les overrides sont stockés dans un store global (valide dans tout le process) :
 <MonacoTSEditor
   src="/examples/v1/api/common/override/tryout.doc.ts"
   majorVersion="v1"
-  height="760px"
+  height="712px"
 />
 
 ## Syntaxe

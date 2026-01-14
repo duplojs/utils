@@ -18,7 +18,7 @@ La fonction **`lengthEqual()`** vérifie qu'un tableau contient exactement un no
 <MonacoTSEditor
   src="/examples/v1/api/array/lengthEqual/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntaxe

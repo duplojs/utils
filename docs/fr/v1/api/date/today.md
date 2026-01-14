@@ -18,7 +18,7 @@ La fonction **`today()`** retourne un `TheDate` fixé au début de la journée c
 <MonacoTSEditor
   src="/examples/v1/api/date/today/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="124px"
 />
 
 ## Syntaxe

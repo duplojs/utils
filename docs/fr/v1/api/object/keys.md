@@ -18,7 +18,7 @@ La méthode **`keys()`** retourne un tableau des clés d'un objet avec un typage
 <MonacoTSEditor
   src="/examples/v1/api/object/keys/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La méthode **`includes()`** vérifie si une chaîne de caractères contient une
 <MonacoTSEditor
   src="/examples/v1/api/string/includes/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
   :foldLines="[11]"
 />
 

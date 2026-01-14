@@ -18,7 +18,7 @@ La m√©thode **`discriminate()`** discrimine un objet par la valeur d'une propri√
 <MonacoTSEditor
   src="/examples/v1/api/object/discriminate/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="544px"
 />
 
 ## Syntaxe

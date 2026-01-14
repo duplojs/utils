@@ -18,7 +18,7 @@ The **`maxElements()`** function checks that an array contains at most a certain
 <MonacoTSEditor
   src="/examples/v1/api/array/maxElements/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ Applies a function only when the input is an `EitherRight`. Otherwise, the origi
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsRight/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="376px"
 />
 
 ## Syntax

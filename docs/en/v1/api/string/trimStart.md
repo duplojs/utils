@@ -18,7 +18,7 @@ The **`trimStart()`** method removes whitespace at the start of a string. Whites
 <MonacoTSEditor
   src="/examples/v1/api/string/trimStart/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

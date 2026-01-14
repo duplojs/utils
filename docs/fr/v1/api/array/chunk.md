@@ -18,7 +18,7 @@ La fonction **`chunk()`** découpe un tableau en sous-tableaux d'une taille fixe
 <MonacoTSEditor
   src="/examples/v1/api/array/chunk/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

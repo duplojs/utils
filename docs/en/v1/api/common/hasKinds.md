@@ -18,7 +18,7 @@ The **`hasKinds()`** function checks that a value carries all requested kinds an
 <MonacoTSEditor
   src="/examples/v1/api/common/hasKinds/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="586px"
 />
 
 ## Syntax

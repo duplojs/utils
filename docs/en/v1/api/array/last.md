@@ -18,7 +18,7 @@ The **`last()`** method returns the last element of an array.
 <MonacoTSEditor
   src="/examples/v1/api/array/last/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="271px"
 />
 
 ## Syntax

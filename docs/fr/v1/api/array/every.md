@@ -18,7 +18,7 @@ La méthode **`every()`** vérifie si tous les éléments d'un tableau satisfont
 <MonacoTSEditor
   src="/examples/v1/api/array/every/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntaxe

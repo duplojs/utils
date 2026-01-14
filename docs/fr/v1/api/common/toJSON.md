@@ -18,7 +18,7 @@ La fonction **`toJSON()`** prépare une valeur pour la sérialisation JSON en re
 <MonacoTSEditor
   src="/examples/v1/api/common/toJSON/tryout.doc.ts"
   majorVersion="v1"
-  height="800px"
+  height="838px"
 />
 
 ## Syntaxe

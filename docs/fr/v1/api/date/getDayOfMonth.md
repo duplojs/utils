@@ -18,7 +18,7 @@ La fonction **`getDayOfMonth()`** renvoie le jour du mois (1–31) pour un `TheD
 <MonacoTSEditor
   src="/examples/v1/api/date/getDayOfMonth/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

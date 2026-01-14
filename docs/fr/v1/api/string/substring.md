@@ -18,7 +18,7 @@ La méthode **`substring()`** retourne une sous-chaîne de caractères entre deu
 <MonacoTSEditor
   src="/examples/v1/api/string/substring/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntaxe

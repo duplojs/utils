@@ -18,7 +18,7 @@ La fonction **`push()`** ajoute un ou plusieurs éléments à la fin du tableau 
 <MonacoTSEditor
   src="/examples/v1/api/array/push/tryout.doc.ts"
   majorVersion="v1"
-  height="270px"
+  height="166px"
 />
 
 ## Syntaxe

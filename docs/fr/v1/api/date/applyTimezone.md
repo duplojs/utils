@@ -18,7 +18,7 @@ La fonction **`applyTimezone()`** ajuste un `TheDate` en appliquant le décalage
 <MonacoTSEditor
   src="/examples/v1/api/date/applyTimezone/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntaxe

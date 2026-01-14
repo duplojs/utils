@@ -17,7 +17,7 @@ The **`createTimeOrThrow()`** function builds a `TheTime` from a `TheTime`, a nu
 <MonacoTSEditor
   src="/examples/v1/api/date/createTimeOrThrow/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="313px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La fonction **`getDayOfWeek()`** retourne le jour de la semaine d'un `TheDate` (
 <MonacoTSEditor
   src="/examples/v1/api/date/getDayOfWeek/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

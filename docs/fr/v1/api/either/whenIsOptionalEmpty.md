@@ -18,7 +18,7 @@ Applique une fonction uniquement lorsqu'un `optional` est vide (`undefined`).
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsOptionalEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

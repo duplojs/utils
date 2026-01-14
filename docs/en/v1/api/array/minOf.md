@@ -18,7 +18,7 @@ The **`minOf()`** function returns the smallest numeric value of an array withou
 <MonacoTSEditor
   src="/examples/v1/api/array/minOf/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="166px"
 />
 
 ## Syntax

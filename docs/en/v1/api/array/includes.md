@@ -18,7 +18,7 @@ The **`includes()`** method checks whether an array contains a given element.
 <MonacoTSEditor
   src="/examples/v1/api/array/includes/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="166px"
 />
 
 ## Syntax

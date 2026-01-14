@@ -18,7 +18,7 @@ La méthode **`pick()`** crée un nouvel objet en sélectionnant uniquement cert
 <MonacoTSEditor
   src="/examples/v1/api/object/pick/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe

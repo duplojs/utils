@@ -18,7 +18,7 @@ The **`is()`** method checks whether a value is an array (type guard).
 <MonacoTSEditor
   src="/examples/v1/api/array/is/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntax

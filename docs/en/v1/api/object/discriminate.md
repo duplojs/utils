@@ -18,7 +18,7 @@ The **`discriminate()`** method discriminates an object by the value of a proper
 <MonacoTSEditor
   src="/examples/v1/api/object/discriminate/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="544px"
 />
 
 ## Syntax

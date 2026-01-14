@@ -18,7 +18,7 @@ La méthode **`split()`** divise une chaîne de caractères en un tableau de sou
 <MonacoTSEditor
   src="/examples/v1/api/string/split/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="250px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`hasKeys()`** method checks whether an object has certain keys (type guard
 <MonacoTSEditor
   src="/examples/v1/api/object/hasKeys/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntax

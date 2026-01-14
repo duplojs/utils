@@ -18,7 +18,7 @@ La méthode **`findLastIndex()`** retourne l'index du dernier élément d'un tab
 <MonacoTSEditor
   src="/examples/v1/api/array/findLastIndex/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntaxe

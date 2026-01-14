@@ -18,7 +18,7 @@ The **`endsWith()`** method checks whether a string ends with a specific substri
 <MonacoTSEditor
   src="/examples/v1/api/string/endsWith/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="334px"
   :foldLines="[11]"
 />
 

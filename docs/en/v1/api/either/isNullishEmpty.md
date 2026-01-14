@@ -18,7 +18,7 @@ Type guard detecting an `EitherNullishEmpty`.
 <MonacoTSEditor
   src="/examples/v1/api/either/isNullishEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

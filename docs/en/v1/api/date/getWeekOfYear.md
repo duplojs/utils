@@ -18,7 +18,7 @@ The **`getWeekOfYear()`** function calculates the ISO 8601 week number (1–53) 
 <MonacoTSEditor
   src="/examples/v1/api/date/getWeekOfYear/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="145px"
 />
 
 ## Syntax

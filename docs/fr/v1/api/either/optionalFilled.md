@@ -18,7 +18,7 @@ Construit un `EitherRight<"optional">` lorsque la valeur est définie.
 <MonacoTSEditor
   src="/examples/v1/api/either/optionalFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="229px"
 />
 
 ## Syntaxe

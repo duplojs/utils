@@ -18,7 +18,7 @@ The **`today()`** function returns the start of the current day (midnight) as a 
 <MonacoTSEditor
   src="/examples/v1/api/date/today/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="124px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`slice()`** method extracts a section of a string and returns a new string
 <MonacoTSEditor
   src="/examples/v1/api/string/slice/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

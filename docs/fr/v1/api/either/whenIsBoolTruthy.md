@@ -18,7 +18,7 @@ Callback exécuté uniquement pour les valeurs `EitherBoolTruthy`. Sinon, la val
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsBoolTruthy/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

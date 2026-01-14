@@ -18,7 +18,7 @@ La fonction **`toWrappedValue()`** garantit qu'une valeur est enveloppée : si e
 <MonacoTSEditor
   src="/examples/v1/api/common/toWrappedValue/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe

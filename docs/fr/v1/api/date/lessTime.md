@@ -17,7 +17,7 @@ La fonction **`lessTime()`** vérifie si un `TheTime` est strictement inférieur
 <MonacoTSEditor
   src="/examples/v1/api/date/lessTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntaxe

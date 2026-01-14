@@ -18,7 +18,7 @@ Adds a positive number of milliseconds to a `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/addMilliseconds/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

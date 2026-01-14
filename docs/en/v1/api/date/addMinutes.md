@@ -18,7 +18,7 @@ Adds a positive number of minutes to a `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/addMinutes/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

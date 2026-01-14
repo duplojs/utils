@@ -18,7 +18,7 @@ La fonction **`getMonth()`** renvoie le mois (1–12) correspondant à un `TheDa
 <MonacoTSEditor
   src="/examples/v1/api/date/getMonth/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

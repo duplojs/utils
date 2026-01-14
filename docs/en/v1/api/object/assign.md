@@ -18,7 +18,7 @@ The **`assign()`** method merges multiple objects together (similar to Object.as
 <MonacoTSEditor
   src="/examples/v1/api/object/assign/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntax

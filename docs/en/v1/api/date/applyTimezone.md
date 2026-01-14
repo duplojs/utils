@@ -18,7 +18,7 @@ The **`applyTimezone()`** function shifts a `TheDate` by applying the offset of 
 <MonacoTSEditor
   src="/examples/v1/api/date/applyTimezone/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntax

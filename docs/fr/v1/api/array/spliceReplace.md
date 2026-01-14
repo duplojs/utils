@@ -18,7 +18,7 @@ La fonction **`spliceReplace()`** remplace une portion du tableau par un ensembl
 <MonacoTSEditor
   src="/examples/v1/api/array/spliceReplace/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="166px"
 />
 
 ## Syntaxe

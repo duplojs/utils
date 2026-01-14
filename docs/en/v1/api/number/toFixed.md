@@ -18,7 +18,7 @@ The **`toFixed()`** method formats a number using fixed-point notation with a sp
 <MonacoTSEditor
   src="/examples/v1/api/number/toFixed/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

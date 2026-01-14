@@ -17,7 +17,7 @@ Vérifie qu'un `TheTime` est strictement compris entre deux bornes (`greater` pu
 <MonacoTSEditor
   src="/examples/v1/api/date/betweenTime/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

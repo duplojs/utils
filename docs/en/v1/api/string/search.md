@@ -18,7 +18,7 @@ The **`search()`** method searches for a match with a substring or a regular exp
 <MonacoTSEditor
 	src="/examples/v1/api/string/search/tryout.doc.ts"
 	majorVersion="v1"
-	height="200px"
+	height="187px"
 />
 
 ## Syntax

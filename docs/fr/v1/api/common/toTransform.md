@@ -18,7 +18,7 @@ La fonction **`toTransform()`** applique récursivement les méthodes `toTransfo
 <MonacoTSEditor
   src="/examples/v1/api/common/toTransform/tryout.doc.ts"
   majorVersion="v1"
-  height="600px"
+  height="628px"
   :foldLines="[2]"
 />
 

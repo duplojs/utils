@@ -18,7 +18,7 @@ La méthode **`join()`** concatène les éléments d'un tableau de chaînes en i
 <MonacoTSEditor
   src="/examples/v1/api/array/join/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

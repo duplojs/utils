@@ -18,7 +18,7 @@ La méthode **`tan()`** retourne la tangente d'un angle exprimé en radians. La 
 <MonacoTSEditor
   src="/examples/v1/api/number/tan/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

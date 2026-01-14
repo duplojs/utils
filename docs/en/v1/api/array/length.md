@@ -18,7 +18,7 @@ The **`length()`** method returns the length of an array.
 <MonacoTSEditor
   src="/examples/v1/api/array/length/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="271px"
 />
 
 ## Syntax

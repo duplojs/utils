@@ -18,7 +18,7 @@ La fonction **`loop()`** exécute une boucle contrôlée via les callbacks `next
 <MonacoTSEditor
   src="/examples/v1/api/common/loop/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

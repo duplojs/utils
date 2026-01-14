@@ -18,7 +18,7 @@ The **`some()`** method checks whether at least one element of an array satisfie
 <MonacoTSEditor
   src="/examples/v1/api/array/some/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

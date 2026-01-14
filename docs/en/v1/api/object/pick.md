@@ -18,7 +18,7 @@ The **`pick()`** method creates a new object by selecting only certain propertie
 <MonacoTSEditor
   src="/examples/v1/api/object/pick/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

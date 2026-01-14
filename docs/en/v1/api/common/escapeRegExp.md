@@ -18,7 +18,7 @@ The **`escapeRegExp()`** function escapes special characters in a string so it c
 <MonacoTSEditor
   src="/examples/v1/api/common/escapeRegExp/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntax

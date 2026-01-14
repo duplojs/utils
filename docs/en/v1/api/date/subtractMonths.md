@@ -18,7 +18,7 @@ Subtracts a positive number of months from a `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractMonths/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="145px"
 />
 
 ## Syntax

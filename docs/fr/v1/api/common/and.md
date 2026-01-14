@@ -18,7 +18,7 @@ La fonction **`and()`** combine plusieurs prédicats ou type guards. Tous doiven
 <MonacoTSEditor
   src="/examples/v1/api/common/and/tryout.doc.ts"
   majorVersion="v1"
-  height="870px"
+  height="1090px"
   :foldLines="[3, 11]"
 />
 

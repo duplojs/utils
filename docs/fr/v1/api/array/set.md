@@ -18,7 +18,7 @@ La fonction **`set()`** remplace la valeur à un index donné et retourne un nou
 <MonacoTSEditor
   src="/examples/v1/api/array/set/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="271px"
 />
 
 ## Syntaxe

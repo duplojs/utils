@@ -18,7 +18,7 @@ La méthode **`modulo()`** retourne le reste de la division euclidienne de deux 
 <MonacoTSEditor
   src="/examples/v1/api/number/modulo/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntaxe

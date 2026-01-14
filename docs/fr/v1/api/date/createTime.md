@@ -17,7 +17,7 @@ La fonction **`createTime()`** construit un `TheTime` à partir d'une valeur en 
 <MonacoTSEditor
   src="/examples/v1/api/date/createTime/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="502px"
 />
 
 ## Syntaxe

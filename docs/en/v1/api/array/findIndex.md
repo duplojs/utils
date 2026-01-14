@@ -18,7 +18,7 @@ The **`findIndex()`** method returns the index of the first element of an array 
 <MonacoTSEditor
   src="/examples/v1/api/array/findIndex/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

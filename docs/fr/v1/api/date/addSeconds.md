@@ -18,7 +18,7 @@ Ajoute un nombre positif de secondes à un `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/addSeconds/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La méthode **`replaceAll()`** retourne une nouvelle chaîne de caractères dans
 <MonacoTSEditor
   src="/examples/v1/api/string/replaceAll/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="229px"
 />
 
 ## Syntaxe

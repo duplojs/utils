@@ -18,7 +18,7 @@ The **`ceil()`** method rounds a number up to the next integer greater than or e
 <MonacoTSEditor
   src="/examples/v1/api/number/ceil/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

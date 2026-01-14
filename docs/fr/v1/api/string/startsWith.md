@@ -18,7 +18,7 @@ La méthode **`startsWith()`** vérifie si une chaîne de caractères commence p
 <MonacoTSEditor
   	src="/examples/v1/api/string/startsWith/tryout.doc.ts"
   	majorVersion="v1"
-	height="320px"
+	height="334px"
 	:foldLines="[11]"
 />
 

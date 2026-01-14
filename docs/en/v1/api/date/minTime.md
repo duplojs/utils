@@ -17,7 +17,7 @@ The **`minTime()`** function returns the smallest duration of a tuple of `TheTim
 <MonacoTSEditor
   src="/examples/v1/api/date/minTime/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="208px"
 />
 
 ## Syntax

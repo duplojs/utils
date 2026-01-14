@@ -18,7 +18,7 @@ The **`find()`** method returns the first element of an array that satisfies a g
 <MonacoTSEditor
   src="/examples/v1/api/array/find/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntax

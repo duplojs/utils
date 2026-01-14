@@ -18,7 +18,7 @@ The **`sqrt()`** method returns the square root of a number. The square root of 
 <MonacoTSEditor
   src="/examples/v1/api/number/sqrt/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

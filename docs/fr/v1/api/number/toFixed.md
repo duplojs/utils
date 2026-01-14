@@ -18,7 +18,7 @@ La méthode **`toFixed()`** formate un nombre en utilisant la notation à point 
 <MonacoTSEditor
   src="/examples/v1/api/number/toFixed/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntaxe

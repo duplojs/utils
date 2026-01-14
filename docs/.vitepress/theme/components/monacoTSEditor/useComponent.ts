@@ -18,7 +18,7 @@ export type MajorVersion = `v${Digit}` | `v${Digit}${Digit}` | `v${Digit}${Digit
 
 interface UseComponentOptions {
 	src: string;
-	readOnly: boolean;
+	canWrite: boolean;
 	majorVersion: MajorVersion;
 	foldLines?: number[];
 }
@@ -100,12 +100,14 @@ export function useComponent(
 	container: Ref<HTMLElement | undefined>,
 	options: UseComponentOptions,
 ) {
-	const { majorVersion, readOnly, src, foldLines: initialFoldLines } = options;
+	const { majorVersion, canWrite, src, foldLines: initialFoldLines } = options;
 	const packageName = "@duplojs/utils";
 	const { isDark } = useData();
 	const { loadDtsFiles } = useMonacoFilesStore();
 
 	let editor: monaco.editor.IStandaloneCodeEditor | null = null;
+	let wheelTarget: HTMLElement | null = null;
+	let wheelListener: ((event: WheelEvent) => void) | null = null;
 
 	if (typeof window !== "undefined") {
 		window.MonacoEnvironment = {
@@ -138,12 +140,31 @@ export function useComponent(
 		editor = monaco.editor.create(container.value, {
 			value: codeFile,
 			theme: isDark.value ? "vs-dark" : "vs",
-			readOnly,
+			readOnly: !canWrite,
 			automaticLayout: true,
 			language: "typescript",
 			minimap: { enabled: false },
 			fontSize: 14,
+			scrollbar: {
+				vertical: "hidden",
+				horizontal: "auto",
+				handleMouseWheel: false,
+				alwaysConsumeMouseWheel: false,
+			},
+			scrollBeyondLastLine: false,
 		});
+
+		if (editor) {
+			wheelTarget = editor.getDomNode();
+			if (wheelTarget) {
+				wheelListener = (event: WheelEvent) => {
+					if (editor && event.deltaX !== 0) {
+						editor.setScrollLeft(editor.getScrollLeft() + event.deltaX);
+					}
+				};
+				wheelTarget.addEventListener("wheel", wheelListener, { passive: true });
+			}
+		}
 
 		if (initialFoldLines && initialFoldLines.length > 0) {
 			foldLines(initialFoldLines);
@@ -156,6 +177,11 @@ export function useComponent(
 			editor.dispose();
 			editor = null;
 		}
+		if (wheelTarget && wheelListener) {
+			wheelTarget.removeEventListener("wheel", wheelListener);
+		}
+		wheelTarget = null;
+		wheelListener = null;
 	}
 
 	function foldLines(lines: number[]) {

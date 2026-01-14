@@ -18,7 +18,7 @@ Applies a function only when the nullable Either contains a value (`NullableFill
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsNullableFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntax

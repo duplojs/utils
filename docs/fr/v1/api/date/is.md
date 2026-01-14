@@ -18,7 +18,7 @@ La fonction **`is()`** vérifie qu'une chaîne correspond au format `TheDate` (`
 <MonacoTSEditor
   src="/examples/v1/api/date/is/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

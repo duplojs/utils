@@ -18,7 +18,7 @@ Convertit n'importe quelle valeur en monade booléenne (`EitherBoolTruthy` ou `E
 <MonacoTSEditor
   src="/examples/v1/api/either/bool/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

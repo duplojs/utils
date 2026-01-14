@@ -18,7 +18,7 @@ Chaîne des transformations synchrones sur un `Either` tant qu'il reste `Right`.
 <MonacoTSEditor
   src="/examples/v1/api/either/rightPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="470px"
+  height="481px"
 />
 
 ## Syntaxe

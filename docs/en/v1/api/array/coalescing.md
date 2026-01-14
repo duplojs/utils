@@ -18,7 +18,7 @@ The **`coalescing()`** function takes a value or an array and normalizes it into
 <MonacoTSEditor
   src="/examples/v1/api/array/coalescing/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

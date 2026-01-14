@@ -18,7 +18,7 @@ The **`normalize()`** method returns a new string normalized according to the sp
 <MonacoTSEditor
   src="/examples/v1/api/string/normalize/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

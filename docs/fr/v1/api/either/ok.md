@@ -22,7 +22,7 @@ Retourne un `EitherRight<"ok", never>` : un succès vide qui sert à confirmer q
 <MonacoTSEditor
   src="/examples/v1/api/either/ok/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="418px"
 />
 
 ## Syntaxe

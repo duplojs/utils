@@ -18,7 +18,7 @@ La méthode **`trimStart()`** supprime les espaces au début d'une chaîne de ca
 <MonacoTSEditor
   src="/examples/v1/api/string/trimStart/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

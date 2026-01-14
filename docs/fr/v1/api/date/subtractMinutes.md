@@ -18,7 +18,7 @@ Soustrait un nombre positif de minutes d'un `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/subtractMinutes/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntaxe

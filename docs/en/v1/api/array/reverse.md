@@ -18,7 +18,7 @@ The **`reverse()`** method returns a copy of an array with the elements in rever
 <MonacoTSEditor
   src="/examples/v1/api/array/reverse/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="271px"
 />
 
 ## Syntax

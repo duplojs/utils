@@ -18,7 +18,7 @@ Variante inclusive de [`between`](/fr/v1/api/date/between) : vérifie qu'un `The
 <MonacoTSEditor
   src="/examples/v1/api/date/betweenThan/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntaxe

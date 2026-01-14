@@ -18,7 +18,7 @@ The **`push()`** function adds one or more elements to the end of the array and 
 <MonacoTSEditor
   src="/examples/v1/api/array/push/tryout.doc.ts"
   majorVersion="v1"
-  height="270px"
+  height="166px"
 />
 
 ## Syntax

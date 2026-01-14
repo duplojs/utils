@@ -18,7 +18,7 @@ La fonction **`shift()`** retire le premier élément d'un tableau et renvoie un
 <MonacoTSEditor
   src="/examples/v1/api/array/shift/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`getFirstDayOfMonth()`** function returns the first day of the month (in `
 <MonacoTSEditor
   src="/examples/v1/api/date/getFirstDayOfMonth/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

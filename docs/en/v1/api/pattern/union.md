@@ -18,7 +18,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/pattern/union/tryout.doc.ts"
   majorVersion="v1"
-  height="650px"
+  height="670px"
 />
 
 ## Syntax

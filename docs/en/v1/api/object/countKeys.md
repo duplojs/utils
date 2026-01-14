@@ -18,7 +18,7 @@ The **`countKeys()`** method counts the number of an object's keys while ignorin
 <MonacoTSEditor
   src="/examples/v1/api/object/countKeys/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntax

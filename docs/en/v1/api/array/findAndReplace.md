@@ -18,7 +18,7 @@ The **`findAndReplace()`** function searches for the first element that satisfie
 <MonacoTSEditor
   src="/examples/v1/api/array/findAndReplace/tryout.doc.ts"
   majorVersion="v1"
-  height="540px"
+  height="544px"
   :foldLines="[22]"
 />
 

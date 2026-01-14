@@ -17,7 +17,7 @@ Vérifie qu'un `TheTime` est inférieur ou égal à un seuil.
 <MonacoTSEditor
   src="/examples/v1/api/date/lessThanTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ La fonction **`hasKinds()`** vérifie qu'une valeur possède tous les kinds dema
 <MonacoTSEditor
   src="/examples/v1/api/common/hasKinds/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="586px"
 />
 
 ## Syntaxe

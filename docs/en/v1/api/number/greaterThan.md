@@ -18,7 +18,7 @@ The **`greaterThan()`** method checks whether a number is strictly greater (>) t
 <MonacoTSEditor
   src="/examples/v1/api/number/greaterThan/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntax

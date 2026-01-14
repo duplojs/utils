@@ -18,7 +18,7 @@ Transforme une valeur potentiellement `null`/`undefined` en `Either`. Permet de 
 <MonacoTSEditor
   src="/examples/v1/api/either/nullish/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

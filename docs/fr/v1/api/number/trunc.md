@@ -18,7 +18,7 @@ La méthode **`trunc()`** tronque la partie décimale d'un nombre, retournant un
 <MonacoTSEditor
   src="/examples/v1/api/number/trunc/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ Type guard that checks that the nullable Either actually contains a value.
 <MonacoTSEditor
   src="/examples/v1/api/either/isNullableFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

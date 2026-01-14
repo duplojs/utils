@@ -18,7 +18,7 @@ Vérifie qu'un `TheDate` est strictement inférieur à un seuil.
 <MonacoTSEditor
   src="/examples/v1/api/date/less/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntaxe

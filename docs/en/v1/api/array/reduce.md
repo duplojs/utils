@@ -18,7 +18,7 @@ The **`reduce()`** method aggregates the elements of an array from left to right
 <MonacoTSEditor
   src="/examples/v1/api/array/reduce/tryout.doc.ts"
   majorVersion="v1"
-  height="850px"
+  height="859px"
   :foldLines="[2]"
 />
 

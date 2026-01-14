@@ -18,7 +18,7 @@ La méthode **`sin()`** retourne le sinus d'un angle exprimé en radians. Le sin
 <MonacoTSEditor
   src="/examples/v1/api/number/sin/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

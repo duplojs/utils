@@ -18,7 +18,7 @@ The **`trimEnd()`** method removes whitespace at the end of a string. Whitespace
 <MonacoTSEditor
   src="/examples/v1/api/string/trimEnd/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

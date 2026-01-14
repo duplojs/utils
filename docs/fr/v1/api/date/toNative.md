@@ -18,7 +18,7 @@ La fonction **`toNative()`** convertit un `TheDate` en `Date` JavaScript.
 <MonacoTSEditor
   src="/examples/v1/api/date/toNative/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntaxe

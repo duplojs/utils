@@ -22,7 +22,7 @@ Alias pratique pour créer un `EitherLeft` avec l'information figée à `"error"
 <MonacoTSEditor
   src="/examples/v1/api/either/error/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="439px"
 />
 
 ## Syntaxe

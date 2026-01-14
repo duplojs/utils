@@ -22,7 +22,7 @@ Retourne un `EitherLeft<"fail", never>` : parfait pour signaler un échec sans t
 <MonacoTSEditor
   src="/examples/v1/api/either/fail/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="502px"
 />
 
 ## Syntaxe

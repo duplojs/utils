@@ -18,7 +18,7 @@ The **`forwardLog()`** function logs the received value (side effect) then retur
 <MonacoTSEditor
   src="/examples/v1/api/common/forwardLog/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="355px"
 />
 
 ## Syntax

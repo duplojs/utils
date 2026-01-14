@@ -18,7 +18,7 @@ La méthode **`charAt()`** retourne le caractère à l'index spécifié dans une
 <MonacoTSEditor
   src="/examples/v1/api/string/charAt/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

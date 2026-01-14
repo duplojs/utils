@@ -18,7 +18,7 @@ The **`padStart()`** method pads the current string with a given string to reach
 <MonacoTSEditor
   src="/examples/v1/api/string/padStart/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

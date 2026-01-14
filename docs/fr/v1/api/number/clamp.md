@@ -18,7 +18,7 @@ La méthode **`clamp()`** limite un nombre dans un intervalle donné. Si la vale
 <MonacoTSEditor
   src="/examples/v1/api/number/clamp/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

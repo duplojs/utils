@@ -18,7 +18,7 @@ La méthode **`trimEnd()`** supprime les espaces à la fin d'une chaîne de cara
 <MonacoTSEditor
   src="/examples/v1/api/string/trimEnd/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

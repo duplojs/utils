@@ -18,7 +18,7 @@ La fonction **`minElements()`** vérifie qu'un tableau contient au moins un nomb
 <MonacoTSEditor
   src="/examples/v1/api/array/minElements/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="292px"
 />
 
 ## Syntaxe

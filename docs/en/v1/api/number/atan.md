@@ -18,7 +18,7 @@ The **`atan()`** method returns the arctangent of a number, that is, the angle (
 <MonacoTSEditor
   src="/examples/v1/api/number/atan/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntax

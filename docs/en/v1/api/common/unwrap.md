@@ -18,7 +18,7 @@ The **`unwrap()`** function extracts the inner value of a `WrappedValue`. If the
 <MonacoTSEditor
   src="/examples/v1/api/common/unwrap/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

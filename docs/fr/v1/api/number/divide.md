@@ -18,7 +18,7 @@ La méthode **`divide()`** effectue la division de deux nombres. Elle peut être
 <MonacoTSEditor
   src="/examples/v1/api/number/divide/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntaxe

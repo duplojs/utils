@@ -18,7 +18,7 @@ La fonction **`wrapValue()`** enveloppe une valeur dans un conteneur marqué (`S
 <MonacoTSEditor
   src="/examples/v1/api/common/wrapValue/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="229px"
 />
 
 ## Syntaxe

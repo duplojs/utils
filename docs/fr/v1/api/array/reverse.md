@@ -18,7 +18,7 @@ La méthode **`reverse()`** renvoie une copie d'un tableau avec les éléments d
 <MonacoTSEditor
   src="/examples/v1/api/array/reverse/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="271px"
 />
 
 ## Syntaxe

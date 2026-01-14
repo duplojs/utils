@@ -18,7 +18,7 @@ La fonction **`truthy()`** est un type guard qui conserve uniquement les valeurs
 <MonacoTSEditor
   src="/examples/v1/api/common/truthy/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="418px"
 />
 
 ## Syntaxe

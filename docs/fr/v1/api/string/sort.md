@@ -18,7 +18,7 @@ La fonction **`sort()`** trie un tableau de chaînes en ordre croissant (`ASC`) 
 <MonacoTSEditor
   src="/examples/v1/api/string/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntaxe

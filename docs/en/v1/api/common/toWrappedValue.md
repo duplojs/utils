@@ -18,7 +18,7 @@ The **`toWrappedValue()`** function ensures a value is wrapped: if it is already
 <MonacoTSEditor
   src="/examples/v1/api/common/toWrappedValue/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

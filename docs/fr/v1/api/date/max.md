@@ -18,7 +18,7 @@ La fonction **`max()`** retourne la date la plus récente d'un tuple de `TheDate
 <MonacoTSEditor
   src="/examples/v1/api/date/max/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="271px"
 />
 
 ## Syntaxe

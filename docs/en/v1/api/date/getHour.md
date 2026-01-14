@@ -18,7 +18,7 @@ The **`getHour()`** function returns the hour (0–23) of a `TheDate`, adjusted 
 <MonacoTSEditor
   src="/examples/v1/api/date/getHour/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntax

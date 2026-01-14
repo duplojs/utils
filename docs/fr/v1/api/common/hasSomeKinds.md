@@ -18,7 +18,7 @@ La fonction **`hasSomeKinds()`** vérifie qu'une valeur possède au moins un des
 <MonacoTSEditor
   src="/examples/v1/api/common/hasSomeKinds/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="586px"
 />
 
 ## Syntaxe

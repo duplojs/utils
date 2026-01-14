@@ -18,7 +18,7 @@ Generates an iterator over all dates between two inclusive bounds, following a g
 <MonacoTSEditor
   src="/examples/v1/api/date/each/tryout.doc.ts"
   majorVersion="v1"
-  height="340px"
+  height="250px"
 />
 
 ## Syntax

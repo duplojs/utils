@@ -18,7 +18,7 @@ La fonction **`createInterpolation()`** génère une fonction de templating typ�
 <MonacoTSEditor
   src="/examples/v1/api/common/interpolation/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="376px"
 />
 
 ## Syntaxe

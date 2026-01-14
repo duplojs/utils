@@ -18,7 +18,7 @@ La fonction **`slice()`** crée une copie d'une portion de tableau entre `start`
 <MonacoTSEditor
   src="/examples/v1/api/array/slice/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="166px"
 />
 
 ## Syntaxe

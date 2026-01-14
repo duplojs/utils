@@ -18,7 +18,7 @@ Inclusive variant of [`between`](/en/v1/api/date/between): checks that a `TheDat
 <MonacoTSEditor
   src="/examples/v1/api/date/betweenThan/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntax

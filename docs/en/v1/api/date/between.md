@@ -18,7 +18,7 @@ Checks that a `TheDate` is strictly between two bounds (`greater` then `less`).
 <MonacoTSEditor
   src="/examples/v1/api/date/between/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="208px"
 />
 
 ## Syntax

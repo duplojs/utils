@@ -18,7 +18,7 @@ The **`keys()`** method returns an array of an object's keys with precise typing
 <MonacoTSEditor
   src="/examples/v1/api/object/keys/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

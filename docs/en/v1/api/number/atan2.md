@@ -18,7 +18,7 @@ The **`atan2()`** method returns the arctangent of the quotient of its arguments
 <MonacoTSEditor
   src="/examples/v1/api/number/atan2/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="250px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ Adds a positive number of weeks (multiples of 7 days) to a `TheDate`.
 <MonacoTSEditor
   src="/examples/v1/api/date/addWeeks/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntax

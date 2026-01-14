@@ -18,7 +18,7 @@ Exécute un callback uniquement lorsque l'Either est `NullableEmpty`.
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsNullableEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

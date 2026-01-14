@@ -17,7 +17,7 @@ La fonction **`isTime()`** vérifie qu'une chaîne correspond au format `TheTime
 <MonacoTSEditor
   src="/examples/v1/api/date/isTime/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntaxe

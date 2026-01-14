@@ -17,7 +17,7 @@ La fonction **`isSafeTimeValue()`** vérifie qu'une valeur de temps est un entie
 <MonacoTSEditor
   src="/examples/v1/api/date/isSafeTimeValue/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="208px"
 />
 
 ## Syntaxe

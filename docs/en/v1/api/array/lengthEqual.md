@@ -18,7 +18,7 @@ The **`lengthEqual()`** function checks that an array contains exactly a given n
 <MonacoTSEditor
   src="/examples/v1/api/array/lengthEqual/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntax

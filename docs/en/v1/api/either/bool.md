@@ -18,7 +18,7 @@ Converts any value into a boolean monad (`EitherBoolTruthy` or `EitherBoolFalsy`
 <MonacoTSEditor
   src="/examples/v1/api/either/bool/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

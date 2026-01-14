@@ -18,7 +18,7 @@ The **`abs()`** method returns the absolute value of a number. The absolute valu
 <MonacoTSEditor
   src="/examples/v1/api/number/abs/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

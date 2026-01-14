@@ -18,7 +18,7 @@ The **`fillAll()`** function replaces all the elements of an array with a single
 <MonacoTSEditor
   src="/examples/v1/api/array/fillAll/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

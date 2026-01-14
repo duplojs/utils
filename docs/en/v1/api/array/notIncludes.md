@@ -18,7 +18,7 @@ The **`notIncludes()`** function checks that an array does not contain a given v
 <MonacoTSEditor
   src="/examples/v1/api/array/notIncludes/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="355px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`when()`** function applies a transformation if a predicate is true (or if
 <MonacoTSEditor
   src="/examples/v1/api/common/when/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntax

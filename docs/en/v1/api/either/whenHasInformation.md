@@ -18,7 +18,7 @@ Functional pattern matching based on the literal information of an `Either`. The
 <MonacoTSEditor
   src="/examples/v1/api/either/whenHasInformation/tryout.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="733px"
 />
 
 ## Syntax

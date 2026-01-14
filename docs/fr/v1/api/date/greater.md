@@ -18,7 +18,7 @@ La fonction **`greater()`** vérifie si un `TheDate` est strictement supérieur 
 <MonacoTSEditor
   src="/examples/v1/api/date/greater/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntaxe

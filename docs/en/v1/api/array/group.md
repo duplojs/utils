@@ -18,7 +18,7 @@ The **`group()`** method groups the elements of an array according to a computed
 <MonacoTSEditor
   src="/examples/v1/api/array/group/tryout.doc.ts"
   majorVersion="v1"
-  height="460px"
+  height="439px"
   :foldLines="[2]"
 />
 

@@ -18,7 +18,7 @@ Ajoute un nombre positif d'heures à un `TheDate` sans manipuler directement les
 <MonacoTSEditor
   src="/examples/v1/api/date/addHours/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="145px"
 />
 
 ## Syntaxe

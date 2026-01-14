@@ -18,7 +18,7 @@ The **`asyncLoop()`** function is the asynchronous variant of `loop`. Each itera
 <MonacoTSEditor
   src="/examples/v1/api/common/asyncLoop/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="376px"
 />
 
 ## Syntax

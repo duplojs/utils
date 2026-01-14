@@ -18,7 +18,7 @@ La méthode **`match()`** recherche une correspondance entre une chaîne de cara
 <MonacoTSEditor
   src="/examples/v1/api/string/match/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="187px"
 />
 
 ## Syntaxe

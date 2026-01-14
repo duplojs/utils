@@ -18,7 +18,7 @@ La fonction **`findAndSpliceInsert()`** cherche le premier élément qui satisfa
 <MonacoTSEditor
   src="/examples/v1/api/array/findAndSpliceInsert/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="250px"
 />
 
 ## Syntaxe

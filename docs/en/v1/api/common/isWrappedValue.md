@@ -18,7 +18,7 @@ The **`isWrappedValue()`** function is a type guard that checks whether a value 
 <MonacoTSEditor
   src="/examples/v1/api/common/isWrappedValue/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntax

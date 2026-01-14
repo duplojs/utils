@@ -18,7 +18,7 @@ The **`maxOf()`** function returns the largest numeric value of an array (or tup
 <MonacoTSEditor
   src="/examples/v1/api/array/maxOf/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="166px"
 />
 
 ## Syntax

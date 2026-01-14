@@ -18,7 +18,7 @@ The **`hasSomeKinds()`** function checks that a value carries at least one of th
 <MonacoTSEditor
   src="/examples/v1/api/common/hasSomeKinds/tryout.doc.ts"
   majorVersion="v1"
-  height="520px"
+  height="586px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La méthode **`to()`** transforme une valeur en un nouvel objet selon un schéma
 <MonacoTSEditor
   src="/examples/v1/api/object/to/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe

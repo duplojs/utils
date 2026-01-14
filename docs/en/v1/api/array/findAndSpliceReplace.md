@@ -18,7 +18,7 @@ The **`findAndSpliceReplace()`** function looks for an element with a predicate 
 <MonacoTSEditor
   src="/examples/v1/api/array/findAndSpliceReplace/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="250px"
 />
 
 ## Syntax

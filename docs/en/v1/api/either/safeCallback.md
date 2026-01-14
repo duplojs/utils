@@ -18,7 +18,7 @@ Runs a callback in a safe block. If the callback throws, the function returns a 
 <MonacoTSEditor
   src="/examples/v1/api/either/safeCallback/tryout.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="229px"
 />
 
 ## Syntax

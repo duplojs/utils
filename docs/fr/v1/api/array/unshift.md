@@ -18,7 +18,7 @@ La fonction **`unshift()`** ajoute un ou plusieurs éléments au début du table
 <MonacoTSEditor
   src="/examples/v1/api/array/unshift/tryout.doc.ts"
   majorVersion="v1"
-  height="270px"
+  height="166px"
 />
 
 ## Syntaxe

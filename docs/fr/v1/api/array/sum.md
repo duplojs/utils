@@ -18,7 +18,7 @@ La méthode **`sum()`** additionne toutes les valeurs numériques d'un tableau i
 <MonacoTSEditor
   src="/examples/v1/api/array/sum/tryout.doc.ts"
   majorVersion="v1"
-  height="310px"
+  height="166px"
 />
 
 ## Syntaxe

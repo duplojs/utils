@@ -18,7 +18,7 @@ The **`matchAll()`** method takes a regular expression as an argument and return
 <MonacoTSEditor
   src="/examples/v1/api/string/matchAll/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="292px"
 />
 
 ## Syntax

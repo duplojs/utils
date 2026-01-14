@@ -18,7 +18,7 @@ Executes a callback only when the Either contains a defined value (`NullishFille
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsNullishFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ Exécute un callback uniquement lorsque l'Either contient une valeur définie (`
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsNullishFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="292px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`forward()`** function returns the passed argument without modifying it. U
 <MonacoTSEditor
   src="/examples/v1/api/common/forward/tryout.doc.ts"
   majorVersion="v1"
-  height="370px"
+  height="397px"
 />
 
 ## Syntax

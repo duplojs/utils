@@ -18,7 +18,7 @@ La méthode **`atan2()`** retourne l'arc tangente du quotient de ses arguments (
 <MonacoTSEditor
   src="/examples/v1/api/number/atan2/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="250px"
 />
 
 ## Syntaxe

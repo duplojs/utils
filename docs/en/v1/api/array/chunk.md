@@ -18,7 +18,7 @@ The **`chunk()`** function splits an array into subarrays of a fixed size and re
 <MonacoTSEditor
   src="/examples/v1/api/array/chunk/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntax

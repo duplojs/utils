@@ -7,14 +7,14 @@ export interface Props {
     majorVersion: MajorVersion;
     width?: CSSProperties["width"];
     height?: CSSProperties["height"];
-    readOnly?: boolean;
+    canWrite?: boolean;
 	foldLines?: number[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
     width: "100%",
     height: "300px",
-    readOnly: false,
+	canWrite: false,
 	foldLines: () => [],
 });
 
@@ -24,7 +24,7 @@ useComponent(
 	container, 
 	{
 		src: props.src,
-		readOnly: props.readOnly,
+		canWrite: props.canWrite,
 		majorVersion: props.majorVersion,
 		foldLines: props.foldLines,
 	}

@@ -22,7 +22,7 @@ The store is global and mutable: avoid turning it into a “state manager”. Do
 <MonacoTSEditor
   src="/examples/v1/api/common/globalStore/tryout.doc.ts"
   majorVersion="v1"
-  height="630px"
+  height="628px"
 />
 
 ## Typing: declare your stores

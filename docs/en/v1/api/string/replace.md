@@ -20,7 +20,7 @@ The **`replace()`** method returns a new string in which part of the original st
 <MonacoTSEditor
   src="/examples/v1/api/string/replace/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="229px"
 />
 
 ## Syntax

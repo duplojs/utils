@@ -18,7 +18,7 @@ Construit un `EitherLeft<"bool">` pour une valeur explicitement falsy (`0`, `""`
 <MonacoTSEditor
   src="/examples/v1/api/either/boolFalsy/tryout.doc.ts"
   majorVersion="v1"
-  height="380px"
+  height="397px"
 />
 
 ## Syntaxe

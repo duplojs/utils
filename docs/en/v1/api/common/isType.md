@@ -18,7 +18,7 @@ The **`isType()`** function creates a type guard based on `typeof`, `Array.isArr
 <MonacoTSEditor
   src="/examples/v1/api/common/isType/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntax

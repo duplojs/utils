@@ -18,7 +18,7 @@ The **`spliceReplace()`** function replaces a portion of the array with a set of
 <MonacoTSEditor
   src="/examples/v1/api/array/spliceReplace/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="166px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ The **`floor()`** method rounds a number down to the nearest integer less than o
 <MonacoTSEditor
   src="/examples/v1/api/number/floor/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

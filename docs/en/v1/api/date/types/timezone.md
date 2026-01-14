@@ -17,7 +17,7 @@ Exhaustive enumeration of IANA time zones (e.g., `"Europe/Paris"`, `"America/New
 <MonacoTSEditor
   src="/examples/v1/api/date/types/timezone/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="187px"
 />
 
 `timezone` is a key/value object where each key corresponds to an IANA zone.

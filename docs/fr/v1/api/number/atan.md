@@ -18,7 +18,7 @@ La méthode **`atan()`** retourne l'arc tangente d'un nombre, c'est-à-dire l'an
 <MonacoTSEditor
   src="/examples/v1/api/number/atan/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

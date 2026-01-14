@@ -17,7 +17,7 @@ The **`addTime()`** function adds a `TheTime` duration to a `TheDate` or another
 <MonacoTSEditor
   src="/examples/v1/api/date/addTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="250px"
 />
 
 ## Syntax

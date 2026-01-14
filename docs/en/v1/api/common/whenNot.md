@@ -18,7 +18,7 @@ The **`whenNot()`** function applies a transformation only when the predicate fa
 <MonacoTSEditor
   src="/examples/v1/api/common/whenNot/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="523px"
 />
 
 ## Syntax

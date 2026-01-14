@@ -18,7 +18,7 @@ Wraps a `null` or non-`null` value in an `Either`, while keeping the information
 <MonacoTSEditor
   src="/examples/v1/api/either/nullable/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="229px"
 />
 
 ## Syntax

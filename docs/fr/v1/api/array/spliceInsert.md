@@ -18,7 +18,7 @@ La fonction **`spliceInsert()`** insère un tableau d'éléments à un index pr�
 <MonacoTSEditor
   src="/examples/v1/api/array/spliceInsert/tryout.doc.ts"
   majorVersion="v1"
-  height="330px"
+  height="166px"
 />
 
 ## Syntaxe

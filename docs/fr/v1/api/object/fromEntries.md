@@ -18,7 +18,7 @@ La méthode **`fromEntries()`** construit un objet à partir d'un tableau de pai
 <MonacoTSEditor
   src="/examples/v1/api/object/fromEntries/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

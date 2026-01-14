@@ -18,7 +18,7 @@ La méthode **`some()`** vérifie si au moins un élément d'un tableau satisfai
 <MonacoTSEditor
   src="/examples/v1/api/array/some/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntaxe

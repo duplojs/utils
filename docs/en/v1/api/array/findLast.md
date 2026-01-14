@@ -18,7 +18,7 @@ The **`findLast()`** method returns the last element of an array that satisfies 
 <MonacoTSEditor
   src="/examples/v1/api/array/findLast/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="313px"
 />
 
 ## Syntax

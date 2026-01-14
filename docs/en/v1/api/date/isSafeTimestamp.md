@@ -18,7 +18,7 @@ The **`isSafeTimestamp()`** function checks that a timestamp is between `minTime
 <MonacoTSEditor
   src="/examples/v1/api/date/isSafeTimestamp/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="229px"
 />
 
 ## Syntax

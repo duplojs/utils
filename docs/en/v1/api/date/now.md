@@ -18,7 +18,7 @@ The **`now()`** function returns the exact current moment as a `TheDate` (positi
 <MonacoTSEditor
   src="/examples/v1/api/date/now/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="124px"
 />
 
 ## Syntax

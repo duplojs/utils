@@ -18,7 +18,7 @@ The **`flat()`** method flattens a nested array up to the requested depth and re
 <MonacoTSEditor
   src="/examples/v1/api/array/flat/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
 />
 
 ## Syntax

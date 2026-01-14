@@ -18,7 +18,7 @@ La méthode **`find()`** retourne le premier élément d'un tableau qui satisfai
 <MonacoTSEditor
   src="/examples/v1/api/array/find/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="334px"
 />
 
 ## Syntaxe

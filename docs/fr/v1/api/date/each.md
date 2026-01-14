@@ -18,7 +18,7 @@ Génère un itérateur sur toutes les dates comprises entre deux bornes inclusiv
 <MonacoTSEditor
   src="/examples/v1/api/date/each/tryout.doc.ts"
   majorVersion="v1"
-  height="340px"
+  height="250px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`addYears()`** function adds a positive number of years to a `TheDate`. It
 <MonacoTSEditor
   src="/examples/v1/api/date/addYears/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="229px"
 />
 
 ## Syntax

@@ -18,7 +18,7 @@ La fonction **`getMilliseconds()`** renvoie les millisecondes (0–999) d'un `Th
 <MonacoTSEditor
   src="/examples/v1/api/date/getMilliseconds/tryout.doc.ts"
   majorVersion="v1"
-  height="280px"
+  height="250px"
 />
 
 ## Syntaxe

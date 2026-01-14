@@ -18,7 +18,7 @@ The **`sum()`** method adds all the numeric values of an immutable array and ret
 <MonacoTSEditor
   src="/examples/v1/api/array/sum/tryout.doc.ts"
   majorVersion="v1"
-  height="310px"
+  height="166px"
 />
 
 ## Syntax

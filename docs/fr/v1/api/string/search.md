@@ -18,7 +18,7 @@ La méthode **`search()`** recherche une correspondance avec une sous-chaîne ou
 <MonacoTSEditor
 	src="/examples/v1/api/string/search/tryout.doc.ts"
 	majorVersion="v1"
-	height="200px"
+	height="187px"
 />
 
 ## Syntaxe

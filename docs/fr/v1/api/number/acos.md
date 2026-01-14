@@ -18,7 +18,7 @@ La méthode **`acos()`** retourne l'arc cosinus d'un nombre, c'est-à-dire l'ang
 <MonacoTSEditor
   src="/examples/v1/api/number/acos/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="187px"
 />
 
 ## Syntaxe

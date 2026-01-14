@@ -18,7 +18,7 @@ The **`addWrappedProperties()`** function dynamically adds derived properties to
 <MonacoTSEditor
   src="/examples/v1/api/common/addWrappedProperties/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="40px"
 />
 
 ## Syntax

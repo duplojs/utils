@@ -18,7 +18,7 @@ La méthode **`negate()`** inverse le signe d'un nombre. Un nombre positif devie
 <MonacoTSEditor
   src="/examples/v1/api/number/negate/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ Exécute une fonction uniquement lorsque l'entrée est un `EitherLeft`. Sinon, l
 <MonacoTSEditor
   src="/examples/v1/api/either/whenIsLeft/tryout.doc.ts"
   majorVersion="v1"
-  height="340px"
+  height="376px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`getTimezoneOffset()`** function returns the millisecond offset between a 
 <MonacoTSEditor
   src="/examples/v1/api/date/getTimezoneOffset/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntax

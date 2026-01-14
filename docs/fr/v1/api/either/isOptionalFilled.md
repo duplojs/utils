@@ -18,7 +18,7 @@ Type guard qui vérifie qu'un `optional` contient une valeur.
 <MonacoTSEditor
   src="/examples/v1/api/either/isOptionalFilled/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

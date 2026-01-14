@@ -18,7 +18,7 @@ The **`unshift()`** function adds one or more elements to the beginning of the a
 <MonacoTSEditor
   src="/examples/v1/api/array/unshift/tryout.doc.ts"
   majorVersion="v1"
-  height="270px"
+  height="166px"
 />
 
 ## Syntax

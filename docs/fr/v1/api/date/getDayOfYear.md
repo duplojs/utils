@@ -18,7 +18,7 @@ La fonction **`getDayOfYear()`** retourne le jour de l'année (1–366) pour un 
 <MonacoTSEditor
   src="/examples/v1/api/date/getDayOfYear/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="145px"
 />
 
 ## Syntaxe

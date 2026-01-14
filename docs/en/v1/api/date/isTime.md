@@ -17,7 +17,7 @@ The **`isTime()`** function checks that a string matches the `TheTime` format (`
 <MonacoTSEditor
   src="/examples/v1/api/date/isTime/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="145px"
 />
 
 ## Syntax

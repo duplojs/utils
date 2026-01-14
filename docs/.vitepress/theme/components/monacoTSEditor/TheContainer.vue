@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineClientComponent } from "vitepress";
-import type { Props } from './TheComponent.vue';
+import type { Props } from "./TheComponent.vue";
 
 const Monaco = defineClientComponent(() => import("./TheComponent.vue"))
 

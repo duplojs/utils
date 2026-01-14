@@ -18,7 +18,7 @@ La fonction **`create()`** construit un `TheDate` à partir d'un `Date`, d'un ti
 <MonacoTSEditor
   src="/examples/v1/api/date/create/tryout.doc.ts"
   majorVersion="v1"
-  height="740px"
+  height="1027px"
 />
 
 ## Syntaxe

@@ -18,7 +18,7 @@ The **`pipeCall()`** function wraps a function so its first argument does not in
 <MonacoTSEditor
   src="/examples/v1/api/common/pipeCall/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="502px"
 />
 
 ## Syntax

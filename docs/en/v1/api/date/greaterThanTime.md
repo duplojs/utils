@@ -17,7 +17,7 @@ Checks whether a `TheTime` is greater than or equal to a threshold.
 <MonacoTSEditor
   src="/examples/v1/api/date/greaterThanTime/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="187px"
 />
 
 ## Syntax

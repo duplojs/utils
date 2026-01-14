@@ -18,7 +18,7 @@ The **`createOrThrow()`** function builds a `TheDate` from a `TheDate`, a `Date`
 <MonacoTSEditor
   src="/examples/v1/api/date/createOrThrow/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntax

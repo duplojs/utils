@@ -18,7 +18,7 @@ Encapsule une valeur `undefined`/définie dans un `Either`, utile pour propager 
 <MonacoTSEditor
   src="/examples/v1/api/either/optional/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="229px"
 />
 
 ## Syntaxe

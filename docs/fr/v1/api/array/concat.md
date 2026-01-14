@@ -18,7 +18,7 @@ La fonction **`concat()`** fusionne plusieurs tableaux en un nouveau tableau con
 <MonacoTSEditor
   src="/examples/v1/api/array/concat/tryout.doc.ts"
   majorVersion="v1"
-  height="290px"
+  height="292px"
 />
 
 ## Syntaxe

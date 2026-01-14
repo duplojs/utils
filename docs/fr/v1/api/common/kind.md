@@ -30,7 +30,7 @@ Les deux exemples suivants montrent des solutions classiques pour discriminer un
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withClass.doc.ts"
   majorVersion="v1"
-  height="900px"
+  height="2224px"
 />
 
 Le principal inconvénient est qu’après un passage JSON (ou tout autre transport), on perd l’instance et on retombe sur des objets “plats” plus identifiable.
@@ -40,7 +40,7 @@ Le principal inconvénient est qu’après un passage JSON (ou tout autre transp
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withPorp.doc.ts"
   majorVersion="v1"
-  height="900px"
+  height="2035px"
 />
 
 Cette approche est très efficace, mais le discriminant devient une propriété “métier” : elle est accessible, sérialisée, et peut entrer en collision avec des données externes.
@@ -59,7 +59,7 @@ Au niveau du typage, `Kind<...>` utilise un **`Symbol`** pour “cacher” cette
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/withKind.doc.ts"
   majorVersion="v1"
-  height="980px"
+  height="2182px"
 />
 
 ### Cumul de kinds
@@ -113,7 +113,7 @@ Un `KindHandler` expose notamment :
 <MonacoTSEditor
   src="/examples/v1/api/common/kind/use.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="796px"
 />
 
 ## Voir aussi

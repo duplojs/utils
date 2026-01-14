@@ -18,7 +18,7 @@ La méthode **`reduceRight()`** fonctionne comme `reduce()` mais parcourt le tab
 <MonacoTSEditor
   src="/examples/v1/api/array/reduceRight/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
 />
 
 ## Syntaxe

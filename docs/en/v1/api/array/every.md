@@ -18,7 +18,7 @@ The **`every()`** method checks whether all elements of an array satisfy a given
 <MonacoTSEditor
   src="/examples/v1/api/array/every/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntax

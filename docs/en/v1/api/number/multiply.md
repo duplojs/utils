@@ -18,7 +18,7 @@ The **`multiply()`** method multiplies two numbers together. It can be used in a
 <MonacoTSEditor
   src="/examples/v1/api/number/multiply/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntax

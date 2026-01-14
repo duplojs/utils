@@ -18,7 +18,7 @@ La méthode **`sort()`** trie les éléments d'un tableau en utilisant une fonct
 <MonacoTSEditor
   src="/examples/v1/api/array/sort/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="355px"
   :foldLines="[2]"
 />
 

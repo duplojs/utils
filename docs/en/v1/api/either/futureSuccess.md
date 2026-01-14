@@ -18,7 +18,7 @@ Creates a `Future` resolved with an `EitherRight<"future">`.
 <MonacoTSEditor
   src="/examples/v1/api/either/futureSuccess/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="229px"
 />
 
 ## Syntax

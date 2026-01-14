@@ -18,7 +18,7 @@ La méthode **`padEnd()`** complète la chaîne courante avec une chaîne de car
 <MonacoTSEditor
   src="/examples/v1/api/string/padEnd/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="145px"
 />
 
 ## Syntaxe

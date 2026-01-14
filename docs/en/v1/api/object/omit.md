@@ -18,7 +18,7 @@ The **`omit()`** method creates a new object by excluding certain properties.
 <MonacoTSEditor
   src="/examples/v1/api/object/omit/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntax

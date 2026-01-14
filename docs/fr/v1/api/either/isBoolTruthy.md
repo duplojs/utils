@@ -18,7 +18,7 @@ Type guard qui vérifie si un `Either` issu des helpers booléens est truthy.
 <MonacoTSEditor
   src="/examples/v1/api/either/isBoolTruthy/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

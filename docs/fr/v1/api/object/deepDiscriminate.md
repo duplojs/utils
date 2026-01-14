@@ -18,7 +18,7 @@ La méthode **`deepDiscriminate()`** discrimine un objet par la valeur d'une pro
 <MonacoTSEditor
   src="/examples/v1/api/object/deepDiscriminate/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="376px"
 />
 
 ## Syntaxe

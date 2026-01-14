@@ -18,7 +18,7 @@ La fonction **`pop()`** retourne un nouveau tableau sans son dernier élément. 
 <MonacoTSEditor
   src="/examples/v1/api/array/pop/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="271px"
 />
 
 ## Syntaxe

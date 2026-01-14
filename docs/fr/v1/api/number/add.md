@@ -18,7 +18,7 @@ La méthode **`add()`** additionne deux nombres ou crée une fonction d'addition
 <MonacoTSEditor
   src="/examples/v1/api/number/add/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="166px"
 />
 
 ## Syntaxe

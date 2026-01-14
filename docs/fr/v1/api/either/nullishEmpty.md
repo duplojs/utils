@@ -18,7 +18,7 @@ Construit explicitement un `EitherLeft<"nullish">` avec `null` ou `undefined`.
 <MonacoTSEditor
   src="/examples/v1/api/either/nullishEmpty/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="229px"
 />
 
 ## Syntaxe

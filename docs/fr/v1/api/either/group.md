@@ -18,7 +18,7 @@ La fonction **`group()`** exécute plusieurs `Either` (ou fonctions renvoyant un
 <MonacoTSEditor
   src="/examples/v1/api/either/group/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="439px"
 />
 
 ## Paramètres

@@ -18,7 +18,7 @@ The **`min()`** method returns the smallest value among the provided numbers. It
 <MonacoTSEditor
   src="/examples/v1/api/number/min/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="271px"
 />
 
 ## Syntax

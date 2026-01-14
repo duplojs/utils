@@ -18,7 +18,7 @@ La fonction **`stringToMillisecond()`** convertit des durées exprimées sous fo
 <MonacoTSEditor
   src="/examples/v1/api/common/stringToMillisecond/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="124px"
 />
 
 ## Syntaxe

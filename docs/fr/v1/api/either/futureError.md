@@ -18,7 +18,7 @@ Crée un `Future` résolu avec un `EitherLeft<"future">`, idéal pour propager u
 <MonacoTSEditor
   src="/examples/v1/api/either/futureError/tryout.doc.ts"
   majorVersion="v1"
-  height="260px"
+  height="229px"
 />
 
 ## Syntaxe

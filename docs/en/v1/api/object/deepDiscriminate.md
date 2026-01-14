@@ -18,7 +18,7 @@ The **`deepDiscriminate()`** method discriminates an object by the value of a de
 <MonacoTSEditor
   src="/examples/v1/api/object/deepDiscriminate/tryout.doc.ts"
   majorVersion="v1"
-  height="200px"
+  height="376px"
 />
 
 ## Syntax

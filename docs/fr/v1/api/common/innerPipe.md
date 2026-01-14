@@ -18,7 +18,7 @@ La méthode **`innerPipe()`** prépare un pipeline synchrone réutilisable : ell
 <MonacoTSEditor
   src="/examples/v1/api/common/innerPipe/tryout.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="397px"
 />
 
 ## Syntaxe
