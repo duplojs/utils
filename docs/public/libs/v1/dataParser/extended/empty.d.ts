@@ -12,13 +12,7 @@ export interface DataParserEmptyExtended<GenericDefinition extends dataParsers.D
         dataParsers.DataParserEmptyCheckers,
         ...dataParsers.DataParserEmptyCheckers[]
     ], GenericChecker>): DataParserEmptyExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionEmpty>(definition: GenericDefinition): DataParserEmptyExtended<MergeDefinition<dataParsers.DataParserDefinitionEmpty, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserEmptyExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserEmptyExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
 }
 /**
  * Creates an extended data parser that accepts undefined.

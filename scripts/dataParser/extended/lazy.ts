@@ -38,20 +38,6 @@ export interface DataParserLazyExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionLazy,
-	>(
-		definition: GenericDefinition
-	): DataParserLazyExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionLazy,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -60,7 +46,7 @@ export interface DataParserLazyExtended<
 	): DataParserLazyExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 }

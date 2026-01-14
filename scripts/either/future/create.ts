@@ -23,16 +23,19 @@ type ComputeEitherFutureErrorResult<
 
 type ComputeFutureEitherResult<
 	GenericValue extends unknown = unknown,
-> = (
-	| Extract<
-		Awaited<GenericValue>,
-		Either
-	>
-	| ComputeEitherFutureSuccessResult<
-		Awaited<GenericValue>
-	>
-	| ComputeEitherFutureErrorResult<GenericValue>
-);
+> = Extract<
+	(
+		| Extract<
+			Awaited<GenericValue>,
+			Either
+		>
+		| ComputeEitherFutureSuccessResult<
+			Awaited<GenericValue>
+		>
+		| ComputeEitherFutureErrorResult<GenericValue>
+	),
+	any
+>;
 
 export type FutureEitherAllResult<
 	GenericArray extends readonly unknown[] | [],
@@ -47,7 +50,10 @@ const kind = "kind-future-either";
 export class Future<
 	const GenericValue extends unknown = unknown,
 > extends Promise<
-		ComputeFutureEitherResult<GenericValue>
+		Extract<
+			ComputeFutureEitherResult<GenericValue>,
+			any
+		>
 	> {
 	public constructor(
 		value: GenericValue,

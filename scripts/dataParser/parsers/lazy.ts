@@ -63,20 +63,6 @@ export interface DataParserLazy<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionLazy,
-	>(
-		definition: GenericDefinition
-	): DataParserLazy<
-		MergeDefinition<
-			DataParserDefinitionLazy,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

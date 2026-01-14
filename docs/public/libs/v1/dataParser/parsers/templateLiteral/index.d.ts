@@ -1,6 +1,6 @@
-import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../../common";
+import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -13,26 +13,26 @@ import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./createTemplateLiteralPattern";
 export type TemplateLiteralPrimitiveParts = (string | number | null | undefined | bigint | boolean);
-export type TemplateLiteralParts = (TemplateLiteralPrimitiveParts | DataParserString<Omit<DataParserDefinitionString, "checkers"> & {
+export type TemplateLiteralParts = (TemplateLiteralPrimitiveParts | DataParserString<SimplifyTopLevel<Omit<DataParserDefinitionString, "checkers"> & {
     readonly checkers: readonly (DataParserCheckerEmail | DataParserCheckerStringMax | DataParserCheckerStringMin | DataParserCheckerStringRegex)[];
-}> | DataParserNumber<Omit<DataParserDefinitionNumber, "checkers"> & {
+}>> | DataParserNumber<SimplifyTopLevel<Omit<DataParserDefinitionNumber, "checkers"> & {
     readonly checkers: readonly DataParserCheckerInt[];
-}> | DataParserBigInt<Omit<DataParserDefinitionBigInt, "checkers"> & {
+}>> | DataParserBigInt<SimplifyTopLevel<Omit<DataParserDefinitionBigInt, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserBoolean<Omit<DataParserDefinitionBoolean, "checkers"> & {
+}>> | DataParserBoolean<SimplifyTopLevel<Omit<DataParserDefinitionBoolean, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserLiteral<Omit<DataParserDefinitionLiteral, "checkers"> & {
+}>> | DataParserLiteral<SimplifyTopLevel<Omit<DataParserDefinitionLiteral, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserEmpty<Omit<DataParserDefinitionEmpty, "checkers"> & {
+}>> | DataParserEmpty<SimplifyTopLevel<Omit<DataParserDefinitionEmpty, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserNil<Omit<DataParserDefinitionNil, "checkers"> & {
+}>> | DataParserNil<SimplifyTopLevel<Omit<DataParserDefinitionNil, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserTemplateLiteral<Omit<DataParserDefinitionTemplateLiteral, "checkers"> & {
+}>> | DataParserTemplateLiteral<SimplifyTopLevel<Omit<DataParserDefinitionTemplateLiteral, "checkers"> & {
     readonly checkers: readonly [];
-}> | DataParserUnion<Omit<DataParserDefinitionUnion, "checkers" | "options"> & {
+}>> | DataParserUnion<SimplifyTopLevel<Omit<DataParserDefinitionUnion, "checkers" | "options"> & {
     readonly options: AnyTuple<Exclude<TemplateLiteralParts, TemplateLiteralPrimitiveParts>>;
     readonly checkers: readonly [];
-}>);
+}>>);
 export type TemplateLiteralShape = readonly [TemplateLiteralParts, ...TemplateLiteralParts[]];
 type EligibleTemplateLiteral = string | number | bigint | boolean | null | undefined;
 export type TemplateLiteralShapeOutput<GenericTemplate extends TemplateLiteralShape, GenericLastResult extends string = ""> = GenericTemplate extends readonly [
@@ -60,10 +60,6 @@ export interface DataParserTemplateLiteral<GenericDefinition extends DataParserD
         DataParserTemplateLiteralCheckers<Output<this>>,
         ...DataParserTemplateLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTemplateLiteral<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionTemplateLiteral>(definition: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, GenericDefinition>>;
 }
 /**
  * Creates a data parser for deterministic template literal strings.

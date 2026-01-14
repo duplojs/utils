@@ -115,11 +115,6 @@ export interface DataParser<
 	 * {@include dataParser/classic/base/clone/index.md}
 	 */
 	clone(): this;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct(definition: never): DataParser;
 }
 
 interface DataParserInitExecParams<
@@ -297,11 +292,6 @@ export function dataParserInit<
 			clone: () => dataParserInit(
 				kind,
 				simpleClone(definition),
-				exec,
-			),
-			construct: (definition: never) => dataParserInit(
-				kind,
-				definition,
 				exec,
 			),
 		} satisfies Record<keyof RemoveKind<DataParser>, any>,

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserRecoverCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,10 +20,6 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
         DataParserRecoverCheckers<Output<this>>,
         ...DataParserRecoverCheckers<Output<this>>[]
     ], GenericChecker>): DataParserRecover<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionRecover>(definition: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, GenericDefinition>>;
 }
 /**
  * Creates a data parser that recovers with a fallback value on error.

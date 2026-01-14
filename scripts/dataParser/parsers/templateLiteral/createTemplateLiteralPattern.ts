@@ -52,10 +52,10 @@ export function createTemplateLiteralPattern(templatePart: readonly TemplateLite
 						}),
 						({ int }) => {
 							if (int) {
-								return "(?:[0-9]+)";
+								return "(?:-?[0-9]+)";
 							}
 
-							return "(?:[0-9]+(\\.[0-9]+)?)";
+							return "(?:-?[0-9]+(?:\\.[0-9]+)?)";
 						},
 					),
 				),

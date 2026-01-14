@@ -69,20 +69,6 @@ export interface DataParserArray<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionArray,
-	>(
-		definition: GenericDefinition
-	): DataParserArray<
-		MergeDefinition<
-			DataParserDefinitionArray,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

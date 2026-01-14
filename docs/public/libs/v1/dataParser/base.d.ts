@@ -137,10 +137,6 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * 
      */
     clone(): this;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct(definition: never): DataParser;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
     sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);

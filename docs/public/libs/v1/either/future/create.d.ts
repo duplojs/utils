@@ -7,12 +7,12 @@ import { type AnyValue } from "../../common";
 type Either = EitherRight | EitherLeft;
 type ComputeEitherFutureSuccessResult<GenericValue extends unknown> = IsEqual<never, Exclude<GenericValue, Either>> extends false ? EitherFutureSuccess<Exclude<GenericValue, Either>> : never;
 type ComputeEitherFutureErrorResult<GenericValue extends unknown> = GenericValue extends Future<any> ? GenericValue : GenericValue extends Promise<unknown> ? EitherFutureError : never;
-type ComputeFutureEitherResult<GenericValue extends unknown = unknown> = (Extract<Awaited<GenericValue>, Either> | ComputeEitherFutureSuccessResult<Awaited<GenericValue>> | ComputeEitherFutureErrorResult<GenericValue>);
+type ComputeFutureEitherResult<GenericValue extends unknown = unknown> = Extract<(Extract<Awaited<GenericValue>, Either> | ComputeEitherFutureSuccessResult<Awaited<GenericValue>> | ComputeEitherFutureErrorResult<GenericValue>), any>;
 export type FutureEitherAllResult<GenericArray extends readonly unknown[] | []> = Future<{
     -readonly [Prop in keyof GenericArray]: Awaited<Future<GenericArray[Prop]>>;
 }>;
 declare const kind = "kind-future-either";
-export declare class Future<const GenericValue extends unknown = unknown> extends Promise<ComputeFutureEitherResult<GenericValue>> {
+export declare class Future<const GenericValue extends unknown = unknown> extends Promise<Extract<ComputeFutureEitherResult<GenericValue>, any>> {
     constructor(value: GenericValue);
     [kind]: unknown;
     then<TResult1 = Extract<ComputeFutureEitherResult<GenericValue>, any>, TResult2 = never>(onfulfilled?: ((value: Extract<ComputeFutureEitherResult<GenericValue>, any>) => TResult1 | PromiseLike<TResult1>) | null): Promise<TResult1 | TResult2>;

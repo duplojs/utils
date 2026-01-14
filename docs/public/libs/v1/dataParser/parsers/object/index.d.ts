@@ -36,10 +36,6 @@ export interface DataParserObject<GenericDefinition extends DataParserDefinition
         DataParserObjectCheckers<Output<this>>,
         ...DataParserObjectCheckers<Output<this>>[]
     ], GenericChecker>): DataParserObject<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionObject>(definition: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, GenericDefinition>>;
 }
 /**
  * Creates a data parser for objects with a defined shape.

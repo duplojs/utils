@@ -68,20 +68,6 @@ export interface DataParserTime<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionTime,
-	>(
-		definition: GenericDefinition
-	): DataParserTime<
-		MergeDefinition<
-			DataParserDefinitionTime,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

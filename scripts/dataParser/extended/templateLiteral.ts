@@ -39,20 +39,6 @@ export interface DataParserTemplateLiteralExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral,
-	>(
-		definition: GenericDefinition
-	): DataParserTemplateLiteralExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTemplateLiteral,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -61,7 +47,7 @@ export interface DataParserTemplateLiteralExtended<
 	): DataParserTemplateLiteralExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 }

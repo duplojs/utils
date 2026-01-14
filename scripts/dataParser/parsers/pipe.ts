@@ -64,20 +64,6 @@ export interface DataParserPipe<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionPipe,
-	>(
-		definition: GenericDefinition
-	): DataParserPipe<
-		MergeDefinition<
-			DataParserDefinitionPipe,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

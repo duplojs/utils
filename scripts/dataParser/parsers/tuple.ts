@@ -124,20 +124,6 @@ export interface DataParserTuple<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionTuple,
-	>(
-		definition: GenericDefinition
-	): DataParserTuple<
-		MergeDefinition<
-			DataParserDefinitionTuple,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

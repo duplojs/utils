@@ -1,4 +1,4 @@
-import { type AnyTuple, type SimplifyTopLevel } from "@scripts/common";
+import { type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserChecker, type DataParserDefinition } from "../base";
 
 export type AddCheckersToDefinition<
@@ -7,8 +7,6 @@ export type AddCheckersToDefinition<
 > = SimplifyTopLevel<
 	& Omit<GenericDefinition, "checkers">
 	& {
-		readonly checkers: GenericDefinition["checkers"] extends AnyTuple
-			? readonly [...GenericDefinition["checkers"], ...GenericChecker]
-			: GenericChecker;
+		readonly checkers: readonly [...GenericDefinition["checkers"], ...GenericChecker];
 	}
 >;

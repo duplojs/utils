@@ -127,7 +127,6 @@ function dataParserInit(kind, definition, exec) {
             checkers: [...definition.checkers, ...checkers],
         }), exec),
         clone: () => dataParserInit(kind, simpleClone(definition), exec),
-        construct: (definition) => dataParserInit(kind, definition, exec),
     }, (value) => dataParserKind.setTo(value, null), kind.setTo, dataParserInit.overrideHandler.apply);
     return dataParser;
 }

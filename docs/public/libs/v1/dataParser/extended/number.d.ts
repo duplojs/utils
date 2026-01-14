@@ -12,13 +12,7 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
         dataParsers.DataParserNumberCheckers,
         ...dataParsers.DataParserNumberCheckers[]
     ], GenericChecker>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionNumber>(definition: GenericDefinition): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum value checker to a number parser.
      * 
@@ -47,9 +41,7 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerNumberMin
-    ]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerNumberMin]>>;
     /**
      * Adds a maximum value checker to a number parser.
      * 
@@ -78,9 +70,7 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerNumberMax
-    ]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerNumberMax]>>;
     /**
      * Adds an integer checker to a number parser.
      * 
@@ -109,9 +99,7 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerInt
-    ]>>;
+    int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerInt]>>;
 }
 /**
  * Creates an extended data parser for numbers.

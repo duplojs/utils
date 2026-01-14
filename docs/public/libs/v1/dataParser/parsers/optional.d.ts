@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserOptionalCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,10 +20,6 @@ export interface DataParserOptional<GenericDefinition extends DataParserDefiniti
         DataParserOptionalCheckers<Output<this>>,
         ...DataParserOptionalCheckers<Output<this>>[]
     ], GenericChecker>): DataParserOptional<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionOptional>(definition: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, GenericDefinition>>;
 }
 /**
  * Creates a data parser that accepts undefined or the inner parser output.

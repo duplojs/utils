@@ -239,11 +239,6 @@ export interface DataParserExtended<
 			}
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct(definition: never): DataParserExtended;
 }
 
 export function dataParserExtendedInit<
@@ -354,12 +349,6 @@ export function dataParserExtendedInit<
 					self,
 					recoveredValue,
 					definition,
-				);
-			},
-			construct(definition) {
-				return dataParserExtendedInit(
-					dataParser.construct(definition),
-					rest,
 				);
 			},
 		} satisfies DataParserExtended,

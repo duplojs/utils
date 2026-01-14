@@ -155,30 +155,6 @@ describe("base extended", () => {
 		);
 	});
 
-	it("construct", () => {
-		const newParser = DDataParser.extended.number().construct({
-			errorMessage: "tt",
-			checkers: [],
-			coerce: false,
-		});
-
-		expect(newParser).toStrictEqual(
-			pipe(
-				{
-					definition: {
-						errorMessage: "tt",
-						checkers: [],
-						coerce: false,
-					},
-				},
-				DDataParser.extendedKind.addTo,
-				DDataParser.numberKind.addTo,
-				DDataParser.dataParserKind.addTo,
-				(value) => expect.objectContaining(value),
-			),
-		);
-	});
-
 	it("add non function property", () => {
 		const schema = DDataParser.dataParserExtendedInit(
 			DDataParser.string(),

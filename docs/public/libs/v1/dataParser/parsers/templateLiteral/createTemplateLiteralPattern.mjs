@@ -39,9 +39,9 @@ function createTemplateLiteralPattern(templatePart) {
         int: innerPipe(find(checkerIntKind.has), when$1(checkerIntKind.has, justReturn(true))),
     }), ({ int }) => {
         if (int) {
-            return "(?:[0-9]+)";
+            return "(?:-?[0-9]+)";
         }
-        return "(?:[0-9]+(\\.[0-9]+)?)";
+        return "(?:-?[0-9]+(?:\\.[0-9]+)?)";
     })), when(bigIntKind.has, () => "(?:[0-9]+n)"), when(booleanKind.has, () => "(?:true|false)"), when(nilKind.has, () => "(?:null)"), when(emptyKind.has, () => "(?:undefined)"), when(literalKind.has, (dataParser) => pipe(dataParser.definition.value, map((element) => createTemplateLiteralPattern([element])), join("|"), (pattern) => `(?:${pattern})`)), when(stringKind.has, (dataParser) => pipe(dataParser.definition.checkers, to({
         email: innerPipe(find(checkerEmailKind.has), when$1(checkerEmailKind.has, (checker) => pipe(checker.definition.pattern.source, replace(/^\^/, ""), replace(/\$$/, "")))),
         min: innerPipe(find(checkerStringMinKind.has), when$1(checkerStringMinKind.has, (checker) => checker.definition.min)),

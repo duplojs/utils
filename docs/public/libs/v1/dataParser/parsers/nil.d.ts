@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserNilCheckerCustom {
@@ -19,10 +19,6 @@ export interface DataParserNil<GenericDefinition extends DataParserDefinitionNil
         DataParserNilCheckers,
         ...DataParserNilCheckers[]
     ], GenericChecker>): DataParserNil<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionNil>(definition: GenericDefinition): DataParserNil<MergeDefinition<DataParserDefinitionNil, GenericDefinition>>;
 }
 /**
  * Creates a data parser that accepts null.

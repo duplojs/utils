@@ -71,20 +71,6 @@ export interface DataParserNullable<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionNullable,
-	>(
-		definition: GenericDefinition
-	): DataParserNullable<
-		MergeDefinition<
-			DataParserDefinitionNullable,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

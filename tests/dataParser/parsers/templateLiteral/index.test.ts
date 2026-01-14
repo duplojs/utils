@@ -136,7 +136,7 @@ describe("DDataParser templateLiteral", () => {
 		]);
 
 		expect(schema.definition.pattern.source).toBe(
-			"^(?:test\\-)(?:[0-9]+(\\.[0-9]+)?)(?:\\-)(?:[0-9]+n)(?:\\-)(?:true|false)(?:\\-)(?:[^]*)(?:null)(?:\\-)(?:undefined)(?:\\-)(?:(?:math)|(?:1)|(?:undefined)|(?:null)|(?:12n)|(?:false))(?:\\-)(?:(?:ok\\-)(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\\.)+[A-Za-z]{2,})(?:null)(?:true)(?:false)(?:undefined)(?:12)(?:12n)$",
+			"^(?:test\\-)(?:-?[0-9]+(?:\\.[0-9]+)?)(?:\\-)(?:[0-9]+n)(?:\\-)(?:true|false)(?:\\-)(?:[^]*)(?:null)(?:\\-)(?:undefined)(?:\\-)(?:(?:math)|(?:1)|(?:undefined)|(?:null)|(?:12n)|(?:false))(?:\\-)(?:(?:ok\\-)(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\\.)+[A-Za-z]{2,})(?:null)(?:true)(?:false)(?:undefined)(?:12)(?:12n)$",
 		);
 
 		const result = schema.parse("test-0-20n-false-okokkokonull-undefined-undefined-ok-campani.mathieu@gmail.comnulltruefalseundefined1212n");

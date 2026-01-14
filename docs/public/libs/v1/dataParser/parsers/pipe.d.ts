@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserPipeCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,10 +20,6 @@ export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPi
         DataParserPipeCheckers<Output<this>>,
         ...DataParserPipeCheckers<Output<this>>[]
     ], GenericChecker>): DataParserPipe<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionPipe>(definition: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, GenericDefinition>>;
 }
 /**
  * Creates a data parser pipeline from an input parser to an output parser.

@@ -70,20 +70,6 @@ export interface DataParserTransform<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionTransform,
-	>(
-		definition: GenericDefinition
-	): DataParserTransform<
-		MergeDefinition<
-			DataParserDefinitionTransform,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

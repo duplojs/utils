@@ -12,13 +12,7 @@ export interface DataParserTemplateLiteralExtended<GenericDefinition extends dat
         dataParsers.DataParserTemplateLiteralCheckers<Output<this>>,
         ...dataParsers.DataParserTemplateLiteralCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTemplateLiteralExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral>(definition: GenericDefinition): DataParserTemplateLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionTemplateLiteral, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTemplateLiteralExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTemplateLiteralExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
 }
 /**
  * Creates an extended data parser for deterministic template literal strings.

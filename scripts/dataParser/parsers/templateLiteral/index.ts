@@ -1,4 +1,4 @@
-import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride } from "@scripts/common";
+import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -29,45 +29,62 @@ export type TemplateLiteralPrimitiveParts = (
 export type TemplateLiteralParts = (
 	| TemplateLiteralPrimitiveParts
 	| DataParserString<
-		& Omit<DataParserDefinitionString, "checkers">
-		& {
-			readonly checkers: readonly (
-				| DataParserCheckerEmail
-				| DataParserCheckerStringMax
-				| DataParserCheckerStringMin
-				| DataParserCheckerStringRegex
-			)[];
-		}
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionString, "checkers">
+			& {
+				readonly checkers: readonly (
+					| DataParserCheckerEmail
+					| DataParserCheckerStringMax
+					| DataParserCheckerStringMin
+					| DataParserCheckerStringRegex
+				)[];
+			}
+		>
 	>
 	| DataParserNumber<
-		& Omit<DataParserDefinitionNumber, "checkers">
-		& { readonly checkers: readonly DataParserCheckerInt[] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionNumber, "checkers">
+			& { readonly checkers: readonly DataParserCheckerInt[] }
+		>
 	>
 	| DataParserBigInt<
-		& Omit<DataParserDefinitionBigInt, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionBigInt, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserBoolean<
-		& Omit<DataParserDefinitionBoolean, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionBoolean, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserLiteral<
-		& Omit<DataParserDefinitionLiteral, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionLiteral, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserEmpty<
-		& Omit<DataParserDefinitionEmpty, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionEmpty, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserNil<
-		& Omit<DataParserDefinitionNil, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionNil, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserTemplateLiteral<
-		& Omit<DataParserDefinitionTemplateLiteral, "checkers">
-		& { readonly checkers: readonly [] }
+		SimplifyTopLevel<
+			& Omit<DataParserDefinitionTemplateLiteral, "checkers">
+			& { readonly checkers: readonly [] }
+		>
 	>
 	| DataParserUnion<
+		SimplifyTopLevel<
 		& Omit<DataParserDefinitionUnion, "checkers" | "options">
 		& {
 			readonly options: AnyTuple<
@@ -78,6 +95,7 @@ export type TemplateLiteralParts = (
 			>;
 			readonly checkers: readonly [];
 		}
+		>
 	>
 );
 
@@ -200,20 +218,6 @@ export interface DataParserTemplateLiteral<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
-		>
-	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionTemplateLiteral,
-	>(
-		definition: GenericDefinition
-	): DataParserTemplateLiteral<
-		MergeDefinition<
-			DataParserDefinitionTemplateLiteral,
-			GenericDefinition
 		>
 	>;
 }

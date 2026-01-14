@@ -60,20 +60,6 @@ export interface DataParserNil<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionNil,
-	>(
-		definition: GenericDefinition
-	): DataParserNil<
-		MergeDefinition<
-			DataParserDefinitionNil,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

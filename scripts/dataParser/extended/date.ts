@@ -39,20 +39,6 @@ export interface DataParserDateExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionDate,
-	>(
-		definition: GenericDefinition
-	): DataParserDateExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionDate,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -61,7 +47,7 @@ export interface DataParserDateExtended<
 	): DataParserDateExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 }

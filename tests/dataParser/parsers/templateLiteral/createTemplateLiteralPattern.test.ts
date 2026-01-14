@@ -54,7 +54,7 @@ describe("createTemplateLiteralPattern", () => {
 
 		const result = DDataParser.createTemplateLiteralPattern([schema]);
 
-		expect(result).toBe("(?:[0-9]+(\\.[0-9]+)?)");
+		expect(result).toBe("(?:-?[0-9]+(?:\\.[0-9]+)?)");
 	});
 
 	it("creates pattern for number parser with int checker", () => {
@@ -64,7 +64,7 @@ describe("createTemplateLiteralPattern", () => {
 
 		const result = DDataParser.createTemplateLiteralPattern([schema]);
 
-		expect(result).toBe("(?:[0-9]+)");
+		expect(result).toBe("(?:-?[0-9]+)");
 	});
 
 	it("creates pattern for bigint parser", () => {
@@ -166,7 +166,7 @@ describe("createTemplateLiteralPattern", () => {
 
 		const result = DDataParser.createTemplateLiteralPattern([nested]);
 
-		expect(result).toBe("(?:(?:prefix\\-)(?:[0-9]+(\\.[0-9]+)?))");
+		expect(result).toBe("(?:(?:prefix\\-)(?:-?[0-9]+(?:\\.[0-9]+)?))");
 	});
 
 	it("creates pattern for union parser", () => {
@@ -177,6 +177,6 @@ describe("createTemplateLiteralPattern", () => {
 
 		const result = DDataParser.createTemplateLiteralPattern([schema]);
 
-		expect(result).toBe("(?:(?:[0-9]+(\\.[0-9]+)?)|(?:[0-9]+n))");
+		expect(result).toBe("(?:(?:-?[0-9]+(?:\\.[0-9]+)?)|(?:[0-9]+n))");
 	});
 });

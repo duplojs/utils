@@ -43,20 +43,6 @@ export interface DataParserNullableExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionNullable,
-	>(
-		definition: GenericDefinition
-	): DataParserNullableExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionNullable,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -65,7 +51,7 @@ export interface DataParserNullableExtended<
 	): DataParserNullableExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 }

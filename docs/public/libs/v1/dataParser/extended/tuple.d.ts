@@ -12,19 +12,9 @@ export interface DataParserTupleExtended<GenericDefinition extends dataParsers.D
         dataParsers.DataParserTupleCheckers<Output<this>>,
         ...dataParsers.DataParserTupleCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionTuple>(definition: GenericDefinition): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
-    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerArrayMin
-    ]>>;
-    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerArrayMax
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerArrayMin]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerArrayMax]>>;
 }
 /**
  * Creates an extended data parser for tuples with a fixed shape.

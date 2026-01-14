@@ -39,20 +39,6 @@ export interface DataParserTimeExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionTime,
-	>(
-		definition: GenericDefinition
-	): DataParserTimeExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTime,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -61,7 +47,7 @@ export interface DataParserTimeExtended<
 	): DataParserTimeExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
@@ -76,7 +62,7 @@ export interface DataParserTimeExtended<
 	): DataParserTimeExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerTimeMin]
+			readonly [dataParsers.DataParserCheckerTimeMin]
 		>
 	>;
 
@@ -91,7 +77,7 @@ export interface DataParserTimeExtended<
 	): DataParserTimeExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerTimeMax]
+			readonly [dataParsers.DataParserCheckerTimeMax]
 		>
 	>;
 }

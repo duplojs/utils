@@ -1,6 +1,6 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
@@ -36,10 +36,6 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
         DataParserTupleCheckers<Output<this>>,
         ...DataParserTupleCheckers<Output<this>>[]
     ], GenericChecker>): DataParserTuple<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionTuple>(definition: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, GenericDefinition>>;
 }
 /**
  * Creates a data parser for tuples with a fixed shape.

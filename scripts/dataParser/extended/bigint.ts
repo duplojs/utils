@@ -38,20 +38,6 @@ export interface DataParserBigIntExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionBigInt,
-	>(
-		definition: GenericDefinition
-	): DataParserBigIntExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionBigInt,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -60,7 +46,7 @@ export interface DataParserBigIntExtended<
 	): DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
@@ -75,7 +61,7 @@ export interface DataParserBigIntExtended<
 	): DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerBigIntMin]
+			readonly [dataParsers.DataParserCheckerBigIntMin]
 		>
 	>;
 
@@ -90,7 +76,7 @@ export interface DataParserBigIntExtended<
 	): DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerBigIntMax]
+			readonly [dataParsers.DataParserCheckerBigIntMax]
 		>
 	>;
 }

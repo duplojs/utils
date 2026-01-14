@@ -60,20 +60,6 @@ export interface DataParserBoolean<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionBoolean,
-	>(
-		definition: GenericDefinition
-	): DataParserBoolean<
-		MergeDefinition<
-			DataParserDefinitionBoolean,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

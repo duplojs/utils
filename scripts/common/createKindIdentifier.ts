@@ -1,7 +1,6 @@
 import { type GetKindHandler, type Kind, type KindDefinition, type KindHandler } from "./kind";
 import { type UnionContain, type UnionToIntersection } from "./types";
 import * as DArray from "@scripts/array";
-import * as DEither from "@scripts/either";
 
 export function createKindIdentifier<
 	GenericParent extends Kind<KindDefinition>,
@@ -15,7 +14,7 @@ export function createKindIdentifier<
 
 	function identifier<
 		GenericKindHandler extends KindHandlers,
-		GenericInput extends GenericParent,
+		GenericInput extends unknown,
 		GenericGroupedKind extends UnionToIntersection<
 			GenericKindHandler extends KindHandler
 				? Kind<GenericKindHandler["definition"]>
@@ -44,7 +43,7 @@ export function createKindIdentifier<
 
 	function identifier<
 		GenericKindHandler extends KindHandlers,
-		GenericInput extends GenericParent,
+		GenericInput extends unknown,
 		GenericGroupedKind extends UnionToIntersection<
 			GenericKindHandler extends KindHandler
 				? Kind<GenericKindHandler["definition"]>

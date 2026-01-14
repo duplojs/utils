@@ -38,20 +38,6 @@ export interface DataParserArrayExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionArray,
-	>(
-		definition: GenericDefinition
-	): DataParserArrayExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionArray,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -60,7 +46,7 @@ export interface DataParserArrayExtended<
 	): DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
@@ -75,7 +61,7 @@ export interface DataParserArrayExtended<
 	): DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerArrayMin]
+			readonly [dataParsers.DataParserCheckerArrayMin]
 		>
 	>;
 
@@ -90,7 +76,7 @@ export interface DataParserArrayExtended<
 	): DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerArrayMax]
+			readonly [dataParsers.DataParserCheckerArrayMax]
 		>
 	>;
 }

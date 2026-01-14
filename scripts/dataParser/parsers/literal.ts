@@ -67,20 +67,6 @@ export interface DataParserLiteral<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionLiteral,
-	>(
-		definition: GenericDefinition
-	): DataParserLiteral<
-		MergeDefinition<
-			DataParserDefinitionLiteral,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

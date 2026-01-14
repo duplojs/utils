@@ -12,13 +12,7 @@ export interface DataParserPipeExtended<GenericDefinition extends dataParsers.Da
         dataParsers.DataParserPipeCheckers<Output<this>>,
         ...dataParsers.DataParserPipeCheckers<Output<this>>[]
     ], GenericChecker>): DataParserPipeExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionPipe>(definition: GenericDefinition): DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserPipeExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserPipeExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
 }
 /**
  * Creates an extended pipe parser from two parsers.

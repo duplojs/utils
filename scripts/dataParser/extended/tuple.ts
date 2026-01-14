@@ -38,20 +38,6 @@ export interface DataParserTupleExtended<
 		>
 	>;
 
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends dataParsers.DataParserDefinitionTuple,
-	>(
-		definition: GenericDefinition
-	): DataParserTupleExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTuple,
-			GenericDefinition
-		>
-	>;
-
 	refine(
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
@@ -60,7 +46,7 @@ export interface DataParserTupleExtended<
 	): DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.CheckerRefineImplementation<Output<this>>]
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
@@ -72,7 +58,7 @@ export interface DataParserTupleExtended<
 	): DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerArrayMin]
+			readonly [dataParsers.DataParserCheckerArrayMin]
 		>
 	>;
 
@@ -84,7 +70,7 @@ export interface DataParserTupleExtended<
 	): DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			[dataParsers.DataParserCheckerArrayMax]
+			readonly [dataParsers.DataParserCheckerArrayMax]
 		>
 	>;
 }

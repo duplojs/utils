@@ -41,9 +41,9 @@ function createTemplateLiteralPattern(templatePart) {
         int: innerPipe.innerPipe(find.find(int.checkerIntKind.has), when$1.when(int.checkerIntKind.has, justReturn.justReturn(true))),
     }), ({ int }) => {
         if (int) {
-            return "(?:[0-9]+)";
+            return "(?:-?[0-9]+)";
         }
-        return "(?:[0-9]+(\\.[0-9]+)?)";
+        return "(?:-?[0-9]+(?:\\.[0-9]+)?)";
     })), when.when(index$2.bigIntKind.has, () => "(?:[0-9]+n)"), when.when(boolean.booleanKind.has, () => "(?:true|false)"), when.when(nil.nilKind.has, () => "(?:null)"), when.when(empty.emptyKind.has, () => "(?:undefined)"), when.when(literal.literalKind.has, (dataParser) => pipe.pipe(dataParser.definition.value, map.map((element) => createTemplateLiteralPattern([element])), join.join("|"), (pattern) => `(?:${pattern})`)), when.when(index$1.stringKind.has, (dataParser) => pipe.pipe(dataParser.definition.checkers, to.to({
         email: innerPipe.innerPipe(find.find(email.checkerEmailKind.has), when$1.when(email.checkerEmailKind.has, (checker) => pipe.pipe(checker.definition.pattern.source, replace.replace(/^\^/, ""), replace.replace(/\$$/, "")))),
         min: innerPipe.innerPipe(find.find(min.checkerStringMinKind.has), when$1.when(min.checkerStringMinKind.has, (checker) => checker.definition.min)),

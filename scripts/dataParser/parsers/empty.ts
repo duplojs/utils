@@ -60,20 +60,6 @@ export interface DataParserEmpty<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionEmpty,
-	>(
-		definition: GenericDefinition
-	): DataParserEmpty<
-		MergeDefinition<
-			DataParserDefinitionEmpty,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

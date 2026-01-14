@@ -12,13 +12,7 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
         dataParsers.DataParserArrayCheckers<Output<this>>,
         ...dataParsers.DataParserArrayCheckers<Output<this>>[]
     ], GenericChecker>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionArray>(definition: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum length checker to an array parser.
      * 
@@ -47,9 +41,7 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
      * @namespace DPE
      * 
      */
-    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerArrayMin
-    ]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerArrayMin]>>;
     /**
      * Adds a maximum length checker to an array parser.
      * 
@@ -78,9 +70,7 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
      * @namespace DPE
      * 
      */
-    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerArrayMax
-    ]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerArrayMax]>>;
 }
 /**
  * Creates an extended data parser for arrays.

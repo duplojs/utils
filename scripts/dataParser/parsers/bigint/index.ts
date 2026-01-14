@@ -65,20 +65,6 @@ export interface DataParserBigInt<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionBigInt,
-	>(
-		definition: GenericDefinition
-	): DataParserBigInt<
-		MergeDefinition<
-			DataParserDefinitionBigInt,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

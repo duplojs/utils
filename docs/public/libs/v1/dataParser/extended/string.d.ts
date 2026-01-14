@@ -12,13 +12,7 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
         dataParsers.DataParserStringCheckers,
         ...dataParsers.DataParserStringCheckers[]
     ], GenericChecker>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionString>(definition: GenericDefinition): DataParserStringExtended<MergeDefinition<dataParsers.DataParserDefinitionString, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum length checker to a string parser.
      * 
@@ -47,9 +41,7 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringMin, "min">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerStringMin
-    ]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringMin, "min">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerStringMin]>>;
     /**
      * Adds a maximum length checker to a string parser.
      * 
@@ -78,9 +70,7 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringMax, "max">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerStringMax
-    ]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringMax, "max">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerStringMax]>>;
     /**
      * Adds a regex checker to a string parser.
      * 
@@ -109,9 +99,7 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    regex(regex: RegExp, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringRegex, "regex">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerStringRegex
-    ]>>;
+    regex(regex: RegExp, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringRegex, "regex">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerStringRegex]>>;
 }
 /**
  * Creates an extended data parser for strings.

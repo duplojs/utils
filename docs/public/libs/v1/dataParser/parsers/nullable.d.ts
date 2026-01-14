@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserNullableCheckerCustom<GenericInput extends unknown = unknown> {
@@ -20,10 +20,6 @@ export interface DataParserNullable<GenericDefinition extends DataParserDefiniti
         DataParserNullableCheckers<Output<this>>,
         ...DataParserNullableCheckers<Output<this>>[]
     ], GenericChecker>): DataParserNullable<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends DataParserDefinitionNullable>(definition: GenericDefinition): DataParserNullable<MergeDefinition<DataParserDefinitionNullable, GenericDefinition>>;
 }
 /**
  * Creates a data parser that accepts null or the inner parser output.

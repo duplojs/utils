@@ -13,13 +13,7 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
         dataParsers.DataParserTimeCheckers,
         ...dataParsers.DataParserTimeCheckers[]
     ], GenericChecker>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    /**
-     * @deprecated Method with unreliable typing.
-     */
-    construct<const GenericDefinition extends dataParsers.DataParserDefinitionTime>(definition: GenericDefinition): DataParserTimeExtended<MergeDefinition<dataParsers.DataParserDefinitionTime, GenericDefinition>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.CheckerRefineImplementation<Output<this>>
-    ]>>;
+    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum time checker to a time parser.
      * 
@@ -48,9 +42,7 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
      * @namespace DPE
      * 
      */
-    min(min: TheTime, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionTimeMin, "min">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerTimeMin
-    ]>>;
+    min(min: TheTime, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionTimeMin, "min">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerTimeMin]>>;
     /**
      * Adds a maximum time checker to a time parser.
      * 
@@ -79,9 +71,7 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
      * @namespace DPE
      * 
      */
-    max(max: TheTime, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionTimeMax, "max">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, [
-        dataParsers.DataParserCheckerTimeMax
-    ]>>;
+    max(max: TheTime, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionTimeMax, "max">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerTimeMax]>>;
 }
 /**
  * Creates an extended data parser for TheTime values.

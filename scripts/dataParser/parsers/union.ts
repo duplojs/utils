@@ -66,20 +66,6 @@ export interface DataParserUnion<
 			GenericChecker
 		>
 	>;
-
-	/**
-	 * @deprecated Method with unreliable typing.
-	 */
-	construct<
-		const GenericDefinition extends DataParserDefinitionUnion,
-	>(
-		definition: GenericDefinition
-	): DataParserUnion<
-		MergeDefinition<
-			DataParserDefinitionUnion,
-			GenericDefinition
-		>
-	>;
 }
 
 /**

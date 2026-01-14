@@ -77,7 +77,6 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
-							construct: expect.any(Function),
 						},
 						null as never,
 					),
@@ -170,7 +169,6 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
-							construct: expect.any(Function),
 						},
 						null as never,
 					),
@@ -195,35 +193,6 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
-							construct: expect.any(Function),
-						},
-						null as never,
-					),
-				),
-			);
-		});
-
-		it("construct", () => {
-			const newParser = parser.construct({
-				errorMessage: "test",
-				checkers: [],
-			} as never);
-
-			expect(newParser).toStrictEqual(
-				dataParserTestKind.addTo(
-					DDataParser.dataParserKind.addTo(
-						{
-							definition: {
-								errorMessage: "test",
-								checkers: [],
-							},
-							exec: expect.any(Function),
-							parse: expect.any(Function),
-							asyncExec: expect.any(Function),
-							asyncParse: expect.any(Function),
-							addChecker: expect.any(Function),
-							clone: expect.any(Function),
-							construct: expect.any(Function),
 						},
 						null as never,
 					),
@@ -385,5 +354,32 @@ describe("base parser", () => {
 				),
 			);
 		});
+	});
+
+	it("contract", () => {
+		const contractWithoutChecker: DDataParser.DataParserString = DDataParser
+			.extended
+			.string()
+			.max(1);
+
+		const dataParserWithChecker: DDataParser.DataParserString<
+			Omit<DDataParser.DataParserDefinitionString, "checkers"> & {
+				readonly checkers: readonly DDataParser.DataParserCheckerStringMax[];
+			}
+		> = DDataParser
+			.extended
+			.string()
+			.max(1);
+
+		// @ts-expect-error wrong checker
+		const dataParserWithWrongChecker: DDataParser.DataParserString<
+			Omit<DDataParser.DataParserDefinitionString, "checkers"> & {
+				readonly checkers: readonly DDataParser.DataParserCheckerStringMax[];
+			}
+		> = DDataParser
+			.extended
+			.string()
+			.max(1)
+			.min(0);
 	});
 });
