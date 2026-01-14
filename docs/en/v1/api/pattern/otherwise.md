@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "otherwise() closes a pattern matching pipeline by providing a fallback value for all remaining cases. It automatically unwraps PatternResult returned by match/when and gives you back the final value."
 prev:
-  text: "when"
-  link: "/en/v1/api/pattern/when"
+  text: "whenNot"
+  link: "/en/v1/api/pattern/whenNot"
 next:
   text: "exhaustive"
   link: "/en/v1/api/pattern/exhaustive"

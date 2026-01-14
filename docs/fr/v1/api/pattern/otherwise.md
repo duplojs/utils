@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "otherwise() termine un pipeline de pattern matching en fournissant une valeur de repli pour tous les cas restants. Il dépile automatiquement les PatternResult retournés par match/when et vous redonne la valeur finale."
 prev:
-  text: "when"
-  link: "/fr/v1/api/pattern/when"
+  text: "whenNot"
+  link: "/fr/v1/api/pattern/whenNot"
 next:
   text: "exhaustive"
   link: "/fr/v1/api/pattern/exhaustive"

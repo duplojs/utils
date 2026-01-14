@@ -7,6 +7,7 @@ var index = require('./match/index.cjs');
 var isMatch = require('./isMatch.cjs');
 var union = require('./union.cjs');
 var when = require('./when.cjs');
+var whenNot = require('./whenNot.cjs');
 var builder = require('./match/builder.cjs');
 var pattern = require('./types/pattern.cjs');
 
@@ -22,6 +23,7 @@ exports.match = index.match;
 exports.isMatch = isMatch.isMatch;
 exports.union = union.union;
 exports.when = when.when;
+exports.whenNot = whenNot.whenNot;
 exports.InvalidExhaustivePatternError = builder.InvalidExhaustivePatternError;
 exports.matchBuilder = builder.matchBuilder;
 exports.SymbolToolPatternFunctionLabel = pattern.SymbolToolPatternFunctionLabel;

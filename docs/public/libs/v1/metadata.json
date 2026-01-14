@@ -4517,6 +4517,15 @@
         },
         {
           "name": "when.mjs"
+        },
+        {
+          "name": "whenNot.cjs"
+        },
+        {
+          "name": "whenNot.d.ts"
+        },
+        {
+          "name": "whenNot.mjs"
         }
       ]
     },

@@ -1,22 +1,22 @@
 ---
 outline: [2, 3]
-description: "when() ajoute une garde dans le pipeline de pattern matching. Dès que predicate retourne true, la fonction associée est exécutée et son résultat est encapsulé dans un PatternResult. Avec un type guard, la branche est automatiquement typée avec la forme prédicatée."
+description: "whenNot() ajoute une garde dans le pipeline de pattern matching. Quand predicate retourne false, la fonction associée est exécutée et son résultat est encapsulé dans un PatternResult. Avec un type guard, la branche est automatiquement typée avec la forme exclue."
 prev:
-  text: "match"
-  link: "/fr/v1/api/pattern/match"
+  text: "when"
+  link: "/fr/v1/api/pattern/when"
 next:
-  text: "whenNot"
-  link: "/fr/v1/api/pattern/whenNot"
+  text: "otherwise"
+  link: "/fr/v1/api/pattern/otherwise"
 ---
 
-# when
+# whenNot
 
-`when()` ajoute une garde dans le pipeline de pattern matching. Dès que `predicate` retourne `true`, la fonction associée est exécutée et son résultat est encapsulé dans un `PatternResult`. Avec un type guard, la branche est automatiquement typée avec la forme prédicatée.
+`whenNot()` ajoute une garde dans le pipeline de pattern matching. Quand `predicate` retourne `false`, la fonction associée est exécutée et son résultat est encapsulé dans un `PatternResult`. Avec un type guard, la branche est automatiquement typée avec la forme exclue.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/pattern/when/tryout.doc.ts"
+  src="/examples/v1/api/pattern/whenNot/tryout.doc.ts"
   majorVersion="v1"
   height="500px"
   :foldLines="[2]"
@@ -28,7 +28,7 @@ next:
 
 ```typescript
 // Type Guard
-function when<
+function whenNot<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>, 
@@ -36,13 +36,17 @@ function when<
 	GenericOutput extends AnyValue
 >(
 	predicate: (input: GenericInputValue) => input is GenericPredicatedInput, 
-	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput
+	theFunction: (predicatedInput: Exclude<GenericInputValue, GenericPredicatedInput>) => GenericOutput
 ): (
 	input: (GenericInput | GenericInputPatternResult | GenericInputValue)
-) => (GenericInputPatternResult | Exclude<BreakGenericLink<GenericInputValue>, GenericPredicatedInput> | PatternResult<GenericOutput>);
+) => (
+	GenericInputPatternResult
+	| Exclude<BreakGenericLink<GenericInputValue>, Exclude<GenericInputValue, GenericPredicatedInput>>
+	| PatternResult<GenericOutput>
+);
 
 // Boolean
-export declare function when<
+export declare function whenNot<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>, 
@@ -59,7 +63,7 @@ export declare function when<
 
 ```typescript
 // Type Guard
-function when<
+function whenNot<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>, 
@@ -68,11 +72,15 @@ function when<
 >(
 	input: (GenericInput | GenericInputPatternResult | GenericInputValue), 
 	predicate: (input: GenericInputValue) => input is GenericPredicatedInput, 
-	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput
-): (GenericInputPatternResult | Exclude<GenericInputValue, GenericPredicatedInput> | PatternResult<GenericOutput>);
+	theFunction: (predicatedInput: Exclude<GenericInputValue, GenericPredicatedInput>) => GenericOutput
+): (
+	GenericInputPatternResult
+	| Exclude<GenericInputValue, Exclude<GenericInputValue, GenericPredicatedInput>>
+	| PatternResult<GenericOutput>
+);
 
 // Boolean
-function when<
+function whenNot<
 	GenericInput extends AnyValue, 
 	GenericInputValue extends Exclude<GenericInput, PatternResult>, 
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>, 
@@ -88,22 +96,23 @@ function when<
 
 ## Paramètres
 
-- `input` *(optionnel)* : valeur à tester immédiatement. Sinon, `when` retourne une fonction pour vos `pipe`.
+- `input` *(optionnel)* : valeur à tester immédiatement. Sinon, `whenNot` retourne une fonction pour vos `pipe`.
 - `predicate` : fonction de garde. Peut être un type guard (`value is ...`) pour réduire statiquement l'union, ou un simple booléen.
-- `theFunction` : transformation à exécuter quand la garde est satisfaite.
+- `theFunction` : transformation à exécuter quand la garde n'est pas satisfaite.
 
 ## Valeur de retour
 
-Un `PatternResult<Output>` si la condition est remplie, sinon la valeur d'origine (ou ce qu'il reste après les précédentes gardes). Ce résultat est prêt à être passé à un autre `when`, un `match`, `otherwise` ou `exhaustive`.
+Un `PatternResult<Output>` si la condition n'est pas remplie, sinon la valeur d'origine (ou ce qu'il reste après les précédentes gardes). Ce résultat est prêt à être passé à un autre `when`, `whenNot`, `match`, `otherwise` ou `exhaustive`.
 
 ## Bonnes pratiques
 
 - Déclarez vos gardes (`type PaidInvoice = Extract<Invoice, { status: "paid" }>;`) puis référencez-les dans `predicate` pour conserver un typage lisible.
-- Les `when` sont évalués dans l'ordre : placez les cas les plus spécifiques avant les cas génériques.
-- Combinez `when` avec `match` dans un builder pour intercaler des règles basées sur des prédicats plutôt que des motifs structurels.
+- Les `whenNot` sont évalués dans l'ordre : placez les cas les plus spécifiques avant les cas génériques.
+- Combinez `whenNot` avec `match` dans un builder pour intercaler des règles basées sur des prédicats plutôt que des motifs structurels.
 
 ## Voir aussi
 
+- [`when`](/fr/v1/api/pattern/when)
 - [`match`](/fr/v1/api/pattern/match)
 - [`otherwise`](/fr/v1/api/pattern/otherwise)
 - [`exhaustive`](/fr/v1/api/pattern/exhaustive)

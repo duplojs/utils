@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to match, when, otherwise, and exhaustive. Each branch returns a PatternResult, which avoids fragile switch statements, simplifies chaining with pipe, and guarantees exhaustiveness at compile time."
+description: "Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to match, when, whenNot, otherwise, and exhaustive. Each branch returns a PatternResult, which avoids fragile switch statements, simplifies chaining with pipe, and guarantees exhaustiveness at compile time."
 prev:
   text: 'Object'
   link: '/en/v1/api/object/'
@@ -11,7 +11,7 @@ next:
 
 # Pattern
 
-Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to `match`, `when`, `otherwise`, and `exhaustive`. Each branch returns a `PatternResult`, which avoids fragile `switch` statements, simplifies chaining with `pipe`, and guarantees exhaustiveness at compile time.
+Pattern matching makes it possible to destructure any data (union, tuple, object, literal, predicate) and orchestrate a typed control flow thanks to `match`, `when`, `whenNot`, `otherwise`, and `exhaustive`. Each branch returns a `PatternResult`, which avoids fragile `switch` statements, simplifies chaining with `pipe`, and guarantees exhaustiveness at compile time.
 
 ## How to import ?
 
@@ -30,6 +30,9 @@ Associates a pattern and a transformation function. Returns a `PatternResult` wh
 
 ### [when](/fr/v1/api/pattern/when)
 Adds a guard (type predicate or boolean) in a pipeline. If the condition is true, the associated function is executed and its result is wrapped.
+
+### [whenNot](/fr/v1/api/pattern/whenNot)
+Adds a guard (type predicate or boolean) in a pipeline. If the condition is false, the associated function is executed and its result is wrapped.
 
 ### [otherwise](/fr/v1/api/pattern/otherwise)
 Defines the fallback called when no more patterns matched. Very useful to close a `pipe` after several `when`.

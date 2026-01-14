@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Le pattern matching permet de déstructurer n'importe quelle donnée (union, tuple, objet, littéral, prédicat) et d'orchestrer un flux de contrôle typé grâce à match, when, otherwise et exhaustive. Chaque branche renvoie un PatternResult, ce qui évite les switch fragiles, simplifie le chaînage avec pipe et garantit l'exhaustivité au moment de la compilation."
+description: "Le pattern matching permet de déstructurer n'importe quelle donnée (union, tuple, objet, littéral, prédicat) et d'orchestrer un flux de contrôle typé grâce à match, when, whenNot, otherwise et exhaustive. Chaque branche renvoie un PatternResult, ce qui évite les switch fragiles, simplifie le chaînage avec pipe et garantit l'exhaustivité au moment de la compilation."
 prev:
   text: 'Object'
   link: '/fr/v1/api/object/'
@@ -11,7 +11,7 @@ next:
 
 # Pattern
 
-Le pattern matching permet de déstructurer n'importe quelle donnée (union, tuple, objet, littéral, prédicat) et d'orchestrer un flux de contrôle typé grâce à `match`, `when`, `otherwise` et `exhaustive`. Chaque branche renvoie un `PatternResult`, ce qui évite les `switch` fragiles, simplifie le chaînage avec `pipe` et garantit l'exhaustivité au moment de la compilation.
+Le pattern matching permet de déstructurer n'importe quelle donnée (union, tuple, objet, littéral, prédicat) et d'orchestrer un flux de contrôle typé grâce à `match`, `when`, `whenNot`, `otherwise` et `exhaustive`. Chaque branche renvoie un `PatternResult`, ce qui évite les `switch` fragiles, simplifie le chaînage avec `pipe` et garantit l'exhaustivité au moment de la compilation.
 
 ## Comment faire les imports ?
 
@@ -30,6 +30,9 @@ Associe un motif et une fonction de transformation. Retourne un `PatternResult` 
 
 ### [when](/fr/v1/api/pattern/when)
 Ajoute une garde (type predicate ou boolean) dans un pipeline. Si la condition est vraie, la fonction associée est exécutée et son résultat est encapsulé.
+
+### [whenNot](/fr/v1/api/pattern/whenNot)
+Ajoute une garde (type predicate ou boolean) dans un pipeline. Si la condition est fausse, la fonction associée est exécutée et son résultat est encapsulé.
 
 ### [otherwise](/fr/v1/api/pattern/otherwise)
 Définit le fallback appelé lorsque plus aucun motif n'a correspondu. Très utile pour fermer un `pipe` après plusieurs `when`.

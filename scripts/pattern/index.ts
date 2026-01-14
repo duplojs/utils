@@ -9,3 +9,4 @@ export * from "./isMatch";
 export * from "./types";
 export * from "./union";
 export * from "./when";
+export * from "./whenNot";
