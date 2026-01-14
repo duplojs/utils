@@ -13,13 +13,13 @@ export type EitherRightPipeResult<GenericPipeOutputs extends AnyValue, GenericLa
  * The input value is not mutated.
  * 
  * ```ts
- * const input = true
- * 	? false
- * 		? true
- * 			? E.right("right-1", 1)
- * 			: E.left("left-1", null)
- * 		: E.right("right-2", 2)
- * 	: E.left("left-2", 2);
+ * import { E } from "../..";
+ * 
+ * const input: (
+ * 	| E.EitherFail
+ * 	| E.EitherNullableEmpty
+ * 	| E.EitherRight<"right", 1>
+ * ) = E.right("right", 1);
  * 
  * const result = E.rightPipe(
  * 	input,

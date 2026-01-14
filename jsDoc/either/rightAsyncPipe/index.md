@@ -5,7 +5,7 @@ Signature: `rightAsyncPipe(input, pipe1, pipe2)` → returns a value
 The input value is not mutated.
 
 ```ts
-{@include either/rightAsyncPipe/example.ts[6,24]}
+{@include either/rightAsyncPipe/example.ts[2,16]}
 ```
 
 @remarks

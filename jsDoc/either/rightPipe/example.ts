@@ -1,15 +1,11 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-constant-condition */
 /* eslint-disable arrow-body-style */
 import { E } from "@scripts";
 
-const input = true
-	? false
-		? true
-			? E.right("right-1", 1)
-			: E.left("left-1", null)
-		: E.right("right-2", 2)
-	: E.left("left-2", 2);
+const input: (
+	| E.EitherFail
+	| E.EitherNullableEmpty
+	| E.EitherRight<"right", 1>
+) = E.right("right", 1);
 
 const result = E.rightPipe(
 	input,

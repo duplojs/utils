@@ -15,17 +15,13 @@ export type EitherRightAsyncPipeResult<GenericPipeOutputs extends AnyValue, Gene
  * The input value is not mutated.
  * 
  * ```ts
- * const input = E.future(
- * 	Promise.resolve(
- * 		true
- * 			? false
- * 				? true
- * 					? E.right("right-1", 1)
- * 					: E.left("left-1", null)
- * 				: E.right("right-2", 2)
- * 			: E.left("left-2", 2),
- * 	),
- * );
+ * import { E } from "../..";
+ * 
+ * const input: Promise<
+ * 	| E.EitherFail
+ * 	| E.EitherNullableEmpty
+ * 	| E.EitherRight<"right", 1>
+ * > = Promise.resolve(E.right("right", 1));
  * 
  * const result = E.rightAsyncPipe(
  * 	input,

@@ -5,7 +5,7 @@ Signature: `rightPipe(input, pipe1, pipe2)` → returns a value
 The input value is not mutated.
 
 ```ts
-{@include either/rightPipe/example.ts[6,20]}
+{@include either/rightPipe/example.ts[2,16]}
 ```
 
 @remarks
