@@ -119,9 +119,10 @@ export function optional<
 				return self.definition.inner.asyncExec(data, error);
 			},
 		},
+		optional.overrideHandler,
 	) as never;
 
-	return optional.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 optional.overrideHandler = createOverride<DataParserOptional>("@duplojs/utils/data-parser/optional");

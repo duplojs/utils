@@ -116,9 +116,10 @@ export function pipe<
 				return self.definition.output.asyncExec(result, error);
 			},
 		},
+		pipe.overrideHandler,
 	) as never;
 
-	return pipe.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 pipe.overrideHandler = createOverride<DataParserPipe>("@duplojs/utils/data-parser/pipe");

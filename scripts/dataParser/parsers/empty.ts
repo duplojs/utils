@@ -91,9 +91,10 @@ export function empty<
 
 			return SymbolDataParserErrorIssue;
 		},
+		empty.overrideHandler,
 	) as never;
 
-	return empty.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 empty.overrideHandler = createOverride<DataParserEmpty>("@duplojs/utils/data-parser/empty");

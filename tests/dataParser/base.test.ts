@@ -1,9 +1,17 @@
-import { DEither, DDataParser, type AnyValue, DP } from "@scripts";
-import { SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser";
+import { DEither, DDataParser, createOverride, forward } from "@scripts";
+import { type DataParser, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
 	const dataParserTestKind = createDataParserKind("checker-test");
+
+	const specificOverrideHandler = createOverride<DataParser>("@test/data-parser-base");
+	const mockSpecificOverrideHandler = vi.fn(forward);
+	specificOverrideHandler.apply = mockSpecificOverrideHandler;
+
+	beforeEach(() => {
+		mockSpecificOverrideHandler.mockClear();
+	});
 
 	it("dataParserCheckerInit", () => {
 		const exec = (input: unknown) => input;
@@ -54,6 +62,7 @@ describe("base parser", () => {
 				checkers: [checker],
 			},
 			exec as never,
+			specificOverrideHandler,
 		);
 
 		beforeEach(() => {
@@ -77,6 +86,7 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							contract: expect.any(Function),
 						},
 						null as never,
 					),
@@ -144,6 +154,7 @@ describe("base parser", () => {
 					checkers: [],
 				},
 				exec,
+				specificOverrideHandler,
 			);
 
 			const result = parser.parse(-1);
@@ -169,6 +180,7 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							contract: expect.any(Function),
 						},
 						null as never,
 					),
@@ -193,6 +205,7 @@ describe("base parser", () => {
 							asyncParse: expect.any(Function),
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
+							contract: expect.any(Function),
 						},
 						null as never,
 					),
@@ -208,6 +221,7 @@ describe("base parser", () => {
 					checkers: [],
 				},
 				() => SymbolDataParserErrorPromiseIssue,
+				specificOverrideHandler,
 			);
 
 			const result = parser.parse(-1);
@@ -221,6 +235,8 @@ describe("base parser", () => {
 					),
 				),
 			);
+
+			expect(specificOverrideHandler.apply).toHaveBeenCalledOnce();
 		});
 	});
 
@@ -257,6 +273,7 @@ describe("base parser", () => {
 				sync: exec as never,
 				async: exec as never,
 			},
+			specificOverrideHandler,
 		);
 
 		beforeEach(() => {
@@ -324,6 +341,7 @@ describe("base parser", () => {
 					checkers: [],
 				},
 				exec,
+				specificOverrideHandler,
 			);
 
 			const result = await parser.asyncParse(-1);
@@ -340,6 +358,7 @@ describe("base parser", () => {
 					checkers: [],
 				},
 				() => SymbolDataParserErrorPromiseIssue,
+				specificOverrideHandler,
 			);
 
 			const result = await parser.asyncParse(-1);
@@ -365,7 +384,7 @@ describe("base parser", () => {
 		const contractWithChecker2: DDataParser.DataParserString = DDataParser
 			.string()
 			.addChecker(
-				DP.checkerStringMax(1),
+				DDataParser.checkerStringMax(1),
 			);
 
 		const contractWithChecker3: DDataParser.extended.DataParserStringExtended = DDataParser
@@ -397,5 +416,19 @@ describe("base parser", () => {
 			.string()
 			.max(1)
 			.min(0);
+
+			type RecursiveTuple = [string, (RecursiveTuple | string)[]];
+
+			const schema: DDataParser.Contract<RecursiveTuple> = DDataParser
+				.tuple([
+					DDataParser.string(),
+					DDataParser.array(
+						DDataParser.union([
+							DDataParser.lazy(() => schema),
+							DDataParser.string(),
+						]),
+					),
+				])
+				.contract();
 	});
 });

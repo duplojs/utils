@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {
@@ -219,5 +219,19 @@ describe("base extended", () => {
 
 		const refined = schema.refine((value) => value > 0, { errorMessage: "must-be-positive" });
 		expect(refined.parse("invalid")).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
+	it("contract", () => {
+			type RecursiveTuple = [string, (RecursiveTuple | string)[]];
+
+			const schema: DDataParser.Contract<RecursiveTuple> = DDataParserExtended
+				.tuple([
+					DDataParserExtended.string(),
+					DDataParserExtended
+						.lazy(() => schema)
+						.or(DDataParserExtended.string())
+						.array(),
+				])
+				.contract();
 	});
 });

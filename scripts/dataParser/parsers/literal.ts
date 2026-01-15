@@ -100,9 +100,10 @@ export function literal<
 
 			return SymbolDataParserErrorIssue;
 		},
+		literal.overrideHandler,
 	) as never;
 
-	return literal.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 literal.overrideHandler = createOverride<DataParserLiteral>("@duplojs/utils/data-parser/literal");

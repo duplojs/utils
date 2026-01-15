@@ -119,9 +119,10 @@ export function nullable<
 				return self.definition.inner.asyncExec(data, error);
 			},
 		},
+		nullable.overrideHandler,
 	) as never;
 
-	return nullable.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 nullable.overrideHandler = createOverride<DataParserNullable>("@duplojs/utils/data-parser/nullable");

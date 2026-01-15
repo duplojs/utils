@@ -91,9 +91,10 @@ export function nil<
 
 			return SymbolDataParserErrorIssue;
 		},
+		nil.overrideHandler,
 	) as never;
 
-	return nil.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 nil.overrideHandler = createOverride<DataParserNil>("@duplojs/utils/data-parser/nil");

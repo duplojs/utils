@@ -259,9 +259,10 @@ export function templateLiteral<
 
 			return SymbolDataParserErrorIssue;
 		},
+		templateLiteral.overrideHandler,
 	) as never;
 
-	return templateLiteral.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 templateLiteral.overrideHandler = createOverride<DataParserTemplateLiteral>("@duplojs/utils/data-parser/templateLiteral");

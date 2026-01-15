@@ -79,9 +79,10 @@ export function unknown<
 			checkers: definition?.checkers ?? [],
 		},
 		(data) => data,
+		unknown.overrideHandler,
 	) as never;
 
-	return unknown.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 unknown.overrideHandler = createOverride<DataParserUnknown>("@duplojs/utils/data-parser/unknown");

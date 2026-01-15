@@ -106,9 +106,10 @@ export function boolean<
 
 			return SymbolDataParserErrorIssue;
 		},
+		boolean.overrideHandler,
 	) as never;
 
-	return boolean.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 boolean.overrideHandler = createOverride<DataParserBoolean>("@duplojs/utils/data-parser/boolean");

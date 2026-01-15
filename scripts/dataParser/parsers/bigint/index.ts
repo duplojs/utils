@@ -101,9 +101,10 @@ export function bigint<
 
 			return SymbolDataParserErrorIssue;
 		},
+		bigint.overrideHandler,
 	) as never;
 
-	return bigint.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 bigint.overrideHandler = createOverride<DataParserBigInt>("@duplojs/utils/data-parser/bigint");

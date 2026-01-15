@@ -118,9 +118,10 @@ export function date<
 
 			return SymbolDataParserErrorIssue;
 		},
+		date.overrideHandler,
 	) as never;
 
-	return date.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 date.overrideHandler = createOverride<DataParserDate>("@duplojs/utils/data-parser/date");

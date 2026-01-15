@@ -229,9 +229,10 @@ export function tuple<
 				return output as never;
 			},
 		},
+		tuple.overrideHandler,
 	) as never;
 
-	return tuple.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 tuple.overrideHandler = createOverride<DataParserTuple>("@duplojs/utils/data-parser/tuple");

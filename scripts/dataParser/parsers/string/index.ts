@@ -104,9 +104,10 @@ export function string<
 
 			return SymbolDataParserErrorIssue;
 		},
+		string.overrideHandler,
 	) as never;
 
-	return string.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 string.overrideHandler = createOverride<DataParserString>("@duplojs/utils/data-parser/string");

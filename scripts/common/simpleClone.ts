@@ -12,13 +12,20 @@ export function simpleClone<
 		unknownValue.constructor === undefined
 		|| unknownValue.constructor.name === "Object"
 	) {
-		return Object.entries(unknownValue).reduce(
-			(pv, [key, value]) => {
-				pv[key as never] = simpleClone(value) as never;
-				return pv;
-			},
-			{} as GenericObject,
-		);
+		const result = {};
+		for (const key in unknownValue) {
+			const desc = Object.getOwnPropertyDescriptor(unknownValue, key);
+			if (desc?.set || desc?.get) {
+				Object.defineProperty(
+					result,
+					key,
+					desc,
+				);
+			} else {
+				result[key as never] = simpleClone(unknownValue[key]) as never;
+			}
+		}
+		return result as never;
 	} else if (unknownValue instanceof Array && unknownValue.constructor.name === "Array") {
 		return unknownValue.map(simpleClone) as GenericObject;
 	} else {

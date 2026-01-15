@@ -280,9 +280,10 @@ export function record<
 				return output;
 			},
 		},
+		record.overrideHandler,
 	) as never;
 
-	return record.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 record.overrideHandler = createOverride<DataParserRecord>("@duplojs/utils/data-parser/record");

@@ -102,9 +102,10 @@ export function number<
 
 			return SymbolDataParserErrorIssue;
 		},
+		number.overrideHandler,
 	) as never;
 
-	return number.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 number.overrideHandler = createOverride<DataParserNumber>("@duplojs/utils/data-parser/number");

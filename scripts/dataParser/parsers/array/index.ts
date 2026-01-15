@@ -151,9 +151,10 @@ export function array<
 				return output as never;
 			},
 		},
+		array.overrideHandler,
 	);
 
-	return array.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 array.overrideHandler = createOverride<DataParserArray>("@duplojs/utils/data-parser/array");

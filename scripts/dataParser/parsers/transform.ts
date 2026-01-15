@@ -137,9 +137,10 @@ export function transform<
 				return result as never;
 			},
 		},
+		transform.overrideHandler,
 	) as never;
 
-	return transform.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 transform.overrideHandler = createOverride<DataParserTransform>("@duplojs/utils/data-parser/transform");

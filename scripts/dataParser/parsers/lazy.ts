@@ -93,9 +93,10 @@ export function lazy<
 			sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
 			async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
 		},
+		lazy.overrideHandler,
 	) as never;
 
-	return lazy.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
-lazy.overrideHandler = createOverride<DataParserLazyCheckerCustom>("@duplojs/utils/data-parser/lazy");
+lazy.overrideHandler = createOverride<DataParserLazy>("@duplojs/utils/data-parser/lazy");

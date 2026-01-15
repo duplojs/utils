@@ -117,9 +117,10 @@ export function time<
 
 			return SymbolDataParserErrorIssue;
 		},
+		time.overrideHandler,
 	) as never;
 
-	return time.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 time.overrideHandler = createOverride<DataParserTime>("@duplojs/utils/data-parser/time");

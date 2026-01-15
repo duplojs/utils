@@ -1,4 +1,4 @@
-import { type AnyFunction, createOverride, type GetKindHandler, type GetKindValue, keyWrappedValue, type Kind, type KindHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, createOverride, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
@@ -68,6 +68,8 @@ export interface DataParserDefinition<
 	readonly checkers: readonly GenericChecker[];
 }
 
+declare const SymbolContractError: unique symbol;
+
 export interface DataParser<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
@@ -115,6 +117,17 @@ export interface DataParser<
 	 * {@include dataParser/classic/base/clone/index.md}
 	 */
 	clone(): this;
+
+	/**
+	 * {@include dataParser/classic/base/contract/index.md}
+	 */
+	contract<
+		GenericValue extends unknown,
+	>(
+		...args: IsEqual<Output<this>, GenericValue> extends true
+			? []
+			: [] & { [SymbolContractError]: "Contract error." }
+	): Contract<GenericValue>;
 }
 
 interface DataParserInitExecParams<
@@ -160,6 +173,7 @@ export function dataParserInit<
 		| DataParserInitExecParams<GenericDataParser>
 		| DataParserInitExecParams<GenericDataParser>["sync"]
 	),
+	specificOverrideHandler: OverrideHandler<GenericDataParser>,
 ): GenericDataParser {
 	const formattedExec = typeof exec === "object"
 		? exec
@@ -172,21 +186,21 @@ export function dataParserInit<
 		data: unknown,
 		error: DataParserError,
 	) {
-		let result = (formattedExec.sync as AnyFunction)(data, error, dataParser) as unknown;
+		let result = (formattedExec.sync as AnyFunction)(data, error, self) as unknown;
 
 		if (result === SDPEI) {
-			addIssue(error, dataParser as never, data);
+			addIssue(error, self as never, data);
 
 			return SDPE;
 		} else if (result === SDPEPI) {
-			addPromiseIssue(error, dataParser as never, data);
+			addPromiseIssue(error, self as never, data);
 
 			return SDPE;
 		} else if (
 			result !== SDPE
-			&& dataParser.definition.checkers.length
+			&& self.definition.checkers.length
 		) {
-			for (const checker of dataParser.definition.checkers) {
+			for (const checker of self.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
 				if (checkerResult === SDPEI) {
@@ -206,21 +220,21 @@ export function dataParserInit<
 		data: unknown,
 		error: DataParserError,
 	) {
-		let result = await (formattedExec.async as AnyFunction)(data, error, dataParser) as unknown;
+		let result = await (formattedExec.async as AnyFunction)(data, error, self) as unknown;
 
 		if (result === SDPEI) {
-			addIssue(error, dataParser as never, data);
+			addIssue(error, self as never, data);
 
 			return SDPE;
 		} else if (result === SDPEPI) {
-			addPromiseIssue(error, dataParser as never, data);
+			addPromiseIssue(error, self as never, data);
 
 			return SDPE;
 		} else if (
 			result !== SDPE
-			&& dataParser.definition.checkers.length
+			&& self.definition.checkers.length
 		) {
-			for (const checker of dataParser.definition.checkers) {
+			for (const checker of self.definition.checkers) {
 				const checkerResult = checker.exec(result, checker);
 
 				if (checkerResult === SDPEI) {
@@ -236,7 +250,7 @@ export function dataParserInit<
 		return result;
 	}
 
-	const dataParser = pipe(
+	const self: DataParser = pipe(
 		{
 			definition,
 			exec: middleExec,
@@ -288,19 +302,23 @@ export function dataParserInit<
 					checkers: [...definition.checkers, ...checkers],
 				}),
 				exec,
+				specificOverrideHandler,
 			),
 			clone: () => dataParserInit(
 				kind,
 				simpleClone(definition),
 				exec,
+				specificOverrideHandler,
 			),
+			contract: () => self,
 		} satisfies Record<keyof RemoveKind<DataParser>, any>,
 		(value) => dataParserKind.setTo(value, null as never),
 		kind.setTo,
-		dataParserInit.overrideHandler.apply,
+		(value) => dataParserInit.overrideHandler.apply(value as never),
+		(value) => specificOverrideHandler.apply(value as never),
 	);
 
-	return dataParser as never;
+	return self as never;
 }
 
 dataParserInit.overrideHandler = createOverride<DataParser>("@duplojs/utils/data-parser/base");

@@ -116,9 +116,10 @@ export function union<
 				return SymbolDataParserErrorIssue;
 			},
 		},
+		union.overrideHandler,
 	) as never;
 
-	return union.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 union.overrideHandler = createOverride<DataParserUnion>("@duplojs/utils/data-parser/union");

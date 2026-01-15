@@ -351,6 +351,9 @@ export function dataParserExtendedInit<
 					definition,
 				);
 			},
+			contract() {
+				return self;
+			},
 		} satisfies DataParserExtended,
 		extendedKind.setTo,
 		dataParserExtendedInit.overrideHandler.apply,
