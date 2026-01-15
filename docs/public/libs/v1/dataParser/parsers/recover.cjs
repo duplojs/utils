@@ -27,8 +27,8 @@ function recover(inner, recoveredValue, definition) {
                 ? self.definition.recoveredValue
                 : result;
         },
-    });
-    return recover.overrideHandler.apply(self);
+    }, recover.overrideHandler);
+    return self;
 }
 recover.overrideHandler = override.createOverride("@duplojs/utils/data-parser/recover");
 

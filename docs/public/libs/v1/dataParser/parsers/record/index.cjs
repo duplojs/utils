@@ -94,8 +94,8 @@ function record(key, value, definition) {
             }
             return output;
         },
-    });
-    return record.overrideHandler.apply(self);
+    }, record.overrideHandler);
+    return self;
 }
 record.overrideHandler = override.createOverride("@duplojs/utils/data-parser/record");
 

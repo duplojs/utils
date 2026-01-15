@@ -34,3 +34,4 @@ export * from "./isIn";
 export * from "./length";
 export * from "./sort";
 export * from "./sortCompare";
+export * from "./to";

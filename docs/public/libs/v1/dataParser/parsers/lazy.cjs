@@ -17,8 +17,8 @@ function lazy(getter, definition) {
     }, {
         sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
         async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
-    });
-    return lazy.overrideHandler.apply(self);
+    }, lazy.overrideHandler);
+    return self;
 }
 lazy.overrideHandler = override.createOverride("@duplojs/utils/data-parser/lazy");
 

@@ -1,5 +1,5 @@
 import { type MergeUnionTuple } from "../../array/types/mergeUnionTuple";
-import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey, type WrappedValue } from "../../common";
+import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey, type WrappedValue, type AnyValue } from "../../common";
 export type EligiblePrimitiveMatch = string | number | bigint | boolean | undefined | null;
 type PrimitivePattern<GenericInput extends unknown> = GenericInput extends EligiblePrimitiveMatch ? GenericInput : never;
 type ObjectPattern<GenericInput extends unknown> = Exclude<GenericInput, readonly any[]> extends infer InferredInput ? [
@@ -25,7 +25,7 @@ export interface ToolPattern<GenericInput extends unknown = any, GenericPattern 
     [SymbolToolPatternFunction](input: GenericInput): boolean;
     [SymbolToolPattern]: GenericPattern;
 }
-export type Pattern<GenericInput extends unknown = any> = (PredicatePattern<GenericInput> | ToolPattern<GenericInput> | PrimitivePattern<GenericInput> | ObjectPattern<GenericInput> | ArrayPattern<GenericInput>);
+export type Pattern<GenericInput extends unknown = any> = (IsEqual<GenericInput, unknown> extends true ? AnyValue : GenericInput) extends infer InferredInput ? (PredicatePattern<InferredInput> | ToolPattern<InferredInput> | PrimitivePattern<InferredInput> | ObjectPattern<InferredInput> | ArrayPattern<InferredInput>) : never;
 declare const SymbolPatternValueMaybeAll: unique symbol;
 type SymbolPatternValueMaybeAll = typeof SymbolPatternValueMaybeAll;
 export interface PatternValueMaybeAll<GenericValue extends unknown = any> extends WrappedValue<GenericValue> {

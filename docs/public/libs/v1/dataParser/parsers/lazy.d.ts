@@ -63,6 +63,6 @@ export declare function lazy<GenericDataParser extends DataParser, const Generic
     getter: Memoized<GenericDataParser>;
 }>>;
 export declare namespace lazy {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserLazyCheckerCustom<unknown>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserLazy<DataParserDefinitionLazy>>;
 }
 export {};

@@ -1,4 +1,4 @@
-import { type GetKindHandler, type GetKindValue, type Kind, type KindHandler, type RemoveKind } from "../common";
+import { type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
 import { SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError } from "./error";
 import * as DEither from "../either";
 export declare const SymbolDataParserErrorLabel = "SymbolDataParserError";
@@ -22,6 +22,7 @@ export interface DataParserDefinition<GenericChecker extends DataParserChecker =
     readonly errorMessage?: string;
     readonly checkers: readonly GenericChecker[];
 }
+declare const SymbolContractError: unique symbol;
 export interface DataParser<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends Kind<typeof dataParserKind.definition, {
     input: GenericInput;
     output: GenericOutput;
@@ -137,14 +138,45 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * 
      */
     clone(): this;
+    /**
+     * The contract() method validates that the parser output type exactly matches the type you want to assign it to.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.contract<Output>()` -> returns the same parser if types match
+     * 
+     * It does not change runtime behavior; it enforces at compile time that the parser output type and the expected type are exactly the same.
+     * 
+     * ```ts
+     * interface User {
+     * 	id: number;
+     * 	name: string;
+     * }
+     * 
+     * const userParser: DP.Contract<User> = DP.object({
+     * 	id: DP.number(),
+     * 	name: DP.string(),
+     * }).contract();
+     * 
+     * const statusParser: DP.Contract<"draft" | "published">
+     * 	= DP.literal(["draft", "published"]).contract();
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser
+     * 
+     * @namespace DP
+     * 
+     */
+    contract<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & {
+        [SymbolContractError]: "Contract error.";
+    }): Contract<GenericValue>;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
     sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
     async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
 }
-export declare function dataParserInit<GenericDataParser extends DataParser>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"])): GenericDataParser;
+export declare function dataParserInit<GenericDataParser extends DataParser>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"]), specificOverrideHandler: OverrideHandler<GenericDataParser>): GenericDataParser;
 export declare namespace dataParserInit {
-    var overrideHandler: import("../common").OverrideHandler<DataParser<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
+    var overrideHandler: OverrideHandler<DataParser<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
 export type Output<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
 export type Input<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];

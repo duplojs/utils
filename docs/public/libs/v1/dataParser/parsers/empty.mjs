@@ -20,8 +20,8 @@ function empty(definition) {
             return undefined;
         }
         return SymbolDataParserErrorIssue;
-    });
-    return empty.overrideHandler.apply(self);
+    }, empty.overrideHandler);
+    return self;
 }
 empty.overrideHandler = createOverride("@duplojs/utils/data-parser/empty");
 

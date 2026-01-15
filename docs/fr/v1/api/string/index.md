@@ -114,6 +114,9 @@ Supprime les espaces en fin de chaîne.
 ### [concat](/fr/v1/api/string/concat)
 Concatène plusieurs chaînes ensemble.
 
+### [to](/fr/v1/api/string/to)
+Convertit une valeur primitive en chaîne de caractères.
+
 ### [sort](/fr/v1/api/string/sort)
 Trie un tableau de chaînes en ordre croissant ou décroissant.
 

@@ -27,8 +27,8 @@ function pipe(input, output, definition) {
             }
             return self.definition.output.asyncExec(result, error);
         },
-    });
-    return pipe.overrideHandler.apply(self);
+    }, pipe.overrideHandler);
+    return self;
 }
 pipe.overrideHandler = createOverride("@duplojs/utils/data-parser/pipe");
 

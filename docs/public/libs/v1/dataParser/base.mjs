@@ -25,7 +25,7 @@ const DPE = createError();
 const EE = error(null);
 const ES = success(null);
 const KWV = keyWrappedValue;
-function dataParserInit(kind, definition, exec) {
+function dataParserInit(kind, definition, exec, specificOverrideHandler) {
     const formattedExec = typeof exec === "object"
         ? exec
         : {
@@ -33,18 +33,18 @@ function dataParserInit(kind, definition, exec) {
             async: exec,
         };
     function middleExec(data, error) {
-        let result = formattedExec.sync(data, error, dataParser);
+        let result = formattedExec.sync(data, error, self);
         if (result === SDPEI) {
-            addIssue(error, dataParser, data);
+            addIssue(error, self, data);
             return SDPE;
         }
         else if (result === SDPEPI) {
-            addPromiseIssue(error, dataParser, data);
+            addPromiseIssue(error, self, data);
             return SDPE;
         }
         else if (result !== SDPE
-            && dataParser.definition.checkers.length) {
-            for (const checker of dataParser.definition.checkers) {
+            && self.definition.checkers.length) {
+            for (const checker of self.definition.checkers) {
                 const checkerResult = checker.exec(result, checker);
                 if (checkerResult === SDPEI) {
                     addIssue(error, checker, result);
@@ -58,18 +58,18 @@ function dataParserInit(kind, definition, exec) {
         return result;
     }
     async function middleAsyncExec(data, error) {
-        let result = await formattedExec.async(data, error, dataParser);
+        let result = await formattedExec.async(data, error, self);
         if (result === SDPEI) {
-            addIssue(error, dataParser, data);
+            addIssue(error, self, data);
             return SDPE;
         }
         else if (result === SDPEPI) {
-            addPromiseIssue(error, dataParser, data);
+            addPromiseIssue(error, self, data);
             return SDPE;
         }
         else if (result !== SDPE
-            && dataParser.definition.checkers.length) {
-            for (const checker of dataParser.definition.checkers) {
+            && self.definition.checkers.length) {
+            for (const checker of self.definition.checkers) {
                 const checkerResult = checker.exec(result, checker);
                 if (checkerResult === SDPEI) {
                     addIssue(error, checker, result);
@@ -82,7 +82,7 @@ function dataParserInit(kind, definition, exec) {
         }
         return result;
     }
-    const dataParser = pipe({
+    const self = pipe({
         definition,
         exec: middleExec,
         asyncExec: middleAsyncExec,
@@ -125,10 +125,11 @@ function dataParserInit(kind, definition, exec) {
         addChecker: (...checkers) => dataParserInit(kind, simpleClone({
             ...definition,
             checkers: [...definition.checkers, ...checkers],
-        }), exec),
-        clone: () => dataParserInit(kind, simpleClone(definition), exec),
-    }, (value) => dataParserKind.setTo(value, null), kind.setTo, dataParserInit.overrideHandler.apply);
-    return dataParser;
+        }), exec, specificOverrideHandler),
+        clone: () => dataParserInit(kind, simpleClone(definition), exec, specificOverrideHandler),
+        contract: () => self,
+    }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
+    return self;
 }
 dataParserInit.overrideHandler = createOverride("@duplojs/utils/data-parser/base");
 

@@ -57,8 +57,8 @@ function array(element, definition) {
             void (data.length && popErrorPath(error));
             return output;
         },
-    });
-    return array.overrideHandler.apply(self);
+    }, array.overrideHandler);
+    return self;
 }
 array.overrideHandler = createOverride("@duplojs/utils/data-parser/array");
 

@@ -114,6 +114,9 @@ Removes whitespace from the end of a string.
 ### [concat](/en/v1/api/string/concat)
 Concatenates multiple strings together.
 
+### [to](/en/v1/api/string/to)
+Converts a primitive value to its string representation.
+
 ### [sort](/en/v1/api/string/sort)
 Sorts an array of strings in ascending or descending order.
 

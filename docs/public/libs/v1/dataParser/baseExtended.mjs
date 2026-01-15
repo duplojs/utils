@@ -57,6 +57,9 @@ function dataParserExtendedInit(dataParser, rest) {
         recover(recoveredValue, definition) {
             return recover(self, recoveredValue, definition);
         },
+        contract() {
+            return self;
+        },
     }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply);
     return self;
 }

@@ -27,8 +27,8 @@ function nullable(inner, definition) {
             }
             return self.definition.inner.asyncExec(data, error);
         },
-    });
-    return nullable.overrideHandler.apply(self);
+    }, nullable.overrideHandler);
+    return self;
 }
 nullable.overrideHandler = override.createOverride("@duplojs/utils/data-parser/nullable");
 

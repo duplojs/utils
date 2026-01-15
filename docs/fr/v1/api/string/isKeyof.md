@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La méthode isKeyof() vérifie si une clé existe dans un objet et affine le type de la clé en conséquence."
 prev:
-  text: "concat"
-  link: "/fr/v1/api/string/concat"
+  text: "to"
+  link: "/fr/v1/api/string/to"
 next:
   text: "String"
   link: "/fr/v1/api/string/"

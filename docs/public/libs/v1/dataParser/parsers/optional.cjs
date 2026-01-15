@@ -27,8 +27,8 @@ function optional(inner, definition) {
             }
             return self.definition.inner.asyncExec(data, error);
         },
-    });
-    return optional.overrideHandler.apply(self);
+    }, optional.overrideHandler);
+    return self;
 }
 optional.overrideHandler = override.createOverride("@duplojs/utils/data-parser/optional");
 

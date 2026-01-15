@@ -17,7 +17,7 @@ What you will find in this namespace:
 - composition and slicing (`S.concat`, `S.slice`, `S.substring`, `S.split`)
 - indexing (`S.at`, `S.charAt`, `S.indexOf`, `S.lastIndexOf`)
 - padding and repeat (`S.padStart`, `S.padEnd`, `S.repeat`)
-- misc helpers (`S.normalize`, `S.isKeyof`, `S.isIn`, `S.length`, `S.sort`, `S.sortCompare`)
+- misc helpers (`S.normalize`, `S.isKeyof`, `S.isIn`, `S.length`, `S.sort`, `S.sortCompare`, `S.to`)
 
 @see https://utils.duplojs.dev/en/v1/api/string
 

@@ -5,8 +5,8 @@ prev:
   text: "sortCompare"
   link: "/fr/v1/api/string/sortCompare"
 next:
-  text: "isKeyof"
-  link: "/fr/v1/api/string/isKeyof"
+  text: "to"
+  link: "/fr/v1/api/string/to"
 ---
 
 # concat

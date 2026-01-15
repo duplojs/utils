@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The isKeyof() method checks whether a key exists in an object and narrows the key type accordingly."
 prev:
-  text: "concat"
-  link: "/en/v1/api/string/concat"
+  text: "to"
+  link: "/en/v1/api/string/to"
 next:
   text: "String"
   link: "/en/v1/api/string/"

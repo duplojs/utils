@@ -1,9 +1,9 @@
-import { type Adaptor, type SimplifyTopLevel, type IsEqual } from "../../../common";
+import { type Adaptor, type SimplifyTopLevel, type IsEqual, type AnyFunction } from "../../../common";
 import { type ComplexMatchedValue } from ".";
 import { type GetPropsWithValue } from "../../../object";
 export type ComplexMatchedObject<GenericInput extends unknown, GenericPatternValue extends unknown> = ([
-    Exclude<Extract<GenericInput, object>, readonly any[]>,
-    Exclude<Extract<GenericPatternValue, object>, readonly any[]>
+    Exclude<Extract<GenericInput, object>, readonly any[] | AnyFunction>,
+    Exclude<Extract<GenericPatternValue, object>, readonly any[] | AnyFunction>
 ] extends [
     infer InferredInput,
     infer InferredPatternValue

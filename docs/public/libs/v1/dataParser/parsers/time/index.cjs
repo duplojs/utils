@@ -41,8 +41,8 @@ function time(definition) {
             return data;
         }
         return error.SymbolDataParserErrorIssue;
-    });
-    return time.overrideHandler.apply(self);
+    }, time.overrideHandler);
+    return self;
 }
 time.overrideHandler = override.createOverride("@duplojs/utils/data-parser/time");
 

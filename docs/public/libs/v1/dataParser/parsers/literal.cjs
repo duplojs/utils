@@ -20,8 +20,8 @@ function literal(value, definition) {
             return data;
         }
         return error.SymbolDataParserErrorIssue;
-    });
-    return literal.overrideHandler.apply(self);
+    }, literal.overrideHandler);
+    return self;
 }
 literal.overrideHandler = override.createOverride("@duplojs/utils/data-parser/literal");
 

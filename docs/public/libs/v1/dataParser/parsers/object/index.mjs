@@ -67,8 +67,8 @@ function object(shape, definition) {
             void (self.definition.optimizedShape.value.length && popErrorPath(error));
             return output;
         },
-    });
-    return object.overrideHandler.apply(self);
+    }, object.overrideHandler);
+    return self;
 }
 object.overrideHandler = createOverride("@duplojs/utils/data-parser/object");
 

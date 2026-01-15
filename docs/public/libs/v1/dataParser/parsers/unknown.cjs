@@ -12,8 +12,8 @@ function unknown(definition) {
     const self = base.dataParserInit(unknownKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
-    }, (data) => data);
-    return unknown.overrideHandler.apply(self);
+    }, (data) => data, unknown.overrideHandler);
+    return self;
 }
 unknown.overrideHandler = override.createOverride("@duplojs/utils/data-parser/unknown");
 

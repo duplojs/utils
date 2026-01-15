@@ -42,8 +42,8 @@ function date(definition) {
             return data;
         }
         return SymbolDataParserErrorIssue;
-    });
-    return date.overrideHandler.apply(self);
+    }, date.overrideHandler);
+    return self;
 }
 date.overrideHandler = createOverride("@duplojs/utils/data-parser/date");
 

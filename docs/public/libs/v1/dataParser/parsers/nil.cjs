@@ -22,8 +22,8 @@ function nil(definition) {
             return null;
         }
         return error.SymbolDataParserErrorIssue;
-    });
-    return nil.overrideHandler.apply(self);
+    }, nil.overrideHandler);
+    return self;
 }
 nil.overrideHandler = override.createOverride("@duplojs/utils/data-parser/nil");
 

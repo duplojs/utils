@@ -35,8 +35,8 @@ function boolean(definition) {
             }
         }
         return error.SymbolDataParserErrorIssue;
-    });
-    return boolean.overrideHandler.apply(self);
+    }, boolean.overrideHandler);
+    return self;
 }
 boolean.overrideHandler = override.createOverride("@duplojs/utils/data-parser/boolean");
 

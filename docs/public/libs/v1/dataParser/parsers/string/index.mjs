@@ -24,8 +24,8 @@ function string(definition) {
             return data;
         }
         return SymbolDataParserErrorIssue;
-    });
-    return string.overrideHandler.apply(self);
+    }, string.overrideHandler);
+    return self;
 }
 string.overrideHandler = createOverride("@duplojs/utils/data-parser/string");
 

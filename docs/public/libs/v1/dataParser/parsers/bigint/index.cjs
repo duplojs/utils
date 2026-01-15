@@ -26,8 +26,8 @@ function bigint(definition) {
             return data;
         }
         return error.SymbolDataParserErrorIssue;
-    });
-    return bigint.overrideHandler.apply(self);
+    }, bigint.overrideHandler);
+    return self;
 }
 bigint.overrideHandler = override.createOverride("@duplojs/utils/data-parser/bigint");
 

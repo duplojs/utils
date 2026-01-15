@@ -24,8 +24,8 @@ function number(definition) {
             return data;
         }
         return SymbolDataParserErrorIssue;
-    });
-    return number.overrideHandler.apply(self);
+    }, number.overrideHandler);
+    return self;
 }
 number.overrideHandler = createOverride("@duplojs/utils/data-parser/number");
 

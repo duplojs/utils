@@ -12,10 +12,17 @@ function simpleClone(unknownValue) {
     }
     else if (unknownValue.constructor === undefined
         || unknownValue.constructor.name === "Object") {
-        return Object.entries(unknownValue).reduce((pv, [key, value]) => {
-            pv[key] = simpleClone(value);
-            return pv;
-        }, {});
+        const result = {};
+        for (const key in unknownValue) {
+            const desc = Object.getOwnPropertyDescriptor(unknownValue, key);
+            if (desc?.set || desc?.get) {
+                Object.defineProperty(result, key, desc);
+            }
+            else {
+                result[key] = simpleClone(unknownValue[key]);
+            }
+        }
+        return result;
     }
     else if (unknownValue instanceof Array && unknownValue.constructor.name === "Array") {
         return unknownValue.map(simpleClone);

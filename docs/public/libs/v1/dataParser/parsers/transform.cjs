@@ -38,8 +38,8 @@ function transform(inner, theFunction, definition) {
             }
             return result;
         },
-    });
-    return transform.overrideHandler.apply(self);
+    }, transform.overrideHandler);
+    return self;
 }
 transform.overrideHandler = override.createOverride("@duplojs/utils/data-parser/transform");
 

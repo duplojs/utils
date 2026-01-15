@@ -78,8 +78,8 @@ function tuple(shape, definition) {
             void (self.definition.shape.length && error.popErrorPath(error$1));
             return output;
         },
-    });
-    return tuple.overrideHandler.apply(self);
+    }, tuple.overrideHandler);
+    return self;
 }
 tuple.overrideHandler = override.createOverride("@duplojs/utils/data-parser/tuple");
 

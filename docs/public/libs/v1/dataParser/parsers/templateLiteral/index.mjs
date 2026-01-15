@@ -21,8 +21,8 @@ function templateLiteral(template, definition) {
             return data;
         }
         return SymbolDataParserErrorIssue;
-    });
-    return templateLiteral.overrideHandler.apply(self);
+    }, templateLiteral.overrideHandler);
+    return self;
 }
 templateLiteral.overrideHandler = createOverride("@duplojs/utils/data-parser/templateLiteral");
 

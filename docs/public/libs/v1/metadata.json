@@ -4402,6 +4402,9 @@
                   "name": "array.d.ts"
                 },
                 {
+                  "name": "function.d.ts"
+                },
+                {
                   "name": "index.d.ts"
                 },
                 {
@@ -4420,6 +4423,9 @@
               "files": [
                 {
                   "name": "array.d.ts"
+                },
+                {
+                  "name": "function.d.ts"
                 },
                 {
                   "name": "getIncompleteUnion.d.ts"
@@ -4891,6 +4897,15 @@
         },
         {
           "name": "test.mjs"
+        },
+        {
+          "name": "to.cjs"
+        },
+        {
+          "name": "to.d.ts"
+        },
+        {
+          "name": "to.mjs"
         },
         {
           "name": "toLowerCase.cjs"

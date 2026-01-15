@@ -33,8 +33,8 @@ function union(options, definition) {
             }
             return error.SymbolDataParserErrorIssue;
         },
-    });
-    return union.overrideHandler.apply(self);
+    }, union.overrideHandler);
+    return self;
 }
 union.overrideHandler = override.createOverride("@duplojs/utils/data-parser/union");
 
