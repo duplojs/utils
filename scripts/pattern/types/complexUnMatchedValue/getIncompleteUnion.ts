@@ -1,4 +1,4 @@
-import { type AnyTuple, type Adaptor, type IsEqual, type Or } from "@scripts/common";
+import { type AnyTuple, type Adaptor, type IsEqual, type Or, type UnionToIntersection, type AnyValue } from "@scripts/common";
 import { type PatternValueMaybeAll, type EligiblePrimitiveMatch } from "../pattern";
 import { type FlatObject } from "@scripts/object";
 import { type ExcludeTuple } from "@scripts/array/types/excludeTuple";
@@ -126,6 +126,30 @@ export type GetIncompleteUnion<
 						}>
 						: {}
 					: {}
+			: never
+	)
+	| (
+		[
+			Exclude<Extract<GenericInput, readonly any[]>, AnyTuple>,
+			Exclude<Extract<GenericPatternValue, readonly any[]>, AnyTuple>,
+		] extends [
+			infer InferredInput extends readonly any[],
+			infer InferredPatternValue extends readonly any[],
+		]
+			? Or<[
+				IsEqual<InferredPatternValue, never>,
+				IsEqual<InferredInput, never>,
+			]> extends true
+				? never
+				: IsEqual<
+					Exclude<
+						InferredInput[number],
+						InferredPatternValue[number]
+					>,
+					never
+				> extends true
+					? {}
+					: { "@duplojs/utils/[array]": true }
 			: never
 	)
 	| (

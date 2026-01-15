@@ -1,4 +1,4 @@
-import { type Adaptor, type SimplifyTopLevel, type IsEqual } from "@scripts/common";
+import { type Adaptor, type SimplifyTopLevel, type IsEqual, type AnyFunction } from "@scripts/common";
 import { type ComplexMatchedValue } from ".";
 import { type GetPropsWithValue } from "@scripts/object";
 
@@ -7,8 +7,8 @@ export type ComplexMatchedObject<
 	GenericPatternValue extends unknown,
 > = (
 	[
-		Exclude<Extract<GenericInput, object>, readonly any[]>,
-		Exclude<Extract<GenericPatternValue, object>, readonly any[]>,
+		Exclude<Extract<GenericInput, object>, readonly any[] | AnyFunction>,
+		Exclude<Extract<GenericPatternValue, object>, readonly any[] | AnyFunction>,
 	] extends [
 		infer InferredInput,
 		infer InferredPatternValue,

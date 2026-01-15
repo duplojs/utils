@@ -1,4 +1,4 @@
-import { DEither, DDataParser, type AnyValue } from "@scripts";
+import { DEither, DDataParser, type AnyValue, DP } from "@scripts";
 import { SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
@@ -357,9 +357,25 @@ describe("base parser", () => {
 	});
 
 	it("contract", () => {
-		const contractWithoutChecker: DDataParser.DataParserString = DDataParser
+		const contractWithChecker1: DDataParser.DataParserString = DDataParser
 			.extended
 			.string()
+			.max(1);
+
+		const contractWithChecker2: DDataParser.DataParserString = DDataParser
+			.string()
+			.addChecker(
+				DP.checkerStringMax(1),
+			);
+
+		const contractWithChecker3: DDataParser.extended.DataParserStringExtended = DDataParser
+			.extended
+			.string()
+			.max(1);
+
+		const contractWithCoerce: DDataParser.DataParserString = DDataParser
+			.extended
+			.string({ coerce: true })
 			.max(1);
 
 		const dataParserWithChecker: DDataParser.DataParserString<

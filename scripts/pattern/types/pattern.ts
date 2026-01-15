@@ -1,5 +1,5 @@
 import { type MergeUnionTuple } from "@scripts/array/types/mergeUnionTuple";
-import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey, type WrappedValue } from "@scripts/common";
+import { type AnyTuple, type Adaptor, type IsEqual, type ObjectKey, type WrappedValue, type AnyValue } from "@scripts/common";
 
 export type EligiblePrimitiveMatch = string | number | bigint | boolean | undefined | null;
 
@@ -96,12 +96,18 @@ export interface ToolPattern<
 export type Pattern<
 	GenericInput extends unknown = any,
 > = (
-	| PredicatePattern<GenericInput>
-	| ToolPattern<GenericInput>
-	| PrimitivePattern<GenericInput>
-	| ObjectPattern<GenericInput>
-	| ArrayPattern<GenericInput>
-);
+	IsEqual<GenericInput, unknown> extends true
+		? AnyValue
+		: GenericInput
+) extends infer InferredInput
+	? (
+		| PredicatePattern<InferredInput>
+		| ToolPattern<InferredInput>
+		| PrimitivePattern<InferredInput>
+		| ObjectPattern<InferredInput>
+		| ArrayPattern<InferredInput>
+	)
+	: never;
 
 const SymbolPatternValueMaybeAll = Symbol.for("SymbolMaybeAll");
 type SymbolPatternValueMaybeAll = typeof SymbolPatternValueMaybeAll;

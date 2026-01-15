@@ -1,4 +1,4 @@
-import { type Adaptor, type SimplifyTopLevel, type IsEqual, type IsUnion, type NeverCoalescing, type RemoveReadonly } from "@scripts/common";
+import { type Adaptor, type SimplifyTopLevel, type IsEqual, type IsUnion, type NeverCoalescing, type RemoveReadonly, type AnyFunction } from "@scripts/common";
 import { type ComplexUnMatchedValue } from ".";
 
 export type ComplexUnMatchedObject<
@@ -6,8 +6,8 @@ export type ComplexUnMatchedObject<
 	GenericPatternValue extends unknown,
 > = (
 		[
-			Exclude<Extract<GenericInput, object>, readonly any[]>,
-			Exclude<Extract<GenericPatternValue, object>, readonly any[]>,
+			Exclude<Extract<GenericInput, object>, readonly any[] | AnyFunction>,
+			Exclude<Extract<GenericPatternValue, object>, readonly any[] | AnyFunction>,
 		] extends [
 			infer InferredInput,
 			infer InferredPatternValue,

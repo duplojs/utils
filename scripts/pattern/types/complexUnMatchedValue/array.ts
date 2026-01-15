@@ -1,4 +1,4 @@
-import { type Adaptor, type AnyTuple, type IsEqual, type IsUnion } from "@scripts/common";
+import { type AnyValue, type Or, type Adaptor, type AnyTuple, type IsEqual, type IsUnion } from "@scripts/common";
 import { type ComplexUnMatchedValue } from ".";
 
 type ComplexUnMatchedArrayTuple<
@@ -10,9 +10,11 @@ type ComplexUnMatchedArrayTuple<
 		Extract<GenericPatternValue, AnyTuple>,
 	] extends [
 		infer InferredInput,
-		infer _InferredPatternValue,
+		infer InferredPatternValue,
 	]
-		? InferredInput
+		? IsEqual<InferredPatternValue, never> extends true
+			? never
+			: InferredInput
 		: never
 );
 
@@ -28,7 +30,7 @@ type ComplexUnMatchedTupleTuple<
 		infer InferredPatternValue,
 	]
 		? IsEqual<InferredPatternValue, never> extends true
-			? InferredInput
+			? never
 			: IsUnion<InferredPatternValue> extends true
 				? never
 				: InferredInput extends InferredPatternValue
@@ -74,6 +76,41 @@ type ComplexUnMatchedTupleTuple<
 		: never
 );
 
+type ComplexUnMatchedArrayArray<
+	GenericInput extends unknown,
+	GenericPatternValue extends unknown,
+> = (
+	[
+		Exclude<Extract<GenericInput, readonly any[]>, AnyTuple>,
+		Exclude<Extract<GenericPatternValue, readonly any[]>, AnyTuple>,
+	] extends [
+		infer InferredInput extends readonly any[],
+		infer InferredPatternValue extends readonly any[],
+	]
+		? IsEqual<InferredInput, never> extends true
+			? never
+			: InferredInput[number] extends infer InferredInnerValue
+				? InferredInnerValue extends any
+					? Extract<
+						InferredInnerValue,
+						InferredPatternValue[number]
+					> extends infer InferredObviousMatch
+						? IsEqual<InferredObviousMatch, never> extends true
+							? ComplexUnMatchedValue<
+								InferredInnerValue,
+								InferredPatternValue[number]
+							> extends infer InferredValue
+								? IsEqual<InferredValue, never> extends true
+									? never
+									: InferredInput
+								: never
+							: never
+						: never
+					: never
+				: never
+		: never
+);
+
 export type ComplexUnMatchedArray<
 	GenericInput extends unknown,
 	GenericPatternValue extends unknown,
@@ -83,5 +120,6 @@ export type ComplexUnMatchedArray<
 		: (
 			| ComplexUnMatchedTupleTuple<GenericInput, InferredPatternValue>
 			| ComplexUnMatchedArrayTuple<GenericInput, InferredPatternValue>
+			| ComplexUnMatchedArrayArray<GenericInput, InferredPatternValue>
 		)
 	: never;

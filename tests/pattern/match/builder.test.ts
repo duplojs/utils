@@ -1,4 +1,4 @@
-import { type AnyFunction, DPattern, equal, type ExpectType, isType } from "@scripts";
+import { type AnyFunction, type AnyValue, DPattern, equal, type ExpectType, isType } from "@scripts";
 
 describe("pattern match builder", () => {
 	it("matches with builder and falls back to otherwise", () => {
@@ -80,5 +80,190 @@ describe("pattern match builder", () => {
 				.when(equal("bar"), () => 12)
 				.exhaustive(),
 		).toBe("yes-foo");
+	});
+
+	it("supports unknown value", () => {
+		void DPattern.match(42 as unknown)
+			.with(
+				isType("number"),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						number,
+						"strict"
+					>;
+				},
+			)
+			.with(
+				isType("object"),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						object,
+						"strict"
+					>;
+				},
+			)
+			.with(
+				isType("array"),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						AnyValue[],
+						"strict"
+					>;
+				},
+			)
+			.with(
+				isType("function"),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						AnyFunction,
+						"strict"
+					>;
+				},
+			)
+			.otherwise(
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						string | bigint | boolean | null | undefined,
+						"strict"
+					>;
+				},
+			);
+	});
+
+	it("supports deep unknown value", () => {
+		void DPattern.match({ test: 42 as unknown })
+			.with(
+				{
+					test: DPattern.union(
+						isType("string"),
+						isType("number"),
+					),
+				},
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							test: string | number;
+						},
+						"strict"
+					>;
+				},
+			)
+			.with(
+				{ test: isType("object") },
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							test: object;
+						},
+						"strict"
+					>;
+				},
+			)
+			.with(
+				{
+					test: DPattern.union(
+						isType("array"),
+						isType("function"),
+					),
+				},
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							test: AnyFunction | AnyValue[];
+						},
+						"strict"
+					>;
+				},
+			)
+			.otherwise(
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							test?: bigint | boolean | null | undefined;
+						},
+						"strict"
+					>;
+				},
+			);
+	});
+
+	it("Incomplete union on input", () => {
+		const input = {
+			rr: "ok",
+		} as {
+			test: string;
+			tt: string;
+			jj: { type: "oo" } | { type: "pp" };
+		} | { rr: string };
+
+		const result = DPattern.match(input)
+			.with(
+				DPattern.union(
+					{
+						test: "ok",
+					},
+					{
+						tt: "ok",
+						jj: { type: "oo" },
+					},
+				),
+				(value) => {
+						type check = ExpectType<
+							typeof value,
+							{
+								tt: string;
+								jj: {
+									type: "oo";
+								} | {
+									type: "pp";
+								};
+								test: "ok";
+							} | {
+								test: string;
+								tt: "ok";
+								jj: {
+									type: "oo";
+								};
+							},
+							"strict"
+						>;
+
+						return "with" as const;
+				},
+			)
+			.otherwise((rest) => {
+					type check = ExpectType<
+						typeof rest,
+						{
+							test: string;
+							tt: string;
+							jj: {
+								type: "oo";
+							} | {
+								type: "pp";
+							};
+						} | {
+							rr: string;
+						},
+						"strict"
+					>;
+
+					return "otherwise" as const;
+			});
+
+		type check = ExpectType<
+			typeof result,
+			"with" | "otherwise",
+			"strict"
+		>;
 	});
 });
