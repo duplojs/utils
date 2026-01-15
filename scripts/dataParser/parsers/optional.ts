@@ -81,7 +81,7 @@ export function optional<
 	const GenericDefinition extends Partial<
 		Omit<
 			DataParserDefinitionOptional<
-				Output<GenericDataParser> | undefined
+				Output<GenericDataParser>
 			>,
 			"inner"
 		>
