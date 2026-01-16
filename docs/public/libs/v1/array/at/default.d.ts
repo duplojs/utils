@@ -1,4 +1,6 @@
+import type { IsEqual } from "../../common";
 import type { AtTuple } from "../types";
+export type AtArray<GenericArray extends readonly unknown[], GenericIndex extends number> = IsEqual<GenericArray["length"], number> extends true ? GenericArray[number] | undefined : AtTuple<GenericArray, GenericIndex>;
 /**
  * Accesses an element at a given index, supporting negative indices.
  * 
@@ -31,7 +33,5 @@ import type { AtTuple } from "../types";
  * 
  * @namespace A
  */
-export declare function at<GenericTuple extends readonly unknown[], GenericIndex extends number>(index: GenericIndex): (array: GenericTuple) => AtTuple<GenericTuple, GenericIndex>;
-export declare function at<GenericElement extends unknown>(index: number): (array: readonly GenericElement[]) => GenericElement | undefined;
-export declare function at<GenericTuple extends readonly unknown[], GenericIndex extends number>(array: GenericTuple, index: GenericIndex): AtTuple<GenericTuple, GenericIndex>;
-export declare function at<GenericElement extends unknown>(array: readonly GenericElement[], index: number): GenericElement | undefined;
+export declare function at<GenericArray extends readonly unknown[], GenericIndex extends number>(index: GenericIndex): (array: GenericArray) => AtArray<GenericArray, GenericIndex>;
+export declare function at<GenericArray extends readonly unknown[], GenericIndex extends number>(array: GenericArray, index: GenericIndex): AtArray<GenericArray, GenericIndex>;

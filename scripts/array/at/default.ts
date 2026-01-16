@@ -1,35 +1,30 @@
+import type { IsEqual } from "@scripts/common";
 import type { AtTuple } from "../types";
+
+export type AtArray<
+	GenericArray extends readonly unknown[],
+	GenericIndex extends number,
+> = IsEqual<GenericArray["length"], number> extends true
+	? GenericArray[number] | undefined
+	: AtTuple<GenericArray, GenericIndex>;
 
 /**
  * {@include array/at/index.md}
  */
 export function at<
-	GenericTuple extends readonly unknown[],
+	GenericArray extends readonly unknown[],
 	GenericIndex extends number,
 >(
 	index: GenericIndex,
-): (array: GenericTuple) => AtTuple<GenericTuple, GenericIndex>;
+): (array: GenericArray) => AtArray<GenericArray, GenericIndex>;
 
 export function at<
-	GenericElement extends unknown,
->(
-	index: number,
-): (array: readonly GenericElement[]) => GenericElement | undefined;
-
-export function at<
-	GenericTuple extends readonly unknown[],
+	GenericArray extends readonly unknown[],
 	GenericIndex extends number,
 >(
-	array: GenericTuple,
+	array: GenericArray,
 	index: GenericIndex,
-): AtTuple<GenericTuple, GenericIndex>;
-
-export function at<
-	GenericElement extends unknown,
->(
-	array: readonly GenericElement[],
-	index: number,
-): GenericElement | undefined;
+): AtArray<GenericArray, GenericIndex>;
 
 export function at(...args: [readonly unknown[], number] | [number]) {
 	if (args.length === 1) {

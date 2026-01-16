@@ -26,37 +26,24 @@ The **`at()`** method returns the element at a given index (supports negative in
 ### Classic signature
 
 ```typescript
-function at<
-	GenericInputTuple extends readonly unknown[], 
-	GenericIndex extends number
+export function at<
+	GenericArray extends readonly unknown[],
+	GenericIndex extends number,
 >(
-	input: GenericInputTuple, 
-	index: GenericIndex
-): AtTuple<GenericInputTuple, GenericIndex>
-
-function at<
-	GenericElement extends unknown
->(
-	input: readonly GenericElement[], 
-	index: number
-): GenericElement | undefined
+	array: GenericArray,
+	index: GenericIndex,
+): AtArray<GenericArray, GenericIndex>
 ```
 
 ### Curried signature
 
 ```typescript
-function at<
-	GenericInputTuple extends readonly unknown[], 
-	GenericIndex extends number
+export function at<
+	GenericArray extends readonly unknown[],
+	GenericIndex extends number,
 >(
-	index: GenericIndex
-): (input: GenericInputTuple) => AtTuple<GenericInputTuple, GenericIndex>
-
-function at<
-	GenericElement extends unknown
->(
-	index: number
-): (input: readonly GenericElement[]) => GenericElement | undefined
+	index: GenericIndex,
+): (array: GenericArray) => AtArray<GenericArray, GenericIndex>
 ```
 
 ## Parameters
