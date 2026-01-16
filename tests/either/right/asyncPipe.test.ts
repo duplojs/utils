@@ -89,7 +89,7 @@ describe("eitherRightAsyncPipe", () => {
 			({ value }) => value,
 			(value) => value * 2,
 			(value) => future(value ^ 4),
-			(value) => value - 4,
+			(value) => Promise.resolve(value - 4),
 			(value) => future(value / 2),
 			(value) => value + 1,
 		);
@@ -98,7 +98,7 @@ describe("eitherRightAsyncPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number> | EitherFail,
+			EitherSuccess<number> | EitherFail | EitherFutureError,
 			"strict"
 		>;
 	});

@@ -2,7 +2,7 @@
 import { type EitherRight } from "./create";
 import { isLeft, type EitherLeft } from "../left";
 import { type MaybeFutureEither } from "../future/maybeFutureEither";
-import { future, type Future } from "../future";
+import { type EitherFutureError, future, type Future } from "../future";
 import { success, type EitherSuccess } from "./success";
 import { isRight } from "./is";
 import { type AnyValue, unwrap, type Unwrap } from "@scripts/common";
@@ -23,7 +23,7 @@ export type EitherRightAsyncPipeFunction<
 export type EitherRightAsyncPipeResult<
 	GenericPipeOutputs extends AnyValue,
 	GenericLastPipeOutput extends AnyValue,
-> =
+> = (
 	| Extract<
 		Awaited<GenericPipeOutputs>,
 		EitherLeft
@@ -37,7 +37,13 @@ export type EitherRightAsyncPipeResult<
 				EitherLeft
 			>
 			: never
-	);
+	)
+	| (
+		Promise<any> extends Exclude<GenericPipeOutputs, Future<any>>
+			? EitherFutureError
+			: never
+	)
+);
 
 /**
  * {@include either/rightAsyncPipe/index.md}
