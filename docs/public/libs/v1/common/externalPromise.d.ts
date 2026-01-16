@@ -15,8 +15,6 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/externalPromise
  * 
- * @namespace C
- * 
  */
 export declare function createExternalPromise<GenericPromiseValue extends unknown>(): {
     resolve: (_value: GenericPromiseValue | Awaited<GenericPromiseValue> | Promise<GenericPromiseValue>) => void;

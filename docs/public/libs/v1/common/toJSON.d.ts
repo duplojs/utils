@@ -40,7 +40,5 @@ export type ToJSON<GenericValue extends unknown> = GenericValue extends number |
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/toJSON
  * 
- * @namespace C
- * 
  */
 export declare function toJSON<GenericValue extends unknown>(value: GenericValue): ToJSON<GenericValue>;

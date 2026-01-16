@@ -38,8 +38,6 @@ import { type EscapeVoid, type AnyValue, type BreakGenericLink } from "./types";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/whenElse
  * 
- * @namespace C
- * 
  */
 export declare function whenElse<GenericInput extends AnyValue, GenericPredicatedInput extends GenericInput, GenericOutput1 extends AnyValue | EscapeVoid, GenericOutput2 extends AnyValue | EscapeVoid>(predicate: (input: GenericInput) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput1, elseFunction: (predicatedInput: Exclude<GenericInput, GenericPredicatedInput>) => GenericOutput2): (input: GenericInput) => BreakGenericLink<GenericOutput1> | BreakGenericLink<GenericOutput2>;
 export declare function whenElse<GenericInput extends AnyValue, GenericPredicatedInput extends GenericInput, GenericOutput1 extends AnyValue | EscapeVoid, GenericOutput2 extends AnyValue | EscapeVoid>(input: GenericInput, predicate: (input: GenericInput) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput1, elseFunction: (predicatedInput: Exclude<GenericInput, GenericPredicatedInput>) => GenericOutput2): GenericOutput1 | GenericOutput2;

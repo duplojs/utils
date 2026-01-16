@@ -36,8 +36,6 @@ import { type EscapeVoid, type AnyValue, type BreakGenericLink } from "./types";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/when
  * 
- * @namespace C
- * 
  */
 export declare function when<GenericInput extends AnyValue, GenericPredicatedInput extends GenericInput, GenericOutput extends AnyValue | EscapeVoid>(ifFunction: (input: GenericInput) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<BreakGenericLink<GenericInput>, GenericPredicatedInput>;
 export declare function when<GenericInput extends AnyValue, GenericPredicatedInput extends GenericInput, GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, ifFunction: (input: GenericInput) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput): GenericOutput | Exclude<GenericInput, GenericPredicatedInput>;

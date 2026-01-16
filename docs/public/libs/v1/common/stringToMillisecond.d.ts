@@ -28,8 +28,6 @@ export type MillisecondInString = `${number}${keyof typeof unitMapper}` | `${num
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/stringToMillisecond
  * 
- * @namespace C
- * 
  */
 export declare function stringToMillisecond(millisecondInString: MillisecondInString | number, ...millisecondInStrings: (MillisecondInString | number)[]): number;
 export {};

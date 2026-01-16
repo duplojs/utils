@@ -15,5 +15,3 @@ The input value is not mutated.
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/when
-
-@namespace C

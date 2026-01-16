@@ -27,7 +27,5 @@ export type AwaitedPromiseObject<GenericObject extends Record<string, MaybePromi
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/promiseObject
  * 
- * @namespace C
- * 
  */
 export declare function promiseObject<GenericValue extends AnyValue, GenericObject extends Record<string, MaybePromise<GenericValue>>>(object: GenericObject): Promise<SimplifyTopLevel<AwaitedPromiseObject<GenericObject>>>;

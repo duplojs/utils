@@ -36,8 +36,6 @@ export type Enum<GenericValues extends [string, ...string[]] = [string, ...strin
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/createEnum
  * 
- * @namespace C
- * 
  */
 export declare function createEnum<GenericValue extends string, GenericValues extends [GenericValue, ...GenericValue[]]>(values: GenericValues): Enum<GenericValues>;
 export type GetEnumValue<GenericEnum extends Enum<any>> = ReturnType<GenericEnum["toTuple"]>[number];

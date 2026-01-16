@@ -82,8 +82,6 @@ type ForbiddenKindCharacters<GenericValue extends string> = ForbiddenString<Gene
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/kind
  * 
- * @namespace C
- * 
  */
 export declare function createKind<GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>): KindHandler<KindDefinition<GenericName, GenericKindValue>>;
 export interface ReservedKindNamespace {
@@ -137,8 +135,6 @@ type ForbiddenKindNamespace<GenericValue extends string> = (ForbiddenKindCharact
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/kind
- * 
- * @namespace C
  * 
  */
 export declare function createKindNamespace<GenericNamespace extends string>(namespace: GenericNamespace & ForbiddenKindNamespace<GenericNamespace>): <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & ForbiddenKindCharacters<GenericName>) => KindHandler<KindDefinition<`@${GenericNamespace}/${GenericName}`, GenericKindValue>>;

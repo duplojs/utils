@@ -5,5 +5,3 @@ Signature: `createGlobalStore(storeName, defaultValue)` → returns a value
 The input value is not mutated.
 
 @see https://utils.duplojs.dev/en/v1/api/common/globalStore
-
-@namespace C

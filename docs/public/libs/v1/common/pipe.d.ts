@@ -26,8 +26,6 @@ import { type AnyValue } from "./types/anyValue";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/pipe
  * 
- * @namespace C
- * 
  */
 export declare function pipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid>(input: GenericInput, pipe1: (input: GenericInput) => GenericOutputPipe1): BreakGenericLink<GenericOutputPipe1>;
 export declare function pipe<GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue | EscapeVoid, GenericOutputPipe2 extends AnyValue | EscapeVoid>(input: GenericInput, pipe1: (input: GenericInput) => GenericOutputPipe1, pipe2: (input: GenericOutputPipe1) => GenericOutputPipe2): BreakGenericLink<GenericOutputPipe2>;

@@ -41,8 +41,6 @@ type ExtractPredicate<GenericPredicatedInput extends readonly AnyFunction<any[],
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/or
  * 
- * @namespace C
- * 
  */
 export declare function or<GenericInput extends unknown, const GenericArrayPredicatedInput extends readonly [
     (input: GenericInput) => input is any,

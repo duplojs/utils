@@ -32,8 +32,6 @@ interface CreateAsyncRetryOptions {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/asyncRetry
  * 
- * @namespace C
- * 
  */
 export declare function useAsyncRetry<GenericOutput extends unknown>(retryFunction: () => Promise<GenericOutput>, shouldRetry: (result: GenericOutput) => boolean, options: CreateAsyncRetryOptions): Promise<GenericOutput>;
 /**
@@ -64,8 +62,6 @@ export declare function useAsyncRetry<GenericOutput extends unknown>(retryFuncti
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/asyncRetry
- * 
- * @namespace C
  * 
  */
 export declare function createAsyncRetry<GenericAnyFunction extends ((...args: any[]) => Promise<any>)>(retryFunction: GenericAnyFunction, checkFunction: (result: Awaited<ReturnType<GenericAnyFunction>>) => boolean, options: CreateAsyncRetryOptions): GenericAnyFunction;

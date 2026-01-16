@@ -46,7 +46,5 @@ export type ToTransform<GenericValue extends unknown> = GenericValue extends num
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/toTransform
  * 
- * @namespace C
- * 
  */
 export declare function toTransform<GenericValue extends unknown>(value: GenericValue): ToTransform<GenericValue>;

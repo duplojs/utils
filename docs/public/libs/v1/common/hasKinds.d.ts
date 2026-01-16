@@ -36,8 +36,6 @@ import { type AnyTuple, type UnionToIntersection } from "./types";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/hasKinds
  * 
- * @namespace C
- * 
  */
 export declare function hasKinds<GenericInput extends unknown, const GenericKindHandlers extends AnyTuple<KindHandler>, GenericKindHandler extends GenericKindHandlers[number]>(kinds: GenericKindHandlers): (input: GenericInput) => input is Extract<GenericInput, UnionToIntersection<GenericKindHandler extends any ? Kind<GenericKindHandler["definition"]> : never>>;
 export declare function hasKinds<GenericInput extends unknown, const GenericKindHandlers extends AnyTuple<KindHandler>, GenericKindHandler extends GenericKindHandlers[number]>(input: GenericInput, kinds: GenericKindHandlers): input is Extract<GenericInput, UnionToIntersection<GenericKindHandler extends any ? Kind<GenericKindHandler["definition"]> : never>>;

@@ -39,8 +39,6 @@ import { type AnyValue } from "./types";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/justReturn
  * 
- * @namespace C
- * 
  */
 export declare function justReturn<GenericInput extends unknown, GenericValue extends AnyValue>(value: GenericValue): (input: GenericInput) => GenericValue;
 export declare function justReturn<GenericInput extends unknown, GenericValue extends AnyValue>(input: GenericInput, value: GenericValue): GenericValue;

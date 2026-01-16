@@ -7,5 +7,3 @@ Signature: `createKind(name)` and `createKindNamespace(namespace)` → returns a
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/kind
-
-@namespace C

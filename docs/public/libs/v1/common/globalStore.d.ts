@@ -13,7 +13,5 @@ export interface GlobalStoreHandler<GenericValue extends unknown> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/globalStore
  * 
- * @namespace C
- * 
  */
 export declare function createGlobalStore<GenericStoreName extends keyof GlobalStore>(storeName: GenericStoreName, defaultValue: GlobalStore[GenericStoreName]): GlobalStoreHandler<GlobalStore[GenericStoreName]>;

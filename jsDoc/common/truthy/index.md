@@ -9,5 +9,3 @@ Acts as a type guard and narrows the input type when true.
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/truthy
-
-@namespace C

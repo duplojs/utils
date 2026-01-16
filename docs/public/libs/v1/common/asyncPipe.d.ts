@@ -35,8 +35,6 @@ type MaybePromiseLike<GenericValue extends unknown> = MaybePromise<GenericValue>
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/asyncPipe
  * 
- * @namespace C
- * 
  */
 export declare function asyncPipe<GenericInput extends MaybePromiseLike<AnyValue>, GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>>(input: GenericInput, pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1): Promise<Awaited<BreakGenericLink<GenericOutputPipe1>>>;
 export declare function asyncPipe<GenericInput extends MaybePromiseLike<AnyValue>, GenericOutputPipe1 extends MaybePromiseLike<AnyValue | EscapeVoid>, GenericOutputPipe2 extends MaybePromiseLike<AnyValue | EscapeVoid>>(input: GenericInput, pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1, pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2): Promise<Awaited<BreakGenericLink<GenericOutputPipe2>>>;

@@ -7,5 +7,3 @@ Signature: `useAsyncRetry(retryFunction, shouldRetry, options)` and `createAsync
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/asyncRetry
-
-@namespace C

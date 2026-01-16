@@ -8,7 +8,5 @@ import { type SimplifyTypeForce } from "../common/types/simplifyTypeForce";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/clone
  * 
- * @namespace C
- * 
  */
 export declare function clone<T extends unknown = unknown>(unknownValue: T): SimplifyTypeForce<T>;

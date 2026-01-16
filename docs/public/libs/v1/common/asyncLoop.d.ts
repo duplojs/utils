@@ -32,8 +32,6 @@ interface LoopOutputNextResult<GenericOutput extends any> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/asyncLoop
  * 
- * @namespace C
- * 
  */
 export declare function asyncLoop<GenericRawExitOutput extends AnyValue = undefined, GenericRawNextOutput extends AnyValue = undefined>(loop: (params: LoopParams<GenericRawNextOutput>) => Promise<LoopOutputNextResult<GenericRawNextOutput | undefined> | LoopOutputExistResult<GenericRawExitOutput>>): Promise<GenericRawExitOutput>;
 export {};

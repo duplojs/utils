@@ -21,7 +21,5 @@ export type ToWrappedValue<GenericValue extends unknown> = GenericValue extends 
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/toWrappedValue
  * 
- * @namespace C
- * 
  */
 export declare function toWrappedValue<GenericInnerValue extends AnyValue, GenericValue extends MaybeWrapped<GenericInnerValue>>(value: GenericValue): ToWrappedValue<GenericValue>;

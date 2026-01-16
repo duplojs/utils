@@ -24,7 +24,5 @@ export interface Memoized<GenericValue extends unknown> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/memo
  * 
- * @namespace C
- * 
  */
 export declare function memo<GenericOutput extends AnyValue>(theFunction: () => GenericOutput): Memoized<GenericOutput>;

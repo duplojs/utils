@@ -28,8 +28,6 @@ export type BytesInString = `${number}${keyof typeof unitMapper}`;
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/stringToBytes
  * 
- * @namespace C
- * 
  */
 export declare function stringToBytes(bytesInString: BytesInString | number): number;
 export {};

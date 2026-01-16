@@ -42,8 +42,6 @@ type ExpectLiteral<GenericValue extends EligibleEqual> = Or<[
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/equal
  * 
- * @namespace C
- * 
  */
 export declare function equal<GenericInput extends EligibleEqual | object, GenericValue extends Exclude<GenericInput, object>>(value: ExpectLiteral<GenericValue> | ExpectLiteral<GenericValue>[]): (input: GenericInput) => input is NoInfer<GenericValue>;
 export declare function equal<GenericInput extends EligibleEqual | object, GenericValue extends Exclude<GenericInput, object>>(value: GenericValue | GenericValue[]): (input: GenericInput) => boolean;

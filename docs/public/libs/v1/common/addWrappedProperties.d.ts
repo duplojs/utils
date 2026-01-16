@@ -10,7 +10,5 @@ export type GetWrappedProperties<GenericWrappedValue extends object = object, Ge
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/addWrappedProperties
  * 
- * @namespace C
- * 
  */
 export declare function addWrappedProperties<GenericWrappedValue extends object, GenericGetWrappedProperties extends GetWrappedProperties<GenericWrappedValue>>(wrappedValue: GenericWrappedValue, getProperties: GenericGetWrappedProperties): GenericWrappedValue & ReturnType<GenericGetWrappedProperties>;

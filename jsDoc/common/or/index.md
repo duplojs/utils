@@ -13,5 +13,3 @@ Predicate overloads (type guards) narrow the output type.
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/or
-
-@namespace C

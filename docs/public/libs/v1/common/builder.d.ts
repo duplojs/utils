@@ -115,8 +115,6 @@ export declare class MissingBuilderMethodsError extends MissingBuilderMethodsErr
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/builder
  * 
- * @namespace C
- * 
  */
 export declare function createBuilder<GenericBuilder extends Builder>(builderName: string): BuilderHandler<GenericBuilder>;
 export {};

@@ -8,7 +8,6 @@
  * ```ts
  * import { pipe, when, clone } from "@duplojs/utils";
  * import * as DCommon from "@duplojs/utils/common";
- * import * as C from "@duplojs/utils/common";
  * import { pipe, when, clone } from "@duplojs/utils/common";
  * ```
  * 
@@ -21,8 +20,6 @@
  * - wrappers and kinds (`wrapValue`, `unwrap`, `toWrappedValue`, `hasKinds`, `hasSomeKinds`)
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common
- * 
- * @namespace C
  * 
  */
 export * from "./types";

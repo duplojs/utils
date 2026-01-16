@@ -16,7 +16,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/sleep
  * 
- * @namespace C
- * 
  */
 export declare function sleep(millieSeconde?: number): Promise<void>;

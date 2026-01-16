@@ -29,8 +29,6 @@ import { type AnyConstructor } from "./types";
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/instanceOf
  * 
- * @namespace C
- * 
  */
 export declare function instanceOf<GenericInput extends unknown, GenericConstructor extends AnyConstructor>(constructor: GenericConstructor | GenericConstructor[]): (input: GenericInput) => input is Extract<GenericInput, InstanceType<GenericConstructor>>;
 export declare function instanceOf<GenericInput extends unknown, GenericConstructor extends AnyConstructor>(input: GenericInput, constructor: GenericConstructor | GenericConstructor[]): input is Extract<GenericInput, InstanceType<GenericConstructor>>;

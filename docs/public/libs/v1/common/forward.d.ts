@@ -18,7 +18,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/forward
  * 
- * @namespace C
- * 
  */
 export declare function forward<GenericValue extends unknown>(value: GenericValue): GenericValue;

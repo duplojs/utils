@@ -23,7 +23,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/forwardLog
  * 
- * @namespace C
- * 
  */
 export declare function forwardLog<const GenericInput extends unknown>(input: GenericInput): GenericInput;

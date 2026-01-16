@@ -34,8 +34,6 @@ export interface LoopParams<GenericRawNextOutput extends any> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/loop
  * 
- * @namespace C
- * 
  */
 export declare function loop<GenericRawExitOutput extends AnyValue = undefined, GenericRawNextOutput extends AnyValue = undefined>(loop: (params: LoopParams<GenericRawNextOutput>) => LoopOutputNextResult<GenericRawNextOutput> | LoopOutputExistResult<GenericRawExitOutput>): GenericRawExitOutput;
 export {};

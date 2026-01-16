@@ -49,8 +49,6 @@ type EligibleType<GenericInput extends unknown> = {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/isType
  * 
- * @namespace C
- * 
  */
 export declare function isType<GenericInput extends unknown, GenericType extends EligibleType<GenericInput>>(type: GenericType): (input: GenericInput) => input is ComputeResult<GenericInput, Type[GenericType]>;
 export declare function isType<GenericInput extends unknown, GenericType extends EligibleType<GenericInput>>(input: GenericInput, type: GenericType): input is ComputeResult<GenericInput, Type[GenericType]>;

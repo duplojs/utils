@@ -18,7 +18,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/simpleClone
  * 
- * @namespace C
- * 
  */
 export declare function simpleClone<GenericObject extends unknown = unknown>(unknownValue: GenericObject): GenericObject;

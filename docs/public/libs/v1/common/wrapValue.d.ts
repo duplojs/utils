@@ -19,8 +19,6 @@ export interface WrappedValue<GenericValue extends unknown = unknown> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/wrapValue
  * 
- * @namespace C
- * 
  */
 export declare function wrapValue<const GenericValue extends unknown>(value: GenericValue): WrappedValue<GenericValue>;
 /**
@@ -40,8 +38,6 @@ export declare function wrapValue<const GenericValue extends unknown>(value: Gen
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/isWrappedValue
  * 
- * @namespace C
- * 
  */
 export declare function isWrappedValue<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, WrappedValue<any>>;
 /**
@@ -57,8 +53,6 @@ export declare function isWrappedValue<GenericInput extends unknown>(input: Gene
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/isRuntimeWrappedValueKey
- * 
- * @namespace C
  * 
  */
 export declare function isRuntimeWrappedValueKey(value: string): boolean;

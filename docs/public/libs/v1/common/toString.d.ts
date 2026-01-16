@@ -13,7 +13,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/toString
  * 
- * @namespace C
- * 
  */
 export declare function toString<GenericValue extends number | string | bigint | boolean | null | undefined>(value: GenericValue): `${GenericValue}`;

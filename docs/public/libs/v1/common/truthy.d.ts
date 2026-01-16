@@ -24,7 +24,5 @@ export type TruthyValue<GenericInput extends unknown> = Exclude<GenericInput, Fa
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/truthy
  * 
- * @namespace C
- * 
  */
 export declare function truthy<GenericInput extends unknown>(input: GenericInput): input is TruthyValue<GenericInput>;

@@ -10,5 +10,3 @@ It throws an `AssertsError` with the failing input value.
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/asserts
-
-@namespace C

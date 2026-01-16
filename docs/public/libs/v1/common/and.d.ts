@@ -58,8 +58,6 @@ type ComputeResult<GenericInput extends unknown, GenericPredicatedInput extends 
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/and
  * 
- * @namespace C
- * 
  */
 export declare function and<GenericInput extends unknown, GenericArrayPredicatedInput extends [
     (input: GenericInput) => input is any,

@@ -19,7 +19,5 @@ export type Unwrap<GenericAnyValue extends unknown> = GenericAnyValue extends Wr
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/unwrap
  * 
- * @namespace C
- * 
  */
 export declare function unwrap<const GenericValue extends unknown>(anyValue: GenericValue): Unwrap<GenericValue>;

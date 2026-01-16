@@ -9,5 +9,3 @@ The input value is not mutated.
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/promiseObject
-
-@namespace C

@@ -15,7 +15,5 @@
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/escapeRegExp
  * 
- * @namespace C
- * 
  */
 export declare function escapeRegExp<GenericInput extends string>(input: GenericInput): string;

@@ -53,8 +53,6 @@ export interface OverrideHandler<GenericInterface extends object> {
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/override
  * 
- * @namespace C
- * 
  */
 export declare function createOverride<GenericInterface extends object>(overrideName: string): OverrideHandler<GenericInterface>;
 export {};

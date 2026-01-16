@@ -20,8 +20,9 @@ Respecter l'ordre exact:
    - 1.3 Description du comportement
 2. Exemple d'utilisation (utiliser `{@include ...[lineStart,lineEnd]}`)
 3. `@remarks` (optionnel)
-4. `@see` (au moins un lien vers la doc en ligne)
-
+4. `@see` au moins un lien vers la doc en ligne version EN
+5. `@namespace` ajouter le namespace de référence (domain Array === A, Clean === C, DataParser === DP ou DPE, etc.). Exception : le domaine common n’a pas de namespace (import depuis la racine de la lib). (ce fier au fichier `scripts/index.ts`)
+ 
 ## Regles pour `example.ts`
 
 - Les exemples doivent etre importes via la balise `{@include namespace/function/example.ts[lineStart,lineEnd]}`.
