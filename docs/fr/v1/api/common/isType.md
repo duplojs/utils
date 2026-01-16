@@ -5,8 +5,8 @@ prev:
   text: "equal"
   link: "/fr/v1/api/common/equal"
 next:
-  text: "instanceOf"
-  link: "/fr/v1/api/common/instanceOf"
+  text: "asserts"
+  link: "/fr/v1/api/common/asserts"
 ---
 
 # isType

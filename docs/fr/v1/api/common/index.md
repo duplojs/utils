@@ -73,6 +73,9 @@ Compare à une ou plusieurs valeurs littérales avec support des type guards sur
 ### [isType](/fr/v1/api/common/isType)
 Type guard basé sur `typeof`, `Array.isArray`, itérables, etc.
 
+### [asserts](/fr/v1/api/common/asserts)
+Lance une erreur si le predicate echoue et affine le type si il passe.
+
 ### [instanceOf](/fr/v1/api/common/instanceOf)
 Type guard basé sur un ou plusieurs constructeurs (`instanceof` typé).
 

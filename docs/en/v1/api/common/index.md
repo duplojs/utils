@@ -73,6 +73,9 @@ Compares to one or multiple literal values with support for type guards on primi
 ### [isType](/en/v1/api/common/isType)
 Type guard based on `typeof`, `Array.isArray`, iterables, etc.
 
+### [asserts](/en/v1/api/common/asserts)
+Throws when a predicate fails and narrows the input type when it passes.
+
 ### [instanceOf](/en/v1/api/common/instanceOf)
 Type guard based on one or more constructors (typed `instanceof`).
 

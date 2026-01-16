@@ -13,7 +13,7 @@ import { pipe, when, clone } from "@duplojs/utils/common";
 
 What you will find in this namespace:
 - composition helpers (`pipe`, `innerPipe`, `asyncPipe`, `asyncInnerPipe`, `forward`)
-- predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `instanceOf`)
+- predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `asserts`, `instanceOf`)
 - control flow (`loop`, `asyncLoop`, `asyncRetry`, `sleep`, `memo`)
 - promise utilities (`externalPromise`, `promiseObject`)
 - string and value conversions (`toString`, `stringToMillisecond`, `stringToBytes`, `escapeRegExp`)

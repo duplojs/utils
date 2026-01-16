@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The instanceOf() function creates a type guard based on one or several constructors. It checks instanceof while keeping precise typing."
 prev:
-  text: "isType"
-  link: "/en/v1/api/common/isType"
+  text: "asserts"
+  link: "/en/v1/api/common/asserts"
 next:
   text: "hasKinds"
   link: "/en/v1/api/common/hasKinds"

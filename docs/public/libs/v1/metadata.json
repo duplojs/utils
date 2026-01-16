@@ -1075,6 +1075,9 @@
               "name": "isUnion.d.ts"
             },
             {
+              "name": "json.d.ts"
+            },
+            {
               "name": "lastUnionElement.d.ts"
             },
             {
@@ -1165,6 +1168,15 @@
         },
         {
           "name": "and.mjs"
+        },
+        {
+          "name": "asserts.cjs"
+        },
+        {
+          "name": "asserts.d.ts"
+        },
+        {
+          "name": "asserts.mjs"
         },
         {
           "name": "asyncInnerPipe.cjs"

@@ -60,6 +60,7 @@ var hasSomeKinds = require('./common/hasSomeKinds.cjs');
 var hasKinds = require('./common/hasKinds.cjs');
 var toCurriedPredicate = require('./common/toCurriedPredicate.cjs');
 var pipeCall = require('./common/pipeCall.cjs');
+var asserts = require('./common/asserts.cjs');
 
 
 
@@ -147,3 +148,5 @@ exports.hasSomeKinds = hasSomeKinds.hasSomeKinds;
 exports.hasKinds = hasKinds.hasKinds;
 exports.toCurriedPredicate = toCurriedPredicate.toCurriedPredicate;
 exports.pipeCall = pipeCall.pipeCall;
+exports.AssertsError = asserts.AssertsError;
+exports.asserts = asserts.asserts;

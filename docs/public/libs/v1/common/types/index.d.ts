@@ -44,3 +44,4 @@ export * from "./sortType";
 export * from "./maybeGetter";
 export * from "./falsyValue";
 export * from "./DeepReadonly";
+export * from "./json";
