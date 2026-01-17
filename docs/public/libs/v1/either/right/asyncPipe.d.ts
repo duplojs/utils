@@ -1,12 +1,12 @@
 import { type EitherRight } from "./create";
 import { type EitherLeft } from "../left";
 import { type MaybeFutureEither } from "../future/maybeFutureEither";
-import { type Future } from "../future";
+import { type EitherFutureError, type Future } from "../future";
 import { type EitherSuccess } from "./success";
 import { type AnyValue, type Unwrap } from "../../common";
 type Either = EitherRight | EitherLeft;
 export type EitherRightAsyncPipeFunction<GenericInput extends AnyValue = AnyValue, GenericOutput extends MaybeFutureEither<AnyValue> = MaybeFutureEither<AnyValue>> = (input: Awaited<GenericInput> extends infer InferredInput ? InferredInput extends Either ? Unwrap<Exclude<InferredInput, EitherLeft>> : InferredInput : never) => GenericOutput;
-export type EitherRightAsyncPipeResult<GenericPipeOutputs extends AnyValue, GenericLastPipeOutput extends AnyValue> = Extract<Awaited<GenericPipeOutputs>, EitherLeft> | (Awaited<GenericLastPipeOutput> extends infer InferredLastResult ? Exclude<InferredLastResult extends Either ? InferredLastResult : EitherSuccess<InferredLastResult>, EitherLeft> : never);
+export type EitherRightAsyncPipeResult<GenericPipeOutputs extends AnyValue, GenericLastPipeOutput extends AnyValue> = (Extract<Awaited<GenericPipeOutputs>, EitherLeft> | (Awaited<GenericLastPipeOutput> extends infer InferredLastResult ? Exclude<InferredLastResult extends Either ? InferredLastResult : EitherSuccess<InferredLastResult>, EitherLeft> : never) | (Promise<any> extends Exclude<GenericPipeOutputs, Future<any>> ? EitherFutureError : never));
 /**
  * Asynchronous version of rightPipe. Automatically handles promises, Future, and Either, and short-circuits on the first Left.
  * 

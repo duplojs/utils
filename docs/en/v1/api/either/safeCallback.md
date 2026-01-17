@@ -11,22 +11,24 @@ next:
 
 # safeCallback
 
-Runs a callback in a safe block. If the callback throws, the function returns a `"callback"` typed `EitherLeft` instead of propagating the exception.
+Runs a callback in a safe block. If the callback throws, the function returns a `"callback"` typed `EitherLeft` instead of propagating the exception. If the callback returns an `Either`, it is kept as-is.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/either/safeCallback/tryout.doc.ts"
   majorVersion="v1"
-  height="229px"
+  height="376px"
 />
 
 ## Syntax
 
 ```typescript
-function safeCallback<GenericOutput extends unknown>(
-  theFunction: () => GenericOutput
-): GenericOutput | EitherCallbackError;
+function safeCallback<
+	GenericOutput extends unknown
+>(
+	theFunction: () => GenericOutput
+): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError;
 ```
 
 ## Parameters
@@ -35,7 +37,8 @@ function safeCallback<GenericOutput extends unknown>(
 
 ## Return value
 
-- If the callback succeeds: the value returned by `theFunction`.
+- If the callback returns an `EitherLeft` or `EitherRight`: the `Either` is returned as-is.
+- If the callback succeeds with a non-`Either` value: the value is wrapped in `EitherCallbackSuccess`.
 - If the callback throws: `EitherCallbackError` (alias of `left("callback", error)`).
 
 ## See also

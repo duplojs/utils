@@ -11,22 +11,24 @@ next:
 
 # safeCallback
 
-Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un `EitherLeft` typé `"callback"` au lieu de propager l'exception.
+Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un `EitherLeft` typé `"callback"` au lieu de propager l'exception. Si le callback retourne un `Either`, il est conservé tel quel.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/either/safeCallback/tryout.doc.ts"
   majorVersion="v1"
-  height="229px"
+  height="376px"
 />
 
 ## Syntaxe
 
 ```typescript
-function safeCallback<GenericOutput extends unknown>(
-  theFunction: () => GenericOutput
-): GenericOutput | EitherCallbackError;
+function safeCallback<
+	GenericOutput extends unknown
+>(
+	theFunction: () => GenericOutput
+): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError;
 ```
 
 ## Paramètres
@@ -35,7 +37,8 @@ function safeCallback<GenericOutput extends unknown>(
 
 ## Valeur de retour
 
-- Si le callback réussit : la valeur retournée par `theFunction`.
+- Si le callback retourne un `EitherLeft` ou `EitherRight` : l'`Either` est renvoyé tel quel.
+- Si le callback réussit avec une valeur non `Either` : la valeur est encapsulée dans `EitherCallbackSuccess`.
 - Si le callback lève une erreur : `EitherCallbackError` (alias de `left("callback", error)`).
 
 ## Voir aussi

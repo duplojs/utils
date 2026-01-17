@@ -4,11 +4,11 @@ describe("safeCallback", () => {
 	it("return value when callback succeeds", () => {
 		const result = DEither.safeCallback(() => 42);
 
-		expect(result).toBe(42);
+		expect(result).toStrictEqual(DEither.callbackSuccess(42));
 
 		type check = ExpectType<
 			typeof result,
-			number | DEither.EitherCallbackError,
+			DEither.EitherCallbackSuccess<number> | DEither.EitherCallbackError,
 			"strict"
 		>;
 	});
@@ -29,6 +29,19 @@ describe("safeCallback", () => {
 		>;
 	});
 
+	it("return either when callback returns an either", () => {
+		const either = DEither.left("example", 42);
+		const result = DEither.safeCallback(() => either);
+
+		expect(result).toBe(either);
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherLeft<"example", 42> | DEither.EitherCallbackError,
+			"strict"
+		>;
+	});
+
 	it("callbackError structure", () => {
 		const value = "boom";
 		const result = DEither.callbackError(value);
@@ -43,6 +56,36 @@ describe("safeCallback", () => {
 		type check = ExpectType<
 			typeof result,
 			DEither.EitherCallbackError,
+			"strict"
+		>;
+	});
+
+	it("return value when callback return void", () => {
+		const result = DEither.safeCallback(() => {});
+
+		expect(result).toStrictEqual(DEither.callbackSuccess(undefined));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherCallbackSuccess<undefined> | DEither.EitherCallbackError,
+			"strict"
+		>;
+	});
+
+	it("return value when callback return void or any values", () => {
+		const result = DEither.safeCallback(() => {
+			if (3 > 4) {
+				return "toto";
+			}
+			return;
+		});
+		expect(result).toStrictEqual(DEither.callbackSuccess(undefined));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherCallbackSuccess<undefined>
+			| DEither.EitherCallbackSuccess<"toto">
+			| DEither.EitherCallbackError,
 			"strict"
 		>;
 	});
