@@ -255,10 +255,10 @@ export function kindHeritage<
 				>,
 				...parentArgs: IsEqual<ConstructorParameters<GenericParent>, unknown[]> extends true
 					? [
-						parentParams?: ConstructorParameters<GenericParent>,
+						parentParams?: readonly [...ConstructorParameters<GenericParent>],
 					]
 					: [
-						parentParams: ConstructorParameters<GenericParent>,
+						parentParams: readonly [...ConstructorParameters<GenericParent>],
 					],
 			]
 	) => UnionToIntersection<

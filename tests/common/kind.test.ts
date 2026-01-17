@@ -126,7 +126,7 @@ describe("theKind", () => {
 					testKind?: unknown;
 					require: string;
 				},
-				parentParams?: unknown[],
+				parentParams?: readonly unknown[],
 			],
 			"strict"
 		>;
