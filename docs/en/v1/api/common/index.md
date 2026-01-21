@@ -174,3 +174,32 @@ Helper to create immutable builders with typed accumulation and missing-method c
 
 ### [override](/en/v1/api/common/override)
 Defines named overrides (methods or default values) and applies them to an interface.
+
+## Path
+
+### [Path](/en/v1/api/common/path/)
+Mini-domain for path utilities (normalization, joining, extraction).
+
+### [Path.isAbsolute](/en/v1/api/common/path/isAbsolute)
+Checks whether a path is absolute (POSIX, UNC, or Windows drive).
+
+### [Path.isUnixPath](/en/v1/api/common/path/isUnixPath)
+Checks whether a path only uses Unix separators.
+
+### [Path.normalize](/en/v1/api/common/path/normalize)
+Normalizes a path by resolving segments and separators.
+
+### [Path.join](/en/v1/api/common/path/join)
+Joins path segments and normalizes the result.
+
+### [Path.resolveFrom](/en/v1/api/common/path/resolveFrom)
+Resolves a list of segments from an origin.
+
+### [Path.getParentFolderPath](/en/v1/api/common/path/getParentFolderPath)
+Returns the parent folder of a path.
+
+### [Path.getBaseName](/en/v1/api/common/path/getBaseName)
+Returns the last segment of a path, with optional extension removal.
+
+### [Path.getExtensionName](/en/v1/api/common/path/getExtensionName)
+Returns the extension of a path, including the dot.

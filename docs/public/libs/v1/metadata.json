@@ -139,7 +139,7 @@
           "name": "types",
           "files": [
             {
-              "name": "ArrayCoalescing.d.ts"
+              "name": "arrayCoalescing.d.ts"
             },
             {
               "name": "atTuple.d.ts"
@@ -999,6 +999,115 @@
     {
       "name": "common",
       "files": [
+        {
+          "name": "path",
+          "files": [
+            {
+              "name": "utils",
+              "files": [
+                {
+                  "name": "normalizeString.cjs"
+                },
+                {
+                  "name": "normalizeString.d.ts"
+                },
+                {
+                  "name": "normalizeString.mjs"
+                },
+                {
+                  "name": "normalizeWindowsPath.cjs"
+                },
+                {
+                  "name": "normalizeWindowsPath.d.ts"
+                },
+                {
+                  "name": "normalizeWindowsPath.mjs"
+                }
+              ]
+            },
+            {
+              "name": "getBaseName.cjs"
+            },
+            {
+              "name": "getBaseName.d.ts"
+            },
+            {
+              "name": "getBaseName.mjs"
+            },
+            {
+              "name": "getExtensionName.cjs"
+            },
+            {
+              "name": "getExtensionName.d.ts"
+            },
+            {
+              "name": "getExtensionName.mjs"
+            },
+            {
+              "name": "getParentFolderPath.cjs"
+            },
+            {
+              "name": "getParentFolderPath.d.ts"
+            },
+            {
+              "name": "getParentFolderPath.mjs"
+            },
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "index.mjs"
+            },
+            {
+              "name": "isAbsolute.cjs"
+            },
+            {
+              "name": "isAbsolute.d.ts"
+            },
+            {
+              "name": "isAbsolute.mjs"
+            },
+            {
+              "name": "isUnixPath.cjs"
+            },
+            {
+              "name": "isUnixPath.d.ts"
+            },
+            {
+              "name": "isUnixPath.mjs"
+            },
+            {
+              "name": "join.cjs"
+            },
+            {
+              "name": "join.d.ts"
+            },
+            {
+              "name": "join.mjs"
+            },
+            {
+              "name": "normalize.cjs"
+            },
+            {
+              "name": "normalize.d.ts"
+            },
+            {
+              "name": "normalize.mjs"
+            },
+            {
+              "name": "resolveFrom.cjs"
+            },
+            {
+              "name": "resolveFrom.d.ts"
+            },
+            {
+              "name": "resolveFrom.mjs"
+            }
+          ]
+        },
         {
           "name": "types",
           "files": [

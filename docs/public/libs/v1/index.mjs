@@ -34,6 +34,8 @@ export { index$a as DDate };
 import * as index$b from './clean/index.mjs';
 export { index$b as C };
 export { index$b as DClean };
+import * as index$c from './common/path/index.mjs';
+export { index$c as Path };
 export { addWrappedProperties } from './common/addWrappedProperties.mjs';
 export { asyncPipe } from './common/asyncPipe.mjs';
 export { clone } from './common/clone.mjs';
