@@ -1,8 +1,10 @@
 import { Path } from "@scripts";
 
-const posixResult = Path.getParentFolderPath("/foo/bar/baz");
-// posixResult: "/foo/bar"
-const relativeResult = Path.getParentFolderPath("foo/bar");
-// relativeResult: "foo"
-const windowsResult = Path.getParentFolderPath("C:\\dir\\file");
-// windowsResult: "C:/dir"
+const result = Path.getParentFolderPath("/foo/bar/baz");
+// result: "/foo/bar"
+const trailingResult = Path.getParentFolderPath("/foo/bar/");
+// trailingResult: "/foo"
+const relativeResult = Path.getParentFolderPath("foo");
+// relativeResult: "."
+const absoluteResult = Path.getParentFolderPath("/foo");
+// absoluteResult: "/"

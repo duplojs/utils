@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The getParentFolderPath() function returns the parent folder of a path."
+description: "The getParentFolderPath() function returns the parent folder of a POSIX path."
 prev:
   text: "resolveFrom"
   link: "/en/v1/api/common/path/resolveFrom"
@@ -11,7 +11,11 @@ next:
 
 # getParentFolderPath
 
-The **`getParentFolderPath()`** function returns the parent folder of a path.
+The **`getParentFolderPath()`** function returns the parent folder of a POSIX path.
+
+::: warning
+Works only with POSIX paths (not Windows paths).
+:::
 
 ## Interactive example
 

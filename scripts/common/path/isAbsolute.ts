@@ -1,20 +1,15 @@
 import * as DString from "@scripts/string";
-import type { IsStringLiteral } from "../types";
 
-const isAbsoluteRegex = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
+const isRelativeRegex = /(^|\/)\.\.(?=\/|$)/;
 
-type ComputeResult<GenericPath extends string> =
-	IsStringLiteral<GenericPath> extends false
-		? GenericPath
-		: Extract<
-			GenericPath,
-			`/${string}` | `\\${string}` | `${string}:${"/" | "\\"}${string}`
-		>;
-
+/**
+ * {@include common/path/isAbsolute/index.md}
+ */
 export function isAbsolute<
 	GenericPath extends string,
 >(
 	path: GenericPath,
-): path is ComputeResult<GenericPath> {
-	return DString.test(path, isAbsoluteRegex);
+): boolean {
+	return DString.startsWith(path, "/")
+		&& !DString.test(path, isRelativeRegex);
 }

@@ -1,11 +1,8 @@
-import { Path, type ExpectType } from "@duplojs/utils";
+import { Path } from "@duplojs/utils";
 
-const input = Math.random() > 0.5 ? "/var/log" : "var/log";
-
-if (Path.isAbsolute(input)) {
-	type check = ExpectType<
-		typeof input,
-		"/var/log",
-		"strict"
-	>;
-}
+const absolutePath = Path.isAbsolute("/var/log");
+// absolutePath: true
+const parentTraversal = Path.isAbsolute("/var/../log");
+// parentTraversal: false
+const relativePath = Path.isAbsolute("var/log");
+// relativePath: false

@@ -178,19 +178,10 @@ Définit des overrides nommés (méthodes ou valeurs par défaut) et les appliqu
 ## Path
 
 ### [Path](/fr/v1/api/common/path/)
-Mini-domaine pour les utilitaires de chemin (normalisation, jointure, extraction).
+Mini-domaine pour les utilitaires de chemin POSIX (résolution, extraction).
 
 ### [Path.isAbsolute](/fr/v1/api/common/path/isAbsolute)
-Vérifie si un chemin est absolu (POSIX, UNC, ou lecteur Windows).
-
-### [Path.isUnixPath](/fr/v1/api/common/path/isUnixPath)
-Vérifie si un chemin utilise uniquement des séparateurs Unix.
-
-### [Path.normalize](/fr/v1/api/common/path/normalize)
-Normalise un chemin en résolvant les segments et les séparateurs.
-
-### [Path.join](/fr/v1/api/common/path/join)
-Joint des segments de chemin et normalise le résultat.
+Vérifie si un chemin est absolu.
 
 ### [Path.resolveFrom](/fr/v1/api/common/path/resolveFrom)
 Résout une liste de segments à partir d'un origin.

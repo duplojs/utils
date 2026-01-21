@@ -1,16 +1,21 @@
-import { normalizeWindowsPath } from './utils/normalizeWindowsPath.mjs';
 import { minElements } from '../../array/minElements.mjs';
 
 const extensionNameRegex = /.(\.[^./]+|\.)$/;
+/**
+ * {@include common/path/getExtensionName/index.md}
+ */
 function getExtensionName(path) {
     if (path === "..") {
-        return "";
+        return null;
     }
-    const match = extensionNameRegex.exec(normalizeWindowsPath(path));
+    const match = extensionNameRegex.exec(path);
     if (!!match && minElements(match, 2)) {
+        if (match[1] === ".") {
+            return null;
+        }
         return match[1];
     }
-    return "";
+    return null;
 }
 
 export { getExtensionName };

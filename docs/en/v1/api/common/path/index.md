@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Path utilities to normalize, join, and inspect cross-platform paths."
+description: "Path utilities to resolve and inspect POSIX paths."
 prev:
   text: "Common"
   link: "/en/v1/api/common/"
@@ -11,7 +11,7 @@ next:
 
 # Path
 
-Path utilities to normalize, join, and inspect cross-platform paths.
+Path utilities to resolve and inspect POSIX paths.
 
 ## How to import?
 
@@ -25,18 +25,12 @@ import * as Path from "@duplojs/utils/common/path";
 ## Checks
 
 ### [isAbsolute](/en/v1/api/common/path/isAbsolute)
-Checks whether a path is absolute (POSIX, UNC, or Windows drive).
+Checks whether a path is absolute.
 
-### [isUnixPath](/en/v1/api/common/path/isUnixPath)
-Checks whether a path only uses Unix separators.
+## Resolution
 
-## Normalization and composition
-
-### [normalize](/en/v1/api/common/path/normalize)
-Normalizes a path by resolving segments and separators.
-
-### [join](/en/v1/api/common/path/join)
-Joins path segments and normalizes the result.
+### [resolveRelative](/en/v1/api/common/path/resolveRelative)
+Resolves multiple segments into a single path.
 
 ### [resolveFrom](/en/v1/api/common/path/resolveFrom)
 Resolves a list of segments from an origin.

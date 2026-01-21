@@ -1,9 +1,8 @@
 import { Path, pipe, type ExpectType } from "@scripts";
 
 describe("getBaseName", () => {
-	it("returns the base name for unix and windows paths", () => {
+	it("returns the base name paths", () => {
 		expect(Path.getBaseName("/alpha/beta/file.txt")).toBe("file.txt");
-		expect(Path.getBaseName("C:\\alpha\\beta\\file")).toBe("file");
 	});
 
 	it("strips the provided extension when it matches", () => {
@@ -15,8 +14,12 @@ describe("getBaseName", () => {
 		).toBe("file.txt");
 	});
 
-	it("returns an empty string for root paths", () => {
-		expect(Path.getBaseName("/")).toBe("");
+	it("returns null for root paths", () => {
+		expect(Path.getBaseName("/")).toBe(null);
+	});
+
+	it("returns dot for root paths", () => {
+		expect(Path.getBaseName("re/abs/..")).toBe(null);
 	});
 
 	it("use in pipe", () => {
@@ -29,7 +32,7 @@ describe("getBaseName", () => {
 
 		type check = ExpectType<
 			typeof result,
-			string,
+			string | null,
 			"strict"
 		>;
 	});

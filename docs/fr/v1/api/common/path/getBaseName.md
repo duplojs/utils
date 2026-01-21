@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getBaseName() retourne le dernier segment d'un chemin, avec option d'extension."
+description: "La fonction getBaseName() retourne le dernier segment non vide d'un chemin, avec option d'extension."
 prev:
   text: "getParentFolderPath"
   link: "/fr/v1/api/common/path/getParentFolderPath"
@@ -11,7 +11,11 @@ next:
 
 # getBaseName
 
-La fonction **`getBaseName()`** retourne le dernier segment d'un chemin, avec option d'extension.
+La fonction **`getBaseName()`** retourne le dernier segment non vide d'un chemin, avec option d'extension.
+
+::: warning
+Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
+:::
 
 ## Exemple interactif
 
@@ -31,7 +35,7 @@ function getBaseName<
 	params?: {
 		extension?: string;
 	}
-): string;
+): string | null;
 ```
 
 ## Paramètres
@@ -41,7 +45,7 @@ function getBaseName<
 
 ## Valeur de retour
 
-Le dernier segment, avec l'extension retirée si elle correspond.
+Le dernier segment, avec l'extension retirée si elle correspond, ou `null` s'il n'y a pas de segment.
 
 ## Voir aussi
 

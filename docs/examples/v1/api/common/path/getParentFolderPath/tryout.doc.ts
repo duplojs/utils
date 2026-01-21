@@ -2,7 +2,7 @@ import { Path } from "@duplojs/utils";
 
 const posixParent = Path.getParentFolderPath("/foo/bar/baz");
 // posixParent: "/foo/bar"
-const relativeParent = Path.getParentFolderPath("foo/bar");
-// relativeParent: "foo"
-const windowsParent = Path.getParentFolderPath("C:\\dir\\file");
-// windowsParent: "C:/dir"
+const trailingParent = Path.getParentFolderPath("/foo/bar/");
+// trailingParent: "/foo"
+const relativeParent = Path.getParentFolderPath("foo");
+// relativeParent: "."

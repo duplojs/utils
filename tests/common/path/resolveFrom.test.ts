@@ -1,16 +1,19 @@
-import { Path, pipe, type ExpectType } from "@scripts";
+import { Path, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("resolveFrom", () => {
-	it("resolves relative segments in reverse order", () => {
-		expect(Path.resolveFrom(["alpha", "beta"], "gamma")).toBe("gamma/beta/alpha");
+	it("returns success when resolving from an absolute origin", () => {
+		expect(Path.resolveFrom(["alpha", "beta"], "/root"))
+			.toStrictEqual(DEither.success("/root/alpha/beta"));
 	});
 
-	it("stops at the first absolute path", () => {
-		expect(Path.resolveFrom(["alpha", "/root", "beta"], "gamma")).toBe("/root/alpha");
+	it("returns success when an absolute segment overrides previous parts", () => {
+		expect(Path.resolveFrom(["alpha", "/root", "beta"], "gamma"))
+			.toStrictEqual(DEither.success("/root/beta"));
 	});
 
-	it("returns dot when nothing is resolved", () => {
-		expect(Path.resolveFrom([], "")).toBe(".");
+	it("returns fail when the resolved path is relative", () => {
+		expect(Path.resolveFrom(["..", ".."], "alpha"))
+			.toStrictEqual(DEither.fail());
 	});
 
 	it("use in pipe", () => {
@@ -19,11 +22,11 @@ describe("resolveFrom", () => {
 			Path.resolveFrom("/root"),
 		);
 
-		expect(result).toBe("/root/beta/alpha");
+		expect(result).toStrictEqual(DEither.success("/root/alpha/beta"));
 
 		type check = ExpectType<
 			typeof result,
-			string,
+			DEither.EitherFail | DEither.EitherSuccess<string>,
 			"strict"
 		>;
 	});

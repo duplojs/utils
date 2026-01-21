@@ -4,13 +4,12 @@ describe("getExtensionName", () => {
 	it("returns the extension of file names", () => {
 		expect(Path.getExtensionName("file.txt")).toBe(".txt");
 		expect(Path.getExtensionName("archive.tar.gz")).toBe(".gz");
-		expect(Path.getExtensionName("C:\\alpha\\beta\\file.md")).toBe(".md");
 	});
 
 	it("handles trailing dots and missing extensions", () => {
-		expect(Path.getExtensionName("file.")).toBe(".");
-		expect(Path.getExtensionName("file")).toBe("");
-		expect(Path.getExtensionName("..")).toBe("");
+		expect(Path.getExtensionName("file.")).toBe(null);
+		expect(Path.getExtensionName("file")).toBe(null);
+		expect(Path.getExtensionName("..")).toBe(null);
 	});
 
 	it("use in pipe", () => {
@@ -23,7 +22,7 @@ describe("getExtensionName", () => {
 
 		type check = ExpectType<
 			typeof result,
-			string,
+			string | null,
 			"strict"
 		>;
 	});

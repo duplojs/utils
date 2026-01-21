@@ -1,9 +1,9 @@
 ---
 outline: [2, 3]
-description: "La fonction resolveFrom() résout une liste de segments à partir d'une origine."
+description: "La fonction resolveFrom() résout une liste de segments à partir d'une origine et retourne un Either."
 prev:
-  text: "join"
-  link: "/fr/v1/api/common/path/join"
+  text: "resolveRelative"
+  link: "/fr/v1/api/common/path/resolveRelative"
 next:
   text: "getParentFolderPath"
   link: "/fr/v1/api/common/path/getParentFolderPath"
@@ -11,14 +11,19 @@ next:
 
 # resolveFrom
 
-La fonction **`resolveFrom()`** résout une liste de segments à partir d'une origine.
+La fonction **`resolveFrom()`** résout une liste de segments à partir d'une origine et retourne un Either.
+Elle résout les segments dans l'ordre via `resolveRelative` et ne réussit que si le résultat est absolu.
+
+::: warning
+Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
+:::
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/common/path/resolveFrom/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="313px"
 />
 
 ## Syntaxe
@@ -31,7 +36,7 @@ function resolveFrom<
 >(
 	paths: GenericPaths,
 	origin: string
-): string;
+): DEither.EitherFail | DEither.EitherSuccess<string>;
 ```
 
 ### Signature currifiée
@@ -41,7 +46,7 @@ function resolveFrom<
 	GenericPaths extends readonly string[]
 >(
 	origin: string
-): (paths: GenericPaths) => string;
+): (paths: GenericPaths) => DEither.EitherFail | DEither.EitherSuccess<string>;
 ```
 
 ## Paramètres
@@ -51,9 +56,9 @@ function resolveFrom<
 
 ## Valeur de retour
 
-Un chemin normalisé, résolu en partant de l'origine.
+Un Either `success` avec le chemin résolu si le résultat est absolu, sinon `fail`.
 
 ## Voir aussi
 
-- [`join`](/fr/v1/api/common/path/join) - Joint des segments et normalise le résultat
-- [`normalize`](/fr/v1/api/common/path/normalize) - Normalise un chemin
+- [`resolveRelative`](/fr/v1/api/common/path/resolveRelative) - Resout plusieurs segments en un seul chemin
+- [`getParentFolderPath`](/fr/v1/api/common/path/getParentFolderPath) - Retourne le dossier parent d'un chemin

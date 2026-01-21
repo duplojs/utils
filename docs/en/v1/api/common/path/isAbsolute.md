@@ -1,37 +1,36 @@
 ---
 outline: [2, 3]
-description: "The isAbsolute() function checks whether a path is absolute (POSIX, UNC, or Windows drive) and acts as a type guard."
+description: "The isAbsolute() function checks whether a POSIX path is absolute and does not traverse above root."
 prev:
   text: "Path"
   link: "/en/v1/api/common/path/"
 next:
-  text: "isUnixPath"
-  link: "/en/v1/api/common/path/isUnixPath"
+  text: "resolveRelative"
+  link: "/en/v1/api/common/path/resolveRelative"
 ---
 
 # isAbsolute
 
-The **`isAbsolute()`** function checks whether a path is absolute (POSIX, UNC, or Windows drive) and acts as a type guard.
+The **`isAbsolute()`** function checks whether a path is absolute and does not traverse above root.
+
+::: warning
+Works only with POSIX paths (not Windows paths).
+:::
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/common/path/isAbsolute/tryout.doc.ts"
   majorVersion="v1"
-  height="313px"
+  height="208px"
 />
 
 ## Syntax
 
 ```typescript
-function isAbsolute<
-	GenericPath extends string
->(
-	path: GenericPath
-): path is Extract<
-	GenericPath,
-	`/${string}` | `\\${string}` | `${string}:${"/" | "\\"}${string}`
->;
+function isAbsolute(
+	path: string
+): boolean;
 ```
 
 ## Parameters
@@ -40,9 +39,8 @@ function isAbsolute<
 
 ## Return value
 
-A boolean and a type guard that narrows the path when it is absolute.
+A boolean indicating whether the path is absolute.
 
 ## See also
 
-- [`isUnixPath`](/en/v1/api/common/path/isUnixPath) - Checks for Unix separators
-- [`normalize`](/en/v1/api/common/path/normalize) - Normalizes a path
+- [`resolveFrom`](/en/v1/api/common/path/resolveFrom) - Resolves a list of segments from an origin

@@ -1,28 +1,29 @@
-import { pipe } from "../pipe";
 import * as DString from "@scripts/string";
-import { normalizeWindowsPath } from "./utils/normalizeWindowsPath";
 import * as DArray from "@scripts/array";
 
 interface GetBaseNameParams {
 	extension?: string;
 }
 
+/**
+ * {@include common/path/getBaseName/index.md}
+ */
 export function getBaseName<
 	GenericPath extends string,
 >(
 	path: GenericPath,
 	params?: GetBaseNameParams,
-): string {
-	const segments = pipe(
-		path,
-		normalizeWindowsPath,
-		DString.split("/"),
-	);
+): string | null {
+	const segments = DString.split(path, "/");
 
 	const lastSegment = DArray.findLast(
 		segments,
 		(value) => DString.length(value) > 0,
-	) ?? "";
+	) ?? null;
+
+	if (!lastSegment || lastSegment === "..") {
+		return null;
+	}
 
 	if (params?.extension && DString.endsWith(lastSegment, params?.extension)) {
 		const extensionLength = DString.length(params.extension);

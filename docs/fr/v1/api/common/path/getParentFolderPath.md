@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getParentFolderPath() retourne le dossier parent d'un chemin."
+description: "La fonction getParentFolderPath() retourne le dossier parent d'un chemin POSIX."
 prev:
   text: "resolveFrom"
   link: "/fr/v1/api/common/path/resolveFrom"
@@ -11,7 +11,11 @@ next:
 
 # getParentFolderPath
 
-La fonction **`getParentFolderPath()`** retourne le dossier parent d'un chemin.
+La fonction **`getParentFolderPath()`** retourne le dossier parent d'un chemin POSIX.
+
+::: warning
+Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
+:::
 
 ## Exemple interactif
 

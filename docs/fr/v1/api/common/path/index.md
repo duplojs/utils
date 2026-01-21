@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Utilitaires Path pour normaliser, joindre et analyser des chemins multi-plateformes."
+description: "Utilitaires Path pour résoudre et analyser des chemins POSIX."
 prev:
   text: "Common"
   link: "/fr/v1/api/common/"
@@ -11,7 +11,7 @@ next:
 
 # Path
 
-Utilitaires Path pour normaliser, joindre et analyser des chemins multi-plateformes.
+Utilitaires Path pour résoudre et analyser des chemins POSIX.
 
 ## Comment faire les imports ?
 
@@ -25,18 +25,12 @@ import * as Path from "@duplojs/utils/common/path";
 ## Vérifications
 
 ### [isAbsolute](/fr/v1/api/common/path/isAbsolute)
-Vérifie si un chemin est absolu (POSIX, UNC, ou lecteur Windows).
+Vérifie si un chemin est absolu.
 
-### [isUnixPath](/fr/v1/api/common/path/isUnixPath)
-Vérifie si un chemin utilise uniquement des séparateurs Unix.
+## Résolution
 
-## Normalisation et composition
-
-### [normalize](/fr/v1/api/common/path/normalize)
-Normalise un chemin en résolvant les segments et les séparateurs.
-
-### [join](/fr/v1/api/common/path/join)
-Joint des segments de chemin et normalise le résultat.
+### [resolveRelative](/fr/v1/api/common/path/resolveRelative)
+Résout plusieurs segments en un seul chemin.
 
 ### [resolveFrom](/fr/v1/api/common/path/resolveFrom)
 Résout une liste de segments à partir d'une origine.

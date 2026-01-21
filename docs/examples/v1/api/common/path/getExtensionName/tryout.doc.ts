@@ -4,5 +4,5 @@ const txtExt = Path.getExtensionName("/foo/bar.txt");
 // txtExt: ".txt"
 const gzExt = Path.getExtensionName("archive.tar.gz");
 // gzExt: ".gz"
-const noExt = Path.getExtensionName("..");
-// noExt: ""
+const noExt = Path.getExtensionName("file.");
+// noExt: null

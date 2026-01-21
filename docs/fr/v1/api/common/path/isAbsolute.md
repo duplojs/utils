@@ -1,37 +1,36 @@
 ---
 outline: [2, 3]
-description: "La fonction isAbsolute() vérifie si un chemin est absolu (POSIX, UNC ou lecteur Windows) et agit comme type guard."
+description: "La fonction isAbsolute() vérifie si un chemin POSIX est absolu et ne remonte pas au-dessus de la racine."
 prev:
   text: "Path"
   link: "/fr/v1/api/common/path/"
 next:
-  text: "isUnixPath"
-  link: "/fr/v1/api/common/path/isUnixPath"
+  text: "resolveRelative"
+  link: "/fr/v1/api/common/path/resolveRelative"
 ---
 
 # isAbsolute
 
-La fonction **`isAbsolute()`** vérifie si un chemin est absolu (POSIX, UNC ou lecteur Windows) et agit comme type guard.
+La fonction **`isAbsolute()`** vérifie si un chemin est absolu et ne remonte pas au-dessus de la racine.
+
+::: warning
+Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
+:::
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/common/path/isAbsolute/tryout.doc.ts"
   majorVersion="v1"
-  height="313px"
+  height="208px"
 />
 
 ## Syntaxe
 
 ```typescript
-function isAbsolute<
-	GenericPath extends string
->(
-	path: GenericPath
-): path is Extract<
-	GenericPath,
-	`/${string}` | `\\${string}` | `${string}:${"/" | "\\"}${string}`
->;
+function isAbsolute(
+	path: string
+): boolean;
 ```
 
 ## Paramètres
@@ -40,9 +39,8 @@ function isAbsolute<
 
 ## Valeur de retour
 
-Un booléen et un type guard qui affine le type du chemin lorsqu'il est absolu.
+Un booléen indiquant si le chemin est absolu.
 
 ## Voir aussi
 
-- [`isUnixPath`](/fr/v1/api/common/path/isUnixPath) - Vérifie la présence de séparateurs Unix
-- [`normalize`](/fr/v1/api/common/path/normalize) - Normalise un chemin
+- [`resolveFrom`](/fr/v1/api/common/path/resolveFrom) - Résout une liste de segments à partir d'une origine

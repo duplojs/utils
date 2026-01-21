@@ -11,10 +11,6 @@ describe("getParentFolderPath", () => {
 		expect(Path.getParentFolderPath("/")).toBe("/");
 	});
 
-	it("handles windows drive letters", () => {
-		expect(Path.getParentFolderPath("C:\\alpha\\beta")).toBe("C://alpha");
-	});
-
 	it("use in pipe", () => {
 		const result = pipe(
 			"alpha/beta",

@@ -1003,29 +1003,6 @@
           "name": "path",
           "files": [
             {
-              "name": "utils",
-              "files": [
-                {
-                  "name": "normalizeString.cjs"
-                },
-                {
-                  "name": "normalizeString.d.ts"
-                },
-                {
-                  "name": "normalizeString.mjs"
-                },
-                {
-                  "name": "normalizeWindowsPath.cjs"
-                },
-                {
-                  "name": "normalizeWindowsPath.d.ts"
-                },
-                {
-                  "name": "normalizeWindowsPath.mjs"
-                }
-              ]
-            },
-            {
               "name": "getBaseName.cjs"
             },
             {
@@ -1071,33 +1048,6 @@
               "name": "isAbsolute.mjs"
             },
             {
-              "name": "isUnixPath.cjs"
-            },
-            {
-              "name": "isUnixPath.d.ts"
-            },
-            {
-              "name": "isUnixPath.mjs"
-            },
-            {
-              "name": "join.cjs"
-            },
-            {
-              "name": "join.d.ts"
-            },
-            {
-              "name": "join.mjs"
-            },
-            {
-              "name": "normalize.cjs"
-            },
-            {
-              "name": "normalize.d.ts"
-            },
-            {
-              "name": "normalize.mjs"
-            },
-            {
               "name": "resolveFrom.cjs"
             },
             {
@@ -1105,6 +1055,15 @@
             },
             {
               "name": "resolveFrom.mjs"
+            },
+            {
+              "name": "resolveRelative.cjs"
+            },
+            {
+              "name": "resolveRelative.d.ts"
+            },
+            {
+              "name": "resolveRelative.mjs"
             }
           ]
         },
