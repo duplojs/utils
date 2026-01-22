@@ -7,5 +7,5 @@ export * from "./mergeUnionTuple";
 export * from "./extractTuple";
 export * from "./excludeTuple";
 export * from "./createTuple";
-export * from "./ArrayCoalescing";
+export * from "./arrayCoalescing";
 export * from "./joinTuple";

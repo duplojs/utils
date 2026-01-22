@@ -174,3 +174,23 @@ Helper pour créer des builders immutables avec accumulation typée et vérifica
 
 ### [override](/fr/v1/api/common/override)
 Définit des overrides nommés (méthodes ou valeurs par défaut) et les applique sur une interface.
+
+## Path
+
+### [Path](/fr/v1/api/common/path/)
+Mini-domaine pour les utilitaires de chemin POSIX (résolution, extraction).
+
+### [Path.isAbsolute](/fr/v1/api/common/path/isAbsolute)
+Vérifie si un chemin est absolu.
+
+### [Path.resolveFrom](/fr/v1/api/common/path/resolveFrom)
+Résout une liste de segments à partir d'un origin.
+
+### [Path.getParentFolderPath](/fr/v1/api/common/path/getParentFolderPath)
+Retourne le dossier parent d'un chemin.
+
+### [Path.getBaseName](/fr/v1/api/common/path/getBaseName)
+Retourne le dernier segment d'un chemin, avec option d'extension.
+
+### [Path.getExtensionName](/fr/v1/api/common/path/getExtensionName)
+Retourne l'extension d'un chemin, avec le point.

@@ -72,3 +72,4 @@ export * from "./hasKinds";
 export * from "./toCurriedPredicate";
 export * from "./pipeCall";
 export * from "./asserts";
+export * as Path from "./path";
