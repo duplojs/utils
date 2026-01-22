@@ -126,6 +126,10 @@ export default defineConfig({
 				icon: "linkedin",
 				link: "https://linkedin.com/company/duplojs",
 			},
+			{
+				icon: "discord",
+				link: "https://discord.gg/5d6Ze5Wuqm",
+			},
 		],
 
 		search: {
