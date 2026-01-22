@@ -1,5 +1,5 @@
 /**
- * Returns the last extension of a path, including the leading dot.
+ * Returns the last extension of a path, without the leading dot.
  * 
  * **Supported call styles:**
  * - Classic: `getExtensionName(path)` -> returns the extension or null
@@ -8,9 +8,9 @@
  * 
  * ```ts
  * const txtResult = Path.getExtensionName("/foo/bar.txt");
- * // txtResult: ".txt"
+ * // txtResult: "txt"
  * const tarResult = Path.getExtensionName("archive.tar.gz");
- * // tarResult: ".gz"
+ * // tarResult: "gz"
  * const dotResult = Path.getExtensionName("file.");
  * // dotResult: null
  * ```

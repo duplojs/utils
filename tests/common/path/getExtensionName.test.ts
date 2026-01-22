@@ -2,8 +2,8 @@ import { Path, pipe, type ExpectType } from "@scripts";
 
 describe("getExtensionName", () => {
 	it("returns the extension of file names", () => {
-		expect(Path.getExtensionName("file.txt")).toBe(".txt");
-		expect(Path.getExtensionName("archive.tar.gz")).toBe(".gz");
+		expect(Path.getExtensionName("file.txt")).toBe("txt");
+		expect(Path.getExtensionName("archive.tar.gz")).toBe("gz");
 	});
 
 	it("handles trailing dots and missing extensions", () => {
@@ -18,7 +18,7 @@ describe("getExtensionName", () => {
 			Path.getExtensionName,
 		);
 
-		expect(result).toBe(".txt");
+		expect(result).toBe("txt");
 
 		type check = ExpectType<
 			typeof result,

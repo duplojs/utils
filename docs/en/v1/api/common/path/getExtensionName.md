@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The getExtensionName() function returns the last extension of a path, including the dot."
+description: "The getExtensionName() function returns the last extension of a path, without the dot."
 prev:
   text: "getBaseName"
   link: "/en/v1/api/common/path/getBaseName"
@@ -11,7 +11,7 @@ next:
 
 # getExtensionName
 
-The **`getExtensionName()`** function returns the last extension of a path, including the dot.
+The **`getExtensionName()`** function returns the last extension of a path, without the dot.
 
 ::: warning
 Works only with POSIX paths (not Windows paths).
@@ -41,7 +41,7 @@ function getExtensionName<
 
 ## Return value
 
-The extension including the dot (e.g. `.txt`) or `null` when none is found.
+The extension without the dot (e.g. `txt`) or `null` when none is found.
 
 ## See also
 

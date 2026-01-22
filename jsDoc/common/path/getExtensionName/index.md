@@ -1,4 +1,4 @@
-Returns the last extension of a path, including the leading dot.
+Returns the last extension of a path, without the leading dot.
 
 **Supported call styles:**
 - Classic: `getExtensionName(path)` -> returns the extension or null

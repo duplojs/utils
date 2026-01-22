@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getExtensionName() retourne la derniere extension d'un chemin, avec le point."
+description: "La fonction getExtensionName() retourne la derniere extension d'un chemin, sans le point."
 prev:
   text: "getBaseName"
   link: "/fr/v1/api/common/path/getBaseName"
@@ -11,7 +11,7 @@ next:
 
 # getExtensionName
 
-La fonction **`getExtensionName()`** retourne la derniere extension d'un chemin, avec le point.
+La fonction **`getExtensionName()`** retourne la derniere extension d'un chemin, sans le point.
 
 ::: warning
 Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
@@ -41,7 +41,7 @@ function getExtensionName<
 
 ## Valeur de retour
 
-L'extension avec le point (ex: `.txt`) ou `null` si elle n'existe pas.
+L'extension sans le point (ex: `txt`) ou `null` si elle n'existe pas.
 
 ## Voir aussi
 
