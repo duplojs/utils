@@ -1,34 +1,27 @@
 import * as DEither from "../../either";
+import type { AnyTuple } from "../types";
 /**
  * Resolves a list of path segments from an origin and returns an Either.
  * 
  * **Supported call styles:**
- * - Classic: `resolveFrom(paths, origin)` -> returns an Either
- * - Curried: `resolveFrom(origin)(paths)` -> returns an Either
+ * - Classic: `resolveFrom(origin, segments)` -> returns an Either
  * 
  * Segments are resolved in order using `resolveRelative`.
  * The result is an `Either` that is `success` only when the resolved path is absolute; otherwise it returns `fail`.
  * 
  * ```ts
- * const absoluteResult = Path.resolveFrom(["alpha", "beta"], "/root");
+ * const absoluteResult = Path.resolveFrom("/root", ["alpha", "beta"]);
  * // absoluteResult: DEither.success<"/root/alpha/beta">
  * const result = unwrap(absoluteResult);
  * // result: "/root/alpha/beta"
  * 
- * const overrideResult = Path.resolveFrom(["alpha", "/root", "beta"], "gamma");
+ * const overrideResult = Path.resolveFrom("gamma", ["alpha", "/root", "beta"]);
  * // overrideResult: DEither.success<"/root/beta">
- * const relativeResult = Path.resolveFrom(["..", ".."], "alpha");
+ * const relativeResult = Path.resolveFrom("alpha", ["..", ".."]);
  * // relativeResult: DEither.fail
- * 
- * const curriedResult = pipe(
- * 	["alpha", "beta"],
- * 	Path.resolveFrom("/root"),
- * );
- * // curriedResult: DEither.success("/root/alpha/beta")
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/path/resolveFrom
  * 
  */
-export declare function resolveFrom<GenericPaths extends readonly string[]>(origin: string): (paths: GenericPaths) => DEither.EitherFail | DEither.EitherSuccess<string>;
-export declare function resolveFrom<GenericPaths extends readonly string[]>(paths: GenericPaths, origin: string): DEither.EitherFail | DEither.EitherSuccess<string>;
+export declare function resolveFrom<GenericSegment extends string>(origin: string, segments: AnyTuple<GenericSegment>): DEither.EitherFail | DEither.EitherSuccess<string>;

@@ -29,7 +29,7 @@ Works only with POSIX paths (not Windows paths).
 
 ```typescript
 function resolveRelative(
-	...segments: readonly string[]
+    segments: readonly string[]
 ): string;
 ```
 

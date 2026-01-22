@@ -1,4 +1,4 @@
-import { type AnyTuple } from "../types";
+import type { AnyTuple } from "../types";
 
 const segmentTrailingRegex = /\/$/;
 const segmentRelativeRegex = /^(.\/)/;
@@ -8,7 +8,9 @@ const segmentRelativeRegex = /^(.\/)/;
  */
 export function resolveRelative<
 	GenericSegment extends string,
->(...segments: AnyTuple<GenericSegment>): string {
+>(
+	segments: AnyTuple<GenericSegment>,
+): string {
 	let clearedPath = "";
 
 	for (const segment of segments) {

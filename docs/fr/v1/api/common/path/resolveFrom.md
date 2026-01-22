@@ -28,31 +28,19 @@ Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
 
 ## Syntaxe
 
-### Signature classique
-
 ```typescript
 function resolveFrom<
-	GenericPaths extends readonly string[]
+    GenericSegment extends string,
 >(
-	paths: GenericPaths,
-	origin: string
+    origin: string,
+    segments: AnyTuple<GenericSegment>,
 ): DEither.EitherFail | DEither.EitherSuccess<string>;
-```
-
-### Signature currifiée
-
-```typescript
-function resolveFrom<
-	GenericPaths extends readonly string[]
->(
-	origin: string
-): (paths: GenericPaths) => DEither.EitherFail | DEither.EitherSuccess<string>;
 ```
 
 ## Paramètres
 
-- `paths` : Les segments à résoudre.
 - `origin` : Le chemin de départ.
+- `segments` : Tableau des segments à résoudre. (doit contenir au moins 1 segment)
 
 ## Valeur de retour
 
@@ -60,5 +48,5 @@ Un Either `success` avec le chemin résolu si le résultat est absolu, sinon `fa
 
 ## Voir aussi
 
-- [`resolveRelative`](/fr/v1/api/common/path/resolveRelative) - Resout plusieurs segments en un seul chemin
+- [`resolveRelative`](/fr/v1/api/common/path/resolveRelative) - Résout plusieurs segments en un seul chemin
 - [`getParentFolderPath`](/fr/v1/api/common/path/getParentFolderPath) - Retourne le dossier parent d'un chemin

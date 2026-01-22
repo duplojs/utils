@@ -1,33 +1,18 @@
 import { isAbsolute } from "./isAbsolute";
 import * as DEither from "@scripts/either";
 import { resolveRelative } from "./resolveRelative";
+import type { AnyTuple } from "../types";
 
 /**
  * {@include common/path/resolveFrom/index.md}
  */
 export function resolveFrom<
-	GenericPaths extends readonly string[],
+	GenericSegment extends string,
 >(
-	origin: string
-): (paths: GenericPaths) => DEither.EitherFail | DEither.EitherSuccess<string>;
-
-export function resolveFrom<
-	GenericPaths extends readonly string[],
->(
-	paths: GenericPaths,
 	origin: string,
-): DEither.EitherFail | DEither.EitherSuccess<string>;
-
-export function resolveFrom(...args: [string] | [readonly string[], string]) {
-	if (args.length === 1) {
-		const [origin] = args;
-
-		return (paths: readonly string[]) => resolveFrom(paths, origin);
-	}
-
-	const [paths, origin] = args;
-
-	const result = resolveRelative(origin, ...paths);
+	segments: AnyTuple<GenericSegment>,
+): DEither.EitherFail | DEither.EitherSuccess<string> {
+	const result = resolveRelative([origin, ...segments]);
 
 	return isAbsolute(result)
 		? DEither.success(result)

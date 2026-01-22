@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction resolveRelative() resout plusieurs segments en un seul chemin de type POSIX."
+description: "La fonction resolveRelative() résout plusieurs segments en un seul chemin de type POSIX."
 prev:
   text: "isAbsolute"
   link: "/fr/v1/api/common/path/isAbsolute"
@@ -11,7 +11,7 @@ next:
 
 # resolveRelative
 
-La fonction **`resolveRelative()`** resout plusieurs segments en un seul chemin de type POSIX.
+La fonction **`resolveRelative()`** résout plusieurs segments en un seul chemin de type POSIX.
 
 ::: warning
 Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
@@ -29,18 +29,18 @@ Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
 
 ```typescript
 function resolveRelative(
-	...segments: readonly string[]
+    segments: readonly string[]
 ): string;
 ```
 
-## Parametres
+## Paramètres
 
-- `segments` : Les segments a resoudre.
+- `segments` : Tableau des segments à résoudre.
 
 ## Valeur de retour
 
-Un chemin resolu. Les segments absolus reinitialisent la base et les `..` peuvent rester en tete lorsqu'ils depassent la racine.
+Un chemin résolu. Les segments absolus réinitialisent la base et les `..` peuvent rester en tête lorsqu'ils dépassent la racine.
 
 ## Voir aussi
 
-- [`resolveFrom`](/fr/v1/api/common/path/resolveFrom) - Resout une liste de segments depuis une origine
+- [`resolveFrom`](/fr/v1/api/common/path/resolveFrom) - Résout une liste de segments depuis une origine

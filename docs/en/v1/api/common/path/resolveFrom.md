@@ -28,31 +28,19 @@ Works only with POSIX paths (not Windows paths).
 
 ## Syntax
 
-### Classic signature
-
 ```typescript
 function resolveFrom<
-	GenericPaths extends readonly string[]
+    GenericSegment extends string,
 >(
-	paths: GenericPaths,
-	origin: string
+    origin: string,
+    segments: AnyTuple<GenericSegment>,
 ): DEither.EitherFail | DEither.EitherSuccess<string>;
-```
-
-### Curried signature
-
-```typescript
-function resolveFrom<
-	GenericPaths extends readonly string[]
->(
-	origin: string
-): (paths: GenericPaths) => DEither.EitherFail | DEither.EitherSuccess<string>;
 ```
 
 ## Parameters
 
-- `paths` : The segments to resolve.
 - `origin` : The origin path.
+- `segments` : Array of segments to resolve. (must contain at least 1 segment)
 
 ## Return value
 

@@ -3,7 +3,7 @@ const segmentRelativeRegex = /^(.\/)/;
 /**
  * {@include common/path/resolveRelative/index.md}
  */
-function resolveRelative(...segments) {
+function resolveRelative(segments) {
     let clearedPath = "";
     for (const segment of segments) {
         if (segment.length === 0) {
