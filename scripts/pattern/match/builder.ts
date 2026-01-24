@@ -65,6 +65,31 @@ export interface MatchBuilder<
 		GenericOutput | GenericResult
 	>;
 
+	whenNot<
+		GenericPredicatedInput extends GenericValue,
+		GenericOutput extends unknown,
+	>(
+		predicate: (
+			input: GenericValue
+		) => input is GenericPredicatedInput,
+		theFunction: (predicatedInput: Exclude<GenericValue, GenericPredicatedInput>) => GenericOutput
+	): MatchBuilder<
+		Extract<GenericValue, GenericPredicatedInput>,
+		GenericOutput | GenericResult
+	>;
+
+	whenNot<
+		GenericOutput extends unknown,
+	>(
+		predicate: (
+			input: GenericValue
+		) => boolean,
+		theFunction: (predicatedInput: GenericValue) => GenericOutput
+	): MatchBuilder<
+		GenericValue,
+		GenericOutput | GenericResult
+	>;
+
 	exhaustive: IsEqual<GenericValue, never> extends true
 		? () => GenericResult
 		: {
@@ -123,6 +148,24 @@ matchBuilder.set(
 			...accumulator.matchers,
 			{
 				isMatch: predicate,
+				theFunction,
+			},
+		],
+	}),
+);
+
+matchBuilder.set(
+	"whenNot",
+	({
+		args: [predicate, theFunction],
+		accumulator,
+		next,
+	}) => next({
+		...accumulator,
+		matchers: [
+			...accumulator.matchers,
+			{
+				isMatch: (value) => !predicate(value),
 				theFunction,
 			},
 		],

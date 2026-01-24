@@ -66,6 +66,31 @@ describe("pattern match builder", () => {
 		expect(result).toBe(43);
 	});
 
+	it("supports predicate via whenNot", () => {
+		const result = DPattern.match(false ? [1] : undefined)
+			.whenNot(
+				isType("array"),
+				(value) => {
+					type Check = ExpectType<
+						typeof value,
+						undefined,
+						"strict"
+					>;
+
+					return <const>"isDown";
+				},
+			)
+			.otherwise((value) => value);
+
+		type check = ExpectType<
+			typeof result,
+			"isDown" | number[],
+			"strict"
+		>;
+
+		expect(result).toBe("isDown");
+	});
+
 	it("throws when exhaustive is not satisfied", () => {
 		const builder = DPattern.match<"foo" | "bar">("bar")
 			.with("foo", () => "ok");
