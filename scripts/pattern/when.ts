@@ -1,24 +1,31 @@
 import { type AnyValue, type AnyFunction, type BreakGenericLink, type IsEqual, type EscapeVoid } from "@scripts/common";
 import { isResult, result, type PatternResult } from "./result";
 
+type ComputePredicateInput<GenericValue extends unknown> = Exclude<
+	IsEqual<GenericValue, unknown> extends true
+		? AnyValue
+		: GenericValue,
+	PatternResult
+>;
+
 /**
  * {@include pattern/when/index.md}
  */
 export function when<
 	GenericInput extends unknown,
-	GenericInputValue extends Exclude<
-		IsEqual<GenericInput, unknown> extends true
-			? AnyValue
-			: GenericInput,
-		PatternResult
-	>,
+	GenericInputValue extends ComputePredicateInput<GenericInput>,
 	GenericInputPatternResult extends Extract<GenericInput, PatternResult>,
 	GenericPredicatedInput extends GenericInputValue,
 	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
-		input: GenericInputValue
-	) => input is GenericPredicatedInput,
+		& ((input: GenericInputValue) => input is GenericPredicatedInput)
+		& (
+			IsEqual<ComputePredicateInput<GenericInput>, GenericInputValue> extends true
+				? unknown
+				: (input: ComputePredicateInput<NoInfer<GenericInput>>) => input is GenericPredicatedInput
+		)
+	),
 	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput
 ): (
 	input: (
@@ -44,8 +51,13 @@ export function when<
 	GenericOutput extends AnyValue | EscapeVoid,
 >(
 	predicate: (
-		input: GenericInputValue
-	) => boolean,
+		& ((input: GenericInputValue) => boolean)
+		& (
+			IsEqual<ComputePredicateInput<GenericInput>, GenericInputValue> extends true
+				? unknown
+				: (input: ComputePredicateInput<NoInfer<GenericInput>>) => boolean
+		)
+	),
 	theFunction: (predicatedInput: GenericInputValue) => GenericOutput
 ): (
 	input: (

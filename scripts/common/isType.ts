@@ -1,4 +1,4 @@
-import { type IsEqual, type AnyFunction } from "./types";
+import { type IsEqual, type AnyFunction, type BreakGenericLink } from "./types";
 
 interface Type {
 	string: [string, never];
@@ -67,7 +67,7 @@ export function isType<
 >(
 	type: GenericType
 ): (input: GenericInput) => input is ComputeResult<
-	GenericInput,
+	BreakGenericLink<GenericInput>,
 	Type[GenericType]
 >;
 
