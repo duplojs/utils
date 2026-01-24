@@ -54,17 +54,49 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * 
      * It executes the async parser path, applies all registered checkers, and keeps the extended API available on the parser instance.
      * 
-     * ```ts
-     * // TODO: add asyncParse examples.
-     * ```
-     * 
-     * @remarks 
-     * - TODO: complete this documentation and examples.
-     * 
      * @namespace DPE
      * 
      */
     asyncParse(data: unknown): Promise<DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>>;
+    /**
+     * The parseOrThrow() method runs an extended data parser synchronously and returns the parsed value or throws a DataParserThrowError.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.parseOrThrow(input)` -> returns the parsed value
+     * 
+     * It executes the parser, applies all registered checkers, and keeps the extended API available on the parser instance.
+     * 
+     * ```ts
+     * const stringSchema = DPE.string().min(3);
+     * 
+     * const value = stringSchema.parseOrThrow("DuploJS");
+     * // value: string
+     * 
+     * try {
+     * 	stringSchema.parseOrThrow("ok");
+     * } catch (error) {
+     * 	if (error instanceof DP.DataParserThrowError) {
+     * 		// DP.DataParserError
+     * 	}
+     * }
+     * ```
+     * 
+     * @namespace DPE
+     * 
+     */
+    parseOrThrow(data: unknown): GenericOutput;
+    /**
+     * The asyncParseOrThrow() method runs an extended data parser asynchronously and resolves to the parsed value or rejects with a DataParserThrowError.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.asyncParseOrThrow(input)` -> returns a promise
+     * 
+     * It executes the async parser path, applies all registered checkers, and keeps the extended API available on the parser instance.
+     * 
+     * @namespace DPE
+     * 
+     */
+    asyncParseOrThrow(data: unknown): Promise<GenericOutput>;
     /**
      * The addChecker() method returns a new extended data parser with one or more additional checkers appended.
      * 

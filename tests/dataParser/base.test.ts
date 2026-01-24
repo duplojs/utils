@@ -1,11 +1,10 @@
 import { DEither, DDataParser, createOverride, forward } from "@scripts";
-import { type DataParser, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
 	const dataParserTestKind = createDataParserKind("checker-test");
 
-	const specificOverrideHandler = createOverride<DataParser>("@test/data-parser-base");
+	const specificOverrideHandler = createOverride<DDataParser.DataParser>("@test/data-parser-base");
 	const mockSpecificOverrideHandler = vi.fn(forward);
 	specificOverrideHandler.apply = mockSpecificOverrideHandler;
 
@@ -87,6 +86,8 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 							contract: expect.any(Function),
+							parseOrThrow: expect.any(Function),
+							asyncParseOrThrow: expect.any(Function),
 						},
 						null as never,
 					),
@@ -100,6 +101,16 @@ describe("base parser", () => {
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
 			expect(execChecker).toHaveBeenCalledWith(5, checker);
+		});
+
+		it("parseOrThrow returns value on success", () => {
+			const result = parser.parseOrThrow(5);
+
+			expect(result).toBe(5);
+		});
+
+		it("parseOrThrow throws on error", () => {
+			expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.DataParserThrowError);
 		});
 
 		it("run base exec and return error", () => {
@@ -181,6 +192,8 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 							contract: expect.any(Function),
+							parseOrThrow: expect.any(Function),
+							asyncParseOrThrow: expect.any(Function),
 						},
 						null as never,
 					),
@@ -206,6 +219,8 @@ describe("base parser", () => {
 							addChecker: expect.any(Function),
 							clone: expect.any(Function),
 							contract: expect.any(Function),
+							parseOrThrow: expect.any(Function),
+							asyncParseOrThrow: expect.any(Function),
 						},
 						null as never,
 					),
@@ -220,7 +235,7 @@ describe("base parser", () => {
 					errorMessage: "invalid",
 					checkers: [],
 				},
-				() => SymbolDataParserErrorPromiseIssue,
+				() => DDataParser.SymbolDataParserErrorPromiseIssue,
 				specificOverrideHandler,
 			);
 
@@ -287,6 +302,16 @@ describe("base parser", () => {
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
 			expect(execChecker).toHaveBeenCalledWith(5, checker);
+		});
+
+		it("asyncParseOrThrow returns value on success", async() => {
+			const result = await parser.asyncParseOrThrow(5);
+
+			expect(result).toBe(5);
+		});
+
+		it("asyncParseOrThrow throws on error", async() => {
+			await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.DataParserThrowError);
 		});
 
 		it("run base exec and return error", async() => {
@@ -357,7 +382,7 @@ describe("base parser", () => {
 					errorMessage: "invalid",
 					checkers: [],
 				},
-				() => SymbolDataParserErrorPromiseIssue,
+				() => DDataParser.SymbolDataParserErrorPromiseIssue,
 				specificOverrideHandler,
 			);
 

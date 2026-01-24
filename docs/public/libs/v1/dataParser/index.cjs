@@ -53,6 +53,7 @@ var recover = require('./parsers/recover.cjs');
 
 
 
+exports.DataParserThrowError = base.DataParserThrowError;
 exports.SymbolDataParserError = base.SymbolDataParserError;
 exports.SymbolDataParserErrorLabel = base.SymbolDataParserErrorLabel;
 exports.checkerKind = base.checkerKind;
