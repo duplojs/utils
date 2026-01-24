@@ -1,6 +1,8 @@
 /**
  * Finds all matches of a pattern in a string.
  * 
+ * @deprecated Use `extractAll` instead.
+ * 
  * **Supported call styles:**
  * - Classic: `matchAll(input, pattern)` → returns an iterator of matches
  * - Curried: `matchAll(pattern)` → returns a function waiting for the input

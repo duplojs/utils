@@ -5,13 +5,17 @@ prev:
   text: "search"
   link: "/fr/v1/api/string/search"
 next:
-  text: "matchAll"
-  link: "/fr/v1/api/string/matchAll"
+  text: "extract"
+  link: "/fr/v1/api/string/extract"
 ---
 
 # match
 
 La méthode **`match()`** recherche une correspondance entre une chaîne de caractères et une expression régulière, et retourne les résultats sous forme de tableau ou `undefined` si aucune correspondance n'est trouvée.
+
+::: warning
+Deprecated. Utilisez [extract](/fr/v1/api/string/extract) à la place.
+:::
 
 ## Exemple interactif
 

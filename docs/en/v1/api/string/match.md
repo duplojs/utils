@@ -5,13 +5,17 @@ prev:
   text: "search"
   link: "/en/v1/api/string/search"
 next:
-  text: "matchAll"
-  link: "/en/v1/api/string/matchAll"
+  text: "extract"
+  link: "/en/v1/api/string/extract"
 ---
 
 # match
 
 The **`match()`** method searches for a match between a string and a regular expression, and returns the results as an array or `undefined` if no match is found.
+
+::: warning
+Deprecated. Use [extract](/en/v1/api/string/extract) instead.
+:::
 
 ## Interactive example
 

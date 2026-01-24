@@ -1,6 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DArray } from "@scripts";
-import { type ExpectType } from "dist";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("at", () => {
 	it("returns the element DArray.at the given index", () => {

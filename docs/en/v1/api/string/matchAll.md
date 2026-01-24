@@ -2,16 +2,20 @@
 outline: [2, 3]
 description: "The matchAll() method takes a regular expression as an argument and returns an iterator of all matches found in a string."
 prev:
-  text: "match"
-  link: "/en/v1/api/string/match"
+  text: "extract"
+  link: "/en/v1/api/string/extract"
 next:
-  text: "charAt"
-  link: "/en/v1/api/string/charAt"
+  text: "extractAll"
+  link: "/en/v1/api/string/extractAll"
 ---
 
 # matchAll
 
 The **`matchAll()`** method takes a regular expression as an argument and returns an iterator of all matches found in a string.
+
+::: warning
+Deprecated. Use [extractAll](/en/v1/api/string/extractAll) instead.
+:::
 
 ## Interactive example
 

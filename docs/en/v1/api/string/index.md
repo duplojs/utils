@@ -69,11 +69,17 @@ Returns the index of the last occurrence of a substring.
 ### [search](/en/v1/api/string/search)
 Searches for a match with a regular expression.
 
-### [match](/en/v1/api/string/match)
+### [match](/en/v1/api/string/match) <Badge type="warning" text="deprecated" />
 Retrieves matches of a regular expression.
 
-### [matchAll](/en/v1/api/string/matchAll)
+### [extract](/en/v1/api/string/extract)
+Extracts details about the first match of a pattern in a string.
+
+### [matchAll](/en/v1/api/string/matchAll) <Badge type="warning" text="deprecated" />
 Retrieves all matches of a regular expression with their groups.
+
+### [extractAll](/en/v1/api/string/extractAll)
+Extracts details about all matches of a pattern in a string.
 
 ## Extraction
 
