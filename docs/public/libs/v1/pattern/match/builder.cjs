@@ -33,6 +33,16 @@ matchBuilder.set("when", ({ args: [predicate, theFunction], accumulator, next, }
         },
     ],
 }));
+matchBuilder.set("whenNot", ({ args: [predicate, theFunction], accumulator, next, }) => next({
+    ...accumulator,
+    matchers: [
+        ...accumulator.matchers,
+        {
+            isMatch: (value) => !predicate(value),
+            theFunction,
+        },
+    ],
+}));
 matchBuilder.set("exhaustive", ({ accumulator: { input, matchers, }, }) => {
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let index = 0; index < matchers.length; index++) {

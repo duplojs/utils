@@ -13,6 +13,8 @@ export interface MatchBuilder<GenericValue extends unknown = never, GenericResul
     with<const GenericPattern extends Pattern<GenericValue>, GenericOutput extends unknown>(pattern: FixDeepFunctionInfer<Pattern<GenericValue>, GenericPattern>, theFunction: (value: ComplexMatchedValue<GenericValue, PatternValue<GenericPattern>>) => GenericOutput): MatchBuilder<ComplexUnMatchedValue<GenericValue, PatternValue<GenericPattern>>, GenericOutput | GenericResult>;
     when<GenericPredicatedInput extends GenericValue, GenericOutput extends unknown>(predicate: (input: GenericValue) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput): MatchBuilder<Exclude<GenericValue, GenericPredicatedInput>, GenericOutput | GenericResult>;
     when<GenericOutput extends unknown>(predicate: (input: GenericValue) => boolean, theFunction: (predicatedInput: GenericValue) => GenericOutput): MatchBuilder<GenericValue, GenericOutput | GenericResult>;
+    whenNot<GenericPredicatedInput extends GenericValue, GenericOutput extends unknown>(predicate: (input: GenericValue) => input is GenericPredicatedInput, theFunction: (predicatedInput: Exclude<GenericValue, GenericPredicatedInput>) => GenericOutput): MatchBuilder<Extract<GenericValue, GenericPredicatedInput>, GenericOutput | GenericResult>;
+    whenNot<GenericOutput extends unknown>(predicate: (input: GenericValue) => boolean, theFunction: (predicatedInput: GenericValue) => GenericOutput): MatchBuilder<GenericValue, GenericOutput | GenericResult>;
     exhaustive: IsEqual<GenericValue, never> extends true ? () => GenericResult : {
         [SymbolErrorMatchExhaustive]: "Pattern are not exhaustive.";
         restValue: GenericValue;
