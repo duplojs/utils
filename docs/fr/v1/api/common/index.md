@@ -29,9 +29,6 @@ import { pipe, when, clone } from "@duplojs/utils/common";
 ### [pipe](/fr/v1/api/common/pipe)
 Compose des fonctions synchrones en chaînant un même input.
 
-### [pipeCall](/fr/v1/api/common/pipeCall)
-Neutralise l'inférence du premier argument d'une fonction dans un pipe.
-
 ### [innerPipe](/fr/v1/api/common/innerPipe)
 Prépare un pipe réutilisable qui retourne une fonction à appliquer plus tard.
 

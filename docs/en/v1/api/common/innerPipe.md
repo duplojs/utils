@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The innerPipe() method prepares a reusable synchronous pipeline: it returns a function that will apply the chain of transformations to any compatible input."
 prev:
-  text: "pipeCall"
-  link: "/en/v1/api/common/pipeCall"
+  text: "pipe"
+  link: "/en/v1/api/common/pipe"
 next:
   text: "asyncPipe"
   link: "/en/v1/api/common/asyncPipe"

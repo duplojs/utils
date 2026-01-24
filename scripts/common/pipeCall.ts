@@ -1,3 +1,6 @@
+/**
+ * {@include common/pipeCall/index.md}
+ */
 export function pipeCall<
 	GenericInput extends unknown,
 	GenericOutput extends unknown,
