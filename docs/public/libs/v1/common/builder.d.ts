@@ -25,7 +25,7 @@ export interface BuilderHandler<GenericBuilder extends Builder = Builder> {
 }
 declare const MissingBuilderMethodsError_base: new (params: {
     "@DuplojsUtilsError/missing-builder-methods-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/missing-builder-methods-error", unknown>, unknown> & Kind<import("./kind").KindDefinition<"missing-builder-methods-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/missing-builder-methods-error", unknown>, unknown> & Kind<import("./kind").KindDefinition<"missing-builder-methods-error", unknown>, unknown>;
 export declare class MissingBuilderMethodsError extends MissingBuilderMethodsError_base {
     method: string;
     constructor(method: string);

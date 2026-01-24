@@ -115,7 +115,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
 }
 declare const CreateEntityError_base: new (params: {
     "@DuplojsUtilsError/create-entity-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"create-entity-error", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"create-entity-error", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown>;
 export declare class CreateEntityError extends CreateEntityError_base {
     rawProperties: EntityRawProperties;
     dataParserError: DDataParser.DataParserError;

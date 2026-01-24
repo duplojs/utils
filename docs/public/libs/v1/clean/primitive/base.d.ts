@@ -67,7 +67,7 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
 }
 declare const CreatePrimitiveError_base: new (params: {
     "@DuplojsUtilsError/create-primitive-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../../common").KindDefinition<"create-primitive-error", unknown>, unknown> & Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/create-primitive-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../../common").KindDefinition<"create-primitive-error", unknown>, unknown> & Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/create-primitive-error", unknown>, unknown>;
 export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
     data: unknown;
     dataParserError: DDataParser.DataParserError;

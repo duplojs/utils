@@ -1,6 +1,6 @@
 declare const AssertsError_base: new (params: {
     "@DuplojsUtilsError/asserts-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("./kind").Kind<import("./kind").KindDefinition<"asserts-error", unknown>, unknown> & import("./kind").Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/asserts-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("./kind").Kind<import("./kind").KindDefinition<"asserts-error", unknown>, unknown> & import("./kind").Kind<import("./kind").KindDefinition<"@DuplojsUtilsError/asserts-error", unknown>, unknown>;
 export declare class AssertsError extends AssertsError_base {
     value: unknown;
     constructor(value: unknown);

@@ -1,4 +1,4 @@
-import { type IsEqual, type AnyFunction } from "./types";
+import { type IsEqual, type AnyFunction, type BreakGenericLink } from "./types";
 interface Type {
     string: [string, never];
     number: [number, never];
@@ -50,6 +50,6 @@ type EligibleType<GenericInput extends unknown> = {
  * @see https://utils.duplojs.dev/en/v1/api/common/isType
  * 
  */
-export declare function isType<GenericInput extends unknown, GenericType extends EligibleType<GenericInput>>(type: GenericType): (input: GenericInput) => input is ComputeResult<GenericInput, Type[GenericType]>;
+export declare function isType<GenericInput extends unknown, GenericType extends EligibleType<GenericInput>>(type: GenericType): (input: GenericInput) => input is ComputeResult<BreakGenericLink<GenericInput>, Type[GenericType]>;
 export declare function isType<GenericInput extends unknown, GenericType extends EligibleType<GenericInput>>(input: GenericInput, type: GenericType): input is ComputeResult<GenericInput, Type[GenericType]>;
 export {};

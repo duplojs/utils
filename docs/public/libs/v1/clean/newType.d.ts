@@ -87,7 +87,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
 }
 declare const CreateNewTypeError_base: new (params: {
     "@DuplojsUtilsError/create-new-type-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("..").KindDefinition<"create-new-type-error", unknown>, unknown> & Kind<import("..").KindDefinition<"@DuplojsUtilsError/create-new-type-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("..").KindDefinition<"create-new-type-error", unknown>, unknown> & Kind<import("..").KindDefinition<"@DuplojsUtilsError/create-new-type-error", unknown>, unknown>;
 export declare class CreateNewTypeError extends CreateNewTypeError_base {
     newTypeName: string;
     data: unknown;
