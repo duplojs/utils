@@ -76,13 +76,6 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * 
      * It executes the async parser path, applies all registered checkers, and never mutates the input.
      * 
-     * ```ts
-     * // TODO: add asyncParse examples.
-     * ```
-     * 
-     * @remarks 
-     * - TODO: complete this documentation and examples.
-     * 
      * @namespace DP
      * 
      */
@@ -169,10 +162,59 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
     contract<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & {
         [SymbolContractError]: "Contract error.";
     }): Contract<GenericValue>;
+    /**
+     * The parseOrThrow() method runs a data parser synchronously and returns the parsed value or throws a DataParserThrowError.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.parseOrThrow(input)` -> returns the parsed value
+     * 
+     * It executes the parser, applies all registered checkers, and never mutates the input.
+     * 
+     * ```ts
+     * const stringSchema = DP.string({
+     * 	checkers: [DP.checkerStringMin(3)],
+     * });
+     * 
+     * const value = stringSchema.parseOrThrow("DuploJS");
+     * // value: string
+     * 
+     * try {
+     * 	stringSchema.parseOrThrow("ok");
+     * } catch (error) {
+     * 	if (error instanceof DP.DataParserThrowError) {
+     * 		// parseError: DP.DataParserError
+     * 	}
+     * }
+     * 
+     * ```
+     * 
+     * @namespace DP
+     * 
+     */
+    parseOrThrow(data: unknown): GenericOutput;
+    /**
+     * The asyncParseOrThrow() method runs a data parser asynchronously and resolves to the parsed value or rejects with a DataParserThrowError.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.asyncParseOrThrow(input)` -> returns a promise
+     * 
+     * It executes the async parser path, applies all registered checkers, and never mutates the input.
+     * 
+     * @namespace DP
+     * 
+     */
+    asyncParseOrThrow(data: unknown): Promise<GenericOutput>;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
     sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
     async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
+}
+declare const DataParserThrowError_base: new (params: {
+    "@DuplojsUtilsError/dataParserThrowError"?: unknown;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"dataParserThrowError", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/dataParserThrowError", unknown>, unknown>;
+export declare class DataParserThrowError extends DataParserThrowError_base {
+    value: unknown;
+    constructor(value: unknown);
 }
 export declare function dataParserInit<GenericDataParser extends DataParser>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"]), specificOverrideHandler: OverrideHandler<GenericDataParser>): GenericDataParser;
 export declare namespace dataParserInit {

@@ -1,4 +1,4 @@
-import { type AnyFunction, createOverride, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, createErrorKind, createOverride, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
@@ -128,6 +128,20 @@ export interface DataParser<
 			? []
 			: [] & { [SymbolContractError]: "Contract error." }
 	): Contract<GenericValue>;
+
+	/**
+	 * {@include dataParser/classic/base/parseOrThrow/index.md}
+	 */
+	parseOrThrow(
+		data: unknown,
+	): GenericOutput;
+
+	/**
+	 * {@include dataParser/classic/base/asyncParseOrThrow/index.md}
+	 */
+	asyncParseOrThrow(
+		data: unknown,
+	): Promise<GenericOutput>;
 }
 
 interface DataParserInitExecParams<
@@ -160,6 +174,18 @@ const DPE = createError();
 const EE = DEither.error(null);
 const ES = DEither.success(null);
 const KWV = keyWrappedValue;
+
+export class DataParserThrowError extends kindHeritage(
+	"dataParserThrowError",
+	createErrorKind("dataParserThrowError"),
+	Error,
+) {
+	public constructor(
+		public value: unknown,
+	) {
+		super({}, ["Parse Error."]);
+	}
+}
 
 export function dataParserInit<
 	GenericDataParser extends DataParser,
@@ -311,6 +337,34 @@ export function dataParserInit<
 				specificOverrideHandler,
 			),
 			contract: () => self,
+			parseOrThrow(data: unknown) {
+				const error = {
+					...DPE,
+					issues: [],
+					currentPath: [],
+				};
+				const result = middleExec(data, error);
+
+				if (result === SDPE) {
+					throw new DataParserThrowError(error);
+				}
+
+				return result;
+			},
+			async asyncParseOrThrow(data: unknown) {
+				const error = {
+					...DPE,
+					issues: [],
+					currentPath: [],
+				};
+				const result = await middleAsyncExec(data, error);
+
+				if (result === SDPE) {
+					throw new DataParserThrowError(error);
+				}
+
+				return result;
+			},
 		} satisfies Record<keyof RemoveKind<DataParser>, any>,
 		(value) => dataParserKind.setTo(value, null as never),
 		kind.setTo,

@@ -48,6 +48,20 @@ export interface DataParserExtended<
 	>;
 
 	/**
+	 * {@include dataParser/extended/base/parseOrThrow/index.md}
+	 */
+	parseOrThrow(
+		data: unknown,
+	): GenericOutput;
+
+	/**
+	 * {@include dataParser/extended/base/asyncParseOrThrow/index.md}
+	 */
+	asyncParseOrThrow(
+		data: unknown,
+	): Promise<GenericOutput>;
+
+	/**
 	 * {@include dataParser/extended/base/addChecker/index.md}
 	 */
 	addChecker(...args: never): DataParserExtended;

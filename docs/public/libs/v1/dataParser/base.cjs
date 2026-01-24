@@ -5,7 +5,9 @@ var kind = require('./kind.cjs');
 var simpleClone = require('../common/simpleClone.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 var override = require('../common/override.cjs');
+var kind$1 = require('../common/kind.cjs');
 var pipe = require('../common/pipe.cjs');
+var errorKindNamespace = require('../common/errorKindNamespace.cjs');
 var error$1 = require('../either/left/error.cjs');
 var success = require('../either/right/success.cjs');
 
@@ -27,6 +29,13 @@ const DPE = error.createError();
 const EE = error$1.error(null);
 const ES = success.success(null);
 const KWV = wrapValue.keyWrappedValue;
+class DataParserThrowError extends kind$1.kindHeritage("dataParserThrowError", errorKindNamespace.createErrorKind("dataParserThrowError"), Error) {
+    value;
+    constructor(value) {
+        super({}, ["Parse Error."]);
+        this.value = value;
+    }
+}
 function dataParserInit(kind, definition, exec, specificOverrideHandler) {
     const formattedExec = typeof exec === "object"
         ? exec
@@ -130,11 +139,36 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         }), exec, specificOverrideHandler),
         clone: () => dataParserInit(kind, simpleClone.simpleClone(definition), exec, specificOverrideHandler),
         contract: () => self,
+        parseOrThrow(data) {
+            const error = {
+                ...DPE,
+                issues: [],
+                currentPath: [],
+            };
+            const result = middleExec(data, error);
+            if (result === SDPE) {
+                throw new DataParserThrowError(error);
+            }
+            return result;
+        },
+        async asyncParseOrThrow(data) {
+            const error = {
+                ...DPE,
+                issues: [],
+                currentPath: [],
+            };
+            const result = await middleAsyncExec(data, error);
+            if (result === SDPE) {
+                throw new DataParserThrowError(error);
+            }
+            return result;
+        },
     }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
     return self;
 }
 dataParserInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
 
+exports.DataParserThrowError = DataParserThrowError;
 exports.SymbolDataParserError = SymbolDataParserError;
 exports.SymbolDataParserErrorLabel = SymbolDataParserErrorLabel;
 exports.checkerKind = checkerKind;
