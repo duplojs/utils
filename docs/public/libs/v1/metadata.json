@@ -4772,6 +4772,24 @@
           "name": "endsWith.mjs"
         },
         {
+          "name": "extract.cjs"
+        },
+        {
+          "name": "extract.d.ts"
+        },
+        {
+          "name": "extract.mjs"
+        },
+        {
+          "name": "extractAll.cjs"
+        },
+        {
+          "name": "extractAll.d.ts"
+        },
+        {
+          "name": "extractAll.mjs"
+        },
+        {
           "name": "includes.cjs"
         },
         {

@@ -69,11 +69,17 @@ Retourne l'index de la dernière occurrence d'une sous-chaîne.
 ### [search](/fr/v1/api/string/search)
 Recherche une correspondance avec une expression régulière.
 
-### [match](/fr/v1/api/string/match)
+### [match](/fr/v1/api/string/match) <Badge type="warning" text="deprecated" />
 Récupère les correspondances d'une expression régulière.
 
-### [matchAll](/fr/v1/api/string/matchAll)
+### [extract](/fr/v1/api/string/extract)
+Extrait les détails de la première correspondance d'un motif dans une chaîne.
+
+### [matchAll](/fr/v1/api/string/matchAll) <Badge type="warning" text="deprecated" />
 Récupère toutes les correspondances d'une expression régulière avec leurs groupes.
+
+### [extractAll](/fr/v1/api/string/extractAll)
+Extrait les détails de toutes les correspondances d'un motif dans une chaîne.
 
 ## Extraction
 

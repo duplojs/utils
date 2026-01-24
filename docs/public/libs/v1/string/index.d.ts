@@ -14,7 +14,7 @@
  * 
  * What you will find in this namespace:
  * - casing and trimming (`S.toUpperCase`, `S.toLowerCase`, `S.capitalize`, `S.uncapitalize`, `S.trim`)
- * - search and match (`S.includes`, `S.startsWith`, `S.endsWith`, `S.search`, `S.match`, `S.matchAll`, `S.test`)
+ * - search and match (`S.includes`, `S.startsWith`, `S.endsWith`, `S.search`, `S.match`, `S.matchAll`, `S.extract`, `S.extractAll`, `S.test`)
  * - composition and slicing (`S.concat`, `S.slice`, `S.substring`, `S.split`)
  * - indexing (`S.at`, `S.charAt`, `S.indexOf`, `S.lastIndexOf`)
  * - padding and repeat (`S.padStart`, `S.padEnd`, `S.repeat`)
@@ -58,3 +58,5 @@ export * from "./length";
 export * from "./sort";
 export * from "./sortCompare";
 export * from "./to";
+export * from "./extract";
+export * from "./extractAll";

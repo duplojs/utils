@@ -35,3 +35,5 @@ export * from "./length";
 export * from "./sort";
 export * from "./sortCompare";
 export * from "./to";
+export * from "./extract";
+export * from "./extractAll";

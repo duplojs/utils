@@ -1,5 +1,7 @@
 Finds the first match of a pattern in a string.
 
+@deprecated Use `extract` instead.
+
 **Supported call styles:**
 - Classic: `match(input, pattern)` → returns a match array or `undefined`
 - Curried: `match(pattern)` → returns a function waiting for the input
