@@ -116,6 +116,15 @@ function createEntity(name, getPropertiesDefinition) {
     function is$1(input) {
         return entityKind.has(input) && entityKind.getValue(input) === name;
     }
+    function update(entity, newProperties) {
+        const updatedEntity = {};
+        for (const key in propertiesDefinition) {
+            updatedEntity[key] = newProperties[key] !== undefined
+                ? newProperties[key]
+                : entity[key];
+        }
+        return entityKind.setTo(updatedEntity, name);
+    }
     return entityHandlerKind.setTo({
         name,
         propertiesDefinition,
@@ -124,6 +133,7 @@ function createEntity(name, getPropertiesDefinition) {
         map: map$1,
         mapOrThrow,
         is: is$1,
+        update,
     });
 }
 

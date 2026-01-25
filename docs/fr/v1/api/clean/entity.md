@@ -108,6 +108,17 @@ function is(
 ): value is Entity<EntityName>
 ```
 
+#### `update()`
+
+Met a jour une entite existante en fusionnant des proprietes typees.
+
+```typescript
+function update(
+	entity: Entity<EntityName>,
+	properties: Partial<Properties>
+): Entity<EntityName> & Properties
+```
+
 ### Propriétés
 
 #### `name`

@@ -21,7 +21,7 @@ export interface MatchBuilder<GenericValue extends unknown = never, GenericResul
 }
 declare const InvalidExhaustivePatternError_base: new (params: {
     "@DuplojsUtilsError/invalid-exhaustive-pattern-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../../common").Kind<import("../../common").KindDefinition<"invalid-exhaustive-pattern-error", unknown>, unknown> & import("../../common").Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/invalid-exhaustive-pattern-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../../common").Kind<import("../../common").KindDefinition<"invalid-exhaustive-pattern-error", unknown>, unknown> & import("../../common").Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/invalid-exhaustive-pattern-error", unknown>, unknown>;
 export declare class InvalidExhaustivePatternError extends InvalidExhaustivePatternError_base {
     input: unknown;
     constructor(input: unknown);

@@ -1,5 +1,5 @@
 import { type AnyTuple } from "../common/types/anyTuple";
-import { type ReverseTuple } from ".";
+import { type ReverseTuple } from "../array";
 /**
  * Reverses the order of an array.
  * 

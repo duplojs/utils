@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, type IsEqual, type IsExtends, type Or, type NeverCoalescing } from "../common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind } from "../common";
 import { type GetNewType, type NewTypeHandler } from "./newType";
 import * as DEither from "../either";
 import * as DDataParser from "../dataParser";
@@ -112,10 +112,22 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
     * 
     */
     is<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, Entity<GenericName>>;
+    /**
+     * Updates an entity by merging typed properties into an existing entity.
+     * 
+     * ```ts
+     * const updated = User.Entity.update(mapped, {
+     * 	name: User.Name.createOrThrow("Bobby"),
+     * 	nick: null,
+     * });
+     * ```
+     * 
+     */
+    update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(entity: GenericEntity, properties: GenericProperties): Entity<GenericName> & DObject.AssignObjects<RemoveKind<GenericEntity>, GenericProperties>;
 }
 declare const CreateEntityError_base: new (params: {
     "@DuplojsUtilsError/create-entity-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"create-entity-error", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"create-entity-error", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown>;
 export declare class CreateEntityError extends CreateEntityError_base {
     rawProperties: EntityRawProperties;
     dataParserError: DDataParser.DataParserError;

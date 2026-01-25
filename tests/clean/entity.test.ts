@@ -430,4 +430,80 @@ describe("createEntity", () => {
 		expect(FormEntity.is(other)).toBe(false);
 		expect(FormEntity.is({ name: "Alice" })).toBe(false);
 	});
+
+	it("update returns entity with merged properties and kind marker", () => {
+		const name = FormName.createOrThrow("Old");
+		const type = FormTypeHuman.createOrThrow({ siret: "123" });
+		const inputs = [
+			InputNumber.createOrThrow({
+				value: 10,
+				require: true,
+			}),
+		] as const;
+		const description = FormDescription.createOrThrow("Updated");
+
+		const form = FormEntity.new({
+			name,
+			type,
+			inputs,
+			description,
+			tags: null,
+			test: [],
+		});
+
+		const updated = FormEntity.update(form, {
+			name: FormName.createOrThrow("New"),
+			description: null,
+			tags: [],
+		});
+
+		expect(updated).toStrictEqual(
+			DClean.entityKind.setTo({
+				name: FormName.createOrThrow("New"),
+				type,
+				inputs,
+				description: null,
+				tags: [],
+				test: [],
+			}, "Form"),
+		);
+
+		type check1 = ExpectType<
+			typeof form,
+			DClean.Entity<"Form">
+			& {
+				readonly name: DClean.NewType<"formName", "Old", "max100">;
+				readonly type: DClean.NewType<"formTypeHuman", {
+					readonly siret: "123";
+				}, never>;
+				readonly inputs: readonly [DClean.NewType<"inputNumber", {
+					readonly value: 10;
+					readonly require: true;
+				}, never>];
+				readonly description: DClean.NewType<"formDescription", "Updated", never>;
+				readonly tags: null;
+				readonly test: readonly [];
+			},
+			"strict"
+		>;
+
+		type check = ExpectType<
+			typeof updated,
+			DClean.Entity<"Form">
+			& {
+				readonly type: DClean.NewType<"formTypeHuman", {
+					readonly siret: "123";
+				}, never>;
+				readonly inputs: readonly [DClean.NewType<"inputNumber", {
+					readonly value: 10;
+					readonly require: true;
+				}, never>];
+				readonly test: readonly [];
+				readonly name: DClean.NewType<"formName", "New", "max100">;
+				readonly description: null;
+				readonly tags: readonly [];
+			},
+			"strict"
+		>;
+	});
 });

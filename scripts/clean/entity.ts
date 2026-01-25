@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type GetNewType, type NewTypeHandler, newTypeHandlerKind, newTypeKind } from "./newType";
 import { constrainedTypeKind } from "./constraint";
@@ -196,6 +196,20 @@ export interface EntityHandler<
 	): input is Extract<
 		GenericInput,
 		Entity<GenericName>
+	>;
+
+	/**
+	 * {@include clean/createEntity/update.md}
+	 */
+	update<
+		const GenericEntity extends Entity<GenericName>,
+		const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>,
+	>(
+		entity: GenericEntity,
+		properties: GenericProperties,
+	): Entity<GenericName> & DObject.AssignObjects<
+		RemoveKind<GenericEntity>,
+		GenericProperties
 	>;
 }
 
@@ -442,6 +456,21 @@ export function createEntity<
 		return entityKind.has(input) && entityKind.getValue(input) === name;
 	}
 
+	function update(
+		entity: EntityProperties,
+		newProperties: Partial<EntityProperties>,
+	) {
+		const updatedEntity: RemoveReadonly<EntityProperties> = {};
+
+		for (const key in propertiesDefinition) {
+			updatedEntity[key] = newProperties[key] !== undefined
+				? newProperties[key]
+				: entity[key];
+		}
+
+		return entityKind.setTo(updatedEntity, name);
+	}
+
 	return entityHandlerKind.setTo({
 		name,
 		propertiesDefinition,
@@ -450,6 +479,7 @@ export function createEntity<
 		map,
 		mapOrThrow,
 		is,
+		update,
 	}) as never;
 }
 

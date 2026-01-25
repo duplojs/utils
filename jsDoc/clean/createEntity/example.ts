@@ -52,3 +52,8 @@ const mappedResult = User.Entity.map({
 if (E.isRight(mappedResult)) {
 	// mappedResult: E.EitherRight<"createEntity", C.Entity<"User">>
 }
+
+const updated = User.Entity.update(mapped, {
+	name: User.Name.createOrThrow("Bobby"),
+	nick: null,
+});

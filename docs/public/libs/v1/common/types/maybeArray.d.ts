@@ -1,1 +1,1 @@
-export type MaybeArray<GenericValue extends unknown> = GenericValue | GenericValue[];
+export type MaybeArray<GenericValue extends unknown> = GenericValue | readonly GenericValue[];

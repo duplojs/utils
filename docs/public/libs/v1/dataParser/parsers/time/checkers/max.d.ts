@@ -1,5 +1,5 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../base";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
 import * as DDate from "../../../../date";
 export interface DataParserCheckerDefinitionTimeMax extends DataParserCheckerDefinition {
     max: DDate.TheTime;

@@ -79,7 +79,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
 }
 declare const CreateConstrainedTypeError_base: new (params: {
     "@DuplojsUtilsError/create-constrained-type-error"?: unknown;
-}, parentParams: [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"create-constrained-type-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constrained-type-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"create-constrained-type-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constrained-type-error", unknown>, unknown>;
 export declare class CreateConstrainedTypeError extends CreateConstrainedTypeError_base {
     constrainedTypeName: string;
     data: unknown;
