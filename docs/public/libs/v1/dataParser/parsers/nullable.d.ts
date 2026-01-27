@@ -6,9 +6,9 @@ import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserNullableCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserNullableCheckers<GenericInput extends unknown = unknown> = (DataParserNullableCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserNullableCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionNullable<GenericCoalescingValue extends unknown = unknown> extends DataParserDefinition<DataParserNullableCheckers> {
+export interface DataParserDefinitionNullable<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserNullableCheckers> {
     readonly inner: DataParser;
-    readonly coalescingValue: GenericCoalescingValue;
+    readonly coalescingValue: GenericOutput;
 }
 export declare const nullableKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>>;
 type _DataParserNullable<GenericDefinition extends DataParserDefinitionNullable> = (DataParser<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | null : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | null> & Kind<typeof nullableKind.definition>);

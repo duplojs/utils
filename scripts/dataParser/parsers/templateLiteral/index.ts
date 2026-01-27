@@ -179,7 +179,7 @@ export type DataParserTemplateLiteralCheckers<
 );
 
 export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<
-	DataParserTemplateLiteralCheckers
+	DataParserTemplateLiteralCheckers<string>
 > {
 	readonly template: TemplateLiteralShape;
 	readonly pattern: RegExp;

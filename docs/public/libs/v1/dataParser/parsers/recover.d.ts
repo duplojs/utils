@@ -41,9 +41,9 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
  * const withString = DP.recover(DP.string(), "fallback");
  * const stringResult = withString.parse(123);
  * 
- * const withCheckers = DP.recover(DP.string(), "fallback", {
- * 	checkers: [DP.checkerRefine((value) => value.length > 0)],
- * });
+ * const withCheckers = DP.recover(DP.string(), "fallback")
+ * 	.addChecker(DP.checkerRefine((value) => value.length > 0));
+ * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/recover

@@ -64,7 +64,7 @@ export function nullable<
 	const GenericDefinition extends Partial<
 		Omit<
 			dataParsers.DataParserDefinitionNullable<
-				Output<GenericDataParser> | null
+				Output<GenericDataParser>
 			>,
 			"inner"
 		>

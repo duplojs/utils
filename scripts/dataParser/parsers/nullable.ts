@@ -23,12 +23,12 @@ export type DataParserNullableCheckers<
 );
 
 export interface DataParserDefinitionNullable<
-	GenericCoalescingValue extends unknown = unknown,
+	GenericOutput extends unknown = unknown,
 > extends DataParserDefinition<
 		DataParserNullableCheckers
 	> {
 	readonly inner: DataParser;
-	readonly coalescingValue: GenericCoalescingValue;
+	readonly coalescingValue: GenericOutput;
 }
 
 export const nullableKind = createDataParserKind("nullable");

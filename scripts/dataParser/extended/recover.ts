@@ -56,9 +56,12 @@ export interface DataParserRecoverExtended<
  */
 export function recover<
 	GenericDataParser extends DataParser,
-	GenericRecoveredValue extends unknown,
+	GenericRecoveredValue extends Output<GenericDataParser>,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionRecover, "inner" | "recoveredValue">
+		Omit<
+			dataParsers.DataParserDefinitionRecover,
+			"inner" | "recoveredValue"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,

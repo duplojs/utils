@@ -77,7 +77,7 @@ export type DataParserTupleCheckers<
 );
 
 export interface DataParserDefinitionTuple extends DataParserDefinition<
-	DataParserTupleCheckers
+	DataParserTupleCheckers<AnyTuple<unknown>>
 > {
 	readonly shape: TupleShape;
 	readonly rest?: DataParser;

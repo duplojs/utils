@@ -22,7 +22,7 @@ export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRe
 export interface DataParserTupleCheckerCustom<GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>> {
 }
 export type DataParserTupleCheckers<GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>> = (DataParserTupleCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserTupleCheckerCustom<GenericInput>, DataParserChecker>] | DataParserCheckerArrayMin | DataParserCheckerArrayMax | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers> {
+export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers<AnyTuple<unknown>>> {
     readonly shape: TupleShape;
     readonly rest?: DataParser;
 }

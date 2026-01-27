@@ -24,7 +24,7 @@ export type DataParserTransformCheckers<
 );
 
 export interface DataParserDefinitionTransform extends DataParserDefinition<
-	DataParserTransformCheckers
+	DataParserTransformCheckers<unknown>
 > {
 	readonly inner: DataParser;
 	theFunction(input: any, error: DataParserError): unknown;

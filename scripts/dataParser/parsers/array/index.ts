@@ -29,7 +29,7 @@ export type DataParserArrayCheckers<
 );
 
 export interface DataParserDefinitionArray extends DataParserDefinition<
-	DataParserArrayCheckers
+	DataParserArrayCheckers<unknown[]>
 > {
 	readonly element: DataParser;
 }

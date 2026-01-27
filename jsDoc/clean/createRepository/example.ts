@@ -1,4 +1,4 @@
-import { C, DP, unwrap, E } from "@duplojs/utils";
+import { C, DP, unwrap, E } from "@scripts";
 
 // Domain Layer
 export namespace User {

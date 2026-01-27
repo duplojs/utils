@@ -7,7 +7,7 @@ export type UnionOptions = readonly [DataParser, ...DataParser[]];
 export interface DataParserUnionCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserUnionCheckers<GenericInput extends unknown = unknown> = (DataParserUnionCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserUnionCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionUnion extends DataParserDefinition<DataParserUnionCheckers> {
+export interface DataParserDefinitionUnion extends DataParserDefinition<DataParserUnionCheckers<unknown>> {
     readonly options: UnionOptions;
 }
 export declare const unionKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>>;

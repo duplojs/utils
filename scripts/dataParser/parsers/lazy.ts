@@ -23,7 +23,7 @@ export type DataParserLazyCheckers<
 );
 
 export interface DataParserDefinitionLazy extends DataParserDefinition<
-	DataParserLazyCheckers
+	DataParserLazyCheckers<unknown>
 > {
 	getter: Memoized<DataParser>;
 }

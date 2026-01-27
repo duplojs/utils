@@ -6,7 +6,7 @@ import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserLazyCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserLazyCheckers<GenericInput extends unknown = unknown> = (DataParserLazyCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserLazyCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers> {
+export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers<unknown>> {
     getter: Memoized<DataParser>;
 }
 export declare const lazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>;

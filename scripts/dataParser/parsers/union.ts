@@ -26,7 +26,7 @@ export type DataParserUnionCheckers<
 );
 
 export interface DataParserDefinitionUnion extends DataParserDefinition<
-	DataParserUnionCheckers
+	DataParserUnionCheckers<unknown>
 > {
 	readonly options: UnionOptions;
 }

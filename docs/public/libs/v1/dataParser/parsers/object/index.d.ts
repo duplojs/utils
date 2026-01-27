@@ -16,10 +16,10 @@ export type DataParserObjectShapeOutput<GenericShape extends DataParserObjectSha
 export type DataParserObjectShapeInput<GenericShape extends DataParserObjectShape> = {
     -readonly [Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition> ? Prop : never]: Input<GenericShape[Prop]>;
 } extends infer InferredResult extends object ? DObject.PartialKeys<InferredResult, DObject.GetPropsWithValueExtends<InferredResult, undefined>> : never;
-export interface DataParserObjectCheckerCustom<GenericInput extends DataParserObjectShape = DataParserObjectShape> {
+export interface DataParserObjectCheckerCustom<GenericInput extends object = object> {
 }
-export type DataParserObjectCheckers<GenericInput extends DataParserObjectShape = DataParserObjectShape> = (DataParserObjectCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserObjectCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionObject extends DataParserDefinition<DataParserObjectCheckers> {
+export type DataParserObjectCheckers<GenericInput extends object = object> = (DataParserObjectCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserObjectCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
+export interface DataParserDefinitionObject extends DataParserDefinition<DataParserObjectCheckers<object>> {
     readonly shape: DataParserObjectShape;
     readonly optimizedShape: Memoized<{
         readonly key: string;

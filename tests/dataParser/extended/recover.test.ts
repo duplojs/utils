@@ -18,8 +18,8 @@ describe("extended.recover", () => {
 
 	it("fails when inner parser fails", () => {
 		const parser = extended
-			.recover(extended.number({ errorMessage: "not-number" }), "test");
+			.recover(extended.number({ errorMessage: "not-number" }), 2);
 
-		expect(parser.parse("invalid")).toStrictEqual(DEither.success("test"));
+		expect(parser.parse("invalid")).toStrictEqual(DEither.success(2));
 	});
 });

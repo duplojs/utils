@@ -6,9 +6,9 @@ import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserOptionalCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserOptionalCheckers<GenericInput extends unknown = unknown> = (DataParserOptionalCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserOptionalCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionOptional<GenericCoalescingValue extends unknown = unknown> extends DataParserDefinition<DataParserOptionalCheckers> {
+export interface DataParserDefinitionOptional<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserOptionalCheckers> {
     readonly inner: DataParser;
-    readonly coalescingValue: GenericCoalescingValue;
+    readonly coalescingValue: GenericOutput;
 }
 export declare const optionalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/optional", unknown>>;
 type _DataParserOptional<GenericDefinition extends DataParserDefinitionOptional> = (DataParser<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | undefined : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | undefined> & Kind<typeof optionalKind.definition>);
@@ -51,7 +51,7 @@ export interface DataParserOptional<GenericDefinition extends DataParserDefiniti
  * @namespace DP
  * 
  */
-export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionOptional<Output<GenericDataParser>>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
+export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionOptional, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
 export declare namespace optional {

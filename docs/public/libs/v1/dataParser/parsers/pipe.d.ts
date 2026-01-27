@@ -6,7 +6,7 @@ import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserPipeCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserPipeCheckers<GenericInput extends unknown = unknown> = (DataParserPipeCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserPipeCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionPipe extends DataParserDefinition<DataParserPipeCheckers> {
+export interface DataParserDefinitionPipe extends DataParserDefinition<DataParserPipeCheckers<unknown>> {
     readonly input: DataParser;
     readonly output: DataParser;
 }

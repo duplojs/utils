@@ -53,11 +53,11 @@ export type DataParserObjectShapeInput<
 	: never;
 
 export interface DataParserObjectCheckerCustom<
-	GenericInput extends DataParserObjectShape = DataParserObjectShape,
+	GenericInput extends object = object,
 > {}
 
 export type DataParserObjectCheckers<
-	GenericInput extends DataParserObjectShape = DataParserObjectShape,
+	GenericInput extends object = object,
 > = (
 	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 	| DataParserObjectCheckerCustom<GenericInput>[
@@ -70,7 +70,7 @@ export type DataParserObjectCheckers<
 );
 
 export interface DataParserDefinitionObject extends DataParserDefinition<
-	DataParserObjectCheckers
+	DataParserObjectCheckers<object>
 > {
 	readonly shape: DataParserObjectShape;
 	readonly optimizedShape: Memoized<{

@@ -7,7 +7,7 @@ import { type GetPropsWithValueExtends } from "../../object";
 export interface DataParserTransformCheckerCustom<GenericInput extends unknown = unknown> {
 }
 export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = (DataParserTransformCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserTransformCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionTransform extends DataParserDefinition<DataParserTransformCheckers> {
+export interface DataParserDefinitionTransform extends DataParserDefinition<DataParserTransformCheckers<unknown>> {
     readonly inner: DataParser;
     theFunction(input: any, error: DataParserError): unknown;
 }

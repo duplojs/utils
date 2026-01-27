@@ -42,7 +42,7 @@ export interface DataParserOptionalExtended<GenericDefinition extends dataParser
  * @namespace DPE
  * 
  */
-export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionOptional<Output<GenericDataParser> | undefined>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptionalExtended<MergeDefinition<dataParsers.DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
+export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionOptional<Output<GenericDataParser>>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptionalExtended<MergeDefinition<dataParsers.DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
 export declare namespace optional {

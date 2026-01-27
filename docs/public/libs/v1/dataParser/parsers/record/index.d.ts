@@ -18,7 +18,7 @@ export type DataParserRecordKey = (DataParserString | DataParserTemplateLiteral 
 export interface DataParserRecordCheckerCustom<GenericInput extends Record<string, unknown> = Record<string, unknown>> {
 }
 export type DataParserRecordCheckers<GenericInput extends Record<string, unknown> = Record<string, unknown>> = (DataParserRecordCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserRecordCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers> {
+export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers<Record<string, unknown>>> {
     readonly key: DataParserRecordKey;
     readonly value: DataParser;
     readonly requireKey: string[] | null;

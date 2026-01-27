@@ -1,4 +1,4 @@
-import { C, DP, E, pipe } from "@duplojs/utils";
+import { C, DP, E, pipe } from "@scripts";
 
 namespace User {
 	export const Name = C.createNewType("UserName", DP.string());

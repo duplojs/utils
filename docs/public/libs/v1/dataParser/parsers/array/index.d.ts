@@ -8,7 +8,7 @@ export * from "./checkers";
 export interface DataParserArrayCheckerCustom<GenericInput extends unknown[] = unknown[]> {
 }
 export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = (DataParserArrayCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserArrayCheckerCustom<GenericInput>, DataParserChecker>] | DataParserCheckerArrayMin | DataParserCheckerArrayMax | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers> {
+export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers<unknown[]>> {
     readonly element: DataParser;
 }
 export declare const arrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;

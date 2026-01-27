@@ -46,7 +46,7 @@ export type TemplateLiteralShapeInput<GenericTemplate extends TemplateLiteralSha
 export interface DataParserTemplateLiteralCheckerCustom<GenericInput extends string = string> {
 }
 export type DataParserTemplateLiteralCheckers<GenericInput extends string = string> = (DataParserTemplateLiteralCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserTemplateLiteralCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<DataParserTemplateLiteralCheckers> {
+export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<DataParserTemplateLiteralCheckers<string>> {
     readonly template: TemplateLiteralShape;
     readonly pattern: RegExp;
 }

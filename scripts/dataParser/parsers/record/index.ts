@@ -51,7 +51,7 @@ export type DataParserRecordCheckers<
 );
 
 export interface DataParserDefinitionRecord extends DataParserDefinition<
-	DataParserRecordCheckers
+	DataParserRecordCheckers<Record<string, unknown>>
 > {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;

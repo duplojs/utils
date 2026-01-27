@@ -23,12 +23,12 @@ export type DataParserOptionalCheckers<
 );
 
 export interface DataParserDefinitionOptional<
-	GenericCoalescingValue extends unknown = unknown,
+	GenericOutput extends unknown = unknown,
 > extends DataParserDefinition<
 		DataParserOptionalCheckers
 	> {
 	readonly inner: DataParser;
-	readonly coalescingValue: GenericCoalescingValue;
+	readonly coalescingValue: GenericOutput;
 }
 
 export const optionalKind = createDataParserKind("optional");
@@ -80,9 +80,7 @@ export function optional<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<
-			DataParserDefinitionOptional<
-				Output<GenericDataParser>
-			>,
+			DataParserDefinitionOptional,
 			"inner"
 		>
 	> = never,

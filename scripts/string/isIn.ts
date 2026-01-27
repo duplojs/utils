@@ -2,19 +2,17 @@
  * {@include string/isIn/index.md}
  */
 export function isIn<
-	GenericInput extends string,
-	GenericValue extends GenericInput,
+	GenericValue extends string,
 >(
-	array: readonly GenericValue[]
-): (input: GenericInput) => input is Extract<GenericInput, GenericValue>;
+	array: readonly (GenericValue | string)[]
+): (input: string) => input is GenericValue;
 
 export function isIn<
-	GenericInput extends string,
-	GenericValue extends GenericInput,
+	GenericValue extends string,
 >(
-	input: GenericInput,
-	array: readonly GenericValue[]
-): input is Extract<GenericInput, GenericValue>;
+	input: string,
+	array: readonly (GenericValue | string)[]
+): input is GenericValue;
 
 export function isIn(
 	...args: [string, readonly string[]] | [readonly string[]]

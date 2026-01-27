@@ -23,7 +23,7 @@ export type DataParserPipeCheckers<
 );
 
 export interface DataParserDefinitionPipe extends DataParserDefinition<
-	DataParserPipeCheckers
+	DataParserPipeCheckers<unknown>
 > {
 	readonly input: DataParser;
 	readonly output: DataParser;
