@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard that checks whether a value is an EitherRight. Allows accessing the payload without explicit conversion."
+description: "Type guard that checks whether a value is an Right. Allows accessing the payload without explicit conversion."
 prev:
   text: "fail"
   link: "/en/v1/api/either/fail"
@@ -11,7 +11,7 @@ next:
 
 # isRight
 
-Type guard that checks whether a value is an `EitherRight`. Allows accessing the payload without explicit conversion.
+Type guard that checks whether a value is an `Right`. Allows accessing the payload without explicit conversion.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function isRight<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherRight>
+): input is Extract<GenericInput, Right>
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function isRight<
 
 ## Return value
 
-`true` if the input is an `EitherRight`, `false` otherwise. Thanks to the type guard, TypeScript automatically narrows the type in each branch.
+`true` if the input is an `Right`, `false` otherwise. Thanks to the type guard, TypeScript automatically narrows the type in each branch.
 
 ## Best practices
 

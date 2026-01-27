@@ -1,13 +1,17 @@
-import { eitherFutureKind } from './base.mjs';
+import { futureKind } from './base.mjs';
 import { createEitherKind } from '../kind.mjs';
 import { left } from '../left/create.mjs';
 
-const eitherFutureErrorKind = createEitherKind("future-error");
+const futureErrorKind = createEitherKind("future-error");
+/**
+ * @deprecated use futureErrorKind
+ */
+const eitherFutureErrorKind = futureErrorKind;
 /**
  * {@include either/futureError/index.md}
  */
 function futureError(value) {
-    return eitherFutureKind.setTo(eitherFutureErrorKind.setTo(left("future", value)));
+    return futureKind.setTo(futureErrorKind.setTo(left("future", value)));
 }
 
-export { eitherFutureErrorKind, futureError };
+export { eitherFutureErrorKind, futureError, futureErrorKind };

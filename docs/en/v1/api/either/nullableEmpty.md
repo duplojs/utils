@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Explicitly builds an EitherLeft<\"nullable\"> containing null."
+description: "Explicitly builds an Left<\"nullable\"> containing null."
 prev:
   text: "nullable"
   link: "/en/v1/api/either/nullable"
@@ -11,7 +11,7 @@ next:
 
 # nullableEmpty
 
-Explicitly builds an `EitherLeft<"nullable">` containing `null`.
+Explicitly builds an `Left<"nullable">` containing `null`.
 
 ## Interactive example
 
@@ -24,7 +24,7 @@ Explicitly builds an `EitherLeft<"nullable">` containing `null`.
 ## Syntax
 
 ```typescript
-function nullableEmpty(): EitherNullableEmpty;
+function nullableEmpty(): NullableEmpty;
 ```
 
 ## Parameters
@@ -33,7 +33,7 @@ None.
 
 ## Return value
 
-An `EitherNullableEmpty` representing absence.
+An `NullableEmpty` representing absence.
 
 ## See also
 

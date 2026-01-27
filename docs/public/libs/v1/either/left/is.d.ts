@@ -1,6 +1,6 @@
-import { type EitherLeft } from "./create";
+import { type Left } from "./create";
 /**
- * Type guard that checks whether a value is an EitherLeft. Ideal to secure an unwrap or trigger an error branch.
+ * Type guard that checks whether a value is an Left. Ideal to secure an unwrap or trigger an error branch.
  * 
  * Signature: `isLeft(input)` → returns a value
  * 
@@ -12,7 +12,7 @@ import { type EitherLeft } from "./create";
  * 	: E.fail();
  * 
  * if (E.isLeft(result)) {
- * 	// type: E.EitherFail
+ * 	// type: E.Fail
  * }
  * ```
  * 
@@ -21,4 +21,4 @@ import { type EitherLeft } from "./create";
  * @namespace E
  * 
  */
-export declare function isLeft<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherLeft>;
+export declare function isLeft<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, Left>;

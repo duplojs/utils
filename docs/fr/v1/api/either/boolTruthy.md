@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Force la création d'un EitherRight<\"bool\"> en marquant explicitement une valeur truthy."
+description: "Force la création d'un Right<\"bool\"> en marquant explicitement une valeur truthy."
 prev:
   text: "bool"
   link: "/fr/v1/api/either/bool"
@@ -11,7 +11,7 @@ next:
 
 # boolTruthy
 
-Force la création d'un `EitherRight<"bool">` en marquant explicitement une valeur truthy.
+Force la création d'un `Right<"bool">` en marquant explicitement une valeur truthy.
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function boolTruthy<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherBoolTruthy<GenericInput>;
+): BoolTruthy<GenericInput>;
 ```
 
 ## Paramètres
@@ -37,7 +37,7 @@ function boolTruthy<
 
 ## Valeur de retour
 
-Un `EitherRight<"bool", GenericInput>` garantissant que la branche `Right` représente le cas truthy.
+Un `Right<"bool", GenericInput>` garantissant que la branche `Right` représente le cas truthy.
 
 ## Voir aussi
 

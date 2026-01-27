@@ -3,13 +3,18 @@
 var wrapValue = require('../../common/wrapValue.cjs');
 var kind = require('../kind.cjs');
 
-const eitherRightKind = kind.createEitherKind("right");
+const rightKind = kind.createEitherKind("right");
+/**
+ * @deprecated use rightKind
+ */
+const eitherRightKind = rightKind;
 /**
  * {@include either/right/index.md}
  */
 function right(information, value = undefined) {
-    return eitherRightKind.setTo(kind.eitherInformationKind.setTo(wrapValue.wrapValue(value), information));
+    return rightKind.setTo(kind.informationKind.setTo(wrapValue.wrapValue(value), information));
 }
 
 exports.eitherRightKind = eitherRightKind;
 exports.right = right;
+exports.rightKind = rightKind;

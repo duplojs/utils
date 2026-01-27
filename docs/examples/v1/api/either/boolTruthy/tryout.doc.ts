@@ -12,6 +12,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	string | E.EitherBoolTruthy<`${string}@${string}`>,
+	string | E.BoolTruthy<`${string}@${string}`>,
 	"strict"
 >;

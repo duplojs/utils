@@ -96,7 +96,7 @@ export interface DataParser<
 	 */
 	parse(
 		data: unknown,
-	): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+	): DEither.Success<GenericOutput> | DEither.Error<DataParserError>;
 
 	/**
 	 * {@include dataParser/classic/base/asyncParse/index.md}
@@ -104,8 +104,8 @@ export interface DataParser<
 	asyncParse(
 		data: unknown,
 	): Promise<
-		| DEither.EitherSuccess<GenericOutput>
-		| DEither.EitherError<DataParserError>
+		| DEither.Success<GenericOutput>
+		| DEither.Error<DataParserError>
 	>;
 
 	/**
@@ -293,13 +293,13 @@ export function dataParserInit<
 					return {
 						...EE,
 						[KWV]: error,
-					} as DEither.EitherError<any>;
+					} as DEither.Error<any>;
 				}
 
 				return {
 					...ES,
 					[KWV]: result,
-				} as DEither.EitherSuccess<any>;
+				} as DEither.Success<any>;
 			},
 			async asyncParse(data: unknown) {
 				const error = {
@@ -313,13 +313,13 @@ export function dataParserInit<
 					return {
 						...EE,
 						[KWV]: error,
-					} as DEither.EitherError<any>;
+					} as DEither.Error<any>;
 				}
 
 				return {
 					...ES,
 					[KWV]: result,
-				} as DEither.EitherSuccess<any>;
+				} as DEither.Success<any>;
 			},
 			addChecker: (...checkers: any[]) => dataParserInit(
 				kind,

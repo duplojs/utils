@@ -29,8 +29,8 @@ function optional<
 >(
   input: GenericInput
 ): GenericInput extends undefined
-  ? EitherOptionalEmpty
-  : EitherOptionalFilled<GenericInput>;
+  ? OptionalEmpty
+  : OptionalFilled<GenericInput>;
 ```
 
 ## Parameters
@@ -39,8 +39,8 @@ function optional<
 
 ## Return value
 
-- `EitherOptionalFilled` if the value is defined.
-- `EitherOptionalEmpty` otherwise.
+- `OptionalFilled` if the value is defined.
+- `OptionalEmpty` otherwise.
 
 ## See also
 

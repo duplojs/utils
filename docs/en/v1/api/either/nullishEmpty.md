@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Explicitly builds an EitherLeft<\"nullish\"> with null or undefined."
+description: "Explicitly builds an Left<\"nullish\"> with null or undefined."
 prev:
   text: "nullish"
   link: "/en/v1/api/either/nullish"
@@ -11,7 +11,7 @@ next:
 
 # nullishEmpty
 
-Explicitly builds an `EitherLeft<"nullish">` with `null` or `undefined`.
+Explicitly builds an `Left<"nullish">` with `null` or `undefined`.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function nullishEmpty<
 	const GenericInput extends NullishValue = undefined
 >(
   value?: GenericInput
-): EitherNullishEmpty<GenericInput>;
+): NullishEmpty<GenericInput>;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function nullishEmpty<
 
 ## Return value
 
-`EitherNullishEmpty<GenericInput>` allowing you to explicitly signal the absence of a value.
+`NullishEmpty<GenericInput>` allowing you to explicitly signal the absence of a value.
 
 ## See also
 

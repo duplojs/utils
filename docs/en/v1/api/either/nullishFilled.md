@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds an EitherRight<\"nullish\"> with a non-null/non-undefined value."
+description: "Builds an Right<\"nullish\"> with a non-null/non-undefined value."
 prev:
   text: "nullishEmpty"
   link: "/en/v1/api/either/nullishEmpty"
@@ -11,7 +11,7 @@ next:
 
 # nullishFilled
 
-Builds an `EitherRight<"nullish">` with a non-null/non-undefined value.
+Builds an `Right<"nullish">` with a non-null/non-undefined value.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function nullishFilled<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherNullishFilled<GenericInput>;
+): NullishFilled<GenericInput>;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function nullishFilled<
 
 ## Return value
 
-`EitherNullishFilled<GenericInput>` representing a “present” case.
+`NullishFilled<GenericInput>` representing a “present” case.
 
 ## See also
 

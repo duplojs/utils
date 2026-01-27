@@ -16,8 +16,8 @@ const result = strictUser.parse({
 
 type check = ExpectType<
 	typeof result,
-	E.EitherError<DP.DataParserError>
-	| E.EitherSuccess<{
+	E.Error<DP.DataParserError>
+	| E.Success<{
 		id: number;
 		role: "admin";
 		email: string;

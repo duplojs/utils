@@ -1,4 +1,4 @@
-Creates a Future resolved with an EitherRight<"future">.
+Creates a Future resolved with an Right<"future">.
 
 Signature: `futureSuccess(value)` → returns a value
 

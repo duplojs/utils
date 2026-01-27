@@ -1,15 +1,23 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink, type FalsyValue } from "../../common";
 import { type Kind } from "../../common/kind";
-import { eitherBoolKind } from "./base";
+import { boolKind } from "./base";
 import { bool } from "./create";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
+import { type Left } from "../left";
+import { type Right } from "../right";
+export declare const boolFalsyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/bool-falsy", unknown>>;
+/**
+ * @deprecated use boolFalsyKind
+ */
 export declare const eitherBoolFalsyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/bool-falsy", unknown>>;
-type _EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> = (EitherLeft<"bool", GenericValue> & Kind<typeof eitherBoolKind.definition> & Kind<typeof eitherBoolFalsyKind.definition>);
-export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> extends _EitherBoolFalsy<GenericValue> {
+type _BoolFalsy<GenericValue extends FalsyValue = FalsyValue> = (Left<"bool", GenericValue> & Kind<typeof boolKind.definition> & Kind<typeof boolFalsyKind.definition>);
+export interface BoolFalsy<GenericValue extends FalsyValue = FalsyValue> extends _BoolFalsy<GenericValue> {
 }
 /**
- * Builds an EitherLeft<"bool"> for an explicitly falsy value (0, "", null, undefined, false).
+ * @deprecated use BoolFalsy
+ */
+export type EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> = BoolFalsy<GenericValue>;
+/**
+ * Builds an Left<"bool"> for an explicitly falsy value (0, "", null, undefined, false).
  * 
  * Signature: `boolFalsy(value)` → returns a value
  * 
@@ -26,7 +34,7 @@ export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> e
  * 	),
  * );
  * 
- * // type: string | E.EitherBoolFalsy<"">
+ * // type: string | E.BoolFalsy<"">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/boolFalsy
@@ -35,7 +43,7 @@ export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> e
  * 
  */
 /**
- * Type guard that detects an EitherBoolFalsy.
+ * Type guard that detects an BoolFalsy.
  * 
  * Signature: `isBoolFalsy(input)` → returns a value
  * 
@@ -45,7 +53,7 @@ export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> e
  * const maybeInput = E.bool(true ? true : null);
  * 
  * if (E.isBoolFalsy(maybeInput)) {
- * 	// type: E.EitherBoolFalsy<null>
+ * 	// type: E.BoolFalsy<null>
  * }
  * ```
  * 
@@ -69,7 +77,7 @@ export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> e
  * 	E.whenIsBoolFalsy(() => "falsy"),
  * );
  * 
- * // type: E.EitherBoolTruthy<"value"> | "falsy"
+ * // type: E.BoolTruthy<"value"> | "falsy"
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/whenIsBoolFalsy
@@ -77,10 +85,10 @@ export interface EitherBoolFalsy<GenericValue extends FalsyValue = FalsyValue> e
  * @namespace E
  * 
  */
-export declare function boolFalsy<const GenericValue extends FalsyValue = undefined>(value?: GenericValue): EitherBoolFalsy<GenericValue>;
-type Either = EitherRight | EitherLeft;
-export declare function isBoolFalsy<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherBoolFalsy>;
+export declare function boolFalsy<const GenericValue extends FalsyValue = undefined>(value?: GenericValue): BoolFalsy<GenericValue>;
+type Either = Right | Left;
+export declare function isBoolFalsy<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, BoolFalsy>;
 type ToEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof bool<GenericValue>>;
-export declare function whenIsBoolFalsy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherBoolFalsy>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherBoolFalsy>;
-export declare function whenIsBoolFalsy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherBoolFalsy>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
+export declare function whenIsBoolFalsy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, BoolFalsy>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, BoolFalsy>;
+export declare function whenIsBoolFalsy<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, BoolFalsy>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, BoolFalsy>;
 export {};

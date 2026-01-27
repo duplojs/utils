@@ -1,4 +1,4 @@
-Explicitly builds an EitherLeft<"nullable"> containing null.
+Explicitly builds an Left<"nullable"> containing null.
 
 Signature: `nullableEmpty()` → returns a value
 

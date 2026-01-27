@@ -28,7 +28,7 @@ function isOptionalFilled<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherOptionalFilled>;
+): input is Extract<GenericInput, OptionalFilled>;
 ```
 
 ## Paramètres

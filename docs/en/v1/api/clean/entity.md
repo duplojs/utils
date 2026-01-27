@@ -87,7 +87,7 @@ Validates and transforms raw properties into typed properties, then builds the e
 ```typescript
 function map(
 	rawProperties: RawProperties
-): EitherRight<Entity<EntityName> & Properties> | EitherLeft<DP.DataParserError>
+): Right<Entity<EntityName> & Properties> | Left<DP.DataParserError>
 ```
 
 #### `mapOrThrow()`

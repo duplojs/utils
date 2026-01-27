@@ -40,7 +40,7 @@ const computed = E.rightPipe(
 
 type CheckComputed = ExpectType<
 	typeof computed,
-	E.EitherLeft<"tooBig", number> | E.EitherSuccess<number>,
+	E.Left<"tooBig", number> | E.Success<number>,
 	"strict"
 >;
 
@@ -82,6 +82,6 @@ const extractedAge = pipe(
 
 type CheckExtractedAge = ExpectType<
 	typeof extractedAge,
-	number | E.EitherLeft<"invalidAge", { readonly rawValue: string }>,
+	number | E.Left<"invalidAge", { readonly rawValue: string }>,
 	"strict"
 >;

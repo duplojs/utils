@@ -5,6 +5,6 @@ const result = true
 	: E.fail();
 
 if (E.isRight(result)) {
-	// type: E.EitherOk
+	// type: E.Ok
 }
 

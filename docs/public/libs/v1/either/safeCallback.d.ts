@@ -1,21 +1,37 @@
 import type { Kind, EscapeVoid } from "../common";
-import { type EitherLeft } from "./left";
-import { type EitherRight } from "./right";
-export declare const eitherCallbackErrorKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-error", unknown>>;
-export declare const eitherCallbackSuccessKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-success", unknown>>;
-type _EitherCallbackError = (EitherLeft<"callback", unknown> & Kind<typeof eitherCallbackErrorKind.definition>);
-type _EitherCallbackSuccess<GenericValue extends unknown> = (EitherRight<"callback", GenericValue> & Kind<typeof eitherCallbackSuccessKind.definition>);
-export interface EitherCallbackError extends _EitherCallbackError {
-}
-export interface EitherCallbackSuccess<GenericValue extends unknown> extends _EitherCallbackSuccess<GenericValue> {
-}
-export declare function callbackError(value: unknown): EitherCallbackError;
-export declare function callbackSuccess<GenericValue extends unknown>(value: GenericValue): EitherCallbackSuccess<GenericValue>;
-type Either = EitherRight | EitherLeft;
-type ComputeSafeCallbackResult<GenericOutput extends unknown> = GenericOutput extends Either ? GenericOutput : GenericOutput extends EscapeVoid ? EitherCallbackSuccess<undefined> : EitherCallbackSuccess<GenericOutput>;
+import { type Left } from "./left";
+import { type Right } from "./right";
+export declare const callbackErrorKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-error", unknown>>;
 /**
- * Runs a callback in a safe block. If the callback throws, the function returns a "callback" typed EitherLeft instead of propagating the exception.
- * If the callback returns an Either, it is returned as-is; otherwise the value is wrapped in an EitherRight.
+ * @deprecated use callbackErrorKind
+ */
+export declare const eitherCallbackErrorKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-error", unknown>>;
+export declare const callbackSuccessKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-success", unknown>>;
+/**
+ * @deprecated use callbackSuccessKind
+ */
+export declare const eitherCallbackSuccessKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsEither/callback-success", unknown>>;
+type _CallbackError = (Left<"callback", unknown> & Kind<typeof callbackErrorKind.definition>);
+type _CallbackSuccess<GenericValue extends unknown> = (Right<"callback", GenericValue> & Kind<typeof callbackSuccessKind.definition>);
+export interface CallbackError extends _CallbackError {
+}
+export interface CallbackSuccess<GenericValue extends unknown> extends _CallbackSuccess<GenericValue> {
+}
+/**
+ * @deprecated use CallbackError
+ */
+export type EitherCallbackError = CallbackError;
+/**
+ * @deprecated use CallbackSuccess
+ */
+export type EitherCallbackSuccess<GenericValue extends unknown> = CallbackSuccess<GenericValue>;
+export declare function callbackError(value: unknown): CallbackError;
+export declare function callbackSuccess<GenericValue extends unknown>(value: GenericValue): CallbackSuccess<GenericValue>;
+type Either = Right | Left;
+type ComputeSafeCallbackResult<GenericOutput extends unknown> = GenericOutput extends Either ? GenericOutput : GenericOutput extends EscapeVoid ? CallbackSuccess<undefined> : CallbackSuccess<GenericOutput>;
+/**
+ * Runs a callback in a safe block. If the callback throws, the function returns a "callback" typed Left instead of propagating the exception.
+ * If the callback returns an Either, it is returned as-is; otherwise the value is wrapped in an Right.
  * 
  * Signature: `safeCallback(theFunction)` → returns a value
  * 
@@ -23,7 +39,7 @@ type ComputeSafeCallbackResult<GenericOutput extends unknown> = GenericOutput ex
  * 
  * ```ts
  * const success = E.safeCallback(() => 42);
- * // E.EitherCallbackError | E.EitherCallbackSuccess<number>
+ * // E.CallbackError | E.CallbackSuccess<number>
  * 
  * const failure = E.safeCallback(() => {
  * 	throw new Error("boom");
@@ -35,12 +51,12 @@ type ComputeSafeCallbackResult<GenericOutput extends unknown> = GenericOutput ex
  * 	() => E.left("example", "already"),
  * );
  * 
- * const isEitherLeft = E.isLeft(eitherResult);
+ * const isLeft = E.isLeft(eitherResult);
  * ```
  * 
  * @remarks
- * - Catches exceptions thrown by the callback and wraps them in an `EitherLeft<"callback">`
- * - Keeps an `EitherLeft` or `EitherRight` returned by the callback untouched
+ * - Catches exceptions thrown by the callback and wraps them in an `Left<"callback">`
+ * - Keeps an `Left` or `Right` returned by the callback untouched
  * - Useful for working in an unsafe environment (3rd party libraries, user code, etc.)
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/safeCallback
@@ -48,5 +64,5 @@ type ComputeSafeCallbackResult<GenericOutput extends unknown> = GenericOutput ex
  * @namespace E
  * 
  */
-export declare function safeCallback<GenericOutput extends unknown>(theFunction: () => GenericOutput): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError;
+export declare function safeCallback<GenericOutput extends unknown>(theFunction: () => GenericOutput): ComputeSafeCallbackResult<GenericOutput> | CallbackError;
 export {};

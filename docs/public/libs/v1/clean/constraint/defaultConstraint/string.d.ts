@@ -12,7 +12,7 @@ import * as DDataParser from "../../../dataParser";
  * const result = C.Email.create("hello@duplojs.dev");
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"email", "hello@duplojs.dev">>
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"email", "hello@duplojs.dev">>
  * }
  * 
  * const email = C.Email.createOrThrow("a@b.com");
@@ -41,7 +41,7 @@ export type Email = GetConstraint<typeof Email>;
  * const result = C.Url.create("https://duplojs.dev");
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"url", "https://duplojs.dev">>
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"url", "https://duplojs.dev">>
  * }
  * 
  * const url = C.Url.createOrThrow("https://example.com");

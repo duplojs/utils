@@ -8,8 +8,8 @@ var kind = require('../kind.cjs');
  * {@include either/isLeft/index.md}
  */
 function isLeft(input) {
-    return create.eitherLeftKind.has(input)
-        && kind.eitherInformationKind.has(input)
+    return create.leftKind.has(input)
+        && kind.informationKind.has(input)
         && wrapValue.isWrappedValue(input);
 }
 

@@ -7,7 +7,7 @@ import * as DEither from "@scripts/either";
 import { type IsGreater, type IsLess } from "@scripts/number";
 import { isTime } from "./isTime";
 
-export type MayBeTime = DEither.EitherRight<"time-created", TheTime> | DEither.EitherLeft<"time-created-error", null>;
+export type MayBeTime = DEither.Right<"time-created", TheTime> | DEither.Left<"time-created-error", null>;
 
 type Units = "week" | "day" | "hour" | "minute" | "second" | "millisecond";
 

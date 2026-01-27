@@ -10,5 +10,5 @@ const result = await E.asyncGroup({
 	profile: promiseProfile,
 });
 
-// type: E.EitherFutureError
-// | E.EitherSuccess<{ user: { readonly id: 1; }; rights: readonly ["read"]; profile: { readonly name: "Ada"; }; }>
+// type: E.FutureError
+// | E.Success<{ user: { readonly id: 1; }; rights: readonly ["read"]; profile: { readonly name: "Ada"; }; }>

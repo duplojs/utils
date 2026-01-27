@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard that checks whether a value is an EitherLeft. Ideal to secure an unwrap or trigger an error branch."
+description: "Type guard that checks whether a value is an Left. Ideal to secure an unwrap or trigger an error branch."
 prev:
   text: "whenIsRight"
   link: "/en/v1/api/either/whenIsRight"
@@ -11,7 +11,7 @@ next:
 
 # isLeft
 
-Type guard that checks whether a value is an `EitherLeft`. Ideal to secure an `unwrap` or trigger an error branch.
+Type guard that checks whether a value is an `Left`. Ideal to secure an `unwrap` or trigger an error branch.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function isLeft<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherLeft>
+): input is Extract<GenericInput, Left>
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function isLeft<
 
 ## Return value
 
-`true` when the input is an `EitherLeft`. The type is then narrowed to include only the `Left` part.
+`true` when the input is an `Left`. The type is then narrowed to include only the `Left` part.
 
 ## Best practices
 

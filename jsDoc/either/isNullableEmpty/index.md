@@ -1,4 +1,4 @@
-Type guard that detects an EitherNullableEmpty.
+Type guard that detects an NullableEmpty.
 
 Signature: `isNullableEmpty(input)` → returns a value
 

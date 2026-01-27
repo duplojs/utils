@@ -34,7 +34,7 @@ function resolveFrom<
 >(
     origin: string,
     segments: AnyTuple<GenericSegment>,
-): DEither.EitherFail | DEither.EitherSuccess<string>;
+): DEither.Fail | DEither.Success<string>;
 ```
 
 ## Parameters

@@ -31,8 +31,8 @@ function whenIsOptionalEmpty<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherOptionalEmpty>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherOptionalEmpty>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, OptionalEmpty>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, OptionalEmpty>;
 ```
 
 ### Curried signature
@@ -42,8 +42,8 @@ function whenIsOptionalEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherOptionalEmpty>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherOptionalEmpty>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, OptionalEmpty>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, OptionalEmpty>;
 ```
 
 ## Parameters

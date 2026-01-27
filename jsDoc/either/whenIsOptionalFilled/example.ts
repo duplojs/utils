@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsOptionalFilled(S.capitalize),
 );
 
-// type: E.EitherOptionalEmpty | "Value"
+// type: E.OptionalEmpty | "Value"

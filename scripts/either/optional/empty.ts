@@ -2,26 +2,36 @@ import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } fr
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
-import { eitherOptionalKind } from "./base";
+import { optionalKind } from "./base";
 import { optional } from "./create";
-import { left, type EitherLeft, isLeft } from "../left";
-import { type EitherRight, isRight } from "../right";
+import { left, type Left, isLeft } from "../left";
+import { type Right, isRight } from "../right";
 
-export const eitherOptionalEmptyKind = createEitherKind(
+export const optionalEmptyKind = createEitherKind(
 	"optional-empty",
 );
 
-type _EitherOptionalEmpty = (
-	& EitherLeft<"optional", undefined>
-	& Kind<typeof eitherOptionalKind.definition>
-	& Kind<typeof eitherOptionalEmptyKind.definition>
+/**
+ * @deprecated use optionalEmptyKind
+ */
+export const eitherOptionalEmptyKind = optionalEmptyKind;
+
+type _OptionalEmpty = (
+	& Left<"optional", undefined>
+	& Kind<typeof optionalKind.definition>
+	& Kind<typeof optionalEmptyKind.definition>
 );
 
-export interface EitherOptionalEmpty extends _EitherOptionalEmpty {
+export interface OptionalEmpty extends _OptionalEmpty {
 
 }
 
-type Either = EitherRight | EitherLeft;
+/**
+ * @deprecated use OptionalEmpty
+ */
+export type EitherOptionalEmpty = OptionalEmpty;
+
+type Either = Right | Left;
 
 /**
  * {@include either/isOptionalEmpty/index.md}
@@ -32,9 +42,9 @@ type Either = EitherRight | EitherLeft;
 /**
  * {@include either/whenIsOptionalEmpty/index.md}
  */
-export function optionalEmpty(): EitherOptionalEmpty {
-	return eitherOptionalKind.setTo(
-		eitherOptionalEmptyKind.setTo(
+export function optionalEmpty(): OptionalEmpty {
+	return optionalKind.setTo(
+		optionalEmptyKind.setTo(
 			left("optional", undefined),
 		),
 	);
@@ -44,10 +54,10 @@ export function isOptionalEmpty<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherOptionalEmpty> {
+): input is Extract<GenericInput, OptionalEmpty> {
 	return isLeft(input)
-		&& eitherOptionalKind.has(input)
-		&& eitherOptionalEmptyKind.has(input);
+		&& optionalKind.has(input)
+		&& optionalEmptyKind.has(input);
 }
 
 type ToOptionalEither<
@@ -66,13 +76,13 @@ export function whenIsOptionalEmpty<
 				ToOptionalEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherOptionalEmpty
+				OptionalEmpty
 			>
 		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<
 	ToOptionalEither<BreakGenericLink<GenericInput>>,
-	EitherOptionalEmpty
+	OptionalEmpty
 >;
 export function whenIsOptionalEmpty<
 	const GenericInput extends unknown,
@@ -85,13 +95,13 @@ export function whenIsOptionalEmpty<
 				ToOptionalEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherOptionalEmpty
+				OptionalEmpty
 			>
 		>
 	) => GenericOutput,
 ):
 	| GenericOutput
-	| Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
+	| Exclude<ToOptionalEither<GenericInput>, OptionalEmpty>;
 export function whenIsOptionalEmpty(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

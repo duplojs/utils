@@ -21,4 +21,4 @@ const result = pipe(
 	}),
 );
 
-// type: 1 | 2 | E.EitherLeft<"left-3", 3>
+// type: 1 | 2 | E.Left<"left-3", 3>

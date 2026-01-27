@@ -22,7 +22,7 @@ const unknownValue: unknown = 20;
 const maybe = UserId.createWithUnknown(unknownValue);
 
 if (E.isRight(maybe)) {
-	// maybe: E.EitherRight<"createNewType", UserId>
+	// maybe: E.Right<"createNewType", UserId>
 }
 
 const strictValue = UserId.createWithUnknownOrThrow(unknownValue);

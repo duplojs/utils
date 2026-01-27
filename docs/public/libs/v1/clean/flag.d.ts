@@ -91,7 +91,7 @@ export interface Flag<GenericName extends string = string, GenericValue extends 
  * 		drinkAlcohol,
  * 	),
  * );
- * // E.EitherLeft<"not-major", undefined> | E.EitherRight<"not-thirsty-anymore", undefined>
+ * // E.Left<"not-major", undefined> | E.Right<"not-thirsty-anymore", undefined>
  * 
  * const flagged = User.MajorFlag.append(user, user.age);
  * const value = User.MajorFlag.getValue(flagged);

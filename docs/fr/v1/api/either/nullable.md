@@ -29,8 +29,8 @@ function nullable<
 >(
   input: GenericInput
 ): GenericInput extends null
-  ? EitherNullableEmpty
-  : EitherNullableFilled<GenericInput>;
+  ? NullableEmpty
+  : NullableFilled<GenericInput>;
 ```
 
 ## Paramètres
@@ -39,8 +39,8 @@ function nullable<
 
 ## Valeur de retour
 
-- `EitherNullableFilled` si la valeur existe.
-- `EitherNullableEmpty` si `null`.
+- `NullableFilled` si la valeur existe.
+- `NullableEmpty` si `null`.
 
 ## Voir aussi
 

@@ -55,7 +55,7 @@ export interface RepositoryHandler<GenericRepository extends object = object> ex
  * 
  * // Application Layer
  * interface UserRepository {
- * 	findById(id: User.Id): Promise<E.EitherSuccess<User.Entity> | E.EitherFail>;
+ * 	findById(id: User.Id): Promise<E.Success<User.Entity> | E.Fail>;
  * }
  * 
  * const UserRepository = C.createRepository<UserRepository>();

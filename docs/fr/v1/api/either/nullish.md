@@ -27,8 +27,8 @@ Transforme une valeur potentiellement `null`/`undefined` en `Either`. Permet de 
 function nullish<const GenericInput extends unknown = undefined>(
   input: GenericInput
 ): GenericInput extends NullishValue
-  ? EitherNullishEmpty<GenericInput>
-  : EitherNullishFilled<GenericInput>;
+  ? NullishEmpty<GenericInput>
+  : NullishFilled<GenericInput>;
 ```
 
 ## Paramètres
@@ -37,8 +37,8 @@ function nullish<const GenericInput extends unknown = undefined>(
 
 ## Valeur de retour
 
-- `EitherNullishFilled` lorsque la valeur existe.
-- `EitherNullishEmpty` lorsque la valeur est `null` ou `undefined`.
+- `NullishFilled` lorsque la valeur existe.
+- `NullishEmpty` lorsque la valeur est `null` ou `undefined`.
 
 ## Voir aussi
 

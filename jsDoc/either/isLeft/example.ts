@@ -5,5 +5,5 @@ const result = false
 	: E.fail();
 
 if (E.isLeft(result)) {
-	// type: E.EitherFail
+	// type: E.Fail
 }

@@ -15,6 +15,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherRight<"number.positive", number> | E.EitherLeft<"number.notPositive", number>,
+	E.Right<"number.positive", number> | E.Left<"number.notPositive", number>,
 	"strict"
 >;

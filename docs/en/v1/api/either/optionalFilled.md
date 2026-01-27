@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds an EitherRight<\"optional\"> when the value is defined."
+description: "Builds an Right<\"optional\"> when the value is defined."
 prev:
   text: "optionalEmpty"
   link: "/en/v1/api/either/optionalEmpty"
@@ -11,7 +11,7 @@ next:
 
 # optionalFilled
 
-Builds an `EitherRight<"optional">` when the value is defined.
+Builds an `Right<"optional">` when the value is defined.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function optionalFilled<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherOptionalFilled<GenericInput>;
+): OptionalFilled<GenericInput>;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function optionalFilled<
 
 ## Return value
 
-`EitherOptionalFilled<GenericInput>`.
+`OptionalFilled<GenericInput>`.
 
 ## See also
 

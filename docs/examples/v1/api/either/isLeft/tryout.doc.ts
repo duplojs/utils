@@ -7,7 +7,7 @@ const result = false
 if (E.isLeft(result)) {
 	type check = ExpectType<
 		typeof result,
-		E.EitherFail,
+		E.Fail,
 		"strict"
 	>;
 }

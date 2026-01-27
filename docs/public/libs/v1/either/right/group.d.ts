@@ -1,12 +1,12 @@
 import { type AnyFunction, type SimplifyTopLevel, type MayBeGetter, type Unwrap } from "../../common";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "./create";
+import { type Left } from "../left";
+import { type Right } from "./create";
 import * as DEither from "..";
-type Either = EitherRight | EitherLeft;
-type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = (DEither.EitherSuccess<SimplifyTopLevel<{
-    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Unwrap<Extract<ReturnType<GenericGroup[Prop]>, EitherRight>> : Unwrap<Extract<GenericGroup[Prop], EitherRight>>;
+type Either = Right | Left;
+type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = (DEither.Success<SimplifyTopLevel<{
+    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Unwrap<Extract<ReturnType<GenericGroup[Prop]>, Right>> : Unwrap<Extract<GenericGroup[Prop], Right>>;
 }>> | {
-    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Extract<ReturnType<GenericGroup[Prop]>, EitherLeft> : Extract<GenericGroup[Prop], EitherLeft>;
+    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Extract<ReturnType<GenericGroup[Prop]>, Left> : Extract<GenericGroup[Prop], Left>;
 }[keyof GenericGroup]);
 /**
  * The group() function runs several Either values (or functions returning an Either) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object.
@@ -22,8 +22,8 @@ type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = (
  * 	profile: E.left("profile.missing", null),
  * });
  * 
- * // type: E.EitherLeft<"profile.missing", null>
- * // | E.EitherSuccess<{ user: { readonly id: 1; }; rights: readonly ["read", "write"]; profile: never; }>
+ * // type: E.Left<"profile.missing", null>
+ * // | E.Success<{ user: { readonly id: 1; }; rights: readonly ["read", "write"]; profile: never; }>
  * ```
  * 
  * @remarks

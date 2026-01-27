@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds an EitherLeft by associating mandatory business information (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure."
+description: "Builds an Left by associating mandatory business information (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure."
 prev:
   text: "ok"
   link: "/en/v1/api/either/ok"
@@ -11,7 +11,7 @@ next:
 
 # left
 
-Builds an `EitherLeft` by associating **mandatory business information** (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure.
+Builds an `Left` by associating **mandatory business information** (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure.
 
 ## Interactive example
 
@@ -30,7 +30,7 @@ function left<
 >(
   information: GenericInformation,
   input?: GenericInput
-): EitherLeft<GenericInformation, GenericInput>
+): Left<GenericInformation, GenericInput>
 ```
 
 ## Parameters
@@ -40,7 +40,7 @@ function left<
 
 ## Return value
 
-An `EitherLeft<Information, Value>` that you can filter with `E.isLeft`, `E.hasInformation`, or `E.whenHasInformation`.
+An `Left<Information, Value>` that you can filter with `E.isLeft`, `E.hasInformation`, or `E.whenHasInformation`.
 
 ## Best practices
 

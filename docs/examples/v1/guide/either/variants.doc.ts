@@ -5,7 +5,7 @@ const boolResult = E.bool(rawFlag);
 
 type CheckBoolResult = ExpectType<
 	typeof boolResult,
-	E.EitherBoolTruthy<string> | E.EitherBoolFalsy<"">,
+	E.BoolTruthy<string> | E.BoolFalsy<"">,
 	"strict"
 >;
 

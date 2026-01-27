@@ -8,7 +8,11 @@ var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
-const eitherNullishEmptyKind = kind.createEitherKind("nullish-empty");
+const nullishEmptyKind = kind.createEitherKind("nullish-empty");
+/**
+ * @deprecated use nullishEmptyKind
+ */
+const eitherNullishEmptyKind = nullishEmptyKind;
 /**
  * {@include either/isNullishEmpty/index.md}
  */
@@ -19,12 +23,12 @@ const eitherNullishEmptyKind = kind.createEitherKind("nullish-empty");
  * {@include either/whenIsNullishEmpty/index.md}
  */
 function nullishEmpty(value = undefined) {
-    return base.eitherNullishKind.setTo(eitherNullishEmptyKind.setTo(create.left("nullish", value)));
+    return base.nullishKind.setTo(nullishEmptyKind.setTo(create.left("nullish", value)));
 }
 function isNullishEmpty(input) {
     return is.isLeft(input)
-        && base.eitherNullishKind.has(input)
-        && eitherNullishEmptyKind.has(input);
+        && base.nullishKind.has(input)
+        && nullishEmptyKind.has(input);
 }
 function whenIsNullishEmpty(...args) {
     if (args.length === 1) {
@@ -50,4 +54,5 @@ function whenIsNullishEmpty(...args) {
 exports.eitherNullishEmptyKind = eitherNullishEmptyKind;
 exports.isNullishEmpty = isNullishEmpty;
 exports.nullishEmpty = nullishEmpty;
+exports.nullishEmptyKind = nullishEmptyKind;
 exports.whenIsNullishEmpty = whenIsNullishEmpty;

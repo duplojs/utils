@@ -1,12 +1,12 @@
 import { type AnyFunction, type SimplifyTopLevel, type MayBeGetter, type Unwrap, type MaybePromise } from "../../common";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "./create";
+import { type Left } from "../left";
+import { type Right } from "./create";
 import * as DEither from "..";
-type Either = MaybePromise<EitherRight | EitherLeft>;
-type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = Promise<DEither.EitherSuccess<SimplifyTopLevel<{
-    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Unwrap<Extract<Awaited<ReturnType<GenericGroup[Prop]>>, EitherRight>> : Unwrap<Extract<Awaited<GenericGroup[Prop]>, EitherRight>>;
+type Either = MaybePromise<Right | Left>;
+type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = Promise<DEither.Success<SimplifyTopLevel<{
+    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Unwrap<Extract<Awaited<ReturnType<GenericGroup[Prop]>>, Right>> : Unwrap<Extract<Awaited<GenericGroup[Prop]>, Right>>;
 }>> | {
-    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Extract<Awaited<ReturnType<GenericGroup[Prop]>>, EitherLeft> : Extract<Awaited<GenericGroup[Prop]>, EitherLeft>;
+    [Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction ? Extract<Awaited<ReturnType<GenericGroup[Prop]>>, Left> : Extract<Awaited<GenericGroup[Prop]>, Left>;
 }[keyof GenericGroup]>;
 /**
  * The asyncGroup() function runs synchronous or asynchronous Either values in parallel (promises, Future) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object.
@@ -26,7 +26,7 @@ type ComputeResult<GenericGroup extends Record<string, MayBeGetter<Either>>> = P
  * 	profile: promiseProfile,
  * });
  * 
- * // type: E.EitherFutureError
+ * // type: E.FutureError
  * ```
  * 
  * @remarks

@@ -17,6 +17,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherSuccess<number> | E.EitherFail,
+	E.Success<number> | E.Fail,
 	"strict"
 >;

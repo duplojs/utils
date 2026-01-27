@@ -1,4 +1,4 @@
-Forces the creation of an EitherRight<"bool"> by explicitly marking a truthy value.
+Forces the creation of an Right<"bool"> by explicitly marking a truthy value.
 
 Signature: `boolTruthy(value)` → returns a value
 

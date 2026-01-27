@@ -1,11 +1,19 @@
 import { type Kind } from "../../common/kind";
-import { type EitherRight } from "./create";
+import { type Right } from "./create";
+export declare const okKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/ok", unknown>>;
+/**
+ * @deprecated use okKind
+ */
 export declare const eitherOkKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/ok", unknown>>;
-type _EitherOk = (EitherRight<"ok", never> & Kind<typeof eitherOkKind.definition>);
-export interface EitherOk extends _EitherOk {
+type _Ok = (Right<"ok", never> & Kind<typeof okKind.definition>);
+export interface Ok extends _Ok {
 }
 /**
- * Returns an EitherRight<"ok", never>: an empty success that confirms an operation went fine without extra data.
+ * @deprecated use Ok
+ */
+export type EitherOk = Ok;
+/**
+ * Returns an Right<"ok", never>: an empty success that confirms an operation went fine without extra data.
  * 
  * Signature: `ok()` → returns a value
  * 
@@ -21,7 +29,7 @@ export interface EitherOk extends _EitherOk {
  * 	),
  * );
  * 
- * // type: E.EitherOk | E.EitherFail
+ * // type: E.Ok | E.Fail
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/ok
@@ -29,5 +37,5 @@ export interface EitherOk extends _EitherOk {
  * @namespace E
  * 
  */
-export declare function ok(): EitherOk;
+export declare function ok(): Ok;
 export {};

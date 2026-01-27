@@ -1,12 +1,20 @@
 import { type Kind } from "../../common/kind";
 import { type WrappedValue } from "../../common/wrapValue";
-import { eitherInformationKind } from "../kind";
+import { informationKind } from "../kind";
+export declare const rightKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/right", unknown>>;
+/**
+ * @deprecated use rightKind
+ */
 export declare const eitherRightKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/right", unknown>>;
-type _EitherRight<GenericInformation extends string = string, GenericValue extends unknown = unknown> = (Kind<typeof eitherRightKind.definition> & Kind<typeof eitherInformationKind.definition, GenericInformation> & WrappedValue<GenericValue>);
-export interface EitherRight<GenericInformation extends string = string, GenericValue extends unknown = unknown> extends _EitherRight<GenericInformation, GenericValue> {
+type _Right<GenericInformation extends string = string, GenericValue extends unknown = unknown> = (Kind<typeof rightKind.definition> & Kind<typeof informationKind.definition, GenericInformation> & WrappedValue<GenericValue>);
+export interface Right<GenericInformation extends string = string, GenericValue extends unknown = unknown> extends _Right<GenericInformation, GenericValue> {
 }
 /**
- * Builds an EitherRight by associating mandatory business information (literal string) and an optional payload. This is the basic brick to signal a contextualized success.
+ * @deprecated use Right
+ */
+export type EitherRight<GenericInformation extends string = string, GenericValue extends unknown = unknown> = Right<GenericInformation, GenericValue>;
+/**
+ * Builds an Right by associating mandatory business information (literal string) and an optional payload. This is the basic brick to signal a contextualized success.
  * 
  * Signature: `right(information, value)` → returns a value
  * 
@@ -32,8 +40,8 @@ export interface EitherRight<GenericInformation extends string = string, Generic
  * 	),
  * );
  * 
- * // type: E.EitherRight< "coupon.applied", { readonly code: `SAVE${string}`; readonly percent: 15; } >
- * // | E.EitherLeft< "coupon.invalid", string >
+ * // type: E.Right< "coupon.applied", { readonly code: `SAVE${string}`; readonly percent: 15; } >
+ * // | E.Left< "coupon.invalid", string >
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/right
@@ -41,5 +49,5 @@ export interface EitherRight<GenericInformation extends string = string, Generic
  * @namespace E
  * 
  */
-export declare function right<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value?: GenericValue): EitherRight<GenericInformation, GenericValue>;
+export declare function right<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value?: GenericValue): Right<GenericInformation, GenericValue>;
 export {};

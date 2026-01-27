@@ -1,5 +1,9 @@
 import { createEitherKind } from '../kind.mjs';
 
-const eitherNullableKind = createEitherKind("nullable");
+const nullableKind = createEitherKind("nullable");
+/**
+ * @deprecated use nullableKind
+ */
+const eitherNullableKind = nullableKind;
 
-export { eitherNullableKind };
+export { eitherNullableKind, nullableKind };

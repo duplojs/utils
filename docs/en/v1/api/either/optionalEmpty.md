@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds an EitherLeft<\"optional\"> containing undefined."
+description: "Builds an Left<\"optional\"> containing undefined."
 prev:
   text: "optional"
   link: "/en/v1/api/either/optional"
@@ -11,7 +11,7 @@ next:
 
 # optionalEmpty
 
-Builds an `EitherLeft<"optional">` containing `undefined`.
+Builds an `Left<"optional">` containing `undefined`.
 
 ## Interactive example
 
@@ -24,7 +24,7 @@ Builds an `EitherLeft<"optional">` containing `undefined`.
 ## Syntax
 
 ```typescript
-function optionalEmpty(): EitherOptionalEmpty;
+function optionalEmpty(): OptionalEmpty;
 ```
 
 ## Parameters
@@ -33,7 +33,7 @@ None.
 
 ## Return value
 
-`EitherOptionalEmpty` to signal absence.
+`OptionalEmpty` to signal absence.
 
 ## See also
 

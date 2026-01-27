@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Readable shortcut to create an EitherRight with the literal info \"success\". Ideal for functions that return only one type of success."
+description: "Readable shortcut to create an Right with the literal info \"success\". Ideal for functions that return only one type of success."
 prev:
   text: "right"
   link: "/en/v1/api/either/right"
@@ -11,7 +11,7 @@ next:
 
 # success
 
-Readable shortcut to create an `EitherRight` with the literal info `"success"`. Ideal for functions that return only one type of success.
+Readable shortcut to create an `Right` with the literal info `"success"`. Ideal for functions that return only one type of success.
 
 ::: tip
 `success` is strictly equivalent to `right("success", value)`. For the generic details (info, typing, fuller examples), see the [`right`](/en/v1/api/either/right) page.
@@ -32,7 +32,7 @@ function success<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherSuccess<GenericInput>
+): Success<GenericInput>
 ```
 
 ## Parameters
@@ -41,7 +41,7 @@ function success<
 
 ## Return value
 
-An `EitherRight` whose info is fixed to `"success"`. Combine it with `E.hasInformation(result, "success")` to get an exhaustive type.
+An `Right` whose info is fixed to `"success"`. Combine it with `E.hasInformation(result, "success")` to get an exhaustive type.
 
 ## When to use `success`?
 

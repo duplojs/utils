@@ -1,5 +1,10 @@
 import { createEitherKind } from "../kind";
 
-export const eitherNullableKind = createEitherKind(
+export const nullableKind = createEitherKind(
 	"nullable",
 );
+
+/**
+ * @deprecated use nullableKind
+ */
+export const eitherNullableKind = nullableKind;

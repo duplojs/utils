@@ -1,4 +1,4 @@
-Type guard that checks whether a value is an EitherRight. Allows accessing the payload without explicit conversion.
+Type guard that checks whether a value is an Right. Allows accessing the payload without explicit conversion.
 
 Signature: `isRight(input)` → returns a value
 

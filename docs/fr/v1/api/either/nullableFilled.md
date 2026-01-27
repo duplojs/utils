@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Construit un EitherRight<\"nullable\"> pour une valeur non nulle."
+description: "Construit un Right<\"nullable\"> pour une valeur non nulle."
 prev:
   text: "nullableEmpty"
   link: "/fr/v1/api/either/nullableEmpty"
@@ -11,7 +11,7 @@ next:
 
 # nullableFilled
 
-Construit un `EitherRight<"nullable">` pour une valeur non nulle.
+Construit un `Right<"nullable">` pour une valeur non nulle.
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function nullableFilled<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherNullableFilled<GenericInput>;
+): NullableFilled<GenericInput>;
 ```
 
 ## Paramètres
@@ -37,7 +37,7 @@ function nullableFilled<
 
 ## Valeur de retour
 
-Un `EitherNullableFilled` représentant l'état « présent ».
+Un `NullableFilled` représentant l'état « présent ».
 
 ## Voir aussi
 

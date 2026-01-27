@@ -25,7 +25,7 @@ const userIdOrError = pipe(
 
 type CheckUserIdOrError = ExpectType<
 	typeof userIdOrError,
-	"usr_1" | E.EitherLeft<"emailAlreadyExists", { readonly email: "taken@example.com" }>,
+	"usr_1" | E.Left<"emailAlreadyExists", { readonly email: "taken@example.com" }>,
 	"strict"
 >;
 
@@ -39,7 +39,7 @@ const errorEmailOrOriginal = pipe(
 
 type CheckErrorEmailOrOriginal = ExpectType<
 	typeof errorEmailOrOriginal,
-	"taken@example.com" | E.EitherRight<"user.created", { readonly userId: "usr_1" }>,
+	"taken@example.com" | E.Right<"user.created", { readonly userId: "usr_1" }>,
 	"strict"
 >;
 

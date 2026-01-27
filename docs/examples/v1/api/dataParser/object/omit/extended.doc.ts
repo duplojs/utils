@@ -19,8 +19,8 @@ const result = schema.parse({
 
 type check = ExpectType<
 	typeof result,
-	E.EitherError<DPE.DataParserError>
-	| E.EitherSuccess<{
+	E.Error<DPE.DataParserError>
+	| E.Success<{
 		id: number;
 		email: string;
 	}>,

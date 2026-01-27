@@ -21,14 +21,14 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherRight<
+	E.Right<
 		"coupon.applied",
 		{
 			readonly code: `SAVE${string}`;
 			readonly percent: 15;
 		}
 	>
-	| E.EitherLeft<
+	| E.Left<
 		"coupon.invalid",
 		string
 	>,

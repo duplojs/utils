@@ -8,7 +8,11 @@ var is = require('../right/is.cjs');
 var is$1 = require('../left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
-const eitherBoolTruthyKind = kind.createEitherKind("bool-truthy");
+const boolTruthyKind = kind.createEitherKind("bool-truthy");
+/**
+ * @deprecated use boolTruthyKind
+ */
+const eitherBoolTruthyKind = boolTruthyKind;
 /**
  * {@include either/boolTruthy/index.md}
  */
@@ -19,12 +23,12 @@ const eitherBoolTruthyKind = kind.createEitherKind("bool-truthy");
  * {@include either/whenIsBoolTruthy/index.md}
  */
 function boolTruthy(value) {
-    return base.eitherBoolKind.setTo(eitherBoolTruthyKind.setTo(create.right("bool", value)));
+    return base.boolKind.setTo(boolTruthyKind.setTo(create.right("bool", value)));
 }
 function isBoolTruthy(input) {
     return is.isRight(input)
-        && base.eitherBoolKind.has(input)
-        && eitherBoolTruthyKind.has(input);
+        && base.boolKind.has(input)
+        && boolTruthyKind.has(input);
 }
 function whenIsBoolTruthy(...args) {
     if (args.length === 1) {
@@ -48,6 +52,7 @@ function whenIsBoolTruthy(...args) {
 }
 
 exports.boolTruthy = boolTruthy;
+exports.boolTruthyKind = boolTruthyKind;
 exports.eitherBoolTruthyKind = eitherBoolTruthyKind;
 exports.isBoolTruthy = isBoolTruthy;
 exports.whenIsBoolTruthy = whenIsBoolTruthy;

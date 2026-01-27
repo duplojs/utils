@@ -4,6 +4,6 @@ const result = E.nullishEmpty();
 
 type check = ExpectType<
 	typeof result,
-	E.EitherNullishEmpty<undefined>,
+	E.NullishEmpty<undefined>,
 	"strict"
 >;

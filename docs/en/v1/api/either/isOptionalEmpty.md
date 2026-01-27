@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard that detects an EitherOptionalEmpty."
+description: "Type guard that detects an OptionalEmpty."
 prev:
   text: "optionalFilled"
   link: "/en/v1/api/either/optionalFilled"
@@ -11,7 +11,7 @@ next:
 
 # isOptionalEmpty
 
-Type guard that detects an `EitherOptionalEmpty`.
+Type guard that detects an `OptionalEmpty`.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function isOptionalEmpty<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherOptionalEmpty>;
+): input is Extract<GenericInput, OptionalEmpty>;
 ```
 
 ## Parameters

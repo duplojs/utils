@@ -12,7 +12,7 @@ import * as DDataParser from "../../../dataParser";
  * const result = C.Int.create(12);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"int", 12>>
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"int", 12>>
  * }
  * 
  * const value = C.Int.createOrThrow(7);
@@ -41,7 +41,7 @@ export type Int = GetConstraint<typeof Int>;
  * const result = C.Positive.create(4);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"positive", 4>>
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"positive", 4>>
  * }
  * 
  * const value = C.Positive.createOrThrow(10);
@@ -70,7 +70,7 @@ export type Positive = GetConstraint<typeof Positive>;
  * const result = C.Negative.create(-4);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"negative", -4>>
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"negative", -4>>
  * }
  * 
  * const value = C.Negative.createOrThrow(-10);

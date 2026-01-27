@@ -33,7 +33,7 @@ export interface DataParserEmpty<GenericDefinition extends DataParserDefinitionE
  * const parser = DP.empty();
  * const result = parser.parse(undefined);
  * if (E.isRight(result)) {
- * 	// E.EitherSuccess<undefined>
+ * 	// E.Success<undefined>
  * }
  * 
  * const withCheckers = DP.empty({

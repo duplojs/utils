@@ -9,9 +9,9 @@ const result = true
 	: E.left("left-3", 3);
 
 if (E.isLeft(result)) {
-	// type: E.EitherLeft<"left-2", 2> | E.EitherLeft<"left-3", 3>
+	// type: E.Left<"left-2", 2> | E.Left<"left-3", 3>
 
 	if (E.hasInformation(result, "left-2")) {
-		// type: E.EitherLeft<"left-2", 2>
+		// type: E.Left<"left-2", 2>
 	}
 }

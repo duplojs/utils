@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Exécute une fonction uniquement lorsque l'entrée est un EitherLeft. Sinon, la valeur d'origine est renvoyée telle quelle."
+description: "Exécute une fonction uniquement lorsque l'entrée est un Left. Sinon, la valeur d'origine est renvoyée telle quelle."
 prev:
   text: "isLeft"
   link: "/fr/v1/api/either/isLeft"
@@ -11,7 +11,7 @@ next:
 
 # whenIsLeft
 
-Exécute une fonction uniquement lorsque l'entrée est un `EitherLeft`. Sinon, la valeur d'origine est renvoyée telle quelle.
+Exécute une fonction uniquement lorsque l'entrée est un `Left`. Sinon, la valeur d'origine est renvoyée telle quelle.
 
 ## Exemple interactif
 
@@ -31,8 +31,8 @@ function whenIsLeft<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput
-): Exclude<GenericInput, EitherLeft> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutput
+): Exclude<GenericInput, Left> | GenericOutput;
 ```
 
 ### Signature currifiée
@@ -42,8 +42,8 @@ function whenIsLeft<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput
-): (input: GenericInput) => Exclude<GenericInput, EitherLeft> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutput
+): (input: GenericInput) => Exclude<GenericInput, Left> | GenericOutput;
 ```
 
 ## Paramètres
@@ -59,7 +59,7 @@ function whenIsLeft<
 ## Cas d'usage
 
 - Logger ou transformer une erreur sans toucher au `Right`.
-- Convertir un `Left` en un autre type (ex. `EitherLeft` -> `string`).
+- Convertir un `Left` en un autre type (ex. `Left` -> `string`).
 - Simplifier des blocs `if (E.isLeft(...))` répétitifs dans un style fonctionnel.
 
 ## Voir aussi

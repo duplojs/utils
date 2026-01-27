@@ -1,29 +1,41 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { type Kind } from "@scripts/common/kind";
-import { eitherBoolKind } from "./base";
+import { boolKind } from "./base";
 import { createEitherKind } from "../kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { type EitherLeft, isLeft } from "../left";
-import { right, type EitherRight, isRight } from "../right";
+import { type Left, isLeft } from "../left";
+import { right, type Right, isRight } from "../right";
 import { bool } from "./create";
 
-export const eitherBoolTruthyKind = createEitherKind(
+export const boolTruthyKind = createEitherKind(
 	"bool-truthy",
 );
 
-type _EitherBoolTruthy<
+/**
+ * @deprecated use boolTruthyKind
+ */
+export const eitherBoolTruthyKind = boolTruthyKind;
+
+type _BoolTruthy<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherRight<"bool", GenericValue>
-	& Kind<typeof eitherBoolKind.definition>
-	& Kind<typeof eitherBoolTruthyKind.definition>
+	& Right<"bool", GenericValue>
+	& Kind<typeof boolKind.definition>
+	& Kind<typeof boolTruthyKind.definition>
 );
 
-export interface EitherBoolTruthy<
+export interface BoolTruthy<
 	GenericValue extends unknown = unknown,
-> extends _EitherBoolTruthy<GenericValue> {
+> extends _BoolTruthy<GenericValue> {
 
 }
+
+/**
+ * @deprecated use BoolTruthy
+ */
+export type EitherBoolTruthy<
+	GenericValue extends unknown = unknown,
+> = BoolTruthy<GenericValue>;
 
 /**
  * {@include either/boolTruthy/index.md}
@@ -36,24 +48,24 @@ export interface EitherBoolTruthy<
  */
 export function boolTruthy<
 	const GenericValue extends unknown,
->(value: GenericValue): EitherBoolTruthy<GenericValue> {
-	return eitherBoolKind.setTo(
-		eitherBoolTruthyKind.setTo(
+>(value: GenericValue): BoolTruthy<GenericValue> {
+	return boolKind.setTo(
+		boolTruthyKind.setTo(
 			right("bool", value),
 		),
 	);
 }
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 export function isBoolTruthy<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherBoolTruthy> {
+): input is Extract<GenericInput, BoolTruthy> {
 	return isRight(input)
-		&& eitherBoolKind.has(input)
-		&& eitherBoolTruthyKind.has(input);
+		&& boolKind.has(input)
+		&& boolTruthyKind.has(input);
 }
 
 type ToEither<
@@ -72,13 +84,13 @@ export function whenIsBoolTruthy<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherBoolTruthy
+				BoolTruthy
 			>
 		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<
 	ToEither<BreakGenericLink<GenericInput>>,
-	EitherBoolTruthy
+	BoolTruthy
 >;
 export function whenIsBoolTruthy<
 	const GenericInput extends unknown,
@@ -91,11 +103,11 @@ export function whenIsBoolTruthy<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherBoolTruthy
+				BoolTruthy
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+): GenericOutput | Exclude<ToEither<GenericInput>, BoolTruthy>;
 export function whenIsBoolTruthy(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

@@ -1,12 +1,20 @@
 import { type Kind } from "../../common/kind";
-import { eitherFutureKind } from "./base";
-import { type EitherRight } from "../right";
+import { futureKind } from "./base";
+import { type Right } from "../right";
+export declare const futureSuccessKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/future-success", unknown>>;
+/**
+ * @deprecated use futureSuccessKind
+ */
 export declare const eitherFutureSuccessKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/future-success", unknown>>;
-type _EitherFutureSuccess<GenericValue extends unknown = unknown> = (EitherRight<"future", GenericValue> & Kind<typeof eitherFutureKind.definition> & Kind<typeof eitherFutureSuccessKind.definition>);
-export interface EitherFutureSuccess<GenericValue extends unknown = unknown> extends _EitherFutureSuccess<GenericValue> {
+type _FutureSuccess<GenericValue extends unknown = unknown> = (Right<"future", GenericValue> & Kind<typeof futureKind.definition> & Kind<typeof futureSuccessKind.definition>);
+export interface FutureSuccess<GenericValue extends unknown = unknown> extends _FutureSuccess<GenericValue> {
 }
 /**
- * Creates a Future resolved with an EitherRight<"future">.
+ * @deprecated use FutureSuccess
+ */
+export type EitherFutureSuccess<GenericValue extends unknown = unknown> = FutureSuccess<GenericValue>;
+/**
+ * Creates a Future resolved with an Right<"future">.
  * 
  * Signature: `futureSuccess(value)` → returns a value
  * 
@@ -15,7 +23,7 @@ export interface EitherFutureSuccess<GenericValue extends unknown = unknown> ext
  * ```ts
  * const future = E.futureSuccess("value");
  * 
- * // type: E.EitherFutureSuccess<"value">
+ * // type: E.FutureSuccess<"value">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/futureSuccess
@@ -23,5 +31,5 @@ export interface EitherFutureSuccess<GenericValue extends unknown = unknown> ext
  * @namespace E
  * 
  */
-export declare function futureSuccess<const GenericValue extends unknown>(value: GenericValue): EitherFutureSuccess<GenericValue>;
+export declare function futureSuccess<const GenericValue extends unknown>(value: GenericValue): FutureSuccess<GenericValue>;
 export {};

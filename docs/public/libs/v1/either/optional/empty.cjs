@@ -7,7 +7,11 @@ var create = require('../left/create.cjs');
 var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 
-const eitherOptionalEmptyKind = kind.createEitherKind("optional-empty");
+const optionalEmptyKind = kind.createEitherKind("optional-empty");
+/**
+ * @deprecated use optionalEmptyKind
+ */
+const eitherOptionalEmptyKind = optionalEmptyKind;
 /**
  * {@include either/isOptionalEmpty/index.md}
  */
@@ -18,12 +22,12 @@ const eitherOptionalEmptyKind = kind.createEitherKind("optional-empty");
  * {@include either/whenIsOptionalEmpty/index.md}
  */
 function optionalEmpty() {
-    return base.eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(create.left("optional", undefined)));
+    return base.optionalKind.setTo(optionalEmptyKind.setTo(create.left("optional", undefined)));
 }
 function isOptionalEmpty(input) {
     return is.isLeft(input)
-        && base.eitherOptionalKind.has(input)
-        && eitherOptionalEmptyKind.has(input);
+        && base.optionalKind.has(input)
+        && optionalEmptyKind.has(input);
 }
 function whenIsOptionalEmpty(...args) {
     if (args.length === 1) {
@@ -49,4 +53,5 @@ function whenIsOptionalEmpty(...args) {
 exports.eitherOptionalEmptyKind = eitherOptionalEmptyKind;
 exports.isOptionalEmpty = isOptionalEmpty;
 exports.optionalEmpty = optionalEmpty;
+exports.optionalEmptyKind = optionalEmptyKind;
 exports.whenIsOptionalEmpty = whenIsOptionalEmpty;

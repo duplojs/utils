@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsBoolFalsy(() => "falsy"),
 );
 
-// type: E.EitherBoolTruthy<"value"> | "falsy"
+// type: E.BoolTruthy<"value"> | "falsy"

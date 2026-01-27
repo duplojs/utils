@@ -1,16 +1,24 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
 import { type Kind } from "../../common/kind";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
+import { type Left } from "../left";
+import { type Right } from "../right";
 import { nullable } from "./create";
-import { eitherNullableKind } from "./base";
-export declare const eitherNullableEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullable-empty", unknown>>;
-type _EitherNullableEmpty = (EitherLeft<"nullable", null> & Kind<typeof eitherNullableKind.definition> & Kind<typeof eitherNullableEmptyKind.definition>);
-export interface EitherNullableEmpty extends _EitherNullableEmpty {
-}
-type Either = EitherRight | EitherLeft;
+import { nullableKind } from "./base";
+export declare const nullableEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullable-empty", unknown>>;
 /**
- * Type guard that detects an EitherNullableEmpty.
+ * @deprecated use nullableEmptyKind
+ */
+export declare const eitherNullableEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullable-empty", unknown>>;
+type _NullableEmpty = (Left<"nullable", null> & Kind<typeof nullableKind.definition> & Kind<typeof nullableEmptyKind.definition>);
+export interface NullableEmpty extends _NullableEmpty {
+}
+/**
+ * @deprecated use NullableEmpty
+ */
+export type EitherNullableEmpty = NullableEmpty;
+type Either = Right | Left;
+/**
+ * Type guard that detects an NullableEmpty.
  * 
  * Signature: `isNullableEmpty(input)` → returns a value
  * 
@@ -20,7 +28,7 @@ type Either = EitherRight | EitherLeft;
  * const maybeValue = E.nullable(true ? "value" : null);
  * 
  * if (E.isNullableEmpty(maybeValue)) {
- * 	// type: E.EitherNullableEmpty
+ * 	// type: E.NullableEmpty
  * }
  * ```
  * 
@@ -30,14 +38,14 @@ type Either = EitherRight | EitherLeft;
  * 
  */
 /**
- * Explicitly builds an EitherLeft<"nullable"> containing null.
+ * Explicitly builds an Left<"nullable"> containing null.
  * 
  * Signature: `nullableEmpty()` → returns a value
  * 
  * ```ts
  * const result = E.nullableEmpty();
  * 
- * // type: E.EitherNullableEmpty
+ * // type: E.NullableEmpty
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/nullableEmpty
@@ -60,7 +68,7 @@ type Either = EitherRight | EitherLeft;
  * 	E.whenIsNullableEmpty(() => "nullable"),
  * );
  * 
- * // type: "nullable" | E.EitherNullableFilled<"value">
+ * // type: "nullable" | E.NullableFilled<"value">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/whenIsNullableEmpty
@@ -68,9 +76,9 @@ type Either = EitherRight | EitherLeft;
  * @namespace E
  * 
  */
-export declare function nullableEmpty(): EitherNullableEmpty;
-export declare function isNullableEmpty<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherNullableEmpty>;
+export declare function nullableEmpty(): NullableEmpty;
+export declare function isNullableEmpty<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, NullableEmpty>;
 type ToEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof nullable<GenericValue>>;
-export declare function whenIsNullableEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherNullableEmpty>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
-export declare function whenIsNullableEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherNullableEmpty>>) => GenericOutput): GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullableEmpty>;
+export declare function whenIsNullableEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, NullableEmpty>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, NullableEmpty>;
+export declare function whenIsNullableEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, NullableEmpty>>) => GenericOutput): GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, NullableEmpty>;
 export {};

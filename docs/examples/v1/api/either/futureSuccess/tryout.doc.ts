@@ -4,6 +4,6 @@ const future = E.futureSuccess("value");
 
 type check = ExpectType<
 	typeof future,
-	E.EitherFutureSuccess<"value">,
+	E.FutureSuccess<"value">,
 	"strict"
 >;

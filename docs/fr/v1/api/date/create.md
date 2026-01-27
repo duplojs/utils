@@ -57,7 +57,7 @@ La seconde déclaration sert uniquement à déclarer des dates constantes connue
 
 ## Valeur de retour
 
-- Dans la signature générique : `EitherRight<"date-created", TheDate>` en cas de succès ou `EitherLeft<"date-created-error", null>` en cas d'échec.
+- Dans la signature générique : `Right<"date-created", TheDate>` en cas de succès ou `Left<"date-created-error", null>` en cas d'échec.
 - Dans la signature littérale : retourne directement un `TheDate` si la date est valide, sinon une erreur de type compile-time.
 - Avec `SpoolingDate` : retourne un `MayBe` après application éventuelle de la timezone et des overrides.
 

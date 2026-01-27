@@ -3,7 +3,7 @@ import { type maxTimeValue, type minTimeValue } from "./constants";
 import { type TheTime, type SpoolingTime } from "./types";
 import * as DEither from "../either";
 import { type IsGreater, type IsLess } from "../number";
-export type MayBeTime = DEither.EitherRight<"time-created", TheTime> | DEither.EitherLeft<"time-created-error", null>;
+export type MayBeTime = DEither.Right<"time-created", TheTime> | DEither.Left<"time-created-error", null>;
 type Units = "week" | "day" | "hour" | "minute" | "second" | "millisecond";
 declare const SymbolForbiddenTime: unique symbol;
 type ForbiddenTime<GenericInput extends number, GenericUnit extends Units> = IsEqual<GenericInput, number> extends true ? {

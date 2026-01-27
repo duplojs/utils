@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard qui détecte un EitherNullishFilled."
+description: "Type guard qui détecte un NullishFilled."
 prev:
   text: "whenIsNullishEmpty"
   link: "/fr/v1/api/either/whenIsNullishEmpty"
@@ -11,7 +11,7 @@ next:
 
 # isNullishFilled
 
-Type guard qui détecte un `EitherNullishFilled`.
+Type guard qui détecte un `NullishFilled`.
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function isNullishFilled<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherNullishFilled>;
+): input is Extract<GenericInput, NullishFilled>;
 ```
 
 ## Paramètres

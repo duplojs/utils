@@ -14,12 +14,12 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * const result = C.String.create("hello");
      * 
      * if (E.isRight(result)) {
-     * 	// result: E.EitherRight<"createNewType", C.Primitive<"hello">>
+     * 	// result: E.Right<"createNewType", C.Primitive<"hello">>
      * }
      * ```
      * 
      */
-    create<GenericData extends GenericValue>(data: GenericData): (DEither.EitherRight<"createNewType", Primitive<GenericData>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    create<GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createNewType", Primitive<GenericData>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     /**
      * Creates a primitive value and throws on error.
      * 
@@ -36,11 +36,11 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * ```ts
      * const unknownValue: unknown = "world";
      * const maybe = C.String.createWithUnknown(unknownValue);
-     * // E.EitherLeft<"createNewTypeError", DataParserError> | E.EitherRight<"createNewType", C.Primitive<string>>
+     * // E.Left<"createNewTypeError", DataParserError> | E.Right<"createNewType", C.Primitive<string>>
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createNewType", Primitive<GenericValue>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createNewType", Primitive<GenericValue>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     /**
      * Creates a primitive value from an unknown input and throws on error.
      * 
@@ -89,7 +89,7 @@ export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
  * const result = C.String.create("hello");
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createNewType", C.Primitive<"hello">>
+ * 	// result: E.Right<"createNewType", C.Primitive<"hello">>
  * }
  * 
  * const value = C.String.createOrThrow("world");
@@ -122,7 +122,7 @@ export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
  * const result = C.Number.create(42);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createNewType", C.Primitive<42>>
+ * 	// result: E.Right<"createNewType", C.Primitive<42>>
  * }
  * 
  * const value = C.Number.createOrThrow(7);
@@ -155,7 +155,7 @@ export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
  * const result = C.BigInt.create(10n);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createNewType", C.Primitive<10n>>
+ * 	// result: E.Right<"createNewType", C.Primitive<10n>>
  * }
  * 
  * const value = C.BigInt.createOrThrow(99n);
@@ -188,7 +188,7 @@ export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
  * const result = C.Boolean.create(true);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createNewType", C.Primitive<true>>
+ * 	// result: E.Right<"createNewType", C.Primitive<true>>
  * }
  * 
  * const value = C.Boolean.createOrThrow(false);
@@ -223,7 +223,7 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
  * const result = C.Date.create(date);
  * 
  * if (E.isRight(result)) {
- * // result: E.EitherRight<"createNewType", C.Primitive<D.TheDate>>
+ * // result: E.Right<"createNewType", C.Primitive<D.TheDate>>
  * }
  * 
  * const value = C.Date.createOrThrow(date);
@@ -258,7 +258,7 @@ export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
  * const result = C.Time.create(theTime);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.EitherRight<"createNewType", C.Primitive<D.TheTime>>
+ * 	// result: E.Right<"createNewType", C.Primitive<D.TheTime>>
  * }
  * 
  * const value = C.Time.createOrThrow(theTime);

@@ -1,5 +1,5 @@
-import { eitherInformationKind } from "../kind";
-import { eitherRightKind, type EitherRight } from "./create";
+import { informationKind } from "../kind";
+import { rightKind, type Right } from "./create";
 import { isWrappedValue } from "@scripts/common/wrapValue";
 
 /**
@@ -9,8 +9,8 @@ export function isRight<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherRight> {
-	return eitherRightKind.has(input)
-		&& eitherInformationKind.has(input)
+): input is Extract<GenericInput, Right> {
+	return rightKind.has(input)
+		&& informationKind.has(input)
 		&& isWrappedValue(input);
 }

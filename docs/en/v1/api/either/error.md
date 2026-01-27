@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Handy alias to create an EitherLeft with the info fixed to \"error\". Useful to signal a generic error without manually providing the info."
+description: "Handy alias to create an Left with the info fixed to \"error\". Useful to signal a generic error without manually providing the info."
 prev:
   text: "left"
   link: "/en/v1/api/either/left"
@@ -11,7 +11,7 @@ next:
 
 # error
 
-Handy alias to create an `EitherLeft` with the info fixed to `"error"`. Useful to signal a generic error without manually providing the info.
+Handy alias to create an `Left` with the info fixed to `"error"`. Useful to signal a generic error without manually providing the info.
 
 ::: tip
 `error` is equivalent to `left("error", value)`. To understand the full mechanics (custom info, pattern matching), see the [`left`](/en/v1/api/either/left) page.
@@ -32,7 +32,7 @@ function error<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherError<GenericInput>
+): Error<GenericInput>
 ```
 
 ## Parameters
@@ -41,7 +41,7 @@ function error<
 
 ## Return value
 
-An `EitherLeft<"error", GenericInput>` that you can consume with `E.isLeft`, `E.whenHasInformation`, or `E.hasInformation(result, "error")`.
+An `Left<"error", GenericInput>` that you can consume with `E.isLeft`, `E.whenHasInformation`, or `E.hasInformation(result, "error")`.
 
 ## Use cases
 

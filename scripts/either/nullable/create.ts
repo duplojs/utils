@@ -1,5 +1,5 @@
-import { nullableEmpty, type EitherNullableEmpty } from "./empty";
-import { nullableFilled, type EitherNullableFilled } from "./filled";
+import { nullableEmpty, type NullableEmpty } from "./empty";
+import { nullableFilled, type NullableFilled } from "./filled";
 
 /**
  * {@include either/nullable/index.md}
@@ -7,8 +7,8 @@ import { nullableFilled, type EitherNullableFilled } from "./filled";
 export function nullable<
 	const GenericValue extends unknown = null,
 >(value: GenericValue): GenericValue extends null
-	? EitherNullableEmpty
-	: EitherNullableFilled<GenericValue>;
+	? NullableEmpty
+	: NullableFilled<GenericValue>;
 export function nullable(value: unknown) {
 	return value === null
 		? nullableEmpty()
@@ -17,4 +17,4 @@ export function nullable(value: unknown) {
 
 export type Nullable<
 	GenericValue extends unknown,
-> = EitherNullableFilled<GenericValue> | EitherNullableEmpty;
+> = NullableFilled<GenericValue> | NullableEmpty;

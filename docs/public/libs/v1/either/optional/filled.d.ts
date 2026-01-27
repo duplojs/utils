@@ -1,14 +1,22 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
 import { type Kind } from "../../common/kind";
-import { eitherOptionalKind } from "./base";
+import { optionalKind } from "./base";
 import { optional } from "./create";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
+import { type Left } from "../left";
+import { type Right } from "../right";
+export declare const optionalFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-filled", unknown>>;
+/**
+ * @deprecated use optionalFilledKind
+ */
 export declare const eitherOptionalFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-filled", unknown>>;
-type _EitherOptionalFilled<GenericValue extends unknown = unknown> = (EitherRight<"optional", GenericValue> & Kind<typeof eitherOptionalKind.definition> & Kind<typeof eitherOptionalFilledKind.definition>);
-export interface EitherOptionalFilled<GenericValue extends unknown = unknown> extends _EitherOptionalFilled<GenericValue> {
+type _OptionalFilled<GenericValue extends unknown = unknown> = (Right<"optional", GenericValue> & Kind<typeof optionalKind.definition> & Kind<typeof optionalFilledKind.definition>);
+export interface OptionalFilled<GenericValue extends unknown = unknown> extends _OptionalFilled<GenericValue> {
 }
-type Either = EitherRight | EitherLeft;
+/**
+ * @deprecated use OptionalFilled
+ */
+export type EitherOptionalFilled<GenericValue extends unknown = unknown> = OptionalFilled<GenericValue>;
+type Either = Right | Left;
 /**
  * Type guard that checks that an optional contains a value.
  * 
@@ -20,7 +28,7 @@ type Either = EitherRight | EitherLeft;
  * const maybeValue = E.optional(true ? "value" : undefined);
  * 
  * if (E.isOptionalFilled(maybeValue)) {
- * 	// type: E.EitherOptionalFilled<"value">
+ * 	// type: E.OptionalFilled<"value">
  * }
  * ```
  * 
@@ -30,7 +38,7 @@ type Either = EitherRight | EitherLeft;
  * 
  */
 /**
- * Builds an EitherRight<"optional"> when the value is defined.
+ * Builds an Right<"optional"> when the value is defined.
  * 
  * Signature: `optionalFilled(value)` → returns a value
  * 
@@ -39,7 +47,7 @@ type Either = EitherRight | EitherLeft;
  * ```ts
  * const result = E.optionalFilled("value");
  * 
- * // type: E.EitherOptionalFilled<"value">
+ * // type: E.OptionalFilled<"value">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/optionalFilled
@@ -62,7 +70,7 @@ type Either = EitherRight | EitherLeft;
  * 	E.whenIsOptionalFilled(S.capitalize),
  * );
  * 
- * // type: E.EitherOptionalEmpty | "Value"
+ * // type: E.OptionalEmpty | "Value"
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/whenIsOptionalFilled
@@ -70,9 +78,9 @@ type Either = EitherRight | EitherLeft;
  * @namespace E
  * 
  */
-export declare function optionalFilled<const GenericValue extends unknown>(value: GenericValue): EitherOptionalFilled<GenericValue>;
-export declare function isOptionalFilled<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherOptionalFilled>;
+export declare function optionalFilled<const GenericValue extends unknown>(value: GenericValue): OptionalFilled<GenericValue>;
+export declare function isOptionalFilled<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, OptionalFilled>;
 type ToOptionalEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof optional<GenericValue>>;
-export declare function whenIsOptionalFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalFilled>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalFilled>;
-export declare function whenIsOptionalFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalFilled>>) => GenericOutput): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+export declare function whenIsOptionalFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalFilled>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalFilled>;
+export declare function whenIsOptionalFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalFilled>>) => GenericOutput): GenericOutput | Exclude<ToOptionalEither<GenericInput>, OptionalFilled>;
 export {};

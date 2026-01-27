@@ -28,12 +28,12 @@ function rightPipe<
 	GenericInput extends AnyValue, GenericOutputPipe1 extends AnyValue
 >(
   input: GenericInput,
-  pipe1: EitherRightPipeFunction<GenericInput, GenericOutputPipe1>
-): EitherRightPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>;
+  pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>
+): RightPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>;
 // ... overloads up to 15 steps
 ```
 
-`EitherRightPipeFunction` receives either the unwrapped value of a `Right` or the value if it is not an `Either`, and can return an `Either` or a raw value.
+`RightPipeFunction` receives either the unwrapped value of a `Right` or the value if it is not an `Either`, and can return an `Either` or a raw value.
 
 ## Parameters
 
@@ -42,7 +42,7 @@ function rightPipe<
 
 ## Return value
 
-- If all steps stay `Right`, the last result is wrapped in `EitherSuccess`.
+- If all steps stay `Right`, the last result is wrapped in `Success`.
 - As soon as a `Left` is returned, the pipeline stops and that `Left` is propagated.
 
 ## Best practices

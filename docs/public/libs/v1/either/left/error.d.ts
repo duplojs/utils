@@ -1,11 +1,19 @@
 import { type Kind } from "../../common/kind";
-import { type EitherLeft } from "./create";
+import { type Left } from "./create";
+export declare const errorKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/error", unknown>>;
+/**
+ * @deprecated use errorKind
+ */
 export declare const eitherErrorKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/error", unknown>>;
-type _EitherError<GenericValue extends unknown = unknown> = (EitherLeft<"error", GenericValue> & Kind<typeof eitherErrorKind.definition>);
-export interface EitherError<GenericValue extends unknown = unknown> extends _EitherError<GenericValue> {
+type _Error<GenericValue extends unknown = unknown> = (Left<"error", GenericValue> & Kind<typeof errorKind.definition>);
+export interface Error<GenericValue extends unknown = unknown> extends _Error<GenericValue> {
 }
 /**
- * Handy alias to create an EitherLeft with the info fixed to "error". Useful to signal a generic error without manually providing the info.
+ * @deprecated use Error
+ */
+export type EitherError<GenericValue extends unknown = unknown> = Error<GenericValue>;
+/**
+ * Handy alias to create an Left with the info fixed to "error". Useful to signal a generic error without manually providing the info.
  * 
  * Signature: `error(value)` → returns a value
  * 
@@ -24,7 +32,7 @@ export interface EitherError<GenericValue extends unknown = unknown> extends _Ei
  * 	),
  * );
  * 
- * // type: E.EitherError<string> | E.EitherSuccess<string>
+ * // type: E.Error<string> | E.Success<string>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/error
@@ -32,5 +40,5 @@ export interface EitherError<GenericValue extends unknown = unknown> extends _Ei
  * @namespace E
  * 
  */
-export declare function error<const GenericValue extends unknown>(value: GenericValue): EitherError<GenericValue>;
+export declare function error<const GenericValue extends unknown>(value: GenericValue): Error<GenericValue>;
 export {};

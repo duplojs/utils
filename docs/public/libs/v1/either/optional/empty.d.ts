@@ -1,16 +1,24 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
 import { type Kind } from "../../common/kind";
-import { eitherOptionalKind } from "./base";
+import { optionalKind } from "./base";
 import { optional } from "./create";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
-export declare const eitherOptionalEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-empty", unknown>>;
-type _EitherOptionalEmpty = (EitherLeft<"optional", undefined> & Kind<typeof eitherOptionalKind.definition> & Kind<typeof eitherOptionalEmptyKind.definition>);
-export interface EitherOptionalEmpty extends _EitherOptionalEmpty {
-}
-type Either = EitherRight | EitherLeft;
+import { type Left } from "../left";
+import { type Right } from "../right";
+export declare const optionalEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-empty", unknown>>;
 /**
- * Type guard that detects an EitherOptionalEmpty.
+ * @deprecated use optionalEmptyKind
+ */
+export declare const eitherOptionalEmptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/optional-empty", unknown>>;
+type _OptionalEmpty = (Left<"optional", undefined> & Kind<typeof optionalKind.definition> & Kind<typeof optionalEmptyKind.definition>);
+export interface OptionalEmpty extends _OptionalEmpty {
+}
+/**
+ * @deprecated use OptionalEmpty
+ */
+export type EitherOptionalEmpty = OptionalEmpty;
+type Either = Right | Left;
+/**
+ * Type guard that detects an OptionalEmpty.
  * 
  * Signature: `isOptionalEmpty(input)` → returns a value
  * 
@@ -20,7 +28,7 @@ type Either = EitherRight | EitherLeft;
  * const maybeValue = E.optional(true ? "value" : undefined);
  * 
  * if (E.isOptionalEmpty(maybeValue)) {
- * 	// type: E.EitherOptionalEmpty
+ * 	// type: E.OptionalEmpty
  * }
  * ```
  * 
@@ -30,14 +38,14 @@ type Either = EitherRight | EitherLeft;
  * 
  */
 /**
- * Builds an EitherLeft<"optional"> containing undefined.
+ * Builds an Left<"optional"> containing undefined.
  * 
  * Signature: `optionalEmpty()` → returns a value
  * 
  * ```ts
  * const result = E.optionalEmpty();
  * 
- * // type: E.EitherOptionalEmpty
+ * // type: E.OptionalEmpty
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/optionalEmpty
@@ -60,7 +68,7 @@ type Either = EitherRight | EitherLeft;
  * 	E.whenIsOptionalEmpty(() => "empty"),
  * );
  * 
- * // type: E.EitherOptionalFilled<"value"> | "empty"
+ * // type: E.OptionalFilled<"value"> | "empty"
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/whenIsOptionalEmpty
@@ -68,9 +76,9 @@ type Either = EitherRight | EitherLeft;
  * @namespace E
  * 
  */
-export declare function optionalEmpty(): EitherOptionalEmpty;
-export declare function isOptionalEmpty<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherOptionalEmpty>;
+export declare function optionalEmpty(): OptionalEmpty;
+export declare function isOptionalEmpty<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, OptionalEmpty>;
 type ToOptionalEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof optional<GenericValue>>;
-export declare function whenIsOptionalEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalEmpty>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalEmpty>;
-export declare function whenIsOptionalEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, EitherOptionalEmpty>>) => GenericOutput): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalEmpty>;
+export declare function whenIsOptionalEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalEmpty>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalEmpty>;
+export declare function whenIsOptionalEmpty<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToOptionalEither<BreakGenericLink<GenericInput>>, OptionalEmpty>>) => GenericOutput): GenericOutput | Exclude<ToOptionalEither<GenericInput>, OptionalEmpty>;
 export {};

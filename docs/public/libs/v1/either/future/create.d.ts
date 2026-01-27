@@ -1,12 +1,12 @@
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "../right";
-import { type EitherFutureSuccess } from "./success";
-import { type EitherFutureError } from "./error";
+import { type Left } from "../left";
+import { type Right } from "../right";
+import { type FutureSuccess } from "./success";
+import { type FutureError } from "./error";
 import { type IsEqual } from "../../common/types/isEqual";
 import { type AnyValue } from "../../common";
-type Either = EitherRight | EitherLeft;
-type ComputeEitherFutureSuccessResult<GenericValue extends unknown> = IsEqual<never, Exclude<GenericValue, Either>> extends false ? EitherFutureSuccess<Exclude<GenericValue, Either>> : never;
-type ComputeEitherFutureErrorResult<GenericValue extends unknown> = GenericValue extends Future<any> ? GenericValue : GenericValue extends Promise<unknown> ? EitherFutureError : never;
+type Either = Right | Left;
+type ComputeEitherFutureSuccessResult<GenericValue extends unknown> = IsEqual<never, Exclude<GenericValue, Either>> extends false ? FutureSuccess<Exclude<GenericValue, Either>> : never;
+type ComputeEitherFutureErrorResult<GenericValue extends unknown> = GenericValue extends Future<any> ? GenericValue : GenericValue extends Promise<unknown> ? FutureError : never;
 type ComputeFutureEitherResult<GenericValue extends unknown = unknown> = Extract<(Extract<Awaited<GenericValue>, Either> | ComputeEitherFutureSuccessResult<Awaited<GenericValue>> | ComputeEitherFutureErrorResult<GenericValue>), any>;
 export type FutureEitherAllResult<GenericArray extends readonly unknown[] | []> = Future<{
     -readonly [Prop in keyof GenericArray]: Awaited<Future<GenericArray[Prop]>>;
@@ -33,7 +33,7 @@ export declare class Future<const GenericValue extends unknown = unknown> extend
  * );
  * 
  * await maybePromise.then((value) => {
- * 	// type: E.EitherFutureSuccess<number> | E.EitherFutureError
+ * 	// type: E.FutureSuccess<number> | E.FutureError
  * 	return value;
  * });
  * ```

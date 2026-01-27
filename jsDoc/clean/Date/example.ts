@@ -5,7 +5,7 @@ const date = D.create("2024-01-01");
 const result = C.Date.create(date);
 
 if (E.isRight(result)) {
-// result: E.EitherRight<"createNewType", C.Primitive<D.TheDate>>
+// result: E.Right<"createNewType", C.Primitive<D.TheDate>>
 }
 
 const value = C.Date.createOrThrow(date);

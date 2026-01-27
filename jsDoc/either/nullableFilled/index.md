@@ -1,4 +1,4 @@
-Builds an EitherRight<"nullable"> for a non-null value.
+Builds an Right<"nullable"> for a non-null value.
 
 Signature: `nullableFilled(value)` → returns a value
 

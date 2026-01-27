@@ -12,7 +12,7 @@ const Between1And10 = C.createConstraint(
 const result = Between1And10.create(5);
 
 if (E.isRight(result)) {
-	// result : E.EitherRight<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
+	// result : E.Right<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
 }
 
 const value = Between1And10.createOrThrow(7);

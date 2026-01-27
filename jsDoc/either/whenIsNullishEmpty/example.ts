@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsNullishEmpty(() => "nullish"),
 );
 
-// type: "nullish" | E.EitherNullishFilled<"value">
+// type: "nullish" | E.NullishFilled<"value">

@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsBoolTruthy(S.toUpperCase),
 );
 
-// type: E.EitherBoolFalsy<null> | "VALUE"
+// type: E.BoolFalsy<null> | "VALUE"

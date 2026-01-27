@@ -1,12 +1,16 @@
 import { createEitherKind } from '../kind.mjs';
-import { eitherOptionalKind } from './base.mjs';
+import { optionalKind } from './base.mjs';
 import { optional } from './create.mjs';
 import { right } from '../right/create.mjs';
 import { isRight } from '../right/is.mjs';
 import { isLeft } from '../left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
-const eitherOptionalFilledKind = createEitherKind("optional-filled");
+const optionalFilledKind = createEitherKind("optional-filled");
+/**
+ * @deprecated use optionalFilledKind
+ */
+const eitherOptionalFilledKind = optionalFilledKind;
 /**
  * {@include either/isOptionalFilled/index.md}
  */
@@ -17,12 +21,12 @@ const eitherOptionalFilledKind = createEitherKind("optional-filled");
  * {@include either/whenIsOptionalFilled/index.md}
  */
 function optionalFilled(value) {
-    return eitherOptionalKind.setTo(eitherOptionalFilledKind.setTo(right("optional", value)));
+    return optionalKind.setTo(optionalFilledKind.setTo(right("optional", value)));
 }
 function isOptionalFilled(input) {
     return isRight(input)
-        && eitherOptionalKind.has(input)
-        && eitherOptionalFilledKind.has(input);
+        && optionalKind.has(input)
+        && optionalFilledKind.has(input);
 }
 function whenIsOptionalFilled(...args) {
     if (args.length === 1) {
@@ -45,4 +49,4 @@ function whenIsOptionalFilled(...args) {
     return either;
 }
 
-export { eitherOptionalFilledKind, isOptionalFilled, optionalFilled, whenIsOptionalFilled };
+export { eitherOptionalFilledKind, isOptionalFilled, optionalFilled, optionalFilledKind, whenIsOptionalFilled };

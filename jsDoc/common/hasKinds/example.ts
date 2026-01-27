@@ -1,12 +1,12 @@
 import { E, hasKinds, pipe, when } from "@scripts";
 
-const input = E.ok() as E.EitherOk | E.EitherError;
+const input = E.ok() as E.Ok | E.Error;
 
 if (hasKinds(input, [
 	E.eitherOkKind,
 	E.eitherRightKind,
 ])) {
-	// type: E.EitherOk
+	// type: E.Ok
 }
 
 const result = pipe(
@@ -19,4 +19,4 @@ const result = pipe(
 		() => "ok",
 	),
 );
-// result: "ok" | E.EitherError<unknown>
+// result: "ok" | E.Error<unknown>

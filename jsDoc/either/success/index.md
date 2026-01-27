@@ -1,4 +1,4 @@
-Readable shortcut to create an EitherRight with the literal info "success". Ideal for functions that return only one type of success.
+Readable shortcut to create an Right with the literal info "success". Ideal for functions that return only one type of success.
 
 Signature: `success(value)` → returns a value
 

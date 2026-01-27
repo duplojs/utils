@@ -6,4 +6,4 @@ const result = pipe(
 	E.bool,
 );
 
-// type: E.EitherBoolFalsy<undefined> | E.EitherBoolTruthy<"nest">
+// type: E.BoolFalsy<undefined> | E.BoolTruthy<"nest">

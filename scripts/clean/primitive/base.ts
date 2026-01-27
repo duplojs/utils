@@ -26,11 +26,11 @@ export interface PrimitiveHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createNewType",
 			Primitive<GenericData>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createNewTypeError",
 			DDataParser.DataParserError
 		>
@@ -53,11 +53,11 @@ export interface PrimitiveHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createNewType",
 			Primitive<GenericValue>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createNewTypeError",
 			DDataParser.DataParserError
 		>

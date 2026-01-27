@@ -1,5 +1,5 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { type EitherLeft } from "./create";
+import { type Left } from "./create";
 import { isLeft } from "./is";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 
@@ -14,11 +14,11 @@ export function whenIsLeft<
 		eitherValue: Unwrap<
 			Extract<
 				BreakGenericLink<GenericInput>,
-				EitherLeft
+				Left
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, EitherLeft> | GenericOutput;
+): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, Left> | GenericOutput;
 export function whenIsLeft<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
@@ -28,11 +28,11 @@ export function whenIsLeft<
 		eitherValue: Unwrap<
 			Extract<
 				BreakGenericLink<GenericInput>,
-				EitherLeft
+				Left
 			>
 		>
 	) => GenericOutput,
-): Exclude<GenericInput, EitherLeft> | GenericOutput;
+): Exclude<GenericInput, Left> | GenericOutput;
 export function whenIsLeft(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

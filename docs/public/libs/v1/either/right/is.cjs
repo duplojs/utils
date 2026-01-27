@@ -8,8 +8,8 @@ var wrapValue = require('../../common/wrapValue.cjs');
  * {@include either/isRight/index.md}
  */
 function isRight(input) {
-    return create.eitherRightKind.has(input)
-        && kind.eitherInformationKind.has(input)
+    return create.rightKind.has(input)
+        && kind.informationKind.has(input)
         && wrapValue.isWrappedValue(input);
 }
 

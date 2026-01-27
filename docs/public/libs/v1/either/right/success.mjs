@@ -1,12 +1,16 @@
 import { createEitherKind } from '../kind.mjs';
 import { right } from './create.mjs';
 
-const eitherSuccessKind = createEitherKind("success");
+const successKind = createEitherKind("success");
+/**
+ * @deprecated use successKind
+ */
+const eitherSuccessKind = successKind;
 /**
  * {@include either/success/index.md}
  */
 function success(value) {
-    return eitherSuccessKind.setTo(right("success", value));
+    return successKind.setTo(right("success", value));
 }
 
-export { eitherSuccessKind, success };
+export { eitherSuccessKind, success, successKind };

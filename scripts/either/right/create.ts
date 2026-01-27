@@ -1,27 +1,40 @@
 import { type Kind } from "@scripts/common/kind";
 import { wrapValue, type WrappedValue } from "@scripts/common/wrapValue";
-import { createEitherKind, eitherInformationKind } from "../kind";
+import { createEitherKind, informationKind } from "../kind";
 
-export const eitherRightKind = createEitherKind("right");
+export const rightKind = createEitherKind("right");
 
-type _EitherRight<
+/**
+ * @deprecated use rightKind
+ */
+export const eitherRightKind = rightKind;
+
+type _Right<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,
 > = (
-	& Kind<typeof eitherRightKind.definition>
+	& Kind<typeof rightKind.definition>
 	& Kind<
-		typeof eitherInformationKind.definition,
+		typeof informationKind.definition,
 		GenericInformation
 	>
 	& WrappedValue<GenericValue>
 );
 
-export interface EitherRight<
+export interface Right<
 	GenericInformation extends string = string,
 	GenericValue extends unknown = unknown,
-> extends _EitherRight<GenericInformation, GenericValue> {
+> extends _Right<GenericInformation, GenericValue> {
 
 }
+
+/**
+ * @deprecated use Right
+ */
+export type EitherRight<
+	GenericInformation extends string = string,
+	GenericValue extends unknown = unknown,
+> = Right<GenericInformation, GenericValue>;
 
 /**
  * {@include either/right/index.md}
@@ -32,12 +45,12 @@ export function right<
 >(
 	information: GenericInformation,
 	value: GenericValue = undefined as GenericValue,
-): EitherRight<
+): Right<
 		GenericInformation,
 		GenericValue
 	> {
-	return eitherRightKind.setTo(
-		eitherInformationKind.setTo(
+	return rightKind.setTo(
+		informationKind.setTo(
 			wrapValue(value),
 			information,
 		),

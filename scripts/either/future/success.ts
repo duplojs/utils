@@ -1,25 +1,37 @@
 import { type Kind } from "@scripts/common/kind";
 import { createEitherKind } from "../kind";
-import { eitherFutureKind } from "./base";
-import { right, type EitherRight } from "../right";
+import { futureKind } from "./base";
+import { right, type Right } from "../right";
 
-export const eitherFutureSuccessKind = createEitherKind(
+export const futureSuccessKind = createEitherKind(
 	"future-success",
 );
 
-type _EitherFutureSuccess<
+/**
+ * @deprecated use futureSuccessKind
+ */
+export const eitherFutureSuccessKind = futureSuccessKind;
+
+type _FutureSuccess<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherRight<"future", GenericValue>
-	& Kind<typeof eitherFutureKind.definition>
-	& Kind<typeof eitherFutureSuccessKind.definition>
+	& Right<"future", GenericValue>
+	& Kind<typeof futureKind.definition>
+	& Kind<typeof futureSuccessKind.definition>
 );
 
-export interface EitherFutureSuccess<
+export interface FutureSuccess<
 	GenericValue extends unknown = unknown,
-> extends _EitherFutureSuccess<GenericValue> {
+> extends _FutureSuccess<GenericValue> {
 
 }
+
+/**
+ * @deprecated use FutureSuccess
+ */
+export type EitherFutureSuccess<
+	GenericValue extends unknown = unknown,
+> = FutureSuccess<GenericValue>;
 
 /**
  * {@include either/futureSuccess/index.md}
@@ -28,9 +40,9 @@ export function futureSuccess<
 	const GenericValue extends unknown,
 >(
 	value: GenericValue,
-): EitherFutureSuccess<GenericValue> {
-	return eitherFutureKind.setTo(
-		eitherFutureSuccessKind.setTo(
+): FutureSuccess<GenericValue> {
+	return futureKind.setTo(
+		futureSuccessKind.setTo(
 			right("future", value),
 		),
 	);

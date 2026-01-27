@@ -85,7 +85,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * ```
      * 
      */
-    map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.EitherRight<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.EitherLeft<"createEntityError", DDataParser.DataParserError>);
+    map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.Right<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.Left<"createEntityError", DDataParser.DataParserError>);
     /**
      * Validates raw properties and throws on error.
      * 
@@ -209,7 +209,7 @@ export interface PropertiesDefinitionParams {
  * });
  * 
  * if (E.isRight(mappedResult)) {
- * 	// mappedResult: E.EitherRight<"createEntity", C.Entity<"User">>
+ * 	// mappedResult: E.Right<"createEntity", C.Entity<"User">>
  * }
  * 
  * ```

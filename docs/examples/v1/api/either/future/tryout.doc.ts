@@ -7,7 +7,7 @@ const maybePromise = E.future(
 await maybePromise.then((value) => {
 	type check = ExpectType<
 		typeof value,
-		E.EitherFutureSuccess<number> | E.EitherFutureError,
+		E.FutureSuccess<number> | E.FutureError,
 		"strict"
 	>;
 	return value;

@@ -1,4 +1,4 @@
-Type guard that detects an EitherOptionalEmpty.
+Type guard that detects an OptionalEmpty.
 
 Signature: `isOptionalEmpty(input)` → returns a value
 

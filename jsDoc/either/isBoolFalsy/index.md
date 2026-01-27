@@ -1,4 +1,4 @@
-Type guard that detects an EitherBoolFalsy.
+Type guard that detects an BoolFalsy.
 
 Signature: `isBoolFalsy(input)` → returns a value
 

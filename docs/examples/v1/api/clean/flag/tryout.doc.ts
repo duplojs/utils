@@ -50,8 +50,8 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherLeft<"not-major", undefined>
-	| E.EitherRight<"not-thirsty-anymore", undefined>,
+	E.Left<"not-major", undefined>
+	| E.Right<"not-thirsty-anymore", undefined>,
 	"strict"
 >;
 

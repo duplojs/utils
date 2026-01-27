@@ -1,21 +1,33 @@
 import { type Kind } from "@scripts/common/kind";
 import { createEitherKind } from "../kind";
-import { right, type EitherRight } from "./create";
+import { right, type Right } from "./create";
 
-export const eitherSuccessKind = createEitherKind("success");
+export const successKind = createEitherKind("success");
 
-type _EitherSuccess<
+/**
+ * @deprecated use successKind
+ */
+export const eitherSuccessKind = successKind;
+
+type _Success<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherRight<"success", GenericValue>
-	& Kind<typeof eitherSuccessKind.definition>
+	& Right<"success", GenericValue>
+	& Kind<typeof successKind.definition>
 );
 
-export interface EitherSuccess<
+export interface Success<
 	GenericValue extends unknown = unknown,
-> extends _EitherSuccess<GenericValue> {
+> extends _Success<GenericValue> {
 
 }
+
+/**
+ * @deprecated use Success
+ */
+export type EitherSuccess<
+	GenericValue extends unknown = unknown,
+> = Success<GenericValue>;
 
 /**
  * {@include either/success/index.md}
@@ -24,8 +36,8 @@ export function success<
 	const GenericValue extends unknown,
 >(
 	value: GenericValue,
-): EitherSuccess<GenericValue> {
-	return eitherSuccessKind.setTo(
+): Success<GenericValue> {
+	return successKind.setTo(
 		right("success", value),
 	);
 }

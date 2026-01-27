@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsNullishFilled(S.toUpperCase),
 );
 
-// type: E.EitherNullishEmpty<null> | "VALUE"
+// type: E.NullishEmpty<null> | "VALUE"

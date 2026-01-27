@@ -10,4 +10,4 @@ const result = pipe(
 	),
 );
 
-// type: string | E.EitherBoolTruthy<`${string}@${string}`>
+// type: string | E.BoolTruthy<`${string}@${string}`>

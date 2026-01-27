@@ -3,7 +3,7 @@ import { C, E } from "@scripts";
 const result = C.Positive.create(4);
 
 if (E.isRight(result)) {
-	// result: E.EitherRight<"createConstrainedType", C.ConstrainedType<"positive", 4>>
+	// result: E.Right<"createConstrainedType", C.ConstrainedType<"positive", 4>>
 }
 
 const value = C.Positive.createOrThrow(10);

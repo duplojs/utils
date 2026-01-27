@@ -1,4 +1,4 @@
-Builds an EitherLeft<"optional"> containing undefined.
+Builds an Left<"optional"> containing undefined.
 
 Signature: `optionalEmpty()` → returns a value
 

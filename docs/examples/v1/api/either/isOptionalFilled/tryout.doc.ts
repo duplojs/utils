@@ -5,7 +5,7 @@ const maybeValue = E.optional(true ? "value" : undefined);
 if (E.isOptionalFilled(maybeValue)) {
 	type check = ExpectType<
 		typeof maybeValue,
-		E.EitherOptionalFilled<"value">,
+		E.OptionalFilled<"value">,
 		"strict"
 	>;
 }

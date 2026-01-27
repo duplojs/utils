@@ -1,21 +1,33 @@
 import { type Kind } from "@scripts/common/kind";
 import { createEitherKind } from "../kind";
-import { left, type EitherLeft } from "./create";
+import { left, type Left } from "./create";
 
-export const eitherErrorKind = createEitherKind("error");
+export const errorKind = createEitherKind("error");
 
-type _EitherError<
+/**
+ * @deprecated use errorKind
+ */
+export const eitherErrorKind = errorKind;
+
+type _Error<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherLeft<"error", GenericValue>
-	& Kind<typeof eitherErrorKind.definition>
+	& Left<"error", GenericValue>
+	& Kind<typeof errorKind.definition>
 );
 
-export interface EitherError<
+export interface Error<
 	GenericValue extends unknown = unknown,
-> extends _EitherError<GenericValue> {
+> extends _Error<GenericValue> {
 
 }
+
+/**
+ * @deprecated use Error
+ */
+export type EitherError<
+	GenericValue extends unknown = unknown,
+> = Error<GenericValue>;
 
 /**
  * {@include either/error/index.md}
@@ -24,8 +36,8 @@ export function error<
 	const GenericValue extends unknown,
 >(
 	value: GenericValue,
-): EitherError<GenericValue> {
-	return eitherErrorKind.setTo(
+): Error<GenericValue> {
+	return errorKind.setTo(
 		left("error", value),
 	);
 }

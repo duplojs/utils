@@ -3,7 +3,7 @@ import { DPE, E } from "@scripts";
 const parser = DPE.empty();
 const result = parser.parse(undefined);
 if (E.isRight(result)) {
-	// E.EitherSuccess<undefined>
+	// E.Success<undefined>
 }
 
 const coerceParser = DPE.coerce.empty();

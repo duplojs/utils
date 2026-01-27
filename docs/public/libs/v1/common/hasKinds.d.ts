@@ -12,13 +12,13 @@ import { type AnyTuple, type UnionToIntersection } from "./types";
  * Predicate overloads (type guards) narrow the output type.
  * 
  * ```ts
- * const input = E.ok() as E.EitherOk | E.EitherError;
+ * const input = E.ok() as E.Ok | E.Error;
  * 
  * if (hasKinds(input, [
  * 	E.eitherOkKind,
  * 	E.eitherRightKind,
  * ])) {
- * 	// type: E.EitherOk
+ * 	// type: E.Ok
  * }
  * 
  * const result = pipe(
@@ -31,7 +31,7 @@ import { type AnyTuple, type UnionToIntersection } from "./types";
  * 		() => "ok",
  * 	),
  * );
- * // result: "ok" | E.EitherError<unknown>
+ * // result: "ok" | E.Error<unknown>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/hasKinds

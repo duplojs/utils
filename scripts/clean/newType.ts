@@ -65,7 +65,7 @@ export interface NewTypeHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createNewType",
 			NewType<
 				GenericName,
@@ -73,7 +73,7 @@ export interface NewTypeHandler<
 				GenericConstrainHandler[number]["name"]
 			>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createNewTypeError",
 			DDataParser.DataParserError
 		>
@@ -84,7 +84,7 @@ export interface NewTypeHandler<
 	>(
 		data: GenericPrimitive
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createNewType",
 			(
 				& GenericPrimitive
@@ -95,7 +95,7 @@ export interface NewTypeHandler<
 				>
 			)
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createNewTypeError",
 			DDataParser.DataParserError
 		>
@@ -135,7 +135,7 @@ export interface NewTypeHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createNewType",
 			NewType<
 				GenericName,
@@ -143,7 +143,7 @@ export interface NewTypeHandler<
 				GenericConstrainHandler[number]["name"]
 			>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createNewTypeError",
 			DDataParser.DataParserError
 		>

@@ -31,8 +31,8 @@ function whenIsBoolFalsy<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolFalsy>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolFalsy>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, BoolFalsy>;
 ```
 
 ### Curried signature
@@ -42,8 +42,8 @@ function whenIsBoolFalsy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolFalsy>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolFalsy>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, BoolFalsy>;
 ```
 
 ## Parameters

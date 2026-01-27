@@ -1,5 +1,5 @@
-import { type EitherNullableEmpty } from "./empty";
-import { type EitherNullableFilled } from "./filled";
+import { type NullableEmpty } from "./empty";
+import { type NullableFilled } from "./filled";
 /**
  * Wraps a null or non-null value in an Either, while keeping the information on whether it is filled or empty.
  * 
@@ -10,7 +10,7 @@ import { type EitherNullableFilled } from "./filled";
  * ```ts
  * const result = E.nullable(true ? "value" : null);
  * 
- * // type: E.EitherNullableEmpty | E.EitherNullableFilled<"value">
+ * // type: E.NullableEmpty | E.NullableFilled<"value">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/nullable
@@ -18,5 +18,5 @@ import { type EitherNullableFilled } from "./filled";
  * @namespace E
  * 
  */
-export declare function nullable<const GenericValue extends unknown = null>(value: GenericValue): GenericValue extends null ? EitherNullableEmpty : EitherNullableFilled<GenericValue>;
-export type Nullable<GenericValue extends unknown> = EitherNullableFilled<GenericValue> | EitherNullableEmpty;
+export declare function nullable<const GenericValue extends unknown = null>(value: GenericValue): GenericValue extends null ? NullableEmpty : NullableFilled<GenericValue>;
+export type Nullable<GenericValue extends unknown> = NullableFilled<GenericValue> | NullableEmpty;

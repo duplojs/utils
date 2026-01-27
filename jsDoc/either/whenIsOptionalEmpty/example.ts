@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsOptionalEmpty(() => "empty"),
 );
 
-// type: E.EitherOptionalFilled<"value"> | "empty"
+// type: E.OptionalFilled<"value"> | "empty"

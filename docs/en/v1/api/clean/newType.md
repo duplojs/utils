@@ -55,7 +55,7 @@ A `NewTypeHandler` exposes the same creation/validation methods as other Clean h
 ```typescript
 function create(
 	value: RawType | Primitive<RawType>
-): EitherRight<NewType<NewTypeName, RawType, ConstraintName>> | EitherLeft<DP.DataParserError>
+): Right<NewType<NewTypeName, RawType, ConstraintName>> | Left<DP.DataParserError>
 ```
 
 #### `createOrThrow()`
@@ -73,7 +73,7 @@ Throws `C.CreateNewTypeError` if validation fails.
 ```typescript
 function createWithUnknown(
 	value: unknown
-): EitherRight<NewType<NewTypeName, RawType, ConstraintName>> | EitherLeft<DP.DataParserError>
+): Right<NewType<NewTypeName, RawType, ConstraintName>> | Left<DP.DataParserError>
 ```
 
 #### `createWithUnknownOrThrow()`

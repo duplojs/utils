@@ -1,12 +1,20 @@
 import { type Kind } from "../../common/kind";
 import { type WrappedValue } from "../../common/wrapValue";
-import { eitherInformationKind } from "../kind";
+import { informationKind } from "../kind";
+export declare const leftKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/left", unknown>>;
+/**
+ * @deprecated use leftKind
+ */
 export declare const eitherLeftKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/left", unknown>>;
-type _EitherLeft<GenericInformation extends string = string, GenericValue extends unknown = unknown> = (Kind<typeof eitherLeftKind.definition> & Kind<typeof eitherInformationKind.definition, GenericInformation> & WrappedValue<GenericValue>);
-export interface EitherLeft<GenericInformation extends string = string, GenericValue extends unknown = unknown> extends _EitherLeft<GenericInformation, GenericValue> {
+type _Left<GenericInformation extends string = string, GenericValue extends unknown = unknown> = (Kind<typeof leftKind.definition> & Kind<typeof informationKind.definition, GenericInformation> & WrappedValue<GenericValue>);
+export interface Left<GenericInformation extends string = string, GenericValue extends unknown = unknown> extends _Left<GenericInformation, GenericValue> {
 }
 /**
- * Builds an EitherLeft by associating mandatory business information (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure.
+ * @deprecated use Left
+ */
+export type EitherLeft<GenericInformation extends string = string, GenericValue extends unknown = unknown> = Left<GenericInformation, GenericValue>;
+/**
+ * Builds an Left by associating mandatory business information (literal string) with a value representing the error. This is the fundamental brick to signal a contextualized failure.
  * 
  * Signature: `left(information, value)` → returns a value
  * 
@@ -26,7 +34,7 @@ export interface EitherLeft<GenericInformation extends string = string, GenericV
  * 	),
  * );
  * 
- * // type: E.EitherRight<"number.positive", number> | E.EitherLeft<"number.notPositive", number>
+ * // type: E.Right<"number.positive", number> | E.Left<"number.notPositive", number>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/left
@@ -34,5 +42,5 @@ export interface EitherLeft<GenericInformation extends string = string, GenericV
  * @namespace E
  * 
  */
-export declare function left<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value?: GenericValue): EitherLeft<GenericInformation, GenericValue>;
+export declare function left<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value?: GenericValue): Left<GenericInformation, GenericValue>;
 export {};

@@ -12,7 +12,7 @@ const result = schema.parse({
 
 type check = ExpectType<
 	typeof result,
-	E.EitherError<DP.DataParserError> | E.EitherSuccess<{
+	E.Error<DP.DataParserError> | E.Success<{
 		name: string;
 		age: number;
 	}>,

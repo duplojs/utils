@@ -1,57 +1,79 @@
 import type { Kind, EscapeVoid } from "@scripts/common";
 import { createEitherKind } from "./kind";
-import { type EitherLeft, isLeft, left } from "./left";
-import { isRight, right, type EitherRight } from "./right";
+import { type Left, isLeft, left } from "./left";
+import { isRight, right, type Right } from "./right";
 
-export const eitherCallbackErrorKind = createEitherKind(
+export const callbackErrorKind = createEitherKind(
 	"callback-error",
 );
 
-export const eitherCallbackSuccessKind = createEitherKind(
+/**
+ * @deprecated use callbackErrorKind
+ */
+export const eitherCallbackErrorKind = callbackErrorKind;
+
+export const callbackSuccessKind = createEitherKind(
 	"callback-success",
 );
 
-type _EitherCallbackError = (
-	& EitherLeft<"callback", unknown>
-	& Kind<typeof eitherCallbackErrorKind.definition>
+/**
+ * @deprecated use callbackSuccessKind
+ */
+export const eitherCallbackSuccessKind = callbackSuccessKind;
+
+type _CallbackError = (
+	& Left<"callback", unknown>
+	& Kind<typeof callbackErrorKind.definition>
 );
 
-type _EitherCallbackSuccess<
+type _CallbackSuccess<
 	GenericValue extends unknown,
 > = (
-	& EitherRight<"callback", GenericValue>
-	& Kind<typeof eitherCallbackSuccessKind.definition>
+	& Right<"callback", GenericValue>
+	& Kind<typeof callbackSuccessKind.definition>
 );
 
-export interface EitherCallbackError extends _EitherCallbackError {}
+export interface CallbackError extends _CallbackError {}
 
-export interface EitherCallbackSuccess<
+export interface CallbackSuccess<
 	GenericValue extends unknown,
-> extends _EitherCallbackSuccess<GenericValue> {}
+> extends _CallbackSuccess<GenericValue> {}
 
-export function callbackError(value: unknown): EitherCallbackError {
-	return eitherCallbackErrorKind.setTo(
+/**
+ * @deprecated use CallbackError
+ */
+export type EitherCallbackError = CallbackError;
+
+/**
+ * @deprecated use CallbackSuccess
+ */
+export type EitherCallbackSuccess<
+	GenericValue extends unknown,
+> = CallbackSuccess<GenericValue>;
+
+export function callbackError(value: unknown): CallbackError {
+	return callbackErrorKind.setTo(
 		left("callback", value),
 	);
 }
 
 export function callbackSuccess<
 	GenericValue extends unknown,
->(value: GenericValue): EitherCallbackSuccess<GenericValue> {
-	return eitherCallbackSuccessKind.setTo(
+>(value: GenericValue): CallbackSuccess<GenericValue> {
+	return callbackSuccessKind.setTo(
 		right("callback", value),
 	);
 }
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 type ComputeSafeCallbackResult<
 	GenericOutput extends unknown,
 > = GenericOutput extends Either
 	? GenericOutput
 	: GenericOutput extends EscapeVoid
-		? EitherCallbackSuccess<undefined>
-		: EitherCallbackSuccess<GenericOutput>;
+		? CallbackSuccess<undefined>
+		: CallbackSuccess<GenericOutput>;
 
 /**
  * {@include either/safeCallback/index.md}
@@ -60,7 +82,7 @@ export function safeCallback<
 	GenericOutput extends unknown,
 >(
 	theFunction: () => GenericOutput,
-): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError {
+): ComputeSafeCallbackResult<GenericOutput> | CallbackError {
 	try {
 		const result = theFunction();
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Converts any value into a boolean monad (EitherBoolTruthy or EitherBoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers."
+description: "Converts any value into a boolean monad (BoolTruthy or BoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers."
 prev:
   text: "safeCallback"
   link: "/en/v1/api/either/safeCallback"
@@ -11,7 +11,7 @@ next:
 
 # bool
 
-Converts any value into a boolean monad (`EitherBoolTruthy` or `EitherBoolFalsy`). Handy to keep track of the test while benefiting from the `whenIsBoolTruthy/whenIsBoolFalsy` helpers.
+Converts any value into a boolean monad (`BoolTruthy` or `BoolFalsy`). Handy to keep track of the test while benefiting from the `whenIsBoolTruthy/whenIsBoolFalsy` helpers.
 
 ## Interactive example
 
@@ -29,8 +29,8 @@ function bool<
 >(
   input: GenericInput
 ): GenericInput extends BoolFalsyValue
-  ? EitherBoolFalsy<GenericInput>
-  : EitherBoolTruthy<GenericInput> | EitherBoolFalsy<BoolFalsyValue>;
+  ? BoolFalsy<GenericInput>
+  : BoolTruthy<GenericInput> | BoolFalsy<BoolFalsyValue>;
 ```
 
 ## Parameters

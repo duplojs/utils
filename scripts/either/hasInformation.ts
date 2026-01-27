@@ -1,9 +1,9 @@
 import { type Kind } from "@scripts/common";
-import { type EitherLeft } from "./left";
-import { type EitherRight } from "./right";
-import { eitherInformationKind } from "./kind";
+import { type Left } from "./left";
+import { type Right } from "./right";
+import { informationKind } from "./kind";
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 /**
  * {@include either/hasInformation/index.md}
@@ -12,21 +12,21 @@ export function hasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
+			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
 >(
 	information: GenericInformation,
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
-	Kind<typeof eitherInformationKind.definition, GenericInformation>
+	Kind<typeof informationKind.definition, GenericInformation>
 >;
 
 export function hasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
+			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
 >(
@@ -34,7 +34,7 @@ export function hasInformation<
 	information: GenericInformation,
 ): input is Extract<
 	GenericInput,
-	Kind<typeof eitherInformationKind.definition, GenericInformation>
+	Kind<typeof informationKind.definition, GenericInformation>
 >;
 
 export function hasInformation(
@@ -48,6 +48,6 @@ export function hasInformation(
 
 	const [input, information] = args;
 
-	return eitherInformationKind.has(input)
-		&& eitherInformationKind.getValue(input) === information;
+	return informationKind.has(input)
+		&& informationKind.getValue(input) === information;
 }

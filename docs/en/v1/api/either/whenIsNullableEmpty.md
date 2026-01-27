@@ -31,8 +31,8 @@ function whenIsNullableEmpty<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherNullableEmpty>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, NullableEmpty>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, NullableEmpty>;
 ```
 
 ### Curried signature
@@ -42,8 +42,8 @@ function whenIsNullableEmpty<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherNullableEmpty>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, NullableEmpty>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, NullableEmpty>;
 ```
 
 ## Parameters

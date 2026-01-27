@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds an EitherRight by associating mandatory business information (literal string) and an optional payload. This is the basic brick to signal a contextualized success."
+description: "Builds an Right by associating mandatory business information (literal string) and an optional payload. This is the basic brick to signal a contextualized success."
 prev:
   text: "Either"
   link: "/en/v1/api/either/"
@@ -11,7 +11,7 @@ next:
 
 # right
 
-Builds an `EitherRight` by associating **mandatory business information** (literal string) and an optional payload. This is the basic brick to signal a contextualized success.
+Builds an `Right` by associating **mandatory business information** (literal string) and an optional payload. This is the basic brick to signal a contextualized success.
 
 ## Interactive example
 
@@ -30,7 +30,7 @@ function right<
 >(
   information: GenericInformation,
   value?: GenericInput
-): EitherRight<GenericInformation, GenericInput>
+): Right<GenericInformation, GenericInput>
 ```
 
 ## Parameters
@@ -40,7 +40,7 @@ function right<
 
 ## Return value
 
-An `EitherRight<Information, Value>` that can be discriminated with `E.isRight`, `E.hasInformation`, or `E.whenHasInformation`.
+An `Right<Information, Value>` that can be discriminated with `E.isRight`, `E.hasInformation`, or `E.whenHasInformation`.
 
 ## Best practices
 

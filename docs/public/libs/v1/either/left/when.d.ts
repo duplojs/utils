@@ -1,7 +1,7 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
-import { type EitherLeft } from "./create";
+import { type Left } from "./create";
 /**
- * Executes a function only when the input is an EitherLeft. Otherwise, the original value is returned as-is.
+ * Executes a function only when the input is an Left. Otherwise, the original value is returned as-is.
  * 
  * **Supported call styles:**
  * - Classic: `whenIsLeft(input, theFunction)` → returns a value
@@ -26,5 +26,5 @@ import { type EitherLeft } from "./create";
  * @namespace E
  * 
  */
-export declare function whenIsLeft<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<BreakGenericLink<GenericInput>, EitherLeft>>) => GenericOutput): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, EitherLeft> | GenericOutput;
-export declare function whenIsLeft<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<BreakGenericLink<GenericInput>, EitherLeft>>) => GenericOutput): Exclude<GenericInput, EitherLeft> | GenericOutput;
+export declare function whenIsLeft<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<BreakGenericLink<GenericInput>, Left>>) => GenericOutput): (input: GenericInput) => Exclude<BreakGenericLink<GenericInput>, Left> | GenericOutput;
+export declare function whenIsLeft<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<BreakGenericLink<GenericInput>, Left>>) => GenericOutput): Exclude<GenericInput, Left> | GenericOutput;

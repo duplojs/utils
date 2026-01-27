@@ -12,13 +12,13 @@ import { type AnyTuple } from "./types";
  * Predicate overloads (type guards) narrow the output type.
  * 
  * ```ts
- * const input = E.ok() as E.EitherOk | E.EitherError;
+ * const input = E.ok() as E.Ok | E.Error;
  * 
  * if (hasSomeKinds(input, [
  * 	E.eitherOkKind,
  * 	E.eitherErrorKind,
  * ])) {
- * 	// type: E.EitherOk | E.EitherError
+ * 	// type: E.Ok | E.Error
  * }
  * 
  * const result = pipe(
@@ -31,7 +31,7 @@ import { type AnyTuple } from "./types";
  * 		() => "known",
  * 	),
  * );
- * // result: "known" | E.EitherError<unknown>
+ * // result: "known" | E.Error<unknown>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/common/hasSomeKinds

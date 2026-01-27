@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Runs a callback in a safe block. If the callback throws, the function returns a \"callback\" typed EitherLeft instead of propagating the exception."
+description: "Runs a callback in a safe block. If the callback throws, the function returns a \"callback\" typed Left instead of propagating the exception."
 prev:
   text: "whenHasInformation"
   link: "/en/v1/api/either/whenHasInformation"
@@ -11,7 +11,7 @@ next:
 
 # safeCallback
 
-Runs a callback in a safe block. If the callback throws, the function returns a `"callback"` typed `EitherLeft` instead of propagating the exception. If the callback returns an `Either`, it is kept as-is.
+Runs a callback in a safe block. If the callback throws, the function returns a `"callback"` typed `Left` instead of propagating the exception. If the callback returns an `Either`, it is kept as-is.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function safeCallback<
 	GenericOutput extends unknown
 >(
 	theFunction: () => GenericOutput
-): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError;
+): ComputeSafeCallbackResult<GenericOutput> | CallbackError;
 ```
 
 ## Parameters
@@ -37,9 +37,9 @@ function safeCallback<
 
 ## Return value
 
-- If the callback returns an `EitherLeft` or `EitherRight`: the `Either` is returned as-is.
-- If the callback succeeds with a non-`Either` value: the value is wrapped in `EitherCallbackSuccess`.
-- If the callback throws: `EitherCallbackError` (alias of `left("callback", error)`).
+- If the callback returns an `Left` or `Right`: the `Either` is returned as-is.
+- If the callback succeeds with a non-`Either` value: the value is wrapped in `CallbackSuccess`.
+- If the callback throws: `CallbackError` (alias of `left("callback", error)`).
 
 ## See also
 

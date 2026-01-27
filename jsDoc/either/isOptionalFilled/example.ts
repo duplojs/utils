@@ -3,5 +3,5 @@ import { E } from "@scripts";
 const maybeValue = E.optional(true ? "value" : undefined);
 
 if (E.isOptionalFilled(maybeValue)) {
-	// type: E.EitherOptionalFilled<"value">
+	// type: E.OptionalFilled<"value">
 }

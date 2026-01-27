@@ -1,11 +1,19 @@
 import { type Kind } from "../../common/kind";
-import { type EitherRight } from "./create";
+import { type Right } from "./create";
+export declare const successKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/success", unknown>>;
+/**
+ * @deprecated use successKind
+ */
 export declare const eitherSuccessKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/success", unknown>>;
-type _EitherSuccess<GenericValue extends unknown = unknown> = (EitherRight<"success", GenericValue> & Kind<typeof eitherSuccessKind.definition>);
-export interface EitherSuccess<GenericValue extends unknown = unknown> extends _EitherSuccess<GenericValue> {
+type _Success<GenericValue extends unknown = unknown> = (Right<"success", GenericValue> & Kind<typeof successKind.definition>);
+export interface Success<GenericValue extends unknown = unknown> extends _Success<GenericValue> {
 }
 /**
- * Readable shortcut to create an EitherRight with the literal info "success". Ideal for functions that return only one type of success.
+ * @deprecated use Success
+ */
+export type EitherSuccess<GenericValue extends unknown = unknown> = Success<GenericValue>;
+/**
+ * Readable shortcut to create an Right with the literal info "success". Ideal for functions that return only one type of success.
  * 
  * Signature: `success(value)` → returns a value
  * 
@@ -24,7 +32,7 @@ export interface EitherSuccess<GenericValue extends unknown = unknown> extends _
  * 	),
  * );
  * 
- * // type: E.EitherError<string> | E.EitherSuccess<string>
+ * // type: E.Error<string> | E.Success<string>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/success
@@ -32,5 +40,5 @@ export interface EitherSuccess<GenericValue extends unknown = unknown> extends _
  * @namespace E
  * 
  */
-export declare function success<const GenericValue extends unknown>(value: GenericValue): EitherSuccess<GenericValue>;
+export declare function success<const GenericValue extends unknown>(value: GenericValue): Success<GenericValue>;
 export {};

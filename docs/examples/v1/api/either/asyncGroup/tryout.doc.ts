@@ -12,7 +12,7 @@ const result = await E.asyncGroup({
 
 type check = ExpectType<
 	typeof result,
-	E.EitherFutureError | E.EitherSuccess<{
+	E.FutureError | E.Success<{
 		user: {
 			readonly id: 1;
 		};

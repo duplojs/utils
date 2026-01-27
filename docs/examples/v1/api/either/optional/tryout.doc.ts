@@ -4,6 +4,6 @@ const result = E.optional(true ? "value" : undefined);
 
 type check = ExpectType<
 	typeof result,
-	E.EitherOptionalEmpty | E.EitherOptionalFilled<"value">,
+	E.OptionalEmpty | E.OptionalFilled<"value">,
 	"strict"
 >;

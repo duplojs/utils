@@ -8,7 +8,11 @@ var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
-const eitherNullableEmptyKind = kind.createEitherKind("nullable-empty");
+const nullableEmptyKind = kind.createEitherKind("nullable-empty");
+/**
+ * @deprecated use nullableEmptyKind
+ */
+const eitherNullableEmptyKind = nullableEmptyKind;
 /**
  * {@include either/isNullableEmpty/index.md}
  */
@@ -19,12 +23,12 @@ const eitherNullableEmptyKind = kind.createEitherKind("nullable-empty");
  * {@include either/whenIsNullableEmpty/index.md}
  */
 function nullableEmpty() {
-    return base.eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(create.left("nullable", null)));
+    return base.nullableKind.setTo(nullableEmptyKind.setTo(create.left("nullable", null)));
 }
 function isNullableEmpty(input) {
     return is.isLeft(input)
-        && base.eitherNullableKind.has(input)
-        && eitherNullableEmptyKind.has(input);
+        && base.nullableKind.has(input)
+        && nullableEmptyKind.has(input);
 }
 function whenIsNullableEmpty(...args) {
     if (args.length === 1) {
@@ -50,4 +54,5 @@ function whenIsNullableEmpty(...args) {
 exports.eitherNullableEmptyKind = eitherNullableEmptyKind;
 exports.isNullableEmpty = isNullableEmpty;
 exports.nullableEmpty = nullableEmpty;
+exports.nullableEmptyKind = nullableEmptyKind;
 exports.whenIsNullableEmpty = whenIsNullableEmpty;

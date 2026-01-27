@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Construit un EitherLeft<\"bool\"> pour une valeur explicitement falsy (0, \"\", null, undefined, false)."
+description: "Construit un Left<\"bool\"> pour une valeur explicitement falsy (0, \"\", null, undefined, false)."
 prev:
   text: "boolTruthy"
   link: "/fr/v1/api/either/boolTruthy"
@@ -11,7 +11,7 @@ next:
 
 # boolFalsy
 
-Construit un `EitherLeft<"bool">` pour une valeur explicitement falsy (`0`, `""`, `null`, `undefined`, `false`).
+Construit un `Left<"bool">` pour une valeur explicitement falsy (`0`, `""`, `null`, `undefined`, `false`).
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function boolFalsy<
 	const GenericInput extends BoolFalsyValue = undefined
 >(
   input?: GenericInput
-): EitherBoolFalsy<GenericInput>;
+): BoolFalsy<GenericInput>;
 ```
 
 ## Paramètres
@@ -37,7 +37,7 @@ function boolFalsy<
 
 ## Valeur de retour
 
-Un `EitherLeft<"bool", GenericInput>` permettant de représenter un faux explicite.
+Un `Left<"bool", GenericInput>` permettant de représenter un faux explicite.
 
 ## Voir aussi
 

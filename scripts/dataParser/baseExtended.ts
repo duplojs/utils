@@ -35,7 +35,7 @@ export interface DataParserExtended<
 	 */
 	parse(
 		data: unknown,
-	): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+	): DEither.Success<GenericOutput> | DEither.Error<DataParserError>;
 
 	/**
 	 * {@include dataParser/extended/base/asyncParse/index.md}
@@ -43,8 +43,8 @@ export interface DataParserExtended<
 	asyncParse(
 		data: unknown,
 	): Promise<
-		| DEither.EitherSuccess<GenericOutput>
-		| DEither.EitherError<DataParserError>
+		| DEither.Success<GenericOutput>
+		| DEither.Error<DataParserError>
 	>;
 
 	/**

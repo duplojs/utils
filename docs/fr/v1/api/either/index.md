@@ -32,7 +32,7 @@ Une explication complète (concept, info obligatoire, pattern matching, pipeline
 ## Constructeurs `Right`
 
 ### [right](/fr/v1/api/either/right)
-Construit un `EitherRight` typé avec une information métier obligatoire (payload optionnel).
+Construit un `Right` typé avec une information métier obligatoire (payload optionnel).
 
 ### [success](/fr/v1/api/either/success)
 Raccourci pour retourner un succès `right("success", value)` de manière expressive.
@@ -43,7 +43,7 @@ Retourne un `Right` sans valeur (`void`) taggé avec l'information littérale `"
 ## Constructeurs `Left`
 
 ### [left](/fr/v1/api/either/left)
-Construit un `EitherLeft` en fournissant l'information métier et éventuellement une valeur.
+Construit un `Left` en fournissant l'information métier et éventuellement une valeur.
 
 ### [error](/fr/v1/api/either/error)
 Raccourci pour signaler une erreur typée `left("error", value)`.
@@ -54,7 +54,7 @@ Retourne un `Left` sans payload taggé `"fail"` pour les cas d'échec génériqu
 ## Contrôles `Right`
 
 ### [isRight](/fr/v1/api/either/isRight)
-Type guard qui vérifie si une valeur est un `EitherRight`.
+Type guard qui vérifie si une valeur est un `Right`.
 
 ### [whenIsRight](/fr/v1/api/either/whenIsRight)
 Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la valeur originale.
@@ -62,7 +62,7 @@ Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la va
 ## Contrôles `Left`
 
 ### [isLeft](/fr/v1/api/either/isLeft)
-Type guard qui détecte un `EitherLeft`.
+Type guard qui détecte un `Left`.
 
 ### [whenIsLeft](/fr/v1/api/either/whenIsLeft)
 Permet d'appliquer une fonction lorsqu'on reçoit un `Left` puis de continuer le flux.
@@ -190,7 +190,7 @@ Callback déclenché lorsqu'un optionnel contient une valeur.
 Convertit une valeur (ou un `Either`) en `Future`, classe dérivée de `Promise` avec support de `Future.all`.
 
 ### [futureSuccess](/fr/v1/api/either/futureSuccess)
-Construit un `EitherRight<"future">` pour signaler explicitement une résolution réussie.
+Construit un `Right<"future">` pour signaler explicitement une résolution réussie.
 
 ### [futureError](/fr/v1/api/either/futureError)
-Construit un `EitherLeft<"future">` pour représenter une erreur asynchrone standardisée.
+Construit un `Left<"future">` pour représenter une erreur asynchrone standardisée.

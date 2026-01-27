@@ -1,4 +1,4 @@
-Converts any value into a boolean monad (EitherBoolTruthy or EitherBoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers.
+Converts any value into a boolean monad (BoolTruthy or BoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers.
 
 Signature: `bool(value)` → returns a value
 

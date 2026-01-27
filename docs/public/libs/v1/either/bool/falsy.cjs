@@ -8,7 +8,11 @@ var is = require('../left/is.cjs');
 var is$1 = require('../right/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
-const eitherBoolFalsyKind = kind.createEitherKind("bool-falsy");
+const boolFalsyKind = kind.createEitherKind("bool-falsy");
+/**
+ * @deprecated use boolFalsyKind
+ */
+const eitherBoolFalsyKind = boolFalsyKind;
 /**
  * {@include either/boolFalsy/index.md}
  */
@@ -19,12 +23,12 @@ const eitherBoolFalsyKind = kind.createEitherKind("bool-falsy");
  * {@include either/whenIsBoolFalsy/index.md}
  */
 function boolFalsy(value = undefined) {
-    return base.eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(create.left("bool", value)));
+    return base.boolKind.setTo(boolFalsyKind.setTo(create.left("bool", value)));
 }
 function isBoolFalsy(input) {
     return is.isLeft(input)
-        && base.eitherBoolKind.has(input)
-        && eitherBoolFalsyKind.has(input);
+        && base.boolKind.has(input)
+        && boolFalsyKind.has(input);
 }
 function whenIsBoolFalsy(...args) {
     if (args.length === 1) {
@@ -48,6 +52,7 @@ function whenIsBoolFalsy(...args) {
 }
 
 exports.boolFalsy = boolFalsy;
+exports.boolFalsyKind = boolFalsyKind;
 exports.eitherBoolFalsyKind = eitherBoolFalsyKind;
 exports.isBoolFalsy = isBoolFalsy;
 exports.whenIsBoolFalsy = whenIsBoolFalsy;

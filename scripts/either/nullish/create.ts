@@ -1,5 +1,5 @@
-import { nullishEmpty, type EitherNullishEmpty, type NullishValue } from "./empty";
-import { nullishFilled, type EitherNullishFilled } from "./filled";
+import { nullishEmpty, type NullishEmpty, type NullishValue } from "./empty";
+import { nullishFilled, type NullishFilled } from "./filled";
 
 /**
  * {@include either/nullish/index.md}
@@ -7,8 +7,8 @@ import { nullishFilled, type EitherNullishFilled } from "./filled";
 export function nullish<
 	const GenericValue extends unknown = undefined,
 >(value: GenericValue): GenericValue extends NullishValue
-	? EitherNullishEmpty<GenericValue>
-	: EitherNullishFilled<GenericValue>;
+	? NullishEmpty<GenericValue>
+	: NullishFilled<GenericValue>;
 export function nullish(value: unknown) {
 	return value === null || value === undefined
 		? nullishEmpty(value)
@@ -17,4 +17,4 @@ export function nullish(value: unknown) {
 
 export type Nullish<
 	GenericValue extends unknown,
-> = EitherNullishFilled<GenericValue> | EitherNullishEmpty;
+> = NullishFilled<GenericValue> | NullishEmpty;

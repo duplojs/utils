@@ -2,6 +2,11 @@
 
 var kind = require('../kind.cjs');
 
-const eitherOptionalKind = kind.createEitherKind("optional");
+const optionalKind = kind.createEitherKind("optional");
+/**
+ * @deprecated use optionalKind
+ */
+const eitherOptionalKind = optionalKind;
 
 exports.eitherOptionalKind = eitherOptionalKind;
+exports.optionalKind = optionalKind;

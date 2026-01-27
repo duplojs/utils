@@ -1,9 +1,9 @@
 import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
-import { isRight, type EitherRight } from "./right";
-import { isLeft, type EitherLeft } from "./left";
-import { eitherInformationKind } from "./kind";
+import { isRight, type Right } from "./right";
+import { isLeft, type Left } from "./left";
+import { informationKind } from "./kind";
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 /**
  * {@include either/whenHasInformation/index.md}
@@ -12,7 +12,7 @@ export function whenHasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
+			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
 	const GenericOutput extends AnyValue,
@@ -22,7 +22,7 @@ export function whenHasInformation<
 		value: Unwrap<
 			Extract<
 				BreakGenericLink<GenericInput>,
-				& Kind<typeof eitherInformationKind.definition, GenericInformation>
+				& Kind<typeof informationKind.definition, GenericInformation>
 				& WrappedValue
 			>
 		>
@@ -31,13 +31,13 @@ export function whenHasInformation<
 	| GenericOutput
 	| Exclude<
 		BreakGenericLink<GenericInput>,
-		Kind<typeof eitherInformationKind.definition, GenericInformation>
+		Kind<typeof informationKind.definition, GenericInformation>
 	>;
 export function whenHasInformation<
 	const GenericInput extends unknown,
 	GenericInformation extends(
 		GenericInput extends Either
-			? ReturnType<typeof eitherInformationKind.getValue<GenericInput>>
+			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
 	const GenericOutput extends AnyValue,
@@ -48,14 +48,14 @@ export function whenHasInformation<
 		value: Unwrap<
 			Extract<
 				BreakGenericLink<GenericInput>,
-				& Kind<typeof eitherInformationKind.definition, GenericInformation>
+				& Kind<typeof informationKind.definition, GenericInformation>
 				& WrappedValue
 			>
 		>
 	) => GenericOutput,
 ):
 	| GenericOutput
-	| Exclude<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
+	| Exclude<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>;
 export function whenHasInformation(
 	...args: [unknown, string | string[], AnyFunction] | [string | string[], AnyFunction]
 ): any {
@@ -80,7 +80,7 @@ export function whenHasInformation(
 			isLeft(input)
 			|| isRight(input)
 		) && formattedInformation.includes(
-			eitherInformationKind.getValue(input),
+			informationKind.getValue(input),
 		)
 	) {
 		return theFunction(unwrap(input));

@@ -4,6 +4,6 @@ const result = E.nullishFilled("string");
 
 type check = ExpectType<
 	typeof result,
-	E.EitherNullishFilled<"string">,
+	E.NullishFilled<"string">,
 	"strict"
 >;

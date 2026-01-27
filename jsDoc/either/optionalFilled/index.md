@@ -1,4 +1,4 @@
-Builds an EitherRight<"optional"> when the value is defined.
+Builds an Right<"optional"> when the value is defined.
 
 Signature: `optionalFilled(value)` → returns a value
 

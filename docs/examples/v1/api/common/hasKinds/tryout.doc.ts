@@ -1,7 +1,7 @@
 import { hasKinds, type ExpectType, pipe, when, E } from "@duplojs/utils";
 
 const result = pipe(
-	E.ok() as E.EitherOk | E.EitherError | E.EitherSuccess,
+	E.ok() as E.Ok | E.Error | E.Success,
 	when(
 		hasKinds([
 			E.eitherOkKind,
@@ -10,7 +10,7 @@ const result = pipe(
 		(value) => {
 			type check = ExpectType<
 				typeof value,
-				E.EitherOk,
+				E.Ok,
 				"strict"
 			>;
 
@@ -21,6 +21,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	"ok" | E.EitherError<unknown> | E.EitherSuccess<unknown>,
+	"ok" | E.Error<unknown> | E.Success<unknown>,
 	"strict"
 >;

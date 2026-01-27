@@ -1,4 +1,4 @@
-Type guard that checks whether a value is an EitherLeft. Ideal to secure an unwrap or trigger an error branch.
+Type guard that checks whether a value is an Left. Ideal to secure an unwrap or trigger an error branch.
 
 Signature: `isLeft(input)` → returns a value
 

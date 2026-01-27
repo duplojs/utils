@@ -8,6 +8,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherBoolFalsy<undefined> | E.EitherBoolTruthy<"nest">,
+	E.BoolFalsy<undefined> | E.BoolTruthy<"nest">,
 	"strict"
 >;

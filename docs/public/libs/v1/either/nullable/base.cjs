@@ -2,6 +2,11 @@
 
 var kind = require('../kind.cjs');
 
-const eitherNullableKind = kind.createEitherKind("nullable");
+const nullableKind = kind.createEitherKind("nullable");
+/**
+ * @deprecated use nullableKind
+ */
+const eitherNullableKind = nullableKind;
 
 exports.eitherNullableKind = eitherNullableKind;
+exports.nullableKind = nullableKind;

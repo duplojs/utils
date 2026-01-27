@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard qui détecte un EitherBoolFalsy."
+description: "Type guard qui détecte un BoolFalsy."
 prev:
   text: "whenIsBoolTruthy"
   link: "/fr/v1/api/either/whenIsBoolTruthy"
@@ -11,7 +11,7 @@ next:
 
 # isBoolFalsy
 
-Type guard qui détecte un `EitherBoolFalsy`.
+Type guard qui détecte un `BoolFalsy`.
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function isBoolFalsy<
 	GenericInput extends unknown>
 (
   input: GenericInput
-): input is Extract<GenericInput, EitherBoolFalsy>;
+): input is Extract<GenericInput, BoolFalsy>;
 ```
 
 ## Paramètres

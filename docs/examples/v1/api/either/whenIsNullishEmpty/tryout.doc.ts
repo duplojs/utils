@@ -7,6 +7,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	"nullish" | E.EitherNullishFilled<"value">,
+	"nullish" | E.NullishFilled<"value">,
 	"strict"
 >;

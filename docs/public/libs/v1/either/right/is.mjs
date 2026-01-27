@@ -1,13 +1,13 @@
-import { eitherInformationKind } from '../kind.mjs';
-import { eitherRightKind } from './create.mjs';
+import { informationKind } from '../kind.mjs';
+import { rightKind } from './create.mjs';
 import { isWrappedValue } from '../../common/wrapValue.mjs';
 
 /**
  * {@include either/isRight/index.md}
  */
 function isRight(input) {
-    return eitherRightKind.has(input)
-        && eitherInformationKind.has(input)
+    return rightKind.has(input)
+        && informationKind.has(input)
         && isWrappedValue(input);
 }
 

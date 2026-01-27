@@ -169,11 +169,11 @@ export interface EntityHandler<
 	map(
 		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createEntity",
 			Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createEntityError",
 			DDataParser.DataParserError
 		>

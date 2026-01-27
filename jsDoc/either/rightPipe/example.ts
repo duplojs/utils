@@ -2,9 +2,9 @@
 import { E } from "@scripts";
 
 const input: (
-	| E.EitherFail
-	| E.EitherNullableEmpty
-	| E.EitherRight<"right", 1>
+	| E.Fail
+	| E.NullableEmpty
+	| E.Right<"right", 1>
 ) = E.right("right", 1);
 
 const result = E.rightPipe(

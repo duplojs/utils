@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Construit un EitherLeft en associant une information métier obligatoire (string littérale) à une valeur représentant l'erreur. C'est la brique fondamentale pour signaler un échec contextualisé."
+description: "Construit un Left en associant une information métier obligatoire (string littérale) à une valeur représentant l'erreur. C'est la brique fondamentale pour signaler un échec contextualisé."
 prev:
   text: "ok"
   link: "/fr/v1/api/either/ok"
@@ -11,7 +11,7 @@ next:
 
 # left
 
-Construit un `EitherLeft` en associant **une information métier obligatoire** (string littérale) à une valeur représentant l'erreur. C'est la brique fondamentale pour signaler un échec contextualisé.
+Construit un `Left` en associant **une information métier obligatoire** (string littérale) à une valeur représentant l'erreur. C'est la brique fondamentale pour signaler un échec contextualisé.
 
 ## Exemple interactif
 
@@ -30,7 +30,7 @@ function left<
 >(
   information: GenericInformation,
   input?: GenericInput
-): EitherLeft<GenericInformation, GenericInput>
+): Left<GenericInformation, GenericInput>
 ```
 
 ## Paramètres
@@ -40,7 +40,7 @@ function left<
 
 ## Valeur de retour
 
-Un `EitherLeft<Information, Value>` que vous pouvez filtrer avec `E.isLeft`, `E.hasInformation` ou `E.whenHasInformation`.
+Un `Left<Information, Value>` que vous pouvez filtrer avec `E.isLeft`, `E.hasInformation` ou `E.whenHasInformation`.
 
 ## Bonnes pratiques
 

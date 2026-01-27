@@ -30,13 +30,13 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * const result = Between1And10.create(5);
      * 
      * if (E.isRight(result)) {
-     * 	// result : E.EitherRight<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
+     * 	// result : E.Right<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
      * }
      * ```
      * 
      */
-    create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.EitherRight<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
-    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.EitherRight<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
+    create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
+    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
     /**
      * Creates a constrained value and throws on error.
      * 
@@ -57,7 +57,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
     /**
      * Creates a constrained value from an unknown input and throws on error.
      * 
@@ -107,7 +107,7 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
  * const result = Between1And10.create(5);
  * 
  * if (E.isRight(result)) {
- * 	// result : E.EitherRight<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
+ * 	// result : E.Right<"createConstrainedType", C.ConstrainedType<"between-1-10", 5>>
  * }
  * 
  * const value = Between1And10.createOrThrow(7);

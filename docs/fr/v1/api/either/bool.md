@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Convertit n'importe quelle valeur en monade booléenne (EitherBoolTruthy ou EitherBoolFalsy). Pratique pour conserver la trace du test tout en bénéficiant des helpers whenIsBoolTruthy/whenIsBoolFalsy."
+description: "Convertit n'importe quelle valeur en monade booléenne (BoolTruthy ou BoolFalsy). Pratique pour conserver la trace du test tout en bénéficiant des helpers whenIsBoolTruthy/whenIsBoolFalsy."
 prev:
   text: "safeCallback"
   link: "/fr/v1/api/either/safeCallback"
@@ -11,7 +11,7 @@ next:
 
 # bool
 
-Convertit n'importe quelle valeur en monade booléenne (`EitherBoolTruthy` ou `EitherBoolFalsy`). Pratique pour conserver la trace du test tout en bénéficiant des helpers `whenIsBoolTruthy/whenIsBoolFalsy`.
+Convertit n'importe quelle valeur en monade booléenne (`BoolTruthy` ou `BoolFalsy`). Pratique pour conserver la trace du test tout en bénéficiant des helpers `whenIsBoolTruthy/whenIsBoolFalsy`.
 
 ## Exemple interactif
 
@@ -29,8 +29,8 @@ function bool<
 >(
   input: GenericInput
 ): GenericInput extends BoolFalsyValue
-  ? EitherBoolFalsy<GenericInput>
-  : EitherBoolTruthy<GenericInput> | EitherBoolFalsy<BoolFalsyValue>;
+  ? BoolFalsy<GenericInput>
+  : BoolTruthy<GenericInput> | BoolFalsy<BoolFalsyValue>;
 ```
 
 ## Paramètres

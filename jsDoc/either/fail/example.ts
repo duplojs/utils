@@ -15,4 +15,4 @@ const result = pipe(
 	),
 );
 
-// type: E.EitherSuccess<number> | E.EitherFail
+// type: E.Success<number> | E.Fail

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Creates a Future resolved with an EitherRight<\"future\">."
+description: "Creates a Future resolved with an Right<\"future\">."
 prev:
   text: "future"
   link: "/en/v1/api/either/future"
@@ -11,7 +11,7 @@ next:
 
 # futureSuccess
 
-Creates a `Future` resolved with an `EitherRight<"future">`.
+Creates a `Future` resolved with an `Right<"future">`.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function futureSuccess<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): Future<EitherFutureSuccess<GenericInput>>;
+): Future<FutureSuccess<GenericInput>>;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function futureSuccess<
 
 ## Return value
 
-A `Future` that resolves immediately with `EitherRight<"future">` containing the value.
+A `Future` that resolves immediately with `Right<"future">` containing the value.
 
 ## See also
 

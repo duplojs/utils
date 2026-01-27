@@ -1,8 +1,8 @@
 import { type Kind } from "../common";
-import { type EitherLeft } from "./left";
-import { type EitherRight } from "./right";
-import { eitherInformationKind } from "./kind";
-type Either = EitherRight | EitherLeft;
+import { type Left } from "./left";
+import { type Right } from "./right";
+import { informationKind } from "./kind";
+type Either = Right | Left;
 /**
  * Type guard based on the literal information stored in the Either. Lets you precisely target a business case without extra introspection.
  * 
@@ -20,10 +20,10 @@ type Either = EitherRight | EitherLeft;
  * 	: E.left("left-3", 3);
  * 
  * if (E.isLeft(result)) {
- * 	// type: E.EitherLeft<"left-2", 2> | E.EitherLeft<"left-3", 3>
+ * 	// type: E.Left<"left-2", 2> | E.Left<"left-3", 3>
  * 
  * 	if (E.hasInformation(result, "left-2")) {
- * 		// type: E.EitherLeft<"left-2", 2>
+ * 		// type: E.Left<"left-2", 2>
  * 	}
  * }
  * ```
@@ -33,6 +33,6 @@ type Either = EitherRight | EitherLeft;
  * @namespace E
  * 
  */
-export declare function hasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof eitherInformationKind.getValue<GenericInput>> : never)>(information: GenericInformation): (input: GenericInput) => input is Extract<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
-export declare function hasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof eitherInformationKind.getValue<GenericInput>> : never)>(input: GenericInput, information: GenericInformation): input is Extract<GenericInput, Kind<typeof eitherInformationKind.definition, GenericInformation>>;
+export declare function hasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never)>(information: GenericInformation): (input: GenericInput) => input is Extract<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>;
+export declare function hasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never)>(input: GenericInput, information: GenericInformation): input is Extract<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>;
 export {};

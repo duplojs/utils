@@ -27,8 +27,8 @@ Transforms a potentially `null`/`undefined` value into an `Either`. Allows propa
 function nullish<const GenericInput extends unknown = undefined>(
   input: GenericInput
 ): GenericInput extends NullishValue
-  ? EitherNullishEmpty<GenericInput>
-  : EitherNullishFilled<GenericInput>;
+  ? NullishEmpty<GenericInput>
+  : NullishFilled<GenericInput>;
 ```
 
 ## Parameters
@@ -37,8 +37,8 @@ function nullish<const GenericInput extends unknown = undefined>(
 
 ## Return value
 
-- `EitherNullishFilled` when the value exists.
-- `EitherNullishEmpty` when the value is `null` or `undefined`.
+- `NullishFilled` when the value exists.
+- `NullishEmpty` when the value is `null` or `undefined`.
 
 ## See also
 

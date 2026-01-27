@@ -6,5 +6,5 @@ const result = E.group({
 	profile: E.left("profile.missing", null),
 });
 
-// type: E.EitherLeft<"profile.missing", null>
-// | E.EitherSuccess<{ user: { readonly id: 1; }; rights: readonly ["read", "write"]; profile: never; }>
+// type: E.Left<"profile.missing", null>
+// | E.Success<{ user: { readonly id: 1; }; rights: readonly ["read", "write"]; profile: never; }>

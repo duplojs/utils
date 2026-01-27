@@ -1,4 +1,4 @@
-Returns an EitherLeft<"fail", never>: perfect to signal a failure without carrying extra data.
+Returns an Left<"fail", never>: perfect to signal a failure without carrying extra data.
 
 Signature: `fail()` → returns a value
 

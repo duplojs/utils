@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Alias pratique pour créer un EitherLeft avec l'information figée à \"error\". Utile pour signaler une erreur générique sans avoir à fournir manuellement l'information."
+description: "Alias pratique pour créer un Left avec l'information figée à \"error\". Utile pour signaler une erreur générique sans avoir à fournir manuellement l'information."
 prev:
   text: "left"
   link: "/fr/v1/api/either/left"
@@ -11,7 +11,7 @@ next:
 
 # error
 
-Alias pratique pour créer un `EitherLeft` avec l'information figée à `"error"`. Utile pour signaler une erreur générique sans avoir à fournir manuellement l'information.
+Alias pratique pour créer un `Left` avec l'information figée à `"error"`. Utile pour signaler une erreur générique sans avoir à fournir manuellement l'information.
 
 ::: tip
 `error` équivaut à `left("error", value)`. Pour comprendre les mécaniques complètes (information personnalisée, pattern matching), référez-vous à la page [`left`](/fr/v1/api/either/left).
@@ -32,7 +32,7 @@ function error<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherError<GenericInput>
+): Error<GenericInput>
 ```
 
 ## Paramètres
@@ -41,7 +41,7 @@ function error<
 
 ## Valeur de retour
 
-Un `EitherLeft<"error", GenericInput>` que vous pouvez consommer avec `E.isLeft`, `E.whenHasInformation` ou `E.hasInformation(result, "error")`.
+Un `Left<"error", GenericInput>` que vous pouvez consommer avec `E.isLeft`, `E.whenHasInformation` ou `E.hasInformation(result, "error")`.
 
 ## Cas d'usage
 

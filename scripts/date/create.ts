@@ -9,7 +9,7 @@ import { is } from "./is";
 import { toNative } from "./toNative";
 import { createTheDate } from "./createTheDate";
 
-export type MayBe = DEither.EitherRight<"date-created", TheDate> | DEither.EitherLeft<"date-created-error", null>;
+export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>;
 
 type SafeDate = `${number}-${MonthWithDay}`;
 

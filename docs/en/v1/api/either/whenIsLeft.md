@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Executes a function only when the input is an EitherLeft. Otherwise, the original value is returned as-is."
+description: "Executes a function only when the input is an Left. Otherwise, the original value is returned as-is."
 prev:
   text: "isLeft"
   link: "/en/v1/api/either/isLeft"
@@ -11,7 +11,7 @@ next:
 
 # whenIsLeft
 
-Executes a function only when the input is an `EitherLeft`. Otherwise, the original value is returned as-is.
+Executes a function only when the input is an `Left`. Otherwise, the original value is returned as-is.
 
 ## Interactive example
 
@@ -31,8 +31,8 @@ function whenIsLeft<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput
-): Exclude<GenericInput, EitherLeft> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutput
+): Exclude<GenericInput, Left> | GenericOutput;
 ```
 
 ### Curried signature
@@ -42,8 +42,8 @@ function whenIsLeft<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherLeft>>) => GenericOutput
-): (input: GenericInput) => Exclude<GenericInput, EitherLeft> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutput
+): (input: GenericInput) => Exclude<GenericInput, Left> | GenericOutput;
 ```
 
 ## Parameters
@@ -59,7 +59,7 @@ function whenIsLeft<
 ## Use cases
 
 - Log or transform an error without touching the `Right`.
-- Convert a `Left` into another type (e.g., `EitherLeft` -> `string`).
+- Convert a `Left` into another type (e.g., `Left` -> `string`).
 - Simplify repetitive `if (E.isLeft(...))` blocks in a functional style.
 
 ## See also

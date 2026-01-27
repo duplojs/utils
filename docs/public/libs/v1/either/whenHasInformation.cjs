@@ -15,7 +15,7 @@ function whenHasInformation(...args) {
         ? information
         : [information];
     if ((is.isLeft(input)
-        || is$1.isRight(input)) && formattedInformation.includes(kind.eitherInformationKind.getValue(input))) {
+        || is$1.isRight(input)) && formattedInformation.includes(kind.informationKind.getValue(input))) {
         return theFunction(unwrap.unwrap(input));
     }
     return input;

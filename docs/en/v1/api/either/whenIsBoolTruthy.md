@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Callback executed only for EitherBoolTruthy values. Otherwise, the initial value is returned."
+description: "Callback executed only for BoolTruthy values. Otherwise, the initial value is returned."
 prev:
   text: "isBoolTruthy"
   link: "/en/v1/api/either/isBoolTruthy"
@@ -11,7 +11,7 @@ next:
 
 # whenIsBoolTruthy
 
-Callback executed only for `EitherBoolTruthy` values. Otherwise, the initial value is returned.
+Callback executed only for `BoolTruthy` values. Otherwise, the initial value is returned.
 
 ## Interactive example
 
@@ -31,8 +31,8 @@ function whenIsBoolTruthy<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolTruthy>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, BoolTruthy>;
 ```
 
 ### Curried signature
@@ -42,8 +42,8 @@ function whenIsBoolTruthy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolTruthy>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, BoolTruthy>;
 ```
 
 ## Parameters
@@ -53,7 +53,7 @@ function whenIsBoolTruthy<
 
 ## Return value
 
-The result of `theFunction` for truthy values, otherwise the original value (`EitherBoolFalsy`).
+The result of `theFunction` for truthy values, otherwise the original value (`BoolFalsy`).
 
 ## See also
 

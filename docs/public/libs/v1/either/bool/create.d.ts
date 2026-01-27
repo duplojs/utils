@@ -1,8 +1,8 @@
 import { type FalsyValue, type IsEqual } from "../../common";
-import { type EitherBoolFalsy } from "./falsy";
-import { type EitherBoolTruthy } from "./truthy";
+import { type BoolFalsy } from "./falsy";
+import { type BoolTruthy } from "./truthy";
 /**
- * Converts any value into a boolean monad (EitherBoolTruthy or EitherBoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers.
+ * Converts any value into a boolean monad (BoolTruthy or BoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers.
  * 
  * Signature: `bool(value)` → returns a value
  * 
@@ -15,7 +15,7 @@ import { type EitherBoolTruthy } from "./truthy";
  * 	E.bool,
  * );
  * 
- * // type: E.EitherBoolFalsy<undefined> | E.EitherBoolTruthy<"nest">
+ * // type: E.BoolFalsy<undefined> | E.BoolTruthy<"nest">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/bool
@@ -23,5 +23,5 @@ import { type EitherBoolTruthy } from "./truthy";
  * @namespace E
  * 
  */
-export declare function bool<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends FalsyValue ? EitherBoolFalsy<GenericValue> : IsEqual<GenericValue, number> extends true ? EitherBoolTruthy<GenericValue> | EitherBoolFalsy<0> : IsEqual<GenericValue, bigint> extends true ? EitherBoolTruthy<GenericValue> | EitherBoolFalsy<0n> : IsEqual<GenericValue, string> extends true ? EitherBoolTruthy<GenericValue> | EitherBoolFalsy<""> : EitherBoolTruthy<GenericValue>;
-export type Bool<GenericValue extends unknown> = EitherBoolTruthy<GenericValue> | EitherBoolFalsy;
+export declare function bool<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends FalsyValue ? BoolFalsy<GenericValue> : IsEqual<GenericValue, number> extends true ? BoolTruthy<GenericValue> | BoolFalsy<0> : IsEqual<GenericValue, bigint> extends true ? BoolTruthy<GenericValue> | BoolFalsy<0n> : IsEqual<GenericValue, string> extends true ? BoolTruthy<GenericValue> | BoolFalsy<""> : BoolTruthy<GenericValue>;
+export type Bool<GenericValue extends unknown> = BoolTruthy<GenericValue> | BoolFalsy;

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Crée un Future résolu avec un EitherLeft<\"future\">, idéal pour propager un rejet standardisé."
+description: "Crée un Future résolu avec un Left<\"future\">, idéal pour propager un rejet standardisé."
 prev:
   text: "futureSuccess"
   link: "/fr/v1/api/either/futureSuccess"
@@ -11,7 +11,7 @@ next:
 
 # futureError
 
-Crée un `Future` résolu avec un `EitherLeft<"future">`, idéal pour propager un rejet standardisé.
+Crée un `Future` résolu avec un `Left<"future">`, idéal pour propager un rejet standardisé.
 
 ## Exemple interactif
 
@@ -24,7 +24,7 @@ Crée un `Future` résolu avec un `EitherLeft<"future">`, idéal pour propager u
 ## Syntaxe
 
 ```typescript
-function futureError(value: unknown): Future<EitherFutureError>;
+function futureError(value: unknown): Future<FutureError>;
 ```
 
 ## Paramètres
@@ -33,7 +33,7 @@ function futureError(value: unknown): Future<EitherFutureError>;
 
 ## Valeur de retour
 
-Une `Future` qui se résout immédiatement avec un `EitherLeft<"future">`.
+Une `Future` qui se résout immédiatement avec un `Left<"future">`.
 
 ## Voir aussi
 

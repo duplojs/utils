@@ -24,4 +24,4 @@ import type { AnyTuple } from "../types";
  * @see https://utils.duplojs.dev/en/v1/api/common/path/resolveFrom
  * 
  */
-export declare function resolveFrom<GenericSegment extends string>(origin: string, segments: AnyTuple<GenericSegment>): DEither.EitherFail | DEither.EitherSuccess<string>;
+export declare function resolveFrom<GenericSegment extends string>(origin: string, segments: AnyTuple<GenericSegment>): DEither.Fail | DEither.Success<string>;

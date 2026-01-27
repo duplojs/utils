@@ -1,4 +1,4 @@
-Creates a Future resolved with an EitherLeft<"future">, ideal for propagating a standardized rejection.
+Creates a Future resolved with an Left<"future">, ideal for propagating a standardized rejection.
 
 Signature: `futureError(value)` → returns a value
 

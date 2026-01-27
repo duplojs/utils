@@ -117,7 +117,7 @@ The info must be explicit and representative. Use clear names like `"emailAlread
 ## `Right` constructors
 
 ### [right](/en/v1/api/either/right)
-Builds a typed `EitherRight` with mandatory business information (optional payload).
+Builds a typed `Right` with mandatory business information (optional payload).
 
 ### [success](/en/v1/api/either/success)
 Shortcut to return a success `right("success", value)` in an expressive way.
@@ -128,7 +128,7 @@ Returns a `Right` without a value (`void`) tagged with the literal information `
 ## `Left` constructors
 
 ### [left](/en/v1/api/either/left)
-Builds an `EitherLeft` by providing business information and optionally a value.
+Builds an `Left` by providing business information and optionally a value.
 
 ### [error](/en/v1/api/either/error)
 Shortcut to signal a typed error `left("error", value)`.
@@ -139,7 +139,7 @@ Returns a `Left` without payload tagged `"fail"` for generic failure cases.
 ## `Right` checks
 
 ### [isRight](/en/v1/api/either/isRight)
-Type guard that checks whether a value is an `EitherRight`.
+Type guard that checks whether a value is an `Right`.
 
 ### [whenIsRight](/en/v1/api/either/whenIsRight)
 Runs a function only when the input is `Right`, otherwise forwards the original value.
@@ -147,7 +147,7 @@ Runs a function only when the input is `Right`, otherwise forwards the original 
 ## `Left` checks
 
 ### [isLeft](/en/v1/api/either/isLeft)
-Type guard that detects an `EitherLeft`.
+Type guard that detects an `Left`.
 
 ### [whenIsLeft](/en/v1/api/either/whenIsLeft)
 Allows applying a function when receiving a `Left` and then continuing the flow.
@@ -275,7 +275,7 @@ Callback triggered when an optional contains a value.
 Converts a value (or an `Either`) into a `Future`, a class derived from `Promise` with `Future.all` support.
 
 ### [futureSuccess](/en/v1/api/either/futureSuccess)
-Builds an `EitherRight<"future">` to explicitly signal a successful resolution.
+Builds an `Right<"future">` to explicitly signal a successful resolution.
 
 ### [futureError](/en/v1/api/either/futureError)
-Builds an `EitherLeft<"future">` to represent a standardized async error.
+Builds an `Left<"future">` to represent a standardized async error.

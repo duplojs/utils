@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsNullableFilled(S.capitalize),
 );
 
-// type: E.EitherNullableEmpty | "Value"
+// type: E.NullableEmpty | "Value"

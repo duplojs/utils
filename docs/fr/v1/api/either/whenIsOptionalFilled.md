@@ -31,8 +31,8 @@ function whenIsOptionalFilled<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherOptionalFilled>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherOptionalFilled>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, OptionalFilled>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, OptionalFilled>;
 ```
 
 ### Signature currifiée
@@ -42,8 +42,8 @@ function whenIsOptionalFilled<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherOptionalFilled>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherOptionalFilled>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, OptionalFilled>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, OptionalFilled>;
 ```
 
 ## Paramètres

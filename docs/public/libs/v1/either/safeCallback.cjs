@@ -6,13 +6,21 @@ var create$1 = require('./right/create.cjs');
 var is = require('./right/is.cjs');
 var is$1 = require('./left/is.cjs');
 
-const eitherCallbackErrorKind = kind.createEitherKind("callback-error");
-const eitherCallbackSuccessKind = kind.createEitherKind("callback-success");
+const callbackErrorKind = kind.createEitherKind("callback-error");
+/**
+ * @deprecated use callbackErrorKind
+ */
+const eitherCallbackErrorKind = callbackErrorKind;
+const callbackSuccessKind = kind.createEitherKind("callback-success");
+/**
+ * @deprecated use callbackSuccessKind
+ */
+const eitherCallbackSuccessKind = callbackSuccessKind;
 function callbackError(value) {
-    return eitherCallbackErrorKind.setTo(create.left("callback", value));
+    return callbackErrorKind.setTo(create.left("callback", value));
 }
 function callbackSuccess(value) {
-    return eitherCallbackSuccessKind.setTo(create$1.right("callback", value));
+    return callbackSuccessKind.setTo(create$1.right("callback", value));
 }
 /**
  * {@include either/safeCallback/index.md}
@@ -31,7 +39,9 @@ function safeCallback(theFunction) {
 }
 
 exports.callbackError = callbackError;
+exports.callbackErrorKind = callbackErrorKind;
 exports.callbackSuccess = callbackSuccess;
+exports.callbackSuccessKind = callbackSuccessKind;
 exports.eitherCallbackErrorKind = eitherCallbackErrorKind;
 exports.eitherCallbackSuccessKind = eitherCallbackSuccessKind;
 exports.safeCallback = safeCallback;

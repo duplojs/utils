@@ -50,7 +50,7 @@ Une contrainte est un *handler* (comme une primitive). Elle expose donc des mét
 ```typescript
 function create(
 	value: RawType | Primitive<RawType>
-): EitherRight<ConstrainedType<ConstraintName, RawType>> | EitherLeft<DP.DataParserError>
+): Right<ConstrainedType<ConstraintName, RawType>> | Left<DP.DataParserError>
 ```
 
 #### `createOrThrow()`
@@ -68,7 +68,7 @@ Lève `C.CreateConstrainedTypeError` en cas d'échec de validation.
 ```typescript
 function createWithUnknown(
 	value: unknown
-): EitherRight<ConstrainedType<ConstraintName, RawType>> | EitherLeft<DP.DataParserError>
+): Right<ConstrainedType<ConstraintName, RawType>> | Left<DP.DataParserError>
 ```
 
 #### `createWithUnknownOrThrow()`

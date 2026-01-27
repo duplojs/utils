@@ -1,28 +1,28 @@
 import { type AnyFunction, type SimplifyTopLevel, type MayBeGetter, when, isType, type Unwrap, whenNot, asyncPipe, type MaybePromise } from "@scripts/common";
-import { type EitherLeft } from "../left";
-import { type EitherRight } from "./create";
+import { type Left } from "../left";
+import { type Right } from "./create";
 import * as DObject from "../../object";
 import * as DGenerator from "../../generator";
 import * as DEither from "..";
 
-type Either = MaybePromise<EitherRight | EitherLeft>;
+type Either = MaybePromise<Right | Left>;
 
 type ComputeResult<
 	GenericGroup extends Record<string, MayBeGetter<Either>>,
 > = Promise<
-	| DEither.EitherSuccess<
+	| DEither.Success<
 		SimplifyTopLevel<{
 			[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 				? Unwrap<
 					Extract<
 						Awaited<ReturnType<GenericGroup[Prop]>>,
-						EitherRight
+						Right
 					>
 				>
 				: Unwrap<
 					Extract<
 						Awaited<GenericGroup[Prop]>,
-						EitherRight
+						Right
 					>
 				>
 		}>
@@ -31,11 +31,11 @@ type ComputeResult<
 		[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
 			? Extract<
 				Awaited<ReturnType<GenericGroup[Prop]>>,
-				EitherLeft
+				Left
 			>
 			: Extract<
 				Awaited<GenericGroup[Prop]>,
-				EitherLeft
+				Left
 			>
 	}[keyof GenericGroup]
 >;

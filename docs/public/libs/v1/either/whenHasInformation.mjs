@@ -1,4 +1,4 @@
-import { eitherInformationKind } from './kind.mjs';
+import { informationKind } from './kind.mjs';
 import { isLeft } from './left/is.mjs';
 import { isRight } from './right/is.mjs';
 import { unwrap } from '../common/unwrap.mjs';
@@ -13,7 +13,7 @@ function whenHasInformation(...args) {
         ? information
         : [information];
     if ((isLeft(input)
-        || isRight(input)) && formattedInformation.includes(eitherInformationKind.getValue(input))) {
+        || isRight(input)) && formattedInformation.includes(informationKind.getValue(input))) {
         return theFunction(unwrap(input));
     }
     return input;

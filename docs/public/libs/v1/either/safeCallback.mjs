@@ -4,13 +4,21 @@ import { right } from './right/create.mjs';
 import { isRight } from './right/is.mjs';
 import { isLeft } from './left/is.mjs';
 
-const eitherCallbackErrorKind = createEitherKind("callback-error");
-const eitherCallbackSuccessKind = createEitherKind("callback-success");
+const callbackErrorKind = createEitherKind("callback-error");
+/**
+ * @deprecated use callbackErrorKind
+ */
+const eitherCallbackErrorKind = callbackErrorKind;
+const callbackSuccessKind = createEitherKind("callback-success");
+/**
+ * @deprecated use callbackSuccessKind
+ */
+const eitherCallbackSuccessKind = callbackSuccessKind;
 function callbackError(value) {
-    return eitherCallbackErrorKind.setTo(left("callback", value));
+    return callbackErrorKind.setTo(left("callback", value));
 }
 function callbackSuccess(value) {
-    return eitherCallbackSuccessKind.setTo(right("callback", value));
+    return callbackSuccessKind.setTo(right("callback", value));
 }
 /**
  * {@include either/safeCallback/index.md}
@@ -28,4 +36,4 @@ function safeCallback(theFunction) {
     }
 }
 
-export { callbackError, callbackSuccess, eitherCallbackErrorKind, eitherCallbackSuccessKind, safeCallback };
+export { callbackError, callbackErrorKind, callbackSuccess, callbackSuccessKind, eitherCallbackErrorKind, eitherCallbackSuccessKind, safeCallback };

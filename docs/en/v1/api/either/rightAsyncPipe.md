@@ -29,12 +29,12 @@ function rightAsyncPipe<
 	GenericOutputPipe1 extends MaybeFutureEither<AnyValue>
 >(
   input: GenericInput,
-  pipe1: EitherRightAsyncPipeFunction<GenericInput, GenericOutputPipe1>
-): Future<EitherRightAsyncPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>>;
+  pipe1: RightAsyncPipeFunction<GenericInput, GenericOutputPipe1>
+): Future<RightAsyncPipeResult<GenericInput | GenericOutputPipe1, GenericOutputPipe1>>;
 // ... overloads up to 15 steps
 ```
 
-`EitherRightAsyncPipeFunction` receives the unwrapped value of a `Right` (after `await`) and can return a raw value, an `Either`, or a promise/Future of these values.
+`RightAsyncPipeFunction` receives the unwrapped value of a `Right` (after `await`) and can return a raw value, an `Either`, or a promise/Future of these values.
 
 ## Parameters
 

@@ -11,4 +11,4 @@ const result = pipe(
 	),
 );
 
-// type: E.EitherOk | E.EitherFail
+// type: E.Ok | E.Fail

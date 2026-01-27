@@ -28,7 +28,7 @@ function isBoolTruthy<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherBoolTruthy>;
+): input is Extract<GenericInput, BoolTruthy>;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ function isBoolTruthy<
 
 ## Return value
 
-`true` if the value is an `EitherBoolTruthy`. Allows refining the type before manipulating the value.
+`true` if the value is an `BoolTruthy`. Allows refining the type before manipulating the value.
 
 ## See also
 

@@ -3,7 +3,7 @@ import { DP, E } from "@scripts";
 const parser = DP.empty();
 const result = parser.parse(undefined);
 if (E.isRight(result)) {
-	// E.EitherSuccess<undefined>
+	// E.Success<undefined>
 }
 
 const withCheckers = DP.empty({

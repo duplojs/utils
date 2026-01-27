@@ -2,7 +2,7 @@ import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate
 import * as DEither from "../either";
 import type * as DString from "../string";
 import { type And, type IsEqual, type Not, type IsExtends } from "../common";
-export type MayBe = DEither.EitherRight<"date-created", TheDate> | DEither.EitherLeft<"date-created-error", null>;
+export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>;
 type SafeDate = `${number}-${MonthWithDay}`;
 declare const SymbolForbiddenDate: unique symbol;
 type ForbiddenDate<GenericDate extends string> = And<[

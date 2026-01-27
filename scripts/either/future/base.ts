@@ -1,6 +1,10 @@
 import { createEitherKind } from "../kind";
 
-export const eitherFutureKind = createEitherKind(
+export const futureKind = createEitherKind(
 	"future",
 );
 
+/**
+ * @deprecated use futureKind
+ */
+export const eitherFutureKind = futureKind;

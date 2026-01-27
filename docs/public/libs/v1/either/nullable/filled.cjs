@@ -8,7 +8,11 @@ var is = require('../right/is.cjs');
 var is$1 = require('../left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 
-const eitherNullableFilledKind = kind.createEitherKind("nullable-filled");
+const nullableFilledKind = kind.createEitherKind("nullable-filled");
+/**
+ * @deprecated use nullableFilledKind
+ */
+const eitherNullableFilledKind = nullableFilledKind;
 /**
  * {@include either/isNullableFilled/index.md}
  */
@@ -19,12 +23,12 @@ const eitherNullableFilledKind = kind.createEitherKind("nullable-filled");
  * {@include either/whenIsNullableFilled/index.md}
  */
 function nullableFilled(value) {
-    return base.eitherNullableKind.setTo(eitherNullableFilledKind.setTo(create.right("nullable", value)));
+    return base.nullableKind.setTo(nullableFilledKind.setTo(create.right("nullable", value)));
 }
 function isNullableFilled(input) {
     return is.isRight(input)
-        && base.eitherNullableKind.has(input)
-        && eitherNullableFilledKind.has(input);
+        && base.nullableKind.has(input)
+        && nullableFilledKind.has(input);
 }
 function whenIsNullableFilled(...args) {
     if (args.length === 1) {
@@ -50,4 +54,5 @@ function whenIsNullableFilled(...args) {
 exports.eitherNullableFilledKind = eitherNullableFilledKind;
 exports.isNullableFilled = isNullableFilled;
 exports.nullableFilled = nullableFilled;
+exports.nullableFilledKind = nullableFilledKind;
 exports.whenIsNullableFilled = whenIsNullableFilled;

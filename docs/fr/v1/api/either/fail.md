@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Retourne un EitherLeft<\"fail\", never> : parfait pour signaler un échec sans transporter de données supplémentaires."
+description: "Retourne un Left<\"fail\", never> : parfait pour signaler un échec sans transporter de données supplémentaires."
 prev:
   text: "error"
   link: "/fr/v1/api/either/error"
@@ -11,7 +11,7 @@ next:
 
 # fail
 
-Retourne un `EitherLeft<"fail", never>` : parfait pour signaler un échec sans transporter de données supplémentaires.
+Retourne un `Left<"fail", never>` : parfait pour signaler un échec sans transporter de données supplémentaires.
 
 ::: tip
 `fail` est l'alias sans payload de `left("fail")`. Pour les détails sur la personnalisation de l'information ou l'ajout d'une valeur, lisez la page [`left`](/fr/v1/api/either/left).
@@ -28,7 +28,7 @@ Retourne un `EitherLeft<"fail", never>` : parfait pour signaler un échec sans t
 ## Syntaxe
 
 ```typescript
-function fail(): EitherFail
+function fail(): Fail
 ```
 
 ## Paramètres

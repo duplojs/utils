@@ -13,4 +13,4 @@ const result = pipe(
 	),
 );
 
-// type: E.EitherRight<"number.positive", number> | E.EitherLeft<"number.notPositive", number>
+// type: E.Right<"number.positive", number> | E.Left<"number.notPositive", number>

@@ -1,4 +1,4 @@
-Applies a function only when the input is an EitherRight. Otherwise, the original value is returned as-is.
+Applies a function only when the input is an Right. Otherwise, the original value is returned as-is.
 
 **Supported call styles:**
 - Classic: `whenIsRight(input, theFunction)` → returns a value

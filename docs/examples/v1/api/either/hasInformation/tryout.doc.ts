@@ -9,14 +9,14 @@ const result = true
 if (E.isLeft(result)) {
 	type check = ExpectType<
 		typeof result,
-		E.EitherLeft<"left-2", 2> | E.EitherLeft<"left-3", 3>,
+		E.Left<"left-2", 2> | E.Left<"left-3", 3>,
 		"strict"
 	>;
 
 	if (E.hasInformation(result, "left-2")) {
 		type check = ExpectType<
 			typeof result,
-			E.EitherLeft<"left-2", 2>,
+			E.Left<"left-2", 2>,
 			"strict"
 		>;
 	}

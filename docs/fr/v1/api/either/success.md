@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Raccourci lisible pour créer un EitherRight avec l'information littérale \"success\". Idéal pour les fonctions qui retournent un seul type de succès."
+description: "Raccourci lisible pour créer un Right avec l'information littérale \"success\". Idéal pour les fonctions qui retournent un seul type de succès."
 prev:
   text: "right"
   link: "/fr/v1/api/either/right"
@@ -11,7 +11,7 @@ next:
 
 # success
 
-Raccourci lisible pour créer un `EitherRight` avec l'information littérale `"success"`. Idéal pour les fonctions qui retournent un seul type de succès.
+Raccourci lisible pour créer un `Right` avec l'information littérale `"success"`. Idéal pour les fonctions qui retournent un seul type de succès.
 
 ::: tip
 `success` est strictement équivalent à `right("success", value)`. Pour les détails génériques (information, typage, exemples plus complets), consultez la page [`right`](/fr/v1/api/either/right).
@@ -32,7 +32,7 @@ function success<
 	const GenericInput extends unknown
 >(
   input: GenericInput
-): EitherSuccess<GenericInput>
+): Success<GenericInput>
 ```
 
 ## Paramètres
@@ -41,7 +41,7 @@ function success<
 
 ## Valeur de retour
 
-Un `EitherRight` dont l'information est figée à `"success"`. Combinez-le avec `E.hasInformation(result, "success")` pour obtenir un type exhaustif.
+Un `Right` dont l'information est figée à `"success"`. Combinez-le avec `E.hasInformation(result, "success")` pour obtenir un type exhaustif.
 
 ## Quand utiliser `success` ?
 

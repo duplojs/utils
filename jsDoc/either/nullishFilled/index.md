@@ -1,4 +1,4 @@
-Builds an EitherRight<"nullish"> with a non-null/non-undefined value.
+Builds an Right<"nullish"> with a non-null/non-undefined value.
 
 Signature: `nullishFilled(value)` → returns a value
 

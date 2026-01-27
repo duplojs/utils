@@ -1,27 +1,37 @@
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
-import { left, type EitherLeft, isLeft } from "../left";
-import { type EitherRight, isRight } from "../right";
+import { left, type Left, isLeft } from "../left";
+import { type Right, isRight } from "../right";
 import { nullable } from "./create";
-import { eitherNullableKind } from "./base";
+import { nullableKind } from "./base";
 import { createEitherKind } from "../kind";
 
-export const eitherNullableEmptyKind = createEitherKind(
+export const nullableEmptyKind = createEitherKind(
 	"nullable-empty",
 );
 
-type _EitherNullableEmpty = (
-	& EitherLeft<"nullable", null>
-	& Kind<typeof eitherNullableKind.definition>
-	& Kind<typeof eitherNullableEmptyKind.definition>
+/**
+ * @deprecated use nullableEmptyKind
+ */
+export const eitherNullableEmptyKind = nullableEmptyKind;
+
+type _NullableEmpty = (
+	& Left<"nullable", null>
+	& Kind<typeof nullableKind.definition>
+	& Kind<typeof nullableEmptyKind.definition>
 );
 
-export interface EitherNullableEmpty extends _EitherNullableEmpty {
+export interface NullableEmpty extends _NullableEmpty {
 
 }
 
-type Either = EitherRight | EitherLeft;
+/**
+ * @deprecated use NullableEmpty
+ */
+export type EitherNullableEmpty = NullableEmpty;
+
+type Either = Right | Left;
 
 /**
  * {@include either/isNullableEmpty/index.md}
@@ -32,9 +42,9 @@ type Either = EitherRight | EitherLeft;
 /**
  * {@include either/whenIsNullableEmpty/index.md}
  */
-export function nullableEmpty(): EitherNullableEmpty {
-	return eitherNullableKind.setTo(
-		eitherNullableEmptyKind.setTo(
+export function nullableEmpty(): NullableEmpty {
+	return nullableKind.setTo(
+		nullableEmptyKind.setTo(
 			left("nullable", null),
 		),
 	);
@@ -44,10 +54,10 @@ export function isNullableEmpty<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherNullableEmpty> {
+): input is Extract<GenericInput, NullableEmpty> {
 	return isLeft(input)
-		&& eitherNullableKind.has(input)
-		&& eitherNullableEmptyKind.has(input);
+		&& nullableKind.has(input)
+		&& nullableEmptyKind.has(input);
 }
 
 type ToEither<
@@ -66,11 +76,11 @@ export function whenIsNullableEmpty<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullableEmpty
+				NullableEmpty
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherNullableEmpty>;
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, NullableEmpty>;
 export function whenIsNullableEmpty<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
@@ -82,11 +92,11 @@ export function whenIsNullableEmpty<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullableEmpty
+				NullableEmpty
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullableEmpty>;
+): GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, NullableEmpty>;
 export function whenIsNullableEmpty(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

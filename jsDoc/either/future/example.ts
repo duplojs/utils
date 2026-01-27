@@ -6,6 +6,6 @@ const maybePromise = E.future(
 );
 
 await maybePromise.then((value) => {
-	// type: E.EitherFutureSuccess<number> | E.EitherFutureError
+	// type: E.FutureSuccess<number> | E.FutureError
 	return value;
 });

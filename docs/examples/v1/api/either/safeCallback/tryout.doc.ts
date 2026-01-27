@@ -1,7 +1,7 @@
 import { E } from "@duplojs/utils";
 
 const success = E.safeCallback(() => 42);
-// E.EitherCallbackError | E.EitherCallbackSuccess<number>
+// E.CallbackError | E.CallbackSuccess<number>
 
 const failure = E.safeCallback(() => {
 	throw new Error("boom");
@@ -13,4 +13,4 @@ const eitherResult = E.safeCallback(
 	() => E.left("example", "already"),
 );
 
-const isEitherLeft = E.isLeft(eitherResult);
+const isLeft = E.isLeft(eitherResult);

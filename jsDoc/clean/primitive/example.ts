@@ -3,7 +3,7 @@ import { C, E } from "@scripts";
 const result = C.String.create("hello");
 
 if (E.isRight(result)) {
-	// result: E.EitherRight<"createNewType", C.Primitive<"hello">>
+	// result: E.Right<"createNewType", C.Primitive<"hello">>
 }
 
 const value = C.Number.createOrThrow(42);
@@ -11,7 +11,7 @@ const value = C.Number.createOrThrow(42);
 
 const unknownValue: unknown = "world";
 const maybe = C.String.createWithUnknown(unknownValue);
-// E.EitherLeft<"createNewTypeError", DataParserError> | E.EitherRight<"createNewType", C.Primitive<string>>
+// E.Left<"createNewTypeError", DataParserError> | E.Right<"createNewType", C.Primitive<string>>
 
 const strictValue = C.String.createWithUnknownOrThrow("ok");
 // C.Primitive<string>

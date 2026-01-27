@@ -10,4 +10,4 @@ const result = pipe(
 	),
 );
 
-// type: string | E.EitherBoolFalsy<"">
+// type: string | E.BoolFalsy<"">

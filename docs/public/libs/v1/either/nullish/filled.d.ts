@@ -1,15 +1,23 @@
-import { type EitherRight } from "../right";
-import { type EitherLeft } from "../left";
+import { type Right } from "../right";
+import { type Left } from "../left";
 import { nullish } from "./create";
 import { type Kind } from "../../common/kind";
 import { type EscapeVoid, type AnyValue, type Unwrap, type BreakGenericLink } from "../../common";
-import { eitherNullishKind } from "./base";
+import { nullishKind } from "./base";
+export declare const nullishFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullish-filled", unknown>>;
+/**
+ * @deprecated use nullishFilledKind
+ */
 export declare const eitherNullishFilledKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsEither/nullish-filled", unknown>>;
-type _EitherNullishFilled<GenericValue extends unknown = unknown> = (EitherRight<"nullish", GenericValue> & Kind<typeof eitherNullishKind.definition> & Kind<typeof eitherNullishFilledKind.definition>);
-export interface EitherNullishFilled<GenericValue extends unknown = unknown> extends _EitherNullishFilled<GenericValue> {
+type _NullishFilled<GenericValue extends unknown = unknown> = (Right<"nullish", GenericValue> & Kind<typeof nullishKind.definition> & Kind<typeof nullishFilledKind.definition>);
+export interface NullishFilled<GenericValue extends unknown = unknown> extends _NullishFilled<GenericValue> {
 }
 /**
- * Type guard that detects an EitherNullishFilled.
+ * @deprecated use NullishFilled
+ */
+export type EitherNullishFilled<GenericValue extends unknown = unknown> = NullishFilled<GenericValue>;
+/**
+ * Type guard that detects an NullishFilled.
  * 
  * Signature: `isNullishFilled(input)` → returns a value
  * 
@@ -19,7 +27,7 @@ export interface EitherNullishFilled<GenericValue extends unknown = unknown> ext
  * const maybeValue = E.nullish(true ? "value" : null);
  * 
  * if (E.isNullishFilled(maybeValue)) {
- * 	// type: E.EitherNullishFilled<"value">
+ * 	// type: E.NullishFilled<"value">
  * }
  * ```
  * 
@@ -29,7 +37,7 @@ export interface EitherNullishFilled<GenericValue extends unknown = unknown> ext
  * 
  */
 /**
- * Builds an EitherRight<"nullish"> with a non-null/non-undefined value.
+ * Builds an Right<"nullish"> with a non-null/non-undefined value.
  * 
  * Signature: `nullishFilled(value)` → returns a value
  * 
@@ -38,7 +46,7 @@ export interface EitherNullishFilled<GenericValue extends unknown = unknown> ext
  * ```ts
  * const result = E.nullishFilled("string");
  * 
- * // type: E.EitherNullishFilled<"string">
+ * // type: E.NullishFilled<"string">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/nullishFilled
@@ -61,7 +69,7 @@ export interface EitherNullishFilled<GenericValue extends unknown = unknown> ext
  * 	E.whenIsNullishFilled(S.toUpperCase),
  * );
  * 
- * // type: E.EitherNullishEmpty<null> | "VALUE"
+ * // type: E.NullishEmpty<null> | "VALUE"
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/whenIsNullishFilled
@@ -69,10 +77,10 @@ export interface EitherNullishFilled<GenericValue extends unknown = unknown> ext
  * @namespace E
  * 
  */
-export declare function nullishFilled<const GenericValue extends unknown>(value: GenericValue): EitherNullishFilled<GenericValue>;
-type Either = EitherRight | EitherLeft;
-export declare function isNullishFilled<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherNullishFilled>;
+export declare function nullishFilled<const GenericValue extends unknown>(value: GenericValue): NullishFilled<GenericValue>;
+type Either = Right | Left;
+export declare function isNullishFilled<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, NullishFilled>;
 type ToEither<GenericValue extends unknown> = GenericValue extends Either ? GenericValue : ReturnType<typeof nullish<GenericValue>>;
-export declare function whenIsNullishFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherNullishFilled>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullishFilled>;
-export declare function whenIsNullishFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, EitherNullishFilled>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishFilled>;
+export declare function whenIsNullishFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, NullishFilled>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, NullishFilled>;
+export declare function whenIsNullishFilled<const GenericInput extends unknown, const GenericOutput extends AnyValue | EscapeVoid>(input: GenericInput, theFunction: (eitherValue: Unwrap<Extract<ToEither<BreakGenericLink<GenericInput>>, NullishFilled>>) => GenericOutput): GenericOutput | Exclude<ToEither<GenericInput>, NullishFilled>;
 export {};

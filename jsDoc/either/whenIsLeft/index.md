@@ -1,4 +1,4 @@
-Executes a function only when the input is an EitherLeft. Otherwise, the original value is returned as-is.
+Executes a function only when the input is an Left. Otherwise, the original value is returned as-is.
 
 **Supported call styles:**
 - Classic: `whenIsLeft(input, theFunction)` → returns a value

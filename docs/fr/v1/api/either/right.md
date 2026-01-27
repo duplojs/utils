@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Construit un EitherRight en associant une information métier obligatoire (string littérale) et un payload optionnel. C'est la brique de base pour signaler un succès contextualisé."
+description: "Construit un Right en associant une information métier obligatoire (string littérale) et un payload optionnel. C'est la brique de base pour signaler un succès contextualisé."
 prev:
   text: "Either"
   link: "/fr/v1/api/either/"
@@ -11,7 +11,7 @@ next:
 
 # right
 
-Construit un `EitherRight` en associant **une information métier obligatoire** (string littérale) et un payload optionnel. C'est la brique de base pour signaler un succès contextualisé.
+Construit un `Right` en associant **une information métier obligatoire** (string littérale) et un payload optionnel. C'est la brique de base pour signaler un succès contextualisé.
 
 ## Exemple interactif
 
@@ -30,7 +30,7 @@ function right<
 >(
   information: GenericInformation,
   value?: GenericInput
-): EitherRight<GenericInformation, GenericInput>
+): Right<GenericInformation, GenericInput>
 ```
 
 ## Paramètres
@@ -40,7 +40,7 @@ function right<
 
 ## Valeur de retour
 
-Un `EitherRight<Information, Value>` qui peut être discriminé avec `E.isRight`, `E.hasInformation` ou `E.whenHasInformation`.
+Un `Right<Information, Value>` qui peut être discriminé avec `E.isRight`, `E.hasInformation` ou `E.whenHasInformation`.
 
 ## Bonnes pratiques
 

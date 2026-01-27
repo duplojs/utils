@@ -1,5 +1,10 @@
 import { createEitherKind } from "../kind";
 
-export const eitherOptionalKind = createEitherKind(
+export const optionalKind = createEitherKind(
 	"optional",
 );
+
+/**
+ * @deprecated use optionalKind
+ */
+export const eitherOptionalKind = optionalKind;

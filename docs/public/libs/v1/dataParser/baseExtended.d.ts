@@ -45,7 +45,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    parse(data: unknown): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+    parse(data: unknown): DEither.Success<GenericOutput> | DEither.Error<DataParserError>;
     /**
      * The asyncParse() method runs an extended data parser asynchronously and resolves to an Either with the parsed value or a DataParserError.
      * 
@@ -57,7 +57,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    asyncParse(data: unknown): Promise<DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>>;
+    asyncParse(data: unknown): Promise<DEither.Success<GenericOutput> | DEither.Error<DataParserError>>;
     /**
      * The parseOrThrow() method runs an extended data parser synchronously and returns the parsed value or throws a DataParserThrowError.
      * 

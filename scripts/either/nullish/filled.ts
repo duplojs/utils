@@ -1,29 +1,41 @@
-import { right, type EitherRight, isRight } from "../right";
-import { type EitherLeft, isLeft } from "../left";
+import { right, type Right, isRight } from "../right";
+import { type Left, isLeft } from "../left";
 import { nullish } from "./create";
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { createEitherKind } from "../kind";
-import { eitherNullishKind } from "./base";
+import { nullishKind } from "./base";
 
-export const eitherNullishFilledKind = createEitherKind(
+export const nullishFilledKind = createEitherKind(
 	"nullish-filled",
 );
 
-type _EitherNullishFilled<
+/**
+ * @deprecated use nullishFilledKind
+ */
+export const eitherNullishFilledKind = nullishFilledKind;
+
+type _NullishFilled<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherRight<"nullish", GenericValue>
-	& Kind<typeof eitherNullishKind.definition>
-	& Kind<typeof eitherNullishFilledKind.definition>
+	& Right<"nullish", GenericValue>
+	& Kind<typeof nullishKind.definition>
+	& Kind<typeof nullishFilledKind.definition>
 );
 
-export interface EitherNullishFilled<
+export interface NullishFilled<
 	GenericValue extends unknown = unknown,
-> extends _EitherNullishFilled<GenericValue> {
+> extends _NullishFilled<GenericValue> {
 
 }
+
+/**
+ * @deprecated use NullishFilled
+ */
+export type EitherNullishFilled<
+	GenericValue extends unknown = unknown,
+> = NullishFilled<GenericValue>;
 
 /**
  * {@include either/isNullishFilled/index.md}
@@ -36,24 +48,24 @@ export interface EitherNullishFilled<
  */
 export function nullishFilled<
 	const GenericValue extends unknown,
->(value: GenericValue): EitherNullishFilled<GenericValue> {
-	return eitherNullishKind.setTo(
-		eitherNullishFilledKind.setTo(
+>(value: GenericValue): NullishFilled<GenericValue> {
+	return nullishKind.setTo(
+		nullishFilledKind.setTo(
 			right("nullish", value),
 		),
 	);
 }
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 export function isNullishFilled<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherNullishFilled> {
+): input is Extract<GenericInput, NullishFilled> {
 	return isRight(input)
-		&& eitherNullishKind.has(input)
-		&& eitherNullishKind.has(input);
+		&& nullishKind.has(input)
+		&& nullishFilledKind.has(input);
 }
 
 type ToEither<
@@ -72,11 +84,11 @@ export function whenIsNullishFilled<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullishFilled
+				NullishFilled
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullishFilled>;
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, NullishFilled>;
 export function whenIsNullishFilled<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
@@ -88,11 +100,11 @@ export function whenIsNullishFilled<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullishFilled
+				NullishFilled
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishFilled>;
+): GenericOutput | Exclude<ToEither<GenericInput>, NullishFilled>;
 export function whenIsNullishFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

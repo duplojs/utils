@@ -1,11 +1,19 @@
 import { type Kind } from "../../common/kind";
-import { type EitherLeft } from "./create";
+import { type Left } from "./create";
+export declare const failKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/fail", unknown>>;
+/**
+ * @deprecated use failKind
+ */
 export declare const eitherFailKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/fail", unknown>>;
-type _EitherFail = (EitherLeft<"fail", never> & Kind<typeof eitherFailKind.definition>);
-export interface EitherFail extends _EitherFail {
+type _Fail = (Left<"fail", never> & Kind<typeof failKind.definition>);
+export interface Fail extends _Fail {
 }
 /**
- * Returns an EitherLeft<"fail", never>: perfect to signal a failure without carrying extra data.
+ * @deprecated use Fail
+ */
+export type EitherFail = Fail;
+/**
+ * Returns an Left<"fail", never>: perfect to signal a failure without carrying extra data.
  * 
  * Signature: `fail()` → returns a value
  * 
@@ -25,7 +33,7 @@ export interface EitherFail extends _EitherFail {
  * 	),
  * );
  * 
- * // type: E.EitherSuccess<number> | E.EitherFail
+ * // type: E.Success<number> | E.Fail
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/fail
@@ -33,5 +41,5 @@ export interface EitherFail extends _EitherFail {
  * @namespace E
  * 
  */
-export declare function fail(): EitherFail;
+export declare function fail(): Fail;
 export {};

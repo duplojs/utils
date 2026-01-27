@@ -1,16 +1,16 @@
-import { type EitherLeft, isLeft } from "../left";
-import { type EitherRight, isRight } from "../right";
-import { futureSuccess, type EitherFutureSuccess } from "./success";
-import { futureError, type EitherFutureError } from "./error";
+import { type Left, isLeft } from "../left";
+import { type Right, isRight } from "../right";
+import { futureSuccess, type FutureSuccess } from "./success";
+import { futureError, type FutureError } from "./error";
 import { type IsEqual } from "@scripts/common/types/isEqual";
 import { type AnyValue } from "@scripts/common";
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 type ComputeEitherFutureSuccessResult<
 	GenericValue extends unknown,
 > = IsEqual<never, Exclude<GenericValue, Either>> extends false
-	? EitherFutureSuccess<Exclude<GenericValue, Either>>
+	? FutureSuccess<Exclude<GenericValue, Either>>
 	: never;
 
 type ComputeEitherFutureErrorResult<
@@ -18,7 +18,7 @@ type ComputeEitherFutureErrorResult<
 > = GenericValue extends Future<any>
 	? GenericValue
 	: GenericValue extends Promise<unknown>
-		? EitherFutureError
+		? FutureError
 		: never;
 
 type ComputeFutureEitherResult<

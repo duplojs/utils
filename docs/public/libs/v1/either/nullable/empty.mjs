@@ -1,12 +1,16 @@
 import { nullable } from './create.mjs';
-import { eitherNullableKind } from './base.mjs';
+import { nullableKind } from './base.mjs';
 import { createEitherKind } from '../kind.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
-const eitherNullableEmptyKind = createEitherKind("nullable-empty");
+const nullableEmptyKind = createEitherKind("nullable-empty");
+/**
+ * @deprecated use nullableEmptyKind
+ */
+const eitherNullableEmptyKind = nullableEmptyKind;
 /**
  * {@include either/isNullableEmpty/index.md}
  */
@@ -17,12 +21,12 @@ const eitherNullableEmptyKind = createEitherKind("nullable-empty");
  * {@include either/whenIsNullableEmpty/index.md}
  */
 function nullableEmpty() {
-    return eitherNullableKind.setTo(eitherNullableEmptyKind.setTo(left("nullable", null)));
+    return nullableKind.setTo(nullableEmptyKind.setTo(left("nullable", null)));
 }
 function isNullableEmpty(input) {
     return isLeft(input)
-        && eitherNullableKind.has(input)
-        && eitherNullableEmptyKind.has(input);
+        && nullableKind.has(input)
+        && nullableEmptyKind.has(input);
 }
 function whenIsNullableEmpty(...args) {
     if (args.length === 1) {
@@ -45,4 +49,4 @@ function whenIsNullableEmpty(...args) {
     return either;
 }
 
-export { eitherNullableEmptyKind, isNullableEmpty, nullableEmpty, whenIsNullableEmpty };
+export { eitherNullableEmptyKind, isNullableEmpty, nullableEmpty, nullableEmptyKind, whenIsNullableEmpty };

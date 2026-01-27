@@ -4,6 +4,6 @@ const future = E.futureError("error");
 
 type check = ExpectType<
 	typeof future,
-	E.EitherFutureError,
+	E.FutureError,
 	"strict"
 >;

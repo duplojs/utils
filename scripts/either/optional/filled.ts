@@ -2,30 +2,42 @@ import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericL
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
-import { eitherOptionalKind } from "./base";
+import { optionalKind } from "./base";
 import { optional } from "./create";
-import { type EitherLeft, isLeft } from "../left";
-import { right, type EitherRight, isRight } from "../right";
+import { type Left, isLeft } from "../left";
+import { right, type Right, isRight } from "../right";
 
-export const eitherOptionalFilledKind = createEitherKind(
+export const optionalFilledKind = createEitherKind(
 	"optional-filled",
 );
 
-type _EitherOptionalFilled<
+/**
+ * @deprecated use optionalFilledKind
+ */
+export const eitherOptionalFilledKind = optionalFilledKind;
+
+type _OptionalFilled<
 	GenericValue extends unknown = unknown,
 > = (
-	& EitherRight<"optional", GenericValue>
-	& Kind<typeof eitherOptionalKind.definition>
-	& Kind<typeof eitherOptionalFilledKind.definition>
+	& Right<"optional", GenericValue>
+	& Kind<typeof optionalKind.definition>
+	& Kind<typeof optionalFilledKind.definition>
 );
 
-export interface EitherOptionalFilled<
+export interface OptionalFilled<
 	GenericValue extends unknown = unknown,
-> extends _EitherOptionalFilled<GenericValue> {
+> extends _OptionalFilled<GenericValue> {
 
 }
 
-type Either = EitherRight | EitherLeft;
+/**
+ * @deprecated use OptionalFilled
+ */
+export type EitherOptionalFilled<
+	GenericValue extends unknown = unknown,
+> = OptionalFilled<GenericValue>;
+
+type Either = Right | Left;
 
 /**
  * {@include either/isOptionalFilled/index.md}
@@ -38,9 +50,9 @@ type Either = EitherRight | EitherLeft;
  */
 export function optionalFilled<
 	const GenericValue extends unknown,
->(value: GenericValue): EitherOptionalFilled<GenericValue> {
-	return eitherOptionalKind.setTo(
-		eitherOptionalFilledKind.setTo(
+>(value: GenericValue): OptionalFilled<GenericValue> {
+	return optionalKind.setTo(
+		optionalFilledKind.setTo(
 			right("optional", value),
 		),
 	);
@@ -50,10 +62,10 @@ export function isOptionalFilled<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherOptionalFilled> {
+): input is Extract<GenericInput, OptionalFilled> {
 	return isRight(input)
-		&& eitherOptionalKind.has(input)
-		&& eitherOptionalFilledKind.has(input);
+		&& optionalKind.has(input)
+		&& optionalFilledKind.has(input);
 }
 
 type ToOptionalEither<
@@ -72,13 +84,13 @@ export function whenIsOptionalFilled<
 				ToOptionalEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherOptionalFilled
+				OptionalFilled
 			>
 		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<
 	ToOptionalEither<BreakGenericLink<GenericInput>>,
-	EitherOptionalFilled
+	OptionalFilled
 >;
 export function whenIsOptionalFilled<
 	const GenericInput extends unknown,
@@ -91,11 +103,11 @@ export function whenIsOptionalFilled<
 				ToOptionalEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherOptionalFilled
+				OptionalFilled
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToOptionalEither<GenericInput>, EitherOptionalFilled>;
+): GenericOutput | Exclude<ToOptionalEither<GenericInput>, OptionalFilled>;
 export function whenIsOptionalFilled(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

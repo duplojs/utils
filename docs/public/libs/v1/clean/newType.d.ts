@@ -34,8 +34,8 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * ```
      * 
      */
-    create<const GenericData extends GenericValue>(data: GenericData): (DEither.EitherRight<"createNewType", NewType<GenericName, GenericData, GenericConstrainHandler[number]["name"]>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
-    create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.EitherRight<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstrainHandler[number]["name"]>)> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    create<const GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createNewType", NewType<GenericName, GenericData, GenericConstrainHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.Right<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstrainHandler[number]["name"]>)> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     /**
      * Creates a NewType value and throws on error. Works with raw values or primitives.
      * 
@@ -60,12 +60,12 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * const maybe = UserId.createWithUnknown(unknownValue);
      * 
      * if (E.isRight(maybe)) {
-     * 	// maybe: E.EitherRight<"createNewType", UserId>
+     * 	// maybe: E.Right<"createNewType", UserId>
      * }
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.EitherRight<"createNewType", NewType<GenericName, GenericValue, GenericConstrainHandler[number]["name"]>> | DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createNewType", NewType<GenericName, GenericValue, GenericConstrainHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     /**
      * Creates a NewType value from an unknown input and throws on error.
      * 
@@ -125,7 +125,7 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * const maybe = UserId.createWithUnknown(unknownValue);
  * 
  * if (E.isRight(maybe)) {
- * 	// maybe: E.EitherRight<"createNewType", UserId>
+ * 	// maybe: E.Right<"createNewType", UserId>
  * }
  * 
  * const strictValue = UserId.createWithUnknownOrThrow(unknownValue);

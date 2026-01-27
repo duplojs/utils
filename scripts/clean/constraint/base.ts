@@ -52,11 +52,11 @@ export interface ConstraintHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createConstrainedType",
 			ConstrainedType<GenericName, GenericData>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createConstrainedTypeError",
 			DDataParser.DataParserError
 		>
@@ -67,14 +67,14 @@ export interface ConstraintHandler<
 	>(
 		data: GenericPrimitive
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createConstrainedType",
 			(
 				& GenericPrimitive
 				& ConstrainedType<GenericName, Unwrap<GenericPrimitive>>
 			)
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createConstrainedTypeError",
 			DDataParser.DataParserError
 		>
@@ -106,11 +106,11 @@ export interface ConstraintHandler<
 	>(
 		data: GenericData
 	): (
-		| DEither.EitherRight<
+		| DEither.Right<
 			"createConstrainedType",
 			ConstrainedType<GenericName, GenericPrimitiveValue>
 		>
-		| DEither.EitherLeft<
+		| DEither.Left<
 			"createConstrainedTypeError",
 			DDataParser.DataParserError
 		>

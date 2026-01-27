@@ -1,4 +1,4 @@
-Callback executed only for EitherBoolTruthy values. Otherwise, the initial value is returned.
+Callback executed only for BoolTruthy values. Otherwise, the initial value is returned.
 
 **Supported call styles:**
 - Classic: `whenIsBoolTruthy(input, theFunction)` → returns a value

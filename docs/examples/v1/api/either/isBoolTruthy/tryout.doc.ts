@@ -5,7 +5,7 @@ const maybeInput = E.bool(true ? true : null);
 if (E.isBoolTruthy(maybeInput)) {
 	type check = ExpectType<
 		typeof maybeInput,
-		E.EitherBoolTruthy<true>,
+		E.BoolTruthy<true>,
 		"strict"
 	>;
 }

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Retourne un EitherRight<\"ok\", never> : un succès vide qui sert à confirmer qu'une opération s'est bien déroulée sans donnée supplémentaire."
+description: "Retourne un Right<\"ok\", never> : un succès vide qui sert à confirmer qu'une opération s'est bien déroulée sans donnée supplémentaire."
 prev:
   text: "success"
   link: "/fr/v1/api/either/success"
@@ -11,7 +11,7 @@ next:
 
 # ok
 
-Retourne un `EitherRight<"ok", never>` : un succès vide qui sert à confirmer qu'une opération s'est bien déroulée sans donnée supplémentaire.
+Retourne un `Right<"ok", never>` : un succès vide qui sert à confirmer qu'une opération s'est bien déroulée sans donnée supplémentaire.
 
 ::: tip
 `ok` n'est qu'un alias spécialisé de `right("ok")`. Pour mieux comprendre la construction des `Right` (information obligatoire, unwrap, helpers), référez-vous à la page [`right`](/fr/v1/api/either/right).
@@ -28,7 +28,7 @@ Retourne un `EitherRight<"ok", never>` : un succès vide qui sert à confirmer q
 ## Syntaxe
 
 ```typescript
-function ok(): EitherOk
+function ok(): Ok
 ```
 
 ## Paramètres

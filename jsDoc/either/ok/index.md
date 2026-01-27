@@ -1,4 +1,4 @@
-Returns an EitherRight<"ok", never>: an empty success that confirms an operation went fine without extra data.
+Returns an Right<"ok", never>: an empty success that confirms an operation went fine without extra data.
 
 Signature: `ok()` → returns a value
 

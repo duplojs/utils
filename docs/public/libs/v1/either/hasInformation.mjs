@@ -1,4 +1,4 @@
-import { eitherInformationKind } from './kind.mjs';
+import { informationKind } from './kind.mjs';
 
 function hasInformation(...args) {
     if (args.length === 1) {
@@ -6,8 +6,8 @@ function hasInformation(...args) {
         return (input) => hasInformation(input, information);
     }
     const [input, information] = args;
-    return eitherInformationKind.has(input)
-        && eitherInformationKind.getValue(input) === information;
+    return informationKind.has(input)
+        && informationKind.getValue(input) === information;
 }
 
 export { hasInformation };

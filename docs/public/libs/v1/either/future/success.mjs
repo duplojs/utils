@@ -1,13 +1,17 @@
 import { createEitherKind } from '../kind.mjs';
-import { eitherFutureKind } from './base.mjs';
+import { futureKind } from './base.mjs';
 import { right } from '../right/create.mjs';
 
-const eitherFutureSuccessKind = createEitherKind("future-success");
+const futureSuccessKind = createEitherKind("future-success");
+/**
+ * @deprecated use futureSuccessKind
+ */
+const eitherFutureSuccessKind = futureSuccessKind;
 /**
  * {@include either/futureSuccess/index.md}
  */
 function futureSuccess(value) {
-    return eitherFutureKind.setTo(eitherFutureSuccessKind.setTo(right("future", value)));
+    return futureKind.setTo(futureSuccessKind.setTo(right("future", value)));
 }
 
-export { eitherFutureSuccessKind, futureSuccess };
+export { eitherFutureSuccessKind, futureSuccess, futureSuccessKind };

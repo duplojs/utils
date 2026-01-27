@@ -1,6 +1,6 @@
-import { type EitherRight } from "./create";
+import { type Right } from "./create";
 /**
- * Type guard that checks whether a value is an EitherRight. Allows accessing the payload without explicit conversion.
+ * Type guard that checks whether a value is an Right. Allows accessing the payload without explicit conversion.
  * 
  * Signature: `isRight(input)` → returns a value
  * 
@@ -12,7 +12,7 @@ import { type EitherRight } from "./create";
  * 	: E.fail();
  * 
  * if (E.isRight(result)) {
- * 	// type: E.EitherOk
+ * 	// type: E.Ok
  * }
  * ```
  * 
@@ -21,4 +21,4 @@ import { type EitherRight } from "./create";
  * @namespace E
  * 
  */
-export declare function isRight<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, EitherRight>;
+export declare function isRight<GenericInput extends unknown>(input: GenericInput): input is Extract<GenericInput, Right>;

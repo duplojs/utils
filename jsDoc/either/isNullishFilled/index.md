@@ -1,4 +1,4 @@
-Type guard that detects an EitherNullishFilled.
+Type guard that detects an NullishFilled.
 
 Signature: `isNullishFilled(input)` → returns a value
 

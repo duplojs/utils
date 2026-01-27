@@ -5,7 +5,12 @@ export const createEitherKind = createKindNamespace(
 	"DuplojsUtilsEither",
 );
 
-export const eitherInformationKind = createEitherKind<
+export const informationKind = createEitherKind<
 	"information",
 	string
 >("information");
+
+/**
+ * @deprecated use informationKind
+ */
+export const eitherInformationKind = informationKind;

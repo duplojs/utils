@@ -67,7 +67,7 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * @namespace DP
      * 
      */
-    parse(data: unknown): DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>;
+    parse(data: unknown): DEither.Success<GenericOutput> | DEither.Error<DataParserError>;
     /**
      * The asyncParse() method runs a data parser asynchronously and resolves to an Either with the parsed value or a DataParserError.
      * 
@@ -79,7 +79,7 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * @namespace DP
      * 
      */
-    asyncParse(data: unknown): Promise<DEither.EitherSuccess<GenericOutput> | DEither.EitherError<DataParserError>>;
+    asyncParse(data: unknown): Promise<DEither.Success<GenericOutput> | DEither.Error<DataParserError>>;
     /**
      * The addChecker() method returns a new data parser with one or more additional checkers appended.
      * 

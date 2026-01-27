@@ -9,6 +9,6 @@ const relative = Path.resolveFrom("alpha", ["..", ".."]);
 
 type check = ExpectType<
 	typeof relative,
-	E.EitherFail | E.EitherSuccess<string>,
+	E.Fail | E.Success<string>,
 	"strict"
 >;

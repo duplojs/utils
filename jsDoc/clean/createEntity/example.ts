@@ -50,7 +50,7 @@ const mappedResult = User.Entity.map({
 });
 
 if (E.isRight(mappedResult)) {
-	// mappedResult: E.EitherRight<"createEntity", C.Entity<"User">>
+	// mappedResult: E.Right<"createEntity", C.Entity<"User">>
 }
 
 const updated = User.Entity.update(mapped, {

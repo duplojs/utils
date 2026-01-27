@@ -1,5 +1,9 @@
 import { createEitherKind } from '../kind.mjs';
 
-const eitherOptionalKind = createEitherKind("optional");
+const optionalKind = createEitherKind("optional");
+/**
+ * @deprecated use optionalKind
+ */
+const eitherOptionalKind = optionalKind;
 
-export { eitherOptionalKind };
+export { eitherOptionalKind, optionalKind };

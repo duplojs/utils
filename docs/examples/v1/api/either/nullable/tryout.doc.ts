@@ -4,6 +4,6 @@ const result = E.nullable(true ? "value" : null);
 
 type check = ExpectType<
 	typeof result,
-	E.EitherNullableEmpty | E.EitherNullableFilled<"value">,
+	E.NullableEmpty | E.NullableFilled<"value">,
 	"strict"
 >;

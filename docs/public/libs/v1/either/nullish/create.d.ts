@@ -1,5 +1,5 @@
-import { type EitherNullishEmpty, type NullishValue } from "./empty";
-import { type EitherNullishFilled } from "./filled";
+import { type NullishEmpty, type NullishValue } from "./empty";
+import { type NullishFilled } from "./filled";
 /**
  * Transforms a potentially null/undefined value into an Either. Allows propagating presence/absence in a type-safe way.
  * 
@@ -12,7 +12,7 @@ import { type EitherNullishFilled } from "./filled";
  * 
  * const result = E.nullish(mayBeInput);
  * 
- * // type: E.EitherNullishEmpty<undefined> | E.EitherNullishFilled<true>
+ * // type: E.NullishEmpty<undefined> | E.NullishFilled<true>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/nullish
@@ -20,5 +20,5 @@ import { type EitherNullishFilled } from "./filled";
  * @namespace E
  * 
  */
-export declare function nullish<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends NullishValue ? EitherNullishEmpty<GenericValue> : EitherNullishFilled<GenericValue>;
-export type Nullish<GenericValue extends unknown> = EitherNullishFilled<GenericValue> | EitherNullishEmpty;
+export declare function nullish<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends NullishValue ? NullishEmpty<GenericValue> : NullishFilled<GenericValue>;
+export type Nullish<GenericValue extends unknown> = NullishFilled<GenericValue> | NullishEmpty;

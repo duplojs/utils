@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Callback exécuté uniquement pour les valeurs EitherBoolTruthy. Sinon, la valeur initiale est renvoyée."
+description: "Callback exécuté uniquement pour les valeurs BoolTruthy. Sinon, la valeur initiale est renvoyée."
 prev:
   text: "isBoolTruthy"
   link: "/fr/v1/api/either/isBoolTruthy"
@@ -11,7 +11,7 @@ next:
 
 # whenIsBoolTruthy
 
-Callback exécuté uniquement pour les valeurs `EitherBoolTruthy`. Sinon, la valeur initiale est renvoyée.
+Callback exécuté uniquement pour les valeurs `BoolTruthy`. Sinon, la valeur initiale est renvoyée.
 
 ## Exemple interactif
 
@@ -31,8 +31,8 @@ function whenIsBoolTruthy<
   const GenericOutput extends AnyValue | EscapeVoid
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolTruthy>>) => GenericOutput
+): GenericOutput | Exclude<ToEither<GenericInput>, BoolTruthy>;
 ```
 
 ### Signature currifiée
@@ -42,8 +42,8 @@ function whenIsBoolTruthy<
   const GenericInput extends unknown,
   const GenericOutput extends AnyValue | EscapeVoid
 >(
-  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, EitherBoolTruthy>>) => GenericOutput
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolTruthy>;
+  theFunction: (value: Unwrap<Extract<ToEither<GenericInput>, BoolTruthy>>) => GenericOutput
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<GenericInput>, BoolTruthy>;
 ```
 
 ## Paramètres
@@ -53,7 +53,7 @@ function whenIsBoolTruthy<
 
 ## Valeur de retour
 
-Le résultat de `theFunction` pour les truthy, sinon la valeur originale (`EitherBoolFalsy`).
+Le résultat de `theFunction` pour les truthy, sinon la valeur originale (`BoolFalsy`).
 
 ## Voir aussi
 

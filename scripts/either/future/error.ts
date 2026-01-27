@@ -1,28 +1,38 @@
 import { type Kind } from "@scripts/common/kind";
-import { left, type EitherLeft } from "../left";
-import { eitherFutureKind } from "./base";
+import { left, type Left } from "../left";
+import { futureKind } from "./base";
 import { createEitherKind } from "../kind";
 
-export const eitherFutureErrorKind = createEitherKind(
+export const futureErrorKind = createEitherKind(
 	"future-error",
 );
 
-type _EitherFutureError = (
-	& EitherLeft<"future", unknown>
-	& Kind<typeof eitherFutureKind.definition>
-	& Kind<typeof eitherFutureErrorKind.definition>
+/**
+ * @deprecated use futureErrorKind
+ */
+export const eitherFutureErrorKind = futureErrorKind;
+
+type _FutureError = (
+	& Left<"future", unknown>
+	& Kind<typeof futureKind.definition>
+	& Kind<typeof futureErrorKind.definition>
 );
 
-export interface EitherFutureError extends _EitherFutureError {
+export interface FutureError extends _FutureError {
 
 }
 
 /**
+ * @deprecated use FutureError
+ */
+export type EitherFutureError = FutureError;
+
+/**
  * {@include either/futureError/index.md}
  */
-export function futureError(value: unknown): EitherFutureError {
-	return eitherFutureKind.setTo(
-		eitherFutureErrorKind.setTo(
+export function futureError(value: unknown): FutureError {
+	return futureKind.setTo(
+		futureErrorKind.setTo(
 			left("future", value),
 		),
 	);

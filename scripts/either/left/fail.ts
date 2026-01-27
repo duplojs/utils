@@ -1,23 +1,33 @@
 import { type Kind } from "@scripts/common/kind";
 import { createEitherKind } from "../kind";
-import { left, type EitherLeft } from "./create";
+import { left, type Left } from "./create";
 
-export const eitherFailKind = createEitherKind("fail");
+export const failKind = createEitherKind("fail");
 
-type _EitherFail = (
-	& EitherLeft<"fail", never>
-	& Kind<typeof eitherFailKind.definition>
+/**
+ * @deprecated use failKind
+ */
+export const eitherFailKind = failKind;
+
+type _Fail = (
+	& Left<"fail", never>
+	& Kind<typeof failKind.definition>
 );
 
-export interface EitherFail extends _EitherFail {
+export interface Fail extends _Fail {
 
 }
 
 /**
+ * @deprecated use Fail
+ */
+export type EitherFail = Fail;
+
+/**
  * {@include either/fail/index.md}
  */
-export function fail(): EitherFail {
-	return eitherFailKind.setTo(
+export function fail(): Fail {
+	return failKind.setTo(
 		left("fail", undefined as never),
 	);
 }

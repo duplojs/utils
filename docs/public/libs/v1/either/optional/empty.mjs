@@ -1,11 +1,15 @@
 import { createEitherKind } from '../kind.mjs';
-import { eitherOptionalKind } from './base.mjs';
+import { optionalKind } from './base.mjs';
 import { optional } from './create.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 
-const eitherOptionalEmptyKind = createEitherKind("optional-empty");
+const optionalEmptyKind = createEitherKind("optional-empty");
+/**
+ * @deprecated use optionalEmptyKind
+ */
+const eitherOptionalEmptyKind = optionalEmptyKind;
 /**
  * {@include either/isOptionalEmpty/index.md}
  */
@@ -16,12 +20,12 @@ const eitherOptionalEmptyKind = createEitherKind("optional-empty");
  * {@include either/whenIsOptionalEmpty/index.md}
  */
 function optionalEmpty() {
-    return eitherOptionalKind.setTo(eitherOptionalEmptyKind.setTo(left("optional", undefined)));
+    return optionalKind.setTo(optionalEmptyKind.setTo(left("optional", undefined)));
 }
 function isOptionalEmpty(input) {
     return isLeft(input)
-        && eitherOptionalKind.has(input)
-        && eitherOptionalEmptyKind.has(input);
+        && optionalKind.has(input)
+        && optionalEmptyKind.has(input);
 }
 function whenIsOptionalEmpty(...args) {
     if (args.length === 1) {
@@ -44,4 +48,4 @@ function whenIsOptionalEmpty(...args) {
     return either;
 }
 
-export { eitherOptionalEmptyKind, isOptionalEmpty, optionalEmpty, whenIsOptionalEmpty };
+export { eitherOptionalEmptyKind, isOptionalEmpty, optionalEmpty, optionalEmptyKind, whenIsOptionalEmpty };

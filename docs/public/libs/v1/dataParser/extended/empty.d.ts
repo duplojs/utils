@@ -26,7 +26,7 @@ export interface DataParserEmptyExtended<GenericDefinition extends dataParsers.D
  * const parser = DPE.empty();
  * const result = parser.parse(undefined);
  * if (E.isRight(result)) {
- * 	// E.EitherSuccess<undefined>
+ * 	// E.Success<undefined>
  * }
  * 
  * const coerceParser = DPE.coerce.empty();

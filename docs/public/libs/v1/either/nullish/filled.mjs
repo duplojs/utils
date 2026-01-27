@@ -1,12 +1,16 @@
 import { nullish } from './create.mjs';
 import { createEitherKind } from '../kind.mjs';
-import { eitherNullishKind } from './base.mjs';
+import { nullishKind } from './base.mjs';
 import { right } from '../right/create.mjs';
 import { isRight } from '../right/is.mjs';
 import { isLeft } from '../left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
-const eitherNullishFilledKind = createEitherKind("nullish-filled");
+const nullishFilledKind = createEitherKind("nullish-filled");
+/**
+ * @deprecated use nullishFilledKind
+ */
+const eitherNullishFilledKind = nullishFilledKind;
 /**
  * {@include either/isNullishFilled/index.md}
  */
@@ -17,12 +21,12 @@ const eitherNullishFilledKind = createEitherKind("nullish-filled");
  * {@include either/whenIsNullishFilled/index.md}
  */
 function nullishFilled(value) {
-    return eitherNullishKind.setTo(eitherNullishFilledKind.setTo(right("nullish", value)));
+    return nullishKind.setTo(nullishFilledKind.setTo(right("nullish", value)));
 }
 function isNullishFilled(input) {
     return isRight(input)
-        && eitherNullishKind.has(input)
-        && eitherNullishKind.has(input);
+        && nullishKind.has(input)
+        && nullishFilledKind.has(input);
 }
 function whenIsNullishFilled(...args) {
     if (args.length === 1) {
@@ -45,4 +49,4 @@ function whenIsNullishFilled(...args) {
     return either;
 }
 
-export { eitherNullishFilledKind, isNullishFilled, nullishFilled, whenIsNullishFilled };
+export { eitherNullishFilledKind, isNullishFilled, nullishFilled, nullishFilledKind, whenIsNullishFilled };

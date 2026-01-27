@@ -5,4 +5,4 @@ const result = pipe(
 	E.whenIsNullableEmpty(() => "nullable"),
 );
 
-// type: "nullable" | E.EitherNullableFilled<"value">
+// type: "nullable" | E.NullableFilled<"value">

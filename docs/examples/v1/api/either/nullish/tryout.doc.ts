@@ -6,6 +6,6 @@ const result = E.nullish(mayBeInput);
 
 type check = ExpectType<
 	typeof result,
-	E.EitherNullishEmpty<undefined> | E.EitherNullishFilled<true>,
+	E.NullishEmpty<undefined> | E.NullishFilled<true>,
 	"strict"
 >;

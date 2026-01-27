@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Applique une fonction uniquement quand l'entrée est un EitherRight. Sinon, la valeur originale est renvoyée telle quelle."
+description: "Applique une fonction uniquement quand l'entrée est un Right. Sinon, la valeur originale est renvoyée telle quelle."
 prev:
   text: "isRight"
   link: "/fr/v1/api/either/isRight"
@@ -11,7 +11,7 @@ next:
 
 # whenIsRight
 
-Applique une fonction uniquement quand l'entrée est un `EitherRight`. Sinon, la valeur originale est renvoyée telle quelle.
+Applique une fonction uniquement quand l'entrée est un `Right`. Sinon, la valeur originale est renvoyée telle quelle.
 
 ## Exemple interactif
 
@@ -31,8 +31,8 @@ function whenIsRight<
 	const GenericOutput
 >(
   input: GenericInput,
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherRight>>) => GenericOutput
-): Exclude<GenericInput, EitherRight> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Right>>) => GenericOutput
+): Exclude<GenericInput, Right> | GenericOutput;
 ```
 
 ### Signature currifiée
@@ -42,8 +42,8 @@ function whenIsRight<
 	const GenericInput extends unknown, 
 	const GenericOutput
 >(
-  theFunction: (value: Unwrap<Extract<GenericInput, EitherRight>>) => GenericOutput
-): (input: GenericInput) => Exclude<GenericInput, EitherRight> | GenericOutput;
+  theFunction: (value: Unwrap<Extract<GenericInput, Right>>) => GenericOutput
+): (input: GenericInput) => Exclude<GenericInput, Right> | GenericOutput;
 ```
 
 ## Paramètres

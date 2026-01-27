@@ -1,12 +1,16 @@
 import { createEitherKind } from '../kind.mjs';
-import { eitherBoolKind } from './base.mjs';
+import { boolKind } from './base.mjs';
 import { bool } from './create.mjs';
 import { left } from '../left/create.mjs';
 import { isLeft } from '../left/is.mjs';
 import { isRight } from '../right/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 
-const eitherBoolFalsyKind = createEitherKind("bool-falsy");
+const boolFalsyKind = createEitherKind("bool-falsy");
+/**
+ * @deprecated use boolFalsyKind
+ */
+const eitherBoolFalsyKind = boolFalsyKind;
 /**
  * {@include either/boolFalsy/index.md}
  */
@@ -17,12 +21,12 @@ const eitherBoolFalsyKind = createEitherKind("bool-falsy");
  * {@include either/whenIsBoolFalsy/index.md}
  */
 function boolFalsy(value = undefined) {
-    return eitherBoolKind.setTo(eitherBoolFalsyKind.setTo(left("bool", value)));
+    return boolKind.setTo(boolFalsyKind.setTo(left("bool", value)));
 }
 function isBoolFalsy(input) {
     return isLeft(input)
-        && eitherBoolKind.has(input)
-        && eitherBoolFalsyKind.has(input);
+        && boolKind.has(input)
+        && boolFalsyKind.has(input);
 }
 function whenIsBoolFalsy(...args) {
     if (args.length === 1) {
@@ -45,4 +49,4 @@ function whenIsBoolFalsy(...args) {
     return either;
 }
 
-export { boolFalsy, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy };
+export { boolFalsy, boolFalsyKind, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy };

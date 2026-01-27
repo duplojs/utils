@@ -11,7 +11,7 @@ export function resolveFrom<
 >(
 	origin: string,
 	segments: AnyTuple<GenericSegment>,
-): DEither.EitherFail | DEither.EitherSuccess<string> {
+): DEither.Fail | DEither.Success<string> {
 	const result = resolveRelative([origin, ...segments]);
 
 	return isAbsolute(result)

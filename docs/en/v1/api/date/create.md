@@ -57,7 +57,7 @@ The second declaration is only for declaring known constant dates ahead of time.
 
 ## Return value
 
-- Generic signature: `EitherRight<"date-created", TheDate>` on success or `EitherLeft<"date-created-error", null>` on failure.
+- Generic signature: `Right<"date-created", TheDate>` on success or `Left<"date-created-error", null>` on failure.
 - Literal signature: directly returns a `TheDate` if the date is valid, otherwise a compile-time error.
 - With `SpoolingDate`: returns a `MayBe` after applying overrides and an optional timezone.
 

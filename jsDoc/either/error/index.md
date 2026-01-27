@@ -1,4 +1,4 @@
-Handy alias to create an EitherLeft with the info fixed to "error". Useful to signal a generic error without manually providing the info.
+Handy alias to create an Left with the info fixed to "error". Useful to signal a generic error without manually providing the info.
 
 Signature: `error(value)` → returns a value
 

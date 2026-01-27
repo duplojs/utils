@@ -28,7 +28,7 @@ function isNullableFilled<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherNullableFilled>;
+): input is Extract<GenericInput, NullableFilled>;
 ```
 
 ## Parameters

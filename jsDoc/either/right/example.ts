@@ -19,5 +19,5 @@ const result = pipe(
 	),
 );
 
-// type: E.EitherRight< "coupon.applied", { readonly code: `SAVE${string}`; readonly percent: 15; } >
-// | E.EitherLeft< "coupon.invalid", string >
+// type: E.Right< "coupon.applied", { readonly code: `SAVE${string}`; readonly percent: 15; } >
+// | E.Left< "coupon.invalid", string >

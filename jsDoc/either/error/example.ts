@@ -12,4 +12,4 @@ const result = pipe(
 	),
 );
 
-// type: E.EitherError<string> | E.EitherSuccess<string>
+// type: E.Error<string> | E.Success<string>

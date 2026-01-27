@@ -1,5 +1,5 @@
-import { type EitherOptionalEmpty } from "./empty";
-import { type EitherOptionalFilled } from "./filled";
+import { type OptionalEmpty } from "./empty";
+import { type OptionalFilled } from "./filled";
 /**
  * Wraps an undefined/defined value in an Either, useful for propagating optional fields.
  * 
@@ -10,7 +10,7 @@ import { type EitherOptionalFilled } from "./filled";
  * ```ts
  * const result = E.optional(true ? "value" : undefined);
  * 
- * // type: E.EitherOptionalEmpty | E.EitherOptionalFilled<"value">
+ * // type: E.OptionalEmpty | E.OptionalFilled<"value">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/optional
@@ -18,5 +18,5 @@ import { type EitherOptionalFilled } from "./filled";
  * @namespace E
  * 
  */
-export declare function optional<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends undefined ? EitherOptionalEmpty : EitherOptionalFilled<GenericValue>;
-export type Optional<GenericValue extends unknown> = EitherOptionalFilled<GenericValue> | EitherOptionalEmpty;
+export declare function optional<const GenericValue extends unknown = undefined>(value: GenericValue): GenericValue extends undefined ? OptionalEmpty : OptionalFilled<GenericValue>;
+export type Optional<GenericValue extends unknown> = OptionalFilled<GenericValue> | OptionalEmpty;

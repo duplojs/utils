@@ -14,8 +14,8 @@ const result = partialUser.parse(
 
 type check = ExpectType<
 	typeof result,
-	E.EitherError<DPE.DataParserError>
-	| E.EitherSuccess<{
+	E.Error<DPE.DataParserError>
+	| E.Success<{
 		id?: number | undefined;
 		email?: string | undefined;
 		role?: "admin" | undefined;

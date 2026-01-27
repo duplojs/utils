@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un EitherLeft typé \"callback\" au lieu de propager l'exception."
+description: "Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un Left typé \"callback\" au lieu de propager l'exception."
 prev:
   text: "whenHasInformation"
   link: "/fr/v1/api/either/whenHasInformation"
@@ -11,7 +11,7 @@ next:
 
 # safeCallback
 
-Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un `EitherLeft` typé `"callback"` au lieu de propager l'exception. Si le callback retourne un `Either`, il est conservé tel quel.
+Exécute un callback dans un bloc sécurisé. Si le callback lève une erreur, la fonction renvoie un `Left` typé `"callback"` au lieu de propager l'exception. Si le callback retourne un `Either`, il est conservé tel quel.
 
 ## Exemple interactif
 
@@ -28,7 +28,7 @@ function safeCallback<
 	GenericOutput extends unknown
 >(
 	theFunction: () => GenericOutput
-): ComputeSafeCallbackResult<GenericOutput> | EitherCallbackError;
+): ComputeSafeCallbackResult<GenericOutput> | CallbackError;
 ```
 
 ## Paramètres
@@ -37,9 +37,9 @@ function safeCallback<
 
 ## Valeur de retour
 
-- Si le callback retourne un `EitherLeft` ou `EitherRight` : l'`Either` est renvoyé tel quel.
-- Si le callback réussit avec une valeur non `Either` : la valeur est encapsulée dans `EitherCallbackSuccess`.
-- Si le callback lève une erreur : `EitherCallbackError` (alias de `left("callback", error)`).
+- Si le callback retourne un `Left` ou `Right` : l'`Either` est renvoyé tel quel.
+- Si le callback réussit avec une valeur non `Either` : la valeur est encapsulée dans `CallbackSuccess`.
+- Si le callback lève une erreur : `CallbackError` (alias de `left("callback", error)`).
 
 ## Voir aussi
 

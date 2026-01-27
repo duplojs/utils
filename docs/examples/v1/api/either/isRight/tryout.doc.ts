@@ -7,7 +7,7 @@ const result = true
 if (E.isRight(result)) {
 	type check = ExpectType<
 		typeof result,
-		E.EitherOk,
+		E.Ok,
 		"strict"
 	>;
 }

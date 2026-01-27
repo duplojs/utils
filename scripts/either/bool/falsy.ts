@@ -2,28 +2,40 @@ import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericL
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
-import { eitherBoolKind } from "./base";
+import { boolKind } from "./base";
 import { bool } from "./create";
-import { left, type EitherLeft, isLeft } from "../left";
-import { type EitherRight, isRight } from "../right";
+import { left, type Left, isLeft } from "../left";
+import { type Right, isRight } from "../right";
 
-export const eitherBoolFalsyKind = createEitherKind(
+export const boolFalsyKind = createEitherKind(
 	"bool-falsy",
 );
 
-type _EitherBoolFalsy<
+/**
+ * @deprecated use boolFalsyKind
+ */
+export const eitherBoolFalsyKind = boolFalsyKind;
+
+type _BoolFalsy<
 	GenericValue extends FalsyValue = FalsyValue,
 > = (
-	& EitherLeft<"bool", GenericValue>
-	& Kind<typeof eitherBoolKind.definition>
-	& Kind<typeof eitherBoolFalsyKind.definition>
+	& Left<"bool", GenericValue>
+	& Kind<typeof boolKind.definition>
+	& Kind<typeof boolFalsyKind.definition>
 );
 
-export interface EitherBoolFalsy<
+export interface BoolFalsy<
 	GenericValue extends FalsyValue = FalsyValue,
-> extends _EitherBoolFalsy<GenericValue> {
+> extends _BoolFalsy<GenericValue> {
 
 }
+
+/**
+ * @deprecated use BoolFalsy
+ */
+export type EitherBoolFalsy<
+	GenericValue extends FalsyValue = FalsyValue,
+> = BoolFalsy<GenericValue>;
 
 /**
  * {@include either/boolFalsy/index.md}
@@ -36,24 +48,24 @@ export interface EitherBoolFalsy<
  */
 export function boolFalsy<
 	const GenericValue extends FalsyValue = undefined,
->(value: GenericValue = undefined as GenericValue): EitherBoolFalsy<GenericValue> {
-	return eitherBoolKind.setTo(
-		eitherBoolFalsyKind.setTo(
+>(value: GenericValue = undefined as GenericValue): BoolFalsy<GenericValue> {
+	return boolKind.setTo(
+		boolFalsyKind.setTo(
 			left("bool", value),
 		),
 	);
 }
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 export function isBoolFalsy<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherBoolFalsy> {
+): input is Extract<GenericInput, BoolFalsy> {
 	return isLeft(input)
-		&& eitherBoolKind.has(input)
-		&& eitherBoolFalsyKind.has(input);
+		&& boolKind.has(input)
+		&& boolFalsyKind.has(input);
 }
 
 type ToEither<
@@ -72,13 +84,13 @@ export function whenIsBoolFalsy<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherBoolFalsy
+				BoolFalsy
 			>
 		>
 	) => GenericOutput,
 ): (input: GenericInput) => GenericOutput | Exclude<
 	ToEither<BreakGenericLink<GenericInput>>,
-	EitherBoolFalsy
+	BoolFalsy
 >;
 
 export function whenIsBoolFalsy<
@@ -92,11 +104,11 @@ export function whenIsBoolFalsy<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherBoolFalsy
+				BoolFalsy
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherBoolFalsy>;
+): GenericOutput | Exclude<ToEither<GenericInput>, BoolFalsy>;
 export function whenIsBoolFalsy(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

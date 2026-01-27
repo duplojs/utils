@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Creates a Future resolved with an EitherLeft<\"future\">, ideal for propagating a standardized rejection."
+description: "Creates a Future resolved with an Left<\"future\">, ideal for propagating a standardized rejection."
 prev:
   text: "futureSuccess"
   link: "/en/v1/api/either/futureSuccess"
@@ -11,7 +11,7 @@ next:
 
 # futureError
 
-Creates a `Future` resolved with an `EitherLeft<"future">`, ideal for propagating a standardized rejection.
+Creates a `Future` resolved with an `Left<"future">`, ideal for propagating a standardized rejection.
 
 ## Interactive example
 
@@ -24,7 +24,7 @@ Creates a `Future` resolved with an `EitherLeft<"future">`, ideal for propagatin
 ## Syntax
 
 ```typescript
-function futureError(value: unknown): Future<EitherFutureError>;
+function futureError(value: unknown): Future<FutureError>;
 ```
 
 ## Parameters
@@ -33,7 +33,7 @@ function futureError(value: unknown): Future<EitherFutureError>;
 
 ## Return value
 
-A `Future` that resolves immediately with an `EitherLeft<"future">`.
+A `Future` that resolves immediately with an `Left<"future">`.
 
 ## See also
 

@@ -87,7 +87,7 @@ Valide et transforme des propriétés brutes en propriétés typées, puis const
 ```typescript
 function map(
 	rawProperties: RawProperties
-): EitherRight<Entity<EntityName> & Properties> | EitherLeft<DP.DataParserError>
+): Right<Entity<EntityName> & Properties> | Left<DP.DataParserError>
 ```
 
 #### `mapOrThrow()`

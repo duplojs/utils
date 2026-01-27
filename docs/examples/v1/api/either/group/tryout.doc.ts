@@ -8,7 +8,7 @@ const result = E.group({
 
 type check = ExpectType<
 	typeof result,
-	E.EitherLeft<"profile.missing", null> | E.EitherSuccess<{
+	E.Left<"profile.missing", null> | E.Success<{
 		user: {
 			readonly id: 1;
 		};

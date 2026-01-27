@@ -1,4 +1,4 @@
-Explicitly builds an EitherLeft<"nullish"> with null or undefined.
+Explicitly builds an Left<"nullish"> with null or undefined.
 
 Signature: `nullishEmpty(value)` → returns a value
 

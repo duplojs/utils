@@ -1,5 +1,9 @@
 import { createEitherKind } from '../kind.mjs';
 
-const eitherBoolKind = createEitherKind("bool");
+const boolKind = createEitherKind("bool");
+/**
+ * @deprecated use boolKind
+ */
+const eitherBoolKind = boolKind;
 
-export { eitherBoolKind };
+export { boolKind, eitherBoolKind };

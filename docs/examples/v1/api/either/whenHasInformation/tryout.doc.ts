@@ -28,6 +28,6 @@ const result = pipe(
 
 type check = ExpectType<
 	typeof result,
-	1 | 2 | E.EitherLeft<"left-3", 3>,
+	1 | 2 | E.Left<"left-3", 3>,
 	"strict"
 >;

@@ -5,7 +5,7 @@ const maybeValue = E.nullish(true ? "value" : null);
 if (E.isNullishEmpty(maybeValue)) {
 	type check = ExpectType<
 		typeof maybeValue,
-		E.EitherNullishEmpty<null>,
+		E.NullishEmpty<null>,
 		"strict"
 	>;
 }

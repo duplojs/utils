@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Type guard that detects an EitherNullableEmpty."
+description: "Type guard that detects an NullableEmpty."
 prev:
   text: "nullableFilled"
   link: "/en/v1/api/either/nullableFilled"
@@ -11,7 +11,7 @@ next:
 
 # isNullableEmpty
 
-Type guard that detects an `EitherNullableEmpty`.
+Type guard that detects an `NullableEmpty`.
 
 ## Interactive example
 
@@ -28,7 +28,7 @@ function isNullableEmpty<
 	GenericInput extends unknown
 >(
   input: GenericInput
-): input is Extract<GenericInput, EitherNullableEmpty>;
+): input is Extract<GenericInput, NullableEmpty>;
 ```
 
 ## Parameters

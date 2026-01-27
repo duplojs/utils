@@ -2,30 +2,42 @@ import { type EscapeVoid, type AnyValue, type Unwrap, unwrap, type BreakGenericL
 import { type Kind } from "@scripts/common/kind";
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { createEitherKind } from "../kind";
-import { left, type EitherLeft, isLeft } from "../left";
-import { type EitherRight, isRight } from "../right";
+import { left, type Left, isLeft } from "../left";
+import { type Right, isRight } from "../right";
 import { nullish } from "./create";
-import { eitherNullishKind } from "./base";
+import { nullishKind } from "./base";
 
 export type NullishValue = null | undefined;
 
-export const eitherNullishEmptyKind = createEitherKind(
+export const nullishEmptyKind = createEitherKind(
 	"nullish-empty",
 );
 
-type _EitherNullishEmpty<
+/**
+ * @deprecated use nullishEmptyKind
+ */
+export const eitherNullishEmptyKind = nullishEmptyKind;
+
+type _NullishEmpty<
 	GenericValue extends NullishValue = NullishValue,
 > = (
-	& EitherLeft<"nullish", GenericValue>
-	& Kind<typeof eitherNullishKind.definition>
-	& Kind<typeof eitherNullishEmptyKind.definition>
+	& Left<"nullish", GenericValue>
+	& Kind<typeof nullishKind.definition>
+	& Kind<typeof nullishEmptyKind.definition>
 );
 
-export interface EitherNullishEmpty<
+export interface NullishEmpty<
 	GenericValue extends NullishValue = NullishValue,
-> extends _EitherNullishEmpty<GenericValue> {
+> extends _NullishEmpty<GenericValue> {
 
 }
+
+/**
+ * @deprecated use NullishEmpty
+ */
+export type EitherNullishEmpty<
+	GenericValue extends NullishValue = NullishValue,
+> = NullishEmpty<GenericValue>;
 
 /**
  * {@include either/isNullishEmpty/index.md}
@@ -38,24 +50,24 @@ export interface EitherNullishEmpty<
  */
 export function nullishEmpty<
 	const GenericValue extends NullishValue = undefined,
->(value: GenericValue = undefined as GenericValue): EitherNullishEmpty<GenericValue> {
-	return eitherNullishKind.setTo(
-		eitherNullishEmptyKind.setTo(
+>(value: GenericValue = undefined as GenericValue): NullishEmpty<GenericValue> {
+	return nullishKind.setTo(
+		nullishEmptyKind.setTo(
 			left("nullish", value),
 		),
 	);
 }
 
-type Either = EitherRight | EitherLeft;
+type Either = Right | Left;
 
 export function isNullishEmpty<
 	GenericInput extends unknown,
 >(
 	input: GenericInput,
-): input is Extract<GenericInput, EitherNullishEmpty> {
+): input is Extract<GenericInput, NullishEmpty> {
 	return isLeft(input)
-		&& eitherNullishKind.has(input)
-		&& eitherNullishEmptyKind.has(input);
+		&& nullishKind.has(input)
+		&& nullishEmptyKind.has(input);
 }
 
 type ToEither<
@@ -74,11 +86,11 @@ export function whenIsNullishEmpty<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullishEmpty
+				NullishEmpty
 			>
 		>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, EitherNullishEmpty>;
+): (input: GenericInput) => GenericOutput | Exclude<ToEither<BreakGenericLink<GenericInput>>, NullishEmpty>;
 export function whenIsNullishEmpty<
 	const GenericInput extends unknown,
 	const GenericOutput extends AnyValue | EscapeVoid,
@@ -90,11 +102,11 @@ export function whenIsNullishEmpty<
 				ToEither<
 					BreakGenericLink<GenericInput>
 				>,
-				EitherNullishEmpty
+				NullishEmpty
 			>
 		>
 	) => GenericOutput,
-): GenericOutput | Exclude<ToEither<GenericInput>, EitherNullishEmpty>;
+): GenericOutput | Exclude<ToEither<GenericInput>, NullishEmpty>;
 export function whenIsNullishEmpty(...args: [unknown, AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;

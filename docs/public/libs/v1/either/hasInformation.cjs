@@ -8,8 +8,8 @@ function hasInformation(...args) {
         return (input) => hasInformation(input, information);
     }
     const [input, information] = args;
-    return kind.eitherInformationKind.has(input)
-        && kind.eitherInformationKind.getValue(input) === information;
+    return kind.informationKind.has(input)
+        && kind.informationKind.getValue(input) === information;
 }
 
 exports.hasInformation = hasInformation;
