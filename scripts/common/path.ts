@@ -113,9 +113,7 @@ export namespace Path {
 				continue;
 			}
 
-			const formattedSegment = segment
-				.replace(segmentTrailingRegex, "")
-				.replace(segmentRelativeRegex, "");
+			const formattedSegment = fix(segment);
 
 			if (formattedSegment.startsWith("/")) {
 				clearedPath = formattedSegment;
@@ -151,4 +149,12 @@ export namespace Path {
 		return `${dotResult.join("/")}/${result.join("/")}`;
 	}
 
+	/**
+	 * {@include common/path/fix/index.md}
+	 */
+	export function fix(path: string) {
+		return path
+			.replace(segmentTrailingRegex, "")
+			.replace(segmentRelativeRegex, "");
+	}
 }

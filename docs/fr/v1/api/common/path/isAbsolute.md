@@ -5,8 +5,8 @@ prev:
   text: "Path"
   link: "/fr/v1/api/common/path/"
 next:
-  text: "resolveRelative"
-  link: "/fr/v1/api/common/path/resolveRelative"
+  text: "fix"
+  link: "/fr/v1/api/common/path/fix"
 ---
 
 # isAbsolute

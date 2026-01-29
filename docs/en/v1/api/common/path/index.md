@@ -27,6 +27,11 @@ import * as Path from "@duplojs/utils/common/path";
 ### [isAbsolute](/en/v1/api/common/path/isAbsolute)
 Checks whether a path is absolute.
 
+## Cleanup
+
+### [fix](/en/v1/api/common/path/fix)
+Cleans a path by removing a trailing slash and a leading `./` prefix.
+
 ## Resolution
 
 ### [resolveRelative](/en/v1/api/common/path/resolveRelative)

@@ -142,4 +142,25 @@ export declare namespace Path {
      * 
      */
     function resolveRelative<GenericSegment extends string>(segments: AnyTuple<GenericSegment>): string;
+    /**
+     * Cleans a POSIX path by removing a trailing slash and a leading `./` prefix.
+     * 
+     * **Supported call styles:**
+     * - Classic: `fix(path)` -> returns a cleaned path
+     * 
+     * The function does not resolve `..` segments and only removes a single trailing slash and a single leading `./`.
+     * 
+     * ```ts
+     * const trimmedTrailing = Path.fix("alpha/beta/");
+     * // trimmedTrailing: "alpha/beta"
+     * const trimmedRelative = Path.fix("./alpha/beta");
+     * // trimmedRelative: "alpha/beta"
+     * const cleanedBoth = Path.fix("./alpha/");
+     * // cleanedBoth: "alpha"
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/common/path/fix
+     * 
+     */
+    function fix(path: string): string;
 }

@@ -116,6 +116,33 @@ describe("path", () => {
 		>;
 	});
 
+	it("removes trailing slashes and ./ prefixes", () => {
+		expect(Path.fix("alpha/beta/")).toBe("alpha/beta");
+		expect(Path.fix("./alpha/beta")).toBe("alpha/beta");
+		expect(Path.fix("./alpha/beta/")).toBe("alpha/beta");
+	});
+
+	it("keeps paths unchanged when there is nothing to fix", () => {
+		expect(Path.fix("/root")).toBe("/root");
+		expect(Path.fix("alpha/beta")).toBe("alpha/beta");
+		expect(Path.fix("/")).toBe("");
+	});
+
+	it("uses fix in pipe", () => {
+		const result = pipe(
+			"alpha/beta/",
+			Path.fix,
+		);
+
+		expect(result).toBe("alpha/beta");
+
+		type check = ExpectType<
+			typeof result,
+			string,
+			"strict"
+		>;
+	});
+
 	it("returns success when resolving from an absolute origin", () => {
 		expect(Path.resolveFrom("/root", ["alpha", "beta"]))
 			.toStrictEqual(DEither.success("/root/alpha/beta"));

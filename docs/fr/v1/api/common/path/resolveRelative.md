@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction resolveRelative() résout plusieurs segments en un seul chemin de type POSIX."
 prev:
-  text: "isAbsolute"
-  link: "/fr/v1/api/common/path/isAbsolute"
+  text: "fix"
+  link: "/fr/v1/api/common/path/fix"
 next:
   text: "resolveFrom"
   link: "/fr/v1/api/common/path/resolveFrom"

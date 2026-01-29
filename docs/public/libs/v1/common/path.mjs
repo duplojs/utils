@@ -76,9 +76,7 @@ var Path;
                 clearedPath = segment;
                 continue;
             }
-            const formattedSegment = segment
-                .replace(Path.segmentTrailingRegex, "")
-                .replace(Path.segmentRelativeRegex, "");
+            const formattedSegment = fix(segment);
             if (formattedSegment.startsWith("/")) {
                 clearedPath = formattedSegment;
                 continue;
@@ -109,6 +107,15 @@ var Path;
         return `${dotResult.join("/")}/${result.join("/")}`;
     }
     Path.resolveRelative = resolveRelative;
+    /**
+     * {@include common/path/fix/index.md}
+     */
+    function fix(path) {
+        return path
+            .replace(Path.segmentTrailingRegex, "")
+            .replace(Path.segmentRelativeRegex, "");
+    }
+    Path.fix = fix;
 })(Path || (Path = {}));
 
 export { Path };
