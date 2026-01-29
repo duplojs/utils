@@ -92,6 +92,7 @@ export function lazy<
 		{
 			sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
 			async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
+			isAsynchronous: (self) => self.definition.getter.value.isAsynchronous(),
 		},
 		lazy.overrideHandler,
 	) as never;

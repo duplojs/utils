@@ -3,6 +3,7 @@
 var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
+var some = require('../../array/some.cjs');
 var override = require('../../common/override.cjs');
 
 const unionKind = kind.createDataParserKind("union");
@@ -33,6 +34,7 @@ function union(options, definition) {
             }
             return error.SymbolDataParserErrorIssue;
         },
+        isAsynchronous: (self) => some.some(self.definition.options, (element) => element.isAsynchronous()),
     }, union.overrideHandler);
     return self;
 }

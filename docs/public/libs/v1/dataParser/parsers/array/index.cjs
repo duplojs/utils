@@ -59,6 +59,7 @@ function array(element, definition) {
             void (data.length && error.popErrorPath(error$1));
             return output;
         },
+        isAsynchronous: (self) => self.definition.element.isAsynchronous(),
     }, array.overrideHandler);
     return self;
 }

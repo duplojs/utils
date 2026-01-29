@@ -150,6 +150,7 @@ export function array<
 
 				return output as never;
 			},
+			isAsynchronous: (self) => self.definition.element.isAsynchronous(),
 		},
 		array.overrideHandler,
 	);

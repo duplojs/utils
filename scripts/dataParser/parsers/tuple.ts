@@ -6,6 +6,7 @@ import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
+import * as DArray from "@scripts/array";
 
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 
@@ -228,6 +229,10 @@ export function tuple<
 
 				return output as never;
 			},
+			isAsynchronous: (self) => DArray.some(
+				self.definition.shape,
+				(element) => element.isAsynchronous(),
+			) || !!self.definition.rest?.isAsynchronous(),
 		},
 		tuple.overrideHandler,
 	) as never;

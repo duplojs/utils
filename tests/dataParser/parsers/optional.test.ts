@@ -110,4 +110,22 @@ describe("DDataParser optional", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when inner parser is sync", () => {
+			const schema = DDataParser.optional(DDataParser.string());
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when inner parser is async", () => {
+			const asyncInner = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.optional(asyncInner);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

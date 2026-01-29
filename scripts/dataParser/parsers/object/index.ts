@@ -222,6 +222,10 @@ export function object<
 
 				return output;
 			},
+			isAsynchronous: (self) => DArray.some(
+				self.definition.optimizedShape.value,
+				(element) => element.value.isAsynchronous(),
+			),
 		},
 		object.overrideHandler,
 	) as never;

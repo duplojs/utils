@@ -116,6 +116,7 @@ export function optional<
 
 				return self.definition.inner.asyncExec(data, error);
 			},
+			isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
 		},
 		optional.overrideHandler,
 	) as never;

@@ -103,4 +103,41 @@ describe("DDataParser pipe", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when input and output parsers are sync", () => {
+			const schema = DDataParser.pipe(
+				DDataParser.number(),
+				DDataParser.string(),
+			);
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when input parser is async", () => {
+			const asyncInput = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.pipe(
+				asyncInput,
+				DDataParser.string(),
+			);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+
+		it("returns true when output parser is async", () => {
+			const asyncOutput = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.pipe(
+				DDataParser.string(),
+				asyncOutput,
+			);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

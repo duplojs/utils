@@ -25,6 +25,7 @@ function optional(inner, definition) {
             }
             return self.definition.inner.asyncExec(data, error);
         },
+        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
     }, optional.overrideHandler);
     return self;
 }

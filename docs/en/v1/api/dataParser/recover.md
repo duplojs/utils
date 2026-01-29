@@ -5,8 +5,8 @@ prev:
   text: "refine"
   link: "/en/v1/api/dataParser/refine"
 next:
-  text: "coerce.*"
-  link: "/en/v1/api/dataParser/coerce"
+  text: "isAsynchronous"
+  link: "/en/v1/api/dataParser/isAsynchronous"
 ---
 
 # recover

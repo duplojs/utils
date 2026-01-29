@@ -4,6 +4,7 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 var memo = require('../../../common/memo.cjs');
+var some = require('../../../array/some.cjs');
 var pipe = require('../../../common/pipe.cjs');
 var map = require('../../../array/map.cjs');
 var filter = require('../../../array/filter.cjs');
@@ -69,6 +70,7 @@ function object(shape, definition) {
             void (self.definition.optimizedShape.value.length && error.popErrorPath(error$1));
             return output;
         },
+        isAsynchronous: (self) => some.some(self.definition.optimizedShape.value, (element) => element.value.isAsynchronous()),
     }, object.overrideHandler);
     return self;
 }

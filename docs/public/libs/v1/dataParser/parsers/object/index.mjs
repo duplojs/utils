@@ -2,6 +2,7 @@ import { dataParserInit, SymbolDataParserError, dataParserKind } from '../../bas
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { memo } from '../../../common/memo.mjs';
+import { some } from '../../../array/some.mjs';
 import { pipe } from '../../../common/pipe.mjs';
 import { map } from '../../../array/map.mjs';
 import { filter } from '../../../array/filter.mjs';
@@ -67,6 +68,7 @@ function object(shape, definition) {
             void (self.definition.optimizedShape.value.length && popErrorPath(error));
             return output;
         },
+        isAsynchronous: (self) => some(self.definition.optimizedShape.value, (element) => element.value.isAsynchronous()),
     }, object.overrideHandler);
     return self;
 }

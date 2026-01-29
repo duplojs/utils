@@ -25,6 +25,7 @@ function recover(inner, recoveredValue, definition) {
                 ? self.definition.recoveredValue
                 : result;
         },
+        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
     }, recover.overrideHandler);
     return self;
 }

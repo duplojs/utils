@@ -204,10 +204,44 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * 
      */
     asyncParseOrThrow(data: unknown): Promise<GenericOutput>;
+    /**
+     * The isAsynchronous() method tells whether a data parser requires async execution.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.isAsynchronous()` -> returns a boolean
+     * 
+     * It checks the parser definition (and nested parsers when relevant) and does not run any parsing.
+     * 
+     * ```ts
+     * const syncParser = DDataParser.string();
+     * syncParser.isAsynchronous(); // false
+     * 
+     * const asyncTransform = DDataParser.transform(
+     * 	DDataParser.number(),
+     * 	async(value) => {
+     * 		const result = await Promise.resolve(value);
+     * 
+     * 		return result;
+     * 	},
+     * );
+     * asyncTransform.isAsynchronous(); // true
+     * 
+     * const asyncArray = DDataParser.array(asyncTransform);
+     * asyncArray.isAsynchronous(); // true
+     * 
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/isAsynchronous
+     * 
+     * @namespace DP
+     * 
+     */
+    isAsynchronous(): boolean;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
     sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
     async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
+    isAsynchronous(self: GenericDataParser): boolean;
 }
 declare const DataParserThrowError_base: new (params: {
     "@DuplojsUtilsError/dataParserThrowError"?: unknown;

@@ -118,4 +118,22 @@ describe("DDataParser array", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when element parser is sync", () => {
+			const schema = DDataParser.array(DDataParser.string());
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when element parser is async", () => {
+			const asyncElement = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.array(asyncElement);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

@@ -1,6 +1,7 @@
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { some } from '../../array/some.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const unionKind = createDataParserKind("union");
@@ -31,6 +32,7 @@ function union(options, definition) {
             }
             return SymbolDataParserErrorIssue;
         },
+        isAsynchronous: (self) => some(self.definition.options, (element) => element.isAsynchronous()),
     }, union.overrideHandler);
     return self;
 }

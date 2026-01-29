@@ -42,6 +42,7 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         : {
             sync: exec,
             async: exec,
+            isAsynchronous: () => false,
         };
     function middleExec(data, error$1) {
         let result = formattedExec.sync(data, error$1, self);
@@ -162,6 +163,9 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
                 throw new DataParserThrowError(error);
             }
             return result;
+        },
+        isAsynchronous() {
+            return formattedExec.isAsynchronous(self);
         },
     }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
     return self;

@@ -119,4 +119,28 @@ describe("DDataParser union", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when all options are sync", () => {
+			const schema = DDataParser.union([
+				DDataParser.string(),
+				DDataParser.number(),
+			]);
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when any option is async", () => {
+			const asyncOption = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.union([
+				asyncOption,
+				DDataParser.number(),
+			]);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

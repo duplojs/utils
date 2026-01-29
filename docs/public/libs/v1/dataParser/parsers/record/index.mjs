@@ -93,6 +93,7 @@ function record(key, value, definition) {
             }
             return output;
         },
+        isAsynchronous: (self) => self.definition.value.isAsynchronous(),
     }, record.overrideHandler);
     return self;
 }

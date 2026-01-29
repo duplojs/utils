@@ -124,4 +124,22 @@ describe("DDataParser lazy", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when getter parser is sync", () => {
+			const schema = DDataParser.lazy(() => DDataParser.number());
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when getter parser is async", () => {
+			const asyncInner = DDataParser.transform(
+				DDataParser.number(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.lazy(() => asyncInner);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

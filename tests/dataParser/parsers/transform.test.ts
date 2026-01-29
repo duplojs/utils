@@ -125,4 +125,24 @@ describe("DDataParser transform", () => {
 			expect(result).toStrictEqual(DEither.success("10"));
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when transform function is sync", () => {
+			const schema = DDataParser.transform(
+				DDataParser.number(),
+				(value) => value,
+			);
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when transform function is async", () => {
+			const schema = DDataParser.transform(
+				DDataParser.number(),
+				async(value) => Promise.resolve(value),
+			);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

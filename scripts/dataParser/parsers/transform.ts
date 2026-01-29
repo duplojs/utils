@@ -136,6 +136,7 @@ export function transform<
 
 				return result as never;
 			},
+			isAsynchronous: (self) => self.definition.theFunction.constructor.name === "AsyncFunction",
 		},
 		transform.overrideHandler,
 	) as never;

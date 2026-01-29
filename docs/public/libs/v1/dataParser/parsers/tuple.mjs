@@ -1,6 +1,7 @@
 import { dataParserInit, SymbolDataParserError } from '../base.mjs';
 import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { some } from '../../array/some.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const tupleKind = createDataParserKind("tuple");
@@ -76,6 +77,7 @@ function tuple(shape, definition) {
             void (self.definition.shape.length && popErrorPath(error));
             return output;
         },
+        isAsynchronous: (self) => some(self.definition.shape, (element) => element.isAsynchronous()) || !!self.definition.rest?.isAsynchronous(),
     }, tuple.overrideHandler);
     return self;
 }

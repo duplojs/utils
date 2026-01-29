@@ -114,6 +114,7 @@ export function recover<
 					? self.definition.recoveredValue
 					: result;
 			},
+			isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
 		},
 		recover.overrideHandler,
 	) as never;

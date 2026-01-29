@@ -38,6 +38,7 @@ function transform(inner, theFunction, definition) {
             }
             return result;
         },
+        isAsynchronous: (self) => self.definition.theFunction.constructor.name === "AsyncFunction",
     }, transform.overrideHandler);
     return self;
 }

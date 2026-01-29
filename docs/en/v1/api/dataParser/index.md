@@ -111,6 +111,11 @@ Adds custom rules (async/sync) with specific messages and metadata.
 ### [recover](/en/v1/api/dataParser/recover)
 Intercepts errors to return an alternative value (fallback) or trigger business logic.
 
+## Runtime helpers
+
+### [isAsynchronous](/en/v1/api/dataParser/isAsynchronous)
+Tells whether a parser (or nested parsers) requires async execution.
+
 ## Coercion
 
 ### [coerce.*](/en/v1/api/dataParser/coerce)

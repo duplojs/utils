@@ -118,6 +118,7 @@ export function nullable<
 
 				return self.definition.inner.asyncExec(data, error);
 			},
+			isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
 		},
 		nullable.overrideHandler,
 	) as never;

@@ -88,6 +88,7 @@ describe("base parser", () => {
 							contract: expect.any(Function),
 							parseOrThrow: expect.any(Function),
 							asyncParseOrThrow: expect.any(Function),
+							isAsynchronous: expect.any(Function),
 						},
 						null as never,
 					),
@@ -194,6 +195,7 @@ describe("base parser", () => {
 							contract: expect.any(Function),
 							parseOrThrow: expect.any(Function),
 							asyncParseOrThrow: expect.any(Function),
+							isAsynchronous: expect.any(Function),
 						},
 						null as never,
 					),
@@ -221,6 +223,7 @@ describe("base parser", () => {
 							contract: expect.any(Function),
 							parseOrThrow: expect.any(Function),
 							asyncParseOrThrow: expect.any(Function),
+							isAsynchronous: expect.any(Function),
 						},
 						null as never,
 					),
@@ -252,6 +255,10 @@ describe("base parser", () => {
 			);
 
 			expect(specificOverrideHandler.apply).toHaveBeenCalledOnce();
+		});
+
+		it("isAsynchronous", () => {
+			expect(parser.isAsynchronous()).toBe(false);
 		});
 	});
 
@@ -287,6 +294,7 @@ describe("base parser", () => {
 			{
 				sync: exec as never,
 				async: exec as never,
+				isAsynchronous: () => true,
 			},
 			specificOverrideHandler,
 		);
@@ -397,6 +405,10 @@ describe("base parser", () => {
 					),
 				),
 			);
+		});
+
+		it("isAsynchronous", () => {
+			expect(parser.isAsynchronous()).toBe(true);
 		});
 	});
 

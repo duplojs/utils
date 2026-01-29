@@ -208,4 +208,28 @@ describe("DDataParser object", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when all properties are sync", () => {
+			const schema = DDataParser.object({
+				name: DDataParser.string(),
+				age: DDataParser.number(),
+			});
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when any property is async", () => {
+			const asyncName = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.object({
+				name: asyncName,
+				age: DDataParser.number(),
+			});
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

@@ -210,4 +210,38 @@ describe("DDataParser tuple", () => {
 			);
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when all tuple parsers are sync", () => {
+			const schema = DDataParser.tuple([
+				DDataParser.string(),
+				DDataParser.number(),
+			]);
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when any tuple parser is async", () => {
+			const asyncElement = DDataParser.transform(
+				DDataParser.string(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.tuple([
+				asyncElement,
+				DDataParser.number(),
+			]);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+
+		it("returns true when rest parser is async", () => {
+			const asyncRest = DDataParser.transform(
+				DDataParser.number(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.tuple([DDataParser.string()], { rest: asyncRest });
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

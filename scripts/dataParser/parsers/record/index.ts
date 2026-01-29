@@ -279,6 +279,7 @@ export function record<
 
 				return output;
 			},
+			isAsynchronous: (self) => self.definition.value.isAsynchronous(),
 		},
 		record.overrideHandler,
 	) as never;

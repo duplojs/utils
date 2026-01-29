@@ -5,6 +5,7 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
+import * as DArray from "@scripts/array";
 
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 
@@ -115,6 +116,10 @@ export function union<
 
 				return SymbolDataParserErrorIssue;
 			},
+			isAsynchronous: (self) => DArray.some(
+				self.definition.options,
+				(element) => element.isAsynchronous(),
+			),
 		},
 		union.overrideHandler,
 	) as never;

@@ -82,10 +82,12 @@ export interface DataParser<
 		}
 	> {
 	readonly definition: GenericDefinition;
+
 	exec(
 		data: unknown,
 		error: DataParserError,
 	): GenericOutput | SymbolDataParserError;
+
 	asyncExec(
 		data: unknown,
 		error: DataParserError,
@@ -142,6 +144,11 @@ export interface DataParser<
 	asyncParseOrThrow(
 		data: unknown,
 	): Promise<GenericOutput>;
+
+	/**
+	 * {@include dataParser/classic/base/isAsynchronous/index.md}
+	 */
+	isAsynchronous(): boolean;
 }
 
 interface DataParserInitExecParams<
@@ -163,6 +170,8 @@ interface DataParserInitExecParams<
 		| SymbolDataParserErrorIssue
 		| SymbolDataParserErrorPromiseIssue
 	>;
+
+	isAsynchronous(self: GenericDataParser): boolean;
 }
 
 // This allows for better performance WTF ???
@@ -206,6 +215,7 @@ export function dataParserInit<
 		: {
 			sync: exec,
 			async: exec,
+			isAsynchronous: () => false,
 		};
 
 	function middleExec(
@@ -276,7 +286,7 @@ export function dataParserInit<
 		return result;
 	}
 
-	const self: DataParser = pipe(
+	const self: GenericDataParser = pipe(
 		{
 			definition,
 			exec: middleExec,
@@ -365,6 +375,9 @@ export function dataParserInit<
 
 				return result;
 			},
+			isAsynchronous() {
+				return formattedExec.isAsynchronous(self);
+			},
 		} satisfies Record<keyof RemoveKind<DataParser>, any>,
 		(value) => dataParserKind.setTo(value, null as never),
 		kind.setTo,
@@ -372,7 +385,7 @@ export function dataParserInit<
 		(value) => specificOverrideHandler.apply(value as never),
 	);
 
-	return self as never;
+	return self;
 }
 
 dataParserInit.overrideHandler = createOverride<DataParser>("@duplojs/utils/data-parser/base");

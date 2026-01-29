@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La famille DP.coerce.* applique une normalisation avant de lancer les checkers classiques. Elle est idéale pour accepter des payloads bruts (form-data, URLSearchParams, JSON partiel) tout en garantissant un type fort en sortie."
 prev:
-  text: "recover"
-  link: "/fr/v1/api/dataParser/recover"
+  text: "isAsynchronous"
+  link: "/fr/v1/api/dataParser/isAsynchronous"
 next:
   text: "override DataParser"
   link: "/fr/v1/api/dataParser/howToOverride"

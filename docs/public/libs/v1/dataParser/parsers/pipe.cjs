@@ -29,6 +29,7 @@ function pipe(input, output, definition) {
             }
             return self.definition.output.asyncExec(result, error);
         },
+        isAsynchronous: (self) => self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous(),
     }, pipe.overrideHandler);
     return self;
 }

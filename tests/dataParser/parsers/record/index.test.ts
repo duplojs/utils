@@ -436,4 +436,28 @@ describe("DDataParser record", () => {
 			expect(await schema.asyncParse({ "user-guest-usa": "read" })).toStrictEqual(DEither.error(expect.any(Object)));
 		});
 	});
+
+	describe("isAsynchronous", () => {
+		it("returns false when value parser is sync", () => {
+			const schema = DDataParser.record(
+				DDataParser.string(),
+				DDataParser.number(),
+			);
+
+			expect(schema.isAsynchronous()).toBe(false);
+		});
+
+		it("returns true when value parser is async", () => {
+			const asyncValue = DDataParser.transform(
+				DDataParser.number(),
+				async(value) => Promise.resolve(value),
+			);
+			const schema = DDataParser.record(
+				DDataParser.string(),
+				asyncValue,
+			);
+
+			expect(schema.isAsynchronous()).toBe(true);
+		});
+	});
 });

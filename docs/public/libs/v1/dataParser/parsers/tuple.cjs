@@ -3,6 +3,7 @@
 var base = require('../base.cjs');
 var error = require('../error.cjs');
 var kind = require('../kind.cjs');
+var some = require('../../array/some.cjs');
 var override = require('../../common/override.cjs');
 
 const tupleKind = kind.createDataParserKind("tuple");
@@ -78,6 +79,7 @@ function tuple(shape, definition) {
             void (self.definition.shape.length && error.popErrorPath(error$1));
             return output;
         },
+        isAsynchronous: (self) => some.some(self.definition.shape, (element) => element.isAsynchronous()) || !!self.definition.rest?.isAsynchronous(),
     }, tuple.overrideHandler);
     return self;
 }

@@ -27,6 +27,7 @@ function nullable(inner, definition) {
             }
             return self.definition.inner.asyncExec(data, error);
         },
+        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
     }, nullable.overrideHandler);
     return self;
 }
