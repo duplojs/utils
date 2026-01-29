@@ -32,7 +32,7 @@ function getParentFolderPath<
 	GenericPath extends string
 >(
 	path: GenericPath
-): string;
+): string | null;
 ```
 
 ## Parameters
@@ -41,7 +41,7 @@ function getParentFolderPath<
 
 ## Return value
 
-The parent folder, or `"/"` when the path is absolute with no parent, otherwise `"."`.
+The parent folder of the path, or `null` when no parent is found (including when the path has no `/`).
 
 ## See also
 

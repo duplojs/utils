@@ -1,10 +1,10 @@
-Returns the last non-empty segment of a path, optionally without an extension.
+Returns the last segment of a path (after the final slash), with optional extension removal.
 
 **Supported call styles:**
 - Classic: `getBaseName(path, params?)` -> returns the base name or null
 
-It ignores trailing slashes and returns null when the path has no segment or when the last segment is `..`.
-When an extension is provided, it is removed only if it matches the end of the base name.
+The path must contain at least one `/` to match. It returns null when no segment is found.
+When `removeExtension` is true, the file extension is removed from the base name.
 
 ```ts
 {@include common/path/getBaseName/example.ts[3,8]}

@@ -32,16 +32,16 @@ function getParentFolderPath<
 	GenericPath extends string
 >(
 	path: GenericPath
-): string;
+): string | null;
 ```
 
-## Paramètres
+## Parametres
 
-- `path` : Le chemin à analyser.
+- `path` : Le chemin a analyser.
 
 ## Valeur de retour
 
-Le dossier parent, ou `"/"` si le chemin est absolu sans parent, sinon `"."`.
+Le dossier parent du chemin, ou `null` si aucun parent n'est trouve (y compris quand le chemin n'a pas de `/`).
 
 ## Voir aussi
 

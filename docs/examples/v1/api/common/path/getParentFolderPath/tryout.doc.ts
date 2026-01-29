@@ -5,4 +5,4 @@ const posixParent = Path.getParentFolderPath("/foo/bar/baz");
 const trailingParent = Path.getParentFolderPath("/foo/bar/");
 // trailingParent: "/foo"
 const relativeParent = Path.getParentFolderPath("foo");
-// relativeParent: "."
+// relativeParent: null

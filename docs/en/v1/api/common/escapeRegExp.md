@@ -5,8 +5,8 @@ prev:
   text: "stringToBytes"
   link: "/en/v1/api/common/stringToBytes"
 next:
-  text: "interpolation"
-  link: "/en/v1/api/common/interpolation"
+  text: "mimeType"
+  link: "/en/v1/api/common/mimeType"
 ---
 
 # escapeRegExp

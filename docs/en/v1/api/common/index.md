@@ -133,6 +133,9 @@ Converts sizes (`"10mb"`, `"2gb"`, …) into a number of bytes.
 ### [escapeRegExp](/en/v1/api/common/escapeRegExp)
 Escapes special characters to build a regex from a safe string.
 
+### [mimeType](/en/v1/api/common/mimeType)
+Extension-to-MIME map (key without the dot).
+
 ### [interpolation](/en/v1/api/common/interpolation)
 Generates typed templates with `{id}` placeholders and a strict mapping of replacements.
 

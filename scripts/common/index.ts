@@ -16,6 +16,7 @@ export * from "./promiseObject";
 export * from "./simpleClone";
 export * from "./sleep";
 export * from "./stringToBytes";
+export * from "./mimeType";
 export * from "./stringToMillisecond";
 export * from "./toJSON";
 export * from "./toTransform";
@@ -52,5 +53,4 @@ export * from "./hasKinds";
 export * from "./toCurriedPredicate";
 export * from "./pipeCall";
 export * from "./asserts";
-
-export * as Path from "./path";
+export * from "./path";

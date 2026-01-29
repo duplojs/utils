@@ -1000,74 +1000,6 @@
       "name": "common",
       "files": [
         {
-          "name": "path",
-          "files": [
-            {
-              "name": "getBaseName.cjs"
-            },
-            {
-              "name": "getBaseName.d.ts"
-            },
-            {
-              "name": "getBaseName.mjs"
-            },
-            {
-              "name": "getExtensionName.cjs"
-            },
-            {
-              "name": "getExtensionName.d.ts"
-            },
-            {
-              "name": "getExtensionName.mjs"
-            },
-            {
-              "name": "getParentFolderPath.cjs"
-            },
-            {
-              "name": "getParentFolderPath.d.ts"
-            },
-            {
-              "name": "getParentFolderPath.mjs"
-            },
-            {
-              "name": "index.cjs"
-            },
-            {
-              "name": "index.d.ts"
-            },
-            {
-              "name": "index.mjs"
-            },
-            {
-              "name": "isAbsolute.cjs"
-            },
-            {
-              "name": "isAbsolute.d.ts"
-            },
-            {
-              "name": "isAbsolute.mjs"
-            },
-            {
-              "name": "resolveFrom.cjs"
-            },
-            {
-              "name": "resolveFrom.d.ts"
-            },
-            {
-              "name": "resolveFrom.mjs"
-            },
-            {
-              "name": "resolveRelative.cjs"
-            },
-            {
-              "name": "resolveRelative.d.ts"
-            },
-            {
-              "name": "resolveRelative.mjs"
-            }
-          ]
-        },
-        {
           "name": "types",
           "files": [
             {
@@ -1484,6 +1416,15 @@
           "name": "memo.mjs"
         },
         {
+          "name": "mimeType.cjs"
+        },
+        {
+          "name": "mimeType.d.ts"
+        },
+        {
+          "name": "mimeType.mjs"
+        },
+        {
           "name": "or.cjs"
         },
         {
@@ -1500,6 +1441,15 @@
         },
         {
           "name": "override.mjs"
+        },
+        {
+          "name": "path.cjs"
+        },
+        {
+          "name": "path.d.ts"
+        },
+        {
+          "name": "path.mjs"
         },
         {
           "name": "pipe.cjs"

@@ -12,7 +12,6 @@ var index$8 = require('./dataParser/parsers/coerce/index.cjs');
 var index$9 = require('./dataParser/extended/index.cjs');
 var index$a = require('./date/index.cjs');
 var index$b = require('./clean/index.cjs');
-var index$c = require('./common/path/index.cjs');
 var addWrappedProperties = require('./common/addWrappedProperties.cjs');
 var asyncPipe = require('./common/asyncPipe.cjs');
 var clone = require('./common/clone.cjs');
@@ -26,6 +25,7 @@ var promiseObject = require('./common/promiseObject.cjs');
 var simpleClone = require('./common/simpleClone.cjs');
 var sleep = require('./common/sleep.cjs');
 var stringToBytes = require('./common/stringToBytes.cjs');
+var mimeType = require('./common/mimeType.cjs');
 var stringToMillisecond = require('./common/stringToMillisecond.cjs');
 var toJSON = require('./common/toJSON.cjs');
 var toTransform = require('./common/toTransform.cjs');
@@ -62,6 +62,7 @@ var hasKinds = require('./common/hasKinds.cjs');
 var toCurriedPredicate = require('./common/toCurriedPredicate.cjs');
 var pipeCall = require('./common/pipeCall.cjs');
 var asserts = require('./common/asserts.cjs');
+var path = require('./common/path.cjs');
 
 
 
@@ -89,7 +90,6 @@ exports.D = index$a;
 exports.DDate = index$a;
 exports.C = index$b;
 exports.DClean = index$b;
-exports.Path = index$c;
 exports.addWrappedProperties = addWrappedProperties.addWrappedProperties;
 exports.asyncPipe = asyncPipe.asyncPipe;
 exports.clone = clone.clone;
@@ -108,6 +108,7 @@ exports.simpleClone = simpleClone.simpleClone;
 exports.sleep = sleep.sleep;
 exports.InvalidBytesInStringError = stringToBytes.InvalidBytesInStringError;
 exports.stringToBytes = stringToBytes.stringToBytes;
+exports.mimeType = mimeType.mimeType;
 exports.InvalidMillisecondInStringError = stringToMillisecond.InvalidMillisecondInStringError;
 exports.stringToMillisecond = stringToMillisecond.stringToMillisecond;
 exports.toJSON = toJSON.toJSON;
@@ -152,3 +153,7 @@ exports.toCurriedPredicate = toCurriedPredicate.toCurriedPredicate;
 exports.pipeCall = pipeCall.pipeCall;
 exports.AssertsError = asserts.AssertsError;
 exports.asserts = asserts.asserts;
+Object.defineProperty(exports, "Path", {
+	enumerable: true,
+	get: function () { return path.Path; }
+});
