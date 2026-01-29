@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "DDataParser.date() valide un TheDate (format propriétaire date${number}${\"-\" | \"+\"}), accepte des Date, timestamps ou TheDate existants en entrée et renvoie une valeur immuable safe à travers vos services."
+description: "DDataParser.date() valide un TheDate (format propriétaire date${number}${\"-\" | \"+\"}), accepte des Date ou TheDate existants en entrée et renvoie une valeur immuable safe à travers vos services."
 prev:
   text: "bigint"
   link: "/fr/v1/api/dataParser/bigint"
@@ -11,7 +11,7 @@ next:
 
 # date
 
-`DDataParser.date()` valide un `TheDate` (format propriétaire `date${number}${"-" | "+"}`), accepte des `Date`, timestamps ou `TheDate` existants en entrée et renvoie une valeur immuable safe à travers vos services.
+`DDataParser.date()` valide un `TheDate` (format propriétaire `date${number}${"-" | "+"}`), accepte des `Date` ou `TheDate` existants en entrée et renvoie une valeur immuable safe à travers vos services.
 
 ## Exemple interactif
 
@@ -25,7 +25,7 @@ next:
 
 - `errorMessage` : message personnalisé si l'entrée n'est pas convertible en `TheDate`.
 - `checkers` : `checkerRefine` pour exprimer vos règles (plages, intervalles, etc.).
-- `coerce` : `true` pour accepter `Date`, number ou string ISO puis convertir en `TheDate`. Par défaut `false`.
+- `coerce` : `true` pour accepter un timestamp (`number`) ou une string ISO puis convertir en `TheDate`. Par défaut `false`.
 
 ## Valeur de retour
 

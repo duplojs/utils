@@ -1,7 +1,7 @@
 import { DPE, E, unwrap } from "@scripts";
 
 const parser = DPE.time().min("time0+").max("time100+");
-const result = parser.parse("time10+");
+const result = parser.parse(10);
 if (E.isRight(result)) {
 	const value = unwrap(result);
 	// value: TheTime

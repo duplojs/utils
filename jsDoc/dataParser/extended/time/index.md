@@ -1,9 +1,9 @@
-Creates an extended data parser for TheTime values.
+Creates an extended data parser for TheTime values or safe millisecond numbers.
 
 **Supported call styles:**
 - Method: `DPE.time(definition?)` -> returns a time parser
 
-Validates TheTime values and exposes time-specific methods like min and max.
+Validates TheTime values (or safe millisecond numbers) and exposes time-specific methods like min and max.
 
 ```ts
 {@include dataParser/extended/time/example.ts[3,14]}

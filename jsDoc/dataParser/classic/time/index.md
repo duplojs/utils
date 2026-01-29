@@ -1,10 +1,10 @@
-Creates a data parser for TheTime values.
+Creates a data parser for TheTime values or safe millisecond numbers.
 
 **Supported call styles:**
 - Classic: `DP.time(definition?)` -> returns a time parser
 - Curried: not available
 
-Validates that the input is a TheTime, optionally applies coerce, and runs the configured checkers.
+Validates that the input is a TheTime (or a safe millisecond number), optionally applies ISO string coercion, and runs the configured checkers.
 
 ```ts
 {@include dataParser/classic/time/example.ts[3,15]}

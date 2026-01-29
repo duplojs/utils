@@ -10,7 +10,7 @@ next:
 
 # time
 
-Validates durations in `TheTime` format. `DDataParser.time()` ensures the input is a `TheTime`, applies your checkers (`min`, `max`, `refine`, etc.) and returns an `Either` containing either the validated value or a `DataParserError`.
+Validates durations in `TheTime` format. `DDataParser.time()` accepts a `TheTime` (or a safe millisecond `number`), applies your checkers (`min`, `max`, `refine`, etc.) and returns an `Either` containing either the validated value or a `DataParserError`.
 
 ## Interactive example
 
@@ -24,7 +24,7 @@ Validates durations in `TheTime` format. `DDataParser.time()` ensures the input 
 
 - `errorMessage`: custom message when the input is not a `TheTime`.
 - `checkers`: `checkerTimeMin`, `checkerTimeMax`, `checkerRefine`, etc.
-- `coerce`: `true` to accept a number (ms) or an ISO string (`HH:MM[:SS[.mmm]]`) before converting to `TheTime`. Defaults to `false`.
+- `coerce`: `true` to accept an ISO string (`HH:MM[:SS[.mmm]]`) before converting to `TheTime`. Defaults to `false`.
 
 ## Return value
 
@@ -45,7 +45,7 @@ A `DataParserTime` with `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/time/extended.doc.ts"
   majorVersion="v1"
-  height="350px"
+  height="355px"
 />
 
 ## See also

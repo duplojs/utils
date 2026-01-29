@@ -1,27 +1,33 @@
-import { DEither, DDataParser, DDate } from "@scripts";
+import { DEither, DDataParser, pipe, type ExpectType } from "@scripts";
 import type { TheTime } from "@scripts/date";
 
 describe("coerce.time", () => {
-	it("coerces number, TheTime and ISO time inputs", () => {
+	it("coerces ISO time inputs", () => {
 		const parser = DDataParser.coerce.time();
-		const existing: TheTime = "time42+";
 
-		expect(parser.parse(1)).toStrictEqual(DEither.success("time1+"));
-		expect(parser.parse(-1)).toStrictEqual(DEither.success("time1-"));
-		expect(parser.parse("01:02")).toStrictEqual(DEither.success("time3720000+"));
-		expect(parser.parse(existing)).toStrictEqual(DEither.success(existing));
+		const result = parser.parse("01:02");
+
+		expect(result).toStrictEqual(DEither.success("time3720000+"));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<TheTime>,
+			"strict"
+		>;
 	});
 
-	it("rejects unsafe or invalid inputs", () => {
+	it("rejects invalid ISO time inputs", () => {
 		const parser = DDataParser.coerce.time({ errorMessage: "time.invalid" });
-		const tooHigh = DDate.maxTimeValue + 1;
-		const invalidTheTime = `time${DDate.maxTimeValue}+` as TheTime;
-		const invalidType = true;
 		const invalidString = "not-a-time";
 
-		expect(parser.parse(tooHigh)).toStrictEqual(DEither.error(expect.any(Object)));
-		expect(parser.parse(invalidTheTime)).toStrictEqual(DEither.error(expect.any(Object)));
-		expect(parser.parse(invalidType)).toStrictEqual(DEither.error(expect.any(Object)));
 		expect(parser.parse(invalidString)).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
+	it("works in pipe", () => {
+		const parser = DDataParser.coerce.time();
+
+		const result = pipe("01:02", parser.parse);
+
+		expect(result).toStrictEqual(DEither.success("time3720000+"));
 	});
 });

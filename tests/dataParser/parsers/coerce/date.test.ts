@@ -1,28 +1,34 @@
-import { DEither, DDataParser, DDate } from "@scripts";
+import { DEither, DDataParser, pipe, type ExpectType } from "@scripts";
 import type { TheDate } from "@scripts/date";
 
 describe("coerce.date", () => {
-	it("coerces number, Date and TheDate inputs", () => {
+	it("coerces number and date string inputs", () => {
 		const parser = DDataParser.coerce.date();
-		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
-		const existing: TheDate = "date42+";
+
+		const result = parser.parse("1970-01-01");
 
 		expect(parser.parse(1)).toStrictEqual(DEither.success("date1+"));
-		expect(parser.parse(-1)).toStrictEqual(DEither.success("date1-"));
-		expect(parser.parse(nativeDate)).toStrictEqual(DEither.success("date1609459200000+"));
-		expect(parser.parse(existing)).toStrictEqual(DEither.success(existing));
+		expect(result).toStrictEqual(DEither.success("date0+"));
+
+		type check = ExpectType<
+			typeof result,
+			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<TheDate>,
+			"strict"
+		>;
 	});
 
 	it("rejects unsafe or invalid inputs", () => {
 		const parser = DDataParser.coerce.date({ errorMessage: "date.invalid" });
-		const tooHigh = DDate.maxTimestamp + 1;
-		const invalidDate = new Date(tooHigh);
-		const invalidTheDate = `date${DDate.maxTimestamp}+` as TheDate;
-		const invalidType = true;
+		const invalidString = "not-a-date";
 
-		expect(parser.parse(tooHigh)).toStrictEqual(DEither.error(expect.any(Object)));
-		expect(parser.parse(invalidDate)).toStrictEqual(DEither.error(expect.any(Object)));
-		expect(parser.parse(invalidTheDate)).toStrictEqual(DEither.error(expect.any(Object)));
-		expect(parser.parse(invalidType)).toStrictEqual(DEither.error(expect.any(Object)));
+		expect(parser.parse(invalidString)).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
+	it("works in pipe", () => {
+		const parser = DDataParser.coerce.date();
+
+		const result = pipe("1970-01-01", parser.parse);
+
+		expect(result).toStrictEqual(DEither.success("date0+"));
 	});
 });

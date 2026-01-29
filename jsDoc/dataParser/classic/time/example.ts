@@ -1,7 +1,7 @@
 import { DP, E, unwrap } from "@scripts";
 
 const parser = DP.time();
-const result = parser.parse("time0+");
+const result = parser.parse(60000);
 if (E.isRight(result)) {
 	const value = unwrap(result);
 	// value: TheTime

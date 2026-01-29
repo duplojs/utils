@@ -1,4 +1,4 @@
-import { DDataParser, DDate, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DDate, DEither, pipe, type ExpectType } from "@scripts";
 import { type TheTime } from "@scripts/date";
 
 const { extended } = DDataParser;
@@ -16,6 +16,13 @@ describe("extended.time", () => {
 			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<TheTime>,
 			"strict"
 		>;
+	});
+
+	it("parses safe numbers", () => {
+		const parser = extended.time();
+
+		expect(parser.parse(1)).toStrictEqual(DEither.success("time1+"));
+		expect(parser.parse(-1)).toStrictEqual(DEither.success("time1-"));
 	});
 
 	it("supports refine helper", () => {
@@ -46,5 +53,13 @@ describe("extended.time", () => {
 		expect(maxParser.parse("time60000+")).toStrictEqual(
 			DEither.success("time60000+"),
 		);
+	});
+
+	it("works in pipe", () => {
+		const parser = extended.time();
+
+		const result = pipe(1, parser.parse);
+
+		expect(result).toStrictEqual(DEither.success("time1+"));
 	});
 });

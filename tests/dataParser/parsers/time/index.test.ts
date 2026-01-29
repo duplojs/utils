@@ -1,4 +1,4 @@
-import { DDataParser, DEither, DDate, type ExpectType } from "@scripts";
+import { DDataParser, DEither, DDate, pipe, type ExpectType } from "@scripts";
 import { type TheTime } from "@scripts/date";
 
 describe("DDataParser time", () => {
@@ -13,13 +13,20 @@ describe("DDataParser time", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			TheTime,
+			TheTime | number,
 			"strict"
 		>;
 
 		const value: TheTime = "time10+";
 
 		expect(schema.parse(value)).toStrictEqual(DEither.success(value));
+	});
+
+	it("parses safe numbers", () => {
+		const schema = DDataParser.time();
+
+		expect(schema.parse(1)).toStrictEqual(DEither.success("time1+"));
+		expect(schema.parse(-1)).toStrictEqual(DEither.success("time1-"));
 	});
 
 	it("fails when value does not match TheTime format", () => {
@@ -39,9 +46,44 @@ describe("DDataParser time", () => {
 		);
 	});
 
-	it("does not coerce when disabled", () => {
+	it("rejects invalid inputs", () => {
 		const schema = DDataParser.time({ errorMessage: "time.invalid" });
-		const input = 120;
+		const outOfRangeTimestamp = DDate.maxTimeValue + 1;
+		const invalidType = true;
+		const unsafeTheTime = `time${DDate.maxTimeValue}+` as TheTime;
+
+		expect(schema.parse(outOfRangeTimestamp)).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					outOfRangeTimestamp,
+				),
+			),
+		);
+		expect(schema.parse(invalidType)).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					invalidType,
+				),
+			),
+		);
+		expect(schema.parse(unsafeTheTime)).toStrictEqual(
+			DEither.error(
+				DDataParser.addIssue(
+					DDataParser.createError(),
+					schema,
+					unsafeTheTime,
+				),
+			),
+		);
+	});
+
+	it("does not coerce ISO time when disabled", () => {
+		const schema = DDataParser.time({ errorMessage: "time.invalid" });
+		const input = "01:02";
 
 		const result = schema.parse(input);
 
@@ -56,66 +98,29 @@ describe("DDataParser time", () => {
 		);
 	});
 
-	it("coerces supported inputs", () => {
+	it("coerces ISO time inputs", () => {
 		const schema = DDataParser.time({ coerce: true });
-		const existing: TheTime = "time42+";
 
-		expect(schema.parse(1)).toStrictEqual(DEither.success("time1+"));
-		expect(schema.parse(-1)).toStrictEqual(DEither.success("time1-"));
 		expect(schema.parse("01:02")).toStrictEqual(DEither.success("time3720000+"));
 		expect(schema.parse("-01:02")).toStrictEqual(DEither.success("time3720000-"));
 		expect(schema.parse("12:34:56.789")).toStrictEqual(DEither.success("time45296789+"));
-		expect(schema.parse(existing)).toStrictEqual(DEither.success(existing));
 	});
 
-	it("rejects invalid coercions", () => {
+	it("rejects invalid ISO time coercions", () => {
 		const schema = DDataParser.time({
 			coerce: true,
 			errorMessage: "time.invalid",
 		});
-		const outOfRangeTimestamp = DDate.maxTimeValue + 1;
 		const invalidString = "not-a-time";
-		const invalidType = true;
-		const unsafeTheTime = `time${DDate.maxTimeValue}+` as TheTime;
 
-		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const stringResult = schema.parse(invalidString);
-		const typeResult = schema.parse(invalidType);
-		const unsafeTheTimeResult = schema.parse(unsafeTheTime);
 
-		expect(timestampResult).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					outOfRangeTimestamp,
-				),
-			),
-		);
 		expect(stringResult).toStrictEqual(
 			DEither.error(
 				DDataParser.addIssue(
 					DDataParser.createError(),
 					schema,
 					invalidString,
-				),
-			),
-		);
-		expect(typeResult).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidType,
-				),
-			),
-		);
-		expect(unsafeTheTimeResult).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					unsafeTheTime,
 				),
 			),
 		);
@@ -143,5 +148,13 @@ describe("DDataParser time", () => {
 		);
 		expect(createTimeSpy).toHaveBeenCalledWith({ value: input });
 		createTimeSpy.mockRestore();
+	});
+
+	it("works in pipe", () => {
+		const schema = DDataParser.time();
+
+		const result = pipe(1, schema.parse);
+
+		expect(result).toStrictEqual(DEither.success("time1+"));
 	});
 });

@@ -1,10 +1,10 @@
-Creates a data parser for TheDate values.
+Creates a data parser for TheDate values or native Date instances.
 
 **Supported call styles:**
 - Classic: `DP.date(definition?)` -> returns a date parser
 - Curried: not available
 
-Validates that the input is a TheDate, optionally applies coerce, and runs the configured checkers.
+Validates that the input is a TheDate (or a Date instance), optionally applies number/ISO string coercion, and runs the configured checkers.
 
 ```ts
 {@include dataParser/classic/date/example.ts[3,15]}

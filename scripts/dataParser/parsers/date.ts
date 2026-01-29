@@ -35,7 +35,7 @@ type _DataParserDate<
 	& DataParser<
 		GenericDefinition,
 		TheDate,
-		TheDate
+		TheDate | Date
 	>
 	& Kind<typeof dateKind.definition>
 );
@@ -86,15 +86,6 @@ export function date<
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {
-				if (data instanceof Date) {
-					const timestamp = data.getTime();
-
-					if (!DDate.isSafeTimestamp(timestamp)) {
-						return SymbolDataParserErrorIssue;
-					}
-					return DDate.createTheDate(timestamp);
-				}
-
 				if (typeof data === "number") {
 					if (!DDate.isSafeTimestamp(data)) {
 						return SymbolDataParserErrorIssue;
@@ -114,6 +105,15 @@ export function date<
 
 			if (typeof data === "string" && DDate.is(data)) {
 				return data;
+			}
+
+			if (data instanceof Date) {
+				const timestamp = data.getTime();
+
+				if (!DDate.isSafeTimestamp(timestamp)) {
+					return SymbolDataParserErrorIssue;
+				}
+				return DDate.createTheDate(timestamp);
 			}
 
 			return SymbolDataParserErrorIssue;

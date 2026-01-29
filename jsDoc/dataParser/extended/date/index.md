@@ -1,9 +1,9 @@
-Creates an extended data parser for TheDate values.
+Creates an extended data parser for TheDate values or native Date instances.
 
 **Supported call styles:**
 - Method: `DPE.date(definition?)` -> returns a date parser
 
-Validates TheDate values and can coerce from string or timestamp when enabled.
+Validates TheDate values (or Date instances) and can coerce from ISO strings or timestamps when enabled.
 
 ```ts
 {@include dataParser/extended/date/example.ts[3,14]}

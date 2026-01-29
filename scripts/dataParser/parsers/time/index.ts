@@ -41,7 +41,7 @@ type _DataParserTime<
 	& DataParser<
 		GenericDefinition,
 		TheTime,
-		TheTime
+		TheTime | number
 	>
 	& Kind<typeof timeKind.definition>
 );
@@ -92,14 +92,6 @@ export function time<
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {
-				if (typeof data === "number") {
-					if (!DDate.isSafeTimeValue(data)) {
-						return SymbolDataParserErrorIssue;
-					}
-
-					return DDate.createTheTime(data);
-				}
-
 				if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
 					const result = DDate.createTime({ value: data });
 
@@ -113,6 +105,14 @@ export function time<
 
 			if (typeof data === "string" && DDate.isTime(data)) {
 				return data;
+			}
+
+			if (typeof data === "number") {
+				if (!DDate.isSafeTimeValue(data)) {
+					return SymbolDataParserErrorIssue;
+				}
+
+				return DDate.createTheTime(data);
 			}
 
 			return SymbolDataParserErrorIssue;
