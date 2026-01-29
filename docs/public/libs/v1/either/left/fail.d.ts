@@ -5,7 +5,7 @@ export declare const failKind: import("../../common/kind").KindHandler<import(".
  * @deprecated use failKind
  */
 export declare const eitherFailKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/fail", unknown>>;
-type _Fail = (Left<"fail", never> & Kind<typeof failKind.definition>);
+type _Fail = (Left<"fail", void> & Kind<typeof failKind.definition>);
 export interface Fail extends _Fail {
 }
 /**
@@ -13,7 +13,7 @@ export interface Fail extends _Fail {
  */
 export type EitherFail = Fail;
 /**
- * Returns an Left<"fail", never>: perfect to signal a failure without carrying extra data.
+ * Returns an Left<"fail", void>: perfect to signal a failure without carrying extra data.
  * 
  * Signature: `fail()` → returns a value
  * 

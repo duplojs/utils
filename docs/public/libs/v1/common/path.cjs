@@ -5,7 +5,7 @@ var fail = require('../either/left/fail.cjs');
 
 exports.Path = void 0;
 (function (Path) {
-    Path.baseNameRegex = /\/([^/]+)$/;
+    Path.baseNameRegex = /\/?([^/]+)$/;
     Path.folderNameRegex = /([^]+)\/[^/]+\/?$/;
     Path.extensionNameRegex = /\.([^./]+)$/;
     Path.isRelativeRegex = /(^|\/)\.\.(?=\/|$)/;

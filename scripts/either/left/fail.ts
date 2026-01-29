@@ -10,7 +10,7 @@ export const failKind = createEitherKind("fail");
 export const eitherFailKind = failKind;
 
 type _Fail = (
-	& Left<"fail", never>
+	& Left<"fail", void>
 	& Kind<typeof failKind.definition>
 );
 

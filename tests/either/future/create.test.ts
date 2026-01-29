@@ -144,7 +144,7 @@ describe("FutureEither", () => {
 				15,
 				Promise<{ test: number }>,
 				Future<"test">,
-				Promise<never>,
+				Promise<void>,
 			]>,
 			"strict"
 		>;

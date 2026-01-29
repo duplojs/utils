@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Returns an Right<\"ok\", never>: an empty success that confirms an operation went fine without extra data."
+description: "Returns an Right<\"ok\", void>: an empty success that confirms an operation went fine without extra data."
 prev:
   text: "success"
   link: "/en/v1/api/either/success"
@@ -11,7 +11,7 @@ next:
 
 # ok
 
-Returns an `Right<"ok", never>`: an empty success that confirms an operation went fine without extra data.
+Returns an `Right<"ok", void>`: an empty success that confirms an operation went fine without extra data.
 
 ::: tip
 `ok` is just a specialized alias of `right("ok")`. To better understand building `Right` values (mandatory info, unwrap, helpers), see the [`right`](/en/v1/api/either/right) page.

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Returns an Left<\"fail\", never>: perfect to signal a failure without carrying extra data."
+description: "Returns an Left<\"fail\", void>: perfect to signal a failure without carrying extra data."
 prev:
   text: "error"
   link: "/en/v1/api/either/error"
@@ -11,7 +11,7 @@ next:
 
 # fail
 
-Returns an `Left<"fail", never>`: perfect to signal a failure without carrying extra data.
+Returns an `Left<"fail", void>`: perfect to signal a failure without carrying extra data.
 
 ::: tip
 `fail` is the payload-less alias of `left("fail")`. For details on customizing the info or adding a value, read the [`left`](/en/v1/api/either/left) page.

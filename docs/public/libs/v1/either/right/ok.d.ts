@@ -5,7 +5,7 @@ export declare const okKind: import("../../common/kind").KindHandler<import("../
  * @deprecated use okKind
  */
 export declare const eitherOkKind: import("../../common/kind").KindHandler<import("../../common/kind").KindDefinition<"@DuplojsUtilsEither/ok", unknown>>;
-type _Ok = (Right<"ok", never> & Kind<typeof okKind.definition>);
+type _Ok = (Right<"ok", void> & Kind<typeof okKind.definition>);
 export interface Ok extends _Ok {
 }
 /**
@@ -13,7 +13,7 @@ export interface Ok extends _Ok {
  */
 export type EitherOk = Ok;
 /**
- * Returns an Right<"ok", never>: an empty success that confirms an operation went fine without extra data.
+ * Returns an Right<"ok", void>: an empty success that confirms an operation went fine without extra data.
  * 
  * Signature: `ok()` → returns a value
  * 

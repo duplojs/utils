@@ -10,7 +10,7 @@ export const okKind = createEitherKind("ok");
 export const eitherOkKind = okKind;
 
 type _Ok = (
-	& Right<"ok", never>
+	& Right<"ok", void>
 	& Kind<typeof okKind.definition>
 );
 

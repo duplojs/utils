@@ -3,7 +3,7 @@ import { fail } from '../either/left/fail.mjs';
 
 var Path;
 (function (Path) {
-    Path.baseNameRegex = /\/([^/]+)$/;
+    Path.baseNameRegex = /\/?([^/]+)$/;
     Path.folderNameRegex = /([^]+)\/[^/]+\/?$/;
     Path.extensionNameRegex = /\.([^./]+)$/;
     Path.isRelativeRegex = /(^|\/)\.\.(?=\/|$)/;
