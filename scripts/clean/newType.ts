@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, A, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
@@ -13,7 +13,7 @@ export const newTypeKind = createCleanKind<"new-type", string>("new-type");
 type _NewType<
 	GenericName extends string,
 	GenericValue extends unknown,
-	GenericConstrainName extends string,
+	GenericConstraintsName extends string,
 > = (
 	& Kind<
 		typeof newTypeKind.definition,
@@ -21,7 +21,7 @@ type _NewType<
 	>
 	& Kind<
 		typeof constrainedTypeKind.definition,
-		Record<GenericConstrainName, unknown>
+		Record<GenericConstraintsName, unknown>
 	>
 	& WrappedValue<GenericValue>
 );
@@ -29,8 +29,8 @@ type _NewType<
 export interface NewType<
 	GenericName extends string = string,
 	GenericValue extends unknown = unknown,
-	GenericConstrainName extends string = never,
-> extends _NewType<GenericName, GenericValue, GenericConstrainName> {
+	GenericConstraintsName extends string = never,
+> extends _NewType<GenericName, GenericValue, GenericConstraintsName> {
 
 }
 
@@ -39,7 +39,7 @@ export const newTypeHandlerKind = createCleanKind("new-type-handler");
 export interface NewTypeHandler<
 	GenericName extends string = string,
 	GenericValue extends unknown = unknown,
-	GenericConstrainHandler extends readonly ConstraintHandler[] = readonly [],
+	GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [],
 > extends Kind<typeof newTypeHandlerKind.definition> {
 
 	/**
@@ -55,22 +55,22 @@ export interface NewTypeHandler<
 	/**
 	 * {@include clean/createNewType/constrains.md}
 	 */
-	readonly constrains: GenericConstrainHandler;
+	readonly constrains: GenericConstraintsHandler;
 
 	/**
 	 * {@include clean/createNewType/create.md}
 	 */
 	create<
-		const GenericData extends GenericValue,
+		const GenericInput extends GenericValue,
 	>(
-		data: GenericData
+		data: GenericInput
 	): (
 		| DEither.Right<
 			"createNewType",
 			NewType<
 				GenericName,
-				GenericData,
-				GenericConstrainHandler[number]["name"]
+				GenericInput,
+				GenericConstraintsHandler[number]["name"]
 			>
 		>
 		| DEither.Left<
@@ -91,7 +91,7 @@ export interface NewTypeHandler<
 				& NewType<
 					GenericName,
 					Unwrap<GenericPrimitive>,
-					GenericConstrainHandler[number]["name"]
+					GenericConstraintsHandler[number]["name"]
 				>
 			)
 		>
@@ -111,7 +111,7 @@ export interface NewTypeHandler<
 	): NewType<
 		GenericName,
 		GenericData,
-		GenericConstrainHandler[number]["name"]
+		GenericConstraintsHandler[number]["name"]
 	>;
 
 	createOrThrow<
@@ -123,7 +123,7 @@ export interface NewTypeHandler<
 		& NewType<
 			GenericName,
 			Unwrap<GenericPrimitive>,
-			GenericConstrainHandler[number]["name"]
+			GenericConstraintsHandler[number]["name"]
 		>
 	);
 
@@ -131,16 +131,16 @@ export interface NewTypeHandler<
 	 * {@include clean/createNewType/createWithUnknown.md}
 	 */
 	createWithUnknown<
-		GenericData extends unknown,
+		GenericInput extends unknown,
 	>(
-		data: GenericData
+		data: GenericInput
 	): (
 		| DEither.Right<
 			"createNewType",
 			NewType<
 				GenericName,
 				GenericValue,
-				GenericConstrainHandler[number]["name"]
+				GenericConstraintsHandler[number]["name"]
 			>
 		>
 		| DEither.Left<
@@ -153,13 +153,13 @@ export interface NewTypeHandler<
 	 * {@include clean/createNewType/createWithUnknownOrThrow.md}
 	 */
 	createWithUnknownOrThrow<
-		GenericData extends unknown,
+		GenericInput extends unknown,
 	>(
-		data: GenericData
+		data: GenericInput
 	): NewType<
 		GenericName,
 		GenericValue,
-		GenericConstrainHandler[number]["name"]
+		GenericConstraintsHandler[number]["name"]
 	>;
 
 	/**
@@ -172,8 +172,20 @@ export interface NewTypeHandler<
 		NewType<
 			GenericName,
 			GenericValue,
-			GenericConstrainHandler[number]["name"]
+			GenericConstraintsHandler[number]["name"]
 		>
+	>;
+
+	/**
+	 * {@include clean/createNewType/getConstraint.md}
+	 */
+	getConstraint<
+		GenericConstraintName extends GenericConstraintsHandler[number]["name"],
+	>(
+		name: GenericConstraintName
+	): Extract<
+		GenericConstraintsHandler[number],
+		ConstraintHandler<GenericConstraintName>
 	>;
 }
 
@@ -197,7 +209,7 @@ export class CreateNewTypeError extends kindHeritage(
 export function createNewType<
 	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParser,
-	const GenericConstrainHandler extends(
+	const GenericConstraintsHandler extends(
 		| ConstraintHandler<
 			string,
 			EligiblePrimitive,
@@ -228,18 +240,18 @@ export function createNewType<
 >(
 	name: GenericName,
 	dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>,
-	constraint?: GenericConstrainHandler,
+	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 		GenericName,
 		DeepReadonly<DDataParser.Output<GenericDataParser>>,
 		DArray.ArrayCoalescing<
-			NeverCoalescing<GenericConstrainHandler, readonly []>
+			NeverCoalescing<GenericConstraintsHandler, readonly []>
 		>
 	> {
-	const constrains = DArray.coalescing(constraint ?? []);
+	const constraints = DArray.coalescing(constraint ?? []);
 
-	const checkers = A.flatMap(
-		constrains,
+	const checkers = DArray.flatMap(
+		constraints,
 		({ checkers }) => checkers,
 	);
 
@@ -248,10 +260,20 @@ export function createNewType<
 		: dataParser;
 
 	const constraintKindValue = pipe(
-		constrains,
+		constraints,
 		DArray.map(({ name }) => DObject.entry(name, null)),
 		DObject.fromEntries,
 	);
+
+	const wrappedConstraints = pipe(
+		constraints,
+		DArray.map((constrain) => DObject.entry(constrain.name, constrain)),
+		DObject.fromEntries,
+	);
+
+	function getConstraint(name: string) {
+		return wrappedConstraints[name];
+	}
 
 	function create(data: any) {
 		const result = dataParserWithCheckers.parse(unwrap(data));
@@ -308,8 +330,8 @@ export function createNewType<
 		}
 
 		// eslint-disable-next-line @typescript-eslint/prefer-for-of
-		for (let index = 0; index < constrains.length; index++) {
-			if (!constrains[index]!.is(input)) {
+		for (let index = 0; index < constraints.length; index++) {
+			if (!constraints[index]!.is(input)) {
 				return false;
 			}
 		}
@@ -320,13 +342,14 @@ export function createNewType<
 	return newTypeHandlerKind.setTo({
 		name,
 		dataParser: dataParserWithCheckers,
-		constrains,
+		constrains: constraints,
+		getConstraint,
 		create,
 		createOrThrow,
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	}) as never;
+	} satisfies Record<keyof RemoveKind<NewTypeHandler>, unknown>) as never;
 }
 
 export type GetNewType<

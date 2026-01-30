@@ -94,6 +94,14 @@ function is(
 ): value is NewType<NewTypeName, RawType, ConstraintName>
 ```
 
+#### `getConstraint()`
+
+```typescript
+function getConstraint(
+	name: ConstraintName
+): ConstraintHandler<ConstraintName>
+```
+
 ### Properties
 
 #### `name`

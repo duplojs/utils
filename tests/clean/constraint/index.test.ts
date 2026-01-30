@@ -23,11 +23,11 @@ describe("createConstraint", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherRight<
+			| DEither.Right<
 				"createConstrainedType",
 				DClean.GetConstraint<typeof constraint, "hello">
 			>
-			| DEither.EitherLeft<
+			| DEither.Left<
 				"createConstrainedTypeError",
 				DDataParser.DataParserError
 			>,
@@ -53,8 +53,8 @@ describe("createConstraint", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>
-			| DEither.EitherRight<"createConstrainedType", DClean.ConstrainedType<"username", "hi">>,
+			| DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+			| DEither.Right<"createConstrainedType", DClean.ConstrainedType<"username", "hi">>,
 			"strict"
 		>;
 	});
@@ -86,8 +86,8 @@ describe("createConstraint", () => {
 		type Check = ExpectType<
 			typeof result,
 			(
-				| DEither.EitherLeft<"createConstrainedTypeError", DDataParser.DataParserError>
-				| DEither.EitherRight<
+				| DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+				| DEither.Right<
 					"createConstrainedType",
 					& DClean.ConstrainedType<"other", "valid">
 					& DClean.ConstrainedType<"username", "valid">
@@ -160,5 +160,45 @@ describe("createConstraint", () => {
 		const result = constraint.createWithUnknownOrThrow("test");
 
 		expect(result).toStrictEqual(createResult);
+	});
+
+	it("string nim and max", () => {
+		const stringMax = DClean.StringMax(10);
+		const stringMin = DClean.StringMin(10);
+
+		expect(stringMax.name).toBe("string-max-10");
+		expect(stringMin.name).toBe("string-min-10");
+
+		type check = ExpectType<
+			typeof stringMax,
+			DClean.ConstraintHandler<"string-max-10", string, readonly [DDataParser.DataParserCheckerStringMax]>,
+			"strict"
+		>;
+
+		type check1 = ExpectType<
+			typeof stringMin,
+			DClean.ConstraintHandler<"string-min-10", string, readonly [DDataParser.DataParserCheckerStringMin]>,
+			"strict"
+		>;
+	});
+
+	it("number nim and max", () => {
+		const numberMax = DClean.NumberMax(10);
+		const numberMin = DClean.NumberMin(10);
+
+		expect(numberMax.name).toBe("number-max-10");
+		expect(numberMin.name).toBe("number-min-10");
+
+		type check = ExpectType<
+			typeof numberMax,
+			DClean.ConstraintHandler<"number-max-10", number, readonly [DDataParser.DataParserCheckerNumberMax]>,
+			"strict"
+		>;
+
+		type check1 = ExpectType<
+			typeof numberMin,
+			DClean.ConstraintHandler<"number-min-10", number, readonly [DDataParser.DataParserCheckerNumberMin]>,
+			"strict"
+		>;
 	});
 });

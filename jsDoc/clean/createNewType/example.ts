@@ -26,3 +26,6 @@ if (E.isRight(maybe)) {
 }
 
 const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
+
+const constraint = UserId.getConstraint("positive");
+constraint.createOrThrow(1);

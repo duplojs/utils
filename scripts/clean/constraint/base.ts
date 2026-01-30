@@ -1,4 +1,4 @@
-import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue } from "@scripts";
+import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind } from "@scripts";
 import { createCleanKind } from "../kind";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DArray from "../../array";
@@ -246,7 +246,7 @@ export function createConstraint<
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	}) as never;
+	} satisfies Record<keyof RemoveKind<ConstraintHandler>, unknown>) as never;
 }
 
 export type GetConstraint<

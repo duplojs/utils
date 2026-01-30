@@ -191,4 +191,27 @@ describe("createNewType", () => {
 			DPE.string().transform(() => 0),
 		);
 	});
+
+	it("getConstrain", () => {
+		const maxConstrain = DClean.StringMax(50);
+
+		const handler = DClean.createNewType(
+			"Label",
+			DDataParser.string(),
+			[
+				DClean.StringMin(10),
+				maxConstrain,
+			],
+		);
+
+		const result = handler.getConstraint("string-max-50");
+
+		expect(result).toBe(maxConstrain);
+
+		type check = ExpectType<
+			typeof result,
+			DClean.ConstraintHandler<"string-max-50", string, readonly [DDataParser.DataParserCheckerStringMax]>,
+			"strict"
+		>;
+	});
 });

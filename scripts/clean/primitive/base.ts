@@ -1,4 +1,4 @@
-import { createErrorKind, type Kind, kindHeritage, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
+import { createErrorKind, type Kind, kindHeritage, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
@@ -139,7 +139,7 @@ function createPrimitive<
 		createWithUnknown: create,
 		createWithUnknownOrThrow: createOrThrow,
 		is,
-	}) as never;
+	} satisfies Record<keyof RemoveKind<PrimitiveHandler>, unknown>) as never;
 }
 
 /**

@@ -6,8 +6,9 @@ export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.m
 export { createFlag, flagKind } from './flag.mjs';
 export { unwrapEntity } from './unwrapEntity.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';
-export { Int, Negative, Positive } from './constraint/defaultConstraint/number.mjs';
-export { Email, Url } from './constraint/defaultConstraint/string.mjs';
+export { Int, Negative, NumberMax, NumberMin, Positive } from './constraint/defaultConstraint/number.mjs';
+export { Email, StringMax, StringMin, Url } from './constraint/defaultConstraint/string.mjs';
+export { CreateConstraintsSetError, constraintsSetHandlerKind, createConstraintsSet } from './constraint/set.mjs';
 export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, primitiveHandlerKind } from './primitive/base.mjs';
 export { equal } from './primitive/operations/equal.mjs';
 export { add } from './primitive/operations/number/add.mjs';

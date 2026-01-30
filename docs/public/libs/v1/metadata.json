@@ -626,6 +626,15 @@
             },
             {
               "name": "index.d.ts"
+            },
+            {
+              "name": "set.cjs"
+            },
+            {
+              "name": "set.d.ts"
+            },
+            {
+              "name": "set.mjs"
             }
           ]
         },

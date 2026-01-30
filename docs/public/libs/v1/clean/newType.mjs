@@ -1,5 +1,4 @@
 import { createCleanKind } from './kind.mjs';
-import { constrainedTypeKind } from './constraint/base.mjs';
 import { kindHeritage } from '../common/kind.mjs';
 import { flatMap } from '../array/flatMap.mjs';
 import { coalescing } from '../array/coalescing.mjs';
@@ -10,6 +9,7 @@ import { createErrorKind } from '../common/errorKindNamespace.mjs';
 import { isLeft } from '../either/left/is.mjs';
 import { unwrap } from '../common/unwrap.mjs';
 import { left } from '../either/left/create.mjs';
+import { constrainedTypeKind } from './constraint/base.mjs';
 import { right } from '../either/right/create.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
 import { fromEntries } from '../object/fromEntries.mjs';
@@ -31,12 +31,16 @@ class CreateNewTypeError extends kindHeritage("create-new-type-error", createErr
  * {@include clean/createNewType/index.md}
  */
 function createNewType(name, dataParser, constraint) {
-    const constrains = coalescing(constraint ?? []);
-    const checkers = flatMap(constrains, ({ checkers }) => checkers);
+    const constraints = coalescing(constraint ?? []);
+    const checkers = flatMap(constraints, ({ checkers }) => checkers);
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)
         : dataParser;
-    const constraintKindValue = pipe(constrains, map(({ name }) => entry(name, null)), fromEntries);
+    const constraintKindValue = pipe(constraints, map(({ name }) => entry(name, null)), fromEntries);
+    const wrappedConstraints = pipe(constraints, map((constrain) => entry(constrain.name, constrain)), fromEntries);
+    function getConstraint(name) {
+        return wrappedConstraints[name];
+    }
     function create(data) {
         const result = dataParserWithCheckers.parse(unwrap(data));
         if (isLeft(result)) {
@@ -67,8 +71,8 @@ function createNewType(name, dataParser, constraint) {
             return false;
         }
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let index = 0; index < constrains.length; index++) {
-            if (!constrains[index].is(input)) {
+        for (let index = 0; index < constraints.length; index++) {
+            if (!constraints[index].is(input)) {
                 return false;
             }
         }
@@ -77,7 +81,8 @@ function createNewType(name, dataParser, constraint) {
     return newTypeHandlerKind.setTo({
         name,
         dataParser: dataParserWithCheckers,
-        constrains,
+        constrains: constraints,
+        getConstraint,
         create,
         createOrThrow,
         createWithUnknown: create,

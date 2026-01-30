@@ -31,6 +31,16 @@ Côté TypeScript, ce marquage se reflète dans le type : on peut alors écrire 
   height="480px"
 />
 
+## Ensembles de contraintes
+
+Quand vous devez appliquer plusieurs contraintes ensemble, vous pouvez créer un ensemble réutilisable avec `C.createConstraintsSet(...)`.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/constraintsSet.doc.ts"
+  majorVersion="v1"
+  height="418px"
+/>
+
 ## Créer une contrainte
 
 Pour créer une contrainte, utilisez `C.createConstraint(name, primitive, checker)` puis récupérez son type via `C.GetConstraint`.
@@ -127,6 +137,26 @@ Valide une chaîne au format URL.
   height="240px"
 />
 
+### `StringMin`
+
+Valide une chaîne avec une longueur minimale (>= min).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/stringMin.doc.ts"
+  majorVersion="v1"
+  height="271px"
+/>
+
+### `StringMax`
+
+Valide une chaîne avec une longueur maximale (<= max).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/stringMax.doc.ts"
+  majorVersion="v1"
+  height="271px"
+/>
+
 ### `Int`
 
 Valide un nombre entier.
@@ -155,6 +185,26 @@ Valide un nombre strictement négatif (<= -1).
   src="/examples/v1/api/clean/constraints/negative.doc.ts"
   majorVersion="v1"
   height="240px"
+/>
+
+### `NumberMin`
+
+Valide un nombre supérieur ou égal à min.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/numberMin.doc.ts"
+  majorVersion="v1"
+  height="271px"
+/>
+
+### `NumberMax`
+
+Valide un nombre inférieur ou égal à max.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/numberMax.doc.ts"
+  majorVersion="v1"
+  height="271px"
 />
 
 ## Voir aussi
