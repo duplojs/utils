@@ -5,13 +5,13 @@ prev:
   text: "sleep"
   link: "/fr/v1/api/common/sleep"
 next:
-  text: "toJSON"
-  link: "/fr/v1/api/common/toJSON"
+  text: "memoPromise"
+  link: "/fr/v1/api/common/memoPromise"
 ---
 
 # memo
 
-La fonction **`memo()`** évalue une fonction une seule fois puis mémorise le résultat. Les appels suivants renvoient la même valeur sans recalcul.
+La fonction **`memo()`** évalue une fonction une seule fois puis mémorise le résultat. Le premier accès à `value` déclenche l'évaluation, et les accès suivants renvoient la même valeur sans recalcul.
 
 ## Exemple interactif
 
@@ -25,13 +25,13 @@ La fonction **`memo()`** évalue une fonction une seule fois puis mémorise le r
 
 ```typescript
 interface Memoized<
-	GenericInput extends unknown
+	GenericValue extends unknown
 > {
-	readonly input: GenericInput;
+	readonly value: GenericValue;
 }
 
 function memo<
-	GenericOutput extends AnyValue
+	GenericOutput extends unknown
 >(
 	theFunction: () => GenericOutput
 ): Memoized<GenericOutput>;
@@ -43,7 +43,7 @@ function memo<
 
 ## Valeur de retour
 
-Un objet `Memoized` avec la propriété `input` contenant le résultat unique.
+Un objet `Memoized` avec la propriété `value` contenant le résultat unique.
 
 ## Voir aussi
 

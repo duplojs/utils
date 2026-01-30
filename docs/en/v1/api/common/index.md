@@ -115,6 +115,9 @@ Async pause to wait for a certain time.
 ### [memo](/en/v1/api/common/memo)
 Evaluates a function only once and reuses the result (lazy memoization).
 
+### [memoPromise](/en/v1/api/common/memoPromise)
+Lazy memoization for functions returning a value or a promise.
+
 ### [toJSON](/en/v1/api/common/toJSON)
 Prepares a value for JSON serialization.
 
@@ -153,6 +156,9 @@ Ensures a value is wrapped (idempotent if already wrapped).
 
 ### [unwrap](/en/v1/api/common/unwrap)
 Retrieves the inner value of a wrapper.
+
+### [unwrapGroup](/en/v1/api/common/unwrapGroup)
+Unwraps every value of an object.
 
 ### [addWrappedProperties](/en/v1/api/common/addWrappedProperties)
 Dynamically adds derived properties to a wrapped value.

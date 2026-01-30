@@ -27,8 +27,8 @@
     "test:tu:watch": "vitest --coverage --watch",
     "test:tu:update": "vitest --coverage --update",
     "test:types": "tsc -p tsconfig.test.json && npm -w docs run test:types",
-    "test:lint": "eslint",
-    "test:lint:fix": "eslint --fix",
+    "test:lint": "eslint --quiet",
+    "test:lint:fix": "eslint --fix --quiet",
     "prepare": "husky"
   },
   "sideEffects": false,

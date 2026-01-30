@@ -1,8 +1,8 @@
-The memo() function evaluates a function only once then memorizes the result. Subsequent calls return the same value without recalculation.
+The memo() function evaluates a function only once then memorizes the result. The first access to `value` triggers the evaluation.
 
-Signature: `memo(theFunction)` → returns a value
+Signature: `memo(theFunction)` → returns a memoized object
 
-The input value is not mutated.
+The input function is called only once.
 
 ```ts
 {@include common/memo/example.ts[3,12]}

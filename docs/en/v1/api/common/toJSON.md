@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The toJSON() function prepares a value for JSON serialization while respecting objects' toJSON methods, traversing arrays/tuples, and excluding functions."
 prev:
-  text: "memo"
-  link: "/en/v1/api/common/memo"
+  text: "memoPromise"
+  link: "/en/v1/api/common/memoPromise"
 next:
   text: "toTransform"
   link: "/en/v1/api/common/toTransform"

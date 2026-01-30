@@ -1416,6 +1416,15 @@
           "name": "memo.mjs"
         },
         {
+          "name": "memoPromise.cjs"
+        },
+        {
+          "name": "memoPromise.d.ts"
+        },
+        {
+          "name": "memoPromise.mjs"
+        },
+        {
           "name": "mimeType.cjs"
         },
         {
@@ -1576,6 +1585,15 @@
         },
         {
           "name": "unwrap.mjs"
+        },
+        {
+          "name": "unwrapGroup.cjs"
+        },
+        {
+          "name": "unwrapGroup.d.ts"
+        },
+        {
+          "name": "unwrapGroup.mjs"
         },
         {
           "name": "when.cjs"

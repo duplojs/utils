@@ -1,5 +1,3 @@
-import { type AnyValue } from "./types";
-
 export interface Memoized<
 	GenericValue extends unknown,
 > {
@@ -10,7 +8,7 @@ export interface Memoized<
  * {@include common/memo/index.md}
  */
 export function memo<
-	GenericOutput extends AnyValue,
+	GenericOutput extends unknown,
 >(
 	theFunction: () => GenericOutput,
 ): Memoized<GenericOutput> {

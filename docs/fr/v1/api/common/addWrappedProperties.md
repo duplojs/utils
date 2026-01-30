@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction addWrappedProperties() ajoute dynamiquement des propriétés dérivées à une valeur wrappée, tout en conservant le type d'origine et en étendant le nouveau type."
 prev:
-  text: "unwrap"
-  link: "/fr/v1/api/common/unwrap"
+  text: "unwrapGroup"
+  link: "/fr/v1/api/common/unwrapGroup"
 next:
   text: "clone"
   link: "/fr/v1/api/common/clone"

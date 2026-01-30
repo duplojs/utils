@@ -5,8 +5,8 @@ prev:
   text: "toWrappedValue"
   link: "/en/v1/api/common/toWrappedValue"
 next:
-  text: "addWrappedProperties"
-  link: "/en/v1/api/common/addWrappedProperties"
+  text: "unwrapGroup"
+  link: "/en/v1/api/common/unwrapGroup"
 ---
 
 # unwrap
