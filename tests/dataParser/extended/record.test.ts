@@ -15,7 +15,7 @@ describe("extended.record", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<Partial<Record<string, string>>>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<Partial<Record<string, string>>>,
 			"strict"
 		>;
 	});

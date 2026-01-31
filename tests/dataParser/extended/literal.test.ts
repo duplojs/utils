@@ -13,7 +13,7 @@ describe("extended.literal", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<"foo" | "bar">,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<"foo" | "bar">,
 			"strict"
 		>;
 	});

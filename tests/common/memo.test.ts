@@ -1,4 +1,4 @@
-import { memo } from "@scripts/common";
+import { memo } from "@scripts";
 
 it("memo", () => {
 	const getter = vi.fn(() => 1);

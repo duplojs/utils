@@ -10,7 +10,7 @@ describe("extended.string", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string>,
 			"strict"
 		>;
 	});

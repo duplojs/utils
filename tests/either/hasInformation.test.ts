@@ -1,20 +1,19 @@
-import { pipe, when, type ExpectType } from "@scripts/common";
-import { fail, ok, type EitherOk, hasInformation, type EitherFail } from "@scripts/either";
+import { pipe, when, type ExpectType, DEither } from "@scripts";
 
 describe("hasInformation", () => {
 	it("default usage", () => {
 		const either = true
-			? ok()
-			: fail();
+			? DEither.ok()
+			: DEither.fail();
 
-		const boolean = hasInformation(either, "ok");
+		const boolean = DEither.hasInformation(either, "ok");
 
 		expect(boolean).toBe(true);
 
 		if (boolean) {
 			type check = ExpectType<
 				typeof either,
-				EitherOk,
+				DEither.Ok,
 				"strict"
 			>;
 		}
@@ -22,17 +21,17 @@ describe("hasInformation", () => {
 
 	it("in pipe", () => {
 		const either = true
-			? ok()
-			: fail();
+			? DEither.ok()
+			: DEither.fail();
 
 		const result = pipe(
 			either,
 			when(
-				hasInformation("ok"),
+				DEither.hasInformation("ok"),
 				(value) => {
 					type Check = ExpectType<
 						typeof value,
-						EitherOk,
+						DEither.Ok,
 						"strict"
 					>;
 
@@ -45,7 +44,7 @@ describe("hasInformation", () => {
 
 		type check = ExpectType<
 			typeof result,
-			number | EitherFail,
+			number | DEither.Fail,
 			"strict"
 		>;
 	});

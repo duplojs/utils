@@ -22,7 +22,7 @@ describe("literal parser", () => {
 
 		type _CheckResult = ExpectType<
 			typeof result,
-			DEither.EitherSuccess<"on" | "off"> | DEither.EitherError<DDataParser.DataParserError>,
+			DEither.Success<"on" | "off"> | DEither.Error<DDataParser.DataParserError>,
 			"strict"
 		>;
 	});

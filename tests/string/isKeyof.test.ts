@@ -1,7 +1,4 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { when } from "@scripts/common/when";
-import { whenNot } from "@scripts/common/whenNot";
-import { DEither, DString, pipe } from "@scripts";
+import { DEither, DString, pipe, type ExpectType, when, whenNot } from "@scripts";
 
 describe("isKeyof", () => {
 	it("normal", () => {
@@ -39,7 +36,7 @@ describe("isKeyof", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherSuccess<"toto" | "test"> | DEither.EitherError<string>,
+			DEither.Success<"toto" | "test"> | DEither.Error<string>,
 			"strict"
 		>;
 	});

@@ -1,6 +1,4 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { DObject, pipe } from "@scripts";
-import { when } from "@scripts/common/when";
+import { DObject, pipe, type ExpectType, when } from "@scripts";
 
 describe("hasKeys", () => {
 	it("has", () => {

@@ -1,5 +1,4 @@
-import { type ExpectType, pipe } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("from", () => {
 	it("creates array from arrayLike", () => {

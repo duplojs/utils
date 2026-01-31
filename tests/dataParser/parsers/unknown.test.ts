@@ -23,8 +23,8 @@ describe("DDataParser unknown", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			| DEither.EitherError<DDataParser.DataParserError>
-			| DEither.EitherSuccess<unknown>,
+			| DEither.Error<DDataParser.DataParserError>
+			| DEither.Success<unknown>,
 			"strict"
 		>;
 	});

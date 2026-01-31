@@ -1,12 +1,9 @@
-import { equal, pipe } from "@scripts/common";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { DPattern, DString } from "@scripts";
-import { otherwise, type PatternResult } from "@scripts/pattern";
+import { DPattern, DString, type ExpectType, equal, pipe } from "@scripts";
 
 describe("otherwise", () => {
 	it("treat normal value result", () => {
-		const result = otherwise(
-			1 as 1 | PatternResult<"match">,
+		const result = DPattern.otherwise(
+			1 as 1 | DPattern.PatternResult<"match">,
 			(value) => {
 				type check = ExpectType<
 					typeof value,

@@ -1,5 +1,4 @@
-import { type ExpectType, P, pipe, DPattern } from "@duplojs/utils";
-import { forward } from "@scripts/common";
+import { type ExpectType, P, pipe, DPattern, forward } from "@duplojs/utils";
 import { type ZodArray, type ZodBigInt, type ZodObject, type ZodNumber, type ZodString, type ZodType } from "zod";
 
 function _matchZodObject1(zodType: ZodType) {

@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, pipe } from "@scripts";
 
 describe("findAndSpliceReplace", () => {
 	const arr = [1, 2, 3, 4, 5];

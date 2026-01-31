@@ -1,5 +1,4 @@
-import { type ExpectType, pipe, toString } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, type ExpectType, pipe, toString } from "@scripts";
 
 describe("join", () => {
 	it("join tuple with separator", () => {

@@ -1,24 +1,18 @@
-import { wrapValue } from "@scripts/common";
-import { keyKindPrefix } from "@scripts/common/kind";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { success, type EitherSuccess } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherRightKind } from "@scripts/either/right/create";
-import { eitherSuccessKind } from "@scripts/either/right/success";
+import { wrapValue, keyKindPrefix, type ExpectType, DEither } from "@scripts";
 
 it("createEitherSuccess", () => {
-	const either = success(50);
+	const either = DEither.success(50);
 
 	expect(either).toStrictEqual({
-		[`${keyKindPrefix}${eitherSuccessKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "success",
-		[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.successKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "success",
+		[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 		...wrapValue(50),
 	});
 
 	type check = ExpectType<
 		typeof either,
-		EitherSuccess<50>,
+		DEither.Success<50>,
 		"strict"
 	>;
 });

@@ -14,7 +14,7 @@ describe("extended.transform", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string>,
 			"strict"
 		>;
 	});

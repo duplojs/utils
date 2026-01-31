@@ -160,7 +160,7 @@ describe("path", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherFail | DEither.EitherSuccess<string>,
+			DEither.Fail | DEither.Success<string>,
 			"strict"
 		>;
 	});

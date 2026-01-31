@@ -1,5 +1,4 @@
-import { type ExpectType, pipe, when } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, type ExpectType, pipe, when } from "@scripts";
 
 describe("notIncludes", () => {
 	const input = [1 as const, "", { test: 10 }];

@@ -1,71 +1,54 @@
-import { wrapValue } from "@scripts/common";
-import { keyKindPrefix } from "@scripts/common/kind";
-import { pipe } from "@scripts/common/pipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import {
-	nullableEmpty,
-	type EitherNullableEmpty,
-	type EitherNullableFilled,
-	nullableFilled,
-	isNullableFilled,
-	whenIsNullableFilled,
-	ok,
-	type EitherOk,
-} from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherNullableKind } from "@scripts/either/nullable/base";
-import { eitherNullableFilledKind } from "@scripts/either/nullable/filled";
-import { eitherRightKind } from "@scripts/either/right/create";
+import { DEither, pipe, wrapValue, type ExpectType, keyKindPrefix } from "@scripts";
 
 describe("EitherNullableFilled", () => {
 	it("create", () => {
-		const either = nullableFilled(10);
+		const either = DEither.nullableFilled(10);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherNullableFilledKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
-			[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableFilledKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 			...wrapValue(10),
 		});
 
 		type check = ExpectType<
 			typeof either,
-			EitherNullableFilled<10>,
+			DEither.NullableFilled<10>,
 			"strict"
 		>;
 	});
 
 	it("isEitherNullableFilled return true", () => {
-		const either = nullableFilled(10) as EitherNullableEmpty | EitherNullableFilled;
+		const either = DEither.nullableFilled(10) as DEither.NullableEmpty | DEither.NullableFilled;
 
-		const predicate = isNullableFilled(either);
+		const predicate = DEither.isNullableFilled(either);
 
 		expect(predicate).toBe(true);
 
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherNullableFilled<unknown>,
+				DEither.NullableFilled<unknown>,
 				"strict"
 			>;
 		}
 	});
 
 	it("isEitherNullableFilled return false", () => {
-		const either = nullableEmpty() as EitherNullableEmpty | EitherNullableFilled;
+		const either = DEither.nullableEmpty() as DEither.NullableEmpty | DEither.NullableFilled;
 
-		const predicate = isNullableFilled(either);
+		const predicate = DEither.isNullableFilled(either);
 
 		expect(predicate).toBe(false);
 	});
 
 	it("whenEitherIsNullableFilled match", () => {
 		const either = true
-			? nullableFilled(10)
-			: nullableEmpty();
+			? DEither.nullableFilled(10)
+			: DEither.nullableEmpty();
 
-		const result = whenIsNullableFilled(
+		const result = DEither.whenIsNullableFilled(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -82,15 +65,15 @@ describe("EitherNullableFilled", () => {
 
 		type check = ExpectType<
 			typeof result,
-			10 | EitherNullableEmpty,
+			10 | DEither.NullableEmpty,
 			"strict"
 		>;
 	});
 
 	it("whenEitherIsNullableFilled not match with left", () => {
-		const either = nullableEmpty();
+		const either = DEither.nullableEmpty();
 
-		const result = whenIsNullableFilled(
+		const result = DEither.whenIsNullableFilled(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -107,17 +90,17 @@ describe("EitherNullableFilled", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty,
+			DEither.NullableEmpty,
 			"strict"
 		>;
 	});
 
 	it("whenEitherIsNullableFilled not match with right", () => {
 		const either = true
-			? ok()
-			: nullableFilled(10);
+			? DEither.ok()
+			: DEither.nullableFilled(10);
 
-		const result = whenIsNullableFilled(
+		const result = DEither.whenIsNullableFilled(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -134,7 +117,7 @@ describe("EitherNullableFilled", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherOk | 10,
+			DEither.Ok | 10,
 			"strict"
 		>;
 	});
@@ -144,7 +127,7 @@ describe("EitherNullableFilled", () => {
 			? 10
 			: null;
 
-		const result = whenIsNullableFilled(
+		const result = DEither.whenIsNullableFilled(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -161,7 +144,7 @@ describe("EitherNullableFilled", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | 0,
+			DEither.NullableEmpty | 0,
 			"strict"
 		>;
 	});
@@ -171,7 +154,7 @@ describe("EitherNullableFilled", () => {
 			? null
 			: 10;
 
-		const result = whenIsNullableFilled(
+		const result = DEither.whenIsNullableFilled(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -184,11 +167,11 @@ describe("EitherNullableFilled", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(nullableEmpty());
+		expect(result).toStrictEqual(DEither.nullableEmpty());
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | 0,
+			DEither.NullableEmpty | 0,
 			"strict"
 		>;
 	});
@@ -196,9 +179,9 @@ describe("EitherNullableFilled", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? nullableFilled(true)
-				: nullableEmpty(),
-			whenIsNullableFilled(
+				? DEither.nullableFilled(true)
+				: DEither.nullableEmpty(),
+			DEither.whenIsNullableFilled(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
@@ -215,7 +198,7 @@ describe("EitherNullableFilled", () => {
 
 		type check = ExpectType<
 			typeof result,
-			true | EitherNullableEmpty,
+			true | DEither.NullableEmpty,
 			"strict"
 		>;
 	});

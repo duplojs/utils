@@ -23,7 +23,7 @@ describe("DDataParser bigint", () => {
 
 		type _CheckResult = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<bigint>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<bigint>,
 			"strict"
 		>;
 	});

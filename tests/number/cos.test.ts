@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DNumber } from "@scripts";
+import { DNumber, pipe } from "@scripts";
 
 describe("cos", () => {
 	it("computes the cosine of a value", () => {

@@ -10,7 +10,7 @@ describe("extended.boolean", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<boolean>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<boolean>,
 			"strict"
 		>;
 	});

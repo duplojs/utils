@@ -12,7 +12,7 @@ describe("extended.optional", () => {
 
 		type check = ExpectType<
 			typeof valueResult,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string | undefined>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string | undefined>,
 			"strict"
 		>;
 	});

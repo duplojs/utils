@@ -1,47 +1,38 @@
-import { keyKindPrefix } from "@scripts/common/kind";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { nullable, type EitherNullableFilled, type EitherNullableEmpty } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherLeftKind } from "@scripts/either/left/create";
-import { eitherNullableKind } from "@scripts/either/nullable/base";
-import { eitherNullableEmptyKind } from "@scripts/either/nullable/empty";
-import { eitherNullableFilledKind } from "@scripts/either/nullable/filled";
-import { eitherRightKind } from "@scripts/either/right/create";
-import { DEither, pipe, wrapValue } from "@scripts";
+import { DEither, pipe, wrapValue, type ExpectType, keyKindPrefix } from "@scripts";
 
 describe("createEitherNullable", () => {
 	it("create EitherNullableEmpty", () => {
-		const either = nullable(null);
+		const either = DEither.nullable(null);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherNullableEmptyKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
-			[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableEmptyKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${DEither.leftKind.definition.name}`]: null,
 			...wrapValue(null),
 		});
 
 		type check = ExpectType<
 			typeof either,
-			EitherNullableEmpty,
+			DEither.NullableEmpty,
 			"strict"
 		>;
 	});
 
 	it("create EitherNullableFilled", () => {
-		const either = nullable(10);
+		const either = DEither.nullable(10);
 
 		expect(either).toStrictEqual({
-			[`${keyKindPrefix}${eitherNullableKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherNullableFilledKind.definition.name}`]: null,
-			[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "nullable",
-			[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.nullableFilledKind.definition.name}`]: null,
+			[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "nullable",
+			[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 			...wrapValue(10),
 		});
 
 		type check = ExpectType<
 			typeof either,
-			EitherNullableFilled<10>,
+			DEither.NullableFilled<10>,
 			"strict"
 		>;
 	});
@@ -56,7 +47,7 @@ describe("createEitherNullable", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | EitherNullableFilled<string>,
+			DEither.NullableEmpty | DEither.NullableFilled<string>,
 			"strict"
 		>;
 	});

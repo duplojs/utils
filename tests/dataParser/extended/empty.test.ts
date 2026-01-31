@@ -10,7 +10,7 @@ describe("extended.empty", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<undefined>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<undefined>,
 			"strict"
 		>;
 	});

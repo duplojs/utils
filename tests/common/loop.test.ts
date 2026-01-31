@@ -1,4 +1,4 @@
-import { sleep, type ExpectType, type LoopParams, loop } from "@scripts";
+import { type ExpectType, type LoopParams, loop } from "@scripts";
 
 it("loop", () => {
 	const result = loop(

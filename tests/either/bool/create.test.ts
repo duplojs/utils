@@ -1,160 +1,150 @@
-import { pipe, wrapValue } from "@scripts/common";
-import { keyKindPrefix } from "@scripts/common/kind";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { bool, type EitherBoolTruthy, type EitherBoolFalsy } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherBoolKind } from "@scripts/either/bool/base";
-import { eitherBoolFalsyKind } from "@scripts/either/bool/falsy";
-import { eitherBoolTruthyKind } from "@scripts/either/bool/truthy";
-import { eitherLeftKind } from "@scripts/either/left/create";
-import { eitherRightKind } from "@scripts/either/right/create";
-import { DArray, DEither } from "@scripts";
+import { DArray, DEither, pipe, wrapValue, keyKindPrefix, type ExpectType } from "@scripts";
 
 describe("createEitherBool", () => {
 	const expectedBoolFalsy = (value: unknown) => ({
-		[`${keyKindPrefix}${eitherBoolKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherBoolFalsyKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "bool",
-		[`${keyKindPrefix}${eitherLeftKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolFalsyKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "bool",
+		[`${keyKindPrefix}${DEither.leftKind.definition.name}`]: null,
 		...wrapValue(value),
 	});
 
 	const expectedBoolTruthy = (value: unknown) => ({
-		[`${keyKindPrefix}${eitherBoolKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherBoolTruthyKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "bool",
-		[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolTruthyKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "bool",
+		[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 		...wrapValue(value),
 	});
 
 	it("falsy undefined", () => {
-		const either = bool(undefined);
+		const either = DEither.bool(undefined);
 
 		expect(either).toStrictEqual(expectedBoolFalsy(undefined));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolFalsy<undefined>,
+			DEither.BoolFalsy<undefined>,
 			"strict"
 		>;
 	});
 
 	it("falsy null", () => {
-		const either = bool(null);
+		const either = DEither.bool(null);
 
 		expect(either).toStrictEqual(expectedBoolFalsy(null));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolFalsy<null>,
+			DEither.BoolFalsy<null>,
 			"strict"
 		>;
 	});
 
 	it("falsy empty string", () => {
-		const either = bool("");
+		const either = DEither.bool("");
 
 		expect(either).toStrictEqual(expectedBoolFalsy(""));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolFalsy<"">,
+			DEither.BoolFalsy<"">,
 			"strict"
 		>;
 	});
 
 	it("falsy 0", () => {
-		const either = bool(0);
+		const either = DEither.bool(0);
 
 		expect(either).toStrictEqual(expectedBoolFalsy(0));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolFalsy<0>,
+			DEither.BoolFalsy<0>,
 			"strict"
 		>;
 	});
 
 	it("falsy false", () => {
-		const either = bool(false);
+		const either = DEither.bool(false);
 
 		expect(either).toStrictEqual(expectedBoolFalsy(false));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolFalsy<false>,
+			DEither.BoolFalsy<false>,
 			"strict"
 		>;
 	});
 
 	it("truthy object", () => {
-		const either = bool({});
+		const either = DEither.bool({});
 
 		expect(either).toStrictEqual(expectedBoolTruthy({}));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<{}>,
+			DEither.BoolTruthy<{}>,
 			"strict"
 		>;
 	});
 
 	it("truthy true", () => {
-		const either = bool(true);
+		const either = DEither.bool(true);
 
 		expect(either).toStrictEqual(expectedBoolTruthy(true));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<true>,
+			DEither.BoolTruthy<true>,
 			"strict"
 		>;
 	});
 
 	it("truthy number", () => {
-		const either = bool(10);
+		const either = DEither.bool(10);
 
 		expect(either).toStrictEqual(expectedBoolTruthy(10));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<10>,
+			DEither.BoolTruthy<10>,
 			"strict"
 		>;
 	});
 
 	it("truthy string", () => {
-		const either = bool("test");
+		const either = DEither.bool("test");
 
 		expect(either).toStrictEqual(expectedBoolTruthy("test"));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<"test">,
+			DEither.BoolTruthy<"test">,
 			"strict"
 		>;
 	});
 
 	it("bool large string", () => {
-		const either = bool("test" as string);
+		const either = DEither.bool("test" as string);
 
 		expect(either).toStrictEqual(expectedBoolTruthy("test"));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<string> | EitherBoolFalsy<"">,
+			DEither.BoolTruthy<string> | DEither.BoolFalsy<"">,
 			"strict"
 		>;
 	});
 
 	it("bool large number", () => {
-		const either = bool(1 as number);
+		const either = DEither.bool(1 as number);
 
 		expect(either).toStrictEqual(expectedBoolTruthy(1));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<number> | EitherBoolFalsy<0>,
+			DEither.BoolTruthy<number> | DEither.BoolFalsy<0>,
 			"strict"
 		>;
 	});
@@ -170,7 +160,7 @@ describe("createEitherBool", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherBoolFalsy<undefined> | DEither.EitherBoolTruthy<"toto">,
+			DEither.BoolFalsy<undefined> | DEither.BoolTruthy<"toto">,
 			"strict"
 		>;
 	});

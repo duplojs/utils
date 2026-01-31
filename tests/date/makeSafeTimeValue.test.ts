@@ -1,9 +1,8 @@
 import { type ExpectType, DDate } from "@scripts";
-import { makeSafeTimeValue } from "@scripts/date/makeSafeTimeValue";
 
 describe("makeSafeTimeValue", () => {
 	it("returns 0 for NaN", () => {
-		const result = makeSafeTimeValue(Number.NaN);
+		const result = DDate.makeSafeTimeValue(Number.NaN);
 
 		expect(result).toBe(0);
 
@@ -15,10 +14,10 @@ describe("makeSafeTimeValue", () => {
 	});
 
 	it("clamps above maxTimeValue", () => {
-		const result = makeSafeTimeValue(DDate.maxTimeValue + 1);
+		const result = DDate.makeSafeTimeValue(DDate.maxTimeValue + 1);
 
 		expect(result).toBe(DDate.maxTimeValue);
-		expect(makeSafeTimeValue(Infinity)).toBe(DDate.maxTimeValue);
+		expect(DDate.makeSafeTimeValue(Infinity)).toBe(DDate.maxTimeValue);
 
 		type check = ExpectType<
 			typeof result,
@@ -28,10 +27,10 @@ describe("makeSafeTimeValue", () => {
 	});
 
 	it("clamps below minTimeValue", () => {
-		const result = makeSafeTimeValue(DDate.minTimeValue - 1);
+		const result = DDate.makeSafeTimeValue(DDate.minTimeValue - 1);
 
 		expect(result).toBe(DDate.minTimeValue);
-		expect(makeSafeTimeValue(-Infinity)).toBe(DDate.minTimeValue);
+		expect(DDate.makeSafeTimeValue(-Infinity)).toBe(DDate.minTimeValue);
 
 		type check = ExpectType<
 			typeof result,
@@ -42,7 +41,7 @@ describe("makeSafeTimeValue", () => {
 
 	it("returns integers within range", () => {
 		const value = 123456;
-		const result = makeSafeTimeValue(value);
+		const result = DDate.makeSafeTimeValue(value);
 
 		expect(result).toBe(value);
 
@@ -54,7 +53,7 @@ describe("makeSafeTimeValue", () => {
 	});
 
 	it("rounds fractional values", () => {
-		expect(makeSafeTimeValue(1.4)).toBe(1);
-		expect(makeSafeTimeValue(-2.6)).toBe(-3);
+		expect(DDate.makeSafeTimeValue(1.4)).toBe(1);
+		expect(DDate.makeSafeTimeValue(-2.6)).toBe(-3);
 	});
 });

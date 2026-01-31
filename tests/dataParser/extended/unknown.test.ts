@@ -11,7 +11,7 @@ describe("extended.unknown", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<unknown>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<unknown>,
 			"strict"
 		>;
 	});

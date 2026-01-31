@@ -1,5 +1,4 @@
 import { DDataParser, DEither, DDate, type ExpectType } from "@scripts";
-import { type TheDate } from "@scripts/date";
 
 describe("DDataParser date", () => {
 	it("parses TheDate literals", () => {
@@ -7,17 +6,17 @@ describe("DDataParser date", () => {
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			TheDate,
+			DDate.TheDate,
 			"strict"
 		>;
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			TheDate,
+			DDate.TheDate,
 			"strict"
 		>;
 
-		const value: TheDate = "date10+";
+		const value: DDate.TheDate = "date10+";
 
 		expect(schema.parse(value)).toStrictEqual(DEither.success(value));
 	});
@@ -59,7 +58,7 @@ describe("DDataParser date", () => {
 	it("coerces supported inputs", () => {
 		const schema = DDataParser.date({ coerce: true });
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
-		const existing: TheDate = "date42+";
+		const existing: DDate.TheDate = "date42+";
 		const beforeChristInput = new Date(Date.UTC(-100, 0, 1));
 		const beforeChristExpected = DDate.createOrThrow(beforeChristInput);
 
@@ -85,7 +84,7 @@ describe("DDataParser date", () => {
 		const invalidHour = "2021y-1m-1d-25h";
 		const invalidType = true;
 		const outOfRangeDate = new Date(DDate.maxTimestamp + 1);
-		const unsafeTheDate = `date${DDate.maxTimestamp}+` as TheDate;
+		const unsafeTheDate = `date${DDate.maxTimestamp}+` as DDate.TheDate;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const monthResult = schema.parse(invalidMonth);

@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DNumber } from "@scripts";
+import { DNumber, pipe } from "@scripts";
 
 describe("atan2", () => {
 	it("computes the arctangent from y and x", () => {

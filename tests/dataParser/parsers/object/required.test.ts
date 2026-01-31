@@ -47,7 +47,7 @@ describe("object.required", () => {
 		if (DEither.isRight(result)) {
 			type _Out = ExpectType<
 				typeof result,
-				DEither.EitherSuccess<{
+				DEither.Success<{
 					name: string;
 					age: number;
 					active: boolean;

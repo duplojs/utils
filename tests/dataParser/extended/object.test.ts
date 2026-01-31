@@ -19,7 +19,7 @@ describe("extended.object", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<typeof value>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<typeof value>,
 			"strict"
 		>;
 	});

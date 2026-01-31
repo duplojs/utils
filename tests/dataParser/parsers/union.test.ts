@@ -25,7 +25,7 @@ describe("DDataParser union", () => {
 
 		type _CheckResult = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string | number>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string | number>,
 			"strict"
 		>;
 	});

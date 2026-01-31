@@ -1,5 +1,4 @@
 import { DEither, DDataParser, DDate } from "@scripts";
-import type { TheDate } from "@scripts/date";
 
 const { extended } = DDataParser;
 
@@ -7,7 +6,7 @@ describe("extended.coerce.date", () => {
 	it("coerces number, Date and TheDate inputs", () => {
 		const parser = extended.coerce.date();
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
-		const existing: TheDate = "date42+";
+		const existing: DDate.TheDate = "date42+";
 
 		expect(parser.parse(1)).toStrictEqual(DEither.success("date1+"));
 		expect(parser.parse(-1)).toStrictEqual(DEither.success("date1-"));
@@ -19,7 +18,7 @@ describe("extended.coerce.date", () => {
 		const parser = extended.coerce.date({ errorMessage: "date.invalid" });
 		const tooHigh = DDate.maxTimestamp + 1;
 		const invalidDate = new Date(tooHigh);
-		const invalidTheDate = `date${DDate.maxTimestamp}+` as TheDate;
+		const invalidTheDate = `date${DDate.maxTimestamp}+` as DDate.TheDate;
 		const invalidType = true;
 
 		expect(parser.parse(tooHigh)).toStrictEqual(DEither.error(expect.any(Object)));

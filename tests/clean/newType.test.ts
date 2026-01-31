@@ -1,5 +1,4 @@
 import { DClean, DDataParser, DEither, DPE, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
-import { createNewType } from "@scripts/clean";
 
 describe("createNewType", () => {
 	const constraint = DClean.createConstraint(
@@ -32,7 +31,7 @@ describe("createNewType", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherRight<
+			| DEither.Right<
 				"createNewType",
 				DClean.NewType<
 					"Label",
@@ -40,7 +39,7 @@ describe("createNewType", () => {
 					typeof constraint["name"]
 				>
 			>
-			| DEither.EitherLeft<
+			| DEither.Left<
 				"createNewTypeError",
 				DDataParser.DataParserError
 			>,
@@ -67,8 +66,8 @@ describe("createNewType", () => {
 		type Check = ExpectType<
 			typeof result,
 			(
-				| DEither.EitherLeft<"createNewTypeError", DDataParser.DataParserError>
-				| DEither.EitherRight<"createNewType", DClean.NewType<"Label", "too long", "short">>
+				| DEither.Left<"createNewTypeError", DDataParser.DataParserError>
+				| DEither.Right<"createNewType", DClean.NewType<"Label", "too long", "short">>
 			),
 			"strict"
 		>;
@@ -185,7 +184,7 @@ describe("createNewType", () => {
 	});
 
 	it("forbidden create newType with transform data parser", () => {
-		const forbiddenNewType = createNewType(
+		const forbiddenNewType = DClean.createNewType(
 			"forbiddenType",
 			// @ts-expect-error forbidden transform dataParser.
 			DPE.string().transform(() => 0),

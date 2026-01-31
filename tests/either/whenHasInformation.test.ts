@@ -1,10 +1,9 @@
-import { pipe, type ExpectType } from "@scripts/common";
-import { bool, left, right, type EitherBoolTruthy, type EitherLeft, whenHasInformation } from "@scripts/either";
+import { pipe, DEither, type ExpectType } from "@scripts";
 
 describe("whenHasInformation", () => {
 	it("whenHasInformation match with information", () => {
-		const result = whenHasInformation(
-			true ? right("right", true) : left("left"),
+		const result = DEither.whenHasInformation(
+			true ? DEither.right("right", true) : DEither.left("left"),
 			"right",
 			(value) => {
 				type check = ExpectType<
@@ -21,14 +20,14 @@ describe("whenHasInformation", () => {
 
 		type check = ExpectType<
 			typeof result,
-			10 | EitherLeft<"left", undefined>,
+			10 | DEither.Left<"left", undefined>,
 			"strict"
 		>;
 	});
 
 	it("whenHasInformation match with multi information", () => {
-		const result = whenHasInformation(
-			true ? left("left") : right("right", true),
+		const result = DEither.whenHasInformation(
+			true ? DEither.left("left") : DEither.right("right", true),
 			["right", "left"],
 			(value) => {
 				type check = ExpectType<
@@ -51,8 +50,8 @@ describe("whenHasInformation", () => {
 	});
 
 	it("whenHasInformation not match", () => {
-		const result = whenHasInformation(
-			true ? left("left") : right("right", true),
+		const result = DEither.whenHasInformation(
+			true ? DEither.left("left") : DEither.right("right", true),
 			"right",
 			(value) => {
 				type check = ExpectType<
@@ -65,29 +64,29 @@ describe("whenHasInformation", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(left("left"));
+		expect(result).toStrictEqual(DEither.left("left"));
 
 		type check = ExpectType<
 			typeof result,
-			true | EitherLeft<"left", undefined>,
+			true | DEither.Left<"left", undefined>,
 			"strict"
 		>;
 	});
 
 	it("use in pipe", () => {
 		const result = pipe(
-			true ? right("right", true) : left("left"),
-			whenHasInformation(
+			true ? DEither.right("right", true) : DEither.left("left"),
+			DEither.whenHasInformation(
 				"right",
-				bool,
+				DEither.bool,
 			),
 		);
 
-		expect(result).toStrictEqual(bool(true));
+		expect(result).toStrictEqual(DEither.bool(true));
 
 		type check = ExpectType<
 			typeof result,
-			EitherLeft<"left", undefined> | EitherBoolTruthy<true>,
+			DEither.Left<"left", undefined> | DEither.BoolTruthy<true>,
 			"strict"
 		>;
 	});

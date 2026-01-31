@@ -54,7 +54,7 @@ describe("asyncPipe", () => {
 		type check = ExpectType<
 			typeof result,
 			Promise<{
-				value: DEither.EitherFutureSuccess<number>;
+				value: DEither.FutureSuccess<number>;
 			}>,
 			"strict"
 		>;

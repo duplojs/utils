@@ -1,14 +1,12 @@
-import { pipe } from "@scripts/common/pipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { fail, nullableEmpty, nullableFilled, type EitherNullableFilled, whenIsLeft } from "@scripts/either";
+import { pipe, type ExpectType, DEither } from "@scripts";
 
 describe("whenEitherIsLeft", () => {
 	it("match", () => {
 		const either = true
-			? nullableEmpty()
-			: nullableFilled(true);
+			? DEither.nullableEmpty()
+			: DEither.nullableFilled(true);
 
-		const result = whenIsLeft(
+		const result = DEither.whenIsLeft(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -25,15 +23,15 @@ describe("whenEitherIsLeft", () => {
 
 			type check = ExpectType<
 				typeof result,
-				EitherNullableFilled<true> | null,
+				DEither.NullableFilled<true> | null,
 				"strict"
 			>;
 	});
 
 	it("not match with right", () => {
-		const either = nullableFilled(10);
+		const either = DEither.nullableFilled(10);
 
-		const result = whenIsLeft(
+		const result = DEither.whenIsLeft(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -50,7 +48,7 @@ describe("whenEitherIsLeft", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableFilled<10>,
+			DEither.NullableFilled<10>,
 			"strict"
 		>;
 	});
@@ -58,9 +56,9 @@ describe("whenEitherIsLeft", () => {
 	it("not match with any value", () => {
 		const either = true
 			? 30
-			: nullableEmpty();
+			: DEither.nullableEmpty();
 
-		const result = whenIsLeft(
+		const result = DEither.whenIsLeft(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -85,9 +83,9 @@ describe("whenEitherIsLeft", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? nullableEmpty()
-				: nullableFilled(true),
-			whenIsLeft(
+				? DEither.nullableEmpty()
+				: DEither.nullableFilled(true),
+			DEither.whenIsLeft(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
@@ -104,7 +102,7 @@ describe("whenEitherIsLeft", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableFilled<true> | null,
+			DEither.NullableFilled<true> | null,
 			"strict"
 		>;
 	});

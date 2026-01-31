@@ -119,7 +119,7 @@ describe("isMatch", () => {
 			{
 				type: "two";
 				prop2: number;
-			} | DEither.EitherSuccess<{
+			} | DEither.Success<{
 				type: "one";
 				prop1: number;
 			}>,

@@ -1,29 +1,28 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { bool, fail, ok, type EitherBoolTruthy, type EitherFail, type EitherOk, type EitherRight, isRight } from "@scripts/either";
+import { type ExpectType, DEither } from "@scripts";
 
 describe("isEitherRight", () => {
 	it("return true", () => {
 		const either = true
-			? bool(10)
-			: fail();
+			? DEither.bool(10)
+			: DEither.fail();
 
-		const predicate = isRight(either);
+		const predicate = DEither.isRight(either);
 
 		expect(predicate).toBe(true);
 
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherBoolTruthy<10>,
+				DEither.BoolTruthy<10>,
 				"strict"
 			>;
 		}
 	});
 
 	it("return false", () => {
-		const either = fail();
+		const either = DEither.fail();
 
-		const predicate = isRight(either);
+		const predicate = DEither.isRight(either);
 
 		expect(predicate).toBe(false);
 
@@ -37,9 +36,9 @@ describe("isEitherRight", () => {
 	});
 
 	it("object return true", () => {
-		const either = ok() as object;
+		const either = DEither.ok() as object;
 
-		const predicate = isRight(either);
+		const predicate = DEither.isRight(either);
 
 		expect(predicate).toBe(true);
 
@@ -55,7 +54,7 @@ describe("isEitherRight", () => {
 	it("unknown return false", () => {
 		const either = 1 as unknown;
 
-		const predicate = isRight(either);
+		const predicate = DEither.isRight(either);
 
 		expect(predicate).toBe(false);
 

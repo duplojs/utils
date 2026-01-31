@@ -1,5 +1,4 @@
-import { type ExpectType } from "@scripts/common";
-import { DPattern } from "@scripts";
+import { DPattern, type ExpectType } from "@scripts";
 
 describe("array", () => {
 	it("simple", () => {

@@ -1,5 +1,4 @@
-import { type ExpectType, pipe } from "@scripts/common";
-import { DObject } from "@scripts";
+import { DObject, type ExpectType, pipe } from "@scripts";
 
 describe("override", () => {
 	it("basic usage", () => {

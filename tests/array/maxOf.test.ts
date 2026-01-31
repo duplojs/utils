@@ -1,5 +1,4 @@
-import { pipe } from "@scripts/common";
-import { DArray } from "@scripts";
+import { DArray, pipe } from "@scripts";
 
 describe("maxOf", () => {
 	it("returns undefined for empty array", () => {

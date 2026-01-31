@@ -1,5 +1,4 @@
 import { DDataParser, DEither, DDate, type ExpectType } from "@scripts";
-import { type TheTime } from "@scripts/date";
 
 describe("DDataParser time", () => {
 	it("parses TheTime literals", () => {
@@ -7,17 +6,17 @@ describe("DDataParser time", () => {
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			TheTime,
+			DDate.TheTime,
 			"strict"
 		>;
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			TheTime,
+			DDate.TheTime,
 			"strict"
 		>;
 
-		const value: TheTime = "time10+";
+		const value: DDate.TheTime = "time10+";
 
 		expect(schema.parse(value)).toStrictEqual(DEither.success(value));
 	});
@@ -58,7 +57,7 @@ describe("DDataParser time", () => {
 
 	it("coerces supported inputs", () => {
 		const schema = DDataParser.time({ coerce: true });
-		const existing: TheTime = "time42+";
+		const existing: DDate.TheTime = "time42+";
 
 		expect(schema.parse(1)).toStrictEqual(DEither.success("time1+"));
 		expect(schema.parse(-1)).toStrictEqual(DEither.success("time1-"));
@@ -76,7 +75,7 @@ describe("DDataParser time", () => {
 		const outOfRangeTimestamp = DDate.maxTimeValue + 1;
 		const invalidString = "not-a-time";
 		const invalidType = true;
-		const unsafeTheTime = `time${DDate.maxTimeValue}+` as TheTime;
+		const unsafeTheTime = `time${DDate.maxTimeValue}+` as DDate.TheTime;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const stringResult = schema.parse(invalidString);

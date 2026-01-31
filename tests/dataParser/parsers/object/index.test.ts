@@ -40,7 +40,7 @@ describe("DDataParser object", () => {
 
 		type _CheckResult = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<{
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<{
 				name: string;
 				age?: number;
 			}>,
@@ -135,7 +135,7 @@ describe("DDataParser object", () => {
 
 		type _CheckResult = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<{
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<{
 				name: string;
 				age?: number;
 			}>,

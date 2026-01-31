@@ -1,13 +1,11 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { exhaustive } from "@scripts/pattern/exhaustive";
-import { result } from "@scripts/pattern/result";
+import { type ExpectType, DPattern } from "@scripts";
 
 describe("exhaustive", () => {
 	it("returns the wrapped value", () => {
 		const sample = { foo: 42 } as const;
-		const patternResult = result(sample);
+		const patternResult = DPattern.result(sample);
 
-		const extracted = exhaustive(patternResult);
+		const extracted = DPattern.exhaustive(patternResult);
 
 		expect(extracted).toBe(sample);
 

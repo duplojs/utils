@@ -12,7 +12,7 @@ describe("extended.nullable", () => {
 
 		type check = ExpectType<
 			typeof nullResult,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<number | null>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<number | null>,
 			"strict"
 		>;
 	});

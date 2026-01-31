@@ -1,5 +1,4 @@
-import { type ExpectType, pipe, innerPipe } from "@scripts/common";
-import { DArray, DString } from "@scripts";
+import { DArray, DString, type ExpectType, pipe, innerPipe } from "@scripts";
 
 describe("findAndSet", () => {
 	const arr = [1, 2, 3, 4, 5];

@@ -8,7 +8,7 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherCallbackSuccess<number> | DEither.EitherCallbackError,
+			DEither.CallbackSuccess<number> | DEither.CallbackError,
 			"strict"
 		>;
 	});
@@ -24,7 +24,7 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherCallbackError,
+			DEither.CallbackError,
 			"strict"
 		>;
 	});
@@ -37,7 +37,7 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherLeft<"example", 42> | DEither.EitherCallbackError,
+			DEither.Left<"example", 42> | DEither.CallbackError,
 			"strict"
 		>;
 	});
@@ -55,7 +55,7 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherCallbackError,
+			DEither.CallbackError,
 			"strict"
 		>;
 	});
@@ -67,7 +67,7 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherCallbackSuccess<undefined> | DEither.EitherCallbackError,
+			DEither.CallbackSuccess<undefined> | DEither.CallbackError,
 			"strict"
 		>;
 	});
@@ -83,9 +83,9 @@ describe("safeCallback", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherCallbackSuccess<undefined>
-			| DEither.EitherCallbackSuccess<"toto">
-			| DEither.EitherCallbackError,
+			DEither.CallbackSuccess<undefined>
+			| DEither.CallbackSuccess<"toto">
+			| DEither.CallbackError,
 			"strict"
 		>;
 	});

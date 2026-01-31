@@ -1,6 +1,4 @@
 import { type ExpectType, DDate } from "@scripts";
-import { timezone } from "@scripts/date";
-import { vi } from "vitest";
 
 describe("getTimezoneOffset", () => {
 	it("returns zero for UTC", () => {
@@ -18,7 +16,7 @@ describe("getTimezoneOffset", () => {
 	});
 
 	it("returns offset for America/New_York", () => {
-		vi.stubEnv("TZ", timezone["Europe/Paris"]);
+		vi.stubEnv("TZ", DDate.timezone["Europe/Paris"]);
 
 		const theDate = DDate.createOrThrow(1704067200000);
 		const result = DDate.getTimezoneOffset(theDate, "America/New_York");
@@ -49,7 +47,7 @@ describe("getTimezoneOffset", () => {
 	});
 
 	it("returns the same value regardless of process timezone", () => {
-		vi.stubEnv("TZ", timezone["America/New_York"]);
+		vi.stubEnv("TZ", DDate.timezone["America/New_York"]);
 		const theDate = DDate.create("2002-09-13", { hour: "06" });
 		const expected = DDate.getTimezoneOffset(theDate, "America/New_York");
 

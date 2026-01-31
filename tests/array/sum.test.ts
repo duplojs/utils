@@ -1,5 +1,5 @@
-import { sum } from "@scripts/array";
+import { DArray } from "@scripts";
 
 it("sum", () => {
-	expect(sum([1, 2, 3])).toBe(6);
+	expect(DArray.sum([1, 2, 3])).toBe(6);
 });

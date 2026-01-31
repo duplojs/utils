@@ -10,7 +10,7 @@ describe("extended.bigint", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<bigint>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<bigint>,
 			"strict"
 		>;
 	});

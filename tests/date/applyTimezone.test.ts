@@ -1,5 +1,4 @@
 import { type ExpectType, DDate } from "@scripts";
-import { vi } from "vitest";
 
 describe("applyTimezone", () => {
 	afterEach(() => {

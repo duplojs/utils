@@ -10,7 +10,7 @@ describe("extended.nil", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<null>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<null>,
 			"strict"
 		>;
 	});

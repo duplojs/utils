@@ -22,7 +22,7 @@ describe("DDataParser optional", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string | undefined>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string | undefined>,
 			"strict"
 		>;
 	});

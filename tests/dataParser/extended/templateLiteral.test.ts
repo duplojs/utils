@@ -17,7 +17,7 @@ describe("extended.templateLiteral", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<`item-${number}`>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<`item-${number}`>,
 			"strict"
 		>;
 	});

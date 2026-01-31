@@ -22,7 +22,7 @@ describe("DDataParser lazy", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<number>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<number>,
 			"strict"
 		>;
 	});

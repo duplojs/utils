@@ -25,7 +25,7 @@ describe("DDataParser templateLiteral", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<`user-${number}`>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<`user-${number}`>,
 			"strict"
 		>;
 	});
@@ -147,8 +147,8 @@ describe("DDataParser templateLiteral", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			| DEither.EitherError<DDataParser.DataParserError>
-			| DEither.EitherSuccess<
+			| DEither.Error<DDataParser.DataParserError>
+			| DEither.Success<
 				| `test-${number}-${bigint}-false-${string}null-undefined-undefined-ok-${string}nulltruefalseundefined1212n`
 				| `test-${number}-${bigint}-false-${string}null-undefined-null-ok-${string}nulltruefalseundefined1212n`
 				| `test-${number}-${bigint}-false-${string}null-undefined-false-ok-${string}nulltruefalseundefined1212n`

@@ -1,14 +1,12 @@
-import { pipe } from "@scripts/common/pipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { nullableEmpty, nullableFilled, type EitherNullableEmpty, whenIsRight } from "@scripts/either";
+import { pipe, type ExpectType, DEither } from "@scripts";
 
 describe("whenEitherIsRight", () => {
 	it("match", () => {
 		const either = true
-			? nullableFilled(true)
-			: nullableEmpty();
+			? DEither.nullableFilled(true)
+			: DEither.nullableEmpty();
 
-		const result = whenIsRight(
+		const result = DEither.whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -25,15 +23,15 @@ describe("whenEitherIsRight", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | 10,
+			DEither.NullableEmpty | 10,
 			"strict"
 		>;
 	});
 
 	it("not match with right", () => {
-		const either = nullableEmpty();
+		const either = DEither.nullableEmpty();
 
-		const result = whenIsRight(
+		const result = DEither.whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -50,7 +48,7 @@ describe("whenEitherIsRight", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty,
+			DEither.NullableEmpty,
 			"strict"
 		>;
 	});
@@ -58,9 +56,9 @@ describe("whenEitherIsRight", () => {
 	it("not match with any value", () => {
 		const either = true
 			? 30
-			: nullableFilled(true);
+			: DEither.nullableFilled(true);
 
-		const result = whenIsRight(
+		const result = DEither.whenIsRight(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -85,9 +83,9 @@ describe("whenEitherIsRight", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? nullableFilled(true)
-				: nullableEmpty(),
-			whenIsRight(
+				? DEither.nullableFilled(true)
+				: DEither.nullableEmpty(),
+			DEither.whenIsRight(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
@@ -104,7 +102,7 @@ describe("whenEitherIsRight", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherNullableEmpty | true,
+			DEither.NullableEmpty | true,
 			"strict"
 		>;
 	});

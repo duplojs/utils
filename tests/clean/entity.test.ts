@@ -237,8 +237,8 @@ describe("createEntity", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherLeft<"createEntityError", DPE.DataParserError>
-			| DEither.EitherRight<"createEntity", FormEntity>,
+			| DEither.Left<"createEntityError", DPE.DataParserError>
+			| DEither.Right<"createEntity", FormEntity>,
 			"strict"
 		>;
 	});

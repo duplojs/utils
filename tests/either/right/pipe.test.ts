@@ -1,94 +1,93 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { fail, success, type EitherFail, rightPipe, type EitherSuccess, right, type EitherRight } from "@scripts/either";
+import { type ExpectType, DEither } from "@scripts";
 
 describe("eitherRightPipe", () => {
 	it("input either", () => {
-		const result = rightPipe(
-			success({ value: 10 }),
-			({ value }) => success(value),
+		const result = DEither.rightPipe(
+			DEither.success({ value: 10 }),
+			({ value }) => DEither.success(value),
 		);
 
-		expect(result).toStrictEqual(success(10));
+		expect(result).toStrictEqual(DEither.success(10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<10>,
+			DEither.Success<10>,
 			"strict"
 		>;
 	});
 
 	it("input object", () => {
-		const result = rightPipe(
+		const result = DEither.rightPipe(
 			true
 				? { value: 10 }
-				: fail(),
-			({ value }) => right("result", value),
+				: DEither.fail(),
+			({ value }) => DEither.right("result", value),
 		);
 
-		expect(result).toStrictEqual(right("result", 10));
+		expect(result).toStrictEqual(DEither.right("result", 10));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherRight<"result", number> | EitherFail,
+			DEither.Right<"result", number> | DEither.Fail,
 			"strict"
 		>;
 	});
 
 	it("input either left", () => {
-		const result = rightPipe(
+		const result = DEither.rightPipe(
 			true
-				? fail()
+				? DEither.fail()
 				: { value: 10 },
-			({ value }) => success(value),
+			({ value }) => DEither.success(value),
 		);
 
-		expect(result).toStrictEqual(fail());
+		expect(result).toStrictEqual(DEither.fail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number> | EitherFail,
+			DEither.Success<number> | DEither.Fail,
 			"strict"
 		>;
 	});
 
 	it("input object with 6 pipe", () => {
-		const result = rightPipe(
+		const result = DEither.rightPipe(
 			{ value: 10 },
-			({ value }) => success(value),
+			({ value }) => DEither.success(value),
 			(value) => value * 2,
-			(value) => success(value ^ 4),
+			(value) => DEither.success(value ^ 4),
 			(value) => value - 4,
-			(value) => success(value / 2),
+			(value) => DEither.success(value / 2),
 			(value) => value + 1,
 		);
 
-		expect(result).toStrictEqual(success(7));
+		expect(result).toStrictEqual(DEither.success(7));
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherSuccess<number>,
+			DEither.Success<number>,
 			"strict"
 		>;
 	});
 
 	it("input object with 6 pipe and one error", () => {
-		const result = rightPipe(
+		const result = DEither.rightPipe(
 			{ value: 10 },
 			({ value }) => value,
 			(value) => value * 2,
 			(value) => true
-				? fail()
+				? DEither.fail()
 				: value ^ 4,
 			(value) => value - 4,
 			(value) => value / 2,
-			(value) => success(value + 1),
+			(value) => DEither.success(value + 1),
 		);
 
-		expect(result).toStrictEqual(fail());
+		expect(result).toStrictEqual(DEither.fail());
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			EitherFail | EitherSuccess<number>,
+			DEither.Fail | DEither.Success<number>,
 			"strict"
 		>;
 	});

@@ -1,17 +1,11 @@
-import { wrapValue } from "@scripts/common";
-import { keyKindPrefix } from "@scripts/common/kind";
-import { futureSuccess } from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherFutureKind } from "@scripts/either/future/base";
-import { eitherFutureSuccessKind } from "@scripts/either/future/success";
-import { eitherRightKind } from "@scripts/either/right/create";
+import { wrapValue, keyKindPrefix, DEither } from "@scripts";
 
 it("createEitherFutureSuccess", () => {
-	expect(futureSuccess(1)).toStrictEqual({
-		[`${keyKindPrefix}${eitherFutureSuccessKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherFutureKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "future",
-		[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+	expect(DEither.futureSuccess(1)).toStrictEqual({
+		[`${keyKindPrefix}${DEither.futureSuccessKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.futureKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "future",
+		[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 		...wrapValue(1),
 	});
 });

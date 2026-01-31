@@ -1,11 +1,9 @@
-import { keyKindPrefix, wrapValue } from "@scripts/common";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { isResult, result, type PatternResult } from "@scripts/pattern/result";
+import { type ExpectType, keyKindPrefix, wrapValue, DPattern } from "@scripts";
 
 describe("Pattern result", () => {
 	it("wraps value and tags with pattern-result kind", () => {
 		const input = "test" as const;
-		const patternResult = result(input);
+		const patternResult = DPattern.result(input);
 
 		expect(patternResult).toStrictEqual({
 			[`${keyKindPrefix}pattern-result`]: null,
@@ -14,32 +12,32 @@ describe("Pattern result", () => {
 
 		type check = ExpectType<
 			typeof patternResult,
-			PatternResult<typeof input>,
+			DPattern.PatternResult<typeof input>,
 			"strict"
 		>;
 	});
 
 	it("identifies pattern results via type guard", () => {
 		const sample = { foo: 42 } as const;
-		const patternResult = result(sample);
+		const patternResult = DPattern.result(sample);
 		const notPattern = { value: sample };
 
-		expect(isResult(patternResult)).toBe(true);
-		expect(isResult(notPattern)).toBe(false);
+		expect(DPattern.isResult(patternResult)).toBe(true);
+		expect(DPattern.isResult(notPattern)).toBe(false);
 
-		const unionPattern: PatternResult<typeof sample> | typeof notPattern = patternResult;
+		const unionPattern: DPattern.PatternResult<typeof sample> | typeof notPattern = patternResult;
 
-		if (isResult(unionPattern)) {
+		if (DPattern.isResult(unionPattern)) {
 			type check = ExpectType<
 				typeof unionPattern,
-				PatternResult<typeof sample>,
+				DPattern.PatternResult<typeof sample>,
 				"strict"
 			>;
 		}
 
-		const unionNotPattern: PatternResult<typeof sample> | typeof notPattern = notPattern;
+		const unionNotPattern: DPattern.PatternResult<typeof sample> | typeof notPattern = notPattern;
 
-		if (!isResult(unionNotPattern)) {
+		if (!DPattern.isResult(unionNotPattern)) {
 			type check = ExpectType<
 				typeof unionNotPattern,
 				typeof notPattern,

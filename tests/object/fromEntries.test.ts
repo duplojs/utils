@@ -1,6 +1,4 @@
-import { when } from "@scripts/common/when";
-import { whenNot } from "@scripts/common/whenNot";
-import { DArray, DEither, DObject, type ExpectType, pipe } from "@scripts";
+import { DArray, DEither, DObject, type ExpectType, pipe, when, whenNot } from "@scripts";
 
 it("fromEntries", () => {
 	const input: {
@@ -39,13 +37,13 @@ it("fromEntries", () => {
 
 	type check = ExpectType<
 		typeof result,
-		| DEither.EitherSuccess<{
+		| DEither.Success<{
 			test: string;
 			toto: string;
 			prop?: number | undefined;
 			tata?: string | undefined;
 		}>
-		| DEither.EitherError<{
+		| DEither.Error<{
 			test?: string | undefined;
 			prop?: number | undefined;
 			toto?: string | undefined;

@@ -1,4 +1,4 @@
-import { createOverride } from "@scripts/common/override";
+import { createOverride } from "@scripts";
 
 interface Service {
 	value: number;

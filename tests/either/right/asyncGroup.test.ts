@@ -9,9 +9,9 @@ describe("either.right.asyncGroup", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.EitherBoolFalsy<0>
-			| DEither.EitherOptionalEmpty
-			| DEither.EitherSuccess<{
+			| DEither.BoolFalsy<0>
+			| DEither.OptionalEmpty
+			| DEither.Success<{
 				first: number;
 				second: string;
 			}>,

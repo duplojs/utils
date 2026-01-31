@@ -1,4 +1,4 @@
-import { DDataParser, DDataParserExtended, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, type ExpectType } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {

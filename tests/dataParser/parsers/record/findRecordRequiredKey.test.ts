@@ -1,5 +1,4 @@
 import { DDataParser, type ExpectType } from "@scripts";
-import { findRecordRequiredKeyOnTemplateLiteralPart } from "@scripts/dataParser/parsers/record/findRecordRequiredKey";
 
 describe("findRecordRequiredKey", () => {
 	it("returns null for string key parser", () => {
@@ -71,85 +70,85 @@ describe("findRecordRequiredKey", () => {
 
 describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 	it("handles primitive string part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart(["segment"]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart(["segment"]);
 
 		expect(result).toStrictEqual(["segment"]);
 	});
 
 	it("handles primitive number part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([12]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([12]);
 
 		expect(result).toStrictEqual(["12"]);
 	});
 
 	it("handles primitive bigint part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([12n]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([12n]);
 
 		expect(result).toStrictEqual(["12n"]);
 	});
 
 	it("handles primitive boolean part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([true]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([true]);
 
 		expect(result).toStrictEqual(["true"]);
 	});
 
 	it("handles primitive null part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([null]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([null]);
 
 		expect(result).toStrictEqual(["null"]);
 	});
 
 	it("handles primitive undefined part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([undefined]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([undefined]);
 
 		expect(result).toStrictEqual(["undefined"]);
 	});
 
 	it("handles string parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.email()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.email()]);
 
 		expect(result).toBeNull();
 	});
 
 	it("handles number parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.number()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.number()]);
 
 		expect(result).toBeNull();
 	});
 
 	it("handles bigint parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.bigint()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.bigint()]);
 
 		expect(result).toBeNull();
 	});
 
 	it("handles boolean parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.boolean()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.boolean()]);
 
 		expect(result).toStrictEqual(["true", "false"]);
 	});
 
 	it("handles literal parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.literal(["foo", 1, 12n])]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.literal(["foo", 1, 12n])]);
 
 		expect(result).toStrictEqual(["foo", "1", "12n"]);
 	});
 
 	it("handles empty parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.empty()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.empty()]);
 
 		expect(result).toStrictEqual(["undefined"]);
 	});
 
 	it("handles nil parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.nil()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.nil()]);
 
 		expect(result).toStrictEqual(["null"]);
 	});
 
 	it("handles template literal parser part", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([
 			DDataParser.templateLiteral([
 				"prefix-",
 				DDataParser.literal(["x", "y"]),
@@ -160,13 +159,13 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 	});
 
 	it("handles union parser part with finite options", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.union([DDataParser.literal(["union"])])]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.union([DDataParser.literal(["union"])])]);
 
 		expect(result).toStrictEqual(["union"]);
 	});
 
 	it("handles union parser part with unbounded option", () => {
-		const result = findRecordRequiredKeyOnTemplateLiteralPart([
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([
 			DDataParser.union([
 				DDataParser.literal(["union"]),
 				DDataParser.email(),
@@ -202,7 +201,7 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 			unionSegment,
 		]);
 
-		const result = findRecordRequiredKeyOnTemplateLiteralPart(schema.definition.template);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart(schema.definition.template);
 
 		const expectedResult = [
 			"prefix-true-oknull-nested-x-tail",

@@ -1,73 +1,56 @@
-import { wrapValue } from "@scripts/common";
-import { keyKindPrefix } from "@scripts/common/kind";
-import { pipe } from "@scripts/common/pipe";
-import { type ExpectType } from "@scripts/common/types/expectType";
-import {
-	boolTruthy,
-	type EitherBoolTruthy,
-	type EitherBoolFalsy,
-	isBoolTruthy,
-	boolFalsy,
-	whenIsBoolTruthy,
-	ok,
-	type EitherOk,
-} from "@scripts/either";
-import { eitherInformationKind } from "@scripts/either/kind";
-import { eitherBoolKind } from "@scripts/either/bool/base";
-import { eitherBoolTruthyKind } from "@scripts/either/bool/truthy";
-import { eitherRightKind } from "@scripts/either/right/create";
+import { wrapValue, keyKindPrefix, pipe, type ExpectType, DEither } from "@scripts";
 
 describe("EitherBoolTruthy", () => {
 	const expectedBoolTruthy = (value: unknown) => ({
-		[`${keyKindPrefix}${eitherBoolKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherBoolTruthyKind.definition.name}`]: null,
-		[`${keyKindPrefix}${eitherInformationKind.definition.name}`]: "bool",
-		[`${keyKindPrefix}${eitherRightKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.boolTruthyKind.definition.name}`]: null,
+		[`${keyKindPrefix}${DEither.informationKind.definition.name}`]: "bool",
+		[`${keyKindPrefix}${DEither.rightKind.definition.name}`]: null,
 		...wrapValue(value),
 	});
 
 	it("create", () => {
-		const either = boolTruthy(10);
+		const either = DEither.boolTruthy(10);
 
 		expect(either).toStrictEqual(expectedBoolTruthy(10));
 
 		type check = ExpectType<
 			typeof either,
-			EitherBoolTruthy<10>,
+			DEither.BoolTruthy<10>,
 			"strict"
 		>;
 	});
 
 	it("isEitherBoolTruthy return true", () => {
-		const either = boolTruthy(10) as EitherBoolTruthy | EitherBoolFalsy;
+		const either = DEither.boolTruthy(10) as DEither.BoolTruthy | DEither.BoolFalsy;
 
-		const predicate = isBoolTruthy(either);
+		const predicate = DEither.isBoolTruthy(either);
 
 		expect(predicate).toBe(true);
 
 		if (predicate) {
 			type check = ExpectType<
 				typeof either,
-				EitherBoolTruthy,
+				DEither.BoolTruthy,
 				"strict"
 			>;
 		}
 	});
 
 	it("isEitherBoolTruthy return false", () => {
-		const either = boolFalsy(null) as EitherBoolTruthy | EitherBoolFalsy;
+		const either = DEither.boolFalsy(null) as DEither.BoolTruthy | DEither.BoolFalsy;
 
-		const predicate = isBoolTruthy(either);
+		const predicate = DEither.isBoolTruthy(either);
 
 		expect(predicate).toBe(false);
 	});
 
 	it("whenEitherIsBoolTruthy match", () => {
 		const either = true
-			? boolTruthy(10)
-			: boolFalsy(null);
+			? DEither.boolTruthy(10)
+			: DEither.boolFalsy(null);
 
-		const result = whenIsBoolTruthy(
+		const result = DEither.whenIsBoolTruthy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -84,15 +67,15 @@ describe("EitherBoolTruthy", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherBoolFalsy<null> | 10,
+			DEither.BoolFalsy<null> | 10,
 			"strict"
 		>;
 	});
 
 	it("whenEitherIsBoolTruthy not match with left", () => {
-		const either = boolFalsy(null);
+		const either = DEither.boolFalsy(null);
 
-		const result = whenIsBoolTruthy(
+		const result = DEither.whenIsBoolTruthy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -109,17 +92,17 @@ describe("EitherBoolTruthy", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherBoolFalsy<null>,
+			DEither.BoolFalsy<null>,
 			"strict"
 		>;
 	});
 
 	it("whenEitherIsBoolTruthy not match with right", () => {
 		const either = true
-			? ok()
-			: boolTruthy(10);
+			? DEither.ok()
+			: DEither.boolTruthy(10);
 
-		const result = whenIsBoolTruthy(
+		const result = DEither.whenIsBoolTruthy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -136,7 +119,7 @@ describe("EitherBoolTruthy", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherOk | 10,
+			DEither.Ok | 10,
 			"strict"
 		>;
 	});
@@ -146,7 +129,7 @@ describe("EitherBoolTruthy", () => {
 			? 10
 			: null;
 
-		const result = whenIsBoolTruthy(
+		const result = DEither.whenIsBoolTruthy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -163,7 +146,7 @@ describe("EitherBoolTruthy", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherBoolFalsy<null> | 0,
+			DEither.BoolFalsy<null> | 0,
 			"strict"
 		>;
 	});
@@ -173,7 +156,7 @@ describe("EitherBoolTruthy", () => {
 			? null
 			: 10;
 
-		const result = whenIsBoolTruthy(
+		const result = DEither.whenIsBoolTruthy(
 			either,
 			(value) => {
 				type check = ExpectType<
@@ -186,11 +169,11 @@ describe("EitherBoolTruthy", () => {
 			},
 		);
 
-		expect(result).toStrictEqual(boolFalsy(null));
+		expect(result).toStrictEqual(DEither.boolFalsy(null));
 
 		type check = ExpectType<
 			typeof result,
-			EitherBoolFalsy<null> | 0,
+			DEither.BoolFalsy<null> | 0,
 			"strict"
 		>;
 	});
@@ -198,9 +181,9 @@ describe("EitherBoolTruthy", () => {
 	it("use in pipe", () => {
 		const result = pipe(
 			true
-				? boolTruthy(true)
-				: boolFalsy(null),
-			whenIsBoolTruthy(
+				? DEither.boolTruthy(true)
+				: DEither.boolFalsy(null),
+			DEither.whenIsBoolTruthy(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
@@ -217,7 +200,7 @@ describe("EitherBoolTruthy", () => {
 
 		type check = ExpectType<
 			typeof result,
-			EitherBoolFalsy<null> | true,
+			DEither.BoolFalsy<null> | true,
 			"strict"
 		>;
 	});

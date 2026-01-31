@@ -15,7 +15,7 @@ describe("DDataParser time checker max", () => {
 
 		type checkEqual = ExpectType<
 			typeof resultEqual,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<DDate.TheTime>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<DDate.TheTime>,
 			"strict"
 		>;
 	});
@@ -42,7 +42,7 @@ describe("DDataParser time checker max", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<DDate.TheTime>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<DDate.TheTime>,
 			"strict"
 		>;
 	});

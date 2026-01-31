@@ -1,5 +1,4 @@
-import { type ExpectType } from "@scripts/common/types/expectType";
-import { createKind, DObject, wrapValue } from "@scripts";
+import { createKind, DObject, wrapValue, type ExpectType } from "@scripts";
 
 describe("keys", () => {
 	it("default usage", () => {

@@ -22,7 +22,7 @@ describe("DDataParser nullable", () => {
 
 		type _Check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string | null>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string | null>,
 			"strict"
 		>;
 	});

@@ -1,6 +1,4 @@
-import { equal, forward, pipe, type ExpectType } from "@scripts/common";
-import { DPattern } from "@scripts";
-import { type AnyValue } from "@scripts/common/types/anyValue";
+import { DPattern, equal, pipe, type ExpectType, type AnyValue } from "@scripts";
 
 describe("pattern when", () => {
 	it("match", () => {

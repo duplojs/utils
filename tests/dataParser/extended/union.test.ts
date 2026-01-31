@@ -16,7 +16,7 @@ describe("extended.union", () => {
 
 		type check = ExpectType<
 			typeof stringResult,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<string | number>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string | number>,
 			"strict"
 		>;
 	});

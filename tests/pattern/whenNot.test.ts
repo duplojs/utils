@@ -1,5 +1,4 @@
-import { equal, pipe, type ExpectType } from "@scripts/common";
-import { DPattern } from "@scripts";
+import { DPattern, equal, pipe, type ExpectType } from "@scripts";
 
 describe("pattern whenNot", () => {
 	it("match", () => {

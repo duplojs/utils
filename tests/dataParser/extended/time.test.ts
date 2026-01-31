@@ -1,19 +1,18 @@
 import { DDataParser, DDate, DEither, type ExpectType } from "@scripts";
-import { type TheTime } from "@scripts/date";
 
 const { extended } = DDataParser;
 
 describe("extended.time", () => {
 	it("parses TheTime values", () => {
 		const parser = extended.time();
-		const value: TheTime = "time42+";
+		const value: DDate.TheTime = "time42+";
 
 		const result = parser.parse(value);
 		expect(result).toStrictEqual(DEither.success(value));
 
 		type check = ExpectType<
 			typeof result,
-			DEither.EitherError<DDataParser.DataParserError> | DEither.EitherSuccess<TheTime>,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<DDate.TheTime>,
 			"strict"
 		>;
 	});

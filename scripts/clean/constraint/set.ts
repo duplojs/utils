@@ -335,7 +335,7 @@ export function createConstraintsSet<
 }
 
 export type GetConstraints<
-	GenericHandler extends ConstraintsSetHandler<string, readonly any[]>,
+	GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>,
 > = Extract<
 	GenericHandler extends any
 		? & UnionToIntersection<

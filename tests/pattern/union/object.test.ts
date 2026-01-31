@@ -1,5 +1,4 @@
-import { type ExpectType, pipe } from "@scripts/common";
-import { DPattern, DString } from "@scripts";
+import { DPattern, DString, type ExpectType, pipe } from "@scripts";
 
 describe("union discriminate object", () => {
 	interface Object1 {
