@@ -90,4 +90,29 @@ describe("createUseCase and useCaseInstances", () => {
 			"strict"
 		>;
 	});
+
+	it("override usecase dependencies", async() => {
+		const logSpy = vi.fn();
+		const logRepository = LogRepository.createImplementation({
+			log: logSpy,
+		});
+
+		const userRepository = UserRepository.createImplementation({
+			getName: (id) => Promise.resolve(`User${id}`),
+		});
+
+		const useCaseLogSpy = vi.fn(() => 1);
+
+		const greetUseCase = GreetUseCase.getUseCase({
+			logRepository,
+			userRepository,
+			logUseCase: useCaseLogSpy,
+		});
+
+		const result = await greetUseCase(1);
+
+		expect(result).toBe("Hello User1");
+		expect(logSpy).not.toHaveBeenCalled();
+		expect(useCaseLogSpy).toHaveBeenCalledOnce();
+	});
 });

@@ -1,4 +1,4 @@
-import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, pipe, createOverride, type RemoveKind, type AnyFunction } from "@scripts/common";
+import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, pipe, createOverride, type RemoveKind, type AnyFunction, type Adaptor } from "@scripts/common";
 import { type RepositoryHandler } from "./repository";
 import { createCleanKind } from "./kind";
 import * as DObject from "../object";
@@ -14,11 +14,7 @@ export type UseCaseDependenciesValue<
 	GenericDependencies extends UseCaseDependencies,
 > = SimplifyTopLevel<{
 	[
-	Prop in keyof GenericDependencies as (
-		Prop extends string
-			? Uncapitalize<Prop>
-			: Prop
-	)
+	Prop in keyof GenericDependencies as Uncapitalize<Adaptor<Prop, string>>
 	]: GenericDependencies[Prop] extends RepositoryHandler
 		? ReturnType<GenericDependencies[Prop]["createImplementation"]>
 		: GenericDependencies[Prop] extends UseCaseHandler
@@ -33,11 +29,7 @@ export type GetAllRepositories<
 		[Prop in keyof GenericDependenciesValue]: (
 			GenericDependenciesValue[Prop] extends RepositoryHandler
 				? [
-					(
-						Prop extends string
-							? Uncapitalize<Prop>
-							: Prop
-					),
+					Uncapitalize<Adaptor<Prop, string>>,
 					ReturnType<
 						GenericDependenciesValue[Prop]["createImplementation"]
 					>,
@@ -66,15 +58,29 @@ export interface UseCaseHandler<
 	 */
 	getUseCase(
 		repositories: (
-			GetAllRepositories<
-				GenericDependencies
-			> extends infer InferredEntriesDependenciesValue extends ObjectEntry
-				? {
+			& (
+				GetAllRepositories<
+					GenericDependencies
+				> extends infer InferredEntriesDependenciesValue extends ObjectEntry
+					? {
+						[
+						Entry in InferredEntriesDependenciesValue as Entry[0]
+						]: Entry[1]
+					}
+					: never
+			)
+			& (
+				{
 					[
-					Entry in InferredEntriesDependenciesValue as InferredEntriesDependenciesValue[0]
-					]: InferredEntriesDependenciesValue[1]
+					Prop in keyof GenericDependencies as
+					GenericDependencies[Prop] extends UseCaseHandler
+						? Uncapitalize<Adaptor<Prop, string>>
+						: never
+					]?: GenericDependencies[Prop] extends UseCaseHandler
+						? ReturnType<GenericDependencies[Prop]["getUseCase"]>
+						: never
 				}
-				: never
+			)
 		)
 	): GenericUseCase;
 }
@@ -97,17 +103,21 @@ export function createUseCase<
 	return pipe(
 		{
 			dependencies,
-			getUseCase: (repositories: Record<string, object>) => getUseCase(
+			getUseCase: (injectedDependencies: Record<string, object>) => getUseCase(
 				pipe(
 					dependencies,
 					DObject.entries,
 					DArray.map(
-						([key, value]) => DObject.entry(
-							DString.uncapitalize(key),
-							useCaseHandlerKind.has(value)
-								? value.getUseCase(repositories as never)
-								: repositories[DString.uncapitalize(key)]!,
-						),
+						([key, value]) => {
+							const formattedKey = DString.uncapitalize(key);
+
+							return DObject.entry(
+								formattedKey,
+								useCaseHandlerKind.has(value) && !injectedDependencies[formattedKey]
+									? value.getUseCase(injectedDependencies as never)
+									: injectedDependencies[formattedKey]!,
+							);
+						},
 					),
 					DObject.fromEntries,
 				) as never,
@@ -130,9 +140,15 @@ export function useCaseInstances<
 	repositories: SimplifyTopLevel<
 		UnionToIntersection<
 			{
-				[Prop in keyof GenericUseCases]: Parameters<
-					GenericUseCases[Prop]["getUseCase"]
-				>[0]
+				[Prop in keyof GenericUseCases]: GetAllRepositories<
+					GenericUseCases[Prop]["dependencies"]
+				> extends infer InferredEntriesDependenciesValue extends ObjectEntry
+					? {
+						[
+						Entry in InferredEntriesDependenciesValue as Entry[0]
+						]: Entry[1]
+					}
+					: never
 			}[keyof GenericUseCases]
 		>
 	>,
