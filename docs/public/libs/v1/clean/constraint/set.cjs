@@ -30,7 +30,7 @@ class CreateConstraintsSetError extends kind$1.kindHeritage("create-constraint-s
  * {@include clean/createConstraintsSet/index.md}
  */
 function createConstraintsSet(primitiveHandler, constraint) {
-    const constraints = coalescing.coalescing(constraint ?? []);
+    const constraints = coalescing.coalescing(constraint);
     const checkers = flatMap.flatMap(constraints, ({ checkers }) => checkers);
     const dataParserWithCheckers = primitiveHandler
         .dataParser

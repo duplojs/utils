@@ -28,7 +28,7 @@ class CreateConstraintsSetError extends kindHeritage("create-constraint-set-erro
  * {@include clean/createConstraintsSet/index.md}
  */
 function createConstraintsSet(primitiveHandler, constraint) {
-    const constraints = coalescing(constraint ?? []);
+    const constraints = coalescing(constraint);
     const checkers = flatMap(constraints, ({ checkers }) => checkers);
     const dataParserWithCheckers = primitiveHandler
         .dataParser

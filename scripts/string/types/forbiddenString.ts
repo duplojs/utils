@@ -1,5 +1,4 @@
 import { type IsEqual } from "@scripts/common";
-import { type Includes } from "@scripts/string";
 
 declare const SymbolErrorForbiddenString: unique symbol;
 
@@ -9,7 +8,7 @@ export type ForbiddenString<
 > = IsEqual<
 	| (
 		GenericCharacters extends string
-			? Includes<GenericValue, GenericCharacters>
+			? IsEqual<GenericValue, GenericCharacters>
 			: never
 	)
 	| false,
