@@ -159,6 +159,7 @@ interface DataParserInitExecParams<
 			typeof dataParserKind,
 			GenericDataParser
 		>["output"]
+		| SymbolDataParserError
 		| SymbolDataParserErrorIssue
 		| SymbolDataParserErrorPromiseIssue
 	);
@@ -167,6 +168,7 @@ interface DataParserInitExecParams<
 			typeof dataParserKind,
 			GenericDataParser
 		>["output"]
+		| SymbolDataParserError
 		| SymbolDataParserErrorIssue
 		| SymbolDataParserErrorPromiseIssue
 	>;
