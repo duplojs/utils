@@ -72,9 +72,10 @@ export function unknown<
 	>(
 		dataParsers.unknown(definition),
 		{},
-	) as never;
+		unknown.overrideHandler,
+	);
 
-	return unknown.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 unknown.overrideHandler = createOverride<DataParserUnknownExtended>("@duplojs/utils/data-parser-extended/unknown");

@@ -75,9 +75,10 @@ export function templateLiteral<
 	>(
 		dataParsers.templateLiteral(template, definition),
 		{},
-	) as never;
+		templateLiteral.overrideHandler,
+	);
 
-	return templateLiteral.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 templateLiteral.overrideHandler = createOverride<DataParserTemplateLiteralExtended>("@duplojs/utils/data-parser-extended/templateLiteral");

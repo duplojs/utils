@@ -115,9 +115,10 @@ export function tuple<
 				);
 			},
 		},
-	) as never;
+		tuple.overrideHandler,
+	);
 
-	return tuple.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 tuple.overrideHandler = createOverride<DataParserTupleExtended>("@duplojs/utils/data-parser-extended/tuple");

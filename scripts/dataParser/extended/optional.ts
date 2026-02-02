@@ -84,9 +84,10 @@ export function optional<
 	>(
 		dataParsers.optional(inner, definition),
 		{},
-	) as never;
+		optional.overrideHandler,
+	);
 
-	return optional.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 optional.overrideHandler = createOverride<DataParserOptionalExtended>("@duplojs/utils/data-parser-extended/optional");

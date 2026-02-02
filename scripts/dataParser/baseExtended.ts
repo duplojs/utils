@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride } from "@scripts/common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import type * as DEither from "../either";
@@ -277,6 +277,7 @@ export function dataParserExtendedInit<
 				: GenericDataParserExtended[Prop]
 		}
 	>,
+	specificOverrideHandler: OverrideHandler<NoInfer<GenericDataParserExtended>>,
 ): GenericDataParserExtended {
 	const self: DataParserExtended = pipe(
 		{
@@ -342,12 +343,14 @@ export function dataParserExtendedInit<
 				return dataParserExtendedInit(
 					dataParser.addChecker(...checkers as never),
 					rest,
+					specificOverrideHandler,
 				);
 			},
 			clone() {
 				return dataParserExtendedInit(
 					dataParser.clone(),
 					rest,
+					specificOverrideHandler,
 				);
 			},
 			refine(theFunction) {
@@ -356,6 +359,7 @@ export function dataParserExtendedInit<
 						dataParsers.checkerRefine(theFunction),
 					),
 					rest,
+					specificOverrideHandler,
 				);
 			},
 			recover(recoveredValue, definition) {
@@ -371,6 +375,7 @@ export function dataParserExtendedInit<
 		} satisfies DataParserExtended,
 		extendedKind.setTo,
 		dataParserExtendedInit.overrideHandler.apply,
+		specificOverrideHandler.apply as AnyFunction,
 	);
 
 	return self as never;

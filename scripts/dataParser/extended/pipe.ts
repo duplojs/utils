@@ -79,9 +79,10 @@ export function pipe<
 	>(
 		dataParsers.pipe(input, output, definition),
 		{},
-	) as never;
+		pipe.overrideHandler,
+	);
 
-	return pipe.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 pipe.overrideHandler = createOverride<DataParserPipeExtended>("@duplojs/utils/data-parser-extended/pipe");

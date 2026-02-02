@@ -118,9 +118,10 @@ export function time<
 				);
 			},
 		},
-	) as never;
+		time.overrideHandler,
+	);
 
-	return time.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 time.overrideHandler = createOverride<DataParserTimeExtended>("@duplojs/utils/data-parser-extended/time");

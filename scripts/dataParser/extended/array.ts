@@ -124,9 +124,10 @@ export function array<
 				);
 			},
 		},
-	) as never;
+		array.overrideHandler,
+	);
 
-	return array.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 array.overrideHandler = createOverride<DataParserArrayExtended>("@duplojs/utils/data-parser-extended/array");

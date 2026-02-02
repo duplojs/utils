@@ -82,9 +82,10 @@ export function recover<
 	>(
 		dataParsers.recover(inner, recoveredValue, definition),
 		{},
-	) as never;
+		recover.overrideHandler,
+	);
 
-	return recover.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 recover.overrideHandler = createOverride<DataParserRecoverExtended>("@duplojs/utils/data-parser-extended/recover");

@@ -72,9 +72,10 @@ export function boolean<
 	>(
 		dataParsers.boolean(definition),
 		{},
-	) as never;
+		boolean.overrideHandler,
+	);
 
-	return boolean.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 boolean.overrideHandler = createOverride<DataParserBooleanExtended>("@duplojs/utils/data-parser-extended/boolean");

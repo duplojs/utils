@@ -159,6 +159,7 @@ describe("base extended", () => {
 		const schema = DDataParser.dataParserExtendedInit(
 			DDataParser.string(),
 			{ test: 12 },
+			DDataParserExtended.string.overrideHandler as never,
 		);
 
 		expect((schema as any).test).toBe(12);

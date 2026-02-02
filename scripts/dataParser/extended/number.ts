@@ -138,9 +138,10 @@ export function number<
 				);
 			},
 		},
+		number.overrideHandler,
 	);
 
-	return number.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 number.overrideHandler = createOverride<DataParserNumberExtended>("@duplojs/utils/data-parser-extended/number");

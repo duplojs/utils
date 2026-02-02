@@ -74,9 +74,10 @@ export function lazy<
 	>(
 		dataParsers.lazy(getter, definition),
 		{},
-	) as never;
+		lazy.overrideHandler,
+	);
 
-	return lazy.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 lazy.overrideHandler = createOverride<DataParserLazyExtended>("@duplojs/utils/data-parser-extended/lazy");

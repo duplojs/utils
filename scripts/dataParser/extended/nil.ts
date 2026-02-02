@@ -72,9 +72,10 @@ export function nil<
 	>(
 		dataParsers.nil(definition),
 		{},
-	) as never;
+		nil.overrideHandler,
+	);
 
-	return nil.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 nil.overrideHandler = createOverride<DataParserNilExtended>("@duplojs/utils/data-parser-extended/nil");

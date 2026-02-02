@@ -74,9 +74,10 @@ export function union<
 	>(
 		dataParsers.union(options, definition),
 		{},
-	) as never;
+		union.overrideHandler,
+	);
 
-	return union.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 union.overrideHandler = createOverride<DataParserUnionExtended>("@duplojs/utils/data-parser-extended/union");

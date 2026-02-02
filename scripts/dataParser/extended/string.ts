@@ -131,9 +131,10 @@ export function string<
 				);
 			},
 		},
-	) as never;
+		string.overrideHandler,
+	);
 
-	return string.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 string.overrideHandler = createOverride<DataParserStringExtended>("@duplojs/utils/data-parser-extended/string");

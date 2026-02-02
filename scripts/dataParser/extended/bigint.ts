@@ -117,9 +117,10 @@ export function bigint<
 				);
 			},
 		},
-	) as never;
+		bigint.overrideHandler,
+	);
 
-	return bigint.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 bigint.overrideHandler = createOverride<DataParserBigIntExtended>("@duplojs/utils/data-parser-extended/bigint");

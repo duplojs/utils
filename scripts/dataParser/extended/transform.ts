@@ -83,9 +83,10 @@ export function transform<
 	>(
 		dataParsers.transform(inner, theFunction, definition),
 		{},
-	) as never;
+		transform.overrideHandler,
+	);
 
-	return transform.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 transform.overrideHandler = createOverride<DataParserTransformExtended>("@duplojs/utils/data-parser-extended/transform");

@@ -255,9 +255,10 @@ export function object<
 				);
 			},
 		},
-	) as never;
+		object.overrideHandler,
+	);
 
-	return object.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 object.overrideHandler = createOverride<DataParserObjectExtended>("@duplojs/utils/data-parser-extended/object");

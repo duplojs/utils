@@ -77,9 +77,10 @@ export function record<
 	>(
 		dataParsers.record(key, value, definition),
 		{},
-	) as never;
+		record.overrideHandler,
+	);
 
-	return record.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 record.overrideHandler = createOverride<DataParserRecordExtended>("@duplojs/utils/data-parser-extended/record");

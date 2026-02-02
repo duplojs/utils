@@ -74,9 +74,10 @@ export function literal<
 	>(
 		dataParsers.literal(value, definition),
 		{},
-	) as never;
+		literal.overrideHandler,
+	);
 
-	return literal.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 literal.overrideHandler = createOverride<DataParserLiteralExtended>("@duplojs/utils/data-parser-extended/literal");

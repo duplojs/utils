@@ -71,9 +71,10 @@ export function date<
 	>(
 		dataParsers.date(definition),
 		{},
-	) as never;
+		date.overrideHandler,
+	);
 
-	return date.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 date.overrideHandler = createOverride<DataParserDateExtended>("@duplojs/utils/data-parser-extended/date");

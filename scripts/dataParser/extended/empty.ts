@@ -72,9 +72,10 @@ export function empty<
 	>(
 		dataParsers.empty(definition),
 		{},
-	) as never;
+		empty.overrideHandler,
+	);
 
-	return empty.overrideHandler.apply(self) as never;
+	return self as never;
 }
 
 empty.overrideHandler = createOverride<DataParserEmptyExtended>("@duplojs/utils/data-parser-extended/empty");
