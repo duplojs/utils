@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type AnyFunction, type Kind } from "@scripts/common";
+import { type SimplifyTopLevel, type AnyFunction, type Kind, createOverride, pipe, type RemoveKind } from "@scripts/common";
 import { createCleanKind } from "./kind";
 
 export const repositoryHandlerKind = createCleanKind("repository-handler");
@@ -25,9 +25,15 @@ export interface RepositoryHandler<
 export function createRepository<
 	GenericRepository extends object,
 >(): RepositoryHandler<GenericRepository> {
-	return repositoryHandlerKind.setTo({
-		createImplementation(implementation: any) {
-			return implementation;
-		},
-	});
+	return pipe(
+		{
+			createImplementation(implementation: any) {
+				return implementation;
+			},
+		} satisfies Record<keyof RemoveKind<RepositoryHandler>, unknown>,
+		repositoryHandlerKind.setTo,
+		createRepository.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createRepository.overrideHandler = createOverride<RepositoryHandler>("@duplojs/utils/clean/repository");

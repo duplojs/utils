@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
@@ -339,18 +339,24 @@ export function createNewType<
 		return true;
 	}
 
-	return newTypeHandlerKind.setTo({
-		name,
-		dataParser: dataParserWithCheckers,
-		constrains: constraints,
-		getConstraint,
-		create,
-		createOrThrow,
-		createWithUnknown: create,
-		createWithUnknownOrThrow: createOrThrow,
-		is,
-	} satisfies Record<keyof RemoveKind<NewTypeHandler>, unknown>) as never;
+	return pipe(
+		{
+			name,
+			dataParser: dataParserWithCheckers,
+			constrains: constraints,
+			getConstraint,
+			create,
+			createOrThrow,
+			createWithUnknown: create,
+			createWithUnknownOrThrow: createOrThrow,
+			is,
+		} satisfies Record<keyof RemoveKind<NewTypeHandler>, unknown>,
+		newTypeHandlerKind.setTo,
+		createNewType.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createNewType.overrideHandler = createOverride<NewTypeHandler>("@duplojs/utils/clean/new-type");
 
 export type GetNewType<
 	GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>,

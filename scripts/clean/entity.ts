@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type GetNewType, type NewTypeHandler, newTypeHandlerKind, newTypeKind } from "./newType";
 import { constrainedTypeKind } from "./constraint";
@@ -471,17 +471,23 @@ export function createEntity<
 		return entityKind.setTo(updatedEntity, name);
 	}
 
-	return entityHandlerKind.setTo({
-		name,
-		propertiesDefinition,
-		mapDataParser,
-		new: theNew,
-		map,
-		mapOrThrow,
-		is,
-		update,
-	}) as never;
+	return pipe(
+		{
+			name,
+			propertiesDefinition,
+			mapDataParser,
+			new: theNew,
+			map,
+			mapOrThrow,
+			is,
+			update,
+		} satisfies Record<keyof RemoveKind<EntityHandler>, unknown>,
+		entityHandlerKind.setTo,
+		createEntity.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createEntity.overrideHandler = createOverride<EntityHandler>("@duplojs/utils/clean/entity");
 
 export type GetEntity<
 	GenericEntityHandler extends EntityHandler<string, any>,

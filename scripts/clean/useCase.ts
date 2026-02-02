@@ -1,4 +1,4 @@
-import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, pipe } from "@scripts/common";
+import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, pipe, createOverride, type RemoveKind, type AnyFunction } from "@scripts/common";
 import { type RepositoryHandler } from "./repository";
 import { createCleanKind } from "./kind";
 import * as DObject from "../object";
@@ -94,25 +94,31 @@ export function createUseCase<
 		GenericDependencies,
 		GenericUseCase
 	> {
-	return useCaseHandlerKind.setTo({
-		dependencies,
-		getUseCase: (repositories: Record<string, object>) => getUseCase(
-			pipe(
-				dependencies,
-				DObject.entries,
-				DArray.map(
-					([key, value]) => DObject.entry(
-						DString.uncapitalize(key),
-						useCaseHandlerKind.has(value)
-							? value.getUseCase(repositories as never)
-							: repositories[DString.uncapitalize(key)]!,
+	return pipe(
+		{
+			dependencies,
+			getUseCase: (repositories: Record<string, object>) => getUseCase(
+				pipe(
+					dependencies,
+					DObject.entries,
+					DArray.map(
+						([key, value]) => DObject.entry(
+							DString.uncapitalize(key),
+							useCaseHandlerKind.has(value)
+								? value.getUseCase(repositories as never)
+								: repositories[DString.uncapitalize(key)]!,
+						),
 					),
-				),
-				DObject.fromEntries,
-			) as never,
-		),
-	}) as never;
+					DObject.fromEntries,
+				) as never,
+			),
+		} satisfies Record<keyof RemoveKind<UseCaseHandler>, unknown>,
+		useCaseHandlerKind.setTo,
+		createUseCase.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createUseCase.overrideHandler = createOverride<UseCaseHandler>("@duplojs/utils/clean/use-case");
 
 /**
  * {@include clean/useCaseInstances/index.md}

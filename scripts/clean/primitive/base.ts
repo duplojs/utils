@@ -1,4 +1,4 @@
-import { createErrorKind, type Kind, kindHeritage, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
+import { type AnyFunction, createErrorKind, createOverride, type Kind, kindHeritage, pipe, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
@@ -132,15 +132,21 @@ function createPrimitive<
 		return DEither.isRight(result);
 	}
 
-	return primitiveHandlerKind.setTo({
-		dataParser,
-		create,
-		createOrThrow,
-		createWithUnknown: create,
-		createWithUnknownOrThrow: createOrThrow,
-		is,
-	} satisfies Record<keyof RemoveKind<PrimitiveHandler>, unknown>) as never;
+	return pipe(
+		{
+			dataParser,
+			create,
+			createOrThrow,
+			createWithUnknown: create,
+			createWithUnknownOrThrow: createOrThrow,
+			is,
+		} satisfies Record<keyof RemoveKind<PrimitiveHandler>, unknown>,
+		primitiveHandlerKind.setTo,
+		createPrimitive.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createPrimitive.overrideHandler = createOverride<PrimitiveHandler>("@duplojs/utils/clean/primitive");
 
 /**
  * {@include clean/String/index.md}

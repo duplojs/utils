@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction } from "@scripts";
 import { createCleanKind } from "../kind";
 import { constrainedTypeKind, type GetConstraint, type ConstraintHandler } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
@@ -322,17 +322,23 @@ export function createConstraintsSet<
 		return true;
 	}
 
-	return constraintsSetHandlerKind.setTo({
-		primitiveHandler,
-		constrains: constraints,
-		getConstraint,
-		create,
-		createOrThrow,
-		createWithUnknown: create,
-		createWithUnknownOrThrow: createOrThrow,
-		is,
-	} satisfies Record<keyof RemoveKind<ConstraintsSetHandler>, unknown>) as never;
+	return pipe(
+		{
+			primitiveHandler,
+			constrains: constraints,
+			getConstraint,
+			create,
+			createOrThrow,
+			createWithUnknown: create,
+			createWithUnknownOrThrow: createOrThrow,
+			is,
+		} satisfies Record<keyof RemoveKind<ConstraintsSetHandler>, unknown>,
+		constraintsSetHandlerKind.setTo,
+		createConstraintsSet.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createConstraintsSet.overrideHandler = createOverride<ConstraintsSetHandler>("@duplojs/utils/clean/constraints-set");
 
 export type GetConstraints<
 	GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>,

@@ -1,4 +1,4 @@
-import { type Kind, type IsEqual, type Or, type GetKindValue } from "@scripts/common";
+import { type Kind, type IsEqual, type Or, type GetKindValue, createOverride, pipe, type AnyFunction, type RemoveKind } from "@scripts/common";
 import { type Entity } from "./entity";
 import { createCleanKind } from "./kind";
 
@@ -90,30 +90,36 @@ export function createFlag<
 		GenericName,
 		GenericValue
 	> {
-	return flagHandlerKind.setTo({
-		name,
-		append(entity: Entity, value: any) {
-			const flagValue = flagKind.has(entity)
-				? {
-					...(flagKind.getValue(entity) as object),
-					[name]: value,
-				}
-				: { [name]: value };
+	return pipe(
+		{
+			name,
+			append(entity: Entity, value: any) {
+				const flagValue = flagKind.has(entity)
+					? {
+						...(flagKind.getValue(entity) as object),
+						[name]: value,
+					}
+					: { [name]: value };
 
-			return flagKind.addTo(
-				entity,
-				flagValue,
-			);
-		},
-		getValue(entity: Entity) {
-			return flagKind.getValue(entity as never)[name];
-		},
-		has(entity: Entity) {
-			return flagKind.has(entity as never)
+				return flagKind.addTo(
+					entity,
+					flagValue,
+				);
+			},
+			getValue(entity: Entity) {
+				return flagKind.getValue(entity as never)[name];
+			},
+			has(entity: Entity) {
+				return flagKind.has(entity as never)
 				&& name in flagKind.getValue(entity as never);
-		},
-	}) satisfies Record<keyof FlagHandler, unknown> as never;
+			},
+		} satisfies Record<keyof RemoveKind<FlagHandler>, unknown>,
+		flagHandlerKind.setTo,
+		createFlag.overrideHandler.apply as AnyFunction,
+	);
 }
+
+createFlag.overrideHandler = createOverride<FlagHandler>("@duplojs/utils/clean/flag");
 
 export type GetFlag<
 	GenericHandler extends FlagHandler<any, any, any>,
