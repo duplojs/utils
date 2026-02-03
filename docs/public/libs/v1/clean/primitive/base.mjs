@@ -1,12 +1,14 @@
 import { createCleanKind } from '../kind.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
 import { string } from '../../dataParser/parsers/string/index.mjs';
+import { pipe } from '../../common/pipe.mjs';
 import { number } from '../../dataParser/parsers/number/index.mjs';
 import { bigint } from '../../dataParser/parsers/bigint/index.mjs';
 import { boolean } from '../../dataParser/parsers/boolean.mjs';
 import { date } from '../../dataParser/parsers/date.mjs';
 import { time } from '../../dataParser/parsers/time/index.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { isRight } from '../../either/right/is.mjs';
 import { isLeft } from '../../either/left/is.mjs';
@@ -47,15 +49,16 @@ function createPrimitive(dataParser) {
         const result = dataParser.parse(unwrap(input));
         return isRight(result);
     }
-    return primitiveHandlerKind.setTo({
+    return pipe({
         dataParser,
         create,
         createOrThrow,
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,
-    });
+    }, primitiveHandlerKind.setTo, createPrimitive.overrideHandler.apply);
 }
+createPrimitive.overrideHandler = createOverride("@duplojs/utils/clean/primitive");
 /**
  * {@include clean/String/index.md}
  */

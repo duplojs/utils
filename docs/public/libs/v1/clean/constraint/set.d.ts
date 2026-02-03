@@ -140,5 +140,8 @@ export declare function createConstraintsSet<GenericPrimitiveValue extends Eligi
     ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]>,
     ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]>[]
 ]) = never>(primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, DArray.ArrayCoalescing<GenericConstrainHandler>>;
-export type GetConstraints<GenericHandler extends ConstraintsSetHandler<string, readonly any[]>> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["constrains"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> : never, any>;
+export declare namespace createConstraintsSet {
+    var overrideHandler: import("../..").OverrideHandler<ConstraintsSetHandler<EligiblePrimitive, readonly []>>;
+}
+export type GetConstraints<GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["constrains"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> : never, any>;
 export {};

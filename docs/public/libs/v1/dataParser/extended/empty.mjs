@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/empty/index.md}
  */
 function empty(definition) {
-    const self = dataParserExtendedInit(empty$1(definition), {});
-    return empty.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(empty$1(definition), {}, empty.overrideHandler);
+    return self;
 }
 empty.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/empty");
 

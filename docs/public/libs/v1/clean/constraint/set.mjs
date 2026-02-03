@@ -7,12 +7,13 @@ import { pipe } from '../../common/pipe.mjs';
 import { map } from '../../array/map.mjs';
 import { entry } from '../../object/entry.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
+import { fromEntries } from '../../object/fromEntries.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { isLeft } from '../../either/left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { left } from '../../either/left/create.mjs';
 import { right } from '../../either/right/create.mjs';
 import { wrapValue } from '../../common/wrapValue.mjs';
-import { fromEntries } from '../../object/fromEntries.mjs';
 
 const constraintsSetHandlerKind = createCleanKind("constraints-set-handler");
 class CreateConstraintsSetError extends kindHeritage("create-constraint-set-error", createErrorKind("create-constraint-set-error"), Error) {
@@ -74,7 +75,7 @@ function createConstraintsSet(primitiveHandler, constraint) {
         }
         return true;
     }
-    return constraintsSetHandlerKind.setTo({
+    return pipe({
         primitiveHandler,
         constrains: constraints,
         getConstraint,
@@ -83,7 +84,8 @@ function createConstraintsSet(primitiveHandler, constraint) {
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,
-    });
+    }, constraintsSetHandlerKind.setTo, createConstraintsSet.overrideHandler.apply);
 }
+createConstraintsSet.overrideHandler = createOverride("@duplojs/utils/clean/constraints-set");
 
 export { CreateConstraintsSetError, constraintsSetHandlerKind, createConstraintsSet };

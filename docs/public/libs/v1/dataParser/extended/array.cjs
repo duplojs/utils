@@ -17,8 +17,8 @@ function array(element, definition) {
         max(self, max$1, definition) {
             return self.addChecker(max.checkerArrayMax(max$1, definition));
         },
-    });
-    return array.overrideHandler.apply(self);
+    }, array.overrideHandler);
+    return self;
 }
 array.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/array");
 

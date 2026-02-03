@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/transform/index.md}
  */
 function transform(inner, theFunction, definition) {
-    const self = dataParserExtendedInit(transform$1(inner, theFunction, definition), {});
-    return transform.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(transform$1(inner, theFunction, definition), {}, transform.overrideHandler);
+    return self;
 }
 transform.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/transform");
 

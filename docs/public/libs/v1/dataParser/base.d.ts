@@ -239,8 +239,8 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
     isAsynchronous(): boolean;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
-    sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
-    async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
+    sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
+    async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
     isAsynchronous(self: GenericDataParser): boolean;
 }
 declare const DataParserThrowError_base: new (params: {

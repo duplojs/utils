@@ -148,3 +148,32 @@ export type NumberMin<GenericValue extends number> = ReturnType<typeof NumberMin
  */
 export declare function NumberMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): import("..").ConstraintHandler<`number-max-${GenericValue & OnlyLiteralNumber<GenericValue>}`, number, readonly [DDataParser.DataParserCheckerNumberMax]>;
 export type NumberMax<GenericValue extends number> = ReturnType<typeof NumberMax<GenericValue>>;
+/**
+ * Constraint handler that validates strictly positive integers (>= 1).
+ * 
+ * **Supported call styles:**
+ * - Classic: `PositiveInt.create(value)` -> returns Either
+ * 
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes to positive integer numbers.
+ * 
+ * ```ts
+ * const result = C.PositiveInt.create(4);
+ * 
+ * if (E.isRight(result)) {
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"positive-int", 4>>
+ * }
+ * 
+ * const value = C.PositiveInt.createOrThrow(10);
+ * // value: C.ConstrainedType<"positive-int", 10>
+ * 
+ * C.PositiveInt.is(value); // type guard
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
+export declare const PositiveInt: import("..").ConstraintHandler<"positive-int", number, readonly [DDataParser.DataParserCheckerInt, DDataParser.DataParserCheckerNumberMin]>;
+export type PositiveInt = GetConstraint<typeof PositiveInt>;

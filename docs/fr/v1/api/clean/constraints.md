@@ -177,6 +177,16 @@ Valide un nombre strictement positif (>= 1).
   height="240px"
 />
 
+### `PositiveInt`
+
+Valide un nombre entier strictement positif (>= 1).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/positiveInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `Negative`
 
 Valide un nombre strictement négatif (<= -1).

@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/nullable/index.md}
  */
 function nullable(inner, definition) {
-    const self = dataParserExtendedInit(nullable$1(inner, definition), {});
-    return nullable.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(nullable$1(inner, definition), {}, nullable.overrideHandler);
+    return self;
 }
 nullable.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/nullable");
 

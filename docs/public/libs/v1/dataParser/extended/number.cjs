@@ -21,8 +21,8 @@ function number(definition) {
         int(self, definition) {
             return self.addChecker(int$1.checkerInt(definition));
         },
-    });
-    return number.overrideHandler.apply(self);
+    }, number.overrideHandler);
+    return self;
 }
 number.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/number");
 /**

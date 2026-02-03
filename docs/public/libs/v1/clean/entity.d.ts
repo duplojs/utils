@@ -224,5 +224,8 @@ export interface PropertiesDefinitionParams {
  * 
  */
 export declare function createEntity<GenericName extends string, const GenericPropertiesDefinition extends EntityPropertiesDefinition>(name: GenericName, getPropertiesDefinition: (params: PropertiesDefinitionParams) => GenericPropertiesDefinition & DObject.ForbiddenKey<GenericPropertiesDefinition, "_entityName" | "_flags">): EntityHandler<GenericName, GenericPropertiesDefinition>;
+export declare namespace createEntity {
+    var overrideHandler: import("../common").OverrideHandler<EntityHandler<string, Readonly<Record<string, EntityPropertyDefinition>>>>;
+}
 export type GetEntity<GenericEntityHandler extends EntityHandler<string, any>> = Extract<ReturnType<GenericEntityHandler["new"]>, any>;
 export {};

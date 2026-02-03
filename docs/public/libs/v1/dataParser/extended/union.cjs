@@ -8,8 +8,8 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/union/index.md}
  */
 function union(options, definition) {
-    const self = baseExtended.dataParserExtendedInit(union$1.union(options, definition), {});
-    return union.overrideHandler.apply(self);
+    const self = baseExtended.dataParserExtendedInit(union$1.union(options, definition), {}, union.overrideHandler);
+    return self;
 }
 union.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/union");
 

@@ -15,8 +15,8 @@ function bigint(definition) {
         max(self, max, definition) {
             return self.addChecker(checkerBigIntMax(max, definition));
         },
-    });
-    return bigint.overrideHandler.apply(self);
+    }, bigint.overrideHandler);
+    return self;
 }
 bigint.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/bigint");
 

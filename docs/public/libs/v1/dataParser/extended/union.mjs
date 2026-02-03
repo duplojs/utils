@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/union/index.md}
  */
 function union(options, definition) {
-    const self = dataParserExtendedInit(union$1(options, definition), {});
-    return union.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(union$1(options, definition), {}, union.overrideHandler);
+    return self;
 }
 union.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/union");
 

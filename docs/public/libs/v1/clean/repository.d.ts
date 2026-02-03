@@ -93,3 +93,6 @@ export interface RepositoryHandler<GenericRepository extends object = object> ex
  * 
  */
 export declare function createRepository<GenericRepository extends object>(): RepositoryHandler<GenericRepository>;
+export declare namespace createRepository {
+    var overrideHandler: import("../common").OverrideHandler<RepositoryHandler<object>>;
+}

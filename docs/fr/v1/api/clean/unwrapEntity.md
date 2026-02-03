@@ -4,8 +4,8 @@ prev:
   text: "Entités"
   link: "/fr/v1/api/clean/entity"
 next:
-  text: "Flag"
-  link: "/fr/v1/api/clean/flag"
+  text: "Maybe"
+  link: "/fr/v1/api/clean/maybe"
 description: "Déballe une entité en objet simple et expose ses métadonnées."
 ---
 
@@ -49,4 +49,5 @@ type UnwrappedUser = C.UnwrapEntity<User>;
 ## Voir aussi
 
 - [`entity`](/fr/v1/api/clean/entity)
+- [`maybe`](/fr/v1/api/clean/maybe)
 - [`flag`](/fr/v1/api/clean/flag)

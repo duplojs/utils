@@ -17,8 +17,8 @@ function tuple(shape, definition) {
         max(self, max$1, definition) {
             return self.addChecker(max.checkerArrayMax(max$1, definition));
         },
-    });
-    return tuple.overrideHandler.apply(self);
+    }, tuple.overrideHandler);
+    return self;
 }
 tuple.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/tuple");
 

@@ -21,8 +21,8 @@ function string(definition) {
         regex(self, regex, definition) {
             return self.addChecker(checkerStringRegex(regex, definition));
         },
-    });
-    return string.overrideHandler.apply(self);
+    }, string.overrideHandler);
+    return self;
 }
 string.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/string");
 /**

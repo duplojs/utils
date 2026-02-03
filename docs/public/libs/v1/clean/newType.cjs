@@ -8,13 +8,14 @@ var pipe = require('../common/pipe.cjs');
 var map = require('../array/map.cjs');
 var entry = require('../object/entry.cjs');
 var errorKindNamespace = require('../common/errorKindNamespace.cjs');
+var fromEntries = require('../object/fromEntries.cjs');
+var override = require('../common/override.cjs');
 var is = require('../either/left/is.cjs');
 var unwrap = require('../common/unwrap.cjs');
 var create = require('../either/left/create.cjs');
 var base = require('./constraint/base.cjs');
 var create$1 = require('../either/right/create.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
-var fromEntries = require('../object/fromEntries.cjs');
 
 const newTypeKind = kind.createCleanKind("new-type");
 const newTypeHandlerKind = kind.createCleanKind("new-type-handler");
@@ -80,7 +81,7 @@ function createNewType(name, dataParser, constraint) {
         }
         return true;
     }
-    return newTypeHandlerKind.setTo({
+    return pipe.pipe({
         name,
         dataParser: dataParserWithCheckers,
         constrains: constraints,
@@ -90,8 +91,9 @@ function createNewType(name, dataParser, constraint) {
         createWithUnknown: create$2,
         createWithUnknownOrThrow: createOrThrow,
         is: is$1,
-    });
+    }, newTypeHandlerKind.setTo, createNewType.overrideHandler.apply);
 }
+createNewType.overrideHandler = override.createOverride("@duplojs/utils/clean/new-type");
 
 exports.CreateNewTypeError = CreateNewTypeError;
 exports.createNewType = createNewType;

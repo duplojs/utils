@@ -8,8 +8,8 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/unknown/index.md}
  */
 function unknown(definition) {
-    const self = baseExtended.dataParserExtendedInit(unknown$1.unknown(definition), {});
-    return unknown.overrideHandler.apply(self);
+    const self = baseExtended.dataParserExtendedInit(unknown$1.unknown(definition), {}, unknown.overrideHandler);
+    return self;
 }
 unknown.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/unknown");
 

@@ -968,6 +968,15 @@
           "name": "kind.mjs"
         },
         {
+          "name": "maybe.cjs"
+        },
+        {
+          "name": "maybe.d.ts"
+        },
+        {
+          "name": "maybe.mjs"
+        },
+        {
           "name": "newType.cjs"
         },
         {

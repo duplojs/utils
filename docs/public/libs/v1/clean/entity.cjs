@@ -31,11 +31,12 @@ var otherwise = require('../pattern/otherwise.cjs');
 var justReturn = require('../common/justReturn.cjs');
 var union = require('../dataParser/parsers/union.cjs');
 var minElements = require('../array/minElements.cjs');
+var index$1 = require('../dataParser/parsers/object/index.cjs');
+var override = require('../common/override.cjs');
 var is = require('../either/left/is.cjs');
 var unwrap = require('../common/unwrap.cjs');
 var create = require('../either/left/create.cjs');
 var create$1 = require('../either/right/create.cjs');
-var index$1 = require('../dataParser/parsers/object/index.cjs');
 
 const entityKind = kind.createCleanKind("entity");
 const entityHandlerKind = kind.createCleanKind("entity-handler");
@@ -125,7 +126,7 @@ function createEntity(name, getPropertiesDefinition) {
         }
         return entityKind.setTo(updatedEntity, name);
     }
-    return entityHandlerKind.setTo({
+    return pipe.pipe({
         name,
         propertiesDefinition,
         mapDataParser,
@@ -134,8 +135,9 @@ function createEntity(name, getPropertiesDefinition) {
         mapOrThrow,
         is: is$1,
         update,
-    });
+    }, entityHandlerKind.setTo, createEntity.overrideHandler.apply);
 }
+createEntity.overrideHandler = override.createOverride("@duplojs/utils/clean/entity");
 
 exports.CreateEntityError = CreateEntityError;
 exports.createEntity = createEntity;

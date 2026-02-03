@@ -29,11 +29,12 @@ import { otherwise } from '../pattern/otherwise.mjs';
 import { justReturn } from '../common/justReturn.mjs';
 import { union } from '../dataParser/parsers/union.mjs';
 import { minElements } from '../array/minElements.mjs';
+import { object } from '../dataParser/parsers/object/index.mjs';
+import { createOverride } from '../common/override.mjs';
 import { isLeft } from '../either/left/is.mjs';
 import { unwrap } from '../common/unwrap.mjs';
 import { left } from '../either/left/create.mjs';
 import { right } from '../either/right/create.mjs';
-import { object } from '../dataParser/parsers/object/index.mjs';
 
 const entityKind = createCleanKind("entity");
 const entityHandlerKind = createCleanKind("entity-handler");
@@ -123,7 +124,7 @@ function createEntity(name, getPropertiesDefinition) {
         }
         return entityKind.setTo(updatedEntity, name);
     }
-    return entityHandlerKind.setTo({
+    return pipe({
         name,
         propertiesDefinition,
         mapDataParser,
@@ -132,7 +133,8 @@ function createEntity(name, getPropertiesDefinition) {
         mapOrThrow,
         is,
         update,
-    });
+    }, entityHandlerKind.setTo, createEntity.overrideHandler.apply);
 }
+createEntity.overrideHandler = createOverride("@duplojs/utils/clean/entity");
 
 export { CreateEntityError, createEntity, entityKind };

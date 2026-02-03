@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/record/index.md}
  */
 function record(key, value, definition) {
-    const self = dataParserExtendedInit(record$1(key, value, definition), {});
-    return record.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(record$1(key, value, definition), {}, record.overrideHandler);
+    return self;
 }
 record.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/record");
 

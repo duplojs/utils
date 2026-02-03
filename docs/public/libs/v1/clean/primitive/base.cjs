@@ -3,12 +3,14 @@
 var kind = require('../kind.cjs');
 var kind$1 = require('../../common/kind.cjs');
 var index = require('../../dataParser/parsers/string/index.cjs');
+var pipe = require('../../common/pipe.cjs');
 var index$1 = require('../../dataParser/parsers/number/index.cjs');
 var index$2 = require('../../dataParser/parsers/bigint/index.cjs');
 var boolean = require('../../dataParser/parsers/boolean.cjs');
 var date = require('../../dataParser/parsers/date.cjs');
 var index$3 = require('../../dataParser/parsers/time/index.cjs');
 var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
+var override = require('../../common/override.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var is = require('../../either/right/is.cjs');
 var is$1 = require('../../either/left/is.cjs');
@@ -49,15 +51,16 @@ function createPrimitive(dataParser) {
         const result = dataParser.parse(unwrap.unwrap(input));
         return is.isRight(result);
     }
-    return primitiveHandlerKind.setTo({
+    return pipe.pipe({
         dataParser,
         create: create$2,
         createOrThrow,
         createWithUnknown: create$2,
         createWithUnknownOrThrow: createOrThrow,
         is: is$2,
-    });
+    }, primitiveHandlerKind.setTo, createPrimitive.overrideHandler.apply);
 }
+createPrimitive.overrideHandler = override.createOverride("@duplojs/utils/clean/primitive");
 /**
  * {@include clean/String/index.md}
  */

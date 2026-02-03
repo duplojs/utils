@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/recover/index.md}
  */
 function recover(inner, recoveredValue, definition) {
-    const self = dataParserExtendedInit(recover$1(inner, recoveredValue, definition), {});
-    return recover.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(recover$1(inner, recoveredValue, definition), {}, recover.overrideHandler);
+    return self;
 }
 recover.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/recover");
 

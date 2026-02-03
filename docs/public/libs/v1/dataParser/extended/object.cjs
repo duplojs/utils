@@ -34,8 +34,8 @@ function object(shape, definition) {
             const newShape = required.requiredShape(self.definition.shape);
             return object(newShape, definition);
         },
-    });
-    return object.overrideHandler.apply(self);
+    }, object.overrideHandler);
+    return self;
 }
 object.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/object");
 

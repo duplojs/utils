@@ -37,6 +37,9 @@ Represents business data structures.
 ## [unwrapEntity](/en/v1/api/clean/unwrapEntity)
 Turns an entity into a plain object with its metadata.
 
+## [Maybe](/en/v1/api/clean/maybe)
+Defines an explicit business contract to represent a present (`some`) or absent (`none`) entity.
+
 ## [Flag](/en/v1/api/clean/flag)
 Dynamically adds information (flag) on an entity, with strict typing.
 

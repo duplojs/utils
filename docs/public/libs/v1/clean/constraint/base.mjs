@@ -1,7 +1,9 @@
 import { createCleanKind } from '../kind.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
+import { pipe } from '../../common/pipe.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { isLeft } from '../../either/left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { left } from '../../either/left/create.mjs';
@@ -60,7 +62,7 @@ function createConstraint(name, primitiveHandler, checker) {
         }
         return false;
     }
-    return constraintHandlerKind.setTo({
+    return pipe({
         name,
         primitiveHandler,
         checkers,
@@ -69,7 +71,8 @@ function createConstraint(name, primitiveHandler, checker) {
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,
-    });
+    }, constraintHandlerKind.setTo, createConstraint.overrideHandler.apply);
 }
+createConstraint.overrideHandler = createOverride("@duplojs/utils/clean/constraint");
 
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint };

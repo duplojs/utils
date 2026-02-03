@@ -15,7 +15,7 @@ import { array } from './extended/array.mjs';
 import { createOverride } from '../common/override.mjs';
 
 const extendedKind = createDataParserKind("extended");
-function dataParserExtendedInit(dataParser, rest) {
+function dataParserExtendedInit(dataParser, rest, specificOverrideHandler) {
     const self = pipe({
         ...dataParser,
         ...pipe(rest, entries, map(([key, value]) => entry(key, typeof value === "function"
@@ -46,13 +46,13 @@ function dataParserExtendedInit(dataParser, rest) {
             return union([self, option], definition);
         },
         addChecker(...checkers) {
-            return dataParserExtendedInit(dataParser.addChecker(...checkers), rest);
+            return dataParserExtendedInit(dataParser.addChecker(...checkers), rest, specificOverrideHandler);
         },
         clone() {
-            return dataParserExtendedInit(dataParser.clone(), rest);
+            return dataParserExtendedInit(dataParser.clone(), rest, specificOverrideHandler);
         },
         refine(theFunction) {
-            return dataParserExtendedInit(dataParser.addChecker(checkerRefine(theFunction)), rest);
+            return dataParserExtendedInit(dataParser.addChecker(checkerRefine(theFunction)), rest, specificOverrideHandler);
         },
         recover(recoveredValue, definition) {
             return recover(self, recoveredValue, definition);
@@ -60,7 +60,7 @@ function dataParserExtendedInit(dataParser, rest) {
         contract() {
             return self;
         },
-    }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply);
+    }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply, specificOverrideHandler.apply);
     return self;
 }
 dataParserExtendedInit.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/base");

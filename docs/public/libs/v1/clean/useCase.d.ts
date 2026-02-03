@@ -1,12 +1,12 @@
-import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection } from "../common";
+import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, type Adaptor } from "../common";
 import { type RepositoryHandler } from "./repository";
 export type UseCaseDependencies = Record<string, RepositoryHandler | UseCaseHandler>;
 export type UseCaseDependenciesValue<GenericDependencies extends UseCaseDependencies> = SimplifyTopLevel<{
-    [Prop in keyof GenericDependencies as (Prop extends string ? Uncapitalize<Prop> : Prop)]: GenericDependencies[Prop] extends RepositoryHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
+    [Prop in keyof GenericDependencies as Uncapitalize<Adaptor<Prop, string>>]: GenericDependencies[Prop] extends RepositoryHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
 }>;
 export type GetAllRepositories<GenericDependenciesValue extends UseCaseDependencies> = GenericDependenciesValue extends any ? ({
     [Prop in keyof GenericDependenciesValue]: (GenericDependenciesValue[Prop] extends RepositoryHandler ? [
-        (Prop extends string ? Uncapitalize<Prop> : Prop),
+        Uncapitalize<Adaptor<Prop, string>>,
         ReturnType<GenericDependenciesValue[Prop]["createImplementation"]>
     ] : GenericDependenciesValue[Prop] extends UseCaseHandler ? GetAllRepositories<GenericDependenciesValue[Prop]["dependencies"]> : never);
 })[keyof GenericDependenciesValue] : never;
@@ -26,9 +26,11 @@ export interface UseCaseHandler<GenericDependencies extends UseCaseDependencies 
      * ```
      * 
      */
-    getUseCase(repositories: (GetAllRepositories<GenericDependencies> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
-        [Entry in InferredEntriesDependenciesValue as InferredEntriesDependenciesValue[0]]: InferredEntriesDependenciesValue[1];
-    } : never)): GenericUseCase;
+    getUseCase(repositories: ((GetAllRepositories<GenericDependencies> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
+        [Entry in InferredEntriesDependenciesValue as Entry[0]]: Entry[1];
+    } : never) & ({
+        [Prop in keyof GenericDependencies as GenericDependencies[Prop] extends UseCaseHandler ? Uncapitalize<Adaptor<Prop, string>> : never]?: GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
+    }))): GenericUseCase;
 }
 /**
  * Creates a use case handler with explicit dependencies.
@@ -109,6 +111,9 @@ export interface UseCaseHandler<GenericDependencies extends UseCaseDependencies 
  * 
  */
 export declare function createUseCase<const GenericDependencies extends UseCaseDependencies, GenericUseCase extends (input: any) => any>(dependencies: GenericDependencies, getUseCase: (dependenciesValue: UseCaseDependenciesValue<GenericDependencies>) => GenericUseCase): UseCaseHandler<GenericDependencies, GenericUseCase>;
+export declare namespace createUseCase {
+    var overrideHandler: import("../common").OverrideHandler<UseCaseHandler<any, any>>;
+}
 /**
  * Instantiates multiple use cases at once.
  * 
@@ -159,5 +164,7 @@ export declare function createUseCase<const GenericDependencies extends UseCaseD
  * 
  */
 export declare function useCaseInstances<GenericUseCases extends Record<string, UseCaseHandler>>(useCases: GenericUseCases, repositories: SimplifyTopLevel<UnionToIntersection<{
-    [Prop in keyof GenericUseCases]: Parameters<GenericUseCases[Prop]["getUseCase"]>[0];
+    [Prop in keyof GenericUseCases]: GetAllRepositories<GenericUseCases[Prop]["dependencies"]> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
+        [Entry in InferredEntriesDependenciesValue as Entry[0]]: Entry[1];
+    } : never;
 }[keyof GenericUseCases]>>): UseCaseDependenciesValue<GenericUseCases>;

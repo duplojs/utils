@@ -70,3 +70,16 @@ export function NumberMax<
 export type NumberMax<
 	GenericValue extends number,
 > = ReturnType<typeof NumberMax<GenericValue>>;
+
+/**
+ * {@include clean/PositiveInt/index.md}
+ */
+export const PositiveInt = createConstraint(
+	"positive-int",
+	Number,
+	[
+		DDataParser.checkerInt(),
+		DDataParser.checkerNumberMin(1),
+	],
+);
+export type PositiveInt = GetConstraint<typeof PositiveInt>;

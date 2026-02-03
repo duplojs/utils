@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/date/index.md}
  */
 function date(definition) {
-    const self = dataParserExtendedInit(date$1(definition), {});
-    return date.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(date$1(definition), {}, date.overrideHandler);
+    return self;
 }
 date.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/date");
 

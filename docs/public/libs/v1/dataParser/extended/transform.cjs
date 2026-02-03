@@ -8,8 +8,8 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/transform/index.md}
  */
 function transform(inner, theFunction, definition) {
-    const self = baseExtended.dataParserExtendedInit(transform$1.transform(inner, theFunction, definition), {});
-    return transform.overrideHandler.apply(self);
+    const self = baseExtended.dataParserExtendedInit(transform$1.transform(inner, theFunction, definition), {}, transform.overrideHandler);
+    return self;
 }
 transform.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/transform");
 

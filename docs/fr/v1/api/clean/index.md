@@ -37,6 +37,9 @@ Représente les structures de données du métier.
 ## [unwrapEntity](/fr/v1/api/clean/unwrapEntity)
 Transforme une entité en objet simple, avec ses métadonnées.
 
+## [Maybe](/fr/v1/api/clean/maybe)
+Définit un contrat métier explicite pour représenter une entité présente (`some`) ou absente (`none`).
+
 ## [Flag](/fr/v1/api/clean/flag)
 Ajoute dynamiquement une information (flag) sur une entité, avec typage strict.
 

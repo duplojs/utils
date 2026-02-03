@@ -1,4 +1,6 @@
 import { createCleanKind } from './kind.mjs';
+import { pipe } from '../common/pipe.mjs';
+import { createOverride } from '../common/override.mjs';
 
 const flagHandlerKind = createCleanKind("flag-handler");
 const flagKind = createCleanKind("flag");
@@ -6,7 +8,7 @@ const flagKind = createCleanKind("flag");
  * {@include clean/createFlag/index.md}
  */
 function createFlag(name) {
-    return flagHandlerKind.setTo({
+    return pipe({
         name,
         append(entity, value) {
             const flagValue = flagKind.has(entity)
@@ -24,7 +26,8 @@ function createFlag(name) {
             return flagKind.has(entity)
                 && name in flagKind.getValue(entity);
         },
-    });
+    }, flagHandlerKind.setTo, createFlag.overrideHandler.apply);
 }
+createFlag.overrideHandler = createOverride("@duplojs/utils/clean/flag");
 
 export { createFlag, flagKind };

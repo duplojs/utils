@@ -8,8 +8,8 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/lazy/index.md}
  */
 function lazy(getter, definition) {
-    const self = baseExtended.dataParserExtendedInit(lazy$1.lazy(getter, definition), {});
-    return lazy.overrideHandler.apply(self);
+    const self = baseExtended.dataParserExtendedInit(lazy$1.lazy(getter, definition), {}, lazy.overrideHandler);
+    return self;
 }
 lazy.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/lazy");
 

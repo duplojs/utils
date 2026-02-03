@@ -17,8 +17,8 @@ function time(definition) {
         max(self, max$1, definition) {
             return self.addChecker(max.checkerTimeMax(max$1, definition));
         },
-    });
-    return time.overrideHandler.apply(self);
+    }, time.overrideHandler);
+    return self;
 }
 time.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/time");
 

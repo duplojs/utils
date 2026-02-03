@@ -3,7 +3,9 @@
 var kind = require('../kind.cjs');
 var kind$1 = require('../../common/kind.cjs');
 var coalescing = require('../../array/coalescing.cjs');
+var pipe = require('../../common/pipe.cjs');
 var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
+var override = require('../../common/override.cjs');
 var is = require('../../either/left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var create = require('../../either/left/create.cjs');
@@ -62,7 +64,7 @@ function createConstraint(name, primitiveHandler, checker) {
         }
         return false;
     }
-    return constraintHandlerKind.setTo({
+    return pipe.pipe({
         name,
         primitiveHandler,
         checkers,
@@ -71,8 +73,9 @@ function createConstraint(name, primitiveHandler, checker) {
         createWithUnknown: create$2,
         createWithUnknownOrThrow: createOrThrow,
         is: is$1,
-    });
+    }, constraintHandlerKind.setTo, createConstraint.overrideHandler.apply);
 }
+createConstraint.overrideHandler = override.createOverride("@duplojs/utils/clean/constraint");
 
 exports.CreateConstrainedTypeError = CreateConstrainedTypeError;
 exports.constrainedTypeKind = constrainedTypeKind;

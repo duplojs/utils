@@ -28,5 +28,12 @@ function NumberMin(value) {
 function NumberMax(value) {
     return createConstraint(`number-max-${value}`, Number, checkerNumberMax(value));
 }
+/**
+ * {@include clean/PositiveInt/index.md}
+ */
+const PositiveInt = createConstraint("positive-int", Number, [
+    checkerInt(),
+    checkerNumberMin(1),
+]);
 
-export { Int, Negative, NumberMax, NumberMin, Positive };
+export { Int, Negative, NumberMax, NumberMin, Positive, PositiveInt };

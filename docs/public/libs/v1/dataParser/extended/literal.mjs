@@ -6,8 +6,8 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/literal/index.md}
  */
 function literal(value, definition) {
-    const self = dataParserExtendedInit(literal$1(value, definition), {});
-    return literal.overrideHandler.apply(self);
+    const self = dataParserExtendedInit(literal$1(value, definition), {}, literal.overrideHandler);
+    return self;
 }
 literal.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/literal");
 

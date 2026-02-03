@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Un flag permet d'ajouter un marqueur sur une entité postérieurement à sa création. Il a pour but d'indiquer qu'une vérification a eu lieu, ou qu'une opération particulière a été effectuée, sans modifier la structure de l'entité."
 prev:
-  text: "unwrapEntity"
-  link: "/fr/v1/api/clean/unwrapEntity"
+  text: "Maybe"
+  link: "/fr/v1/api/clean/maybe"
 next:
   text: "Repository"
   link: "/fr/v1/api/clean/repository"
