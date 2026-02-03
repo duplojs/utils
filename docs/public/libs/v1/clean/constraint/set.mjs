@@ -77,7 +77,7 @@ function createConstraintsSet(primitiveHandler, constraint) {
     }
     return pipe({
         primitiveHandler,
-        constrains: constraints,
+        constraints,
         getConstraint,
         create,
         createOrThrow,

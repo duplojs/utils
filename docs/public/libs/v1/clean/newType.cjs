@@ -84,7 +84,7 @@ function createNewType(name, dataParser, constraint) {
     return pipe.pipe({
         name,
         dataParser: dataParserWithCheckers,
-        constrains: constraints,
+        constraints,
         getConstraint,
         create: create$2,
         createOrThrow,

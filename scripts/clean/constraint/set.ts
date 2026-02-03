@@ -11,7 +11,7 @@ export const constraintsSetHandlerKind = createCleanKind("constraints-set-handle
 
 export interface ConstraintsSetHandler<
 	GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive,
-	GenericConstrainsHandler extends readonly ConstraintHandler[] = readonly [],
+	GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [],
 > extends Kind<typeof constraintsSetHandlerKind.definition> {
 
 	/**
@@ -20,9 +20,9 @@ export interface ConstraintsSetHandler<
 	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
 
 	/**
-	 * {@include clean/createConstraintsSet/constrains.md}
+	 * {@include clean/createConstraintsSet/constraints.md}
 	 */
-	readonly constrains: GenericConstrainsHandler;
+	readonly constraints: GenericConstraintsHandler;
 
 	/**
 	 * {@include clean/createConstraintsSet/create.md}
@@ -37,7 +37,7 @@ export interface ConstraintsSetHandler<
 			(
 				& Primitive<GenericInput>
 				& UnionToIntersection<
-					GenericConstrainsHandler[number] extends infer InferredConstraint
+					GenericConstraintsHandler[number] extends infer InferredConstraint
 						? InferredConstraint extends ConstraintHandler
 							? GetConstraint<InferredConstraint>
 							: never
@@ -61,7 +61,7 @@ export interface ConstraintsSetHandler<
 			(
 				& GenericPrimitive
 				& UnionToIntersection<
-					GenericConstrainsHandler[number] extends infer InferredConstraint
+					GenericConstraintsHandler[number] extends infer InferredConstraint
 						? InferredConstraint extends ConstraintHandler
 							? GetConstraint<InferredConstraint>
 							: never
@@ -85,7 +85,7 @@ export interface ConstraintsSetHandler<
 	): (
 		& Primitive<GenericInput>
 		& UnionToIntersection<
-			GenericConstrainsHandler[number] extends infer InferredConstraint
+			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
 					? GetConstraint<InferredConstraint>
 					: never
@@ -100,7 +100,7 @@ export interface ConstraintsSetHandler<
 	): (
 		& GenericPrimitive
 		& UnionToIntersection<
-			GenericConstrainsHandler[number] extends infer InferredConstraint
+			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
 					? GetConstraint<InferredConstraint>
 					: never
@@ -121,7 +121,7 @@ export interface ConstraintsSetHandler<
 			(
 				& Primitive<GenericPrimitiveValue>
 				& UnionToIntersection<
-					GenericConstrainsHandler[number] extends infer InferredConstraint
+					GenericConstraintsHandler[number] extends infer InferredConstraint
 						? InferredConstraint extends ConstraintHandler
 							? GetConstraint<InferredConstraint>
 							: never
@@ -145,7 +145,7 @@ export interface ConstraintsSetHandler<
 	): (
 		& Primitive<GenericPrimitiveValue>
 		& UnionToIntersection<
-			GenericConstrainsHandler[number] extends infer InferredConstraint
+			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
 					? GetConstraint<InferredConstraint>
 					: never
@@ -163,7 +163,7 @@ export interface ConstraintsSetHandler<
 		(
 			& Primitive<GenericPrimitiveValue>
 			& UnionToIntersection<
-				GenericConstrainsHandler[number] extends infer InferredConstraint
+				GenericConstraintsHandler[number] extends infer InferredConstraint
 					? InferredConstraint extends ConstraintHandler
 						? GetConstraint<InferredConstraint>
 						: never
@@ -176,11 +176,11 @@ export interface ConstraintsSetHandler<
 	 * {@include clean/createConstraintsSet/getConstraint.md}
 	 */
 	getConstraint<
-		GenericConstraintName extends GenericConstrainsHandler[number]["name"],
+		GenericConstraintName extends GenericConstraintsHandler[number]["name"],
 	>(
 		name: GenericConstraintName
 	): Extract<
-		GenericConstrainsHandler[number],
+		GenericConstraintsHandler[number],
 		ConstraintHandler<GenericConstraintName>
 	>;
 }
@@ -325,7 +325,7 @@ export function createConstraintsSet<
 	return pipe(
 		{
 			primitiveHandler,
-			constrains: constraints,
+			constraints,
 			getConstraint,
 			create,
 			createOrThrow,
@@ -345,7 +345,7 @@ export type GetConstraints<
 > = Extract<
 	GenericHandler extends any
 		? & UnionToIntersection<
-			GenericHandler["constrains"][number] extends infer InferredConstraint
+			GenericHandler["constraints"][number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
 					? GetConstraint<InferredConstraint>
 					: never

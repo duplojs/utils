@@ -25,7 +25,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * The list of constraints applied to this NewType.
      * 
      */
-    readonly constrains: GenericConstraintsHandler;
+    readonly constraints: GenericConstraintsHandler;
     /**
      * Creates a NewType value and returns an Either.
      * 
@@ -154,5 +154,5 @@ export declare function createNewType<GenericName extends string, GenericDataPar
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly []>>;
 }
-export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constrains"][number]["name"]> : never, any>;
+export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constraints"][number]["name"]> : never, any>;
 export {};

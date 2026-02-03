@@ -53,9 +53,9 @@ export interface NewTypeHandler<
 	readonly dataParser: DDataParser.Contract<GenericValue>;
 
 	/**
-	 * {@include clean/createNewType/constrains.md}
+	 * {@include clean/createNewType/constraints.md}
 	 */
-	readonly constrains: GenericConstraintsHandler;
+	readonly constraints: GenericConstraintsHandler;
 
 	/**
 	 * {@include clean/createNewType/create.md}
@@ -343,7 +343,7 @@ export function createNewType<
 		{
 			name,
 			dataParser: dataParserWithCheckers,
-			constrains: constraints,
+			constraints,
 			getConstraint,
 			create,
 			createOrThrow,
@@ -365,7 +365,7 @@ export type GetNewType<
 		? NewType<
 			GenericHandler["name"],
 			DDataParser.Output<GenericHandler["dataParser"]>,
-			GenericHandler["constrains"][number]["name"]
+			GenericHandler["constraints"][number]["name"]
 		>
 		: never,
 	any

@@ -288,7 +288,7 @@ export function createEntity<
 		simplePropertyDefinition: EntitySimplePropertyDefinition,
 	) {
 		const constraintKindValue = pipe(
-			simplePropertyDefinition.constrains,
+			simplePropertyDefinition.constraints,
 			DArray.map(({ name }) => DObject.entry(name, null)),
 			DObject.fromEntries,
 		);

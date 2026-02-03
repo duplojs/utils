@@ -55,7 +55,7 @@ function createEntity(name, getPropertiesDefinition) {
         return entityKind.addTo(properties, name);
     }
     function simplePropertyDefinitionToDataParser(simplePropertyDefinition) {
-        const constraintKindValue = pipe(simplePropertyDefinition.constrains, map(({ name }) => entry(name, null)), fromEntries);
+        const constraintKindValue = pipe(simplePropertyDefinition.constraints, map(({ name }) => entry(name, null)), fromEntries);
         return transform(simplePropertyDefinition.dataParser, (value) => constrainedTypeKind.setTo(newTypeKind.setTo(wrapValue(value), simplePropertyDefinition.name), constraintKindValue));
     }
     function unionPropertyDefinitionToDataParser(unionPropertyDefinition) {
