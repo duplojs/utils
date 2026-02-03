@@ -93,7 +93,7 @@ export class CreatePrimitiveError extends kindHeritage(
 	}
 }
 
-function createPrimitive<
+export function createPrimitive<
 	GenericDataParser extends DDataParser.Contract<EligiblePrimitive>,
 >(
 	dataParser: GenericDataParser,
