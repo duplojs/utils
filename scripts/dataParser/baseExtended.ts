@@ -387,7 +387,7 @@ export type ContractExtended<
 	GenericOutput extends unknown,
 	GenericInput extends unknown = GenericOutput,
 > = DataParserExtended<
-	DataParserDefinition<never>,
+	DataParserDefinition,
 	GenericOutput,
 	GenericInput
 >;

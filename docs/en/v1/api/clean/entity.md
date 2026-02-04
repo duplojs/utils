@@ -86,15 +86,17 @@ Validates and transforms raw properties into typed properties, then builds the e
 
 ```typescript
 function map(
-	rawProperties: RawProperties
+	rawProperties: PropertiesToMapOfEntity
 ): Right<Entity<EntityName> & Properties> | Left<DP.DataParserError>
 ```
+
+`rawProperties` is intentionally permissive: some constraints (for example `array(..., { min })`) are enforced at validation time.
 
 #### `mapOrThrow()`
 
 ```typescript
 function mapOrThrow(
-	rawProperties: RawProperties
+	rawProperties: PropertiesToMapOfEntity
 ): Entity<EntityName> & Properties
 ```
 
@@ -131,7 +133,7 @@ The properties definition (as declared in `createEntity`).
 
 #### `mapDataParser`
 
-The `DataParser` generated from `propertiesDefinition` (handy if you want to reuse validation/transform elsewhere).
+The `DataParser` generated from `propertiesDefinition` (handy if you want to reuse validation/transform elsewhere). It accepts `unknown` input and produces typed entity properties.
 
 ## Get the type
 

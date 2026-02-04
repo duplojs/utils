@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, asserts } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type GetNewType, type NewTypeHandler, newTypeHandlerKind, newTypeKind } from "./newType";
 import { constrainedTypeKind } from "./constraint";
@@ -100,6 +100,48 @@ export type EntityRawProperties<
 						>
 					> extends infer InferredValue
 						? (
+							IsEqual<GenericPropertiesDefinition[Prop]["inArray"], true> extends true
+								? readonly InferredValue[]
+								: GenericPropertiesDefinition[Prop]["inArray"] extends object
+									? GenericPropertiesDefinition[Prop]["inArray"]["min"] extends number
+										? readonly [
+											...DArray.CreateTuple<
+												InferredValue,
+												GenericPropertiesDefinition[Prop]["inArray"]["min"]
+											>,
+											...InferredValue[],
+										]
+										: readonly InferredValue[]
+									: InferredValue
+						) extends infer InferredValueWithArray
+							? IsEqual<GenericPropertiesDefinition[Prop]["nullable"], true> extends true
+								? InferredValueWithArray | null
+								: InferredValueWithArray
+							: never
+						: never
+					: unknown
+	)
+}>;
+
+export type PropertiesToMapOfEntity<
+	GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition,
+> = SimplifyTopLevel<{
+	readonly [Prop in keyof GenericPropertiesDefinition]: (
+		GenericPropertiesDefinition[Prop] extends EntitySimplePropertyDefinition
+			? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]>>
+			: GenericPropertiesDefinition[Prop] extends EntityUnionPropertyDefinition
+				? Unwrap<GetNewType<GenericPropertiesDefinition[Prop][number]>>
+				: GenericPropertiesDefinition[Prop] extends EntityAdvancedPropertyDefinition
+					? Unwrap<
+						GetNewType<
+							GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition
+								? GenericPropertiesDefinition[Prop]["type"][number]
+								: GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition
+									? GenericPropertiesDefinition[Prop]["type"]
+									: never
+						>
+					> extends infer InferredValue
+						? (
 							Or<[
 								IsEqual<GenericPropertiesDefinition[Prop]["inArray"], true>,
 								IsExtends<GenericPropertiesDefinition[Prop]["inArray"], object>,
@@ -146,12 +188,9 @@ export interface EntityHandler<
 	 */
 	readonly propertiesDefinition: GenericPropertiesDefinition;
 
-	/**
-	 * {@include clean/createEntity/mapDataParser.md}
-	 */
 	readonly mapDataParser: DDataParser.Contract<
 		EntityProperties<GenericPropertiesDefinition>,
-		EntityRawProperties<GenericPropertiesDefinition>
+		unknown
 	>;
 
 	/**
@@ -167,7 +206,7 @@ export interface EntityHandler<
 	 * {@include clean/createEntity/map.md}
 	 */
 	map(
-		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>
 	): (
 		| DEither.Right<
 			"createEntity",
@@ -183,7 +222,7 @@ export interface EntityHandler<
 	 * {@include clean/createEntity/mapOrThrow.md}
 	 */
 	mapOrThrow(
-		rawProperties: EntityRawProperties<GenericPropertiesDefinition>
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
 
 	/**
@@ -219,7 +258,7 @@ export class CreateEntityError extends kindHeritage(
 	Error,
 ) {
 	public constructor(
-		public rawProperties: EntityRawProperties,
+		public rawProperties: PropertiesToMapOfEntity,
 		public dataParserError: DDataParser.DataParserError,
 	) {
 		super({}, ["Error when create entity."]);
@@ -307,17 +346,17 @@ export function createEntity<
 
 	function unionPropertyDefinitionToDataParser(
 		unionPropertyDefinition: EntityUnionPropertyDefinition,
-	): DDataParser.DataParser | null {
+	): DDataParser.DataParser {
 		return pipe(
 			unionPropertyDefinition,
 			DArray.map(
 				simplePropertyDefinitionToDataParser,
 			),
-			DPattern.when(
-				DArray.minElements(1),
-				DDataParser.union,
-			),
-			DPattern.otherwise(justReturn(null)),
+			(options) => {
+				asserts(options, DArray.minElements(1));
+
+				return DDataParser.union(options);
+			},
 		);
 	}
 
@@ -414,10 +453,6 @@ export function createEntity<
 				),
 			]),
 		),
-		DArray.map(
-			([key, value]) => value !== null && DObject.entry(key, value),
-		),
-		DArray.filter(isType("array")),
 		DObject.fromEntries,
 		DDataParser.object,
 		(dataParser) => DDataParser.transform(
@@ -426,7 +461,7 @@ export function createEntity<
 		),
 	);
 
-	function map(rawProperties: EntityRawProperties) {
+	function map(rawProperties: PropertiesToMapOfEntity) {
 		const result = mapDataParser.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {
@@ -442,7 +477,7 @@ export function createEntity<
 		);
 	}
 
-	function mapOrThrow(rawProperties: EntityRawProperties) {
+	function mapOrThrow(rawProperties: PropertiesToMapOfEntity) {
 		const result = mapDataParser.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {

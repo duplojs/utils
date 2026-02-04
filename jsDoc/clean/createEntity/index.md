@@ -11,7 +11,7 @@ Entities model business structures by composing NewTypes. The handler builds ent
 
 @remarks
 - The definition callback can use helpers like `array`, `nullable`, and `union` to enrich properties.
-- Use `map`/`mapOrThrow` to build from raw inputs; `new` expects already typed values.
+- Use `map`/`mapOrThrow` to build from raw inputs (with runtime constraint checks); `new` expects already typed values.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/entity
 
