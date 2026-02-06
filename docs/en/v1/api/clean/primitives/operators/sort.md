@@ -10,7 +10,7 @@ next:
 
 # sort
 
-`sort()` sorts an array of wrapped primitives (`String`, `Number`, `Date`, `Time`) in "ASC" or "DSC". Supports the curried version to integrate easily in a pipeline.
+`sort()` sorts an array of primitives (`String`, `Number`, `Date`, or `Time`) in "ASC" or "DSC". The array must stay homogeneous by primitive family, but can mix wrapped and raw values. Supports the curried version to integrate easily in a pipeline.
 
 ## Interactive example
 
@@ -25,25 +25,31 @@ next:
 ### Classic signature
 
 ```typescript
-function sort(
-	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[], 
+function sort<
+	GenericInput extends Primitives
+>(
+	input: GenericInput, 
 	type: SortType
-): any[]
+): ToWrappedValue<GenericInput[number]>[]
 ```
+
+`GenericInput` is a homogeneous array from one of these families: `Date | TheDate`, `Time | TheTime`, `Number | number`, `String | string`.
 
 ### Curried signature
 
 ```typescript
-function sort(
+function sort<
+	GenericInput extends Primitives
+>(
 	type: SortType
 ): (
-	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[]
-) => any[]
+	input: GenericInput
+) => ToWrappedValue<GenericInput[number]>[]
 ```
 
 ## Parameters
 
-- `input` : array of primitives (wrapped or raw).
+- `input` : homogeneous array of primitives (wrapped or raw) from the same family.
 - `type` : "ASC" or "DSC".
 
 ## Return value

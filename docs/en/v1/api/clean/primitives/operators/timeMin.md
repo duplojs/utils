@@ -10,7 +10,7 @@ next:
 
 # timeMin
 
-`timeMin()` returns the smallest duration in a list (wrapped or `DDate.TheTime`).
+`timeMin()` returns the smallest duration in a tuple (wrapped or `DDate.TheTime`).
 
 ## Interactive example
 
@@ -30,7 +30,7 @@ function timeMin(input: AnyTuple<Time | TheTime>): Time
 
 ## Parameters
 
-- `input`: durations to compare (at least one).
+- `input`: tuple of durations to compare (at least one).
 
 ## Return value
 

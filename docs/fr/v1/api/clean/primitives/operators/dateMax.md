@@ -10,7 +10,7 @@ next:
 
 # dateMax
 
-`dateMax()` retourne la plus grande date d'une liste (wrappée ou `DDate.TheDate`).
+`dateMax()` retourne la plus grande date d'un tuple (wrappée ou `DDate.TheDate`).
 
 ## Exemple interactif
 
@@ -30,7 +30,7 @@ function dateMax(input: AnyTuple<Date | TheDate>): Date
 
 ## Paramètres
 
-- `input` : dates à comparer (au moins une).
+- `input` : tuple de dates à comparer (au moins une).
 
 ## Valeur de retour
 

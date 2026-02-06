@@ -217,6 +217,26 @@ Valide un nombre inférieur ou égal à max.
   height="271px"
 />
 
+### `PositiveTime`
+
+Valide une durée strictement positive (>= 1 milliseconde) sur la primitive `C.Time`.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/positiveTime.doc.ts"
+  majorVersion="v1"
+  height="145px"
+/>
+
+### `NegativeTime`
+
+Valide une durée strictement négative (<= -1 milliseconde) sur la primitive `C.Time`.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/negativeTime.doc.ts"
+  majorVersion="v1"
+  height="145px"
+/>
+
 ## Voir aussi
 
 - [Primitives](/fr/v1/api/clean/primitives/)
