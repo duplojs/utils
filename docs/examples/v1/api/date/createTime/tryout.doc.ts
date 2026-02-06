@@ -1,7 +1,7 @@
 import { D } from "@duplojs/utils";
 
 const timeFromUnit = D.createTime(2, "second");
-// timeFromUnit: "time2000+"
+// timeFromUnit: TheTime
 
 // Either<"time-created", TheTime>
 const maybeFromSpooling = D.createTime({
@@ -19,4 +19,4 @@ const maybeFromIso = D.createTime({
 const maybeFromValue = D.createTime(-500);
 
 const fromTheTime = D.createTime("time250+");
-// fromTheTime: "time250+"
+// fromTheTime: Either<"time-created", TheTime>

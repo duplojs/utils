@@ -7,4 +7,4 @@ const input = {
 
 const iterator = D.each(input);
 const result = A.from(iterator);
-// result: ["date1717200000000+", "date1717286400000+", "date1717372800000+"]
+// result: TheDate[]

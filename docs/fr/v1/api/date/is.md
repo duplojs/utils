@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction is() vérifie qu'une chaîne correspond au format TheDate (date<timestamp><\"-\" | \"+\">). Elle agit comme un type guard."
+description: "La fonction is() vérifie qu'une valeur est une instance de TheDate. Elle agit comme un type guard."
 prev:
   text: "isSafeTimestamp"
   link: "/fr/v1/api/date/isSafeTimestamp"
@@ -11,7 +11,7 @@ next:
 
 # is
 
-La fonction **`is()`** vérifie qu'une chaîne correspond au format `TheDate` (`date<timestamp><"-" | "+">`). Elle agit comme un type guard.
+La fonction **`is()`** vérifie qu'une valeur est une instance de `TheDate`. Elle agit comme un type guard.
 
 ## Exemple interactif
 
@@ -24,16 +24,16 @@ La fonction **`is()`** vérifie qu'une chaîne correspond au format `TheDate` (`
 ## Syntaxe
 
 ```typescript
-function is(input: string): input is TheDate
+function is(input: unknown): input is TheDate
 ```
 
 ## Paramètres
 
-- `input` : Chaîne à valider.
+- `input` : Valeur à tester.
 
 ## Valeur de retour
 
-`true` si la chaîne respecte le format `TheDate`, sinon `false`. En cas de `true`, TypeScript affine le type de `input` vers `TheDate`.
+`true` si la valeur est une instance de `TheDate`, sinon `false`.
 
 ## Voir aussi
 

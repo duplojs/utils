@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The tomorrow() function returns the start of the next day as a TheDate."
+description: "The tomorrow() function returns an instant approximately one day after now as a TheDate."
 prev:
   text: "yesterday"
   link: "/en/v1/api/date/yesterday"
@@ -33,7 +33,7 @@ None.
 
 ## Return value
 
-A `TheDate` representing the next day at the same hour.
+A `TheDate` representing an instant approximately one day after now.
 
 ## See also
 

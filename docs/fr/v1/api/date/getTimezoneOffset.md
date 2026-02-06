@@ -26,12 +26,12 @@ La fonction **`getTimezoneOffset()`** retourne le décalage en millisecondes ent
 ```typescript
 function getTimezoneOffset(
 	timezone: Timezone
-): (input: TheDate) => number
+): (input: TheDate | SerializedTheDate) => number
 ```
 
 ```typescript
 function getTimezoneOffset(
-	input: TheDate,
+	input: TheDate | SerializedTheDate,
 	timezone: Timezone
 ): number
 ```

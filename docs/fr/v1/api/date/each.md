@@ -25,7 +25,7 @@ Génère un itérateur sur toutes les dates comprises entre deux bornes inclusiv
 
 ```typescript
 function each(
-	range: { start: TheDate; end: TheDate },
+	range: { start: TheDate | SerializedTheDate; end: TheDate | SerializedTheDate },
 	unit?: Unit
 ): Generator<TheDate>
 ```

@@ -11,7 +11,7 @@ next:
 
 # createOrThrow
 
-The **`createOrThrow()`** function builds a `TheDate` from a `TheDate`, a `Date`, or a timestamp. It throws `CreateTheDateError` when the input is invalid.
+The **`createOrThrow()`** function builds a `TheDate` from a `TheDate`, a `SerializedTheDate`, a `Date`, or a timestamp. It throws `CreateTheDateError` when the input is invalid.
 
 ## Interactive example
 
@@ -25,7 +25,7 @@ The **`createOrThrow()`** function builds a `TheDate` from a `TheDate`, a `Date`
 
 ```typescript
 function createOrThrow<
-	GenericInput extends TheDate | Date | number
+	GenericInput extends TheDate | SerializedTheDate | Date | number
 >(
 	input: GenericInput
 ): TheDate
@@ -33,7 +33,7 @@ function createOrThrow<
 
 ## Parameters
 
-- `input`: A date (`TheDate`), a JavaScript `Date`, or a timestamp.
+- `input`: A date (`TheDate`), a `SerializedTheDate`, a JavaScript `Date`, or a timestamp.
 
 ## Return value
 

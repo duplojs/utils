@@ -25,7 +25,7 @@ Generates an iterator over all dates between two inclusive bounds, following a g
 
 ```typescript
 function each(
-	range: { start: TheDate; end: TheDate },
+	range: { start: TheDate | SerializedTheDate; end: TheDate | SerializedTheDate },
 	unit?: Unit
 ): Generator<TheDate>
 ```

@@ -25,7 +25,7 @@ La fonction **`toNative()`** convertit un `TheDate` en `Date` JavaScript.
 
 ```typescript
 function toNative<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput
 ): Date

@@ -53,10 +53,10 @@ Retourne le timestamp exact du moment courant sous forme de `TheDate`.
 Génère le début de journée (minuit) en `TheDate`.
 
 ### [yesterday](/fr/v1/api/date/yesterday)
-Retourne le début de la journée précédente.
+Retourne un instant environ un jour avant maintenant.
 
 ### [tomorrow](/fr/v1/api/date/tomorrow)
-Retourne le début de la journée suivante.
+Retourne un instant environ un jour après maintenant.
 
 ## Conversion & validation
 
@@ -91,10 +91,10 @@ Formate un `TheTime` via une chaîne de format personnalisée.
 Vérifie qu'un timestamp est compris entre `minTimestamp` et `maxTimestamp`.
 
 ### [is](/fr/v1/api/date/is)
-Vérifie qu'une chaîne correspond au format `TheDate` (type guard).
+Vérifie qu'une valeur est une instance de `TheDate` (type guard).
 
 ### [isTime](/fr/v1/api/date/isTime)
-Vérifie qu'une chaîne correspond au format `TheTime` (type guard).
+Vérifie qu'une valeur est une instance de `TheTime` (type guard).
 
 ## Lecture des composants
 

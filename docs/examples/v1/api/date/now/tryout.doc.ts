@@ -1,4 +1,4 @@
 import { D } from "@duplojs/utils";
 
 const result = D.now();
-// result: "date" + timestamp
+// result: TheDate

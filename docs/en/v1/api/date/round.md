@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Rounds a TheDate to the specified unit (unit)."
+description: "Rounds a TheDate or SerializedTheDate to the specified unit (unit)."
 prev:
   text: "min"
   link: "/en/v1/api/date/min"
@@ -11,7 +11,7 @@ next:
 
 # round
 
-Rounds a `TheDate` to the specified unit (`unit`).
+Rounds a `TheDate` or `SerializedTheDate` to the specified unit (`unit`).
 
 ## Interactive example
 
@@ -25,7 +25,7 @@ Rounds a `TheDate` to the specified unit (`unit`).
 
 ```typescript
 function round(
-	input: TheDate,
+	input: TheDate | SerializedTheDate,
 	unit?: RoundUnit
 ): TheDate
 ```
@@ -34,7 +34,7 @@ function round(
 
 ## Parameters
 
-- `input`: Date to round.
+- `input`: Date to round (`TheDate` or `SerializedTheDate`).
 - `unit`: Target unit (`day` by default).
 
 ## Return value

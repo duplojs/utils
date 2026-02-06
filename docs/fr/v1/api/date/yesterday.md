@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction yesterday() retourne le début de la journée précédente (minuit UTC) sous forme de TheDate."
+description: "La fonction yesterday() retourne un instant environ un jour avant maintenant, sous forme de TheDate."
 prev:
   text: "today"
   link: "/fr/v1/api/date/today"
@@ -33,7 +33,7 @@ Aucun.
 
 ## Valeur de retour
 
-Un `TheDate` représentant le jour précédent a la même heure.
+Un `TheDate` représentant un instant environ un jour avant maintenant.
 
 ## Voir aussi
 

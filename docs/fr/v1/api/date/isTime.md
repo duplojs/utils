@@ -10,7 +10,7 @@ next:
 
 # isTime
 
-La fonction **`isTime()`** vérifie qu'une chaîne correspond au format `TheTime` (`time<timestamp><"-" | "+">`). Elle agit comme un type guard.
+La fonction **`isTime()`** vérifie qu'une valeur est une instance de `TheTime`. Elle agit comme un type guard.
 
 ## Exemple interactif
 
@@ -23,18 +23,18 @@ La fonction **`isTime()`** vérifie qu'une chaîne correspond au format `TheTime
 ## Syntaxe
 
 ```typescript
-function isTime(input: string): input is TheTime
+function isTime(input: unknown): input is TheTime
 ```
 
 ## Paramètres
 
-- `input` : Chaîne à valider.
+- `input` : Valeur à tester.
 
 ## Valeur de retour
 
-`true` si la chaîne respecte le format `TheTime`, sinon `false`. En cas de `true`, TypeScript affine le type de `input` vers `TheTime`.
+`true` si la valeur est une instance de `TheTime`, sinon `false`.
 
 ## Voir aussi
 
 - [`createTime`](/fr/v1/api/date/createTime) - Construit un `TheTime` à partir de valeurs natives
-- [`is`](/fr/v1/api/date/is) - Vérifie le format `TheDate`
+- [`is`](/fr/v1/api/date/is) - Vérifie qu'une valeur est un `TheDate`

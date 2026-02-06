@@ -53,10 +53,10 @@ Returns the exact timestamp of the current moment as a `TheDate`.
 Generates the start of the day (midnight) as a `TheDate`.
 
 ### [yesterday](/en/v1/api/date/yesterday)
-Returns the start of the previous day.
+Returns an instant approximately one day before now.
 
 ### [tomorrow](/en/v1/api/date/tomorrow)
-Returns the start of the next day.
+Returns an instant approximately one day after now.
 
 ## Conversion & validation
 
@@ -91,10 +91,10 @@ Formats a `TheTime` using a custom format string.
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.
 
 ### [is](/en/v1/api/date/is)
-Checks that a string matches the `TheDate` format (type guard).
+Checks whether a value is an instance of `TheDate` (type guard).
 
 ### [isTime](/en/v1/api/date/isTime)
-Checks that a string matches the `TheTime` format (type guard).
+Checks whether a value is an instance of `TheTime` (type guard).
 
 ## Component reading
 

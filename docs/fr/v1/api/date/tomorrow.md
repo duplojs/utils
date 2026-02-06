@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction tomorrow() retourne le début de la journée suivante (minuit UTC) sous forme de TheDate."
+description: "La fonction tomorrow() retourne un instant environ un jour après maintenant, sous forme de TheDate."
 prev:
   text: "yesterday"
   link: "/fr/v1/api/date/yesterday"
@@ -33,7 +33,7 @@ Aucun.
 
 ## Valeur de retour
 
-Un `TheDate` représentant le jour suivant a la même heure.
+Un `TheDate` représentant un instant environ un jour après maintenant.
 
 ## Voir aussi
 

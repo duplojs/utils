@@ -25,7 +25,7 @@ La fonction **`toTimestamp()`** retourne le timestamp milliseconde d'un `TheDate
 
 ```typescript
 function toTimestamp<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput
 ): number

@@ -25,7 +25,7 @@ La fonction **`create()`** construit un `TheDate` à partir d'un `Date`, d'un ti
 
 ```typescript
 function create<
-	GenericInput extends TheDate | Date | number
+	GenericInput extends TheDate | SerializedTheDate | Date | number
 >(
 	input: GenericInput
 ): MayBe
@@ -52,7 +52,7 @@ La seconde déclaration sert uniquement à déclarer des dates constantes connue
 
 ## Paramètres
 
-- `input` : Date d'origine. Accepte un `TheDate`, un `Date`, un timestamp, une chaîne `YYYY-MM-DD` (préfixe négatif accepté pour les années BC) ou un `SpoolingDate` (`value` en `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionnellement horodaté) avec des overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) et une `timezone` si nécessaire.
+- `input` : Date d'origine. Accepte un `TheDate`, un `SerializedTheDate`, un `Date`, un timestamp, une chaîne `YYYY-MM-DD` (préfixe négatif accepté pour les années BC) ou un `SpoolingDate` (`value` en `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionnellement horodaté) avec des overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) et une `timezone` si nécessaire.
 - `params` : Optionnel. Permet de fournir directement les composantes horaires (`hour`, `minute`, `second`, `millisecond`).
 
 ## Valeur de retour
@@ -65,7 +65,7 @@ La seconde déclaration sert uniquement à déclarer des dates constantes connue
 
 - `Date` natif
 - Timestamp (`number`)
-- `TheDate` (`date{timestamp}{+|-}`)
+- `TheDate` ou `SerializedTheDate`
 - Chaîne `YYYY-MM-DD` (optionnellement horodatée en ISO pour `SpoolingDate`)
 - `SpoolingDate` avec `timezone` et overrides sur les composantes de date/heure
 

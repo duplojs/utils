@@ -25,7 +25,7 @@ The **`toISOString()`** function transforms a `TheDate` into an ISO 8601 string 
 
 ```typescript
 function toISOString<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 	>(
 	input: GenericInput
 ): string
