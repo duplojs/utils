@@ -1,17 +1,14 @@
-Returns the timezone offset of a date.
+Returns timezone offset in milliseconds for a given date and timezone.
 
 **Supported call styles:**
-- Classic: `getTimezoneOffset(timeZone)` → returns a value
-- Curried: `getTimezoneOffset(theDate, timeZone)` → returns a function waiting for the input
+- Classic: `getTimezoneOffset(input, timeZone)` → `number`
+- Curried: `getTimezoneOffset(timeZone)` → `(input) => number`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/getTimezoneOffset/example.ts[3,11]}
+{@include date/getTimezoneOffset/example.ts[3,12]}
 ```
-
-@remarks
-- Returns the offset in milliseconds for the given timezone.
 
 @see https://utils.duplojs.dev/en/v1/api/date/getTimezoneOffset
 

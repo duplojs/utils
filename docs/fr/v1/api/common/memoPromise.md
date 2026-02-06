@@ -5,8 +5,8 @@ prev:
   text: "memo"
   link: "/fr/v1/api/common/memo"
 next:
-  text: "toJSON"
-  link: "/fr/v1/api/common/toJSON"
+  text: "stringToMillisecond"
+  link: "/fr/v1/api/common/stringToMillisecond"
 ---
 
 # memoPromise

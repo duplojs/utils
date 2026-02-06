@@ -1,12 +1,12 @@
-Returns the smallest duration from a tuple of Time values.
+Returns the smallest wrapped `Time` from a tuple.
 
 **Supported call styles:**
-- Classic: `timeMin(input)` -> returns a Time
+- Classic: `timeMin(input)` → `Time`
 
-The input can mix wrapped Times and raw TheTime values.
+`input` can mix wrapped `Time` and raw `TheTime` values.
 
 ```ts
-{@include clean/timeMin/example.ts[3,22]}
+{@include clean/timeMin/example.ts[3,16]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/timeMin

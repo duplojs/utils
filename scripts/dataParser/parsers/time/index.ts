@@ -5,7 +5,6 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
-import { type TheTime } from "@scripts/date";
 import * as DDate from "@scripts/date";
 import * as DEither from "@scripts/either";
 import { type DataParserCheckerTimeMax, type DataParserCheckerTimeMin } from "./checkers";
@@ -22,7 +21,7 @@ export type DataParserTimeCheckers = (
 			DataParserChecker
 		>
 	]
-	| CheckerRefineImplementation<TheTime>
+	| CheckerRefineImplementation<DDate.TheTime>
 	| DataParserCheckerTimeMax
 	| DataParserCheckerTimeMin
 );
@@ -40,8 +39,8 @@ type _DataParserTime<
 > = (
 	& DataParser<
 		GenericDefinition,
-		TheTime,
-		TheTime
+		DDate.TheTime,
+		DDate.TheTime | number | DDate.SerializedTheTime
 	>
 	& Kind<typeof timeKind.definition>
 );
@@ -92,14 +91,6 @@ export function time<
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {
-				if (typeof data === "number") {
-					if (!DDate.isSafeTimeValue(data)) {
-						return SymbolDataParserErrorIssue;
-					}
-
-					return DDate.createTheTime(data);
-				}
-
 				if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
 					const result = DDate.createTime({ value: data });
 
@@ -111,8 +102,16 @@ export function time<
 				}
 			}
 
-			if (typeof data === "string" && DDate.isTime(data)) {
+			if (data instanceof DDate.TheTime) {
 				return data;
+			} else if (typeof data === "string" && DDate.isSerializedTheTime(data)) {
+				return DDate.TheTime.new(DDate.toTimeValue(data));
+			} else if (typeof data === "number") {
+				if (!DDate.isSafeTimeValue(data)) {
+					return SymbolDataParserErrorIssue;
+				}
+
+				return DDate.TheTime.new(data);
 			}
 
 			return SymbolDataParserErrorIssue;

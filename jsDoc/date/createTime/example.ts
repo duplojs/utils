@@ -1,21 +1,18 @@
 import { D, pipe } from "@scripts";
 
-const timeFromUnit = D.createTime(90, "minute");
-// timeFromUnit: "time5400000+"
+const direct = D.createTime(90, "minute");
+// direct: TheTime
 
-const mayBeTime = D.createTime({
-	hour: 1,
+const mayBeFromSerialized = D.createTime("time5400000+");
+// mayBeFromSerialized: Either<"time-created", TheTime>
+
+const mayBeFromSpooling = D.createTime({
+	value: "+01:30:00",
 	minute: 15,
 });
-// Either<"time-created", TheTime>
+// mayBeFromSpooling: Either<"time-created", TheTime>
 
-const mayBeIso = D.createTime({
-	value: "+01:30:00",
-});
-// Either<"time-created", TheTime>
-
-const piped = pipe(
+pipe(
 	120,
 	D.createTime,
-);
-// piped: Either<"time-created", TheTime>
+); // Either<"time-created", TheTime>

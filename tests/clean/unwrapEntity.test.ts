@@ -1,4 +1,4 @@
-import { DClean, DPE, type ExpectType } from "@scripts";
+import { DClean, DPE, type ExpectType, DDate, unwrap, type toNative, toJSON } from "@scripts";
 
 describe("unwrapEntity", () => {
 	const Id = DClean.createNewType("id", DPE.number());
@@ -9,11 +9,16 @@ describe("unwrapEntity", () => {
 			name: DPE.string(),
 		}),
 	);
+	const Hours = DClean.createNewType(
+		"hour",
+		DPE.time(),
+	);
 
 	const UserEntity = DClean.createEntity("User", ({ array }) => ({
 		id: Id,
 		tags: array(Tag),
 		profile: Profile,
+		hours: Hours,
 	}));
 
 	type User = DClean.GetEntity<typeof UserEntity>;
@@ -25,6 +30,21 @@ describe("unwrapEntity", () => {
 			readonly profile: {
 				readonly name: string;
 			};
+			readonly hours: DDate.TheTime;
+			readonly tags: readonly string[];
+			readonly _entityName: "User";
+		},
+		"strict"
+	>;
+
+	type CheckTransformer = ExpectType<
+		DClean.UnwrapEntity<User, typeof toNative>,
+		{
+			readonly id: number;
+			readonly profile: {
+				readonly name: string;
+			};
+			readonly hours: number;
 			readonly tags: readonly string[];
 			readonly _entityName: "User";
 		},
@@ -37,6 +57,7 @@ describe("unwrapEntity", () => {
 		profile: Profile.createOrThrow({
 			name: "Ada",
 		}),
+		hours: Hours.createOrThrow(DDate.createTime(10, "hour")),
 	});
 
 	it("unwraps properties and adds entity metadata", () => {
@@ -48,6 +69,7 @@ describe("unwrapEntity", () => {
 			profile: {
 				name: "Ada",
 			},
+			hours: unwrap(baseUser.hours),
 			_entityName: "User",
 		});
 
@@ -58,6 +80,7 @@ describe("unwrapEntity", () => {
 				readonly profile: {
 					readonly name: "Ada";
 				};
+				readonly hours: DDate.TheTime;
 				readonly tags: readonly ["superTag"];
 				readonly _entityName: "User";
 			},
@@ -78,6 +101,7 @@ describe("unwrapEntity", () => {
 				name: "Ada",
 			},
 			_entityName: "User",
+			hours: unwrap(baseUser.hours),
 			_flags: {
 				isAdmin: true,
 			},
@@ -91,10 +115,39 @@ describe("unwrapEntity", () => {
 				readonly profile: {
 					readonly name: "Ada";
 				};
+				readonly hours: DDate.TheTime;
 				readonly _entityName: "User";
 				readonly _flags: {
 					readonly isAdmin: true;
 				};
+			},
+			"strict"
+		>;
+	});
+
+	it("unwrap with transformer", () => {
+		const unwrapped = DClean.unwrapEntity(baseUser, { transformer: toJSON });
+
+		expect(unwrapped).toStrictEqual({
+			id: 1,
+			tags: ["superTag"],
+			profile: {
+				name: "Ada",
+			},
+			hours: unwrap(baseUser.hours).toJSON(),
+			_entityName: "User",
+		});
+
+		type Check = ExpectType<
+			typeof unwrapped,
+			{
+				readonly id: 1;
+				readonly profile: {
+					readonly name: "Ada";
+				};
+				readonly hours: DDate.SerializedTheTime;
+				readonly tags: readonly ["superTag"];
+				readonly _entityName: "User";
 			},
 			"strict"
 		>;

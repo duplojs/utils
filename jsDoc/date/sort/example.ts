@@ -1,10 +1,15 @@
 import { D, pipe } from "@scripts";
 
-const input = [D.tomorrow(), D.yesterday(), D.today()] as const;
+const input = [
+	D.create("2024-06-03"),
+	"date1717286400000+",
+	D.create("2024-06-01"),
+] as const;
 
-const result = D.sort(input, "ASC");
+const asc = D.sort(input, "ASC");
+// asc: TheDate[]
 
 pipe(
 	input,
-	D.sort("ASC"),
-);
+	D.sort("DSC"),
+); // TheDate[]

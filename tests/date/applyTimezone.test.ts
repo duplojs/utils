@@ -9,7 +9,7 @@ describe("applyTimezone", () => {
 		const theDate = DDate.createOrThrow(1704067200000);
 		const result = DDate.applyTimezone(theDate, "UTC");
 
-		expect(result).toBe(theDate);
+		expect(result).toStrictEqual(theDate);
 
 		type check = ExpectType<
 			typeof result,
@@ -28,7 +28,7 @@ describe("applyTimezone", () => {
 			DDate.toTimestamp(theDate) - offset,
 		);
 
-		expect(result).toBe(expected);
+		expect(result).toStrictEqual(expected);
 
 		type check = ExpectType<
 			typeof result,
@@ -65,7 +65,7 @@ describe("applyTimezone", () => {
 		vi.stubEnv("TZ", "Pacific/Auckland");
 		const result = DDate.applyTimezone(baseDate, "America/New_York");
 
-		expect(result).toBe(expected);
+		expect(result).toStrictEqual(expected);
 
 		type check = ExpectType<
 			typeof result,

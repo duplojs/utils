@@ -1,18 +1,15 @@
 import { D, pipe } from "@scripts";
 
-const input = 1_700_000_000_000;
-const result = D.createOrThrow(input);
-// result: "date1700000000000+"
+const fromTimestamp = D.createOrThrow(1_700_000_000_000);
+// fromTimestamp: TheDate
 
-const input2 = result;
-const result2 = D.createOrThrow(input2);
-// result2: "date1700000000000+"
+const fromSerialized = D.createOrThrow("date1700000000000+");
+// fromSerialized: TheDate
 
-const input3 = new Date("2024-06-20T12:00:00Z");
-const result3 = D.createOrThrow(input3);
-// result3: "date1718884800000+"
+const fromDate = D.createOrThrow(new Date("2024-06-20T12:00:00Z"));
+// fromDate: TheDate
 
 pipe(
-	input,
+	fromTimestamp,
 	(value) => D.createOrThrow(value),
-); // result: "date1700000000000+"
+); // TheDate

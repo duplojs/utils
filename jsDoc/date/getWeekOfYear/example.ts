@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
 const input = D.create("2024-01-04");
-const result = D.getWeekOfYear(input, "Europe/Berlin");
-// result: 1
+const utcWeek = D.getWeekOfYear(input);
+// utcWeek: 1
+
+const berlinWeek = D.getWeekOfYear(input, "Europe/Berlin");
+// berlinWeek: 1
 
 pipe(
 	input,
-	(value) => D.getWeekOfYear(value, "Europe/Berlin"),
-); // result: 1
+	(value) => D.getWeekOfYear(value, "UTC"),
+); // 1

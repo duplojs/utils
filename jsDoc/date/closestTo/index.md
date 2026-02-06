@@ -1,17 +1,16 @@
-Finds the closest date to a target.
+Finds the closest date from an iterable relative to a target date.
 
 **Supported call styles:**
-- Classic: `closestTo(input, target, params?)` → returns a value
-- Curried: `closestTo(target, params?)` → returns a function waiting for the input
-
-The input value is not mutated.
+- Classic: `closestTo(input, target, params?)` → `TheDate | undefined`
+- Curried: `closestTo(target, params?)` → `(input) => TheDate | undefined`
 
 ```ts
 {@include date/closestTo/example.ts[3,17]}
 ```
 
 @remarks
-- `tieBreaker` can be "favorPast" or "favorFuture" to resolve equidistant dates.
+- `tieBreaker: "favorPast"` ignores future candidates.
+- `tieBreaker: "favorFuture"` ignores past candidates.
 
 @see https://utils.duplojs.dev/en/v1/api/date/closestTo
 

@@ -1,13 +1,11 @@
-Returns the minute of a date.
+Returns the minute (`0` to `59`) for a date in a target timezone.
 
-Signature: `getMinute(input, timezone)` → returns a value
+Signature: `getMinute(input, timezone?)` → `number`
 
-If timezone is omitted, UTC is used.
-
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
 
 ```ts
-{@include date/getMinute/example.ts[3,14]}
+{@include date/getMinute/example.ts[3,16]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/getMinute

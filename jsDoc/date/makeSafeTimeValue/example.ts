@@ -1,10 +1,10 @@
 import { D } from "@scripts";
 
-const result = D.makeSafeTimeValue(1.2);
-// result: 1
+const rounded = D.makeSafeTimeValue(1.2);
+// rounded: 1
 
-const result2 = D.makeSafeTimeValue(Number.NaN);
-// result2: 0
+const fromNaN = D.makeSafeTimeValue(Number.NaN);
+// fromNaN: 0
 
-const result3 = D.makeSafeTimeValue(Infinity);
-// result3: 9007199254740991
+const clamped = D.makeSafeTimeValue(Infinity);
+// clamped: 9007199254740991

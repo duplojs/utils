@@ -1,4 +1,7 @@
 import { D } from "@scripts";
 
-const result = D.tomorrow();
-// result: "date" + timestamp
+const value = D.tomorrow();
+// value: TheDate
+
+const iso = D.toISOString(value);
+// iso: string

@@ -9,7 +9,9 @@ describe("getFirstDayOfWeek", () => {
 			}),
 		);
 
-		expect(result).toBe(DDate.create("2024-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -23,7 +25,9 @@ describe("getFirstDayOfWeek", () => {
 			DDate.create("2024-01-01"),
 		);
 
-		expect(result).toBe(DDate.create("2024-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -37,7 +41,9 @@ describe("getFirstDayOfWeek", () => {
 			DDate.create("2024-01-07"),
 		);
 
-		expect(result).toBe(DDate.create("2024-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -52,7 +58,9 @@ describe("getFirstDayOfWeek", () => {
 			DDate.getFirstDayOfWeek,
 		);
 
-		expect(result).toBe(DDate.create("2021-01-04"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2021-01-04")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -66,7 +74,9 @@ describe("getFirstDayOfWeek", () => {
 			DDate.create("1969-07-16"),
 		);
 
-		expect(result).toBe(DDate.create("1969-07-14"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("1969-07-14")),
+		);
 
 		type check = ExpectType<
 			typeof result,

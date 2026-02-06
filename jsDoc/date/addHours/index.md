@@ -1,13 +1,13 @@
-Adds hours to a date.
+Adds a number of hours to a date.
 
 **Supported call styles:**
-- Classic: `addHours(input, hour)` → returns a value
-- Curried: `addHours(hour)` → returns a function waiting for the input
+- Classic: `addHours(input, hour)` → `TheDate`
+- Curried: `addHours(hour)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/addHours/example.ts[3,11]}
+{@include date/addHours/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/addHours

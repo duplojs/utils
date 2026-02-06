@@ -6,6 +6,10 @@ describe("DDate minTime", () => {
 	const time10 = DDate.createTime(10, "second");
 
 	it("picks smallest time", () => {
-		expect(DDate.minTime([time10, time05, time01])).toBe(time01);
+		const result = DDate.minTime([time10, time05, time01]);
+
+		expect(DDate.toTimeValue(result)).toBe(
+			DDate.toTimeValue(time01),
+		);
 	});
 });

@@ -1,15 +1,15 @@
-Rounds a date to a unit.
+Rounds down a date to a UTC unit boundary.
 
-Signature: `round(input, unit)` → returns a value
+Signature: `round(input, unit?)` → `TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`. Default `unit` is `"day"`.
 
 ```ts
-{@include date/round/example.ts[3,19]}
+{@include date/round/example.ts[3,15]}
 ```
 
 @remarks
-- Rounds using the provided unit.
+- Supported units: `second`, `minute`, `hour`, `day`, `month`, `year`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/round
 

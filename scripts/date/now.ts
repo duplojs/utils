@@ -1,4 +1,4 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
 
 /**
  * {@include date/now/index.md}
@@ -6,5 +6,5 @@ import type { TheDate } from "./types";
 export function now() {
 	const timestamp = Date.now();
 
-	return `date${timestamp}+` satisfies TheDate;
+	return TheDate.new(timestamp);
 }

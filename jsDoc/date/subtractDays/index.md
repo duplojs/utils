@@ -1,13 +1,13 @@
-Subtracts days from a date.
+Subtracts a number of days from a date.
 
 **Supported call styles:**
-- Classic: `subtractDays(input, day)` → returns a value
-- Curried: `subtractDays(day)` → returns a function waiting for the input
+- Classic: `subtractDays(input, day)` → `TheDate`
+- Curried: `subtractDays(day)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/subtractDays/example.ts[3,11]}
+{@include date/subtractDays/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/subtractDays

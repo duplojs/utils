@@ -5,7 +5,6 @@ import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
-import { type TheDate } from "@scripts/date";
 import * as DDate from "@scripts/date";
 
 export interface DataParserDateCheckerCustom {}
@@ -18,7 +17,7 @@ export type DataParserDateCheckers = (
 			DataParserChecker
 		>
 	]
-	| CheckerRefineImplementation<TheDate>
+	| CheckerRefineImplementation<DDate.TheDate>
 );
 
 export interface DataParserDefinitionDate extends DataParserDefinition<
@@ -34,8 +33,8 @@ type _DataParserDate<
 > = (
 	& DataParser<
 		GenericDefinition,
-		TheDate,
-		TheDate
+		DDate.TheDate,
+		DDate.TheDate | Date | DDate.SerializedTheDate
 	>
 	& Kind<typeof dateKind.definition>
 );
@@ -86,34 +85,34 @@ export function date<
 		},
 		(data, _error, self) => {
 			if (self.definition.coerce) {
-				if (data instanceof Date) {
-					const timestamp = data.getTime();
-
-					if (!DDate.isSafeTimestamp(timestamp)) {
-						return SymbolDataParserErrorIssue;
-					}
-					return DDate.createTheDate(timestamp);
-				}
-
 				if (typeof data === "number") {
 					if (!DDate.isSafeTimestamp(data)) {
 						return SymbolDataParserErrorIssue;
 					}
 
-					return DDate.createTheDate(data);
+					return DDate.TheDate.new(data);
 				}
 
 				if (typeof data === "string") {
 					const date = new Date(data);
 					const timestamp = date.getTime();
 					if (DDate.isSafeTimestamp(timestamp)) {
-						return DDate.createTheDate(timestamp);
+						return DDate.TheDate.new(timestamp);
 					}
 				}
 			}
 
-			if (typeof data === "string" && DDate.is(data)) {
+			if (data instanceof DDate.TheDate) {
 				return data;
+			} else if (typeof data === "string" && DDate.isSerializedTheDate(data)) {
+				return DDate.TheDate.new(DDate.toTimestamp(data));
+			} else if (data instanceof Date) {
+				const timestamp = data.getTime();
+
+				if (!DDate.isSafeTimestamp(timestamp)) {
+					return SymbolDataParserErrorIssue;
+				}
+				return DDate.TheDate.new(timestamp);
 			}
 
 			return SymbolDataParserErrorIssue;

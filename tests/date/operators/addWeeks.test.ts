@@ -10,7 +10,9 @@ describe("addWeeks", () => {
 			1,
 		);
 
-		expect(result).toBe(DDate.create("2020-01-08"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-08")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,7 +27,26 @@ describe("addWeeks", () => {
 			(-2 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-18"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-12-18")),
+		);
+
+		type check = ExpectType<
+			typeof result,
+			DDate.TheDate,
+			"strict"
+		>;
+	});
+
+	it("accepts serialized dates as input", () => {
+		const result = DDate.addWeeks(
+			DDate.serialize(baseDate),
+			3,
+		);
+
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-22")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -40,7 +61,9 @@ describe("addWeeks", () => {
 			DDate.addWeeks(1),
 		);
 
-		expect(result).toBe(DDate.create("2020-01-08"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-08")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -55,7 +78,9 @@ describe("addWeeks", () => {
 			2,
 		);
 
-		expect(result).toBe(DDate.create("-0010-01-15"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0010-01-15")),
+		);
 
 		type check = ExpectType<
 			typeof result,

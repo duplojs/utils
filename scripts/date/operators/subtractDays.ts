@@ -1,36 +1,33 @@
 import { millisecondsInOneDay } from "../constants";
-import { createTheDate } from "../createTheDate";
-import { toNative } from "../toNative";
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import { toTimestamp } from "../toTimestamp";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/subtractDays/index.md}
  */
 export function subtractDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number,
 >(
 	day: GenericDay,
 ): (input: GenericInput) => TheDate;
 
 export function subtractDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number,
 >(
 	input: GenericInput,
 	day: GenericDay,
 ): TheDate;
 
-export function subtractDays(...args: [TheDate, number] | [number]) {
+export function subtractDays(...args: [TheDate | SerializedTheDate, number] | [number]) {
 	if (args.length === 1) {
 		const [day] = args;
-		return (input: TheDate) => subtractDays(input, day);
+		return (input: TheDate | SerializedTheDate) => subtractDays(input, day);
 	}
 
 	const [input, day] = args;
 
-	const date = toNative(input);
-	date.setTime(date.getTime() - (day * millisecondsInOneDay));
-
-	return createTheDate(date.getTime());
+	return TheDate.new(toTimestamp(input) - (day * millisecondsInOneDay));
 }

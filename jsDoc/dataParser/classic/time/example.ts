@@ -8,8 +8,11 @@ if (E.isRight(result)) {
 }
 
 const withCheckers = DP.time({
-	checkers: [DP.checkerRefine((value) => value !== "time0+")],
+	checkers: [DP.checkerRefine((value) => value.toNative() !== 0)],
 });
+const checked = withCheckers.parse("time1000+");
+// checked: E.Error<DP.DataParserError> | E.Success<TheTime>
 
 const coerceParser = DP.coerce.time();
 const coerceResult = coerceParser.parse("10:20:00");
+// coerceResult: E.Error<DP.DataParserError> | E.Success<TheTime>

@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
-const input = D.create("2023-11-14");
-const result = D.toNative(input);
-// result: Date { time: 1699920000000 }
+const input = D.create("2024-06-20");
+const nativeDate = D.toNative(input);
+// nativeDate: Date
+
+const nativeDate2 = D.toNative("date1718841600000+");
+// nativeDate2: Date
 
 pipe(
 	input,
 	D.toNative,
-); // result: Date { time: 1699920000000 }
+); // Date

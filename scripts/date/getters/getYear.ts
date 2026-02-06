@@ -1,18 +1,21 @@
-import { type TheDate, type Timezone, toNative } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { toNative } from "../toNative";
+import type { Timezone } from "../timezone";
 
 /**
  * {@include date/getYear/index.md}
  */
 export function getYear<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(
 	input: GenericInput,
 	timezone: Timezone = "UTC",
 ): number {
-	const nativeDate = toNative(input);
+	const date = toNative(input);
 
 	if (timezone === "UTC") {
-		return nativeDate.getUTCFullYear();
+		return date.getUTCFullYear();
 	}
 
 	const formatter = new Intl.DateTimeFormat("en-US", {
@@ -20,5 +23,5 @@ export function getYear<
 		year: "numeric",
 	});
 
-	return Number(formatter.format(nativeDate));
+	return Number(formatter.format(date));
 }

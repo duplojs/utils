@@ -118,15 +118,6 @@ Pause asynchrone pour attendre un certain temps.
 ### [memoPromise](/fr/v1/api/common/memoPromise)
 Mémoïsation paresseuse pour des fonctions retournant une valeur ou une promesse.
 
-### [toJSON](/fr/v1/api/common/toJSON)
-Prépare une valeur pour la sérialisation JSON.
-
-### [toTransform](/fr/v1/api/common/toTransform)
-Applique récursivement les méthodes `toTransform` présentes pour obtenir un modèle prêt à être transporté.
-
-### [toString](/fr/v1/api/common/toString)
-Convertit un littéral (number, boolean, bigint, etc.) en template string typée.
-
 ### [stringToMillisecond](/fr/v1/api/common/stringToMillisecond)
 Parse des durées (`"10s"`, `"2h"`, `"1.5d"`, etc.) en millisecondes, avec erreurs typées.
 

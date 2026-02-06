@@ -9,7 +9,9 @@ describe("round", () => {
 			millisecond: "789",
 		}));
 
-		expect(result).toBe(DDate.create("2024-01-15"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-15")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -29,7 +31,9 @@ describe("round", () => {
 			"hour",
 		);
 
-		expect(result).toBe(DDate.create("2024-01-15", { hour: "12" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-15", { hour: "12" })),
+		);
 	});
 
 	it("rounds to minute", () => {
@@ -43,10 +47,12 @@ describe("round", () => {
 			"minute",
 		);
 
-		expect(result).toBe(DDate.create("2024-01-15", {
-			hour: "12",
-			minute: "34",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-15", {
+				hour: "12",
+				minute: "34",
+			})),
+		);
 	});
 
 	it("rounds to second", () => {
@@ -60,11 +66,13 @@ describe("round", () => {
 			"second",
 		);
 
-		expect(result).toBe(DDate.create("2024-01-15", {
-			hour: "12",
-			minute: "34",
-			second: "56",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-15", {
+				hour: "12",
+				minute: "34",
+				second: "56",
+			})),
+		);
 	});
 
 	it("rounds to month", () => {
@@ -78,7 +86,9 @@ describe("round", () => {
 			"month",
 		);
 
-		expect(result).toBe(DDate.create("2024-03-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-03-01")),
+		);
 	});
 
 	it("rounds to year", () => {
@@ -92,7 +102,9 @@ describe("round", () => {
 			"year",
 		);
 
-		expect(result).toBe(DDate.create("2024-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-01")),
+		);
 	});
 
 	it("handles dates before Christ", () => {
@@ -104,7 +116,9 @@ describe("round", () => {
 			"day",
 		);
 
-		expect(result).toBe(DDate.create("-0005-03-15"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0005-03-15")),
+		);
 	});
 
 	it("use in pipe", () => {
@@ -118,6 +132,8 @@ describe("round", () => {
 			DDate.round,
 		);
 
-		expect(result).toBe(DDate.create("2024-01-15"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-01-15")),
+		);
 	});
 });

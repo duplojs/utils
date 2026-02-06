@@ -1,8 +1,8 @@
 import { loop } from "@scripts/generator/loop";
 import { millisecondsInOneSecond, millisecondInOneMinute, millisecondInOneHour, millisecondsInOneDay } from "./constants";
-import type { TheDate, Unit } from "./types";
 import { toTimestamp } from "./toTimestamp";
-import { createOrThrow } from "./createOrThrow";
+import { TheDate } from "./theDate";
+import type { Unit, SerializedTheDate } from "./types";
 
 const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number> = {
 	millisecond: (timestamp, direction) => timestamp + direction,
@@ -27,8 +27,8 @@ const stepMapper: Record<Unit, (timestamp: number, direction: 1 | -1) => number>
  */
 export function each(
 	range: {
-		start: TheDate;
-		end: TheDate;
+		start: TheDate | SerializedTheDate;
+		end: TheDate | SerializedTheDate;
 	},
 	unit: Unit = "day",
 ) {
@@ -44,7 +44,9 @@ export function each(
 		previousOutput,
 	}) => {
 		if (!previousOutput) {
-			return next(range.start);
+			return range.start instanceof TheDate
+				? next(range.start)
+				: next(TheDate.new(toTimestamp(range.start)));
 		}
 
 		const currentTimestamp = advanceTimestamp(
@@ -59,11 +61,11 @@ export function each(
 		if (!isWithinRange) {
 			return exit(
 				currentTimestamp === endTimestamp
-					? createOrThrow(currentTimestamp)
+					? TheDate.new(currentTimestamp)
 					: undefined,
 			);
 		}
 
-		return next(createOrThrow(currentTimestamp));
+		return next(TheDate.new(currentTimestamp));
 	});
 }

@@ -1,14 +1,14 @@
 import { D, pipe } from "@scripts";
 
-const theTime = D.createTheTime(788_645_006);
-const fullFormat = D.formatTime(theTime, "WW DD HH:mm:ss.SSS");
-// fullFormat: "01 02 03:04:05.006"
+const input = D.createTime(788_645_006, "millisecond");
+const full = D.formatTime(input, "WW DD HH:mm:ss.SSS");
+// full: string
 
 pipe(
-	theTime,
+	input,
 	D.formatTime("HH:mm"),
-); // result: "03:04"
+); // string
 
-const negativeTime = D.createTheTime(-5_000);
-const shortFormat = D.formatTime(negativeTime, "ss.SSS");
-// shortFormat: "-05.000"
+const negative = D.createTime(-5_000, "millisecond");
+const short = D.formatTime(negative, "ss.SSS");
+// short: string

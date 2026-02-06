@@ -1,5 +1,8 @@
 import { createEnum, type GetEnumValue } from "@scripts/common/enum";
 
+/**
+ * {@include date/timezone/index.md}
+ */
 export const timezone = createEnum([
 	"Africa/Abidjan",
 	"Africa/Accra",

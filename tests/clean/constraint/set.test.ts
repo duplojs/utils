@@ -189,7 +189,8 @@ describe("createConstraintsSet", () => {
 			DClean.ConstraintHandler<
 				"string-max-5",
 				string,
-				readonly [DDataParser.DataParserCheckerStringMax]
+				readonly [DDataParser.DataParserCheckerStringMax],
+				never
 			>,
 			"strict"
 		>;

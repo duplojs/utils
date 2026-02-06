@@ -7,10 +7,15 @@ const inputs = [
 ] as const;
 
 const target = D.create("2024-06-15");
-const result = D.closestTo(inputs, target);
-// result: "date1717996800000+" (10 June 2024)
+const nearest = D.closestTo(inputs, target);
+// nearest: TheDate | undefined
+
+const nearestPast = D.closestTo(inputs, target, {
+	tieBreaker: "favorPast",
+});
+// nearestPast: TheDate | undefined
 
 pipe(
 	inputs,
 	D.closestTo(target),
-); // result: "date1717996800000+" (10 June 2024)
+); // TheDate | undefined

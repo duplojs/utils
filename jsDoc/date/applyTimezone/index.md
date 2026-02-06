@@ -1,17 +1,17 @@
-Applies a timezone to a date.
+Applies a timezone offset to a date and returns the shifted `TheDate`.
 
 **Supported call styles:**
-- Classic: `applyTimezone(timeZone)` → returns a value
-- Curried: `applyTimezone(theDate, timeZone)` → returns a function waiting for the input
+- Classic: `applyTimezone(input, timeZone)` → `TheDate`
+- Curried: `applyTimezone(timeZone)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/applyTimezone/example.ts[3,11]}
+{@include date/applyTimezone/example.ts[3,12]}
 ```
 
 @remarks
-- Applies the timezone offset to shift the date.
+- This is a timestamp shift based on the target timezone offset.
 
 @see https://utils.duplojs.dev/en/v1/api/date/applyTimezone
 

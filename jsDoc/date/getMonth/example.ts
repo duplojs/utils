@@ -1,13 +1,16 @@
 import { D, pipe } from "@scripts";
 
-const input = D.create("2024-12-31");
-const result = D.getMonth(input);
-// result: 12
+const input = D.create("2024-12-31", {
+	hour: "23",
+	minute: "30",
+});
+const utcMonth = D.getMonth(input);
+// utcMonth: 12
 
-const result2 = D.getMonth(input, "Asia/Tokyo");
-// result2: 12
+const tokyoMonth = D.getMonth(input, "Asia/Tokyo");
+// tokyoMonth: 1
 
 pipe(
 	input,
-	D.getMonth,
-); // result: 12
+	(value) => D.getMonth(value, "UTC"),
+); // 12

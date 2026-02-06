@@ -6,15 +6,16 @@ describe("now", () => {
 		const result = DDate.now();
 		const after = Date.now();
 
-		expect(result).toMatch(/^date\d+\+$/);
+		const serialized = DDate.serialize(result);
+		expect(serialized).toMatch(/^date\d+\+$/);
 
-		const timestamp = parseInt(result.match(/^date(\d+)\+$/)![1]!);
+		const timestamp = parseInt(serialized.match(/^date(\d+)\+$/)![1]!);
 		expect(timestamp).toBeGreaterThanOrEqual(before);
 		expect(timestamp).toBeLessThanOrEqual(after);
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}+`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});

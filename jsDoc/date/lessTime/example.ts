@@ -1,20 +1,12 @@
-import { D, pipe, when } from "@scripts";
+import { D, pipe } from "@scripts";
 
-const input = "time1000+";
-const threshold = "time1500+";
+const input = D.createTime(90, "minute");
+const threshold = D.createTime(2, "hour");
 
 const result = D.lessTime(input, threshold);
 // result: true
 
-if (D.lessTime(input, threshold)) {
-	// input is less or equal
-}
-
-const result2 = pipe(
+pipe(
 	input,
-	when(
-		D.lessTime(threshold),
-		() => "ok",
-	),
-);
-// result2: "ok"
+	D.lessTime(threshold),
+); // true

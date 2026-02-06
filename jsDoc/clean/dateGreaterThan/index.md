@@ -1,13 +1,13 @@
-Checks whether a Date is after a threshold.
+Checks whether a wrapped `Date` is strictly after a threshold.
 
 **Supported call styles:**
-- Classic: `dateGreaterThan(date, threshold)` -> returns a boolean
-- Curried: `dateGreaterThan(threshold)` -> returns a function waiting for the date
+- Classic: `dateGreaterThan(date, threshold)` → `boolean`
+- Curried: `dateGreaterThan(threshold)` → function waiting for the date
 
-Use it to compare wrapped dates or raw TheDate values.
+`threshold` accepts wrapped `Date` or raw `TheDate`.
 
 ```ts
-{@include clean/dateGreaterThan/example.ts[3,9]}
+{@include clean/dateGreaterThan/example.ts[3,11]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateGreaterThan

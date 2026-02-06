@@ -5,18 +5,18 @@ const { extended } = DDataParser;
 describe("extended.coerce.time", () => {
 	it("coerces number, TheTime and ISO time inputs", () => {
 		const parser = extended.coerce.time();
-		const existing: DDate.TheTime = "time42+";
+		const existing = DDate.createTime(1, "day");
 
-		expect(parser.parse(1)).toStrictEqual(DEither.success("time1+"));
-		expect(parser.parse(-1)).toStrictEqual(DEither.success("time1-"));
-		expect(parser.parse("01:02")).toStrictEqual(DEither.success("time3720000+"));
+		expect(parser.parse(1)).toStrictEqual(DEither.success(DDate.createTime(1, "millisecond")));
+		expect(parser.parse(-1)).toStrictEqual(DEither.success(DDate.createTime(-1, "millisecond")));
+		expect(parser.parse("01:02")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time3720000+")));
 		expect(parser.parse(existing)).toStrictEqual(DEither.success(existing));
 	});
 
 	it("rejects unsafe or invalid inputs", () => {
 		const parser = extended.coerce.time({ errorMessage: "time.invalid" });
 		const tooHigh = DDate.maxTimeValue + 1;
-		const invalidTheTime = `time${DDate.maxTimeValue}+` as DDate.TheTime;
+		const invalidTheTime = `time${DDate.maxTimeValue}+` as DDate.SerializedTheTime;
 		const invalidType = true;
 		const invalidString = "not-a-time";
 

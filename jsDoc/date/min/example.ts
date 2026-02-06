@@ -1,10 +1,15 @@
 import { D, pipe } from "@scripts";
 
-const input = [D.yesterday(), D.today(), D.tomorrow()] as const;
+const input = [
+	D.create("2024-06-20"),
+	"date1718668800000+",
+	D.create("2024-06-25"),
+] as const;
 
-const result = D.min(input);
+const value = D.min(input);
+// value: TheDate
 
 pipe(
 	input,
 	D.min,
-);
+); // TheDate

@@ -1551,33 +1551,6 @@
           "name": "toCurriedPredicate.mjs"
         },
         {
-          "name": "toJSON.cjs"
-        },
-        {
-          "name": "toJSON.d.ts"
-        },
-        {
-          "name": "toJSON.mjs"
-        },
-        {
-          "name": "toString.cjs"
-        },
-        {
-          "name": "toString.d.ts"
-        },
-        {
-          "name": "toString.mjs"
-        },
-        {
-          "name": "toTransform.cjs"
-        },
-        {
-          "name": "toTransform.d.ts"
-        },
-        {
-          "name": "toTransform.mjs"
-        },
-        {
           "name": "toWrappedValue.cjs"
         },
         {

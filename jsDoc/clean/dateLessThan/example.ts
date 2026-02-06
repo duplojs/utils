@@ -1,8 +1,12 @@
-import { C, D } from "@scripts";
+import { C, D, pipe } from "@scripts";
 
 const date = C.Date.createOrThrow(D.create("2024-02-29"));
 const threshold = D.create("2024-03-01");
 
-if (C.dateLessThan(date, threshold)) {
-	// date is before threshold
-}
+const result = C.dateLessThan(date, threshold);
+// result: true
+
+pipe(
+	date,
+	C.dateLessThan(threshold),
+); // true

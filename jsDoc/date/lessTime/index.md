@@ -1,14 +1,17 @@
-Checks whether a time is less than or equal to another.
+Checks whether a duration is less than or equal to a threshold.
 
 **Supported call styles:**
-- Classic: `lessTime(input, threshold)` → returns a value
-- Curried: `lessTime(threshold)` → returns a function waiting for the input
+- Classic: `lessTime(input, threshold)` → `boolean`
+- Curried: `lessTime(threshold)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheTime` or `SerializedTheTime`.
 
 ```ts
-{@include date/lessTime/example.ts[3,20]}
+{@include date/lessTime/example.ts[3,12]}
 ```
+
+@remarks
+- Inclusive comparison: `input <= threshold`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/lessTime
 

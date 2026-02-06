@@ -171,13 +171,13 @@ describe("createConstraint", () => {
 
 		type check = ExpectType<
 			typeof stringMax,
-			DClean.ConstraintHandler<"string-max-10", string, readonly [DDataParser.DataParserCheckerStringMax]>,
+			DClean.ConstraintHandler<"string-max-10", string, readonly [DDataParser.DataParserCheckerStringMax], never>,
 			"strict"
 		>;
 
 		type check1 = ExpectType<
 			typeof stringMin,
-			DClean.ConstraintHandler<"string-min-10", string, readonly [DDataParser.DataParserCheckerStringMin]>,
+			DClean.ConstraintHandler<"string-min-10", string, readonly [DDataParser.DataParserCheckerStringMin], never>,
 			"strict"
 		>;
 	});
@@ -191,13 +191,13 @@ describe("createConstraint", () => {
 
 		type check = ExpectType<
 			typeof numberMax,
-			DClean.ConstraintHandler<"number-max-10", number, readonly [DDataParser.DataParserCheckerNumberMax]>,
+			DClean.ConstraintHandler<"number-max-10", number, readonly [DDataParser.DataParserCheckerNumberMax], never>,
 			"strict"
 		>;
 
 		type check1 = ExpectType<
 			typeof numberMin,
-			DClean.ConstraintHandler<"number-min-10", number, readonly [DDataParser.DataParserCheckerNumberMin]>,
+			DClean.ConstraintHandler<"number-min-10", number, readonly [DDataParser.DataParserCheckerNumberMin], never>,
 			"strict"
 		>;
 	});

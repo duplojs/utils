@@ -1,5 +1,6 @@
+import { TheDate } from "./theDate";
 import { toTimestamp } from "./toTimestamp";
-import type { TheDate } from "./types";
+import type { SerializedTheDate } from "./types";
 
 interface ClosestToParams {
 	tieBreaker?: "favorPast" | "favorFuture";
@@ -9,27 +10,35 @@ interface ClosestToParams {
  * {@include date/closestTo/index.md}
  */
 export function closestTo<
-	GenericIterable extends Iterable<TheDate>,
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>,
 >(
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams,
 ): (input: GenericIterable) => TheDate | undefined;
 
 export function closestTo<
-	GenericIterable extends Iterable<TheDate>,
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>,
 >(
 	input: GenericIterable,
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams,
 ): TheDate | undefined;
 
-export function closestTo(...args: [TheDate, ClosestToParams?] | [Iterable<TheDate>, TheDate, ClosestToParams?]) {
-	if (typeof args[0] === "string") {
-		const [target, params] = args as [TheDate, ClosestToParams?];
-		return (input: Iterable<TheDate>) => closestTo(input, target, params);
+export function closestTo(
+	...args: [TheDate | SerializedTheDate, ClosestToParams?]
+	| [Iterable<TheDate | SerializedTheDate>, TheDate | SerializedTheDate, ClosestToParams?]
+) {
+	if (typeof args[0] === "string" || args[0] instanceof TheDate) {
+		const [target, params] = args as [TheDate | SerializedTheDate, ClosestToParams?];
+		return (input: Iterable<TheDate | SerializedTheDate>) => closestTo(input, target, params);
 	}
 
-	const [input, target, params] = args as [Iterable<TheDate>, TheDate, ClosestToParams?];
+	const [input, target, params] = args as [
+		Iterable<TheDate | SerializedTheDate>,
+		TheDate | SerializedTheDate,
+		ClosestToParams?,
+	];
+
 	const { tieBreaker } = params ?? {};
 
 	const targetTimestamp = toTimestamp(target);
@@ -51,7 +60,10 @@ export function closestTo(...args: [TheDate, ClosestToParams?] | [Iterable<TheDa
 
 		if (distance < smallestDiff) {
 			smallestDiff = distance;
-			closest = value;
+			if (value instanceof TheDate) {
+				closest = value;
+			}
+			closest = TheDate.new(valueTimestamp);
 		}
 	}
 

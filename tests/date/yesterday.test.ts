@@ -6,15 +6,16 @@ describe("yesterday", () => {
 		const result = DDate.yesterday();
 		const after = Date.now() - 86400000;
 
-		expect(result).toMatch(/^date\d+\+$/);
+		const serialized = DDate.serialize(result);
+		expect(serialized).toMatch(/^date\d+\+$/);
 
-		const timestamp = parseInt(result.match(/^date(\d+)\+$/)![1]!);
+		const timestamp = parseInt(serialized.match(/^date(\d+)\+$/)![1]!);
 		expect(timestamp).toBeGreaterThanOrEqual(before - 1000);
 		expect(timestamp).toBeLessThanOrEqual(after + 1000);
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}+`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});

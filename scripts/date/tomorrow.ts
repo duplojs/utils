@@ -1,5 +1,5 @@
 import { millisecondsInOneDay } from "./constants";
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
 
 /**
  * {@include date/tomorrow/index.md}
@@ -7,5 +7,5 @@ import type { TheDate } from "./types";
 export function tomorrow() {
 	const timestamp = Date.now() + millisecondsInOneDay;
 
-	return `date${timestamp}+` satisfies TheDate;
+	return TheDate.new(timestamp);
 }

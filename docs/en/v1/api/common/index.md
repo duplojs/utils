@@ -118,15 +118,6 @@ Evaluates a function only once and reuses the result (lazy memoization).
 ### [memoPromise](/en/v1/api/common/memoPromise)
 Lazy memoization for functions returning a value or a promise.
 
-### [toJSON](/en/v1/api/common/toJSON)
-Prepares a value for JSON serialization.
-
-### [toTransform](/en/v1/api/common/toTransform)
-Recursively applies `toTransform` methods to obtain a model ready to be transported.
-
-### [toString](/en/v1/api/common/toString)
-Converts a literal (number, boolean, bigint, etc.) into a typed template string.
-
 ### [stringToMillisecond](/en/v1/api/common/stringToMillisecond)
 Parses durations (`"10s"`, `"2h"`, `"1.5d"`, etc.) into milliseconds, with typed errors.
 

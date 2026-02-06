@@ -1,4 +1,4 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
 
 /**
  * {@include date/today/index.md}
@@ -6,5 +6,5 @@ import type { TheDate } from "./types";
 export function today() {
 	const timestamp = new Date().setUTCHours(0, 0, 0, 0);
 
-	return `date${timestamp}+` satisfies TheDate;
+	return TheDate.new(timestamp);
 }

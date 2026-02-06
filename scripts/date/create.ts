@@ -1,13 +1,14 @@
-import { isoDateRegex } from "./constants";
+import { isoDateRegex, serializeTheDateRegex } from "./constants";
 import { isSafeTimestamp } from "./isSafeTimestamp";
-import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate, MonthWithDay, SpoolingDate } from "./types";
+import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "@scripts/either";
 import type * as DString from "@scripts/string";
 import { type And, type IsEqual, type Not, type IsExtends, unwrap } from "@scripts/common";
 import { applyTimezone } from "./applyTimezone";
 import { is } from "./is";
 import { toNative } from "./toNative";
-import { createTheDate } from "./createTheDate";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types/serializedTheDate";
 
 export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>;
 
@@ -57,7 +58,7 @@ const safeDateRegex = /^(?<year>-?[0-9]+)-(?<monthWithDay>[0-1][0-9]-[0-3][0-9])
  * {@include date/create/index.md}
  */
 export function create<
-	GenericInput extends TheDate | Date | number,
+	GenericInput extends TheDate | Date | number | SerializedTheDate,
 >(
 	input: GenericInput,
 ): MayBe;
@@ -76,7 +77,7 @@ export function create<
 ): TheDate;
 
 export function create(
-	input: Date | number | string | SpoolingDate,
+	input: TheDate | Date | number | string | SpoolingDate,
 	params?: SafeDateParams,
 ): MayBe | TheDate {
 	if (typeof input === "number") {
@@ -87,8 +88,16 @@ export function create(
 		return createFromTimestamp(input.getTime());
 	}
 
-	if (typeof input === "string" && is(input)) {
-		return DEither.right("date-created", input);
+	const serializeTheDateMatch = typeof input === "string" && input.match(serializeTheDateRegex);
+
+	if (serializeTheDateMatch) {
+		const { value, sign } = serializeTheDateMatch.groups as Record<"value" | "sign", string>;
+
+		return createFromTimestamp(Number(
+			sign === "-"
+				? `-${value}`
+				: value,
+		));
 	}
 
 	const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
@@ -101,20 +110,28 @@ export function create(
 
 		date.setUTCFullYear(Number(year));
 
-		const timestamp = date.getTime();
-
-		return `date${Math.abs(timestamp)}${timestamp < 0 ? "-" : "+"}`;
+		return TheDate.new(date.getTime());
 	}
 
 	if (typeof input === "object") {
 		let inputValueResult: MayBe | undefined = undefined;
 
-		if (input.value instanceof Date) {
+		const serializeTheDateMatch = typeof input.value === "string" && input.value.match(serializeTheDateRegex);
+
+		if (serializeTheDateMatch) {
+			const { value, sign } = serializeTheDateMatch.groups as Record<"value" | "sign", string>;
+
+			inputValueResult = createFromTimestamp(Number(
+				sign === "-"
+					? `-${value}`
+					: value,
+			));
+		} else if (is(input.value)) {
+			inputValueResult = DEither.right("date-created", input.value);
+		} else if (input.value instanceof Date) {
 			inputValueResult = createFromTimestamp(input.value.getTime());
 		} else if (typeof input.value === "number") {
 			inputValueResult = createFromTimestamp(input.value);
-		} else if (is(input.value)) {
-			inputValueResult = DEither.right("date-created", input.value);
 		} else {
 			const isoDateMatch = input.value.match(isoDateRegex);
 			if (isoDateMatch) {
@@ -188,6 +205,6 @@ function createFromTimestamp(input: number): MayBe {
 
 	return DEither.right(
 		"date-created",
-		createTheDate(input),
+		TheDate.new(input),
 	);
 }

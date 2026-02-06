@@ -1,13 +1,13 @@
-Subtracts seconds from a date.
+Subtracts a number of seconds from a date.
 
 **Supported call styles:**
-- Classic: `subtractSeconds(input, second)` → returns a value
-- Curried: `subtractSeconds(second)` → returns a function waiting for the input
+- Classic: `subtractSeconds(input, second)` → `TheDate`
+- Curried: `subtractSeconds(second)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/subtractSeconds/example.ts[3,11]}
+{@include date/subtractSeconds/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/subtractSeconds

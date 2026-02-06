@@ -22,6 +22,9 @@ export interface DataParserCheckerTimeMin extends _DataParserCheckerTimeMin {
 
 }
 
+/**
+ * {@include dataParser/classic/checkerTimeMin/index.md}
+ */
 export function checkerTimeMin(
 	min: DDate.TheTime,
 	definition: Partial<

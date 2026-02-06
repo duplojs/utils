@@ -1,13 +1,13 @@
-Adds days to a date.
+Adds a number of days to a date.
 
 **Supported call styles:**
-- Classic: `addDays(input, day)` → returns a value
-- Curried: `addDays(day)` → returns a function waiting for the input
+- Classic: `addDays(input, day)` → `TheDate`
+- Curried: `addDays(day)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/addDays/example.ts[3,11]}
+{@include date/addDays/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/addDays

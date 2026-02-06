@@ -1,14 +1,17 @@
-Checks whether a time is between two bounds (exclusive).
+Checks whether a duration is inside an exclusive range.
 
 **Supported call styles:**
-- Classic: `betweenThanTime(input, greater, less)` → returns a value
-- Curried: `betweenThanTime(greater, less)` → returns a function waiting for the input
+- Classic: `betweenThanTime(input, greater, less)` → `boolean`
+- Curried: `betweenThanTime(greater, less)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheTime` or `SerializedTheTime`.
 
 ```ts
-{@include date/betweenThanTime/example.ts[3,21]}
+{@include date/betweenThanTime/example.ts[3,13]}
 ```
+
+@remarks
+- Exclusive bounds: `input > greater && input < less`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/betweenThanTime
 

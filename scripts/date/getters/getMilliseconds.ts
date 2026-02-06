@@ -1,11 +1,14 @@
-import { type TheDate, toNative } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { toNative } from "../toNative";
 
 /**
  * {@include date/getMilliseconds/index.md}
  */
 export function getMilliseconds<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(input: GenericInput): number {
-	const nativeDate = toNative(input);
-	return nativeDate.getUTCMilliseconds();
+	const date = toNative(input);
+
+	return date.getUTCMilliseconds();
 }

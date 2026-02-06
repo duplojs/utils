@@ -1,13 +1,16 @@
-Creates an extended data parser for TheDate values.
+Creates an extended parser for `TheDate`.
 
-**Supported call styles:**
-- Method: `DPE.date(definition?)` -> returns a date parser
+Signature: `DPE.date(definition?)` → `DataParserDateExtended`
 
-Validates TheDate values and can coerce from string or timestamp when enabled.
+This parser extends classic `DP.date(...)` behavior and keeps the extended chainable base API (`nullable`, `optional`, `pipe`, `transform`, etc.).
 
 ```ts
-{@include dataParser/extended/date/example.ts[3,14]}
+{@include dataParser/extended/date/example.ts[3,16]}
 ```
+
+@remarks
+- Parsed output is always `TheDate`.
+- `DPE.coerce.date()` enables coercion by default.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/date
 

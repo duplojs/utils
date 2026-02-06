@@ -1,14 +1,14 @@
-import { DDataParser, DEither, type ExpectType, type DDate } from "@scripts";
+import { DDataParser, DDate, DEither, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
 describe("extended.date", () => {
 	it("parses TheDate values", () => {
 		const parser = extended.date();
-		const value: DDate.TheDate = "date42+";
+		const value: DDate.SerializedTheDate = "date42+";
 
 		const result = parser.parse(value);
-		expect(result).toStrictEqual(DEither.success(value));
+		expect(result).toStrictEqual(DEither.success(DDate.createOrThrow(value)));
 
 		type check = ExpectType<
 			typeof result,
@@ -19,11 +19,11 @@ describe("extended.date", () => {
 
 	it("supports refine helper", () => {
 		const parser = extended.date().refine(
-			(date) => date.endsWith("+"),
+			(date) => DDate.greaterThan(date, DDate.createOrThrow(0)),
 			{ errorMessage: "date.positive" },
 		);
 
-		expect(parser.parse("date1+")).toStrictEqual(DEither.success("date1+"));
+		expect(parser.parse("date1+")).toStrictEqual(DEither.success(DDate.createOrThrow("date1+")));
 		expect(parser.parse("date1-")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);

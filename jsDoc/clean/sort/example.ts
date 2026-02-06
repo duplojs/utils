@@ -16,7 +16,7 @@ const desc = pipe(
 // desc: C.Number[]
 
 const dates = C.sort([
-	D.createTheDate(2),
-	D.createTheDate(1),
+	D.create("2024-01-02"),
+	D.create("2024-01-01"),
 ], "ASC");
 // dates: C.Date[]

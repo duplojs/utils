@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
 const input = D.create("2024-06-19");
-const result = D.getLastDayOfWeek(input);
-// result: "date1719187200000+" (Sunday 23 june 2024)
+const lastDay = D.getLastDayOfWeek(input);
+// lastDay: TheDate
+
+const serialized = D.serialize(lastDay);
+// serialized: SerializedTheDate
 
 pipe(
-	input,
+	serialized,
 	D.getLastDayOfWeek,
-); // result: "date1719187200000+" (Sunday 23 june 2024)
+); // TheDate

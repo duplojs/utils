@@ -1,14 +1,17 @@
-Creates a data parser for TheTime values.
+Creates a classic parser for `TheTime` values.
 
-**Supported call styles:**
-- Classic: `DP.time(definition?)` -> returns a time parser
-- Curried: not available
+Signature: `DP.time(definition?)` → `DataParserTime`
 
-Validates that the input is a TheTime, optionally applies coerce, and runs the configured checkers.
+The parser accepts `TheTime`, `SerializedTheTime`, and safe numeric time values.
+With `coerce: true`, ISO-like time strings are also supported.
 
 ```ts
-{@include dataParser/classic/time/example.ts[3,15]}
+{@include dataParser/classic/time/example.ts[3,18]}
 ```
+
+@remarks
+- Parsed output is always `TheTime`.
+- Use `DP.coerce.time()` when you want string coercion enabled by default.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/time
 

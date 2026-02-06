@@ -5,8 +5,9 @@ import {
 	millisecondsInOneDay,
 	millisecondsInOneSecond,
 } from "./constants";
-import type { TheTime } from "./types";
+import { type TheTime } from "./theTime";
 import { toTimeValue } from "./toTimeValue";
+import type { SerializedTheTime } from "./types";
 
 const formatStringRegex = /WW|DD|HH|mm|ss|SSS/g;
 
@@ -16,14 +17,14 @@ type FormatToken = "WW" | "DD" | "HH" | "mm" | "ss" | "SSS";
  * {@include date/formatTime/index.md}
  */
 export function formatTime<
-	GenericInput extends TheTime,
+	GenericInput extends TheTime | SerializedTheTime,
 	GenericFormat extends string,
 >(
 	formatString: GenericFormat,
 ): (input: GenericInput) => string;
 
 export function formatTime<
-	GenericInput extends TheTime,
+	GenericInput extends TheTime | SerializedTheTime,
 	GenericFormat extends string,
 >(
 	input: GenericInput,
@@ -31,15 +32,16 @@ export function formatTime<
 ): string;
 
 export function formatTime(
-	...args: [string] | [TheTime, string]
+	...args: [string] | [TheTime | SerializedTheTime, string]
 ) {
 	if (args.length === 1) {
 		const [formatString] = args;
-		return (input: TheTime) => formatTime(input, formatString);
+		return (input: TheTime | SerializedTheTime) => formatTime(input, formatString);
 	}
 
 	const [input, formatString] = args;
 	const timeValue = toTimeValue(input);
+
 	const isNegative = timeValue < 0;
 	let remaining = Math.abs(timeValue);
 

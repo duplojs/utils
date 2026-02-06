@@ -7,6 +7,6 @@ describe("clean primitive timeMin", () => {
 
 	it("returns earliest time in direct form", () => {
 		const result = DClean.timeMin([time10, time05, time01]);
-		expect(unwrap(result)).toBe(DDate.createTime(1, "second"));
+		expect(result).toStrictEqual(time01);
 	});
 });

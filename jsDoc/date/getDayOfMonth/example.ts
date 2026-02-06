@@ -1,13 +1,16 @@
 import { D, pipe } from "@scripts";
 
-const input = D.create("2024-06-01");
-const result = D.getDayOfMonth(input);
-// result: 1
+const input = D.create("2024-06-01", {
+	hour: "00",
+	minute: "30",
+});
+const utcDay = D.getDayOfMonth(input);
+// utcDay: 1
 
-const result2 = D.getDayOfMonth(input, "America/New_York");
-// result2: 1
+const laDay = D.getDayOfMonth(input, "America/Los_Angeles");
+// laDay: 31
 
 pipe(
 	input,
-	D.getDayOfMonth,
-); // result: 1
+	(value) => D.getDayOfMonth(value, "UTC"),
+); // 1

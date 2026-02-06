@@ -6,12 +6,14 @@ describe("getLastDayOfMonth", () => {
 			DDate.create("2024-02-15", { hour: "10" }),
 		);
 
-		expect(result).toBe(DDate.create("2024-02-29", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "999",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-02-29", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "999",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,12 +27,14 @@ describe("getLastDayOfMonth", () => {
 			DDate.create("2024-02-29", { hour: "20" }),
 		);
 
-		expect(result).toBe(DDate.create("2024-02-29", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "999",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-02-29", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "999",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -44,12 +48,14 @@ describe("getLastDayOfMonth", () => {
 			DDate.create("2024-04-10"),
 		);
 
-		expect(result).toBe(DDate.create("2024-04-30", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "999",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-04-30", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "999",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -64,12 +70,14 @@ describe("getLastDayOfMonth", () => {
 			DDate.getLastDayOfMonth,
 		);
 
-		expect(result).toBe(DDate.create("2021-12-31", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "999",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2021-12-31", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "999",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -83,12 +91,14 @@ describe("getLastDayOfMonth", () => {
 			DDate.create("1969-07-16"),
 		);
 
-		expect(result).toBe(DDate.create("1969-07-31", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "999",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("1969-07-31", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "999",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,

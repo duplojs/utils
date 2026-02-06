@@ -1,27 +1,27 @@
 import { millisecondsInOneSecond } from "../constants";
-import { createTheDate } from "../createTheDate";
-import { toNative } from "../toNative";
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import { toTimestamp } from "../toTimestamp";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/addSeconds/index.md}
  */
 export function addSeconds<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericSecond extends number,
 >(
 	second: GenericSecond,
 ): (input: GenericInput) => TheDate;
 
 export function addSeconds<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericSecond extends number,
 >(
 	input: GenericInput,
 	second: GenericSecond,
 ): TheDate;
 
-export function addSeconds(...args: [TheDate, number] | [number]) {
+export function addSeconds(...args: [TheDate | SerializedTheDate, number] | [number]) {
 	if (args.length === 1) {
 		const [second] = args;
 		return (input: TheDate) => addSeconds(input, second);
@@ -29,8 +29,5 @@ export function addSeconds(...args: [TheDate, number] | [number]) {
 
 	const [input, second] = args;
 
-	const date = toNative(input);
-	date.setTime(date.getTime() + (second * millisecondsInOneSecond));
-
-	return createTheDate(date.getTime());
+	return TheDate.new(toTimestamp(input) + (second * millisecondsInOneSecond));
 }

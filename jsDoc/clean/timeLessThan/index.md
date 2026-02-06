@@ -1,13 +1,13 @@
-Checks whether a Time is less than a threshold.
+Checks whether a wrapped `Time` is strictly less than a threshold.
 
 **Supported call styles:**
-- Classic: `timeLessThan(time, threshold)` -> returns a boolean
-- Curried: `timeLessThan(threshold)` -> returns a function waiting for the time
+- Classic: `timeLessThan(time, threshold)` → `boolean`
+- Curried: `timeLessThan(threshold)` → function waiting for the time
 
-Use it to compare wrapped durations or raw TheTime values.
+`threshold` accepts wrapped `Time` or raw `TheTime`.
 
 ```ts
-{@include clean/timeLessThan/example.ts[3,9]}
+{@include clean/timeLessThan/example.ts[3,11]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/timeLessThan

@@ -1,21 +1,13 @@
-import { D, pipe, when } from "@scripts";
+import { D, pipe } from "@scripts";
 
-const input = "time1500+";
-const greater = "time1000+";
-const less = "time2000+";
+const input = D.createTime(2, "hour");
+const greater = D.createTime(1, "hour");
+const less = D.createTime(2, "hour");
 
 const result = D.betweenThanTime(input, greater, less);
-// result: true
+// result: false
 
-if (D.betweenThanTime(input, greater, less)) {
-	// input is strictly within bounds
-}
-
-const result2 = pipe(
+pipe(
 	input,
-	when(
-		D.betweenThanTime(greater, less),
-		() => "ok",
-	),
-);
-// result2: "ok"
+	D.betweenThanTime(greater, less),
+); // false

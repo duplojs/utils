@@ -1,16 +1,15 @@
 import { D, pipe } from "@scripts";
 
-const date = D.createTheDate(0);
-const time = D.createTheTime(3_600_000);
+const date = D.create("2024-06-20");
+const time = D.createTime(1, "hour");
 
 const result = D.subtractTime(date, time);
-// result: "date3600000-"
+// result: TheDate
 
-const result2 = D.subtractTime("time5000+", "time2000+");
-// result2: "time3000+"
+const result2 = D.subtractTime(time, D.createTime(30, "minute"));
+// result2: TheTime
 
-const result3 = pipe(
+pipe(
 	date,
-	D.subtractTime("time1000+"),
-);
-// result3: "date3599000-"
+	D.subtractTime(D.createTime(15, "minute")),
+); // TheDate

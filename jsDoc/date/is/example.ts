@@ -1,17 +1,14 @@
-import { D, pipe, when } from "@scripts";
+import { type AnyValue, D, pipe, when } from "@scripts";
 
-const input = D.now() as string;
+const input = D.now() as AnyValue;
 
 if (D.is(input)) {
-	// input is TheDate
+	// input: TheDate
 }
 
 pipe(
 	input,
-	when(
-		D.is,
-		(value) => {
-			// value is TheDate
-		},
-	),
+	when(D.is, (value) => {
+		// value: TheDate
+	}),
 );

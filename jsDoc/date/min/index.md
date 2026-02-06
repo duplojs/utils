@@ -1,11 +1,9 @@
-Returns the earliest date from an iterable.
+Returns the smallest date from a tuple of date values.
 
-Signature: `min(input)` → returns a value
-
-The input value is not mutated.
+Signature: `min(input)` → `TheDate`
 
 ```ts
-{@include date/min/example.ts[3,11]}
+{@include date/min/example.ts[3,12]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/min

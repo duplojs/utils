@@ -1,36 +1,35 @@
 import { millisecondInOneMinute } from "../constants";
-import { createTheDate } from "../createTheDate";
-import { toNative } from "../toNative";
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import { toTimestamp } from "../toTimestamp";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/subtractMinutes/index.md}
  */
 export function subtractMinutes<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMinute extends number,
 >(
 	minute: GenericMinute,
 ): (input: GenericInput) => TheDate;
 
 export function subtractMinutes<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMinute extends number,
 >(
 	input: GenericInput,
 	minute: GenericMinute,
 ): TheDate;
 
-export function subtractMinutes(...args: [TheDate, number] | [number]) {
+export function subtractMinutes(
+	...args: [TheDate | SerializedTheDate, number] | [number]
+) {
 	if (args.length === 1) {
 		const [minute] = args;
-		return (input: TheDate) => subtractMinutes(input, minute);
+		return (input: TheDate | SerializedTheDate) => subtractMinutes(input, minute);
 	}
 
 	const [input, minute] = args;
 
-	const date = toNative(input);
-	date.setTime(date.getTime() - (minute * millisecondInOneMinute));
-
-	return createTheDate(date.getTime());
+	return TheDate.new(toTimestamp(input) - (minute * millisecondInOneMinute));
 }

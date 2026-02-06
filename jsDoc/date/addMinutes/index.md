@@ -1,13 +1,13 @@
-Adds minutes to a date.
+Adds a number of minutes to a date.
 
 **Supported call styles:**
-- Classic: `addMinutes(input, minute)` → returns a value
-- Curried: `addMinutes(minute)` → returns a function waiting for the input
+- Classic: `addMinutes(input, minute)` → `TheDate`
+- Curried: `addMinutes(minute)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/addMinutes/example.ts[3,11]}
+{@include date/addMinutes/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/addMinutes

@@ -1,17 +1,17 @@
-Checks whether a date is between two dates (exclusive).
+Checks whether a date is inside an exclusive range.
 
 **Supported call styles:**
-- Classic: `betweenThan(input, greater, less)` → returns a value
-- Curried: `betweenThan(greater, less)` → returns a function waiting for the input
+- Classic: `betweenThan(input, greater, less)` → `boolean`
+- Curried: `betweenThan(greater, less)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/betweenThan/example.ts[3,14]}
+{@include date/betweenThan/example.ts[3,13]}
 ```
 
 @remarks
-- Bounds are exclusive.
+- Exclusive bounds: `input > greater && input < less`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/betweenThan
 

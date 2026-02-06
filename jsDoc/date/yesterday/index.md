@@ -1,12 +1,13 @@
-Returns yesterday's date as TheDate.
+Returns an instant approximately one day before now as `TheDate`.
 
-Signature: `yesterday()` → returns a value
-
-The input value is not mutated.
+Signature: `yesterday()` → `TheDate`
 
 ```ts
-{@include date/yesterday/example.ts[3,5]}
+{@include date/yesterday/example.ts[3,8]}
 ```
+
+@remarks
+- Computed from current timestamp minus one day in milliseconds.
 
 @see https://utils.duplojs.dev/en/v1/api/date/yesterday
 

@@ -1,14 +1,17 @@
-Creates a data parser for TheDate values.
+Creates a classic parser for `TheDate` values.
 
-**Supported call styles:**
-- Classic: `DP.date(definition?)` -> returns a date parser
-- Curried: not available
+Signature: `DP.date(definition?)` → `DataParserDate`
 
-Validates that the input is a TheDate, optionally applies coerce, and runs the configured checkers.
+The parser accepts `TheDate`, `SerializedTheDate`, and native `Date`.
+With `coerce: true`, safe timestamps and parsable date strings are also supported.
 
 ```ts
-{@include dataParser/classic/date/example.ts[3,15]}
+{@include dataParser/classic/date/example.ts[3,18]}
 ```
+
+@remarks
+- Parsed output is always `TheDate`.
+- Use `DP.coerce.date()` when you want coercion enabled by default.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/date
 

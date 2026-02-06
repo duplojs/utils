@@ -1,13 +1,13 @@
-Subtracts a time duration from a Date and returns a new wrapped Date.
+Subtracts a duration from a wrapped `Date` and returns a wrapped `Date`.
 
 **Supported call styles:**
-- Classic: `dateSubtractTime(date, time)` -> returns a Date
-- Curried: `dateSubtractTime(time)` -> returns a function waiting for the date
+- Classic: `dateSubtractTime(date, time)` → `Date`
+- Curried: `dateSubtractTime(time)` → function waiting for the date
 
-Use it to move dates backward while keeping values wrapped.
+`time` accepts wrapped `Time` or raw `TheTime`.
 
 ```ts
-{@include clean/dateSubtractTime/example.ts[3,20]}
+{@include clean/dateSubtractTime/example.ts[3,16]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateSubtractTime

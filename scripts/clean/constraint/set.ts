@@ -12,6 +12,7 @@ export const constraintsSetHandlerKind = createCleanKind("constraints-set-handle
 export interface ConstraintsSetHandler<
 	GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [],
+	GenericPrimitiveInput extends unknown = unknown,
 > extends Kind<typeof constraintsSetHandlerKind.definition> {
 
 	/**
@@ -36,6 +37,28 @@ export interface ConstraintsSetHandler<
 			"createConstraintsSet",
 			(
 				& Primitive<GenericInput>
+				& UnionToIntersection<
+					GenericConstraintsHandler[number] extends infer InferredConstraint
+						? InferredConstraint extends ConstraintHandler
+							? GetConstraint<InferredConstraint>
+							: never
+						: never
+				>
+			)
+		>
+		| DEither.Left<
+			"createConstraintsSetError",
+			DDataParser.DataParserError
+		>
+	);
+
+	create(
+		data: GenericPrimitiveInput
+	): (
+		| DEither.Right<
+			"createConstraintsSet",
+			(
+				& Primitive<GenericPrimitiveValue>
 				& UnionToIntersection<
 					GenericConstraintsHandler[number] extends infer InferredConstraint
 						? InferredConstraint extends ConstraintHandler
@@ -84,6 +107,19 @@ export interface ConstraintsSetHandler<
 		data: GenericInput
 	): (
 		& Primitive<GenericInput>
+		& UnionToIntersection<
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? GetConstraint<InferredConstraint>
+					: never
+				: never
+		>
+	);
+
+	createOrThrow(
+		data: GenericPrimitiveInput
+	): (
+		& Primitive<GenericPrimitiveValue>
 		& UnionToIntersection<
 			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
@@ -203,6 +239,7 @@ export class CreateConstraintsSetError extends kindHeritage(
  */
 export function createConstraintsSet<
 	GenericPrimitiveValue extends EligiblePrimitive,
+	GenericPrimitiveInput extends unknown,
 	const GenericConstrainHandler extends(
 		| ConstraintHandler<
 			string,
@@ -232,13 +269,14 @@ export function createConstraintsSet<
 		]
 	) = never,
 >(
-	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>,
+	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,
 ): ConstraintsSetHandler<
 		GenericPrimitiveValue,
 		DArray.ArrayCoalescing<
 			GenericConstrainHandler
-		>
+		>,
+		GenericPrimitiveInput
 	> {
 	const constraints = DArray.coalescing(constraint);
 

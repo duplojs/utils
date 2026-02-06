@@ -1,29 +1,33 @@
-import { type Timezone } from "./timezone";
+import type { Timezone } from "./timezone";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 import { toNative } from "./toNative";
-import { type TheDate } from "./types";
 
 /**
  * {@include date/getTimezoneOffset/index.md}
  */
 export function getTimezoneOffset(
 	timeZone: Timezone,
-): (theDate: TheDate) => number;
+): (input: TheDate | SerializedTheDate) => number;
 
 export function getTimezoneOffset(
-	theDate: TheDate,
+	input: TheDate | SerializedTheDate,
 	timeZone: Timezone,
 ): number;
 
 export function getTimezoneOffset(
-	...args: [Timezone] | [TheDate, Timezone]
-): number | ((theDate: TheDate) => number) {
+	...args: [Timezone] | [TheDate | SerializedTheDate, Timezone]
+) {
 	if (args.length === 1) {
 		const [timeZone] = args;
-		return (theDate: TheDate) => getTimezoneOffset(theDate, timeZone);
+		return (input: TheDate | SerializedTheDate) => getTimezoneOffset(input, timeZone);
 	}
 
-	const [theDate, timeZone] = args;
-	const date = toNative(theDate);
+	const [input, timeZone] = args;
+
+	const date = input instanceof TheDate
+		? input
+		: toNative(input);
 
 	const fmt = new Intl.DateTimeFormat("en-US", {
 		timeZone,

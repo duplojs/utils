@@ -1,15 +1,10 @@
-Checks whether a time value is safe.
+Checks whether a time value is a safe integer inside supported time bounds.
 
-Signature: `isSafeTimeValue(input)` → returns a value
-
-The input value is not mutated.
+Signature: `isSafeTimeValue(timeValue)` → `boolean`
 
 ```ts
-{@include date/isSafeTimeValue/example.ts[3,10]}
+{@include date/isSafeTimeValue/example.ts[3,11]}
 ```
-
-@remarks
-- Checks for safe integers within the supported time range.
 
 @see https://utils.duplojs.dev/en/v1/api/date/isSafeTimeValue
 

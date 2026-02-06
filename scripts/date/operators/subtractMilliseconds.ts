@@ -1,35 +1,34 @@
-import { createTheDate } from "../createTheDate";
-import { toNative } from "../toNative";
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import { toTimestamp } from "../toTimestamp";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/subtractMilliseconds/index.md}
  */
 export function subtractMilliseconds<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMillisecond extends number,
 >(
 	millisecond: GenericMillisecond,
 ): (input: GenericInput) => TheDate;
 
 export function subtractMilliseconds<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMillisecond extends number,
 >(
 	input: GenericInput,
 	millisecond: GenericMillisecond,
 ): TheDate;
 
-export function subtractMilliseconds(...args: [TheDate, number] | [number]) {
+export function subtractMilliseconds(
+	...args: [TheDate | SerializedTheDate, number] | [number]
+) {
 	if (args.length === 1) {
 		const [millisecond] = args;
-		return (input: TheDate) => subtractMilliseconds(input, millisecond);
+		return (input: TheDate | SerializedTheDate) => subtractMilliseconds(input, millisecond);
 	}
 
 	const [input, millisecond] = args;
 
-	const date = toNative(input);
-	date.setTime(date.getTime() - millisecond);
-
-	return createTheDate(date.getTime());
+	return TheDate.new(toTimestamp(input) - millisecond);
 }

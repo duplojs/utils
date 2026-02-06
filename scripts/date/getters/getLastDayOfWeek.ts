@@ -1,10 +1,13 @@
+import type { SerializedTheDate } from "../types";
+import { TheDate } from "../theDate";
 import { toNative } from "../toNative";
-import type { TheDate } from "../types";
 
 /**
  * {@include date/getLastDayOfWeek/index.md}
  */
-export function getLastDayOfWeek(input: TheDate): TheDate {
+export function getLastDayOfWeek<
+	GenericInput extends TheDate | SerializedTheDate,
+>(input: GenericInput): TheDate {
 	const nativeDate = toNative(input);
 	const dayOfWeek = nativeDate.getUTCDay();
 	const daysToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
@@ -12,8 +15,5 @@ export function getLastDayOfWeek(input: TheDate): TheDate {
 	nativeDate.setUTCDate(nativeDate.getUTCDate() + daysToSunday);
 	nativeDate.setUTCHours(23, 59, 59, 999);
 
-	const timestamp = nativeDate.getTime();
-	const isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return TheDate.new(nativeDate.getTime());
 }

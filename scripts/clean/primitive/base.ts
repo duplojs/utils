@@ -1,9 +1,10 @@
-import { type AnyFunction, createErrorKind, createOverride, type Kind, kindHeritage, pipe, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
+import { type AnyFunction, createErrorKind, createOverride, type IsEqual, type Kind, kindHeritage, pipe, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
+import type * as DDate from "../../date";
 
-export type EligiblePrimitive = string | number | boolean | bigint;
+export type EligiblePrimitive = string | number | boolean | bigint | DDate.TheDate | DDate.TheTime;
 
 export interface Primitive<
 	GenericValue extends EligiblePrimitive,
@@ -15,8 +16,12 @@ export const primitiveHandlerKind = createCleanKind("primitive-handler");
 
 export interface PrimitiveHandler<
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
+	GenericInput extends unknown = unknown,
 > extends Kind<typeof primitiveHandlerKind.definition> {
-	readonly dataParser: DDataParser.Contract<GenericValue>;
+	readonly dataParser: DDataParser.Contract<
+		GenericValue,
+		unknown
+	>;
 
 	/**
 	 * {@include clean/primitive/create.md}
@@ -27,11 +32,24 @@ export interface PrimitiveHandler<
 		data: GenericData
 	): (
 		| DEither.Right<
-			"createNewType",
+			"createPrimitive",
 			Primitive<GenericData>
 		>
 		| DEither.Left<
-			"createNewTypeError",
+			"createPrimitiveError",
+			DDataParser.DataParserError
+		>
+	);
+
+	create(
+		data: GenericInput
+	): (
+		| DEither.Right<
+			"createPrimitive",
+			Primitive<GenericValue>
+		>
+		| DEither.Left<
+			"createPrimitiveError",
 			DDataParser.DataParserError
 		>
 	);
@@ -45,6 +63,10 @@ export interface PrimitiveHandler<
 		data: GenericData
 	): Primitive<GenericData>;
 
+	createOrThrow(
+		data: GenericInput
+	): Primitive<GenericValue>;
+
 	/**
 	 * {@include clean/primitive/createWithUnknown.md}
 	 */
@@ -54,11 +76,11 @@ export interface PrimitiveHandler<
 		data: GenericData
 	): (
 		| DEither.Right<
-			"createNewType",
+			"createPrimitive",
 			Primitive<GenericValue>
 		>
 		| DEither.Left<
-			"createNewTypeError",
+			"createPrimitiveError",
 			DDataParser.DataParserError
 		>
 	);
@@ -94,11 +116,14 @@ export class CreatePrimitiveError extends kindHeritage(
 }
 
 export function createPrimitive<
-	GenericDataParser extends DDataParser.Contract<EligiblePrimitive>,
+	GenericDataParser extends DDataParser.Contract<EligiblePrimitive, unknown>,
 >(
 	dataParser: GenericDataParser,
 ): PrimitiveHandler<
-		DDataParser.Output<GenericDataParser>
+		DDataParser.Output<GenericDataParser>,
+		IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
+			? never
+			: DDataParser.Input<GenericDataParser>
 	> {
 	function create(data: unknown) {
 		const result = dataParser.parse(data);

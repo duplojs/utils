@@ -1,15 +1,10 @@
-Checks whether a string is a TheTime.
+Checks whether a value is an instance of `TheTime`.
 
-Signature: `isTime(input)` → returns a value
-
-The input value is not mutated.
+Signature: `isTime(input)` → `input is TheTime`
 
 ```ts
 {@include date/isTime/example.ts[3,13]}
 ```
-
-@remarks
-- Validates the string format and the safe time range.
 
 @see https://utils.duplojs.dev/en/v1/api/date/isTime
 

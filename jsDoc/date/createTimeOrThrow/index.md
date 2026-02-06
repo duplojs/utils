@@ -1,16 +1,15 @@
-Creates a TheTime or throws on invalid input.
+Creates a `TheTime` and throws when input is invalid.
 
-Signature: `createTimeOrThrow(input)` → returns a value
-
-The input value is not mutated.
+Signature: `createTimeOrThrow(input)` → `TheTime`
 
 ```ts
-{@include date/createTimeOrThrow/example.ts[3,19]}
+{@include date/createTimeOrThrow/example.ts[3,16]}
 ```
 
 @remarks
-- Throws when the input cannot be converted to TheTime.
+- Throws `CreateTheTimeError` on invalid input.
 
 @see https://utils.duplojs.dev/en/v1/api/date/createTimeOrThrow
+@see https://utils.duplojs.dev/en/v1/api/date/createTime
 
 @namespace D

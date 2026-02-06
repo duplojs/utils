@@ -10,8 +10,8 @@ describe("DDataParser time checker max", () => {
 		const resultEqual = schema.parse(DDate.createTime(60, "second"));
 		const resultLess = schema.parse(DDate.createTime(30, "second"));
 
-		expect(resultEqual).toStrictEqual(DEither.success("time60000+"));
-		expect(resultLess).toStrictEqual(DEither.success("time30000+"));
+		expect(resultEqual).toStrictEqual(DEither.success(DDate.createTime(60, "second")));
+		expect(resultLess).toStrictEqual(DEither.success(DDate.createTime(30, "second")));
 
 		type checkEqual = ExpectType<
 			typeof resultEqual,

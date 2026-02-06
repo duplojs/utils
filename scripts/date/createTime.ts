@@ -1,11 +1,10 @@
 import { type IsEqual, type And } from "@scripts/common";
-import { isoTimeRegex, type maxTimeValue, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, type minTimeValue } from "./constants";
-import { createTheTime } from "./createTheTime";
+import { isoTimeRegex, type maxTimeValue, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, type minTimeValue, serializeTheTimeRegex } from "./constants";
 import { isSafeTimeValue } from "./isSafeTimeValue";
-import { type TheTime, type SpoolingTime } from "./types";
+import { type SerializedTheTime, type SpoolingTime } from "./types";
 import * as DEither from "@scripts/either";
 import { type IsGreater, type IsLess } from "@scripts/number";
-import { isTime } from "./isTime";
+import { TheTime } from "./theTime";
 
 export type MayBeTime = DEither.Right<"time-created", TheTime> | DEither.Left<"time-created-error", null>;
 
@@ -102,25 +101,42 @@ export function createTime<
 ): TheTime;
 
 export function createTime<
-	GenericInput extends number | TheTime | SpoolingTime,
+	GenericInput extends number | TheTime | SpoolingTime | SerializedTheTime,
 >(
 	input: GenericInput
 ): MayBeTime;
 
 export function createTime(
-	input: SpoolingTime | number | TheTime,
+	input: SpoolingTime | number | string | TheTime,
 	unit?: Units,
 ) {
-	if (typeof input === "number" && unit) {
-		return createTheTime(input * unitsMapper[unit]);
+	if (input instanceof TheTime) {
+		return input;
 	}
 
 	if (typeof input === "number") {
+		if (unit) {
+			return TheTime.new(input * unitsMapper[unit]);
+		}
 		return createFromTimeValue(input * unitsMapper[unit ?? "millisecond"]);
 	}
 
-	if (typeof input === "string" && isTime(input)) {
-		return input;
+	if (typeof input === "string") {
+		const serializeTheTimeMatch = input.match(serializeTheTimeRegex);
+
+		if (!serializeTheTimeMatch) {
+			return DEither.left("time-created-error", null);
+		}
+
+		const { value, sign } = serializeTheTimeMatch.groups as Record<"value" | "sign", string>;
+
+		return createFromTimeValue(
+			Number(
+				sign === "-"
+					? `-${value}`
+					: value,
+			),
+		);
 	}
 
 	const {
@@ -181,6 +197,6 @@ function createFromTimeValue(input: number): MayBeTime {
 
 	return DEither.right(
 		"time-created",
-		createTheTime(input),
+		TheTime.new(input),
 	);
 }

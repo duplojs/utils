@@ -1,16 +1,19 @@
-import { theDateRegex, theTimeRegex } from "./constants";
+import { serializeTheDateRegex } from "./constants";
 import { makeSafeTimestamp } from "./makeSafeTimestamp";
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 
 /**
  * {@include date/toTimestamp/index.md}
  */
 export function toTimestamp<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(input: GenericInput) {
-	const match = input.startsWith("date")
-		? input.match(theDateRegex)
-		: input.match(theTimeRegex);
+	if (input instanceof TheDate) {
+		return input.getTime();
+	}
+
+	const match = input.match(serializeTheDateRegex);
 	const { value, sign } = match!.groups as Record<"value" | "sign", string>;
 
 	return makeSafeTimestamp(

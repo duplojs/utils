@@ -9,4 +9,4 @@ const result = D.greater(input, threshold);
 pipe(
 	input,
 	D.greater(threshold),
-); // result: true
+); // true

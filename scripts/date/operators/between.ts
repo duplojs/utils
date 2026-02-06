@@ -1,28 +1,33 @@
+import { type TheDate } from "../theDate";
 import { toTimestamp } from "../toTimestamp";
-import type { TheDate } from "../types";
+import { type SerializedTheDate } from "../types";
 
 /**
  * {@include date/between/index.md}
  */
 export function between<
-	GenericValue extends TheDate,
+	GenericValue extends TheDate | SerializedTheDate,
 >(
-	greater: TheDate,
-	less: TheDate,
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate,
 ): (input: GenericValue) => boolean;
 
 export function between<
-	GenericValue extends TheDate,
+	GenericValue extends TheDate | SerializedTheDate,
 >(
 	input: GenericValue,
-	greater: TheDate,
-	less: TheDate,
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate,
 ): boolean;
 
-export function between(...args: [TheDate, TheDate] | [TheDate, TheDate, TheDate]) {
+export function between(
+	...args:
+	| [TheDate | SerializedTheDate, TheDate | SerializedTheDate]
+	| [TheDate | SerializedTheDate, TheDate | SerializedTheDate, TheDate | SerializedTheDate]
+) {
 	if (args.length === 2) {
 		const [greater, less] = args;
-		return (input: TheDate) => between(input, greater, less);
+		return (input: TheDate | SerializedTheDate) => between(input, greater, less);
 	}
 
 	const [input, greater, less] = args;

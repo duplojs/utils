@@ -7,6 +7,6 @@ describe("clean primitive timeMax", () => {
 
 	it("returns latest time in direct form", () => {
 		const result = DClean.timeMax([time01, time05, time10]);
-		expect(unwrap(result)).toBe(DDate.createTime(10, "second"));
+		expect(result).toStrictEqual(time10);
 	});
 });

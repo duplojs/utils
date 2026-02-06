@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction stringToMillisecond() convertit des durées exprimées sous forme de chaîne (\"10s\", \"2h\", \"1.5d\", etc.) ou de nombre en millisecondes. Elle lève une erreur typée si le format est invalide."
 prev:
-  text: "toString"
-  link: "/fr/v1/api/common/toString"
+  text: "memoPromise"
+  link: "/fr/v1/api/common/memoPromise"
 next:
   text: "stringToBytes"
   link: "/fr/v1/api/common/stringToBytes"

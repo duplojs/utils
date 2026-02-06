@@ -1,4 +1,4 @@
-import { DArray, type ExpectType, pipe, toString } from "@scripts";
+import { DArray, type ExpectType, pipe } from "@scripts";
 
 describe("join", () => {
 	it("join tuple with separator", () => {
@@ -30,7 +30,7 @@ describe("join", () => {
 	it("join array using pipe with separator", () => {
 		const result = pipe(
 			[1, 2, 3],
-			DArray.map(toString),
+			DArray.map(String),
 			DArray.join("-"),
 		);
 		expect(result).toBe("1-2-3");

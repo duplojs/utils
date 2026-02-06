@@ -1,14 +1,17 @@
-Subtracts years from a date.
+Subtracts a number of calendar years from a date.
 
 **Supported call styles:**
-- Classic: `subtractYears(input, year)` → returns a value
-- Curried: `subtractYears(year)` → returns a function waiting for the input
+- Classic: `subtractYears(input, year)` → `TheDate`
+- Curried: `subtractYears(year)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/subtractYears/example.ts[3,11]}
+{@include date/subtractYears/example.ts[3,13]}
 ```
+
+@remarks
+- Uses UTC year arithmetic (`Date#setUTCFullYear` behavior).
 
 @see https://utils.duplojs.dev/en/v1/api/date/subtractYears
 

@@ -1,13 +1,10 @@
 import { D } from "@scripts";
 
-const input = "time3600000+";
+const input = D.createTime(1, "hour") as unknown;
 
 if (D.isTime(input)) {
 	// input: TheTime
 }
 
-const result = D.isTime("time3600000-");
-// result: true
-
-const result2 = D.isTime("time99999999999999999+");
-// result2: false
+const result = D.isTime(D.create("2024-06-20"));
+// result: false

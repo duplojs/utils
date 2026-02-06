@@ -4,7 +4,7 @@ describe("addTime", () => {
 	it("adds a TheTime to a TheDate", () => {
 		const result = DDate.addTime("date1000+", "time2000+");
 
-		expect(result).toBe("date3000+");
+		expect(DDate.serialize(result)).toBe("date3000+");
 
 		type check = ExpectType<
 			typeof result,
@@ -16,13 +16,13 @@ describe("addTime", () => {
 	it("adds a negative TheTime to a TheDate", () => {
 		const result = DDate.addTime("date1000+", "time1500-");
 
-		expect(result).toBe("date500-");
+		expect(DDate.serialize(result)).toBe("date500-");
 	});
 
 	it("adds two TheTime values", () => {
 		const result = DDate.addTime("time1000+", "time500-");
 
-		expect(result).toBe("time500+");
+		expect(DDate.serialize(result)).toBe("time500+");
 
 		type check = ExpectType<
 			typeof result,
@@ -34,6 +34,6 @@ describe("addTime", () => {
 	it("use in pipe", () => {
 		const result = DDate.addTime("time1000+")("date2000+");
 
-		expect(result).toBe("date3000+");
+		expect(DDate.serialize(result)).toBe("date3000+");
 	});
 });
