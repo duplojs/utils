@@ -1,38 +1,34 @@
-import type { TheTime } from "../types";
+import type { TheTime } from "../theTime";
+import type { SerializedTheTime } from "../types";
 /**
- * Checks whether a time is greater than or equal to another.
+ * Checks whether a duration is greater than or equal to a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `greaterTime(input, threshold)` → returns a value
- * - Curried: `greaterTime(threshold)` → returns a function waiting for the input
+ * - Classic: `greaterTime(input, threshold)` → `boolean`
+ * - Curried: `greaterTime(threshold)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheTime` or `SerializedTheTime`.
  * 
  * ```ts
- * const input = "time2000+";
- * const threshold = "time1500+";
+ * const input = D.createTime(2, "hour");
+ * const threshold = D.createTime(90, "minute");
  * 
  * const result = D.greaterTime(input, threshold);
  * // result: true
  * 
- * if (D.greaterTime(input, threshold)) {
- * 	// input is greater or equal
- * }
- * 
- * const result2 = pipe(
+ * pipe(
  * 	input,
- * 	when(
- * 		D.greaterTime(threshold),
- * 		() => "ok",
- * 	),
- * );
- * // result2: "ok"
+ * 	D.greaterTime(threshold),
+ * ); // true
  * ```
+ * 
+ * @remarks
+ * - Inclusive comparison: `input >= threshold`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/greaterTime
  * 
  * @namespace D
  * 
  */
-export declare function greaterTime<GenericValue extends TheTime>(threshold: TheTime): (input: GenericValue) => boolean;
-export declare function greaterTime<GenericValue extends TheTime>(input: GenericValue, threshold: TheTime): boolean;
+export declare function greaterTime<GenericValue extends TheTime | SerializedTheTime>(threshold: TheTime | SerializedTheTime): (input: GenericValue) => boolean;
+export declare function greaterTime<GenericValue extends TheTime | SerializedTheTime>(input: GenericValue, threshold: TheTime | SerializedTheTime): boolean;

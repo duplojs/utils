@@ -1,33 +1,29 @@
 import { type Date, type Time } from "../../base";
 import { type TheTime } from "../../../../date";
 /**
- * Subtracts a time duration from a Date and returns a new wrapped Date.
+ * Subtracts a duration from a wrapped `Date` and returns a wrapped `Date`.
  * 
  * **Supported call styles:**
- * - Classic: `dateSubtractTime(date, time)` -> returns a Date
- * - Curried: `dateSubtractTime(time)` -> returns a function waiting for the date
+ * - Classic: `dateSubtractTime(date, time)` → `Date`
+ * - Curried: `dateSubtractTime(time)` → function waiting for the date
  * 
- * Use it to move dates backward while keeping values wrapped.
+ * `time` accepts wrapped `Time` or raw `TheTime`.
  * 
  * ```ts
  * const date = C.Date.createOrThrow(D.create("2024-01-02"));
- * const halfMinute = C.Time.createOrThrow(D.createTheTime(30_000));
+ * const halfMinute = C.Time.createOrThrow(D.createTime(30, "second"));
  * 
  * const earlier = C.dateSubtractTime(date, halfMinute);
  * // earlier: C.Date
  * 
  * const curried = pipe(
  * 	date,
- * 	C.dateSubtractTime(D.createTheTime(1_000)),
+ * 	C.dateSubtractTime(D.createTime(1, "second")),
  * );
  * // curried: C.Date
  * 
- * const mixed = C.dateSubtractTime(
- * 	C.Date.createOrThrow(D.create("2024-01-01")),
- * 	D.createTheTime(500),
- * );
+ * const mixed = C.dateSubtractTime(date, D.createTime(500, "millisecond"));
  * // mixed: C.Date
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateSubtractTime

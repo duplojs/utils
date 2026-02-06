@@ -1,26 +1,28 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { type Timezone } from "../timezone";
 /**
- * Returns the minute of a date.
+ * Returns the minute (`0` to `59`) for a date in a target timezone.
  * 
- * Signature: `getMinute(input, timezone)` → returns a value
+ * Signature: `getMinute(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
- * const input = D.create("2024-06-20");
- * const result = D.getMinute(input);
- * // result: 0
+ * const input = D.create("2024-06-20", {
+ * 	hour: "00",
+ * 	minute: "30",
+ * });
+ * const utcMinute = D.getMinute(input);
+ * // utcMinute: 30
  * 
- * const result2 = D.getMinute(input, "Europe/Madrid");
- * // result2: 0
+ * const tokyoMinute = D.getMinute(input, "Asia/Tokyo");
+ * // tokyoMinute: 30
  * 
  * pipe(
  * 	input,
- * 	D.getMinute,
- * ); // result: 0
- * 
+ * 	(value) => D.getMinute(value, "UTC"),
+ * ); // 30
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getMinute
@@ -28,4 +30,4 @@ import { type TheDate, type Timezone } from "..";
  * @namespace D
  * 
  */
-export declare function getMinute<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getMinute<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

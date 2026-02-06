@@ -4,15 +4,15 @@ import { toNative } from '../toNative.mjs';
  * {@include date/getDayOfMonth/index.md}
  */
 function getDayOfMonth(input, timezone = "UTC") {
-    const nativeDate = toNative(input);
+    const date = toNative(input);
     if (timezone === "UTC") {
-        return nativeDate.getUTCDate();
+        return date.getUTCDate();
     }
     const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
         day: "numeric",
     });
-    return Number(formatter.format(nativeDate));
+    return Number(formatter.format(date));
 }
 
 export { getDayOfMonth };

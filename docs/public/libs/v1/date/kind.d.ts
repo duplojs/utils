@@ -1,0 +1,1 @@
+export declare const createDateKind: <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & import("../string").ForbiddenString<GenericName, "@" | "/">) => import("../common").KindHandler<import("../common").KindDefinition<`@DuplojsUtilsDate/${GenericName}`, GenericKindValue>>;

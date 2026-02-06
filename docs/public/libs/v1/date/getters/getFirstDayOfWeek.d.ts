@@ -1,26 +1,33 @@
-import type { TheDate } from "../types";
+import type { SerializedTheDate } from "../types";
+import { TheDate } from "../theDate";
 /**
- * Returns the first day of week of a date.
+ * Returns the first day of the week for a date.
  * 
- * Signature: `getFirstDayOfWeek(input)` → returns a value
+ * Signature: `getFirstDayOfWeek(input)` → `TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-19");
- * const result = D.getFirstDayOfWeek(input);
- * // result: "date1718668800000+" (monday 17 june 2024)
+ * const firstDay = D.getFirstDayOfWeek(input);
+ * // firstDay: TheDate
+ * 
+ * const serialized = D.serialize(firstDay);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.getFirstDayOfWeek,
- * ); // result: "date1718668800000+" (monday 17 june 2024)
- * 
+ * ); // TheDate
  * ```
+ * 
+ * @remarks
+ * - The week starts on Monday.
+ * - The returned date is normalized to `00:00:00.000` in UTC.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getFirstDayOfWeek
  * 
  * @namespace D
  * 
  */
-export declare function getFirstDayOfWeek(input: TheDate): TheDate;
+export declare function getFirstDayOfWeek<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): TheDate;

@@ -15,15 +15,15 @@ const weekdayMapper = {
  * {@include date/getDayOfWeek/index.md}
  */
 function getDayOfWeek(input, timezone = "UTC") {
-    const nativeDate = toNative.toNative(input);
+    const date = toNative.toNative(input);
     if (timezone === "UTC") {
-        return nativeDate.getUTCDay();
+        return date.getUTCDay();
     }
     const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
         weekday: "long",
     });
-    const weekday = formatter.format(nativeDate);
+    const weekday = formatter.format(date);
     return weekdayMapper[weekday];
 }
 

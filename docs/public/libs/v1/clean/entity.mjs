@@ -1,15 +1,14 @@
 import { createCleanKind } from './kind.mjs';
 import { newTypeHandlerKind, newTypeKind } from './newType.mjs';
+import { asserts } from '../common/asserts.mjs';
 import { kindHeritage } from '../common/kind.mjs';
 import { pipe } from '../common/pipe.mjs';
-import { filter } from '../array/filter.mjs';
-import { isType } from '../common/isType.mjs';
 import { map } from '../array/map.mjs';
-import { entry } from '../object/entry.mjs';
 import { toTuple } from '../array/toTuple.mjs';
 import { first } from '../array/at/first.mjs';
 import { innerPipe } from '../common/innerPipe.mjs';
 import { when } from '../pattern/when.mjs';
+import { isType } from '../common/isType.mjs';
 import { exhaustive } from '../pattern/exhaustive.mjs';
 import { when as when$1 } from '../common/when.mjs';
 import { array } from '../dataParser/parsers/array/index.mjs';
@@ -22,13 +21,12 @@ import { entries } from '../object/entries.mjs';
 import { forward } from '../common/forward.mjs';
 import { createErrorKind } from '../common/errorKindNamespace.mjs';
 import { fromEntries } from '../object/fromEntries.mjs';
+import { entry } from '../object/entry.mjs';
 import { transform } from '../dataParser/parsers/transform.mjs';
 import { constrainedTypeKind } from './constraint/base.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
-import { otherwise } from '../pattern/otherwise.mjs';
-import { justReturn } from '../common/justReturn.mjs';
-import { union } from '../dataParser/parsers/union.mjs';
 import { minElements } from '../array/minElements.mjs';
+import { union } from '../dataParser/parsers/union.mjs';
 import { object } from '../dataParser/parsers/object/index.mjs';
 import { createOverride } from '../common/override.mjs';
 import { isLeft } from '../either/left/is.mjs';
@@ -59,7 +57,10 @@ function createEntity(name, getPropertiesDefinition) {
         return transform(simplePropertyDefinition.dataParser, (value) => constrainedTypeKind.setTo(newTypeKind.setTo(wrapValue(value), simplePropertyDefinition.name), constraintKindValue));
     }
     function unionPropertyDefinitionToDataParser(unionPropertyDefinition) {
-        return pipe(unionPropertyDefinition, map(simplePropertyDefinitionToDataParser), when(minElements(1), union), otherwise(justReturn(null)));
+        return pipe(unionPropertyDefinition, map(simplePropertyDefinitionToDataParser), (options) => {
+            asserts(options, minElements(1));
+            return union(options);
+        });
     }
     const params = {
         union: (...type) => ({ type }),
@@ -97,7 +98,7 @@ function createEntity(name, getPropertiesDefinition) {
             }
             return dataParser;
         }, when$1(() => definition.nullable === true, nullable))))), exhaustive),
-    ])), map(([key, value]) => value !== null && entry(key, value)), filter(isType("array")), fromEntries, object, (dataParser) => transform(dataParser, (value) => entityKind.setTo(value, name)));
+    ])), fromEntries, object, (dataParser) => transform(dataParser, (value) => entityKind.setTo(value, name)));
     function map$1(rawProperties) {
         const result = mapDataParser.parse(rawProperties);
         if (isLeft(result)) {

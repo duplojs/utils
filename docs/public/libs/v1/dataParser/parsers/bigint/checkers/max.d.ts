@@ -1,5 +1,5 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../base";
 export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerDefinition {
     max: bigint;
 }

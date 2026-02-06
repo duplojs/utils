@@ -1,5 +1,5 @@
-import { createOrThrow } from './createOrThrow.mjs';
 import { toTimestamp } from './toTimestamp.mjs';
+import { TheDate } from './theDate.mjs';
 
 function sort(...args) {
     if (args.length === 1) {
@@ -12,7 +12,7 @@ function sort(...args) {
         .sort(type === "DSC"
         ? (first, second) => second - first
         : (first, second) => first - second)
-        .map(createOrThrow);
+        .map(TheDate.new);
 }
 
 export { sort };

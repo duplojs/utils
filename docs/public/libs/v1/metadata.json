@@ -612,6 +612,15 @@
                 },
                 {
                   "name": "string.mjs"
+                },
+                {
+                  "name": "time.cjs"
+                },
+                {
+                  "name": "time.d.ts"
+                },
+                {
+                  "name": "time.mjs"
                 }
               ]
             },
@@ -1558,6 +1567,15 @@
         },
         {
           "name": "toWrappedValue.mjs"
+        },
+        {
+          "name": "transformer.cjs"
+        },
+        {
+          "name": "transformer.d.ts"
+        },
+        {
+          "name": "transformer.mjs"
         },
         {
           "name": "truthy.cjs"
@@ -3005,16 +3023,16 @@
               "name": "month.d.ts"
             },
             {
+              "name": "serializedTheDate.d.ts"
+            },
+            {
+              "name": "serializedTheTime.d.ts"
+            },
+            {
               "name": "spoolingDate.d.ts"
             },
             {
               "name": "spoolingTime.d.ts"
-            },
-            {
-              "name": "theDate.d.ts"
-            },
-            {
-              "name": "theTime.d.ts"
             },
             {
               "name": "time.d.ts"
@@ -3068,24 +3086,6 @@
         },
         {
           "name": "createOrThrow.mjs"
-        },
-        {
-          "name": "createTheDate.cjs"
-        },
-        {
-          "name": "createTheDate.d.ts"
-        },
-        {
-          "name": "createTheDate.mjs"
-        },
-        {
-          "name": "createTheTime.cjs"
-        },
-        {
-          "name": "createTheTime.d.ts"
-        },
-        {
-          "name": "createTheTime.mjs"
         },
         {
           "name": "createTime.cjs"
@@ -3178,6 +3178,24 @@
           "name": "isSafeTimeValue.mjs"
         },
         {
+          "name": "isSerializedTheDate.cjs"
+        },
+        {
+          "name": "isSerializedTheDate.d.ts"
+        },
+        {
+          "name": "isSerializedTheDate.mjs"
+        },
+        {
+          "name": "isSerializedTheTime.cjs"
+        },
+        {
+          "name": "isSerializedTheTime.d.ts"
+        },
+        {
+          "name": "isSerializedTheTime.mjs"
+        },
+        {
           "name": "isTime.cjs"
         },
         {
@@ -3185,6 +3203,15 @@
         },
         {
           "name": "isTime.mjs"
+        },
+        {
+          "name": "kind.cjs"
+        },
+        {
+          "name": "kind.d.ts"
+        },
+        {
+          "name": "kind.mjs"
         },
         {
           "name": "makeSafeTimestamp.cjs"
@@ -3259,6 +3286,15 @@
           "name": "round.mjs"
         },
         {
+          "name": "serialize.cjs"
+        },
+        {
+          "name": "serialize.d.ts"
+        },
+        {
+          "name": "serialize.mjs"
+        },
+        {
           "name": "sort.cjs"
         },
         {
@@ -3275,6 +3311,24 @@
         },
         {
           "name": "sortTimes.mjs"
+        },
+        {
+          "name": "theDate.cjs"
+        },
+        {
+          "name": "theDate.d.ts"
+        },
+        {
+          "name": "theDate.mjs"
+        },
+        {
+          "name": "theTime.cjs"
+        },
+        {
+          "name": "theTime.d.ts"
+        },
+        {
+          "name": "theTime.mjs"
         },
         {
           "name": "timezone.cjs"

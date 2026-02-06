@@ -1,23 +1,26 @@
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Adds days to a date.
+ * Adds a number of days to a date.
  * 
  * **Supported call styles:**
- * - Classic: `addDays(input, day)` → returns a value
- * - Curried: `addDays(day)` → returns a function waiting for the input
+ * - Classic: `addDays(input, day)` → `TheDate`
+ * - Curried: `addDays(day)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-15");
  * const result = D.addDays(input, 5);
- * // result: "date1718928000000+"
+ * // result: TheDate
+ * 
+ * const serialized = D.serialize(result);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.addDays(5),
- * ); // result: "date1718928000000+"
- * 
+ * ); // TheDate
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/addDays
@@ -25,5 +28,5 @@ import type { TheDate } from "../types";
  * @namespace D
  * 
  */
-export declare function addDays<GenericInput extends TheDate, GenericDay extends number>(day: GenericDay): (input: GenericInput) => TheDate;
-export declare function addDays<GenericInput extends TheDate, GenericDay extends number>(input: GenericInput, day: GenericDay): TheDate;
+export declare function addDays<GenericInput extends TheDate | SerializedTheDate, GenericDay extends number>(day: GenericDay): (input: GenericInput) => TheDate;
+export declare function addDays<GenericInput extends TheDate | SerializedTheDate, GenericDay extends number>(input: GenericInput, day: GenericDay): TheDate;

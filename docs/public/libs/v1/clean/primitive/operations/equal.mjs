@@ -6,7 +6,7 @@ function equal(...args) {
         return (input) => equal(input, value);
     }
     const [input, value] = args;
-    return unwrap(input) === unwrap(value);
+    return unwrap(input).toString() === unwrap(value).toString();
 }
 
 export { equal };

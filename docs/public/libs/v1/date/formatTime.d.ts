@@ -1,35 +1,36 @@
-import type { TheTime } from "./types";
+import { type TheTime } from "./theTime";
+import type { SerializedTheTime } from "./types";
 /**
- * Formats a time.
+ * Formats a duration value with custom time tokens.
  * 
  * **Supported call styles:**
- * - Classic: `formatTime(input, formatString)` → returns a value
- * - Curried: `formatTime(formatString)` → returns a function waiting for the input
+ * - Classic: `formatTime(input, formatString)` → `string`
+ * - Curried: `formatTime(formatString)` → `(input) => string`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheTime` or `SerializedTheTime`.
  * 
  * ```ts
- * const theTime = D.createTheTime(788_645_006);
- * const fullFormat = D.formatTime(theTime, "WW DD HH:mm:ss.SSS");
- * // fullFormat: "01 02 03:04:05.006"
+ * const input = D.createTime(788_645_006, "millisecond");
+ * const full = D.formatTime(input, "WW DD HH:mm:ss.SSS");
+ * // full: string
  * 
  * pipe(
- * 	theTime,
+ * 	input,
  * 	D.formatTime("HH:mm"),
- * ); // result: "03:04"
+ * ); // string
  * 
- * const negativeTime = D.createTheTime(-5_000);
- * const shortFormat = D.formatTime(negativeTime, "ss.SSS");
- * // shortFormat: "-05.000"
+ * const negative = D.createTime(-5_000, "millisecond");
+ * const short = D.formatTime(negative, "ss.SSS");
+ * // short: string
  * ```
  * 
  * @remarks
- * - Supports tokens: WW, DD, HH, mm, ss, SSS.
+ * - Supported tokens: `WW`, `DD`, `HH`, `mm`, `ss`, `SSS`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/formatTime
  * 
  * @namespace D
  * 
  */
-export declare function formatTime<GenericInput extends TheTime, GenericFormat extends string>(formatString: GenericFormat): (input: GenericInput) => string;
-export declare function formatTime<GenericInput extends TheTime, GenericFormat extends string>(input: GenericInput, formatString: GenericFormat): string;
+export declare function formatTime<GenericInput extends TheTime | SerializedTheTime, GenericFormat extends string>(formatString: GenericFormat): (input: GenericInput) => string;
+export declare function formatTime<GenericInput extends TheTime | SerializedTheTime, GenericFormat extends string>(input: GenericInput, formatString: GenericFormat): string;

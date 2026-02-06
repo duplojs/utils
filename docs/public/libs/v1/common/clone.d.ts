@@ -1,4 +1,4 @@
-import { type SimplifyTypeForce } from "../common/types/simplifyTypeForce";
+import { type SimplifyTypeForce } from "./types/simplifyTypeForce";
 /**
  * The clone() function performs a typed deep copy of a value while preserving its structure and types.
  * 

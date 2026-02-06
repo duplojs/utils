@@ -1,21 +1,23 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Converts a date to an ISO string.
+ * Converts a date value to ISO-8601 string.
  * 
- * Signature: `toISOString(input)` → returns a value
+ * Signature: `toISOString(input)` → `string`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
- * const input = D.create("2023-11-14");
- * const result = D.toISOString(input);
- * // result: "2023-11-14T00:00:00.000Z"
+ * const input = D.create("2024-06-20");
+ * const iso = D.toISOString(input);
+ * // iso: string
+ * 
+ * const iso2 = D.toISOString("date1718841600000+");
+ * // iso2: string
  * 
  * pipe(
  * 	input,
  * 	D.toISOString,
- * ); // result: "2023-11-14T00:00:00.000Z"
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/toISOString
@@ -23,4 +25,4 @@ import type { TheDate } from "./types";
  * @namespace D
  * 
  */
-export declare function toISOString<GenericInput extends TheDate>(input: GenericInput): string;
+export declare function toISOString<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): string;

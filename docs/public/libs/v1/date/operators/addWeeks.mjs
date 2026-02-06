@@ -1,6 +1,6 @@
 import { millisecondInOneWeek } from '../constants.mjs';
-import { createTheDate } from '../createTheDate.mjs';
-import { toNative } from '../toNative.mjs';
+import { TheDate } from '../theDate.mjs';
+import { toTimestamp } from '../toTimestamp.mjs';
 
 function addWeeks(...args) {
     if (args.length === 1) {
@@ -8,9 +8,10 @@ function addWeeks(...args) {
         return (input) => addWeeks(input, week);
     }
     const [input, week] = args;
-    const date = toNative(input);
-    date.setTime(date.getTime() + (week * millisecondInOneWeek));
-    return createTheDate(date.getTime());
+    const timestamp = input instanceof TheDate
+        ? input.getTime()
+        : toTimestamp(input);
+    return TheDate.new(timestamp + (week * millisecondInOneWeek));
 }
 
 export { addWeeks };

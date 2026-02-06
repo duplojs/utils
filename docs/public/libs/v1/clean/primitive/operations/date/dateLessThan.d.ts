@@ -1,22 +1,24 @@
 import { type Date } from "../../base";
 import { type TheDate } from "../../../../date";
 /**
- * Checks whether a Date is before a threshold.
+ * Checks whether a wrapped `Date` is strictly before a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `dateLessThan(date, threshold)` -> returns a boolean
- * - Curried: `dateLessThan(threshold)` -> returns a function waiting for the date
+ * - Classic: `dateLessThan(date, threshold)` → `boolean`
+ * - Curried: `dateLessThan(threshold)` → function waiting for the date
  * 
- * Use it to compare wrapped dates or raw TheDate values.
+ * `threshold` accepts wrapped `Date` or raw `TheDate`.
  * 
  * ```ts
  * const date = C.Date.createOrThrow(D.create("2024-02-29"));
  * const threshold = D.create("2024-03-01");
  * 
- * if (C.dateLessThan(date, threshold)) {
- * 	// date is before threshold
- * }
+ * const result = C.dateLessThan(date, threshold);
+ * // result: true
  * 
+ * pipe(
+ * 	date,
+ * 	C.dateLessThan(threshold),
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateLessThan

@@ -1,4 +1,31 @@
 import { type GetEnumValue } from "../common/enum";
+/**
+ * Provides the list of supported IANA timezone identifiers.
+ * 
+ * Signature: `timezone` → enum-like constant, `Timezone` → associated union type
+ * 
+ * Use these values with timezone-aware date functions (`getYear`, `format`, `applyTimezone`, etc.).
+ * 
+ * ```ts
+ * const input = D.create("2024-06-20", {
+ * 	hour: "12",
+ * });
+ * 
+ * const ParisTimezone = D.timezone["Europe/Paris"];
+ * // Timezone: "Europe/Paris"
+ * 
+ * const offset = D.getTimezoneOffset(input, "America/New_York");
+ * // offset: number
+ * ```
+ * 
+ * @remarks
+ * - Values follow the IANA timezone database naming.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/date/getTimezoneOffset
+ * 
+ * @namespace D
+ * 
+ */
 export declare const timezone: {
     "Africa/Abidjan": "Africa/Abidjan";
     "Africa/Accra": "Africa/Accra";

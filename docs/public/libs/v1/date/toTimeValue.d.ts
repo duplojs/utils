@@ -1,21 +1,23 @@
-import { type TheTime } from "./types";
+import { TheTime } from "./theTime";
+import type { SerializedTheTime } from "./types";
 /**
- * Converts a TheTime to a millisecond value.
+ * Converts a duration value to a numeric millisecond time value.
  * 
- * Signature: `toTimeValue(input)` → returns a value
+ * Signature: `toTimeValue(input)` → `number`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheTime` or `SerializedTheTime`.
  * 
  * ```ts
- * const input = D.createTheTime(90_000);
- * const result = D.toTimeValue(input);
- * // result: 90000
+ * const input = D.createTime(90_000, "millisecond");
+ * const value = D.toTimeValue(input);
+ * // value: number
  * 
- * const result2 = D.toTimeValue("time3600000-");
- * // result2: -3600000
+ * const value2 = D.toTimeValue("time3600000-");
+ * // value2: number
  * 
- * const result3 = D.toTimeValue("time90000+");
- * // result3: 90000
+ * pipe(
+ * 	input,
+ * 	D.toTimeValue,
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/toTimeValue
@@ -23,4 +25,4 @@ import { type TheTime } from "./types";
  * @namespace D
  * 
  */
-export declare function toTimeValue<GenericInput extends TheTime>(input: GenericInput): number;
+export declare function toTimeValue<GenericInput extends TheTime | SerializedTheTime>(input: GenericInput): number;

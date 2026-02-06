@@ -90,6 +90,7 @@ export interface ReservedKindNamespace {
     DuplojsUtilsBuilder: true;
     DuplojsUtilsError: true;
     DuplojsUtilsClean: true;
+    DuplojsUtilsDate: true;
 }
 type ForbiddenKindNamespace<GenericValue extends string> = (ForbiddenKindCharacters<GenericValue> & ForbiddenString<GenericValue, GetPropsWithValue<ReservedKindNamespace, true>>);
 /**

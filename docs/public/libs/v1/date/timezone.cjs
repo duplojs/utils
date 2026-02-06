@@ -2,6 +2,9 @@
 
 var _enum = require('../common/enum.cjs');
 
+/**
+ * {@include date/timezone/index.md}
+ */
 const timezone = _enum.createEnum([
     "Africa/Abidjan",
     "Africa/Accra",

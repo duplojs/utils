@@ -6,6 +6,9 @@ var kind = require('../../../kind.cjs');
 var lessTime = require('../../../../date/operators/lessTime.cjs');
 
 const checkerTimeMaxKind = kind.createDataParserKind("checker-time-max");
+/**
+ * {@include dataParser/classic/checkerTimeMax/index.md}
+ */
 function checkerTimeMax(max, definition = {}) {
     return base.dataParserCheckerInit(checkerTimeMaxKind, {
         definition: {

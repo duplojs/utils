@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type Unwrap, type NeverCoalescing, type DeepReadonly } from "..";
+import { type Kind, type WrappedValue, type Unwrap, type NeverCoalescing, type DeepReadonly, type IsEqual } from "..";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
@@ -10,7 +10,7 @@ type _NewType<GenericName extends string, GenericValue extends unknown, GenericC
 export interface NewType<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstraintsName extends string = never> extends _NewType<GenericName, GenericValue, GenericConstraintsName> {
 }
 export declare const newTypeHandlerKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type-handler", unknown>>;
-export interface NewTypeHandler<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly []> extends Kind<typeof newTypeHandlerKind.definition> {
+export interface NewTypeHandler<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly ConstraintHandler[], GenericInput extends unknown = unknown> extends Kind<typeof newTypeHandlerKind.definition> {
     /**
      * The NewType name used as the brand (for example "userId").
      * 
@@ -20,7 +20,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * The DataParser used to validate and transform raw inputs.
      * 
      */
-    readonly dataParser: DDataParser.Contract<GenericValue>;
+    readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
     /**
      * The list of constraints applied to this NewType.
      * 
@@ -35,6 +35,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * 
      */
     create<const GenericInput extends GenericValue>(data: GenericInput): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    create(data: GenericValue): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.Right<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstraintsHandler[number]["name"]>)> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
     /**
      * Creates a NewType value and throws on error. Works with raw values or primitives.
@@ -51,6 +52,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * 
      */
     createOrThrow<const GenericData extends GenericValue>(data: GenericData): NewType<GenericName, GenericData, GenericConstraintsHandler[number]["name"]>;
+    createOrThrow(data: GenericInput): NewType<GenericName, GenericValue, GenericConstraintsHandler[number]["name"]>;
     createOrThrow<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstraintsHandler[number]["name"]>);
     /**
      * Creates a NewType value from an unknown input and returns an Either.
@@ -150,9 +152,9 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstraintsHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | readonly [
     ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>,
     ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]
-]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstraintsHandler, readonly []>>>;
+]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstraintsHandler, readonly []>>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createNewType {
-    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly []>>;
+    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
 }
 export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constraints"][number]["name"]> : never, any>;
 export {};

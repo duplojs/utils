@@ -1,11 +1,11 @@
-import { createOrThrow } from './createOrThrow.mjs';
 import { toTimestamp } from './toTimestamp.mjs';
+import { TheDate } from './theDate.mjs';
 
 /**
  * {@include date/min/index.md}
  */
 function min(input) {
-    return createOrThrow(Math.min(...input.map(toTimestamp)));
+    return TheDate.new(Math.min(...input.map(toTimestamp)));
 }
 
 export { min };

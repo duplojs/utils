@@ -1,7 +1,7 @@
 import { loop } from '../generator/loop.mjs';
 import { millisecondsInOneDay, millisecondInOneHour, millisecondInOneMinute, millisecondsInOneSecond } from './constants.mjs';
 import { toTimestamp } from './toTimestamp.mjs';
-import { createOrThrow } from './createOrThrow.mjs';
+import { TheDate } from './theDate.mjs';
 
 const stepMapper = {
     millisecond: (timestamp, direction) => timestamp + direction,
@@ -30,7 +30,9 @@ function each(range, unit = "day") {
     const advanceTimestamp = stepMapper[unit];
     return loop(({ exit, next, previousOutput, }) => {
         if (!previousOutput) {
-            return next(range.start);
+            return range.start instanceof TheDate
+                ? next(range.start)
+                : next(TheDate.new(toTimestamp(range.start)));
         }
         const currentTimestamp = advanceTimestamp(toTimestamp(previousOutput), direction);
         const isWithinRange = direction === 1
@@ -38,10 +40,10 @@ function each(range, unit = "day") {
             : currentTimestamp > endTimestamp;
         if (!isWithinRange) {
             return exit(currentTimestamp === endTimestamp
-                ? createOrThrow(currentTimestamp)
+                ? TheDate.new(currentTimestamp)
                 : undefined);
         }
-        return next(createOrThrow(currentTimestamp));
+        return next(TheDate.new(currentTimestamp));
     });
 }
 

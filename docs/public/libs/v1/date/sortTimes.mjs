@@ -1,5 +1,5 @@
-import { createTheTime } from './createTheTime.mjs';
 import { toTimeValue } from './toTimeValue.mjs';
+import { TheTime } from './theTime.mjs';
 
 function sortTimes(...args) {
     if (args.length === 1) {
@@ -12,7 +12,7 @@ function sortTimes(...args) {
         .sort(type === "DSC"
         ? (first, second) => second - first
         : (first, second) => first - second)
-        .map(createTheTime);
+        .map(TheTime.new);
 }
 
 export { sortTimes };

@@ -1,23 +1,26 @@
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Adds minutes to a date.
+ * Adds a number of minutes to a date.
  * 
  * **Supported call styles:**
- * - Classic: `addMinutes(input, minute)` → returns a value
- * - Curried: `addMinutes(minute)` → returns a function waiting for the input
+ * - Classic: `addMinutes(input, minute)` → `TheDate`
+ * - Curried: `addMinutes(minute)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-20");
  * const result = D.addMinutes(input, 45);
- * // result: "date1718844300000+"
+ * // result: TheDate
+ * 
+ * const serialized = D.serialize(result);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.addMinutes(45),
- * ); // result: "date1718844300000+"
- * 
+ * ); // TheDate
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/addMinutes
@@ -25,5 +28,5 @@ import type { TheDate } from "../types";
  * @namespace D
  * 
  */
-export declare function addMinutes<GenericInput extends TheDate, GenericMinute extends number>(minute: GenericMinute): (input: GenericInput) => TheDate;
-export declare function addMinutes<GenericInput extends TheDate, GenericMinute extends number>(input: GenericInput, minute: GenericMinute): TheDate;
+export declare function addMinutes<GenericInput extends TheDate | SerializedTheDate, GenericMinute extends number>(minute: GenericMinute): (input: GenericInput) => TheDate;
+export declare function addMinutes<GenericInput extends TheDate | SerializedTheDate, GenericMinute extends number>(input: GenericInput, minute: GenericMinute): TheDate;

@@ -1,7 +1,7 @@
 'use strict';
 
-var createOrThrow = require('./createOrThrow.cjs');
 var toTimestamp = require('./toTimestamp.cjs');
+var theDate = require('./theDate.cjs');
 
 function sort(...args) {
     if (args.length === 1) {
@@ -14,7 +14,7 @@ function sort(...args) {
         .sort(type === "DSC"
         ? (first, second) => second - first
         : (first, second) => first - second)
-        .map(createOrThrow.createOrThrow);
+        .map(theDate.TheDate.new);
 }
 
 exports.sort = sort;

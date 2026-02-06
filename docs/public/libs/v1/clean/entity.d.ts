@@ -27,7 +27,14 @@ export type EntityProperties<GenericPropertiesDefinition extends EntityPropertie
     ] : readonly InferredValue[] : InferredValue) extends infer InferredValueWithArray ? IsEqual<GenericPropertiesDefinition[Prop]["nullable"], true> extends true ? InferredValueWithArray | null : InferredValueWithArray : never : never : unknown);
 }>;
 export type EntityRawProperties<GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition> = SimplifyTopLevel<{
-    readonly [Prop in keyof GenericPropertiesDefinition]: (GenericPropertiesDefinition[Prop] extends EntitySimplePropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]>> : GenericPropertiesDefinition[Prop] extends EntityUnionPropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop][number]>> : GenericPropertiesDefinition[Prop] extends EntityAdvancedPropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition ? GenericPropertiesDefinition[Prop]["type"][number] : GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition ? GenericPropertiesDefinition[Prop]["type"] : never>> extends infer InferredValue ? (Or<[
+    readonly [Prop in keyof GenericPropertiesDefinition]: (GenericPropertiesDefinition[Prop] extends EntitySimplePropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]>> : GenericPropertiesDefinition[Prop] extends EntityUnionPropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop][number]>> : GenericPropertiesDefinition[Prop] extends EntityAdvancedPropertyDefinition ? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition ? GenericPropertiesDefinition[Prop]["type"][number] : GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition ? GenericPropertiesDefinition[Prop]["type"] : never>> extends infer InferredValue ? (IsEqual<GenericPropertiesDefinition[Prop]["inArray"], true> extends true ? readonly InferredValue[] : GenericPropertiesDefinition[Prop]["inArray"] extends object ? GenericPropertiesDefinition[Prop]["inArray"]["min"] extends number ? readonly [
+        ...DArray.CreateTuple<InferredValue, GenericPropertiesDefinition[Prop]["inArray"]["min"]>,
+        ...InferredValue[]
+    ] : readonly InferredValue[] : InferredValue) extends infer InferredValueWithArray ? IsEqual<GenericPropertiesDefinition[Prop]["nullable"], true> extends true ? InferredValueWithArray | null : InferredValueWithArray : never : never : unknown);
+}>;
+type GetInputFromNewTypeHandler<GenericNewTypeHandler extends NewTypeHandler> = GenericNewTypeHandler extends NewTypeHandler<any, infer InferredValue, any, infer InferredInput> ? IsEqual<InferredInput, never> extends true ? InferredValue : InferredInput : never;
+export type PropertiesToMapOfEntity<GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition> = SimplifyTopLevel<{
+    readonly [Prop in keyof GenericPropertiesDefinition]: (GenericPropertiesDefinition[Prop] extends EntitySimplePropertyDefinition ? GetInputFromNewTypeHandler<GenericPropertiesDefinition[Prop]> : GenericPropertiesDefinition[Prop] extends EntityUnionPropertyDefinition ? GetInputFromNewTypeHandler<GenericPropertiesDefinition[Prop][number]> : GenericPropertiesDefinition[Prop] extends EntityAdvancedPropertyDefinition ? GetInputFromNewTypeHandler<GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition ? GenericPropertiesDefinition[Prop]["type"][number] : GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition ? GenericPropertiesDefinition[Prop]["type"] : never> extends infer InferredValue ? (Or<[
         IsEqual<GenericPropertiesDefinition[Prop]["inArray"], true>,
         IsExtends<GenericPropertiesDefinition[Prop]["inArray"], object>
     ]> extends true ? readonly InferredValue[] : InferredValue) extends infer InferredValueWithArray ? IsEqual<GenericPropertiesDefinition[Prop]["nullable"], true> extends true ? InferredValueWithArray | null : InferredValueWithArray : never : never : never);
@@ -47,11 +54,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * 
      */
     readonly propertiesDefinition: GenericPropertiesDefinition;
-    /**
-     * The DataParser derived from the properties definition. Useful to reuse validation outside entity creation.
-     * 
-     */
-    readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, EntityRawProperties<GenericPropertiesDefinition>>;
+    readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, unknown>;
     /**
      * Builds an entity from already typed properties.
      * 
@@ -70,7 +73,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      */
     "new"<const GenericProperties extends EntityProperties<GenericPropertiesDefinition>>(properties: GenericProperties): Entity<GenericName> & GenericProperties;
     /**
-     * Validates raw properties and returns an Either with the typed entity.
+     * Validates permissive raw properties and returns an Either with the typed entity.
      * 
      * ```ts
      * if (User.Entity.is(result)) {
@@ -85,9 +88,9 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * ```
      * 
      */
-    map(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): (DEither.Right<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.Left<"createEntityError", DDataParser.DataParserError>);
+    map(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>): (DEither.Right<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.Left<"createEntityError", DDataParser.DataParserError>);
     /**
-     * Validates raw properties and throws on error.
+     * Validates permissive raw properties and throws on error.
      * 
      * ```ts
      * const mapped = User.Entity.mapOrThrow({
@@ -99,7 +102,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * ```
      * 
      */
-    mapOrThrow(rawProperties: EntityRawProperties<GenericPropertiesDefinition>): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+    mapOrThrow(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
     /**
     * Checks if a value is an entity of this handler (type guard).
     * 
@@ -129,9 +132,9 @@ declare const CreateEntityError_base: new (params: {
     "@DuplojsUtilsError/create-entity-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../common").KindDefinition<"create-entity-error", unknown>, unknown> & Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown>;
 export declare class CreateEntityError extends CreateEntityError_base {
-    rawProperties: EntityRawProperties;
+    rawProperties: PropertiesToMapOfEntity;
     dataParserError: DDataParser.DataParserError;
-    constructor(rawProperties: EntityRawProperties, dataParserError: DDataParser.DataParserError);
+    constructor(rawProperties: PropertiesToMapOfEntity, dataParserError: DDataParser.DataParserError);
 }
 export interface PropertiesDefinitionParams {
     union<const GenericUnionPropertyDefinition extends EntityUnionPropertyDefinition>(...type: GenericUnionPropertyDefinition): {
@@ -216,7 +219,7 @@ export interface PropertiesDefinitionParams {
  * 
  * @remarks
  * - The definition callback can use helpers like `array`, `nullable`, and `union` to enrich properties.
- * - Use `map`/`mapOrThrow` to build from raw inputs; `new` expects already typed values.
+ * - Use `map`/`mapOrThrow` to build from raw inputs (with runtime constraint checks); `new` expects already typed values.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/entity
  * 

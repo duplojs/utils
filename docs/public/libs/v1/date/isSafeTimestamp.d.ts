@@ -1,28 +1,19 @@
 /**
- * Checks whether a timestamp is safe.
+ * Checks whether a timestamp is a safe integer inside supported date bounds.
  * 
- * Signature: `isSafeTimestamp(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `isSafeTimestamp(timestamp)` → `boolean`
  * 
  * ```ts
- * const input = 1_700_000_000_000;
- * const result = D.isSafeTimestamp(input);
- * // result: true
+ * const ok = D.isSafeTimestamp(1_700_000_000_000);
+ * // ok: true
  * 
- * const input2 = 9_000_000_000_000_000;
- * const result2 = D.isSafeTimestamp(input2);
- * // result2: false
+ * const tooLarge = D.isSafeTimestamp(9_000_000_000_000_000);
+ * // tooLarge: false
  * 
  * pipe(
- * 	input,
+ * 	1_700_000_000_000,
  * 	D.isSafeTimestamp,
- * ); // result: true
- * 
  * ```
- * 
- * @remarks
- * - Checks against the engine min/max timestamp limits.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/isSafeTimestamp
  * 

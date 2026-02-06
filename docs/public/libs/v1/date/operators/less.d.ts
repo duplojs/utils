@@ -1,12 +1,13 @@
-import type { TheDate } from "../types";
+import type { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Checks whether a date is less than or equal to another.
+ * Checks whether a date is less than or equal to a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `less(input, threshold)` → returns a value
- * - Curried: `less(threshold)` → returns a function waiting for the input
+ * - Classic: `less(input, threshold)` → `boolean`
+ * - Curried: `less(threshold)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const threshold = D.create("2024-06-20");
@@ -18,14 +19,16 @@ import type { TheDate } from "../types";
  * pipe(
  * 	input,
  * 	D.less(threshold),
- * ); // result: true
- * 
+ * ); // true
  * ```
+ * 
+ * @remarks
+ * - Inclusive comparison: `input <= threshold`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/less
  * 
  * @namespace D
  * 
  */
-export declare function less<GenericValue extends TheDate>(threshold: TheDate): (input: GenericValue) => boolean;
-export declare function less<GenericValue extends TheDate>(input: GenericValue, threshold: TheDate): boolean;
+export declare function less<GenericValue extends TheDate | SerializedTheDate>(threshold: TheDate | SerializedTheDate): (input: GenericValue) => boolean;
+export declare function less<GenericValue extends TheDate | SerializedTheDate>(input: GenericValue, threshold: TheDate | SerializedTheDate): boolean;

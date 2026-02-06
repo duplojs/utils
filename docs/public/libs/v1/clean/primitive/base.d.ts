@@ -1,12 +1,13 @@
-import { type Kind, type WrappedValue } from "../../common";
+import { type IsEqual, type Kind, type WrappedValue } from "../../common";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
-export type EligiblePrimitive = string | number | boolean | bigint;
+import type * as DDate from "../../date";
+export type EligiblePrimitive = string | number | boolean | bigint | DDate.TheDate | DDate.TheTime;
 export interface Primitive<GenericValue extends EligiblePrimitive> extends WrappedValue<GenericValue> {
 }
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
-export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive> extends Kind<typeof primitiveHandlerKind.definition> {
-    readonly dataParser: DDataParser.Contract<GenericValue>;
+export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {
+    readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
     /**
      * Creates a primitive value and returns an Either.
      * 
@@ -19,7 +20,8 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * ```
      * 
      */
-    create<GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createNewType", Primitive<GenericData>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    create<GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericData>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
+    create(data: GenericInput): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
     /**
      * Creates a primitive value and throws on error.
      * 
@@ -30,6 +32,7 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * 
      */
     createOrThrow<GenericData extends GenericValue>(data: GenericData): Primitive<GenericData>;
+    createOrThrow(data: GenericInput): Primitive<GenericValue>;
     /**
      * Creates a primitive value from an unknown input and returns an Either.
      * 
@@ -40,7 +43,7 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createNewType", Primitive<GenericValue>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
     /**
      * Creates a primitive value from an unknown input and throws on error.
      * 
@@ -73,6 +76,10 @@ export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
     dataParserError: DDataParser.DataParserError;
     constructor(data: unknown, dataParserError: DDataParser.DataParserError);
 }
+export declare function createPrimitive<GenericDataParser extends DDataParser.Contract<EligiblePrimitive, unknown>>(dataParser: GenericDataParser): PrimitiveHandler<DDataParser.Output<GenericDataParser>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare namespace createPrimitive {
+    var overrideHandler: import("../../common").OverrideHandler<PrimitiveHandler<EligiblePrimitive, unknown>>;
+}
 /**
  * Business primitive for string values.
  * 
@@ -104,7 +111,7 @@ export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
  * @namespace C
  * 
  */
-export declare const String: PrimitiveHandler<string>;
+export declare const String: PrimitiveHandler<string, never>;
 export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for number values.
@@ -137,7 +144,7 @@ export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Number: PrimitiveHandler<number>;
+export declare const Number: PrimitiveHandler<number, never>;
 export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for bigint values.
@@ -170,7 +177,7 @@ export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const BigInt: PrimitiveHandler<bigint>;
+export declare const BigInt: PrimitiveHandler<bigint, never>;
 export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for boolean values.
@@ -203,34 +210,28 @@ export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Boolean: PrimitiveHandler<boolean>;
+export declare const Boolean: PrimitiveHandler<boolean, never>;
 export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 /**
- * Business primitive for date values (TheDate).
+ * Business primitive for date values (`TheDate`).
  * 
  * **Supported call styles:**
- * - Classic: `Date.create(value)` -> returns Either
+ * - Classic: `Date.create(value)` → `Either`
  * 
- * Use it to avoid raw dates in the domain and to keep date operations typed and consistent.
- * 
- * Business primitives are an alternative to raw TypeScript strings and numbers.
- * Instead of manipulating bare values, each primitive is wrapped in a container.
- * Result: safer, more explicit data, better aligned with the domain.
+ * Use it to keep domain values wrapped instead of passing raw dates through business logic.
  * 
  * ```ts
  * const date = D.create("2024-01-01");
- * 
  * const result = C.Date.create(date);
  * 
  * if (E.isRight(result)) {
- * // result: E.Right<"createNewType", C.Primitive<D.TheDate>>
+ * 	// result: E.Right<"createNewType", C.Primitive<D.TheDate>>
  * }
  * 
  * const value = C.Date.createOrThrow(date);
  * // value: C.Primitive<D.TheDate>
  * 
  * C.Date.is(value); // type guard
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives
@@ -238,23 +239,18 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Date: PrimitiveHandler<`date${number}-` | `date${number}+`>;
+export declare const Date: PrimitiveHandler<DDate.TheDate, DDate.TheDate | `date${number}-` | `date${number}+` | globalThis.Date>;
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 /**
- * Business primitive for time values (TheTime).
+ * Business primitive for duration values (`TheTime`).
  * 
  * **Supported call styles:**
- * - Classic: `Time.create(value)` -> returns Either
+ * - Classic: `Time.create(value)` → `Either`
  * 
- * Use it to avoid raw durations in the domain and to keep time operations typed and consistent.
- * 
- * Business primitives are an alternative to raw TypeScript strings and numbers.
- * Instead of manipulating bare values, each primitive is wrapped in a container.
- * Result: safer, more explicit data, better aligned with the domain.
+ * Use it to keep normalized time values wrapped in the domain layer.
  * 
  * ```ts
- * const theTime = D.createTheTime(3_600_000);
- * 
+ * const theTime = D.createTime(1, "hour");
  * const result = C.Time.create(theTime);
  * 
  * if (E.isRight(result)) {
@@ -265,7 +261,6 @@ export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
  * // value: C.Primitive<D.TheTime>
  * 
  * C.Time.is(value); // type guard
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives
@@ -273,7 +268,7 @@ export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Time: PrimitiveHandler<`time${number}-` | `time${number}+`>;
+export declare const Time: PrimitiveHandler<DDate.TheTime, number | DDate.TheTime | `time${number}-` | `time${number}+`>;
 export type Time = ReturnType<typeof Time["createWithUnknownOrThrow"]>;
 export type Primitives = (String | Number | BigInt | Boolean | Date | Time);
 export type PrimitiveHandlers = (typeof String | typeof Number | typeof BigInt | typeof Boolean | typeof Date | typeof Time);

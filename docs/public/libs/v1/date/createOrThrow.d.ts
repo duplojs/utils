@@ -1,46 +1,44 @@
-import type { TheDate, SpoolingDate } from "./types";
+import type { SerializedTheDate, SpoolingDate } from "./types";
+import type { TheDate } from "./theDate";
 declare const CreateTheDateError_base: new (params: {
     "@DuplojsUtilsError/create-the-date-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../common").Kind<import("../common").KindDefinition<"create-the-date-error", unknown>, unknown> & import("../common").Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-the-date-error", unknown>, unknown>;
 export declare class CreateTheDateError extends CreateTheDateError_base {
-    input: string | Date | number | SpoolingDate;
-    constructor(input: string | Date | number | SpoolingDate);
+    input: string | Date | number | SpoolingDate | TheDate;
+    constructor(input: string | Date | number | SpoolingDate | TheDate);
 }
 /**
- * Creates a TheDate or throws on invalid input.
+ * Creates a `TheDate` and throws when input cannot be parsed or normalized.
  * 
- * Signature: `createOrThrow(input)` → returns a value
+ * Signature: `createOrThrow(input)` → `TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts the same runtime shapes as `create` (`Date`, `number`, `SerializedTheDate`, `SpoolingDate`, strings).
  * 
  * ```ts
- * const input = 1_700_000_000_000;
- * const result = D.createOrThrow(input);
- * // result: "date1700000000000+"
+ * const fromTimestamp = D.createOrThrow(1_700_000_000_000);
+ * // fromTimestamp: TheDate
  * 
- * const input2 = result;
- * const result2 = D.createOrThrow(input2);
- * // result2: "date1700000000000+"
+ * const fromSerialized = D.createOrThrow("date1700000000000+");
+ * // fromSerialized: TheDate
  * 
- * const input3 = new Date("2024-06-20T12:00:00Z");
- * const result3 = D.createOrThrow(input3);
- * // result3: "date1718884800000+"
+ * const fromDate = D.createOrThrow(new Date("2024-06-20T12:00:00Z"));
+ * // fromDate: TheDate
  * 
  * pipe(
- * 	input,
+ * 	fromTimestamp,
  * 	(value) => D.createOrThrow(value),
- * ); // result: "date1700000000000+"
- * 
+ * ); // TheDate
  * ```
  * 
  * @remarks
- * - Throws when the input cannot be converted to TheDate.
+ * - Throws `CreateTheDateError` on invalid input.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/createOrThrow
+ * @see https://utils.duplojs.dev/en/v1/api/date/create
  * 
  * @namespace D
  * 
  */
-export declare function createOrThrow<GenericInput extends TheDate | Date | number>(input: GenericInput): TheDate;
+export declare function createOrThrow<GenericInput extends TheDate | Date | number | SerializedTheDate>(input: GenericInput): TheDate;
 export declare function createOrThrow<GenericInput extends SpoolingDate>(input: GenericInput): TheDate;
 export {};

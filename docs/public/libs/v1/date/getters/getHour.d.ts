@@ -1,25 +1,27 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import type { Timezone } from "../timezone";
 /**
- * Returns the hour of a date.
+ * Returns the hour (`0` to `23`) for a date in a target timezone.
  * 
- * Signature: `getHour(input, timezone)` → returns a value
+ * Signature: `getHour(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
- * const input = D.create("2024-06-20");
- * const result = D.getHour(input);
- * // result: 0
+ * const input = D.create("2024-06-20", {
+ * 	hour: "00",
+ * });
+ * const utcHour = D.getHour(input);
+ * // utcHour: 0
  * 
- * const result2 = D.getHour(input, "America/Los_Angeles");
- * // result2: 17
+ * const laHour = D.getHour(input, "America/Los_Angeles");
+ * // laHour: 17
  * 
  * pipe(
  * 	input,
- * 	D.getHour,
- * ); // result: 0
+ * 	(value) => D.getHour(value, "UTC"),
+ * ); // 0
  * 
  * ```
  * 
@@ -28,4 +30,4 @@ import { type TheDate, type Timezone } from "..";
  * @namespace D
  * 
  */
-export declare function getHour<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getHour<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

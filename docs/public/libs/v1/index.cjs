@@ -62,6 +62,7 @@ var toCurriedPredicate = require('./common/toCurriedPredicate.cjs');
 var pipeCall = require('./common/pipeCall.cjs');
 var asserts = require('./common/asserts.cjs');
 var path = require('./common/path.cjs');
+var transformer = require('./common/transformer.cjs');
 
 
 
@@ -155,3 +156,7 @@ Object.defineProperty(exports, "Path", {
 	enumerable: true,
 	get: function () { return path.Path; }
 });
+exports.createTransformer = transformer.createTransformer;
+exports.toJSON = transformer.toJSON;
+exports.toNative = transformer.toNative;
+exports.transformer = transformer.transformer;

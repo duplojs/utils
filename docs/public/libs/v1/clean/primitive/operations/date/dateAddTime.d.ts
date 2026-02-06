@@ -1,33 +1,29 @@
 import { type Date, type Time } from "../../base";
 import { type TheTime } from "../../../../date";
 /**
- * Adds a time duration to a Date and returns a new wrapped Date.
+ * Adds a duration to a wrapped `Date` and returns a wrapped `Date`.
  * 
  * **Supported call styles:**
- * - Classic: `dateAddTime(date, time)` -> returns a Date
- * - Curried: `dateAddTime(time)` -> returns a function waiting for the date
+ * - Classic: `dateAddTime(date, time)` → `Date`
+ * - Curried: `dateAddTime(time)` → function waiting for the date
  * 
- * Use it to move dates forward while keeping values wrapped.
+ * `time` accepts wrapped `Time` or raw `TheTime`.
  * 
  * ```ts
  * const date = C.Date.createOrThrow(D.create("2024-01-01"));
- * const oneHour = C.Time.createOrThrow(D.createTheTime(3_600_000));
+ * const oneHour = C.Time.createOrThrow(D.createTime(1, "hour"));
  * 
  * const later = C.dateAddTime(date, oneHour);
  * // later: C.Date
  * 
  * const curried = pipe(
  * 	date,
- * 	C.dateAddTime(D.createTheTime(60_000)),
+ * 	C.dateAddTime(D.createTime(1, "minute")),
  * );
  * // curried: C.Date
  * 
- * const mixed = C.dateAddTime(
- * 	C.Date.createOrThrow(D.create("2024-01-02")),
- * 	D.createTheTime(500),
- * );
+ * const mixed = C.dateAddTime(date, D.createTime(500, "millisecond"));
  * // mixed: C.Date
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateAddTime

@@ -6,15 +6,15 @@ var toNative = require('../toNative.cjs');
  * {@include date/getMinute/index.md}
  */
 function getMinute(input, timezone = "UTC") {
-    const nativeDate = toNative.toNative(input);
+    const date = toNative.toNative(input);
     if (timezone === "UTC") {
-        return nativeDate.getUTCMinutes();
+        return date.getUTCMinutes();
     }
     const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
         minute: "numeric",
     });
-    return Number(formatter.format(nativeDate));
+    return Number(formatter.format(date));
 }
 
 exports.getMinute = getMinute;

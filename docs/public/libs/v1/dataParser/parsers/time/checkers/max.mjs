@@ -4,6 +4,9 @@ import { createDataParserKind } from '../../../kind.mjs';
 import { lessTime } from '../../../../date/operators/lessTime.mjs';
 
 const checkerTimeMaxKind = createDataParserKind("checker-time-max");
+/**
+ * {@include dataParser/classic/checkerTimeMax/index.md}
+ */
 function checkerTimeMax(max, definition = {}) {
     return dataParserCheckerInit(checkerTimeMaxKind, {
         definition: {

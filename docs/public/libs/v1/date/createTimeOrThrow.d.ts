@@ -1,45 +1,42 @@
-import type { SpoolingTime, TheTime } from "./types";
+import type { SerializedTheTime, SpoolingTime } from "./types";
+import { type TheTime } from "./theTime";
 declare const CreateTheTimeError_base: new (params: {
     "@DuplojsUtilsError/create-the-time-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../common").Kind<import("../common").KindDefinition<"create-the-time-error", unknown>, unknown> & import("../common").Kind<import("../common").KindDefinition<"@DuplojsUtilsError/create-the-time-error", unknown>, unknown>;
 export declare class CreateTheTimeError extends CreateTheTimeError_base {
-    input: TheTime | number | SpoolingTime;
-    constructor(input: TheTime | number | SpoolingTime);
+    input: TheTime | number | SpoolingTime | SerializedTheTime;
+    constructor(input: TheTime | number | SpoolingTime | SerializedTheTime);
 }
 /**
- * Creates a TheTime or throws on invalid input.
+ * Creates a `TheTime` and throws when input is invalid.
  * 
- * Signature: `createTimeOrThrow(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `createTimeOrThrow(input)` → `TheTime`
  * 
  * ```ts
- * const input = 90_000;
- * const result = D.createTimeOrThrow(input);
- * // result: "time90000+"
+ * const fromNumber = D.createTimeOrThrow(90_000);
+ * // fromNumber: TheTime
  * 
- * const input2 = "time3600000+";
- * const result2 = D.createTimeOrThrow(input2);
- * // result2: "time3600000+"
+ * const fromSerialized = D.createTimeOrThrow("time3600000+");
+ * // fromSerialized: TheTime
  * 
- * const input3 = {
+ * const fromSpooling = D.createTimeOrThrow({
  * 	hour: 1,
  * 	minute: 30,
- * };
- * const result3 = D.createTimeOrThrow(input3);
- * // result3: "time5400000+"
+ * });
+ * // fromSpooling: TheTime
  * 
  * pipe(
- * 	input,
+ * 	fromNumber,
  * ```
  * 
  * @remarks
- * - Throws when the input cannot be converted to TheTime.
+ * - Throws `CreateTheTimeError` on invalid input.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/createTimeOrThrow
+ * @see https://utils.duplojs.dev/en/v1/api/date/createTime
  * 
  * @namespace D
  * 
  */
-export declare function createTimeOrThrow(input: number | TheTime | SpoolingTime): TheTime;
+export declare function createTimeOrThrow(input: number | TheTime | SpoolingTime | SerializedTheTime): TheTime;
 export {};

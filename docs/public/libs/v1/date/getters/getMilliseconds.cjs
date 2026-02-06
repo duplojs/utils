@@ -6,8 +6,8 @@ var toNative = require('../toNative.cjs');
  * {@include date/getMilliseconds/index.md}
  */
 function getMilliseconds(input) {
-    const nativeDate = toNative.toNative(input);
-    return nativeDate.getUTCMilliseconds();
+    const date = toNative.toNative(input);
+    return date.getUTCMilliseconds();
 }
 
 exports.getMilliseconds = getMilliseconds;

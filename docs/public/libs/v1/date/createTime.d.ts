@@ -1,8 +1,9 @@
 import { type IsEqual, type And } from "../common";
 import { type maxTimeValue, type minTimeValue } from "./constants";
-import { type TheTime, type SpoolingTime } from "./types";
+import { type SerializedTheTime, type SpoolingTime } from "./types";
 import * as DEither from "../either";
 import { type IsGreater, type IsLess } from "../number";
+import { TheTime } from "./theTime";
 export type MayBeTime = DEither.Right<"time-created", TheTime> | DEither.Left<"time-created-error", null>;
 type Units = "week" | "day" | "hour" | "minute" | "second" | "millisecond";
 declare const SymbolForbiddenTime: unique symbol;
@@ -40,42 +41,42 @@ type ForbiddenTime<GenericInput extends number, GenericUnit extends Units> = IsE
     [SymbolForbiddenTime]: "Support that the weeks between -14892855 and 14892855.";
 } : GenericInput));
 /**
- * Creates a TheTime from a time value, unit, or spooling time input.
+ * Creates a `TheTime` (normalized duration) from numeric or structured inputs.
  * 
- * Signature: `createTime(input, unit?)` → returns a value
+ * Signature: `createTime(input, unit?)` → `TheTime | Either<"time-created", TheTime>`
  * 
- * The input value is not mutated.
+ * The return type depends on the overload:
+ * - Literal `number + unit` overload returns `TheTime` directly.
+ * - Runtime inputs (`number`, `SerializedTheTime`, `SpoolingTime`, `TheTime`) can return `Either`.
  * 
  * ```ts
- * const timeFromUnit = D.createTime(90, "minute");
- * // timeFromUnit: "time5400000+"
+ * const direct = D.createTime(90, "minute");
+ * // direct: TheTime
  * 
- * const mayBeTime = D.createTime({
- * 	hour: 1,
+ * const mayBeFromSerialized = D.createTime("time5400000+");
+ * // mayBeFromSerialized: Either<"time-created", TheTime>
+ * 
+ * const mayBeFromSpooling = D.createTime({
+ * 	value: "+01:30:00",
  * 	minute: 15,
  * });
- * // Either<"time-created", TheTime>
+ * // mayBeFromSpooling: Either<"time-created", TheTime>
  * 
- * const mayBeIso = D.createTime({
- * 	value: "+01:30:00",
- * });
- * // Either<"time-created", TheTime>
- * 
- * const piped = pipe(
+ * pipe(
  * 	120,
  * 	D.createTime,
- * );
- * // piped: Either<"time-created", TheTime>
+ * ); // Either<"time-created", TheTime>
  * ```
  * 
  * @remarks
- * - Returns an Either tagged "time-created" or "time-created-error" for unsafe inputs.
+ * - `TheTime` represents a duration, not a calendar date.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/createTime
+ * @see https://utils.duplojs.dev/en/v1/api/date/createTimeOrThrow
  * 
  * @namespace D
  * 
  */
 export declare function createTime<GenericInput extends number, GenericUnit extends Units = "millisecond">(input: GenericInput & ForbiddenTime<GenericInput, GenericUnit>, unit: GenericUnit): TheTime;
-export declare function createTime<GenericInput extends number | TheTime | SpoolingTime>(input: GenericInput): MayBeTime;
+export declare function createTime<GenericInput extends number | TheTime | SpoolingTime | SerializedTheTime>(input: GenericInput): MayBeTime;
 export {};

@@ -1,17 +1,17 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
-import { type TheDate } from "../../date";
+import * as DDate from "../../date";
 export interface DataParserDateCheckerCustom {
 }
-export type DataParserDateCheckers = (DataParserDateCheckerCustom[GetPropsWithValueExtends<DataParserDateCheckerCustom, DataParserChecker>] | CheckerRefineImplementation<TheDate>);
+export type DataParserDateCheckers = (DataParserDateCheckerCustom[GetPropsWithValueExtends<DataParserDateCheckerCustom, DataParserChecker>] | CheckerRefineImplementation<DDate.TheDate>);
 export interface DataParserDefinitionDate extends DataParserDefinition<DataParserDateCheckers> {
     readonly coerce: boolean;
 }
 export declare const dateKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>>;
-type _DataParserDate<GenericDefinition extends DataParserDefinitionDate> = (DataParser<GenericDefinition, TheDate, TheDate> & Kind<typeof dateKind.definition>);
+type _DataParserDate<GenericDefinition extends DataParserDefinitionDate> = (DataParser<GenericDefinition, DDate.TheDate, DDate.TheDate | Date | DDate.SerializedTheDate> & Kind<typeof dateKind.definition>);
 export interface DataParserDate<GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate> extends _DataParserDate<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserDateCheckers,
@@ -22,13 +22,12 @@ export interface DataParserDate<GenericDefinition extends DataParserDefinitionDa
     ], GenericChecker>): DataParserDate<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
- * Creates a data parser for TheDate values.
+ * Creates a classic parser for `TheDate` values.
  * 
- * **Supported call styles:**
- * - Classic: `DP.date(definition?)` -> returns a date parser
- * - Curried: not available
+ * Signature: `DP.date(definition?)` → `DataParserDate`
  * 
- * Validates that the input is a TheDate, optionally applies coerce, and runs the configured checkers.
+ * The parser accepts `TheDate`, `SerializedTheDate`, and native `Date`.
+ * With `coerce: true`, safe timestamps and parsable date strings are also supported.
  * 
  * ```ts
  * const parser = DP.date();
@@ -39,12 +38,19 @@ export interface DataParserDate<GenericDefinition extends DataParserDefinitionDa
  * }
  * 
  * const withCheckers = DP.date({
- * 	checkers: [DP.checkerRefine((value) => value !== "date0+")],
+ * 	checkers: [DP.checkerRefine((value) => value.getUTCFullYear() >= 2024)],
  * });
+ * const checked = withCheckers.parse("date1704067200000+");
+ * // checked: E.Error<DP.DataParserError> | E.Success<TheDate>
  * 
  * const coerceParser = DP.coerce.date();
  * const coerceResult = coerceParser.parse("2024-01-01T00:00:00.000Z");
+ * // coerceResult: E.Error<DP.DataParserError> | E.Success<TheDate>
  * ```
+ * 
+ * @remarks
+ * - Parsed output is always `TheDate`.
+ * - Use `DP.coerce.date()` when you want coercion enabled by default.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/date
  * 

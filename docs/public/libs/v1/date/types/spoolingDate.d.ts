@@ -1,6 +1,7 @@
+import type { TheDate } from "../theDate";
 import { type Timezone } from "../timezone";
 export interface SpoolingDate {
-    value: string | Date | number;
+    value: TheDate | string | Date | number;
     timezone?: Timezone;
     year?: number;
     month?: number;

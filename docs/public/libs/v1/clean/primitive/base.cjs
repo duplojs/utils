@@ -2,8 +2,8 @@
 
 var kind = require('../kind.cjs');
 var kind$1 = require('../../common/kind.cjs');
-var index = require('../../dataParser/parsers/string/index.cjs');
 var pipe = require('../../common/pipe.cjs');
+var index = require('../../dataParser/parsers/string/index.cjs');
 var index$1 = require('../../dataParser/parsers/number/index.cjs');
 var index$2 = require('../../dataParser/parsers/bigint/index.cjs');
 var boolean = require('../../dataParser/parsers/boolean.cjs');
@@ -93,4 +93,5 @@ exports.Date = Date;
 exports.Number = Number;
 exports.String = String;
 exports.Time = Time;
+exports.createPrimitive = createPrimitive;
 exports.primitiveHandlerKind = primitiveHandlerKind;

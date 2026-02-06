@@ -1,19 +1,19 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
 import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "../../../object";
-import { type TheTime } from "../../../date";
+import * as DDate from "../../../date";
 import { type DataParserCheckerTimeMax, type DataParserCheckerTimeMin } from "./checkers";
 export * from "./checkers";
 export interface DataParserTimeCheckerCustom {
 }
-export type DataParserTimeCheckers = (DataParserTimeCheckerCustom[GetPropsWithValueExtends<DataParserTimeCheckerCustom, DataParserChecker>] | CheckerRefineImplementation<TheTime> | DataParserCheckerTimeMax | DataParserCheckerTimeMin);
+export type DataParserTimeCheckers = (DataParserTimeCheckerCustom[GetPropsWithValueExtends<DataParserTimeCheckerCustom, DataParserChecker>] | CheckerRefineImplementation<DDate.TheTime> | DataParserCheckerTimeMax | DataParserCheckerTimeMin);
 export interface DataParserDefinitionTime extends DataParserDefinition<DataParserTimeCheckers> {
     readonly coerce: boolean;
 }
 export declare const timeKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>>;
-type _DataParserTime<GenericDefinition extends DataParserDefinitionTime> = (DataParser<GenericDefinition, TheTime, TheTime> & Kind<typeof timeKind.definition>);
+type _DataParserTime<GenericDefinition extends DataParserDefinitionTime> = (DataParser<GenericDefinition, DDate.TheTime, DDate.TheTime | number | DDate.SerializedTheTime> & Kind<typeof timeKind.definition>);
 export interface DataParserTime<GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime> extends _DataParserTime<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserTimeCheckers,
@@ -24,13 +24,12 @@ export interface DataParserTime<GenericDefinition extends DataParserDefinitionTi
     ], GenericChecker>): DataParserTime<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
- * Creates a data parser for TheTime values.
+ * Creates a classic parser for `TheTime` values.
  * 
- * **Supported call styles:**
- * - Classic: `DP.time(definition?)` -> returns a time parser
- * - Curried: not available
+ * Signature: `DP.time(definition?)` → `DataParserTime`
  * 
- * Validates that the input is a TheTime, optionally applies coerce, and runs the configured checkers.
+ * The parser accepts `TheTime`, `SerializedTheTime`, and safe numeric time values.
+ * With `coerce: true`, ISO-like time strings are also supported.
  * 
  * ```ts
  * const parser = DP.time();
@@ -41,12 +40,19 @@ export interface DataParserTime<GenericDefinition extends DataParserDefinitionTi
  * }
  * 
  * const withCheckers = DP.time({
- * 	checkers: [DP.checkerRefine((value) => value !== "time0+")],
+ * 	checkers: [DP.checkerRefine((value) => value.toNative() !== 0)],
  * });
+ * const checked = withCheckers.parse("time1000+");
+ * // checked: E.Error<DP.DataParserError> | E.Success<TheTime>
  * 
  * const coerceParser = DP.coerce.time();
  * const coerceResult = coerceParser.parse("10:20:00");
+ * // coerceResult: E.Error<DP.DataParserError> | E.Success<TheTime>
  * ```
+ * 
+ * @remarks
+ * - Parsed output is always `TheTime`.
+ * - Use `DP.coerce.time()` when you want string coercion enabled by default.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/time
  * 

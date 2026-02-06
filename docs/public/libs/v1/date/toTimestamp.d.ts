@@ -1,21 +1,23 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Converts a TheDate to a UTC timestamp.
+ * Converts a date value to UTC timestamp (milliseconds).
  * 
- * Signature: `toTimestamp(input)` → returns a value
+ * Signature: `toTimestamp(input)` → `number`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-20");
- * const result = D.toTimestamp(input);
- * // result: 1718841600000
+ * const timestamp = D.toTimestamp(input);
+ * // timestamp: number
+ * 
+ * const timestamp2 = D.toTimestamp("date1718841600000+");
+ * // timestamp2: number
  * 
  * pipe(
  * 	input,
  * 	D.toTimestamp,
- * ); // result: 1718841600000
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/toTimestamp
@@ -23,4 +25,4 @@ import type { TheDate } from "./types";
  * @namespace D
  * 
  */
-export declare function toTimestamp<GenericInput extends TheDate>(input: GenericInput): number;
+export declare function toTimestamp<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): number;

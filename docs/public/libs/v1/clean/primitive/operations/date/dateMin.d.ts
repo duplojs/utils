@@ -2,12 +2,12 @@ import { type TheDate } from "../../../../date";
 import { type Date } from "../../base";
 import { type AnyTuple } from "../../../../common";
 /**
- * Returns the earliest date from a tuple of Date values.
+ * Returns the earliest wrapped `Date` from a tuple.
  * 
  * **Supported call styles:**
- * - Classic: `dateMin(input)` -> returns a Date
+ * - Classic: `dateMin(input)` → `Date`
  * 
- * The input can mix wrapped Dates and raw TheDate values.
+ * `input` can mix wrapped `Date` and raw `TheDate` values.
  * 
  * ```ts
  * const earliest = C.dateMin([
@@ -16,13 +16,6 @@ import { type AnyTuple } from "../../../../common";
  * 	D.create("2024-04-01"),
  * ]);
  * // earliest: C.Date
- * 
- * const fromRaw = C.dateMin([
- * 	D.create("2024-01-05"),
- * 	D.create("2024-01-03"),
- * 	D.create("2024-01-10"),
- * ]);
- * // fromRaw: C.Date
  * 
  * const mixed = C.dateMin([
  * 	C.Date.createOrThrow(D.create("2024-01-08")),

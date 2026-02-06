@@ -1,7 +1,9 @@
-import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, TheDate, MonthWithDay, SpoolingDate } from "./types";
+import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "../either";
 import type * as DString from "../string";
 import { type And, type IsEqual, type Not, type IsExtends } from "../common";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types/serializedTheDate";
 export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>;
 type SafeDate = `${number}-${MonthWithDay}`;
 declare const SymbolForbiddenDate: unique symbol;
@@ -22,58 +24,42 @@ interface SafeDateParams {
     millisecond?: Millisecond;
 }
 /**
- * Creates a TheDate from various inputs.
+ * Creates a `TheDate` from date-like inputs.
  * 
- * Signature: `create(input)` → returns a value
+ * Signature: `create(input, params?)` → `TheDate | MaybeEither<TheDate>`
  * 
- * The input value is not mutated.
+ * The return type depends on the overload:
+ * - Safe literal date strings (`YYYY-MM-DD`) return `TheDate` directly.
+ * - Runtime inputs (`number`, `Date`, `SerializedTheDate`, `SpoolingDate`, other strings) return `Either`.
  * 
  * ```ts
- * // Either<"date-created", TheDate>
- * const mayBeDateFromNativeDate = D.create(
- * 	new Date("2024-06-20T12:00:00Z"),
- * );
+ * const direct = D.create("2024-02-29", {
+ * 	hour: "10",
+ * 	minute: "30",
+ * });
+ * // direct: TheDate
  * 
- * // Either<"date-created", TheDate>
- * const mayBeDateFromTimestamp = D.create(
- * 	1_700_000_000_000,
- * );
+ * const mayBeFromTimestamp = D.create(1_700_000_000_000);
+ * // mayBeFromTimestamp: Either.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>
  * 
- * // "date1709183400000+"
- * const dateFromSafeFormat = D.create(
- * 	"2024-02-29",
- * 	{
- * 		hour: "10",
- * 		minute: "30",
- * 	},
- * );
- * 
- * const dateWrongLeapYear = D.create(
- * 	// @ts-expect-error Safe with leap year.
- * 	"2023-02-29",
- * );
- * 
- * const dateWrongRangeYear = D.create(
- * 	// @ts-expect-error Safe against dates that fall outside the supported date range.
- * 	"-596126-12-30",
- * );
- * 
- * pipe(
- * 	"2024-02-29",
- * 	D.create,
- * ); // "date1709183400000+"
- * 
+ * const mayBeFromSpooling = D.create({
+ * 	value: "2024-06-20T12:00:00Z",
+ * 	timezone: "Europe/Paris",
+ * });
+ * // mayBeFromSpooling: Either<"date-created", TheDate>
  * ```
  * 
  * @remarks
- * - Returns an Either tagged "date-created" or "date-created-error" for invalid inputs.
+ * - Use this API when you want a non-throwing creation flow.
+ * - For throwing behavior, use `createOrThrow`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/create
+ * @see https://utils.duplojs.dev/en/v1/api/date/createOrThrow
  * 
  * @namespace D
  * 
  */
-export declare function create<GenericInput extends TheDate | Date | number>(input: GenericInput): MayBe;
+export declare function create<GenericInput extends TheDate | Date | number | SerializedTheDate>(input: GenericInput): MayBe;
 export declare function create<GenericInput extends SpoolingDate>(input: GenericInput): MayBe;
 export declare function create<GenericInput extends SafeDate>(input: GenericInput & ForbiddenDate<GenericInput>, params?: SafeDateParams): TheDate;
 export {};

@@ -1,23 +1,26 @@
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Subtracts hours from a date.
+ * Subtracts a number of hours from a date.
  * 
  * **Supported call styles:**
- * - Classic: `subtractHours(input, hour)` → returns a value
- * - Curried: `subtractHours(hour)` → returns a function waiting for the input
+ * - Classic: `subtractHours(input, hour)` → `TheDate`
+ * - Curried: `subtractHours(hour)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-20");
  * const result = D.subtractHours(input, 6);
- * // result: "date1718820000000+"
+ * // result: TheDate
+ * 
+ * const serialized = D.serialize(result);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.subtractHours(6),
- * ); // result: "date1718820000000+"
- * 
+ * ); // TheDate
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/subtractHours
@@ -25,5 +28,5 @@ import type { TheDate } from "../types";
  * @namespace D
  * 
  */
-export declare function subtractHours<GenericInput extends TheDate, GenericHour extends number>(hour: GenericHour): (input: GenericInput) => TheDate;
-export declare function subtractHours<GenericInput extends TheDate, GenericHour extends number>(input: GenericInput, hour: GenericHour): TheDate;
+export declare function subtractHours<GenericInput extends TheDate | SerializedTheDate, GenericHour extends number>(hour: GenericHour): (input: GenericInput) => TheDate;
+export declare function subtractHours<GenericInput extends TheDate | SerializedTheDate, GenericHour extends number>(input: GenericInput, hour: GenericHour): TheDate;

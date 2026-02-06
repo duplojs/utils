@@ -1,5 +1,6 @@
-import { createTheDate } from '../createTheDate.mjs';
-import { createTheTime } from '../createTheTime.mjs';
+import { isSerializedTheTime } from '../isSerializedTheTime.mjs';
+import { TheDate } from '../theDate.mjs';
+import { TheTime } from '../theTime.mjs';
 import { toTimestamp } from '../toTimestamp.mjs';
 import { toTimeValue } from '../toTimeValue.mjs';
 
@@ -9,11 +10,17 @@ function addTime(...args) {
         return (input) => addTime(input, time);
     }
     const [input, time] = args;
-    const timeTimestamp = toTimeValue(time);
-    if (input.startsWith("date")) {
-        return createTheDate(toTimestamp(input) + timeTimestamp);
+    const timeValue = toTimeValue(time);
+    if (input instanceof TheDate) {
+        const timestamp = toTimestamp(input);
+        return TheDate.new(timestamp + timeValue);
     }
-    return createTheTime(toTimeValue(input) + timeTimestamp);
+    if (input instanceof TheTime || isSerializedTheTime(input)) {
+        const inputTimeValue = toTimeValue(input);
+        return TheTime.new(inputTimeValue + timeValue);
+    }
+    const timestamp = toTimestamp(input);
+    return TheDate.new(timestamp + timeValue);
 }
 
 export { addTime };

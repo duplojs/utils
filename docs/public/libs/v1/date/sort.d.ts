@@ -1,33 +1,34 @@
-import { type SortType } from "../common";
-import { type TheDate } from "./types";
+import type { SortType } from "../common/types/sortType";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Sorts dates in ascending or descending order.
+ * Sorts date values and returns normalized `TheDate[]`.
  * 
  * **Supported call styles:**
- * - Classic: `sort(array, type)` → returns a value
- * - Curried: `sort(type)` → returns a function waiting for the input
- * 
- * The input value is not mutated.
+ * - Classic: `sort(array, type)` → `TheDate[]`
+ * - Curried: `sort(type)` → `(array) => TheDate[]`
  * 
  * ```ts
- * const input = [D.tomorrow(), D.yesterday(), D.today()] as const;
+ * const input = [
+ * 	D.create("2024-06-03"),
+ * 	"date1717286400000+",
+ * 	D.create("2024-06-01"),
+ * ] as const;
  * 
- * const result = D.sort(input, "ASC");
+ * const asc = D.sort(input, "ASC");
+ * // asc: TheDate[]
  * 
  * pipe(
  * 	input,
- * 	D.sort("ASC"),
- * );
- * 
  * ```
  * 
  * @remarks
- * - Sort order uses "ASC" or "DSC".
+ * - `type` is `"ASC"` or `"DSC"`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/sort
  * 
  * @namespace D
  * 
  */
-export declare function sort<GenericArray extends readonly TheDate[]>(type: SortType): (array: GenericArray) => TheDate[];
-export declare function sort<GenericArray extends readonly TheDate[]>(array: GenericArray, type: SortType): TheDate[];
+export declare function sort<GenericArray extends readonly (TheDate | SerializedTheDate)[]>(type: SortType): (array: GenericArray) => TheDate[];
+export declare function sort<GenericArray extends readonly (TheDate | SerializedTheDate)[]>(array: GenericArray, type: SortType): TheDate[];

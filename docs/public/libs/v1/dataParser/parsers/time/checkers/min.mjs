@@ -4,6 +4,9 @@ import { createDataParserKind } from '../../../kind.mjs';
 import { greaterTime } from '../../../../date/operators/greaterTime.mjs';
 
 const checkerTimeMinKind = createDataParserKind("checker-time-min");
+/**
+ * {@include dataParser/classic/checkerTimeMin/index.md}
+ */
 function checkerTimeMin(min, definition = {}) {
     return dataParserCheckerInit(checkerTimeMinKind, {
         definition: {

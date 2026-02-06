@@ -8,7 +8,7 @@ function equal(...args) {
         return (input) => equal(input, value);
     }
     const [input, value] = args;
-    return unwrap.unwrap(input) === unwrap.unwrap(value);
+    return unwrap.unwrap(input).toString() === unwrap.unwrap(value).toString();
 }
 
 exports.equal = equal;

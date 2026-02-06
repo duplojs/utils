@@ -6,15 +6,15 @@ var toNative = require('../toNative.cjs');
  * {@include date/getYear/index.md}
  */
 function getYear(input, timezone = "UTC") {
-    const nativeDate = toNative.toNative(input);
+    const date = toNative.toNative(input);
     if (timezone === "UTC") {
-        return nativeDate.getUTCFullYear();
+        return date.getUTCFullYear();
     }
     const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
         year: "numeric",
     });
-    return Number(formatter.format(nativeDate));
+    return Number(formatter.format(date));
 }
 
 exports.getYear = getYear;

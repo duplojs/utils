@@ -1,15 +1,15 @@
 'use strict';
 
-var toTimeValue = require('../../../../date/toTimeValue.cjs');
 var wrapValue = require('../../../../common/wrapValue.cjs');
-var createTheTime = require('../../../../date/createTheTime.cjs');
+var theTime = require('../../../../date/theTime.cjs');
 var unwrap = require('../../../../common/unwrap.cjs');
+var toTimeValue = require('../../../../date/toTimeValue.cjs');
 
 /**
  * {@include clean/timeMin/index.md}
  */
 function timeMin(input) {
-    return wrapValue.wrapValue(createTheTime.createTheTime(Math.min(...input.map(unwrap.unwrap).map(toTimeValue.toTimeValue))));
+    return wrapValue.wrapValue(theTime.TheTime.new(Math.min(...input.map(unwrap.unwrap).map(toTimeValue.toTimeValue))));
 }
 
 exports.timeMin = timeMin;

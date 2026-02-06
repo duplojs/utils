@@ -1,4 +1,4 @@
-import { createTheDate } from '../createTheDate.mjs';
+import { TheDate } from '../theDate.mjs';
 import { toNative } from '../toNative.mjs';
 
 function subtractYears(...args) {
@@ -9,7 +9,7 @@ function subtractYears(...args) {
     const [input, year] = args;
     const date = toNative(input);
     date.setUTCFullYear(date.getUTCFullYear() - year);
-    return createTheDate(date.getTime());
+    return TheDate.new(date.getTime());
 }
 
 export { subtractYears };

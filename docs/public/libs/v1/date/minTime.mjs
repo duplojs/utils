@@ -1,11 +1,11 @@
-import { createTheTime } from './createTheTime.mjs';
+import { TheTime } from './theTime.mjs';
 import { toTimeValue } from './toTimeValue.mjs';
 
 /**
  * {@include date/minTime/index.md}
  */
 function minTime(input) {
-    return createTheTime(Math.min(...input.map(toTimeValue)));
+    return TheTime.new(Math.min(...input.map(toTimeValue)));
 }
 
 export { minTime };

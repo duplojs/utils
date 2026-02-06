@@ -2,16 +2,15 @@
 
 var kind = require('./kind.cjs');
 var newType = require('./newType.cjs');
+var asserts = require('../common/asserts.cjs');
 var kind$1 = require('../common/kind.cjs');
 var pipe = require('../common/pipe.cjs');
-var filter = require('../array/filter.cjs');
-var isType = require('../common/isType.cjs');
 var map = require('../array/map.cjs');
-var entry = require('../object/entry.cjs');
 var toTuple = require('../array/toTuple.cjs');
 var first = require('../array/at/first.cjs');
 var innerPipe = require('../common/innerPipe.cjs');
 var when = require('../pattern/when.cjs');
+var isType = require('../common/isType.cjs');
 var exhaustive = require('../pattern/exhaustive.cjs');
 var when$1 = require('../common/when.cjs');
 var index = require('../dataParser/parsers/array/index.cjs');
@@ -24,13 +23,12 @@ var entries = require('../object/entries.cjs');
 var forward = require('../common/forward.cjs');
 var errorKindNamespace = require('../common/errorKindNamespace.cjs');
 var fromEntries = require('../object/fromEntries.cjs');
+var entry = require('../object/entry.cjs');
 var transform = require('../dataParser/parsers/transform.cjs');
 var base$1 = require('./constraint/base.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
-var otherwise = require('../pattern/otherwise.cjs');
-var justReturn = require('../common/justReturn.cjs');
-var union = require('../dataParser/parsers/union.cjs');
 var minElements = require('../array/minElements.cjs');
+var union = require('../dataParser/parsers/union.cjs');
 var index$1 = require('../dataParser/parsers/object/index.cjs');
 var override = require('../common/override.cjs');
 var is = require('../either/left/is.cjs');
@@ -61,7 +59,10 @@ function createEntity(name, getPropertiesDefinition) {
         return transform.transform(simplePropertyDefinition.dataParser, (value) => base$1.constrainedTypeKind.setTo(newType.newTypeKind.setTo(wrapValue.wrapValue(value), simplePropertyDefinition.name), constraintKindValue));
     }
     function unionPropertyDefinitionToDataParser(unionPropertyDefinition) {
-        return pipe.pipe(unionPropertyDefinition, map.map(simplePropertyDefinitionToDataParser), when.when(minElements.minElements(1), union.union), otherwise.otherwise(justReturn.justReturn(null)));
+        return pipe.pipe(unionPropertyDefinition, map.map(simplePropertyDefinitionToDataParser), (options) => {
+            asserts.asserts(options, minElements.minElements(1));
+            return union.union(options);
+        });
     }
     const params = {
         union: (...type) => ({ type }),
@@ -99,7 +100,7 @@ function createEntity(name, getPropertiesDefinition) {
             }
             return dataParser;
         }, when$1.when(() => definition.nullable === true, nullable.nullable))))), exhaustive.exhaustive),
-    ])), map.map(([key, value]) => value !== null && entry.entry(key, value)), filter.filter(isType.isType("array")), fromEntries.fromEntries, index$1.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name)));
+    ])), fromEntries.fromEntries, index$1.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name)));
     function map$1(rawProperties) {
         const result = mapDataParser.parse(rawProperties);
         if (is.isLeft(result)) {

@@ -1,23 +1,26 @@
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Subtracts milliseconds from a date.
+ * Subtracts a number of milliseconds from a date.
  * 
  * **Supported call styles:**
- * - Classic: `subtractMilliseconds(input, millisecond)` → returns a value
- * - Curried: `subtractMilliseconds(millisecond)` → returns a function waiting for the input
+ * - Classic: `subtractMilliseconds(input, millisecond)` → `TheDate`
+ * - Curried: `subtractMilliseconds(millisecond)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-20");
  * const result = D.subtractMilliseconds(input, 500);
- * // result: "date1718841599500+"
+ * // result: TheDate
+ * 
+ * const serialized = D.serialize(result);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.subtractMilliseconds(500),
- * ); // result: "date1718841599500+"
- * 
+ * ); // TheDate
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/subtractMilliseconds
@@ -25,5 +28,5 @@ import type { TheDate } from "../types";
  * @namespace D
  * 
  */
-export declare function subtractMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(millisecond: GenericMillisecond): (input: GenericInput) => TheDate;
-export declare function subtractMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(input: GenericInput, millisecond: GenericMillisecond): TheDate;
+export declare function subtractMilliseconds<GenericInput extends TheDate | SerializedTheDate, GenericMillisecond extends number>(millisecond: GenericMillisecond): (input: GenericInput) => TheDate;
+export declare function subtractMilliseconds<GenericInput extends TheDate | SerializedTheDate, GenericMillisecond extends number>(input: GenericInput, millisecond: GenericMillisecond): TheDate;

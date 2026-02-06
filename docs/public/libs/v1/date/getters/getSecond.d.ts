@@ -1,26 +1,28 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import type { TheDate } from "../theDate";
+import type { Timezone } from "../timezone";
 /**
- * Returns the second of a date.
+ * Returns the second (`0` to `59`) for a date in a target timezone.
  * 
- * Signature: `getSecond(input, timezone)` → returns a value
+ * Signature: `getSecond(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
- * const input = D.create("2024-06-20");
- * const result = D.getSecond(input);
- * // result: 0
+ * const input = D.create("2024-06-20", {
+ * 	hour: "00",
+ * 	minute: "00",
+ * 	second: "45",
+ * });
+ * const utcSecond = D.getSecond(input);
+ * // utcSecond: 45
  * 
- * const result2 = D.getSecond(input, "Asia/Seoul");
- * // result2: 0
+ * const londonSecond = D.getSecond(input, "Europe/London");
+ * // londonSecond: 45
  * 
  * pipe(
  * 	input,
- * 	D.getSecond,
- * ); // result: 0
- * 
+ * 	(value) => D.getSecond(value, "UTC"),
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getSecond
@@ -28,4 +30,4 @@ import { type TheDate, type Timezone } from "..";
  * @namespace D
  * 
  */
-export declare function getSecond<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getSecond<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

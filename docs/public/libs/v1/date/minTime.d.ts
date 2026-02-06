@@ -1,31 +1,23 @@
-import { type AnyTuple } from "../common";
-import { type TheTime } from "./types";
+import type { AnyTuple } from "../common/types/anyTuple";
+import { TheTime } from "./theTime";
+import type { SerializedTheTime } from "./types";
 /**
- * Returns the smallest time from an iterable.
+ * Returns the smallest duration from a tuple of time values.
  * 
- * Signature: `minTime(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `minTime(input)` → `TheTime`
  * 
  * ```ts
- * const result = D.minTime([
- * 	D.createTheTime(3_000),
- * 	D.createTheTime(1_000),
- * 	D.createTheTime(2_000),
- * ]);
- * // result: "time1000+"
+ * const value = D.minTime([
+ * 	D.createTime(3_000, "millisecond"),
+ * 	D.createTime(1_000, "millisecond"),
+ * 	"time2000+",
+ * ] as const);
+ * // value: TheTime
  * 
- * const result2 = D.minTime([
+ * const value2 = D.minTime([
  * 	"time3000-",
  * 	"time1000-",
  * ] as const);
- * // result2: "time3000-"
- * 
- * const result3 = D.minTime([
- * 	"time500+",
- * 	"time100+",
- * ] as const);
- * // result3: "time100+"
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/minTime
@@ -33,4 +25,4 @@ import { type TheTime } from "./types";
  * @namespace D
  * 
  */
-export declare function minTime<GenericInput extends AnyTuple<TheTime>>(input: GenericInput): `time${number}-` | `time${number}+`;
+export declare function minTime<GenericInput extends AnyTuple<TheTime | SerializedTheTime>>(input: GenericInput): TheTime;

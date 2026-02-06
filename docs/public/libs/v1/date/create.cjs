@@ -5,7 +5,7 @@ var isSafeTimestamp = require('./isSafeTimestamp.cjs');
 var applyTimezone = require('./applyTimezone.cjs');
 var is = require('./is.cjs');
 var toNative = require('./toNative.cjs');
-var createTheDate = require('./createTheDate.cjs');
+var theDate = require('./theDate.cjs');
 var create$1 = require('../either/right/create.cjs');
 var is$1 = require('../either/left/is.cjs');
 var create$2 = require('../either/left/create.cjs');
@@ -21,27 +21,37 @@ function create(input, params) {
     if (input instanceof Date) {
         return createFromTimestamp(input.getTime());
     }
-    if (typeof input === "string" && is.is(input)) {
-        return create$1.right("date-created", input);
+    const serializeTheDateMatch = typeof input === "string" && input.match(constants.serializeTheDateRegex);
+    if (serializeTheDateMatch) {
+        const { value, sign } = serializeTheDateMatch.groups;
+        return createFromTimestamp(Number(sign === "-"
+            ? `-${value}`
+            : value));
     }
     const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
     if (safeDateMatch) {
         const { year, monthWithDay } = safeDateMatch.groups;
         const date = new Date(`0000-${monthWithDay}T${params?.hour ?? "00"}:${params?.minute ?? "00"}:${params?.second ?? "00"}.${params?.millisecond ?? "000"}Z`);
         date.setUTCFullYear(Number(year));
-        const timestamp = date.getTime();
-        return `date${Math.abs(timestamp)}${timestamp < 0 ? "-" : "+"}`;
+        return theDate.TheDate.new(date.getTime());
     }
     if (typeof input === "object") {
         let inputValueResult = undefined;
-        if (input.value instanceof Date) {
+        const serializeTheDateMatch = typeof input.value === "string" && input.value.match(constants.serializeTheDateRegex);
+        if (serializeTheDateMatch) {
+            const { value, sign } = serializeTheDateMatch.groups;
+            inputValueResult = createFromTimestamp(Number(sign === "-"
+                ? `-${value}`
+                : value));
+        }
+        else if (is.is(input.value)) {
+            inputValueResult = create$1.right("date-created", input.value);
+        }
+        else if (input.value instanceof Date) {
             inputValueResult = createFromTimestamp(input.value.getTime());
         }
         else if (typeof input.value === "number") {
             inputValueResult = createFromTimestamp(input.value);
-        }
-        else if (is.is(input.value)) {
-            inputValueResult = create$1.right("date-created", input.value);
         }
         else {
             const isoDateMatch = input.value.match(constants.isoDateRegex);
@@ -77,7 +87,7 @@ function createFromTimestamp(input) {
     if (!isSafeTimestamp.isSafeTimestamp(input)) {
         return create$2.left("date-created-error", null);
     }
-    return create$1.right("date-created", createTheDate.createTheDate(input));
+    return create$1.right("date-created", theDate.TheDate.new(input));
 }
 
 exports.create = create;

@@ -1,26 +1,32 @@
-import type { TheDate } from "../types";
+import type { SerializedTheDate } from "../types";
+import { TheDate } from "../theDate";
 /**
- * Returns the first day of month of a date.
+ * Returns the first day of the month for a date.
  * 
- * Signature: `getFirstDayOfMonth(input)` → returns a value
+ * Signature: `getFirstDayOfMonth(input)` → `TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-19");
- * const result = D.getFirstDayOfMonth(input);
- * // result: "date1717200000000+" (1 June 2024)
+ * const firstDay = D.getFirstDayOfMonth(input);
+ * // firstDay: TheDate
+ * 
+ * const serialized = D.serialize(firstDay);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.getFirstDayOfMonth,
- * ); // result: "date1717200000000+" (1 June 2024)
- * 
+ * ); // TheDate
  * ```
+ * 
+ * @remarks
+ * - The returned date is normalized to `00:00:00.000` in UTC.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getFirstDayOfMonth
  * 
  * @namespace D
  * 
  */
-export declare function getFirstDayOfMonth(input: TheDate): TheDate;
+export declare function getFirstDayOfMonth<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): TheDate;

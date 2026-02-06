@@ -1,31 +1,34 @@
-import type { TheDate } from "../types";
+import type { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Checks whether a date is strictly greater than another.
+ * Checks whether a date is strictly greater than a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `greaterThan(input, threshold)` → returns a value
- * - Curried: `greaterThan(threshold)` → returns a function waiting for the input
+ * - Classic: `greaterThan(input, threshold)` → `boolean`
+ * - Curried: `greaterThan(threshold)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const threshold = D.create("2024-06-20");
  * const input = D.create("2024-06-20");
  * 
- * const predicate = D.greaterThan(input, threshold);
- * // result: true
+ * const result = D.greaterThan(input, threshold);
+ * // result: false
  * 
  * pipe(
  * 	input,
  * 	D.greaterThan(threshold),
- * ); // result: true
- * 
+ * ); // false
  * ```
+ * 
+ * @remarks
+ * - Strict comparison: `input > threshold`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/greaterThan
  * 
  * @namespace D
  * 
  */
-export declare function greaterThan<GenericValue extends TheDate>(threshold: TheDate): (input: GenericValue) => boolean;
-export declare function greaterThan<GenericValue extends TheDate>(input: GenericValue, threshold: TheDate): boolean;
+export declare function greaterThan<GenericValue extends TheDate | SerializedTheDate>(threshold: TheDate | SerializedTheDate): (input: GenericValue) => boolean;
+export declare function greaterThan<GenericValue extends TheDate | SerializedTheDate>(input: GenericValue, threshold: TheDate | SerializedTheDate): boolean;
