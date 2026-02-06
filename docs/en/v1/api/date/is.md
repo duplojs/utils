@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The is() function checks whether a value is an instance of TheDate. It acts as a type guard."
 prev:
-  text: "isSafeTimestamp"
-  link: "/en/v1/api/date/isSafeTimestamp"
+  text: "isSerializedTheTime"
+  link: "/en/v1/api/date/isSerializedTheTime"
 next:
   text: "isTime"
   link: "/en/v1/api/date/isTime"

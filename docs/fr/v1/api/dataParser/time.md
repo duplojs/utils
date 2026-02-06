@@ -40,7 +40,7 @@ En mode étendu (`DPE.time()`), les méthodes `.min(...)` et `.max(...)` ajouten
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/time/checkers.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="500px"
 />
 
 ### Mode étendu

@@ -5,8 +5,8 @@ prev:
   text: "simpleClone"
   link: "/fr/v1/api/common/simpleClone"
 next:
-  text: "globalStore"
-  link: "/fr/v1/api/common/globalStore"
+  text: "createTransformer"
+  link: "/fr/v1/api/common/createTransformer"
 ---
 
 # createEnum

@@ -224,7 +224,7 @@ Valide une durée strictement positive (>= 1 milliseconde) sur la primitive `C.T
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/positiveTime.doc.ts"
   majorVersion="v1"
-  height="145px"
+  height="271px"
 />
 
 ### `NegativeTime`
@@ -234,7 +234,7 @@ Valide une durée strictement négative (<= -1 milliseconde) sur la primitive `C
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/negativeTime.doc.ts"
   majorVersion="v1"
-  height="145px"
+  height="271px"
 />
 
 ## Voir aussi

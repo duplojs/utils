@@ -5,8 +5,8 @@ prev:
   text: "formatTime"
   link: "/en/v1/api/date/formatTime"
 next:
-  text: "is"
-  link: "/en/v1/api/date/is"
+  text: "serialize"
+  link: "/en/v1/api/date/serialize"
 ---
 
 # isSafeTimestamp

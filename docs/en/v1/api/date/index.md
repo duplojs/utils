@@ -90,6 +90,15 @@ Formats a `TheTime` using a custom format string.
 ### [isSafeTimestamp](/en/v1/api/date/isSafeTimestamp)
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.
 
+### [serialize](/en/v1/api/date/serialize)
+Converts `TheDate`/`TheTime` into `SerializedTheDate`/`SerializedTheTime`.
+
+### [isSerializedTheDate](/en/v1/api/date/isSerializedTheDate)
+Checks whether a string is a valid `SerializedTheDate`.
+
+### [isSerializedTheTime](/en/v1/api/date/isSerializedTheTime)
+Checks whether a string is a valid `SerializedTheTime`.
+
 ### [is](/en/v1/api/date/is)
 Checks whether a value is an instance of `TheDate` (type guard).
 

@@ -40,7 +40,7 @@ In extended mode (`DPE.time()`), `.min(...)` and `.max(...)` respectively add `c
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/time/checkers.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="500px"
 />
 
 ### Extended mode

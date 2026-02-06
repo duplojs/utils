@@ -163,6 +163,9 @@ Clone léger pour dupliquer rapidement une valeur sans logique avancée.
 ### [createEnum](/fr/v1/api/common/createEnum)
 Crée un enum string immuable avec helpers `has` et `toTuple`.
 
+### [createTransformer](/fr/v1/api/common/createTransformer)
+Crée un transformateur récursif à partir d'un nom de méthode (`toNative`, `toJSON`, méthodes custom).
+
 ### [globalStore](/fr/v1/api/common/globalStore)
 Store global typé (singleton par clé) avec accès lecture/écriture.
 

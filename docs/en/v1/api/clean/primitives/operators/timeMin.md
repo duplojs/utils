@@ -17,7 +17,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/operators/timeMin/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="320px"
 />
 
 ## Syntax
