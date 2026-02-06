@@ -4,4 +4,4 @@ const thresholdTime = D.createTime(60000, "millisecond");
 const inputTime = D.createTime(60000, "millisecond");
 
 const result = D.greaterThanTime(inputTime, thresholdTime);
-// result: true
+// result: false

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction greater() vérifie si un TheDate est strictement supérieur à un seuil."
+description: "La fonction greater() vérifie si un TheDate est supérieur ou égal à un seuil."
 prev:
   text: "subtractTime"
   link: "/fr/v1/api/date/subtractTime"
@@ -11,7 +11,7 @@ next:
 
 # greater
 
-La fonction **`greater()`** vérifie si un `TheDate` est strictement supérieur à un seuil.
+La fonction **`greater()`** vérifie si un `TheDate` est supérieur ou égal à un seuil.
 
 ## Exemple interactif
 
@@ -27,10 +27,10 @@ La fonction **`greater()`** vérifie si un `TheDate` est strictement supérieur 
 
 ```typescript
 function greater<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -38,20 +38,20 @@ function greater<
 
 ```typescript
 function greater<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
 - `threshold` : Date de comparaison.
-- `input` : Date testée (signature classique).
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-`true` si `input` est strictement après `threshold`.
+`true` si `input` est après ou égale à `threshold`.
 
 ## Voir aussi
 

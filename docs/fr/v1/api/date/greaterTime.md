@@ -10,7 +10,7 @@ next:
 
 # greaterTime
 
-La fonction **`greaterTime()`** vérifie si un `TheTime` est strictement supérieur à un seuil.
+La fonction **`greaterTime()`** vérifie si un `TheTime` est supérieur ou égal à un seuil.
 
 ## Exemple interactif
 
@@ -26,10 +26,10 @@ La fonction **`greaterTime()`** vérifie si un `TheTime` est strictement supéri
 
 ```typescript
 function greaterTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -37,20 +37,20 @@ function greaterTime<
 
 ```typescript
 function greaterTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
 - `threshold` : Durée de comparaison.
-- `input` : Durée testée (signature classique).
+- `input` : `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 
-`true` si `input` est strictement supérieure à `threshold`.
+`true` si `input` est supérieure ou égale à `threshold`.
 
 ## Voir aussi
 

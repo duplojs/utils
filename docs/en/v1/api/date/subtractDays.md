@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of days from a TheDate."
+description: "Subtracts a number of days from a TheDate."
 prev:
   text: "subtractWeeks"
   link: "/en/v1/api/date/subtractWeeks"
@@ -11,7 +11,7 @@ next:
 
 # subtractDays
 
-Subtracts a positive number of days from a `TheDate`.
+Subtracts a number of days from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of days from a `TheDate`.
 
 ```typescript
 function subtractDays<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericDay extends number
 >(
 	input: GenericInput,
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractDays<
 
 ```typescript
 function subtractDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `day`: Number of days to remove.
-- `input`: Source date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

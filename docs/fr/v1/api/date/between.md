@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Vérifie qu'un TheDate est strictement compris entre deux bornes (greater puis less)."
+description: "Vérifie qu'un TheDate est dans un intervalle inclusif entre deux bornes (greater puis less)."
 prev:
   text: "lessThan"
   link: "/fr/v1/api/date/lessThan"
@@ -11,7 +11,7 @@ next:
 
 # between
 
-Vérifie qu'un `TheDate` est strictement compris entre deux bornes (`greater` puis `less`).
+Vérifie qu'un `TheDate` est dans un intervalle inclusif entre deux bornes (`greater` puis `less`).
 
 ## Exemple interactif
 
@@ -27,11 +27,11 @@ Vérifie qu'un `TheDate` est strictement compris entre deux bornes (`greater` pu
 
 ```typescript
 function between<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -39,22 +39,22 @@ function between<
 
 ```typescript
 function between<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `greater` : Borne inférieure (exclusive).
-- `less` : Borne supérieure (exclusive).
-- `input` : Date à tester.
+- `greater` : Borne inférieure (inclusive).
+- `less` : Borne supérieure (inclusive).
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-`true` si l'entrée se situe strictement entre les deux bornes.
+`true` si l'entrée se situe dans l'intervalle [greater, less].
 
 ## Voir aussi
 

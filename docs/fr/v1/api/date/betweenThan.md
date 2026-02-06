@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Variante inclusive de between : vérifie qu'un TheDate se trouve entre deux bornes en incluant les extrêmes."
+description: "Variante exclusive de between : vérifie qu'un TheDate se trouve entre deux bornes en excluant les extrêmes."
 prev:
   text: "between"
   link: "/fr/v1/api/date/between"
@@ -11,7 +11,7 @@ next:
 
 # betweenThan
 
-Variante inclusive de [`between`](/fr/v1/api/date/between) : vérifie qu'un `TheDate` se trouve entre deux bornes en incluant les extrêmes.
+Variante exclusive de [`between`](/fr/v1/api/date/between) : vérifie qu'un `TheDate` se trouve entre deux bornes en excluant les extrêmes.
 
 ## Exemple interactif
 
@@ -27,11 +27,11 @@ Variante inclusive de [`between`](/fr/v1/api/date/between) : vérifie qu'un `The
 
 ```typescript
 function betweenThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -39,22 +39,22 @@ function betweenThan<
 
 ```typescript
 function betweenThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `greater` : Borne inférieure (inclusive).
-- `less` : Borne supérieure (inclusive).
-- `input` : Date testée.
+- `greater` : Borne inférieure (exclusive).
+- `less` : Borne supérieure (exclusive).
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-`true` si la date se situe dans l'intervalle `[greater, less]`.
+`true` si la date se situe dans l'intervalle `(greater, less)`.
 
 ## Voir aussi
 

@@ -10,7 +10,7 @@ next:
 
 # lessThanTime
 
-Vérifie qu'un `TheTime` est inférieur ou égal à un seuil.
+Vérifie qu'un `TheTime` est strictement inférieur à un seuil.
 
 ## Exemple interactif
 
@@ -26,10 +26,10 @@ Vérifie qu'un `TheTime` est inférieur ou égal à un seuil.
 
 ```typescript
 function lessThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -37,20 +37,20 @@ function lessThanTime<
 
 ```typescript
 function lessThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
 - `threshold` : Durée limite.
-- `input` : Durée à comparer.
+- `input` : `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 
-`true` si `input` est inférieure ou égale au seuil.
+`true` si `input` est strictement inférieure au seuil.
 
 ## Voir aussi
 

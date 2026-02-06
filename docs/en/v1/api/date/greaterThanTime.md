@@ -10,7 +10,7 @@ next:
 
 # greaterThanTime
 
-Checks whether a `TheTime` is greater than or equal to a threshold.
+Checks whether a `TheTime` is strictly greater than a threshold.
 
 ## Interactive example
 
@@ -26,10 +26,10 @@ Checks whether a `TheTime` is greater than or equal to a threshold.
 
 ```typescript
 function greaterThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -37,20 +37,20 @@ function greaterThanTime<
 
 ```typescript
 function greaterThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
 - `threshold`: Duration limit.
-- `input`: Duration to compare.
+- `input`: `TheTime` or `SerializedTheTime`.
 
 ## Return value
 
-`true` if `input` is greater than or equal to the threshold.
+`true` if `input` is strictly greater than the threshold.
 
 ## See also
 

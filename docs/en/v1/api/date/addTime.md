@@ -26,17 +26,17 @@ The **`addTime()`** function adds a `TheTime` duration to a `TheDate` or another
 
 ```typescript
 function addTime<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): TheDate
 
 function addTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): TheTime
 ```
 
@@ -44,22 +44,22 @@ function addTime<
 
 ```typescript
 function addTime<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): (input: GenericInput) => TheDate
 
 function addTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): (input: GenericInput) => TheTime
 ```
 
 ## Parameters
 
 - `time`: Duration to add as a `TheTime`.
-- `input`: `TheDate` or `TheTime` to adjust.
+- `input`: `TheDate`, `SerializedTheDate`, `TheTime`, or `SerializedTheTime` to adjust.
 
 ## Return value
 

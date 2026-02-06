@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Adds a positive number of hours to a TheDate without manipulating milliseconds directly."
+description: "Adds a number of hours to a TheDate without manipulating milliseconds directly."
 prev:
   text: "addDays"
   link: "/en/v1/api/date/addDays"
@@ -11,7 +11,7 @@ next:
 
 # addHours
 
-Adds a positive number of hours to a `TheDate` without manipulating milliseconds directly.
+Adds a number of hours to a `TheDate` without manipulating milliseconds directly.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Adds a positive number of hours to a `TheDate` without manipulating milliseconds
 
 ```typescript
 function addHours<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericHour extends number
 >(
 	input: GenericInput,
-	hour: PositiveNumber<GenericHour>
+	hour: GenericHour
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addHours<
 
 ```typescript
 function addHours<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericHour extends number
 >(
-	hour: PositiveNumber<GenericHour>
+	hour: GenericHour
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `hour`: Strictly positive number of hours.
-- `input`: `TheDate` to shift.
+- `hour`: Number of hours.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

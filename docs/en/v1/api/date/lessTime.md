@@ -10,7 +10,7 @@ next:
 
 # lessTime
 
-The **`lessTime()`** function checks if a `TheTime` is strictly less than a threshold.
+The **`lessTime()`** function checks if a `TheTime` is less than or equal to a threshold.
 
 ## Interactive example
 
@@ -26,10 +26,10 @@ The **`lessTime()`** function checks if a `TheTime` is strictly less than a thre
 
 ```typescript
 function lessTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -37,20 +37,20 @@ function lessTime<
 
 ```typescript
 function lessTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	threshold: TheTime
+	threshold: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
 - `threshold`: Duration limit.
-- `input`: Duration to compare.
+- `input`: `TheTime` or `SerializedTheTime`.
 
 ## Return value
 
-`true` if `input` is strictly less than the threshold.
+`true` if `input` is less than or equal to the threshold.
 
 ## See also
 

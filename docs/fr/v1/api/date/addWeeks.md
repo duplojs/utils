@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Ajoute un nombre positif de semaines (multiples de 7 jours) à un TheDate."
+description: "Ajoute un nombre de semaines (multiples de 7 jours) à un TheDate."
 prev:
-  text: "addMonths"
-  link: "/fr/v1/api/date/addMonths"
+ text: "addMonths"
+ link: "/fr/v1/api/date/addMonths"
 next:
-  text: "addDays"
-  link: "/fr/v1/api/date/addDays"
+ text: "addDays"
+ link: "/fr/v1/api/date/addDays"
 ---
 
 # addWeeks
 
-Ajoute un nombre positif de semaines (multiples de 7 jours) à un `TheDate`.
+Ajoute un nombre de semaines (multiples de 7 jours) à un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addWeeks/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/addWeeks/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Ajoute un nombre positif de semaines (multiples de 7 jours) à un `TheDate`.
 
 ```typescript
 function addWeeks<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericWeek extends number
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addWeeks<
 
 ```typescript
 function addWeeks<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericWeek extends number
 >(
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `week` : Nombre de semaines strictement positif.
-- `input` : Date à décaler.
+- `week` : Nombre de semaines .
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The sort() function sorts an array of TheDate according to the desired order (ASC or DSC) and returns a new sorted array."
+description: "The sort() function sorts an array of TheDate or SerializedTheDate according to the desired order (ASC or DSC) and returns a new sorted array."
 prev:
   text: "betweenThanTime"
   link: "/en/v1/api/date/betweenThanTime"
@@ -11,7 +11,7 @@ next:
 
 # sort
 
-The **`sort()`** function sorts an array of `TheDate` according to the desired order (`ASC` or `DSC`) and returns a new sorted array.
+The **`sort()`** function sorts an array of `TheDate` or `SerializedTheDate` according to the desired order (`ASC` or `DSC`) and returns a new sorted array.
 
 ## Interactive example
 
@@ -27,7 +27,7 @@ The **`sort()`** function sorts an array of `TheDate` according to the desired o
 
 ```typescript
 function sort<
-  GenericArray extends readonly TheDate[],
+  GenericArray extends readonly (TheDate | SerializedTheDate)[],
 >(
   array: GenericArray,
   type: SortType,
@@ -38,7 +38,7 @@ function sort<
 
 ```typescript
 function sort<
-  GenericArray extends readonly TheDate[],
+  GenericArray extends readonly (TheDate | SerializedTheDate)[],
 >(
   type: SortType,
 ): (array: GenericArray) => TheDate[]
@@ -46,7 +46,7 @@ function sort<
 
 ## Parameters
 
-- `array`: Array of dates in `TheDate` format.
+- `array`: array of `TheDate` or `SerializedTheDate` values.
 - `type`: Sort order, `"ASC"` for ascending, `"DSC"` for descending.
 
 ## Return value

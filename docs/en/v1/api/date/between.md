@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Checks that a TheDate is strictly between two bounds (greater then less)."
+description: "Checks that a TheDate is in an inclusive range between two bounds (greater then less)."
 prev:
   text: "lessThan"
   link: "/en/v1/api/date/lessThan"
@@ -11,7 +11,7 @@ next:
 
 # between
 
-Checks that a `TheDate` is strictly between two bounds (`greater` then `less`).
+Checks that a `TheDate` is in an inclusive range between two bounds (`greater` then `less`).
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Checks that a `TheDate` is strictly between two bounds (`greater` then `less`).
 
 ```typescript
 function between<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -39,22 +39,22 @@ function between<
 
 ```typescript
 function between<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	greater: TheDate,
-	less: TheDate
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
-- `greater`: Lower bound (exclusive).
-- `less`: Upper bound (exclusive).
-- `input`: Date to test.
+- `greater`: Lower bound (inclusive).
+- `less`: Upper bound (inclusive).
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 
-`true` if the input lies strictly between the two bounds.
+`true` if the input lies in the inclusive range [greater, less].
 
 ## See also
 

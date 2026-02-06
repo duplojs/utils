@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of hours from a TheDate."
+description: "Subtracts a number of hours from a TheDate."
 prev:
   text: "subtractDays"
   link: "/en/v1/api/date/subtractDays"
@@ -11,7 +11,7 @@ next:
 
 # subtractHours
 
-Subtracts a positive number of hours from a `TheDate`.
+Subtracts a number of hours from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of hours from a `TheDate`.
 
 ```typescript
 function subtractHours<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericHour extends number
 >(
 	input: GenericInput,
-	hour: PositiveNumber<GenericHour>
+	hour: GenericHour
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractHours<
 
 ```typescript
 function subtractHours<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericHour extends number
 >(
-	hour: PositiveNumber<GenericHour>
+	hour: GenericHour
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `hour`: Hours to remove.
-- `input`: Target date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of weeks from a TheDate."
+description: "Subtracts a number of weeks from a TheDate."
 prev:
   text: "subtractMonths"
   link: "/en/v1/api/date/subtractMonths"
@@ -11,7 +11,7 @@ next:
 
 # subtractWeeks
 
-Subtracts a positive number of weeks from a `TheDate`.
+Subtracts a number of weeks from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of weeks from a `TheDate`.
 
 ```typescript
 function subtractWeeks<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericWeek extends number
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractWeeks<
 
 ```typescript
 function subtractWeeks<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericWeek extends number
 >(
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `week`: Number of weeks to remove.
-- `input`: Target date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

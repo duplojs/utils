@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Soustrait un nombre positif de jours d'un TheDate."
+description: "Soustrait un nombre de jours d'un TheDate."
 prev:
-  text: "subtractWeeks"
-  link: "/fr/v1/api/date/subtractWeeks"
+ text: "subtractWeeks"
+ link: "/fr/v1/api/date/subtractWeeks"
 next:
-  text: "subtractHours"
-  link: "/fr/v1/api/date/subtractHours"
+ text: "subtractHours"
+ link: "/fr/v1/api/date/subtractHours"
 ---
 
 # subtractDays
 
-Soustrait un nombre positif de jours d'un `TheDate`.
+Soustrait un nombre de jours d'un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/subtractDays/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/subtractDays/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Soustrait un nombre positif de jours d'un `TheDate`.
 
 ```typescript
 function subtractDays<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericDay extends number
 >(
 	input: GenericInput,
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractDays<
 
 ```typescript
 function subtractDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
 - `day` : Nombre de jours à retirer.
-- `input` : Date source.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

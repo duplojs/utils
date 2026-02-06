@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Ajoute un nombre positif de jours à un TheDate."
+description: "Ajoute un nombre de jours à un TheDate."
 prev:
-  text: "addWeeks"
-  link: "/fr/v1/api/date/addWeeks"
+ text: "addWeeks"
+ link: "/fr/v1/api/date/addWeeks"
 next:
-  text: "addHours"
-  link: "/fr/v1/api/date/addHours"
+ text: "addHours"
+ link: "/fr/v1/api/date/addHours"
 ---
 
 # addDays
 
-Ajoute un nombre positif de jours à un `TheDate`.
+Ajoute un nombre de jours à un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addDays/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/addDays/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Ajoute un nombre positif de jours à un `TheDate`.
 
 ```typescript
 function addDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
 	input: GenericInput,
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addDays<
 
 ```typescript
 function addDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `day` : Nombre de jours strictement positif.
-- `input` : Date `TheDate`.
+- `day` : Nombre de jours .
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

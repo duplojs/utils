@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "La fonction addYears() ajoute un nombre positif d'années à un TheDate. Elle accepte une signature currifiée pour composer des transformations."
+description: "La fonction addYears() ajoute un nombre d'années à un TheDate. Elle accepte une signature currifiée pour composer des transformations."
 prev:
-  text: "getLastDayOfMonth"
-  link: "/fr/v1/api/date/getLastDayOfMonth"
+ text: "getLastDayOfMonth"
+ link: "/fr/v1/api/date/getLastDayOfMonth"
 next:
-  text: "addMonths"
-  link: "/fr/v1/api/date/addMonths"
+ text: "addMonths"
+ link: "/fr/v1/api/date/addMonths"
 ---
 
 # addYears
 
-La fonction **`addYears()`** ajoute un nombre positif d'années à un `TheDate`. Elle accepte une signature currifiée pour composer des transformations.
+La fonction **`addYears()`** ajoute un nombre d'années à un `TheDate`. Elle accepte une signature currifiée pour composer des transformations.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addYears/tryout.doc.ts"
-  majorVersion="v1"
-  height="229px"
+ src="/examples/v1/api/date/addYears/tryout.doc.ts"
+ majorVersion="v1"
+ height="229px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ La fonction **`addYears()`** ajoute un nombre positif d'années à un `TheDate`.
 
 ```typescript
 function addYears<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericYear extends number
 >(
 	input: GenericInput,
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addYears<
 
 ```typescript
 function addYears<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericYear extends number
 >(
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `year` : Nombre d'années strictement positif (`PositiveNumber`).
-- `input` : Date `TheDate` à modifier (dans la version classique).
+- `year` : Nombre d'années.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

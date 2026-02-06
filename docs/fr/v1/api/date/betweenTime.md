@@ -10,7 +10,7 @@ next:
 
 # betweenTime
 
-Vérifie qu'un `TheTime` est strictement compris entre deux bornes (`greater` puis `less`).
+Vérifie qu'un `TheTime` est dans un intervalle inclusif entre deux bornes (`greater` puis `less`).
 
 ## Exemple interactif
 
@@ -26,11 +26,11 @@ Vérifie qu'un `TheTime` est strictement compris entre deux bornes (`greater` pu
 
 ```typescript
 function betweenTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -38,22 +38,22 @@ function betweenTime<
 
 ```typescript
 function betweenTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `greater` : Borne inférieure (exclusive).
-- `less` : Borne supérieure (exclusive).
-- `input` : Durée à tester.
+- `greater` : Borne inférieure (inclusive).
+- `less` : Borne supérieure (inclusive).
+- `input` : `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 
-`true` si l'entrée se situe strictement entre les deux bornes.
+`true` si l'entrée se situe dans l'intervalle [greater, less].
 
 ## Voir aussi
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of months from a TheDate."
+description: "Subtracts a number of months from a TheDate."
 prev:
   text: "subtractYears"
   link: "/en/v1/api/date/subtractYears"
@@ -11,7 +11,7 @@ next:
 
 # subtractMonths
 
-Subtracts a positive number of months from a `TheDate`.
+Subtracts a number of months from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of months from a `TheDate`.
 
 ```typescript
 function subtractMonths<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMonth extends number
 >(
 	input: GenericInput,
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractMonths<
 
 ```typescript
 function subtractMonths<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMonth extends number
 >(
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `month`: Number of months to subtract.
-- `input`: Source date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The greater() function checks whether a TheDate is strictly greater than a threshold."
+description: "The greater() function checks whether a TheDate is greater than or equal to a threshold."
 prev:
   text: "subtractTime"
   link: "/en/v1/api/date/subtractTime"
@@ -11,7 +11,7 @@ next:
 
 # greater
 
-The **`greater()`** function checks whether a `TheDate` is strictly greater than a threshold.
+The **`greater()`** function checks whether a `TheDate` is greater than or equal to a threshold.
 
 ## Interactive example
 
@@ -27,10 +27,10 @@ The **`greater()`** function checks whether a `TheDate` is strictly greater than
 
 ```typescript
 function greater<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -38,20 +38,20 @@ function greater<
 
 ```typescript
 function greater<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
 - `threshold`: Comparison date.
-- `input`: Date under test (classic signature).
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 
-`true` if `input` is strictly after `threshold`.
+`true` if `input` is after or equal to `threshold`.
 
 ## See also
 
