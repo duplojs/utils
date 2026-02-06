@@ -25,17 +25,17 @@ La fonction **`getMonth()`** renvoie le mois (1–12) correspondant à un `TheDa
 
 ```typescript
 function getMonth<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Paramètres
 
-- `input` : `TheDate` à analyser.
-- `timezone` : (Optionnel) fuseau IANA.
+- `input` : `TheDate` ou `SerializedTheDate`.
+- `timezone` : Fuseau horaire IANA. Par défaut : `"UTC"`.
 
 ## Valeur de retour
 

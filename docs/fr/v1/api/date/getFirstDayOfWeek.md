@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getFirstDayOfWeek() retourne le lundi correspondant à la semaine du TheDate fourni."
+description: "La fonction getFirstDayOfWeek() retourne le lundi de la semaine pour un TheDate ou un SerializedTheDate."
 prev:
   text: "getMilliseconds"
   link: "/fr/v1/api/date/getMilliseconds"
@@ -11,7 +11,7 @@ next:
 
 # getFirstDayOfWeek
 
-La fonction **`getFirstDayOfWeek()`** retourne le lundi correspondant à la semaine du `TheDate` fourni.
+La fonction **`getFirstDayOfWeek()`** retourne le lundi correspondant à la semaine du `TheDate` ou `SerializedTheDate` fourni.
 
 ## Exemple interactif
 
@@ -24,18 +24,20 @@ La fonction **`getFirstDayOfWeek()`** retourne le lundi correspondant à la sema
 ## Syntaxe
 
 ```typescript
-function getFirstDayOfWeek(
-	input: TheDate
+function getFirstDayOfWeek<
+	GenericInput extends TheDate | SerializedTheDate
+>(
+	input: GenericInput
 ): TheDate
 ```
 
 ## Paramètres
 
-- `input` : Date `TheDate` dont on veut connaître le premier jour de la semaine.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-Un `TheDate` représentant le lundi de la même semaine.
+Un `TheDate` représentant le lundi de la même semaine, normalisé à `00:00:00.000` en UTC.
 
 ## Voir aussi
 

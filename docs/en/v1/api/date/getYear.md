@@ -25,17 +25,17 @@ The **`getYear()`** function returns the year corresponding to a `TheDate`. An I
 
 ```typescript
 function getYear<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Parameters
 
-- `input`: Immutable `TheDate`.
-- `timezone`: (Optional) IANA timezone (see `date/types/timezone`).
+- `input`: `TheDate` or `SerializedTheDate`.
+- `timezone`: IANA timezone. Default: `"UTC"`.
 
 ## Return value
 

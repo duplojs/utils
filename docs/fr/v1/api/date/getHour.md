@@ -25,17 +25,17 @@ La fonction **`getHour()`** renvoie l'heure (0–23) d'un `TheDate`, ajustée se
 
 ```typescript
 function getHour<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Paramètres
 
-- `input` : Date `TheDate`.
-- `timezone` : Fuseau horaire (optionnel).
+- `input` : `TheDate` ou `SerializedTheDate`.
+- `timezone` : Fuseau horaire IANA. Par défaut : `"UTC"`.
 
 ## Valeur de retour
 
