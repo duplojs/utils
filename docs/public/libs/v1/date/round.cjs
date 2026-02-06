@@ -1,5 +1,6 @@
 'use strict';
 
+var theDate = require('./theDate.cjs');
 var toNative = require('./toNative.cjs');
 
 const stepMapper = {
@@ -19,8 +20,7 @@ const stepMapper = {
 function round(input, unit = "day") {
     const date = toNative.toNative(input);
     const timestamp = stepMapper[unit](date);
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return theDate.TheDate.new(timestamp);
 }
 
 exports.round = round;

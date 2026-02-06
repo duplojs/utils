@@ -1,5 +1,6 @@
 'use strict';
 
+var theDate = require('../theDate.cjs');
 var toNative = require('../toNative.cjs');
 
 /**
@@ -11,9 +12,7 @@ function getFirstDayOfWeek(input) {
     const daysToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
     nativeDate.setUTCHours(0, 0, 0, 0);
     nativeDate.setUTCDate(nativeDate.getUTCDate() + daysToMonday);
-    const timestamp = nativeDate.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return theDate.TheDate.new(nativeDate.getTime());
 }
 
 exports.getFirstDayOfWeek = getFirstDayOfWeek;

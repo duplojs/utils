@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, justReturn, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, asserts } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, type Unwrap, unwrap, kindHeritage, createErrorKind, pipe, innerPipe, isType, forward, wrapValue, when, type IsEqual, type IsExtends, type Or, type NeverCoalescing, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, asserts } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type GetNewType, type NewTypeHandler, newTypeHandlerKind, newTypeKind } from "./newType";
 import { constrainedTypeKind } from "./constraint";
@@ -123,23 +123,29 @@ export type EntityRawProperties<
 	)
 }>;
 
+type GetInputFromNewTypeHandler<
+	GenericNewTypeHandler extends NewTypeHandler,
+> = GenericNewTypeHandler extends NewTypeHandler<any, infer InferredValue, any, infer InferredInput>
+	? IsEqual<InferredInput, never> extends true
+		? InferredValue
+		: InferredInput
+	: never;
+
 export type PropertiesToMapOfEntity<
 	GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition,
 > = SimplifyTopLevel<{
 	readonly [Prop in keyof GenericPropertiesDefinition]: (
 		GenericPropertiesDefinition[Prop] extends EntitySimplePropertyDefinition
-			? Unwrap<GetNewType<GenericPropertiesDefinition[Prop]>>
+			? GetInputFromNewTypeHandler<GenericPropertiesDefinition[Prop]>
 			: GenericPropertiesDefinition[Prop] extends EntityUnionPropertyDefinition
-				? Unwrap<GetNewType<GenericPropertiesDefinition[Prop][number]>>
+				? GetInputFromNewTypeHandler<GenericPropertiesDefinition[Prop][number]>
 				: GenericPropertiesDefinition[Prop] extends EntityAdvancedPropertyDefinition
-					? Unwrap<
-						GetNewType<
-							GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition
-								? GenericPropertiesDefinition[Prop]["type"][number]
-								: GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition
-									? GenericPropertiesDefinition[Prop]["type"]
-									: never
-						>
+					? GetInputFromNewTypeHandler<
+						GenericPropertiesDefinition[Prop]["type"] extends EntityUnionPropertyDefinition
+							? GenericPropertiesDefinition[Prop]["type"][number]
+							: GenericPropertiesDefinition[Prop]["type"] extends EntitySimplePropertyDefinition
+								? GenericPropertiesDefinition[Prop]["type"]
+								: never
 					> extends infer InferredValue
 						? (
 							Or<[

@@ -1,11 +1,11 @@
-Converts a TheDate to a native Date.
+Converts a date value to native JavaScript `Date`.
 
-Signature: `toNative(input)` → returns a value
+Signature: `toNative(input)` → `Date`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/toNative/example.ts[3,11]}
+{@include date/toNative/example.ts[3,12]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/toNative

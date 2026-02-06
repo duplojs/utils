@@ -25,17 +25,17 @@ La fonction **`getDayOfYear()`** retourne le jour de l'année (1–366) pour un 
 
 ```typescript
 function getDayOfYear<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Paramètres
 
-- `input` : `TheDate` cible.
-- `timezone` : Fuseau horaire (optionnel).
+- `input` : `TheDate` ou `SerializedTheDate`.
+- `timezone` : Fuseau horaire IANA. Par défaut : `"UTC"`.
 
 ## Valeur de retour
 

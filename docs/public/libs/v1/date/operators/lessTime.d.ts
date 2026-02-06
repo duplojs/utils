@@ -1,38 +1,34 @@
-import type { TheTime } from "../types";
+import type { TheTime } from "../theTime";
+import type { SerializedTheTime } from "../types";
 /**
- * Checks whether a time is less than or equal to another.
+ * Checks whether a duration is less than or equal to a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `lessTime(input, threshold)` → returns a value
- * - Curried: `lessTime(threshold)` → returns a function waiting for the input
+ * - Classic: `lessTime(input, threshold)` → `boolean`
+ * - Curried: `lessTime(threshold)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheTime` or `SerializedTheTime`.
  * 
  * ```ts
- * const input = "time1000+";
- * const threshold = "time1500+";
+ * const input = D.createTime(90, "minute");
+ * const threshold = D.createTime(2, "hour");
  * 
  * const result = D.lessTime(input, threshold);
  * // result: true
  * 
- * if (D.lessTime(input, threshold)) {
- * 	// input is less or equal
- * }
- * 
- * const result2 = pipe(
+ * pipe(
  * 	input,
- * 	when(
- * 		D.lessTime(threshold),
- * 		() => "ok",
- * 	),
- * );
- * // result2: "ok"
+ * 	D.lessTime(threshold),
+ * ); // true
  * ```
+ * 
+ * @remarks
+ * - Inclusive comparison: `input <= threshold`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/lessTime
  * 
  * @namespace D
  * 
  */
-export declare function lessTime<GenericValue extends TheTime>(threshold: TheTime): (input: GenericValue) => boolean;
-export declare function lessTime<GenericValue extends TheTime>(input: GenericValue, threshold: TheTime): boolean;
+export declare function lessTime<GenericValue extends TheTime | SerializedTheTime>(threshold: TheTime | SerializedTheTime): (input: GenericValue) => boolean;
+export declare function lessTime<GenericValue extends TheTime | SerializedTheTime>(input: GenericValue, threshold: TheTime | SerializedTheTime): boolean;

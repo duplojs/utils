@@ -25,17 +25,17 @@ The **`getWeekOfYear()`** function calculates the ISO 8601 week number (1–53) 
 
 ```typescript
 function getWeekOfYear<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Parameters
 
-- `input`: Target `TheDate`.
-- `timezone`: (Optional) IANA timezone.
+- `input`: `TheDate` or `SerializedTheDate`.
+- `timezone`: IANA timezone. Default: `"UTC"`.
 
 ## Return value
 

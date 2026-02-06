@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getFirstDayOfMonth() renvoie le premier jour du mois (au format TheDate) pour la date donnée."
+description: "La fonction getFirstDayOfMonth() renvoie le premier jour du mois pour un TheDate ou un SerializedTheDate."
 prev:
   text: "getLastDayOfWeek"
   link: "/fr/v1/api/date/getLastDayOfWeek"
@@ -11,7 +11,7 @@ next:
 
 # getFirstDayOfMonth
 
-La fonction **`getFirstDayOfMonth()`** renvoie le premier jour du mois (au format `TheDate`) pour la date donnée.
+La fonction **`getFirstDayOfMonth()`** renvoie le premier jour du mois (au format `TheDate`) pour la date fournie.
 
 ## Exemple interactif
 
@@ -24,14 +24,16 @@ La fonction **`getFirstDayOfMonth()`** renvoie le premier jour du mois (au forma
 ## Syntaxe
 
 ```typescript
-function getFirstDayOfMonth(
-	input: TheDate
+function getFirstDayOfMonth<
+	GenericInput extends TheDate | SerializedTheDate
+>(
+	input: GenericInput
 ): TheDate
 ```
 
 ## Paramètres
 
-- `input` : `TheDate` dont on veut connaître le premier jour du mois.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

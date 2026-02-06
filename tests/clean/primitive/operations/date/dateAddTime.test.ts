@@ -7,7 +7,7 @@ describe("clean primitive dateAddTime", () => {
 	it("adds time directly", () => {
 		const result = DClean.dateAddTime(baseDate, oneHour);
 
-		expect(unwrap(result)).toBe(
+		expect(unwrap(result)).toStrictEqual(
 			DDate.addTime(
 				DDate.create("2024-01-01"),
 				DDate.createTime(1, "hour"),
@@ -18,7 +18,7 @@ describe("clean primitive dateAddTime", () => {
 	it("adds time with currying", () => {
 		const result = DClean.dateAddTime(oneHour)(baseDate);
 
-		expect(unwrap(result)).toBe(
+		expect(unwrap(result)).toStrictEqual(
 			DDate.addTime(
 				DDate.create("2024-01-01"),
 				DDate.createTime(1, "hour"),

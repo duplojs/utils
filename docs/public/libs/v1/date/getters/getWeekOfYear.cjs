@@ -1,19 +1,20 @@
 'use strict';
 
 var toNative = require('../toNative.cjs');
+var constants = require('../constants.cjs');
 
 /**
  * {@include date/getWeekOfYear/index.md}
  */
 function getWeekOfYear(input, timezone = "UTC") {
-    const nativeDate = toNative.toNative(input);
+    const date = toNative.toNative(input);
     let year = 0;
     let month = 0;
     let day = 0;
     if (timezone === "UTC") {
-        year = nativeDate.getUTCFullYear();
-        month = nativeDate.getUTCMonth();
-        day = nativeDate.getUTCDate();
+        year = date.getUTCFullYear();
+        month = date.getUTCMonth();
+        day = date.getUTCDate();
     }
     else {
         const parts = new Intl.DateTimeFormat("en-US", {
@@ -21,19 +22,19 @@ function getWeekOfYear(input, timezone = "UTC") {
             day: "numeric",
             year: "numeric",
             month: "numeric",
-        }).formatToParts(nativeDate);
+        }).formatToParts(date);
         const partsMap = new Map(parts.map((part) => [part.type, part.value]));
         year = Number(partsMap.get("year"));
         month = Number(partsMap.get("month")) - 1;
         day = Number(partsMap.get("day"));
     }
-    const date = new Date(Date.UTC(year, month, day));
-    const dayOfWeek = date.getUTCDay() || 7;
+    const nativeDate = new Date(Date.UTC(year, month, day));
+    const dayOfWeek = nativeDate.getUTCDay() || 7;
     const nearestThursday = day + 4 - dayOfWeek;
-    date.setUTCDate(nearestThursday);
-    const thursYearStart = Date.UTC(date.getUTCFullYear(), 0, 1);
-    const millisecondsDiff = date.getTime() - thursYearStart;
-    const daysDiff = Math.floor(millisecondsDiff / 86400000);
+    nativeDate.setUTCDate(nearestThursday);
+    const thursYearStart = Date.UTC(nativeDate.getUTCFullYear(), 0, 1);
+    const millisecondsDiff = nativeDate.getTime() - thursYearStart;
+    const daysDiff = Math.floor(millisecondsDiff / constants.millisecondsInOneDay);
     return Math.ceil((daysDiff + 1) / 7);
 }
 

@@ -1,15 +1,15 @@
-import { type AnyTuple } from "@scripts/common";
-import { createOrThrow } from "./createOrThrow";
+import type { AnyTuple } from "@scripts/common/types/anyTuple";
 import { toTimestamp } from "./toTimestamp";
-import { type TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 
 /**
  * {@include date/min/index.md}
  */
 export function min<
-	GenericInput extends AnyTuple<TheDate>,
+	GenericInput extends AnyTuple<TheDate | SerializedTheDate>,
 >(input: GenericInput) {
-	return createOrThrow(
+	return TheDate.new(
 		Math.min(
 			...input.map(toTimestamp),
 		),

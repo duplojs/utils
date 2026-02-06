@@ -12,13 +12,13 @@ describe("DDataParser date", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			DDate.TheDate,
+			DDate.TheDate | Date | DDate.SerializedTheDate,
 			"strict"
 		>;
 
-		const value: DDate.TheDate = "date10+";
+		const value: DDate.SerializedTheDate = "date10+";
 
-		expect(schema.parse(value)).toStrictEqual(DEither.success(value));
+		expect(schema.parse(value)).toStrictEqual(DEither.success(DDate.createOrThrow(value)));
 	});
 
 	it("fails when value does not match TheDate format", () => {
@@ -38,39 +38,22 @@ describe("DDataParser date", () => {
 		);
 	});
 
-	it("does not coerce when disabled", () => {
-		const schema = DDataParser.date({ errorMessage: "date.invalid" });
-		const input = new Date();
-
-		const result = schema.parse(input);
-
-		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					input,
-				),
-			),
-		);
-	});
-
 	it("coerces supported inputs", () => {
 		const schema = DDataParser.date({ coerce: true });
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
-		const existing: DDate.TheDate = "date42+";
+		const existing = DDate.createOrThrow("date42+");
 		const beforeChristInput = new Date(Date.UTC(-100, 0, 1));
 		const beforeChristExpected = DDate.createOrThrow(beforeChristInput);
 
-		expect(schema.parse(1)).toStrictEqual(DEither.success("date1+"));
-		expect(schema.parse(-1)).toStrictEqual(DEither.success("date1-"));
-		expect(schema.parse(nativeDate)).toStrictEqual(DEither.success("date1609459200000+"));
+		expect(schema.parse(1)).toStrictEqual(DEither.success(DDate.createOrThrow("date1+")));
+		expect(schema.parse(-1)).toStrictEqual(DEither.success(DDate.createOrThrow("date1-")));
+		expect(schema.parse(nativeDate)).toStrictEqual(DEither.success(DDate.createOrThrow("date1609459200000+")));
 		expect(schema.parse(existing)).toStrictEqual(DEither.success(existing));
 		expect(schema.parse(beforeChristInput)).toStrictEqual(
 			DEither.success(beforeChristExpected),
 		);
-		expect(schema.parse("1969-01-01")).toStrictEqual(DEither.success("date31536000000-"));
-		expect(schema.parse("1970-01-01")).toStrictEqual(DEither.success("date0+"));
+		expect(schema.parse("1969-01-01")).toStrictEqual(DEither.success(DDate.create("1969-01-01")));
+		expect(schema.parse("1970-01-01")).toStrictEqual(DEither.success(DDate.createOrThrow("date0+")));
 	});
 
 	it("rejects invalid coercions", () => {
@@ -84,7 +67,7 @@ describe("DDataParser date", () => {
 		const invalidHour = "2021y-1m-1d-25h";
 		const invalidType = true;
 		const outOfRangeDate = new Date(DDate.maxTimestamp + 1);
-		const unsafeTheDate = `date${DDate.maxTimestamp}+` as DDate.TheDate;
+		const unsafeTheDate: DDate.SerializedTheDate = `date${DDate.maxTimestamp}+`;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const monthResult = schema.parse(invalidMonth);

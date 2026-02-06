@@ -10,7 +10,9 @@ describe("addMilliseconds", () => {
 			250,
 		);
 
-		expect(result).toBe(DDate.create("2020-01-01", { millisecond: "250" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-01", { millisecond: "250" })),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,12 +27,14 @@ describe("addMilliseconds", () => {
 			(-400 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-31", {
-			hour: "23",
-			minute: "59",
-			second: "59",
-			millisecond: "600",
-		}));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-12-31", {
+				hour: "23",
+				minute: "59",
+				second: "59",
+				millisecond: "600",
+			})),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -45,7 +49,9 @@ describe("addMilliseconds", () => {
 			DDate.addMilliseconds(100),
 		);
 
-		expect(result).toBe(DDate.create("2020-01-01", { millisecond: "100" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-01", { millisecond: "100" })),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -60,7 +66,9 @@ describe("addMilliseconds", () => {
 			400,
 		);
 
-		expect(result).toBe(DDate.create("-0010-01-01", { millisecond: "400" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0010-01-01", { millisecond: "400" })),
+		);
 
 		type check = ExpectType<
 			typeof result,

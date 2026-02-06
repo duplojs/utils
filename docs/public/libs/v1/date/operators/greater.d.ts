@@ -1,12 +1,13 @@
-import type { TheDate } from "../types";
+import type { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Checks whether a date is greater than or equal to another.
+ * Checks whether a date is greater than or equal to a threshold.
  * 
  * **Supported call styles:**
- * - Classic: `greater(input, threshold)` → returns a value
- * - Curried: `greater(threshold)` → returns a function waiting for the input
+ * - Classic: `greater(input, threshold)` → `boolean`
+ * - Curried: `greater(threshold)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const threshold = D.create("2024-06-01");
@@ -18,14 +19,16 @@ import type { TheDate } from "../types";
  * pipe(
  * 	input,
  * 	D.greater(threshold),
- * ); // result: true
- * 
+ * ); // true
  * ```
+ * 
+ * @remarks
+ * - Inclusive comparison: `input >= threshold`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/greater
  * 
  * @namespace D
  * 
  */
-export declare function greater<GenericValue extends TheDate>(threshold: TheDate): (input: GenericValue) => boolean;
-export declare function greater<GenericValue extends TheDate>(input: GenericValue, threshold: TheDate): boolean;
+export declare function greater<GenericValue extends TheDate | SerializedTheDate>(threshold: TheDate | SerializedTheDate): (input: GenericValue) => boolean;
+export declare function greater<GenericValue extends TheDate | SerializedTheDate>(input: GenericValue, threshold: TheDate | SerializedTheDate): boolean;

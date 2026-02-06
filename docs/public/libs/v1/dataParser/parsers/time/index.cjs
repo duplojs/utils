@@ -3,13 +3,14 @@
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
-var isSafeTimeValue = require('../../../date/isSafeTimeValue.cjs');
-var createTheTime = require('../../../date/createTheTime.cjs');
 var constants = require('../../../date/constants.cjs');
 var createTime = require('../../../date/createTime.cjs');
 var is = require('../../../either/left/is.cjs');
 var unwrap = require('../../../common/unwrap.cjs');
-var isTime = require('../../../date/isTime.cjs');
+var theTime = require('../../../date/theTime.cjs');
+var isSerializedTheTime = require('../../../date/isSerializedTheTime.cjs');
+var toTimeValue = require('../../../date/toTimeValue.cjs');
+var isSafeTimeValue = require('../../../date/isSafeTimeValue.cjs');
 var override = require('../../../common/override.cjs');
 
 const timeKind = kind.createDataParserKind("time");
@@ -23,12 +24,6 @@ function time(definition) {
         coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (self.definition.coerce) {
-            if (typeof data === "number") {
-                if (!isSafeTimeValue.isSafeTimeValue(data)) {
-                    return error.SymbolDataParserErrorIssue;
-                }
-                return createTheTime.createTheTime(data);
-            }
             if (typeof data === "string" && constants.isoTimeRegex.test(data)) {
                 const result = createTime.createTime({ value: data });
                 if (is.isLeft(result)) {
@@ -37,8 +32,17 @@ function time(definition) {
                 return unwrap.unwrap(result);
             }
         }
-        if (typeof data === "string" && isTime.isTime(data)) {
+        if (data instanceof theTime.TheTime) {
             return data;
+        }
+        else if (typeof data === "string" && isSerializedTheTime.isSerializedTheTime(data)) {
+            return theTime.TheTime.new(toTimeValue.toTimeValue(data));
+        }
+        else if (typeof data === "number") {
+            if (!isSafeTimeValue.isSafeTimeValue(data)) {
+                return error.SymbolDataParserErrorIssue;
+            }
+            return theTime.TheTime.new(data);
         }
         return error.SymbolDataParserErrorIssue;
     }, time.overrideHandler);

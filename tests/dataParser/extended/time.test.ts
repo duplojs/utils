@@ -5,10 +5,10 @@ const { extended } = DDataParser;
 describe("extended.time", () => {
 	it("parses TheTime values", () => {
 		const parser = extended.time();
-		const value: DDate.TheTime = "time42+";
+		const value: DDate.SerializedTheTime = "time42+";
 
 		const result = parser.parse(value);
-		expect(result).toStrictEqual(DEither.success(value));
+		expect(result).toStrictEqual(DEither.success(DDate.createTimeOrThrow(value)));
 
 		type check = ExpectType<
 			typeof result,
@@ -19,11 +19,11 @@ describe("extended.time", () => {
 
 	it("supports refine helper", () => {
 		const parser = extended.time().refine(
-			(time) => time.endsWith("+"),
+			(time) => time.toNative() > 0,
 			{ errorMessage: "time.positive" },
 		);
 
-		expect(parser.parse("time1+")).toStrictEqual(DEither.success("time1+"));
+		expect(parser.parse("time1+")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time1+")));
 		expect(parser.parse("time1-")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
@@ -37,13 +37,13 @@ describe("extended.time", () => {
 			DEither.error(expect.any(Object)),
 		);
 		expect(minParser.parse("time60000+")).toStrictEqual(
-			DEither.success("time60000+"),
+			DEither.success(DDate.createTimeOrThrow("time60000+")),
 		);
 		expect(maxParser.parse("time90000+")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
 		expect(maxParser.parse("time60000+")).toStrictEqual(
-			DEither.success("time60000+"),
+			DEither.success(DDate.createTimeOrThrow("time60000+")),
 		);
 	});
 });

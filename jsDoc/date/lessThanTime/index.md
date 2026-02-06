@@ -1,14 +1,17 @@
-Checks whether a time is strictly less than another.
+Checks whether a duration is strictly less than a threshold.
 
 **Supported call styles:**
-- Classic: `lessThanTime(input, threshold)` → returns a value
-- Curried: `lessThanTime(threshold)` → returns a function waiting for the input
+- Classic: `lessThanTime(input, threshold)` → `boolean`
+- Curried: `lessThanTime(threshold)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheTime` or `SerializedTheTime`.
 
 ```ts
-{@include date/lessThanTime/example.ts[3,20]}
+{@include date/lessThanTime/example.ts[3,12]}
 ```
+
+@remarks
+- Strict comparison: `input < threshold`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/lessThanTime
 

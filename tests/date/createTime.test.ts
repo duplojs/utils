@@ -1,12 +1,13 @@
-import { type ExpectType, DDate, DEither } from "@scripts";
+import { type ExpectType, DDate, DEither, unwrap } from "@scripts";
 
 describe("createTime", () => {
 	it("creates from milliseconds by default", () => {
 		const result = DDate.createTime(5000);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", "time5000+"),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("time5000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -18,7 +19,7 @@ describe("createTime", () => {
 	it("creates from unit seconds", () => {
 		const result = DDate.createTime(2, "second");
 
-		expect(result).toBe("time2000+");
+		expect(DDate.serialize(result)).toBe("time2000+");
 
 		type check = ExpectType<
 			typeof result,
@@ -46,12 +47,15 @@ describe("createTime", () => {
 
 		const result = DDate.createTime(input);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", `time${total}+`),
-		);
-		expect(DDate.createTime({})).toStrictEqual(
-			DEither.right("time-created", "time0+"),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(`time${total}+`);
+		}
+		const emptyResult = DDate.createTime({});
+		expect(DEither.isRight(emptyResult)).toBe(true);
+		if (DEither.isRight(emptyResult)) {
+			expect(DDate.serialize(unwrap(emptyResult))).toBe("time0-");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -72,9 +76,10 @@ describe("createTime", () => {
 
 		const result = DDate.createTime(input);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", `time${total}+`),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(`time${total}+`);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -94,9 +99,10 @@ describe("createTime", () => {
 
 		const result = DDate.createTime(input);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", `time${total}+`),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(`time${total}+`);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -113,9 +119,10 @@ describe("createTime", () => {
 		const total = 10 * DDate.millisecondInOneHour;
 		const result = DDate.createTime(input);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", `time${total}-`),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(`time${total}-`);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -133,9 +140,10 @@ describe("createTime", () => {
 		const total = DDate.millisecondInOneMinute;
 		const result = DDate.createTime(input);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", `time${total}+`),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(`time${total}+`);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -147,9 +155,10 @@ describe("createTime", () => {
 	it("creates with negative milliseconds", () => {
 		const result = DDate.createTime(-2500);
 
-		expect(result).toStrictEqual(
-			DEither.right("time-created", "time2500-"),
-		);
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("time2500-");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -160,6 +169,20 @@ describe("createTime", () => {
 
 	it("returns an error for NaN", () => {
 		const result = DDate.createTime(Number.NaN);
+
+		expect(result).toStrictEqual(
+			DEither.left("time-created-error", null),
+		);
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBeTime,
+			"strict"
+		>;
+	});
+
+	it("returns an error for invalid string date", () => {
+		const result = DDate.createTime("not-a-time" as never);
 
 		expect(result).toStrictEqual(
 			DEither.left("time-created-error", null),
@@ -187,9 +210,10 @@ describe("createTime", () => {
 	});
 
 	it("returns TheTime for TheTime input", () => {
-		const result = DDate.createTime("time123+");
+		const time = DDate.createTime(1, "second");
+		const result = DDate.createTime(time);
 
-		expect(result).toBe("time123+");
+		expect(result).toBe(time);
 
 		type check = ExpectType<
 			typeof result,

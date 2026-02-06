@@ -1,7 +1,6 @@
 import { C, D, E } from "@scripts";
 
-const theTime = D.createTheTime(3_600_000);
-
+const theTime = D.createTime(1, "hour");
 const result = C.Time.create(theTime);
 
 if (E.isRight(result)) {

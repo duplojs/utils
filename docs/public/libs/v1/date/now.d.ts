@@ -1,13 +1,15 @@
+import { TheDate } from "./theDate";
 /**
- * Returns the current date as TheDate.
+ * Returns the current instant as `TheDate`.
  * 
- * Signature: `now()` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `now()` → `TheDate`
  * 
  * ```ts
- * const result = D.now();
- * // result: "date" + timestamp
+ * const value = D.now();
+ * // value: TheDate
+ * 
+ * const timestamp = value.getTime();
+ * // timestamp: number
  * 
  * ```
  * 
@@ -16,4 +18,4 @@
  * @namespace D
  * 
  */
-export declare function now(): `date${number}+`;
+export declare function now(): TheDate;

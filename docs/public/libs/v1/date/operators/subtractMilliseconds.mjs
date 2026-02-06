@@ -1,5 +1,5 @@
-import { createTheDate } from '../createTheDate.mjs';
-import { toNative } from '../toNative.mjs';
+import { TheDate } from '../theDate.mjs';
+import { toTimestamp } from '../toTimestamp.mjs';
 
 function subtractMilliseconds(...args) {
     if (args.length === 1) {
@@ -7,9 +7,7 @@ function subtractMilliseconds(...args) {
         return (input) => subtractMilliseconds(input, millisecond);
     }
     const [input, millisecond] = args;
-    const date = toNative(input);
-    date.setTime(date.getTime() - millisecond);
-    return createTheDate(date.getTime());
+    return TheDate.new(toTimestamp(input) - millisecond);
 }
 
 export { subtractMilliseconds };

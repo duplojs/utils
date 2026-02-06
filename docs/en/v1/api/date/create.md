@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The create() function builds a TheDate from a Date, a timestamp, or a literal partition (YYYY-MM-DD). It returns an Either (MayBe) containing either the valid date or a typed error."
 prev:
-  text: "Date"
-  link: "/en/v1/api/date/"
+  text: "TheTime"
+  link: "/en/v1/api/date/theTime"
 next:
   text: "createOrThrow"
   link: "/en/v1/api/date/createOrThrow"
@@ -25,7 +25,7 @@ The **`create()`** function builds a `TheDate` from a `Date`, a timestamp, or a 
 
 ```typescript
 function create<
-	GenericInput extends TheDate | Date | number
+	GenericInput extends TheDate | SerializedTheDate | Date | number
 >(
 	input: GenericInput
 ): MayBe
@@ -52,7 +52,7 @@ The second declaration is only for declaring known constant dates ahead of time.
 
 ## Parameters
 
-- `input`: Source date. Accepts a `TheDate`, a `Date`, a timestamp, a `YYYY-MM-DD` string (negative prefix accepted for BC years), or a `SpoolingDate` (`value` as `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionally with time) with overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) and an optional `timezone`.
+- `input`: Source date. Accepts a `TheDate`, a `SerializedTheDate`, a `Date`, a timestamp, a `YYYY-MM-DD` string (negative prefix accepted for BC years), or a `SpoolingDate` (`value` as `Date`/timestamp/`TheDate`/ISO `YYYY-MM-DD` optionally with time) with overrides (`year`, `month`, `day`, `hour`, `minute`, `second`, `millisecond`) and an optional `timezone`.
 - `params`: Optional. Lets you directly provide time components (`hour`, `minute`, `second`, `millisecond`).
 
 ## Return value
@@ -65,7 +65,7 @@ The second declaration is only for declaring known constant dates ahead of time.
 
 - Native `Date`
 - Timestamp (`number`)
-- `TheDate` (`date{timestamp}{+|-}`)
+- `SerializedTheDate` (`date{timestamp}{+|-}`)
 - `YYYY-MM-DD` string (optionally ISO timestamp when using `SpoolingDate`)
 - `SpoolingDate` with `timezone` and date/time overrides
 

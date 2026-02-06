@@ -1,10 +1,13 @@
+import type { SerializedTheDate } from "../types";
+import { TheDate } from "../theDate";
 import { toNative } from "../toNative";
-import type { TheDate } from "../types";
 
 /**
  * {@include date/getFirstDayOfWeek/index.md}
  */
-export function getFirstDayOfWeek(input: TheDate): TheDate {
+export function getFirstDayOfWeek<
+	GenericInput extends TheDate | SerializedTheDate,
+>(input: GenericInput): TheDate {
 	const nativeDate = toNative(input);
 	const dayOfWeek = nativeDate.getUTCDay();
 	const daysToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -12,8 +15,5 @@ export function getFirstDayOfWeek(input: TheDate): TheDate {
 	nativeDate.setUTCHours(0, 0, 0, 0);
 	nativeDate.setUTCDate(nativeDate.getUTCDate() + daysToMonday);
 
-	const timestamp = nativeDate.getTime();
-	const isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return TheDate.new(nativeDate.getTime());
 }

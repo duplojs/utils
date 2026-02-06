@@ -1,5 +1,6 @@
+import { TheDate } from "./theDate";
 import { toNative } from "./toNative";
-import type { TheDate, Unit } from "./types";
+import type { SerializedTheDate, Unit } from "./types";
 
 export type RoundUnit = Exclude<Unit, "millisecond">;
 
@@ -18,12 +19,13 @@ const stepMapper: Record<RoundUnit, (date: Date) => number> = {
 /**
  * {@include date/round/index.md}
  */
-export function round(input: TheDate, unit: RoundUnit = "day") {
+export function round(
+	input: (TheDate | SerializedTheDate),
+	unit: RoundUnit = "day",
+) {
 	const date = toNative(input);
 
 	const timestamp = stepMapper[unit](date);
 
-	const isNegative = timestamp < 0;
-
-	return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}` satisfies TheDate;
+	return TheDate.new(timestamp);
 }

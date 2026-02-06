@@ -24,13 +24,13 @@ La fonction **`maxTime()`** retourne la plus grande durée d'un tuple de `TheTim
 
 ```typescript
 function maxTime<
-  GenericInput extends AnyTuple<TheTime>
+  GenericInput extends AnyTuple<TheTime | SerializedTheTime>
 >(input: GenericInput): TheTime
 ```
 
 ## Paramètres
 
-- `input` : Tuple de durées au format `TheTime`.
+- `input` : Tuple de `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 

@@ -415,5 +415,5 @@ export declare function dataParserExtendedInit<GenericDataParser extends DataPar
 export declare namespace dataParserExtendedInit {
     var overrideHandler: OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
-export type ContractExtended<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParserExtended<DataParserDefinition<never>, GenericOutput, GenericInput>;
+export type ContractExtended<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParserExtended<DataParserDefinition, GenericOutput, GenericInput>;
 export {};

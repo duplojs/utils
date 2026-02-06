@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Adds a positive number of days to a TheDate."
+description: "Adds a number of days to a TheDate."
 prev:
   text: "addWeeks"
   link: "/en/v1/api/date/addWeeks"
@@ -11,7 +11,7 @@ next:
 
 # addDays
 
-Adds a positive number of days to a `TheDate`.
+Adds a number of days to a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Adds a positive number of days to a `TheDate`.
 
 ```typescript
 function addDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
 	input: GenericInput,
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addDays<
 
 ```typescript
 function addDays<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericDay extends number
 >(
-	day: PositiveNumber<GenericDay>
+	day: GenericDay
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `day`: Strictly positive number of days.
-- `input`: `TheDate` value.
+- `day`: Number of days.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

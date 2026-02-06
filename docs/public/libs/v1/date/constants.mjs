@@ -12,9 +12,9 @@ const monthsInOneYear = 12;
 const minutesInOneHour = 60;
 const secondsInOneMinute = 60;
 const hoursInOneDay = 24;
-const theDateRegex = /^date-?(?<value>\d{1,16})(?<sign>[+-])$/;
+const serializeTheDateRegex = /^date-?(?<value>\d{1,16})(?<sign>[+-])$/;
 const isoDateRegex = /^(?<year>-?[0-9]{4})-(?<month>[0-9]{2})-(?<date>[0-9]{2})(?:T(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})(?:\.(?<millisecond>[0-9]{3}))?Z?)?$/;
-const theTimeRegex = /^time-?(?<value>\d{1,16})(?<sign>[+-])$/;
+const serializeTheTimeRegex = /^time-?(?<value>\d{1,16})(?<sign>[+-])$/;
 const isoTimeRegex = /^(?<sign>[+-])?(?<hour>[0-9]{2}):(?<minute>[0-9]{2})(?::(?<second>[0-9]{2})(?:\.(?<millisecond>[0-9]{3}))?Z?)?$/;
 
-export { daysInOneWeek, hoursInOneDay, isoDateRegex, isoTimeRegex, maxTimeValue, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimeValue, minTimestamp, minutesInOneHour, monthsInOneYear, secondsInOneMinute, theDateRegex, theTimeRegex };
+export { daysInOneWeek, hoursInOneDay, isoDateRegex, isoTimeRegex, maxTimeValue, maxTimestamp, millisecondInOneHour, millisecondInOneMinute, millisecondInOneWeek, millisecondsInOneDay, millisecondsInOneSecond, minTimeValue, minTimestamp, minutesInOneHour, monthsInOneYear, secondsInOneMinute, serializeTheDateRegex, serializeTheTimeRegex };

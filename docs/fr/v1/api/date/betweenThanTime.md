@@ -10,7 +10,7 @@ next:
 
 # betweenThanTime
 
-Variante inclusive de [`betweenTime`](/fr/v1/api/date/betweenTime) : vérifie qu'un `TheTime` se trouve entre deux bornes en incluant les extrêmes.
+Variante exclusive de [`betweenTime`](/fr/v1/api/date/betweenTime) : vérifie qu'un `TheTime` se trouve entre deux bornes en excluant les extrêmes.
 
 ## Exemple interactif
 
@@ -26,11 +26,11 @@ Variante inclusive de [`betweenTime`](/fr/v1/api/date/betweenTime) : vérifie qu
 
 ```typescript
 function betweenThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -38,22 +38,22 @@ function betweenThanTime<
 
 ```typescript
 function betweenThanTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
-- `greater` : Borne inférieure (inclusive).
-- `less` : Borne supérieure (inclusive).
-- `input` : Durée testée.
+- `greater` : Borne inférieure (exclusive).
+- `less` : Borne supérieure (exclusive).
+- `input` : `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 
-`true` si la durée se situe dans l'intervalle `[greater, less]`.
+`true` si la durée se situe dans l'intervalle `(greater, less)`.
 
 ## Voir aussi
 

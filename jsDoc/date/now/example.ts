@@ -1,4 +1,7 @@
 import { D } from "@scripts";
 
-const result = D.now();
-// result: "date" + timestamp
+const value = D.now();
+// value: TheDate
+
+const timestamp = value.getTime();
+// timestamp: number

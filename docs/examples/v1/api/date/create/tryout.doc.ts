@@ -27,7 +27,7 @@ const mayBeDateWithOverrides = D.create(
 	},
 );
 
-// "date1709183400000+"
+// TheDate
 const dateFromSafeFormat = D.create(
 	"2024-02-29",
 	{

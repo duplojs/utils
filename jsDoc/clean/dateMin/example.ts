@@ -7,13 +7,6 @@ const earliest = C.dateMin([
 ]);
 // earliest: C.Date
 
-const fromRaw = C.dateMin([
-	D.create("2024-01-05"),
-	D.create("2024-01-03"),
-	D.create("2024-01-10"),
-]);
-// fromRaw: C.Date
-
 const mixed = C.dateMin([
 	C.Date.createOrThrow(D.create("2024-01-08")),
 	D.create("2024-01-07"),

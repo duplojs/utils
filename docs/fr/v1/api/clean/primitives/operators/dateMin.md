@@ -10,7 +10,7 @@ next:
 
 # dateMin
 
-`dateMin()` retourne la plus petite date d'une liste (wrappée ou `DDate.TheDate`).
+`dateMin()` retourne la plus petite date d'un tuple (wrappée ou `DDate.TheDate`).
 
 ## Exemple interactif
 
@@ -30,7 +30,7 @@ function dateMin(input: AnyTuple<Date | TheDate>): Date
 
 ## Paramètres
 
-- `input` : dates à comparer (au moins une).
+- `input` : tuple de dates à comparer (au moins une).
 
 ## Valeur de retour
 

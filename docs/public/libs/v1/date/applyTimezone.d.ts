@@ -1,33 +1,35 @@
-import { type Timezone } from "./timezone";
-import { type TheDate } from "./types";
+import type { Timezone } from "./timezone";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Applies a timezone to a date.
+ * Applies a timezone offset to a date and returns the shifted `TheDate`.
  * 
  * **Supported call styles:**
- * - Classic: `applyTimezone(timeZone)` → returns a value
- * - Curried: `applyTimezone(theDate, timeZone)` → returns a function waiting for the input
+ * - Classic: `applyTimezone(input, timeZone)` → `TheDate`
+ * - Curried: `applyTimezone(timeZone)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
- * const theDate = D.createOrThrow(1704067200000);
- * const shiftedDate = D.applyTimezone(theDate, "America/New_York");
- * // shiftedDate: "date1704085200000+"
+ * const input = D.create("2024-01-01", {
+ * 	hour: "00",
+ * });
+ * 
+ * const shifted = D.applyTimezone(input, "America/New_York");
+ * // shifted: TheDate
  * 
  * pipe(
- * 	theDate,
- * 	D.applyTimezone("America/New_York"),
- * ); // shiftedDate: "date1704085200000+"
- * 
+ * 	input,
+ * 	D.applyTimezone("Europe/Paris"),
  * ```
  * 
  * @remarks
- * - Applies the timezone offset to shift the date.
+ * - This is a timestamp shift based on the target timezone offset.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/applyTimezone
  * 
  * @namespace D
  * 
  */
-export declare function applyTimezone(timeZone: Timezone): (theDate: TheDate) => TheDate;
-export declare function applyTimezone(theDate: TheDate, timeZone: Timezone): TheDate;
+export declare function applyTimezone(timeZone: Timezone): (input: TheDate | SerializedTheDate) => TheDate;
+export declare function applyTimezone(input: TheDate | SerializedTheDate, timeZone: Timezone): TheDate;

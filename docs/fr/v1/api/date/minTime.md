@@ -24,13 +24,13 @@ La fonction **`minTime()`** retourne la plus petite durée d'un tuple de `TheTim
 
 ```typescript
 function minTime<
-  GenericInput extends AnyTuple<TheTime>
+  GenericInput extends AnyTuple<TheTime | SerializedTheTime>
 >(input: GenericInput): TheTime
 ```
 
 ## Paramètres
 
-- `input` : Tuple de durées au format `TheTime`.
+- `input` : Tuple de `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 

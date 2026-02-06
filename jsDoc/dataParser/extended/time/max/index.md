@@ -6,7 +6,7 @@ Adds a maximum time checker to a time parser.
 Ensures the time is smaller than the provided maximum.
 
 ```ts
-{@include dataParser/extended/time/max/example.ts[3,14]}
+{@include dataParser/extended/time/max/example.ts[3,17]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/time

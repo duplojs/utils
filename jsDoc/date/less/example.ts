@@ -9,4 +9,4 @@ const result = D.less(input, threshold);
 pipe(
 	input,
 	D.less(threshold),
-); // result: true
+); // true

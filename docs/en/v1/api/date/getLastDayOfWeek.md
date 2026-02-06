@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The getLastDayOfWeek() function returns the Sunday corresponding to the week of the provided TheDate."
+description: "The getLastDayOfWeek() function returns the Sunday of the week for a TheDate or SerializedTheDate."
 prev:
   text: "getFirstDayOfWeek"
   link: "/en/v1/api/date/getFirstDayOfWeek"
@@ -11,7 +11,7 @@ next:
 
 # getLastDayOfWeek
 
-The **`getLastDayOfWeek()`** function returns the Sunday corresponding to the week of the provided `TheDate`.
+The **`getLastDayOfWeek()`** function returns the Sunday corresponding to the week of the provided `TheDate` or `SerializedTheDate`.
 
 ## Interactive example
 
@@ -24,18 +24,20 @@ The **`getLastDayOfWeek()`** function returns the Sunday corresponding to the we
 ## Syntax
 
 ```typescript
-function getLastDayOfWeek(
-	input: TheDate
+function getLastDayOfWeek<
+	GenericInput extends TheDate | SerializedTheDate
+>(
+	input: GenericInput
 ): TheDate
 ```
 
 ## Parameters
 
-- `input`: Target `TheDate`.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 
-A `TheDate` representing Sunday of the same week.
+A `TheDate` representing Sunday of the same week, normalized to `23:59:59.999` UTC.
 
 ## See also
 

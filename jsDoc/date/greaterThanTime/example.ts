@@ -1,20 +1,12 @@
-import { D, pipe, when } from "@scripts";
+import { D, pipe } from "@scripts";
 
-const input = "time2000+";
-const threshold = "time1500+";
+const input = D.createTime(2, "hour");
+const threshold = D.createTime(2, "hour");
 
 const result = D.greaterThanTime(input, threshold);
-// result: true
+// result: false
 
-if (D.greaterThanTime(input, threshold)) {
-	// input is strictly greater
-}
-
-const result2 = pipe(
+pipe(
 	input,
-	when(
-		D.greaterThanTime(threshold),
-		() => "ok",
-	),
-);
-// result2: "ok"
+	D.greaterThanTime(threshold),
+); // false

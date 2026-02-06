@@ -1,15 +1,14 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 interface ClosestToParams {
     tieBreaker?: "favorPast" | "favorFuture";
 }
 /**
- * Finds the closest date to a target.
+ * Finds the closest date from an iterable relative to a target date.
  * 
  * **Supported call styles:**
- * - Classic: `closestTo(input, target, params?)` → returns a value
- * - Curried: `closestTo(target, params?)` → returns a function waiting for the input
- * 
- * The input value is not mutated.
+ * - Classic: `closestTo(input, target, params?)` → `TheDate | undefined`
+ * - Curried: `closestTo(target, params?)` → `(input) => TheDate | undefined`
  * 
  * ```ts
  * const inputs = [
@@ -19,24 +18,25 @@ interface ClosestToParams {
  * ] as const;
  * 
  * const target = D.create("2024-06-15");
- * const result = D.closestTo(inputs, target);
- * // result: "date1717996800000+" (10 June 2024)
+ * const nearest = D.closestTo(inputs, target);
+ * // nearest: TheDate | undefined
  * 
- * pipe(
- * 	inputs,
- * 	D.closestTo(target),
- * ); // result: "date1717996800000+" (10 June 2024)
+ * const nearestPast = D.closestTo(inputs, target, {
+ * 	tieBreaker: "favorPast",
+ * });
+ * // nearestPast: TheDate | undefined
  * 
  * ```
  * 
  * @remarks
- * - `tieBreaker` can be "favorPast" or "favorFuture" to resolve equidistant dates.
+ * - `tieBreaker: "favorPast"` ignores future candidates.
+ * - `tieBreaker: "favorFuture"` ignores past candidates.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/closestTo
  * 
  * @namespace D
  * 
  */
-export declare function closestTo<GenericIterable extends Iterable<TheDate>>(target: TheDate, params?: ClosestToParams): (input: GenericIterable) => TheDate | undefined;
-export declare function closestTo<GenericIterable extends Iterable<TheDate>>(input: GenericIterable, target: TheDate, params?: ClosestToParams): TheDate | undefined;
+export declare function closestTo<GenericIterable extends Iterable<TheDate | SerializedTheDate>>(target: TheDate | SerializedTheDate, params?: ClosestToParams): (input: GenericIterable) => TheDate | undefined;
+export declare function closestTo<GenericIterable extends Iterable<TheDate | SerializedTheDate>>(input: GenericIterable, target: TheDate | SerializedTheDate, params?: ClosestToParams): TheDate | undefined;
 export {};

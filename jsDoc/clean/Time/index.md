@@ -1,16 +1,12 @@
-Business primitive for time values (TheTime).
+Business primitive for duration values (`TheTime`).
 
 **Supported call styles:**
-- Classic: `Time.create(value)` -> returns Either
+- Classic: `Time.create(value)` → `Either`
 
-Use it to avoid raw durations in the domain and to keep time operations typed and consistent.
-
-Business primitives are an alternative to raw TypeScript strings and numbers.
-Instead of manipulating bare values, each primitive is wrapped in a container.
-Result: safer, more explicit data, better aligned with the domain.
+Use it to keep normalized time values wrapped in the domain layer.
 
 ```ts
-{@include clean/Time/example.ts[3,15]}
+{@include clean/Time/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives

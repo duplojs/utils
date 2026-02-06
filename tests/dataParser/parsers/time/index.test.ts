@@ -12,11 +12,11 @@ describe("DDataParser time", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			DDate.TheTime,
+			number | DDate.TheTime | DDate.SerializedTheTime,
 			"strict"
 		>;
 
-		const value: DDate.TheTime = "time10+";
+		const value = DDate.createTime(1, "day");
 
 		expect(schema.parse(value)).toStrictEqual(DEither.success(value));
 	});
@@ -38,32 +38,15 @@ describe("DDataParser time", () => {
 		);
 	});
 
-	it("does not coerce when disabled", () => {
-		const schema = DDataParser.time({ errorMessage: "time.invalid" });
-		const input = 120;
-
-		const result = schema.parse(input);
-
-		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					input,
-				),
-			),
-		);
-	});
-
 	it("coerces supported inputs", () => {
 		const schema = DDataParser.time({ coerce: true });
-		const existing: DDate.TheTime = "time42+";
+		const existing = DDate.createTime(1, "day");
 
-		expect(schema.parse(1)).toStrictEqual(DEither.success("time1+"));
-		expect(schema.parse(-1)).toStrictEqual(DEither.success("time1-"));
-		expect(schema.parse("01:02")).toStrictEqual(DEither.success("time3720000+"));
-		expect(schema.parse("-01:02")).toStrictEqual(DEither.success("time3720000-"));
-		expect(schema.parse("12:34:56.789")).toStrictEqual(DEither.success("time45296789+"));
+		expect(schema.parse(1)).toStrictEqual(DEither.success(DDate.createTime(1, "millisecond")));
+		expect(schema.parse(-1)).toStrictEqual(DEither.success(DDate.createTime(-1, "millisecond")));
+		expect(schema.parse("01:02")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time3720000+")));
+		expect(schema.parse("-01:02")).toStrictEqual(DEither.success(DDate.createTimeOrThrow(("time3720000-"))));
+		expect(schema.parse("12:34:56.789")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time45296789+")));
 		expect(schema.parse(existing)).toStrictEqual(DEither.success(existing));
 	});
 
@@ -75,7 +58,7 @@ describe("DDataParser time", () => {
 		const outOfRangeTimestamp = DDate.maxTimeValue + 1;
 		const invalidString = "not-a-time";
 		const invalidType = true;
-		const unsafeTheTime = `time${DDate.maxTimeValue}+` as DDate.TheTime;
+		const unsafeTheTime = `time${DDate.maxTimeValue}+` as DDate.SerializedTheTime;
 
 		const timestampResult = schema.parse(outOfRangeTimestamp);
 		const stringResult = schema.parse(invalidString);

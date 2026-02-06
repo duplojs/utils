@@ -9,7 +9,15 @@ describe("DDate sortTimes", () => {
 		const asc = DDate.sortTimes([time05, time10, time01], "ASC");
 		const dsc = pipe([time01, time05, time10], DDate.sortTimes("DSC"));
 
-		expect(asc).toEqual([time01, time05, time10]);
-		expect(dsc).toEqual([time10, time05, time01]);
+		expect(asc.map(DDate.toTimeValue)).toEqual([
+			DDate.toTimeValue(time01),
+			DDate.toTimeValue(time05),
+			DDate.toTimeValue(time10),
+		]);
+		expect(dsc.map(DDate.toTimeValue)).toEqual([
+			DDate.toTimeValue(time10),
+			DDate.toTimeValue(time05),
+			DDate.toTimeValue(time01),
+		]);
 	});
 });

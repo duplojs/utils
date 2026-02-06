@@ -1,13 +1,13 @@
 'use strict';
 
-var createOrThrow = require('./createOrThrow.cjs');
+var theDate = require('./theDate.cjs');
 var toTimestamp = require('./toTimestamp.cjs');
 
 /**
  * {@include date/max/index.md}
  */
 function max(input) {
-    return createOrThrow.createOrThrow(Math.max(...input.map(toTimestamp.toTimestamp)));
+    return theDate.TheDate.new(Math.max(...input.map(toTimestamp.toTimestamp)));
 }
 
 exports.max = max;

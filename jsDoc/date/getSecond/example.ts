@@ -1,13 +1,17 @@
 import { D, pipe } from "@scripts";
 
-const input = D.create("2024-06-20");
-const result = D.getSecond(input);
-// result: 0
+const input = D.create("2024-06-20", {
+	hour: "00",
+	minute: "00",
+	second: "45",
+});
+const utcSecond = D.getSecond(input);
+// utcSecond: 45
 
-const result2 = D.getSecond(input, "Asia/Seoul");
-// result2: 0
+const londonSecond = D.getSecond(input, "Europe/London");
+// londonSecond: 45
 
 pipe(
 	input,
-	D.getSecond,
-); // result: 0
+	(value) => D.getSecond(value, "UTC"),
+); // 45

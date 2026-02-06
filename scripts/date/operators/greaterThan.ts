@@ -1,21 +1,26 @@
+import type { TheDate } from "../theDate";
 import { toTimestamp } from "../toTimestamp";
-import type { TheDate } from "../types";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/greaterThan/index.md}
  */
 export function greaterThan<
-	GenericValue extends TheDate,
->(threshold: TheDate): (input: GenericValue) => boolean;
+	GenericValue extends TheDate | SerializedTheDate,
+>(threshold: TheDate | SerializedTheDate): (input: GenericValue) => boolean;
 
 export function greaterThan<
-	GenericValue extends TheDate,
->(input: GenericValue, threshold: TheDate): boolean;
+	GenericValue extends TheDate | SerializedTheDate,
+>(input: GenericValue, threshold: TheDate | SerializedTheDate): boolean;
 
-export function greaterThan(...args: [TheDate] | [TheDate, TheDate]) {
+export function greaterThan(
+	...args:
+	| [TheDate | SerializedTheDate]
+	| [TheDate | SerializedTheDate, TheDate | SerializedTheDate]
+) {
 	if (args.length === 1) {
 		const [threshold] = args;
-		return (input: TheDate) => greaterThan(input, threshold);
+		return (input: TheDate | SerializedTheDate) => greaterThan(input, threshold);
 	}
 
 	const [input, threshold] = args;

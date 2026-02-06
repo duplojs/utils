@@ -1,7 +1,8 @@
 'use strict';
 
-var createTheDate = require('../createTheDate.cjs');
-var createTheTime = require('../createTheTime.cjs');
+var isSerializedTheTime = require('../isSerializedTheTime.cjs');
+var theDate = require('../theDate.cjs');
+var theTime = require('../theTime.cjs');
 var toTimestamp = require('../toTimestamp.cjs');
 var toTimeValue = require('../toTimeValue.cjs');
 
@@ -11,11 +12,17 @@ function addTime(...args) {
         return (input) => addTime(input, time);
     }
     const [input, time] = args;
-    const timeTimestamp = toTimeValue.toTimeValue(time);
-    if (input.startsWith("date")) {
-        return createTheDate.createTheDate(toTimestamp.toTimestamp(input) + timeTimestamp);
+    const timeValue = toTimeValue.toTimeValue(time);
+    if (input instanceof theDate.TheDate) {
+        const timestamp = toTimestamp.toTimestamp(input);
+        return theDate.TheDate.new(timestamp + timeValue);
     }
-    return createTheTime.createTheTime(toTimeValue.toTimeValue(input) + timeTimestamp);
+    if (input instanceof theTime.TheTime || isSerializedTheTime.isSerializedTheTime(input)) {
+        const inputTimeValue = toTimeValue.toTimeValue(input);
+        return theTime.TheTime.new(inputTimeValue + timeValue);
+    }
+    const timestamp = toTimestamp.toTimestamp(input);
+    return theDate.TheDate.new(timestamp + timeValue);
 }
 
 exports.addTime = addTime;

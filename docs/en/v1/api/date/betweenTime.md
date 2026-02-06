@@ -10,7 +10,7 @@ next:
 
 # betweenTime
 
-Checks that a `TheTime` is strictly between two bounds (`greater` then `less`).
+Checks that a `TheTime` is in an inclusive range between two bounds (`greater` then `less`).
 
 ## Interactive example
 
@@ -26,11 +26,11 @@ Checks that a `TheTime` is strictly between two bounds (`greater` then `less`).
 
 ```typescript
 function betweenTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): boolean
 ```
 
@@ -38,22 +38,22 @@ function betweenTime<
 
 ```typescript
 function betweenTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	greater: TheTime,
-	less: TheTime
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
-- `greater`: Lower bound (exclusive).
-- `less`: Upper bound (exclusive).
-- `input`: Duration to test.
+- `greater`: Lower bound (inclusive).
+- `less`: Upper bound (inclusive).
+- `input`: `TheTime` or `SerializedTheTime`.
 
 ## Return value
 
-`true` if the input is strictly between the bounds.
+`true` if the input is inside an inclusive range between the bounds.
 
 ## See also
 

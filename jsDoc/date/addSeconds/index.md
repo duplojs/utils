@@ -1,13 +1,13 @@
-Adds seconds to a date.
+Adds a number of seconds to a date.
 
 **Supported call styles:**
-- Classic: `addSeconds(input, second)` → returns a value
-- Curried: `addSeconds(second)` → returns a function waiting for the input
+- Classic: `addSeconds(input, second)` → `TheDate`
+- Curried: `addSeconds(second)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/addSeconds/example.ts[3,11]}
+{@include date/addSeconds/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/addSeconds

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Checks that a TheDate is less than or equal to a threshold."
+description: "Checks that a TheDate is strictly less than a threshold."
 prev:
   text: "less"
   link: "/en/v1/api/date/less"
@@ -11,7 +11,7 @@ next:
 
 # lessThan
 
-Checks that a `TheDate` is less than or equal to a threshold.
+Checks that a `TheDate` is strictly less than a threshold.
 
 ## Interactive example
 
@@ -27,10 +27,10 @@ Checks that a `TheDate` is less than or equal to a threshold.
 
 ```typescript
 function lessThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -38,20 +38,20 @@ function lessThan<
 
 ```typescript
 function lessThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Parameters
 
 - `threshold`: Limit date.
-- `input`: Date to compare.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 
-`true` if `input` is before or equal to the threshold.
+`true` if `input` is strictly before the threshold.
 
 ## See also
 

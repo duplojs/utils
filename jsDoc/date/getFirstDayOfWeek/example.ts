@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
 const input = D.create("2024-06-19");
-const result = D.getFirstDayOfWeek(input);
-// result: "date1718668800000+" (monday 17 june 2024)
+const firstDay = D.getFirstDayOfWeek(input);
+// firstDay: TheDate
+
+const serialized = D.serialize(firstDay);
+// serialized: SerializedTheDate
 
 pipe(
-	input,
+	serialized,
 	D.getFirstDayOfWeek,
-); // result: "date1718668800000+" (monday 17 june 2024)
+); // TheDate

@@ -1,6 +1,6 @@
 import { millisecondsInOneSecond } from '../constants.mjs';
-import { createTheDate } from '../createTheDate.mjs';
-import { toNative } from '../toNative.mjs';
+import { TheDate } from '../theDate.mjs';
+import { toTimestamp } from '../toTimestamp.mjs';
 
 function addSeconds(...args) {
     if (args.length === 1) {
@@ -8,9 +8,7 @@ function addSeconds(...args) {
         return (input) => addSeconds(input, second);
     }
     const [input, second] = args;
-    const date = toNative(input);
-    date.setTime(date.getTime() + (second * millisecondsInOneSecond));
-    return createTheDate(date.getTime());
+    return TheDate.new(toTimestamp(input) + (second * millisecondsInOneSecond));
 }
 
 export { addSeconds };

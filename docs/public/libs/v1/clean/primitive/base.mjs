@@ -1,7 +1,7 @@
 import { createCleanKind } from '../kind.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
-import { string } from '../../dataParser/parsers/string/index.mjs';
 import { pipe } from '../../common/pipe.mjs';
+import { string } from '../../dataParser/parsers/string/index.mjs';
 import { number } from '../../dataParser/parsers/number/index.mjs';
 import { bigint } from '../../dataParser/parsers/bigint/index.mjs';
 import { boolean } from '../../dataParser/parsers/boolean.mjs';
@@ -84,4 +84,4 @@ const Date = createPrimitive(date());
  */
 const Time = createPrimitive(time());
 
-export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, primitiveHandlerKind };
+export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, createPrimitive, primitiveHandlerKind };

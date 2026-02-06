@@ -1,28 +1,33 @@
+import type { TheTime } from "../theTime";
 import { toTimeValue } from "../toTimeValue";
-import type { TheTime } from "../types";
+import type { SerializedTheTime } from "../types";
 
 /**
  * {@include date/betweenTime/index.md}
  */
 export function betweenTime<
-	GenericValue extends TheTime,
+	GenericValue extends TheTime | SerializedTheTime,
 >(
-	greater: TheTime,
-	less: TheTime,
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime,
 ): (input: GenericValue) => boolean;
 
 export function betweenTime<
-	GenericValue extends TheTime,
+	GenericValue extends TheTime | SerializedTheTime,
 >(
 	input: GenericValue,
-	greater: TheTime,
-	less: TheTime,
+	greater: TheTime | SerializedTheTime,
+	less: TheTime | SerializedTheTime,
 ): boolean;
 
-export function betweenTime(...args: [TheTime, TheTime] | [TheTime, TheTime, TheTime]) {
+export function betweenTime(
+	...args:
+	| [TheTime | SerializedTheTime, TheTime | SerializedTheTime]
+	| [TheTime | SerializedTheTime, TheTime | SerializedTheTime, TheTime | SerializedTheTime]
+) {
 	if (args.length === 2) {
 		const [greater, less] = args;
-		return (input: TheTime) => betweenTime(input, greater, less);
+		return (input: TheTime | SerializedTheTime) => betweenTime(input, greater, less);
 	}
 
 	const [input, greater, less] = args;

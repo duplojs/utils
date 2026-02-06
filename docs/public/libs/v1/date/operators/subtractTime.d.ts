@@ -1,28 +1,30 @@
-import type { TheDate, TheTime } from "../types";
+import type { SerializedTheDate, SerializedTheTime } from "../types";
+import { TheDate } from "../theDate";
+import { TheTime } from "../theTime";
 /**
- * Subtracts a TheTime from a TheDate or TheTime.
+ * Subtracts a normalized duration (`TheTime` or `SerializedTheTime`) from a date.
  * 
  * **Supported call styles:**
- * - Classic: `subtractTime(input, time)` → returns a value
- * - Curried: `subtractTime(time)` → returns a function waiting for the input
+ * - Classic: `subtractTime(input, time)` → `TheDate | TheTime`
+ * - Curried: `subtractTime(time)` → `(input) => TheDate | TheTime`
  * 
- * The input value is not mutated.
+ * If `input` is `TheDate | SerializedTheDate`, the result is `TheDate`.
+ * The operator also supports `TheTime | SerializedTheTime` as input and returns `TheTime`.
  * 
  * ```ts
- * const date = D.createTheDate(0);
- * const time = D.createTheTime(3_600_000);
+ * const date = D.create("2024-06-20");
+ * const time = D.createTime(1, "hour");
  * 
  * const result = D.subtractTime(date, time);
- * // result: "date3600000-"
+ * // result: TheDate
  * 
- * const result2 = D.subtractTime("time5000+", "time2000+");
- * // result2: "time3000+"
+ * const result2 = D.subtractTime(time, D.createTime(30, "minute"));
+ * // result2: TheTime
  * 
- * const result3 = pipe(
+ * pipe(
  * 	date,
- * 	D.subtractTime("time1000+"),
- * );
- * // result3: "date3599000-"
+ * 	D.subtractTime(D.createTime(15, "minute")),
+ * ); // TheDate
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/subtractTime
@@ -30,7 +32,7 @@ import type { TheDate, TheTime } from "../types";
  * @namespace D
  * 
  */
-export declare function subtractTime<GenericInput extends TheDate>(time: TheTime): (input: GenericInput) => TheDate;
-export declare function subtractTime<GenericInput extends TheTime>(time: TheTime): (input: GenericInput) => TheTime;
-export declare function subtractTime<GenericInput extends TheDate>(input: GenericInput, time: TheTime): TheDate;
-export declare function subtractTime<GenericInput extends TheTime>(input: GenericInput, time: TheTime): TheTime;
+export declare function subtractTime<GenericInput extends TheDate | SerializedTheDate>(time: TheTime | SerializedTheTime): (input: GenericInput) => TheDate;
+export declare function subtractTime<GenericInput extends TheTime | SerializedTheTime>(time: TheTime | SerializedTheTime): (input: GenericInput) => TheTime;
+export declare function subtractTime<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, time: TheTime | SerializedTheTime): TheDate;
+export declare function subtractTime<GenericInput extends TheTime | SerializedTheTime>(input: GenericInput, time: TheTime | SerializedTheTime): TheTime;

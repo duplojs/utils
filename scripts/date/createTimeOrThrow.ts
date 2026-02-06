@@ -1,14 +1,15 @@
 import { createErrorKind, kindHeritage, unwrap } from "@scripts/common";
-import type { SpoolingTime, TheTime } from "./types";
+import type { SerializedTheTime, SpoolingTime } from "./types";
 import * as DEither from "@scripts/either";
 import { createTime } from "./createTime";
+import { type TheTime } from "./theTime";
 
 export class CreateTheTimeError extends kindHeritage(
 	"create-the-time-error",
 	createErrorKind("create-the-time-error"),
 	Error,
 ) {
-	public constructor(public input: TheTime | number | SpoolingTime) {
+	public constructor(public input: TheTime | number | SpoolingTime | SerializedTheTime) {
 		const value = typeof input === "object"
 			? JSON.stringify(input)
 			: input.toString();
@@ -21,7 +22,7 @@ export class CreateTheTimeError extends kindHeritage(
  * {@include date/createTimeOrThrow/index.md}
  */
 export function createTimeOrThrow(
-	input: number | TheTime | SpoolingTime,
+	input: number | TheTime | SpoolingTime | SerializedTheTime,
 ): TheTime {
 	const result = createTime(input as never);
 

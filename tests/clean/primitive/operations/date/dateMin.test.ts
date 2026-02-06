@@ -7,6 +7,6 @@ describe("clean primitive dateMin", () => {
 
 	it("returns earliest date in direct form", () => {
 		const result = DClean.dateMin([jan10, jan05, jan01]);
-		expect(unwrap(result)).toBe(DDate.create("2024-01-01"));
+		expect(result).toStrictEqual(jan01);
 	});
 });

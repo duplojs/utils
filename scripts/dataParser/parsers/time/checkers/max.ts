@@ -22,6 +22,9 @@ export interface DataParserCheckerTimeMax extends _DataParserCheckerTimeMax {
 
 }
 
+/**
+ * {@include dataParser/classic/checkerTimeMax/index.md}
+ */
 export function checkerTimeMax(
 	max: DDate.TheTime,
 	definition: Partial<

@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
-const input = D.create("2023-11-14");
-const result = D.toISOString(input);
-// result: "2023-11-14T00:00:00.000Z"
+const input = D.create("2024-06-20");
+const iso = D.toISOString(input);
+// iso: string
+
+const iso2 = D.toISOString("date1718841600000+");
+// iso2: string
 
 pipe(
 	input,
 	D.toISOString,
-); // result: "2023-11-14T00:00:00.000Z"
+); // string

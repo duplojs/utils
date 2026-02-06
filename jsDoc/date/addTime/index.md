@@ -1,13 +1,14 @@
-Adds a TheTime to a TheDate or TheTime.
+Adds a normalized duration (`TheTime` or `SerializedTheTime`) to a date.
 
 **Supported call styles:**
-- Classic: `addTime(input, time)` → returns a value
-- Curried: `addTime(time)` → returns a function waiting for the input
+- Classic: `addTime(input, time)` → `TheDate | TheTime`
+- Curried: `addTime(time)` → `(input) => TheDate | TheTime`
 
-The input value is not mutated.
+If `input` is `TheDate | SerializedTheDate`, the result is `TheDate`.
+The operator also supports `TheTime | SerializedTheTime` as input and returns `TheTime`.
 
 ```ts
-{@include date/addTime/example.ts[3,16]}
+{@include date/addTime/example.ts[3,15]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/addTime

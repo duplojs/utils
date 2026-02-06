@@ -9,11 +9,13 @@ describe("each", () => {
 
 		const result = DArray.from(iterable);
 
-		expect(result).toStrictEqual([
-			DDate.create("2024-01-01"),
-			DDate.create("2024-01-02"),
-			DDate.create("2024-01-03"),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-02"),
+				DDate.create("2024-01-03"),
+			],
+		);
 
 		type check = ExpectType<
 			typeof iterable,
@@ -22,17 +24,36 @@ describe("each", () => {
 		>;
 	});
 
+	it("accepts serialized start values", () => {
+		const start = DDate.serialize(DDate.create("2024-01-01"));
+		const iterable = DDate.each({
+			start,
+			end: DDate.create("2024-01-02"),
+		});
+
+		const result = DArray.from(iterable);
+
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-02"),
+			],
+		);
+	});
+
 	it("supports descending ranges", () => {
 		const result = DArray.from(DDate.each({
 			start: DDate.create("2024-01-05"),
 			end: DDate.create("2024-01-03"),
 		}));
 
-		expect(result).toStrictEqual([
-			DDate.create("2024-01-05"),
-			DDate.create("2024-01-04"),
-			DDate.create("2024-01-03"),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2024-01-05"),
+				DDate.create("2024-01-04"),
+				DDate.create("2024-01-03"),
+			],
+		);
 	});
 
 	it("iterates hours when separator is hour", () => {
@@ -41,12 +62,14 @@ describe("each", () => {
 			end: DDate.create("2024-01-01", { hour: "03" }),
 		}, "hour"));
 
-		expect(result).toStrictEqual([
-			DDate.create("2024-01-01"),
-			DDate.create("2024-01-01", { hour: "01" }),
-			DDate.create("2024-01-01", { hour: "02" }),
-			DDate.create("2024-01-01", { hour: "03" }),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-01", { hour: "01" }),
+				DDate.create("2024-01-01", { hour: "02" }),
+				DDate.create("2024-01-01", { hour: "03" }),
+			],
+		);
 	});
 
 	it("handles months with varying lengths", () => {
@@ -55,12 +78,14 @@ describe("each", () => {
 			end: DDate.create("2024-04-15"),
 		}, "month"));
 
-		expect(result).toStrictEqual([
-			DDate.create("2024-01-15"),
-			DDate.create("2024-02-15"),
-			DDate.create("2024-03-15"),
-			DDate.create("2024-04-15"),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2024-01-15"),
+				DDate.create("2024-02-15"),
+				DDate.create("2024-03-15"),
+				DDate.create("2024-04-15"),
+			],
+		);
 	});
 
 	it("returns single value when start equals end", () => {
@@ -69,7 +94,9 @@ describe("each", () => {
 			end: DDate.create("2024-01-01"),
 		}));
 
-		expect(result).toStrictEqual([DDate.create("2024-01-01")]);
+		expect(result).toStrictEqual(
+			[DDate.create("2024-01-01")],
+		);
 	});
 
 	it("supports seconds, minutes and milliseconds separators", () => {
@@ -78,33 +105,39 @@ describe("each", () => {
 			end: DDate.create("2024-01-01", { second: "02" }),
 		}, "second"));
 
-		expect(seconds).toStrictEqual([
-			DDate.create("2024-01-01"),
-			DDate.create("2024-01-01", { second: "01" }),
-			DDate.create("2024-01-01", { second: "02" }),
-		]);
+		expect(seconds).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-01", { second: "01" }),
+				DDate.create("2024-01-01", { second: "02" }),
+			],
+		);
 
 		const minutes = DArray.from(DDate.each({
 			start: DDate.create("2024-01-01"),
 			end: DDate.create("2024-01-01", { minute: "02" }),
 		}, "minute"));
 
-		expect(minutes).toStrictEqual([
-			DDate.create("2024-01-01"),
-			DDate.create("2024-01-01", { minute: "01" }),
-			DDate.create("2024-01-01", { minute: "02" }),
-		]);
+		expect(minutes).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-01", { minute: "01" }),
+				DDate.create("2024-01-01", { minute: "02" }),
+			],
+		);
 
 		const milliseconds = DArray.from(DDate.each({
 			start: DDate.create("2024-01-01"),
 			end: DDate.create("2024-01-01", { millisecond: "002" }),
 		}, "millisecond"));
 
-		expect(milliseconds).toStrictEqual([
-			DDate.create("2024-01-01"),
-			DDate.create("2024-01-01", { millisecond: "001" }),
-			DDate.create("2024-01-01", { millisecond: "002" }),
-		]);
+		expect(milliseconds).toStrictEqual(
+			[
+				DDate.create("2024-01-01"),
+				DDate.create("2024-01-01", { millisecond: "001" }),
+				DDate.create("2024-01-01", { millisecond: "002" }),
+			],
+		);
 	});
 
 	it("iterates across years", () => {
@@ -113,11 +146,13 @@ describe("each", () => {
 			end: DDate.create("2025-01-01"),
 		}, "year"));
 
-		expect(result).toStrictEqual([
-			DDate.create("2023-01-01"),
-			DDate.create("2024-01-01"),
-			DDate.create("2025-01-01"),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("2023-01-01"),
+				DDate.create("2024-01-01"),
+				DDate.create("2025-01-01"),
+			],
+		);
 	});
 
 	it("exits early when step overshoots the end", () => {
@@ -126,7 +161,9 @@ describe("each", () => {
 			end: DDate.create("2024-01-01", { hour: "12" }),
 		}, "day"));
 
-		expect(result).toStrictEqual([DDate.create("2024-01-01")]);
+		expect(result).toStrictEqual(
+			[DDate.create("2024-01-01")],
+		);
 	});
 
 	it("handles dates before 1970", () => {
@@ -135,10 +172,12 @@ describe("each", () => {
 			end: DDate.create("-0001-01-03"),
 		}));
 
-		expect(result).toStrictEqual([
-			DDate.create("-0001-01-01"),
-			DDate.create("-0001-01-02"),
-			DDate.create("-0001-01-03"),
-		]);
+		expect(result).toStrictEqual(
+			[
+				DDate.create("-0001-01-01"),
+				DDate.create("-0001-01-02"),
+				DDate.create("-0001-01-03"),
+			],
+		);
 	});
 });

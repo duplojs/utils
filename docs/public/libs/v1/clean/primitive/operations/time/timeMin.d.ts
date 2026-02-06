@@ -1,32 +1,25 @@
-import { type TheTime } from "../../../../date";
-import { type Time } from "../../base";
 import { type AnyTuple } from "../../../../common";
+import { TheTime } from "../../../../date";
+import { type Time } from "../../base";
 /**
- * Returns the smallest duration from a tuple of Time values.
+ * Returns the smallest wrapped `Time` from a tuple.
  * 
  * **Supported call styles:**
- * - Classic: `timeMin(input)` -> returns a Time
+ * - Classic: `timeMin(input)` → `Time`
  * 
- * The input can mix wrapped Times and raw TheTime values.
+ * `input` can mix wrapped `Time` and raw `TheTime` values.
  * 
  * ```ts
  * const smallest = C.timeMin([
- * 	C.Time.createOrThrow(D.createTheTime(1_000)),
- * 	D.createTheTime(500),
- * 	D.createTheTime(2_000),
+ * 	C.Time.createOrThrow(D.createTime(1_000, "millisecond")),
+ * 	D.createTime(500, "millisecond"),
+ * 	D.createTime(2_000, "millisecond"),
  * ]);
  * // smallest: C.Time
  * 
- * const fromRaw = C.timeMin([
- * 	D.createTheTime(10),
- * 	D.createTheTime(5),
- * 	D.createTheTime(20),
- * ]);
- * // fromRaw: C.Time
- * 
  * const mixed = C.timeMin([
- * 	C.Time.createOrThrow(D.createTheTime(100)),
- * 	D.createTheTime(50),
+ * 	C.Time.createOrThrow(D.createTime(100, "millisecond")),
+ * 	D.createTime(50, "millisecond"),
  * ]);
  * // mixed: C.Time
  * 

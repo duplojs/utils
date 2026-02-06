@@ -21,7 +21,7 @@ Briques essentielles de la Clean Architecture : création d'entités métier, ty
 Outils pour parser et valider les données entrantes. Transformez des données brutes en structures typées avec des règles de validation personnalisées.
 
 ## [🕦 Date](/fr/v1/api/date/)
-Nouveau type Date basé sur le timestamp Unix + fonctions pour manipuler les dates et heures : calculs de différence, manipulation de fuseaux horaires, et opérations avancées sur les dates.
+API date/time immutable avec `TheDate` (objet date), `TheTime` (durée) et leurs formats sérialisés. Inclut création, formatage, opérations temporelles, comparaisons et gestion des fuseaux.
 
 ## [🔀 Either](/fr/v1/api/either/)
 Monade Either pour la gestion d'erreurs fonctionnelle. Évitez les exceptions et gérez les résultats success/error de manière explicite et type-safe.

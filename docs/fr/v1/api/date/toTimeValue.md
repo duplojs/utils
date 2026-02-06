@@ -10,7 +10,7 @@ next:
 
 # toTimeValue
 
-La fonction **`toTimeValue()`** convertit un `TheTime` en valeur numérique (millisecondes). Elle applique les protections de `makeSafeTimeValue` : arrondi des décimales et clamp entre `minTimeValue` et `maxTimeValue`.
+La fonction **`toTimeValue()`** convertit un `TheTime` ou un `SerializedTheTime` en valeur numérique (millisecondes). Elle applique les protections de `makeSafeTimeValue` : arrondi des décimales et clamp entre `minTimeValue` et `maxTimeValue`.
 
 ## Exemple interactif
 
@@ -24,7 +24,7 @@ La fonction **`toTimeValue()`** convertit un `TheTime` en valeur numérique (mil
 
 ```typescript
 function toTimeValue<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput
 ): number
@@ -32,7 +32,7 @@ function toTimeValue<
 
 ## Paramètres
 
-- `input` : Durée au format `TheTime`.
+- `input` : Durée au format `TheTime` ou `SerializedTheTime`.
 
 ## Valeur de retour
 

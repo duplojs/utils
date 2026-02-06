@@ -50,10 +50,10 @@ Valide les booléens ou les convertit depuis des chaînes courantes (`"true"`, `
 Valide les `bigint` avec checkers `min`/`max` dédiés, utile pour les identifiants haute précision.
 
 ### [date](/fr/v1/api/dataParser/date)
-Valide un `TheDate`, un `Date` natif ou un timestamp avant conversion vers `TheDate`.
+Valide `TheDate`, `SerializedTheDate` et `Date` natif (avec coercition optionnelle des timestamps/chaînes) avant conversion vers `TheDate`.
 
 ### [time](/fr/v1/api/dataParser/time)
-Valide un `TheTime` avec checkers `min`, `max` et support de la coercition.
+Valide `TheTime`, `SerializedTheTime` et valeurs numériques sûres, avec checkers `min`/`max` et coercition optionnelle.
 
 ### [literal](/fr/v1/api/dataParser/literal)
 Impose une valeur exacte (`"admin"`, `42`, `true`, etc.) en sortie.

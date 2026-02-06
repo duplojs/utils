@@ -1,26 +1,21 @@
-import { type TheDate } from "./types";
+import { TheDate } from "./theDate";
 /**
- * Checks whether a value is a TheDate.
+ * Checks whether a value is an instance of `TheDate`.
  * 
- * Signature: `is(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `is(input)` → `input is TheDate`
  * 
  * ```ts
- * const input = D.now() as string;
+ * const input = D.now() as AnyValue;
  * 
  * if (D.is(input)) {
- * 	// input is TheDate
+ * 	// input: TheDate
  * }
  * 
  * pipe(
  * 	input,
- * 	when(
- * 		D.is,
- * 		(value) => {
- * 			// value is TheDate
- * 		},
- * 	),
+ * 	when(D.is, (value) => {
+ * 		// value: TheDate
+ * 	}),
  * );
  * ```
  * 
@@ -29,4 +24,4 @@ import { type TheDate } from "./types";
  * @namespace D
  * 
  */
-export declare function is(input: string): input is TheDate;
+export declare function is(input: unknown): input is TheDate;

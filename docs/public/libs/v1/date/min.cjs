@@ -1,13 +1,13 @@
 'use strict';
 
-var createOrThrow = require('./createOrThrow.cjs');
 var toTimestamp = require('./toTimestamp.cjs');
+var theDate = require('./theDate.cjs');
 
 /**
  * {@include date/min/index.md}
  */
 function min(input) {
-    return createOrThrow.createOrThrow(Math.min(...input.map(toTimestamp.toTimestamp)));
+    return theDate.TheDate.new(Math.min(...input.map(toTimestamp.toTimestamp)));
 }
 
 exports.min = min;

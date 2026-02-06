@@ -10,7 +10,7 @@ next:
 
 # createTime
 
-The **`createTime()`** function builds a `TheTime` from a millisecond value or from a structured time object. It also accepts an ISO time string via the `value` field.
+The **`createTime()`** function builds a `TheTime` from a millisecond value, a `SerializedTheTime`, or a structured time object. It also accepts an ISO time string via the `value` field.
 
 ## Interactive example
 
@@ -29,7 +29,7 @@ function createTime(
 ): TheTime
 
 function createTime<
-	GenericInput extends number | TheTime | SpoolingTime
+	GenericInput extends number | TheTime | SpoolingTime | SerializedTheTime
 >(
 	input: GenericInput
 ): MayBeTime
@@ -43,7 +43,7 @@ Use the strict overload for constants known in advance (tests, defaults). For dy
 
 ## Parameters
 
-- `input`: A millisecond value, a `TheTime`, or a `SpoolingTime` object (week, day, hour, minute, second, millisecond, value).
+- `input`: A millisecond value, a `TheTime`, a `SerializedTheTime`, or a `SpoolingTime` object (week, day, hour, minute, second, millisecond, value).
 - `unit`: Required unit for numeric input when using the strict overload (`"millisecond"`, `"second"`, `"minute"`, `"hour"`, `"day"`, `"week"`).
 
 ## Return value

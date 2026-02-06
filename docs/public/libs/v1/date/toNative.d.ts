@@ -1,21 +1,23 @@
-import type { TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Converts a TheDate to a native Date.
+ * Converts a date value to native JavaScript `Date`.
  * 
- * Signature: `toNative(input)` → returns a value
+ * Signature: `toNative(input)` → `Date`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
- * const input = D.create("2023-11-14");
- * const result = D.toNative(input);
- * // result: Date { time: 1699920000000 }
+ * const input = D.create("2024-06-20");
+ * const nativeDate = D.toNative(input);
+ * // nativeDate: Date
+ * 
+ * const nativeDate2 = D.toNative("date1718841600000+");
+ * // nativeDate2: Date
  * 
  * pipe(
  * 	input,
  * 	D.toNative,
- * ); // result: Date { time: 1699920000000 }
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/toNative
@@ -23,4 +25,4 @@ import type { TheDate } from "./types";
  * @namespace D
  * 
  */
-export declare function toNative<GenericInput extends TheDate>(input: GenericInput): Date;
+export declare function toNative<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): Date;

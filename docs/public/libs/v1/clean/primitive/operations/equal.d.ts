@@ -1,5 +1,5 @@
 import { type ToLargeEnsemble, type Unwrap } from "../../../common";
-import { type Primitive, type Primitives, type Date, type Time } from "../base";
+import { type Primitive, type Primitives } from "../base";
 /**
  * Compares two wrapped primitives (or a primitive and a raw value) with a type guard.
  * 
@@ -34,5 +34,5 @@ import { type Primitive, type Primitives, type Date, type Time } from "../base";
  * @namespace C
  * 
  */
-export declare function equal<GenericInput extends Primitives, GenericValue extends (GenericInput extends Date ? (Date | Unwrap<Date>) : GenericInput extends Time ? (Time | Unwrap<Time>) : (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>))>(value: GenericValue): (input: GenericInput) => input is GenericInput & Primitive<Unwrap<GenericValue>>;
-export declare function equal<GenericInput extends Primitives, GenericValue extends (GenericInput extends Date ? (Date | Unwrap<Date>) : GenericInput extends Time ? (Time | Unwrap<Time>) : (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>))>(input: GenericInput, value: GenericValue): input is GenericInput & Primitive<Unwrap<GenericValue>>;
+export declare function equal<GenericInput extends Primitives, GenericValue extends (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>)>(value: GenericValue): (input: GenericInput) => input is GenericInput & Primitive<Unwrap<GenericValue>>;
+export declare function equal<GenericInput extends Primitives, GenericValue extends (Primitive<ToLargeEnsemble<Unwrap<GenericInput>>> | ToLargeEnsemble<Unwrap<GenericInput>>)>(input: GenericInput, value: GenericValue): input is GenericInput & Primitive<Unwrap<GenericValue>>;

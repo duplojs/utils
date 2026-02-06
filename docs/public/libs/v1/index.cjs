@@ -27,15 +27,12 @@ var sleep = require('./common/sleep.cjs');
 var stringToBytes = require('./common/stringToBytes.cjs');
 var mimeType = require('./common/mimeType.cjs');
 var stringToMillisecond = require('./common/stringToMillisecond.cjs');
-var toJSON = require('./common/toJSON.cjs');
-var toTransform = require('./common/toTransform.cjs');
 var toWrappedValue = require('./common/toWrappedValue.cjs');
 var unwrap = require('./common/unwrap.cjs');
 var unwrapGroup = require('./common/unwrapGroup.cjs');
 var asyncLoop = require('./common/asyncLoop.cjs');
 var asyncRetry = require('./common/asyncRetry.cjs');
 var wrapValue = require('./common/wrapValue.cjs');
-var toString = require('./common/toString.cjs');
 var innerPipe = require('./common/innerPipe.cjs');
 var asyncInnerPipe = require('./common/asyncInnerPipe.cjs');
 var loop = require('./common/loop.cjs');
@@ -65,6 +62,7 @@ var toCurriedPredicate = require('./common/toCurriedPredicate.cjs');
 var pipeCall = require('./common/pipeCall.cjs');
 var asserts = require('./common/asserts.cjs');
 var path = require('./common/path.cjs');
+var transformer = require('./common/transformer.cjs');
 
 
 
@@ -113,8 +111,6 @@ exports.stringToBytes = stringToBytes.stringToBytes;
 exports.mimeType = mimeType.mimeType;
 exports.InvalidMillisecondInStringError = stringToMillisecond.InvalidMillisecondInStringError;
 exports.stringToMillisecond = stringToMillisecond.stringToMillisecond;
-exports.toJSON = toJSON.toJSON;
-exports.toTransform = toTransform.toTransform;
 exports.toWrappedValue = toWrappedValue.toWrappedValue;
 exports.unwrap = unwrap.unwrap;
 exports.unwrapGroup = unwrapGroup.unwrapGroup;
@@ -125,7 +121,6 @@ exports.isRuntimeWrappedValueKey = wrapValue.isRuntimeWrappedValueKey;
 exports.isWrappedValue = wrapValue.isWrappedValue;
 exports.keyWrappedValue = wrapValue.keyWrappedValue;
 exports.wrapValue = wrapValue.wrapValue;
-exports.toString = toString.toString;
 exports.innerPipe = innerPipe.innerPipe;
 exports.asyncInnerPipe = asyncInnerPipe.asyncInnerPipe;
 exports.loop = loop.loop;
@@ -161,3 +156,7 @@ Object.defineProperty(exports, "Path", {
 	enumerable: true,
 	get: function () { return path.Path; }
 });
+exports.createTransformer = transformer.createTransformer;
+exports.toJSON = transformer.toJSON;
+exports.toNative = transformer.toNative;
+exports.transformer = transformer.transformer;

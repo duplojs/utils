@@ -2,9 +2,12 @@ import { D, pipe } from "@scripts";
 
 const input = D.create("2024-06-20");
 const result = D.addMilliseconds(input, 10);
-// result: "date1718841600010+"
+// result: TheDate
+
+const serialized = D.serialize(result);
+// serialized: SerializedTheDate
 
 pipe(
-	input,
+	serialized,
 	D.addMilliseconds(10),
-); // result: "date1718841600010+"
+); // TheDate

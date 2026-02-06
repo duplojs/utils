@@ -1,7 +1,8 @@
+import { TheDate } from './theDate.mjs';
 import { toTimestamp } from './toTimestamp.mjs';
 
 function closestTo(...args) {
-    if (typeof args[0] === "string") {
+    if (typeof args[0] === "string" || args[0] instanceof TheDate) {
         const [target, params] = args;
         return (input) => closestTo(input, target, params);
     }
@@ -21,7 +22,10 @@ function closestTo(...args) {
         const distance = Math.abs(valueTimestamp - targetTimestamp);
         if (distance < smallestDiff) {
             smallestDiff = distance;
-            closest = value;
+            if (value instanceof TheDate) {
+                closest = value;
+            }
+            closest = TheDate.new(valueTimestamp);
         }
     }
     return closest;

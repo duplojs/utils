@@ -1,29 +1,35 @@
-import type { TheDate } from "../types";
+import { TheDate } from "../theDate";
+import type { SerializedTheDate } from "../types";
 /**
- * Subtracts months from a date.
+ * Subtracts a number of calendar months from a date.
  * 
  * **Supported call styles:**
- * - Classic: `subtractMonths(input, month)` → returns a value
- * - Curried: `subtractMonths(month)` → returns a function waiting for the input
+ * - Classic: `subtractMonths(input, month)` → `TheDate`
+ * - Curried: `subtractMonths(month)` → `(input) => TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-30");
  * const result = D.subtractMonths(input, 2);
- * // result: "date1711843200000+"
+ * // result: TheDate
+ * 
+ * const serialized = D.serialize(result);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.subtractMonths(2),
- * ); // result: "date1711843200000+"
- * 
+ * ); // TheDate
  * ```
+ * 
+ * @remarks
+ * - Uses UTC month arithmetic (`Date#setUTCMonth` behavior).
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/subtractMonths
  * 
  * @namespace D
  * 
  */
-export declare function subtractMonths<GenericInput extends TheDate, GenericMonth extends number>(month: GenericMonth): (input: GenericInput) => TheDate;
-export declare function subtractMonths<GenericInput extends TheDate, GenericMonth extends number>(input: GenericInput, month: GenericMonth): TheDate;
+export declare function subtractMonths<GenericInput extends TheDate | SerializedTheDate, GenericMonth extends number>(month: GenericMonth): (input: GenericInput) => TheDate;
+export declare function subtractMonths<GenericInput extends TheDate | SerializedTheDate, GenericMonth extends number>(input: GenericInput, month: GenericMonth): TheDate;

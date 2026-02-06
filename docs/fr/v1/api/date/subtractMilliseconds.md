@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Soustrait un nombre positif de millisecondes d'un TheDate."
+description: "Soustrait un nombre de millisecondes d'un TheDate."
 prev:
-  text: "subtractSeconds"
-  link: "/fr/v1/api/date/subtractSeconds"
+ text: "subtractSeconds"
+ link: "/fr/v1/api/date/subtractSeconds"
 next:
-  text: "subtractTime"
-  link: "/fr/v1/api/date/subtractTime"
+ text: "subtractTime"
+ link: "/fr/v1/api/date/subtractTime"
 ---
 
 # subtractMilliseconds
 
-Soustrait un nombre positif de millisecondes d'un `TheDate`.
+Soustrait un nombre de millisecondes d'un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/subtractMilliseconds/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/subtractMilliseconds/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Soustrait un nombre positif de millisecondes d'un `TheDate`.
 
 ```typescript
 function subtractMilliseconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMillisecond extends number
 >(
 	input: GenericInput,
-	millisecond: PositiveNumber<GenericMillisecond>
+	millisecond: GenericMillisecond
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractMilliseconds<
 
 ```typescript
 function subtractMilliseconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMillisecond extends number
 >(
-	millisecond: PositiveNumber<GenericMillisecond>
+	millisecond: GenericMillisecond
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
 - `millisecond` : Millisecondes à retirer.
-- `input` : Date d'origine.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

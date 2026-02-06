@@ -2,8 +2,9 @@ import { dataParserInit } from '../base.mjs';
 import { SymbolDataParserErrorIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { isSafeTimestamp } from '../../date/isSafeTimestamp.mjs';
-import { createTheDate } from '../../date/createTheDate.mjs';
-import { is } from '../../date/is.mjs';
+import { TheDate } from '../../date/theDate.mjs';
+import { isSerializedTheDate } from '../../date/isSerializedTheDate.mjs';
+import { toTimestamp } from '../../date/toTimestamp.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const dateKind = createDataParserKind("date");
@@ -17,29 +18,32 @@ function date(definition) {
         coerce: definition?.coerce ?? false,
     }, (data, _error, self) => {
         if (self.definition.coerce) {
-            if (data instanceof Date) {
-                const timestamp = data.getTime();
-                if (!isSafeTimestamp(timestamp)) {
-                    return SymbolDataParserErrorIssue;
-                }
-                return createTheDate(timestamp);
-            }
             if (typeof data === "number") {
                 if (!isSafeTimestamp(data)) {
                     return SymbolDataParserErrorIssue;
                 }
-                return createTheDate(data);
+                return TheDate.new(data);
             }
             if (typeof data === "string") {
                 const date = new Date(data);
                 const timestamp = date.getTime();
                 if (isSafeTimestamp(timestamp)) {
-                    return createTheDate(timestamp);
+                    return TheDate.new(timestamp);
                 }
             }
         }
-        if (typeof data === "string" && is(data)) {
+        if (data instanceof TheDate) {
             return data;
+        }
+        else if (typeof data === "string" && isSerializedTheDate(data)) {
+            return TheDate.new(toTimestamp(data));
+        }
+        else if (data instanceof Date) {
+            const timestamp = data.getTime();
+            if (!isSafeTimestamp(timestamp)) {
+                return SymbolDataParserErrorIssue;
+            }
+            return TheDate.new(timestamp);
         }
         return SymbolDataParserErrorIssue;
     }, date.overrideHandler);

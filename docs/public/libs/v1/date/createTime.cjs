@@ -1,9 +1,8 @@
 'use strict';
 
 var constants = require('./constants.cjs');
-var createTheTime = require('./createTheTime.cjs');
 var isSafeTimeValue = require('./isSafeTimeValue.cjs');
-var isTime = require('./isTime.cjs');
+var theTime = require('./theTime.cjs');
 var create = require('../either/left/create.cjs');
 var create$1 = require('../either/right/create.cjs');
 
@@ -16,14 +15,24 @@ const unitsMapper = {
     millisecond: 1,
 };
 function createTime(input, unit) {
-    if (typeof input === "number" && unit) {
-        return createTheTime.createTheTime(input * unitsMapper[unit]);
+    if (input instanceof theTime.TheTime) {
+        return input;
     }
     if (typeof input === "number") {
+        if (unit) {
+            return theTime.TheTime.new(input * unitsMapper[unit]);
+        }
         return createFromTimeValue(input * unitsMapper[unit ?? "millisecond"]);
     }
-    if (typeof input === "string" && isTime.isTime(input)) {
-        return input;
+    if (typeof input === "string") {
+        const serializeTheTimeMatch = input.match(constants.serializeTheTimeRegex);
+        if (!serializeTheTimeMatch) {
+            return create.left("time-created-error", null);
+        }
+        const { value, sign } = serializeTheTimeMatch.groups;
+        return createFromTimeValue(Number(sign === "-"
+            ? `-${value}`
+            : value));
     }
     const { value = 0, week = 0, day = 0, hour = 0, minute = 0, second = 0, millisecond = 0, } = input;
     let fromValue = 0;
@@ -55,7 +64,7 @@ function createFromTimeValue(input) {
     if (!isSafeTimeValue.isSafeTimeValue(input)) {
         return create.left("time-created-error", null);
     }
-    return create$1.right("time-created", createTheTime.createTheTime(input));
+    return create$1.right("time-created", theTime.TheTime.new(input));
 }
 
 exports.createTime = createTime;

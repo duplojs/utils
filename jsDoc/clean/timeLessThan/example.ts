@@ -1,8 +1,12 @@
-import { C, D } from "@scripts";
+import { C, D, pipe } from "@scripts";
 
-const duration = C.Time.createOrThrow(D.createTheTime(3_600_000));
-const threshold = D.createTheTime(7_200_000);
+const duration = C.Time.createOrThrow(D.createTime(1, "hour"));
+const threshold = D.createTime(2, "hour");
 
-if (C.timeLessThan(duration, threshold)) {
-	// duration is less than threshold
-}
+const result = C.timeLessThan(duration, threshold);
+// result: true
+
+pipe(
+	duration,
+	C.timeLessThan(threshold),
+); // true

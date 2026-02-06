@@ -9,7 +9,15 @@ describe("DDate sort", () => {
 		const asc = DDate.sort([jan05, jan10, jan01], "ASC");
 		const dsc = pipe([jan01, jan05, jan10], DDate.sort("DSC"));
 
-		expect(asc).toEqual([jan01, jan05, jan10]);
-		expect(dsc).toEqual([jan10, jan05, jan01]);
+		expect(asc.map(DDate.toTimestamp)).toEqual([
+			DDate.toTimestamp(jan01),
+			DDate.toTimestamp(jan05),
+			DDate.toTimestamp(jan10),
+		]);
+		expect(dsc.map(DDate.toTimestamp)).toEqual([
+			DDate.toTimestamp(jan10),
+			DDate.toTimestamp(jan05),
+			DDate.toTimestamp(jan01),
+		]);
 	});
 });

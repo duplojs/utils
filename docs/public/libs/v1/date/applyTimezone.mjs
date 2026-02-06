@@ -1,6 +1,6 @@
-import { createOrThrow } from './createOrThrow.mjs';
 import { getTimezoneOffset } from './getTimezoneOffset.mjs';
 import { toTimestamp } from './toTimestamp.mjs';
+import { TheDate } from './theDate.mjs';
 
 function applyTimezone(...args) {
     if (args.length === 1) {
@@ -9,7 +9,7 @@ function applyTimezone(...args) {
     }
     const [theDate, timeZone] = args;
     const timestamp = toTimestamp(theDate);
-    return createOrThrow(timestamp - getTimezoneOffset(theDate, timeZone));
+    return TheDate.new(timestamp - getTimezoneOffset(theDate, timeZone));
 }
 
 export { applyTimezone };

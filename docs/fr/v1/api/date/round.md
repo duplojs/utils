@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Arrondit un TheDate à l'unité spécifiée (unit)."
+description: "Arrondit un TheDate ou SerializedTheDate à l'unité spécifiée (unit)."
 prev:
   text: "min"
   link: "/fr/v1/api/date/min"
@@ -11,7 +11,7 @@ next:
 
 # round
 
-Arrondit un `TheDate` à l'unité spécifiée (`unit`).
+Arrondit un `TheDate` ou `SerializedTheDate` à l'unité spécifiée (`unit`).
 
 ## Exemple interactif
 
@@ -25,7 +25,7 @@ Arrondit un `TheDate` à l'unité spécifiée (`unit`).
 
 ```typescript
 function round(
-	input: TheDate,
+	input: TheDate | SerializedTheDate,
 	unit?: RoundUnit
 ): TheDate
 ```
@@ -34,7 +34,7 @@ function round(
 
 ## Paramètres
 
-- `input` : Date à arrondir.
+- `input` : Date à arrondir (`TheDate` ou `SerializedTheDate`).
 - `unit` : Unité cible (`day` par défaut).
 
 ## Valeur de retour

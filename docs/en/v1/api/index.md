@@ -21,7 +21,7 @@ Core building blocks of Clean Architecture: creation of business entities, busin
 Tools to parse and validate incoming data. Transform raw data into typed structures with custom validation rules.
 
 ## [🕦 Date](/en/v1/api/date/)
-New Date type based on the Unix timestamp + functions to manipulate dates and times: difference calculations, time zone handling, and advanced date operations.
+Immutable date/time API with `TheDate` (date object), `TheTime` (duration), and their serialized formats. Includes creation, formatting, time operations, comparisons, and timezone handling.
 
 ## [🔀 Either](/en/v1/api/either/)
 Either monad for functional error handling. Avoid exceptions and manage success/error results explicitly and type-safely.

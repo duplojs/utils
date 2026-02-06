@@ -1,6 +1,6 @@
 'use strict';
 
-var createTheDate = require('../createTheDate.cjs');
+var theDate = require('../theDate.cjs');
 var toNative = require('../toNative.cjs');
 
 function subtractMonths(...args) {
@@ -11,7 +11,7 @@ function subtractMonths(...args) {
     const [input, month] = args;
     const date = toNative.toNative(input);
     date.setUTCMonth(date.getUTCMonth() - month);
-    return createTheDate.createTheDate(date.getTime());
+    return theDate.TheDate.new(date.getTime());
 }
 
 exports.subtractMonths = subtractMonths;

@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
@@ -39,7 +39,8 @@ export const newTypeHandlerKind = createCleanKind("new-type-handler");
 export interface NewTypeHandler<
 	GenericName extends string = string,
 	GenericValue extends unknown = unknown,
-	GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [],
+	GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly ConstraintHandler[],
+	GenericInput extends unknown = unknown,
 > extends Kind<typeof newTypeHandlerKind.definition> {
 
 	/**
@@ -50,7 +51,7 @@ export interface NewTypeHandler<
 	/**
 	 * {@include clean/createNewType/dataParser.md}
 	 */
-	readonly dataParser: DDataParser.Contract<GenericValue>;
+	readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
 
 	/**
 	 * {@include clean/createNewType/constraints.md}
@@ -64,6 +65,22 @@ export interface NewTypeHandler<
 		const GenericInput extends GenericValue,
 	>(
 		data: GenericInput
+	): (
+		| DEither.Right<
+			"createNewType",
+			NewType<
+				GenericName,
+				GenericInput,
+				GenericConstraintsHandler[number]["name"]
+			>
+		>
+		| DEither.Left<
+			"createNewTypeError",
+			DDataParser.DataParserError
+		>
+	);
+	create(
+		data: GenericValue
 	): (
 		| DEither.Right<
 			"createNewType",
@@ -111,6 +128,14 @@ export interface NewTypeHandler<
 	): NewType<
 		GenericName,
 		GenericData,
+		GenericConstraintsHandler[number]["name"]
+	>;
+
+	createOrThrow(
+		data: GenericInput
+	): NewType<
+		GenericName,
+		GenericValue,
 		GenericConstraintsHandler[number]["name"]
 	>;
 
@@ -246,7 +271,10 @@ export function createNewType<
 		DeepReadonly<DDataParser.Output<GenericDataParser>>,
 		DArray.ArrayCoalescing<
 			NeverCoalescing<GenericConstraintsHandler, readonly []>
-		>
+		>,
+		IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
+			? never
+			: DDataParser.Input<GenericDataParser>
 	> {
 	const constraints = DArray.coalescing(constraint ?? []);
 

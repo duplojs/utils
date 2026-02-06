@@ -1,14 +1,17 @@
-Subtracts months from a date.
+Subtracts a number of calendar months from a date.
 
 **Supported call styles:**
-- Classic: `subtractMonths(input, month)` → returns a value
-- Curried: `subtractMonths(month)` → returns a function waiting for the input
+- Classic: `subtractMonths(input, month)` → `TheDate`
+- Curried: `subtractMonths(month)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/subtractMonths/example.ts[3,11]}
+{@include date/subtractMonths/example.ts[3,13]}
 ```
+
+@remarks
+- Uses UTC month arithmetic (`Date#setUTCMonth` behavior).
 
 @see https://utils.duplojs.dev/en/v1/api/date/subtractMonths
 

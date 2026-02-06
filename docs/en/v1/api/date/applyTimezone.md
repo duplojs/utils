@@ -26,12 +26,12 @@ The **`applyTimezone()`** function shifts a `TheDate` by applying the offset of 
 ```typescript
 function applyTimezone(
 	timezone: Timezone
-): (input: TheDate) => TheDate
+): (input: TheDate | SerializedTheDate) => TheDate
 ```
 
 ```typescript
 function applyTimezone(
-	input: TheDate,
+	input: TheDate | SerializedTheDate,
 	timezone: Timezone
 ): TheDate
 ```

@@ -1,9 +1,10 @@
 'use strict';
 
+var theDate = require('./theDate.cjs');
 var toTimestamp = require('./toTimestamp.cjs');
 
 function closestTo(...args) {
-    if (typeof args[0] === "string") {
+    if (typeof args[0] === "string" || args[0] instanceof theDate.TheDate) {
         const [target, params] = args;
         return (input) => closestTo(input, target, params);
     }
@@ -23,7 +24,10 @@ function closestTo(...args) {
         const distance = Math.abs(valueTimestamp - targetTimestamp);
         if (distance < smallestDiff) {
             smallestDiff = distance;
-            closest = value;
+            if (value instanceof theDate.TheDate) {
+                closest = value;
+            }
+            closest = theDate.TheDate.new(valueTimestamp);
         }
     }
     return closest;

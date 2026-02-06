@@ -1,39 +1,35 @@
-import type { TheTime } from "../types";
+import type { TheTime } from "../theTime";
+import type { SerializedTheTime } from "../types";
 /**
- * Checks whether a time is between two bounds (exclusive).
+ * Checks whether a duration is inside an exclusive range.
  * 
  * **Supported call styles:**
- * - Classic: `betweenThanTime(input, greater, less)` → returns a value
- * - Curried: `betweenThanTime(greater, less)` → returns a function waiting for the input
+ * - Classic: `betweenThanTime(input, greater, less)` → `boolean`
+ * - Curried: `betweenThanTime(greater, less)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheTime` or `SerializedTheTime`.
  * 
  * ```ts
- * const input = "time1500+";
- * const greater = "time1000+";
- * const less = "time2000+";
+ * const input = D.createTime(2, "hour");
+ * const greater = D.createTime(1, "hour");
+ * const less = D.createTime(2, "hour");
  * 
  * const result = D.betweenThanTime(input, greater, less);
- * // result: true
+ * // result: false
  * 
- * if (D.betweenThanTime(input, greater, less)) {
- * 	// input is strictly within bounds
- * }
- * 
- * const result2 = pipe(
+ * pipe(
  * 	input,
- * 	when(
- * 		D.betweenThanTime(greater, less),
- * 		() => "ok",
- * 	),
- * );
- * // result2: "ok"
+ * 	D.betweenThanTime(greater, less),
+ * ); // false
  * ```
+ * 
+ * @remarks
+ * - Exclusive bounds: `input > greater && input < less`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/betweenThanTime
  * 
  * @namespace D
  * 
  */
-export declare function betweenThanTime<GenericValue extends TheTime>(greater: TheTime, less: TheTime): (input: GenericValue) => boolean;
-export declare function betweenThanTime<GenericValue extends TheTime>(input: GenericValue, greater: TheTime, less: TheTime): boolean;
+export declare function betweenThanTime<GenericValue extends TheTime | SerializedTheTime>(greater: TheTime | SerializedTheTime, less: TheTime | SerializedTheTime): (input: GenericValue) => boolean;
+export declare function betweenThanTime<GenericValue extends TheTime | SerializedTheTime>(input: GenericValue, greater: TheTime | SerializedTheTime, less: TheTime | SerializedTheTime): boolean;

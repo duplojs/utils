@@ -1,5 +1,6 @@
 'use strict';
 
+var theDate = require('../theDate.cjs');
 var toNative = require('../toNative.cjs');
 
 /**
@@ -9,9 +10,7 @@ function getLastDayOfMonth(input) {
     const nativeDate = toNative.toNative(input);
     nativeDate.setUTCMonth(nativeDate.getUTCMonth() + 1, 0);
     nativeDate.setUTCHours(23, 59, 59, 999);
-    const timestamp = nativeDate.getTime();
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return theDate.TheDate.new(nativeDate.getTime());
 }
 
 exports.getLastDayOfMonth = getLastDayOfMonth;

@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "La fonction addMonths() ajoute un nombre positif de mois à un TheDate. Les dépassements d'année et les années bissextiles sont gérés automatiquement."
+description: "La fonction addMonths() ajoute un nombre de mois à un TheDate. Les dépassements d'année et les années bissextiles sont gérés automatiquement."
 prev:
-  text: "addYears"
-  link: "/fr/v1/api/date/addYears"
+ text: "addYears"
+ link: "/fr/v1/api/date/addYears"
 next:
-  text: "addWeeks"
-  link: "/fr/v1/api/date/addWeeks"
+ text: "addWeeks"
+ link: "/fr/v1/api/date/addWeeks"
 ---
 
 # addMonths
 
-La fonction **`addMonths()`** ajoute un nombre positif de mois à un `TheDate`. Les dépassements d'année et les années bissextiles sont gérés automatiquement.
+La fonction **`addMonths()`** ajoute un nombre de mois à un `TheDate`. Les dépassements d'année et les années bissextiles sont gérés automatiquement.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addMonths/tryout.doc.ts"
-  majorVersion="v1"
-  height="229px"
+ src="/examples/v1/api/date/addMonths/tryout.doc.ts"
+ majorVersion="v1"
+ height="229px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ La fonction **`addMonths()`** ajoute un nombre positif de mois à un `TheDate`. 
 
 ```typescript
 function addMonths<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMonth extends number
 >(
 	input: GenericInput,
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addMonths<
 
 ```typescript
 function addMonths<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMonth extends number
 >(
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `month` : Nombre de mois strictement positif.
-- `input` : Date à ajuster (signature classique).
+- `month` : Nombre de mois .
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

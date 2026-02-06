@@ -4,13 +4,13 @@ describe("createOrThrow", () => {
 	it("creates from timestamp", () => {
 		const result = DDate.createOrThrow(1609459200000);
 
-		expect(result).toBe("date1609459200000+");
+		expect(DDate.serialize(result)).toBe("date1609459200000+");
 	});
 
 	it("creates from negative timestamp", () => {
 		const result = DDate.createOrThrow(-1000);
 
-		expect(result).toBe("date1000-");
+		expect(DDate.serialize(result)).toBe("date1000-");
 	});
 
 	it("throws when timestamp is unsafe", () => {
@@ -33,13 +33,13 @@ describe("createOrThrow", () => {
 	it("creates from Date object", () => {
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
 
-		expect(DDate.createOrThrow(nativeDate)).toBe("date1609459200000+");
+		expect(DDate.serialize(DDate.createOrThrow(nativeDate))).toBe("date1609459200000+");
 	});
 
 	it("creates from Date object before epoch", () => {
 		const nativeDate = new Date(-1000);
 
-		expect(DDate.createOrThrow(nativeDate)).toBe("date1000-");
+		expect(DDate.serialize(DDate.createOrThrow(nativeDate))).toBe("date1000-");
 	});
 
 	it("throws when Date object is invalid", () => {
@@ -52,9 +52,9 @@ describe("createOrThrow", () => {
 	});
 
 	it("creates from TheDate string", () => {
-		const value: DDate.TheDate = "date42-";
+		const value: DDate.SerializedTheDate = "date42-";
 
-		expect(DDate.createOrThrow(value)).toBe(value);
+		expect(DDate.serialize(DDate.createOrThrow(value))).toBe(value);
 	});
 
 	it("throws when TheDate magnitude is invalid", () => {
@@ -67,7 +67,7 @@ describe("createOrThrow", () => {
 		const input = new Date(Date.UTC(-100, 0, 1));
 		const timestamp = input.getTime();
 
-		expect(DDate.createOrThrow(input)).toBe(`date${Math.abs(timestamp)}-`);
+		expect(DDate.serialize(DDate.createOrThrow(input))).toBe(`date${Math.abs(timestamp)}-`);
 	});
 
 	it("throws when string does not match any known pattern", () => {

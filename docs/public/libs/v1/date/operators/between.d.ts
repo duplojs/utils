@@ -1,17 +1,18 @@
-import type { TheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { type SerializedTheDate } from "../types";
 /**
- * Checks whether a date is between two dates (inclusive).
+ * Checks whether a date is inside an inclusive range.
  * 
  * **Supported call styles:**
- * - Classic: `between(input, greater, less)` → returns a value
- * - Curried: `between(greater, less)` → returns a function waiting for the input
+ * - Classic: `between(input, greater, less)` → `boolean`
+ * - Curried: `between(greater, less)` → `(input) => boolean`
  * 
- * The input value is not mutated.
+ * All parameters accept `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const start = D.create("2024-06-01");
  * const end = D.create("2024-06-30");
- * const input = D.create("2024-06-15");
+ * const input = D.create("2024-06-30");
  * 
  * const result = D.between(input, start, end);
  * // result: true
@@ -19,17 +20,16 @@ import type { TheDate } from "../types";
  * pipe(
  * 	input,
  * 	D.between(start, end),
- * ); // result: true
- * 
+ * ); // true
  * ```
  * 
  * @remarks
- * - Bounds are inclusive.
+ * - Inclusive bounds: `input >= greater && input <= less`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/between
  * 
  * @namespace D
  * 
  */
-export declare function between<GenericValue extends TheDate>(greater: TheDate, less: TheDate): (input: GenericValue) => boolean;
-export declare function between<GenericValue extends TheDate>(input: GenericValue, greater: TheDate, less: TheDate): boolean;
+export declare function between<GenericValue extends TheDate | SerializedTheDate>(greater: TheDate | SerializedTheDate, less: TheDate | SerializedTheDate): (input: GenericValue) => boolean;
+export declare function between<GenericValue extends TheDate | SerializedTheDate>(input: GenericValue, greater: TheDate | SerializedTheDate, less: TheDate | SerializedTheDate): boolean;

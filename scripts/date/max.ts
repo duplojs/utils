@@ -1,15 +1,15 @@
-import { type AnyTuple } from "@scripts/common";
-import { createOrThrow } from "./createOrThrow";
+import type { AnyTuple } from "@scripts/common/types/anyTuple";
+import { TheDate } from "./theDate";
 import { toTimestamp } from "./toTimestamp";
-import { type TheDate } from "./types";
+import type { SerializedTheDate } from "./types";
 
 /**
  * {@include date/max/index.md}
  */
 export function max<
-	GenericInput extends AnyTuple<TheDate>,
+	GenericInput extends AnyTuple<TheDate | SerializedTheDate>,
 >(input: GenericInput) {
-	return createOrThrow(
+	return TheDate.new(
 		Math.max(
 			...input.map(toTimestamp),
 		),

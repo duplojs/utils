@@ -25,7 +25,7 @@ La fonction **`format()`** affiche un `TheDate` selon un format personnalisé et
 
 ```typescript
 function format<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericFormat extends string,
 	GenericTimezone extends Timezone
 >(
@@ -36,7 +36,7 @@ function format<
 
 ```typescript
 function format<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericFormat extends string,
 	GenericTimezone extends Timezone
 >(

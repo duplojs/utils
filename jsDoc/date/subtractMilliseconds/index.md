@@ -1,13 +1,13 @@
-Subtracts milliseconds from a date.
+Subtracts a number of milliseconds from a date.
 
 **Supported call styles:**
-- Classic: `subtractMilliseconds(input, millisecond)` → returns a value
-- Curried: `subtractMilliseconds(millisecond)` → returns a function waiting for the input
+- Classic: `subtractMilliseconds(input, millisecond)` → `TheDate`
+- Curried: `subtractMilliseconds(millisecond)` → `(input) => TheDate`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/subtractMilliseconds/example.ts[3,11]}
+{@include date/subtractMilliseconds/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/subtractMilliseconds

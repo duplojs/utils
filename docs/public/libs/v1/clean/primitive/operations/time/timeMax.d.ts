@@ -1,32 +1,25 @@
-import { type TheTime } from "../../../../date";
-import { type Time } from "../../base";
+import { TheTime } from "../../../../date";
 import { type AnyTuple } from "../../../../common";
+import { type Time } from "../../base";
 /**
- * Returns the largest duration from a tuple of Time values.
+ * Returns the largest wrapped `Time` from a tuple.
  * 
  * **Supported call styles:**
- * - Classic: `timeMax(input)` -> returns a Time
+ * - Classic: `timeMax(input)` → `Time`
  * 
- * The input can mix wrapped Times and raw TheTime values.
+ * `input` can mix wrapped `Time` and raw `TheTime` values.
  * 
  * ```ts
  * const largest = C.timeMax([
- * 	C.Time.createOrThrow(D.createTheTime(1_000)),
- * 	D.createTheTime(500),
- * 	D.createTheTime(2_000),
+ * 	C.Time.createOrThrow(D.createTime(1_000, "millisecond")),
+ * 	D.createTime(500, "millisecond"),
+ * 	D.createTime(2_000, "millisecond"),
  * ]);
  * // largest: C.Time
  * 
- * const fromRaw = C.timeMax([
- * 	D.createTheTime(10),
- * 	D.createTheTime(5),
- * 	D.createTheTime(20),
- * ]);
- * // fromRaw: C.Time
- * 
  * const mixed = C.timeMax([
- * 	C.Time.createOrThrow(D.createTheTime(100)),
- * 	D.createTheTime(50),
+ * 	C.Time.createOrThrow(D.createTime(100, "millisecond")),
+ * 	D.createTime(50, "millisecond"),
  * ]);
  * // mixed: C.Time
  * 

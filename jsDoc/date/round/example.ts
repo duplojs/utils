@@ -6,13 +6,14 @@ const input = D.create("2024-06-20", {
 	second: "56",
 	millisecond: "789",
 });
-const result = D.round(input);
-// result: "date1718841600000+"
 
-const result2 = D.round(input, "month");
-// result2: "date1717200000000+"
+const byDay = D.round(input);
+// byDay: TheDate
+
+const byMonth = D.round(input, "month");
+// byMonth: TheDate
 
 pipe(
 	input,
 	D.round,
-); // result: "date1718841600000+"
+); // TheDate

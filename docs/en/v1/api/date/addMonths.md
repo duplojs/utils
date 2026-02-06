@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The addMonths() function adds a positive number of months to a TheDate. Year rollovers and leap years are handled automatically."
+description: "The addMonths() function adds a number of months to a TheDate. Year rollovers and leap years are handled automatically."
 prev:
   text: "addYears"
   link: "/en/v1/api/date/addYears"
@@ -11,7 +11,7 @@ next:
 
 # addMonths
 
-The **`addMonths()`** function adds a positive number of months to a `TheDate`. Year rollovers and leap years are handled automatically.
+The **`addMonths()`** function adds a number of months to a `TheDate`. Year rollovers and leap years are handled automatically.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ The **`addMonths()`** function adds a positive number of months to a `TheDate`. 
 
 ```typescript
 function addMonths<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMonth extends number
 >(
 	input: GenericInput,
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addMonths<
 
 ```typescript
 function addMonths<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericMonth extends number
 >(
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `month`: Strictly positive number of months.
-- `input`: Date to adjust (classic signature).
+- `month`: Number of months.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

@@ -1,3 +1,4 @@
+import { TheDate } from './theDate.mjs';
 import { toNative } from './toNative.mjs';
 
 const stepMapper = {
@@ -17,8 +18,7 @@ const stepMapper = {
 function round(input, unit = "day") {
     const date = toNative(input);
     const timestamp = stepMapper[unit](date);
-    const isNegative = timestamp < 0;
-    return `date${Math.abs(timestamp)}${isNegative ? "-" : "+"}`;
+    return TheDate.new(timestamp);
 }
 
 export { round };

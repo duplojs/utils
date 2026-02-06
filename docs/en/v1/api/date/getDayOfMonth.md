@@ -25,17 +25,17 @@ The **`getDayOfMonth()`** function returns the day of the month (1–31) for a `
 
 ```typescript
 function getDayOfMonth<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Parameters
 
-- `input`: `TheDate` value.
-- `timezone`: Timezone (optional).
+- `input`: `TheDate` or `SerializedTheDate`.
+- `timezone`: IANA timezone. Default: `"UTC"`.
 
 ## Return value
 

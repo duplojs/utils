@@ -10,14 +10,14 @@ next:
 
 # timeMax
 
-`timeMax()` retourne la plus grande durée d'une liste (wrappée ou `DDate.TheTime`).
+`timeMax()` retourne la plus grande durée d'un tuple (wrappée ou `DDate.TheTime`).
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/operators/timeMax/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="320px"
 />
 
 ## Syntaxe
@@ -30,7 +30,7 @@ function timeMax(input: AnyTuple<Time | TheTime>): Time
 
 ## Paramètres
 
-- `input` : durées à comparer (au moins une).
+- `input` : tuple de durées à comparer (au moins une).
 
 ## Valeur de retour
 

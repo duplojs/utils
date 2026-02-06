@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "DDataParser.time() validates TheTime durations, accepts TheTime/SerializedTheTime/safe number inputs, and can coerce ISO-like time strings."
 prev:
   text: "date"
   link: "/en/v1/api/dataParser/date"
@@ -10,7 +11,7 @@ next:
 
 # time
 
-Validates durations in `TheTime` format. `DDataParser.time()` ensures the input is a `TheTime`, applies your checkers (`min`, `max`, `refine`, etc.) and returns an `Either` containing either the validated value or a `DataParserError`.
+`DDataParser.time()` validates `TheTime` durations. It natively accepts `TheTime`, `SerializedTheTime`, and safe numeric values. In coercive mode (`coerce: true`), it also accepts ISO-like time strings (`HH:MM[:SS[.mmm]]`).
 
 ## Interactive example
 
@@ -22,13 +23,15 @@ Validates durations in `TheTime` format. `DDataParser.time()` ensures the input 
 
 ## Parameters
 
-- `errorMessage`: custom message when the input is not a `TheTime`.
+- `errorMessage`: custom message when the input cannot be converted to `TheTime`.
 - `checkers`: `checkerTimeMin`, `checkerTimeMax`, `checkerRefine`, etc.
 - `coerce`: `true` to accept a number (ms) or an ISO string (`HH:MM[:SS[.mmm]]`) before converting to `TheTime`. Defaults to `false`.
 
 ## Return value
 
 A `DataParserTime` with `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. `parse` returns `DEither.success<TheTime>` if everything passes or `DEither.error<DataParserError>` with the accumulated issues.
+
+In extended mode (`DPE.time()`), `.min(...)` and `.max(...)` respectively add `checkerTimeMin` and `checkerTimeMax`.
 
 ## Other examples
 
@@ -37,7 +40,7 @@ A `DataParserTime` with `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/time/checkers.doc.ts"
   majorVersion="v1"
-  height="400px"
+  height="500px"
 />
 
 ### Extended mode

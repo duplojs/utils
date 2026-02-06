@@ -25,13 +25,13 @@ La fonction **`max()`** retourne la date la plus récente d'un tuple de `TheDate
 
 ```typescript
 function max<
-  GenericInput extends AnyTuple<TheDate>
+  GenericInput extends AnyTuple<TheDate | SerializedTheDate>
 >(input: GenericInput): TheDate
 ```
 
 ## Paramètres
 
-- `input` : Tuple de dates au format `TheDate`.
+- `input` : Tuple de `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

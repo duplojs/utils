@@ -1,14 +1,17 @@
-Checks whether a time is greater than or equal to another.
+Checks whether a duration is greater than or equal to a threshold.
 
 **Supported call styles:**
-- Classic: `greaterTime(input, threshold)` → returns a value
-- Curried: `greaterTime(threshold)` → returns a function waiting for the input
+- Classic: `greaterTime(input, threshold)` → `boolean`
+- Curried: `greaterTime(threshold)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheTime` or `SerializedTheTime`.
 
 ```ts
-{@include date/greaterTime/example.ts[3,20]}
+{@include date/greaterTime/example.ts[3,12]}
 ```
+
+@remarks
+- Inclusive comparison: `input >= threshold`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/greaterTime
 

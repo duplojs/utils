@@ -1,11 +1,9 @@
-Returns the current date as TheDate.
+Returns the current instant as `TheDate`.
 
-Signature: `now()` → returns a value
-
-The input value is not mutated.
+Signature: `now()` → `TheDate`
 
 ```ts
-{@include date/now/example.ts[3,5]}
+{@include date/now/example.ts[3,8]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/now

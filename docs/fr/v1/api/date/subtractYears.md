@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Soustrait un nombre positif d'années d'un TheDate."
+description: "Soustrait un nombre d'années d'un TheDate."
 prev:
-  text: "addTime"
-  link: "/fr/v1/api/date/addTime"
+ text: "addTime"
+ link: "/fr/v1/api/date/addTime"
 next:
-  text: "subtractMonths"
-  link: "/fr/v1/api/date/subtractMonths"
+ text: "subtractMonths"
+ link: "/fr/v1/api/date/subtractMonths"
 ---
 
 # subtractYears
 
-Soustrait un nombre positif d'années d'un `TheDate`.
+Soustrait un nombre d'années d'un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/subtractYears/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/subtractYears/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Soustrait un nombre positif d'années d'un `TheDate`.
 
 ```typescript
 function subtractYears<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericYear extends number
 >(
 	input: GenericInput,
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractYears<
 
 ```typescript
 function subtractYears<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericYear extends number
 >(
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
 - `year` : Nombre d'années à soustraire.
-- `input` : Date d'origine.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

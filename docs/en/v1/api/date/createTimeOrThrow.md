@@ -10,7 +10,7 @@ next:
 
 # createTimeOrThrow
 
-The **`createTimeOrThrow()`** function builds a `TheTime` from a `TheTime`, a numeric value, or a `SpoolingTime`. It throws `CreateTheTimeError` when the input is invalid.
+The **`createTimeOrThrow()`** function builds a `TheTime` from a `TheTime`, a `SerializedTheTime`, a numeric value, or a `SpoolingTime`. It throws `CreateTheTimeError` when the input is invalid.
 
 ## Interactive example
 
@@ -24,13 +24,13 @@ The **`createTimeOrThrow()`** function builds a `TheTime` from a `TheTime`, a nu
 
 ```typescript
 function createTimeOrThrow(
-	input: number | TheTime | SpoolingTime
+	input: number | TheTime | SpoolingTime | SerializedTheTime
 ): TheTime
 ```
 
 ## Parameters
 
-- `input`: A time value (`number`), a `TheTime`, or a `SpoolingTime`.
+- `input`: A time value (`number`), a `TheTime`, a `SerializedTheTime`, or a `SpoolingTime`.
 
 ## Return value
 

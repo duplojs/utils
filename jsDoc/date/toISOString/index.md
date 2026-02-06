@@ -1,11 +1,11 @@
-Converts a date to an ISO string.
+Converts a date value to ISO-8601 string.
 
-Signature: `toISOString(input)` → returns a value
+Signature: `toISOString(input)` → `string`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/toISOString/example.ts[3,11]}
+{@include date/toISOString/example.ts[3,12]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/toISOString

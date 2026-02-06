@@ -12,13 +12,14 @@ description: "Déballe une entité en objet simple et expose ses métadonnées."
 # unwrapEntity
 
 `unwrapEntity` transforme une entité en objet simple, en déballant les valeurs des `NewType` et en exposant ses métadonnées.
+Par défaut, les valeurs sont déballées telles quelles. Vous pouvez fournir un `transformer` (ex: `toNative`, `toJSON`) pour projeter les valeurs pendant le déballage.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/unwrapEntity/tryout.doc.ts"
   majorVersion="v1"
-  height="480px"
+  height="550px"
   :foldLines="[3]"
 />
 
@@ -28,22 +29,26 @@ description: "Déballe une entité en objet simple et expose ses métadonnées."
 
 ```typescript
 function unwrapEntity(
-	entity: Entity
-): UnwrapEntity<Entity>
+	entity: Entity,
+	params?: { transformer?: TransformerFunction }
+): UnwrapEntity<Entity, TransformerFunction>
 ```
 
 ## Parametres
 
 - `entity` : L'entité à déballer.
+- `params` : Paramètres optionnels.
+- `params.transformer` : Transformateur appliqué à chaque valeur déballée.
 
 ## Valeur de retour
 
-Un objet simple contenant les propriétés brutes, plus `_entityName` et `_flags` si présents.
+Un objet readonly contenant les propriétés déballées, plus `_entityName` et `_flags` si présents.
 
 ## Type utilitaire
 
 ```typescript
-type UnwrappedUser = C.UnwrapEntity<User>;
+type UnwrappedUser = C.UnwrapEntity<UserEntity>;
+type UnwrappedUserJSON = C.UnwrapEntity<UserEntity, TransformerFunction<"toJSON">>;
 ```
 
 ## Voir aussi

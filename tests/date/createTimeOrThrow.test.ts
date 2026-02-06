@@ -4,19 +4,19 @@ describe("createTimeOrThrow", () => {
 	it("creates from milliseconds", () => {
 		const result = DDate.createTimeOrThrow(5000);
 
-		expect(result).toBe("time5000+");
+		expect(DDate.serialize(result)).toBe("time5000+");
 	});
 
 	it("creates from negative milliseconds", () => {
 		const result = DDate.createTimeOrThrow(-1000);
 
-		expect(result).toBe("time1000-");
+		expect(DDate.serialize(result)).toBe("time1000-");
 	});
 
 	it("creates from TheTime string", () => {
-		const value: DDate.TheTime = "time42-";
+		const value: DDate.SerializedTheTime = "time42-";
 
-		expect(DDate.createTimeOrThrow(value)).toBe(value);
+		expect(DDate.serialize(DDate.createTimeOrThrow(value))).toBe(value);
 	});
 
 	it("creates from ISO time value", () => {
@@ -24,7 +24,7 @@ describe("createTimeOrThrow", () => {
 			value: "01:00:00.000",
 		});
 
-		expect(result).toBe(`time${DDate.millisecondInOneHour}+`);
+		expect(DDate.serialize(result)).toBe(`time${DDate.millisecondInOneHour}+`);
 	});
 
 	it("creates from spooling value number", () => {
@@ -32,7 +32,7 @@ describe("createTimeOrThrow", () => {
 			value: 2500,
 		});
 
-		expect(result).toBe("time2500+");
+		expect(DDate.serialize(result)).toBe("time2500+");
 	});
 
 	it("throws when time value is unsafe", () => {

@@ -27,7 +27,7 @@ La fonction **`formatTime()`** formate un `TheTime` via une chaîne de format pe
 
 ```typescript
 function formatTime<
-	GenericInput extends TheTime,
+	GenericInput extends TheTime | SerializedTheTime,
 	GenericFormat extends string
 >(
 	formatString: GenericFormat
@@ -38,7 +38,7 @@ function formatTime<
 
 ```typescript
 function formatTime<
-	GenericInput extends TheTime,
+	GenericInput extends TheTime | SerializedTheTime,
 	GenericFormat extends string
 >(
 	input: GenericInput,

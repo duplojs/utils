@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Functions to manipulate dates and times via the proprietary type TheDate (`type TheDate = date${number}${\"-\" | \"+\"}```). This serializable format encodes a safe Unix timestamp, travels through HTTP protocols without loss, and guarantees immutable manipulation."
+description: "Functions to manipulate immutable TheDate/TheTime objects and their serialized forms SerializedTheDate/SerializedTheTime."
 prev:
   text: "DataParser"
   link: "/en/v1/api/dataParser/"
@@ -11,7 +11,8 @@ next:
 
 # Date
 
-Functions to manipulate dates and times via the proprietary type **`TheDate`** (``type TheDate = `date${number}${"-" | "+"}```). This serializable format encodes a safe Unix timestamp, travels through HTTP protocols without loss, and guarantees immutable manipulation.
+Functions to manipulate immutable dates and durations with **`TheDate`** (class extending `Date`) and **`TheTime`** (immutable duration class).  
+The namespace also exposes serialized formats **`SerializedTheDate`** (`date${number}${"-" | "+"}`) and **`SerializedTheTime`** (`time${number}${"-" | "+"}`) for transport and text storage.
 
 ## How to import ?
 
@@ -22,6 +23,14 @@ import { DDate, D } from "@duplojs/utils";
 import * as DDate from "@duplojs/utils/date";
 import * as D from "@duplojs/utils/date";
 ```
+
+## Core types
+
+### [TheDate](/en/v1/api/date/theDate)
+Immutable class extending `Date` for date-time manipulation.
+
+### [TheTime](/en/v1/api/date/theTime)
+Immutable duration class used in the `date` API context.
 
 ## Creation
 
@@ -44,10 +53,10 @@ Returns the exact timestamp of the current moment as a `TheDate`.
 Generates the start of the day (midnight) as a `TheDate`.
 
 ### [yesterday](/en/v1/api/date/yesterday)
-Returns the start of the previous day.
+Returns an instant approximately one day before now.
 
 ### [tomorrow](/en/v1/api/date/tomorrow)
-Returns the start of the next day.
+Returns an instant approximately one day after now.
 
 ## Conversion & validation
 
@@ -81,11 +90,20 @@ Formats a `TheTime` using a custom format string.
 ### [isSafeTimestamp](/en/v1/api/date/isSafeTimestamp)
 Checks that a timestamp is between `minTimestamp` and `maxTimestamp`.
 
+### [serialize](/en/v1/api/date/serialize)
+Converts `TheDate`/`TheTime` into `SerializedTheDate`/`SerializedTheTime`.
+
+### [isSerializedTheDate](/en/v1/api/date/isSerializedTheDate)
+Checks whether a string is a valid `SerializedTheDate`.
+
+### [isSerializedTheTime](/en/v1/api/date/isSerializedTheTime)
+Checks whether a string is a valid `SerializedTheTime`.
+
 ### [is](/en/v1/api/date/is)
-Checks that a string matches the `TheDate` format (type guard).
+Checks whether a value is an instance of `TheDate` (type guard).
 
 ### [isTime](/en/v1/api/date/isTime)
-Checks that a string matches the `TheTime` format (type guard).
+Checks whether a value is an instance of `TheTime` (type guard).
 
 ## Component reading
 

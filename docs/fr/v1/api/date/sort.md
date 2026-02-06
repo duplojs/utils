@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction sort() trie un tableau de TheDate selon l'ordre souhaité (ASC ou DSC) et retourne un nouveau tableau trié."
+description: "La fonction sort() trie un tableau de TheDate ou SerializedTheDate selon l'ordre souhaité (ASC ou DSC) et retourne un nouveau tableau trié."
 prev:
   text: "betweenThanTime"
   link: "/fr/v1/api/date/betweenThanTime"
@@ -11,7 +11,7 @@ next:
 
 # sort
 
-La fonction **`sort()`** trie un tableau de `TheDate` selon l'ordre souhaité (`ASC` ou `DSC`) et retourne un nouveau tableau trié.
+La fonction **`sort()`** trie un tableau de `TheDate` ou `SerializedTheDate` selon l'ordre souhaité (`ASC` ou `DSC`) et retourne un nouveau tableau trié.
 
 ## Exemple interactif
 
@@ -27,7 +27,7 @@ La fonction **`sort()`** trie un tableau de `TheDate` selon l'ordre souhaité (`
 
 ```typescript
 function sort<
-  GenericArray extends readonly TheDate[],
+  GenericArray extends readonly (TheDate | SerializedTheDate)[],
 >(
   array: GenericArray,
   type: SortType,
@@ -38,7 +38,7 @@ function sort<
 
 ```typescript
 function sort<
-  GenericArray extends readonly TheDate[],
+  GenericArray extends readonly (TheDate | SerializedTheDate)[],
 >(
   type: SortType,
 ): (array: GenericArray) => TheDate[]
@@ -46,7 +46,7 @@ function sort<
 
 ## Paramètres
 
-- `array` : Tableau de dates au format `TheDate`.
+- `array` : Tableau de `TheDate` ou `SerializedTheDate`.
 - `type` : Ordre de tri, `"ASC"` pour croissant, `"DSC"` pour décroissant.
 
 ## Valeur de retour

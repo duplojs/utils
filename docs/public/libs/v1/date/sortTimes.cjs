@@ -1,7 +1,7 @@
 'use strict';
 
-var createTheTime = require('./createTheTime.cjs');
 var toTimeValue = require('./toTimeValue.cjs');
+var theTime = require('./theTime.cjs');
 
 function sortTimes(...args) {
     if (args.length === 1) {
@@ -14,7 +14,7 @@ function sortTimes(...args) {
         .sort(type === "DSC"
         ? (first, second) => second - first
         : (first, second) => first - second)
-        .map(createTheTime.createTheTime);
+        .map(theTime.TheTime.new);
 }
 
 exports.sortTimes = sortTimes;

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Finds the date closest to a target within an iterable of TheDate. In case of equality, an optional tieBreaker lets you favor the past or the future."
+description: "Finds the date closest to a target within an iterable of TheDate or SerializedTheDate. In case of equality, an optional tieBreaker lets you favor the past or the future."
 prev:
   text: "each"
   link: "/en/v1/api/date/each"
@@ -11,7 +11,7 @@ next:
 
 # closestTo
 
-Finds the date closest to a target within an iterable of `TheDate`. In case of equality, an optional `tieBreaker` lets you favor the past or the future.
+Finds the date closest to a target within an iterable of `TheDate` or `SerializedTheDate`. In case of equality, an optional `tieBreaker` lets you favor the past or the future.
 
 ## Interactive example
 
@@ -33,9 +33,9 @@ interface ClosestToParams {
 
 ```typescript
 function closestTo<
-	GenericIterable extends Iterable<TheDate>
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>
 >(
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams
 ): (input: GenericIterable) => TheDate | undefined
 ```
@@ -44,18 +44,18 @@ function closestTo<
 
 ```typescript
 function closestTo<
-	GenericIterable extends Iterable<TheDate>
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>
 >(
 	input: GenericIterable,
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams
 ): TheDate | undefined
 ```
 
 ## Parameters
 
-- `target`: Target date.
-- `input`: Iterable of `TheDate`.
+- `target`: Target date (`TheDate` or `SerializedTheDate`).
+- `input`: Iterable of `TheDate` or `SerializedTheDate`.
 - `tieBreaker`: (Optional) Handles ties (`favorPast` by default).
 
 ## Return value

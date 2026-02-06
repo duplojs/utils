@@ -1,31 +1,24 @@
-import { type TheTime } from "./types";
+import { TheTime } from "./theTime";
 /**
- * Checks whether a string is a TheTime.
+ * Checks whether a value is an instance of `TheTime`.
  * 
- * Signature: `isTime(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `isTime(input)` → `input is TheTime`
  * 
  * ```ts
- * const input = "time3600000+";
+ * const input = D.createTime(1, "hour") as unknown;
  * 
  * if (D.isTime(input)) {
  * 	// input: TheTime
  * }
  * 
- * const result = D.isTime("time3600000-");
- * // result: true
+ * const result = D.isTime(D.create("2024-06-20"));
+ * // result: false
  * 
- * const result2 = D.isTime("time99999999999999999+");
- * // result2: false
  * ```
- * 
- * @remarks
- * - Validates the string format and the safe time range.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/isTime
  * 
  * @namespace D
  * 
  */
-export declare function isTime(input: string): input is TheTime;
+export declare function isTime(input: unknown): input is TheTime;

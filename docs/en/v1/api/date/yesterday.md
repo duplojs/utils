@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The yesterday() function returns the start of the previous day as a TheDate."
+description: "The yesterday() function returns an instant approximately one day before now as a TheDate."
 prev:
   text: "today"
   link: "/en/v1/api/date/today"
@@ -33,7 +33,7 @@ None.
 
 ## Return value
 
-A `TheDate` representing the previous day at the same hour.
+A `TheDate` representing an instant approximately one day before now.
 
 ## See also
 

@@ -1,7 +1,7 @@
 'use strict';
 
-var createTheDate = require('../createTheDate.cjs');
-var toNative = require('../toNative.cjs');
+var theDate = require('../theDate.cjs');
+var toTimestamp = require('../toTimestamp.cjs');
 
 function addMilliseconds(...args) {
     if (args.length === 1) {
@@ -9,9 +9,7 @@ function addMilliseconds(...args) {
         return (input) => addMilliseconds(input, millisecond);
     }
     const [input, millisecond] = args;
-    const date = toNative.toNative(input);
-    date.setTime(date.getTime() + millisecond);
-    return createTheDate.createTheDate(date.getTime());
+    return theDate.TheDate.new(toTimestamp.toTimestamp(input) + millisecond);
 }
 
 exports.addMilliseconds = addMilliseconds;

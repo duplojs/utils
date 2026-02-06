@@ -2,13 +2,11 @@ import { type Date, type Number, type String, type Time } from "../base";
 import { type ToWrappedValue, type SortType } from "../../../common";
 import * as DDate from "../../../date";
 /**
- * Sorts an array of primitives (String, Number, Date, Time) in ascending or descending order.
+ * Sorts arrays of wrapped primitives (`String`, `Number`, `Date`, `Time`).
  * 
  * **Supported call styles:**
- * - Classic: `sort(input, type)` -> returns a new array
- * - Curried: `sort(type)` -> returns a function waiting for the input
- * 
- * The output array contains wrapped primitives.
+ * - Classic: `sort(input, type)` → wrapped array
+ * - Curried: `sort(type)` → function waiting for the input
  * 
  * ```ts
  * const numbers = [
@@ -27,12 +25,12 @@ import * as DDate from "../../../date";
  * // desc: C.Number[]
  * 
  * const dates = C.sort([
- * 	D.createTheDate(2),
- * 	D.createTheDate(1),
- * ], "ASC");
- * // dates: C.Date[]
- * 
+ * 	D.create("2024-01-02"),
+ * 	D.create("2024-01-01"),
  * ```
+ * 
+ * @remarks
+ * - Supports mixed wrapped/raw values in the same primitive family.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/sort
  * 

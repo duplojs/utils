@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Ajoute un nombre positif de millisecondes à un TheDate."
+description: "Ajoute un nombre de millisecondes à un TheDate."
 prev:
-  text: "addSeconds"
-  link: "/fr/v1/api/date/addSeconds"
+ text: "addSeconds"
+ link: "/fr/v1/api/date/addSeconds"
 next:
-  text: "addTime"
-  link: "/fr/v1/api/date/addTime"
+ text: "addTime"
+ link: "/fr/v1/api/date/addTime"
 ---
 
 # addMilliseconds
 
-Ajoute un nombre positif de millisecondes à un `TheDate`.
+Ajoute un nombre de millisecondes à un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addMilliseconds/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/addMilliseconds/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Ajoute un nombre positif de millisecondes à un `TheDate`.
 
 ```typescript
 function addMilliseconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMillisecond extends number
 >(
 	input: GenericInput,
-	millisecond: PositiveNumber<GenericMillisecond>
+	millisecond: GenericMillisecond
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addMilliseconds<
 
 ```typescript
 function addMilliseconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMillisecond extends number
 >(
-	millisecond: PositiveNumber<GenericMillisecond>
+	millisecond: GenericMillisecond
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `millisecond` : Nombre de millisecondes strictement positif.
-- `input` : `TheDate` à ajuster.
+- `millisecond` : Nombre de millisecondes .
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

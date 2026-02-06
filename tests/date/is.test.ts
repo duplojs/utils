@@ -2,7 +2,7 @@ import { DDate, type ExpectType } from "@scripts";
 
 describe("DDate.is", () => {
 	it("returns true for valid TheDate strings", () => {
-		const valid = "date1700000000+" as string;
+		const valid = DDate.createOrThrow(1700000000);
 		expect(DDate.is(valid)).toBe(true);
 
 		if (DDate.is(valid)) {

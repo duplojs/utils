@@ -5,4 +5,4 @@ const time05 = D.createTime(5000, "millisecond");
 const time10 = D.createTime(10000, "millisecond");
 
 const result = D.minTime([time10, time05, time01]);
-// result: time1000+
+// result: TheTime

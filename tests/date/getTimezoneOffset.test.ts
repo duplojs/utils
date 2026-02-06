@@ -46,6 +46,22 @@ describe("getTimezoneOffset", () => {
 		>;
 	});
 
+	it("accepts serialized dates as input", () => {
+		vi.stubEnv("TZ", "UTC");
+
+		const theDate = DDate.createOrThrow(1704067200000);
+		const serialized = DDate.serialize(theDate);
+		const result = DDate.getTimezoneOffset(serialized, "UTC");
+
+		expect(result).toBe(0);
+
+		type check = ExpectType<
+			typeof result,
+			number,
+			"strict"
+		>;
+	});
+
 	it("returns the same value regardless of process timezone", () => {
 		vi.stubEnv("TZ", DDate.timezone["America/New_York"]);
 		const theDate = DDate.create("2002-09-13", { hour: "06" });

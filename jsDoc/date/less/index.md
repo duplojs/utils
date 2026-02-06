@@ -1,14 +1,17 @@
-Checks whether a date is less than or equal to another.
+Checks whether a date is less than or equal to a threshold.
 
 **Supported call styles:**
-- Classic: `less(input, threshold)` → returns a value
-- Curried: `less(threshold)` → returns a function waiting for the input
+- Classic: `less(input, threshold)` → `boolean`
+- Curried: `less(threshold)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/less/example.ts[3,13]}
+{@include date/less/example.ts[3,12]}
 ```
+
+@remarks
+- Inclusive comparison: `input <= threshold`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/less
 

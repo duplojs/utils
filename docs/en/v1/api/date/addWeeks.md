@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Adds a positive number of weeks (multiples of 7 days) to a TheDate."
+description: "Adds a number of weeks (multiples of 7 days) to a TheDate."
 prev:
   text: "addMonths"
   link: "/en/v1/api/date/addMonths"
@@ -11,7 +11,7 @@ next:
 
 # addWeeks
 
-Adds a positive number of weeks (multiples of 7 days) to a `TheDate`.
+Adds a number of weeks (multiples of 7 days) to a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Adds a positive number of weeks (multiples of 7 days) to a `TheDate`.
 
 ```typescript
 function addWeeks<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericWeek extends number
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addWeeks<
 
 ```typescript
 function addWeeks<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericWeek extends number
 >(
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `week`: Strictly positive number of weeks.
-- `input`: Date to shift.
+- `week`: Number of weeks.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

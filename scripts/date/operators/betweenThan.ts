@@ -1,28 +1,33 @@
+import type { TheDate } from "../theDate";
 import { toTimestamp } from "../toTimestamp";
-import type { TheDate } from "../types";
+import type { SerializedTheDate } from "../types";
 
 /**
  * {@include date/betweenThan/index.md}
  */
 export function betweenThan<
-	GenericValue extends TheDate,
+	GenericValue extends TheDate | SerializedTheDate,
 >(
-	greater: TheDate,
-	less: TheDate,
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate,
 ): (input: GenericValue) => boolean;
 
 export function betweenThan<
-	GenericValue extends TheDate,
+	GenericValue extends TheDate | SerializedTheDate,
 >(
 	input: GenericValue,
-	greater: TheDate,
-	less: TheDate,
+	greater: TheDate | SerializedTheDate,
+	less: TheDate | SerializedTheDate,
 ): boolean;
 
-export function betweenThan(...args: [TheDate, TheDate] | [TheDate, TheDate, TheDate]) {
+export function betweenThan(
+	...args:
+	| [TheDate | SerializedTheDate, TheDate | SerializedTheDate]
+	| [TheDate | SerializedTheDate, TheDate | SerializedTheDate, TheDate | SerializedTheDate]
+) {
 	if (args.length === 2) {
 		const [greater, less] = args;
-		return (input: TheDate) => betweenThan(input, greater, less);
+		return (input: TheDate | SerializedTheDate) => betweenThan(input, greater, less);
 	}
 
 	const [input, greater, less] = args;

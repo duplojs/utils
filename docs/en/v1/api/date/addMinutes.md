@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Adds a positive number of minutes to a TheDate."
+description: "Adds a number of minutes to a TheDate."
 prev:
   text: "addHours"
   link: "/en/v1/api/date/addHours"
@@ -11,7 +11,7 @@ next:
 
 # addMinutes
 
-Adds a positive number of minutes to a `TheDate`.
+Adds a number of minutes to a `TheDate`.
 
 ## Interactive example
 
@@ -27,26 +27,26 @@ Adds a positive number of minutes to a `TheDate`.
 
 ```typescript
 function addMinutes<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMinute extends number
 >(
 	input: GenericInput,
-	minute: PositiveNumber<GenericMinute>
+	minute: GenericMinute
 ): TheDate
 ```
 
 ### Curried signature
 
 ```typescript
-function addMinutes<GenericInput extends TheDate, GenericMinute extends number>(
-	minute: PositiveNumber<GenericMinute>
+function addMinutes<GenericInput extends TheDate | SerializedTheDate, GenericMinute extends number>(
+	minute: GenericMinute
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `minute`: Strictly positive number of minutes.
-- `input`: `TheDate` to update.
+- `minute`: Number of minutes.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

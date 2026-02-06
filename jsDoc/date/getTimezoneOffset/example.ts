@@ -1,10 +1,13 @@
 import { D, pipe } from "@scripts";
 
-const theDate = D.createOrThrow(1704067200000);
-const offset = D.getTimezoneOffset(theDate, "America/New_York");
-// offset: -18000000
+const input = D.create("2024-01-01", {
+	hour: "00",
+});
+
+const offset = D.getTimezoneOffset(input, "America/New_York");
+// offset: number
 
 pipe(
-	theDate,
-	D.getTimezoneOffset("America/New_York"),
-); // offset: -18000000
+	input,
+	D.getTimezoneOffset("Europe/Paris"),
+); // number

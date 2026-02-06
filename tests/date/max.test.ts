@@ -6,6 +6,10 @@ describe("DDate max", () => {
 	const jan10 = DDate.create("2024-01-10");
 
 	it("picks latest date", () => {
-		expect(DDate.max([jan01, jan10, jan05])).toBe(jan10);
+		const result = DDate.max([jan01, jan10, jan05]);
+
+		expect(DDate.toTimestamp(result)).toBe(
+			DDate.toTimestamp(jan10),
+		);
 	});
 });

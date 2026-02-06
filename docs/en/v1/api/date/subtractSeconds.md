@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of seconds from a TheDate."
+description: "Subtracts a number of seconds from a TheDate."
 prev:
   text: "subtractMinutes"
   link: "/en/v1/api/date/subtractMinutes"
@@ -11,7 +11,7 @@ next:
 
 # subtractSeconds
 
-Subtracts a positive number of seconds from a `TheDate`.
+Subtracts a number of seconds from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of seconds from a `TheDate`.
 
 ```typescript
 function subtractSeconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericSecond extends number
 >(
 	input: GenericInput,
-	second: PositiveNumber<GenericSecond>
+	second: GenericSecond
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractSeconds<
 
 ```typescript
 function subtractSeconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericSecond extends number
 >(
-	second: PositiveNumber<GenericSecond>
+	second: GenericSecond
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `second`: Seconds to remove.
-- `input`: Original date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

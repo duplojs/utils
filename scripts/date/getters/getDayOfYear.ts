@@ -1,31 +1,35 @@
-import { millisecondsInOneDay, type TheDate, type Timezone, toNative } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { toNative } from "../toNative";
+import type { Timezone } from "../timezone";
+import { millisecondsInOneDay } from "../constants";
 
 /**
  * {@include date/getDayOfYear/index.md}
  */
 export function getDayOfYear<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(
 	input: GenericInput,
 	timezone: Timezone = "UTC",
 ): number {
-	const nativeDate = toNative(input);
+	const date = toNative(input);
 
 	let year = 0;
 	let month = 0;
 	let day = 0;
 
 	if (timezone === "UTC") {
-		year = nativeDate.getUTCFullYear();
-		month = nativeDate.getUTCMonth();
-		day = nativeDate.getUTCDate();
+		year = date.getUTCFullYear();
+		month = date.getUTCMonth();
+		day = date.getUTCDate();
 	} else {
 		const parts = new Intl.DateTimeFormat("en-US", {
 			timeZone: timezone,
 			day: "numeric",
 			year: "numeric",
 			month: "numeric",
-		}).formatToParts(nativeDate);
+		}).formatToParts(date);
 
 		const partsMap = new Map(parts.map((part) => [part.type, part.value]));
 		year = Number(partsMap.get("year"));

@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Soustrait un nombre positif de semaines d'un TheDate."
+description: "Soustrait un nombre de semaines d'un TheDate."
 prev:
-  text: "subtractMonths"
-  link: "/fr/v1/api/date/subtractMonths"
+ text: "subtractMonths"
+ link: "/fr/v1/api/date/subtractMonths"
 next:
-  text: "subtractDays"
-  link: "/fr/v1/api/date/subtractDays"
+ text: "subtractDays"
+ link: "/fr/v1/api/date/subtractDays"
 ---
 
 # subtractWeeks
 
-Soustrait un nombre positif de semaines d'un `TheDate`.
+Soustrait un nombre de semaines d'un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/subtractWeeks/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/subtractWeeks/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Soustrait un nombre positif de semaines d'un `TheDate`.
 
 ```typescript
 function subtractWeeks<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericWeek extends number
 >(
 	input: GenericInput,
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractWeeks<
 
 ```typescript
 function subtractWeeks<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericWeek extends number
 >(
-	week: PositiveNumber<GenericWeek>
+	week: GenericWeek
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
 - `week` : Nombre de semaines à retirer.
-- `input` : Date cible.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

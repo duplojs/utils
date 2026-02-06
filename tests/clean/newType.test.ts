@@ -209,7 +209,7 @@ describe("createNewType", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DClean.ConstraintHandler<"string-max-50", string, readonly [DDataParser.DataParserCheckerStringMax]>,
+			DClean.ConstraintHandler<"string-max-50", string, readonly [DDataParser.DataParserCheckerStringMax], never>,
 			"strict"
 		>;
 	});

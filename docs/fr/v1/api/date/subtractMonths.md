@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Soustrait un nombre positif de mois d'un TheDate."
+description: "Soustrait un nombre de mois d'un TheDate."
 prev:
-  text: "subtractYears"
-  link: "/fr/v1/api/date/subtractYears"
+ text: "subtractYears"
+ link: "/fr/v1/api/date/subtractYears"
 next:
-  text: "subtractWeeks"
-  link: "/fr/v1/api/date/subtractWeeks"
+ text: "subtractWeeks"
+ link: "/fr/v1/api/date/subtractWeeks"
 ---
 
 # subtractMonths
 
-Soustrait un nombre positif de mois d'un `TheDate`.
+Soustrait un nombre de mois d'un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/subtractMonths/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/subtractMonths/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Soustrait un nombre positif de mois d'un `TheDate`.
 
 ```typescript
 function subtractMonths<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMonth extends number
 >(
 	input: GenericInput,
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractMonths<
 
 ```typescript
 function subtractMonths<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMonth extends number
 >(
-	month: PositiveNumber<GenericMonth>
+	month: GenericMonth
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
 - `month` : Nombre de mois à soustraire.
-- `input` : Date source.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

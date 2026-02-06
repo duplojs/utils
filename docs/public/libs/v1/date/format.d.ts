@@ -1,33 +1,35 @@
-import type { TheDate } from "./types";
+import { type TheDate } from "./theDate";
 import type { Timezone } from "./timezone";
+import type { SerializedTheDate } from "./types";
 /**
- * Formats a date.
+ * Formats a date with custom tokens in a target timezone.
  * 
  * **Supported call styles:**
- * - Classic: `format(input, formatString, timezone)` → returns a value
- * - Curried: `format(formatString, timezone)` → returns a function waiting for the input
+ * - Classic: `format(input, formatString, timezone)` → `string`
+ * - Curried: `format(formatString, timezone)` → `(input) => string`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
- * const theDate = D.createOrThrow(1704067200123);
- * const fullFormat = D.format(theDate, "YYYY-MM-DD HH:mm:ss.SSS ZZ", "UTC");
- * // fullFormat: "2024-01-01 00:00:00.123 UTC"
+ * const input = D.create("2024-01-01", {
+ * 	hour: "00",
+ * 	minute: "00",
+ * 	second: "00",
+ * 	millisecond: "123",
+ * });
  * 
- * pipe(
- * 	theDate,
- * 	D.format("YYYY-MM-DD HH:mm:ss.SSS ZZ", "UTC"),
- * ); // fullFormat: "2024-01-01 00:00:00.123 UTC"
+ * const full = D.format(input, "YYYY-MM-DD HH:mm:ss.SSS ZZ", "UTC");
+ * // full: string
  * 
  * ```
  * 
  * @remarks
- * - Supports tokens: YYYY, YY, MM, DD, HH, mm, ss, SSS, ZZ.
+ * - Supported tokens: `YYYY`, `YY`, `MM`, `DD`, `HH`, `mm`, `ss`, `SSS`, `ZZ`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/format
  * 
  * @namespace D
  * 
  */
-export declare function format<GenericInput extends TheDate, GenericFormat extends string, GenericTimezone extends Timezone>(formatString: GenericFormat, timezone: GenericTimezone): (input: GenericInput) => string;
-export declare function format<GenericInput extends TheDate, GenericFormat extends string, GenericTimezone extends Timezone>(input: GenericInput, formatString: GenericFormat, timezone: GenericTimezone): string;
+export declare function format<GenericInput extends TheDate | SerializedTheDate, GenericFormat extends string, GenericTimezone extends Timezone>(formatString: GenericFormat, timezone: GenericTimezone): (input: GenericInput) => string;
+export declare function format<GenericInput extends TheDate | SerializedTheDate, GenericFormat extends string, GenericTimezone extends Timezone>(input: GenericInput, formatString: GenericFormat, timezone: GenericTimezone): string;

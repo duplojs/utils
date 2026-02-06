@@ -1,9 +1,9 @@
 ---
 outline: [2, 3]
-description: "The is() function checks that a string matches the TheDate format (date<timestamp><\"-\" | \"+\">). It acts as a type guard."
+description: "The is() function checks whether a value is an instance of TheDate. It acts as a type guard."
 prev:
-  text: "isSafeTimestamp"
-  link: "/en/v1/api/date/isSafeTimestamp"
+  text: "isSerializedTheTime"
+  link: "/en/v1/api/date/isSerializedTheTime"
 next:
   text: "isTime"
   link: "/en/v1/api/date/isTime"
@@ -11,7 +11,7 @@ next:
 
 # is
 
-The **`is()`** function checks that a string matches the `TheDate` format (`date<timestamp><"-" | "+">`). It acts as a type guard.
+The **`is()`** function checks whether a value is an instance of `TheDate`.
 
 ## Interactive example
 
@@ -24,16 +24,16 @@ The **`is()`** function checks that a string matches the `TheDate` format (`date
 ## Syntax
 
 ```typescript
-function is(input: string): input is TheDate
+function is(input: unknown): input is TheDate
 ```
 
 ## Parameters
 
-- `input`: String to validate.
+- `input`: Value to test.
 
 ## Return value
 
-`true` if the string follows the `TheDate` format, otherwise `false`. When `true`, TypeScript narrows `input` to `TheDate`.
+`true` if the value is an instance of `TheDate`, otherwise `false`.
 
 ## See also
 

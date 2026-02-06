@@ -1,23 +1,19 @@
 /**
- * Checks whether a time value is safe.
+ * Checks whether a time value is a safe integer inside supported time bounds.
  * 
- * Signature: `isSafeTimeValue(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `isSafeTimeValue(timeValue)` → `boolean`
  * 
  * ```ts
- * const result = D.isSafeTimeValue(1_500);
- * // result: true
+ * const ok = D.isSafeTimeValue(1_500);
+ * // ok: true
  * 
- * const result2 = D.isSafeTimeValue(Number.NaN);
- * // result2: false
+ * const nan = D.isSafeTimeValue(Number.NaN);
+ * // nan: false
  * 
- * const result3 = D.isSafeTimeValue(9_007_199_254_740_992);
- * // result3: false
+ * const tooLarge = D.isSafeTimeValue(9_007_199_254_740_992);
+ * // tooLarge: false
+ * 
  * ```
- * 
- * @remarks
- * - Checks for safe integers within the supported time range.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/isSafeTimeValue
  * 

@@ -1,15 +1,10 @@
-Checks whether a timestamp is safe.
+Checks whether a timestamp is a safe integer inside supported date bounds.
 
-Signature: `isSafeTimestamp(input)` → returns a value
-
-The input value is not mutated.
+Signature: `isSafeTimestamp(timestamp)` → `boolean`
 
 ```ts
-{@include date/isSafeTimestamp/example.ts[3,15]}
+{@include date/isSafeTimestamp/example.ts[3,11]}
 ```
-
-@remarks
-- Checks against the engine min/max timestamp limits.
 
 @see https://utils.duplojs.dev/en/v1/api/date/isSafeTimestamp
 

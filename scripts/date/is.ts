@@ -1,24 +1,13 @@
-import { theDateRegex } from "./constants";
-import { isSafeTimestamp } from "./isSafeTimestamp";
-import { type TheDate } from "./types";
+import { TheDate } from "./theDate";
 
 /**
  * {@include date/is/index.md}
  */
 export function is(
-	input: string,
+	input: unknown,
 ): input is TheDate {
-	const theDateMatch = input.match(theDateRegex);
-	if (theDateMatch) {
-		const { value, sign } = theDateMatch.groups as Record<"value" | "sign", string>;
-
-		return isSafeTimestamp(
-			Number(
-				sign === "-"
-					? `-${value}`
-					: value,
-			),
-		);
+	if (input instanceof TheDate) {
+		return true;
 	}
 
 	return false;

@@ -1,11 +1,11 @@
-Converts a TheDate to a UTC timestamp.
+Converts a date value to UTC timestamp (milliseconds).
 
-Signature: `toTimestamp(input)` → returns a value
+Signature: `toTimestamp(input)` → `number`
 
-The input value is not mutated.
+`input` accepts `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/toTimestamp/example.ts[3,11]}
+{@include date/toTimestamp/example.ts[3,12]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/toTimestamp

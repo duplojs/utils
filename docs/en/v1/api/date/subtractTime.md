@@ -26,17 +26,17 @@ The **`subtractTime()`** function subtracts a `TheTime` duration from a `TheDate
 
 ```typescript
 function subtractTime<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): TheDate
 
 function subtractTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
 	input: GenericInput,
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): TheTime
 ```
 
@@ -44,22 +44,22 @@ function subtractTime<
 
 ```typescript
 function subtractTime<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): (input: GenericInput) => TheDate
 
 function subtractTime<
-	GenericInput extends TheTime
+	GenericInput extends TheTime | SerializedTheTime
 >(
-	time: TheTime
+	time: TheTime | SerializedTheTime
 ): (input: GenericInput) => TheTime
 ```
 
 ## Parameters
 
 - `time`: Duration to subtract as a `TheTime`.
-- `input`: `TheDate` or `TheTime` to adjust.
+- `input`: `TheDate`, `SerializedTheDate`, `TheTime`, or `SerializedTheTime` to adjust.
 
 ## Return value
 

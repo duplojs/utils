@@ -7,7 +7,7 @@ describe("clean primitive dateSubtractTime", () => {
 	it("subtracts time directly", () => {
 		const result = DClean.dateSubtractTime(baseDate, oneDay);
 
-		expect(unwrap(result)).toBe(
+		expect(unwrap(result)).toStrictEqual(
 			DDate.subtractTime(
 				DDate.create("2024-01-02"),
 				DDate.createTime(1, "hour"),
@@ -18,7 +18,7 @@ describe("clean primitive dateSubtractTime", () => {
 	it("subtracts time with currying", () => {
 		const result = DClean.dateSubtractTime(oneDay)(baseDate);
 
-		expect(unwrap(result)).toBe(
+		expect(unwrap(result)).toStrictEqual(
 			DDate.subtractTime(
 				DDate.create("2024-01-02"),
 				DDate.createTime(1, "hour"),

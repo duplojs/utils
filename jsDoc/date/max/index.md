@@ -1,11 +1,9 @@
-Returns the latest date from an iterable.
+Returns the greatest date from a tuple of date values.
 
-Signature: `max(input)` → returns a value
-
-The input value is not mutated.
+Signature: `max(input)` → `TheDate`
 
 ```ts
-{@include date/max/example.ts[3,11]}
+{@include date/max/example.ts[3,12]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/max

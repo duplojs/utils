@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Subtracts a positive number of years from a TheDate."
+description: "Subtracts a number of years from a TheDate."
 prev:
   text: "addTime"
   link: "/en/v1/api/date/addTime"
@@ -11,7 +11,7 @@ next:
 
 # subtractYears
 
-Subtracts a positive number of years from a `TheDate`.
+Subtracts a number of years from a `TheDate`.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ Subtracts a positive number of years from a `TheDate`.
 
 ```typescript
 function subtractYears<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericYear extends number
 >(
 	input: GenericInput,
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function subtractYears<
 
 ```typescript
 function subtractYears<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericYear extends number
 >(
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
 - `year`: Number of years to subtract.
-- `input`: Original date.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

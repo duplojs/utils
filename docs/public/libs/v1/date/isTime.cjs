@@ -1,18 +1,13 @@
 'use strict';
 
-var constants = require('./constants.cjs');
-var isSafeTimestamp = require('./isSafeTimestamp.cjs');
+var theTime = require('./theTime.cjs');
 
 /**
  * {@include date/isTime/index.md}
  */
 function isTime(input) {
-    const theTimeMatch = input.match(constants.theTimeRegex);
-    if (theTimeMatch) {
-        const { value, sign } = theTimeMatch.groups;
-        return isSafeTimestamp.isSafeTimestamp(Number(sign === "-"
-            ? `-${value}`
-            : value));
+    if (input instanceof theTime.TheTime) {
+        return true;
     }
     return false;
 }

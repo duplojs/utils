@@ -6,7 +6,9 @@ describe("getFirstDayOfMonth", () => {
 			DDate.create("2024-02-15", { hour: "10" }),
 		);
 
-		expect(result).toBe(DDate.create("2024-02-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-02-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -20,7 +22,9 @@ describe("getFirstDayOfMonth", () => {
 			DDate.create("2024-02-01"),
 		);
 
-		expect(result).toBe(DDate.create("2024-02-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2024-02-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -34,7 +38,9 @@ describe("getFirstDayOfMonth", () => {
 			DDate.create("-0005-03-15"),
 		);
 
-		expect(result).toBe(DDate.create("-0005-03-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0005-03-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -49,7 +55,9 @@ describe("getFirstDayOfMonth", () => {
 			DDate.getFirstDayOfMonth,
 		);
 
-		expect(result).toBe(DDate.create("2021-12-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2021-12-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,

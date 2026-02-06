@@ -1,12 +1,15 @@
+import { TheDate } from './theDate.mjs';
 import { toNative } from './toNative.mjs';
 
 function getTimezoneOffset(...args) {
     if (args.length === 1) {
         const [timeZone] = args;
-        return (theDate) => getTimezoneOffset(theDate, timeZone);
+        return (input) => getTimezoneOffset(input, timeZone);
     }
-    const [theDate, timeZone] = args;
-    const date = toNative(theDate);
+    const [input, timeZone] = args;
+    const date = input instanceof TheDate
+        ? input
+        : toNative(input);
     const fmt = new Intl.DateTimeFormat("en-US", {
         timeZone,
         hour12: false,

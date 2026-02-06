@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The addYears() function adds a positive number of years to a TheDate. It accepts a curried signature to compose transformations."
+description: "The addYears() function adds a number of years to a TheDate. It accepts a curried signature to compose transformations."
 prev:
   text: "getLastDayOfMonth"
   link: "/en/v1/api/date/getLastDayOfMonth"
@@ -11,7 +11,7 @@ next:
 
 # addYears
 
-The **`addYears()`** function adds a positive number of years to a `TheDate`. It accepts a curried signature to compose transformations.
+The **`addYears()`** function adds a number of years to a `TheDate`. It accepts a curried signature to compose transformations.
 
 ## Interactive example
 
@@ -27,11 +27,11 @@ The **`addYears()`** function adds a positive number of years to a `TheDate`. It
 
 ```typescript
 function addYears<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericYear extends number
 >(
 	input: GenericInput,
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addYears<
 
 ```typescript
 function addYears<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 	GenericYear extends number
 >(
-	year: PositiveNumber<GenericYear>
+	year: GenericYear
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `year`: Strictly positive number of years (`PositiveNumber`).
-- `input`: `TheDate` to modify (classic version).
+- `year`: Number of years.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

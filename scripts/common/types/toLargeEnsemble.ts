@@ -23,7 +23,7 @@ export type ToLargeEnsemble<
 									? []
 									: GenericValue extends (infer InferredValue)[]
 										? ToLargeEnsemble<InferredValue>[]
-										: GenericValue extends object
+										: GenericValue extends Record<number, unknown>
 											? {
 												[Prop in keyof GenericValue]: ToLargeEnsemble<GenericValue[Prop]>
 											}
@@ -32,4 +32,4 @@ export type ToLargeEnsemble<
 												ToLargeEnsemble<InferredReturn>
 												: GenericValue extends Promise<infer InferredValue>
 													? InferredValue
-													: never;
+													: GenericValue;

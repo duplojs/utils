@@ -63,12 +63,4 @@ describe("toTimestamp", () => {
 			"strict"
 		>;
 	});
-
-	it("handles legacy TheTime input", () => {
-		const result = DDate.toTimestamp(
-			"time1000+" as unknown as DDate.TheDate,
-		);
-
-		expect(result).toBe(1000);
-	});
 });

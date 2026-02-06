@@ -1,15 +1,23 @@
 import { A, D, pipe } from "@scripts";
 
-const input = {
+const range = {
 	start: D.create("2024-06-01"),
 	end: D.create("2024-06-03"),
 } as const;
 
-const iterator = D.each(input);
-const result = A.from(iterator);
-// result: ["date1717200000000+", "date1717286400000+", "date1717372800000+"]
+const iterator = D.each(range, "day");
+const values = A.from(iterator);
+// values: TheDate[]
+
+const reverse = A.from(
+	D.each({
+		start: D.create("2024-06-03"),
+		end: D.create("2024-06-01"),
+	}),
+);
+// reverse: TheDate[]
 
 pipe(
-	input,
+	range,
 	D.each,
-); // result: ["date1717200000000+", "date1717286400000+", "date1717372800000+"]
+); // Iterator<TheDate>

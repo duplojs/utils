@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Trouve la date la plus proche d'une cible dans un itérable de TheDate. En cas d'égalité, un tieBreaker optionnel permet de favoriser le passé ou le futur."
+description: "Trouve la date la plus proche d'une cible dans un itérable de TheDate ou SerializedTheDate. En cas d'égalité, un tieBreaker optionnel permet de favoriser le passé ou le futur."
 prev:
   text: "each"
   link: "/fr/v1/api/date/each"
@@ -11,7 +11,7 @@ next:
 
 # closestTo
 
-Trouve la date la plus proche d'une cible dans un itérable de `TheDate`. En cas d'égalité, un `tieBreaker` optionnel permet de favoriser le passé ou le futur.
+Trouve la date la plus proche d'une cible dans un itérable de `TheDate` ou `SerializedTheDate`. En cas d'égalité, un `tieBreaker` optionnel permet de favoriser le passé ou le futur.
 
 ## Exemple interactif
 
@@ -33,9 +33,9 @@ interface ClosestToParams {
 
 ```typescript
 function closestTo<
-	GenericIterable extends Iterable<TheDate>
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>
 >(
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams
 ): (input: GenericIterable) => TheDate | undefined
 ```
@@ -44,18 +44,18 @@ function closestTo<
 
 ```typescript
 function closestTo<
-	GenericIterable extends Iterable<TheDate>
+	GenericIterable extends Iterable<TheDate | SerializedTheDate>
 >(
 	input: GenericIterable,
-	target: TheDate,
+	target: TheDate | SerializedTheDate,
 	params?: ClosestToParams
 ): TheDate | undefined
 ```
 
 ## Paramètres
 
-- `target` : Date recherchée.
-- `input` : Itérable de `TheDate`.
+- `target` : Date recherchée (`TheDate` ou `SerializedTheDate`).
+- `input` : Itérable de `TheDate` ou `SerializedTheDate`.
 - `tieBreaker` : (Optionnel) Gère les égalités (`favorPast` par défaut).
 
 ## Valeur de retour

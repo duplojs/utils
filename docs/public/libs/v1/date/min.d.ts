@@ -1,22 +1,22 @@
-import { type AnyTuple } from "../common";
-import { type TheDate } from "./types";
+import type { AnyTuple } from "../common/types/anyTuple";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 /**
- * Returns the earliest date from an iterable.
+ * Returns the smallest date from a tuple of date values.
  * 
- * Signature: `min(input)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `min(input)` → `TheDate`
  * 
  * ```ts
- * const input = [D.yesterday(), D.today(), D.tomorrow()] as const;
+ * const input = [
+ * 	D.create("2024-06-20"),
+ * 	"date1718668800000+",
+ * 	D.create("2024-06-25"),
+ * ] as const;
  * 
- * const result = D.min(input);
+ * const value = D.min(input);
+ * // value: TheDate
  * 
  * pipe(
- * 	input,
- * 	D.min,
- * );
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/min
@@ -24,4 +24,4 @@ import { type TheDate } from "./types";
  * @namespace D
  * 
  */
-export declare function min<GenericInput extends AnyTuple<TheDate>>(input: GenericInput): `date${number}-` | `date${number}+`;
+export declare function min<GenericInput extends AnyTuple<TheDate | SerializedTheDate>>(input: GenericInput): TheDate;

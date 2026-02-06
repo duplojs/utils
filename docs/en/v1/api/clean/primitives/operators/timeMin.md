@@ -10,14 +10,14 @@ next:
 
 # timeMin
 
-`timeMin()` returns the smallest duration in a list (wrapped or `DDate.TheTime`).
+`timeMin()` returns the smallest duration in a tuple (wrapped or `DDate.TheTime`).
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/operators/timeMin/tryout.doc.ts"
   majorVersion="v1"
-  height="420px"
+  height="320px"
 />
 
 ## Syntax
@@ -30,7 +30,7 @@ function timeMin(input: AnyTuple<Time | TheTime>): Time
 
 ## Parameters
 
-- `input`: durations to compare (at least one).
+- `input`: tuple of durations to compare (at least one).
 
 ## Return value
 

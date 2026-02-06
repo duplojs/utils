@@ -1,15 +1,15 @@
-Clamps a time value to the supported safe range.
+Normalizes a time value into the supported safe range.
 
-Signature: `makeSafeTimeValue(input)` → returns a value
-
-The input value is not mutated.
+Signature: `makeSafeTimeValue(timeValue)` → `number`
 
 ```ts
-{@include date/makeSafeTimeValue/example.ts[3,10]}
+{@include date/makeSafeTimeValue/example.ts[3,11]}
 ```
 
 @remarks
-- Rounds non-integers, replaces NaN with 0, and clamps to min/max bounds.
+- `NaN` becomes `0`.
+- Floating values are rounded.
+- Values outside bounds are clamped.
 
 @see https://utils.duplojs.dev/en/v1/api/date/makeSafeTimeValue
 

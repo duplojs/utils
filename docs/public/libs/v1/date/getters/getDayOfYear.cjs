@@ -1,20 +1,20 @@
 'use strict';
 
-var constants = require('../constants.cjs');
 var toNative = require('../toNative.cjs');
+var constants = require('../constants.cjs');
 
 /**
  * {@include date/getDayOfYear/index.md}
  */
 function getDayOfYear(input, timezone = "UTC") {
-    const nativeDate = toNative.toNative(input);
+    const date = toNative.toNative(input);
     let year = 0;
     let month = 0;
     let day = 0;
     if (timezone === "UTC") {
-        year = nativeDate.getUTCFullYear();
-        month = nativeDate.getUTCMonth();
-        day = nativeDate.getUTCDate();
+        year = date.getUTCFullYear();
+        month = date.getUTCMonth();
+        day = date.getUTCDate();
     }
     else {
         const parts = new Intl.DateTimeFormat("en-US", {
@@ -22,7 +22,7 @@ function getDayOfYear(input, timezone = "UTC") {
             day: "numeric",
             year: "numeric",
             month: "numeric",
-        }).formatToParts(nativeDate);
+        }).formatToParts(date);
         const partsMap = new Map(parts.map((part) => [part.type, part.value]));
         year = Number(partsMap.get("year"));
         month = Number(partsMap.get("month")) - 1;

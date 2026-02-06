@@ -1,12 +1,12 @@
-Returns the earliest date from a tuple of Date values.
+Returns the earliest wrapped `Date` from a tuple.
 
 **Supported call styles:**
-- Classic: `dateMin(input)` -> returns a Date
+- Classic: `dateMin(input)` → `Date`
 
-The input can mix wrapped Dates and raw TheDate values.
+`input` can mix wrapped `Date` and raw `TheDate` values.
 
 ```ts
-{@include clean/dateMin/example.ts[3,22]}
+{@include clean/dateMin/example.ts[3,16]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateMin

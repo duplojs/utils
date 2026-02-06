@@ -1,4 +1,7 @@
-import { type TheDate, type Timezone, toNative } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import { toNative } from "../toNative";
+import type { Timezone } from "../timezone";
 
 const weekdayMapper = {
 	Sunday: 0,
@@ -8,28 +11,28 @@ const weekdayMapper = {
 	Thursday: 4,
 	Friday: 5,
 	Saturday: 6,
-};
+} as const;
 
 /**
  * {@include date/getDayOfWeek/index.md}
  */
 export function getDayOfWeek<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(
 	input: GenericInput,
 	timezone: Timezone = "UTC",
 ): number {
-	const nativeDate = toNative(input);
+	const date = toNative(input);
 
 	if (timezone === "UTC") {
-		return nativeDate.getUTCDay();
+		return date.getUTCDay();
 	}
 
 	const formatter = new Intl.DateTimeFormat("en-US", {
 		timeZone: timezone,
 		weekday: "long",
 	});
-	const weekday = formatter.format(nativeDate) as keyof typeof weekdayMapper;
+	const weekday = formatter.format(date) as keyof typeof weekdayMapper;
 
 	return weekdayMapper[weekday];
 }

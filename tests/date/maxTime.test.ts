@@ -6,6 +6,10 @@ describe("DDate maxTime", () => {
 	const time10 = DDate.createTime(10, "second");
 
 	it("picks largest time", () => {
-		expect(DDate.maxTime([time01, time10, time05])).toBe(time10);
+		const result = DDate.maxTime([time01, time10, time05]);
+
+		expect(DDate.toTimeValue(result)).toBe(
+			DDate.toTimeValue(time10),
+		);
 	});
 });

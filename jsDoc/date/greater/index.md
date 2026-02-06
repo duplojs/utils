@@ -1,14 +1,17 @@
-Checks whether a date is greater than or equal to another.
+Checks whether a date is greater than or equal to a threshold.
 
 **Supported call styles:**
-- Classic: `greater(input, threshold)` → returns a value
-- Curried: `greater(threshold)` → returns a function waiting for the input
+- Classic: `greater(input, threshold)` → `boolean`
+- Curried: `greater(threshold)` → `(input) => boolean`
 
-The input value is not mutated.
+All parameters accept `TheDate` or `SerializedTheDate`.
 
 ```ts
-{@include date/greater/example.ts[3,13]}
+{@include date/greater/example.ts[3,12]}
 ```
+
+@remarks
+- Inclusive comparison: `input >= threshold`.
 
 @see https://utils.duplojs.dev/en/v1/api/date/greater
 

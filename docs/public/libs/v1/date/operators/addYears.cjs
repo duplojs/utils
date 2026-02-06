@@ -1,6 +1,6 @@
 'use strict';
 
-var createTheDate = require('../createTheDate.cjs');
+var theDate = require('../theDate.cjs');
 var toNative = require('../toNative.cjs');
 
 function addYears(...args) {
@@ -11,7 +11,7 @@ function addYears(...args) {
     const [input, year] = args;
     const date = toNative.toNative(input);
     date.setUTCFullYear(date.getUTCFullYear() + year);
-    return createTheDate.createTheDate(date.getTime());
+    return theDate.TheDate.new(date.getTime());
 }
 
 exports.addYears = addYears;

@@ -13,7 +13,7 @@ const value = Number.create(10);
 
 type check = ExpectType<
 	typeof value,
-	E.Left<"createNewTypeError", DP.DataParserError>
-	| E.Right<"createNewType", C.Primitive<10>>,
+	E.Left<"createPrimitiveError", DP.DataParserError>
+	| E.Right<"createPrimitive", C.Primitive<10>>,
 	"strict"
 >;

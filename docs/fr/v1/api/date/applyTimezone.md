@@ -26,12 +26,12 @@ La fonction **`applyTimezone()`** ajuste un `TheDate` en appliquant le décalage
 ```typescript
 function applyTimezone(
 	timezone: Timezone
-): (input: TheDate) => TheDate
+): (input: TheDate | SerializedTheDate) => TheDate
 ```
 
 ```typescript
 function applyTimezone(
-	input: TheDate,
+	input: TheDate | SerializedTheDate,
 	timezone: Timezone
 ): TheDate
 ```

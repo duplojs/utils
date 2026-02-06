@@ -23,17 +23,20 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
      * Ensures the time is greater than the provided minimum.
      * 
      * ```ts
-     * const parser = DPE.time().min("time0+");
+     * const timeMin = D.createTime(0, "millisecond");
+     * const timeMax = D.createTime(100, "millisecond");
+     * 
+     * const parser = DPE.time().min(timeMin);
      * const result = parser.parse("time10+");
      * if (E.isRight(result)) {
      * 	const value = unwrap(result);
      * 	// value: TheTime
      * }
      * 
-     * const withMessage = DPE.time().min("time0+", { errorMessage: "time.too-small" });
+     * const withMessage = DPE.time().min(timeMin, { errorMessage: "time.too-small" });
      * const messageResult = withMessage.parse("time0+");
      * 
-     * const chained = DPE.time().min("time0+").max("time100+");
+     * const chained = DPE.time().min(timeMin).max(timeMax);
      * const chainedResult = chained.parse("time10+");
      * ```
      * 
@@ -52,17 +55,20 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
      * Ensures the time is smaller than the provided maximum.
      * 
      * ```ts
-     * const parser = DPE.time().max("time100+");
+     * const timeMax = D.createTime(1, "second");
+     * const timeMin = D.createTime(0, "millisecond");
+     * 
+     * const parser = DPE.time().max(timeMax);
      * const result = parser.parse("time10+");
      * if (E.isRight(result)) {
      * 	const value = unwrap(result);
      * 	// value: TheTime
      * }
      * 
-     * const withMessage = DPE.time().max("time100+", { errorMessage: "time.too-large" });
+     * const withMessage = DPE.time().max(timeMax, { errorMessage: "time.too-large" });
      * const messageResult = withMessage.parse("time100+");
      * 
-     * const chained = DPE.time().min("time0+").max("time100+");
+     * const chained = DPE.time().min(timeMin).max(timeMax);
      * const chainedResult = chained.parse("time10+");
      * ```
      * 
@@ -74,15 +80,19 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
     max(max: TheTime, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionTimeMax, "max">>): DataParserTimeExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerTimeMax]>>;
 }
 /**
- * Creates an extended data parser for TheTime values.
+ * Creates an extended parser for `TheTime` with chainable time-specific helpers.
  * 
- * **Supported call styles:**
- * - Method: `DPE.time(definition?)` -> returns a time parser
+ * Signature: `DPE.time(definition?)` → `DataParserTimeExtended`
  * 
- * Validates TheTime values and exposes time-specific methods like min and max.
+ * This parser extends the classic time parser behavior and adds fluent methods like `.min(...)` and `.max(...)`.
  * 
  * ```ts
- * const parser = DPE.time().min("time0+").max("time100+");
+ * const minTime = D.createTime(0, "millisecond");
+ * const maxTime = D.createTime(10000, "millisecond");
+ * 
+ * const parser = DPE.time()
+ * 	.min(minTime)
+ * 	.max(maxTime);
  * const result = parser.parse("time10+");
  * if (E.isRight(result)) {
  * 	const value = unwrap(result);
@@ -91,10 +101,16 @@ export interface DataParserTimeExtended<GenericDefinition extends dataParsers.Da
  * 
  * const coerceParser = DPE.coerce.time();
  * const coerceResult = coerceParser.parse("10:20:00");
+ * // E.Error<DPE.DataParserError> | E.Success<D.TheTime>
  * 
- * const minOnly = DPE.time().min("time0+");
+ * const minOnly = DPE.time().min(minTime);
  * const minResult = minOnly.parse("time0+");
+ * // E.Error<DPE.DataParserError> | E.Success<D.TheTime>
  * ```
+ * 
+ * @remarks
+ * - `.min(...)` and `.max(...)` expect `TheTime` values.
+ * - `DPE.coerce.time()` enables the same coercion flow as classic parser mode.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/time
  * 

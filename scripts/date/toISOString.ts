@@ -1,13 +1,16 @@
+import { TheDate } from "./theDate";
 import { toNative } from "./toNative";
-import type { TheDate } from "./types";
+import type { SerializedTheDate } from "./types";
 
 /**
  * {@include date/toISOString/index.md}
  */
 export function toISOString<
-	GenericInput extends TheDate,
+	GenericInput extends TheDate | SerializedTheDate,
 >(input: GenericInput) {
-	const date = toNative(input);
+	if (input instanceof TheDate) {
+		return input.toISOString();
+	}
 
-	return date.toISOString();
+	return toNative(input).toISOString();
 }

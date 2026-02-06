@@ -25,17 +25,17 @@ La fonction **`getSecond()`** renvoie les secondes (0–59) d'un `TheDate`, ajus
 
 ```typescript
 function getSecond<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Paramètres
 
-- `input` : `TheDate` cible.
-- `timezone` : Fuseau IANA (optionnel).
+- `input` : `TheDate` ou `SerializedTheDate`.
+- `timezone` : Fuseau horaire IANA. Par défaut : `"UTC"`.
 
 ## Valeur de retour
 

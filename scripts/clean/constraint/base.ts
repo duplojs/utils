@@ -27,6 +27,7 @@ export interface ConstraintHandler<
 	GenericName extends string = string,
 	GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[],
+	GenericPrimitiveInput extends unknown = unknown,
 > extends Kind<typeof constraintHandlerKind.definition> {
 
 	/**
@@ -62,6 +63,19 @@ export interface ConstraintHandler<
 		>
 	);
 
+	create(
+		data: GenericPrimitiveInput
+	): (
+		| DEither.Right<
+			"createConstrainedType",
+			ConstrainedType<GenericName, GenericPrimitiveValue>
+		>
+		| DEither.Left<
+			"createConstrainedTypeError",
+			DDataParser.DataParserError
+		>
+	);
+
 	create<
 		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
 	>(
@@ -88,6 +102,10 @@ export interface ConstraintHandler<
 	>(
 		data: GenericData
 	): ConstrainedType<GenericName, GenericData>;
+
+	createOrThrow(
+		data: GenericPrimitiveInput
+	): ConstrainedType<GenericName, GenericPrimitiveValue>;
 
 	createOrThrow<
 		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
@@ -156,6 +174,7 @@ export class CreateConstrainedTypeError extends kindHeritage(
 export function createConstraint<
 	GenericName extends string,
 	GenericPrimitiveValue extends EligiblePrimitive,
+	GenericPrimitiveInput extends unknown,
 	const GenericChecker extends(
 		| DDataParser.DataParserChecker<
 			DDataParser.DataParserCheckerDefinition,
@@ -174,12 +193,13 @@ export function createConstraint<
 	) = never,
 >(
 	name: GenericName,
-	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>,
+	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
 	checker: GenericChecker,
 ): ConstraintHandler<
 		GenericName,
 		GenericPrimitiveValue,
-		DArray.ArrayCoalescing<GenericChecker>
+		DArray.ArrayCoalescing<GenericChecker>,
+		GenericPrimitiveInput
 	> {
 	const checkers = DArray.coalescing(checker);
 	const dataParserWithCheckers = primitiveHandler

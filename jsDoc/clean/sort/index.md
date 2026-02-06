@@ -1,14 +1,15 @@
-Sorts an array of primitives (String, Number, Date, Time) in ascending or descending order.
+Sorts arrays of wrapped primitives (`String`, `Number`, `Date`, `Time`).
 
 **Supported call styles:**
-- Classic: `sort(input, type)` -> returns a new array
-- Curried: `sort(type)` -> returns a function waiting for the input
-
-The output array contains wrapped primitives.
+- Classic: `sort(input, type)` → wrapped array
+- Curried: `sort(type)` → function waiting for the input
 
 ```ts
-{@include clean/sort/example.ts[3,23]}
+{@include clean/sort/example.ts[3,20]}
 ```
+
+@remarks
+- Supports mixed wrapped/raw values in the same primitive family.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/sort
 

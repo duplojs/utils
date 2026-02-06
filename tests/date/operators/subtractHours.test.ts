@@ -10,7 +10,9 @@ describe("subtractHours", () => {
 			6,
 		);
 
-		expect(result).toBe(DDate.create("2019-12-31", { hour: "18" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-12-31", { hour: "18" })),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,7 +27,9 @@ describe("subtractHours", () => {
 			(-10 as number),
 		);
 
-		expect(result).toBe(DDate.create("2020-01-01", { hour: "10" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-01", { hour: "10" })),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -40,7 +44,9 @@ describe("subtractHours", () => {
 			DDate.subtractHours(1),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-31", { hour: "23" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-12-31", { hour: "23" })),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -55,7 +61,9 @@ describe("subtractHours", () => {
 			6,
 		);
 
-		expect(result).toBe(DDate.create("-0010-01-01", { hour: "06" }));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0010-01-01", { hour: "06" })),
+		);
 
 		type check = ExpectType<
 			typeof result,

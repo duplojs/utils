@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The getDayOfWeek() function returns the day of the week of a TheDate (1 = Monday, 7 = Sunday) taking an optional timezone into account."
+description: "The getDayOfWeek() function returns the weekday number (0 = Sunday, 6 = Saturday) for a TheDate or SerializedTheDate."
 prev:
   text: "getDayOfMonth"
   link: "/en/v1/api/date/getDayOfMonth"
@@ -11,7 +11,7 @@ next:
 
 # getDayOfWeek
 
-The **`getDayOfWeek()`** function returns the day of the week of a `TheDate` (1 = Monday, 7 = Sunday) taking an optional timezone into account.
+The **`getDayOfWeek()`** function returns the weekday number (`0` = Sunday, `6` = Saturday) for a `TheDate` or `SerializedTheDate`.
 
 ## Interactive example
 
@@ -25,21 +25,21 @@ The **`getDayOfWeek()`** function returns the day of the week of a `TheDate` (1 
 
 ```typescript
 function getDayOfWeek<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Parameters
 
-- `input`: Target `TheDate`.
-- `timezone`: Timezone (optional).
+- `input`: `TheDate` or `SerializedTheDate`.
+- `timezone`: IANA timezone. Default: `"UTC"`.
 
 ## Return value
 
-An integer from 1 to 7 representing the ISO weekday.
+An integer from 0 to 6 (`0` = Sunday, `1` = Monday, ..., `6` = Saturday).
 
 ## See also
 

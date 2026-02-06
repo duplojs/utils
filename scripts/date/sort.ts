@@ -1,22 +1,29 @@
-import { type SortType } from "@scripts/common";
-import { createOrThrow } from "./createOrThrow";
+import type { SortType } from "@scripts/common/types/sortType";
 import { toTimestamp } from "./toTimestamp";
-import { type TheDate } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate } from "./types";
 
 /**
  * {@include date/sort/index.md}
  */
 export function sort<
-	GenericArray extends readonly TheDate[],
->(type: SortType): (array: GenericArray) => TheDate[];
+	GenericArray extends readonly (TheDate | SerializedTheDate)[],
+>(
+	type: SortType
+): (array: GenericArray) => TheDate[];
+
 export function sort<
-	GenericArray extends readonly TheDate[],
->(array: GenericArray, type: SortType): TheDate[];
-export function sort(...args: [readonly TheDate[], SortType] | [SortType]) {
+	GenericArray extends readonly (TheDate | SerializedTheDate)[],
+>(
+	array: GenericArray,
+	type: SortType
+): TheDate[];
+
+export function sort(...args: [readonly (TheDate | SerializedTheDate)[], SortType] | [SortType]) {
 	if (args.length === 1) {
 		const [type] = args;
 
-		return (array: readonly TheDate[]) => sort(array, type);
+		return (array: readonly (TheDate | SerializedTheDate)[]) => sort(array, type);
 	}
 
 	const [array, type] = args;
@@ -28,5 +35,5 @@ export function sort(...args: [readonly TheDate[], SortType] | [SortType]) {
 				? (first, second) => second - first
 				: (first, second) => first - second,
 		)
-		.map(createOrThrow);
+		.map(TheDate.new);
 }

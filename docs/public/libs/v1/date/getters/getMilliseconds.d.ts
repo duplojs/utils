@@ -1,10 +1,11 @@
-import { type TheDate } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
 /**
- * Returns the milliseconds of a date.
+ * Returns the milliseconds part (`0` to `999`) of a date.
  * 
- * Signature: `getMilliseconds(input)` → returns a value
+ * Signature: `getMilliseconds(input)` → `number`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-20", {
@@ -13,19 +14,20 @@ import { type TheDate } from "..";
  * 	second: "56",
  * 	millisecond: "789",
  * });
- * const result = D.getMilliseconds(input);
- * // result: 789
+ * const milliseconds = D.getMilliseconds(input);
+ * // milliseconds: 789
  * 
  * pipe(
  * 	input,
  * 	D.getMilliseconds,
- * ); // result: 789
- * 
  * ```
+ * 
+ * @remarks
+ * - Value is always read in UTC.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getMilliseconds
  * 
  * @namespace D
  * 
  */
-export declare function getMilliseconds<GenericInput extends TheDate>(input: GenericInput): number;
+export declare function getMilliseconds<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): number;

@@ -1,6 +1,6 @@
 import { millisecondsInOneDay } from '../constants.mjs';
-import { createTheDate } from '../createTheDate.mjs';
-import { toNative } from '../toNative.mjs';
+import { TheDate } from '../theDate.mjs';
+import { toTimestamp } from '../toTimestamp.mjs';
 
 function subtractDays(...args) {
     if (args.length === 1) {
@@ -8,9 +8,7 @@ function subtractDays(...args) {
         return (input) => subtractDays(input, day);
     }
     const [input, day] = args;
-    const date = toNative(input);
-    date.setTime(date.getTime() - (day * millisecondsInOneDay));
-    return createTheDate(date.getTime());
+    return TheDate.new(toTimestamp(input) - (day * millisecondsInOneDay));
 }
 
 export { subtractDays };

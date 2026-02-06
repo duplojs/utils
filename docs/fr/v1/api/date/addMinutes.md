@@ -1,24 +1,24 @@
 ---
 outline: [2, 3]
-description: "Ajoute un nombre positif de minutes à un TheDate."
+description: "Ajoute un nombre de minutes à un TheDate."
 prev:
-  text: "addHours"
-  link: "/fr/v1/api/date/addHours"
+ text: "addHours"
+ link: "/fr/v1/api/date/addHours"
 next:
-  text: "addSeconds"
-  link: "/fr/v1/api/date/addSeconds"
+ text: "addSeconds"
+ link: "/fr/v1/api/date/addSeconds"
 ---
 
 # addMinutes
 
-Ajoute un nombre positif de minutes à un `TheDate`.
+Ajoute un nombre de minutes à un `TheDate`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/date/addMinutes/tryout.doc.ts"
-  majorVersion="v1"
-  height="145px"
+ src="/examples/v1/api/date/addMinutes/tryout.doc.ts"
+ majorVersion="v1"
+ height="145px"
 />
 
 ## Syntaxe
@@ -27,11 +27,11 @@ Ajoute un nombre positif de minutes à un `TheDate`.
 
 ```typescript
 function addMinutes<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMinute extends number
 >(
 	input: GenericInput,
-	minute: PositiveNumber<GenericMinute>
+	minute: GenericMinute
 ): TheDate
 ```
 
@@ -39,17 +39,17 @@ function addMinutes<
 
 ```typescript
 function addMinutes<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMinute extends number
 >(
-	minute: PositiveNumber<GenericMinute>
+	minute: GenericMinute
 ): (input: GenericInput) => TheDate
 ```
 
 ## Paramètres
 
-- `minute` : Nombre de minutes strictement positif.
-- `input` : `TheDate` à modifier.
+- `minute` : Nombre de minutes .
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 

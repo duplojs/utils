@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction getLastDayOfMonth() renvoie le dernier jour du mois correspondant au TheDate fourni."
+description: "La fonction getLastDayOfMonth() renvoie le dernier jour du mois pour un TheDate ou un SerializedTheDate."
 prev:
   text: "getFirstDayOfMonth"
   link: "/fr/v1/api/date/getFirstDayOfMonth"
@@ -11,7 +11,7 @@ next:
 
 # getLastDayOfMonth
 
-La fonction **`getLastDayOfMonth()`** renvoie le dernier jour du mois correspondant au `TheDate` fourni.
+La fonction **`getLastDayOfMonth()`** renvoie le dernier jour du mois correspondant au `TheDate` ou `SerializedTheDate` fourni.
 
 ## Exemple interactif
 
@@ -24,18 +24,20 @@ La fonction **`getLastDayOfMonth()`** renvoie le dernier jour du mois correspond
 ## Syntaxe
 
 ```typescript
-function getLastDayOfMonth(
-	input: TheDate
+function getLastDayOfMonth<
+	GenericInput extends TheDate | SerializedTheDate
+>(
+	input: GenericInput
 ): TheDate
 ```
 
 ## Paramètres
 
-- `input` : Date `TheDate` à analyser.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-Un `TheDate` positionné sur le dernier jour du même mois (minuit UTC).
+Un `TheDate` positionné sur le dernier jour du même mois, normalisé à `23:59:59.999` en UTC.
 
 ## Voir aussi
 

@@ -1,10 +1,13 @@
-import { type ExpectType, DDate, DEither } from "@scripts";
+import { type ExpectType, DDate, DEither, unwrap } from "@scripts";
 
 describe("create", () => {
 	it("create from timestamp", () => {
 		const result = DDate.create(1609459200000);
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1609459200000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1609459200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -16,7 +19,10 @@ describe("create", () => {
 	it("create from negative timestamp", () => {
 		const result = DDate.create(-1000);
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1000-"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000-");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -65,7 +71,10 @@ describe("create", () => {
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");
 		const result = DDate.create(nativeDate);
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1609459200000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1609459200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -78,7 +87,10 @@ describe("create", () => {
 		const nativeDate = new Date(-1000);
 		const result = DDate.create(nativeDate);
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1000-"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000-");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -110,7 +122,10 @@ describe("create", () => {
 	it("create from TheDate", () => {
 		const result = DDate.create("date1609459200000+");
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1609459200000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1609459200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -122,7 +137,10 @@ describe("create", () => {
 	it("create from TheDate negative", () => {
 		const result = DDate.create("date1000-");
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1000-"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000-");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -148,9 +166,12 @@ describe("create", () => {
 		const result = DDate.create(nativeDate);
 
 		const timestamp = nativeDate.getTime();
-		const expected = `date${Math.abs(timestamp)}${timestamp < 0 ? "-" : "+"}` as DDate.TheDate;
+		const expected = `date${Math.abs(timestamp)}${timestamp < 0 ? "-" : "+"}`;
 
-		expect(result).toStrictEqual(DEither.right("date-created", expected));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(expected);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -163,7 +184,10 @@ describe("create", () => {
 		const nativeDate = new Date("2020-02-29T00:00:00.000Z");
 		const result = DDate.create(nativeDate);
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1582934400000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1582934400000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -175,7 +199,7 @@ describe("create", () => {
 	it("create from safe date string", () => {
 		const result = DDate.create("2024-06-05");
 
-		expect(result).toBe("date1717545600000+");
+		expect(DDate.serialize(result)).toBe("date1717545600000+");
 
 		type check = ExpectType<
 			typeof result,
@@ -192,7 +216,7 @@ describe("create", () => {
 			millisecond: "999",
 		});
 
-		expect(result).toBe("date1717631999999+");
+		expect(DDate.serialize(result)).toBe("date1717631999999+");
 
 		type check = ExpectType<
 			typeof result,
@@ -204,7 +228,7 @@ describe("create", () => {
 	it("create from safe date string before Christ", () => {
 		const result = DDate.create("-000001-01-01");
 
-		expect(result).toBe("date62198755200000-");
+		expect(DDate.serialize(result)).toBe("date62198755200000-");
 
 		type check = ExpectType<
 			typeof result,
@@ -287,7 +311,10 @@ describe("create", () => {
 		const nativeDate = new Date("2020-01-01T00:00:00.000Z");
 		const result = DDate.create({ value: nativeDate });
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1577836800000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1577836800000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -299,7 +326,10 @@ describe("create", () => {
 	it("create from spooling date with number value", () => {
 		const result = DDate.create({ value: 1609459200000 });
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1609459200000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1609459200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -311,7 +341,56 @@ describe("create", () => {
 	it("create from spooling date with TheDate value", () => {
 		const result = DDate.create({ value: "date1000-" });
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1000-"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000-");
+		}
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with serialized positive date", () => {
+		const result = DDate.create({ value: "date1000+" });
+
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000+");
+		}
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with serialized negative date", () => {
+		const result = DDate.create({ value: "date1000-" });
+
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1000-");
+		}
+
+		type check = ExpectType<
+			typeof result,
+			DDate.MayBe,
+			"strict"
+		>;
+	});
+
+	it("create from spooling date with TheDate instance", () => {
+		const inputValue = DDate.createOrThrow(1609459200000);
+		const result = DDate.create({ value: inputValue });
+
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1609459200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -332,7 +411,14 @@ describe("create", () => {
 			DDate.toTimestamp(baseDate) - offset,
 		);
 
-		expect(result).toStrictEqual(DEither.right("date-created", expected));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(
+				DDate.toTimestamp(unwrap(result)),
+			).toBe(
+				DDate.toTimestamp(expected),
+			);
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -346,7 +432,10 @@ describe("create", () => {
 			value: "2024-01-01T00:00:00.000Z",
 		});
 
-		expect(result).toStrictEqual(DEither.right("date-created", "date1704067200000+"));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe("date1704067200000+");
+		}
 
 		type check = ExpectType<
 			typeof result,
@@ -377,9 +466,12 @@ describe("create", () => {
 		expectedDate.setSeconds(5);
 		expectedDate.setMilliseconds(6);
 		const expectedTimestamp = expectedDate.getTime();
-		const expected = `date${Math.abs(expectedTimestamp)}${expectedTimestamp < 0 ? "-" : "+"}` as DDate.TheDate;
+		const expected = `date${Math.abs(expectedTimestamp)}${expectedTimestamp < 0 ? "-" : "+"}`;
 
-		expect(result).toStrictEqual(DEither.right("date-created", expected));
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(DDate.serialize(unwrap(result))).toBe(expected);
+		}
 
 		expect(
 			DDate.create({

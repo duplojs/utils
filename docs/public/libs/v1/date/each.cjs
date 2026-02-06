@@ -3,7 +3,7 @@
 var loop = require('../generator/loop.cjs');
 var constants = require('./constants.cjs');
 var toTimestamp = require('./toTimestamp.cjs');
-var createOrThrow = require('./createOrThrow.cjs');
+var theDate = require('./theDate.cjs');
 
 const stepMapper = {
     millisecond: (timestamp, direction) => timestamp + direction,
@@ -32,7 +32,9 @@ function each(range, unit = "day") {
     const advanceTimestamp = stepMapper[unit];
     return loop.loop(({ exit, next, previousOutput, }) => {
         if (!previousOutput) {
-            return next(range.start);
+            return range.start instanceof theDate.TheDate
+                ? next(range.start)
+                : next(theDate.TheDate.new(toTimestamp.toTimestamp(range.start)));
         }
         const currentTimestamp = advanceTimestamp(toTimestamp.toTimestamp(previousOutput), direction);
         const isWithinRange = direction === 1
@@ -40,10 +42,10 @@ function each(range, unit = "day") {
             : currentTimestamp > endTimestamp;
         if (!isWithinRange) {
             return exit(currentTimestamp === endTimestamp
-                ? createOrThrow.createOrThrow(currentTimestamp)
+                ? theDate.TheDate.new(currentTimestamp)
                 : undefined);
         }
-        return next(createOrThrow.createOrThrow(currentTimestamp));
+        return next(theDate.TheDate.new(currentTimestamp));
     });
 }
 

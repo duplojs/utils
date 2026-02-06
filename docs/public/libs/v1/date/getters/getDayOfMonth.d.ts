@@ -1,31 +1,37 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import type { TheDate } from "../theDate";
+import type { Timezone } from "../timezone";
 /**
- * Returns the day of month of a date.
+ * Returns the day of month (`1` to `31`) for a date in a target timezone.
  * 
- * Signature: `getDayOfMonth(input, timezone)` → returns a value
+ * Signature: `getDayOfMonth(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
- * const input = D.create("2024-06-01");
- * const result = D.getDayOfMonth(input);
- * // result: 1
+ * const input = D.create("2024-06-01", {
+ * 	hour: "00",
+ * 	minute: "30",
+ * });
+ * const utcDay = D.getDayOfMonth(input);
+ * // utcDay: 1
  * 
- * const result2 = D.getDayOfMonth(input, "America/New_York");
- * // result2: 1
+ * const laDay = D.getDayOfMonth(input, "America/Los_Angeles");
+ * // laDay: 31
  * 
  * pipe(
  * 	input,
- * 	D.getDayOfMonth,
- * ); // result: 1
+ * 	(value) => D.getDayOfMonth(value, "UTC"),
+ * ); // 1
  * 
  * ```
+ * 
+ * @remarks
+ * - The same instant can map to a different calendar day depending on timezone.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getDayOfMonth
  * 
  * @namespace D
  * 
  */
-export declare function getDayOfMonth<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getDayOfMonth<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

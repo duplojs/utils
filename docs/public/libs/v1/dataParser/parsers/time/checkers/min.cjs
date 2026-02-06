@@ -6,6 +6,9 @@ var kind = require('../../../kind.cjs');
 var greaterTime = require('../../../../date/operators/greaterTime.cjs');
 
 const checkerTimeMinKind = kind.createDataParserKind("checker-time-min");
+/**
+ * {@include dataParser/classic/checkerTimeMin/index.md}
+ */
 function checkerTimeMin(min, definition = {}) {
     return base.dataParserCheckerInit(checkerTimeMinKind, {
         definition: {

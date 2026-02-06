@@ -25,7 +25,7 @@ The **`getMilliseconds()`** function returns the milliseconds (0–999) of a `Th
 
 ```typescript
 function getMilliseconds<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput
 ): number
@@ -33,7 +33,7 @@ function getMilliseconds<
 
 ## Parameters
 
-- `input`: `TheDate` value.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

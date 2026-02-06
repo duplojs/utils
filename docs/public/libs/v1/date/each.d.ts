@@ -1,30 +1,32 @@
-import type { TheDate, Unit } from "./types";
+import { TheDate } from "./theDate";
+import type { Unit, SerializedTheDate } from "./types";
 /**
- * Iterates over a date range.
+ * Creates an iterator over a date range with a chosen unit step.
  * 
- * Signature: `each(range, unit)` → returns a value
- * 
- * The input value is not mutated.
+ * Signature: `each(range, unit?)` → `Iterator<TheDate>`
  * 
  * ```ts
- * const input = {
+ * const range = {
  * 	start: D.create("2024-06-01"),
  * 	end: D.create("2024-06-03"),
  * } as const;
  * 
- * const iterator = D.each(input);
- * const result = A.from(iterator);
- * // result: ["date1717200000000+", "date1717286400000+", "date1717372800000+"]
+ * const iterator = D.each(range, "day");
+ * const values = A.from(iterator);
+ * // values: TheDate[]
  * 
- * pipe(
- * 	input,
- * 	D.each,
- * ); // result: ["date1717200000000+", "date1717286400000+", "date1717372800000+"]
- * 
+ * const reverse = A.from(
+ * 	D.each({
+ * 		start: D.create("2024-06-03"),
+ * 		end: D.create("2024-06-01"),
+ * 	}),
+ * );
+ * // reverse: TheDate[]
  * ```
  * 
  * @remarks
- * - Includes the end date when it falls on a step boundary.
+ * - Supports ascending and descending ranges.
+ * - Includes the end value when exactly aligned with step boundaries.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/each
  * 
@@ -32,6 +34,6 @@ import type { TheDate, Unit } from "./types";
  * 
  */
 export declare function each(range: {
-    start: TheDate;
-    end: TheDate;
-}, unit?: Unit): Generator<`date${number}-` | `date${number}+`, unknown, unknown>;
+    start: TheDate | SerializedTheDate;
+    end: TheDate | SerializedTheDate;
+}, unit?: Unit): Generator<TheDate, unknown, unknown>;

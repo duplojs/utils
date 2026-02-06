@@ -1,11 +1,9 @@
-Checks whether a value is a TheDate.
+Checks whether a value is an instance of `TheDate`.
 
-Signature: `is(input)` → returns a value
-
-The input value is not mutated.
+Signature: `is(input)` → `input is TheDate`
 
 ```ts
-{@include date/is/example.ts[3,17]}
+{@include date/is/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/date/is

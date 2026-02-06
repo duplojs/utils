@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "DDataParser.date() validates a TheDate (proprietary format date${number}${\"-\" | \"+\"}), accepts Date, timestamps, or existing TheDate as input, and returns an immutable safe value across your services."
+description: "DDataParser.date() validates immutable TheDate values, accepts TheDate/SerializedTheDate/Date, and can coerce safe timestamps and parsable date strings."
 prev:
   text: "bigint"
   link: "/en/v1/api/dataParser/bigint"
@@ -11,7 +11,7 @@ next:
 
 # date
 
-`DDataParser.date()` validates a `TheDate` (proprietary format `date${number}${"-" | "+"}`), accepts `Date`, timestamps, or existing `TheDate` as input, and returns an immutable safe value across your services.
+`DDataParser.date()` validates immutable `TheDate` values. It natively accepts `TheDate`, `SerializedTheDate`, and JavaScript `Date`. In coercive mode (`coerce: true`), it also accepts safe timestamps and parsable date strings.
 
 ## Interactive example
 
@@ -25,7 +25,7 @@ next:
 
 - `errorMessage`: custom message if the input cannot be converted to `TheDate`.
 - `checkers`: `checkerRefine` to express your rules (ranges, intervals, etc.).
-- `coerce`: `true` to accept `Date`, number, or ISO string then convert to `TheDate`. Defaults to `false`.
+- `coerce`: `true` to also accept `number` (safe timestamp) and `string` (parsable date) and convert to `TheDate`. Defaults to `false`.
 
 ## Return value
 
@@ -51,5 +51,6 @@ A `DataParserDate` with the usual API (`parse`, `asyncParse`, `exec`, `asyncExec
 
 ## See also
 
+- [`time`](/en/v1/api/dataParser/time) - Parser for `TheTime` durations
 - [`nil`](/en/v1/api/dataParser/nil) - Parser for null/undefined values
 - [`empty`](/en/v1/api/dataParser/empty) - Parser for empty values

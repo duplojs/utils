@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction greaterThan() vérifie si un TheDate est supérieur ou égal à un seuil."
+description: "La fonction greaterThan() vérifie si un TheDate est strictement supérieur à un seuil."
 prev:
   text: "greater"
   link: "/fr/v1/api/date/greater"
@@ -11,7 +11,7 @@ next:
 
 # greaterThan
 
-La fonction **`greaterThan()`** vérifie si un `TheDate` est supérieur ou égal à un seuil.
+La fonction **`greaterThan()`** vérifie si un `TheDate` est strictement supérieur à un seuil.
 
 ## Exemple interactif
 
@@ -27,10 +27,10 @@ La fonction **`greaterThan()`** vérifie si un `TheDate` est supérieur ou égal
 
 ```typescript
 function greaterThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): boolean
 ```
 
@@ -38,20 +38,20 @@ function greaterThan<
 
 ```typescript
 function greaterThan<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
-	threshold: TheDate
+	threshold: TheDate | SerializedTheDate
 ): (input: GenericInput) => boolean
 ```
 
 ## Paramètres
 
 - `threshold` : Date de référence.
-- `input` : Date testée.
+- `input` : `TheDate` ou `SerializedTheDate`.
 
 ## Valeur de retour
 
-`true` si `input` est supérieure ou égale au seuil.
+`true` si `input` est strictement supérieure au seuil.
 
 ## Voir aussi
 

@@ -10,7 +10,7 @@ next:
 
 # sort
 
-`sort()` trie un tableau de primitives wrappées (`String`, `Number`, `Date`, `Time`) en `"ASC"` ou `"DSC"`. Supporte la version currifiée pour s'intégrer facilement dans un pipeline.
+`sort()` trie un tableau de primitives (`String`, `Number`, `Date` ou `Time`) en `"ASC"` ou `"DSC"`. Le tableau doit rester homogène par famille de primitive, mais peut mixer version wrappée et brute. Supporte la version currifiée pour s'intégrer facilement dans un pipeline.
 
 ## Exemple interactif
 
@@ -25,25 +25,31 @@ next:
 ### Signature classique
 
 ```typescript
-function sort(
-	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[], 
+function sort<
+	GenericInput extends Primitives
+>(
+	input: GenericInput, 
 	type: SortType
-): any[]
+): ToWrappedValue<GenericInput[number]>[]
 ```
+
+`GenericInput` représente un tableau homogène de l'une des familles suivantes : `Date | TheDate`, `Time | TheTime`, `Number | number`, `String | string`.
 
 ### Signature currifiée
 
 ```typescript
-function sort(
+function sort<
+	GenericInput extends Primitives
+>(
 	type: SortType
 ): (
-	input: readonly (String | Number | Date | Time | string | number | TheDate | TheTime)[]
-) => any[]
+	input: GenericInput
+) => ToWrappedValue<GenericInput[number]>[]
 ```
 
 ## Paramètres
 
-- `input` : tableau de primitives (wrappées ou brutes).
+- `input` : tableau homogène de primitives (wrappées ou brutes) d'une même famille.
 - `type` : `"ASC"` ou `"DSC"`.
 
 ## Valeur de retour

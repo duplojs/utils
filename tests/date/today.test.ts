@@ -4,9 +4,10 @@ describe("today", () => {
 	it("today returns current day at midnight UTC", () => {
 		const result = DDate.today();
 
-		expect(result).toMatch(/^date\d+\+$/);
+		const serialized = DDate.serialize(result);
+		expect(serialized).toMatch(/^date\d+\+$/);
 
-		const timestamp = parseInt(result.match(/^date(\d+)\+$/)![1]!);
+		const timestamp = parseInt(serialized.match(/^date(\d+)\+$/)![1]!);
 		const nativeDate = new Date(timestamp);
 
 		expect(nativeDate.getUTCHours()).toBe(0);
@@ -19,7 +20,7 @@ describe("today", () => {
 
 		type check = ExpectType<
 			typeof result,
-			`date${number}+`,
+			DDate.TheDate,
 			"strict"
 		>;
 	});

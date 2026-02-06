@@ -10,7 +10,9 @@ describe("addDays", () => {
 			5,
 		);
 
-		expect(result).toBe(DDate.create("2020-01-06"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-06")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,7 +27,9 @@ describe("addDays", () => {
 			(-3 as number),
 		);
 
-		expect(result).toBe(DDate.create("2019-12-29"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-12-29")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -40,7 +44,9 @@ describe("addDays", () => {
 			DDate.addDays(1),
 		);
 
-		expect(result).toBe(DDate.create("2020-01-02"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2020-01-02")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -55,7 +61,9 @@ describe("addDays", () => {
 			5,
 		);
 
-		expect(result).toBe(DDate.create("-0010-01-06"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0010-01-06")),
+		);
 
 		type check = ExpectType<
 			typeof result,

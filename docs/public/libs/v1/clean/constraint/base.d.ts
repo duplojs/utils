@@ -7,7 +7,7 @@ export declare const constrainedTypeKind: import("../..").KindHandler<import("..
 export interface ConstrainedType<GenericName extends string, GenericValue extends unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
 }
 export declare const constraintHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraint-handler", unknown>>;
-export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[]> extends Kind<typeof constraintHandlerKind.definition> {
+export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintHandlerKind.definition> {
     /**
      * The constraint name used as the internal marker (for example "email").
      * 
@@ -36,6 +36,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * 
      */
     create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
+    create(data: GenericPrimitiveInput): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
     create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
     /**
      * Creates a constrained value and throws on error.
@@ -47,6 +48,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * 
      */
     createOrThrow<GenericData extends GenericPrimitiveValue>(data: GenericData): ConstrainedType<GenericName, GenericData>;
+    createOrThrow(data: GenericPrimitiveInput): ConstrainedType<GenericName, GenericPrimitiveValue>;
     createOrThrow<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>);
     /**
      * Creates a constrained value from an unknown input and returns an Either.
@@ -134,12 +136,12 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
  * @namespace C
  * 
  */
-export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, const GenericChecker extends (DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue> | readonly [
+export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]
-]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>, checker: GenericChecker): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>>;
+]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, checker: GenericChecker): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;
 export declare namespace createConstraint {
-    var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[]>>;
+    var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>>;
 }
 export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
 export {};

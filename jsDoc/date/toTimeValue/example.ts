@@ -1,11 +1,13 @@
-import { D } from "@scripts";
+import { D, pipe } from "@scripts";
 
-const input = D.createTheTime(90_000);
-const result = D.toTimeValue(input);
-// result: 90000
+const input = D.createTime(90_000, "millisecond");
+const value = D.toTimeValue(input);
+// value: number
 
-const result2 = D.toTimeValue("time3600000-");
-// result2: -3600000
+const value2 = D.toTimeValue("time3600000-");
+// value2: number
 
-const result3 = D.toTimeValue("time90000+");
-// result3: 90000
+pipe(
+	input,
+	D.toTimeValue,
+); // number

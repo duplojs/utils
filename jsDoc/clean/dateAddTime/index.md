@@ -1,13 +1,13 @@
-Adds a time duration to a Date and returns a new wrapped Date.
+Adds a duration to a wrapped `Date` and returns a wrapped `Date`.
 
 **Supported call styles:**
-- Classic: `dateAddTime(date, time)` -> returns a Date
-- Curried: `dateAddTime(time)` -> returns a function waiting for the date
+- Classic: `dateAddTime(date, time)` → `Date`
+- Curried: `dateAddTime(time)` → function waiting for the date
 
-Use it to move dates forward while keeping values wrapped.
+`time` accepts wrapped `Time` or raw `TheTime`.
 
 ```ts
-{@include clean/dateAddTime/example.ts[3,20]}
+{@include clean/dateAddTime/example.ts[3,16]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/clean/primitives/operators/dateAddTime

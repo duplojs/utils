@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Adds a positive number of milliseconds to a TheDate."
+description: "Adds a number of milliseconds to a TheDate."
 prev:
   text: "addSeconds"
   link: "/en/v1/api/date/addSeconds"
@@ -11,7 +11,7 @@ next:
 
 # addMilliseconds
 
-Adds a positive number of milliseconds to a `TheDate`.
+Adds a number of milliseconds to a `TheDate`.
 
 ## Interactive example
 
@@ -27,26 +27,26 @@ Adds a positive number of milliseconds to a `TheDate`.
 
 ```typescript
 function addMilliseconds<
-	GenericInput extends TheDate, 
+	GenericInput extends TheDate | SerializedTheDate, 
 	GenericMillisecond extends number
 >(
 	input: GenericInput,
-	millisecond: PositiveNumber<GenericMillisecond>
+	millisecond: GenericMillisecond
 ): TheDate
 ```
 
 ### Curried signature
 
 ```typescript
-function addMilliseconds<GenericInput extends TheDate, GenericMillisecond extends number>(
-	millisecond: PositiveNumber<GenericMillisecond>
+function addMilliseconds<GenericInput extends TheDate | SerializedTheDate, GenericMillisecond extends number>(
+	millisecond: GenericMillisecond
 ): (input: GenericInput) => TheDate
 ```
 
 ## Parameters
 
-- `millisecond`: Strictly positive number of milliseconds.
-- `input`: `TheDate` to adjust.
+- `millisecond`: Number of milliseconds.
+- `input`: `TheDate` or `SerializedTheDate`.
 
 ## Return value
 

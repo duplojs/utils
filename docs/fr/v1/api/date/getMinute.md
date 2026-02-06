@@ -25,17 +25,17 @@ La fonction **`getMinute()`** renvoie les minutes (0–59) d'un `TheDate`, avec 
 
 ```typescript
 function getMinute<
-	GenericInput extends TheDate
+	GenericInput extends TheDate | SerializedTheDate
 >(
 	input: GenericInput,
-	timezone?: Timezone
+	timezone: Timezone = "UTC"
 ): number
 ```
 
 ## Paramètres
 
-- `input` : `TheDate` cible.
-- `timezone` : Fuseau horaire (optionnel).
+- `input` : `TheDate` ou `SerializedTheDate`.
+- `timezone` : Fuseau horaire IANA. Par défaut : `"UTC"`.
 
 ## Valeur de retour
 

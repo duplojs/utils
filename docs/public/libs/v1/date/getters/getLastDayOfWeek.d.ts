@@ -1,26 +1,33 @@
-import type { TheDate } from "../types";
+import type { SerializedTheDate } from "../types";
+import { TheDate } from "../theDate";
 /**
- * Returns the last day of week of a date.
+ * Returns the last day of the week for a date.
  * 
- * Signature: `getLastDayOfWeek(input)` → returns a value
+ * Signature: `getLastDayOfWeek(input)` → `TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`.
  * 
  * ```ts
  * const input = D.create("2024-06-19");
- * const result = D.getLastDayOfWeek(input);
- * // result: "date1719187200000+" (Sunday 23 june 2024)
+ * const lastDay = D.getLastDayOfWeek(input);
+ * // lastDay: TheDate
+ * 
+ * const serialized = D.serialize(lastDay);
+ * // serialized: SerializedTheDate
  * 
  * pipe(
- * 	input,
+ * 	serialized,
  * 	D.getLastDayOfWeek,
- * ); // result: "date1719187200000+" (Sunday 23 june 2024)
- * 
+ * ); // TheDate
  * ```
+ * 
+ * @remarks
+ * - The week ends on Sunday.
+ * - The returned date is normalized to `23:59:59.999` in UTC.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getLastDayOfWeek
  * 
  * @namespace D
  * 
  */
-export declare function getLastDayOfWeek(input: TheDate): TheDate;
+export declare function getLastDayOfWeek<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput): TheDate;

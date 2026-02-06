@@ -1,11 +1,12 @@
-import type { TheDate, Unit } from "./types";
+import { TheDate } from "./theDate";
+import type { SerializedTheDate, Unit } from "./types";
 export type RoundUnit = Exclude<Unit, "millisecond">;
 /**
- * Rounds a date to a unit.
+ * Rounds down a date to a UTC unit boundary.
  * 
- * Signature: `round(input, unit)` → returns a value
+ * Signature: `round(input, unit?)` → `TheDate`
  * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. Default `unit` is `"day"`.
  * 
  * ```ts
  * const input = D.create("2024-06-20", {
@@ -14,25 +15,21 @@ export type RoundUnit = Exclude<Unit, "millisecond">;
  * 	second: "56",
  * 	millisecond: "789",
  * });
- * const result = D.round(input);
- * // result: "date1718841600000+"
  * 
- * const result2 = D.round(input, "month");
- * // result2: "date1717200000000+"
+ * const byDay = D.round(input);
+ * // byDay: TheDate
  * 
- * pipe(
- * 	input,
- * 	D.round,
- * ); // result: "date1718841600000+"
+ * const byMonth = D.round(input, "month");
+ * // byMonth: TheDate
  * 
  * ```
  * 
  * @remarks
- * - Rounds using the provided unit.
+ * - Supported units: `second`, `minute`, `hour`, `day`, `month`, `year`.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/round
  * 
  * @namespace D
  * 
  */
-export declare function round(input: TheDate, unit?: RoundUnit): `date${number}-` | `date${number}+`;
+export declare function round(input: (TheDate | SerializedTheDate), unit?: RoundUnit): TheDate;

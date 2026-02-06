@@ -1,13 +1,13 @@
 'use strict';
 
-var createTheTime = require('./createTheTime.cjs');
+var theTime = require('./theTime.cjs');
 var toTimeValue = require('./toTimeValue.cjs');
 
 /**
  * {@include date/maxTime/index.md}
  */
 function maxTime(input) {
-    return createTheTime.createTheTime(Math.max(...input.map(toTimeValue.toTimeValue)));
+    return theTime.TheTime.new(Math.max(...input.map(toTimeValue.toTimeValue)));
 }
 
 exports.maxTime = maxTime;

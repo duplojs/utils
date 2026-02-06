@@ -1,31 +1,34 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import type { Timezone } from "../timezone";
 /**
- * Returns the day of week of a date.
+ * Returns the day of week (`0` to `6`) for a date in a target timezone.
  * 
- * Signature: `getDayOfWeek(input, timezone)` → returns a value
+ * Signature: `getDayOfWeek(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
  * const input = D.create("2024-06-17");
- * const result = D.getDayOfWeek(input);
- * // result: 1
+ * const utcWeekday = D.getDayOfWeek(input);
+ * // utcWeekday: 1
  * 
- * const result2 = D.getDayOfWeek(input, "Europe/London");
- * // result2: 1
+ * const tokyoWeekday = D.getDayOfWeek(input, "Asia/Tokyo");
+ * // tokyoWeekday: 1
  * 
  * pipe(
  * 	input,
  * 	D.getDayOfWeek,
- * ); // result: 1
+ * ); // 1
  * 
  * ```
+ * 
+ * @remarks
+ * - Returned mapping is: `0` Sunday, `1` Monday, ..., `6` Saturday.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getDayOfWeek
  * 
  * @namespace D
  * 
  */
-export declare function getDayOfWeek<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getDayOfWeek<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

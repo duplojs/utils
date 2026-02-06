@@ -1,31 +1,36 @@
-import { type TheDate, type Timezone } from "..";
+import type { SerializedTheDate } from "../types";
+import { type TheDate } from "../theDate";
+import type { Timezone } from "../timezone";
 /**
- * Returns the month of a date.
+ * Returns the month number (`1` to `12`) for a date in a target timezone.
  * 
- * Signature: `getMonth(input, timezone)` → returns a value
+ * Signature: `getMonth(input, timezone?)` → `number`
  * 
- * If timezone is omitted, UTC is used.
- * 
- * The input value is not mutated.
+ * `input` accepts `TheDate` or `SerializedTheDate`. If `timezone` is omitted, UTC is used.
  * 
  * ```ts
- * const input = D.create("2024-12-31");
- * const result = D.getMonth(input);
- * // result: 12
+ * const input = D.create("2024-12-31", {
+ * 	hour: "23",
+ * 	minute: "30",
+ * });
+ * const utcMonth = D.getMonth(input);
+ * // utcMonth: 12
  * 
- * const result2 = D.getMonth(input, "Asia/Tokyo");
- * // result2: 12
+ * const tokyoMonth = D.getMonth(input, "Asia/Tokyo");
+ * // tokyoMonth: 1
  * 
  * pipe(
  * 	input,
- * 	D.getMonth,
- * ); // result: 12
- * 
+ * 	(value) => D.getMonth(value, "UTC"),
+ * ); // 12
  * ```
+ * 
+ * @remarks
+ * - Unlike native `Date#getMonth`, this getter is 1-based.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/date/getMonth
  * 
  * @namespace D
  * 
  */
-export declare function getMonth<GenericInput extends TheDate>(input: GenericInput, timezone?: Timezone): number;
+export declare function getMonth<GenericInput extends TheDate | SerializedTheDate>(input: GenericInput, timezone?: Timezone): number;

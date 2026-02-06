@@ -1,8 +1,8 @@
 'use strict';
 
 var constants = require('../constants.cjs');
-var createTheDate = require('../createTheDate.cjs');
-var toNative = require('../toNative.cjs');
+var theDate = require('../theDate.cjs');
+var toTimestamp = require('../toTimestamp.cjs');
 
 function subtractDays(...args) {
     if (args.length === 1) {
@@ -10,9 +10,7 @@ function subtractDays(...args) {
         return (input) => subtractDays(input, day);
     }
     const [input, day] = args;
-    const date = toNative.toNative(input);
-    date.setTime(date.getTime() - (day * constants.millisecondsInOneDay));
-    return createTheDate.createTheDate(date.getTime());
+    return theDate.TheDate.new(toTimestamp.toTimestamp(input) - (day * constants.millisecondsInOneDay));
 }
 
 exports.subtractDays = subtractDays;

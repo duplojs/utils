@@ -10,7 +10,9 @@ describe("subtractYears", () => {
 			2,
 		);
 
-		expect(result).toBe(DDate.create("2018-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2018-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -25,7 +27,9 @@ describe("subtractYears", () => {
 			(-3 as number),
 		);
 
-		expect(result).toBe(DDate.create("2023-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2023-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -40,7 +44,9 @@ describe("subtractYears", () => {
 			DDate.subtractYears(1),
 		);
 
-		expect(result).toBe(DDate.create("2019-01-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("2019-01-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
@@ -55,7 +61,9 @@ describe("subtractYears", () => {
 			2,
 		);
 
-		expect(result).toBe(DDate.create("-0012-06-01"));
+		expect(DDate.serialize(result)).toBe(
+			DDate.serialize(DDate.create("-0012-06-01")),
+		);
 
 		type check = ExpectType<
 			typeof result,
