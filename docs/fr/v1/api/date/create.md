@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction create() construit un TheDate à partir d'un Date, d'un timestamp ou d'une partition littérale (YYYY-MM-DD). Elle renvoie un Either (MayBe) qui contient soit la date valide, soit une erreur typée."
 prev:
-  text: "Date"
-  link: "/fr/v1/api/date/"
+  text: "TheTime"
+  link: "/fr/v1/api/date/theTime"
 next:
   text: "createOrThrow"
   link: "/fr/v1/api/date/createOrThrow"
