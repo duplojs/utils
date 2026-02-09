@@ -9,6 +9,8 @@ export { loop } from './loop.mjs';
 export { asyncLoop } from './asyncLoop.mjs';
 export { chunk } from './chunk.mjs';
 export { asyncChunk } from './asyncChunk.mjs';
+export { group, groupOutput } from './group.mjs';
+export { asyncGroup } from './asyncGroup.mjs';
 
 /**
  * {@include generator/index.md}

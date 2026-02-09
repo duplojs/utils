@@ -1,7 +1,5 @@
 'use strict';
 
-var reduce = require('./reduce.cjs');
-
 function groupOutput(...args) {
     if (args.length === 1) {
         const [group] = args;
@@ -19,18 +17,20 @@ function group(...args) {
         return (array) => group(array, theFunction);
     }
     const [array, theFunction] = args;
-    return reduce.reduce(array, reduce.reduceFrom({}), ({ index, element, lastValue, nextWithObject }) => {
-        const { group, value } = theFunction(element, {
+    const result = {};
+    for (let index = 0; index < array.length; index++) {
+        const { group, value } = theFunction(array[index], {
             index,
             output: groupOutput,
         });
-        return nextWithObject(lastValue, {
-            [group]: [
-                ...(lastValue[group] ?? []),
-                value,
-            ],
-        });
-    });
+        if (result[group]) {
+            result[group].push(value);
+        }
+        else {
+            result[group] = [value];
+        }
+    }
+    return result;
 }
 
 exports.group = group;

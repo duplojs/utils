@@ -54,3 +54,4 @@ export * from "./pipeCall";
 export * from "./asserts";
 export * from "./path";
 export * from "./transformer";
+export * from "./toRegExp";

@@ -1,4 +1,4 @@
-import { A, type ExpectType, pipe } from "@duplojs/utils";
+import { A, type ExpectType } from "@duplojs/utils";
 
 const input = [
 	{

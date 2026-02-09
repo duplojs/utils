@@ -10,6 +10,7 @@ export interface DataParserErrorIssue extends Kind<typeof errorIssueKind.definit
     readonly source: DataParser | DataParserCheckers;
     readonly path: string;
     readonly data: unknown;
+    readonly moreInformation?: string;
 }
 export declare const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
 export declare const SymbolDataParserErrorPromiseIssue: unique symbol;
@@ -19,6 +20,7 @@ export interface DataParserErrorPromiseIssue extends Kind<typeof errorPromiseIss
     readonly source: DataParserTransform;
     readonly path: string;
     readonly data: unknown;
+    readonly moreInformation?: string;
 }
 export declare const errorKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/error", unknown>>;
 export interface DataParserError extends Kind<typeof errorKind.definition> {
@@ -26,7 +28,7 @@ export interface DataParserError extends Kind<typeof errorKind.definition> {
     readonly currentPath: string[];
 }
 export declare function createError(): DataParserError;
-export declare function addIssue(error: DataParserError, source: DataParser | DataParserCheckers, data: unknown): DataParserError;
-export declare function addPromiseIssue(error: DataParserError, source: DataParserTransform, data: unknown): DataParserError;
+export declare function addIssue(error: DataParserError, source: DataParser | DataParserCheckers, data: unknown, moreInformation?: string): DataParserError;
+export declare function addPromiseIssue(error: DataParserError, source: DataParserTransform, data: unknown, moreInformation?: string): DataParserError;
 export declare function setErrorPath(error: DataParserError, value: string, index: number): DataParserError;
 export declare function popErrorPath(error: DataParserError): DataParserError;

@@ -11,6 +11,8 @@ var loop = require('./loop.cjs');
 var asyncLoop = require('./asyncLoop.cjs');
 var chunk = require('./chunk.cjs');
 var asyncChunk = require('./asyncChunk.cjs');
+var group = require('./group.cjs');
+var asyncGroup = require('./asyncGroup.cjs');
 
 /**
  * {@include generator/index.md}
@@ -28,3 +30,6 @@ exports.loop = loop.loop;
 exports.asyncLoop = asyncLoop.asyncLoop;
 exports.chunk = chunk.chunk;
 exports.asyncChunk = asyncChunk.asyncChunk;
+exports.group = group.group;
+exports.groupOutput = group.groupOutput;
+exports.asyncGroup = asyncGroup.asyncGroup;

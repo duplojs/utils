@@ -5,8 +5,8 @@ prev:
   text: "filter"
   link: "/en/v1/api/generator/filter"
 next:
-  text: "reduce"
-  link: "/en/v1/api/generator/reduce"
+  text: "group"
+  link: "/en/v1/api/generator/group"
 ---
 
 # chunk

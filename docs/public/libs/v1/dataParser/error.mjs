@@ -13,19 +13,21 @@ function createError() {
         currentPath: [],
     });
 }
-function addIssue(error, source, data) {
+function addIssue(error, source, data, moreInformation) {
     error.issues.push(errorIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
+        moreInformation,
     }));
     return error;
 }
-function addPromiseIssue(error, source, data) {
+function addPromiseIssue(error, source, data, moreInformation) {
     error.issues.push(errorPromiseIssueKind.setTo({
         source,
         path: error.currentPath.join("."),
         data,
+        moreInformation,
     }));
     return error;
 }

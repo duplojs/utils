@@ -1560,6 +1560,15 @@
           "name": "toCurriedPredicate.mjs"
         },
         {
+          "name": "toRegExp.cjs"
+        },
+        {
+          "name": "toRegExp.d.ts"
+        },
+        {
+          "name": "toRegExp.mjs"
+        },
+        {
           "name": "toWrappedValue.cjs"
         },
         {
@@ -3841,6 +3850,15 @@
           "name": "asyncFilter.mjs"
         },
         {
+          "name": "asyncGroup.cjs"
+        },
+        {
+          "name": "asyncGroup.d.ts"
+        },
+        {
+          "name": "asyncGroup.mjs"
+        },
+        {
           "name": "asyncLoop.cjs"
         },
         {
@@ -3893,6 +3911,15 @@
         },
         {
           "name": "filter.mjs"
+        },
+        {
+          "name": "group.cjs"
+        },
+        {
+          "name": "group.d.ts"
+        },
+        {
+          "name": "group.mjs"
         },
         {
           "name": "index.cjs"

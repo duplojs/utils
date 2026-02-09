@@ -16,6 +16,7 @@ What you will find in this namespace:
 - reduce helpers (`G.reduceFrom`)
 - control and execution (`G.loop`, `G.execute`)
 - batching (`G.chunk`)
+- grouping (`G.group`, `G.groupOutput`, `G.asyncGroup`)
 - async variants (`G.asyncMap`, `G.asyncFilter`, `G.asyncReduce`, `G.asyncLoop`, `G.asyncChunk`)
 
 @see https://utils.duplojs.dev/en/v1/api/generator

@@ -1,10 +1,9 @@
-import * as DEither from "../either";
 import type { AnyTuple } from "./types";
 export declare namespace Path {
     const baseNameRegex: RegExp;
     const folderNameRegex: RegExp;
     const extensionNameRegex: RegExp;
-    const isRelativeRegex: RegExp;
+    const isContainBackPathRegex: RegExp;
     const segmentTrailingRegex: RegExp;
     const segmentRelativeRegex: RegExp;
     interface GetBaseNameParams {
@@ -95,31 +94,38 @@ export declare namespace Path {
      * 
      */
     function isAbsolute<GenericPath extends string>(path: GenericPath): boolean;
+    interface ResolveFromParams {
+        stayInOrigin?: boolean;
+    }
     /**
-     * Resolves a list of path segments from an origin and returns an Either.
+     * Resolves a list of path segments from an origin.
      * 
      * **Supported call styles:**
-     * - Classic: `resolveFrom(origin, segments)` -> returns an Either
+     * - Classic: `resolveFrom(origin, segments, params?)` -> returns the resolved absolute path or null
      * 
      * Segments are resolved in order using `resolveRelative`.
-     * The result is an `Either` that is `success` only when the resolved path is absolute; otherwise it returns `fail`.
+     * The function returns `null` when the final path is not absolute.
+     * When `params.stayInOrigin` is `true`, the resolution returns `null` if segments escape the origin with leading `../`.
      * 
      * ```ts
      * const absoluteResult = Path.resolveFrom("/root", ["alpha", "beta"]);
-     * // absoluteResult: DEither.success<"/root/alpha/beta">
-     * const result = unwrap(absoluteResult);
-     * // result: "/root/alpha/beta"
+     * // absoluteResult: "/root/alpha/beta"
      * 
      * const overrideResult = Path.resolveFrom("gamma", ["alpha", "/root", "beta"]);
-     * // overrideResult: DEither.success<"/root/beta">
+     * // overrideResult: "/root/beta"
+     * 
      * const relativeResult = Path.resolveFrom("alpha", ["..", ".."]);
-     * // relativeResult: DEither.fail
+     * // relativeResult: null
+     * 
+     * const blockedResult = Path.resolveFrom("/root", ["..", "etc"], {
+     * 	stayInOrigin: true,
+     * });
      * ```
      * 
      * @see https://utils.duplojs.dev/en/v1/api/common/path/resolveFrom
      * 
      */
-    function resolveFrom<GenericSegment extends string>(origin: string, segments: AnyTuple<GenericSegment>): DEither.Fail | DEither.Success<string>;
+    function resolveFrom<GenericSegment extends string>(origin: string, segments: AnyTuple<GenericSegment>, params?: ResolveFromParams): string | null;
     /**
      * Resolves path segments into a single POSIX-like path.
      * 

@@ -14,6 +14,7 @@ export interface DataParserErrorIssue extends Kind<typeof errorIssueKind.definit
 	readonly source: DataParser | DataParserCheckers;
 	readonly path: string;
 	readonly data: unknown;
+	readonly moreInformation?: string;
 }
 
 export const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
@@ -26,6 +27,7 @@ export interface DataParserErrorPromiseIssue extends Kind<typeof errorPromiseIss
 	readonly source: DataParserTransform;
 	readonly path: string;
 	readonly data: unknown;
+	readonly moreInformation?: string;
 }
 
 export const errorKind = createDataParserKind("error");
@@ -46,12 +48,14 @@ export function addIssue(
 	error: DataParserError,
 	source: DataParser | DataParserCheckers,
 	data: unknown,
+	moreInformation?: string,
 ) {
 	error.issues.push(
 		errorIssueKind.setTo({
 			source,
 			path: error.currentPath.join("."),
 			data,
+			moreInformation,
 		}),
 	);
 
@@ -62,12 +66,14 @@ export function addPromiseIssue(
 	error: DataParserError,
 	source: DataParserTransform,
 	data: unknown,
+	moreInformation?: string,
 ) {
 	error.issues.push(
 		errorPromiseIssueKind.setTo({
 			source,
 			path: error.currentPath.join("."),
 			data,
+			moreInformation,
 		}),
 	);
 

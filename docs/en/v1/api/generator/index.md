@@ -55,6 +55,14 @@ Filters the elements of a generator according to a predicate.
 ### [asyncFilter](/en/v1/api/generator/asyncFilter)
 Filters the elements of a generator with an async predicate.
 
+## Grouping
+
+### [group](/en/v1/api/generator/group)
+Groups iterable elements into an object of arrays by group name.
+
+### [asyncGroup](/en/v1/api/generator/asyncGroup)
+Asynchronous grouping version for async iterables.
+
 ## Reduction
 
 ### [reduce](/en/v1/api/generator/reduce)

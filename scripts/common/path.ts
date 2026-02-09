@@ -1,11 +1,10 @@
-import * as DEither from "@scripts/either";
 import type { AnyTuple } from "./types";
 
 export namespace Path {
 	export const baseNameRegex = /\/?([^/]+)$/;
 	export const folderNameRegex = /([^]+)\/[^/]+\/?$/;
 	export const extensionNameRegex = /\.([^./]+)$/;
-	export const isRelativeRegex = /(^|\/)\.\.(?=\/|$)/;
+	export const isContainBackPathRegex = /(^|\/)\.\.(?=\/|$)/;
 	export const segmentTrailingRegex = /\/$/;
 	export const segmentRelativeRegex = /^(.\/)/;
 
@@ -74,7 +73,11 @@ export namespace Path {
 		path: GenericPath,
 	): boolean {
 		return path.startsWith("/")
-		&& !isRelativeRegex.test(path);
+		&& !isContainBackPathRegex.test(path);
+	}
+
+	export interface ResolveFromParams {
+		stayInOrigin?: boolean;
 	}
 
 	/**
@@ -85,12 +88,19 @@ export namespace Path {
 	>(
 		origin: string,
 		segments: AnyTuple<GenericSegment>,
-	): DEither.Fail | DEither.Success<string> {
-		const result = resolveRelative([origin, ...segments]);
+		params?: ResolveFromParams,
+	): string | null {
+		const resultRelative = resolveRelative(segments);
+
+		if (params?.stayInOrigin && resultRelative.startsWith("../")) {
+			return null;
+		}
+
+		const result = resolveRelative([origin, resultRelative]);
 
 		return isAbsolute(result)
-			? DEither.success(result)
-			: DEither.fail();
+			? result
+			: null;
 	}
 
 	/**
@@ -106,21 +116,16 @@ export namespace Path {
 		for (const segment of segments) {
 			if (segment.length === 0) {
 				continue;
-			}
-
-			if (segment === "/") {
+			} else if (segment === "/") {
 				clearedPath = segment;
 				continue;
 			}
 
 			const formattedSegment = fix(segment);
 
-			if (formattedSegment.startsWith("/")) {
+			if (formattedSegment.startsWith("/") || clearedPath === "") {
 				clearedPath = formattedSegment;
-				continue;
-			}
-
-			if (clearedPath === "/") {
+			} else if (clearedPath === "/") {
 				clearedPath += formattedSegment;
 			} else {
 				clearedPath += `/${formattedSegment}`;

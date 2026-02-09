@@ -1,4 +1,4 @@
-import { Path, pipe, type ExpectType, DEither } from "@scripts";
+import { Path, pipe, type ExpectType } from "@scripts";
 
 describe("path", () => {
 	it("returns the base name paths", () => {
@@ -145,29 +145,45 @@ describe("path", () => {
 
 	it("returns success when resolving from an absolute origin", () => {
 		expect(Path.resolveFrom("/root", ["alpha", "beta"]))
-			.toStrictEqual(DEither.success("/root/alpha/beta"));
+			.toStrictEqual("/root/alpha/beta");
 	});
 
 	it("returns success when an absolute segment overrides previous parts", () => {
 		expect(Path.resolveFrom("gamma", ["alpha", "/root", "beta"]))
-			.toStrictEqual(DEither.success("/root/beta"));
+			.toStrictEqual("/root/beta");
 	});
 
 	it("returns fail when the resolved path is relative", () => {
 		const result = Path.resolveFrom("alpha", ["..", ".."]);
 
-		expect(result).toStrictEqual(DEither.fail());
+		expect(result).toStrictEqual(null);
 
 		type check = ExpectType<
 			typeof result,
-			DEither.Fail | DEither.Success<string>,
+			string | null,
+			"strict"
+		>;
+	});
+
+	it("returns fail when stayInOrigin is active and segments escape the origin", () => {
+		const result = Path.resolveFrom(
+			"/root/current",
+			["..", "..", "target"],
+			{ stayInOrigin: true },
+		);
+
+		expect(result).toStrictEqual(null);
+
+		type check = ExpectType<
+			typeof result,
+			string | null,
 			"strict"
 		>;
 	});
 
 	it("resolves segments and trims slashes and ./ prefixes", () => {
 		expect(Path.resolveRelative(["alpha/", "", "./beta", "gamma/"]))
-			.toBe("/alpha/beta/gamma");
+			.toBe("alpha/beta/gamma");
 	});
 
 	it("resets the path when an absolute segment is encountered", () => {
@@ -191,7 +207,7 @@ describe("path", () => {
 			Path.resolveRelative,
 		);
 
-		expect(result).toBe("/alpha/beta");
+		expect(result).toBe("alpha/beta");
 
 		type check = ExpectType<
 			typeof result,

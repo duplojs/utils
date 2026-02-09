@@ -1,6 +1,6 @@
-import { type SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
-import { reduce, reduceFrom } from "./reduce";
-import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import type { SimplifyTopLevel } from "@scripts/common/types/simplifyTopLevel";
+import type { AnyFunction } from "@scripts/common/types/anyFunction";
+import type { GroupFunctionOutput } from "@scripts/generator";
 
 export interface ArrayGroupFunctionOutput<
 	GenericGroupName extends string = string,
@@ -62,9 +62,6 @@ export type ArrayGroupResult<
 	[Output in GenericOutput as Output["group"]]?: Output["value"][]
 }>;
 
-// Fix: TypeScript can create an intersection from a union during type inference,
-// which causes `never` types. Using GenericArray instead of GenericElement
-// preserves the array structure and avoids this inference bug.
 /**
  * {@include array/group/index.md}
  */
@@ -77,6 +74,7 @@ export function group<
 		params: ArrayGroupFunctionParams
 	) => GenericOutput,
 ): (array: GenericArray) => ArrayGroupResult<GenericOutput>;
+
 export function group<
 	GenericElement extends unknown,
 	GenericOutput extends ArrayGroupFunctionOutput,
@@ -87,31 +85,28 @@ export function group<
 		params: ArrayGroupFunctionParams
 	) => GenericOutput,
 ): ArrayGroupResult<GenericOutput>;
-export function group(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
+
+export function group(...args: [readonly unknown[], AnyFunction<any, GroupFunctionOutput>] | [AnyFunction]): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 		return (array: unknown[]) => group(array, theFunction);
 	}
 	const [array, theFunction] = args;
 
-	return reduce(
-		array,
-		reduceFrom({}),
-		({ index, element, lastValue, nextWithObject }) => {
-			const { group, value } = theFunction(element, {
-				index,
-				output: groupOutput,
-			});
+	const result: Record<string, unknown[]> = {};
 
-			return nextWithObject(
-				lastValue,
-				{
-					[group]: [
-						...(lastValue[group as never] ?? []),
-						value,
-					],
-				},
-			);
-		},
-	) as never;
+	for (let index = 0; index < array.length; index++) {
+		const { group, value } = theFunction(array[index], {
+			index,
+			output: groupOutput,
+		});
+
+		if (result[group]) {
+			result[group].push(value);
+		} else {
+			result[group] = [value];
+		}
+	}
+
+	return result;
 }

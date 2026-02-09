@@ -47,11 +47,13 @@ describe("dataParser error helpers", () => {
 				source: parser,
 				path: "user.email",
 				data: undefined,
+				moreInformation: undefined,
 			}),
 			DDataParser.errorPromiseIssueKind.addTo({
 				source: parser,
 				path: "user.email",
 				data: undefined,
+				moreInformation: undefined,
 			}),
 		]);
 

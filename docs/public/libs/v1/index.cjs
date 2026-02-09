@@ -63,6 +63,7 @@ var pipeCall = require('./common/pipeCall.cjs');
 var asserts = require('./common/asserts.cjs');
 var path = require('./common/path.cjs');
 var transformer = require('./common/transformer.cjs');
+var toRegExp = require('./common/toRegExp.cjs');
 
 
 
@@ -160,3 +161,4 @@ exports.createTransformer = transformer.createTransformer;
 exports.toJSON = transformer.toJSON;
 exports.toNative = transformer.toNative;
 exports.transformer = transformer.transformer;
+exports.toRegExp = toRegExp.toRegExp;

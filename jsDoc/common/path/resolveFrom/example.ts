@@ -1,11 +1,15 @@
-import { Path, unwrap } from "@scripts";
+import { Path } from "@scripts";
 
 const absoluteResult = Path.resolveFrom("/root", ["alpha", "beta"]);
-// absoluteResult: DEither.success<"/root/alpha/beta">
-const result = unwrap(absoluteResult);
-// result: "/root/alpha/beta"
+// absoluteResult: "/root/alpha/beta"
 
 const overrideResult = Path.resolveFrom("gamma", ["alpha", "/root", "beta"]);
-// overrideResult: DEither.success<"/root/beta">
+// overrideResult: "/root/beta"
+
 const relativeResult = Path.resolveFrom("alpha", ["..", ".."]);
-// relativeResult: DEither.fail
+// relativeResult: null
+
+const blockedResult = Path.resolveFrom("/root", ["..", "etc"], {
+	stayInOrigin: true,
+});
+// blockedResult: null

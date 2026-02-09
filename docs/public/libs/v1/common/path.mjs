@@ -1,12 +1,9 @@
-import { success } from '../either/right/success.mjs';
-import { fail } from '../either/left/fail.mjs';
-
 var Path;
 (function (Path) {
     Path.baseNameRegex = /\/?([^/]+)$/;
     Path.folderNameRegex = /([^]+)\/[^/]+\/?$/;
     Path.extensionNameRegex = /\.([^./]+)$/;
-    Path.isRelativeRegex = /(^|\/)\.\.(?=\/|$)/;
+    Path.isContainBackPathRegex = /(^|\/)\.\.(?=\/|$)/;
     Path.segmentTrailingRegex = /\/$/;
     Path.segmentRelativeRegex = /^(.\/)/;
     /**
@@ -50,17 +47,21 @@ var Path;
      */
     function isAbsolute(path) {
         return path.startsWith("/")
-            && !Path.isRelativeRegex.test(path);
+            && !Path.isContainBackPathRegex.test(path);
     }
     Path.isAbsolute = isAbsolute;
     /**
      * {@include common/path/resolveFrom/index.md}
      */
-    function resolveFrom(origin, segments) {
-        const result = resolveRelative([origin, ...segments]);
+    function resolveFrom(origin, segments, params) {
+        const resultRelative = resolveRelative(segments);
+        if (params?.stayInOrigin && resultRelative.startsWith("../")) {
+            return null;
+        }
+        const result = resolveRelative([origin, resultRelative]);
         return isAbsolute(result)
-            ? success(result)
-            : fail();
+            ? result
+            : null;
     }
     Path.resolveFrom = resolveFrom;
     /**
@@ -72,16 +73,15 @@ var Path;
             if (segment.length === 0) {
                 continue;
             }
-            if (segment === "/") {
+            else if (segment === "/") {
                 clearedPath = segment;
                 continue;
             }
             const formattedSegment = fix(segment);
-            if (formattedSegment.startsWith("/")) {
+            if (formattedSegment.startsWith("/") || clearedPath === "") {
                 clearedPath = formattedSegment;
-                continue;
             }
-            if (clearedPath === "/") {
+            else if (clearedPath === "/") {
                 clearedPath += formattedSegment;
             }
             else {

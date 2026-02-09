@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction resolveFrom() résout une liste de segments à partir d'une origine et retourne un Either."
+description: "La fonction resolveFrom() résout une liste de segments à partir d'une origine et retourne un chemin absolu ou null."
 prev:
   text: "resolveRelative"
   link: "/fr/v1/api/common/path/resolveRelative"
@@ -11,8 +11,8 @@ next:
 
 # resolveFrom
 
-La fonction **`resolveFrom()`** résout une liste de segments à partir d'une origine et retourne un Either.
-Elle résout les segments dans l'ordre via `resolveRelative` et ne réussit que si le résultat est absolu.
+La fonction **`resolveFrom()`** résout une liste de segments à partir d'une origine et retourne un chemin absolu ou `null`.
+Elle résout les segments dans l'ordre via `resolveRelative` puis valide que le chemin final est absolu.
 
 ::: warning
 Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
@@ -23,7 +23,7 @@ Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
 <MonacoTSEditor
   src="/examples/v1/api/common/path/resolveFrom/tryout.doc.ts"
   majorVersion="v1"
-  height="313px"
+  height="292px"
 />
 
 ## Syntaxe
@@ -34,17 +34,21 @@ function resolveFrom<
 >(
     origin: string,
     segments: AnyTuple<GenericSegment>,
-): DEither.Fail | DEither.Success<string>;
+    params?: {
+        stayInOrigin?: boolean;
+    },
+): string | null;
 ```
 
 ## Paramètres
 
 - `origin` : Le chemin de départ.
-- `segments` : Tableau des segments à résoudre. (doit contenir au moins 1 segment)
+- `segments` : Tableau des segments à résoudre.
+- `params.stayInOrigin` : Quand `true`, retourne `null` si les segments sortent de l'origine.
 
 ## Valeur de retour
 
-Un Either `success` avec le chemin résolu si le résultat est absolu, sinon `fail`.
+Le chemin absolu résolu, ou `null` si le résultat n'est pas absolu (ou si `stayInOrigin` bloque la traversée).
 
 ## Voir aussi
 

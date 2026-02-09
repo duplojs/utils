@@ -7,8 +7,13 @@ var kind = require('../common/kind.cjs');
  * {@include object/keys/index.md}
  */
 function keys(object) {
-    return Object.keys(object)
-        .filter((key) => !wrapValue.isRuntimeWrappedValueKey(key) && !kind.isRuntimeKind(key));
+    const result = [];
+    for (const key in object) {
+        if (!wrapValue.isRuntimeWrappedValueKey(key) && !kind.isRuntimeKind(key)) {
+            result.push(key);
+        }
+    }
+    return result;
 }
 
 exports.keys = keys;

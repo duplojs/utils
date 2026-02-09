@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel } from "../common/types/simplifyTopLevel";
+import type { SimplifyTopLevel } from "../common/types/simplifyTopLevel";
 export interface ArrayGroupFunctionOutput<GenericGroupName extends string = string, GenericGroupValue extends unknown = unknown> {
     group: GenericGroupName;
     value: GenericGroupValue;

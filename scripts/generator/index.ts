@@ -12,3 +12,5 @@ export * from "./loop";
 export * from "./asyncLoop";
 export * from "./chunk";
 export * from "./asyncChunk";
+export * from "./group";
+export * from "./asyncGroup";

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction asyncReduce() réduit un générateur à une seule valeur en appliquant une fonction d'accumulation asynchrone sur chaque élément. Version asynchrone de reduce()."
 prev:
-  text: "chunk"
-  link: "/fr/v1/api/generator/chunk"
+  text: "reduce"
+  link: "/fr/v1/api/generator/reduce"
 next:
   text: "Generator"
   link: "/fr/v1/api/generator/"

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La map mimeType associe des extensions de fichiers (sans point) aux types MIME."
 prev:
-  text: "escapeRegExp"
-  link: "/fr/v1/api/common/escapeRegExp"
+  text: "toRegExp"
+  link: "/fr/v1/api/common/toRegExp"
 next:
   text: "interpolation"
   link: "/fr/v1/api/common/interpolation"

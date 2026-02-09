@@ -55,6 +55,14 @@ Filtre les éléments d'un générateur selon un prédicat.
 ### [asyncFilter](/fr/v1/api/generator/asyncFilter)
 Filtre les éléments d'un générateur avec un prédicat asynchrone.
 
+## Groupement
+
+### [group](/fr/v1/api/generator/group)
+Regroupe les éléments d'un itérable dans un objet de tableaux par nom de groupe.
+
+### [asyncGroup](/fr/v1/api/generator/asyncGroup)
+Version asynchrone du regroupement pour les itérables asynchrones.
+
 ## Réduction
 
 ### [reduce](/fr/v1/api/generator/reduce)

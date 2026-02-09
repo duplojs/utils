@@ -33,10 +33,15 @@ export type GetEntries<
 export function entries<
 	GenericObject extends object,
 >(object: GenericObject) {
-	return Object.entries(object)
-		.filter(
-			([key]) => !isRuntimeWrappedValueKey(key) && !isRuntimeKind(key),
-		) as unknown as SimplifyTopLevel<GetEntries<GenericObject>>;
+	const result = [];
+
+	for (const key in object) {
+		if (!isRuntimeWrappedValueKey(key) && !isRuntimeKind(key)) {
+			result.push([key, object[key]]);
+		}
+	}
+
+	return result as SimplifyTopLevel<GetEntries<GenericObject>>;
 }
 
 /**

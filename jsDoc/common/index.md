@@ -15,7 +15,7 @@ What you will find in this namespace:
 - predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `asserts`, `instanceOf`)
 - control flow (`loop`, `asyncLoop`, `asyncRetry`, `sleep`, `memo`)
 - promise utilities (`externalPromise`, `promiseObject`)
-- string and value conversions (`stringToMillisecond`, `stringToBytes`, `escapeRegExp`)
+- string and value conversions (`stringToMillisecond`, `stringToBytes`, `escapeRegExp`, `toRegExp`)
 - wrappers and kinds (`wrapValue`, `unwrap`, `toWrappedValue`, `hasKinds`, `hasSomeKinds`)
 
 @see https://utils.duplojs.dev/en/v1/api/common

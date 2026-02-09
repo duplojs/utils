@@ -1,5 +1,3 @@
-import { reduce, reduceFrom } from './reduce.mjs';
-
 function groupOutput(...args) {
     if (args.length === 1) {
         const [group] = args;
@@ -17,18 +15,20 @@ function group(...args) {
         return (array) => group(array, theFunction);
     }
     const [array, theFunction] = args;
-    return reduce(array, reduceFrom({}), ({ index, element, lastValue, nextWithObject }) => {
-        const { group, value } = theFunction(element, {
+    const result = {};
+    for (let index = 0; index < array.length; index++) {
+        const { group, value } = theFunction(array[index], {
             index,
             output: groupOutput,
         });
-        return nextWithObject(lastValue, {
-            [group]: [
-                ...(lastValue[group] ?? []),
-                value,
-            ],
-        });
-    });
+        if (result[group]) {
+            result[group].push(value);
+        }
+        else {
+            result[group] = [value];
+        }
+    }
+    return result;
 }
 
 export { group, groupOutput };

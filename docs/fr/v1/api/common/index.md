@@ -127,6 +127,9 @@ Convertit des tailles (`"10mb"`, `"2gb"`, …) en nombre d'octets.
 ### [escapeRegExp](/fr/v1/api/common/escapeRegExp)
 Échappe les caractères spéciaux pour créer une regex depuis une chaîne sûre.
 
+### [toRegExp](/fr/v1/api/common/toRegExp)
+Normalise une chaîne, un tableau de chaînes ou une `RegExp` en expression régulière.
+
 ### [mimeType](/fr/v1/api/common/mimeType)
 Map d'extension vers types MIME (clé sans point).
 
