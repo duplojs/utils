@@ -27,6 +27,7 @@ Autorise `undefined` tout en conservant un parser strict pour la valeur présent
 - `coalescingValue` : (optionnel) remplace `undefined` par une valeur par défaut et restreint le type de sortie à `Output<inner>`.
 - `checkers` : `checkerRefine` ou helpers personnalisés évaluant `Output<inner> | undefined`.
 - `errorMessage` : message utilisé quand l'entrée n'est ni `undefined` ni valide pour `inner`.
+- `default(value)`: Reviens à définir la `coalescingValue` via une méthode (alias)
 
 ## Valeur de retour
 

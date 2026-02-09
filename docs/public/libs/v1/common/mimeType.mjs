@@ -1073,7 +1073,10 @@ const mimeType = (() => {
             results.set(extension, type);
         }
     }
-    return results;
+    return {
+        get: (extensionName) => results.get(extensionName.toLowerCase()),
+        set: (extensionName, mimeType) => void results.set(extensionName.toLowerCase(), mimeType.toLowerCase()),
+    };
 })();
 
 export { mimeType };

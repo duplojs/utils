@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -13,6 +13,13 @@ export interface DataParserOptionalExtended<GenericDefinition extends dataParser
         ...dataParsers.DataParserOptionalCheckers<Output<this>>[]
     ], GenericChecker>): DataParserOptionalExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserOptionalExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    /**
+     * Alias to define the default value
+     * Using `default()` is equivalent to defining the `coalescingValue` in the dataParser definition.
+     */
+    default<GenericInput extends Output<GenericDefinition["inner"]>>(input: GenericInput): DataParserOptionalExtended<SimplifyTopLevel<Omit<GenericDefinition, "coalescingValue"> & {
+        readonly coalescingValue: GenericInput;
+    }>>;
 }
 /**
  * Creates an extended optional parser from another parser.
@@ -30,11 +37,13 @@ export interface DataParserOptionalExtended<GenericDefinition extends dataParser
  * 	// value: string | undefined
  * }
  * 
- * const withCoalescing = DPE.optional(DPE.number(), { coalescingValue: 0 });
+ * const withCoalescing = DPE.number().optional().default(0);
  * const coalesced = withCoalescing.parse(undefined);
+ * // E.Error<DPE.DataParserError> | E.Success<number>
  * 
  * const optionalBool = DPE.optional(DPE.boolean());
  * const boolResult = optionalBool.parse(true);
+ * // E.Error<DPE.DataParserError> | E.Success<boolean | undefined>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/optional

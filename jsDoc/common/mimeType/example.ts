@@ -6,3 +6,7 @@ const svgType = mimeType.get("svg");
 // svgType: "image/svg+xml"
 const unknownType = mimeType.get("unknown");
 // unknownType: undefined
+
+mimeType.set("txtnull", "text-null/plain");
+const customType = mimeType.get("txtnull");
+// customType: "text-null/plain"

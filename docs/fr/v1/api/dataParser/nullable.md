@@ -27,6 +27,7 @@ Autorise `null` tout en appliquant un parser strict lorsque la valeur est prése
 - `coalescingValue` : optionnel, remplace `null` par une valeur par défaut et restreint le type de sortie.
 - `checkers` : `checkerRefine` ou autres helpers appliqués sur `Output<inner> | null`.
 - `errorMessage` : message pour les entrées ni `null` ni conformes à `inner`.
+- `default(value)`: Reviens à définir la `coalescingValue` via une méthode (alias)
 
 ## Valeur de retour
 

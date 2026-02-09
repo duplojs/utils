@@ -1,7 +1,13 @@
+
+export interface MimeTypeStore {
+	get(extensionName: string): string | undefined;
+	set(extensionName: string, mimeType: string): void;
+}
+
 /**
  * {@include common/mimeType/index.md}
  */
-export const mimeType = (() => {
+export const mimeType: MimeTypeStore = (() => {
 	const types: Record<string, string[]> = {
 		"application/andrew-inset": ["ez"],
 		"application/appinstaller": ["appinstaller"],
@@ -1076,5 +1082,11 @@ export const mimeType = (() => {
 		}
 	}
 
-	return results;
+	return {
+		get: (extensionName) => results.get(extensionName.toLowerCase()),
+		set: (extensionName, mimeType) => void results.set(
+			extensionName.toLowerCase(),
+			mimeType.toLowerCase(),
+		),
+	};
 })();

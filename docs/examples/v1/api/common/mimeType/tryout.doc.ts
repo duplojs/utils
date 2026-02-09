@@ -8,3 +8,7 @@ const svgType = mimeType.get("svg");
 
 const missingType = mimeType.get("unknown");
 // missingType: undefined
+
+mimeType.set("duplo", "duplo-file/ts");
+const customType = mimeType.get("duplo");
+// customType: "duplo-file/ts"

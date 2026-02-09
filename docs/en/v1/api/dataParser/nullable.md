@@ -27,6 +27,7 @@ Allows `null` while applying a strict parser when the value is present. `DDataPa
 - `coalescingValue`: optional, replaces `null` with a default value and narrows the output type.
 - `checkers`: `checkerRefine` or other helpers applied on `Output<inner> | null`.
 - `errorMessage`: message for inputs that are neither `null` nor valid for `inner`.
+- `default(value)`: Go back to defining the `coalescingValue` via a method (alias)
 
 ## Return value
 

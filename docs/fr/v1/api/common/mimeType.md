@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La map mimeType associe des extensions de fichiers (sans point) aux types MIME."
+description: "L'objet mimeType associe des extensions de fichiers (sans point) aux types MIME via get et set."
 prev:
   text: "toRegExp"
   link: "/fr/v1/api/common/toRegExp"
@@ -11,20 +11,25 @@ next:
 
 # mimeType
 
-La map **`mimeType`** associe des extensions de fichiers (sans point) aux types MIME.
+L'objet **`mimeType`** associe des extensions de fichiers (sans point) aux types MIME via deux methodes: `get` et `set`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/common/mimeType/tryout.doc.ts"
   majorVersion="v1"
-  height="250px"
+  height="313px"
 />
 
 ## Syntaxe
 
 ```typescript
-const mimeType: Map<string, string>;
+export interface MimeTypeStore {
+    get(extensionName: string): string | undefined;
+    set(extensionName: string, mimeType: string): void;
+}
+
+const mimeType: MimeTypeStore;
 ```
 
 ## Paramètres
@@ -33,8 +38,10 @@ const mimeType: Map<string, string>;
 
 ## Valeur de retour
 
-Une `Map` dont la clé est une extension (sans point) et la valeur le type MIME.
-Si l'extension est inconnue, `mimeType.get(...)` renvoie `undefined`.
+`mimeType` est un objet de type `MimeTypeStore`.
+
+- `mimeType.get(extensionName)` retourne le type MIME associe, ou `undefined` si l'extension est inconnue.
+- `mimeType.set(extensionName, mimeType)` ajoute ou met a jour le type MIME associe a une extension.
 
 ## Voir aussi
 

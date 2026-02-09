@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -54,6 +54,19 @@ export interface DataParserNullableExtended<
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
+
+	/**
+	 * Alias to define the default value
+	 * Using `default()` is equivalent to defining the `coalescingValue` in the dataParser definition.
+	 */
+	default<
+		GenericInput extends Output<GenericDefinition["inner"]>,
+	>(input: GenericInput): DataParserNullableExtended<
+		SimplifyTopLevel<
+				& Omit<GenericDefinition, "coalescingValue">
+				& { readonly coalescingValue: GenericInput }
+		>
+	>;
 }
 
 /**
@@ -83,7 +96,15 @@ export function nullable<
 		DataParserNullableExtended
 	>(
 		dataParsers.nullable(inner, definition),
-		{},
+		{
+			default: (self, value) => nullable(
+				self.definition.inner,
+				{
+					...self.definition,
+					coalescingValue: value,
+				},
+			),
+		},
 		nullable.overrideHandler,
 	);
 

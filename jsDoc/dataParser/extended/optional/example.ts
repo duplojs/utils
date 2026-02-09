@@ -7,8 +7,10 @@ if (E.isRight(result)) {
 	// value: string | undefined
 }
 
-const withCoalescing = DPE.optional(DPE.number(), { coalescingValue: 0 });
+const withCoalescing = DPE.number().optional().default(0);
 const coalesced = withCoalescing.parse(undefined);
+// E.Error<DPE.DataParserError> | E.Success<number>
 
 const optionalBool = DPE.optional(DPE.boolean());
 const boolResult = optionalBool.parse(true);
+// E.Error<DPE.DataParserError> | E.Success<boolean | undefined>

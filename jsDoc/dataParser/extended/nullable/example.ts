@@ -7,8 +7,10 @@ if (E.isRight(result)) {
 	// value: string | null
 }
 
-const withCoalescing = DPE.nullable(DPE.number(), { coalescingValue: 0 });
+const withCoalescing = DPE.number().nullable().default(0);
 const coalesced = withCoalescing.parse(null);
+// E.Error<DPE.DataParserError> | E.Success<number>
 
 const nullableBool = DPE.nullable(DPE.boolean());
 const boolResult = nullableBool.parse(true);
+// E.Error<DPE.DataParserError> | E.Success<boolean | null>

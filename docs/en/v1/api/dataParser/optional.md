@@ -27,6 +27,7 @@ Allows `undefined` while keeping a strict parser for the present value. `DDataPa
 - `coalescingValue`: (optional) replaces `undefined` with a default value and narrows the output type to `Output<inner>`.
 - `checkers`: `checkerRefine` or custom helpers evaluating `Output<inner> | undefined`.
 - `errorMessage`: message used when the input is neither `undefined` nor valid for `inner`.
+- `default(value)`: Go back to defining the `coalescingValue` via a method (alias)
 
 ## Return value
 

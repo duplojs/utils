@@ -8,7 +8,12 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/optional/index.md}
  */
 function optional(inner, definition) {
-    const self = baseExtended.dataParserExtendedInit(optional$1.optional(inner, definition), {}, optional.overrideHandler);
+    const self = baseExtended.dataParserExtendedInit(optional$1.optional(inner, definition), {
+        default: (self, value) => optional(self.definition.inner, {
+            ...self.definition,
+            coalescingValue: value,
+        }),
+    }, optional.overrideHandler);
     return self;
 }
 optional.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/optional");

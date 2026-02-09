@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing } from "../../common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
@@ -13,6 +13,13 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
         ...dataParsers.DataParserNullableCheckers<Output<this>>[]
     ], GenericChecker>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    /**
+     * Alias to define the default value
+     * Using `default()` is equivalent to defining the `coalescingValue` in the dataParser definition.
+     */
+    default<GenericInput extends Output<GenericDefinition["inner"]>>(input: GenericInput): DataParserNullableExtended<SimplifyTopLevel<Omit<GenericDefinition, "coalescingValue"> & {
+        readonly coalescingValue: GenericInput;
+    }>>;
 }
 /**
  * Creates an extended nullable parser from another parser.
@@ -30,11 +37,13 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
  * 	// value: string | null
  * }
  * 
- * const withCoalescing = DPE.nullable(DPE.number(), { coalescingValue: 0 });
+ * const withCoalescing = DPE.number().nullable().default(0);
  * const coalesced = withCoalescing.parse(null);
+ * // E.Error<DPE.DataParserError> | E.Success<number>
  * 
  * const nullableBool = DPE.nullable(DPE.boolean());
  * const boolResult = nullableBool.parse(true);
+ * // E.Error<DPE.DataParserError> | E.Success<boolean | null>
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/dataParser/nullable

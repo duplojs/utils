@@ -27,13 +27,9 @@ describe("mimeType", () => {
 		>;
 	});
 
-	it("exposes a string to string map", () => {
-		expect(mimeType).toBeInstanceOf(Map);
-
-		type check = ExpectType<
-			typeof mimeType,
-			Map<string, string>,
-			"strict"
-		>;
+	it("set", () => {
+		expect(mimeType.get("txtnull")).toBe(undefined);
+		mimeType.set("txtnull", "text-null/plain");
+		expect(mimeType.get("txtnull")).toBe("text-null/plain");
 	});
 });
