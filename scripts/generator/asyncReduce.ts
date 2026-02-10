@@ -1,8 +1,8 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
 import { unwrap } from "@scripts/common/unwrap";
-import { override } from "@scripts/object";
 import { type GeneratorReduceFromValue, type GeneratorEligibleReduceFromValue, type GeneratorReduceFunctionParams, type GeneratorReduceExit, type GeneratorReduceNext } from "./reduce";
 import { type IsEqual, type MaybePromise } from "@scripts/common";
+import { reduceTools } from "@scripts/array";
 
 /**
  * {@include generator/asyncReduce/index.md}
@@ -74,13 +74,7 @@ export function asyncReduce(
 				element,
 				index,
 				lastValue,
-				nextWithObject: (
-					(object1: object, object2: object) => ({
-						"-next": override(object1, object2),
-					})
-				) as never,
-				exit: (output: any) => ({ "-exit": output }),
-				next: (output: any) => ({ "-next": output }),
+				...reduceTools,
 			}) as GeneratorReduceNext | GeneratorReduceExit;
 
 			if ("-exit" in result) {
