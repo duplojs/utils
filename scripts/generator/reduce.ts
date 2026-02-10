@@ -38,7 +38,7 @@ export interface GeneratorReduceFunctionParams<
 		? (
 			array: GenericOutput,
 			...values: GenericOutput
-		) => GeneratorReduceExit<GenericOutput>
+		) => GeneratorReduceNext<GenericOutput>
 		: undefined;
 }
 
