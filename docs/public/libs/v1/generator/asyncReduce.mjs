@@ -1,5 +1,5 @@
 import { unwrap } from '../common/unwrap.mjs';
-import { override } from '../object/override.mjs';
+import { reduceTools } from '../array/reduce.mjs';
 
 function asyncReduce(...args) {
     if (args.length === 2) {
@@ -15,11 +15,7 @@ function asyncReduce(...args) {
                 element,
                 index,
                 lastValue,
-                nextWithObject: ((object1, object2) => ({
-                    "-next": override(object1, object2),
-                })),
-                exit: (output) => ({ "-exit": output }),
-                next: (output) => ({ "-next": output }),
+                ...reduceTools,
             });
             if ("-exit" in result) {
                 return result["-exit"];

@@ -31,6 +31,24 @@ next:
 
 Un `DataParserTuple`. `schema.parse(data)` renvoie `DEither.success<[...]>` si tous les éléments vérifient leur parser, sinon `DEither.error<DataParserError>` avec l'index incriminé.
 
+## Autres exemples
+
+### Checkers personnalisés
+
+<MonacoTSEditor
+  src="/examples/v1/api/dataParser/tuple/checkers.doc.ts"
+  majorVersion="v1"
+  height="600px"
+/>
+
+### Mode étendu
+
+<MonacoTSEditor
+  src="/examples/v1/api/dataParser/tuple/extended.doc.ts"
+  majorVersion="v1"
+  height="650px"
+/>
+
 ## Voir aussi
 
 - [`templateLiteral`](/fr/v1/api/dataParser/templateLiteral) - Parser pour les chaînes de caractères formatées

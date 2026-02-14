@@ -15,7 +15,7 @@ export interface GeneratorReduceFunctionParams<GenericElement extends unknown = 
     nextWithObject: GenericOutput extends object ? (object1: GenericOutput, object2: Partial<GenericOutput>) => GeneratorReduceNext<GenericOutput> : undefined;
     next(output: GenericOutput): GeneratorReduceNext<GenericOutput>;
     exit<GenericExitValue extends unknown>(output: GenericExitValue): GeneratorReduceExit<GenericExitValue>;
-    nextPush: GenericOutput extends readonly any[] ? (array: GenericOutput, ...values: GenericOutput) => GeneratorReduceExit<GenericOutput> : undefined;
+    nextPush: GenericOutput extends readonly any[] ? (array: GenericOutput, ...values: GenericOutput) => GeneratorReduceNext<GenericOutput> : undefined;
 }
 declare const generatorReduceFromKind: import("../common").KindHandler<import("../common").KindDefinition<"generator-reduce-from", unknown>>;
 export interface GeneratorReduceFromResult<GenericValue extends unknown = unknown> extends Kind<typeof generatorReduceFromKind.definition>, WrappedValue<GenericValue> {

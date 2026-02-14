@@ -5,6 +5,6 @@ export function is<
 	GenericValue extends unknown,
 >(
 	arg: GenericValue,
-): arg is GenericValue extends any[] ? GenericValue : never {
+): arg is Extract<GenericValue, readonly any[]> {
 	return arg instanceof Array;
 }

@@ -28,7 +28,7 @@ function is<
 	GenericInput extends unknown
 >(
 	input: GenericInput
-): input is GenericInput extends any[] ? GenericInput : never
+): input is Extract<GenericValue, readonly any[]>
 ```
 
 ## Paramètres

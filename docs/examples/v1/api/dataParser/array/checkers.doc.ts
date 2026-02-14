@@ -1,4 +1,4 @@
-import { A, DP, E, N, unwrap } from "@duplojs/utils";
+import { A, DP, type E, type ExpectType, N } from "@duplojs/utils";
 
 const schema = DP
 	.array(DP.coerce.number())
@@ -15,8 +15,8 @@ const schema = DP
 
 const result = schema.parse(["1", "2", "3"]);
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-} else {
-	const error = unwrap(result);
-}
+type check = ExpectType<
+	typeof result,
+	E.Error<DP.DataParserError> | E.Success<number[]>,
+	"strict"
+>;

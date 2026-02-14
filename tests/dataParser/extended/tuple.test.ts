@@ -1,12 +1,10 @@
-import { DDataParser, DEither, type ExpectType } from "@scripts";
+import { DDataParserExtended, DEither, type ExpectType } from "@scripts";
 
-const { extended } = DDataParser;
-
-describe("extended.tuple", () => {
+describe("DDataParserExtended.tuple", () => {
 	it("parses tuple shape", () => {
-		const parser = extended.tuple([
-			extended.string(),
-			extended.number(),
+		const parser = DDataParserExtended.tuple([
+			DDataParserExtended.string(),
+			DDataParserExtended.number(),
 		]);
 
 		const result = parser.parse(["a", 1]);
@@ -14,17 +12,17 @@ describe("extended.tuple", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.Error<DDataParser.DataParserError> | DEither.Success<[string, number]>,
+			DEither.Error<DDataParserExtended.DataParserError> | DEither.Success<[string, number]>,
 			"strict"
 		>;
 	});
 
 	it("support min/max checker", () => {
-		const schema = extended
+		const schema = DDataParserExtended
 			.tuple(
-				[extended.string()],
+				[DDataParserExtended.string()],
 				{
-					rest: extended.number(),
+					rest: DDataParserExtended.number(),
 				},
 			)
 			.max(5)
@@ -42,5 +40,26 @@ describe("extended.tuple", () => {
 			.toStrictEqual(
 				DEither.error(expect.any(Object)),
 			);
+	});
+
+	it("supports rest parser", () => {
+		const parser = DDataParserExtended
+			.tuple([DDataParserExtended.string()])
+			.rest(DDataParserExtended.number());
+
+		const successResult = parser.parse(["test", 1, 2]);
+		expect(successResult).toStrictEqual(
+			DEither.success(["test", 1, 2]),
+		);
+		expect(parser.parse(["test", "1"]))
+			.toStrictEqual(
+				DEither.error(expect.any(Object)),
+			);
+
+		type check = ExpectType<
+			typeof successResult,
+			DEither.Error<DDataParserExtended.DataParserError> | DEither.Success<[string, ...number[]]>,
+			"strict"
+		>;
 	});
 });

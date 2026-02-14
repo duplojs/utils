@@ -15,6 +15,10 @@ function tuple(shape, definition) {
         max(self, max, definition) {
             return self.addChecker(checkerArrayMax(max, definition));
         },
+        rest: (self, dataParser) => tuple(self.definition.shape, {
+            ...self.definition,
+            rest: dataParser,
+        }),
     }, tuple.overrideHandler);
     return self;
 }

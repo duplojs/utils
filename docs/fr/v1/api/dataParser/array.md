@@ -31,7 +31,7 @@ next:
 
 Un `DataParserArray` avec `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. Le `parse` renvoie `DEither.success<Element[]>` ou `DEither.error<DataParserError>` avec les indices fautifs.
 
-## Others exemples
+## Autres exemples
 
 ### Checkers personnalisés
 

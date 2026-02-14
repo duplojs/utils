@@ -1,7 +1,7 @@
 'use strict';
 
 var unwrap = require('../common/unwrap.cjs');
-var override = require('../object/override.cjs');
+var reduce = require('../array/reduce.cjs');
 
 function asyncReduce(...args) {
     if (args.length === 2) {
@@ -17,11 +17,7 @@ function asyncReduce(...args) {
                 element,
                 index,
                 lastValue,
-                nextWithObject: ((object1, object2) => ({
-                    "-next": override.override(object1, object2),
-                })),
-                exit: (output) => ({ "-exit": output }),
-                next: (output) => ({ "-next": output }),
+                ...reduce.reduceTools,
             });
             if ("-exit" in result) {
                 return result["-exit"];

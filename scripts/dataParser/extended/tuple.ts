@@ -1,6 +1,6 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
 
@@ -50,6 +50,9 @@ export interface DataParserTupleExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/tuple/min/index.md}
+	 */
 	min(
 		min: number,
 		definition?: Partial<
@@ -62,6 +65,9 @@ export interface DataParserTupleExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/tuple/max/index.md}
+	 */
 	max(
 		max: number,
 		definition?: Partial<
@@ -71,6 +77,20 @@ export interface DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.DataParserCheckerArrayMax]
+		>
+	>;
+
+	/**
+	 * {@include dataParser/extended/tuple/rest/index.md}
+	 */
+	rest<
+		GenericDataParser extends DataParsers,
+	>(
+		dataParser: GenericDataParser
+	): DataParserTupleExtended<
+		SimplifyTopLevel<
+			& Omit<GenericDefinition, "rest">
+			& { readonly rest: GenericDataParser }
 		>
 	>;
 }
@@ -114,6 +134,13 @@ export function tuple<
 					),
 				);
 			},
+			rest: (self, dataParser) => tuple(
+				self.definition.shape,
+				{
+					...self.definition,
+					rest: dataParser,
+				},
+			),
 		},
 		tuple.overrideHandler,
 	);

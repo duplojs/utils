@@ -1,4 +1,4 @@
-import { DPE, E, unwrap, A } from "@duplojs/utils";
+import { DPE, type E, A, type ExpectType } from "@duplojs/utils";
 
 const schema = DPE
 	.string()
@@ -14,8 +14,8 @@ const schema = DPE
 
 const result = schema.parse(["viewer", "admin"]);
 
-if (E.isRight(result)) {
-	const value = unwrap(result);
-} else {
-	const error = unwrap(result);
-}
+type check = ExpectType<
+	typeof result,
+	E.Error<DPE.DataParserError> | E.Success<string[]>,
+	"strict"
+>;
