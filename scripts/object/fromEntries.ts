@@ -17,7 +17,7 @@ export function fromEntries<
 	GenericKey extends ObjectKey,
 	const GenericEntry extends readonly [GenericKey, unknown],
 >(
-	entries: readonly GenericEntry[],
+	entries: Iterable<GenericEntry>,
 ): ComputeEntries<GenericEntry> {
 	return Object.fromEntries(entries) as never;
 }

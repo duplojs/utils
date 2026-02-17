@@ -15,6 +15,7 @@ What you will find in this namespace:
 - predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `asserts`, `instanceOf`)
 - control flow (`loop`, `asyncLoop`, `asyncRetry`, `sleep`, `memo`)
 - promise utilities (`externalPromise`, `promiseObject`)
+- form-data utilities (`createFormData`, `TheFormData.fromEntries`, `TheFormData.toFlatEntries`)
 - string and value conversions (`stringToMillisecond`, `stringToBytes`, `escapeRegExp`, `toRegExp`)
 - wrappers and kinds (`wrapValue`, `unwrap`, `toWrappedValue`, `hasKinds`, `hasSomeKinds`)
 

@@ -1,5 +1,5 @@
 import { type Kind, type WrappedValue, type UnionToIntersection } from "../..";
-import { type GetConstraint, type ConstraintHandler } from ".";
+import { type GetConstraint, type ConstraintHandler } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DEither from "../../either";
 import * as DArray from "../../array";

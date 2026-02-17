@@ -175,6 +175,9 @@ Store global typé (singleton par clé) avec accès lecture/écriture.
 ### [builder](/fr/v1/api/common/builder)
 Helper pour créer des builders immutables avec accumulation typée et vérification des méthodes manquantes.
 
+### [createFormData](/fr/v1/api/common/createFormData)
+Crée un `FormData` étendu à partir d'objets/tableaux imbriqués et fournit des helpers pour aplatir/reconstruire des entrées profondes.
+
 ### [override](/fr/v1/api/common/override)
 Définit des overrides nommés (méthodes ou valeurs par défaut) et les applique sur une interface.
 

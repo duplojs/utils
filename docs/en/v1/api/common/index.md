@@ -175,6 +175,9 @@ Typed global store (singleton per key) with read/write access.
 ### [builder](/en/v1/api/common/builder)
 Helper to create immutable builders with typed accumulation and missing-method checks.
 
+### [createFormData](/en/v1/api/common/createFormData)
+Creates an extended `FormData` from nested objects/arrays and provides helpers to flatten/rebuild deep entries.
+
 ### [override](/en/v1/api/common/override)
 Defines named overrides (methods or default values) and applies them to an interface.
 

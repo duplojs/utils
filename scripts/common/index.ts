@@ -47,6 +47,7 @@ export * from "./override";
 export * from "./errorKindNamespace";
 export * from "./truthy";
 export * from "./falsy";
+export * from "./formData";
 export * from "./hasSomeKinds";
 export * from "./hasKinds";
 export * from "./toCurriedPredicate";

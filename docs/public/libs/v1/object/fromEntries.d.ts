@@ -43,5 +43,5 @@ type ComputeEntries<GenericEntry extends ObjectEntry> = UnionContain<ObjectKey, 
  * @namespace O
  * 
  */
-export declare function fromEntries<GenericKey extends ObjectKey, const GenericEntry extends readonly [GenericKey, unknown]>(entries: readonly GenericEntry[]): ComputeEntries<GenericEntry>;
+export declare function fromEntries<GenericKey extends ObjectKey, const GenericEntry extends readonly [GenericKey, unknown]>(entries: Iterable<GenericEntry>): ComputeEntries<GenericEntry>;
 export {};

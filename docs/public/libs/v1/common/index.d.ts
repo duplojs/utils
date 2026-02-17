@@ -16,6 +16,7 @@
  * - predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `asserts`, `instanceOf`)
  * - control flow (`loop`, `asyncLoop`, `asyncRetry`, `sleep`, `memo`)
  * - promise utilities (`externalPromise`, `promiseObject`)
+ * - form-data utilities (`createFormData`, `TheFormData.fromEntries`, `TheFormData.toFlatEntries`)
  * - string and value conversions (`stringToMillisecond`, `stringToBytes`, `escapeRegExp`, `toRegExp`)
  * - wrappers and kinds (`wrapValue`, `unwrap`, `toWrappedValue`, `hasKinds`, `hasSomeKinds`)
  * 
@@ -67,6 +68,7 @@ export * from "./override";
 export * from "./errorKindNamespace";
 export * from "./truthy";
 export * from "./falsy";
+export * from "./formData";
 export * from "./hasSomeKinds";
 export * from "./hasKinds";
 export * from "./toCurriedPredicate";
