@@ -10,7 +10,7 @@ describe("DDataParser tuple", () => {
 		type check = ExpectType<
 			typeof schema,
 			DDataParser.DataParserTuple<{
-				readonly shape: [DDataParser.DataParserString<{
+				readonly shape: readonly [DDataParser.DataParserString<{
 					readonly errorMessage?: string | undefined;
 					readonly coerce: boolean;
 					readonly checkers: readonly [];
@@ -86,7 +86,7 @@ describe("DDataParser tuple", () => {
 			typeof schema,
 			DDataParser.DataParserTuple<{
 				readonly errorMessage: "tuple.invalid";
-				readonly shape: [DDataParser.DataParserString<{
+				readonly shape: readonly [DDataParser.DataParserString<{
 					readonly errorMessage?: string | undefined;
 					readonly coerce: boolean;
 					readonly checkers: readonly [];

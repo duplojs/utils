@@ -1,4 +1,4 @@
-import { type AnyFunction, createErrorKind, createOverride, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, createErrorKind, createOverride, type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, type OverrideHandler, pipe, type RemoveKind, simpleClone, type SimplifyTopLevel } from "@scripts/common";
 import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
@@ -414,3 +414,15 @@ export type Contract<
 	GenericOutput,
 	GenericInput
 >;
+
+export type AdvancedContract<
+	GenericDataParser extends DataParser,
+> = (
+	& GetKind<GenericDataParser>
+	& Omit<RemoveKind<DataParser>, "addChecker" | "clone" | "definition">
+	& Pick<GenericDataParser, "definition">
+	& {
+		addChecker(...args: never): AdvancedContract<GenericDataParser>;
+		clone(): AdvancedContract<GenericDataParser>;
+	}
+);

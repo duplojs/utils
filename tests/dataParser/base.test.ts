@@ -1,4 +1,4 @@
-import { DEither, DDataParser, createOverride, forward } from "@scripts";
+import { DEither, DDataParser, createOverride, forward, type SimplifyTopLevel, RemoveKind } from "@scripts";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
@@ -454,18 +454,36 @@ describe("base parser", () => {
 			.max(1)
 			.min(0);
 
-			type RecursiveTuple = [string, (RecursiveTuple | string)[]];
+		type RecursiveTuple = [string, (RecursiveTuple | string)[]];
 
-			const schema: DDataParser.Contract<RecursiveTuple> = DDataParser
-				.tuple([
-					DDataParser.string(),
-					DDataParser.array(
-						DDataParser.union([
-							DDataParser.lazy(() => schema),
-							DDataParser.string(),
-						]),
-					),
-				])
-				.contract();
+		const schema: DDataParser.Contract<RecursiveTuple> = DDataParser
+			.tuple([
+				DDataParser.string(),
+				DDataParser.array(
+					DDataParser.union([
+						DDataParser.lazy(() => schema),
+						DDataParser.string(),
+					]),
+				),
+			])
+			.contract();
+
+		const tupleSchema: DDataParser.AdvancedContract<
+			DDataParser.DataParserTuple<
+				SimplifyTopLevel<
+				& Omit<DDataParser.DataParserDefinitionTuple, "shape" | "rest">
+				& {
+					readonly shape: readonly [
+						(DDataParser.DataParserString | DDataParser.DataParserNumber<
+							& DDataParser.DataParserDefinitionNumber
+							& { readonly coerce: true }
+						>),
+						...DDataParser.DataParserString[],
+					];
+					readonly rest: DDataParser.DataParserString | undefined;
+				}
+				>
+			>
+		> = DDataParser.tuple([DDataParser.number({ coerce: true })]);
 	});
 });

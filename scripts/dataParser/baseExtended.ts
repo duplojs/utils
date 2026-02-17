@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler } from "@scripts/common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler, type GetKind, type RemoveKind } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import type * as DEither from "../either";
@@ -391,3 +391,15 @@ export type ContractExtended<
 	GenericOutput,
 	GenericInput
 >;
+
+export type AdvancedContractExtended<
+	GenericDataParser extends DataParserExtended,
+> = (
+	& GetKind<GenericDataParser>
+	& Omit<RemoveKind<DataParserExtended>, "addChecker" | "clone" | "definition">
+	& Pick<GenericDataParser, "definition">
+	& {
+		addChecker(...args: never): AdvancedContractExtended<GenericDataParser>;
+		clone(): AdvancedContractExtended<GenericDataParser>;
+	}
+);

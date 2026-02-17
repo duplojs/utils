@@ -104,6 +104,12 @@ export type GetKindHandler<
 	>
 }[keyof GenericObject[SymbolKind]];
 
+export interface GetKind<
+	GenericObject extends Kind<any>,
+> {
+	[SymbolKind]: GenericObject[SymbolKind];
+}
+
 export const keyKindPrefix = "@duplojs/utils/kind/";
 
 type ForbiddenKindCharacters<

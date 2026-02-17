@@ -15,12 +15,19 @@ export type DataParserTupleShapeOutput<
 	GenericRest extends DataParser | undefined,
 > = IsEqual<GenericShape, TupleShape> extends true
 	? TupleShape
-	: GenericShape extends [
+	: GenericShape extends readonly [
 		infer InferredFirst extends DataParser,
 		...infer InferredRest extends DataParser[],
 	]
 		? [
 			Output<InferredFirst>,
+			...(
+				Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[]
+					? IsEqual<InferredShapeRest[number], never> extends true
+						? []
+						: Output<InferredShapeRest[number]>[]
+					: []
+			),
 			...(
 				InferredRest extends TupleShape
 					? DataParserTupleShapeOutput<
@@ -39,15 +46,22 @@ export type DataParserTupleShapeInput<
 	GenericRest extends DataParser | undefined,
 > = IsEqual<GenericShape, TupleShape> extends true
 	? TupleShape
-	: GenericShape extends [
+	: GenericShape extends readonly [
 		infer InferredFirst extends DataParser,
 		...infer InferredRest extends DataParser[],
 	]
 		? [
 			Input<InferredFirst>,
 			...(
+				Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[]
+					? IsEqual<InferredShapeRest[number], never> extends true
+						? []
+						: Input<InferredShapeRest[number]>[]
+					: []
+			),
+			...(
 				InferredRest extends TupleShape
-					? DataParserTupleShapeOutput<
+					? DataParserTupleShapeInput<
 						InferredRest,
 						GenericRest
 					>
@@ -131,7 +145,7 @@ export interface DataParserTuple<
  * {@include dataParser/classic/tuple/index.md}
  */
 export function tuple<
-	GenericShape extends TupleShape,
+	const GenericShape extends TupleShape,
 	const GenericDefinition extends Partial<
 		Omit<DataParserDefinitionTuple, "shape">
 	> = never,
