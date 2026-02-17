@@ -7,6 +7,25 @@ describe("DDataParser tuple", () => {
 			DDataParser.number(),
 		]);
 
+		type check = ExpectType<
+			typeof schema,
+			DDataParser.DataParserTuple<{
+				readonly shape: [DDataParser.DataParserString<{
+					readonly errorMessage?: string | undefined;
+					readonly coerce: boolean;
+					readonly checkers: readonly [];
+				}>, DDataParser.DataParserNumber<{
+					readonly errorMessage?: string | undefined;
+					readonly coerce: boolean;
+					readonly checkers: readonly [];
+				}>];
+				readonly rest: undefined;
+				readonly errorMessage?: string | undefined;
+				readonly checkers: readonly [];
+			}>,
+			"strict"
+		>;
+
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
 			[string, number],
@@ -62,6 +81,21 @@ describe("DDataParser tuple", () => {
 		const schema = DDataParser.tuple([DDataParser.string()], {
 			errorMessage: "tuple.invalid",
 		});
+
+		type check = ExpectType<
+			typeof schema,
+			DDataParser.DataParserTuple<{
+				readonly errorMessage: "tuple.invalid";
+				readonly shape: [DDataParser.DataParserString<{
+					readonly errorMessage?: string | undefined;
+					readonly coerce: boolean;
+					readonly checkers: readonly [];
+				}>];
+				readonly rest: undefined;
+				readonly checkers: readonly [];
+			}>,
+			"strict"
+		>;
 
 		const result = schema.parse("invalid");
 

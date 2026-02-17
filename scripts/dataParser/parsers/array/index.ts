@@ -85,7 +85,10 @@ export function array<
 ): DataParserArray<
 		MergeDefinition<
 			DataParserDefinitionArray,
-			NeverCoalescing<GenericDefinition, {}> & { element: GenericElement }
+			& NeverCoalescing<GenericDefinition, {}>
+			& {
+				readonly element: GenericElement;
+			}
 		>
 	> {
 	const self = dataParserInit<DataParserArray>(

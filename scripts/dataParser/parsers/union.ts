@@ -83,7 +83,10 @@ export function union<
 ): DataParserUnion<
 		MergeDefinition<
 			DataParserDefinitionUnion,
-			NeverCoalescing<GenericDefinition, {}> & { options: GenericOptions }
+			& NeverCoalescing<GenericDefinition, {}>
+			& {
+				readonly options: GenericOptions;
+			}
 		>
 	> {
 	const self = dataParserInit<DataParserUnion>(

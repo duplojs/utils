@@ -1,4 +1,4 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, createOverride } from "@scripts/common";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, createOverride, type Or } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -141,7 +141,16 @@ export function tuple<
 ): DataParserTuple<
 		MergeDefinition<
 			DataParserDefinitionTuple,
-			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
+			& NeverCoalescing<GenericDefinition, {}>
+			& {
+				readonly shape: GenericShape;
+				readonly rest: Or<[
+					IsEqual<GenericDefinition["rest"], unknown>,
+					IsEqual<GenericDefinition, never>,
+				]> extends true
+					? undefined
+					: GenericDefinition["rest"];
+			}
 		>
 	> {
 	const self = dataParserInit<DataParserTuple>(
