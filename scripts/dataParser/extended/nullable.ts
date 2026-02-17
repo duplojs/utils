@@ -10,13 +10,8 @@ type _DataParserNullableExtended<
 	& Kind<typeof dataParsers.nullableKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		IsEqual<
-			GenericDefinition["coalescingValue"],
-			unknown
-		> extends true
-			? Output<GenericDefinition["inner"]> | null
-			: Output<GenericDefinition["inner"]>,
-		Input<GenericDefinition["inner"]> | null
+		Output<dataParsers.DataParserNullable<GenericDefinition>>,
+		Input<dataParsers.DataParserNullable<GenericDefinition>>
 	>
 );
 

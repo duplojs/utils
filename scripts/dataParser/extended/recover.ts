@@ -10,8 +10,8 @@ type _DataParserRecoverExtended<
 	& Kind<typeof dataParsers.recoverKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		GenericDefinition["recoveredValue"],
-		Input<GenericDefinition["inner"]>
+		Output<dataParsers.DataParserRecover<GenericDefinition>>,
+		Input<dataParsers.DataParserRecover<GenericDefinition>>
 	>
 );
 

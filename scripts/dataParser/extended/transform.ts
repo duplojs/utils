@@ -12,7 +12,7 @@ type _DataParserTransformExtended<
 	& DataParserExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserTransform<GenericDefinition>>,
-		Input<GenericDefinition["inner"]>
+		Input<dataParsers.DataParserTransform<GenericDefinition>>
 	>
 );
 

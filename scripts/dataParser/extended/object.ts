@@ -2,7 +2,7 @@ import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescin
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output } from "../base";
+import { type Input, type Output } from "../base";
 import { type AssignObjects } from "@scripts/object";
 
 type _DataParserObjectExtended<
@@ -11,8 +11,8 @@ type _DataParserObjectExtended<
 	& Kind<typeof dataParsers.objectKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		dataParsers.DataParserObjectShapeOutput<GenericDefinition["shape"]>,
-		dataParsers.DataParserObjectShapeInput<GenericDefinition["shape"]>
+		Output<dataParsers.DataParserObject<GenericDefinition>>,
+		Input<dataParsers.DataParserObject<GenericDefinition>>
 	>
 );
 

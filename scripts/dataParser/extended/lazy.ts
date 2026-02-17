@@ -10,8 +10,8 @@ type _DataParserLazyExtended<
 	& Kind<typeof dataParsers.lazyKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		Output<GenericDefinition["getter"]["value"]>,
-		Input<GenericDefinition["getter"]["value"]>
+		Output<dataParsers.DataParserLazy<GenericDefinition>>,
+		Input<dataParsers.DataParserLazy<GenericDefinition>>
 	>
 );
 

@@ -3,7 +3,7 @@ import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output, type DataParser } from "../base";
-type _DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray> = (Kind<typeof dataParsers.arrayKind.definition> & DataParserExtended<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]>);
+type _DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray> = (Kind<typeof dataParsers.arrayKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserArray<GenericDefinition>>, Input<dataParsers.DataParserArray<GenericDefinition>>>);
 export interface DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray = dataParsers.DataParserDefinitionArray> extends _DataParserArrayExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserArrayCheckers<Output<this>>,

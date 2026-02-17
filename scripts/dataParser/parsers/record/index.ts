@@ -73,7 +73,13 @@ export type DataParserRecordShapeOutput<
 			: never
 	>,
 	any
->;
+> extends infer InferredOutput extends Record<string, unknown>
+	? TemplateLiteralContainLargeType<
+		Adaptor<keyof InferredOutput, string>
+	> extends true
+		? Partial<InferredOutput>
+		: InferredOutput
+	: never;
 
 export type DataParserRecordShapeInput<
 	GenericDataParserKey extends DataParserRecordKey,
@@ -88,7 +94,13 @@ export type DataParserRecordShapeInput<
 			: never
 	>,
 	any
->;
+> extends infer InferredInput extends Record<string, unknown>
+	? TemplateLiteralContainLargeType<
+		Adaptor<keyof InferredInput, string>
+	> extends true
+		? Partial<InferredInput>
+		: InferredInput
+	: never;
 
 type _DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord,
@@ -98,23 +110,11 @@ type _DataParserRecord<
 		DataParserRecordShapeOutput<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
-		> extends infer InferredOutput extends Record<string, unknown>
-			? TemplateLiteralContainLargeType<
-				Adaptor<keyof InferredOutput, string>
-			> extends true
-				? Partial<InferredOutput>
-				: InferredOutput
-			: never,
+		>,
 		DataParserRecordShapeInput<
 			GenericDefinition["key"],
 			GenericDefinition["value"]
-		> extends infer InferredInput extends Record<string, unknown>
-			? TemplateLiteralContainLargeType<
-				Adaptor<keyof InferredInput, string>
-			> extends true
-				? Partial<InferredInput>
-				: InferredInput
-			: never
+		>
 	>
 	& Kind<typeof recordKind.definition>
 );

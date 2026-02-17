@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverr
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output } from "../base";
+import { type Input, type Output } from "../base";
 import { type TheTime } from "@scripts/date";
 
 type _DataParserTimeExtended<
@@ -11,8 +11,8 @@ type _DataParserTimeExtended<
 	& Kind<typeof dataParsers.timeKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		TheTime,
-		TheTime
+		Output<dataParsers.DataParserTime<GenericDefinition>>,
+		Input<dataParsers.DataParserTime<GenericDefinition>>
 	>
 );
 

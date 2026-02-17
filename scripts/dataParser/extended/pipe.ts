@@ -10,8 +10,8 @@ type _DataParserPipeExtended<
 	& Kind<typeof dataParsers.pipeKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		Output<GenericDefinition["output"]>,
-		Input<GenericDefinition["input"]>
+		Output<dataParsers.DataParserPipe<GenericDefinition>>,
+		Input<dataParsers.DataParserPipe<GenericDefinition>>
 	>
 );
 

@@ -10,8 +10,8 @@ type _DataParserArrayExtended<
 	& Kind<typeof dataParsers.arrayKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		Output<GenericDefinition["element"]>[],
-		Input<GenericDefinition["element"]>[]
+		Output<dataParsers.DataParserArray<GenericDefinition>>,
+		Input<dataParsers.DataParserArray<GenericDefinition>>
 	>
 );
 

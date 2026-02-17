@@ -239,7 +239,7 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Date: PrimitiveHandler<DDate.TheDate, DDate.TheDate | `date${number}-` | `date${number}+` | globalThis.Date>;
+export declare const Date: PrimitiveHandler<DDate.TheDate, DDate.TheDate | globalThis.Date | `date${number}-` | `date${number}+`>;
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for duration values (`TheTime`).

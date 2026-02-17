@@ -12,7 +12,8 @@ export interface DataParserDefinitionTransform extends DataParserDefinition<Data
     theFunction(input: any, error: DataParserError): unknown;
 }
 export declare const transformKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>>;
-type _DataParserTransform<GenericDefinition extends DataParserDefinitionTransform> = (DataParser<GenericDefinition, Exclude<Awaited<ReturnType<GenericDefinition["theFunction"]>>, SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>, Input<GenericDefinition["inner"]>> & Kind<typeof transformKind.definition>);
+export type DataParserTransformOutput<GenericTheFunction extends DataParserDefinitionTransform["theFunction"]> = Exclude<Awaited<ReturnType<GenericTheFunction>>, SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
+type _DataParserTransform<GenericDefinition extends DataParserDefinitionTransform> = (DataParser<GenericDefinition, DataParserTransformOutput<GenericDefinition["theFunction"]>, Input<GenericDefinition["inner"]>> & Kind<typeof transformKind.definition>);
 export interface DataParserTransform<GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform> extends _DataParserTransform<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserTransformCheckers<Output<this>>,

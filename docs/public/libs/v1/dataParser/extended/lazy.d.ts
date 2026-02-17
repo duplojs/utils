@@ -3,7 +3,7 @@ import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output, type DataParser } from "../base";
-type _DataParserLazyExtended<GenericDefinition extends dataParsers.DataParserDefinitionLazy> = (Kind<typeof dataParsers.lazyKind.definition> & DataParserExtended<GenericDefinition, Output<GenericDefinition["getter"]["value"]>, Input<GenericDefinition["getter"]["value"]>>);
+type _DataParserLazyExtended<GenericDefinition extends dataParsers.DataParserDefinitionLazy> = (Kind<typeof dataParsers.lazyKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserLazy<GenericDefinition>>, Input<dataParsers.DataParserLazy<GenericDefinition>>>);
 export interface DataParserLazyExtended<GenericDefinition extends dataParsers.DataParserDefinitionLazy = dataParsers.DataParserDefinitionLazy> extends _DataParserLazyExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserLazyCheckers<Output<this>>,

@@ -10,13 +10,8 @@ type _DataParserOptionalExtended<
 	& Kind<typeof dataParsers.optionalKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		IsEqual<
-			GenericDefinition["coalescingValue"],
-			unknown
-		> extends true
-			? Output<GenericDefinition["inner"]> | undefined
-			: Output<GenericDefinition["inner"]>,
-		Input<GenericDefinition["inner"]> | undefined
+		Output<dataParsers.DataParserOptional<GenericDefinition>>,
+		Input<dataParsers.DataParserOptional<GenericDefinition>>
 	>
 );
 

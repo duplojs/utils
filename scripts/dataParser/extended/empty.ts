@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverr
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Output } from "../base";
+import { type Input, type Output } from "../base";
 
 type _DataParserEmptyExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionEmpty,
@@ -10,8 +10,8 @@ type _DataParserEmptyExtended<
 	& Kind<typeof dataParsers.emptyKind.definition>
 	& DataParserExtended<
 		GenericDefinition,
-		undefined,
-		undefined
+		Output<dataParsers.DataParserEmpty<GenericDefinition>>,
+		Input<dataParsers.DataParserEmpty<GenericDefinition>>
 	>
 );
 
