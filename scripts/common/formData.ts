@@ -1,9 +1,15 @@
+import * as DDate from "@scripts/date";
 import { escapeRegExp } from "./escapeRegExp";
 
-type EligibleFormDataValue = (
+export type EligibleFormDataValue = (
+	| boolean
+	| number
+	| null
 	| string
 	| File
 	| undefined
+	| DDate.TheDate
+	| DDate.TheTime
 	| { [key: string]: EligibleFormDataValue }
 	| EligibleFormDataValue[]
 );
@@ -27,12 +33,19 @@ export class TheFormData<
 		}
 	}
 
-	public static *toFlatEntries(value: EligibleFormDataValue, path?: string): Iterable<[string, string | File]> {
+	public static *toFlatEntries(value: EligibleFormDataValue, path?: string): Iterable<[string, string | File], void> {
 		if (
 			typeof value === "string"
-			|| value instanceof File
+			|| value instanceof DDate.TheTime
+			|| value instanceof DDate.TheDate
+			|| typeof value === "number"
+			|| typeof value === "boolean"
 		) {
+			yield [path ?? "", value.toString()];
+		} else if (value instanceof File) {
 			yield [path ?? "", value];
+		} else if (value === null) {
+			yield [path ?? "", "null"];
 		} else if (value === undefined) {
 			return;
 		} else if (value instanceof Array) {
@@ -132,6 +145,9 @@ export class TheFormData<
 	}
 }
 
+/**
+ * {@include common/createFormData/index.md}
+ */
 export function createFormData<
 	GenericValues extends Record<string, EligibleFormDataValue>,
 >(

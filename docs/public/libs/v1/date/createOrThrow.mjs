@@ -1,8 +1,8 @@
 import { create } from './create.mjs';
 import { kindHeritage } from '../common/kind.mjs';
+import { createErrorKind } from '../common/errorKindNamespace.mjs';
 import { isLeft } from '../either/left/is.mjs';
 import { unwrap } from '../common/unwrap.mjs';
-import { createErrorKind } from '../common/errorKindNamespace.mjs';
 
 class CreateTheDateError extends kindHeritage("create-the-date-error", createErrorKind("create-the-date-error"), Error) {
     input;

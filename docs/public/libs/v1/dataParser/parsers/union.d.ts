@@ -53,7 +53,7 @@ export interface DataParserUnion<GenericDefinition extends DataParserDefinitionU
  * 
  */
 export declare function union<GenericOptions extends UnionOptions, const GenericDefinition extends Partial<Omit<DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnion<MergeDefinition<DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
-    options: GenericOptions;
+    readonly options: GenericOptions;
 }>>;
 export declare namespace union {
     var overrideHandler: import("../../common").OverrideHandler<DataParserUnion<DataParserDefinitionUnion>>;

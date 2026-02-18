@@ -1,23 +1,25 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple } from "../../common";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, type Or } from "../../common";
 import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "../../object";
 export type TupleShape = readonly [DataParser, ...DataParser[]];
-export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends [
+export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
     ...infer InferredRest extends DataParser[]
 ] ? [
     Output<InferredFirst>,
+    ...(Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[] ? IsEqual<InferredShapeRest[number], never> extends true ? [] : Output<InferredShapeRest[number]>[] : []),
     ...(InferredRest extends TupleShape ? DataParserTupleShapeOutput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Output<Adaptor<GenericRest, DataParser>>[])
 ] : never;
-export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends [
+export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
     ...infer InferredRest extends DataParser[]
 ] ? [
     Input<InferredFirst>,
-    ...(InferredRest extends TupleShape ? DataParserTupleShapeOutput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Input<Adaptor<GenericRest, DataParser>>[])
+    ...(Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[] ? IsEqual<InferredShapeRest[number], never> extends true ? [] : Input<InferredShapeRest[number]>[] : []),
+    ...(InferredRest extends TupleShape ? DataParserTupleShapeInput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Input<Adaptor<GenericRest, DataParser>>[])
 ] : never;
 export interface DataParserTupleCheckerCustom<GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>> {
 }
@@ -63,8 +65,12 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
  * @namespace DP
  * 
  */
-export declare function tuple<GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
-    shape: GenericShape;
+export declare function tuple<const GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
+    readonly shape: GenericShape;
+    readonly rest: Or<[
+        IsEqual<GenericDefinition["rest"], unknown>,
+        IsEqual<GenericDefinition, never>
+    ]> extends true ? undefined : GenericDefinition["rest"];
 }>>;
 export declare namespace tuple {
     var overrideHandler: import("../../common").OverrideHandler<DataParserTuple<DataParserDefinitionTuple>>;

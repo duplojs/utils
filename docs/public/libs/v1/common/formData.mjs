@@ -1,4 +1,6 @@
 import { escapeRegExp } from './escapeRegExp.mjs';
+import { TheTime } from '../date/theTime.mjs';
+import { TheDate } from '../date/theDate.mjs';
 
 const separator = "/*\\";
 const firstElementInPathRegex = new RegExp(`^((?:(?!${escapeRegExp(separator)}).)*)(?:${escapeRegExp(separator)})?`);
@@ -15,8 +17,17 @@ class TheFormData extends FormData {
     }
     static *toFlatEntries(value, path) {
         if (typeof value === "string"
-            || value instanceof File) {
+            || value instanceof TheTime
+            || value instanceof TheDate
+            || typeof value === "number"
+            || typeof value === "boolean") {
+            yield [path ?? "", value.toString()];
+        }
+        else if (value instanceof File) {
             yield [path ?? "", value];
+        }
+        else if (value === null) {
+            yield [path ?? "", "null"];
         }
         else if (value === undefined) {
             return;
@@ -81,6 +92,9 @@ class TheFormData extends FormData {
         return new TheFormData(inputValues);
     }
 }
+/**
+ * {@include common/createFormData/index.md}
+ */
 function createFormData(inputValues) {
     return TheFormData.new(inputValues);
 }

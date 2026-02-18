@@ -42,7 +42,7 @@ export declare const identifier: {
         input: boolean;
         output: boolean;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: import("../date").TheDate | Date | `date${number}-` | `date${number}+`;
+        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
         output: import("../date").TheDate;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
         input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;
@@ -91,7 +91,7 @@ export declare const identifier: {
         input: boolean;
         output: boolean;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: import("../date").TheDate | Date | `date${number}-` | `date${number}+`;
+        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
         output: import("../date").TheDate;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
         input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;

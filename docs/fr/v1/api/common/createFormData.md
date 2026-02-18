@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction createFormData() crée un FormData étendu à partir de valeurs imbriquées et expose des helpers pour aplatir ou reconstruire des entrées profondes."
+description: "La fonction createFormData() crée un FormData étendu à partir de valeurs imbriquées et expose des helpers pour aplatir ou reconstruire des entrées profondes, y compris les valeurs date/heure runtime."
 prev:
   text: "builder"
   link: "/fr/v1/api/common/builder"
@@ -13,7 +13,13 @@ next:
 
 La fonction **`createFormData()`** crée un `FormData` étendu à partir de valeurs imbriquées (objets et tableaux) et conserve l'entrée d'origine dans `inputValues`.
 
+Valeurs supportées:
+- `string`, `File`, `boolean`, `number`, `null`, `undefined`
+- `DDate.TheDate`, `DDate.TheTime`
+- objets et tableaux imbriqués composés de ces valeurs
+
 Utilisez `TheFormData.toFlatEntries(...)` quand vous avez besoin de paires clé/valeur aplaties, et `TheFormData.fromEntries(...)` pour reconstruire un objet imbriqué après réception des entrées form-data côté backend.
+Pendant l'aplatissement, les valeurs non-`File` sont converties en chaînes (`null` devient `"null"`).
 
 ## Exemple interactif
 
@@ -27,9 +33,14 @@ Utilisez `TheFormData.toFlatEntries(...)` quand vous avez besoin de paires clé/
 
 ```typescript
 type EligibleFormDataValue =
+	| boolean
+	| number
+	| null
 	| string
 	| File
 	| undefined
+	| DDate.TheDate
+	| DDate.TheTime
 	| { [key: string]: EligibleFormDataValue }
 	| EligibleFormDataValue[];
 
@@ -68,6 +79,8 @@ function createFormData<
 - `createFormData(...)` retourne une instance de `TheFormData`.
 - `TheFormData.toFlatEntries(...)` retourne un itérable de paires plates `[path, value]`.
 - `TheFormData.fromEntries(...)` retourne un objet imbriqué reconstruit.
+
+`toFlatEntries(...)` sérialise `boolean`, `number`, `null`, `DDate.TheDate` et `DDate.TheTime` en chaînes.
 
 ## Voir aussi
 

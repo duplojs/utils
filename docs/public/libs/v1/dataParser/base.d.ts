@@ -1,4 +1,4 @@
-import { type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
+import { type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
 import { SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError } from "./error";
 import * as DEither from "../either";
 export declare const SymbolDataParserErrorLabel = "SymbolDataParserError";
@@ -257,4 +257,8 @@ export declare namespace dataParserInit {
 export type Output<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
 export type Input<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];
 export type Contract<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParser<DataParserDefinition, GenericOutput, GenericInput>;
+export type AdvancedContract<GenericDataParser extends DataParser> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParser>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
+    addChecker(...args: never): AdvancedContract<GenericDataParser>;
+    clone(): AdvancedContract<GenericDataParser>;
+});
 export {};

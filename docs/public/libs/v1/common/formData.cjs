@@ -1,6 +1,8 @@
 'use strict';
 
 var escapeRegExp = require('./escapeRegExp.cjs');
+var theTime = require('../date/theTime.cjs');
+var theDate = require('../date/theDate.cjs');
 
 const separator = "/*\\";
 const firstElementInPathRegex = new RegExp(`^((?:(?!${escapeRegExp.escapeRegExp(separator)}).)*)(?:${escapeRegExp.escapeRegExp(separator)})?`);
@@ -17,8 +19,17 @@ class TheFormData extends FormData {
     }
     static *toFlatEntries(value, path) {
         if (typeof value === "string"
-            || value instanceof File) {
+            || value instanceof theTime.TheTime
+            || value instanceof theDate.TheDate
+            || typeof value === "number"
+            || typeof value === "boolean") {
+            yield [path ?? "", value.toString()];
+        }
+        else if (value instanceof File) {
             yield [path ?? "", value];
+        }
+        else if (value === null) {
+            yield [path ?? "", "null"];
         }
         else if (value === undefined) {
             return;
@@ -83,6 +94,9 @@ class TheFormData extends FormData {
         return new TheFormData(inputValues);
     }
 }
+/**
+ * {@include common/createFormData/index.md}
+ */
 function createFormData(inputValues) {
     return TheFormData.new(inputValues);
 }

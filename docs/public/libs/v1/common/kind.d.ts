@@ -36,6 +36,9 @@ export type GetKindValue<GenericKindHandler extends KindHandler, GenericObject e
 export type GetKindHandler<GenericObject extends Kind<any>> = {
     [Prop in keyof GenericObject[SymbolKind]]: KindHandler<KindDefinition<Adaptor<Prop, string>, GenericObject[SymbolKind][Prop]>>;
 }[keyof GenericObject[SymbolKind]];
+export interface GetKind<GenericObject extends Kind<any>> {
+    [SymbolKind]: GenericObject[SymbolKind];
+}
 export declare const keyKindPrefix = "@duplojs/utils/kind/";
 type ForbiddenKindCharacters<GenericValue extends string> = ForbiddenString<GenericValue, "@" | "/">;
 /**

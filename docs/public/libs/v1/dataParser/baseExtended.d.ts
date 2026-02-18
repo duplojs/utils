@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler } from "../common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind } from "../common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import type * as DEither from "../either";
@@ -416,4 +416,8 @@ export declare namespace dataParserExtendedInit {
     var overrideHandler: OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
 export type ContractExtended<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParserExtended<DataParserDefinition, GenericOutput, GenericInput>;
+export type AdvancedContractExtended<GenericDataParser extends DataParserExtended> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserExtended>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
+    addChecker(...args: never): AdvancedContractExtended<GenericDataParser>;
+    clone(): AdvancedContractExtended<GenericDataParser>;
+});
 export {};

@@ -53,7 +53,7 @@ export interface DataParserArray<GenericDefinition extends DataParserDefinitionA
  * 
  */
 export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
-    element: GenericElement;
+    readonly element: GenericElement;
 }>>;
 export declare namespace array {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserArray<DataParserDefinitionArray>>;

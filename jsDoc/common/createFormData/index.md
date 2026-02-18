@@ -1,13 +1,15 @@
-Creates an extended `FormData` instance from a nested object and provides helpers to flatten or rebuild entries.
+Creates an extended `FormData` instance from nested values and provides helpers to flatten or rebuild entries.
 
 **Supported call styles:**
 - Classic: `createFormData(inputValues)` -> returns a `TheFormData` instance
 
 The returned instance extends native `FormData` and stores the original object in `inputValues`.
+Supported values are `string`, `File`, `boolean`, `number`, `null`, `undefined`, `DDate.TheDate`, `DDate.TheTime`, objects, and arrays.
+At flatten time, non-`File` values are serialized to strings (`null` becomes `"null"`).
 For backend reconstruction, use `TheFormData.fromEntries(...)` to rebuild nested objects from flattened form-data keys.
 
 ```ts
-{@include common/createFormData/example.ts[3,27]}
+{@include common/createFormData/example.ts[3,39]}
 ```
 
 @remarks

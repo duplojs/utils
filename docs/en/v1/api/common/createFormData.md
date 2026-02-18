@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The createFormData() function creates an extended FormData from nested values and exposes helpers to flatten or rebuild deep entries."
+description: "The createFormData() function creates an extended FormData from nested values and exposes helpers to flatten or rebuild deep entries, including date/time runtime values."
 prev:
   text: "builder"
   link: "/en/v1/api/common/builder"
@@ -13,7 +13,13 @@ next:
 
 The **`createFormData()`** function creates an extended `FormData` from nested values (objects and arrays) and keeps the original input in `inputValues`.
 
+Supported values are:
+- `string`, `File`, `boolean`, `number`, `null`, `undefined`
+- `DDate.TheDate`, `DDate.TheTime`
+- nested objects and arrays of these values
+
 Use `TheFormData.toFlatEntries(...)` when you need explicit flattened key/value pairs, and `TheFormData.fromEntries(...)` to rebuild nested objects after receiving form-data entries on the backend.
+During flattening, non-`File` values are converted to strings (`null` becomes `"null"`).
 
 ## Interactive example
 
@@ -27,9 +33,14 @@ Use `TheFormData.toFlatEntries(...)` when you need explicit flattened key/value 
 
 ```typescript
 type EligibleFormDataValue =
+	| boolean
+	| number
+	| null
 	| string
 	| File
 	| undefined
+	| DDate.TheDate
+	| DDate.TheTime
 	| { [key: string]: EligibleFormDataValue }
 	| EligibleFormDataValue[];
 
@@ -68,6 +79,8 @@ function createFormData<
 - `createFormData(...)` returns a `TheFormData` instance.
 - `TheFormData.toFlatEntries(...)` returns an iterable of flat `[path, value]` pairs.
 - `TheFormData.fromEntries(...)` returns a reconstructed nested object.
+
+`toFlatEntries(...)` serializes `boolean`, `number`, `null`, `DDate.TheDate`, and `DDate.TheTime` as strings.
 
 ## See also
 
