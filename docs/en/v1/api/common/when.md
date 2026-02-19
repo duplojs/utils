@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The when() function applies a transformation if a predicate is true (or if a type guard succeeds). Otherwise, the input value is returned as is. Exists in immediate or curried form."
 prev:
-  text: "Common"
-  link: "/en/v1/api/common/"
+  text: "justExec"
+  link: "/en/v1/api/common/justExec"
 next:
   text: "whenNot"
   link: "/en/v1/api/common/whenNot"

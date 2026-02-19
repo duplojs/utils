@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler, type GetKind, type RemoveKind } from "@scripts/common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual } from "@scripts/common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import type * as DEither from "../either";
@@ -19,6 +19,8 @@ type _DataParserExtended<
 	& DataParser<GenericDefinition, GenericOutput, GenericInput>
 	& Kind<typeof extendedKind.definition>
 );
+
+declare const SymbolContractExtendedError: unique symbol;
 
 export interface DataParserExtended<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
@@ -70,6 +72,14 @@ export interface DataParserExtended<
 	 * {@include dataParser/extended/base/clone/index.md}
 	 */
 	clone(): this;
+
+	contractExtended<
+		GenericValue extends unknown,
+	>(
+		...args: IsEqual<Output<this>, GenericValue> extends true
+			? []
+			: [] & { [SymbolContractExtendedError]: "ContractExtended error." }
+	): ContractExtended<GenericValue>;
 
 	/**
 	 * {@include dataParser/extended/base/array/index.md}
@@ -281,7 +291,7 @@ export function dataParserExtendedInit<
 ): GenericDataParserExtended {
 	const self: DataParserExtended = pipe(
 		{
-			...dataParser as any,
+			...dataParser,
 			...pipe(
 				rest,
 				DObject.entries,
@@ -312,7 +322,7 @@ export function dataParserExtendedInit<
 				return dataParsersExtended.union([
 					self.array(),
 					self.transform((data) => [data]),
-				]);
+				]) as never;
 			},
 			pipe(output, definition) {
 				return dataParsersExtended.pipe(
@@ -372,7 +382,10 @@ export function dataParserExtendedInit<
 			contract() {
 				return self;
 			},
-		} satisfies DataParserExtended,
+			contractExtended() {
+				return self as never;
+			},
+		} satisfies RemoveKind<DataParserExtended>,
 		extendedKind.setTo,
 		dataParserExtendedInit.overrideHandler.apply,
 		specificOverrideHandler.apply as AnyFunction,

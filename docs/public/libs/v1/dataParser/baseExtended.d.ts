@@ -1,4 +1,4 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind } from "../common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual } from "../common";
 import { type MergeDefinition } from "./types";
 import { type Output, type DataParser, type DataParserDefinition } from "./base";
 import type * as DEither from "../either";
@@ -7,6 +7,7 @@ import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 export declare const extendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
 type _DataParserExtended<GenericDefinition extends DataParserDefinition, GenericOutput extends unknown, GenericInput extends unknown> = (DataParser<GenericDefinition, GenericOutput, GenericInput> & Kind<typeof extendedKind.definition>);
+declare const SymbolContractExtendedError: unique symbol;
 export interface DataParserExtended<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends _DataParserExtended<GenericDefinition, GenericOutput, GenericInput> {
     /**
      * The parse() method runs an extended data parser synchronously and returns an Either with the parsed value or a DataParserError.
@@ -149,6 +150,9 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * 
      */
     clone(): this;
+    contractExtended<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & {
+        [SymbolContractExtendedError]: "ContractExtended error.";
+    }): ContractExtended<GenericValue>;
     /**
      * Creates an array parser from the current parser.
      * 

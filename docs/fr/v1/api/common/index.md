@@ -47,6 +47,9 @@ Log la valeur (tap) puis la renvoie pour continuer le flux.
 ### [justReturn](/fr/v1/api/common/justReturn)
 Construit une fonction constante qui renvoie toujours la même valeur.
 
+### [justExec](/fr/v1/api/common/justExec)
+Exécute immédiatement un callback et renvoie sa sortie.
+
 ## Contrôle conditionnel et prédicats
 
 ### [when](/fr/v1/api/common/when)

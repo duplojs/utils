@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction when() applique une transformation si un prédicat est vrai (ou si un type guard réussit). Sinon, la valeur d'entrée est renvoyée telle quelle. Existe en version immédiate ou currifiée."
 prev:
-  text: "Common"
-  link: "/fr/v1/api/common/"
+  text: "justExec"
+  link: "/fr/v1/api/common/justExec"
 next:
   text: "whenNot"
   link: "/fr/v1/api/common/whenNot"

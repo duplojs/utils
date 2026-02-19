@@ -62,6 +62,9 @@ function dataParserExtendedInit(dataParser, rest, specificOverrideHandler) {
         contract() {
             return self;
         },
+        contractExtended() {
+            return self;
+        },
     }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply, specificOverrideHandler.apply);
     return self;
 }

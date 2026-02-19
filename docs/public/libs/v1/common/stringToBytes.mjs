@@ -10,7 +10,7 @@ class InvalidBytesInStringError extends kindHeritage("invalid-bytes-in-string-er
         this.input = input;
     }
 }
-const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pd)/;
+const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pb)/;
 const unitMapper = {
     b: 1,
     kb: 1 << 10,

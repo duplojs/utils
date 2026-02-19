@@ -65,6 +65,7 @@ var asserts = require('./common/asserts.cjs');
 var path = require('./common/path.cjs');
 var transformer = require('./common/transformer.cjs');
 var toRegExp = require('./common/toRegExp.cjs');
+var justExec = require('./common/justExec.cjs');
 
 
 
@@ -165,3 +166,4 @@ exports.toJSON = transformer.toJSON;
 exports.toNative = transformer.toNative;
 exports.transformer = transformer.transformer;
 exports.toRegExp = toRegExp.toRegExp;
+exports.justExec = justExec.justExec;

@@ -1,4 +1,4 @@
-import { DDataParser, DDataParserExtended, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, type ExpectType, pipe } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {
@@ -234,5 +234,35 @@ describe("base extended", () => {
 						.array(),
 				])
 				.contract();
+	});
+
+	it("contractExtended", () => {
+		type RecursiveTuple = [string, (RecursiveTuple | string)[]];
+
+		const schema: DDataParser.ContractExtended<RecursiveTuple> = DDataParserExtended
+			.tuple([
+				DDataParserExtended.string(),
+				DDataParserExtended
+					.lazy(() => schema)
+					.or(DDataParserExtended.string())
+					.array(),
+			])
+			.contractExtended();
+
+		expect(schema.parse(["ok", ["value"]])).toStrictEqual(
+			DEither.success(["ok", ["value"]]),
+		);
+
+		expect(schema.parse(["ok", [1]])).toStrictEqual(
+			DEither.error(
+				expect.any(Object),
+			),
+		);
+
+		type check = ExpectType<
+			typeof schema,
+			DDataParser.ContractExtended<RecursiveTuple>,
+			"strict"
+		>;
 	});
 });

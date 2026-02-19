@@ -47,6 +47,9 @@ Logs the value (tap) then returns it to continue the flow.
 ### [justReturn](/en/v1/api/common/justReturn)
 Builds a constant function that always returns the same value.
 
+### [justExec](/en/v1/api/common/justExec)
+Executes a callback immediately and returns its output.
+
 ## Conditional control and predicates
 
 ### [when](/en/v1/api/common/when)

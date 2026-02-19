@@ -5,8 +5,8 @@ prev:
   text: "forwardLog"
   link: "/fr/v1/api/common/forwardLog"
 next:
-  text: "when"
-  link: "/fr/v1/api/common/when"
+  text: "justExec"
+  link: "/fr/v1/api/common/justExec"
 ---
 
 # justReturn
@@ -58,5 +58,6 @@ function justReturn<
 
 ## Voir aussi
 
+- [`justExec`](/fr/v1/api/common/justExec) - Exécute un callback immédiatement et renvoie sa sortie
 - [`forward`](/fr/v1/api/common/forward) - Identité simple
 - [`pipe`](/fr/v1/api/common/pipe) - Chaîner des transformations et insérer `justReturn` comme fallback

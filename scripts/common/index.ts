@@ -56,3 +56,4 @@ export * from "./asserts";
 export * from "./path";
 export * from "./transformer";
 export * from "./toRegExp";
+export * from "./justExec";

@@ -12,7 +12,7 @@ class InvalidBytesInStringError extends kind.kindHeritage("invalid-bytes-in-stri
         this.input = input;
     }
 }
-const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pd)/;
+const parseRegExp = /(?<rawValue>[0-9.]+)(?<unit>b|kb|mb|gb|tb|pb)/;
 const unitMapper = {
     b: 1,
     kb: 1 << 10,

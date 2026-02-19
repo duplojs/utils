@@ -87,3 +87,4 @@ export { AssertsError, asserts } from './common/asserts.mjs';
 export { Path } from './common/path.mjs';
 export { createTransformer, toJSON, toNative, transformer } from './common/transformer.mjs';
 export { toRegExp } from './common/toRegExp.mjs';
+export { justExec } from './common/justExec.mjs';
