@@ -335,10 +335,10 @@ export function dataParserInit<
 			},
 			addChecker: (...checkers: any[]) => dataParserInit(
 				kind,
-				simpleClone({
+				{
 					...definition,
 					checkers: [...definition.checkers, ...checkers],
-				}),
+				},
 				exec,
 				specificOverrideHandler,
 			),

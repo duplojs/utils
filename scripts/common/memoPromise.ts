@@ -38,7 +38,7 @@ export function memoPromise<
 			)
 				.then((result) => {
 					Object.defineProperty(
-						payload,
+						this,
 						"value",
 						{
 							value: result,

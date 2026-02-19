@@ -14,9 +14,17 @@ describe("simpleClone", () => {
 	});
 
 	it("with getter", () => {
-		const schema: DDataParser.Contract<any> = DDataParser.object({
-			test: DDataParser.lazy(() => schema),
-		}).clone();
+		const spy = vi.fn();
+		const schema = DDataParser.lazy(spy).clone();
+
+		expect(spy).toHaveBeenCalledTimes(0);
+
+		void schema.definition.getter.value;
+		void schema.definition.getter.value;
+		void schema.definition.getter.value;
+		void schema.definition.getter.value;
+
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 });
 
