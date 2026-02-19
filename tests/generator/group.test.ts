@@ -1,4 +1,4 @@
-import { DGenerator, DPattern, DString, innerPipe, pipe, when, type ExpectType } from "@scripts";
+import { DGenerator, DPattern, DString, innerPipe, pipe, when, type ExpectType, type SimplifyType } from "@scripts";
 
 describe("group", () => {
 	it("groups values by key and appends values for existing keys", () => {
@@ -37,18 +37,30 @@ describe("group", () => {
 			},
 		);
 
+		// DEFEAT
 		type check = ExpectType<
 			typeof result,
 			{
-				even?: {
-					element: 1 | 2 | 3 | 4;
-					index: number;
-				}[] | undefined;
-				odd?: {
-					element: 1 | 2 | 3 | 4;
-				}[] | undefined;
+				readonly even?: readonly [
+					{
+						element: 1 | 2 | 3 | 4;
+						index: number;
+					},
+					...({
+						element: 1 | 2 | 3 | 4;
+						index: number;
+					})[],
+				] | undefined;
+				readonly odd?: readonly [
+					{
+						element: 1 | 2 | 3 | 4;
+					},
+					...({
+						element: 1 | 2 | 3 | 4;
+					})[],
+				] | undefined;
 			},
-			"strict"
+			"flexible"
 		>;
 	});
 
@@ -63,7 +75,7 @@ describe("group", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				empty?: never[] | undefined;
+				readonly empty?: readonly [never, ...never[]] | undefined;
 			},
 			"strict"
 		>;
@@ -87,8 +99,8 @@ describe("group", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				good?: ("pear" | "peach")[] | undefined;
-				sad?: ("apple" | "fig")[] | undefined;
+				readonly good?: readonly ["pear" | "peach", ...("pear" | "peach")[]] | undefined;
+				readonly sad?: readonly ["apple" | "fig", ...("apple" | "fig")[]] | undefined;
 			},
 			"strict"
 		>;

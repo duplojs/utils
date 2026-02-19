@@ -11,16 +11,10 @@
  * 	10,
  * ); // false
  * 
- * pipe(
- * 	9,
- * 	N.lessThan(10),
- * ); // true
- * 
  * N.lessThan(
  * 	11,
  * 	10,
  * ); // false
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/number/lessThan

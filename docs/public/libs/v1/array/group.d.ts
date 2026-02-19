@@ -41,7 +41,7 @@ export interface ArrayGroupFunctionParams {
     output: typeof groupOutput;
 }
 export type ArrayGroupResult<GenericOutput extends ArrayGroupFunctionOutput> = SimplifyTopLevel<{
-    [Output in GenericOutput as Output["group"]]?: Output["value"][];
+    readonly [Output in GenericOutput as Output["group"]]?: readonly [Output["value"], ...Output["value"][]];
 }>;
 /**
  * Groups elements into an object by a group name.

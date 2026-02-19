@@ -12,8 +12,10 @@ const result = A.group(
 type check = ExpectType<
 	typeof result,
 	{
-		book?: Book[]; // 🤩
-		other?: (Care | Computer)[]; // 🤩
+		readonly book?: readonly [Book, ...Book[]]; // 🤩
+		readonly other?: readonly [
+			Care | Computer, ...(Care | Computer)[],
+		]; // 🤩
 	},
 	"strict"
 >;

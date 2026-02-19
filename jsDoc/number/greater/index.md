@@ -5,7 +5,7 @@ Checks if a value is greater than or equal to a threshold.
 - Curried: `greater(threshold)` → returns a function waiting for the value
 
 ```ts
-{@include number/greater/example.ts[3,17]}
+{@include number/greater/example.ts[3,11]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/number/greater

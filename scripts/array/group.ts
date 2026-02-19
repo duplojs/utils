@@ -59,7 +59,7 @@ export interface ArrayGroupFunctionParams {
 export type ArrayGroupResult<
 	GenericOutput extends ArrayGroupFunctionOutput,
 > = SimplifyTopLevel<{
-	[Output in GenericOutput as Output["group"]]?: Output["value"][]
+	readonly [Output in GenericOutput as Output["group"]]?: readonly [Output["value"], ...Output["value"][]]
 }>;
 
 /**

@@ -47,7 +47,7 @@ export interface GroupFunctionParams {
     output: typeof groupOutput;
 }
 export type GroupResult<GenericOutput extends GroupFunctionOutput> = SimplifyTopLevel<{
-    [Output in GenericOutput as Output["group"]]?: Output["value"][];
+    readonly [Output in GenericOutput as Output["group"]]?: readonly [Output["value"], ...Output["value"][]];
 }>;
 /**
  * Groups elements from an iterable into an object by a group name.

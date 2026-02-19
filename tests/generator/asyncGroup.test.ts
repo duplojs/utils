@@ -44,18 +44,24 @@ describe("asyncGroup", () => {
 			},
 		);
 
+		// DEFEAT
 		type check = ExpectType<
 			typeof result,
 			Promise<{
-				even?: {
+				readonly even?: readonly [{
 					element: 1 | 2 | 3 | 4;
 					index: number;
-				}[] | undefined;
-				odd?: {
+				}, ...{
 					element: 1 | 2 | 3 | 4;
-				}[] | undefined;
+					index: number;
+				}[]] | undefined;
+				readonly odd?: readonly [{
+					element: 1 | 2 | 3 | 4;
+				}, ...{
+					element: 1 | 2 | 3 | 4;
+				}[]] | undefined;
 			}>,
-			"strict"
+			"flexible"
 		>;
 	});
 
@@ -70,7 +76,7 @@ describe("asyncGroup", () => {
 		type check = ExpectType<
 			typeof result,
 			Promise<{
-				empty?: never[] | undefined;
+				readonly empty?: readonly [never, ...never[]] | undefined;
 			}>,
 			"strict"
 		>;
@@ -95,8 +101,8 @@ describe("asyncGroup", () => {
 		type check = ExpectType<
 			typeof result,
 			Promise<{
-				good?: ("pear" | "peach")[] | undefined;
-				sad?: ("apple" | "fig")[] | undefined;
+				readonly good?: readonly ["pear" | "peach", ...("pear" | "peach")[]] | undefined;
+				readonly sad?: readonly ["apple" | "fig", ...("apple" | "fig")[]] | undefined;
 			}>,
 			"strict"
 		>;

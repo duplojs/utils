@@ -11,16 +11,10 @@
  * 	10,
  * ); // true
  * 
- * pipe(
- * 	9,
- * 	N.greater(10),
- * ); // false
- * 
  * N.greater(
  * 	9,
  * 	10,
  * ); // true
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/number/greater

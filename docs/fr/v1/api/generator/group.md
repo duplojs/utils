@@ -18,7 +18,7 @@ La fonction **`group()`** regroupe les éléments d'un itérable dans un objet d
 <MonacoTSEditor
   src="/examples/v1/api/generator/group/tryout.doc.ts"
   majorVersion="v1"
-  height="691px"
+  height="790px"
   :foldLines="[2]"
 />
 

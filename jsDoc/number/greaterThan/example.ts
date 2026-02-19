@@ -1,14 +1,9 @@
-import { N, pipe } from "@scripts";
+import { N } from "@scripts";
 
 N.greaterThan(
 	10,
 	10,
 ); // false
-
-pipe(
-	11,
-	N.greaterThan(10),
-); // true
 
 N.greaterThan(
 	9,

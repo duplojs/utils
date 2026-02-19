@@ -57,7 +57,7 @@ export interface GroupFunctionParams {
 export type GroupResult<
 	GenericOutput extends GroupFunctionOutput,
 > = SimplifyTopLevel<{
-	[Output in GenericOutput as Output["group"]]?: Output["value"][]
+	readonly [Output in GenericOutput as Output["group"]]?: readonly [Output["value"], ...Output["value"][]]
 }>;
 
 /**
@@ -84,7 +84,11 @@ export function group<
 	) => GenericOutput,
 ): GroupResult<GenericOutput>;
 
-export function group(...args: [Iterable<unknown>, AnyFunction<any, GroupFunctionOutput>] | [AnyFunction]): any {
+export function group(
+	...args:
+	| [Iterable<unknown>, AnyFunction<any, GroupFunctionOutput>]
+	| [AnyFunction]
+): any {
 	if (args.length === 1) {
 		const [theFunction] = args;
 		return (iterator: Iterable<unknown>) => group(iterator, theFunction);

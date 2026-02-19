@@ -11,16 +11,10 @@
  * 	10,
  * ); // true
  * 
- * pipe(
- * 	9,
- * 	N.less(10),
- * ); // true
- * 
  * N.less(
  * 	11,
  * 	10,
  * ); // false
- * 
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/number/less

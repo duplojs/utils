@@ -18,7 +18,7 @@ La fonction **`asyncGroup()`** regroupe les valeurs d'un itérable asynchrone da
 <MonacoTSEditor
   src="/examples/v1/api/generator/asyncGroup/tryout.doc.ts"
   majorVersion="v1"
-  height="712px"
+  height="790px"
   :foldLines="[2]"
 />
 

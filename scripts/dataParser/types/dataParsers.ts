@@ -1,15 +1,14 @@
-import { type GetPropsWithValueExtends } from "@scripts/object";
-import { type DataParser } from "../base";
+import type { DataParser } from "../base";
 import type * as AllDataParser from "../parsers";
+import type { DataParserExtended } from "../baseExtended";
 import type * as AllDataParserExtended from "../extended";
-import { type DataParserExtended } from "../baseExtended";
 
 export interface DataParserCustom {
 	base: DataParser;
 }
 
 export type DataParsers = (
-	| DataParserCustom[GetPropsWithValueExtends<DataParserCustom, DataParser>]
+	| DataParserCustom[keyof DataParserCustom]
 	| AllDataParser.DataParserString
 	| AllDataParser.DataParserObject
 	| AllDataParser.DataParserNumber
@@ -39,7 +38,7 @@ export interface DataParserExtendedCustom {
 }
 
 export type DataParsersExtended = (
-	| DataParserExtendedCustom[GetPropsWithValueExtends<DataParserExtendedCustom, DataParserExtended>]
+	| DataParserExtendedCustom[keyof DataParserExtendedCustom]
 	| AllDataParserExtended.DataParserStringExtended
 	| AllDataParserExtended.DataParserObjectExtended
 	| AllDataParserExtended.DataParserNumberExtended

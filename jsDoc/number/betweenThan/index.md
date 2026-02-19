@@ -5,7 +5,7 @@ Checks if a number is within a range (exclusive).
 - Curried: `betweenThan(greaterThan, lessThan)` → returns a function waiting for the value
 
 ```ts
-{@include number/betweenThan/example.ts[3,19]}
+{@include number/betweenThan/example.ts[3,13]}
 ```
 
 @see [`N.between`](https://utils.duplojs.dev/en/v1/api/number/between) For inclusive bounds

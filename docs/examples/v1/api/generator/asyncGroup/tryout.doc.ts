@@ -35,14 +35,20 @@ const result = pipe(
 type check = ExpectType<
 	typeof result,
 	Promise<{
-		paid?: {
+		readonly paid?: readonly [{
 			id: "O2" | "O4";
 			index: number;
-		}[] | undefined;
-		open?: {
+		}, ...{
+			id: "O2" | "O4";
+			index: number;
+		}[]] | undefined;
+		readonly open?: readonly [{
 			id: "O1" | "O3";
 			index: number;
-		}[] | undefined;
+		}, ...{
+			id: "O1" | "O3";
+			index: number;
+		}[]] | undefined;
 	}>,
-	"strict"
+	"flexible"
 >;

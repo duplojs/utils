@@ -1,4 +1,4 @@
-import { DArray, DPattern, innerPipe, pipe, type ExpectType, DObject } from "@scripts";
+import { DArray, DPattern, innerPipe, pipe, type ExpectType, DObject, type SimplifyTopLevel } from "@scripts";
 
 describe("group", () => {
 	const input = [
@@ -52,20 +52,15 @@ describe("group", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				cher?: {
-					readonly type: "care";
-					readonly model: "v12";
-					readonly wheel: 5;
-				}[];
-				pasCher?: ({
-					readonly type: "product";
-					readonly name: "superName";
-					readonly size: 12;
-				} | {
-					readonly type: "book";
-					readonly title: "bou";
-					readonly pageQuantity: 200;
-				})[];
+				readonly cher?: readonly [typeof input[2], ...typeof input[2][]];
+				readonly pasCher?: readonly [
+					| typeof input[0]
+					| typeof input[1],
+					...(
+						| typeof input[0]
+						| typeof input[1]
+					)[],
+				];
 			},
 			"strict"
 		>;
@@ -110,20 +105,14 @@ describe("group", () => {
 		type check = ExpectType<
 			typeof result,
 			{
-				book?: {
-					readonly type: "book";
-					readonly title: "bou";
-					readonly pageQuantity: 200;
-				}[];
-				other?: ({
-					readonly type: "product";
-					readonly name: "superName";
-					readonly size: 12;
-				} | {
-					readonly type: "care";
-					readonly model: "v12";
-					readonly wheel: 5;
-				})[];
+				readonly book?: readonly [
+					typeof input[1],
+					...(typeof input[1])[],
+				] | undefined;
+				readonly other?: readonly [
+					(typeof input[0] | typeof input[2]),
+					...((typeof input[0] | typeof input[2]))[],
+				] | undefined;
 			},
 			"strict"
 		>;

@@ -18,7 +18,7 @@ The **`group()`** function groups iterable elements into an object of arrays usi
 <MonacoTSEditor
   src="/examples/v1/api/generator/group/tryout.doc.ts"
   majorVersion="v1"
-  height="691px"
+  height="790px"
   :foldLines="[2]"
 />
 

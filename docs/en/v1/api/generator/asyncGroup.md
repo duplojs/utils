@@ -18,7 +18,7 @@ The **`asyncGroup()`** function groups values from an async iterable into an obj
 <MonacoTSEditor
   src="/examples/v1/api/generator/asyncGroup/tryout.doc.ts"
   majorVersion="v1"
-  height="712px"
+  height="790px"
   :foldLines="[2]"
 />
 

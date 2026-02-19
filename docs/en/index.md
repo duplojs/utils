@@ -21,7 +21,7 @@ hero:
     <MonacoTSEditor
       src="/examples/v1/groupNative.doc.ts"
       majorVersion="v1"
-      height="400px"
+      height="420px"
     />
   </div>
   <div>
@@ -29,7 +29,7 @@ hero:
     <MonacoTSEditor
       src="/examples/v1/groupUtils.doc.ts"
       majorVersion="v1"
-      height="400px"
+      height="420px"
     />
   </div>
 </div>

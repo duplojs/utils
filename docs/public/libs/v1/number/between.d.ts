@@ -12,17 +12,11 @@
  * 	10,
  * ); // true
  * 
- * pipe(
- * 	10,
- * 	N.between(0, 10),
- * ); // true
- * 
  * N.between(
  * 	11,
  * 	0,
  * 	10,
  * ); // false
- * 
  * ```
  * 
  * @see [`N.betweenThan`](https://utils.duplojs.dev/en/v1/api/number/betweenThan) For strict bounds

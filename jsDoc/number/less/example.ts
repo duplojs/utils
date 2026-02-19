@@ -1,13 +1,8 @@
-import { N, pipe } from "@scripts";
+import { N } from "@scripts";
 
 N.less(
 	10,
 	10,
-); // true
-
-pipe(
-	9,
-	N.less(10),
 ); // true
 
 N.less(
