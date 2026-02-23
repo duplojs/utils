@@ -1,4 +1,4 @@
-Represents an immutable time value object (`TheTime`) stored in milliseconds.
+Represents an immutable signed time value object (`TheTime`) stored in milliseconds.
 
 Signature: `TheTime` → immutable class-like value object
 
@@ -10,6 +10,7 @@ Signature: `TheTime` → immutable class-like value object
 
 @remarks
 - `TheTime` is not a `number`, but it behaves as an immutable numeric time value.
+- `TheTime` supports negative values and is not an absolute value by default.
 - Date unit operators (`addMinutes`, `subtractDays`, etc.) target `TheDate`; `TheTime` is used as a normalized duration value.
 - Use `D.serialize(theTime)` to convert to `SerializedTheTime`.
 - Use `D.createTime(...)` / `D.createTimeOrThrow(...)` to construct instances.

@@ -5,8 +5,8 @@ prev:
   text: "toNative"
   link: "/fr/v1/api/date/toNative"
 next:
-  text: "toTimeValue"
-  link: "/fr/v1/api/date/toTimeValue"
+  text: "getDifference"
+  link: "/fr/v1/api/date/getDifference"
 ---
 
 # toTimestamp

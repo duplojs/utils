@@ -4,8 +4,8 @@ prev:
   text: "toTimestamp"
   link: "/en/v1/api/date/toTimestamp"
 next:
-  text: "isSafeTimeValue"
-  link: "/en/v1/api/date/isSafeTimeValue"
+  text: "computeTime"
+  link: "/en/v1/api/date/computeTime"
 ---
 
 # toTimeValue

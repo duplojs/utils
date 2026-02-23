@@ -1,5 +1,7 @@
 import { D } from "@duplojs/utils";
 
-const input = D.create("2023-11-14");
-const result = D.toNative(input);
-// result: Date { time: 1699920000000 }
+const date = D.toNative(D.create("2023-11-14"));
+// date: Date
+
+const time = D.toNative(D.createTime(5400, "millisecond"));
+// time: 5400

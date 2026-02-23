@@ -5,7 +5,7 @@ function memo(theFunction) {
     const payload = {
         get value() {
             const value = theFunction();
-            Object.defineProperty(payload, "value", {
+            Object.defineProperty(this, "value", {
                 value,
             });
             return value;

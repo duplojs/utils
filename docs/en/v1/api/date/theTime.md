@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "TheTime is an immutable class representing a normalized duration. SerializedTheTime is its serialized format (`time${number}${\"+\" | \"-\"}`)."
+description: "TheTime is an immutable class representing a normalized signed duration. SerializedTheTime is its serialized format (`time${number}${\"+\" | \"-\"}`)."
 prev:
   text: "theDate"
   link: "/en/v1/api/date/theDate"
@@ -11,7 +11,7 @@ next:
 
 # TheTime
 
-**`TheTime`** is an immutable class representing a type-safe duration value in milliseconds.
+**`TheTime`** is an immutable class representing a type-safe signed duration value in milliseconds.
 It is used in the date namespace context, especially with **`TheDate`** (for example: `addTime`, `subtractTime`, `formatTime`).
 
 ## Interactive example
@@ -35,10 +35,12 @@ type SerializedTheTime = `time${number}${"-" | "+"}`
 - `SerializedTheTime`: serialized representation for transport/text storage.
 - Object -> serialized conversion: `D.serialize(theTime)`.
 - Serialized -> object conversion: `D.createTime(serialized)` or `D.createTimeOrThrow(serialized)`.
+- `TheTime` values can be positive or negative; they are not absolute by default.
 
 ## Use cases
 
 - Represent a normalized duration (hours, minutes, seconds) as an immutable value.
+- Represent forward and backward offsets (positive or negative durations).
 - Add or subtract duration from a date (`TheDate`) with `addTime` and `subtractTime`.
 - Format durations with `formatTime`.
 

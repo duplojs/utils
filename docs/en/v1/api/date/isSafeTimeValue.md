@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "toTimeValue"
-  link: "/en/v1/api/date/toTimeValue"
+  text: "computeTime"
+  link: "/en/v1/api/date/computeTime"
 next:
   text: "getTimezoneOffset"
   link: "/en/v1/api/date/getTimezoneOffset"

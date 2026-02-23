@@ -1,7 +1,7 @@
 import { kindHeritage } from "@scripts/common/kind";
 import { createDateKind } from "./kind";
 import { makeSafeTimeValue } from "./makeSafeTimeValue";
-import { type SerializedTheTime } from "./types";
+import type { SerializedTheTime } from "./types";
 import { serialize } from "./serialize";
 
 const defaultKindValue = {};

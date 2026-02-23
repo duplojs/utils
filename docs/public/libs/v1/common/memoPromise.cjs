@@ -20,7 +20,7 @@ function memoPromise(theFunction) {
                 ? promise
                 : Promise.resolve(promise))
                 .then((result) => {
-                Object.defineProperty(payload, "value", {
+                Object.defineProperty(this, "value", {
                     value: result,
                 });
                 resolve(result);

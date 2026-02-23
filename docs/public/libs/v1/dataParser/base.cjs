@@ -134,10 +134,10 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
                 [KWV]: result,
             };
         },
-        addChecker: (...checkers) => dataParserInit(kind, simpleClone.simpleClone({
+        addChecker: (...checkers) => dataParserInit(kind, {
             ...definition,
             checkers: [...definition.checkers, ...checkers],
-        }), exec, specificOverrideHandler),
+        }, exec, specificOverrideHandler),
         clone: () => dataParserInit(kind, simpleClone.simpleClone(definition), exec, specificOverrideHandler),
         contract: () => self,
         parseOrThrow(data) {

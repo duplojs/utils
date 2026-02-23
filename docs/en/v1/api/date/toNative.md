@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The toNative() function converts a TheDate to a JavaScript Date."
+description: "The toNative() function converts TheDate/TheTime values to native JavaScript Date/number."
 prev:
   text: "tomorrow"
   link: "/en/v1/api/date/tomorrow"
@@ -11,14 +11,14 @@ next:
 
 # toNative
 
-The **`toNative()`** function converts a `TheDate` to a JavaScript `Date`.
+The **`toNative()`** function converts date/time values to their native JavaScript representation.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/date/toNative/tryout.doc.ts"
   majorVersion="v1"
-  height="145px"
+  height="271px"
 />
 
 ## Syntax
@@ -29,19 +29,27 @@ function toNative<
 >(
 	input: GenericInput
 ): Date
+
+function toNative<
+	GenericInput extends TheTime | SerializedTheTime
+>(
+	input: GenericInput
+): number
 ```
 
 ## Parameters
 
-- `input`: The immutable `TheDate` to convert.
+- `input`: A value among `TheDate`, `SerializedTheDate`, `TheTime`, or `SerializedTheTime`.
 
 ## Return value
 
-A standard JavaScript `Date` instance.
+- `Date` for date inputs.
+- `number` for time inputs.
 
 ## See also
 
 - [`toTimestamp`](/en/v1/api/date/toTimestamp)
+- [`toTimeValue`](/en/v1/api/date/toTimeValue)
 - [`toISOString`](/en/v1/api/date/toISOString)
 
 ## Sources

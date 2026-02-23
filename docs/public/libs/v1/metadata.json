@@ -3088,6 +3088,15 @@
           "name": "closestTo.mjs"
         },
         {
+          "name": "computeTime.cjs"
+        },
+        {
+          "name": "computeTime.d.ts"
+        },
+        {
+          "name": "computeTime.mjs"
+        },
+        {
           "name": "constants.cjs"
         },
         {
@@ -3158,6 +3167,15 @@
         },
         {
           "name": "formatTime.mjs"
+        },
+        {
+          "name": "getDifference.cjs"
+        },
+        {
+          "name": "getDifference.d.ts"
+        },
+        {
+          "name": "getDifference.mjs"
         },
         {
           "name": "getTimezoneOffset.cjs"

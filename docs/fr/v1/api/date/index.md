@@ -61,13 +61,19 @@ Retourne un instant environ un jour après maintenant.
 ## Conversion & validation
 
 ### [toNative](/fr/v1/api/date/toNative)
-Convertit un `TheDate` en `Date` JavaScript.
+Convertit des valeurs `TheDate`/`TheTime` vers `Date`/`number` natifs JavaScript.
 
 ### [toTimestamp](/fr/v1/api/date/toTimestamp)
 Expose le timestamp en millisecondes et valide la cohérence de la valeur.
 
+### [getDifference](/fr/v1/api/date/getDifference)
+Retourne la différence signée entre deux dates sous forme de `TheTime`.
+
 ### [toTimeValue](/fr/v1/api/date/toTimeValue)
 Convertit un `TheTime` en millisecondes en appliquant les bornes de sécurité.
+
+### [computeTime](/fr/v1/api/date/computeTime)
+Convertit un `TheTime` ou `SerializedTheTime` vers une unité cible.
 
 ### [isSafeTimeValue](/fr/v1/api/date/isSafeTimeValue)
 Vérifie qu'une valeur de temps est un entier sûr dans les bornes.
