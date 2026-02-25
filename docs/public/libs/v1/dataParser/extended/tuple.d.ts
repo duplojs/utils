@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type Or, type SimplifyTopLevel } from "../../common";
 import { type DataParserExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers } from "../types";
 import * as dataParsers from "../parsers";
@@ -139,7 +139,11 @@ export interface DataParserTupleExtended<GenericDefinition extends dataParsers.D
  * 
  */
 export declare function tuple<GenericShape extends dataParsers.TupleShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
-    shape: GenericShape;
+    readonly shape: GenericShape;
+    readonly rest: Or<[
+        IsEqual<GenericDefinition["rest"], unknown>,
+        IsEqual<GenericDefinition, never>
+    ]> extends true ? undefined : GenericDefinition["rest"];
 }>>;
 export declare namespace tuple {
     var overrideHandler: import("../../common").OverrideHandler<DataParserTupleExtended<dataParsers.DataParserDefinitionTuple>>;

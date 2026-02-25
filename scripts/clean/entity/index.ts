@@ -19,7 +19,7 @@ export type EntityPropertiesDefinition = Readonly<
 >;
 
 export type EntityProperties<
-	GenericPropertiesDefinition extends EntityPropertiesDefinition = any,
+	GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition,
 > = SimplifyTopLevel<{
 	readonly [Prop in keyof GenericPropertiesDefinition]: EntityProperty<
 		GenericPropertiesDefinition[Prop]

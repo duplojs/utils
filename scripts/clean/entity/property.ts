@@ -1,6 +1,6 @@
 import { newTypeHandlerKind, type GetNewType, type NewTypeHandler } from "../newType";
 import { createCleanKind } from "../kind";
-import { type WrappedValue, type Kind, type AnyTuple, type Unwrap, type GetKindValue, type IsEqual, pipe, unwrap, wrapValue } from "@scripts/common";
+import { type WrappedValue, type Kind, type AnyTuple, type Unwrap, type GetKindValue, type IsEqual, pipe, unwrap, wrapValue, type Or } from "@scripts/common";
 import * as DDataParser from "../../dataParser";
 import * as DArray from "../../array";
 import * as DPattern from "../../pattern";
@@ -65,9 +65,9 @@ export interface EntityPropertyDefinitionStructure<
 }
 
 export type EntityProperty<
-	GenericProperty extends EntityPropertyDefinition = any,
-> = IsEqual<GenericProperty, any> extends true
-	? any
+	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
+> = IsEqual<GenericProperty, EntityPropertyDefinition> extends true
+	? unknown
 	: GenericProperty extends NewTypeHandler
 		? GetNewType<GenericProperty>
 		: GenericProperty extends EntityPropertyDefinitionUnion
@@ -97,8 +97,8 @@ export type EntityProperty<
 						: never;
 
 export type EntityRawProperty<
-	GenericProperty extends EntityPropertyDefinition = any,
-> = IsEqual<GenericProperty, any> extends true
+	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
+> = IsEqual<GenericProperty, EntityPropertyDefinition> extends true
 	? any
 	: GenericProperty extends NewTypeHandler
 		? Unwrap<GetNewType<GenericProperty>>
@@ -129,8 +129,8 @@ export type EntityRawProperty<
 						: never;
 
 export type EntityInputRawProperty<
-	GenericProperty extends EntityPropertyDefinition = any,
-> = IsEqual<GenericProperty, any> extends true
+	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
+> = IsEqual<GenericProperty, EntityPropertyDefinition> extends true
 	? any
 	: GenericProperty extends NewTypeHandler<any, infer InferredValue, any, infer InferredInput>
 		? IsEqual<InferredInput, never> extends true
