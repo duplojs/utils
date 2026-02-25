@@ -1,4 +1,4 @@
-import { DDataParser, DDataParserExtended, DEither, type ExpectType, pipe } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, type ExpectType, pipe, type SimplifyTopLevel } from "@scripts";
 
 describe("base extended", () => {
 	it("array", () => {
@@ -264,5 +264,23 @@ describe("base extended", () => {
 			DDataParser.ContractExtended<RecursiveTuple>,
 			"strict"
 		>;
+
+		const tupleSchema: DDataParser.AdvancedContract<
+			DDataParser.DataParserTuple<
+				SimplifyTopLevel<
+					& Omit<DDataParser.DataParserDefinitionTuple, "shape" | "rest">
+					& {
+						readonly shape: readonly [
+							(DDataParser.DataParserString | DDataParser.DataParserNumber<
+								& DDataParser.DataParserDefinitionNumber
+								& { readonly coerce: true }
+							>),
+							...DDataParser.DataParserString[],
+						];
+						readonly rest: DDataParser.DataParserString | undefined;
+					}
+				>
+			>
+		> = DDataParser.extended.tuple([DDataParser.number({ coerce: true })]);
 	});
 });

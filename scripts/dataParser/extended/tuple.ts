@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
+import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type Or, type SimplifyTopLevel, createOverride } from "@scripts/common";
 import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers } from "../types";
 import * as dataParsers from "../parsers";
@@ -109,7 +109,16 @@ export function tuple<
 ): DataParserTupleExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionTuple,
-			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
+			& NeverCoalescing<GenericDefinition, {}>
+			& {
+				readonly shape: GenericShape;
+				readonly rest: Or<[
+					IsEqual<GenericDefinition["rest"], unknown>,
+					IsEqual<GenericDefinition, never>,
+				]> extends true
+					? undefined
+					: GenericDefinition["rest"];
+			}
 		>
 	> {
 	const self = dataParserExtendedInit<
