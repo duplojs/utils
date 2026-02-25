@@ -648,6 +648,38 @@
           ]
         },
         {
+          "name": "entity",
+          "files": [
+            {
+              "name": "index.cjs"
+            },
+            {
+              "name": "index.d.ts"
+            },
+            {
+              "name": "index.mjs"
+            },
+            {
+              "name": "property.cjs"
+            },
+            {
+              "name": "property.d.ts"
+            },
+            {
+              "name": "property.mjs"
+            },
+            {
+              "name": "unwrap.cjs"
+            },
+            {
+              "name": "unwrap.d.ts"
+            },
+            {
+              "name": "unwrap.mjs"
+            }
+          ]
+        },
+        {
           "name": "primitive",
           "files": [
             {
@@ -941,15 +973,6 @@
           ]
         },
         {
-          "name": "entity.cjs"
-        },
-        {
-          "name": "entity.d.ts"
-        },
-        {
-          "name": "entity.mjs"
-        },
-        {
           "name": "flag.cjs"
         },
         {
@@ -1002,15 +1025,6 @@
         },
         {
           "name": "repository.mjs"
-        },
-        {
-          "name": "unwrapEntity.cjs"
-        },
-        {
-          "name": "unwrapEntity.d.ts"
-        },
-        {
-          "name": "unwrapEntity.mjs"
         },
         {
           "name": "useCase.cjs"

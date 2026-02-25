@@ -27,6 +27,7 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run build
+      - run: npm run test:types
       - run: |
           if [ "${{ github.event.release.prerelease }}" = "true" ]; then
             npm publish --tag beta --access public

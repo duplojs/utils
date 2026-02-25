@@ -1,13 +1,14 @@
-import { type GetKindValue, type SimplifyTopLevel, type Kind, type Unwrap, type DeepReadonly, type TransformerFunction, type IsEqual, type Transformer } from "../common";
-import { entityKind, type Entity } from "./entity";
-import { flagKind } from "./flag";
-type ApplyTransformer<GenericValue extends unknown, GenericTransformer extends TransformerFunction> = IsEqual<GenericTransformer, never> extends true ? GenericValue : GenericTransformer extends TransformerFunction<infer InferredMethodName> ? Transformer<GenericValue, InferredMethodName> : never;
-type UnwrapArrayProperties<GenericValue extends readonly any[], GenericTransformer extends TransformerFunction> = GenericValue extends readonly [infer InferredFirst, ...infer InferredRest] ? (InferredRest extends readonly [] ? readonly [] : UnwrapArrayProperties<InferredRest, GenericTransformer>) extends infer InferredResult extends readonly any[] ? readonly [
-    ApplyTransformer<Unwrap<InferredFirst>, GenericTransformer>,
-    ...InferredResult
-] : never : readonly ApplyTransformer<Unwrap<GenericValue[number]>, GenericTransformer>[];
+import { type Unwrap, type WrappedValue, type IsEqual, type Transformer, type TransformerFunction, type SimplifyTopLevel, type DeepReadonly, type GetKindValue, type Kind } from "../../common";
+import { entityKind, type Entity } from ".";
+import { flagKind } from "../flag";
+export type UnwrapEntityProperty<GenericProperty extends unknown, GenericTransformer extends TransformerFunction = never> = GenericProperty extends WrappedValue ? IsEqual<GenericTransformer, never> extends true ? Unwrap<GenericProperty> : GenericTransformer extends TransformerFunction<infer InferredMethodName> ? Transformer<Unwrap<GenericProperty>, InferredMethodName> : never : GenericProperty extends null ? null : GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest] ? readonly [
+    UnwrapEntityProperty<InferredFirst, GenericTransformer>,
+    ...UnwrapEntityProperty<InferredRest, GenericTransformer>
+] : GenericProperty extends readonly [] ? readonly [] : GenericProperty extends readonly unknown[] ? readonly UnwrapEntityProperty<GenericProperty[number], GenericTransformer>[] : GenericProperty extends Record<string, unknown> ? {
+    [Prop in keyof GenericProperty]: UnwrapEntityProperty<GenericProperty[Prop], GenericTransformer>;
+} : GenericProperty;
 export type UnwrapEntity<GenericEntity extends Entity, GenericTransformer extends TransformerFunction = never> = SimplifyTopLevel<DeepReadonly<{
-    [Prop in Extract<keyof GenericEntity, string>]: GenericEntity[Prop] extends readonly any[] ? UnwrapArrayProperties<GenericEntity[Prop], GenericTransformer> : ApplyTransformer<Unwrap<GenericEntity[Prop]>, GenericTransformer>;
+    [Prop in Extract<keyof GenericEntity, string>]: UnwrapEntityProperty<GenericEntity[Prop], GenericTransformer>;
 } & {
     [Prop in "_entityName"]: GetKindValue<typeof entityKind, GenericEntity>;
 } & (GenericEntity extends Kind<typeof flagKind.definition, any> ? {
@@ -59,7 +60,9 @@ export type UnwrapEntity<GenericEntity extends Entity, GenericTransformer extend
  * @namespace C
  * 
  */
+export declare function unwrapEntityProperty<GenericProperty extends unknown, GenericTransformer extends TransformerFunction = never>(property: GenericProperty, params?: {
+    transformer?: GenericTransformer;
+}): UnwrapEntityProperty<GenericProperty, GenericTransformer>;
 export declare function unwrapEntity<GenericEntity extends Entity, GenericTransformer extends TransformerFunction = never>(entity: GenericEntity, params?: {
     transformer?: GenericTransformer;
 }): UnwrapEntity<GenericEntity, GenericTransformer>;
-export {};

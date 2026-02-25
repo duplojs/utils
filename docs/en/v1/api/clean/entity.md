@@ -62,7 +62,13 @@ Declares a property as an array, with optional min/max (runtime validation + typ
 
 Declares a union of several `NewTypeHandler` for the same property.
 
-These helpers are combinable (e.g. `nullable(array(...))`), and they serve both runtime (validation) and typing.
+### `structure(definition)`
+
+Declares a structured property (object) where each field has its own entity property definition.
+
+Useful to model nested business sub-objects without creating a separate entity.
+
+These helpers are combinable (e.g. `nullable(array(...))`, `structure({ tags: array(...) })`), and they serve both runtime (validation) and typing.
 
 ## Methods and Properties
 

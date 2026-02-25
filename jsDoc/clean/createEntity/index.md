@@ -6,11 +6,11 @@ Creates an entity handler from a property definition.
 Entities model business structures by composing NewTypes. The handler builds entities from typed properties or from raw inputs with validation.
 
 ```ts
-{@include clean/createEntity/example.ts[3,55]}
+{@include clean/createEntity/example.ts[3,80]}
 ```
 
 @remarks
-- The definition callback can use helpers like `array`, `nullable`, and `union` to enrich properties.
+- The definition callback can use helpers like `array`, `nullable`, `union`, and `structure` to enrich properties.
 - Use `map`/`mapOrThrow` to build from raw inputs (with runtime constraint checks); `new` expects already typed values.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/entity

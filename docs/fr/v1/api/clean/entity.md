@@ -62,7 +62,13 @@ Déclare une propriété sous forme de tableau, avec min/max optionnels (validat
 
 Déclare une union de plusieurs `NewTypeHandler` pour une même propriété.
 
-Ces helpers sont combinables (ex: `nullable(array(...))`), et ils servent autant au runtime (validation) qu'au typage.
+### `structure(definition)`
+
+Déclare une propriété structurée (objet) dont chaque champ possède sa propre définition de propriété d'entité.
+
+Pratique pour modéliser des sous-objets métier imbriqués sans créer une entité séparée.
+
+Ces helpers sont combinables (ex: `nullable(array(...))`, `structure({ tags: array(...) })`), et ils servent autant au runtime (validation) qu'au typage.
 
 ## Méthodes et Propriétés
 

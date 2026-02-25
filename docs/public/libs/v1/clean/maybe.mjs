@@ -1,4 +1,4 @@
-import { entityKind } from './entity.mjs';
+import { entityKind } from './entity/index.mjs';
 import { right } from '../either/right/create.mjs';
 import { left } from '../either/left/create.mjs';
 

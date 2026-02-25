@@ -136,7 +136,7 @@ describe("createEntity", () => {
 			];
 			readonly description: DClean.NewType<"formDescription", string, never> | null;
 			readonly tags: readonly DClean.NewType<"formTag", string, never>[] | null;
-			readonly test: readonly DClean.NewType<"formTag", string, never>[] | null;
+			readonly test: readonly (DClean.NewType<"formTag", string, never> | null)[];
 		},
 		"strict"
 	>;
@@ -255,7 +255,7 @@ describe("createEntity", () => {
 			],
 			description: null,
 			tags: [],
-			test: null,
+			test: [null],
 		});
 
 		expect(result).toStrictEqual(
@@ -272,7 +272,7 @@ describe("createEntity", () => {
 					],
 					description: null,
 					tags: [],
-					test: null,
+					test: [null],
 				}, "Form"),
 			),
 		);
@@ -285,7 +285,7 @@ describe("createEntity", () => {
 			inputs: [],
 			description: null,
 			tags: [],
-			test: null,
+			test: [null],
 		});
 
 		expect(result).toStrictEqual(
@@ -315,7 +315,7 @@ describe("createEntity", () => {
 			})),
 			description: "desc",
 			tags: [],
-			test: null,
+			test: [null],
 		});
 
 		expect(result).toStrictEqual(
@@ -343,7 +343,7 @@ describe("createEntity", () => {
 			],
 			description: "optional",
 			tags: [],
-			test: null,
+			test: [null],
 		});
 
 		expect(form).toStrictEqual(DClean.entityKind.setTo({
@@ -360,7 +360,7 @@ describe("createEntity", () => {
 			],
 			description: FormDescription.createOrThrow("optional"),
 			tags: [],
-			test: null,
+			test: [null],
 		}, "Form"));
 
 		type Check = ExpectType<
@@ -406,7 +406,7 @@ describe("createEntity", () => {
 			],
 			description: null,
 			tags: [],
-			test: null,
+			test: [null],
 		});
 
 		const formFromNew = FormEntity.new({
@@ -503,6 +503,103 @@ describe("createEntity", () => {
 				readonly description: null;
 				readonly tags: readonly [];
 			},
+			"strict"
+		>;
+	});
+
+	it("supports structure property definitions in new map and update", () => {
+		const ProfileLabel = DClean.createNewType(
+			"profileLabel",
+			DPE.string(),
+		);
+		const ProfileLevel = DClean.createNewType(
+			"profileLevel",
+			DPE.number(),
+		);
+
+		const ProfileEntity = DClean.createEntity(
+			"Profile",
+			({ structure, nullable }) => ({
+				config: structure({
+					label: ProfileLabel,
+					level: ProfileLevel,
+					note: nullable(ProfileLabel),
+				}),
+			}),
+		);
+
+		const created = ProfileEntity.new({
+			config: {
+				label: ProfileLabel.createOrThrow("admin"),
+				level: ProfileLevel.createOrThrow(2),
+				note: null,
+			},
+		});
+
+		expect(created).toStrictEqual(
+			DClean.entityKind.setTo(
+				{
+					config: {
+						label: ProfileLabel.createOrThrow("admin"),
+						level: ProfileLevel.createOrThrow(2),
+						note: null,
+					},
+				},
+				"Profile",
+			),
+		);
+
+		const mapped = ProfileEntity.map({
+			config: {
+				label: "user",
+				level: 1,
+				note: "vip",
+			},
+		});
+
+		expect(mapped).toStrictEqual(
+			DEither.right(
+				"createEntity",
+				DClean.entityKind.setTo({
+					config: {
+						label: ProfileLabel.createOrThrow("user"),
+						level: ProfileLevel.createOrThrow(1),
+						note: ProfileLabel.createOrThrow("vip"),
+					},
+				}, "Profile"),
+			),
+		);
+
+		const updated = ProfileEntity.update(created, {
+			config: {
+				...created.config,
+				note: ProfileLabel.createOrThrow("owner"),
+			},
+		});
+
+		expect(updated).toStrictEqual(
+			DClean.entityKind.setTo({
+				config: {
+					label: ProfileLabel.createOrThrow("admin"),
+					level: ProfileLevel.createOrThrow(2),
+					note: ProfileLabel.createOrThrow("owner"),
+				},
+			}, "Profile"),
+		);
+
+		type Check = ExpectType<
+			typeof mapped,
+			| DEither.Left<"createEntityError", DPE.DataParserError>
+			| DEither.Right<
+				"createEntity",
+				DClean.Entity<"Profile"> & {
+					readonly config: {
+						readonly label: DClean.NewType<"profileLabel", string, never>;
+						readonly level: DClean.NewType<"profileLevel", number, never>;
+						readonly note: DClean.NewType<"profileLabel", string, never> | null;
+					};
+				}
+			>,
 			"strict"
 		>;
 	});
