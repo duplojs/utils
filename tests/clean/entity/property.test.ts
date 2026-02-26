@@ -194,6 +194,37 @@ describe("entity property", () => {
 		>;
 	});
 
+	it("builds identifier definitions and infers literal types", () => {
+		const result = DClean.entityPropertyDefinitionTools.identifier("draft");
+
+		expect(DClean.entityPropertyIdentifierKind.has(result)).toBe(true);
+		expect(unwrap(result)).toBe("draft");
+
+		type Check = ExpectType<
+			typeof result,
+			DClean.EntityPropertyDefinitionIdentifier<"draft">,
+			"strict"
+		>;
+
+		type CheckEntity = ExpectType<
+			DClean.EntityProperty<typeof result>,
+			"draft",
+			"strict"
+		>;
+
+		type CheckRaw = ExpectType<
+			DClean.EntityRawProperty<typeof result>,
+			"draft",
+			"strict"
+		>;
+
+		type CheckInput = ExpectType<
+			DClean.EntityInputRawProperty<typeof result>,
+			"draft",
+			"strict"
+		>;
+	});
+
 	it("converts a new type handler definition using the provided callback", () => {
 		const Name = DClean.createNewType("name", DPE.string());
 		const treatNewTypeHandler = vi.fn((handler: any) => {
@@ -322,5 +353,15 @@ describe("entity property", () => {
 			tags: [],
 		})).toStrictEqual(DEither.error(expect.any(Object)));
 		expect(treatNewTypeHandler).toHaveBeenCalledTimes(3);
+	});
+
+	it("converts identifier definitions", () => {
+		const parser = DClean.entityPropertyDefinitionToDataParser(
+			DClean.entityPropertyDefinitionTools.identifier("published"),
+			() => DDataParser.string(),
+		);
+
+		expect(parser.parse("published")).toStrictEqual(DEither.success("published"));
+		expect(parser.parse("draft")).toStrictEqual(DEither.error(expect.any(Object)));
 	});
 });

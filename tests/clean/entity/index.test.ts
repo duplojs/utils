@@ -519,7 +519,8 @@ describe("createEntity", () => {
 
 		const ProfileEntity = DClean.createEntity(
 			"Profile",
-			({ structure, nullable }) => ({
+			({ structure, nullable, identifier }) => ({
+				kind: identifier("profile"),
 				config: structure({
 					label: ProfileLabel,
 					level: ProfileLevel,
@@ -529,6 +530,7 @@ describe("createEntity", () => {
 		);
 
 		const created = ProfileEntity.new({
+			kind: "profile",
 			config: {
 				label: ProfileLabel.createOrThrow("admin"),
 				level: ProfileLevel.createOrThrow(2),
@@ -539,6 +541,7 @@ describe("createEntity", () => {
 		expect(created).toStrictEqual(
 			DClean.entityKind.setTo(
 				{
+					kind: "profile",
 					config: {
 						label: ProfileLabel.createOrThrow("admin"),
 						level: ProfileLevel.createOrThrow(2),
@@ -550,6 +553,7 @@ describe("createEntity", () => {
 		);
 
 		const mapped = ProfileEntity.map({
+			kind: "profile",
 			config: {
 				label: "user",
 				level: 1,
@@ -561,6 +565,7 @@ describe("createEntity", () => {
 			DEither.right(
 				"createEntity",
 				DClean.entityKind.setTo({
+					kind: "profile",
 					config: {
 						label: ProfileLabel.createOrThrow("user"),
 						level: ProfileLevel.createOrThrow(1),
@@ -579,6 +584,7 @@ describe("createEntity", () => {
 
 		expect(updated).toStrictEqual(
 			DClean.entityKind.setTo({
+				kind: "profile",
 				config: {
 					label: ProfileLabel.createOrThrow("admin"),
 					level: ProfileLevel.createOrThrow(2),
@@ -593,6 +599,7 @@ describe("createEntity", () => {
 			| DEither.Right<
 				"createEntity",
 				DClean.Entity<"Profile"> & {
+					readonly kind: "profile";
 					readonly config: {
 						readonly label: DClean.NewType<"profileLabel", string, never>;
 						readonly level: DClean.NewType<"profileLevel", number, never>;

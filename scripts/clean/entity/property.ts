@@ -1,6 +1,6 @@
 import { newTypeHandlerKind, type GetNewType, type NewTypeHandler } from "../newType";
 import { createCleanKind } from "../kind";
-import { type WrappedValue, type Kind, type AnyTuple, type Unwrap, type GetKindValue, type IsEqual, pipe, unwrap, wrapValue, type Or } from "@scripts/common";
+import { type WrappedValue, type Kind, type AnyTuple, type Unwrap, type GetKindValue, type IsEqual, pipe, unwrap, wrapValue } from "@scripts/common";
 import * as DDataParser from "../../dataParser";
 import * as DArray from "../../array";
 import * as DPattern from "../../pattern";
@@ -12,6 +12,7 @@ export type EntityPropertyDefinition = (
 	| EntityPropertyDefinitionNullable
 	| EntityPropertyDefinitionArray
 	| EntityPropertyDefinitionStructure
+	| EntityPropertyDefinitionIdentifier
 );
 
 export const entityPropertyUnionKind = createCleanKind("entity-property-union");
@@ -64,6 +65,16 @@ export interface EntityPropertyDefinitionStructure<
 
 }
 
+export const entityPropertyIdentifierKind = createCleanKind("entity-property-identifier");
+
+export interface EntityPropertyDefinitionIdentifier<
+	GenericPropertyDefinition extends string = string,
+> extends
+	Kind<typeof entityPropertyIdentifierKind.definition>,
+	WrappedValue<GenericPropertyDefinition> {
+
+}
+
 export type EntityProperty<
 	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
 > = IsEqual<GenericProperty, EntityPropertyDefinition> extends true
@@ -74,27 +85,29 @@ export type EntityProperty<
 			? EntityProperty<Unwrap<GenericProperty>[number]>
 			: GenericProperty extends EntityPropertyDefinitionNullable
 				? EntityProperty<Unwrap<GenericProperty>> | null
-				: GenericProperty extends EntityPropertyDefinitionArray
-					? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
-						? EntityProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
-							? readonly [
-								...DArray.CreateTuple<
-									InferredEntityProperty,
-									GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
-								>,
-								...InferredEntityProperty[],
-							]
-							: never
-						: readonly EntityProperty<Unwrap<GenericProperty>>[]
-					: GenericProperty extends EntityPropertyDefinitionStructure
-						? Unwrap<GenericProperty> extends infer InferredShape extends Record<string, any>
-							? {
-								readonly [Prop in keyof InferredShape]: EntityProperty<
-									InferredShape[Prop]
-								>
-							}
-							: never
-						: never;
+				: GenericProperty extends EntityPropertyDefinitionIdentifier
+					? Unwrap<GenericProperty>
+					: GenericProperty extends EntityPropertyDefinitionArray
+						? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
+							? EntityProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
+								? readonly [
+									...DArray.CreateTuple<
+										InferredEntityProperty,
+										GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
+									>,
+									...InferredEntityProperty[],
+								]
+								: never
+							: readonly EntityProperty<Unwrap<GenericProperty>>[]
+						: GenericProperty extends EntityPropertyDefinitionStructure
+							? Unwrap<GenericProperty> extends infer InferredShape extends Record<string, any>
+								? {
+									readonly [Prop in keyof InferredShape]: EntityProperty<
+										InferredShape[Prop]
+									>
+								}
+								: never
+							: never;
 
 export type EntityRawProperty<
 	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
@@ -106,27 +119,29 @@ export type EntityRawProperty<
 			? EntityRawProperty<Unwrap<GenericProperty>[number]>
 			: GenericProperty extends EntityPropertyDefinitionNullable
 				? EntityRawProperty<Unwrap<GenericProperty>> | null
-				: GenericProperty extends EntityPropertyDefinitionArray
-					? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
-						? EntityRawProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
-							? readonly [
-								...DArray.CreateTuple<
-									InferredEntityProperty,
-									GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
-								>,
-								...InferredEntityProperty[],
-							]
-							: never
-						: readonly EntityRawProperty<Unwrap<GenericProperty>>[]
-					: GenericProperty extends EntityPropertyDefinitionStructure
-						? Unwrap<GenericProperty> extends infer InferredEntityShape extends Record<string, any>
-							? {
-								readonly [Prop in keyof InferredEntityShape]: EntityRawProperty<
-									InferredEntityShape[Prop]
-								>
-							}
-							: never
-						: never;
+				: GenericProperty extends EntityPropertyDefinitionIdentifier
+					? Unwrap<GenericProperty>
+					: GenericProperty extends EntityPropertyDefinitionArray
+						? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
+							? EntityRawProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
+								? readonly [
+									...DArray.CreateTuple<
+										InferredEntityProperty,
+										GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
+									>,
+									...InferredEntityProperty[],
+								]
+								: never
+							: readonly EntityRawProperty<Unwrap<GenericProperty>>[]
+						: GenericProperty extends EntityPropertyDefinitionStructure
+							? Unwrap<GenericProperty> extends infer InferredEntityShape extends Record<string, any>
+								? {
+									readonly [Prop in keyof InferredEntityShape]: EntityRawProperty<
+										InferredEntityShape[Prop]
+									>
+								}
+								: never
+							: never;
 
 export type EntityInputRawProperty<
 	GenericProperty extends EntityPropertyDefinition = EntityPropertyDefinition,
@@ -140,17 +155,19 @@ export type EntityInputRawProperty<
 			? EntityInputRawProperty<Unwrap<GenericProperty>[number]>
 			: GenericProperty extends EntityPropertyDefinitionNullable
 				? EntityInputRawProperty<Unwrap<GenericProperty>> | null
-				: GenericProperty extends EntityPropertyDefinitionArray
-					? readonly EntityInputRawProperty<Unwrap<GenericProperty>>[]
-					: GenericProperty extends EntityPropertyDefinitionStructure
-						? Unwrap<GenericProperty> extends infer InferredShape extends Record<string, any>
-							? {
-								readonly [Prop in keyof InferredShape]: EntityInputRawProperty<
-									InferredShape[Prop]
-								>
-							}
-							: never
-						: never;
+				: GenericProperty extends EntityPropertyDefinitionIdentifier
+					? Unwrap<GenericProperty>
+					: GenericProperty extends EntityPropertyDefinitionArray
+						? readonly EntityInputRawProperty<Unwrap<GenericProperty>>[]
+						: GenericProperty extends EntityPropertyDefinitionStructure
+							? Unwrap<GenericProperty> extends infer InferredShape extends Record<string, any>
+								? {
+									readonly [Prop in keyof InferredShape]: EntityInputRawProperty<
+										InferredShape[Prop]
+									>
+								}
+								: never
+							: never;
 
 export const entityPropertyDefinitionTools = {
 	union<
@@ -205,6 +222,18 @@ export const entityPropertyDefinitionTools = {
 			entityPropertyStructureKind.setTo,
 		);
 	},
+
+	identifier<
+		const GenericDefinitionValue extends string,
+	>(
+		definition: GenericDefinitionValue,
+	): EntityPropertyDefinitionIdentifier<GenericDefinitionValue> {
+		return pipe(
+			definition,
+			wrapValue,
+			entityPropertyIdentifierKind.setTo,
+		);
+	},
 };
 
 export function entityPropertyDefinitionToDataParser(
@@ -244,6 +273,10 @@ export function entityPropertyDefinitionToDataParser(
 					treatNewTypeHandler,
 				),
 			),
+		),
+		DPattern.when(
+			entityPropertyIdentifierKind.has,
+			(identifier) => DDataParser.literal(unwrap(identifier)),
 		),
 		DPattern.when(
 			entityPropertyArrayKind.has,
@@ -294,4 +327,3 @@ export function entityPropertyDefinitionToDataParser(
 		DPattern.exhaustive,
 	);
 }
-

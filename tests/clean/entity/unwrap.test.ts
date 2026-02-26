@@ -45,6 +45,18 @@ describe("unwrapEntityProperty", () => {
 		>;
 	});
 
+	it("returns string literal values unchanged", () => {
+		const result = DClean.unwrapEntityProperty("draft" as const);
+
+		expect(result).toBe("draft");
+
+		type Check = ExpectType<
+			typeof result,
+			"draft",
+			"strict"
+		>;
+	});
+
 	it("unwraps nested arrays recursively", () => {
 		const Label = DClean.createNewType("label", DDataParser.string());
 		const Count = DClean.createNewType("count", DDataParser.number());
@@ -129,8 +141,9 @@ describe("unwrapEntity", () => {
 
 		const Article = DClean.createEntity(
 			"Article",
-			({ nullable, array, structure }) => ({
+			({ nullable, array, structure, identifier }) => ({
 				name: Name,
+				state: identifier("published"),
 				tags: array(nullable(Tag)),
 				meta: nullable(Tag),
 				settings: structure({
@@ -142,6 +155,7 @@ describe("unwrapEntity", () => {
 
 		const entity = Article.new({
 			name: Name.createOrThrow("Post"),
+			state: "published",
 			tags: [
 				Tag.createOrThrow("x"),
 				null,
@@ -163,6 +177,7 @@ describe("unwrapEntity", () => {
 
 		expect(result).toStrictEqual({
 			name: "Post",
+			state: "published",
 			tags: ["x", null],
 			meta: null,
 			settings: {
@@ -179,6 +194,7 @@ describe("unwrapEntity", () => {
 			typeof result,
 			{
 				readonly name: "Post";
+				readonly state: "published";
 				readonly tags: readonly ["x", null];
 				readonly meta: null;
 				readonly settings: {
@@ -200,8 +216,9 @@ describe("unwrapEntity", () => {
 
 		const User = DClean.createEntity(
 			"User",
-			({ structure }) => ({
+			({ structure, identifier }) => ({
 				name: Name,
+				role: identifier("member"),
 				profile: structure({
 					label: Label,
 				}),
@@ -210,6 +227,7 @@ describe("unwrapEntity", () => {
 
 		const entity = User.new({
 			name: Name.createOrThrow("alice"),
+			role: "member",
 			profile: {
 				label: Label.createOrThrow("member"),
 			},
@@ -224,6 +242,7 @@ describe("unwrapEntity", () => {
 
 		expect(result).toStrictEqual({
 			name: "#alice",
+			role: "member",
 			profile: {
 				label: "#member",
 			},

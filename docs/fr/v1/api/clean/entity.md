@@ -68,7 +68,13 @@ Déclare une propriété structurée (objet) dont chaque champ possède sa propr
 
 Pratique pour modéliser des sous-objets métier imbriqués sans créer une entité séparée.
 
-Ces helpers sont combinables (ex: `nullable(array(...))`, `structure({ tags: array(...) })`), et ils servent autant au runtime (validation) qu'au typage.
+### `identifier(definition)`
+
+Déclare une propriété littérale de type `string` (ex: `"profile"`, `"agent"`), validée strictement au runtime.
+
+Ce helper est destiné à l'identification technique (discrimination, version/tag de structure, etc.), pas à porter de la donnée métier libre. Pour une valeur métier textuelle, utilisez plutôt un `NewType`.
+
+Ces helpers sont combinables (ex: `nullable(array(...))`, `structure({ type: identifier("agent") })`), et ils servent autant au runtime (validation) qu'au typage.
 
 ## Méthodes et Propriétés
 

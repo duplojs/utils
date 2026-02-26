@@ -12,7 +12,8 @@ namespace User {
 		DP.literal(["light", "dark"]),
 	);
 
-	export const Entity = C.createEntity("User", ({ array, nullable, structure }) => ({
+	export const Entity = C.createEntity("User", ({ array, nullable, structure, identifier }) => ({
+		kind: identifier("user"),
 		id: Id,
 		name: Name,
 		roles: array(Role, { min: 1 }),
@@ -32,6 +33,7 @@ namespace User {
 	}) {
 		return Entity.new({
 			...params,
+			kind: "user",
 			nick: null,
 			roles: [defaultRole],
 			preferences: {
@@ -43,6 +45,7 @@ namespace User {
 }
 
 const mapped = User.Entity.mapOrThrow({
+	kind: "user",
 	id: 2,
 	name: "Bob",
 	roles: ["client"],
@@ -60,6 +63,7 @@ if (User.Entity.is(result)) {
 }
 
 const mappedResult = User.Entity.map({
+	kind: "user",
 	id: 3,
 	name: "Eve",
 	roles: ["manager"],

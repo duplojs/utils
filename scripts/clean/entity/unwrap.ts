@@ -13,23 +13,25 @@ export type UnwrapEntityProperty<
 			: never
 	: GenericProperty extends null
 		? null
-		: GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest]
-			? readonly [
-				UnwrapEntityProperty<InferredFirst, GenericTransformer>,
-				...UnwrapEntityProperty<InferredRest, GenericTransformer>,
-			]
-			: GenericProperty extends readonly []
-				? readonly []
-				: GenericProperty extends readonly unknown[]
-					? readonly UnwrapEntityProperty<GenericProperty[number], GenericTransformer>[]
-					: GenericProperty extends Record<string, unknown>
-						? {
-							[Prop in keyof GenericProperty]: UnwrapEntityProperty<
-								GenericProperty[Prop],
-								GenericTransformer
-							>
-						}
-						: GenericProperty;
+		: GenericProperty extends string
+			? GenericProperty
+			: GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest]
+				? readonly [
+					UnwrapEntityProperty<InferredFirst, GenericTransformer>,
+					...UnwrapEntityProperty<InferredRest, GenericTransformer>,
+				]
+				: GenericProperty extends readonly []
+					? readonly []
+					: GenericProperty extends readonly unknown[]
+						? readonly UnwrapEntityProperty<GenericProperty[number], GenericTransformer>[]
+						: GenericProperty extends Record<string, unknown>
+							? {
+								[Prop in keyof GenericProperty]: UnwrapEntityProperty<
+									GenericProperty[Prop],
+									GenericTransformer
+								>
+							}
+							: GenericProperty;
 
 export type UnwrapEntity<
 	GenericEntity extends Entity,
@@ -72,6 +74,8 @@ export function unwrapEntityProperty<
 			? params.transformer(unwrap(property) as never)
 			: unwrap(property) as never;
 	} else if (property === null) {
+		return property as never;
+	} else if (typeof property === "string") {
 		return property as never;
 	} else if (property instanceof Array) {
 		const length = property.length;

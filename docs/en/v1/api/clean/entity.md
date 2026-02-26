@@ -68,7 +68,13 @@ Declares a structured property (object) where each field has its own entity prop
 
 Useful to model nested business sub-objects without creating a separate entity.
 
-These helpers are combinable (e.g. `nullable(array(...))`, `structure({ tags: array(...) })`), and they serve both runtime (validation) and typing.
+### `identifier(definition)`
+
+Declares a string literal property (e.g. `"profile"`, `"agent"`) with strict runtime validation.
+
+This helper is meant for technical identification (discrimination, structure version/tag, etc.), not for free-form business data. For business text values, prefer a `NewType`.
+
+These helpers are combinable (e.g. `nullable(array(...))`, `structure({ type: identifier("agent") })`), and they serve both runtime (validation) and typing.
 
 ## Methods and Properties
 
