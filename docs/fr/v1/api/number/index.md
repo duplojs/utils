@@ -114,3 +114,9 @@ Vérifie si un nombre est inférieur à un autre.
 
 ### [lessThan](/fr/v1/api/number/lessThan)
 Vérifie si un nombre est inférieur ou égal à un autre.
+
+### [between](/fr/v1/api/number/between)
+Vérifie si un nombre se trouve dans un intervalle inclusif.
+
+### [betweenThan](/fr/v1/api/number/betweenThan)
+Vérifie si un nombre se trouve dans un intervalle exclusif.

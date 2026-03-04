@@ -114,3 +114,9 @@ Checks whether a number is strictly less than another.
 
 ### [lessThan](/en/v1/api/number/lessThan)
 Checks whether a number is less than or equal to another.
+
+### [between](/en/v1/api/number/between)
+Checks whether a number is within an inclusive interval.
+
+### [betweenThan](/en/v1/api/number/betweenThan)
+Checks whether a number is within an exclusive interval.

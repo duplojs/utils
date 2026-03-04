@@ -18,7 +18,7 @@ The **`extract()`** method returns details about the first match of a pattern in
 <MonacoTSEditor
   src="/examples/v1/api/string/extract/tryout.doc.ts"
   majorVersion="v1"
-  height="360px"
+  height="400px"
 />
 
 ## Syntax

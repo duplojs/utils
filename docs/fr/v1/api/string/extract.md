@@ -18,7 +18,7 @@ La méthode **`extract()`** retourne les détails de la première correspondance
 <MonacoTSEditor
   src="/examples/v1/api/string/extract/tryout.doc.ts"
   majorVersion="v1"
-  height="220px"
+  height="400px"
 />
 
 ## Syntaxe

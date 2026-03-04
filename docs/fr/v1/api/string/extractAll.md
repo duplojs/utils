@@ -18,7 +18,7 @@ La méthode **`extractAll()`** retourne un itérateur des détails de toutes les
 <MonacoTSEditor
   src="/examples/v1/api/string/extractAll/tryout.doc.ts"
   majorVersion="v1"
-  height="240px"
+  height="550px"
 />
 
 ## Syntaxe
