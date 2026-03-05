@@ -1,7 +1,7 @@
 import { type Unwrap, type WrappedValue, type IsEqual, type Transformer, type TransformerFunction, type SimplifyTopLevel, type DeepReadonly, type GetKindValue, type Kind } from "../../common";
 import { entityKind, type Entity } from ".";
 import { flagKind } from "../flag";
-export type UnwrapEntityProperty<GenericProperty extends unknown, GenericTransformer extends TransformerFunction = never> = GenericProperty extends WrappedValue ? IsEqual<GenericTransformer, never> extends true ? Unwrap<GenericProperty> : GenericTransformer extends TransformerFunction<infer InferredMethodName> ? Transformer<Unwrap<GenericProperty>, InferredMethodName> : never : GenericProperty extends null ? null : GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest] ? readonly [
+export type UnwrapEntityProperty<GenericProperty extends unknown, GenericTransformer extends TransformerFunction = never> = GenericProperty extends WrappedValue ? IsEqual<GenericTransformer, never> extends true ? Unwrap<GenericProperty> : GenericTransformer extends TransformerFunction<infer InferredMethodName> ? Transformer<Unwrap<GenericProperty>, InferredMethodName> : never : GenericProperty extends null ? null : GenericProperty extends string ? GenericProperty : GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest] ? readonly [
     UnwrapEntityProperty<InferredFirst, GenericTransformer>,
     ...UnwrapEntityProperty<InferredRest, GenericTransformer>
 ] : GenericProperty extends readonly [] ? readonly [] : GenericProperty extends readonly unknown[] ? readonly UnwrapEntityProperty<GenericProperty[number], GenericTransformer>[] : GenericProperty extends Record<string, unknown> ? {

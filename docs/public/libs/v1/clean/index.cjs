@@ -65,6 +65,7 @@ exports.some = maybe.some;
 exports.entityPropertyArrayKind = property.entityPropertyArrayKind;
 exports.entityPropertyDefinitionToDataParser = property.entityPropertyDefinitionToDataParser;
 exports.entityPropertyDefinitionTools = property.entityPropertyDefinitionTools;
+exports.entityPropertyIdentifierKind = property.entityPropertyIdentifierKind;
 exports.entityPropertyNullableKind = property.entityPropertyNullableKind;
 exports.entityPropertyStructureKind = property.entityPropertyStructureKind;
 exports.entityPropertyUnionKind = property.entityPropertyUnionKind;

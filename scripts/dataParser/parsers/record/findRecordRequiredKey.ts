@@ -95,7 +95,7 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 					(element) => next(
 						DArray.map(
 							lastValue,
-							(value) => DString.concat(value, element),
+							DString.concat(element),
 						),
 					),
 				),
@@ -106,7 +106,7 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 							lastValue,
 							(value) => DArray.map(
 								elements,
-								(subValue) => DString.concat(value, subValue),
+								DString.prepend(value),
 							),
 						),
 					),

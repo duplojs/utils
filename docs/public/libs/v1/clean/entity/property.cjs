@@ -14,6 +14,7 @@ var index = require('../../dataParser/parsers/object/index.cjs');
 var index$1 = require('../../dataParser/parsers/array/index.cjs');
 var min = require('../../dataParser/parsers/array/checkers/min.cjs');
 var max = require('../../dataParser/parsers/array/checkers/max.cjs');
+var literal = require('../../dataParser/parsers/literal.cjs');
 var nullable = require('../../dataParser/parsers/nullable.cjs');
 var union = require('../../dataParser/parsers/union.cjs');
 var exhaustive = require('../../pattern/exhaustive.cjs');
@@ -22,6 +23,7 @@ const entityPropertyUnionKind = kind.createCleanKind("entity-property-union");
 const entityPropertyNullableKind = kind.createCleanKind("entity-property-nullable");
 const entityPropertyArrayKind = kind.createCleanKind("entity-property-array");
 const entityPropertyStructureKind = kind.createCleanKind("entity-property-structure");
+const entityPropertyIdentifierKind = kind.createCleanKind("entity-property-identifier");
 const entityPropertyDefinitionTools = {
     union(...definitions) {
         return pipe.pipe(definitions, wrapValue.wrapValue, entityPropertyUnionKind.setTo);
@@ -35,6 +37,9 @@ const entityPropertyDefinitionTools = {
     structure(definition) {
         return pipe.pipe(definition, wrapValue.wrapValue, entityPropertyStructureKind.setTo);
     },
+    identifier(definition) {
+        return pipe.pipe(definition, wrapValue.wrapValue, entityPropertyIdentifierKind.setTo);
+    },
 };
 function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHandler) {
     return pipe.pipe(propertyDefinition, when.when(newType.newTypeHandlerKind.has, treatNewTypeHandler), when.when(entityPropertyUnionKind.has, (union$1) => {
@@ -43,7 +48,7 @@ function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHa
             entityPropertyDefinitionToDataParser(firstInnerProperty, treatNewTypeHandler),
             ...map.map(restInnerProperty, (innerProperty) => entityPropertyDefinitionToDataParser(innerProperty, treatNewTypeHandler)),
         ]);
-    }), when.when(entityPropertyNullableKind.has, (nullable$1) => nullable.nullable(entityPropertyDefinitionToDataParser(unwrap.unwrap(nullable$1), treatNewTypeHandler))), when.when(entityPropertyArrayKind.has, (array) => {
+    }), when.when(entityPropertyNullableKind.has, (nullable$1) => nullable.nullable(entityPropertyDefinitionToDataParser(unwrap.unwrap(nullable$1), treatNewTypeHandler))), when.when(entityPropertyIdentifierKind.has, (identifier) => literal.literal(unwrap.unwrap(identifier))), when.when(entityPropertyArrayKind.has, (array) => {
         const params = entityPropertyArrayKind.getValue(array);
         return index$1.array(entityPropertyDefinitionToDataParser(unwrap.unwrap(array), treatNewTypeHandler), {
             checkers: [
@@ -61,6 +66,7 @@ function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHa
 exports.entityPropertyArrayKind = entityPropertyArrayKind;
 exports.entityPropertyDefinitionToDataParser = entityPropertyDefinitionToDataParser;
 exports.entityPropertyDefinitionTools = entityPropertyDefinitionTools;
+exports.entityPropertyIdentifierKind = entityPropertyIdentifierKind;
 exports.entityPropertyNullableKind = entityPropertyNullableKind;
 exports.entityPropertyStructureKind = entityPropertyStructureKind;
 exports.entityPropertyUnionKind = entityPropertyUnionKind;

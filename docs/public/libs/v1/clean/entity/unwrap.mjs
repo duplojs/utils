@@ -15,6 +15,9 @@ function unwrapEntityProperty(property, params) {
     else if (property === null) {
         return property;
     }
+    else if (typeof property === "string") {
+        return property;
+    }
     else if (property instanceof Array) {
         const length = property.length;
         const result = [];

@@ -1,7 +1,7 @@
 import { createCleanKind } from '../kind.mjs';
 import { newTypeKind } from '../newType.mjs';
 import { entityPropertyDefinitionTools, entityPropertyDefinitionToDataParser } from './property.mjs';
-export { entityPropertyArrayKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './property.mjs';
+export { entityPropertyArrayKind, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './property.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
 import { pipe } from '../../common/pipe.mjs';
 import { map } from '../../array/map.mjs';

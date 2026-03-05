@@ -35,6 +35,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * Builds an entity from already typed properties.
      * 
      * ```ts
+     * 		nick: nullable(Name),
      * 		preferences: structure({
      * 			theme: PreferencesTheme,
      * 			pinnedNick: nullable(Name),
@@ -43,7 +44,6 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * 	export type Entity = C.GetEntity<typeof Entity>;
      * 
      * 	const defaultRole = Role.createOrThrow("client");
-     * 
      * ```
      * 
      */
@@ -52,15 +52,15 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * Validates permissive raw properties and returns an Either with the typed entity.
      * 
      * ```ts
+     * 				pinnedNick: null,
+     * 			},
      * 		});
      * 	}
      * }
      * 
      * const mapped = User.Entity.mapOrThrow({
+     * 	kind: "user",
      * 	id: 2,
-     * 	name: "Bob",
-     * 	roles: ["client"],
-     * 	nick: "Bobby",
      * ```
      * 
      */
@@ -69,12 +69,12 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * Validates permissive raw properties and throws on error.
      * 
      * ```ts
+     * 		name: Name;
      * 	}) {
      * 		return Entity.new({
      * 			...params,
+     * 			kind: "user",
      * 			nick: null,
-     * 			roles: [defaultRole],
-     * 			preferences: {
      * ```
      * 
      */
@@ -83,10 +83,10 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
     * Checks if a value is an entity of this handler (type guard).
     * 
     * ```ts
+    * 			preferences: {
+    * 				theme: PreferencesTheme.createOrThrow("light"),
     * 				pinnedNick: null,
     * 			},
-    * 		});
-    * 	}
     * ```
     * 
     */
@@ -95,10 +95,10 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * Updates an entity by merging typed properties into an existing entity.
      * 
      * ```ts
-     * const result = true ? mapped : null;
+     * 	},
+     * });
      * 
-     * if (User.Entity.is(result)) {
-     * 	// result: C.Entity<"User">
+     * const result = true ? mapped : null;
      * ```
      * 
      */
@@ -133,7 +133,8 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * 		DP.literal(["light", "dark"]),
  * 	);
  * 
- * 	export const Entity = C.createEntity("User", ({ array, nullable, structure }) => ({
+ * 	export const Entity = C.createEntity("User", ({ array, nullable, structure, identifier }) => ({
+ * 		kind: identifier("user"),
  * 		id: Id,
  * 		name: Name,
  * 		roles: array(Role, { min: 1 }),
@@ -153,6 +154,7 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * 	}) {
  * 		return Entity.new({
  * 			...params,
+ * 			kind: "user",
  * 			nick: null,
  * 			roles: [defaultRole],
  * 			preferences: {
@@ -164,6 +166,7 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * }
  * 
  * const mapped = User.Entity.mapOrThrow({
+ * 	kind: "user",
  * 	id: 2,
  * 	name: "Bob",
  * 	roles: ["client"],
@@ -181,6 +184,7 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * }
  * 
  * const mappedResult = User.Entity.map({
+ * 	kind: "user",
  * 	id: 3,
  * 	name: "Eve",
  * 	roles: ["manager"],
@@ -202,7 +206,8 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * ```
  * 
  * @remarks
- * - The definition callback can use helpers like `array`, `nullable`, `union`, and `structure` to enrich properties.
+ * - The definition callback can use helpers like `array`, `nullable`, `union`, `structure`, and `identifier` to enrich properties.
+ * - `identifier` is intended for technical string literals (discriminators/tags), not free-form business text values.
  * - Use `map`/`mapOrThrow` to build from raw inputs (with runtime constraint checks); `new` expects already typed values.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/entity

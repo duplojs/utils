@@ -15,6 +15,7 @@ import { isType } from '../../../common/isType.mjs';
 import { map } from '../../../array/map.mjs';
 import { concat } from '../../../string/concat.mjs';
 import { flatMap } from '../../../array/flatMap.mjs';
+import { prepend } from '../../../string/prepend.mjs';
 import { exhaustive } from '../../../pattern/exhaustive.mjs';
 import { innerPipe } from '../../../common/innerPipe.mjs';
 import { notIncludes } from '../../../array/notIncludes.mjs';
@@ -35,7 +36,7 @@ function findRecordRequiredKeyOnTemplateLiteralPart(templatePart) {
         isType("number"),
         isType("string"),
         isType("undefined"),
-    ]), innerPipe(when$1(isType("bigint"), (value) => `${value}n`), String)), when(literalKind.has, (value) => findRecordRequiredKey(value)), when(templateLiteralKind.has, (value) => findRecordRequiredKeyOnTemplateLiteralPart(value.definition.template)), when(booleanKind.has, justReturn(["true", "false"])), when(emptyKind.has, justReturn("undefined")), when(nilKind.has, justReturn("null")), when(unionKind.has, (dataParser) => pipe(dataParser.definition.options, map((element) => findRecordRequiredKeyOnTemplateLiteralPart([element])), when(notIncludes(null), flat), otherwise(justReturn(null)))), exhaustive)), reduce(reduceFrom([""]), ({ lastValue, element, exit, next }) => pipe(element, when(isType("null"), justReturn(exit(null))), when(isType("string"), (element) => next(map(lastValue, (value) => concat(value, element)))), when(isType("array"), (elements) => next(flatMap(lastValue, (value) => map(elements, (subValue) => concat(value, subValue))))), exhaustive)));
+    ]), innerPipe(when$1(isType("bigint"), (value) => `${value}n`), String)), when(literalKind.has, (value) => findRecordRequiredKey(value)), when(templateLiteralKind.has, (value) => findRecordRequiredKeyOnTemplateLiteralPart(value.definition.template)), when(booleanKind.has, justReturn(["true", "false"])), when(emptyKind.has, justReturn("undefined")), when(nilKind.has, justReturn("null")), when(unionKind.has, (dataParser) => pipe(dataParser.definition.options, map((element) => findRecordRequiredKeyOnTemplateLiteralPart([element])), when(notIncludes(null), flat), otherwise(justReturn(null)))), exhaustive)), reduce(reduceFrom([""]), ({ lastValue, element, exit, next }) => pipe(element, when(isType("null"), justReturn(exit(null))), when(isType("string"), (element) => next(map(lastValue, concat(element)))), when(isType("array"), (elements) => next(flatMap(lastValue, (value) => map(elements, prepend(value))))), exhaustive)));
 }
 function findRecordRequiredKey(keyParser) {
     return pipe(keyParser, when((value) => stringKind.has(value) || numberKind.has(value), justReturn(null)), when(literalKind.has, (dataParser) => pipe(dataParser.definition.value, map(innerPipe(when$1(isType("bigint"), (value) => `${value}n`), String)))), when(unionKind.has, (dataParser) => pipe(dataParser.definition.options, map(findRecordRequiredKey), when(includes(null), justReturn(null)), otherwise(innerPipe(filter(isType("array")), flat)))), when(templateLiteralKind.has, (dataParser) => findRecordRequiredKeyOnTemplateLiteralPart(dataParser.definition.template)), exhaustive);

@@ -12,7 +12,7 @@ const maybeTokens = pipe(
 
 type CheckMaybeTokens = ExpectType<
 	typeof maybeTokens,
-	string | string[],
+	string | [string, ...string[]],
 	"strict"
 >;
 
@@ -24,12 +24,12 @@ const tokens = pipe(
 	),
 	whenNot(
 		isType("array"),
-		(value) => [value],
+		(value) => <const>[value],
 	),
 );
 
 type CheckTokens = ExpectType<
 	typeof tokens,
-	string[],
+	[string, ...string[]] | [string],
 	"strict"
 >;

@@ -12,6 +12,7 @@ import { object } from '../../dataParser/parsers/object/index.mjs';
 import { array } from '../../dataParser/parsers/array/index.mjs';
 import { checkerArrayMin } from '../../dataParser/parsers/array/checkers/min.mjs';
 import { checkerArrayMax } from '../../dataParser/parsers/array/checkers/max.mjs';
+import { literal } from '../../dataParser/parsers/literal.mjs';
 import { nullable } from '../../dataParser/parsers/nullable.mjs';
 import { union } from '../../dataParser/parsers/union.mjs';
 import { exhaustive } from '../../pattern/exhaustive.mjs';
@@ -20,6 +21,7 @@ const entityPropertyUnionKind = createCleanKind("entity-property-union");
 const entityPropertyNullableKind = createCleanKind("entity-property-nullable");
 const entityPropertyArrayKind = createCleanKind("entity-property-array");
 const entityPropertyStructureKind = createCleanKind("entity-property-structure");
+const entityPropertyIdentifierKind = createCleanKind("entity-property-identifier");
 const entityPropertyDefinitionTools = {
     union(...definitions) {
         return pipe(definitions, wrapValue, entityPropertyUnionKind.setTo);
@@ -33,6 +35,9 @@ const entityPropertyDefinitionTools = {
     structure(definition) {
         return pipe(definition, wrapValue, entityPropertyStructureKind.setTo);
     },
+    identifier(definition) {
+        return pipe(definition, wrapValue, entityPropertyIdentifierKind.setTo);
+    },
 };
 function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHandler) {
     return pipe(propertyDefinition, when(newTypeHandlerKind.has, treatNewTypeHandler), when(entityPropertyUnionKind.has, (union$1) => {
@@ -41,7 +46,7 @@ function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHa
             entityPropertyDefinitionToDataParser(firstInnerProperty, treatNewTypeHandler),
             ...map(restInnerProperty, (innerProperty) => entityPropertyDefinitionToDataParser(innerProperty, treatNewTypeHandler)),
         ]);
-    }), when(entityPropertyNullableKind.has, (nullable$1) => nullable(entityPropertyDefinitionToDataParser(unwrap(nullable$1), treatNewTypeHandler))), when(entityPropertyArrayKind.has, (array$1) => {
+    }), when(entityPropertyNullableKind.has, (nullable$1) => nullable(entityPropertyDefinitionToDataParser(unwrap(nullable$1), treatNewTypeHandler))), when(entityPropertyIdentifierKind.has, (identifier) => literal(unwrap(identifier))), when(entityPropertyArrayKind.has, (array$1) => {
         const params = entityPropertyArrayKind.getValue(array$1);
         return array(entityPropertyDefinitionToDataParser(unwrap(array$1), treatNewTypeHandler), {
             checkers: [
@@ -56,4 +61,4 @@ function entityPropertyDefinitionToDataParser(propertyDefinition, treatNewTypeHa
     }), when(entityPropertyStructureKind.has, (structure) => pipe(structure, unwrap, entries, map(([key, value]) => entry(key, entityPropertyDefinitionToDataParser(value, treatNewTypeHandler))), fromEntries, object)), exhaustive);
 }
 
-export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind };
+export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind };
