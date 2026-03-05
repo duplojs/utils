@@ -120,6 +120,15 @@ Supprime les espaces en fin de chaîne.
 ### [concat](/fr/v1/api/string/concat)
 Concatène plusieurs chaînes ensemble.
 
+### [prepend](/fr/v1/api/string/prepend)
+Ajoute une ou plusieurs chaînes de préfixe avant une chaîne d'entrée.
+
+### [pop](/fr/v1/api/string/pop)
+Retire le dernier caractère d'une chaîne.
+
+### [shift](/fr/v1/api/string/shift)
+Retire le premier caractère d'une chaîne.
+
 ### [to](/fr/v1/api/string/to)
 Convertit une valeur primitive en chaîne de caractères.
 

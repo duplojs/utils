@@ -120,6 +120,15 @@ Removes whitespace from the end of a string.
 ### [concat](/en/v1/api/string/concat)
 Concatenates multiple strings together.
 
+### [prepend](/en/v1/api/string/prepend)
+Adds one or more prefix strings before an input string.
+
+### [pop](/en/v1/api/string/pop)
+Removes the last character from a string.
+
+### [shift](/en/v1/api/string/shift)
+Removes the first character from a string.
+
 ### [to](/en/v1/api/string/to)
 Converts a primitive value to its string representation.
 

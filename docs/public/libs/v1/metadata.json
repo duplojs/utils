@@ -160,6 +160,9 @@
               "name": "joinTuple.d.ts"
             },
             {
+              "name": "mapTuple.d.ts"
+            },
+            {
               "name": "mergeUnionTuple.d.ts"
             },
             {
@@ -409,6 +412,15 @@
         },
         {
           "name": "map.mjs"
+        },
+        {
+          "name": "mapTuple.cjs"
+        },
+        {
+          "name": "mapTuple.d.ts"
+        },
+        {
+          "name": "mapTuple.mjs"
         },
         {
           "name": "maxElements.cjs"
@@ -1069,6 +1081,9 @@
             },
             {
               "name": "anyValue.d.ts"
+            },
+            {
+              "name": "bivariantFunction.d.ts"
             },
             {
               "name": "breakGenericLink.d.ts"
@@ -2891,6 +2906,15 @@
               "name": "betweenTime.mjs"
             },
             {
+              "name": "equal.cjs"
+            },
+            {
+              "name": "equal.d.ts"
+            },
+            {
+              "name": "equal.mjs"
+            },
+            {
               "name": "greater.cjs"
             },
             {
@@ -3945,6 +3969,15 @@
           "name": "chunk.mjs"
         },
         {
+          "name": "createExternalAsyncGenerator.cjs"
+        },
+        {
+          "name": "createExternalAsyncGenerator.d.ts"
+        },
+        {
+          "name": "createExternalAsyncGenerator.mjs"
+        },
+        {
           "name": "execute.cjs"
         },
         {
@@ -4809,7 +4842,13 @@
               "name": "number.d.ts"
             },
             {
+              "name": "pop.d.ts"
+            },
+            {
               "name": "replace.d.ts"
+            },
+            {
+              "name": "shift.d.ts"
             },
             {
               "name": "split.d.ts"
@@ -4988,6 +5027,24 @@
           "name": "padStart.mjs"
         },
         {
+          "name": "pop.cjs"
+        },
+        {
+          "name": "pop.d.ts"
+        },
+        {
+          "name": "pop.mjs"
+        },
+        {
+          "name": "prepend.cjs"
+        },
+        {
+          "name": "prepend.d.ts"
+        },
+        {
+          "name": "prepend.mjs"
+        },
+        {
           "name": "repeat.cjs"
         },
         {
@@ -5022,6 +5079,15 @@
         },
         {
           "name": "search.mjs"
+        },
+        {
+          "name": "shift.cjs"
+        },
+        {
+          "name": "shift.d.ts"
+        },
+        {
+          "name": "shift.mjs"
         },
         {
           "name": "slice.cjs"

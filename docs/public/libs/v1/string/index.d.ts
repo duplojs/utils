@@ -60,3 +60,6 @@ export * from "./sortCompare";
 export * from "./to";
 export * from "./extract";
 export * from "./extractAll";
+export * from "./shift";
+export * from "./pop";
+export * from "./prepend";

@@ -7,6 +7,7 @@ export type TemplateLiteralContainLargeType<
 		? Or<[
 			IsEqual<InferredFirst, `${number}`>,
 			IsEqual<InferredFirst, `${bigint}`>,
+			IsEqual<InferredFirst, string>,
 		]> extends false
 			? TemplateLiteralContainLargeType<InferredLast>
 			: true

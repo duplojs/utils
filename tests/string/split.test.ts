@@ -29,7 +29,7 @@ describe("split", () => {
 
 		type check = ExpectType<
 			typeof result,
-			string[],
+			[string, ...string[]],
 			"strict"
 		>;
 	});
@@ -40,7 +40,7 @@ describe("split", () => {
 
 		type check = ExpectType<
 			typeof result,
-			string[],
+			[string, ...string[]],
 			"strict"
 		>;
 	});
@@ -108,6 +108,17 @@ describe("split", () => {
 		type check = ExpectType<
 			typeof result,
 			"a | b | c | d | e",
+			"strict"
+		>;
+	});
+
+	it("limit 0", () => {
+		const result = DString.split("a-b-c-d-e", "-", { limit: 0 });
+		expect(result).toStrictEqual([]);
+
+		type check = ExpectType<
+			typeof result,
+			[],
 			"strict"
 		>;
 	});

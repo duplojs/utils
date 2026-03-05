@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The to() function converts a primitive value to its string representation."
 prev:
-  text: "concat"
-  link: "/en/v1/api/string/concat"
+  text: "shift"
+  link: "/en/v1/api/string/shift"
 next:
   text: "isKeyof"
   link: "/en/v1/api/string/isKeyof"

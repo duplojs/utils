@@ -11,3 +11,5 @@ export * from "./number";
 export * from "./digit";
 export * from "./templateLiteralContainLargeType";
 export * from "./replace";
+export * from "./shift";
+export * from "./pop";
