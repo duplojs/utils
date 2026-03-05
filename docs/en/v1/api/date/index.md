@@ -229,6 +229,9 @@ Checks whether a date is strictly less than another.
 ### [lessThan](/en/v1/api/date/lessThan)  
 Compares while including equality for less-than.
 
+### [equal](/en/v1/api/date/equal)  
+Checks whether two dates represent the same timestamp.
+
 ### [between](/en/v1/api/date/between)  
 Checks membership in an open interval.
 

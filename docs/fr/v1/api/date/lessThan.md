@@ -5,8 +5,8 @@ prev:
   text: "less"
   link: "/fr/v1/api/date/less"
 next:
-  text: "between"
-  link: "/fr/v1/api/date/between"
+  text: "equal"
+  link: "/fr/v1/api/date/equal"
 ---
 
 # lessThan

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Vérifie qu'un TheDate est dans un intervalle inclusif entre deux bornes (greater puis less)."
 prev:
-  text: "lessThan"
-  link: "/fr/v1/api/date/lessThan"
+  text: "equal"
+  link: "/fr/v1/api/date/equal"
 next:
   text: "betweenThan"
   link: "/fr/v1/api/date/betweenThan"

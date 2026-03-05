@@ -229,6 +229,9 @@ Vérifie si une date est strictement inférieure.
 ### [lessThan](/fr/v1/api/date/lessThan)  
 Compare en incluant l'égalité pour l'infériorité.
 
+### [equal](/fr/v1/api/date/equal)  
+Vérifie si deux dates représentent le même timestamp.
+
 ### [between](/fr/v1/api/date/between)  
 Contrôle l'appartenance à un intervalle ouvert.
 

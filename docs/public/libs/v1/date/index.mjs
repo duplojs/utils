@@ -82,6 +82,7 @@ export { less } from './operators/less.mjs';
 export { lessThan } from './operators/lessThan.mjs';
 export { lessThanTime } from './operators/lessThanTime.mjs';
 export { lessTime } from './operators/lessTime.mjs';
+export { equal } from './operators/equal.mjs';
 
 /**
  * {@include date/index.md}

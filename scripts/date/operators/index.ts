@@ -28,3 +28,4 @@ export * from "./less";
 export * from "./lessThan";
 export * from "./lessThanTime";
 export * from "./lessTime";
+export * from "./equal";

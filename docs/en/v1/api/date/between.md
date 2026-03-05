@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Checks that a TheDate is in an inclusive range between two bounds (greater then less)."
 prev:
-  text: "lessThan"
-  link: "/en/v1/api/date/lessThan"
+  text: "equal"
+  link: "/en/v1/api/date/equal"
 next:
   text: "betweenThan"
   link: "/en/v1/api/date/betweenThan"

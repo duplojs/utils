@@ -84,6 +84,7 @@ var less = require('./operators/less.cjs');
 var lessThan = require('./operators/lessThan.cjs');
 var lessThanTime = require('./operators/lessThanTime.cjs');
 var lessTime = require('./operators/lessTime.cjs');
+var equal = require('./operators/equal.cjs');
 
 /**
  * {@include date/index.md}
@@ -192,3 +193,4 @@ exports.less = less.less;
 exports.lessThan = lessThan.lessThan;
 exports.lessThanTime = lessThanTime.lessThanTime;
 exports.lessTime = lessTime.lessTime;
+exports.equal = equal.equal;
