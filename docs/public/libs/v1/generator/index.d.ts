@@ -38,3 +38,4 @@ export * from "./chunk";
 export * from "./asyncChunk";
 export * from "./group";
 export * from "./asyncGroup";
+export * from "./createExternalAsyncGenerator";

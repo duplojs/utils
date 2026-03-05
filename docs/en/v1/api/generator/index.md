@@ -28,6 +28,9 @@ import * as G from "@duplojs/utils/generator";
 ### [execute](/en/v1/api/generator/execute)
 Executes a generator and returns all its values in an array.
 
+### [createExternalAsyncGenerator](/en/v1/api/generator/createExternalAsyncGenerator)
+Creates an externally controlled async generator.
+
 ## Iteration
 
 ### [loop](/en/v1/api/generator/loop)

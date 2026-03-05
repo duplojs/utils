@@ -11,6 +11,7 @@ export { chunk } from './chunk.mjs';
 export { asyncChunk } from './asyncChunk.mjs';
 export { group, groupOutput } from './group.mjs';
 export { asyncGroup } from './asyncGroup.mjs';
+export { createExternalAsyncGenerator } from './createExternalAsyncGenerator.mjs';
 
 /**
  * {@include generator/index.md}

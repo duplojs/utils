@@ -5,8 +5,8 @@ prev:
   text: "reduce"
   link: "/fr/v1/api/generator/reduce"
 next:
-  text: "Generator"
-  link: "/fr/v1/api/generator/"
+  text: "createExternalAsyncGenerator"
+  link: "/fr/v1/api/generator/createExternalAsyncGenerator"
 ---
 
 # asyncReduce
