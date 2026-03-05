@@ -9,3 +9,4 @@ export * from "./excludeTuple";
 export * from "./createTuple";
 export * from "./arrayCoalescing";
 export * from "./joinTuple";
+export * from "./mapTuple";

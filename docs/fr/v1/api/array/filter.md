@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La méthode filter() sélectionne les éléments d'un tableau qui satisfont un prédicat et retourne un nouveau tableau. Elle peut aussi servir de type guard pour affiner le typage des éléments conservés."
 prev:
-  text: "map"
-  link: "/fr/v1/api/array/map"
+  text: "mapTuple"
+  link: "/fr/v1/api/array/mapTuple"
 next:
   text: "select"
   link: "/fr/v1/api/array/select"

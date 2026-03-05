@@ -1,18 +1,19 @@
-
 /**
  * {@include array/includes/index.md}
  */
 export function includes<
-	GenericArrayValue extends unknown,
+	GenericArray extends readonly unknown[],
+	GenericArrayValue extends GenericArray[number],
 >(
-	value: NoInfer<GenericArrayValue>,
-): (array: readonly GenericArrayValue[]) => boolean;
+	value: GenericArrayValue,
+): (array: GenericArray) => boolean;
 
 export function includes<
-	GenericArrayValue extends unknown,
+	GenericArray extends readonly unknown[],
+	GenericArrayValue extends GenericArray[number],
 >(
-	array: readonly GenericArrayValue[],
-	value: NoInfer<GenericArrayValue>,
+	array: GenericArray,
+	value: GenericArrayValue,
 ): boolean;
 
 export function includes(...args: [readonly unknown[], unknown] | [unknown]) {

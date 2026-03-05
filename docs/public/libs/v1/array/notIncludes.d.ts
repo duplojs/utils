@@ -1,5 +1,7 @@
 import { type RemoveFromUnion } from "../common";
-export type NotIncludeValue = string | null | undefined | boolean | number | bigint | symbol;
+import { type MapTuple } from "./types";
+type EligibleValue = string | null | undefined | boolean | number | bigint | symbol;
+type TooLargeType = string | number | boolean | bigint | symbol;
 /**
  * Checks that an array does not include a value.
  * 
@@ -41,5 +43,8 @@ export type NotIncludeValue = string | null | undefined | boolean | number | big
  * @namespace A
  * 
  */
-export declare function notIncludes<GenericArrayValue extends unknown, const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArrayValue, NotIncludeValue>, Exclude<NotIncludeValue, null | undefined>>>(value: GenericNotIncludeValue): (input: readonly GenericArrayValue[]) => input is Exclude<GenericArrayValue, GenericNotIncludeValue>[];
-export declare function notIncludes<GenericArrayValue extends unknown, const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArrayValue, NotIncludeValue>, Exclude<NotIncludeValue, null | undefined>>>(input: readonly GenericArrayValue[], value: GenericNotIncludeValue): input is Exclude<GenericArrayValue, GenericNotIncludeValue>[];
+export declare function notIncludes<GenericArray extends readonly unknown[], const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArray[number], EligibleValue>, TooLargeType>>(value: GenericNotIncludeValue): (input: GenericArray) => input is MapTuple<GenericArray, Exclude<GenericArray[number], GenericNotIncludeValue>>;
+export declare function notIncludes<GenericArray extends readonly unknown[]>(value: NoInfer<GenericArray[number]>): (input: GenericArray) => boolean;
+export declare function notIncludes<GenericArray extends readonly unknown[], const GenericNotIncludeValue extends RemoveFromUnion<Extract<GenericArray[number], EligibleValue>, TooLargeType>>(input: GenericArray, value: GenericNotIncludeValue): input is MapTuple<GenericArray, Exclude<GenericArray[number], GenericNotIncludeValue>>;
+export declare function notIncludes<GenericArray extends readonly unknown[]>(input: GenericArray, value: NoInfer<GenericArray[number]>): boolean;
+export {};

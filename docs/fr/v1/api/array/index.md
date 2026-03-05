@@ -91,6 +91,9 @@ Vérifie si une valeur est un tableau (type guard).
 ### [map](/fr/v1/api/array/map)
 Applique une fonction à chaque élément et retourne un nouveau tableau.
 
+### [mapTuple](/fr/v1/api/array/mapTuple)
+Transforme chaque élément en préservant la longueur du tuple dans les types.
+
 ### [filter](/fr/v1/api/array/filter)
 Filtre les éléments selon une condition.
 

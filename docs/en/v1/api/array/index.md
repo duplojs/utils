@@ -91,6 +91,9 @@ Checks whether a value is an array (type guard).
 ### [map](/en/v1/api/array/map)
 Applies a function to each element and returns a new array.
 
+### [mapTuple](/en/v1/api/array/mapTuple)
+Maps each element while preserving tuple length in types.
+
 ### [filter](/en/v1/api/array/filter)
 Filters elements according to a condition.
 

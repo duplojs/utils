@@ -5,8 +5,8 @@ prev:
   text: "is"
   link: "/fr/v1/api/array/is"
 next:
-  text: "filter"
-  link: "/fr/v1/api/array/filter"
+  text: "mapTuple"
+  link: "/fr/v1/api/array/mapTuple"
 ---
 
 # map

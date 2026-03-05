@@ -38,5 +38,5 @@
  * @namespace A
  * 
  */
-export declare function includes<GenericArrayValue extends unknown>(value: NoInfer<GenericArrayValue>): (array: readonly GenericArrayValue[]) => boolean;
-export declare function includes<GenericArrayValue extends unknown>(array: readonly GenericArrayValue[], value: NoInfer<GenericArrayValue>): boolean;
+export declare function includes<GenericArray extends readonly unknown[], GenericArrayValue extends GenericArray[number]>(value: GenericArrayValue): (array: GenericArray) => boolean;
+export declare function includes<GenericArray extends readonly unknown[], GenericArrayValue extends GenericArray[number]>(array: GenericArray, value: GenericArrayValue): boolean;
