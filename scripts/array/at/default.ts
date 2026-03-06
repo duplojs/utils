@@ -1,12 +1,13 @@
 import type { IsEqual } from "@scripts/common";
-import type { AtTuple } from "../types";
 
 export type AtArray<
 	GenericArray extends readonly unknown[],
 	GenericIndex extends number,
 > = IsEqual<GenericArray["length"], number> extends true
 	? GenericArray[number] | undefined
-	: AtTuple<GenericArray, GenericIndex>;
+	: GenericIndex extends keyof GenericArray
+		? GenericArray[GenericIndex]
+		: GenericArray[number] | undefined;
 
 /**
  * {@include array/at/index.md}
