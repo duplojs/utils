@@ -1,4 +1,3 @@
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import { type DataParserChecker } from "../base";
 import type * as AllDataParser from "../parsers";
 
@@ -7,7 +6,7 @@ export interface CheckerCustom {
 }
 
 export type DataParserCheckers = (
-	| CheckerCustom[GetPropsWithValueExtends<CheckerCustom, DataParserChecker>]
+	| CheckerCustom[keyof CheckerCustom]
 	| AllDataParser.DataParserCheckerUrl
 	| AllDataParser.DataParserCheckerArrayMax
 	| AllDataParser.DataParserCheckerArrayMin

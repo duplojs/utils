@@ -388,11 +388,12 @@ createNewType.overrideHandler = createOverride<NewTypeHandler>("@duplojs/utils/c
 
 export type GetNewType<
 	GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>,
+	GenericValue extends DDataParser.Output<GenericHandler["dataParser"]> = DDataParser.Output<GenericHandler["dataParser"]>,
 > = Extract<
 	GenericHandler extends any
 		? NewType<
 			GenericHandler["name"],
-			DDataParser.Output<GenericHandler["dataParser"]>,
+			GenericValue,
 			GenericHandler["constraints"][number]["name"]
 		>
 		: never,

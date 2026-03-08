@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, wrapValue, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, wrapValue, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, GetKind, type GetKindValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -130,10 +130,7 @@ export interface EntityHandler<
 	>(
 		entity: GenericEntity,
 		properties: GenericProperties,
-	): Entity<GenericName> & DObject.AssignObjects<
-		RemoveKind<GenericEntity>,
-		GenericProperties
-	>;
+	): EntityUpdate<GenericEntity, GenericProperties>;
 }
 
 export class CreateEntityError extends kindHeritage(
@@ -277,5 +274,28 @@ export type GetEntity<
 	GenericEntityHandler extends EntityHandler<string, any>,
 > = Extract<
 	ReturnType<GenericEntityHandler["new"]>,
+	any
+>;
+
+export type EntityUpdate<
+	GenericEntity extends Entity,
+	GenericNewProperties extends Partial<RemoveKind<Entity>>,
+> = Extract<
+	(
+		& Entity<GetKindValue<typeof entityKind, GenericEntity>>
+		& SimplifyTopLevel<
+			RemoveKind<GenericEntity> extends infer InferredProperties
+				? {
+					[Prop in keyof InferredProperties]: Prop extends keyof GenericNewProperties
+						? GenericNewProperties[Prop] extends infer InferredNewValue
+							? InferredNewValue extends undefined
+								? InferredProperties[Prop]
+								: InferredNewValue
+							: never
+						: InferredProperties[Prop]
+				}
+				: never
+		>
+	),
 	any
 >;

@@ -453,7 +453,7 @@ describe("createEntity", () => {
 
 		const updated = FormEntity.update(form, {
 			name: FormName.createOrThrow("New"),
-			description: null,
+			description: null as null | undefined,
 			tags: [],
 		});
 
@@ -500,7 +500,7 @@ describe("createEntity", () => {
 				}, never>];
 				readonly test: readonly [];
 				readonly name: DClean.NewType<"formName", "New", "max100">;
-				readonly description: null;
+				readonly description: DClean.NewType<"formDescription", "Updated", never> | null;
 				readonly tags: readonly [];
 			},
 			"strict"
