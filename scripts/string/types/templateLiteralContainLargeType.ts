@@ -1,19 +1,11 @@
-import { type IsEqual, type Or } from "@scripts/common";
-
 export type TemplateLiteralContainLargeType<
 	GenericValue extends string,
 > = (
-	GenericValue extends `${infer InferredFirst}${infer InferredLast}`
-		? Or<[
-			IsEqual<InferredFirst, `${number}`>,
-			IsEqual<InferredFirst, `${bigint}`>,
-			IsEqual<InferredFirst, string>,
-		]> extends false
-			? TemplateLiteralContainLargeType<InferredLast>
-			: true
-		: GenericValue extends ""
-			? false
-			: true
+	GenericValue extends string
+		? {} extends Record<GenericValue, never>
+			? true
+			: false
+		: never
 ) extends false
 	? false
 	: true;

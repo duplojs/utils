@@ -4,7 +4,7 @@ describe("findRecordRequiredKey", () => {
 	it("returns null for string key parser", () => {
 		const keyParser = DDataParser.string();
 
-		expect(DDataParser.findRecordRequiredKey(keyParser)).toBeNull();
+		expect(DDataParser.findRecordRequiredKey(keyParser)).toStrictEqual([]);
 	});
 
 	it("returns all combinations for template literal key parser", () => {
@@ -24,7 +24,7 @@ describe("findRecordRequiredKey", () => {
 	});
 
 	it("returns literal options converted to strings", () => {
-		const keyParser = DDataParser.literal(["foo", 42, 12n]);
+		const keyParser = DDataParser.literal(["foo", "42", "12n"]);
 
 		expect(DDataParser.findRecordRequiredKey(keyParser)).toStrictEqual([
 			"foo",
@@ -36,7 +36,7 @@ describe("findRecordRequiredKey", () => {
 	it("returns null for number key parser with coercion", () => {
 		const keyParser = DDataParser.number({ coerce: true });
 
-		expect(DDataParser.findRecordRequiredKey(keyParser)).toBeNull();
+		expect(DDataParser.findRecordRequiredKey(keyParser)).toStrictEqual([]);
 	});
 
 	it("flattens union when every option resolves to concrete keys", () => {
@@ -64,7 +64,7 @@ describe("findRecordRequiredKey", () => {
 			DDataParser.string(),
 		]);
 
-		expect(DDataParser.findRecordRequiredKey(keyParser)).toBeNull();
+		expect(DDataParser.findRecordRequiredKey(keyParser)).toStrictEqual(["foo"]);
 	});
 });
 
@@ -108,19 +108,19 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 	it("handles string parser part", () => {
 		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.email()]);
 
-		expect(result).toBeNull();
+		expect(result).toStrictEqual([]);
 	});
 
 	it("handles number parser part", () => {
 		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.number()]);
 
-		expect(result).toBeNull();
+		expect(result).toStrictEqual([]);
 	});
 
 	it("handles bigint parser part", () => {
 		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.bigint()]);
 
-		expect(result).toBeNull();
+		expect(result).toStrictEqual([]);
 	});
 
 	it("handles boolean parser part", () => {
@@ -172,7 +172,20 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 			]),
 		]);
 
-		expect(result).toBeNull();
+		expect(result).toStrictEqual(["union"]);
+	});
+
+	it("template literal with large type", () => {
+		expect(
+			DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([
+				"test-",
+				DDataParser.union([
+					DDataParser.string(),
+					DDataParser.literal("one"),
+				]),
+				"ok",
+			]),
+		).toStrictEqual(["test-oneok"]);
 	});
 
 	it("computes every combination for nested template literal structure", () => {
