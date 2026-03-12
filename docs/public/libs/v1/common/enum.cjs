@@ -8,6 +8,7 @@ function createEnum(values) {
         ...values.map((value) => [value, value]),
         ["toTuple", () => values],
         ["has", (value) => values.includes(value)],
+        ["contract", () => createEnum(values)],
     ]);
 }
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The toRegExp() function normalizes a string, string array, or RegExp into a regular expression."
+description: "The toRegExp() function normalizes a string, string tuple, or RegExp into a regular expression."
 prev:
   text: "escapeRegExp"
   link: "/en/v1/api/common/escapeRegExp"
@@ -11,7 +11,7 @@ next:
 
 # toRegExp
 
-The **`toRegExp()`** function normalizes a string, string array, or `RegExp` into a regular expression.
+The **`toRegExp()`** function normalizes a string, string tuple, or `RegExp` into a regular expression.
 When the input is textual, it escapes regex metacharacters and builds an exact-match pattern.
 
 ## Interactive example
@@ -19,14 +19,14 @@ When the input is textual, it escapes regex metacharacters and builds an exact-m
 <MonacoTSEditor
   src="/examples/v1/api/common/toRegExp/tryout.doc.ts"
   majorVersion="v1"
-  height="313px"
+  height="334px"
 />
 
 ## Syntax
 
 ```typescript
 function toRegExp(
-	input: string | string[] | RegExp
+	input: string | [string, ...string[]] | RegExp
 ): RegExp;
 ```
 
@@ -38,7 +38,7 @@ function toRegExp(
 
 A `RegExp`:
 - from a `string`: exact literal match (`^...$`)
-- from a `string[]`: exact alternatives (`^(?:...|...)$`)
+- from a string tuple: exact alternatives (`^(?:...|...)$`)
 - from a `RegExp`: the same instance
 
 ## See also

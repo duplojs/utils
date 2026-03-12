@@ -4386,6 +4386,9 @@
               "name": "partialKeys.d.ts"
             },
             {
+              "name": "requireAtLeastOne.d.ts"
+            },
+            {
               "name": "requiredKeys.d.ts"
             },
             {

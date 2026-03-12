@@ -8,7 +8,7 @@ const tuple = enumValue.toTuple();
 
 type check = ExpectType<
 	typeof tuple,
-	["value1", "value2", "value3"],
+	readonly ["value1", "value2", "value3"],
 	"strict"
 >;
 
@@ -27,3 +27,11 @@ if (enumValue.has(maybe)) {
 		"strict"
 	>;
 }
+
+const contractedEnum = enumValue.contract<"value1" | "value2" | "value3">();
+
+type contractCheck = ExpectType<
+	typeof contractedEnum,
+	typeof enumValue,
+	"strict"
+>;

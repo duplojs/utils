@@ -1,13 +1,16 @@
+import type { AnyTuple } from "./types";
 /**
- * The toRegExp() function normalizes a value into a regular expression. Strings and string arrays are escaped and converted to exact-match regex patterns.
+ * The toRegExp() function normalizes a value into a regular expression. Strings and string tuple are escaped and converted to exact-match regex patterns.
  * 
  * Supported call style:
  * - Classic: `toRegExp(input)` → returns a value
  * 
  * Behavior:
- * - `string` input becomes an exact regex (`^.../**
+ * - `string` input becomes an exact regex (`^...import type { AnyTuple } from "./types";
+/**
 )
- * - `string[]` input becomes an exact alternation regex (`^(?:...|...)/**
+ * - `AnyTuple<string>` input becomes an exact alternation regex (`^(?:...|...)import type { AnyTuple } from "./types";
+/**
 )
  * - `RegExp` input is returned as-is
  * 
@@ -28,4 +31,4 @@
  * @see https://utils.duplojs.dev/en/v1/api/common/toRegExp
  * 
  */
-export declare function toRegExp(input: string | string[] | RegExp): RegExp;
+export declare function toRegExp(input: string | AnyTuple<string> | RegExp): RegExp;

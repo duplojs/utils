@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction toRegExp() normalise une chaîne, un tableau de chaînes ou une RegExp en expression régulière."
+description: "La fonction toRegExp() normalise une chaîne, un tuple de chaînes ou une RegExp en expression régulière."
 prev:
   text: "escapeRegExp"
   link: "/fr/v1/api/common/escapeRegExp"
@@ -11,7 +11,7 @@ next:
 
 # toRegExp
 
-La fonction **`toRegExp()`** normalise une chaîne, un tableau de chaînes ou une `RegExp` en expression régulière.
+La fonction **`toRegExp()`** normalise une chaîne, un tuple de chaînes ou une `RegExp` en expression régulière.
 Quand l'entrée est textuelle, elle échappe les métacaractères regex et construit un motif de correspondance exacte.
 
 ## Exemple interactif
@@ -19,14 +19,14 @@ Quand l'entrée est textuelle, elle échappe les métacaractères regex et const
 <MonacoTSEditor
   src="/examples/v1/api/common/toRegExp/tryout.doc.ts"
   majorVersion="v1"
-  height="313px"
+  height="334px"
 />
 
 ## Syntaxe
 
 ```typescript
 function toRegExp(
-	input: string | string[] | RegExp
+	input: string | [string, ...string[]] | RegExp
 ): RegExp;
 ```
 
@@ -38,7 +38,7 @@ function toRegExp(
 
 Une `RegExp` :
 - depuis une `string` : correspondance littérale exacte (`^...$`)
-- depuis `string[]` : alternatives exactes (`^(?:...|...)$`)
+- depuis un tuple de chaînes : alternatives exactes (`^(?:...|...)$`)
 - depuis une `RegExp` : la même instance
 
 ## Voir aussi

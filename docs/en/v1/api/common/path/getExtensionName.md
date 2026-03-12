@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The getExtensionName() function returns the last extension of a path, without the dot."
+description: "The getExtensionName() function returns the last extension of a path, with or without the leading dot."
 prev:
   text: "getBaseName"
   link: "/en/v1/api/common/path/getBaseName"
@@ -11,7 +11,7 @@ next:
 
 # getExtensionName
 
-The **`getExtensionName()`** function returns the last extension of a path, without the dot.
+The **`getExtensionName()`** function returns the last extension of a path, with or without the leading dot.
 
 ::: warning
 Works only with POSIX paths (not Windows paths).
@@ -22,7 +22,7 @@ Works only with POSIX paths (not Windows paths).
 <MonacoTSEditor
   src="/examples/v1/api/common/path/getExtensionName/tryout.doc.ts"
   majorVersion="v1"
-  height="208px"
+  height="250px"
 />
 
 ## Syntax
@@ -31,17 +31,25 @@ Works only with POSIX paths (not Windows paths).
 function getExtensionName<
 	GenericPath extends string
 >(
-	path: GenericPath
+	path: GenericPath,
+	params?: {
+		withDot: boolean;
+	}
 ): string | null;
 ```
 
 ## Parameters
 
 - `path` : The path to analyze.
+- `params` : Optional behavior options.
+- `params.withDot` : When `true`, keeps the leading dot in the returned extension.
 
 ## Return value
 
-The extension without the dot (e.g. `txt`) or `null` when none is found.
+The last extension segment:
+- without the dot by default (for example `txt`)
+- with the dot when `withDot` is `true` (for example `.txt`)
+- `null` when no extension is found
 
 ## See also
 

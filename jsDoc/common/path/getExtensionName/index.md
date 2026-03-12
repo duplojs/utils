@@ -1,12 +1,16 @@
-Returns the last extension of a path, without the leading dot.
+Returns the last extension of a path, with or without the leading dot.
 
-**Supported call styles:**
-- Classic: `getExtensionName(path)` -> returns the extension or null
+Supported call style:
+- Classic: `getExtensionName(path, params?)` -> returns the extension or null
 
-It returns null when no extension is found, when the path ends with a dot, or when the path is `..`.
+Behavior:
+- returns the last extension segment of the path
+- returns `"txt"` by default for `"file.txt"`
+- returns `".txt"` when `withDot` is `true`
+- returns `null` when no extension is found, when the path ends with a dot, or when the path is `..`
 
 ```ts
-{@include common/path/getExtensionName/example.ts[3,8]}
+{@include common/path/getExtensionName/example.ts[3,10]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/common/path/getExtensionName

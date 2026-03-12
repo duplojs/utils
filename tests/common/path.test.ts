@@ -47,6 +47,12 @@ describe("path", () => {
 		expect(Path.getExtensionName("archive.tar.gz")).toBe("gz");
 	});
 
+	it("returns the extension with a leading dot when withDot is true", () => {
+		expect(Path.getExtensionName("file.txt", { withDot: true })).toBe(".txt");
+		expect(Path.getExtensionName("test/file.txt", { withDot: true })).toBe(".txt");
+		expect(Path.getExtensionName("archive.tar.gz", { withDot: true })).toBe(".gz");
+	});
+
 	it("handles trailing dots and missing extensions", () => {
 		expect(Path.getExtensionName("file.")).toBe(null);
 		expect(Path.getExtensionName("file")).toBe(null);

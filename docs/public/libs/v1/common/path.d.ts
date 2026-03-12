@@ -31,17 +31,26 @@ export declare namespace Path {
      * 
      */
     function getBaseName<GenericPath extends string>(path: GenericPath, params?: GetBaseNameParams): string | null;
+    interface GetExtensionNameParams {
+        withDot: boolean;
+    }
     /**
-     * Returns the last extension of a path, without the leading dot.
+     * Returns the last extension of a path, with or without the leading dot.
      * 
-     * **Supported call styles:**
-     * - Classic: `getExtensionName(path)` -> returns the extension or null
+     * Supported call style:
+     * - Classic: `getExtensionName(path, params?)` -> returns the extension or null
      * 
-     * It returns null when no extension is found, when the path ends with a dot, or when the path is `..`.
+     * Behavior:
+     * - returns the last extension segment of the path
+     * - returns `"txt"` by default for `"file.txt"`
+     * - returns `".txt"` when `withDot` is `true`
+     * - returns `null` when no extension is found, when the path ends with a dot, or when the path is `..`
      * 
      * ```ts
      * const txtResult = Path.getExtensionName("/foo/bar.txt");
      * // txtResult: "txt"
+     * const txtWithDotResult = Path.getExtensionName("/foo/bar.txt", { withDot: true });
+     * // txtWithDotResult: ".txt"
      * const tarResult = Path.getExtensionName("archive.tar.gz");
      * // tarResult: "gz"
      * const dotResult = Path.getExtensionName("file.");
@@ -51,7 +60,7 @@ export declare namespace Path {
      * @see https://utils.duplojs.dev/en/v1/api/common/path/getExtensionName
      * 
      */
-    function getExtensionName<GenericPath extends string>(path: GenericPath): string | null;
+    function getExtensionName<GenericPath extends string>(path: GenericPath, params?: GetExtensionNameParams): string | null;
     /**
      * Returns the parent folder path of a POSIX path.
      * 

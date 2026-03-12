@@ -25,10 +25,12 @@ exports.Path = void 0;
     /**
      * {@include common/path/getExtensionName/index.md}
      */
-    function getExtensionName(path) {
+    function getExtensionName(path, params) {
         const match = Path.extensionNameRegex.exec(path);
         if (match) {
-            return match[1];
+            return params?.withDot
+                ? `.${match[1]}`
+                : match[1];
         }
         return null;
     }

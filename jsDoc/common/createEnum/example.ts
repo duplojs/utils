@@ -7,9 +7,9 @@ const enumValue = createEnum([
 ]);
 
 type EnumValue = GetEnumValue<typeof enumValue>;
+// type EnumValue = "value1" | "value2" | "value3"
 
 const tuple = enumValue.toTuple();
-
 // type: ["value1", "value2", "value3"]
 
 const maybe = true ? "value1" : "none";
@@ -19,3 +19,8 @@ if (enumValue.has(maybe)) {
 } else {
 	// type: "none"
 }
+
+const contractedEnum = enumValue.contract<
+	"value1" | "value2" | "value3"
+>();
+// contractedEnum.toTuple(): ["value1", "value2", "value3"]

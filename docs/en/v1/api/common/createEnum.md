@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The createEnum() function creates an immutable, typed string enum. The returned object exposes the keys/values, the has method, and toTuple."
+description: "The createEnum() function creates an immutable, typed string enum with key/value members, has(), toTuple(), and contract()."
 prev:
   text: "simpleClone"
   link: "/en/v1/api/common/simpleClone"
@@ -11,14 +11,14 @@ next:
 
 # createEnum
 
-The **`createEnum()`** function creates an immutable, typed string enum. The returned object exposes the keys/values, the `has` method, and `toTuple`.
+The **`createEnum()`** function creates an immutable, typed string enum. The returned object exposes each value as a key, plus `has()`, `toTuple()`, and `contract()`.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/common/createEnum/tryout.doc.ts"
   majorVersion="v1"
-  height="649px"
+  height="817px"
 />
 
 ## Syntax
@@ -31,6 +31,11 @@ type Enum<
 } & {
 	toTuple(): GenericInputs;
 	has(value: string): value is GenericInputs[number];
+	contract<
+		GenericContractValue extends GenericInputs[number]
+	>(
+		...args: ...
+	): Enum<GenericInputs>;
 };
 
 function createEnum<
@@ -41,7 +46,7 @@ function createEnum<
 ): Enum<GenericInputs>;
 
 type GetEnumValue<
-	GenericEnum extends Enum<any>
+	GenericEnum extends { toTuple(): [string, ...string[]] }
 > = ReturnType<GenericEnum["toTuple"]>[number];
 ```
 
@@ -55,6 +60,7 @@ An immutable enum object with:
 - The named properties (same key/value).
 - `toTuple()` to retrieve the typed tuple.
 - `has(value)` to test a runtime value with a type guard.
+- `contract<...>()` to verify at type level that the enum exactly matches an expected union.
 
 ## See also
 

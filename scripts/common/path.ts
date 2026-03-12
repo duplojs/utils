@@ -34,16 +34,25 @@ export namespace Path {
 		return match[1]!;
 	}
 
+	export interface GetExtensionNameParams {
+		withDot: boolean;
+	}
+
 	/**
 	 * {@include common/path/getExtensionName/index.md}
 	 */
 	export function getExtensionName<
 		GenericPath extends string,
-	>(path: GenericPath): string | null {
+	>(
+		path: GenericPath,
+		params?: GetExtensionNameParams,
+	): string | null {
 		const match = extensionNameRegex.exec(path);
 
 		if (match) {
-			return match[1]!;
+			return params?.withDot
+				? `.${match[1]!}`
+				: match[1]!;
 		}
 
 		return null;
