@@ -63,6 +63,10 @@ export interface DataParserDefinitionRecord extends DataParserDefinition<
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
 	readonly baseData: Partial<Record<string, undefined>>;
+
+	/**
+	 * @deprecated replaced by baseData
+	 */
 	readonly requireKey: readonly string[];
 }
 
