@@ -1,16 +1,16 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Adaptor, createOverride } from "@scripts/common";
+/* eslint-disable @typescript-eslint/prefer-for-of */
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
-import { type DataParserLiteral } from "../literal";
+import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { findRecordRequiredKey } from "./findRecordRequiredKey";
-import { type TemplateLiteralContainLargeType } from "@scripts/string";
 import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./findRecordRequiredKey";
@@ -18,7 +18,12 @@ export * from "./findRecordRequiredKey";
 export type DataParserRecordKey = (
 	| DataParserString
 	| DataParserTemplateLiteral
-	| DataParserLiteral
+	| DataParserLiteral<
+		& DataParserDefinitionLiteral
+		& {
+			value: readonly string[];
+		}
+	>
 	| DataParserNumber<
 		& DataParserDefinitionNumber
 		& {
@@ -55,7 +60,7 @@ export interface DataParserDefinitionRecord extends DataParserDefinition<
 > {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
-	readonly requireKey: string[] | null;
+	readonly requireKey: readonly string[];
 }
 
 export const recordKind = createDataParserKind("record");
@@ -73,13 +78,7 @@ export type DataParserRecordShapeOutput<
 			: never
 	>,
 	any
-> extends infer InferredOutput extends Record<string, unknown>
-	? TemplateLiteralContainLargeType<
-		Adaptor<keyof InferredOutput, string>
-	> extends true
-		? Partial<InferredOutput>
-		: InferredOutput
-	: never;
+>;
 
 export type DataParserRecordShapeInput<
 	GenericDataParserKey extends DataParserRecordKey,
@@ -94,13 +93,7 @@ export type DataParserRecordShapeInput<
 			: never
 	>,
 	any
-> extends infer InferredInput extends Record<string, unknown>
-	? TemplateLiteralContainLargeType<
-		Adaptor<keyof InferredInput, string>
-	> extends true
-		? Partial<InferredInput>
-		: InferredInput
-	: never;
+>;
 
 type _DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord,
@@ -217,11 +210,11 @@ export function record<
 					return output;
 				}
 
-				if (
-					self.definition.requireKey
-					&& self.definition.requireKey.length !== Object.keys(output).length
-				) {
-					return SymbolDataParserErrorIssue;
+				for (let index = 0; index < self.definition.requireKey.length; index++) {
+					const requiredKey = self.definition.requireKey[index]!;
+					if (!(requiredKey in output)) {
+						return SymbolDataParserErrorIssue;
+					}
 				}
 
 				return output;
@@ -270,11 +263,11 @@ export function record<
 					return output;
 				}
 
-				if (
-					self.definition.requireKey
-					&& self.definition.requireKey.length !== Object.keys(output).length
-				) {
-					return SymbolDataParserErrorIssue;
+				for (let index = 0; index < self.definition.requireKey.length; index++) {
+					const requiredKey = self.definition.requireKey[index]!;
+					if (!(requiredKey in output)) {
+						return SymbolDataParserErrorIssue;
+					}
 				}
 
 				return output;

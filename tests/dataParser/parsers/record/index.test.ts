@@ -12,13 +12,13 @@ describe("DDataParser record", () => {
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			Partial<Record<string, string>>,
+			Record<string, string>,
 			"strict"
 		>;
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			Partial<Record<string, string>>,
+			Record<string, string>,
 			"strict"
 		>;
 
@@ -34,7 +34,7 @@ describe("DDataParser record", () => {
 		type _Check = ExpectType<
 			typeof result,
 			| DEither.Error<DDataParser.DataParserError>
-			| DEither.Success<Partial<Record<string, string>>>,
+			| DEither.Success<Record<string, string>>,
 			"strict"
 		>;
 	});
@@ -179,7 +179,7 @@ describe("DDataParser record", () => {
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			Partial<Record<string, number>>,
+			Record<string, number>,
 			"strict"
 		>;
 	});
@@ -192,22 +192,26 @@ describe("DDataParser record", () => {
 					DDataParser.literal(["a", "b"]),
 					DDataParser.string(),
 				]),
-				DDataParser.literal(23),
+				DDataParser.literal("23"),
 			]),
 			DDataParser.number(),
 		);
 
 		const input = {
+			23: 1,
 			"prefix-akey": 5,
 		};
 
 		expect(schema.parse(input)).toStrictEqual(DEither.success(input));
-		expect(schema.parse({})).toStrictEqual(DEither.success({}));
-		expect(schema.parse({ "prefix-c": 23 })).toStrictEqual(DEither.error(expect.any(Object)));
+		expect(schema.parse({ 23: 1 })).toStrictEqual(DEither.success({ 23: 1 }));
+		expect(schema.parse({
+			"prefix-c": 23,
+			23: 1,
+		})).toStrictEqual(DEither.error(expect.any(Object)));
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
-			Partial<Record<`prefix-a${string}` | `prefix-b${string}` | "23", number>>,
+			Record<`prefix-a${string}` | `prefix-b${string}` | "23", number>,
 			"strict"
 		>;
 	});
@@ -233,7 +237,7 @@ describe("DDataParser record", () => {
 			]),
 		);
 
-		type ExpectedRecord = Partial<Record<`user-${"admin" | "guest"}-${string}`, "read" | "write" | number>>;
+		type ExpectedRecord = Record<`user-${"admin" | "guest"}-${string}`, "read" | "write" | number>;
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,
@@ -250,6 +254,8 @@ describe("DDataParser record", () => {
 		const validInput: ExpectedRecord = {
 			"user-admin-us": "read",
 			"user-guest-eu": "write",
+			"user-admin-eu": "write",
+			"user-guest-us": "write",
 			"user-admin-fr": 1,
 		};
 
@@ -429,7 +435,9 @@ describe("DDataParser record", () => {
 
 			const validInput = {
 				"user-admin-us": "read",
+				"user-admin-eu": "read",
 				"user-guest-eu": "write",
+				"user-guest-us": "write",
 			};
 
 			expect(await schema.asyncParse(validInput)).toStrictEqual(DEither.success(validInput));

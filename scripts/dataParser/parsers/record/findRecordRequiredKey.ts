@@ -15,7 +15,7 @@ import { nilKind } from "../nil";
 
 export function findRecordRequiredKeyOnTemplateLiteralPart(
 	templatePart: readonly TemplateLiteralParts[],
-): string[] | null {
+): readonly string[] {
 	return pipe(
 		templatePart,
 		DArray.map(
@@ -24,7 +24,7 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 					(value) => stringKind.has(value)
 						|| numberKind.has(value)
 						|| bigIntKind.has(value),
-					justReturn(null),
+					justReturn([]),
 				),
 				DPattern.when(
 					or([
@@ -40,12 +40,20 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 							isType("bigint"),
 							(value) => `${value}n`,
 						),
-						String,
+						DString.to,
 					),
 				),
 				DPattern.when(
 					literalKind.has,
-					(value) => findRecordRequiredKey(value),
+					(value) => pipe(
+						value.definition.value,
+						DArray.map(
+							(element) => findRecordRequiredKeyOnTemplateLiteralPart(
+								[element],
+							),
+						),
+						DArray.flat,
+					),
 				),
 				DPattern.when(
 					templateLiteralKind.has,
@@ -72,11 +80,7 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 								[element],
 							),
 						),
-						DPattern.when(
-							DArray.notIncludes(null),
-							DArray.flat,
-						),
-						DPattern.otherwise(justReturn(null)),
+						DArray.flat,
 					),
 				),
 				DPattern.exhaustive,
@@ -84,12 +88,8 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 		),
 		DArray.reduce(
 			DArray.reduceFrom<string[]>([""]),
-			({ lastValue, element, exit, next }) => pipe(
+			({ lastValue, element, next }) => pipe(
 				element,
-				DPattern.when(
-					isType("null"),
-					justReturn(exit(null)),
-				),
 				DPattern.when(
 					isType("string"),
 					(element) => next(
@@ -117,43 +117,23 @@ export function findRecordRequiredKeyOnTemplateLiteralPart(
 	);
 }
 
-export function findRecordRequiredKey(keyParser: DataParserRecordKey): string[] | null {
+export function findRecordRequiredKey(keyParser: DataParserRecordKey): readonly string[] {
 	return pipe(
 		keyParser,
 		DPattern.when(
 			(value) => stringKind.has(value) || numberKind.has(value),
-			justReturn(null),
+			justReturn([]),
 		),
 		DPattern.when(
 			literalKind.has,
-			(dataParser) => pipe(
-				dataParser.definition.value,
-				DArray.map(
-					innerPipe(
-						when(
-							isType("bigint"),
-							(value) => `${value}n`,
-						),
-						String,
-					),
-				),
-			),
+			(dataParser) => dataParser.definition.value,
 		),
 		DPattern.when(
 			unionKind.has,
 			(dataParser) => pipe(
 				dataParser.definition.options,
 				DArray.map(findRecordRequiredKey),
-				DPattern.when(
-					DArray.includes(null),
-					justReturn(null),
-				),
-				DPattern.otherwise(
-					innerPipe(
-						DArray.filter(isType("array")),
-						DArray.flat,
-					),
-				),
+				DArray.flat,
 			),
 		),
 		DPattern.when(
