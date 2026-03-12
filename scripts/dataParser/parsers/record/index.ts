@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/prefer-for-of */
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
+
+import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
@@ -12,6 +12,8 @@ import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { findRecordRequiredKey } from "./findRecordRequiredKey";
 import { type GetPropsWithValueExtends } from "@scripts/object";
+import * as DArray from "@scripts/array";
+import * as DObject from "@scripts/object";
 
 export * from "./findRecordRequiredKey";
 
@@ -60,6 +62,7 @@ export interface DataParserDefinitionRecord extends DataParserDefinition<
 > {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
+	readonly baseData: Partial<Record<string, undefined>>;
 	readonly requireKey: readonly string[];
 }
 
@@ -76,7 +79,14 @@ export type DataParserRecordShapeOutput<
 		Output<GenericDataParserValue> extends infer InferredValue
 			? InferredValue
 			: never
-	>,
+	> extends infer InferredResult extends Record<string, unknown>
+		? IsEqual<
+			Extract<InferredResult[keyof InferredResult], undefined>,
+			never
+		> extends true
+			? InferredResult
+			: Partial<InferredResult>
+		: never,
 	any
 >;
 
@@ -91,7 +101,14 @@ export type DataParserRecordShapeInput<
 		Input<GenericDataParserValue> extends infer InferredValue
 			? InferredValue
 			: never
-	>,
+	> extends infer InferredResult extends Record<string, unknown>
+		? IsEqual<
+			Extract<InferredResult[keyof InferredResult], undefined>,
+			never
+		> extends true
+			? InferredResult
+			: Partial<InferredResult>
+		: never,
 	any
 >;
 
@@ -156,6 +173,8 @@ export function record<
 			}
 		>
 	> {
+	const requireKey = findRecordRequiredKey(key);
+
 	const self = dataParserInit<DataParserRecord>(
 		recordKind,
 		{
@@ -163,7 +182,17 @@ export function record<
 			checkers: definition?.checkers ?? [],
 			key,
 			value,
-			requireKey: findRecordRequiredKey(key),
+			requireKey,
+			baseData: pipe(
+				requireKey,
+				DArray.map(
+					(key) => DObject.entry(
+						key,
+						undefined,
+					),
+				),
+				DObject.fromEntries,
+			),
 		},
 		{
 			sync: (data, error, self) => {
@@ -176,9 +205,13 @@ export function record<
 				}
 
 				let output = {};
+				const fromData = {
+					...self.definition.baseData,
+					...data,
+				};
 				const currentIndexPath = error.currentPath.length;
 
-				for (const key in data) {
+				for (const key in fromData) {
 					setErrorPath(error, key, currentIndexPath);
 
 					const resultKey = self
@@ -193,7 +226,7 @@ export function record<
 					const resultValue = self
 						.definition
 						.value
-						.exec(data[key as never], error);
+						.exec(fromData[key as never], error);
 
 					if (resultValue === SymbolDataParserError) {
 						output = SymbolDataParserError;
@@ -208,13 +241,6 @@ export function record<
 
 				if (output === SymbolDataParserError) {
 					return output;
-				}
-
-				for (let index = 0; index < self.definition.requireKey.length; index++) {
-					const requiredKey = self.definition.requireKey[index]!;
-					if (!(requiredKey in output)) {
-						return SymbolDataParserErrorIssue;
-					}
 				}
 
 				return output;
@@ -229,9 +255,13 @@ export function record<
 				}
 
 				let output = {};
+				const fromData = {
+					...self.definition.baseData,
+					...data,
+				};
 				const currentIndexPath = error.currentPath.length;
 
-				for (const key in data) {
+				for (const key in fromData) {
 					setErrorPath(error, key, currentIndexPath);
 
 					const resultKey = await self
@@ -246,7 +276,7 @@ export function record<
 					const resultValue = await self
 						.definition
 						.value
-						.asyncExec(data[key as never], error);
+						.asyncExec(fromData[key as never], error);
 
 					if (resultValue === SymbolDataParserError) {
 						output = SymbolDataParserError;
@@ -261,13 +291,6 @@ export function record<
 
 				if (output === SymbolDataParserError) {
 					return output;
-				}
-
-				for (let index = 0; index < self.definition.requireKey.length; index++) {
-					const requiredKey = self.definition.requireKey[index]!;
-					if (!(requiredKey in output)) {
-						return SymbolDataParserErrorIssue;
-					}
 				}
 
 				return output;

@@ -39,6 +39,44 @@ describe("DDataParser record", () => {
 		>;
 	});
 
+	it("partial schema", () => {
+		const schema = DDataParser.record(
+			DDataParser.literal(["120", "test", "ok"]),
+			DDataParser.optional(DDataParser.string()),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			Partial<Record<"120" | "test" | "ok", string | undefined>>,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof schema>,
+			Partial<Record<"120" | "test" | "ok", string | undefined>>,
+			"strict"
+		>;
+
+		const input = {
+			test: "bar",
+			120: undefined,
+		};
+
+		const result = schema.parse(input);
+
+		expect(result).toStrictEqual(DEither.success({
+			...input,
+			ok: undefined,
+		}));
+
+		type _Check = ExpectType<
+			typeof result,
+			| DEither.Error<DDataParser.DataParserError>
+			| DEither.Success<Partial<Record<"120" | "test" | "ok", string | undefined>>>,
+			"strict"
+		>;
+	});
+
 	it("fails when key parser rejects a key", () => {
 		const keyParser = DDataParser.literal(["value", "tt"]);
 		const valueParser = DDataParser.number();
@@ -53,6 +91,26 @@ describe("DDataParser record", () => {
 		expect(result).toStrictEqual(
 			pipe(
 				DDataParser.createError(),
+				(error) => DDataParser.setErrorPath(
+					error,
+					"value",
+					0,
+				),
+				(error) => DDataParser.addIssue(
+					error,
+					valueParser,
+					undefined,
+				),
+				(error) => DDataParser.setErrorPath(
+					error,
+					"tt",
+					0,
+				),
+				(error) => DDataParser.addIssue(
+					error,
+					valueParser,
+					undefined,
+				),
 				(error) => DDataParser.setErrorPath(
 					error,
 					"forbidden",
@@ -294,6 +352,26 @@ describe("DDataParser record", () => {
 			expect(result).toStrictEqual(
 				pipe(
 					DDataParser.createError(),
+					(error) => DDataParser.setErrorPath(
+						error,
+						"value",
+						0,
+					),
+					(error) => DDataParser.addIssue(
+						error,
+						valueParser,
+						undefined,
+					),
+					(error) => DDataParser.setErrorPath(
+						error,
+						"tt",
+						0,
+					),
+					(error) => DDataParser.addIssue(
+						error,
+						valueParser,
+						undefined,
+					),
 					(error) => DDataParser.setErrorPath(
 						error,
 						"forbidden",
