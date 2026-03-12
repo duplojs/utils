@@ -156,5 +156,5 @@ export declare function createNewType<GenericName extends string, GenericDataPar
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
 }
-export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], DDataParser.Output<GenericHandler["dataParser"]>, GenericHandler["constraints"][number]["name"]> : never, any>;
+export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["dataParser"]> = DDataParser.Output<GenericHandler["dataParser"]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], GenericValue, GenericHandler["constraints"][number]["name"]> : never, any>;
 export {};

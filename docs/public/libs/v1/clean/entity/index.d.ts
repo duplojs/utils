@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type RemoveKind } from "../../common";
+import { type SimplifyTopLevel, type Kind, type RemoveKind, type GetKindValue } from "../../common";
 import * as DEither from "../../either";
 import * as DDataParser from "../../dataParser";
 import * as DObject from "../../object";
@@ -102,7 +102,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * ```
      * 
      */
-    update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(entity: GenericEntity, properties: GenericProperties): Entity<GenericName> & DObject.AssignObjects<RemoveKind<GenericEntity>, GenericProperties>;
+    update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(entity: GenericEntity, properties: GenericProperties): EntityUpdate<GenericEntity, GenericProperties>;
 }
 declare const CreateEntityError_base: new (params: {
     "@DuplojsUtilsError/create-entity-error"?: unknown;
@@ -220,3 +220,6 @@ export declare namespace createEntity {
     var overrideHandler: import("../../common").OverrideHandler<EntityHandler<string, Readonly<Record<string, EntityPropertyDefinition>>>>;
 }
 export type GetEntity<GenericEntityHandler extends EntityHandler<string, any>> = Extract<ReturnType<GenericEntityHandler["new"]>, any>;
+export type EntityUpdate<GenericEntity extends Entity, GenericNewProperties extends Partial<RemoveKind<Entity>>> = Extract<(Entity<GetKindValue<typeof entityKind, GenericEntity>> & SimplifyTopLevel<RemoveKind<GenericEntity> extends infer InferredProperties ? {
+    [Prop in keyof InferredProperties]: Prop extends keyof GenericNewProperties ? GenericNewProperties[Prop] extends infer InferredNewValue ? InferredNewValue extends undefined ? InferredProperties[Prop] : InferredNewValue : never : InferredProperties[Prop];
+} : never>), any>;

@@ -1,5 +1,3 @@
-import { type AnyTuple } from "../common";
-import { type PopTuple } from "./types";
 /**
  * Removes the last element from an array.
  * 
@@ -31,4 +29,4 @@ import { type PopTuple } from "./types";
  * @namespace A
  * 
  */
-export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? PopTuple<GenericArray> : GenericArray;
+export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends readonly [...infer InferredRest, any] ? InferredRest : GenericArray;

@@ -11,7 +11,7 @@ if (E.isRight(result)) {
 	const value = unwrap(result);
 	type check = ExpectType<
 		typeof value,
-		Partial<Record<string, number>>,
+		Record<string, number>,
 		"strict"
 	>;
 } else {

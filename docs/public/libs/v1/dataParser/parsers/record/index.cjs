@@ -4,6 +4,10 @@ var base = require('../../base.cjs');
 var error = require('../../error.cjs');
 var kind = require('../../kind.cjs');
 var findRecordRequiredKey = require('./findRecordRequiredKey.cjs');
+var pipe = require('../../../common/pipe.cjs');
+var map = require('../../../array/map.cjs');
+var entry = require('../../../object/entry.cjs');
+var fromEntries = require('../../../object/fromEntries.cjs');
 var override = require('../../../common/override.cjs');
 
 const recordKind = kind.createDataParserKind("record");
@@ -11,12 +15,14 @@ const recordKind = kind.createDataParserKind("record");
  * {@include dataParser/classic/record/index.md}
  */
 function record(key, value, definition) {
+    const requireKey = findRecordRequiredKey.findRecordRequiredKey(key);
     const self = base.dataParserInit(recordKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         key,
         value,
-        requireKey: findRecordRequiredKey.findRecordRequiredKey(key),
+        requireKey,
+        baseData: pipe.pipe(requireKey, map.map((key) => entry.entry(key, undefined)), fromEntries.fromEntries),
     }, {
         sync: (data, error$1, self) => {
             if (!data
@@ -25,8 +31,12 @@ function record(key, value, definition) {
                 return error.SymbolDataParserErrorIssue;
             }
             let output = {};
+            const fromData = {
+                ...self.definition.baseData,
+                ...data,
+            };
             const currentIndexPath = error$1.currentPath.length;
-            for (const key in data) {
+            for (const key in fromData) {
                 error.setErrorPath(error$1, key, currentIndexPath);
                 const resultKey = self
                     .definition
@@ -38,7 +48,7 @@ function record(key, value, definition) {
                 const resultValue = self
                     .definition
                     .value
-                    .exec(data[key], error$1);
+                    .exec(fromData[key], error$1);
                 if (resultValue === base.SymbolDataParserError) {
                     output = base.SymbolDataParserError;
                 }
@@ -50,10 +60,6 @@ function record(key, value, definition) {
             if (output === base.SymbolDataParserError) {
                 return output;
             }
-            if (self.definition.requireKey
-                && self.definition.requireKey.length !== Object.keys(output).length) {
-                return error.SymbolDataParserErrorIssue;
-            }
             return output;
         },
         async: async (data, error$1, self) => {
@@ -63,8 +69,12 @@ function record(key, value, definition) {
                 return error.SymbolDataParserErrorIssue;
             }
             let output = {};
+            const fromData = {
+                ...self.definition.baseData,
+                ...data,
+            };
             const currentIndexPath = error$1.currentPath.length;
-            for (const key in data) {
+            for (const key in fromData) {
                 error.setErrorPath(error$1, key, currentIndexPath);
                 const resultKey = await self
                     .definition
@@ -76,7 +86,7 @@ function record(key, value, definition) {
                 const resultValue = await self
                     .definition
                     .value
-                    .asyncExec(data[key], error$1);
+                    .asyncExec(fromData[key], error$1);
                 if (resultValue === base.SymbolDataParserError) {
                     output = base.SymbolDataParserError;
                 }
@@ -87,10 +97,6 @@ function record(key, value, definition) {
             void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
             if (output === base.SymbolDataParserError) {
                 return output;
-            }
-            if (self.definition.requireKey
-                && self.definition.requireKey.length !== Object.keys(output).length) {
-                return error.SymbolDataParserErrorIssue;
             }
             return output;
         },

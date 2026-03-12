@@ -1,6 +1,5 @@
 import type { IsEqual } from "../../common";
-import type { AtTuple } from "../types";
-export type AtArray<GenericArray extends readonly unknown[], GenericIndex extends number> = IsEqual<GenericArray["length"], number> extends true ? GenericArray[number] | undefined : AtTuple<GenericArray, GenericIndex>;
+export type AtArray<GenericArray extends readonly unknown[], GenericIndex extends number> = IsEqual<GenericArray["length"], number> extends true ? GenericArray[number] | undefined : GenericIndex extends keyof GenericArray ? GenericArray[GenericIndex] : GenericArray[number] | undefined;
 /**
  * Accesses an element at a given index, supporting negative indices.
  * 
