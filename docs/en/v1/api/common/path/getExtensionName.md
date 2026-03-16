@@ -33,7 +33,7 @@ function getExtensionName<
 >(
 	path: GenericPath,
 	params?: {
-		withDot: boolean;
+		withDot?: boolean;
 	}
 ): string | null;
 ```

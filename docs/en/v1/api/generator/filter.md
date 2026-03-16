@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The filter() function filters the elements of a generator according to a predicate. It returns a new generator containing only the elements that satisfy the condition."
 prev:
-  text: "asyncMap"
-  link: "/en/v1/api/generator/asyncMap"
+  text: "asyncFlat"
+  link: "/en/v1/api/generator/asyncFlat"
 next:
   text: "chunk"
   link: "/en/v1/api/generator/chunk"

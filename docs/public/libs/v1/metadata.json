@@ -3906,6 +3906,17 @@
       "name": "generator",
       "files": [
         {
+          "name": "types",
+          "files": [
+            {
+              "name": "flat.d.ts"
+            },
+            {
+              "name": "index.d.ts"
+            }
+          ]
+        },
+        {
           "name": "asyncChunk.cjs"
         },
         {
@@ -3922,6 +3933,15 @@
         },
         {
           "name": "asyncFilter.mjs"
+        },
+        {
+          "name": "asyncFlat.cjs"
+        },
+        {
+          "name": "asyncFlat.d.ts"
+        },
+        {
+          "name": "asyncFlat.mjs"
         },
         {
           "name": "asyncGroup.cjs"
@@ -3994,6 +4014,15 @@
         },
         {
           "name": "filter.mjs"
+        },
+        {
+          "name": "flat.cjs"
+        },
+        {
+          "name": "flat.d.ts"
+        },
+        {
+          "name": "flat.mjs"
         },
         {
           "name": "group.cjs"

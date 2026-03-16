@@ -47,6 +47,12 @@ Transforms each element of a generator by applying a function.
 ### [asyncMap](/en/v1/api/generator/asyncMap)
 Transforms each element of a generator with an async function.
 
+### [flat](/en/v1/api/generator/flat)
+Flattens nested iterables into a single generator.
+
+### [asyncFlat](/en/v1/api/generator/asyncFlat)
+Flattens synchronous or asynchronous iterables into an async generator.
+
 ### [chunk](/en/v1/api/generator/chunk)
 Splits an iterable into fixed-size chunks and returns a generator of arrays.
 

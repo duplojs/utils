@@ -35,7 +35,7 @@ export namespace Path {
 	}
 
 	export interface GetExtensionNameParams {
-		withDot: boolean;
+		withDot?: boolean;
 	}
 
 	/**

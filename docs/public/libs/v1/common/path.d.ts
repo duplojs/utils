@@ -32,7 +32,7 @@ export declare namespace Path {
      */
     function getBaseName<GenericPath extends string>(path: GenericPath, params?: GetBaseNameParams): string | null;
     interface GetExtensionNameParams {
-        withDot: boolean;
+        withDot?: boolean;
     }
     /**
      * Returns the last extension of a path, with or without the leading dot.

@@ -12,6 +12,8 @@ export { asyncChunk } from './asyncChunk.mjs';
 export { group, groupOutput } from './group.mjs';
 export { asyncGroup } from './asyncGroup.mjs';
 export { createExternalAsyncGenerator } from './createExternalAsyncGenerator.mjs';
+export { flat } from './flat.mjs';
+export { asyncFlat } from './asyncFlat.mjs';
 
 /**
  * {@include generator/index.md}

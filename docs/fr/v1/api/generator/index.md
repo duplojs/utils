@@ -47,6 +47,12 @@ Transforme chaque élément d'un générateur en appliquant une fonction.
 ### [asyncMap](/fr/v1/api/generator/asyncMap)
 Transforme chaque élément d'un générateur avec une fonction asynchrone.
 
+### [flat](/fr/v1/api/generator/flat)
+Aplatit les itérables imbriqués dans un générateur unique.
+
+### [asyncFlat](/fr/v1/api/generator/asyncFlat)
+Aplatit des itérables synchrones ou asynchrones dans un générateur asynchrone.
+
 ### [chunk](/fr/v1/api/generator/chunk)
 Découpe un itérable en blocs de taille fixe et retourne un générateur de tableaux.
 

@@ -25,6 +25,7 @@
  * @namespace G
  * 
  */
+export * from "./types";
 export * from "./map";
 export * from "./execute";
 export * from "./asyncMap";
@@ -39,3 +40,5 @@ export * from "./asyncChunk";
 export * from "./group";
 export * from "./asyncGroup";
 export * from "./createExternalAsyncGenerator";
+export * from "./flat";
+export * from "./asyncFlat";

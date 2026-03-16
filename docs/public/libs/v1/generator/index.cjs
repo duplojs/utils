@@ -14,6 +14,8 @@ var asyncChunk = require('./asyncChunk.cjs');
 var group = require('./group.cjs');
 var asyncGroup = require('./asyncGroup.cjs');
 var createExternalAsyncGenerator = require('./createExternalAsyncGenerator.cjs');
+var flat = require('./flat.cjs');
+var asyncFlat = require('./asyncFlat.cjs');
 
 /**
  * {@include generator/index.md}
@@ -35,3 +37,5 @@ exports.group = group.group;
 exports.groupOutput = group.groupOutput;
 exports.asyncGroup = asyncGroup.asyncGroup;
 exports.createExternalAsyncGenerator = createExternalAsyncGenerator.createExternalAsyncGenerator;
+exports.flat = flat.flat;
+exports.asyncFlat = asyncFlat.asyncFlat;
