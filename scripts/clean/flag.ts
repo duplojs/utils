@@ -55,7 +55,7 @@ export interface FlagHandler<
 		GenericInputEntity extends GenericEntity,
 	>(
 		entity: GenericInputEntity
-	): Extract<
+	): entity is Extract<
 		GenericInputEntity,
 		Flag<GenericName, any>
 	>;

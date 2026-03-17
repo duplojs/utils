@@ -1,4 +1,4 @@
-import { DPE, type Kind, type ExpectType, type KindDefinition, DClean } from "@scripts";
+import { DPE, type ExpectType, DClean } from "@scripts";
 
 describe("createFlag", () => {
 	const Id = DClean.createNewType("id", DPE.number());
@@ -100,6 +100,17 @@ describe("createFlag", () => {
 		expect(marker.has(baseUser)).toBe(false);
 
 		const withAdmin = isAdmin.append(baseUser, true);
+
+		if (isAdmin.has(withAdmin)) {
+			type check = ExpectType<
+				typeof withAdmin,
+				DClean.Entity<"User"> & {
+					readonly id: DClean.NewType<"id", 1, never>;
+				} & DClean.Flag<"isAdmin", true>,
+				"strict"
+			>;
+		}
+
 		expect(isAdmin.has(withAdmin)).toBe(true);
 
 		const withMarker = marker.append(baseUser);
