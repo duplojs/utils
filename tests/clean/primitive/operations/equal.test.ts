@@ -1,4 +1,5 @@
-import { DClean, pipe, when, type ExpectType } from "@scripts";
+import { DClean, forward, pipe, when, type ExpectType } from "@scripts";
+import { type Primitive } from "@scripts/clean";
 
 describe("equal", () => {
 	it("returns true for primitives with same underlying value", () => {
@@ -18,7 +19,9 @@ describe("equal", () => {
 	});
 
 	it("returns false for different values", () => {
-		const one = DClean.Number.createOrThrow(1);
+		const one = forward<
+			Primitive<1> | Primitive<2>
+		>(DClean.Number.createOrThrow(1));
 		const two = DClean.Number.createOrThrow(2);
 
 		expect(DClean.equal(one, two)).toBe(false);

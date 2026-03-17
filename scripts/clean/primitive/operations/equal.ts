@@ -1,4 +1,4 @@
-import { unwrap, type ToLargeEnsemble, type Unwrap } from "@scripts/common";
+import { unwrap, type Unwrap } from "@scripts/common";
 import { type Primitive, type Primitives } from "../base";
 
 /**
@@ -8,13 +8,9 @@ export function equal<
 	GenericInput extends Primitives,
 	GenericValue extends(
 		| Primitive<
-			ToLargeEnsemble<
-				Unwrap<GenericInput>
-			>
-		>
-		| ToLargeEnsemble<
 			Unwrap<GenericInput>
 		>
+		| Unwrap<GenericInput>
 	),
 >(
 	value: GenericValue,
@@ -24,13 +20,9 @@ export function equal<
 	GenericInput extends Primitives,
 	GenericValue extends(
 		| Primitive<
-			ToLargeEnsemble<
-				Unwrap<GenericInput>
-			>
-		>
-		| ToLargeEnsemble<
 			Unwrap<GenericInput>
 		>
+		| Unwrap<GenericInput>
 	),
 >(
 	input: GenericInput,
