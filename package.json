@@ -103,6 +103,11 @@
       "import": "./dist/clean/index.mjs",
       "require": "./dist/clean/index.cjs",
       "types": "./dist/clean/index.d.ts"
+    },
+    "./flow": {
+      "import": "./dist/flow/index.mjs",
+      "require": "./dist/flow/index.cjs",
+      "types": "./dist/flow/index.d.ts"
     }
   },
   "files": [
