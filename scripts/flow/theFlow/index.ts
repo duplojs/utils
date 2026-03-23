@@ -78,7 +78,7 @@ export function create<
 	);
 }
 
-export type TheFlowInput<
+export type FlowInput<
 	GenericFlow extends TheFlow,
 > = GenericFlow extends TheFlow<infer InferredFunction>
 	? InferredFunction extends TheFlowFunction<infer InferredInput>
@@ -86,7 +86,7 @@ export type TheFlowInput<
 		: never
 	: never;
 
-export type WrapTheFlowFunction<
+export type WrapFlow<
 	GenericFlow extends (
 		| TheFlow
 		| TheFlowFunction
@@ -98,22 +98,15 @@ export type WrapTheFlowFunction<
 		? TheFlow<GenericFlow>
 		: GenericFlow;
 
-export type TheFlowDependencies<
+export type FlowDependencies<
 	GenericFlow extends TheFlow,
 > = (
-	GenericFlow extends TheFlow<infer InferredFunction>
-		? InferredFunction extends TheFlowFunction<
-			any,
-			infer InferredGenerator
-		>
-			? InferredGenerator extends TheFlowGenerator<
-				any,
-				infer InferredEffect
-			>
-				? InferredEffect extends Injection<infer InferredDependenceHandler>
-					? InferredDependenceHandler
-					: never
-				: never
+	ExtractFlowGenerator<GenericFlow> extends TheFlowGenerator<
+		any,
+		infer InferredEffect
+	>
+		? InferredEffect extends Injection<infer InferredDependenceHandler>
+			? InferredDependenceHandler
 			: never
 		: never
 ) extends infer InferredDependenceHandler extends DependenceHandler
@@ -123,4 +116,15 @@ export type TheFlowDependencies<
 		as Extract<GetKindValue<typeof dependenceHandlerKind, Dependence>, string>
 		]: ReturnType<InferredDependenceHandler>
 	}
+	: never;
+
+export type ExtractFlowGenerator<
+	GenericFlow extends TheFlow,
+> = GenericFlow extends TheFlow<infer InferredFunction>
+	? InferredFunction extends TheFlowFunction<
+		any,
+		infer InferredGenerator
+	>
+		? InferredGenerator
+		: never
 	: never;

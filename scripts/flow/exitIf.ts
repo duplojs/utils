@@ -1,4 +1,4 @@
-import { type AnyFunction } from "@scripts/common";
+import { type NeverCoalescing, type AnyFunction } from "@scripts/common";
 import { createExit, type Exit } from "./theFlow";
 
 export function exitIf<
@@ -9,7 +9,7 @@ export function exitIf<
 	thePredicate: (value: GenericValue) => value is GenericPredicate
 ): Generator<
 	Exit<
-		Extract<GenericValue, GenericPredicate>
+		NeverCoalescing<Extract<GenericValue, GenericPredicate>, GenericPredicate>
 	>,
 	Exclude<GenericValue, GenericPredicate>
 >;

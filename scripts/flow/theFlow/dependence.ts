@@ -6,7 +6,7 @@ export const dependenceHandlerKind = createFlowKind<
 	string
 >("dependence-handler");
 
-interface DependenceHandlerKind<
+export interface DependenceHandlerKind<
 	GenericName extends string = string,
 > extends Kind<
 		typeof dependenceHandlerKind.definition,

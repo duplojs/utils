@@ -5,10 +5,10 @@ export function *defer<
 >(
 	theFunction: () => GenericOutput,
 ): (
-		| Generator<Defer<GenericOutput>>
+		| Generator<Defer<GenericOutput>, undefined>
 		| (
 			GenericOutput extends Promise<unknown>
-				? AsyncGenerator<Defer<GenericOutput>>
+				? AsyncGenerator<Defer<GenericOutput>, undefined>
 				: never
 		)
 	) {

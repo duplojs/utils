@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 import { createKind, keyKindPrefix, type KindDefinition, type Kind, type ExpectType, kindHeritage, type SimplifyTopLevel, createKindNamespace, isRuntimeKind } from "@scripts";
 
 describe("theKind", () => {
@@ -60,6 +61,8 @@ describe("theKind", () => {
 		const predicate = myKind.has(newObject);
 
 		expect(predicate).toBe(true);
+
+		expect(myKind.has(myKind.setTo(function() {}))).toBe(true);
 
 		if (predicate) {
 			type Check = ExpectType<

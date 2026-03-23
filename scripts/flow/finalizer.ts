@@ -5,10 +5,10 @@ export function *finalizer<
 >(
 	theFunction: () => GenericOutput,
 ): (
-	| Generator<Finalizer<GenericOutput>>
+	| Generator<Finalizer<GenericOutput>, undefined>
 	| (
 		GenericOutput extends Promise<unknown>
-			? AsyncGenerator<Finalizer<GenericOutput>>
+			? AsyncGenerator<Finalizer<GenericOutput>, undefined>
 			: never
 	)
 	) {

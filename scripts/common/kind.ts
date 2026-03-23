@@ -160,7 +160,10 @@ export function createKind<
 		},
 		has(input): input is never {
 			return input
-			&& typeof input === "object"
+			&& (
+				typeof input === "object"
+				|| typeof input === "function"
+			)
 			&& runTimeKey in input;
 		},
 		getValue(input) {

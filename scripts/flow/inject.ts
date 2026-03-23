@@ -1,10 +1,13 @@
-import { type DependenceHandler, createInjection } from "./theFlow";
+import { type DependenceHandler, type Injection, createInjection } from "./theFlow";
 
 export function *inject<
 	GenericDependenceHandler extends DependenceHandler,
 >(
 	dependenceHandler: GenericDependenceHandler,
-) {
+): Generator<
+		Injection<GenericDependenceHandler>,
+		ReturnType<GenericDependenceHandler>
+	> {
 	let dependence = undefined as ReturnType<GenericDependenceHandler> | undefined;
 
 	yield createInjection({
@@ -14,5 +17,5 @@ export function *inject<
 		},
 	});
 
-	return dependence!;
+	return dependence as never;
 }

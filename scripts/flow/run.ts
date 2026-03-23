@@ -1,5 +1,5 @@
 import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, type TheFlowInput, type WrapTheFlowFunction, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, stepKind, type Step, type TheFlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler } from "./theFlow";
+import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { finalizerKind } from "./theFlow/finalizer";
 import { createFlowKind } from "./kind";
@@ -38,16 +38,17 @@ export interface FlowDetails<
 export type RunResult<
 	GenericFlow extends TheFlow,
 	GenericIncludeDetails extends boolean = false,
-> = GenericFlow extends TheFlow<infer InferredFunction>
-	? InferredFunction extends TheFlowFunction<
-		any,
-		infer InferredGenerator
-	>
-		? InferredGenerator extends TheFlowGenerator<
-			infer InferredOutput,
-			infer InferredEffect
+> = (
+	GenericFlow extends TheFlow<infer InferredFunction>
+		? InferredFunction extends TheFlowFunction<
+			any,
+			infer InferredGenerator
 		>
-			? (
+			? InferredGenerator extends TheFlowGenerator<
+				infer InferredOutput,
+				infer InferredEffect
+			>
+				? (
 				| (
 					InferredEffect extends Exit<infer InferredValue>
 						? InferredValue
@@ -56,18 +57,23 @@ export type RunResult<
 							: never
 				)
 				| InferredOutput
-			) extends infer InferredResult
-				? IsEqual<GenericIncludeDetails, true> extends true
-					? FlowDetails<
-						InferredResult,
-						InferredEffect extends Step<infer InferredName>
-							? InferredName
-							: never
-					>
-					: InferredResult
+				) extends infer InferredResult
+					? IsEqual<GenericIncludeDetails, true> extends true
+						? FlowDetails<
+							InferredResult,
+							InferredEffect extends Step<infer InferredName>
+								? InferredName
+								: never
+						>
+						: InferredResult
+					: never
 				: never
 			: never
 		: never
+) extends infer InferredResult
+	? ExtractFlowGenerator<GenericFlow> extends AsyncGenerator
+		? Promise<InferredResult>
+		: InferredResult
 	: never;
 
 export class MissingDependenceError extends kindHeritage(
@@ -87,10 +93,10 @@ export function run<
 		| TheFlowFunction
 		| TheFlow
 	),
-	GenericWrapFlow extends WrapTheFlowFunction<GenericFlow>,
+	GenericWrapFlow extends WrapFlow<GenericFlow>,
 	const GenericParams extends ComputeRunParams<
-		TheFlowInput<GenericWrapFlow>,
-		TheFlowDependencies<GenericWrapFlow>
+		FlowInput<GenericWrapFlow>,
+		FlowDependencies<GenericWrapFlow>
 	>,
 >(
 	theFlow: GenericFlow,
@@ -121,12 +127,12 @@ export function run<
 						break;
 					} else if (breakKind.has(result.value)) {
 						result = await generator.return(
-							breakKind.getValue(result.value),
+							breakKind.getValue(result.value).value,
 						);
 						break;
 					} else if (exitKind.has(result.value)) {
 						result = await generator.return(
-							exitKind.getValue(result.value),
+							exitKind.getValue(result.value).value,
 						);
 						break;
 					} else if (deferKind.has(result.value)) {
@@ -190,12 +196,12 @@ export function run<
 				break;
 			} else if (breakKind.has(result.value)) {
 				result = generator.return(
-					breakKind.getValue(result.value),
+					breakKind.getValue(result.value).value,
 				);
 				break;
 			} else if (exitKind.has(result.value)) {
 				result = generator.return(
-					exitKind.getValue(result.value),
+					exitKind.getValue(result.value).value,
 				);
 				break;
 			} else if (deferKind.has(result.value)) {

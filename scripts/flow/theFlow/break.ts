@@ -10,7 +10,7 @@ export interface Break<
 	GenericValue extends unknown = unknown,
 > extends Kind<
 		typeof breakKind.definition,
-		GenericValue
+		{ value: GenericValue }
 	> {
 
 }
@@ -20,5 +20,5 @@ export function createBreak<
 >(
 	value: GenericValue = undefined as GenericValue,
 ): Break<GenericValue> {
-	return breakKind.setTo({}, value);
+	return breakKind.setTo({}, { value });
 }

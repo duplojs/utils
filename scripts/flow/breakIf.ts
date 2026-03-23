@@ -1,4 +1,4 @@
-import { type AnyFunction } from "@scripts/common";
+import { type NeverCoalescing, type AnyFunction } from "@scripts/common";
 import { type Break, createBreak } from "./theFlow";
 
 export function breakIf<
@@ -9,7 +9,7 @@ export function breakIf<
 	thePredicate: (value: GenericValue) => value is GenericPredicate
 ): Generator<
 	Break<
-		Extract<GenericValue, GenericPredicate>
+		NeverCoalescing<Extract<GenericValue, GenericPredicate>, GenericPredicate>
 	>,
 	Exclude<GenericValue, GenericPredicate>
 >;

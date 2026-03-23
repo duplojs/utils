@@ -1,5 +1,5 @@
 import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, forward } from "@scripts/common";
-import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type TheFlowInput, type WrapTheFlowFunction, type Exit, type Break, type Injection, theFLowKind, exitKind, breakKind, type Step, stepKind, type TheFlowDependencies, type Effect, injectionKind, dependenceHandlerKind } from "./theFlow";
+import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, theFLowKind, exitKind, breakKind, type Step, stepKind, type FlowDependencies, type Effect, injectionKind, dependenceHandlerKind } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
 
@@ -66,10 +66,10 @@ export function exec<
 		| TheFlow
 		| TheFlowGenerator
 	),
-	GenericWrapFlow extends WrapTheFlowFunction<GenericFlow>,
+	GenericWrapFlow extends WrapFlow<GenericFlow>,
 	const GenericParams extends ComputeExecParams<
-		TheFlowInput<GenericWrapFlow>,
-		TheFlowDependencies<GenericWrapFlow>
+		FlowInput<GenericWrapFlow>,
+		FlowDependencies<GenericWrapFlow>
 	>,
 >(
 	theFlow: GenericFlow,
@@ -78,7 +78,7 @@ export function exec<
 			? [params?: GenericParams]
 			: [params: GenericParams]
 	)
-): ExecResult<WrapTheFlowFunction<GenericFlow>> {
+): ExecResult<WrapFlow<GenericFlow>> {
 	let result: undefined | IteratorResult<Effect, unknown> = undefined;
 	let deferFunctions: (() => unknown)[] | undefined = undefined;
 
@@ -101,7 +101,7 @@ export function exec<
 						break;
 					} else if (breakKind.has(result.value)) {
 						result = await generator.return(
-							breakKind.getValue(result.value),
+							breakKind.getValue(result.value).value,
 						);
 						break;
 					} else if (exitKind.has(result.value)) {
@@ -155,7 +155,7 @@ export function exec<
 					break;
 				} else if (breakKind.has(result.value)) {
 					result = generator.return(
-						breakKind.getValue(result.value),
+						breakKind.getValue(result.value).value,
 					);
 					break;
 				} else if (exitKind.has(result.value)) {

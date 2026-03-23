@@ -10,7 +10,7 @@ export interface Exit<
 	GenericValue extends unknown = unknown,
 > extends Kind<
 		typeof exitKind.definition,
-		GenericValue
+		{ value: GenericValue }
 	> {
 
 }
@@ -20,5 +20,5 @@ export function createExit<
 >(
 	value: GenericValue = undefined as GenericValue,
 ): Exit<GenericValue> {
-	return exitKind.setTo({}, value);
+	return exitKind.setTo({}, { value });
 }
