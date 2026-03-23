@@ -90,10 +90,13 @@ export type WrapTheFlowFunction<
 	GenericFlow extends (
 		| TheFlow
 		| TheFlowFunction
+		| TheFlowGenerator
 	),
-> = GenericFlow extends TheFlowFunction
-	? TheFlow<GenericFlow>
-	: GenericFlow;
+> = GenericFlow extends TheFlowGenerator
+	? TheFlow<TheFlowFunction<unknown, GenericFlow>>
+	: GenericFlow extends TheFlowFunction
+		? TheFlow<GenericFlow>
+		: GenericFlow;
 
 export type TheFlowDependencies<
 	GenericFlow extends TheFlow,

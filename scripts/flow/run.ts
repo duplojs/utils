@@ -1,5 +1,5 @@
-import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, type } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, create, createBreak, type TheFlowInput, type WrapTheFlowFunction, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, createExit, stepKind, type Step, type TheFlowDependencies, createDependence } from "./theFlow";
+import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec } from "@scripts/common";
+import { type TheFlow, type TheFlowFunction, create, createBreak, type TheFlowInput, type WrapTheFlowFunction, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, createExit, stepKind, type Step, type TheFlowDependencies, createDependence, injectionKind, type Effect, dependenceHandlerKind } from "./theFlow";
 import { exec } from "./exec";
 import { deferKind } from "./theFlow/defer";
 import { finalizerKind } from "./theFlow/finalizer";
@@ -96,7 +96,7 @@ export function run<
 		GenericWrapFlow,
 		IsEqual<GenericParams["includeDetails"], true>
 	> {
-	let result: undefined | IteratorResult<unknown> = undefined;
+	let result: undefined | IteratorResult<Effect, unknown> = undefined;
 	let deferFunctions: (() => unknown)[] | undefined = undefined;
 	let steps: string[] | undefined = undefined;
 
@@ -109,7 +109,9 @@ export function run<
 			try {
 				do {
 					result = await generator.next();
-					if (breakKind.has(result.value)) {
+					if (result.done === true) {
+						break;
+					} else if (breakKind.has(result.value)) {
 						result = await generator.return(
 							breakKind.getValue(result.value),
 						);
@@ -135,8 +137,22 @@ export function run<
 						steps.push(
 							stepKind.getValue(result.value),
 						);
+					} else if (injectionKind.has(result.value)) {
+						const injectionProperties = injectionKind.getValue(result.value);
+
+						const dependenceName = dependenceHandlerKind.getValue(injectionProperties.dependenceHandler);
+						if (
+							!params?.dependencies
+							|| !(dependenceName in params.dependencies)
+						) {
+							throw new Error("");
+						}
+
+						injectionProperties.inject(
+							params.dependencies[dependenceName],
+						);
 					}
-				} while (result.done !== true);
+				} while (true);
 
 				return result.value;
 			} finally {
@@ -154,7 +170,9 @@ export function run<
 	try {
 		do {
 			result = generator.next();
-			if (breakKind.has(result.value)) {
+			if (result.done === true) {
+				break;
+			} else if (breakKind.has(result.value)) {
 				result = generator.return(
 					breakKind.getValue(result.value),
 				);
@@ -180,10 +198,24 @@ export function run<
 				steps.push(
 					stepKind.getValue(result.value),
 				);
-			}
-		} while (result.done !== true);
+			} else if (injectionKind.has(result.value)) {
+				const injectionProperties = injectionKind.getValue(result.value);
 
-		return result.value;
+				const dependenceName = dependenceHandlerKind.getValue(injectionProperties.dependenceHandler);
+				if (
+					!params?.dependencies
+					|| !(dependenceName in params.dependencies)
+				) {
+					throw new Error("");
+				}
+
+				injectionProperties.inject(
+					params.dependencies[dependenceName],
+				);
+			}
+		} while (true);
+
+		return result.value as never;
 	} finally {
 		if (deferFunctions) {
 			deferFunctions.map(
@@ -192,45 +224,3 @@ export function run<
 		}
 	}
 }
-
-const dep = createDependence("TheDep")<number>;
-
-const flow = create(
-	function *(test: "string") {
-		yield createBreak(<const>"test");
-
-		yield createExit(<const>"exit");
-
-		yield *defer(() => {});
-		yield *finalizer(() => {});
-
-		yield *step("maSuperStep");
-		yield *step("test");
-
-		const value = yield *inject(dep);
-
-		return test;
-	},
-);
-
-const result = run(
-	function *() {
-		const result = yield *exec(flow, { input: "string" });
-
-		return 12;
-	},
-	{
-		includeDetails: true,
-		dependencies: {
-			TheDep: 3,
-		},
-	},
-);
-
-run(
-	flow,
-	{
-		input: "string",
-		dependencies: { TheDep: 40 },
-	},
-);

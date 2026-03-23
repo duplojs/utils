@@ -1,12 +1,13 @@
-import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or } from "@scripts/common";
-import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type TheFlowInput, type WrapTheFlowFunction, type Exit, type Break, type Injection, theFLowKind, exitKind, breakKind, type Step, stepKind } from "./theFlow";
+import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, forward } from "@scripts/common";
+import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type TheFlowInput, type WrapTheFlowFunction, type Exit, type Break, type Injection, theFLowKind, exitKind, breakKind, type Step, stepKind, type TheFlowDependencies, type Effect, injectionKind, dependenceHandlerKind } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
 
 type ComputeExecParams<
 	GenericInput extends unknown,
+	GenericDependencies extends Record<string, unknown>,
 > = SimplifyTopLevel<
-	| (
+	& (
 		Or<[
 			IsEqual<GenericInput, unknown>,
 			IsEqual<GenericInput, never>,
@@ -15,6 +16,9 @@ type ComputeExecParams<
 			? { input?: GenericInput }
 			: { input: GenericInput }
 	)
+	& {
+		dependencies?: GenericDependencies;
+	}
 >;
 
 export type ExecResult<
@@ -60,33 +64,42 @@ export function exec<
 	GenericFlow extends(
 		| TheFlowFunction
 		| TheFlow
+		| TheFlowGenerator
 	),
-	GenericInput extends TheFlowInput<
-		WrapTheFlowFunction<GenericFlow>
+	GenericWrapFlow extends WrapTheFlowFunction<GenericFlow>,
+	const GenericParams extends ComputeExecParams<
+		TheFlowInput<GenericWrapFlow>,
+		TheFlowDependencies<GenericWrapFlow>
 	>,
 >(
 	theFlow: GenericFlow,
 	...[params]: (
-		ComputeExecParams<GenericInput> extends infer InferredParams
-			? {} extends InferredParams
-				? [param?: InferredParams]
-				: [params: InferredParams]
-			: never
+		{} extends GenericParams
+			? [params?: GenericParams]
+			: [params: GenericParams]
 	)
 ): ExecResult<WrapTheFlowFunction<GenericFlow>> {
-	let result: undefined | IteratorResult<unknown> = undefined;
+	let result: undefined | IteratorResult<Effect, unknown> = undefined;
 	let deferFunctions: (() => unknown)[] | undefined = undefined;
 
-	const generator = typeof theFlow === "function"
-		? theFlow((params as Record<string, unknown>).input)
-		: theFLowKind.getValue(theFlow).run((params as Record<string, unknown>).input);
+	const generator = justExec(() => {
+		if (Symbol.asyncIterator in theFlow || Symbol.iterator in theFlow) {
+			return forward<TheFlowGenerator>(theFlow);
+		} else if (typeof theFlow === "function") {
+			return theFlow(params?.input);
+		} else {
+			return theFLowKind.getValue(theFlow).run(params?.input);
+		}
+	});
 
 	if (Symbol.asyncIterator in generator) {
 		return (async function *() {
 			try {
 				do {
 					result = await generator.next();
-					if (breakKind.has(result.value)) {
+					if (result.done === true) {
+						break;
+					} else if (breakKind.has(result.value)) {
 						result = await generator.return(
 							breakKind.getValue(result.value),
 						);
@@ -101,11 +114,26 @@ export function exec<
 						yield result.value;
 					} else if (stepKind.has(result.value)) {
 						yield result.value;
+					} else if (injectionKind.has(result.value)) {
+						const injectionProperties = injectionKind.getValue(result.value);
+
+						const dependenceName = dependenceHandlerKind.getValue(injectionProperties.dependenceHandler);
+						if (
+							!params?.dependencies
+							|| !(dependenceName in params.dependencies)
+						) {
+							yield result.value;
+						} else {
+							injectionProperties.inject(
+								params.dependencies[dependenceName],
+							);
+						}
 					}
-				} while (result.done !== true);
+				} while (true);
 
 				return result.value;
 			} finally {
+				await generator.return(undefined);
 				if (deferFunctions) {
 					await Promise.all(
 						deferFunctions.map(
@@ -121,12 +149,15 @@ export function exec<
 		try {
 			do {
 				result = generator.next();
-				if (breakKind.has(result.value)) {
+				if (result.done === true) {
+					break;
+				} else if (breakKind.has(result.value)) {
 					result = generator.return(
 						breakKind.getValue(result.value),
 					);
 				} else if (exitKind.has(result.value)) {
 					yield result.value;
+					result = generator.return(undefined);
 				} else if (deferKind.has(result.value)) {
 					deferFunctions ??= [];
 					deferFunctions.push(
@@ -136,11 +167,26 @@ export function exec<
 					yield result.value;
 				} else if (stepKind.has(result.value)) {
 					yield result.value;
+				} else if (injectionKind.has(result.value)) {
+					const injectionProperties = injectionKind.getValue(result.value);
+
+					const dependenceName = dependenceHandlerKind.getValue(injectionProperties.dependenceHandler);
+					if (
+						!params?.dependencies
+							|| !(dependenceName in params.dependencies)
+					) {
+						yield result.value;
+					} else {
+						injectionProperties.inject(
+							params.dependencies[dependenceName],
+						);
+					}
 				}
-			} while (result.done !== true);
+			} while (true);
 
 			return result.value;
 		} finally {
+			generator.return(undefined);
 			if (deferFunctions) {
 				deferFunctions.map(
 					justExec,

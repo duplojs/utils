@@ -14,9 +14,5 @@ export function *inject<
 		},
 	});
 
-	if (!dependence) {
-		throw new Error("");
-	}
-
-	return dependence;
+	return dependence!;
 }
