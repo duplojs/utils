@@ -103,8 +103,10 @@ export function exec<
 						result = await generator.return(
 							breakKind.getValue(result.value),
 						);
+						break;
 					} else if (exitKind.has(result.value)) {
 						yield result.value;
+						break;
 					} else if (deferKind.has(result.value)) {
 						deferFunctions ??= [];
 						deferFunctions.push(
@@ -155,9 +157,10 @@ export function exec<
 					result = generator.return(
 						breakKind.getValue(result.value),
 					);
+					break;
 				} else if (exitKind.has(result.value)) {
 					yield result.value;
-					result = generator.return(undefined);
+					break;
 				} else if (deferKind.has(result.value)) {
 					deferFunctions ??= [];
 					deferFunctions.push(
@@ -173,7 +176,7 @@ export function exec<
 					const dependenceName = dependenceHandlerKind.getValue(injectionProperties.dependenceHandler);
 					if (
 						!params?.dependencies
-							|| !(dependenceName in params.dependencies)
+						|| !(dependenceName in params.dependencies)
 					) {
 						yield result.value;
 					} else {

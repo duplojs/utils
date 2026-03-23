@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type GetKindValue, type Kind } from "@scripts/common";
+import { type GetKindValue, type Kind } from "@scripts/common";
 import { createFlowKind } from "../kind";
 import { type Step } from "./step";
 import { type Exit } from "./exit";

@@ -1,12 +1,8 @@
-import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, create, createBreak, type TheFlowInput, type WrapTheFlowFunction, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, createExit, stepKind, type Step, type TheFlowDependencies, createDependence, injectionKind, type Effect, dependenceHandlerKind } from "./theFlow";
-import { exec } from "./exec";
+import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage } from "@scripts/common";
+import { type TheFlow, type TheFlowFunction, type TheFlowInput, type WrapTheFlowFunction, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, stepKind, type Step, type TheFlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { finalizerKind } from "./theFlow/finalizer";
-import { defer } from "./defer";
-import { finalizer } from "./finalizer";
-import { step } from "./step";
-import { inject } from "./inject";
+import { createFlowKind } from "./kind";
 
 type ComputeRunParams<
 	GenericInput extends unknown,
@@ -74,6 +70,18 @@ export type RunResult<
 		: never
 	: never;
 
+export class MissingDependenceError extends kindHeritage(
+	"missing-dependence-error",
+	createFlowKind("missing-dependence-error"),
+	Error,
+) {
+	public constructor(
+		public dependenceHandler: DependenceHandler,
+	) {
+		super({}, [`Missing dependence : ${dependenceHandlerKind.getValue(dependenceHandler)}`]);
+	}
+}
+
 export function run<
 	GenericFlow extends(
 		| TheFlowFunction
@@ -115,10 +123,12 @@ export function run<
 						result = await generator.return(
 							breakKind.getValue(result.value),
 						);
+						break;
 					} else if (exitKind.has(result.value)) {
 						result = await generator.return(
 							exitKind.getValue(result.value),
 						);
+						break;
 					} else if (deferKind.has(result.value)) {
 						deferFunctions ??= [];
 						deferFunctions.push(
@@ -145,7 +155,7 @@ export function run<
 							!params?.dependencies
 							|| !(dependenceName in params.dependencies)
 						) {
-							throw new Error("");
+							throw new MissingDependenceError(injectionProperties.dependenceHandler);
 						}
 
 						injectionProperties.inject(
@@ -154,8 +164,14 @@ export function run<
 					}
 				} while (true);
 
-				return result.value;
+				return params?.includeDetails === true
+					? {
+						result: result.value,
+						steps: steps ?? [],
+					}
+					: result.value;
 			} finally {
+				await generator.return(undefined);
 				if (deferFunctions) {
 					await Promise.all(
 						deferFunctions.map(
@@ -176,10 +192,12 @@ export function run<
 				result = generator.return(
 					breakKind.getValue(result.value),
 				);
+				break;
 			} else if (exitKind.has(result.value)) {
 				result = generator.return(
 					exitKind.getValue(result.value),
 				);
+				break;
 			} else if (deferKind.has(result.value)) {
 				deferFunctions ??= [];
 				deferFunctions.push(
@@ -206,7 +224,7 @@ export function run<
 					!params?.dependencies
 					|| !(dependenceName in params.dependencies)
 				) {
-					throw new Error("");
+					throw new MissingDependenceError(injectionProperties.dependenceHandler);
 				}
 
 				injectionProperties.inject(
@@ -215,8 +233,16 @@ export function run<
 			}
 		} while (true);
 
-		return result.value as never;
+		return (
+			params?.includeDetails === true
+				? {
+					result: result.value,
+					steps: steps ?? [],
+				}
+				: result.value
+		) as never;
 	} finally {
+		generator.return(undefined);
 		if (deferFunctions) {
 			deferFunctions.map(
 				justExec,
