@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Fonctions pour manipuler les générateurs JavaScript de manière fonctionnelle et type-safe. Les générateurs permettent de traiter des séquences de données de façon lazy (paresseuse), en ne calculant les valeurs que lorsqu'elles sont nécessaires."
 prev:
-  text: 'Either'
-  link: '/fr/v1/api/either/'
+  text: 'Flow'
+  link: '/fr/v1/api/flow/'
 next:
   text: 'String'
   link: '/fr/v1/api/string/'

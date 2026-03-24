@@ -9,4 +9,5 @@ export * from "./exitIf";
 export * from "./finalizer";
 export * from "./inject";
 export * from "./step";
+export * from "./initializer";
 export * from "./kind";

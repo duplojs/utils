@@ -31,6 +31,7 @@ export default [
 			"@typescript-eslint/no-confusing-void-expression": "off",
 			"no-nested-ternary": "off",
 			"@stylistic/js/line-comment-position": "off",
+			"require-yield": "off",
 		},
 	},
 	{

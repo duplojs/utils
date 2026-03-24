@@ -1,0 +1,1 @@
+export declare const createFlowKind: <GenericName extends string, GenericKindValue extends unknown = unknown>(name: GenericName & import("../string").ForbiddenString<GenericName, "@" | "/">) => import("../common").KindHandler<import("../common").KindDefinition<`@DuplojsUtilsFlow/${GenericName}`, GenericKindValue>>;

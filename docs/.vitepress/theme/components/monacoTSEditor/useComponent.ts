@@ -56,6 +56,8 @@ function initMonaco() {
 			"@duplojs/utils/dataParser": ["node_modules/@duplojs/utils/dataParser/index.d.ts"],
 			"@duplojs/utils/dataParserCoerce": ["node_modules/@duplojs/utils/dataParser/parsers/coerce/index.d.ts"],
 			"@duplojs/utils/dataParserExtended": ["node_modules/@duplojs/utils/dataParser/extended/index.d.ts"],
+			"@duplojs/utils/flow": ["node_modules/@duplojs/utils/flow/index.d.ts"],
+			"@duplojs/utils/flow/initializer": ["node_modules/@duplojs/utils/flow/initializer.d.ts"],
 			"@duplojs/utils/generator": ["node_modules/@duplojs/utils/generator/index.d.ts"],
 			"@duplojs/utils/number": ["node_modules/@duplojs/utils/number/index.d.ts"],
 			"@duplojs/utils/object": ["node_modules/@duplojs/utils/object/index.d.ts"],

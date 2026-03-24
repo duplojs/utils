@@ -26,6 +26,9 @@ API date/time immutable avec `TheDate` (objet date), `TheTime` (durée) et leurs
 ## [🔀 Either](/fr/v1/api/either/)
 Monade Either pour la gestion d'erreurs fonctionnelle. Évitez les exceptions et gérez les résultats success/error de manière explicite et type-safe.
 
+## [🌊 Flow](/fr/v1/api/flow/)
+Helpers de contrôle de flux basés sur des générateurs pour composer des workflows avec étapes, nettoyage et injection de dépendances.
+
 ## [⚡ Generator](/fr/v1/api/generator/)
 Fonctions utilitaires pour travailler avec les générateurs et créer des séquences lazy. Idéal pour gérer de grandes quantités de données efficacement.
 

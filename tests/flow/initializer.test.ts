@@ -1,12 +1,11 @@
 
 import { DFlow, type ExpectType } from "@scripts";
-import { createInitializer } from "@scripts/flow/initializer";
 
 describe("createInitializer", () => {
 	describe("sync", () => {
 		it("returns the initializer result and runs defer with the returned value", () => {
 			const spyDefer = vi.fn((output: string) => output.length);
-			const initializer = createInitializer(
+			const initializer = DFlow.createInitializer(
 				(input: string) => `hello ${input}`,
 				{ defer: spyDefer },
 			);
@@ -43,7 +42,7 @@ describe("createInitializer", () => {
 
 		it("returns the initializer result and runs finalizer with the returned value", () => {
 			const spyFinalizer = vi.fn((output: number) => output.toString());
-			const initializer = createInitializer(
+			const initializer = DFlow.createInitializer(
 				(left: number, right: number) => left + right,
 				{ finalizer: spyFinalizer },
 			);
@@ -76,7 +75,7 @@ describe("createInitializer", () => {
 	describe("async", () => {
 		it("returns the awaited initializer result and runs defer with the awaited value", async() => {
 			const spyDefer = vi.fn(async(output: string) => Promise.resolve(output.length));
-			const initializer = createInitializer(
+			const initializer = DFlow.createInitializer(
 				async(input: string) => Promise.resolve(`hello ${input}`),
 				{ defer: spyDefer },
 			);
@@ -109,7 +108,7 @@ describe("createInitializer", () => {
 
 		it("returns the awaited initializer result and runs finalizer with the awaited value", async() => {
 			const spyFinalizer = vi.fn(async(output: number) => Promise.resolve(output.toString()));
-			const initializer = createInitializer(
+			const initializer = DFlow.createInitializer(
 				async(left: number, right: number) => Promise.resolve(left + right),
 				{ finalizer: spyFinalizer },
 			);

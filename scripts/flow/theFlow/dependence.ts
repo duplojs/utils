@@ -35,9 +35,12 @@ export type DependenceHandlerDefinition<
 		<GenericType extends unknown>(
 			implementation: GenericType
 		) => GenericType
-	)
+		)
 );
 
+/**
+ * {@include flow/createDependence/index.md}
+ */
 export function createDependence<
 	GenericName extends string,
 >(

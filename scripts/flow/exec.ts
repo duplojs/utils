@@ -57,7 +57,7 @@ export type ExecResult<
 					: Generator<InferredEffect, InferredOutput>
 				: never
 			: never
-			: never
+		: never
 	: never;
 
 /**

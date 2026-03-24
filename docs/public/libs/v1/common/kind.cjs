@@ -24,7 +24,8 @@ function createKind(name) {
         },
         has(input) {
             return input
-                && typeof input === "object"
+                && (typeof input === "object"
+                    || typeof input === "function")
                 && runTimeKey in input;
         },
         getValue(input) {

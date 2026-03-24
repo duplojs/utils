@@ -181,6 +181,10 @@ export default defineConfig({
 								link: "/fr/v1/api/either/",
 							},
 							{
+								text: "Flow",
+								link: "/fr/v1/api/flow/",
+							},
+							{
 								text: "Generator",
 								link: "/fr/v1/api/generator/",
 							},
@@ -301,6 +305,10 @@ export default defineConfig({
 							{
 								text: "Either",
 								link: "/en/v1/api/either/",
+							},
+							{
+								text: "Flow",
+								link: "/en/v1/api/flow/",
 							},
 							{
 								text: "Generator",

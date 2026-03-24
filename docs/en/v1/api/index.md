@@ -26,6 +26,9 @@ Immutable date/time API with `TheDate` (date object), `TheTime` (duration), and 
 ## [🔀 Either](/en/v1/api/either/)
 Either monad for functional error handling. Avoid exceptions and manage success/error results explicitly and type-safely.
 
+## [🌊 Flow](/en/v1/api/flow/)
+Generator-based control-flow helpers to compose workflows with steps, cleanup, and dependency injection.
+
 ## [⚡ Generator](/en/v1/api/generator/)
 Utility functions to work with generators and create lazy sequences. Ideal for efficiently handling large amounts of data.
 
