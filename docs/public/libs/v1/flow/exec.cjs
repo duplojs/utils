@@ -25,7 +25,7 @@ function exec(theFlow, ...[params]) {
             return theFlow(params?.input);
         }
         else {
-            return index.theFLowKind.getValue(theFlow).run(params?.input);
+            return index.theFlowKind.getValue(theFlow).run(params?.input);
         }
     });
     if (Symbol.asyncIterator in generator) {

@@ -21,7 +21,7 @@ export type Initializer<GenericArgs extends unknown[], GenericOutput extends unk
  * The returned initializer can then be executed inside `F.run(...)` like any other flow generator.
  * 
  * ```ts
- * const userInitializer = createInitializer(
+ * const userInitializer = F.createInitializer(
  * 	(name: string) => ({ name }),
  * 	{ defer: (user) => void console.log(`close:${user.name}`) },
  * );
@@ -33,7 +33,7 @@ export type Initializer<GenericArgs extends unknown[], GenericOutput extends unk
  * ); // { name: "Ada" }
  * 
  * const finalizerLogs: string[] = [];
- * const tokenInitializer = createInitializer(
+ * const tokenInitializer = F.createInitializer(
  * 	(id: number) => `token-${id}`,
  * 	{ finalizer: (token) => finalizerLogs.push(token) },
  * );
@@ -44,7 +44,7 @@ export type Initializer<GenericArgs extends unknown[], GenericOutput extends unk
  * 	},
  * ); // "token-42"
  * 
- * const asyncInitializer = createInitializer(
+ * const asyncInitializer = F.createInitializer(
  * 	(name: string) => Promise.resolve({
  * 		name,
  * 		ready: true,

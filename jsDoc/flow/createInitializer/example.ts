@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { F } from "@scripts";
-import { createInitializer } from "@scripts/flow/initializer";
 
-const userInitializer = createInitializer(
+const userInitializer = F.createInitializer(
 	(name: string) => ({ name }),
 	{ defer: (user) => void console.log(`close:${user.name}`) },
 );
@@ -14,7 +13,7 @@ F.run(
 ); // { name: "Ada" }
 
 const finalizerLogs: string[] = [];
-const tokenInitializer = createInitializer(
+const tokenInitializer = F.createInitializer(
 	(id: number) => `token-${id}`,
 	{ finalizer: (token) => finalizerLogs.push(token) },
 );
@@ -25,7 +24,7 @@ F.run(
 	},
 ); // "token-42"
 
-const asyncInitializer = createInitializer(
+const asyncInitializer = F.createInitializer(
 	(name: string) => Promise.resolve({
 		name,
 		ready: true,

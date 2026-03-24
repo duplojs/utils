@@ -28,7 +28,7 @@ function run(theFlow, ...[params]) {
     let steps = undefined;
     const generator = typeof theFlow === "function"
         ? theFlow(params?.input)
-        : index.theFLowKind.getValue(theFlow).run(params?.input);
+        : index.theFlowKind.getValue(theFlow).run(params?.input);
     if (Symbol.asyncIterator in generator) {
         return (async function () {
             try {

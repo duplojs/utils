@@ -21,10 +21,7 @@ The library exposes the `DFlow` and `F` namespaces from the main entry **or** vi
 import { DFlow, F } from "@duplojs/utils";
 import * as DFlow from "@duplojs/utils/flow";
 import * as F from "@duplojs/utils/flow";
-import { createInitializer } from "@duplojs/utils/flow/initializer";
 ```
-
-`createInitializer` is documented with the flow helpers, but it is imported from `@duplojs/utils/flow/initializer`.
 
 ## Flow creation and execution
 

@@ -8,7 +8,7 @@ Depending on the provided options, it can register a `defer` callback, a `finali
 The returned initializer can then be executed inside `F.run(...)` like any other flow generator.
 
 ```ts
-{@include flow/createInitializer/example.ts[5,43]}
+{@include flow/createInitializer/example.ts[4,42]}
 ```
 
 @remarks

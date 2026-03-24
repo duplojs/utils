@@ -1,4 +1,4 @@
-import { theFLowKind } from './theFlow/index.mjs';
+import { theFlowKind } from './theFlow/index.mjs';
 import { deferKind } from './theFlow/defer.mjs';
 import { finalizerKind } from './theFlow/finalizer.mjs';
 import { createFlowKind } from './kind.mjs';
@@ -26,7 +26,7 @@ function run(theFlow, ...[params]) {
     let steps = undefined;
     const generator = typeof theFlow === "function"
         ? theFlow(params?.input)
-        : theFLowKind.getValue(theFlow).run(params?.input);
+        : theFlowKind.getValue(theFlow).run(params?.input);
     if (Symbol.asyncIterator in generator) {
         return (async function () {
             try {

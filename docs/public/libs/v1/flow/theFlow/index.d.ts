@@ -19,8 +19,8 @@ export type TheFlowFunction<GenericInput extends any = any, GenericGenerator ext
 export interface TheFlowProperties<GenericFunction extends TheFlowFunction = TheFlowFunction> {
     run: GenericFunction;
 }
-export declare const theFLowKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsFlow/the-flow", TheFlowProperties<TheFlowFunction<any, TheFlowGenerator<unknown, Effect>>>>>;
-export interface TheFlow<GenericFunction extends TheFlowFunction = TheFlowFunction> extends Kind<typeof theFLowKind.definition, TheFlowProperties<GenericFunction>> {
+export declare const theFlowKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsFlow/the-flow", TheFlowProperties<TheFlowFunction<any, TheFlowGenerator<unknown, Effect>>>>>;
+export interface TheFlow<GenericFunction extends TheFlowFunction = TheFlowFunction> extends Kind<typeof theFlowKind.definition, TheFlowProperties<GenericFunction>> {
 }
 /**
  * Creates a reusable flow object from a flow function.

@@ -1,7 +1,6 @@
 'use strict';
 
 var kind = require('../kind.cjs');
-var pipe = require('../../common/pipe.cjs');
 
 const dependenceHandlerKind = kind.createFlowKind("dependence-handler");
 /**
@@ -11,7 +10,7 @@ function createDependence(name) {
     const dependenceHandler = function (implementation) {
         return implementation;
     };
-    return pipe.pipe(dependenceHandler, (value) => dependenceHandlerKind.setTo(value, name));
+    return dependenceHandlerKind.setTo(dependenceHandler, name);
 }
 
 exports.createDependence = createDependence;

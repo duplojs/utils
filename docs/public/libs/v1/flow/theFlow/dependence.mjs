@@ -1,5 +1,4 @@
 import { createFlowKind } from '../kind.mjs';
-import { pipe } from '../../common/pipe.mjs';
 
 const dependenceHandlerKind = createFlowKind("dependence-handler");
 /**
@@ -9,7 +8,7 @@ function createDependence(name) {
     const dependenceHandler = function (implementation) {
         return implementation;
     };
-    return pipe(dependenceHandler, (value) => dependenceHandlerKind.setTo(value, name));
+    return dependenceHandlerKind.setTo(dependenceHandler, name);
 }
 
 export { createDependence, dependenceHandlerKind };

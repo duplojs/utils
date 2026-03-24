@@ -1,4 +1,4 @@
-import { theFLowKind } from './theFlow/index.mjs';
+import { theFlowKind } from './theFlow/index.mjs';
 import { deferKind } from './theFlow/defer.mjs';
 import { finalizerKind } from './theFlow/finalizer.mjs';
 import { justExec } from '../common/justExec.mjs';
@@ -23,7 +23,7 @@ function exec(theFlow, ...[params]) {
             return theFlow(params?.input);
         }
         else {
-            return theFLowKind.getValue(theFlow).run(params?.input);
+            return theFlowKind.getValue(theFlow).run(params?.input);
         }
     });
     if (Symbol.asyncIterator in generator) {

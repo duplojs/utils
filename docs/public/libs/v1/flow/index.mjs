@@ -1,5 +1,5 @@
 export { MissingDependenceError, run } from './run.mjs';
-export { create, theFLowKind } from './theFlow/index.mjs';
+export { create, theFlowKind } from './theFlow/index.mjs';
 export { breakIf } from './breakIf.mjs';
 export { defer } from './defer.mjs';
 export { exec } from './exec.mjs';
