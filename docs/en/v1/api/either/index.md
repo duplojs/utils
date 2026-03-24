@@ -5,8 +5,8 @@ prev:
   text: 'Date'
   link: '/en/v1/api/date/'
 next:
-  text: 'Generator'
-  link: '/en/v1/api/generator/'
+  text: 'Flow'
+  link: '/en/v1/api/flow/'
 ---
 
 # Either

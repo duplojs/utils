@@ -31,7 +31,7 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
      * 
      */
     getValue<GenericInputEntity extends GenericEntity & Flag<GenericName, GenericValue>>(entity: GenericInputEntity): GetKindValue<typeof flagKind, GenericInputEntity>[GenericName];
-    has<GenericInputEntity extends GenericEntity>(entity: GenericInputEntity): Extract<GenericInputEntity, Flag<GenericName, any>>;
+    has<GenericInputEntity extends GenericEntity>(entity: GenericInputEntity): entity is Extract<GenericInputEntity, Flag<GenericName, any>>;
 }
 export interface Flag<GenericName extends string = string, GenericValue extends unknown = never> extends Kind<typeof flagKind.definition, Record<GenericName, GenericValue>> {
 }
