@@ -29,7 +29,7 @@ import { createInitializer } from "@duplojs/utils/flow/initializer";
 ## Création et exécution de flow
 
 ### [create](/fr/v1/api/flow/create)
-Crée un flow réutilisable à partir d'une fonction de flow.
+Créer un flow réutilisable à partir d'une fonction de flow.
 
 ### [run](/fr/v1/api/flow/run)
 Exécute un flow et retourne sa valeur finale.

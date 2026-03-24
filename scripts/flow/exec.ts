@@ -1,5 +1,5 @@
 import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, forward } from "@scripts/common";
-import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, theFLowKind, exitKind, breakKind, type Step, stepKind, type FlowDependencies, type Effect, injectionKind, dependenceHandlerKind } from "./theFlow";
+import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, theFlowKind, exitKind, breakKind, type Step, stepKind, type FlowDependencies, type Effect, injectionKind, dependenceHandlerKind } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
 
@@ -91,7 +91,7 @@ export function exec<
 		} else if (typeof theFlow === "function") {
 			return theFlow(params?.input);
 		} else {
-			return theFLowKind.getValue(theFlow).run(params?.input);
+			return theFlowKind.getValue(theFlow).run(params?.input);
 		}
 	});
 

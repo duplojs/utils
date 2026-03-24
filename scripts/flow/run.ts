@@ -1,5 +1,5 @@
 import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFLowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator } from "./theFlow";
+import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFlowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator } from "./theFlow";
 import { deferKind } from "./theFlow/defer";
 import { finalizerKind } from "./theFlow/finalizer";
 import { createFlowKind } from "./kind";
@@ -119,7 +119,7 @@ export function run<
 
 	const generator = typeof theFlow === "function"
 		? theFlow(params?.input)
-		: theFLowKind.getValue(theFlow).run(params?.input);
+		: theFlowKind.getValue(theFlow).run(params?.input);
 
 	if (Symbol.asyncIterator in generator) {
 		return (async function() {

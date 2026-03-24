@@ -9,11 +9,10 @@ describe("create", () => {
 
 		const result = DFlow.create(run);
 
-		expect(DFlow.theFLowKind.has(result)).toBe(true);
-		expect(DFlow.theFLowKind.getValue(result)).toStrictEqual({
+		expect(DFlow.theFlowKind.getValue(result)).toStrictEqual({
 			run,
 		});
-		expect(DFlow.theFLowKind.getValue(result).run).toBe(run);
+		expect(DFlow.theFlowKind.getValue(result).run).toBe(run);
 
 		type check = ExpectType<
 			typeof result,

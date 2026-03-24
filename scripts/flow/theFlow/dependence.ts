@@ -1,4 +1,4 @@
-import { type Kind, pipe } from "@scripts/common";
+import { type Kind } from "@scripts/common";
 import { createFlowKind } from "../kind";
 
 export const dependenceHandlerKind = createFlowKind<
@@ -49,8 +49,6 @@ export function createDependence<
 	const dependenceHandler = function(implementation: any) {
 		return implementation;
 	};
-	return pipe(
-		dependenceHandler,
-		(value) => dependenceHandlerKind.setTo(value, name),
-	);
+
+	return dependenceHandlerKind.setTo(dependenceHandler, name);
 }

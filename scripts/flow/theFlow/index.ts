@@ -51,7 +51,7 @@ export interface TheFlowProperties<
 	run: GenericFunction;
 }
 
-export const theFLowKind = createFlowKind<
+export const theFlowKind = createFlowKind<
 	"the-flow",
 	TheFlowProperties
 >("the-flow");
@@ -59,7 +59,7 @@ export const theFLowKind = createFlowKind<
 export interface TheFlow<
 	GenericFunction extends TheFlowFunction = TheFlowFunction,
 > extends Kind<
-		typeof theFLowKind.definition,
+		typeof theFlowKind.definition,
 		TheFlowProperties<
 			GenericFunction
 		>
@@ -75,7 +75,7 @@ export function create<
 >(
 	theFunction: GenericTheFlowFunction,
 ): TheFlow<GenericTheFlowFunction> {
-	return theFLowKind.setTo(
+	return theFlowKind.setTo(
 		{},
 		{ run: theFunction },
 	);
