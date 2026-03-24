@@ -67,6 +67,9 @@ export interface TheFlow<
 
 }
 
+/**
+ * {@include flow/create/index.md}
+ */
 export function create<
 	GenericTheFlowFunction extends TheFlowFunction,
 >(

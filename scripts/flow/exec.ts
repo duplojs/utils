@@ -57,9 +57,12 @@ export type ExecResult<
 					: Generator<InferredEffect, InferredOutput>
 				: never
 			: never
-		: never
+			: never
 	: never;
 
+/**
+ * {@include flow/exec/index.md}
+ */
 export function exec<
 	GenericFlow extends(
 		| TheFlowFunction

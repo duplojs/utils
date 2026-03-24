@@ -1,5 +1,8 @@
 import { createStep, type Step } from "./theFlow";
 
+/**
+ * {@include flow/step/index.md}
+ */
 export function step<
 	GenericName extends string,
 	GenericOutput extends unknown = void,

@@ -1,5 +1,8 @@
 import { type DependenceHandler, type Injection, createInjection } from "./theFlow";
 
+/**
+ * {@include flow/inject/index.md}
+ */
 export function *inject<
 	GenericDependenceHandler extends DependenceHandler,
 >(

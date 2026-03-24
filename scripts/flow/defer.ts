@@ -1,5 +1,8 @@
 import { createDefer, type Defer } from "./theFlow";
 
+/**
+ * {@include flow/defer/index.md}
+ */
 export function *defer<
 	GenericOutput extends unknown,
 >(

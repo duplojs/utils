@@ -51,6 +51,9 @@ export type Initializer<
 	any
 >;
 
+/**
+ * {@include flow/createInitializer/index.md}
+ */
 export function createInitializer<
 	GenericArgs extends unknown[],
 	GenericOutput extends unknown,

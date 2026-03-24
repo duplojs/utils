@@ -88,6 +88,9 @@ export class MissingDependenceError extends kindHeritage(
 	}
 }
 
+/**
+ * {@include flow/run/index.md}
+ */
 export function run<
 	GenericFlow extends(
 		| TheFlowFunction

@@ -1,6 +1,9 @@
 import { type NeverCoalescing, type AnyFunction } from "@scripts/common";
 import { type Break, createBreak } from "./theFlow";
 
+/**
+ * {@include flow/breakIf/index.md}
+ */
 export function breakIf<
 	GenericValue extends unknown,
 	GenericPredicate extends GenericValue,

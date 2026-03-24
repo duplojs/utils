@@ -1,6 +1,9 @@
 import { type NeverCoalescing, type AnyFunction } from "@scripts/common";
 import { createExit, type Exit } from "./theFlow";
 
+/**
+ * {@include flow/exitIf/index.md}
+ */
 export function exitIf<
 	GenericValue extends unknown,
 	GenericPredicate extends GenericValue,
