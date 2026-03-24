@@ -106,7 +106,6 @@ export function exec<
 						break;
 					} else if (exitKind.has(result.value)) {
 						yield result.value;
-						break;
 					} else if (deferKind.has(result.value)) {
 						deferFunctions ??= [];
 						deferFunctions.push(
@@ -160,7 +159,6 @@ export function exec<
 					break;
 				} else if (exitKind.has(result.value)) {
 					yield result.value;
-					break;
 				} else if (deferKind.has(result.value)) {
 					deferFunctions ??= [];
 					deferFunctions.push(

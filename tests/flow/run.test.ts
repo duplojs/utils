@@ -45,6 +45,7 @@ describe("run", () => {
 
 		afterEach(() => {
 			spyDefer.mockClear();
+			spyFinalizer.mockClear();
 		});
 
 		it("return string", () => {
@@ -236,6 +237,7 @@ describe("run", () => {
 
 		afterEach(() => {
 			spyDefer.mockClear();
+			spyFinalizer.mockClear();
 		});
 
 		it("return string", async() => {

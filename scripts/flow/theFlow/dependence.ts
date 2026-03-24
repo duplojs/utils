@@ -38,9 +38,6 @@ export type DependenceHandlerDefinition<
 	)
 );
 
-/**
- * {@include clean/createDependence/index.md}
- */
 export function createDependence<
 	GenericName extends string,
 >(
