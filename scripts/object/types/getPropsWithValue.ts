@@ -4,7 +4,7 @@ export type GetPropsWithValue<
 	GenericObject extends object,
 	GenericValue extends unknown,
 > = {
-	[Prop in keyof GenericObject]:
+	[Prop in keyof GenericObject]-?:
 	IsEqual<
 		GenericObject[Prop],
 		GenericValue
