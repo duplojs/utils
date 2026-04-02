@@ -86,7 +86,7 @@ export { hasSomeKinds } from './common/hasSomeKinds.mjs';
 export { hasKinds } from './common/hasKinds.mjs';
 export { toCurriedPredicate } from './common/toCurriedPredicate.mjs';
 export { pipeCall } from './common/pipeCall.mjs';
-export { AssertsError, asserts } from './common/asserts.mjs';
+export { AssertsError, asserts, forwardAsserts } from './common/asserts.mjs';
 export { Path } from './common/path.mjs';
 export { createTransformer, toJSON, toNative, transformer } from './common/transformer.mjs';
 export { toRegExp } from './common/toRegExp.mjs';

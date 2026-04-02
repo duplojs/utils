@@ -76,6 +76,9 @@ Type guard basé sur `typeof`, `Array.isArray`, itérables, etc.
 ### [asserts](/fr/v1/api/common/asserts)
 Lance une erreur si le predicate echoue et affine le type si il passe.
 
+### [forwardAsserts](/fr/v1/api/common/forwardAsserts)
+Lance une erreur si le predicate echoue et retourne la valeur validée, en version directe ou currifiée.
+
 ### [instanceOf](/fr/v1/api/common/instanceOf)
 Type guard basé sur un ou plusieurs constructeurs (`instanceof` typé).
 

@@ -76,6 +76,9 @@ Type guard based on `typeof`, `Array.isArray`, iterables, etc.
 ### [asserts](/en/v1/api/common/asserts)
 Throws when a predicate fails and narrows the input type when it passes.
 
+### [forwardAsserts](/en/v1/api/common/forwardAsserts)
+Throws when a predicate fails and returns the validated value, with direct and curried forms.
+
 ### [instanceOf](/en/v1/api/common/instanceOf)
 Type guard based on one or more constructors (typed `instanceof`).
 

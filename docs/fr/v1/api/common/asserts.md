@@ -5,8 +5,8 @@ prev:
   text: "isType"
   link: "/fr/v1/api/common/isType"
 next:
-  text: "instanceOf"
-  link: "/fr/v1/api/common/instanceOf"
+  text: "forwardAsserts"
+  link: "/fr/v1/api/common/forwardAsserts"
 ---
 
 # asserts
@@ -44,5 +44,6 @@ Rien. Elle lance un `AssertsError` quand le predicate echoue.
 
 ## Voir aussi
 
+- [`forwardAsserts`](/fr/v1/api/common/forwardAsserts) - Lance une erreur et retourne la valeur validée
 - [`isType`](/fr/v1/api/common/isType) - Cree un type guard base sur des verifications runtime
 - [`instanceOf`](/fr/v1/api/common/instanceOf) - Type guard via des constructeurs

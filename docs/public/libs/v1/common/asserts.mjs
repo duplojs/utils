@@ -16,5 +16,16 @@ function asserts(input, predicate) {
         throw new AssertsError(input);
     }
 }
+function forwardAsserts(...args) {
+    if (args.length === 1) {
+        const [theFunction] = args;
+        return (input) => forwardAsserts(input, theFunction);
+    }
+    const [input, theFunction] = args;
+    if (!theFunction(input)) {
+        throw new AssertsError(input);
+    }
+    return input;
+}
 
-export { AssertsError, asserts };
+export { AssertsError, asserts, forwardAsserts };

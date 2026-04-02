@@ -160,6 +160,7 @@ exports.toCurriedPredicate = toCurriedPredicate.toCurriedPredicate;
 exports.pipeCall = pipeCall.pipeCall;
 exports.AssertsError = asserts.AssertsError;
 exports.asserts = asserts.asserts;
+exports.forwardAsserts = asserts.forwardAsserts;
 Object.defineProperty(exports, "Path", {
 	enumerable: true,
 	get: function () { return path.Path; }

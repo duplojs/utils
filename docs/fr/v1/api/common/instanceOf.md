@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction instanceOf() crée un type guard basé sur un ou plusieurs constructeurs. Elle vérifie instanceof en conservant un typage précis."
 prev:
-  text: "asserts"
-  link: "/fr/v1/api/common/asserts"
+  text: "forwardAsserts"
+  link: "/fr/v1/api/common/forwardAsserts"
 next:
   text: "hasKinds"
   link: "/fr/v1/api/common/hasKinds"
