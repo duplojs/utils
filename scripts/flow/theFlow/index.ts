@@ -7,6 +7,9 @@ import { type Break } from "./break";
 import { type Defer } from "./defer";
 import { type Finalizer } from "./finalizer";
 import { type DependenceHandler, type dependenceHandlerKind } from "./dependence";
+import { type Throttling } from "./throttling";
+import { type CalledByNext } from "./calledByNext";
+import { type Queue } from "./queue";
 
 export * from "./step";
 export * from "./exit";
@@ -15,6 +18,9 @@ export * from "./injection";
 export * from "./defer";
 export * from "./finalizer";
 export * from "./dependence";
+export * from "./throttling";
+export * from "./calledByNext";
+export * from "./queue";
 
 // <3
 export type Effect = (
@@ -24,6 +30,9 @@ export type Effect = (
 	| Break
 	| Defer
 	| Finalizer
+	| Throttling
+	| CalledByNext
+	| Queue
 );
 
 export type TheFlowGenerator<
@@ -99,7 +108,7 @@ export type WrapFlow<
 	? TheFlow<TheFlowFunction<unknown, GenericFlow>>
 	: GenericFlow extends TheFlowFunction
 		? TheFlow<GenericFlow>
-		: GenericFlow;
+		: Extract<GenericFlow, TheFlow>;
 
 export type FlowDependencies<
 	GenericFlow extends TheFlow,

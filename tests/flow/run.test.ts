@@ -1,5 +1,5 @@
 /* eslint-disable require-yield */
-import { DFlow, type ExpectType } from "@scripts";
+import { createExternalPromise, DFlow, sleep, type ExpectType } from "@scripts";
 
 describe("run", () => {
 	it("passe input", () => {
@@ -229,6 +229,50 @@ describe("run", () => {
 
 			expect(value).toBe("test");
 		});
+
+		it("returns the throttling fallback when called again too early", () => {
+			vi.useFakeTimers();
+
+			try {
+				const flow = function *(input: number) {
+					yield *DFlow.throttling(
+						100,
+						{
+							returnValue: "test",
+						},
+					);
+
+					return input;
+				};
+				const firstResult = DFlow.run(
+					flow,
+					{ input: 1 },
+				);
+				const secondResult = DFlow.run(
+					flow,
+					{ input: 2 },
+				);
+
+				vi.advanceTimersByTime(100);
+
+				const thirdResult = DFlow.run(
+					flow,
+					{ input: 3 },
+				);
+
+				expect(firstResult).toBe(1);
+				expect(secondResult).toBe("test");
+				expect(thirdResult).toBe(3);
+
+				type check = ExpectType<
+					typeof secondResult,
+					number | string,
+					"strict"
+				>;
+			} finally {
+				vi.useRealTimers();
+			}
+		});
 	});
 
 	describe("async", () => {
@@ -420,6 +464,156 @@ describe("run", () => {
 			);
 
 			await expect(value).resolves.toBe("test");
+		});
+
+		it("calls the previous async called-by-next callback when runs overlap", async() => {
+			const firstSpy = vi.fn();
+			const secondSpy = vi.fn();
+			const firstBlocker = createExternalPromise();
+			const secondBlocker = createExternalPromise();
+			const thirdBlocker = createExternalPromise();
+			const flow = async function *(input: number) {
+				yield *DFlow.calledByNext(
+					input === 1
+						? firstSpy
+						: secondSpy,
+				);
+				if (input === 1) {
+					await firstBlocker.promise;
+				} else if (input === 2) {
+					await secondBlocker.promise;
+				} else {
+					await thirdBlocker.promise;
+				}
+
+				return Promise.resolve(input);
+			};
+			const firstRun = DFlow.run(
+				flow,
+				{ input: 1 },
+			);
+
+			const secondRun = DFlow.run(
+				flow,
+				{ input: 2 },
+			);
+
+			const thirdRun = DFlow.run(
+				flow,
+				{ input: 3 },
+			);
+
+			await sleep();
+
+			expect(firstSpy).toHaveBeenCalledOnce();
+			expect(secondSpy).toHaveBeenCalledOnce();
+
+			firstBlocker.resolve(undefined);
+			secondBlocker.resolve(undefined);
+			thirdBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+			await expect(thirdRun).resolves.toBe(3);
+		});
+
+		it("queues concurrent runs when the queue concurrency is one", async() => {
+			const firstBlocker = createExternalPromise();
+			const secondBlocker = createExternalPromise();
+			const executionOrder: string[] = [];
+			const flow = async function *(input: number) {
+				yield *DFlow.queue({
+					concurrency: 1,
+				});
+				executionOrder.push(`start-${input}`);
+				if (input === 1) {
+					await firstBlocker.promise;
+				} else {
+					await secondBlocker.promise;
+				}
+				executionOrder.push(`end-${input}`);
+
+				return Promise.resolve(input);
+			};
+			const firstRun = DFlow.run(
+				flow,
+				{ input: 1 },
+			);
+			const secondRun = DFlow.run(
+				flow,
+				{ input: 2 },
+			);
+
+			await sleep();
+			expect(executionOrder).toStrictEqual(["start-1"]);
+
+			firstBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await sleep();
+			expect(executionOrder).toStrictEqual([
+				"start-1",
+				"end-1",
+				"start-2",
+			]);
+
+			secondBlocker.resolve(undefined);
+
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder).toStrictEqual([
+				"start-1",
+				"end-1",
+				"start-2",
+				"end-2",
+			]);
+		});
+
+		it("keeps only the last throttled async run when keepLast is true", async() => {
+			vi.useFakeTimers();
+
+			try {
+				const executionOrder: string[] = [];
+				const flow = async function *(input: string) {
+					yield *DFlow.throttling(
+						100,
+						{
+							returnValue: "skipped" as const,
+							keepLast: true,
+						},
+					);
+					executionOrder.push(input);
+
+					return Promise.resolve(input);
+				};
+				const firstRun = DFlow.run(
+					flow,
+					{ input: "first" },
+				);
+
+				await expect(firstRun).resolves.toBe("first");
+
+				const secondRun = DFlow.run(
+					flow,
+					{ input: "second" },
+				);
+				const thirdRun = DFlow.run(
+					flow,
+					{ input: "third" },
+				);
+
+				await expect(secondRun).resolves.toBe("skipped");
+				expect(executionOrder).toStrictEqual(["first"]);
+
+				await vi.advanceTimersByTimeAsync(100);
+
+				await expect(thirdRun).resolves.toBe("third");
+				expect(executionOrder).toStrictEqual([
+					"first",
+					"third",
+				]);
+			} finally {
+				vi.useRealTimers();
+			}
 		});
 	});
 });
