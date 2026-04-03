@@ -1,7 +1,7 @@
 import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage, type AnyFunction, createExternalPromise, type Queue, createQueue } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFlowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator, throttlingKind, type Throttling, calledByNextKind, queueKind } from "./theFlow";
-import { deferKind } from "./theFlow/defer";
-import { finalizerKind } from "./theFlow/finalizer";
+import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFlowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator, throttlingKind, type Throttling, calledByNextKind, queueKind, type Injection } from "./theFlow";
+import { type Defer, deferKind } from "./theFlow/defer";
+import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
 import { createFlowKind } from "./kind";
 
 type ComputeRunParams<
@@ -103,7 +103,18 @@ const queues = new WeakMap<TheFlow | TheFlowFunction, Queue>();
  */
 export function run<
 	GenericFlow extends(
-		| TheFlowFunction
+		| TheFlowFunction<
+			any,
+			TheFlowGenerator<
+				unknown,
+				| Injection
+				| Step
+				| Exit
+				| Break
+				| Defer
+				| Finalizer
+			>
+		>
 		| TheFlow
 	),
 	GenericWrapFlow extends WrapFlow<GenericFlow>,

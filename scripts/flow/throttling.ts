@@ -2,6 +2,9 @@
 import { type OnlyLiteralBoolean, type IsEqual } from "@scripts/common";
 import { createThrottling, type Throttling } from "./theFlow";
 
+/**
+ * {@include flow/throttling/index.md}
+ */
 export function throttling<
 	GenericValue extends unknown = undefined,
 	GenericKeepLast extends boolean = false,

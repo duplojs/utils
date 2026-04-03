@@ -7,14 +7,26 @@ import { exitKind } from './theFlow/exit.mjs';
 import { stepKind } from './theFlow/step.mjs';
 import { injectionKind } from './theFlow/injection.mjs';
 import { dependenceHandlerKind } from './theFlow/dependence.mjs';
+import { throttlingKind } from './theFlow/throttling.mjs';
+import { createExternalPromise } from '../common/externalPromise.mjs';
+import { calledByNextKind } from './theFlow/calledByNext.mjs';
+import { queueKind } from './theFlow/queue.mjs';
+import { createQueue } from '../common/queue.mjs';
 import { forward } from '../common/forward.mjs';
 
+const throttlingLastTime = new WeakMap();
+const throttlingResumer = new WeakMap();
+const calledByNextFunction = new WeakMap();
+const queues = new WeakMap();
 /**
  * {@include flow/exec/index.md}
  */
 function exec(theFlow, ...[params]) {
     let result = undefined;
     let deferFunctions = undefined;
+    let alreadyUseThrottling = undefined;
+    let alreadyUseCalledByNext = undefined;
+    let alreadyUseQueue = undefined;
     const generator = justExec(() => {
         if (Symbol.asyncIterator in theFlow || Symbol.iterator in theFlow) {
             return forward(theFlow);
@@ -62,10 +74,68 @@ function exec(theFlow, ...[params]) {
                             injectionProperties.inject(params.dependencies[dependenceName]);
                         }
                     }
+                    else if (throttlingKind.has(result.value)) {
+                        if (alreadyUseThrottling) {
+                            continue;
+                        }
+                        alreadyUseThrottling = true;
+                        const { time, keepLast, returnValue } = throttlingKind.getValue(result.value);
+                        const lastTime = throttlingLastTime.get(theFlow);
+                        const now = Date.now();
+                        throttlingLastTime.set(theFlow, now);
+                        if (typeof lastTime === "number" && (lastTime + time) > now) {
+                            if (keepLast === true) {
+                                const resumer = throttlingResumer.get(theFlow);
+                                resumer?.(false);
+                                const externalPromise = createExternalPromise();
+                                throttlingResumer.set(theFlow, externalPromise.resolve);
+                                if (await externalPromise.promise) {
+                                    continue;
+                                }
+                            }
+                            result = await generator.return(returnValue);
+                            break;
+                        }
+                        else if (keepLast === true) {
+                            setTimeout(() => {
+                                const resumer = throttlingResumer.get(theFlow);
+                                resumer?.(true);
+                            }, time);
+                        }
+                    }
+                    else if (calledByNextKind.has(result.value)) {
+                        if (alreadyUseCalledByNext) {
+                            continue;
+                        }
+                        alreadyUseCalledByNext = calledByNextKind.getValue(result.value);
+                        const lastFunction = calledByNextFunction.get(theFlow);
+                        lastFunction?.();
+                        calledByNextFunction.set(theFlow, alreadyUseCalledByNext);
+                    }
+                    else if (queueKind.has(result.value)) {
+                        if (alreadyUseQueue) {
+                            continue;
+                        }
+                        const { concurrency, injectResolver } = queueKind.getValue(result.value);
+                        let queue = queues.get(theFlow);
+                        if (queue === undefined) {
+                            queue = createQueue({ concurrency });
+                            queues.set(theFlow, queue);
+                        }
+                        alreadyUseQueue = await queue.addExternal();
+                        injectResolver(alreadyUseQueue);
+                    }
                 } while (true);
                 return result.value;
             }
             finally {
+                if (alreadyUseCalledByNext
+                    && calledByNextFunction.get(theFlow) === alreadyUseCalledByNext) {
+                    calledByNextFunction.delete(theFlow);
+                }
+                if (alreadyUseQueue) {
+                    alreadyUseQueue();
+                }
                 await generator.return(undefined);
                 if (deferFunctions) {
                     await Promise.all(deferFunctions.map(justExec));
@@ -108,10 +178,24 @@ function exec(theFlow, ...[params]) {
                         injectionProperties.inject(params.dependencies[dependenceName]);
                     }
                 }
+                else if (throttlingKind.has(result.value)) {
+                    const { time, returnValue } = throttlingKind.getValue(result.value);
+                    const lastTime = throttlingLastTime.get(theFlow);
+                    const now = Date.now();
+                    throttlingLastTime.set(theFlow, now);
+                    if (typeof lastTime === "number" && (lastTime + time) > now) {
+                        result = generator.return(returnValue);
+                        break;
+                    }
+                }
             } while (true);
             return result.value;
         }
         finally {
+            if (alreadyUseCalledByNext
+                && calledByNextFunction.get(theFlow) === alreadyUseCalledByNext) {
+                calledByNextFunction.delete(theFlow);
+            }
             generator.return(undefined);
             if (deferFunctions) {
                 deferFunctions.map(justExec);

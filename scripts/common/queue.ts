@@ -31,6 +31,9 @@ export interface CreateQueueParams {
 	concurrency?: number;
 }
 
+/**
+ * {@include common/queue/index.md}
+ */
 export function createQueue(params?: CreateQueueParams): Queue {
 	const concurrency = params?.concurrency === undefined || params.concurrency < 1
 		? 1

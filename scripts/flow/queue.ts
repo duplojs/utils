@@ -2,6 +2,9 @@
 import { type OnlyLiteralNumber } from "@scripts/common";
 import { createQueue } from "./theFlow";
 
+/**
+ * {@include flow/queue/index.md}
+ */
 export async function *queue<
 	GenericConcurrency extends number,
 >(

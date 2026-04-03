@@ -1,3 +1,6 @@
+/**
+ * {@include common/callThen/index.md}
+ */
 export function callThen<
 	GenericInput extends unknown,
 	GenericOutput extends unknown,

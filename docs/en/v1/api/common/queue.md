@@ -18,7 +18,7 @@ The **`createQueue()`** function creates a FIFO queue that limits how many tasks
 <MonacoTSEditor
   src="/examples/v1/api/common/queue/tryout.doc.ts"
   majorVersion="v1"
-  height="439px"
+  height="250px"
 />
 
 ## Syntax

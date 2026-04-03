@@ -9,6 +9,11 @@ var _break = require('./theFlow/break.cjs');
 var exit = require('./theFlow/exit.cjs');
 var step = require('./theFlow/step.cjs');
 var injection = require('./theFlow/injection.cjs');
+var throttling = require('./theFlow/throttling.cjs');
+var externalPromise = require('../common/externalPromise.cjs');
+var calledByNext = require('./theFlow/calledByNext.cjs');
+var queue = require('./theFlow/queue.cjs');
+var queue$1 = require('../common/queue.cjs');
 var justExec = require('../common/justExec.cjs');
 var kind = require('../common/kind.cjs');
 
@@ -19,6 +24,10 @@ class MissingDependenceError extends kind.kindHeritage("missing-dependence-error
         this.dependenceHandler = dependenceHandler;
     }
 }
+const throttlingLastTime = new WeakMap();
+const throttlingResumer = new WeakMap();
+const calledByNextFunction = new WeakMap();
+const queues = new WeakMap();
 /**
  * {@include flow/run/index.md}
  */
@@ -26,6 +35,9 @@ function run(theFlow, ...[params]) {
     let result = undefined;
     let deferFunctions = undefined;
     let steps = undefined;
+    let alreadyUseThrottling = undefined;
+    let alreadyUseCalledByNext = undefined;
+    let alreadyUseQueue = undefined;
     const generator = typeof theFlow === "function"
         ? theFlow(params?.input)
         : index.theFlowKind.getValue(theFlow).run(params?.input);
@@ -67,6 +79,57 @@ function run(theFlow, ...[params]) {
                         }
                         injectionProperties.inject(params.dependencies[dependenceName]);
                     }
+                    else if (throttling.throttlingKind.has(result.value)) {
+                        if (alreadyUseThrottling) {
+                            continue;
+                        }
+                        alreadyUseThrottling = true;
+                        const { time, keepLast, returnValue } = throttling.throttlingKind.getValue(result.value);
+                        const lastTime = throttlingLastTime.get(theFlow);
+                        const now = Date.now();
+                        throttlingLastTime.set(theFlow, now);
+                        if (typeof lastTime === "number" && (lastTime + time) > now) {
+                            if (keepLast === true) {
+                                const resumer = throttlingResumer.get(theFlow);
+                                resumer?.(false);
+                                const externalPromise$1 = externalPromise.createExternalPromise();
+                                throttlingResumer.set(theFlow, externalPromise$1.resolve);
+                                if (await externalPromise$1.promise) {
+                                    continue;
+                                }
+                            }
+                            result = await generator.return(returnValue);
+                            break;
+                        }
+                        else if (keepLast === true) {
+                            setTimeout(() => {
+                                const resumer = throttlingResumer.get(theFlow);
+                                resumer?.(true);
+                            }, time);
+                        }
+                    }
+                    else if (calledByNext.calledByNextKind.has(result.value)) {
+                        if (alreadyUseCalledByNext) {
+                            continue;
+                        }
+                        alreadyUseCalledByNext = calledByNext.calledByNextKind.getValue(result.value);
+                        const lastFunction = calledByNextFunction.get(theFlow);
+                        lastFunction?.();
+                        calledByNextFunction.set(theFlow, alreadyUseCalledByNext);
+                    }
+                    else if (queue.queueKind.has(result.value)) {
+                        if (alreadyUseQueue) {
+                            continue;
+                        }
+                        const { concurrency, injectResolver } = queue.queueKind.getValue(result.value);
+                        let queue$2 = queues.get(theFlow);
+                        if (queue$2 === undefined) {
+                            queue$2 = queue$1.createQueue({ concurrency });
+                            queues.set(theFlow, queue$2);
+                        }
+                        alreadyUseQueue = await queue$2.addExternal();
+                        injectResolver(alreadyUseQueue);
+                    }
                 } while (true);
                 return params?.includeDetails === true
                     ? {
@@ -76,6 +139,13 @@ function run(theFlow, ...[params]) {
                     : result.value;
             }
             finally {
+                if (alreadyUseCalledByNext
+                    && calledByNextFunction.get(theFlow) === alreadyUseCalledByNext) {
+                    calledByNextFunction.delete(theFlow);
+                }
+                if (alreadyUseQueue) {
+                    alreadyUseQueue();
+                }
                 await generator.return(undefined);
                 if (deferFunctions) {
                     await Promise.all(deferFunctions.map(justExec.justExec));
@@ -118,6 +188,16 @@ function run(theFlow, ...[params]) {
                     throw new MissingDependenceError(injectionProperties.dependenceHandler);
                 }
                 injectionProperties.inject(params.dependencies[dependenceName]);
+            }
+            else if (throttling.throttlingKind.has(result.value)) {
+                const { time, returnValue } = throttling.throttlingKind.getValue(result.value);
+                const lastTime = throttlingLastTime.get(theFlow);
+                const now = Date.now();
+                throttlingLastTime.set(theFlow, now);
+                if (typeof lastTime === "number" && (lastTime + time) > now) {
+                    result = generator.return(returnValue);
+                    break;
+                }
             }
         } while (true);
         return (params?.includeDetails === true

@@ -34,6 +34,19 @@ Exécute un flow et retourne sa valeur finale.
 ### [exec](/fr/v1/api/flow/exec)
 Exécute un flow imbriqué dans le flow courant.
 
+## Coordination d'exécution
+
+Ces helpers gardent un état interne dans des `WeakMap` basées sur la référence du flow exécuté. Pour les utiliser correctement sur plusieurs appels, réutilisez un flow créé avec `F.create(...)` ou une fonction obtenue via `F.toFunction(...)`.
+
+### [calledByNext](/fr/v1/api/flow/calledByNext)
+Appelle un callback quand une exécution suivante du même flow remplace une exécution encore active.
+
+### [queue](/fr/v1/api/flow/queue)
+Sérialise ou limite les exécutions concurrentes d'un même flow.
+
+### [throttling](/fr/v1/api/flow/throttling)
+Ignore ou reporte les appels trop rapprochés pour un même flow.
+
 ## Contrôle de flux
 
 ### [breakIf](/fr/v1/api/flow/breakIf)

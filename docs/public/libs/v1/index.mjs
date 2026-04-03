@@ -91,3 +91,5 @@ export { Path } from './common/path.mjs';
 export { createTransformer, toJSON, toNative, transformer } from './common/transformer.mjs';
 export { toRegExp } from './common/toRegExp.mjs';
 export { justExec } from './common/justExec.mjs';
+export { callThen } from './common/callThen.mjs';
+export { createQueue, queueKind } from './common/queue.mjs';

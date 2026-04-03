@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Stops the current flow branch when a predicate matches."
 prev:
-  text: "exec"
-  link: "/en/v1/api/flow/exec"
+  text: "throttling"
+  link: "/en/v1/api/flow/throttling"
 next:
   text: "exitIf"
   link: "/en/v1/api/flow/exitIf"

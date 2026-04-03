@@ -8,7 +8,7 @@ const syncResult = callThen(
 
 const asyncFromSync = callThen(
 	"duplo",
-	async(value) => value.toUpperCase(),
+	async(value) => Promise.resolve(value.toUpperCase()),
 );
 // type: Promise<string>
 

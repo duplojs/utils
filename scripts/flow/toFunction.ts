@@ -15,6 +15,9 @@ type ComputeToFunctionParams<
 	)
 >;
 
+/**
+ * {@include flow/toFunction/index.md}
+ */
 export function toFunction<
 	GenericInput extends unknown,
 	GenericOutput extends TheFlowGenerator,
@@ -41,7 +44,7 @@ export function toFunction<
 		IsEqual<GenericParams["includeDetails"], true>
 	> {
 	return (input) => run(
-		flow,
+		flow as never,
 		{
 			...params,
 			input,

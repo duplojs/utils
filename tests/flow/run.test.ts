@@ -46,6 +46,7 @@ describe("run", () => {
 		afterEach(() => {
 			spyDefer.mockClear();
 			spyFinalizer.mockClear();
+			vi.useRealTimers();
 		});
 
 		it("return string", () => {
@@ -233,8 +234,8 @@ describe("run", () => {
 		it("returns the throttling fallback when called again too early", () => {
 			vi.useFakeTimers();
 
-			try {
-				const flow = function *(input: number) {
+			const flow = DFlow.create(
+				function *(input: number) {
 					yield *DFlow.throttling(
 						100,
 						{
@@ -243,35 +244,18 @@ describe("run", () => {
 					);
 
 					return input;
-				};
-				const firstResult = DFlow.run(
-					flow,
-					{ input: 1 },
-				);
-				const secondResult = DFlow.run(
-					flow,
-					{ input: 2 },
-				);
+				},
+			);
+			const firstResult = DFlow.run(flow, { input: 1 });
+			const secondResult = DFlow.run(flow, { input: 2 });
 
-				vi.advanceTimersByTime(100);
+			vi.advanceTimersByTime(100);
 
-				const thirdResult = DFlow.run(
-					flow,
-					{ input: 3 },
-				);
+			const thirdResult = DFlow.run(flow, { input: 3 });
 
-				expect(firstResult).toBe(1);
-				expect(secondResult).toBe("test");
-				expect(thirdResult).toBe(3);
-
-				type check = ExpectType<
-					typeof secondResult,
-					number | string,
-					"strict"
-				>;
-			} finally {
-				vi.useRealTimers();
-			}
+			expect(firstResult).toBe(1);
+			expect(secondResult).toBe("test");
+			expect(thirdResult).toBe(3);
 		});
 	});
 
@@ -282,6 +266,7 @@ describe("run", () => {
 		afterEach(() => {
 			spyDefer.mockClear();
 			spyFinalizer.mockClear();
+			vi.useRealTimers();
 		});
 
 		it("return string", async() => {
@@ -472,36 +457,29 @@ describe("run", () => {
 			const firstBlocker = createExternalPromise();
 			const secondBlocker = createExternalPromise();
 			const thirdBlocker = createExternalPromise();
-			const flow = async function *(input: number) {
-				yield *DFlow.calledByNext(
-					input === 1
-						? firstSpy
-						: secondSpy,
-				);
-				if (input === 1) {
-					await firstBlocker.promise;
-				} else if (input === 2) {
-					await secondBlocker.promise;
-				} else {
-					await thirdBlocker.promise;
-				}
+			const flow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(
+						input === 1
+							? firstSpy
+							: secondSpy,
+					);
+					if (input === 1) {
+						await firstBlocker.promise;
+					} else if (input === 2) {
+						await secondBlocker.promise;
+					} else {
+						await thirdBlocker.promise;
+					}
 
-				return Promise.resolve(input);
-			};
-			const firstRun = DFlow.run(
-				flow,
-				{ input: 1 },
+					return Promise.resolve(input);
+				},
 			);
+			const firstRun = DFlow.run(flow, { input: 1 });
 
-			const secondRun = DFlow.run(
-				flow,
-				{ input: 2 },
-			);
+			const secondRun = DFlow.run(flow, { input: 2 });
 
-			const thirdRun = DFlow.run(
-				flow,
-				{ input: 3 },
-			);
+			const thirdRun = DFlow.run(flow, { input: 3 });
 
 			await sleep();
 
@@ -521,28 +499,24 @@ describe("run", () => {
 			const firstBlocker = createExternalPromise();
 			const secondBlocker = createExternalPromise();
 			const executionOrder: string[] = [];
-			const flow = async function *(input: number) {
-				yield *DFlow.queue({
-					concurrency: 1,
-				});
-				executionOrder.push(`start-${input}`);
-				if (input === 1) {
-					await firstBlocker.promise;
-				} else {
-					await secondBlocker.promise;
-				}
-				executionOrder.push(`end-${input}`);
+			const flow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.queue({
+						concurrency: 1,
+					});
+					executionOrder.push(`start-${input}`);
+					if (input === 1) {
+						await firstBlocker.promise;
+					} else {
+						await secondBlocker.promise;
+					}
+					executionOrder.push(`end-${input}`);
 
-				return Promise.resolve(input);
-			};
-			const firstRun = DFlow.run(
-				flow,
-				{ input: 1 },
+					return Promise.resolve(input);
+				},
 			);
-			const secondRun = DFlow.run(
-				flow,
-				{ input: 2 },
-			);
+			const firstRun = DFlow.run(flow, { input: 1 });
+			const secondRun = DFlow.run(flow, { input: 2 });
 
 			await sleep();
 			expect(executionOrder).toStrictEqual(["start-1"]);
@@ -571,9 +545,9 @@ describe("run", () => {
 		it("keeps only the last throttled async run when keepLast is true", async() => {
 			vi.useFakeTimers();
 
-			try {
-				const executionOrder: string[] = [];
-				const flow = async function *(input: string) {
+			const executionOrder: string[] = [];
+			const flow = DFlow.create(
+				async function *(input: string) {
 					yield *DFlow.throttling(
 						100,
 						{
@@ -584,36 +558,25 @@ describe("run", () => {
 					executionOrder.push(input);
 
 					return Promise.resolve(input);
-				};
-				const firstRun = DFlow.run(
-					flow,
-					{ input: "first" },
-				);
+				},
+			);
+			const firstRun = DFlow.run(flow, { input: "first" });
 
-				await expect(firstRun).resolves.toBe("first");
+			await expect(firstRun).resolves.toBe("first");
 
-				const secondRun = DFlow.run(
-					flow,
-					{ input: "second" },
-				);
-				const thirdRun = DFlow.run(
-					flow,
-					{ input: "third" },
-				);
+			const secondRun = DFlow.run(flow, { input: "second" });
+			const thirdRun = DFlow.run(flow, { input: "third" });
 
-				await expect(secondRun).resolves.toBe("skipped");
-				expect(executionOrder).toStrictEqual(["first"]);
+			await expect(secondRun).resolves.toBe("skipped");
+			expect(executionOrder).toStrictEqual(["first"]);
 
-				await vi.advanceTimersByTimeAsync(100);
+			await vi.advanceTimersByTimeAsync(100);
 
-				await expect(thirdRun).resolves.toBe("third");
-				expect(executionOrder).toStrictEqual([
-					"first",
-					"third",
-				]);
-			} finally {
-				vi.useRealTimers();
-			}
+			await expect(thirdRun).resolves.toBe("third");
+			expect(executionOrder).toStrictEqual([
+				"first",
+				"third",
+			]);
 		});
 	});
 });

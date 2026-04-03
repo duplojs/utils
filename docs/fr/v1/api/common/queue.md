@@ -18,7 +18,7 @@ La fonction **`createQueue()`** crée une file FIFO qui limite le nombre de tâc
 <MonacoTSEditor
   src="/examples/v1/api/common/queue/tryout.doc.ts"
   majorVersion="v1"
-  height="439px"
+  height="250px"
 />
 
 ## Syntaxe

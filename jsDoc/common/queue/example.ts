@@ -1,20 +1,17 @@
-import { createExternalPromise, createQueue } from "@scripts";
+import { createQueue } from "@scripts";
 
-const syncQueue = createQueue();
-const syncResult = await syncQueue.add(() => 42);
-// syncResult: 42
+const defaultQueue = createQueue();
+const numberResult = await defaultQueue.add(() => 42);
+// type: 42 | Left<"execution-error", unknown>
 
-const guardedQueue = createQueue({
+const serialQueue = createQueue({
 	concurrency: 1,
 });
-const releaseSignal = createExternalPromise<void>();
-const asyncResult = guardedQueue.add(async() => {
-	await releaseSignal.promise;
-	return "done";
-});
-releaseSignal.resolve();
-// await asyncResult: "done"
+const textResult = await serialQueue.add(() => "hello" as const);
+// type: "hello" | Left<"execution-error", unknown>
 
-const reservedQueue = createQueue();
-const release = await reservedQueue.addExternal();
-release();
+const asyncQueue = createQueue();
+const asyncResult = await asyncQueue.add(
+	async() => Promise.resolve("done" as const),
+);
+// type: "done" | Left<"execution-error", unknown>
