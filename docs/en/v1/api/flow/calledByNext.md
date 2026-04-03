@@ -44,6 +44,7 @@ An async generator yielding a `calledByNext` effect. The callback return value i
 - Internal state is stored in a `WeakMap` keyed by the executed flow reference.
 - To share this behavior across calls, reuse the same flow created with `F.create(...)` or the same function returned by `F.toFunction(...)`.
 - An inline `F.run(async function *() { ... })` creates a new reference on every call, so it does not share the `calledByNext()` state.
+- If the same execution yields `calledByNext(...)` multiple times, only the first encountered effect is applied by the runner.
 
 ## See also
 

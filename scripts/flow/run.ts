@@ -90,13 +90,29 @@ export class MissingDependenceError extends kindHeritage(
 	}
 }
 
-const throttlingLastTime = new WeakMap<TheFlow | TheFlowFunction, number>();
-const throttlingResumer = new WeakMap<
-	TheFlow | TheFlowFunction,
+/** @internal */
+export const throttlingLastTime = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	number
+>();
+
+/** @internal */
+export const throttlingResumer = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
 	AnyFunction<[toResume: boolean], void>
 >();
-const calledByNextFunction = new WeakMap<TheFlow | TheFlowFunction, AnyFunction<[]>>();
-const queues = new WeakMap<TheFlow | TheFlowFunction, Queue>();
+
+/** @internal */
+export const calledByNextFunction = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	AnyFunction<[]>
+>();
+
+/** @internal */
+export const queues = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	Queue
+>();
 
 /**
  * {@include flow/run/index.md}
@@ -236,7 +252,10 @@ export function run<
 						}
 						alreadyUseCalledByNext = calledByNextKind.getValue(result.value);
 						const lastFunction = calledByNextFunction.get(theFlow);
-						lastFunction?.();
+						const lastResult = lastFunction?.();
+						if (lastResult instanceof Promise) {
+							await lastResult;
+						}
 
 						calledByNextFunction.set(
 							theFlow,

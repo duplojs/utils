@@ -51,6 +51,7 @@ Par défaut, `throttling()` retourne un générateur synchrone. Avec `keepLast: 
 - L'état interne est stocké dans une `WeakMap` dont la clé est la référence du flow exécuté.
 - Pour partager la même fenêtre de throttling entre plusieurs appels, réutilisez le même flow créé avec `F.create(...)` ou la même fonction obtenue avec `F.toFunction(...)`.
 - Un `F.run(function *() { ... })` déclaré inline ne partage pas cette fenêtre avec les appels suivants.
+- Si une même exécution yield plusieurs fois `throttling(...)`, seul le premier effet rencontré est pris en compte par le runner.
 
 ## Voir aussi
 

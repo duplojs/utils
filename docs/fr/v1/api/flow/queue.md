@@ -46,6 +46,7 @@ Un générateur asynchrone qui émet un effet de queue et retourne une fonction 
 - L'état interne est stocké dans une `WeakMap` dont la clé est la référence du flow exécuté.
 - Pour partager la même file d'attente entre plusieurs appels, réutilisez le même flow créé avec `F.create(...)` ou la même fonction obtenue avec `F.toFunction(...)`.
 - Si `release()` n'est pas appelé, les exécutions suivantes restent bloquées dans la queue.
+- Si une même exécution yield plusieurs fois `queue(...)`, seul le premier effet rencontré est pris en compte par le runner.
 
 ## Voir aussi
 

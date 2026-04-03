@@ -2,6 +2,7 @@ import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or,
 import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, theFlowKind, exitKind, breakKind, type Step, stepKind, type FlowDependencies, type Effect, injectionKind, dependenceHandlerKind, throttlingKind, calledByNextKind, queueKind, type Throttling } from "./theFlow";
 import { type Defer, deferKind } from "./theFlow/defer";
 import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
+import { calledByNextFunction, queues, throttlingLastTime, throttlingResumer } from "./run";
 
 type ComputeExecParams<
 	GenericInput extends unknown,
@@ -61,14 +62,6 @@ export type ExecResult<
 			: never
 		: never
 	: never;
-
-const throttlingLastTime = new WeakMap<object, number>();
-const throttlingResumer = new WeakMap<
-	object,
-	AnyFunction<[toResume: boolean], void>
->();
-const calledByNextFunction = new WeakMap<object, AnyFunction<[]>>();
-const queues = new WeakMap<object, Queue>();
 
 /**
  * {@include flow/exec/index.md}
@@ -205,7 +198,10 @@ export function exec<
 						}
 						alreadyUseCalledByNext = calledByNextKind.getValue(result.value);
 						const lastFunction = calledByNextFunction.get(theFlow);
-						lastFunction?.();
+						const lastResult = lastFunction?.();
+						if (lastResult instanceof Promise) {
+							await lastResult;
+						}
 
 						calledByNextFunction.set(
 							theFlow,
@@ -301,12 +297,6 @@ export function exec<
 
 			return result.value;
 		} finally {
-			if (
-				alreadyUseCalledByNext
-				&& calledByNextFunction.get(theFlow) === alreadyUseCalledByNext
-			) {
-				calledByNextFunction.delete(theFlow);
-			}
 			generator.return(undefined);
 			if (deferFunctions) {
 				deferFunctions.map(

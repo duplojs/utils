@@ -46,6 +46,7 @@ An async generator yielding a queue effect and returning a `release` function th
 - Internal state is stored in a `WeakMap` keyed by the executed flow reference.
 - To share the same queue across calls, reuse the same flow created with `F.create(...)` or the same function returned by `F.toFunction(...)`.
 - If `release()` is never called, later runs remain blocked in the queue.
+- If the same execution yields `queue(...)` multiple times, only the first encountered effect is applied by the runner.
 
 ## See also
 

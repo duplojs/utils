@@ -11,7 +11,7 @@ describe("calledByNext", () => {
 			value: DFlow.createCalledByNext(theFunction),
 		});
 		expect(DFlow.calledByNextKind.getValue(firstResult.value!)).toBe(theFunction);
-		expect(result.next()).toStrictEqual({
+		expect(await result.next()).toStrictEqual({
 			done: true,
 			value: undefined,
 		});

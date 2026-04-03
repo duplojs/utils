@@ -495,6 +495,78 @@ describe("run", () => {
 			await expect(thirdRun).resolves.toBe(3);
 		});
 
+		it("waits for the previous async called-by-next callback before continuing the next run", async() => {
+			const cleanupBlocker = createExternalPromise();
+			const runBlocker = createExternalPromise();
+			const events: string[] = [];
+			const flow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(async() => {
+						events.push(`cleanup-start-${input}`);
+						await cleanupBlocker.promise;
+						events.push(`cleanup-end-${input}`);
+					});
+					events.push(`run-${input}`);
+					await runBlocker.promise;
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(flow, { input: 1 });
+			await sleep();
+
+			const secondRun = DFlow.run(flow, { input: 2 });
+			await sleep();
+
+			expect(events).toStrictEqual([
+				"run-1",
+				"cleanup-start-1",
+			]);
+
+			cleanupBlocker.resolve(undefined);
+			await sleep();
+
+			expect(events).toStrictEqual([
+				"run-1",
+				"cleanup-start-1",
+				"cleanup-end-1",
+				"run-2",
+			]);
+
+			runBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+		});
+
+		it("uses only the first called-by-next effect from the same execution", async() => {
+			const firstSpy = vi.fn();
+			const secondSpy = vi.fn();
+			const blocker = createExternalPromise();
+			const flow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(firstSpy);
+					yield *DFlow.calledByNext(secondSpy);
+					await blocker.promise;
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(flow, { input: 1 });
+			await sleep();
+
+			const secondRun = DFlow.run(flow, { input: 2 });
+			await sleep();
+
+			expect(firstSpy).toHaveBeenCalledOnce();
+			expect(secondSpy).not.toHaveBeenCalled();
+
+			blocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+		});
+
 		it("queues concurrent runs when the queue concurrency is one", async() => {
 			const firstBlocker = createExternalPromise();
 			const secondBlocker = createExternalPromise();
@@ -542,6 +614,44 @@ describe("run", () => {
 			]);
 		});
 
+		it("uses only the first queue effect from the same execution", async() => {
+			const blocker = createExternalPromise();
+			const executionOrder: string[] = [];
+			const flow = DFlow.create(
+				async function *(input: number) {
+					const release = yield *DFlow.queue({
+						concurrency: 1,
+					});
+					yield *DFlow.queue({
+						concurrency: 1,
+					});
+
+					try {
+						executionOrder.push(`start-${input}`);
+						await blocker.promise;
+						executionOrder.push(`end-${input}`);
+
+						return await Promise.resolve(input);
+					} finally {
+						release();
+					}
+				},
+			);
+			const firstRun = DFlow.run(flow, { input: 1 });
+			const secondRun = DFlow.run(flow, { input: 2 });
+
+			await sleep();
+			expect(executionOrder).toStrictEqual(["start-1"]);
+
+			blocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder[0]).toBe("start-1");
+			expect(executionOrder[1]).toBe("end-1");
+			expect(executionOrder[2]).toBe("start-2");
+		});
+
 		it("keeps only the last throttled async run when keepLast is true", async() => {
 			vi.useFakeTimers();
 
@@ -577,6 +687,30 @@ describe("run", () => {
 				"first",
 				"third",
 			]);
+		});
+
+		it("uses only the first throttling effect from the same execution", async() => {
+			vi.useFakeTimers();
+
+			const flow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.throttling(
+						100,
+						{ returnValue: "first-skip" as const },
+					);
+					yield *DFlow.throttling(
+						100,
+						{ returnValue: "second-skip" as const },
+					);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(flow, { input: 1 });
+			const secondRun = DFlow.run(flow, { input: 2 });
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe("first-skip");
 		});
 	});
 });
