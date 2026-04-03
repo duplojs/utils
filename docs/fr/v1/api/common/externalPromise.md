@@ -5,8 +5,8 @@ prev:
   text: "asyncLoop"
   link: "/fr/v1/api/common/asyncLoop"
 next:
-  text: "promiseObject"
-  link: "/fr/v1/api/common/promiseObject"
+  text: "callThen"
+  link: "/fr/v1/api/common/callThen"
 ---
 
 # externalPromise

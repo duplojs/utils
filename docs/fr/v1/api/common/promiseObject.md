@@ -2,11 +2,11 @@
 outline: [2, 3]
 description: "La fonction promiseObject() transforme un objet de promesses (ou valeurs) en promesse d'objet résolu, en conservant les clés et un typage précis."
 prev:
-  text: "externalPromise"
-  link: "/fr/v1/api/common/externalPromise"
+  text: "callThen"
+  link: "/fr/v1/api/common/callThen"
 next:
-  text: "asyncRetry"
-  link: "/fr/v1/api/common/asyncRetry"
+  text: "queue"
+  link: "/fr/v1/api/common/queue"
 ---
 
 # promiseObject

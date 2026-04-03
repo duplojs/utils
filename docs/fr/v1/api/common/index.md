@@ -107,8 +107,14 @@ Version asynchrone de `loop` qui accepte des itérations retournant des promesse
 ### [externalPromise](/fr/v1/api/common/externalPromise)
 Crée une promesse avec ses méthodes `resolve`/`reject` exposées pour être contrôlée de l'extérieur.
 
+### [callThen](/fr/v1/api/common/callThen)
+Applique un callback sur une valeur directe ou après résolution d'une `Promise`.
+
 ### [promiseObject](/fr/v1/api/common/promiseObject)
 Transforme un objet de promesses en promesse d'objet avec des valeurs résolues et typées.
+
+### [queue](/fr/v1/api/common/queue)
+Crée une file FIFO pour exécuter des tâches sync/async avec une concurrence limitée.
 
 ## Autres
 

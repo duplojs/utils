@@ -107,8 +107,14 @@ Async version of `loop` that accepts iterations returning promises.
 ### [externalPromise](/en/v1/api/common/externalPromise)
 Creates a promise with its `resolve`/`reject` methods exposed to be controlled from the outside.
 
+### [callThen](/en/v1/api/common/callThen)
+Applies a callback to a direct value or after a `Promise` resolves.
+
 ### [promiseObject](/en/v1/api/common/promiseObject)
 Transforms an object of promises into a promise of an object with resolved, typed values.
+
+### [queue](/en/v1/api/common/queue)
+Creates a FIFO queue to run sync/async tasks with limited concurrency.
 
 ## Others
 

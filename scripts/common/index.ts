@@ -57,3 +57,5 @@ export * from "./path";
 export * from "./transformer";
 export * from "./toRegExp";
 export * from "./justExec";
+export * from "./callThen";
+export * from "./queue";
