@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Arrête la branche courante du flow quand un prédicat correspond."
 prev:
-  text: "exec"
-  link: "/fr/v1/api/flow/exec"
+  text: "debounce"
+  link: "/fr/v1/api/flow/debounce"
 next:
   text: "exitIf"
   link: "/fr/v1/api/flow/exitIf"

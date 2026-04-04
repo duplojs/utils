@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable require-yield */
-import { DFlow, type ExpectType } from "@scripts";
+import { createExternalPromise, DFlow, sleep, type ExpectType } from "@scripts";
 
 describe("exec", () => {
 	it("passe input", () => {
@@ -84,6 +85,7 @@ describe("exec", () => {
 		afterEach(() => {
 			spyDefer.mockClear();
 			spyFinalizer.mockClear();
+			vi.useRealTimers();
 		});
 
 		it("return string", () => {
@@ -404,6 +406,65 @@ describe("exec", () => {
 
 			expect(value).toBe("test");
 		});
+
+		it("returns the nested throttling fallback when called again too early", () => {
+			vi.useFakeTimers();
+			const subFlow = DFlow.create(
+				function *(input: number) {
+					yield *DFlow.throttling(
+						100,
+						{
+							returnValue: "test",
+						},
+					);
+
+					return input;
+				},
+			);
+			const firstResult = DFlow.run(
+				function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			const secondResult = DFlow.run(
+				function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			vi.advanceTimersByTime(100);
+
+			const thirdResult = DFlow.run(
+				function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 3 },
+			);
+
+			type checkFirstResult = ExpectType<
+				typeof firstResult,
+				number | string,
+				"strict"
+			>;
+
+			type checkSecondResult = ExpectType<
+				typeof secondResult,
+				number | string,
+				"strict"
+			>;
+
+			type checkThirdResult = ExpectType<
+				typeof thirdResult,
+				number | string,
+				"strict"
+			>;
+
+			expect(firstResult).toBe(1);
+			expect(secondResult).toBe("test");
+			expect(thirdResult).toBe(3);
+		});
 	});
 
 	describe("async", () => {
@@ -413,6 +474,7 @@ describe("exec", () => {
 		afterEach(() => {
 			spyDefer.mockClear();
 			spyFinalizer.mockClear();
+			vi.useRealTimers();
 		});
 
 		it("return string", async() => {
@@ -786,6 +848,485 @@ describe("exec", () => {
 			);
 
 			await expect(value).resolves.toBe("test");
+		});
+
+		it("calls the previous async called-by-next callback when nested runs overlap", async() => {
+			const firstSpy = vi.fn();
+			const secondSpy = vi.fn();
+			const firstBlocker = createExternalPromise();
+			const secondBlocker = createExternalPromise();
+			const thirdBlocker = createExternalPromise();
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(
+						input === 1
+							? firstSpy
+							: secondSpy,
+					);
+					if (input === 1) {
+						await firstBlocker.promise;
+					} else if (input === 2) {
+						await secondBlocker.promise;
+					} else {
+						await thirdBlocker.promise;
+					}
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+			const thirdRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 3 },
+			);
+
+			type checkFirstRun = ExpectType<
+				typeof firstRun,
+				Promise<number>,
+				"strict"
+			>;
+
+			type checkSecondRun = ExpectType<
+				typeof secondRun,
+				Promise<number>,
+				"strict"
+			>;
+
+			type checkThirdRun = ExpectType<
+				typeof thirdRun,
+				Promise<number>,
+				"strict"
+			>;
+
+			await sleep();
+
+			expect(firstSpy).toHaveBeenCalledOnce();
+			expect(secondSpy).toHaveBeenCalledOnce();
+
+			firstBlocker.resolve(undefined);
+			secondBlocker.resolve(undefined);
+			thirdBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+			await expect(thirdRun).resolves.toBe(3);
+		});
+
+		it("waits for the previous async nested called-by-next callback before continuing", async() => {
+			const cleanupBlocker = createExternalPromise();
+			const runBlocker = createExternalPromise();
+			const events: string[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(async() => {
+						events.push(`cleanup-start-${input}`);
+						await cleanupBlocker.promise;
+						events.push(`cleanup-end-${input}`);
+					});
+					events.push(`run-${input}`);
+					await runBlocker.promise;
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			await sleep();
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+			await sleep();
+
+			expect(events).toStrictEqual([
+				"run-1",
+				"cleanup-start-1",
+			]);
+
+			cleanupBlocker.resolve(undefined);
+			await sleep();
+
+			expect(events).toStrictEqual([
+				"run-1",
+				"cleanup-start-1",
+				"cleanup-end-1",
+				"run-2",
+			]);
+
+			runBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+		});
+
+		it("uses only the first nested called-by-next effect from the same execution", async() => {
+			const firstSpy = vi.fn();
+			const secondSpy = vi.fn();
+			const blocker = createExternalPromise();
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.calledByNext(firstSpy);
+					yield *DFlow.calledByNext(secondSpy);
+					await blocker.promise;
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			await sleep();
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+			await sleep();
+
+			expect(firstSpy).toHaveBeenCalledOnce();
+			expect(secondSpy).not.toHaveBeenCalled();
+
+			blocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+		});
+
+		it("queues concurrent nested runs when the queue concurrency is one", async() => {
+			const firstBlocker = createExternalPromise();
+			const secondBlocker = createExternalPromise();
+			const executionOrder: string[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.queue({
+						concurrency: 1,
+					});
+					executionOrder.push(`start-${input}`);
+					if (input === 1) {
+						await firstBlocker.promise;
+					} else {
+						await secondBlocker.promise;
+					}
+					executionOrder.push(`end-${input}`);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			type checkFirstRun = ExpectType<
+				typeof firstRun,
+				Promise<number>,
+				"strict"
+			>;
+
+			type checkSecondRun = ExpectType<
+				typeof secondRun,
+				Promise<number>,
+				"strict"
+			>;
+
+			await sleep();
+			expect(executionOrder).toStrictEqual(["start-1"]);
+
+			firstBlocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await sleep();
+			expect(executionOrder).toStrictEqual([
+				"start-1",
+				"end-1",
+				"start-2",
+			]);
+
+			secondBlocker.resolve(undefined);
+
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder).toStrictEqual([
+				"start-1",
+				"end-1",
+				"start-2",
+				"end-2",
+			]);
+		});
+
+		it("uses only the first nested queue effect from the same execution", async() => {
+			const blocker = createExternalPromise();
+			const executionOrder: string[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					const release = yield *DFlow.queue({
+						concurrency: 1,
+					});
+					yield *DFlow.queue({
+						concurrency: 1,
+					});
+
+					try {
+						executionOrder.push(`start-${input}`);
+						await blocker.promise;
+						executionOrder.push(`end-${input}`);
+
+						return await Promise.resolve(input);
+					} finally {
+						release();
+					}
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			await sleep();
+			expect(executionOrder).toStrictEqual(["start-1"]);
+
+			blocker.resolve(undefined);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder[0]).toBe("start-1");
+			expect(executionOrder[1]).toBe("end-1");
+			expect(executionOrder[2]).toBe("start-2");
+		});
+
+		it("keeps only the last throttled async nested run when keepLast is true", async() => {
+			vi.useFakeTimers();
+			const executionOrder: string[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: string) {
+					yield *DFlow.throttling(
+						100,
+						{
+							returnValue: "skipped" as const,
+							keepLast: true,
+						},
+					);
+					executionOrder.push(input);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: string) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: "first" },
+			);
+
+			await expect(firstRun).resolves.toBe("first");
+
+			const secondRun = DFlow.run(
+				async function *(input: string) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: "second" },
+			);
+			const thirdRun = DFlow.run(
+				async function *(input: string) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: "third" },
+			);
+
+			type checkFirstRun = ExpectType<
+				typeof firstRun,
+				Promise<string>,
+				"strict"
+			>;
+
+			type checkSecondRun = ExpectType<
+				typeof secondRun,
+				Promise<string>,
+				"strict"
+			>;
+
+			type checkThirdRun = ExpectType<
+				typeof thirdRun,
+				Promise<string>,
+				"strict"
+			>;
+
+			await expect(secondRun).resolves.toBe("skipped");
+			expect(executionOrder).toStrictEqual(["first"]);
+
+			await vi.advanceTimersByTimeAsync(100);
+
+			await expect(thirdRun).resolves.toBe("third");
+			expect(executionOrder).toStrictEqual([
+				"first",
+				"third",
+			]);
+		});
+
+		it("uses only the first nested throttling effect from the same execution", async() => {
+			vi.useFakeTimers();
+
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.throttling(
+						100,
+						{ returnValue: "first-skip" as const },
+					);
+					yield *DFlow.throttling(
+						100,
+						{ returnValue: "second-skip" as const },
+					);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			await expect(firstRun).resolves.toBe(1);
+			await expect(secondRun).resolves.toBe("first-skip");
+		});
+
+		it("returns the nested debounce fallback for replaced async runs", async() => {
+			vi.useFakeTimers();
+
+			const executionOrder: number[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "skipped" as const },
+					);
+					executionOrder.push(input);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+
+			await vi.advanceTimersByTimeAsync(50);
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			type checkFirstRun = ExpectType<
+				typeof firstRun,
+				Promise<number | "skipped">,
+				"two-extends-one"
+			>;
+
+			type checkSecondRun = ExpectType<
+				typeof secondRun,
+				Promise<number | "skipped">,
+				"two-extends-one"
+			>;
+
+			await expect(firstRun).resolves.toBe("skipped");
+			expect(executionOrder).toStrictEqual([]);
+
+			await vi.advanceTimersByTimeAsync(100);
+
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder).toStrictEqual([2]);
+		});
+
+		it("uses only the first nested debounce effect from the same execution", async() => {
+			vi.useFakeTimers();
+
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "first-skip" as const },
+					);
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "second-skip" as const },
+					);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+
+			await vi.advanceTimersByTimeAsync(50);
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			await expect(firstRun).resolves.toBe("first-skip");
+
+			await vi.advanceTimersByTimeAsync(100);
+
+			await expect(secondRun).resolves.toBe(2);
 		});
 	});
 });

@@ -1280,6 +1280,15 @@
           "name": "builder.mjs"
         },
         {
+          "name": "callThen.cjs"
+        },
+        {
+          "name": "callThen.d.ts"
+        },
+        {
+          "name": "callThen.mjs"
+        },
+        {
           "name": "clone.cjs"
         },
         {
@@ -1560,6 +1569,15 @@
         },
         {
           "name": "promiseObject.mjs"
+        },
+        {
+          "name": "queue.cjs"
+        },
+        {
+          "name": "queue.d.ts"
+        },
+        {
+          "name": "queue.mjs"
         },
         {
           "name": "simpleClone.cjs"
@@ -3918,6 +3936,24 @@
               "name": "break.mjs"
             },
             {
+              "name": "calledByNext.cjs"
+            },
+            {
+              "name": "calledByNext.d.ts"
+            },
+            {
+              "name": "calledByNext.mjs"
+            },
+            {
+              "name": "debounce.cjs"
+            },
+            {
+              "name": "debounce.d.ts"
+            },
+            {
+              "name": "debounce.mjs"
+            },
+            {
               "name": "defer.cjs"
             },
             {
@@ -3972,6 +4008,15 @@
               "name": "injection.mjs"
             },
             {
+              "name": "queue.cjs"
+            },
+            {
+              "name": "queue.d.ts"
+            },
+            {
+              "name": "queue.mjs"
+            },
+            {
               "name": "step.cjs"
             },
             {
@@ -3979,6 +4024,15 @@
             },
             {
               "name": "step.mjs"
+            },
+            {
+              "name": "throttling.cjs"
+            },
+            {
+              "name": "throttling.d.ts"
+            },
+            {
+              "name": "throttling.mjs"
             }
           ]
         },
@@ -3998,6 +4052,24 @@
         },
         {
           "name": "breakIf.mjs"
+        },
+        {
+          "name": "calledByNext.cjs"
+        },
+        {
+          "name": "calledByNext.d.ts"
+        },
+        {
+          "name": "calledByNext.mjs"
+        },
+        {
+          "name": "debounce.cjs"
+        },
+        {
+          "name": "debounce.d.ts"
+        },
+        {
+          "name": "debounce.mjs"
         },
         {
           "name": "defer.cjs"
@@ -4072,6 +4144,15 @@
           "name": "kind.mjs"
         },
         {
+          "name": "queue.cjs"
+        },
+        {
+          "name": "queue.d.ts"
+        },
+        {
+          "name": "queue.mjs"
+        },
+        {
           "name": "run.cjs"
         },
         {
@@ -4088,6 +4169,24 @@
         },
         {
           "name": "step.mjs"
+        },
+        {
+          "name": "throttling.cjs"
+        },
+        {
+          "name": "throttling.d.ts"
+        },
+        {
+          "name": "throttling.mjs"
+        },
+        {
+          "name": "toFunction.cjs"
+        },
+        {
+          "name": "toFunction.d.ts"
+        },
+        {
+          "name": "toFunction.mjs"
         }
       ]
     },

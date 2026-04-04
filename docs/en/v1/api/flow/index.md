@@ -34,6 +34,22 @@ Executes a flow and returns its final value.
 ### [exec](/en/v1/api/flow/exec)
 Executes a nested flow inside the current flow.
 
+## Execution coordination
+
+These helpers keep internal state in `WeakMap`s keyed by the executed flow reference. To use them correctly across multiple calls, reuse a flow created with `F.create(...)` or a function returned by `F.toFunction(...)`.
+
+### [calledByNext](/en/v1/api/flow/calledByNext)
+Calls a callback when a later run of the same flow replaces one that is still active.
+
+### [queue](/en/v1/api/flow/queue)
+Serializes or limits concurrent runs of the same flow.
+
+### [throttling](/en/v1/api/flow/throttling)
+Ignores or defers runs that happen too close together for the same flow.
+
+### [debounce](/en/v1/api/flow/debounce)
+Waits before continuing the execution and cancels the previous run when a new one arrives.
+
 ## Control flow
 
 ### [breakIf](/en/v1/api/flow/breakIf)

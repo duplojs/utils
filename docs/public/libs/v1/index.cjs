@@ -67,6 +67,8 @@ var path = require('./common/path.cjs');
 var transformer = require('./common/transformer.cjs');
 var toRegExp = require('./common/toRegExp.cjs');
 var justExec = require('./common/justExec.cjs');
+var callThen = require('./common/callThen.cjs');
+var queue = require('./common/queue.cjs');
 
 
 
@@ -171,3 +173,6 @@ exports.toNative = transformer.toNative;
 exports.transformer = transformer.transformer;
 exports.toRegExp = toRegExp.toRegExp;
 exports.justExec = justExec.justExec;
+exports.callThen = callThen.callThen;
+exports.createQueue = queue.createQueue;
+exports.queueKind = queue.queueKind;

@@ -11,3 +11,8 @@ export * from "./inject";
 export * from "./step";
 export * from "./initializer";
 export * from "./kind";
+export * from "./calledByNext";
+export * from "./queue";
+export * from "./throttling";
+export * from "./toFunction";
+export * from "./debounce";

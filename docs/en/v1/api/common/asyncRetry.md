@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The helpers useAsyncRetry() and createAsyncRetry() rerun an async function as long as a retry criterion is true, with options for attempts, delay, and logging."
 prev:
-  text: "promiseObject"
-  link: "/en/v1/api/common/promiseObject"
+  text: "queue"
+  link: "/en/v1/api/common/queue"
 next:
   text: "sleep"
   link: "/en/v1/api/common/sleep"

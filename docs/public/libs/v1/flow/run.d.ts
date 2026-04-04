@@ -1,6 +1,8 @@
 import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or } from "../common";
-import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, type Step, type FlowDependencies, type DependenceHandler, type ExtractFlowGenerator } from "./theFlow";
-type ComputeRunParams<GenericInput extends unknown, GenericDependencies extends Record<string, unknown>> = SimplifyTopLevel<(Or<[
+import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, type Step, type FlowDependencies, type DependenceHandler, type ExtractFlowGenerator, type Throttling, type Injection, type Debounce } from "./theFlow";
+import { type Defer } from "./theFlow/defer";
+import { type Finalizer } from "./theFlow/finalizer";
+type ComputeRunParams<GenericInput extends unknown = unknown, GenericDependencies extends Record<string, unknown> = Record<string, unknown>> = SimplifyTopLevel<(Or<[
     IsEqual<GenericInput, unknown>,
     IsEqual<GenericInput, never>,
     IsExtends<GenericInput, undefined>
@@ -19,7 +21,7 @@ export interface FlowDetails<GenericValue extends unknown, GenericStepName exten
     result: GenericValue;
     steps: GenericStepName[];
 }
-export type RunResult<GenericFlow extends TheFlow, GenericIncludeDetails extends boolean = false> = (GenericFlow extends TheFlow<infer InferredFunction> ? InferredFunction extends TheFlowFunction<any, infer InferredGenerator> ? InferredGenerator extends TheFlowGenerator<infer InferredOutput, infer InferredEffect> ? ((InferredEffect extends Exit<infer InferredValue> ? InferredValue : InferredEffect extends Break<infer InferredValue> ? InferredValue : never) | InferredOutput) extends infer InferredResult ? IsEqual<GenericIncludeDetails, true> extends true ? FlowDetails<InferredResult, InferredEffect extends Step<infer InferredName> ? InferredName : never> : InferredResult : never : never : never : never) extends infer InferredResult ? ExtractFlowGenerator<GenericFlow> extends AsyncGenerator ? Promise<InferredResult> : InferredResult : never;
+export type RunResult<GenericFlow extends TheFlow, GenericIncludeDetails extends boolean = false> = (GenericFlow extends TheFlow<infer InferredFunction> ? InferredFunction extends TheFlowFunction<any, infer InferredGenerator> ? InferredGenerator extends TheFlowGenerator<infer InferredOutput, infer InferredEffect> ? ((InferredEffect extends Exit<infer InferredValue> ? InferredValue : InferredEffect extends Break<infer InferredValue> ? InferredValue : InferredEffect extends Throttling<infer InferredValue> ? InferredValue : InferredEffect extends Debounce<infer InferredValue> ? InferredValue : never) | InferredOutput) extends infer InferredResult ? IsEqual<GenericIncludeDetails, true> extends true ? FlowDetails<InferredResult, InferredEffect extends Step<infer InferredName> ? InferredName : never> : InferredResult : never : never : never : never) extends infer InferredResult ? ExtractFlowGenerator<GenericFlow> extends AsyncGenerator ? Promise<InferredResult> : InferredResult : never;
 declare const MissingDependenceError_base: new (params: {
     "@DuplojsUtilsFlow/missing-dependence-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../common").Kind<import("../common").KindDefinition<"missing-dependence-error", unknown>, unknown> & import("../common").Kind<import("../common").KindDefinition<"@DuplojsUtilsFlow/missing-dependence-error", unknown>, unknown>;
@@ -76,5 +78,5 @@ export declare class MissingDependenceError extends MissingDependenceError_base 
  * @namespace F
  * 
  */
-export declare function run<GenericFlow extends (TheFlowFunction | TheFlow), GenericWrapFlow extends WrapFlow<GenericFlow>, const GenericParams extends ComputeRunParams<FlowInput<GenericWrapFlow>, FlowDependencies<GenericWrapFlow>>>(theFlow: GenericFlow, ...[params]: ({} extends GenericParams ? [params?: GenericParams] : [params: GenericParams])): RunResult<GenericWrapFlow, IsEqual<GenericParams["includeDetails"], true>>;
+export declare function run<GenericFlow extends (TheFlowFunction<any, TheFlowGenerator<unknown, Injection | Step | Exit | Break | Defer | Finalizer>> | TheFlow), GenericWrapFlow extends WrapFlow<GenericFlow>, const GenericParams extends ComputeRunParams<FlowInput<GenericWrapFlow>, FlowDependencies<GenericWrapFlow>>>(theFlow: GenericFlow, ...[params]: ({} extends GenericParams ? [params?: GenericParams] : [params: GenericParams])): RunResult<GenericWrapFlow, IsEqual<GenericParams["includeDetails"], true>>;
 export {};

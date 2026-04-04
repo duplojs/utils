@@ -1,12 +1,12 @@
-import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage } from "@scripts/common";
-import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFlowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator } from "./theFlow";
-import { deferKind } from "./theFlow/defer";
-import { finalizerKind } from "./theFlow/finalizer";
+import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, justExec, kindHeritage, type AnyFunction, createExternalPromise, type Queue, createQueue } from "@scripts/common";
+import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, breakKind, exitKind, theFlowKind, stepKind, type Step, type FlowDependencies, injectionKind, type Effect, dependenceHandlerKind, type DependenceHandler, type ExtractFlowGenerator, throttlingKind, type Throttling, calledByNextKind, queueKind, type Injection, debounceKind, type Debounce } from "./theFlow";
+import { type Defer, deferKind } from "./theFlow/defer";
+import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
 import { createFlowKind } from "./kind";
 
 type ComputeRunParams<
-	GenericInput extends unknown,
-	GenericDependencies extends Record<string, unknown>,
+	GenericInput extends unknown= unknown,
+	GenericDependencies extends Record<string, unknown> = Record<string, unknown>,
 > = SimplifyTopLevel<
 	& (
 		Or<[
@@ -49,14 +49,18 @@ export type RunResult<
 				infer InferredEffect
 			>
 				? (
-				| (
-					InferredEffect extends Exit<infer InferredValue>
-						? InferredValue
-						: InferredEffect extends Break<infer InferredValue>
+					| (
+						InferredEffect extends Exit<infer InferredValue>
 							? InferredValue
-							: never
-				)
-				| InferredOutput
+							: InferredEffect extends Break<infer InferredValue>
+								? InferredValue
+								: InferredEffect extends Throttling<infer InferredValue>
+									? InferredValue
+									: InferredEffect extends Debounce<infer InferredValue>
+										? InferredValue
+										: never
+					)
+					| InferredOutput
 				) extends infer InferredResult
 					? IsEqual<GenericIncludeDetails, true> extends true
 						? FlowDetails<
@@ -88,12 +92,59 @@ export class MissingDependenceError extends kindHeritage(
 	}
 }
 
+/** @internal */
+export const throttlingLastTimeWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	number
+>();
+
+/** @internal */
+export const throttlingResumerWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	AnyFunction<[toResume: boolean], void>
+>();
+
+/** @internal */
+export const debounceTimeoutIdWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	number
+>();
+
+/** @internal */
+export const debounceResumerWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	AnyFunction<[toResume: boolean], void>
+>();
+
+/** @internal */
+export const calledByNextFunctionWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	AnyFunction<[]>
+>();
+
+/** @internal */
+export const queuesWeakStore = new WeakMap<
+	TheFlow | TheFlowFunction | TheFlowGenerator,
+	Queue
+>();
+
 /**
  * {@include flow/run/index.md}
  */
 export function run<
 	GenericFlow extends(
-		| TheFlowFunction
+		| TheFlowFunction<
+			any,
+			TheFlowGenerator<
+				unknown,
+				| Injection
+				| Step
+				| Exit
+				| Break
+				| Defer
+				| Finalizer
+			>
+		>
 		| TheFlow
 	),
 	GenericWrapFlow extends WrapFlow<GenericFlow>,
@@ -116,6 +167,10 @@ export function run<
 	let result: undefined | IteratorResult<Effect, unknown> = undefined;
 	let deferFunctions: (() => unknown)[] | undefined = undefined;
 	let steps: string[] | undefined = undefined;
+	let alreadyUseThrottling: true | undefined = undefined;
+	let alreadyUseDebounce: true | undefined = undefined;
+	let alreadyUseCalledByNext: AnyFunction | undefined = undefined;
+	let alreadyUseQueue: AnyFunction | undefined = undefined;
 
 	const generator = typeof theFlow === "function"
 		? theFlow(params?.input)
@@ -126,6 +181,7 @@ export function run<
 			try {
 				do {
 					result = await generator.next();
+
 					if (result.done === true) {
 						break;
 					} else if (breakKind.has(result.value)) {
@@ -170,6 +226,97 @@ export function run<
 						injectionProperties.inject(
 							params.dependencies[dependenceName],
 						);
+					} else if (throttlingKind.has(result.value)) {
+						if (alreadyUseThrottling) {
+							continue;
+						}
+						alreadyUseThrottling = true;
+						const { time, keepLast, returnValue } = throttlingKind.getValue(result.value);
+						const lastTime = throttlingLastTimeWeakStore.get(theFlow);
+						const now = Date.now();
+						throttlingLastTimeWeakStore.set(theFlow, now);
+						if (typeof lastTime === "number" && (lastTime + time) > now) {
+							if (keepLast === true) {
+								const resumer = throttlingResumerWeakStore.get(theFlow);
+								resumer?.(false);
+
+								const externalPromise = createExternalPromise<boolean>();
+								throttlingResumerWeakStore.set(theFlow, externalPromise.resolve);
+
+								if (await externalPromise.promise) {
+									continue;
+								}
+							}
+
+							result = await generator.return(
+								returnValue,
+							);
+							break;
+						} else if (keepLast === true) {
+							setTimeout(
+								() => {
+									const resumer = throttlingResumerWeakStore.get(theFlow);
+									resumer?.(true);
+								},
+								time,
+							);
+						}
+					} else if (calledByNextKind.has(result.value)) {
+						if (alreadyUseCalledByNext) {
+							continue;
+						}
+						alreadyUseCalledByNext = calledByNextKind.getValue(result.value);
+						const lastFunction = calledByNextFunctionWeakStore.get(theFlow);
+						const lastResult = lastFunction?.();
+						if (lastResult instanceof Promise) {
+							await lastResult;
+						}
+
+						calledByNextFunctionWeakStore.set(
+							theFlow,
+							alreadyUseCalledByNext,
+						);
+					} else if (queueKind.has(result.value)) {
+						if (alreadyUseQueue) {
+							continue;
+						}
+						const { concurrency, injectResolver } = queueKind.getValue(result.value);
+						let queue = queuesWeakStore.get(theFlow);
+						if (queue === undefined) {
+							queue = createQueue({ concurrency });
+							queuesWeakStore.set(theFlow, queue);
+						}
+						alreadyUseQueue = await queue.addExternal();
+						injectResolver(alreadyUseQueue);
+					} else if (debounceKind.has(result.value)) {
+						if (alreadyUseDebounce) {
+							continue;
+						}
+						alreadyUseDebounce = true;
+						const { time, returnValue } = debounceKind.getValue(result.value);
+						const lastTimeout = debounceTimeoutIdWeakStore.get(theFlow);
+						clearTimeout(lastTimeout);
+						const lastResumer = debounceResumerWeakStore.get(theFlow);
+						lastResumer?.(false);
+						const externalPromise = createExternalPromise<boolean>();
+						debounceTimeoutIdWeakStore.set(
+							theFlow,
+							setTimeout(
+								() => void externalPromise.resolve(true),
+								time,
+							) as never,
+						);
+						debounceResumerWeakStore.set(
+							theFlow,
+							externalPromise.resolve,
+						);
+						if (await externalPromise.promise) {
+							continue;
+						}
+						result = await generator.return(
+							returnValue,
+						);
+						break;
 					}
 				} while (true);
 
@@ -180,6 +327,15 @@ export function run<
 					}
 					: result.value;
 			} finally {
+				if (
+					alreadyUseCalledByNext
+					&& calledByNextFunctionWeakStore.get(theFlow) === alreadyUseCalledByNext
+				) {
+					calledByNextFunctionWeakStore.delete(theFlow);
+				}
+				if (alreadyUseQueue) {
+					alreadyUseQueue();
+				}
 				await generator.return(undefined);
 				if (deferFunctions) {
 					await Promise.all(
@@ -239,6 +395,17 @@ export function run<
 				injectionProperties.inject(
 					params.dependencies[dependenceName],
 				);
+			} else if (throttlingKind.has(result.value)) {
+				const { time, returnValue } = throttlingKind.getValue(result.value);
+				const lastTime = throttlingLastTimeWeakStore.get(theFlow);
+				const now = Date.now();
+				throttlingLastTimeWeakStore.set(theFlow, now);
+				if (typeof lastTime === "number" && (lastTime + time) > now) {
+					result = generator.return(
+						returnValue,
+					);
+					break;
+				}
 			}
 		} while (true);
 

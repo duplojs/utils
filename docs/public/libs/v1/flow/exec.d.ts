@@ -1,5 +1,6 @@
 import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or } from "../common";
-import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, type Step, type FlowDependencies } from "./theFlow";
+import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, type Step, type FlowDependencies, type Throttling, type Debounce } from "./theFlow";
+import { type Defer } from "./theFlow/defer";
 import { type Finalizer } from "./theFlow/finalizer";
 type ComputeExecParams<GenericInput extends unknown, GenericDependencies extends Record<string, unknown>> = SimplifyTopLevel<(Or<[
     IsEqual<GenericInput, unknown>,
@@ -13,7 +14,7 @@ type ComputeExecParams<GenericInput extends unknown, GenericDependencies extends
     dependencies?: GenericDependencies;
 }>;
 export type ExecResult<GenericFlow extends TheFlow> = GenericFlow extends TheFlow<infer InferredFunction> ? InferredFunction extends TheFlowFunction<any, infer InferredGenerator> ? InferredGenerator extends TheFlowGenerator<infer InferredOutput, infer InferredEffect> ? [
-    ((InferredEffect extends Break<infer InferredValue> ? InferredValue : never) | InferredOutput),
+    ((InferredEffect extends Break<infer InferredValue> ? InferredValue : InferredEffect extends Throttling<infer InferredValue> ? InferredValue : InferredEffect extends Debounce<infer InferredValue> ? InferredValue : never) | InferredOutput),
     Extract<InferredEffect, Exit | Injection | Finalizer | Step>
 ] extends [
     infer InferredOutput,
@@ -79,5 +80,5 @@ export type ExecResult<GenericFlow extends TheFlow> = GenericFlow extends TheFlo
  * @namespace F
  * 
  */
-export declare function exec<GenericFlow extends (TheFlowFunction | TheFlow | TheFlowGenerator), GenericWrapFlow extends WrapFlow<GenericFlow>, const GenericParams extends ComputeExecParams<FlowInput<GenericWrapFlow>, FlowDependencies<GenericWrapFlow>>>(theFlow: GenericFlow, ...[params]: ({} extends GenericParams ? [params?: GenericParams] : [params: GenericParams])): ExecResult<WrapFlow<GenericFlow>>;
+export declare function exec<GenericFlow extends (TheFlowFunction<any, TheFlowGenerator<unknown, Injection | Step | Exit | Break | Defer | Finalizer>> | TheFlow | TheFlowGenerator<unknown, Injection | Step | Exit | Break | Defer | Finalizer>), GenericWrapFlow extends WrapFlow<GenericFlow>, const GenericParams extends ComputeExecParams<FlowInput<GenericWrapFlow>, FlowDependencies<GenericWrapFlow>>>(theFlow: GenericFlow, ...[params]: ({} extends GenericParams ? [params?: GenericParams] : [params: GenericParams])): ExecResult<WrapFlow<GenericFlow>>;
 export {};
