@@ -5,8 +5,8 @@ prev:
   text: "queue"
   link: "/fr/v1/api/flow/queue"
 next:
-  text: "breakIf"
-  link: "/fr/v1/api/flow/breakIf"
+  text: "debounce"
+  link: "/fr/v1/api/flow/debounce"
 ---
 
 # throttling
@@ -56,5 +56,6 @@ Par défaut, `throttling()` retourne un générateur synchrone. Avec `keepLast: 
 ## Voir aussi
 
 - [`queue`](/fr/v1/api/flow/queue) - Sérialise les exécutions au lieu de les ignorer
+- [`debounce`](/fr/v1/api/flow/debounce) - Attend avant de laisser continuer uniquement le dernier appel
 - [`calledByNext`](/fr/v1/api/flow/calledByNext) - Déclenche un callback quand une exécution suivante remplace l'actuelle
 - [`run`](/fr/v1/api/flow/run) - Exécute le flow et applique les effets de throttling

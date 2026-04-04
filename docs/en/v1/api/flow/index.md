@@ -47,6 +47,9 @@ Serializes or limits concurrent runs of the same flow.
 ### [throttling](/en/v1/api/flow/throttling)
 Ignores or defers runs that happen too close together for the same flow.
 
+### [debounce](/en/v1/api/flow/debounce)
+Waits before continuing the execution and cancels the previous run when a new one arrives.
+
 ## Control flow
 
 ### [breakIf](/en/v1/api/flow/breakIf)

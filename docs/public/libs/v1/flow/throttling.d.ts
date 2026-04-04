@@ -46,6 +46,7 @@ import { type Throttling } from "./theFlow";
  * @remarks
  * - `keepLast: true` changes the helper to an async generator because the runner may resume the latest skipped run later
  * - Throttling state is attached to the flow reference, so examples should reuse the same created flow or wrapped function
+ * - If the same flow execution yields `throttling(...)` multiple times, only the first yielded effect is applied by the runner
  * 
  * @see [`F.run`](https://utils.duplojs.dev/en/v1/api/flow/run) For the throttling behavior implemented by the runner
  * @see https://utils.duplojs.dev/en/v1/api/flow/throttling

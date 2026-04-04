@@ -12,6 +12,7 @@ import { createExternalPromise } from '../common/externalPromise.mjs';
 import { calledByNextKind } from './theFlow/calledByNext.mjs';
 import { queueKind } from './theFlow/queue.mjs';
 import { createQueue } from '../common/queue.mjs';
+import { debounceKind } from './theFlow/debounce.mjs';
 import { justExec } from '../common/justExec.mjs';
 import { kindHeritage } from '../common/kind.mjs';
 
@@ -22,10 +23,18 @@ class MissingDependenceError extends kindHeritage("missing-dependence-error", cr
         this.dependenceHandler = dependenceHandler;
     }
 }
-const throttlingLastTime = new WeakMap();
-const throttlingResumer = new WeakMap();
-const calledByNextFunction = new WeakMap();
-const queues = new WeakMap();
+/** @internal */
+const throttlingLastTimeWeakStore = new WeakMap();
+/** @internal */
+const throttlingResumerWeakStore = new WeakMap();
+/** @internal */
+const debounceTimeoutIdWeakStore = new WeakMap();
+/** @internal */
+const debounceResumerWeakStore = new WeakMap();
+/** @internal */
+const calledByNextFunctionWeakStore = new WeakMap();
+/** @internal */
+const queuesWeakStore = new WeakMap();
 /**
  * {@include flow/run/index.md}
  */
@@ -34,6 +43,7 @@ function run(theFlow, ...[params]) {
     let deferFunctions = undefined;
     let steps = undefined;
     let alreadyUseThrottling = undefined;
+    let alreadyUseDebounce = undefined;
     let alreadyUseCalledByNext = undefined;
     let alreadyUseQueue = undefined;
     const generator = typeof theFlow === "function"
@@ -83,15 +93,15 @@ function run(theFlow, ...[params]) {
                         }
                         alreadyUseThrottling = true;
                         const { time, keepLast, returnValue } = throttlingKind.getValue(result.value);
-                        const lastTime = throttlingLastTime.get(theFlow);
+                        const lastTime = throttlingLastTimeWeakStore.get(theFlow);
                         const now = Date.now();
-                        throttlingLastTime.set(theFlow, now);
+                        throttlingLastTimeWeakStore.set(theFlow, now);
                         if (typeof lastTime === "number" && (lastTime + time) > now) {
                             if (keepLast === true) {
-                                const resumer = throttlingResumer.get(theFlow);
+                                const resumer = throttlingResumerWeakStore.get(theFlow);
                                 resumer?.(false);
                                 const externalPromise = createExternalPromise();
-                                throttlingResumer.set(theFlow, externalPromise.resolve);
+                                throttlingResumerWeakStore.set(theFlow, externalPromise.resolve);
                                 if (await externalPromise.promise) {
                                     continue;
                                 }
@@ -101,7 +111,7 @@ function run(theFlow, ...[params]) {
                         }
                         else if (keepLast === true) {
                             setTimeout(() => {
-                                const resumer = throttlingResumer.get(theFlow);
+                                const resumer = throttlingResumerWeakStore.get(theFlow);
                                 resumer?.(true);
                             }, time);
                         }
@@ -111,22 +121,44 @@ function run(theFlow, ...[params]) {
                             continue;
                         }
                         alreadyUseCalledByNext = calledByNextKind.getValue(result.value);
-                        const lastFunction = calledByNextFunction.get(theFlow);
-                        lastFunction?.();
-                        calledByNextFunction.set(theFlow, alreadyUseCalledByNext);
+                        const lastFunction = calledByNextFunctionWeakStore.get(theFlow);
+                        const lastResult = lastFunction?.();
+                        if (lastResult instanceof Promise) {
+                            await lastResult;
+                        }
+                        calledByNextFunctionWeakStore.set(theFlow, alreadyUseCalledByNext);
                     }
                     else if (queueKind.has(result.value)) {
                         if (alreadyUseQueue) {
                             continue;
                         }
                         const { concurrency, injectResolver } = queueKind.getValue(result.value);
-                        let queue = queues.get(theFlow);
+                        let queue = queuesWeakStore.get(theFlow);
                         if (queue === undefined) {
                             queue = createQueue({ concurrency });
-                            queues.set(theFlow, queue);
+                            queuesWeakStore.set(theFlow, queue);
                         }
                         alreadyUseQueue = await queue.addExternal();
                         injectResolver(alreadyUseQueue);
+                    }
+                    else if (debounceKind.has(result.value)) {
+                        if (alreadyUseDebounce) {
+                            continue;
+                        }
+                        alreadyUseDebounce = true;
+                        const { time, returnValue } = debounceKind.getValue(result.value);
+                        const lastTimeout = debounceTimeoutIdWeakStore.get(theFlow);
+                        clearTimeout(lastTimeout);
+                        const lastResumer = debounceResumerWeakStore.get(theFlow);
+                        lastResumer?.(false);
+                        const externalPromise = createExternalPromise();
+                        debounceTimeoutIdWeakStore.set(theFlow, setTimeout(() => void externalPromise.resolve(true), time));
+                        debounceResumerWeakStore.set(theFlow, externalPromise.resolve);
+                        if (await externalPromise.promise) {
+                            continue;
+                        }
+                        result = await generator.return(returnValue);
+                        break;
                     }
                 } while (true);
                 return params?.includeDetails === true
@@ -138,8 +170,8 @@ function run(theFlow, ...[params]) {
             }
             finally {
                 if (alreadyUseCalledByNext
-                    && calledByNextFunction.get(theFlow) === alreadyUseCalledByNext) {
-                    calledByNextFunction.delete(theFlow);
+                    && calledByNextFunctionWeakStore.get(theFlow) === alreadyUseCalledByNext) {
+                    calledByNextFunctionWeakStore.delete(theFlow);
                 }
                 if (alreadyUseQueue) {
                     alreadyUseQueue();
@@ -189,9 +221,9 @@ function run(theFlow, ...[params]) {
             }
             else if (throttlingKind.has(result.value)) {
                 const { time, returnValue } = throttlingKind.getValue(result.value);
-                const lastTime = throttlingLastTime.get(theFlow);
+                const lastTime = throttlingLastTimeWeakStore.get(theFlow);
                 const now = Date.now();
-                throttlingLastTime.set(theFlow, now);
+                throttlingLastTimeWeakStore.set(theFlow, now);
                 if (typeof lastTime === "number" && (lastTime + time) > now) {
                     result = generator.return(returnValue);
                     break;
@@ -213,4 +245,4 @@ function run(theFlow, ...[params]) {
     }
 }
 
-export { MissingDependenceError, run };
+export { MissingDependenceError, calledByNextFunctionWeakStore, debounceResumerWeakStore, debounceTimeoutIdWeakStore, queuesWeakStore, run, throttlingLastTimeWeakStore, throttlingResumerWeakStore };

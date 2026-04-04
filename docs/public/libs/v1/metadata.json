@@ -3945,6 +3945,15 @@
               "name": "calledByNext.mjs"
             },
             {
+              "name": "debounce.cjs"
+            },
+            {
+              "name": "debounce.d.ts"
+            },
+            {
+              "name": "debounce.mjs"
+            },
+            {
               "name": "defer.cjs"
             },
             {
@@ -4052,6 +4061,15 @@
         },
         {
           "name": "calledByNext.mjs"
+        },
+        {
+          "name": "debounce.cjs"
+        },
+        {
+          "name": "debounce.d.ts"
+        },
+        {
+          "name": "debounce.mjs"
         },
         {
           "name": "defer.cjs"

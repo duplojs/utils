@@ -1236,5 +1236,97 @@ describe("exec", () => {
 			await expect(firstRun).resolves.toBe(1);
 			await expect(secondRun).resolves.toBe("first-skip");
 		});
+
+		it("returns the nested debounce fallback for replaced async runs", async() => {
+			vi.useFakeTimers();
+
+			const executionOrder: number[] = [];
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "skipped" as const },
+					);
+					executionOrder.push(input);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+
+			await vi.advanceTimersByTimeAsync(50);
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			type checkFirstRun = ExpectType<
+				typeof firstRun,
+				Promise<number | "skipped">,
+				"two-extends-one"
+			>;
+
+			type checkSecondRun = ExpectType<
+				typeof secondRun,
+				Promise<number | "skipped">,
+				"two-extends-one"
+			>;
+
+			await expect(firstRun).resolves.toBe("skipped");
+			expect(executionOrder).toStrictEqual([]);
+
+			await vi.advanceTimersByTimeAsync(100);
+
+			await expect(secondRun).resolves.toBe(2);
+			expect(executionOrder).toStrictEqual([2]);
+		});
+
+		it("uses only the first nested debounce effect from the same execution", async() => {
+			vi.useFakeTimers();
+
+			const subFlow = DFlow.create(
+				async function *(input: number) {
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "first-skip" as const },
+					);
+					yield *DFlow.debounce(
+						100,
+						{ returnValue: "second-skip" as const },
+					);
+
+					return Promise.resolve(input);
+				},
+			);
+			const firstRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 1 },
+			);
+
+			await vi.advanceTimersByTimeAsync(50);
+
+			const secondRun = DFlow.run(
+				async function *(input: number) {
+					return yield *DFlow.exec(subFlow, { input });
+				},
+				{ input: 2 },
+			);
+
+			await expect(firstRun).resolves.toBe("first-skip");
+
+			await vi.advanceTimersByTimeAsync(100);
+
+			await expect(secondRun).resolves.toBe(2);
+		});
 	});
 });

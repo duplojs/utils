@@ -10,6 +10,7 @@ import { type DependenceHandler, type dependenceHandlerKind } from "./dependence
 import { type Throttling } from "./throttling";
 import { type CalledByNext } from "./calledByNext";
 import { type Queue } from "./queue";
+import { type Debounce } from "./debounce";
 
 export * from "./step";
 export * from "./exit";
@@ -21,6 +22,7 @@ export * from "./dependence";
 export * from "./throttling";
 export * from "./calledByNext";
 export * from "./queue";
+export * from "./debounce";
 
 // <3
 export type Effect = (
@@ -33,6 +35,7 @@ export type Effect = (
 	| Throttling
 	| CalledByNext
 	| Queue
+	| Debounce
 );
 
 export type TheFlowGenerator<
@@ -40,7 +43,14 @@ export type TheFlowGenerator<
 	GenericEffect extends Effect = Effect,
 > = (
 	| Generator<
-		GenericEffect,
+		Exclude<
+			GenericEffect,
+			(
+				| Queue
+				| CalledByNext
+				| Debounce
+			)
+		>,
 		GenericOutput
 	>
 	| AsyncGenerator<

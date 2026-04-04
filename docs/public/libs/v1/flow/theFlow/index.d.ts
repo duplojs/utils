@@ -9,6 +9,7 @@ import { type DependenceHandler, type dependenceHandlerKind } from "./dependence
 import { type Throttling } from "./throttling";
 import { type CalledByNext } from "./calledByNext";
 import { type Queue } from "./queue";
+import { type Debounce } from "./debounce";
 export * from "./step";
 export * from "./exit";
 export * from "./break";
@@ -19,8 +20,9 @@ export * from "./dependence";
 export * from "./throttling";
 export * from "./calledByNext";
 export * from "./queue";
-export type Effect = (Injection | Step | Exit | Break | Defer | Finalizer | Throttling | CalledByNext | Queue);
-export type TheFlowGenerator<GenericOutput extends unknown = unknown, GenericEffect extends Effect = Effect> = (Generator<GenericEffect, GenericOutput> | AsyncGenerator<GenericEffect, GenericOutput>);
+export * from "./debounce";
+export type Effect = (Injection | Step | Exit | Break | Defer | Finalizer | Throttling | CalledByNext | Queue | Debounce);
+export type TheFlowGenerator<GenericOutput extends unknown = unknown, GenericEffect extends Effect = Effect> = (Generator<Exclude<GenericEffect, (Queue | CalledByNext | Debounce)>, GenericOutput> | AsyncGenerator<GenericEffect, GenericOutput>);
 export type TheFlowFunction<GenericInput extends any = any, GenericGenerator extends TheFlowGenerator = TheFlowGenerator> = (input: GenericInput) => GenericGenerator;
 export interface TheFlowProperties<GenericFunction extends TheFlowFunction = TheFlowFunction> {
     run: GenericFunction;

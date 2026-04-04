@@ -47,6 +47,9 @@ Sérialise ou limite les exécutions concurrentes d'un même flow.
 ### [throttling](/fr/v1/api/flow/throttling)
 Ignore ou reporte les appels trop rapprochés pour un même flow.
 
+### [debounce](/fr/v1/api/flow/debounce)
+Attend avant de continuer l'exécution et annule l'appel précédent si un nouveau arrive.
+
 ## Contrôle de flux
 
 ### [breakIf](/fr/v1/api/flow/breakIf)

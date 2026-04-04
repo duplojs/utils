@@ -34,6 +34,7 @@ import { type OnlyLiteralNumber } from "../common";
  * @remarks
  * - `queue` is meaningful only in asynchronous flows handled by `F.run(...)`
  * - Reuse the same flow reference to share the same queue across runs
+ * - If the same flow execution yields `queue(...)` multiple times, only the first yielded effect is applied by the runner
  * 
  * @see [`F.run`](https://utils.duplojs.dev/en/v1/api/flow/run) For queue-aware execution
  * @see https://utils.duplojs.dev/en/v1/api/flow/queue

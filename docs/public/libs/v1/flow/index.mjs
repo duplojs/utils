@@ -1,4 +1,4 @@
-export { MissingDependenceError, run } from './run.mjs';
+export { MissingDependenceError, calledByNextFunctionWeakStore, debounceResumerWeakStore, debounceTimeoutIdWeakStore, queuesWeakStore, run, throttlingLastTimeWeakStore, throttlingResumerWeakStore } from './run.mjs';
 export { create, theFlowKind } from './theFlow/index.mjs';
 export { breakIf } from './breakIf.mjs';
 export { defer } from './defer.mjs';
@@ -13,6 +13,7 @@ export { calledByNext } from './calledByNext.mjs';
 export { queue } from './queue.mjs';
 export { throttling } from './throttling.mjs';
 export { toFunction } from './toFunction.mjs';
+export { debounce } from './debounce.mjs';
 export { createStep, stepKind } from './theFlow/step.mjs';
 export { createExit, exitKind } from './theFlow/exit.mjs';
 export { breakKind, createBreak } from './theFlow/break.mjs';
@@ -23,3 +24,4 @@ export { createDependence, dependenceHandlerKind } from './theFlow/dependence.mj
 export { createThrottling, throttlingKind } from './theFlow/throttling.mjs';
 export { calledByNextKind, createCalledByNext } from './theFlow/calledByNext.mjs';
 export { createQueue, queueKind } from './theFlow/queue.mjs';
+export { createDebounce, debounceKind } from './theFlow/debounce.mjs';
