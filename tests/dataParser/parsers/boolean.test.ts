@@ -27,11 +27,17 @@ describe("DDataParser boolean", () => {
 			schema.parse("true"),
 		).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"true",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "boolean",
+							path: "",
+							data: "true",
+							message: "boolean.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -57,11 +63,17 @@ describe("DDataParser boolean", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"yes",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "boolean",
+							path: "",
+							data: "yes",
+							message: "boolean.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -76,11 +88,17 @@ describe("DDataParser boolean", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					12n,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "boolean",
+							path: "",
+							data: 12n,
+							message: "boolean.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

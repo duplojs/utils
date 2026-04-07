@@ -32,7 +32,21 @@ describe("DDataParser string", () => {
 
 		const result = schema.parse(11);
 
-		expect(result).toStrictEqual(DEither.error(DDataParser.addIssue(DDataParser.createError(), schema, 11)));
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "",
+							data: 11,
+							message: "error",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
 	});
 
 	it("succes coerc parsing", () => {

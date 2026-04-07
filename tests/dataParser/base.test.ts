@@ -101,7 +101,7 @@ describe("base parser", () => {
 
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, checker);
+			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker);
 		});
 
 		it("parseOrThrow returns value on success", () => {
@@ -112,50 +112,6 @@ describe("base parser", () => {
 
 		it("parseOrThrow throws on error", () => {
 			expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.DataParserThrowError);
-		});
-
-		it("run base exec and return error", () => {
-			const result = parser.parse("test");
-
-			expect(result).toStrictEqual(DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					parser,
-					"test",
-				),
-			));
-			expect(exec).toHaveBeenCalledWith(
-				"test",
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					parser,
-					"test",
-				),
-				parser,
-			);
-			expect(execChecker).toHaveBeenCalledTimes(0);
-		});
-
-		it("run base exec and check return error", () => {
-			const result = parser.parse(-1);
-
-			expect(result).toStrictEqual(DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1,
-				),
-			));
-			expect(exec).toHaveBeenCalledWith(
-				-1,
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1,
-				),
-				parser,
-			);
-			expect(execChecker).toHaveBeenCalledWith(-1, checker);
 		});
 
 		it("run base exec and check return error", () => {
@@ -231,32 +187,6 @@ describe("base parser", () => {
 			);
 		});
 
-		it("promise issue", () => {
-			const parser = DDataParser.dataParserInit(
-				dataParserTestKind as never,
-				{
-					errorMessage: "invalid",
-					checkers: [],
-				},
-				() => DDataParser.SymbolDataParserErrorPromiseIssue,
-				specificOverrideHandler,
-			);
-
-			const result = parser.parse(-1);
-
-			expect(result).toStrictEqual(
-				DEither.error(
-					DDataParser.addPromiseIssue(
-						DDataParser.createError(),
-						parser as never,
-						-1,
-					),
-				),
-			);
-
-			expect(specificOverrideHandler.apply).toHaveBeenCalledOnce();
-		});
-
 		it("isAsynchronous", () => {
 			expect(parser.isAsynchronous()).toBe(false);
 		});
@@ -309,7 +239,7 @@ describe("base parser", () => {
 
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, checker);
+			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker);
 		});
 
 		it("asyncParseOrThrow returns value on success", async() => {
@@ -320,50 +250,6 @@ describe("base parser", () => {
 
 		it("asyncParseOrThrow throws on error", async() => {
 			await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.DataParserThrowError);
-		});
-
-		it("run base exec and return error", async() => {
-			const result = await parser.asyncParse("test");
-
-			expect(result).toStrictEqual(DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					parser,
-					"test",
-				),
-			));
-			expect(exec).toHaveBeenCalledWith(
-				"test",
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					parser,
-					"test",
-				),
-				parser,
-			);
-			expect(execChecker).toHaveBeenCalledTimes(0);
-		});
-
-		it("run base exec and check return error", async() => {
-			const result = await parser.asyncParse(-1);
-
-			expect(result).toStrictEqual(DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1,
-				),
-			));
-			expect(exec).toHaveBeenCalledWith(
-				-1,
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1,
-				),
-				parser,
-			);
-			expect(execChecker).toHaveBeenCalledWith(-1, checker);
 		});
 
 		it("run base exec and check return error", async() => {
@@ -381,30 +267,6 @@ describe("base parser", () => {
 
 			expect(result).toStrictEqual(DEither.success(-1));
 			expect(exec).toHaveBeenCalledWith(-1, DDataParser.createError(), parser);
-		});
-
-		it("promise issue", async() => {
-			const parser = DDataParser.dataParserInit(
-				dataParserTestKind as never,
-				{
-					errorMessage: "invalid",
-					checkers: [],
-				},
-				() => DDataParser.SymbolDataParserErrorPromiseIssue,
-				specificOverrideHandler,
-			);
-
-			const result = await parser.asyncParse(-1);
-
-			expect(result).toStrictEqual(
-				DEither.error(
-					DDataParser.addPromiseIssue(
-						DDataParser.createError(),
-						parser as never,
-						-1,
-					),
-				),
-			);
 		});
 
 		it("isAsynchronous", () => {

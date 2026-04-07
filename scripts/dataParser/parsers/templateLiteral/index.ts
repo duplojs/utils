@@ -1,7 +1,7 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -252,12 +252,17 @@ export function templateLiteral<
 			template,
 			pattern,
 		},
-		(data, _error, self) => {
+		(data, error, self) => {
 			if (typeof data === "string" && self.definition.pattern.test(data)) {
 				return data as never;
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(
+				error,
+				`string matching template literal pattern ${self.definition.pattern.source}`,
+				data,
+				self.definition.errorMessage,
+			);
 		},
 		templateLiteral.overrideHandler,
 	) as never;

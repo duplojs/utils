@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDefinition {
@@ -35,9 +35,9 @@ export function checkerArrayMax(
 				max,
 			},
 		},
-		(data, self) => {
+		(data, error, self) => {
 			if (data.length > self.definition.max) {
-				return SymbolDataParserErrorIssue;
+				return addIssue(error, `array with max ${self.definition.max} items`, data, self.definition.errorMessage);
 			}
 
 			return data;

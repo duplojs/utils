@@ -16,10 +16,12 @@ describe("primitive handler String", () => {
 		const invalidValue = 10;
 		const result = DClean.String.create(invalidValue as never);
 
-		const expectedError = DDataParser.addIssue(
-			DDataParser.createError(),
-			DClean.String.dataParser,
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string",
 			invalidValue,
+			undefined,
 		);
 
 		expect(result).toStrictEqual(
@@ -39,10 +41,12 @@ describe("primitive handler String", () => {
 
 	it("createOrThrow throws on invalid value with error details", () => {
 		const invalidValue = 10;
-		const expectedError = DDataParser.addIssue(
-			DDataParser.createError(),
-			DClean.String.dataParser,
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string",
 			invalidValue,
+			undefined,
 		);
 
 		expect(() => DClean.String.createOrThrow(invalidValue as never)).toThrow(DClean.CreatePrimitiveError);

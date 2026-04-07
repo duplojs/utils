@@ -69,11 +69,17 @@ describe("DDataParser templateLiteral", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalid,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: `string matching template literal pattern ${schema.definition.pattern.source}`,
+							path: "",
+							data: invalid,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -91,11 +97,17 @@ describe("DDataParser templateLiteral", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalid,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: `string matching template literal pattern ${schema.definition.pattern.source}`,
+							path: "",
+							data: invalid,
+							message: "invalid.template",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

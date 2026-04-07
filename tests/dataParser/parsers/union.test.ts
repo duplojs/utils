@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser union", () => {
 	it("parses with the first matching parser", () => {
@@ -52,24 +52,24 @@ describe("DDataParser union", () => {
 		const result = schema.parse(true);
 
 		expect(result).toStrictEqual(
-			pipe(
-				DDataParser.createError(),
-				(error) => DDataParser.addIssue(
-					error,
-					stringParser,
-					true,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					numberParser,
-					true,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					schema,
-					true,
-				),
-				DEither.error,
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "(option 0)",
+							data: true,
+							message: undefined,
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "(option 1)",
+							data: true,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -97,24 +97,24 @@ describe("DDataParser union", () => {
 			const result = await schema.asyncParse(true);
 
 			expect(result).toStrictEqual(
-				pipe(
-					DDataParser.createError(),
-					(error) => DDataParser.addIssue(
-						error,
-						stringParser,
-						true,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						numberParser,
-						true,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						schema,
-						true,
-					),
-					DEither.error,
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "string",
+								path: "(option 0)",
+								data: true,
+								message: undefined,
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "(option 1)",
+								data: true,
+								message: undefined,
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});

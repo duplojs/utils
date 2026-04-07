@@ -1,13 +1,6 @@
-import { DDataParser } from "@scripts";
+import { DDataParser, DEither, Printer } from "@scripts";
 
 describe("dataParser error helpers", () => {
-	it("SymbolDataParserError constants", () => {
-		expect(typeof DDataParser.SymbolDataParserErrorIssue).toBe("symbol");
-		expect(
-			Symbol.keyFor(DDataParser.SymbolDataParserErrorIssue),
-		).toBe(DDataParser.SymbolDataParserErrorIssueLabel);
-	});
-
 	it("createError returns kind-wrapped accumulator", () => {
 		const error = DDataParser.createError();
 
@@ -32,33 +25,104 @@ describe("dataParser error helpers", () => {
 		expect(error.currentPath).toStrictEqual(["user", "email"]);
 	});
 
-	it("addIssue stores source with joined path and popErrorPath removes last segment", () => {
+	it("addIssue stores expected with joined path and popErrorPath removes last segment", () => {
 		const error = DDataParser.createError();
-		const parser = DDataParser.string();
 
 		DDataParser.setErrorPath(error, "user", 0);
 		DDataParser.setErrorPath(error, "email", 1);
 
-		DDataParser.addIssue(error, parser, undefined);
-		DDataParser.addPromiseIssue(error, parser as never, undefined);
+		DDataParser.addIssue(error, "value", undefined, undefined);
 
 		expect(error.issues).toStrictEqual([
 			DDataParser.errorIssueKind.addTo({
-				source: parser,
+				expected: "value",
 				path: "user.email",
 				data: undefined,
-				moreInformation: undefined,
-			}),
-			DDataParser.errorPromiseIssueKind.addTo({
-				source: parser,
-				path: "user.email",
-				data: undefined,
-				moreInformation: undefined,
+				message: undefined,
 			}),
 		]);
 
 		const afterPop = DDataParser.popErrorPath(error);
 		expect(afterPop).toBe(error);
 		expect(error.currentPath).toStrictEqual(["user"]);
+	});
+
+	it("interpretError renders multiple nested issues", () => {
+		const error = DDataParser.createError();
+
+		DDataParser.setErrorPath(error, "user", 0);
+		DDataParser.setErrorPath(error, "email", 1);
+		DDataParser.addIssue(error, "string with max 5 characters", "tonton", "email is invalid");
+
+		DDataParser.setErrorPath(error, "useAsyncRetry", 0);
+		DDataParser.setErrorPath(error, "(option 1)", 1);
+		DDataParser.setErrorPath(error, "age", 2);
+		DDataParser.addIssue(error, "number >= 18", "15", "age too small");
+
+		expect(DDataParser.interpretError(error)).toBe(
+			Printer.renderParagraph([
+				Printer.colorizedBold("Validation failed", "red"),
+				Printer.renderParagraph([
+					"",
+					Printer.renderLine([
+						Printer.colorizedBold("✖", "red"),
+						Printer.colorizedBold("user.email", "cyan"),
+						"expected",
+						Printer.colorized("string with max 5 characters", "green"),
+						"but received",
+						Printer.colorized("\"tonton\"", "red"),
+					]),
+					`${Printer.indent(1)}↳ email is invalid`,
+				]),
+				Printer.renderParagraph([
+					"",
+					Printer.renderLine([
+						Printer.colorizedBold("✖", "red"),
+						Printer.colorizedBold("useAsyncRetry.(option 1).age", "cyan"),
+						"expected",
+						Printer.colorized("number >= 18", "green"),
+						"but received",
+						Printer.colorized("\"15\"", "red"),
+					]),
+					`${Printer.indent(1)}↳ age too small`,
+				]),
+			]),
+		);
+	});
+
+	it("interpretError renders no issue found for empty errors and supports either left input", () => {
+		const error = DDataParser.createError();
+		const eitherError = DEither.left("error", error);
+
+		expect(DDataParser.interpretError(eitherError)).toBe(
+			Printer.renderParagraph([
+				Printer.colorizedBold("Validation failed", "red"),
+				"No issue found",
+			]),
+		);
+	});
+
+	it("interpretError renders root when issue path is empty", () => {
+		const error = DDataParser.createError();
+
+		DDataParser.addIssue(error, "string", "", "root issue");
+
+		expect(DDataParser.interpretError(error)).toBe(
+			Printer.renderParagraph([
+				Printer.colorizedBold("Validation failed", "red"),
+				Printer.renderParagraph([
+					"",
+					Printer.renderLine([
+						Printer.colorizedBold("✖", "red"),
+						Printer.colorizedBold("<root>", "cyan"),
+						"expected",
+						Printer.colorized("string", "green"),
+						"but received",
+						Printer.colorized("\"\"", "red"),
+					]),
+					`${Printer.indent(1)}↳ root issue`,
+				]),
+			]),
+		);
 	});
 });

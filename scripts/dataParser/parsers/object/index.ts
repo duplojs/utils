@@ -1,7 +1,7 @@
 import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
-import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "../../error";
+import { addIssue, popErrorPath, setErrorPath } from "../../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -160,7 +160,7 @@ export function object<
 					|| typeof data !== "object"
 					|| data instanceof Array
 				) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "object", data, self.definition.errorMessage);
 				}
 
 				let output = {};
@@ -194,7 +194,7 @@ export function object<
 					|| typeof data !== "object"
 					|| data instanceof Array
 				) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "object", data, self.definition.errorMessage);
 				}
 
 				let output = {};

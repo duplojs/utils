@@ -15,11 +15,17 @@ describe("DDataParser string url checker", () => {
 
 		expect(schema.parse("sftp://example.com/path")).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					"sftp://example.com/path",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "URL with protocol matching ^https?$",
+							path: "",
+							data: "sftp://example.com/path",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -45,11 +51,17 @@ describe("DDataParser string url checker", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					"https://www.example.com",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "URL with hostname matching ^api\\.example\\.com$",
+							path: "",
+							data: "https://www.example.com",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 
@@ -68,11 +80,17 @@ describe("DDataParser string url checker", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					"not a url",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "valid URL",
+							path: "",
+							data: "not a url",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

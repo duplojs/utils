@@ -56,11 +56,17 @@ describe("DDataParser nullable", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					inner,
-					"nope",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "",
+							data: "nope",
+							message: "not-number",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -101,11 +107,17 @@ describe("DDataParser nullable", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						inner,
-						"nope",
-					),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: "nope",
+								message: "not-number",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});

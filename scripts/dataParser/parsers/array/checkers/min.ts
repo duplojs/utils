@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
@@ -35,9 +35,9 @@ export function checkerArrayMin(
 				min,
 			},
 		},
-		(data, self) => {
+		(data, error, self) => {
 			if (data.length < self.definition.min) {
-				return SymbolDataParserErrorIssue;
+				return addIssue(error, `array with min ${self.definition.min} items`, data, self.definition.errorMessage);
 			}
 
 			return data;

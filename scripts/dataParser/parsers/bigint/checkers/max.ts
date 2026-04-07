@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerDefinition {
@@ -35,9 +35,9 @@ export function checkerBigIntMax(
 				max,
 			},
 		},
-		(value, self) => {
+		(value, error, self) => {
 			if (value > self.definition.max) {
-				return SymbolDataParserErrorIssue;
+				return addIssue(error, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage);
 			}
 
 			return value;

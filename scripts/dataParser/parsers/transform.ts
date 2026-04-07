@@ -1,7 +1,7 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { type DataParserError, type SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -37,8 +37,6 @@ export type DataParserTransformOutput<
 > = Exclude<
 	Awaited<ReturnType<GenericTheFunction>>,
 	| SymbolDataParserError
-	| SymbolDataParserErrorIssue
-	| SymbolDataParserErrorPromiseIssue
 >;
 
 type _DataParserTransform<
@@ -120,7 +118,7 @@ export function transform<
 				const result = self.definition.theFunction(innerResult as never, error);
 
 				if (result instanceof Promise) {
-					return SymbolDataParserErrorPromiseIssue;
+					return addIssue(error, "non-promise transform result", result, self.definition.errorMessage);
 				}
 
 				return result;
@@ -135,7 +133,9 @@ export function transform<
 				let result: unknown = self.definition.theFunction(innerResult as never, error);
 
 				if (result instanceof Promise) {
-					result = result.catch(() => SymbolDataParserErrorPromiseIssue);
+					result = await result.catch(
+						() => addIssue(error, "successful async transform result", result, self.definition.errorMessage),
+					);
 				}
 
 				return result as never;

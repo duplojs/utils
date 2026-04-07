@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { number as numberParser } from "..";
 import { createDataParserKind } from "../../../kind";
 
@@ -30,12 +30,12 @@ export function checkerInt(
 		{
 			definition,
 		},
-		(data) => {
+		(data, error, self) => {
 			if (Number.isInteger(data)) {
 				return data;
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(error, "integer", data, self.definition.errorMessage);
 		},
 	);
 }

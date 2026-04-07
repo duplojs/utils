@@ -41,11 +41,17 @@ describe("DDataParser pipe", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					inputParser,
-					"nope",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "",
+							data: "nope",
+							message: "not-number",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -61,11 +67,17 @@ describe("DDataParser pipe", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					outputParser,
-					5,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "",
+							data: 5,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -93,12 +105,17 @@ describe("DDataParser pipe", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						inputParser,
-						"nope",
-					),
-
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: "nope",
+								message: "not-number",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});

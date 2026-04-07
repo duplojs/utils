@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -89,13 +89,13 @@ export function time<
 			checkers: definition?.checkers ?? [],
 			coerce: definition?.coerce ?? false,
 		},
-		(data, _error, self) => {
+		(data, error, self) => {
 			if (self.definition.coerce) {
 				if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
 					const result = DDate.createTime({ value: data });
 
 					if (DEither.isLeft(result)) {
-						return SymbolDataParserErrorIssue;
+						return addIssue(error, "time", data, self.definition.errorMessage);
 					}
 
 					return unwrap(result);
@@ -108,13 +108,13 @@ export function time<
 				return DDate.TheTime.new(DDate.toTimeValue(data));
 			} else if (typeof data === "number") {
 				if (!DDate.isSafeTimeValue(data)) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "time", data, self.definition.errorMessage);
 				}
 
 				return DDate.TheTime.new(data);
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(error, "time", data, self.definition.errorMessage);
 		},
 		time.overrideHandler,
 	) as never;

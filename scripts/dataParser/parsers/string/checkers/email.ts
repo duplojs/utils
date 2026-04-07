@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserChecker, type DataParserCheckerDefinition } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../kind";
 
@@ -36,9 +36,9 @@ export function checkerEmail(
 				pattern: emailPattern,
 			},
 		},
-		(input, self) => {
+		(input, error, self) => {
 			if (!self.definition.pattern.test(input)) {
-				return SymbolDataParserErrorIssue;
+				return addIssue(error, "email", input, self.definition.errorMessage);
 			}
 
 			return self.definition.normalize ? input.toLowerCase() : input;

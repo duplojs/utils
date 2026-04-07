@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser object", () => {
 	it("success parsing", () => {
@@ -55,9 +55,21 @@ describe("DDataParser object", () => {
 
 		const result = schema.parse("mathcovax");
 
-		expect(result).toStrictEqual(DEither.error(
-			DDataParser.addIssue(DDataParser.createError(), schema, "mathcovax"),
-		));
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "object",
+							path: "",
+							data: "mathcovax",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
 	});
 
 	it("key type error parsing", () => {
@@ -70,18 +82,17 @@ describe("DDataParser object", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				{
-					...DDataParser.addIssue(
-						DDataParser.setErrorPath(
-							DDataParser.createError(),
-							"name",
-							0,
-						),
-						nameSchema,
-						11,
-					),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "name",
+							data: 11,
+							message: undefined,
+						}),
+					],
 					currentPath: [],
-				},
+				}),
 			),
 		);
 	});
@@ -97,18 +108,17 @@ describe("DDataParser object", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				{
-					...DDataParser.addIssue(
-						DDataParser.setErrorPath(
-							DDataParser.createError(),
-							"name",
-							0,
-						),
-						nameSchema,
-						undefined,
-					),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "name",
+							data: undefined,
+							message: undefined,
+						}),
+					],
 					currentPath: [],
-				},
+				}),
 			),
 		);
 	});
@@ -150,9 +160,21 @@ describe("DDataParser object", () => {
 
 			const result = await schema.asyncParse("mathcovax");
 
-			expect(result).toStrictEqual(DEither.error(
-				DDataParser.addIssue(DDataParser.createError(), schema, "mathcovax"),
-			));
+			expect(result).toStrictEqual(
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "object",
+								path: "",
+								data: "mathcovax",
+								message: undefined,
+							}),
+						],
+						currentPath: [],
+					}),
+				),
+			);
 		});
 
 		it("key type error parsing", async() => {
@@ -165,18 +187,17 @@ describe("DDataParser object", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					{
-						...DDataParser.addIssue(
-							DDataParser.setErrorPath(
-								DDataParser.createError(),
-								"name",
-								0,
-							),
-							nameSchema,
-							11,
-						),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "string",
+								path: "name",
+								data: 11,
+								message: undefined,
+							}),
+						],
 						currentPath: [],
-					},
+					}),
 				),
 			);
 		});
@@ -192,18 +213,17 @@ describe("DDataParser object", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					{
-						...DDataParser.addIssue(
-							DDataParser.setErrorPath(
-								DDataParser.createError(),
-								"name",
-								0,
-							),
-							nameSchema,
-							undefined,
-						),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "string",
+								path: "name",
+								data: undefined,
+								message: undefined,
+							}),
+						],
 						currentPath: [],
-					},
+					}),
 				),
 			);
 		});

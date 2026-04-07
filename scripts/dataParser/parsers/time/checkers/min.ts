@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import * as DDate from "@scripts/date";
 
@@ -39,6 +39,8 @@ export function checkerTimeMin(
 				min,
 			},
 		},
-		(value, self) => DDate.greaterTime(value, self.definition.min) ? value : SymbolDataParserErrorIssue,
+		(value, error, self) => DDate.greaterTime(value, self.definition.min)
+			? value
+			: addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage),
 	);
 }

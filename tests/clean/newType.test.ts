@@ -50,10 +50,12 @@ describe("createNewType", () => {
 	it("create returns error on invalid input", () => {
 		const result = handler.create("too long");
 
-		const expectedError = DDataParser.addIssue(
-			DDataParser.createError(),
-			constraint.checkers[0],
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string.length <= 5",
 			"too long",
+			undefined,
 		);
 
 		expect(result).toStrictEqual(

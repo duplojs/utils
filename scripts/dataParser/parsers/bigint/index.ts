@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerBigIntMin, type DataParserCheckerBigIntMax } from "./checkers";
 import { createDataParserKind } from "../../kind";
 import { type CheckerRefineImplementation } from "../refine";
@@ -87,7 +87,7 @@ export function bigint<
 			checkers: definition?.checkers ?? [],
 			coerce: definition?.coerce ?? false,
 		},
-		(data, _error, self) => {
+		(data, error, self) => {
 			if (self.definition.coerce) {
 				try {
 					// eslint-disable-next-line no-param-reassign
@@ -99,7 +99,7 @@ export function bigint<
 				return data;
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(error, "bigint", data, self.definition.errorMessage);
 		},
 		bigint.overrideHandler,
 	) as never;

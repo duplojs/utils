@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser recover", () => {
 	it("parses inner value when valid", () => {
@@ -42,19 +42,24 @@ describe("DDataParser recover", () => {
 			);
 
 		expect(schema.parse("invalid")).toStrictEqual(
-			pipe(
-				DDataParser.createError(),
-				(error) => DDataParser.addIssue(
-					error,
-					schema.definition.inner,
-					"invalid",
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					schema.definition.checkers[0],
-					-1,
-				),
-				(error) => DEither.error(error),
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "",
+							data: "invalid",
+							message: "not-number",
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "value matching refine predicate",
+							path: "",
+							data: -1,
+							message: "must-be-positive",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -86,19 +91,24 @@ describe("DDataParser recover", () => {
 				);
 
 			expect(await schema.asyncParse("invalid")).toStrictEqual(
-				pipe(
-					DDataParser.createError(),
-					(error) => DDataParser.addIssue(
-						error,
-						schema.definition.inner,
-						"invalid",
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						schema.definition.checkers[0],
-						-1,
-					),
-					(error) => DEither.error(error),
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: "invalid",
+								message: "not-number",
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "value matching refine predicate",
+								path: "",
+								data: -1,
+								message: "must-be-positive",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});

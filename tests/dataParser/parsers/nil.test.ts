@@ -26,11 +26,17 @@ describe("DDataParser null", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"not-null",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "null",
+							path: "",
+							data: "not-null",
+							message: "null.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -41,11 +47,17 @@ describe("DDataParser null", () => {
 		expect(schema.parse("null")).toStrictEqual(DEither.success(null));
 		expect(schema.parse("not-null")).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"not-null",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "null",
+							path: "",
+							data: "not-null",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

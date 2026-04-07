@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type AssignObjects } from "@scripts/object";
 
@@ -48,7 +48,9 @@ export function checkerRefine<
 				theFunction,
 			},
 		},
-		(value, self) => self.definition.theFunction(value) ? value : SymbolDataParserErrorIssue,
+		(value, error, self) => self.definition.theFunction(value)
+			? value
+			: addIssue(error, "value matching refine predicate", value, self.definition.errorMessage),
 	) as never;
 }
 

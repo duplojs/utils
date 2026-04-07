@@ -26,11 +26,17 @@ describe("DDataParser empty", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"value",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "undefined",
+							path: "",
+							data: "value",
+							message: "undefined.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -41,11 +47,17 @@ describe("DDataParser empty", () => {
 		expect(schema.parse("undefined")).toStrictEqual(DEither.success(undefined));
 		expect(schema.parse("not-undefined")).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"not-undefined",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "undefined",
+							path: "",
+							data: "not-undefined",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

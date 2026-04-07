@@ -29,11 +29,17 @@ describe("DDataParser time", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					input,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: input,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -67,38 +73,62 @@ describe("DDataParser time", () => {
 
 		expect(timestampResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					outOfRangeTimestamp,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: outOfRangeTimestamp,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(stringResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidString,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: invalidString,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(typeResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidType,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: invalidType,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(unsafeTheTimeResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					unsafeTheTime,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: unsafeTheTime,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -116,11 +146,17 @@ describe("DDataParser time", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					input,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time",
+							path: "",
+							data: input,
+							message: "time.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(createTimeSpy).toHaveBeenCalledWith({ value: input });
