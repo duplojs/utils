@@ -20,6 +20,9 @@ export namespace Printer {
 
 	export type Colors = keyof typeof codeColors;
 
+	/**
+	 * {@include common/printer/colorized/index.md}
+	 */
 	export function colorized<
 		GenericInput extends string,
 	>(
@@ -43,10 +46,16 @@ export namespace Printer {
 		return `${codeColors[color]}${input}${codeReset}`;
 	}
 
+	/**
+	 * {@include common/printer/bold/index.md}
+	 */
 	export function bold(input: string) {
 		return `${codeBold}${input}${codeReset}`;
 	}
 
+	/**
+	 * {@include common/printer/colorizedBold/index.md}
+	 */
 	export function colorizedBold<
 		GenericInput extends string,
 	>(
@@ -84,6 +93,9 @@ export namespace Printer {
 
 	export type RenderInput = string | boolean | null | undefined | RenderInput[];
 
+	/**
+	 * {@include common/printer/render/index.md}
+	 */
 	export function render<
 		GenericValues extends readonly RenderInput[],
 	>(
