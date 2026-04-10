@@ -36,14 +36,37 @@ export interface ConstraintHandler<
 	readonly name: GenericName;
 
 	/**
-	 * {@include clean/createConstraint/checkers.md}
+	 * @deprecated
 	 */
 	readonly checkers: GenericCheckers;
 
 	/**
-	 * {@include clean/createConstraint/primitiveHandler.md}
+	 * @deprecated
 	 */
 	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+
+	readonly internal: {
+
+		/**
+		 * {@include clean/createConstraint/dataParser.md}
+		 */
+		readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+
+		/**
+		 * {@include clean/createConstraint/primitiveHandler.md}
+		 */
+		readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+
+		/**
+		 * {@include clean/createConstraint/checkers.md}
+		 */
+		readonly checkers: GenericCheckers;
+
+		/**
+		 * {@include clean/createConstraint/constraintKindValue.md}
+		 */
+		readonly constraintKindValue: Record<string, null>;
+	};
 
 	/**
 	 * {@include clean/createConstraint/create.md}
@@ -206,6 +229,8 @@ export function createConstraint<
 		.dataParser
 		.addChecker(...checkers as never);
 
+	const constraintKindValue = { [name]: null };
+
 	function create(data: any) {
 		const result = dataParserWithCheckers.parse(unwrap(data));
 
@@ -262,6 +287,12 @@ export function createConstraint<
 			name,
 			primitiveHandler,
 			checkers,
+			internal: {
+				primitiveHandler,
+				dataParser: dataParserWithCheckers,
+				checkers,
+				constraintKindValue,
+			},
 			create,
 			createOrThrow,
 			createWithUnknown: create,
@@ -277,8 +308,8 @@ createConstraint.overrideHandler = createOverride<ConstraintHandler>("@duplojs/u
 
 export type GetConstraint<
 	GenericConstrainHandler extends ConstraintHandler,
-	GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>
-	= DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>,
+	GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>
+	= DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>,
 > = Extract<
 	ConstrainedType<
 		GenericConstrainHandler["name"],

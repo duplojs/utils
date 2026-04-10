@@ -1,5 +1,5 @@
 import { dataParserInit } from '../base.mjs';
-import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -12,7 +12,7 @@ function boolean(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error, self) => {
         if (typeof data === "boolean") {
             return data;
         }
@@ -23,7 +23,7 @@ function boolean(definition) {
                     return lower === "true";
                 }
                 else {
-                    return SymbolDataParserErrorIssue;
+                    return addIssue(error, "boolean", data, self.definition.errorMessage);
                 }
             }
             else if (typeof data === "number"
@@ -32,7 +32,7 @@ function boolean(definition) {
                 return data === 1;
             }
         }
-        return SymbolDataParserErrorIssue;
+        return addIssue(error, "boolean", data, self.definition.errorMessage);
     }, boolean.overrideHandler);
     return self;
 }

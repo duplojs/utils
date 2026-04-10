@@ -16,14 +16,37 @@ export interface ConstraintsSetHandler<
 > extends Kind<typeof constraintsSetHandlerKind.definition> {
 
 	/**
-	 * {@include clean/createConstraintsSet/primitiveHandler.md}
+	 * @deprecated
 	 */
 	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
 
 	/**
-	 * {@include clean/createConstraintsSet/constraints.md}
+	 * @deprecated
 	 */
 	readonly constraints: GenericConstraintsHandler;
+
+	readonly internal: {
+
+		/**
+		 * {@include clean/createConstraintsSet/dataParser.md}
+		 */
+		readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+
+		/**
+		 * {@include clean/createConstraintsSet/primitiveHandler.md}
+		 */
+		readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+
+		/**
+		 * {@include clean/createConstraintsSet/constraints.md}
+		 */
+		readonly constraints: GenericConstraintsHandler;
+
+		/**
+		 * {@include clean/createConstraintsSet/constraintKindValue.md}
+		 */
+		readonly constraintKindValue: Record<string, null>;
+	};
 
 	/**
 	 * {@include clean/createConstraintsSet/create.md}
@@ -282,7 +305,7 @@ export function createConstraintsSet<
 
 	const checkers = DArray.flatMap(
 		constraints,
-		({ checkers }) => checkers,
+		({ internal }) => internal.checkers,
 	);
 
 	const dataParserWithCheckers = primitiveHandler
@@ -364,6 +387,12 @@ export function createConstraintsSet<
 		{
 			primitiveHandler,
 			constraints,
+			internal: {
+				primitiveHandler,
+				constraints,
+				constraintKindValue,
+				dataParser: dataParserWithCheckers,
+			},
 			getConstraint,
 			create,
 			createOrThrow,
@@ -383,7 +412,7 @@ export type GetConstraints<
 > = Extract<
 	GenericHandler extends any
 		? & UnionToIntersection<
-			GenericHandler["constraints"][number] extends infer InferredConstraint
+			GenericHandler["internal"]["constraints"][number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
 					? GetConstraint<InferredConstraint>
 					: never

@@ -108,14 +108,6 @@ function getConstraint(
 
 Le nom unique du `NewType` (ex: `"userId"`).
 
-#### `dataParser`
-
-Le `DataParser` utilisé pour valider la donnée (incluant les checkers ajoutés par les contraintes).
-
-#### `constrains`
-
-La liste des contraintes appliquées au `NewType`.
-
 ## Voir aussi
 
 - [Primitives](/fr/v1/api/clean/primitives/)

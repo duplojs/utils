@@ -32,7 +32,7 @@ class CreateConstraintsSetError extends kind$1.kindHeritage("create-constraint-s
  */
 function createConstraintsSet(primitiveHandler, constraint) {
     const constraints = coalescing.coalescing(constraint);
-    const checkers = flatMap.flatMap(constraints, ({ checkers }) => checkers);
+    const checkers = flatMap.flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = primitiveHandler
         .dataParser
         .addChecker(...checkers);
@@ -80,6 +80,12 @@ function createConstraintsSet(primitiveHandler, constraint) {
     return pipe.pipe({
         primitiveHandler,
         constraints,
+        internal: {
+            primitiveHandler,
+            constraints,
+            constraintKindValue,
+            dataParser: dataParserWithCheckers,
+        },
         getConstraint,
         create: create$2,
         createOrThrow,

@@ -18,11 +18,11 @@ function templateLiteral(template, definition) {
         checkers: definition?.checkers ?? [],
         template,
         pattern,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (typeof data === "string" && self.definition.pattern.test(data)) {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, `string matching template literal pattern ${self.definition.pattern.source}`, data, self.definition.errorMessage);
     }, templateLiteral.overrideHandler);
     return self;
 }

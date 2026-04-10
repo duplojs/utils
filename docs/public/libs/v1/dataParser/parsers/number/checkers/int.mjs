@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { number } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
@@ -7,11 +7,11 @@ const checkerIntKind = createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
     return dataParserCheckerInit(checkerIntKind, {
         definition,
-    }, (data) => {
+    }, (data, error, self) => {
         if (Number.isInteger(data)) {
             return data;
         }
-        return SymbolDataParserErrorIssue;
+        return addIssue(error, "integer", data, self.definition.errorMessage);
     });
 }
 function int(definition) {

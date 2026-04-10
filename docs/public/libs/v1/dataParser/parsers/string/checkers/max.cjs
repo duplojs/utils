@@ -11,7 +11,9 @@ function checkerStringMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, self) => value.length <= self.definition.max ? value : error.SymbolDataParserErrorIssue);
+    }, (value, error$1, self) => value.length <= self.definition.max
+        ? value
+        : error.addIssue(error$1, `string.length <= ${self.definition.max}`, value, self.definition.errorMessage));
 }
 
 exports.checkerStringMax = checkerStringMax;

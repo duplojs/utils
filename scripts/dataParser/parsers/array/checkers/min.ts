@@ -35,12 +35,8 @@ export function checkerArrayMin(
 				min,
 			},
 		},
-		(data, error, self) => {
-			if (data.length < self.definition.min) {
-				return addIssue(error, `array with min ${self.definition.min} items`, data, self.definition.errorMessage);
-			}
-
-			return data;
-		},
+		(data, error, self) => data.length >= self.definition.min
+			? data
+			: addIssue(error, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage),
 	);
 }

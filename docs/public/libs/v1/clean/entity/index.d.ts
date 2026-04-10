@@ -18,7 +18,7 @@ export type PropertiesToMapOfEntity<GenericPropertiesDefinition extends EntityPr
 export declare const entityKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/entity", string>>;
 export interface Entity<GenericName extends string = string> extends Kind<typeof entityKind.definition, GenericName> {
 }
-declare const entityHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/entity-handler", unknown>>;
+export declare const entityHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/entity-handler", unknown>>;
 export interface EntityHandler<GenericName extends string = string, GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition> extends Kind<typeof entityHandlerKind.definition> {
     /**
      * The entity name used as a runtime identifier (for example "User").
@@ -30,7 +30,17 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * 
      */
     readonly propertiesDefinition: GenericPropertiesDefinition;
+    /**
+     * @deprecated
+     */
     readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, unknown>;
+    readonly internal: {
+        /**
+         * The DataParser used internally to map raw properties into an entity.
+         * 
+         */
+        readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, unknown>;
+    };
     /**
      * Builds an entity from already typed properties.
      * 

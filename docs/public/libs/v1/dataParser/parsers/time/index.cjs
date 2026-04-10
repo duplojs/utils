@@ -22,12 +22,12 @@ function time(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.coerce) {
             if (typeof data === "string" && constants.isoTimeRegex.test(data)) {
                 const result = createTime.createTime({ value: data });
                 if (is.isLeft(result)) {
-                    return error.SymbolDataParserErrorIssue;
+                    return error.addIssue(error$1, "time", data, self.definition.errorMessage);
                 }
                 return unwrap.unwrap(result);
             }
@@ -40,11 +40,11 @@ function time(definition) {
         }
         else if (typeof data === "number") {
             if (!isSafeTimeValue.isSafeTimeValue(data)) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "time", data, self.definition.errorMessage);
             }
             return theTime.TheTime.new(data);
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "time", data, self.definition.errorMessage);
     }, time.overrideHandler);
     return self;
 }

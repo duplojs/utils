@@ -54,24 +54,21 @@ var recover = require('./parsers/recover.cjs');
 
 
 exports.DataParserThrowError = base.DataParserThrowError;
-exports.SymbolDataParserError = base.SymbolDataParserError;
-exports.SymbolDataParserErrorLabel = base.SymbolDataParserErrorLabel;
 exports.checkerKind = base.checkerKind;
 exports.dataParserCheckerInit = base.dataParserCheckerInit;
 exports.dataParserInit = base.dataParserInit;
 exports.dataParserKind = base.dataParserKind;
 exports.dataParserExtendedInit = baseExtended.dataParserExtendedInit;
 exports.extendedKind = baseExtended.extendedKind;
+exports.SymbolDataParserError = error.SymbolDataParserError;
 exports.SymbolDataParserErrorIssue = error.SymbolDataParserErrorIssue;
 exports.SymbolDataParserErrorIssueLabel = error.SymbolDataParserErrorIssueLabel;
-exports.SymbolDataParserErrorPromiseIssue = error.SymbolDataParserErrorPromiseIssue;
-exports.SymbolDataParserErrorPromiseIssueLabel = error.SymbolDataParserErrorPromiseIssueLabel;
+exports.SymbolDataParserErrorLabel = error.SymbolDataParserErrorLabel;
 exports.addIssue = error.addIssue;
-exports.addPromiseIssue = error.addPromiseIssue;
 exports.createError = error.createError;
 exports.errorIssueKind = error.errorIssueKind;
 exports.errorKind = error.errorKind;
-exports.errorPromiseIssueKind = error.errorPromiseIssueKind;
+exports.interpretError = error.interpretError;
 exports.popErrorPath = error.popErrorPath;
 exports.setErrorPath = error.setErrorPath;
 exports.extended = index;

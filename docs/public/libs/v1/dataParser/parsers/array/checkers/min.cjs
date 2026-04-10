@@ -11,12 +11,9 @@ function checkerArrayMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (data, self) => {
-        if (data.length < self.definition.min) {
-            return error.SymbolDataParserErrorIssue;
-        }
-        return data;
-    });
+    }, (data, error$1, self) => data.length >= self.definition.min
+        ? data
+        : error.addIssue(error$1, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage));
 }
 
 exports.checkerArrayMin = checkerArrayMin;

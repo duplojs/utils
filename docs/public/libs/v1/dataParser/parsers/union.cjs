@@ -17,22 +17,40 @@ function union(options, definition) {
         options,
     }, {
         sync: (data, error$1, self) => {
-            for (const dataParser of self.definition.options) {
-                const result = dataParser.exec(data, error$1);
-                if (result !== base.SymbolDataParserError) {
+            const unionError = {
+                ...error$1,
+                currentPath: [...error$1.currentPath],
+                issues: [],
+            };
+            const currentIndexPath = unionError.currentPath.length;
+            for (let index = 0; index < self.definition.options.length; index++) {
+                error.setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+                const dataParser = self.definition.options[index];
+                const result = dataParser.exec(data, unionError);
+                if (result !== error.SymbolDataParserError) {
                     return result;
                 }
             }
-            return error.SymbolDataParserErrorIssue;
+            error$1.issues.push(...unionError.issues);
+            return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage);
         },
         async: async (data, error$1, self) => {
-            for (const dataParser of self.definition.options) {
-                const result = await dataParser.asyncExec(data, error$1);
-                if (result !== base.SymbolDataParserError) {
+            const unionError = {
+                ...error$1,
+                currentPath: [...error$1.currentPath],
+                issues: [],
+            };
+            const currentIndexPath = unionError.currentPath.length;
+            for (let index = 0; index < self.definition.options.length; index++) {
+                error.setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+                const dataParser = self.definition.options[index];
+                const result = await dataParser.asyncExec(data, unionError);
+                if (result !== error.SymbolDataParserError) {
                     return result;
                 }
             }
-            return error.SymbolDataParserErrorIssue;
+            error$1.issues.push(...unionError.issues);
+            return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage);
         },
         isAsynchronous: (self) => some.some(self.definition.options, (element) => element.isAsynchronous()),
     }, union.overrideHandler);

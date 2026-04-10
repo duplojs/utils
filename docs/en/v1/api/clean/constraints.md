@@ -105,14 +105,6 @@ function is(
 
 The unique name of the constraint (e.g. `"email"`, `"int"`, ...).
 
-#### `checkers`
-
-The list of `DDataParser` checkers used to validate the value.
-
-#### `primitiveHandler`
-
-The primitive to which the constraint applies (e.g. `C.String`, `C.Number`).
-
 ## Constraints provided by the library
 
 The library exports a few ready-to-use constraints via `C.*`:

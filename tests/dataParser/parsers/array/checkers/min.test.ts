@@ -33,7 +33,7 @@ describe("DDataParser array checker min", () => {
 				DDataParser.errorKind.addTo({
 					issues: [
 						DDataParser.errorIssueKind.addTo({
-							expected: "array with min 3 items",
+							expected: "array.length >= 3",
 							path: "",
 							data: ["a", "b"],
 							message: undefined,

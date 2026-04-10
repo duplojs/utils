@@ -17,7 +17,7 @@ function array(element, definition) {
     }, {
         sync: (data, error$1, self) => {
             if (!(data instanceof Array)) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "array", data, self.definition.errorMessage);
             }
             let output = [];
             const currentIndexPath = error$1.currentPath.length;
@@ -27,10 +27,10 @@ function array(element, definition) {
                     .definition
                     .element
                     .exec(data[index], error$1);
-                if (result === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (result === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                else if (output !== base.SymbolDataParserError) {
+                else if (output !== error.SymbolDataParserError) {
                     output.push(result);
                 }
             }
@@ -39,7 +39,7 @@ function array(element, definition) {
         },
         async: async (data, error$1, self) => {
             if (!(data instanceof Array)) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "array", data, self.definition.errorMessage);
             }
             let output = [];
             const currentIndexPath = error$1.currentPath.length;
@@ -49,10 +49,10 @@ function array(element, definition) {
                     .definition
                     .element
                     .asyncExec(data[index], error$1);
-                if (result === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (result === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                else if (output !== base.SymbolDataParserError) {
+                else if (output !== error.SymbolDataParserError) {
                     output.push(result);
                 }
             }

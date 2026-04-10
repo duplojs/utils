@@ -17,15 +17,30 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      */
     readonly name: GenericName;
     /**
-     * The DataParser used to validate and transform raw inputs.
-     * 
+     * @deprecated
      */
     readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
     /**
-     * The list of constraints applied to this NewType.
-     * 
+     * @deprecated
      */
     readonly constraints: GenericConstraintsHandler;
+    readonly internal: {
+        /**
+         * The DataParser used to validate and transform raw inputs.
+         * 
+         */
+        readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
+        /**
+         * The list of constraints applied to this NewType.
+         * 
+         */
+        readonly constraints: GenericConstraintsHandler;
+        /**
+         * The constraint kind metadata applied to this NewType.
+         * 
+         */
+        readonly constraintKindValue: Record<string, null>;
+    };
     /**
      * Creates a NewType value and returns an Either.
      * 
@@ -156,5 +171,5 @@ export declare function createNewType<GenericName extends string, GenericDataPar
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
 }
-export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["dataParser"]> = DDataParser.Output<GenericHandler["dataParser"]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], GenericValue, GenericHandler["constraints"][number]["name"]> : never, any>;
+export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = DDataParser.Output<GenericHandler["internal"]["dataParser"]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], GenericValue, GenericHandler["internal"]["constraints"][number]["name"]> : never, any>;
 export {};

@@ -15,7 +15,9 @@ function checkerTimeMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, self) => lessTime.lessTime(value, self.definition.max) ? value : error.SymbolDataParserErrorIssue);
+    }, (value, error$1, self) => lessTime.lessTime(value, self.definition.max)
+        ? value
+        : error.addIssue(error$1, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage));
 }
 
 exports.checkerTimeMax = checkerTimeMax;

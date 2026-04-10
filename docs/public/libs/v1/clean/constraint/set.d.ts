@@ -7,15 +7,35 @@ import type * as DDataParser from "../../dataParser";
 export declare const constraintsSetHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraints-set-handler", unknown>>;
 export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintsSetHandlerKind.definition> {
     /**
-     * The primitive handler used to validate and wrap values (e.g. `C.String`, `C.Number`).
-     * 
+     * @deprecated
      */
     readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
     /**
-     * The list of constraint handlers applied by this set.
-     * 
+     * @deprecated
      */
     readonly constraints: GenericConstraintsHandler;
+    readonly internal: {
+        /**
+         * The DataParser with all constraint checkers from the set applied.
+         * 
+         */
+        readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+        /**
+         * The primitive handler used to validate and wrap values (e.g. `C.String`, `C.Number`).
+         * 
+         */
+        readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+        /**
+         * The list of constraint handlers applied by this set.
+         * 
+         */
+        readonly constraints: GenericConstraintsHandler;
+        /**
+         * The constraint kind metadata applied by the set.
+         * 
+         */
+        readonly constraintKindValue: Record<string, null>;
+    };
     /**
      * Creates a constrained value and returns an Either.
      * 
@@ -145,5 +165,5 @@ export declare function createConstraintsSet<GenericPrimitiveValue extends Eligi
 export declare namespace createConstraintsSet {
     var overrideHandler: import("../..").OverrideHandler<ConstraintsSetHandler<EligiblePrimitive, readonly [], unknown>>;
 }
-export type GetConstraints<GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["constraints"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> : never, any>;
+export type GetConstraints<GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["internal"]["constraints"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> : never, any>;
 export {};

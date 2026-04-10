@@ -1,4 +1,4 @@
-import { createError, addIssue, addPromiseIssue, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue } from './error.mjs';
+import { createError, SymbolDataParserError } from './error.mjs';
 import { createDataParserKind } from './kind.mjs';
 import { simpleClone } from '../common/simpleClone.mjs';
 import { keyWrappedValue } from '../common/wrapValue.mjs';
@@ -9,8 +9,6 @@ import { createErrorKind } from '../common/errorKindNamespace.mjs';
 import { error } from '../either/left/error.mjs';
 import { success } from '../either/right/success.mjs';
 
-const SymbolDataParserErrorLabel = "SymbolDataParserError";
-const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
 const checkerKind = createDataParserKind("checker");
 function dataParserCheckerInit(kind, params, exec) {
     return kind.setTo(checkerKind.setTo({
@@ -20,8 +18,6 @@ function dataParserCheckerInit(kind, params, exec) {
 }
 const dataParserKind = createDataParserKind("base");
 // This allows for better performance WTF ???
-const SDPEI = SymbolDataParserErrorIssue;
-const SDPEPI = SymbolDataParserErrorPromiseIssue;
 const SDPE = SymbolDataParserError;
 const DPE = createError();
 const EE = error(null);
@@ -44,20 +40,11 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         };
     function middleExec(data, error) {
         let result = formattedExec.sync(data, error, self);
-        if (result === SDPEI) {
-            addIssue(error, self, data);
-            return SDPE;
-        }
-        else if (result === SDPEPI) {
-            addPromiseIssue(error, self, data);
-            return SDPE;
-        }
-        else if (result !== SDPE
+        if (result !== SDPE
             && self.definition.checkers.length) {
             for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, checker);
-                if (checkerResult === SDPEI) {
-                    addIssue(error, checker, result);
+                const checkerResult = checker.exec(result, error, checker);
+                if (checkerResult === SDPE) {
                     return SDPE;
                 }
                 else {
@@ -69,20 +56,11 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
     }
     async function middleAsyncExec(data, error) {
         let result = await formattedExec.async(data, error, self);
-        if (result === SDPEI) {
-            addIssue(error, self, data);
-            return SDPE;
-        }
-        else if (result === SDPEPI) {
-            addPromiseIssue(error, self, data);
-            return SDPE;
-        }
-        else if (result !== SDPE
+        if (result !== SDPE
             && self.definition.checkers.length) {
             for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, checker);
-                if (checkerResult === SDPEI) {
-                    addIssue(error, checker, result);
+                const checkerResult = checker.exec(result, error, checker);
+                if (checkerResult === SDPE) {
                     return SDPE;
                 }
                 else {
@@ -170,4 +148,4 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
 }
 dataParserInit.overrideHandler = createOverride("@duplojs/utils/data-parser/base");
 
-export { DataParserThrowError, SymbolDataParserError, SymbolDataParserErrorLabel, checkerKind, dataParserCheckerInit, dataParserInit, dataParserKind };
+export { DataParserThrowError, SymbolDataParserError, checkerKind, dataParserCheckerInit, dataParserInit, dataParserKind };

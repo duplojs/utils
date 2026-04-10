@@ -1,5 +1,5 @@
-import { dataParserInit, SymbolDataParserError } from '../../base.mjs';
-import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
+import { dataParserInit } from '../../base.mjs';
+import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { findRecordRequiredKey } from './findRecordRequiredKey.mjs';
 export { findRecordRequiredKeyOnTemplateLiteralPart } from './findRecordRequiredKey.mjs';
@@ -27,7 +27,7 @@ function record(key, value, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "record object", data, self.definition.errorMessage);
             }
             let output = {};
             const fromData = {
@@ -65,7 +65,7 @@ function record(key, value, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "record object", data, self.definition.errorMessage);
             }
             let output = {};
             const fromData = {

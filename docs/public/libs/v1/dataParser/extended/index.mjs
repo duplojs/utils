@@ -22,4 +22,4 @@ export { templateLiteral } from './templateLiteral.mjs';
 export { tuple } from './tuple.mjs';
 export { unknown } from './unknown.mjs';
 export { recover } from './recover.mjs';
-export { SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorPromiseIssue, SymbolDataParserErrorPromiseIssueLabel, addIssue, addPromiseIssue, createError, errorIssueKind, errorKind, errorPromiseIssueKind, popErrorPath, setErrorPath } from '../error.mjs';
+export { SymbolDataParserError, SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorLabel, addIssue, createError, errorIssueKind, errorKind, interpretError, popErrorPath, setErrorPath } from '../error.mjs';

@@ -1,4 +1,4 @@
-import { type Kind, pipe, Printer, unwrap } from "@scripts/common";
+import { type Kind, Printer, unwrap } from "@scripts/common";
 import { createDataParserKind } from "./kind";
 import type * as DEither from "@scripts/either";
 

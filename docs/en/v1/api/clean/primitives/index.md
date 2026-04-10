@@ -91,12 +91,6 @@ function is(
 ): value is Primitive<RawType>
 ```
 
-### Properties
-
-#### `dataParser`
-
-Corresponds to the [dataParser](/en/v1/api/dataParser/) that validates the primitive.
-
 ## Operators
 
 ### [equal](/en/v1/api/clean/primitives/operators/equal)

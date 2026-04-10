@@ -55,7 +55,7 @@ export interface Entity<
 	> {
 }
 
-const entityHandlerKind = createCleanKind("entity-handler");
+export const entityHandlerKind = createCleanKind("entity-handler");
 
 export interface EntityHandler<
 	GenericName extends string = string,
@@ -72,10 +72,24 @@ export interface EntityHandler<
 	 */
 	readonly propertiesDefinition: GenericPropertiesDefinition;
 
+	/**
+	 * @deprecated
+	 */
 	readonly mapDataParser: DDataParser.Contract<
 		EntityProperties<GenericPropertiesDefinition>,
 		unknown
 	>;
+
+	readonly internal: {
+
+		/**
+		 * {@include clean/createEntity/mapDataParser.md}
+		 */
+		readonly mapDataParser: DDataParser.Contract<
+			EntityProperties<GenericPropertiesDefinition>,
+			unknown
+		>;
+	};
 
 	/**
 	 * {@include clean/createEntity/new.md}
@@ -178,24 +192,16 @@ export function createEntity<
 				key,
 				entityPropertyDefinitionToDataParser(
 					property,
-					(newTypeHandler) => {
-						const constraintKindValue = pipe(
-							newTypeHandler.constraints,
-							DArray.map(({ name }) => DObject.entry(name, null)),
-							DObject.fromEntries,
-						);
-
-						return DDataParser.transform(
-							newTypeHandler.dataParser,
-							(value) => constrainedTypeKind.setTo(
-								newTypeKind.setTo(
-									wrapValue(value),
-									newTypeHandler.name,
-								),
-								constraintKindValue,
+					(newTypeHandler) => DDataParser.transform(
+						newTypeHandler.internal.dataParser,
+						(value) => constrainedTypeKind.setTo(
+							newTypeKind.setTo(
+								wrapValue(value),
+								newTypeHandler.name,
 							),
-						);
-					},
+							newTypeHandler.internal.constraintKindValue,
+						),
+					),
 				),
 			),
 		),
@@ -257,6 +263,9 @@ export function createEntity<
 			name,
 			propertiesDefinition,
 			mapDataParser,
+			internal: {
+				mapDataParser,
+			},
 			new: theNew,
 			map,
 			mapOrThrow,

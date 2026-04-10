@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
@@ -11,9 +11,9 @@ function checkerEmail(definition = {}) {
             ...definition,
             pattern: emailPattern,
         },
-    }, (input, self) => {
+    }, (input, error, self) => {
         if (!self.definition.pattern.test(input)) {
-            return SymbolDataParserErrorIssue;
+            return addIssue(error, "email", input, self.definition.errorMessage);
         }
         return self.definition.normalize ? input.toLowerCase() : input;
     });

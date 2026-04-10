@@ -105,14 +105,6 @@ function is(
 
 Le nom unique de la contrainte (ex: `"email"`, `"int"`, ...).
 
-#### `checkers`
-
-La liste des checkers du `DDataParser` utilisés pour valider la valeur.
-
-#### `primitiveHandler`
-
-La primitive sur laquelle s'applique la contrainte (ex: `C.String`, `C.Number`).
-
 ## Contraintes fournies par la librairie
 
 La librairie exporte quelques contraintes prêtes à l'emploi via `C.*` :

@@ -49,14 +49,32 @@ export interface NewTypeHandler<
 	readonly name: GenericName;
 
 	/**
-	 * {@include clean/createNewType/dataParser.md}
+	 * @deprecated
 	 */
 	readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
 
 	/**
-	 * {@include clean/createNewType/constraints.md}
+	 * @deprecated
 	 */
 	readonly constraints: GenericConstraintsHandler;
+
+	readonly internal: {
+
+		/**
+		 * {@include clean/createNewType/dataParser.md}
+		 */
+		readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
+
+		/**
+		 * {@include clean/createNewType/constraints.md}
+		 */
+		readonly constraints: GenericConstraintsHandler;
+
+		/**
+		 * {@include clean/createNewType/constraintKindValue.md}
+		 */
+		readonly constraintKindValue: Record<string, null>;
+	};
 
 	/**
 	 * {@include clean/createNewType/create.md}
@@ -280,7 +298,7 @@ export function createNewType<
 
 	const checkers = DArray.flatMap(
 		constraints,
-		({ checkers }) => checkers,
+		({ internal }) => internal.checkers,
 	);
 
 	const dataParserWithCheckers = constraint
@@ -372,6 +390,11 @@ export function createNewType<
 			name,
 			dataParser: dataParserWithCheckers,
 			constraints,
+			internal: {
+				dataParser: dataParserWithCheckers,
+				constraints,
+				constraintKindValue,
+			},
 			getConstraint,
 			create,
 			createOrThrow,
@@ -388,13 +411,13 @@ createNewType.overrideHandler = createOverride<NewTypeHandler>("@duplojs/utils/c
 
 export type GetNewType<
 	GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>,
-	GenericValue extends DDataParser.Output<GenericHandler["dataParser"]> = DDataParser.Output<GenericHandler["dataParser"]>,
+	GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = DDataParser.Output<GenericHandler["internal"]["dataParser"]>,
 > = Extract<
 	GenericHandler extends any
 		? NewType<
 			GenericHandler["name"],
 			GenericValue,
-			GenericHandler["constraints"][number]["name"]
+			GenericHandler["internal"]["constraints"][number]["name"]
 		>
 		: never,
 	any

@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
 const checkerBigIntMinKind = createDataParserKind("checker-bigint-min");
@@ -9,9 +9,9 @@ function checkerBigIntMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, self) => {
+    }, (value, error, self) => {
         if (value < self.definition.min) {
-            return SymbolDataParserErrorIssue;
+            return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage);
         }
         return value;
     });

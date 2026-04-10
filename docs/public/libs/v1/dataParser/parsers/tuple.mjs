@@ -1,5 +1,5 @@
-import { dataParserInit, SymbolDataParserError } from '../base.mjs';
-import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../error.mjs';
+import { dataParserInit } from '../base.mjs';
+import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { some } from '../../array/some.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -17,7 +17,7 @@ function tuple(shape, definition) {
     }, {
         sync: (data, error, self) => {
             if (!(data instanceof Array)) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "tuple array", data, self.definition.errorMessage);
             }
             let output = [];
             const currentIndexPath = error.currentPath.length;
@@ -48,7 +48,7 @@ function tuple(shape, definition) {
         },
         async: async (data, error, self) => {
             if (!(data instanceof Array)) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "tuple array", data, self.definition.errorMessage);
             }
             let output = [];
             const currentIndexPath = error.currentPath.length;

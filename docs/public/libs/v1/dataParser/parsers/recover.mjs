@@ -1,5 +1,6 @@
-import { dataParserInit, SymbolDataParserError } from '../base.mjs';
+import { dataParserInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { SymbolDataParserError } from '../error.mjs';
 import { createOverride } from '../../common/override.mjs';
 
 const recoverKind = createDataParserKind("recover");

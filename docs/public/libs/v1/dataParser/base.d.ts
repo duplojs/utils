@@ -1,19 +1,17 @@
 import { type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
-import { SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError } from "./error";
+import { SymbolDataParserError, type DataParserError } from "./error";
 import * as DEither from "../either";
-export declare const SymbolDataParserErrorLabel = "SymbolDataParserError";
-export declare const SymbolDataParserError: unique symbol;
-export type SymbolDataParserError = typeof SymbolDataParserError;
+export { SymbolDataParserError } from "./error";
 export declare const checkerKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/checker", unknown>>;
 export interface DataParserCheckerDefinition {
     readonly errorMessage?: string;
 }
 export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition, GenericInput> {
     readonly definition: GenericDefinition;
-    exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
+    exec(data: GenericInput, error: DataParserError, self: this): GenericInput | SymbolDataParserError;
 }
 export type InputChecker<GenericDataParser extends DataParserChecker> = Parameters<GenericDataParser["exec"]>[0];
-export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => GetKindValue<typeof checkerKind, GenericDataParserChecker> | SymbolDataParserErrorIssue): GenericDataParserChecker;
+export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => GetKindValue<typeof checkerKind, GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
 export declare const dataParserKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
     input: unknown;
     output: unknown;
@@ -239,8 +237,8 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
     isAsynchronous(): boolean;
 }
 interface DataParserInitExecParams<GenericDataParser extends DataParser> {
-    sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue);
-    async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError | SymbolDataParserErrorIssue | SymbolDataParserErrorPromiseIssue>;
+    sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError);
+    async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError>;
     isAsynchronous(self: GenericDataParser): boolean;
 }
 declare const DataParserThrowError_base: new (params: {
@@ -261,4 +259,3 @@ export type AdvancedContract<GenericDataParser extends DataParser> = (GetKind<Ge
     addChecker(...args: never): AdvancedContract<GenericDataParser>;
     clone(): AdvancedContract<GenericDataParser>;
 });
-export {};

@@ -33,7 +33,7 @@ describe("DDataParser array checker max", () => {
 				DDataParser.errorKind.addTo({
 					issues: [
 						DDataParser.errorIssueKind.addTo({
-							expected: "array with max 2 items",
+							expected: "array.length <= 2",
 							path: "",
 							data: ["one", "two", "three"],
 							message: undefined,

@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
 const checkerNumberMaxKind = createDataParserKind("checker-number-max");
@@ -9,7 +9,9 @@ function checkerNumberMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, self) => value <= self.definition.max ? value : SymbolDataParserErrorIssue);
+    }, (value, error, self) => value <= self.definition.max
+        ? value
+        : addIssue(error, `number <= ${self.definition.max}`, value, self.definition.errorMessage));
 }
 
 export { checkerNumberMax, checkerNumberMaxKind };
