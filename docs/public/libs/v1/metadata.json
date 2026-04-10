@@ -646,6 +646,15 @@
               "name": "base.mjs"
             },
             {
+              "name": "cast.cjs"
+            },
+            {
+              "name": "cast.d.ts"
+            },
+            {
+              "name": "cast.mjs"
+            },
+            {
               "name": "index.d.ts"
             },
             {

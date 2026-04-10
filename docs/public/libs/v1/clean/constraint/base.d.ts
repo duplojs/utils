@@ -4,7 +4,7 @@ import * as DArray from "../../array";
 import * as DEither from "../../either";
 import type * as DDataParser from "../../dataParser";
 export declare const constrainedTypeKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constrained-type", Record<string, unknown>>>;
-export interface ConstrainedType<GenericName extends string, GenericValue extends unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
+export interface ConstrainedType<GenericName extends string = string, GenericValue extends unknown = unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
 }
 export declare const constraintHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraint-handler", unknown>>;
 export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintHandlerKind.definition> {

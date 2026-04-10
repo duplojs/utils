@@ -25,10 +25,33 @@ type CheckIsGreater<GreaterSplitValue extends AnyTuple<DString.Digit>, GreaterTa
     infer InferredRestSplitValue extends AnyTuple<DString.Digit>,
     infer InferredRestSplitReference extends AnyTuple<FigureGreaterThanTableValue>
 ] ? CheckIsGreater<InferredRestSplitValue, InferredRestSplitReference> : never : false;
-export type IsGreater<GenericValue extends number, GenericReference extends number> = IsEqual<GenericValue, GenericReference> extends true ? true : [
-    `${GenericValue}`,
-    `${GenericReference}`
+type toStringDecimal<GenericValue extends number> = `${GenericValue}` extends `${DString.Number}.${DString.Number}` ? `${GenericValue}` : `${GenericValue}.0`;
+type PrepareValues<GenericValue extends number, GenericReference extends number> = [
+    toStringDecimal<GenericValue>,
+    toStringDecimal<GenericReference>
 ] extends [
+    `${infer InferredValueInteger extends DString.Number}.${infer InferredValueDecimals extends DString.Number}`,
+    `${infer InferredReferenceInteger extends DString.Number}.${infer InferredReferenceDecimals extends DString.Number}`
+] ? And<[
+    IsEqual<InferredValueDecimals, "0">,
+    IsEqual<InferredReferenceDecimals, "0">
+]> extends true ? [InferredValueInteger, InferredReferenceInteger] : IsEqual<InferredValueInteger, InferredReferenceInteger> extends true ? [
+    DString.Split<InferredValueDecimals, "">,
+    DString.Split<InferredReferenceDecimals, "">
+] extends [
+    infer InferredSplitValue extends AnyTuple<DString.Digit>,
+    infer InferredSplitReference extends AnyTuple<DString.Digit>
+] ? (IsEqual<InferredSplitValue["length"], InferredSplitReference["length"]> extends true ? [
+    DArray.JoinTuple<InferredSplitValue, "">,
+    DArray.JoinTuple<InferredSplitReference, "">
+] : (DArray.CreateTuple<any, InferredSplitValue["length"]> extends [...DArray.CreateTuple<any, InferredSplitReference["length"]>, ...any[]] ? InferredSplitValue["length"] : InferredSplitReference["length"]) extends infer InferredLength extends number ? [
+    DArray.JoinTuple<Extract<IsEqual<InferredLength, InferredSplitValue["length"]> extends true ? InferredSplitValue : DArray.CreateTuple<"0", InferredLength, InferredSplitValue>, AnyTuple<string>>, "">,
+    DArray.JoinTuple<Extract<IsEqual<InferredLength, InferredSplitReference["length"]> extends true ? InferredSplitReference : DArray.CreateTuple<"0", InferredLength, InferredSplitReference>, AnyTuple<string>>, "">
+] : never) extends [
+    `${infer InferredResultValue}`,
+    `${infer InferredResultReference}`
+] ? [`${InferredResultValue}`, `${InferredResultReference}`] : never : never : [InferredValueInteger, InferredReferenceInteger] : never;
+export type IsGreater<GenericValue extends number, GenericReference extends number> = IsEqual<GenericValue, GenericReference> extends true ? true : PrepareValues<GenericValue, GenericReference> extends [
     infer InferredValue extends DString.Number,
     infer InferredReference extends DString.Number
 ] ? And<[

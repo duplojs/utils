@@ -1,4 +1,4 @@
-import { type GetConstraint } from "../base";
+import { type ConstraintHandler, type GetConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 import { type OnlyLiteralNumber } from "../../../common";
 /**
@@ -28,7 +28,7 @@ import { type OnlyLiteralNumber } from "../../../common";
  * @namespace C
  * 
  */
-export declare const Email: import("..").ConstraintHandler<"email", string, readonly [DDataParser.DataParserCheckerEmail], never>;
+export declare const Email: ConstraintHandler<"email", string, readonly [DDataParser.DataParserCheckerEmail], never>;
 export type Email = GetConstraint<typeof Email>;
 /**
  * Constraint handler that validates a URL string.
@@ -57,8 +57,10 @@ export type Email = GetConstraint<typeof Email>;
  * @namespace C
  * 
  */
-export declare const Url: import("..").ConstraintHandler<"url", string, readonly [DDataParser.DataParserCheckerUrl], never>;
+export declare const Url: ConstraintHandler<"url", string, readonly [DDataParser.DataParserCheckerUrl], never>;
 export type Url = GetConstraint<typeof Url>;
+export type StringMinHandlerInternal<GenericValue extends number = number> = Extract<ConstraintHandler<`string-min-${GenericValue}`, string, readonly [DDataParser.DataParserCheckerStringMin], never>, any>;
+export type StringMinInternal<GenericValue extends number = number> = GetConstraint<StringMinHandlerInternal<GenericValue>>;
 /**
  * Constraint factory that validates strings with a minimum length.
  * 
@@ -87,8 +89,10 @@ export type Url = GetConstraint<typeof Url>;
  * @namespace C
  * 
  */
-export declare function StringMin<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): import("..").ConstraintHandler<`string-min-${GenericValue & OnlyLiteralNumber<GenericValue>}`, string, readonly [DDataParser.DataParserCheckerStringMin], never>;
+export declare function StringMin<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): StringMinHandlerInternal<GenericValue>;
 export type StringMin<GenericValue extends number> = GetConstraint<ReturnType<typeof StringMin<GenericValue>>>;
+export type StringMaxHandlerInternal<GenericValue extends number = number> = Extract<ConstraintHandler<`string-max-${GenericValue}`, string, readonly [DDataParser.DataParserCheckerStringMax], never>, any>;
+export type StringMaxInternal<GenericValue extends number = number> = GetConstraint<StringMaxHandlerInternal<GenericValue>>;
 /**
  * Constraint factory that validates strings with a maximum length.
  * 
@@ -117,5 +121,5 @@ export type StringMin<GenericValue extends number> = GetConstraint<ReturnType<ty
  * @namespace C
  * 
  */
-export declare function StringMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): import("..").ConstraintHandler<`string-max-${GenericValue & OnlyLiteralNumber<GenericValue>}`, string, readonly [DDataParser.DataParserCheckerStringMax], never>;
+export declare function StringMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): StringMaxHandlerInternal<GenericValue>;
 export type StringMax<GenericValue extends number> = GetConstraint<ReturnType<typeof StringMax<GenericValue>>>;

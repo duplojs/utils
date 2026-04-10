@@ -28,6 +28,9 @@ Les primitives permettent de manipuler dans du métier des types de base (`Strin
 ## [Contraintes](/fr/v1/api/clean/constraints)
 Les contraintes permettent d'ajouter des règles supplémentaires sur les primitives.
 
+## [castConstraint](/fr/v1/api/clean/castConstraint)
+Étend une valeur contrainte avec des contraintes compatibles sans revalidation.
+
 ## [NewType](/fr/v1/api/clean/newType)
 Crée un `NewType` (brand) adossé à un `DataParser`, avec contraintes optionnelles.
 

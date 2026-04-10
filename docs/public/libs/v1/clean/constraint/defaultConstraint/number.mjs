@@ -11,11 +11,11 @@ const Int = createConstraint("int", Number, checkerInt());
 /**
  * {@include clean/Positive/index.md}
  */
-const Positive = createConstraint("positive", Number, checkerNumberMin(1));
+const Positive = createConstraint("positive", Number, checkerNumberMin(0));
 /**
  * {@include clean/Negative/index.md}
  */
-const Negative = createConstraint("negative", Number, checkerNumberMax(-1));
+const Negative = createConstraint("negative", Number, checkerNumberMax(0));
 /**
  * {@include clean/NumberMin/index.md}
  */
@@ -28,12 +28,5 @@ function NumberMin(value) {
 function NumberMax(value) {
     return createConstraint(`number-max-${value}`, Number, checkerNumberMax(value));
 }
-/**
- * {@include clean/PositiveInt/index.md}
- */
-const PositiveInt = createConstraint("positive-int", Number, [
-    checkerInt(),
-    checkerNumberMin(1),
-]);
 
-export { Int, Negative, NumberMax, NumberMin, Positive, PositiveInt };
+export { Int, Negative, NumberMax, NumberMin, Positive };

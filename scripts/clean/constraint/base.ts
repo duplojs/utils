@@ -11,8 +11,8 @@ export const constrainedTypeKind = createCleanKind<
 >("constrained-type");
 
 export interface ConstrainedType<
-	GenericName extends string,
-	GenericValue extends unknown,
+	GenericName extends string = string,
+	GenericValue extends unknown = unknown,
 > extends Kind<
 		typeof constrainedTypeKind.definition,
 		Record<GenericName, unknown>

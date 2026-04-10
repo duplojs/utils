@@ -1,5 +1,5 @@
 import { String } from "@scripts/clean/primitive";
-import { type GetConstraint, createConstraint } from "../base";
+import { type ConstraintHandler, type GetConstraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 import { type OnlyLiteralNumber } from "@scripts/common";
 
@@ -24,6 +24,24 @@ export const Url = createConstraint(
 
 export type Url = GetConstraint<typeof Url>;
 
+export type StringMinHandlerInternal<
+	GenericValue extends number = number,
+> = Extract<
+	ConstraintHandler<
+	`string-min-${GenericValue}`,
+		string,
+		readonly [DDataParser.DataParserCheckerStringMin],
+		never
+	>,
+	any
+>;
+
+export type StringMinInternal<
+	GenericValue extends number = number,
+> = GetConstraint<
+	StringMinHandlerInternal<GenericValue>
+>;
+
 /**
  * {@include clean/StringMin/index.md}
  */
@@ -31,9 +49,9 @@ export function StringMin<
 	GenericValue extends number,
 >(
 	value: GenericValue & OnlyLiteralNumber<GenericValue>,
-) {
+): StringMinHandlerInternal<GenericValue> {
 	return createConstraint(
-		`string-min-${value}`,
+		`string-min-${value as any}`,
 		String,
 		DDataParser.checkerStringMin(value),
 	);
@@ -41,7 +59,29 @@ export function StringMin<
 
 export type StringMin<
 	GenericValue extends number,
-> = GetConstraint<ReturnType<typeof StringMin<GenericValue>>>;
+> = GetConstraint<
+	ReturnType<
+		typeof StringMin<GenericValue>
+	>
+>;
+
+export type StringMaxHandlerInternal<
+	GenericValue extends number = number,
+> = Extract<
+	ConstraintHandler<
+	`string-max-${GenericValue}`,
+		string,
+		readonly [DDataParser.DataParserCheckerStringMax],
+		never
+	>,
+	any
+>;
+
+export type StringMaxInternal<
+	GenericValue extends number = number,
+> = GetConstraint<
+	StringMaxHandlerInternal<GenericValue>
+>;
 
 /**
  * {@include clean/StringMax/index.md}
@@ -50,9 +90,9 @@ export function StringMax<
 	GenericValue extends number,
 >(
 	value: GenericValue & OnlyLiteralNumber<GenericValue>,
-) {
+): StringMaxHandlerInternal<GenericValue> {
 	return createConstraint(
-		`string-max-${value}`,
+		`string-max-${value as any}`,
 		String,
 		DDataParser.checkerStringMax(value),
 	);
@@ -60,4 +100,8 @@ export function StringMax<
 
 export type StringMax<
 	GenericValue extends number,
-> = GetConstraint<ReturnType<typeof StringMax<GenericValue>>>;
+> = GetConstraint<
+	ReturnType<
+		typeof StringMax<GenericValue>
+	>
+>;

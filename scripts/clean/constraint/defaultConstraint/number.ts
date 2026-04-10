@@ -1,5 +1,5 @@
 import { Number } from "@scripts/clean/primitive";
-import { type GetConstraint, createConstraint } from "../base";
+import { type ConstraintHandler, type GetConstraint, createConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 import { type OnlyLiteralNumber } from "@scripts/common";
 
@@ -19,7 +19,7 @@ export type Int = GetConstraint<typeof Int>;
 export const Positive = createConstraint(
 	"positive",
 	Number,
-	DDataParser.checkerNumberMin(1),
+	DDataParser.checkerNumberMin(0),
 );
 export type Positive = GetConstraint<typeof Positive>;
 
@@ -29,9 +29,27 @@ export type Positive = GetConstraint<typeof Positive>;
 export const Negative = createConstraint(
 	"negative",
 	Number,
-	DDataParser.checkerNumberMax(-1),
+	DDataParser.checkerNumberMax(0),
 );
 export type Negative = GetConstraint<typeof Negative>;
+
+export type NumberMinHandlerInternal<
+	GenericValue extends number = number,
+> = Extract<
+	ConstraintHandler<
+	`number-min-${GenericValue}`,
+		number,
+		readonly [DDataParser.DataParserCheckerNumberMin],
+		never
+	>,
+	any
+>;
+
+export type NumberMinInternal<
+	GenericValue extends number = number,
+> = GetConstraint<
+	NumberMinHandlerInternal<GenericValue>
+>;
 
 /**
  * {@include clean/NumberMin/index.md}
@@ -40,9 +58,9 @@ export function NumberMin<
 	GenericValue extends number,
 >(
 	value: GenericValue & OnlyLiteralNumber<GenericValue>,
-) {
+): NumberMinHandlerInternal<GenericValue> {
 	return createConstraint(
-		`number-min-${value}`,
+		`number-min-${value as any}`,
 		Number,
 		DDataParser.checkerNumberMin(value),
 	);
@@ -50,7 +68,29 @@ export function NumberMin<
 
 export type NumberMin<
 	GenericValue extends number,
-> = ReturnType<typeof NumberMin<GenericValue>>;
+> = GetConstraint<
+	ReturnType<
+		typeof NumberMin<GenericValue>
+	>
+>;
+
+export type NumberMaxHandlerInternal<
+	GenericValue extends number = number,
+> = Extract<
+	ConstraintHandler<
+	`number-max-${GenericValue}`,
+		number,
+		readonly [DDataParser.DataParserCheckerNumberMax],
+		never
+	>,
+	any
+>;
+
+export type NumberMaxInternal<
+	GenericValue extends number = number,
+> = GetConstraint<
+	NumberMaxHandlerInternal<GenericValue>
+>;
 
 /**
  * {@include clean/NumberMax/index.md}
@@ -59,9 +99,9 @@ export function NumberMax<
 	GenericValue extends number,
 >(
 	value: GenericValue & OnlyLiteralNumber<GenericValue>,
-) {
+): NumberMaxHandlerInternal<GenericValue> {
 	return createConstraint(
-		`number-max-${value}`,
+		`number-max-${value as any}`,
 		Number,
 		DDataParser.checkerNumberMax(value),
 	);
@@ -69,17 +109,8 @@ export function NumberMax<
 
 export type NumberMax<
 	GenericValue extends number,
-> = ReturnType<typeof NumberMax<GenericValue>>;
-
-/**
- * {@include clean/PositiveInt/index.md}
- */
-export const PositiveInt = createConstraint(
-	"positive-int",
-	Number,
-	[
-		DDataParser.checkerInt(),
-		DDataParser.checkerNumberMin(1),
-	],
-);
-export type PositiveInt = GetConstraint<typeof PositiveInt>;
+> = GetConstraint<
+	ReturnType<
+		typeof NumberMax<GenericValue>
+	>
+>;

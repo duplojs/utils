@@ -1,2 +1,1 @@
-import { type IsEqual } from "./isEqual";
-export type Or<GenericBooleans extends [boolean, ...boolean[]]> = IsEqual<GenericBooleans[number] | false, boolean>;
+export type Or<GenericBooleans extends [boolean, ...boolean[]]> = GenericBooleans[number] extends false ? false : true;

@@ -5,8 +5,8 @@ prev:
   text: "Primitives"
   link: "/fr/v1/api/clean/primitives"
 next:
-  text: "NewType"
-  link: "/fr/v1/api/clean/newType"
+  text: "castConstraint"
+  link: "/fr/v1/api/clean/castConstraint"
 ---
 
 # Contraintes
@@ -165,16 +165,6 @@ Valide un nombre strictement positif (>= 1).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/positive.doc.ts"
-  majorVersion="v1"
-  height="240px"
-/>
-
-### `PositiveInt`
-
-Valide un nombre entier strictement positif (>= 1).
-
-<MonacoTSEditor
-  src="/examples/v1/api/clean/constraints/positiveInt.doc.ts"
   majorVersion="v1"
   height="240px"
 />

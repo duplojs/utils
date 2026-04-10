@@ -1,4 +1,4 @@
-import { type GetConstraint } from "../base";
+import { type ConstraintHandler, type GetConstraint } from "../base";
 import * as DDataParser from "../../../dataParser";
 import { type OnlyLiteralNumber } from "../../../common";
 /**
@@ -28,7 +28,7 @@ import { type OnlyLiteralNumber } from "../../../common";
  * @namespace C
  * 
  */
-export declare const Int: import("..").ConstraintHandler<"int", number, readonly [DDataParser.DataParserCheckerInt], never>;
+export declare const Int: ConstraintHandler<"int", number, readonly [DDataParser.DataParserCheckerInt], never>;
 export type Int = GetConstraint<typeof Int>;
 /**
  * Constraint handler that validates strictly positive numbers (>= 1).
@@ -57,7 +57,7 @@ export type Int = GetConstraint<typeof Int>;
  * @namespace C
  * 
  */
-export declare const Positive: import("..").ConstraintHandler<"positive", number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
+export declare const Positive: ConstraintHandler<"positive", number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
 export type Positive = GetConstraint<typeof Positive>;
 /**
  * Constraint handler that validates strictly negative numbers (<= -1).
@@ -86,8 +86,10 @@ export type Positive = GetConstraint<typeof Positive>;
  * @namespace C
  * 
  */
-export declare const Negative: import("..").ConstraintHandler<"negative", number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
+export declare const Negative: ConstraintHandler<"negative", number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
 export type Negative = GetConstraint<typeof Negative>;
+export type NumberMinHandlerInternal<GenericValue extends number = number> = Extract<ConstraintHandler<`number-min-${GenericValue}`, number, readonly [DDataParser.DataParserCheckerNumberMin], never>, any>;
+export type NumberMinInternal<GenericValue extends number = number> = GetConstraint<NumberMinHandlerInternal<GenericValue>>;
 /**
  * Constraint factory that validates numbers greater than or equal to a minimum.
  * 
@@ -116,8 +118,10 @@ export type Negative = GetConstraint<typeof Negative>;
  * @namespace C
  * 
  */
-export declare function NumberMin<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): import("..").ConstraintHandler<`number-min-${GenericValue & OnlyLiteralNumber<GenericValue>}`, number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
-export type NumberMin<GenericValue extends number> = ReturnType<typeof NumberMin<GenericValue>>;
+export declare function NumberMin<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): NumberMinHandlerInternal<GenericValue>;
+export type NumberMin<GenericValue extends number> = GetConstraint<ReturnType<typeof NumberMin<GenericValue>>>;
+export type NumberMaxHandlerInternal<GenericValue extends number = number> = Extract<ConstraintHandler<`number-max-${GenericValue}`, number, readonly [DDataParser.DataParserCheckerNumberMax], never>, any>;
+export type NumberMaxInternal<GenericValue extends number = number> = GetConstraint<NumberMaxHandlerInternal<GenericValue>>;
 /**
  * Constraint factory that validates numbers less than or equal to a maximum.
  * 
@@ -146,34 +150,5 @@ export type NumberMin<GenericValue extends number> = ReturnType<typeof NumberMin
  * @namespace C
  * 
  */
-export declare function NumberMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): import("..").ConstraintHandler<`number-max-${GenericValue & OnlyLiteralNumber<GenericValue>}`, number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
-export type NumberMax<GenericValue extends number> = ReturnType<typeof NumberMax<GenericValue>>;
-/**
- * Constraint handler that validates strictly positive integers (>= 1).
- * 
- * **Supported call styles:**
- * - Classic: `PositiveInt.create(value)` -> returns Either
- * 
- * Use it as a reusable rule to validate inputs and to constrain NewTypes to positive integer numbers.
- * 
- * ```ts
- * const result = C.PositiveInt.create(4);
- * 
- * if (E.isRight(result)) {
- * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"positive-int", 4>>
- * }
- * 
- * const value = C.PositiveInt.createOrThrow(10);
- * // value: C.ConstrainedType<"positive-int", 10>
- * 
- * C.PositiveInt.is(value); // type guard
- * 
- * ```
- * 
- * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
- * 
- * @namespace C
- * 
- */
-export declare const PositiveInt: import("..").ConstraintHandler<"positive-int", number, readonly [DDataParser.DataParserCheckerInt, DDataParser.DataParserCheckerNumberMin], never>;
-export type PositiveInt = GetConstraint<typeof PositiveInt>;
+export declare function NumberMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): NumberMaxHandlerInternal<GenericValue>;
+export type NumberMax<GenericValue extends number> = GetConstraint<ReturnType<typeof NumberMax<GenericValue>>>;
