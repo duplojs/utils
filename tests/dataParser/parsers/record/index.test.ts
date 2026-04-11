@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser record", () => {
 	it("parses record of strings", () => {
@@ -89,45 +89,34 @@ describe("DDataParser record", () => {
 		const result = schema.parse({ forbidden: "testValue" });
 
 		expect(result).toStrictEqual(
-			pipe(
-				DDataParser.createError(),
-				(error) => DDataParser.setErrorPath(
-					error,
-					"value",
-					0,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					valueParser,
-					undefined,
-				),
-				(error) => DDataParser.setErrorPath(
-					error,
-					"tt",
-					0,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					valueParser,
-					undefined,
-				),
-				(error) => DDataParser.setErrorPath(
-					error,
-					"forbidden",
-					0,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					keyParser,
-					"forbidden",
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					valueParser,
-					"testValue",
-				),
-				(error) => DEither.error({
-					...error,
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "value",
+							data: undefined,
+							message: undefined,
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "tt",
+							data: undefined,
+							message: undefined,
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "one of value, tt",
+							path: "(recordKey: forbidden)",
+							data: "forbidden",
+							message: undefined,
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "forbidden",
+							data: "testValue",
+							message: undefined,
+						}),
+					],
 					currentPath: [],
 				}),
 			),
@@ -145,11 +134,17 @@ describe("DDataParser record", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"not-an-object",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "record object",
+							path: "",
+							data: "not-an-object",
+							message: "record.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -198,12 +193,16 @@ describe("DDataParser record", () => {
 		const result = schema.parse({ foo: "bar" });
 
 		expect(result).toStrictEqual(
-			pipe(
-				DDataParser.createError(),
-				(error) => DDataParser.setErrorPath(error, "foo", 0),
-				(error) => DDataParser.addIssue(error, valueParser, "bar"),
-				(error) => DEither.error({
-					...error,
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "foo",
+							data: "bar",
+							message: undefined,
+						}),
+					],
 					currentPath: [],
 				}),
 			),
@@ -350,45 +349,34 @@ describe("DDataParser record", () => {
 			const result = await schema.asyncParse({ forbidden: "testValue" });
 
 			expect(result).toStrictEqual(
-				pipe(
-					DDataParser.createError(),
-					(error) => DDataParser.setErrorPath(
-						error,
-						"value",
-						0,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						valueParser,
-						undefined,
-					),
-					(error) => DDataParser.setErrorPath(
-						error,
-						"tt",
-						0,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						valueParser,
-						undefined,
-					),
-					(error) => DDataParser.setErrorPath(
-						error,
-						"forbidden",
-						0,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						keyParser,
-						"forbidden",
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						valueParser,
-						"testValue",
-					),
-					(error) => DEither.error({
-						...error,
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "value",
+								data: undefined,
+								message: undefined,
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "tt",
+								data: undefined,
+								message: undefined,
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "one of value, tt",
+								path: "(recordKey: forbidden)",
+								data: "forbidden",
+								message: undefined,
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "forbidden",
+								data: "testValue",
+								message: undefined,
+							}),
+						],
 						currentPath: [],
 					}),
 				),
@@ -406,11 +394,17 @@ describe("DDataParser record", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						schema,
-						"not-an-object",
-					),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "record object",
+								path: "",
+								data: "not-an-object",
+								message: "record.invalid",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});
@@ -453,12 +447,16 @@ describe("DDataParser record", () => {
 			const result = await schema.asyncParse({ foo: "bar" });
 
 			expect(result).toStrictEqual(
-				pipe(
-					DDataParser.createError(),
-					(error) => DDataParser.setErrorPath(error, "foo", 0),
-					(error) => DDataParser.addIssue(error, valueParser, "bar"),
-					(error) => DEither.error({
-						...error,
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "foo",
+								data: "bar",
+								message: undefined,
+							}),
+						],
 						currentPath: [],
 					}),
 				),

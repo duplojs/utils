@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 import { lessTime } from '../../../../date/operators/lessTime.mjs';
 
@@ -13,7 +13,9 @@ function checkerTimeMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, self) => lessTime(value, self.definition.max) ? value : SymbolDataParserErrorIssue);
+    }, (value, error, self) => lessTime(value, self.definition.max)
+        ? value
+        : addIssue(error, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage));
 }
 
 export { checkerTimeMax, checkerTimeMaxKind };

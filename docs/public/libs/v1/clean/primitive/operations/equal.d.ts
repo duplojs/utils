@@ -34,5 +34,5 @@ import { type Primitive, type Primitives } from "../base";
  * @namespace C
  * 
  */
-export declare function equal<GenericInput extends Primitives, GenericValue extends (Primitive<Unwrap<GenericInput>> | Unwrap<GenericInput>)>(value: GenericValue): (input: GenericInput) => input is GenericInput & Primitive<Unwrap<GenericValue>>;
-export declare function equal<GenericInput extends Primitives, GenericValue extends (Primitive<Unwrap<GenericInput>> | Unwrap<GenericInput>)>(input: GenericInput, value: GenericValue): input is GenericInput & Primitive<Unwrap<GenericValue>>;
+export declare function equal<GenericInput extends Primitives | null, GenericValue extends (Primitive<Unwrap<Exclude<GenericInput, null>>> | Unwrap<GenericInput>)>(value: GenericValue): (input: GenericInput) => input is (GenericInput & (GenericValue extends null ? GenericValue : Primitive<Unwrap<Exclude<GenericValue, null>>>));
+export declare function equal<GenericInput extends Primitives | null, GenericValue extends (Primitive<Unwrap<Exclude<GenericInput, null>>> | Unwrap<GenericInput>)>(input: GenericInput, value: GenericValue): input is (GenericInput & (GenericValue extends null ? GenericValue : Primitive<Unwrap<Exclude<GenericValue, null>>>));

@@ -14,7 +14,7 @@ function bigint(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.coerce) {
             try {
                 // eslint-disable-next-line no-param-reassign
@@ -25,7 +25,7 @@ function bigint(definition) {
         if (typeof data === "bigint") {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "bigint", data, self.definition.errorMessage);
     }, bigint.overrideHandler);
     return self;
 }

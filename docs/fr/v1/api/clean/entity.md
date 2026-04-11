@@ -143,10 +143,6 @@ Le nom unique de l'entité (ex: `"User"`), utilisé comme identifiant runtime.
 
 La définition des propriétés (telle que déclarée dans `createEntity`).
 
-#### `mapDataParser`
-
-Le `DataParser` généré à partir de `propertiesDefinition` (pratique si vous voulez réutiliser la validation/transform ailleurs). Il accepte une entrée `unknown` et produit des propriétés d'entité typées.
-
 ## Récupérer le type
 
 Pour récupérer le type de l'entité générée :

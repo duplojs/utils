@@ -1,39 +1,39 @@
-import { type Kind } from "@scripts/common";
-import { type DataParserTransform } from "./parsers";
+import { type Kind, Printer, unwrap } from "@scripts/common";
 import { createDataParserKind } from "./kind";
-import { type DataParser } from "./base";
-import { type DataParserCheckers } from "./types";
+import type * as DEither from "@scripts/either";
 
-export const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
+export const SymbolDataParserErrorLabel = "SymbolDataParserError";
+export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
+export type SymbolDataParserError = typeof SymbolDataParserError;
+
+/**
+ * @deprecated
+ */
+export const SymbolDataParserErrorIssueLabel = "SymbolDataParserError";
+
+/**
+ * @deprecated
+ */
 export const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
+
+/**
+ * @deprecated
+ */
 export type SymbolDataParserErrorIssue = typeof SymbolDataParserErrorIssue;
 
 export const errorIssueKind = createDataParserKind("error-issue");
 
 export interface DataParserErrorIssue extends Kind<typeof errorIssueKind.definition> {
-	readonly source: DataParser | DataParserCheckers;
+	readonly expected: string;
 	readonly path: string;
 	readonly data: unknown;
-	readonly moreInformation?: string;
-}
-
-export const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
-export const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-export type SymbolDataParserErrorPromiseIssue = typeof SymbolDataParserErrorPromiseIssue;
-
-export const errorPromiseIssueKind = createDataParserKind("error-issue-promise");
-
-export interface DataParserErrorPromiseIssue extends Kind<typeof errorPromiseIssueKind.definition> {
-	readonly source: DataParserTransform;
-	readonly path: string;
-	readonly data: unknown;
-	readonly moreInformation?: string;
+	readonly message: string | undefined;
 }
 
 export const errorKind = createDataParserKind("error");
 
 export interface DataParserError extends Kind<typeof errorKind.definition> {
-	readonly issues: (DataParserErrorIssue | DataParserErrorPromiseIssue)[];
+	readonly issues: DataParserErrorIssue[];
 	readonly currentPath: string[];
 }
 
@@ -46,38 +46,20 @@ export function createError(): DataParserError {
 
 export function addIssue(
 	error: DataParserError,
-	source: DataParser | DataParserCheckers,
+	expected: string,
 	data: unknown,
-	moreInformation?: string,
-) {
+	message: string | undefined,
+): SymbolDataParserError {
 	error.issues.push(
 		errorIssueKind.setTo({
-			source,
+			expected,
 			path: error.currentPath.join("."),
 			data,
-			moreInformation,
+			message,
 		}),
 	);
 
-	return error;
-}
-
-export function addPromiseIssue(
-	error: DataParserError,
-	source: DataParserTransform,
-	data: unknown,
-	moreInformation?: string,
-) {
-	error.issues.push(
-		errorPromiseIssueKind.setTo({
-			source,
-			path: error.currentPath.join("."),
-			data,
-			moreInformation,
-		}),
-	);
-
-	return error;
+	return SymbolDataParserError;
 }
 
 export function setErrorPath(
@@ -96,4 +78,27 @@ export function popErrorPath(
 	error.currentPath.pop();
 
 	return error;
+}
+
+export function interpretError(error: DataParserError | DEither.Left<string, DataParserError>) {
+	const dataParserError = errorKind.has(error)
+		? error
+		: unwrap(error);
+
+	return Printer.renderParagraph([
+		Printer.colorizedBold("Validation failed", "red"),
+		dataParserError.issues.map((issue) => Printer.renderParagraph([
+			"",
+			Printer.renderLine([
+				Printer.colorizedBold("✖", "red"),
+				Printer.colorizedBold(issue.path || "<root>", "cyan"),
+				"expected",
+				Printer.colorized(issue.expected, "green"),
+				"but received",
+				Printer.colorized(Printer.stringify(issue.data), "red"),
+			]),
+			issue.message !== undefined && `${Printer.indent(1)}↳ ${issue.message}`,
+		])),
+		dataParserError.issues.length === 0 && "No issue found",
+	]);
 }

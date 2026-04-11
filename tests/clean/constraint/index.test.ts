@@ -38,10 +38,12 @@ describe("createConstraint", () => {
 	it("create returns error on invalid input", () => {
 		const result = constraint.create("hi");
 
-		const expectedError = DDataParser.addIssue(
-			DDataParser.createError(),
-			minLengthChecker,
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string.length >= 3",
 			"hi",
+			undefined,
 		);
 
 		expect(result).toStrictEqual(

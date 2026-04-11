@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionStringRegex extends DataParserCheckerDefinition {
@@ -35,8 +35,8 @@ export function checkerStringRegex(
 				regex,
 			},
 		},
-		(value, self) => self.definition.regex.test(value)
+		(value, error, self) => self.definition.regex.test(value)
 			? value
-			: SymbolDataParserErrorIssue,
+			: addIssue(error, `string with pattern ${self.definition.regex.source.toString()}`, value, self.definition.errorMessage),
 	);
 }

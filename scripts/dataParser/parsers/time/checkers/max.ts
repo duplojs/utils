@@ -1,6 +1,6 @@
 import { type Kind } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import * as DDate from "@scripts/date";
 
@@ -39,6 +39,8 @@ export function checkerTimeMax(
 				max,
 			},
 		},
-		(value, self) => DDate.lessTime(value, self.definition.max) ? value : SymbolDataParserErrorIssue,
+		(value, error, self) => DDate.lessTime(value, self.definition.max)
+			? value
+			: addIssue(error, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage),
 	);
 }

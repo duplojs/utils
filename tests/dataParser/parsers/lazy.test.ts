@@ -66,11 +66,17 @@ describe("DDataParser lazy", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					inner,
-					"oops",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "",
+							data: "oops",
+							message: "not-number",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -115,11 +121,17 @@ describe("DDataParser lazy", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						inner,
-						"oops",
-					),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: "oops",
+								message: "not-number",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});

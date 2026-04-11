@@ -32,11 +32,17 @@ describe("DDataParser time checker min", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					input,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "time >= time60000+",
+							path: "",
+							data: input,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 

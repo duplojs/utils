@@ -30,17 +30,17 @@ function object(shape, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "object", data, self.definition.errorMessage);
             }
             let output = {};
             const currentIndexPath = error$1.currentPath.length;
             for (const entry of self.definition.optimizedShape.value) {
                 error.setErrorPath(error$1, entry.key, currentIndexPath);
                 const result = entry.value.exec(data[entry.key], error$1);
-                if (result === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (result === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                else if (output !== base.SymbolDataParserError
+                else if (output !== error.SymbolDataParserError
                     && result !== undefined) {
                     output[entry.key] = result;
                 }
@@ -52,17 +52,17 @@ function object(shape, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "object", data, self.definition.errorMessage);
             }
             let output = {};
             const currentIndexPath = error$1.currentPath.length;
             for (const entry of self.definition.optimizedShape.value) {
                 error.setErrorPath(error$1, entry.key, currentIndexPath);
                 const result = await entry.value.asyncExec(data[entry.key], error$1);
-                if (result === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (result === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                else if (output !== base.SymbolDataParserError
+                else if (output !== error.SymbolDataParserError
                     && result !== undefined) {
                     output[entry.key] = result;
                 }

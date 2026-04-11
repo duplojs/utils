@@ -22,11 +22,17 @@ describe("DDataParser number checker max", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					11,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number <= 10",
+							path: "",
+							data: 11,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

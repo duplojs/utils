@@ -37,11 +37,17 @@ describe("DDataParser bigint", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					10,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "bigint",
+							path: "",
+							data: 10,
+							message: "not-bigint",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

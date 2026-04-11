@@ -8,11 +8,17 @@ describe("DDataParser checker refine", () => {
 		expect(schema.parse("123")).toStrictEqual(DEither.success("123"));
 		expect(schema.parse("test")).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					"test",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "value matching refine predicate",
+							path: "",
+							data: "test",
+							message: "test",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

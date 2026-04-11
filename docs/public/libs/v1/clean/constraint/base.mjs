@@ -31,6 +31,7 @@ function createConstraint(name, primitiveHandler, checker) {
     const dataParserWithCheckers = primitiveHandler
         .dataParser
         .addChecker(...checkers);
+    const constraintKindValue = { [name]: null };
     function create(data) {
         const result = dataParserWithCheckers.parse(unwrap(data));
         if (isLeft(result)) {
@@ -66,6 +67,12 @@ function createConstraint(name, primitiveHandler, checker) {
         name,
         primitiveHandler,
         checkers,
+        internal: {
+            primitiveHandler,
+            dataParser: dataParserWithCheckers,
+            checkers,
+            constraintKindValue,
+        },
         create,
         createOrThrow,
         createWithUnknown: create,

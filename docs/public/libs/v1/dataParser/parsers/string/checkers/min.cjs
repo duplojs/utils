@@ -11,7 +11,9 @@ function checkerStringMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, self) => value.length >= self.definition.min ? value : error.SymbolDataParserErrorIssue);
+    }, (value, error$1, self) => value.length >= self.definition.min
+        ? value
+        : error.addIssue(error$1, `string.length >= ${self.definition.min}`, value, self.definition.errorMessage));
 }
 
 exports.checkerStringMin = checkerStringMin;

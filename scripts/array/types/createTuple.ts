@@ -3,7 +3,7 @@ import { type IsEqual } from "../../common/types/isEqual";
 export type CreateTuple<
 	GenericValue extends unknown,
 	GenericLength extends number,
-	GenericLastTuple extends unknown[] = [],
+	GenericLastTuple extends readonly unknown[] = [],
 > = IsEqual<GenericLength, number> extends true
 	? GenericValue[]
 	: IsEqual<GenericLength, 0> extends true

@@ -22,11 +22,17 @@ describe("DDataParser number checker int", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					3.14,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "integer",
+							path: "",
+							data: 3.14,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -40,11 +46,17 @@ describe("DDataParser number checker int", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema.definition.checkers[0],
-					7.5,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "integer",
+							path: "",
+							data: 7.5,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

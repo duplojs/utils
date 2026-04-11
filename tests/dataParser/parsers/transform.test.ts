@@ -33,17 +33,14 @@ describe("DDataParser transform", () => {
 	it("fails when inner parser fails", () => {
 		const inner = DDataParser.number({ errorMessage: "not-number" });
 		const schema = DDataParser.transform(inner, (value) => value);
+		const expectedError = DDataParser.createError();
+
+		DDataParser.addIssue(expectedError, "number", "value", "not-number");
 
 		const result = schema.parse("value");
 
 		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					inner,
-					"value",
-				),
-			),
+			DEither.error(expectedError),
 		);
 	});
 
@@ -57,11 +54,14 @@ describe("DDataParser transform", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addPromiseIssue(
-					DDataParser.createError(),
-					schema,
-					10,
-				),
+				expect.objectContaining({
+					issues: [
+						expect.objectContaining({
+							expected: "non-promise transform result",
+							data: expect.any(Promise),
+						}),
+					],
+				}),
 			),
 		);
 	});
@@ -81,17 +81,14 @@ describe("DDataParser transform", () => {
 		it("fails when inner parser fails", async() => {
 			const inner = DDataParser.number({ errorMessage: "not-number" });
 			const schema = DDataParser.transform(inner, (value) => Promise.resolve(value));
+			const expectedError = DDataParser.createError();
+
+			DDataParser.addIssue(expectedError, "number", "value", "not-number");
 
 			const result = await schema.asyncParse("value");
 
 			expect(result).toStrictEqual(
-				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						inner,
-						"value",
-					),
-				),
+				DEither.error(expectedError),
 			);
 		});
 
@@ -105,11 +102,14 @@ describe("DDataParser transform", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addPromiseIssue(
-						DDataParser.createError(),
-						schema,
-						10,
-					),
+					expect.objectContaining({
+						issues: [
+							expect.objectContaining({
+								expected: "successful async transform result",
+								data: expect.any(Promise),
+							}),
+						],
+					}),
 				),
 			);
 		});

@@ -2,7 +2,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
@@ -205,7 +205,7 @@ export function record<
 					|| typeof data !== "object"
 					|| data instanceof Array
 				) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "record object", data, self.definition.errorMessage);
 				}
 
 				let output = {};
@@ -216,7 +216,7 @@ export function record<
 				const currentIndexPath = error.currentPath.length;
 
 				for (const key in fromData) {
-					setErrorPath(error, key, currentIndexPath);
+					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
 
 					const resultKey = self
 						.definition
@@ -226,6 +226,8 @@ export function record<
 					if (resultKey === SymbolDataParserError) {
 						output = SymbolDataParserError;
 					}
+
+					setErrorPath(error, key, currentIndexPath);
 
 					const resultValue = self
 						.definition
@@ -255,7 +257,7 @@ export function record<
 					|| typeof data !== "object"
 					|| data instanceof Array
 				) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "record object", data, self.definition.errorMessage);
 				}
 
 				let output = {};
@@ -266,7 +268,7 @@ export function record<
 				const currentIndexPath = error.currentPath.length;
 
 				for (const key in fromData) {
-					setErrorPath(error, key, currentIndexPath);
+					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
 
 					const resultKey = await self
 						.definition
@@ -276,6 +278,8 @@ export function record<
 					if (resultKey === SymbolDataParserError) {
 						output = SymbolDataParserError;
 					}
+
+					setErrorPath(error, key, currentIndexPath);
 
 					const resultValue = await self
 						.definition

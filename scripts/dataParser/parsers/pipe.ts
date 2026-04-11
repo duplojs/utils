@@ -4,6 +4,7 @@ import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dat
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
+import { popErrorPath, setErrorPath } from "../error";
 
 export interface DataParserPipeCheckerCustom<
 	GenericInput extends unknown = unknown,
@@ -98,22 +99,41 @@ export function pipe<
 		},
 		{
 			sync: (data, error, self) => {
-				const result = self.definition.input.exec(data, error);
+				const currentIndexPath = error.currentPath.length;
 
-				if (result === SymbolDataParserError) {
+				setErrorPath(error, "(pipeIn)", currentIndexPath);
+				const resultIn = self.definition.input.exec(data, error);
+
+				if (resultIn === SymbolDataParserError) {
+					popErrorPath(error);
 					return SymbolDataParserError;
 				}
 
-				return self.definition.output.exec(result, error);
+				setErrorPath(error, "(pipeOut)", currentIndexPath);
+				const resultOut = self.definition.output.exec(resultIn, error);
+
+				popErrorPath(error);
+				return resultOut;
 			},
 			async: async(data, error, self) => {
-				const result = await self.definition.input.asyncExec(data, error);
+				const currentIndexPath = error.currentPath.length;
 
-				if (result === SymbolDataParserError) {
+				setErrorPath(error, "(pipeIn)", currentIndexPath);
+				const resultIn = await self.definition.input.asyncExec(data, error);
+
+				if (resultIn === SymbolDataParserError) {
+					popErrorPath(error);
 					return SymbolDataParserError;
 				}
 
-				return self.definition.output.asyncExec(result, error);
+				setErrorPath(error, "(pipeOut)", currentIndexPath);
+				return self.definition.output.asyncExec(resultIn, error)
+					.then(
+						(resultOut) => {
+							popErrorPath(error);
+							return resultOut;
+						},
+					);
 			},
 			isAsynchronous: (self) => self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous(),
 		},

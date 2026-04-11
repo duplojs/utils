@@ -4,7 +4,7 @@ import * as DArray from "../../array";
 import * as DEither from "../../either";
 import type * as DDataParser from "../../dataParser";
 export declare const constrainedTypeKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constrained-type", Record<string, unknown>>>;
-export interface ConstrainedType<GenericName extends string, GenericValue extends unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
+export interface ConstrainedType<GenericName extends string = string, GenericValue extends unknown = unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
 }
 export declare const constraintHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraint-handler", unknown>>;
 export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintHandlerKind.definition> {
@@ -14,15 +14,35 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      */
     readonly name: GenericName;
     /**
-     * The list of DataParser checkers used to validate the primitive.
-     * 
+     * @deprecated
      */
     readonly checkers: GenericCheckers;
     /**
-     * The primitive handler on which the constraint applies (String, Number, etc.).
-     * 
+     * @deprecated
      */
     readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+    readonly internal: {
+        /**
+         * The DataParser with the constraint checkers applied.
+         * 
+         */
+        readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+        /**
+         * The primitive handler on which the constraint applies (String, Number, etc.).
+         * 
+         */
+        readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+        /**
+         * The list of DataParser checkers used to validate the primitive.
+         * 
+         */
+        readonly checkers: GenericCheckers;
+        /**
+         * The constraint kind metadata used to tag constrained values.
+         * 
+         */
+        readonly constraintKindValue: Record<string, null>;
+    };
     /**
      * Creates a constrained value and returns an Either.
      * 
@@ -143,5 +163,5 @@ export declare function createConstraint<GenericName extends string, GenericPrim
 export declare namespace createConstraint {
     var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>>;
 }
-export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
+export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
 export {};

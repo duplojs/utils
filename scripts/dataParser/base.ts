@@ -1,11 +1,8 @@
 import { type AnyFunction, createErrorKind, createOverride, type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
-import { addIssue, createError, SymbolDataParserErrorIssue, SymbolDataParserErrorPromiseIssue, type DataParserError, addPromiseIssue } from "./error";
+import { createError, SymbolDataParserError, type DataParserError } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";
-
-export const SymbolDataParserErrorLabel = "SymbolDataParserError";
-export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
-export type SymbolDataParserError = typeof SymbolDataParserError;
+export { SymbolDataParserError } from "./error";
 
 export const checkerKind = createDataParserKind("checker");
 
@@ -18,7 +15,11 @@ export interface DataParserChecker<
 	GenericInput extends unknown = unknown,
 > extends Kind<typeof checkerKind.definition, GenericInput> {
 	readonly definition: GenericDefinition;
-	exec(data: GenericInput, self: this): GenericInput | SymbolDataParserErrorIssue;
+	exec(
+		data: GenericInput,
+		error: DataParserError,
+		self: this,
+	): GenericInput | SymbolDataParserError;
 }
 
 export type InputChecker<
@@ -40,10 +41,12 @@ export function dataParserCheckerInit<
 	>,
 	exec: (
 		...args: Parameters<GenericDataParserChecker["exec"]>
-	) => GetKindValue<
+	) =>
+		| GetKindValue<
 		typeof checkerKind,
-		GenericDataParserChecker
-	> | SymbolDataParserErrorIssue,
+			GenericDataParserChecker
+		>
+		| SymbolDataParserError,
 ): GenericDataParserChecker {
 	return (kind as KindHandler).setTo(
 		checkerKind.setTo({
@@ -160,8 +163,6 @@ interface DataParserInitExecParams<
 			GenericDataParser
 		>["output"]
 		| SymbolDataParserError
-		| SymbolDataParserErrorIssue
-		| SymbolDataParserErrorPromiseIssue
 	);
 	async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<
 		| GetKindValue<
@@ -169,16 +170,12 @@ interface DataParserInitExecParams<
 			GenericDataParser
 		>["output"]
 		| SymbolDataParserError
-		| SymbolDataParserErrorIssue
-		| SymbolDataParserErrorPromiseIssue
 	>;
 
 	isAsynchronous(self: GenericDataParser): boolean;
 }
 
 // This allows for better performance WTF ???
-const SDPEI = SymbolDataParserErrorIssue;
-const SDPEPI = SymbolDataParserErrorPromiseIssue;
 const SDPE = SymbolDataParserError;
 
 const DPE = createError();
@@ -226,24 +223,14 @@ export function dataParserInit<
 	) {
 		let result = (formattedExec.sync as AnyFunction)(data, error, self) as unknown;
 
-		if (result === SDPEI) {
-			addIssue(error, self as never, data);
-
-			return SDPE;
-		} else if (result === SDPEPI) {
-			addPromiseIssue(error, self as never, data);
-
-			return SDPE;
-		} else if (
+		if (
 			result !== SDPE
 			&& self.definition.checkers.length
 		) {
 			for (const checker of self.definition.checkers) {
-				const checkerResult = checker.exec(result, checker);
+				const checkerResult = checker.exec(result, error, checker);
 
-				if (checkerResult === SDPEI) {
-					addIssue(error, checker as never, result);
-
+				if (checkerResult === SDPE) {
 					return SDPE;
 				} else {
 					result = checkerResult;
@@ -260,24 +247,14 @@ export function dataParserInit<
 	) {
 		let result = await (formattedExec.async as AnyFunction)(data, error, self) as unknown;
 
-		if (result === SDPEI) {
-			addIssue(error, self as never, data);
-
-			return SDPE;
-		} else if (result === SDPEPI) {
-			addPromiseIssue(error, self as never, data);
-
-			return SDPE;
-		} else if (
+		if (
 			result !== SDPE
 			&& self.definition.checkers.length
 		) {
 			for (const checker of self.definition.checkers) {
-				const checkerResult = checker.exec(result, checker);
+				const checkerResult = checker.exec(result, error, checker);
 
-				if (checkerResult === SDPEI) {
-					addIssue(error, checker as never, result);
-
+				if (checkerResult === SDPE) {
 					return SDPE;
 				} else {
 					result = checkerResult;

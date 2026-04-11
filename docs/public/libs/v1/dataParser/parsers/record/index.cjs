@@ -28,7 +28,7 @@ function record(key, value, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "record object", data, self.definition.errorMessage);
             }
             let output = {};
             const fromData = {
@@ -42,22 +42,22 @@ function record(key, value, definition) {
                     .definition
                     .key
                     .exec(key, error$1);
-                if (resultKey === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (resultKey === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
                 const resultValue = self
                     .definition
                     .value
                     .exec(fromData[key], error$1);
-                if (resultValue === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (resultValue === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                if (output !== base.SymbolDataParserError) {
+                if (output !== error.SymbolDataParserError) {
                     output[resultKey] = resultValue;
                 }
             }
             void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
-            if (output === base.SymbolDataParserError) {
+            if (output === error.SymbolDataParserError) {
                 return output;
             }
             return output;
@@ -66,7 +66,7 @@ function record(key, value, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "record object", data, self.definition.errorMessage);
             }
             let output = {};
             const fromData = {
@@ -80,22 +80,22 @@ function record(key, value, definition) {
                     .definition
                     .key
                     .asyncExec(key, error$1);
-                if (resultKey === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (resultKey === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
                 const resultValue = await self
                     .definition
                     .value
                     .asyncExec(fromData[key], error$1);
-                if (resultValue === base.SymbolDataParserError) {
-                    output = base.SymbolDataParserError;
+                if (resultValue === error.SymbolDataParserError) {
+                    output = error.SymbolDataParserError;
                 }
-                if (output !== base.SymbolDataParserError) {
+                if (output !== error.SymbolDataParserError) {
                     output[resultKey] = resultValue;
                 }
             }
             void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
-            if (output === base.SymbolDataParserError) {
+            if (output === error.SymbolDataParserError) {
                 return output;
             }
             return output;

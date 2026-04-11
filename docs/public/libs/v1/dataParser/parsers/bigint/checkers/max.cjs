@@ -11,9 +11,9 @@ function checkerBigIntMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, self) => {
+    }, (value, error$1, self) => {
         if (value > self.definition.max) {
-            return error.SymbolDataParserErrorIssue;
+            return error.addIssue(error$1, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage);
         }
         return value;
     });

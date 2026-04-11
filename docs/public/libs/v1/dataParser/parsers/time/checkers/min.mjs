@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 import { greaterTime } from '../../../../date/operators/greaterTime.mjs';
 
@@ -13,7 +13,9 @@ function checkerTimeMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, self) => greaterTime(value, self.definition.min) ? value : SymbolDataParserErrorIssue);
+    }, (value, error, self) => greaterTime(value, self.definition.min)
+        ? value
+        : addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage));
 }
 
 export { checkerTimeMin, checkerTimeMinKind };

@@ -10,19 +10,19 @@ const regexRemoveDote = /:$/;
 function checkerUrl(definition = {}) {
     return base.dataParserCheckerInit(checkerUrlKind, {
         definition: definition,
-    }, (input, self) => {
+    }, (input, error$1, self) => {
         try {
             const url = new URL(input);
             if (self.definition.hostname) {
                 self.definition.hostname.lastIndex = 0;
                 if (!self.definition.hostname.test(url.hostname)) {
-                    return error.SymbolDataParserErrorIssue;
+                    return error.addIssue(error$1, `URL with hostname matching ${self.definition.hostname.source}`, input, self.definition.errorMessage);
                 }
             }
             if (self.definition.protocol) {
                 self.definition.protocol.lastIndex = 0;
                 if (!self.definition.protocol.test(url.protocol.replace(regexRemoveDote, ""))) {
-                    return error.SymbolDataParserErrorIssue;
+                    return error.addIssue(error$1, `URL with protocol matching ${self.definition.protocol.source}`, input, self.definition.errorMessage);
                 }
             }
             if (self.definition.normalize) {
@@ -33,7 +33,7 @@ function checkerUrl(definition = {}) {
             }
         }
         catch {
-            return error.SymbolDataParserErrorIssue;
+            return error.addIssue(error$1, "valid URL", input, self.definition.errorMessage);
         }
     });
 }

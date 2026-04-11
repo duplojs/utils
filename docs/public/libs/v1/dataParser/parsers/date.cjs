@@ -18,11 +18,11 @@ function date(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.coerce) {
             if (typeof data === "number") {
                 if (!isSafeTimestamp.isSafeTimestamp(data)) {
-                    return error.SymbolDataParserErrorIssue;
+                    return error.addIssue(error$1, "date", data, self.definition.errorMessage);
                 }
                 return theDate.TheDate.new(data);
             }
@@ -43,11 +43,11 @@ function date(definition) {
         else if (data instanceof Date) {
             const timestamp = data.getTime();
             if (!isSafeTimestamp.isSafeTimestamp(timestamp)) {
-                return error.SymbolDataParserErrorIssue;
+                return error.addIssue(error$1, "date", data, self.definition.errorMessage);
             }
             return theDate.TheDate.new(timestamp);
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "date", data, self.definition.errorMessage);
     }, date.overrideHandler);
     return self;
 }

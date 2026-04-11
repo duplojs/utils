@@ -1,4 +1,4 @@
-import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
+import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser tuple", () => {
 	it("parses fixed tuple shape", () => {
@@ -101,11 +101,17 @@ describe("DDataParser tuple", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"invalid",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "tuple array",
+							path: "",
+							data: "invalid",
+							message: "tuple.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -127,30 +133,22 @@ describe("DDataParser tuple", () => {
 		const result = schema.parse(["ok", "33", 20, "ok", 40, "yess"]);
 
 		expect(result).toStrictEqual(
-			pipe(
-				DDataParser.createError(),
-				(error) => DDataParser.setErrorPath(
-					error,
-					"[1]",
-					0,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					numberParser,
-					"33",
-				),
-				(error) => DDataParser.setErrorPath(
-					error,
-					"[4]",
-					0,
-				),
-				(error) => DDataParser.addIssue(
-					error,
-					stringParser,
-					40,
-				),
-				(error) => DEither.error({
-					...error,
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number",
+							path: "[1]",
+							data: "33",
+							message: undefined,
+						}),
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "[4]",
+							data: 40,
+							message: undefined,
+						}),
+					],
 					currentPath: [],
 				}),
 			),
@@ -188,11 +186,17 @@ describe("DDataParser tuple", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						schema,
-						"invalid",
-					),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "tuple array",
+								path: "",
+								data: "invalid",
+								message: "tuple.invalid",
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});
@@ -214,30 +218,22 @@ describe("DDataParser tuple", () => {
 			const result = await schema.asyncParse(["ok", "33", 20, "ok", 40, "yess"]);
 
 			expect(result).toStrictEqual(
-				pipe(
-					DDataParser.createError(),
-					(error) => DDataParser.setErrorPath(
-						error,
-						"[1]",
-						0,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						numberParser,
-						"33",
-					),
-					(error) => DDataParser.setErrorPath(
-						error,
-						"[4]",
-						0,
-					),
-					(error) => DDataParser.addIssue(
-						error,
-						stringParser,
-						40,
-					),
-					(error) => DEither.error({
-						...error,
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "[1]",
+								data: "33",
+								message: undefined,
+							}),
+							DDataParser.errorIssueKind.addTo({
+								expected: "string",
+								path: "[4]",
+								data: 40,
+								message: undefined,
+							}),
+						],
 						currentPath: [],
 					}),
 				),

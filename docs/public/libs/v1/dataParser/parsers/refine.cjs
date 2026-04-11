@@ -11,7 +11,9 @@ function checkerRefine(theFunction, definition) {
             ...definition,
             theFunction,
         },
-    }, (value, self) => self.definition.theFunction(value) ? value : error.SymbolDataParserErrorIssue);
+    }, (value, error$1, self) => self.definition.theFunction(value)
+        ? value
+        : error.addIssue(error$1, "value matching refine predicate", value, self.definition.errorMessage));
 }
 
 exports.checkerRefine = checkerRefine;

@@ -12,3 +12,4 @@ export * from "./repository";
 export * from "./useCase";
 export * from "./flag";
 export * from "./maybe";
+export * from "./toMapDataParser";

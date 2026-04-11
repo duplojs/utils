@@ -29,11 +29,17 @@ describe("DDataParser date", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					input,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: input,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -79,65 +85,107 @@ describe("DDataParser date", () => {
 
 		expect(timestampResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					outOfRangeTimestamp,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: outOfRangeTimestamp,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(monthResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidMonth,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: invalidMonth,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(dayResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidDay,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: invalidDay,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(hourResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidHour,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: invalidHour,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(typeResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					invalidType,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: invalidType,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(dateResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					outOfRangeDate,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: outOfRangeDate,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 		expect(unsafeTheDateResult).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					unsafeTheDate,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "date",
+							path: "",
+							data: unsafeTheDate,
+							message: "date.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

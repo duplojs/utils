@@ -2,6 +2,7 @@
 
 var base = require('../base.cjs');
 var kind = require('../kind.cjs');
+var error = require('../error.cjs');
 var override = require('../../common/override.cjs');
 
 const recoverKind = kind.createDataParserKind("recover");
@@ -15,15 +16,15 @@ function recover(inner, recoveredValue, definition) {
         inner,
         recoveredValue,
     }, {
-        sync: (data, error, self) => {
-            const result = self.definition.inner.exec(data, error);
-            return result === base.SymbolDataParserError
+        sync: (data, error$1, self) => {
+            const result = self.definition.inner.exec(data, error$1);
+            return result === error.SymbolDataParserError
                 ? self.definition.recoveredValue
                 : result;
         },
-        async: async (data, error, self) => {
-            const result = await self.definition.inner.asyncExec(data, error);
-            return result === base.SymbolDataParserError
+        async: async (data, error$1, self) => {
+            const result = await self.definition.inner.asyncExec(data, error$1);
+            return result === error.SymbolDataParserError
                 ? self.definition.recoveredValue
                 : result;
         },

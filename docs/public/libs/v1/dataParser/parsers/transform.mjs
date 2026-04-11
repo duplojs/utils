@@ -1,5 +1,5 @@
-import { dataParserInit, SymbolDataParserError } from '../base.mjs';
-import { SymbolDataParserErrorPromiseIssue } from '../error.mjs';
+import { dataParserInit } from '../base.mjs';
+import { SymbolDataParserError, addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -21,7 +21,7 @@ function transform(inner, theFunction, definition) {
             }
             const result = self.definition.theFunction(innerResult, error);
             if (result instanceof Promise) {
-                return SymbolDataParserErrorPromiseIssue;
+                return addIssue(error, "non-promise transform result", result, self.definition.errorMessage);
             }
             return result;
         },
@@ -32,7 +32,7 @@ function transform(inner, theFunction, definition) {
             }
             let result = self.definition.theFunction(innerResult, error);
             if (result instanceof Promise) {
-                result = result.catch(() => SymbolDataParserErrorPromiseIssue);
+                result = await result.catch(() => addIssue(error, "successful async transform result", result, self.definition.errorMessage));
             }
             return result;
         },

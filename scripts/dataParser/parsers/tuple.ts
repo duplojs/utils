@@ -1,7 +1,7 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, createOverride, type Or } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { popErrorPath, setErrorPath, SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
@@ -178,7 +178,7 @@ export function tuple<
 		{
 			sync: (data, error, self) => {
 				if (!(data instanceof Array)) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "tuple array", data, self.definition.errorMessage);
 				}
 
 				let output: SymbolDataParserError | unknown[] = [];
@@ -216,7 +216,7 @@ export function tuple<
 			},
 			async: async(data, error, self) => {
 				if (!(data instanceof Array)) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "tuple array", data, self.definition.errorMessage);
 				}
 
 				let output: SymbolDataParserError | unknown[] = [];

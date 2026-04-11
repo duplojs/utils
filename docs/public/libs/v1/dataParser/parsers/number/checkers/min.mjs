@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../../error.mjs';
+import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
 const checkerNumberMinKind = createDataParserKind("checker-number-min");
@@ -9,7 +9,9 @@ function checkerNumberMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, self) => value >= self.definition.min ? value : SymbolDataParserErrorIssue);
+    }, (value, error, self) => value >= self.definition.min
+        ? value
+        : addIssue(error, `number >= ${self.definition.min}`, value, self.definition.errorMessage));
 }
 
 export { checkerNumberMin, checkerNumberMinKind };

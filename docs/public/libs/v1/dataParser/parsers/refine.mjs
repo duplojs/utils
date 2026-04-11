@@ -1,5 +1,5 @@
 import { dataParserCheckerInit } from '../base.mjs';
-import { SymbolDataParserErrorIssue } from '../error.mjs';
+import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 
 const dataParserCheckerRefineKind = createDataParserKind("refine");
@@ -9,7 +9,9 @@ function checkerRefine(theFunction, definition) {
             ...definition,
             theFunction,
         },
-    }, (value, self) => self.definition.theFunction(value) ? value : SymbolDataParserErrorIssue);
+    }, (value, error, self) => self.definition.theFunction(value)
+        ? value
+        : addIssue(error, "value matching refine predicate", value, self.definition.errorMessage));
 }
 
 export { checkerRefine, dataParserCheckerRefineKind };

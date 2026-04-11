@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, wrapValue, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, GetKind, type GetKindValue } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -55,7 +55,7 @@ export interface Entity<
 	> {
 }
 
-const entityHandlerKind = createCleanKind("entity-handler");
+export const entityHandlerKind = createCleanKind("entity-handler");
 
 export interface EntityHandler<
 	GenericName extends string = string,
@@ -72,10 +72,24 @@ export interface EntityHandler<
 	 */
 	readonly propertiesDefinition: GenericPropertiesDefinition;
 
+	/**
+	 * @deprecated
+	 */
 	readonly mapDataParser: DDataParser.Contract<
 		EntityProperties<GenericPropertiesDefinition>,
 		unknown
 	>;
+
+	readonly internal: {
+
+		/**
+		 * {@include clean/createEntity/mapDataParser.md}
+		 */
+		readonly mapDataParser: DDataParser.Contract<
+			EntityProperties<GenericPropertiesDefinition>,
+			unknown
+		>;
+	};
 
 	/**
 	 * {@include clean/createEntity/new.md}
@@ -179,21 +193,23 @@ export function createEntity<
 				entityPropertyDefinitionToDataParser(
 					property,
 					(newTypeHandler) => {
-						const constraintKindValue = pipe(
-							newTypeHandler.constraints,
-							DArray.map(({ name }) => DObject.entry(name, null)),
-							DObject.fromEntries,
-						);
+						const allKind = {
+							...constrainedTypeKind.setTo(
+								{},
+								newTypeHandler.internal.constraintKindValue,
+							),
+							...newTypeKind.setTo(
+								{},
+								newTypeHandler.name,
+							),
+						};
 
 						return DDataParser.transform(
-							newTypeHandler.dataParser,
-							(value) => constrainedTypeKind.setTo(
-								newTypeKind.setTo(
-									wrapValue(value),
-									newTypeHandler.name,
-								),
-								constraintKindValue,
-							),
+							newTypeHandler.internal.dataParser,
+							(value) => ({
+								...allKind,
+								[keyWrappedValue]: value,
+							}),
 						);
 					},
 				),
@@ -257,6 +273,9 @@ export function createEntity<
 			name,
 			propertiesDefinition,
 			mapDataParser,
+			internal: {
+				mapDataParser,
+			},
 			new: theNew,
 			map,
 			mapOrThrow,

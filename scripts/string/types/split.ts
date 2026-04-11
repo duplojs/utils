@@ -1,6 +1,7 @@
-import { type Or, type IsEqual } from "@scripts/common";
+import { type IsEqual } from "@scripts/common";
 import { type Includes } from "./includes";
 import { type TemplateLiteralContainLargeType } from "./templateLiteralContainLargeType";
+import { type CreateTuple } from "@scripts/array";
 
 type _Split<
 	GenericString extends string,
@@ -32,13 +33,22 @@ export type Split<
 	GenericLimit extends number = number,
 > = IsEqual<GenericLimit, 0> extends true
 	? []
-	: Or<[
-		TemplateLiteralContainLargeType<GenericString>,
-		TemplateLiteralContainLargeType<GenericSeparator>,
-	]> extends true
+	: TemplateLiteralContainLargeType<GenericSeparator> extends true
 		? [string, ...string[]]
-		: _Split<
-			GenericString,
-			GenericSeparator,
-			GenericLimit
-		>;
+		: TemplateLiteralContainLargeType<GenericString> extends true
+			? [
+				...CreateTuple<
+					string,
+					_Split<
+						GenericString,
+						GenericSeparator,
+						GenericLimit
+					>["length"]
+				>,
+				...string[],
+			]
+			: _Split<
+				GenericString,
+				GenericSeparator,
+				GenericLimit
+			>;

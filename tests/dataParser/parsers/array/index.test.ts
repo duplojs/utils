@@ -35,11 +35,17 @@ describe("DDataParser array", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					schema,
-					"not-array",
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "array",
+							path: "",
+							data: "not-array",
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});
@@ -52,18 +58,17 @@ describe("DDataParser array", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				{
-					...DDataParser.addIssue(
-						DDataParser.setErrorPath(
-							DDataParser.createError(),
-							"[0]",
-							0,
-						),
-						elementSchema,
-						42,
-					),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "[0]",
+							data: 42,
+							message: undefined,
+						}),
+					],
 					currentPath: [],
-				},
+				}),
 			),
 		);
 	});
@@ -85,11 +90,17 @@ describe("DDataParser array", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					DDataParser.addIssue(
-						DDataParser.createError(),
-						schema,
-						"not-array",
-					),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "array",
+								path: "",
+								data: "not-array",
+								message: undefined,
+							}),
+						],
+						currentPath: [],
+					}),
 				),
 			);
 		});
@@ -102,18 +113,17 @@ describe("DDataParser array", () => {
 
 			expect(result).toStrictEqual(
 				DEither.error(
-					{
-						...DDataParser.addIssue(
-							DDataParser.setErrorPath(
-								DDataParser.createError(),
-								"[0]",
-								0,
-							),
-							elementSchema,
-							42,
-						),
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "string",
+								path: "[0]",
+								data: 42,
+								message: undefined,
+							}),
+						],
 						currentPath: [],
-					},
+					}),
 				),
 			);
 		});

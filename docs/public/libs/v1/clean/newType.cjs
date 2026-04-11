@@ -35,7 +35,7 @@ class CreateNewTypeError extends kind$1.kindHeritage("create-new-type-error", er
  */
 function createNewType(name, dataParser, constraint) {
     const constraints = coalescing.coalescing(constraint ?? []);
-    const checkers = flatMap.flatMap(constraints, ({ checkers }) => checkers);
+    const checkers = flatMap.flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)
         : dataParser;
@@ -85,6 +85,11 @@ function createNewType(name, dataParser, constraint) {
         name,
         dataParser: dataParserWithCheckers,
         constraints,
+        internal: {
+            dataParser: dataParserWithCheckers,
+            constraints,
+            constraintKindValue,
+        },
         getConstraint,
         create: create$2,
         createOrThrow,

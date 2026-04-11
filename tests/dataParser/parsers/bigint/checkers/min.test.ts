@@ -22,11 +22,17 @@ describe("DDataParser bigint checker min", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1n,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "bigint >= 0n",
+							path: "",
+							data: -1n,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

@@ -1,5 +1,5 @@
-import { dataParserInit, SymbolDataParserError, dataParserKind } from '../../base.mjs';
-import { SymbolDataParserErrorIssue, setErrorPath, popErrorPath } from '../../error.mjs';
+import { dataParserInit, dataParserKind } from '../../base.mjs';
+import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { memo } from '../../../common/memo.mjs';
 import { some } from '../../../array/some.mjs';
@@ -28,7 +28,7 @@ function object(shape, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "object", data, self.definition.errorMessage);
             }
             let output = {};
             const currentIndexPath = error.currentPath.length;
@@ -50,7 +50,7 @@ function object(shape, definition) {
             if (!data
                 || typeof data !== "object"
                 || data instanceof Array) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "object", data, self.definition.errorMessage);
             }
             let output = {};
             const currentIndexPath = error.currentPath.length;

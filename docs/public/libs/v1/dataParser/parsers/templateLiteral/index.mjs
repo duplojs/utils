@@ -1,5 +1,5 @@
 import { dataParserInit } from '../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../error.mjs';
+import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { createTemplateLiteralPattern } from './createTemplateLiteralPattern.mjs';
 import { pipe } from '../../../common/pipe.mjs';
@@ -16,11 +16,11 @@ function templateLiteral(template, definition) {
         checkers: definition?.checkers ?? [],
         template,
         pattern,
-    }, (data, _error, self) => {
+    }, (data, error, self) => {
         if (typeof data === "string" && self.definition.pattern.test(data)) {
             return data;
         }
-        return SymbolDataParserErrorIssue;
+        return addIssue(error, `string matching template literal pattern ${self.definition.pattern.source}`, data, self.definition.errorMessage);
     }, templateLiteral.overrideHandler);
     return self;
 }

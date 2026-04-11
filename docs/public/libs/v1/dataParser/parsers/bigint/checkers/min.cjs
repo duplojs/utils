@@ -11,9 +11,9 @@ function checkerBigIntMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, self) => {
+    }, (value, error$1, self) => {
         if (value < self.definition.min) {
-            return error.SymbolDataParserErrorIssue;
+            return error.addIssue(error$1, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage);
         }
         return value;
     });

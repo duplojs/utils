@@ -9,11 +9,11 @@ const checkerIntKind = kind.createDataParserKind("checker-number-int");
 function checkerInt(definition = {}) {
     return base.dataParserCheckerInit(checkerIntKind, {
         definition,
-    }, (data) => {
+    }, (data, error$1, self) => {
         if (Number.isInteger(data)) {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "integer", data, self.definition.errorMessage);
     });
 }
 function int(definition) {

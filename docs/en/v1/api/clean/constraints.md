@@ -5,8 +5,8 @@ prev:
   text: "Primitives"
   link: "/en/v1/api/clean/primitives"
 next:
-  text: "NewType"
-  link: "/en/v1/api/clean/newType"
+  text: "castConstraint"
+  link: "/en/v1/api/clean/castConstraint"
 ---
 
 # Constraints
@@ -105,14 +105,6 @@ function is(
 
 The unique name of the constraint (e.g. `"email"`, `"int"`, ...).
 
-#### `checkers`
-
-The list of `DDataParser` checkers used to validate the value.
-
-#### `primitiveHandler`
-
-The primitive to which the constraint applies (e.g. `C.String`, `C.Number`).
-
 ## Constraints provided by the library
 
 The library exports a few ready-to-use constraints via `C.*`:
@@ -173,16 +165,6 @@ Validates a strictly positive number (>= 1).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/positive.doc.ts"
-  majorVersion="v1"
-  height="240px"
-/>
-
-### `PositiveInt`
-
-Validates a strictly positive integer (>= 1).
-
-<MonacoTSEditor
-  src="/examples/v1/api/clean/constraints/positiveInt.doc.ts"
   majorVersion="v1"
   height="240px"
 />

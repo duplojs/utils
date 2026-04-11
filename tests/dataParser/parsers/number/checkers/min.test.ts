@@ -22,11 +22,17 @@ describe("DDataParser number checker min", () => {
 
 		expect(result).toStrictEqual(
 			DEither.error(
-				DDataParser.addIssue(
-					DDataParser.createError(),
-					checker,
-					-1,
-				),
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number >= 0",
+							path: "",
+							data: -1,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
 	});

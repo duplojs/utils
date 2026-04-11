@@ -11,12 +11,9 @@ function checkerArrayMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (data, self) => {
-        if (data.length > self.definition.max) {
-            return error.SymbolDataParserErrorIssue;
-        }
-        return data;
-    });
+    }, (data, error$1, self) => data.length <= self.definition.max
+        ? data
+        : error.addIssue(error$1, `array.length <= ${self.definition.max}`, data, self.definition.errorMessage));
 }
 
 exports.checkerArrayMax = checkerArrayMax;

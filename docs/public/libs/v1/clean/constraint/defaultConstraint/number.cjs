@@ -13,11 +13,11 @@ const Int = base.createConstraint("int", base$1.Number, int.checkerInt());
 /**
  * {@include clean/Positive/index.md}
  */
-const Positive = base.createConstraint("positive", base$1.Number, min.checkerNumberMin(1));
+const Positive = base.createConstraint("positive", base$1.Number, min.checkerNumberMin(0));
 /**
  * {@include clean/Negative/index.md}
  */
-const Negative = base.createConstraint("negative", base$1.Number, max.checkerNumberMax(-1));
+const Negative = base.createConstraint("negative", base$1.Number, max.checkerNumberMax(0));
 /**
  * {@include clean/NumberMin/index.md}
  */
@@ -30,17 +30,9 @@ function NumberMin(value) {
 function NumberMax(value) {
     return base.createConstraint(`number-max-${value}`, base$1.Number, max.checkerNumberMax(value));
 }
-/**
- * {@include clean/PositiveInt/index.md}
- */
-const PositiveInt = base.createConstraint("positive-int", base$1.Number, [
-    int.checkerInt(),
-    min.checkerNumberMin(1),
-]);
 
 exports.Int = Int;
 exports.Negative = Negative;
 exports.NumberMax = NumberMax;
 exports.NumberMin = NumberMin;
 exports.Positive = Positive;
-exports.PositiveInt = PositiveInt;

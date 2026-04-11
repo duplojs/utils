@@ -14,7 +14,7 @@ function number(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.coerce) {
             try {
                 // eslint-disable-next-line no-param-reassign
@@ -25,7 +25,7 @@ function number(definition) {
         if (typeof data === "number" && !Number.isNaN(data)) {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "number", data, self.definition.errorMessage);
     }, number.overrideHandler);
     return self;
 }

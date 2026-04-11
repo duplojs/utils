@@ -14,7 +14,7 @@ function boolean(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (typeof data === "boolean") {
             return data;
         }
@@ -25,7 +25,7 @@ function boolean(definition) {
                     return lower === "true";
                 }
                 else {
-                    return error.SymbolDataParserErrorIssue;
+                    return error.addIssue(error$1, "boolean", data, self.definition.errorMessage);
                 }
             }
             else if (typeof data === "number"
@@ -34,7 +34,7 @@ function boolean(definition) {
                 return data === 1;
             }
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "boolean", data, self.definition.errorMessage);
     }, boolean.overrideHandler);
     return self;
 }

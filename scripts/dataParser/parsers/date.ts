@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -83,11 +83,11 @@ export function date<
 			checkers: definition?.checkers ?? [],
 			coerce: definition?.coerce ?? false,
 		},
-		(data, _error, self) => {
+		(data, error, self) => {
 			if (self.definition.coerce) {
 				if (typeof data === "number") {
 					if (!DDate.isSafeTimestamp(data)) {
-						return SymbolDataParserErrorIssue;
+						return addIssue(error, "date", data, self.definition.errorMessage);
 					}
 
 					return DDate.TheDate.new(data);
@@ -110,12 +110,12 @@ export function date<
 				const timestamp = data.getTime();
 
 				if (!DDate.isSafeTimestamp(timestamp)) {
-					return SymbolDataParserErrorIssue;
+					return addIssue(error, "date", data, self.definition.errorMessage);
 				}
 				return DDate.TheDate.new(timestamp);
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(error, "date", data, self.definition.errorMessage);
 		},
 		date.overrideHandler,
 	) as never;

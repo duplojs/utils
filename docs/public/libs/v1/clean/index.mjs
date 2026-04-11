@@ -1,14 +1,16 @@
 export { createCleanKind } from './kind.mjs';
 export { CreateNewTypeError, createNewType, newTypeHandlerKind, newTypeKind } from './newType.mjs';
-export { CreateEntityError, createEntity, entityKind } from './entity/index.mjs';
+export { CreateEntityError, createEntity, entityHandlerKind, entityKind } from './entity/index.mjs';
 export { createRepository, repositoryHandlerKind } from './repository.mjs';
 export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.mjs';
 export { createFlag, flagKind } from './flag.mjs';
 export { none, some } from './maybe.mjs';
+export { toMapDataParser } from './toMapDataParser.mjs';
 export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './entity/property.mjs';
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';
-export { Int, Negative, NumberMax, NumberMin, Positive, PositiveInt } from './constraint/defaultConstraint/number.mjs';
+export { castConstraint } from './constraint/cast.mjs';
+export { Int, Negative, NumberMax, NumberMin, Positive } from './constraint/defaultConstraint/number.mjs';
 export { Email, StringMax, StringMin, Url } from './constraint/defaultConstraint/string.mjs';
 export { NegativeTime, PositiveTime } from './constraint/defaultConstraint/time.mjs';
 export { CreateConstraintsSetError, constraintsSetHandlerKind, createConstraintsSet } from './constraint/set.mjs';

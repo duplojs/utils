@@ -18,23 +18,23 @@ function transform(inner, theFunction, definition) {
     }, {
         sync: (data, error$1, self) => {
             const innerResult = self.definition.inner.exec(data, error$1);
-            if (innerResult === base.SymbolDataParserError) {
-                return base.SymbolDataParserError;
+            if (innerResult === error.SymbolDataParserError) {
+                return error.SymbolDataParserError;
             }
             const result = self.definition.theFunction(innerResult, error$1);
             if (result instanceof Promise) {
-                return error.SymbolDataParserErrorPromiseIssue;
+                return error.addIssue(error$1, "non-promise transform result", result, self.definition.errorMessage);
             }
             return result;
         },
         async: async (data, error$1, self) => {
             const innerResult = await self.definition.inner.asyncExec(data, error$1);
-            if (innerResult === base.SymbolDataParserError) {
-                return base.SymbolDataParserError;
+            if (innerResult === error.SymbolDataParserError) {
+                return error.SymbolDataParserError;
             }
             let result = self.definition.theFunction(innerResult, error$1);
             if (result instanceof Promise) {
-                result = result.catch(() => error.SymbolDataParserErrorPromiseIssue);
+                result = await result.catch(() => error.addIssue(error$1, "successful async transform result", result, self.definition.errorMessage));
             }
             return result;
         },

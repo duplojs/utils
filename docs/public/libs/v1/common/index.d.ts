@@ -80,3 +80,4 @@ export * from "./toRegExp";
 export * from "./justExec";
 export * from "./callThen";
 export * from "./queue";
+export * from "./printer";

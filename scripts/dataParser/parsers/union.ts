@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -98,26 +98,50 @@ export function union<
 		},
 		{
 			sync: (data, error, self) => {
-				for (const dataParser of self.definition.options) {
-					const result = dataParser.exec(data, error);
+				const unionError = {
+					...error,
+					currentPath: [...error.currentPath],
+					issues: [],
+				};
+				const currentIndexPath = unionError.currentPath.length;
+
+				for (let index = 0; index < self.definition.options.length; index++) {
+					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
+
+					const dataParser = self.definition.options[index]!;
+					const result = dataParser.exec(data, unionError);
 
 					if (result !== SymbolDataParserError) {
 						return result;
 					}
 				}
 
-				return SymbolDataParserErrorIssue;
+				error.issues.push(...unionError.issues);
+
+				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
 			},
 			async: async(data, error, self) => {
-				for (const dataParser of self.definition.options) {
-					const result = await dataParser.asyncExec(data, error);
+				const unionError = {
+					...error,
+					currentPath: [...error.currentPath],
+					issues: [],
+				};
+				const currentIndexPath = unionError.currentPath.length;
+
+				for (let index = 0; index < self.definition.options.length; index++) {
+					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
+
+					const dataParser = self.definition.options[index]!;
+					const result = await dataParser.asyncExec(data, unionError);
 
 					if (result !== SymbolDataParserError) {
 						return result;
 					}
 				}
 
-				return SymbolDataParserErrorIssue;
+				error.issues.push(...unionError.issues);
+
+				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
 			},
 			isAsynchronous: (self) => DArray.some(
 				self.definition.options,

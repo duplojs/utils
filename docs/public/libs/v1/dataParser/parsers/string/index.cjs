@@ -14,7 +14,7 @@ function string(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.coerce) {
             try {
                 // eslint-disable-next-line no-param-reassign
@@ -25,7 +25,7 @@ function string(definition) {
         if (typeof data === "string") {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "string", data, self.definition.errorMessage);
     }, string.overrideHandler);
     return self;
 }

@@ -1,11 +1,18 @@
 import { createDataParserKind } from './kind.mjs';
+import { Printer } from '../common/printer.mjs';
+import { unwrap } from '../common/unwrap.mjs';
 
-const SymbolDataParserErrorIssueLabel = "SymbolDataParserErrorIssue";
+const SymbolDataParserErrorLabel = "SymbolDataParserError";
+const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
+/**
+ * @deprecated
+ */
+const SymbolDataParserErrorIssueLabel = "SymbolDataParserError";
+/**
+ * @deprecated
+ */
 const SymbolDataParserErrorIssue = Symbol.for(SymbolDataParserErrorIssueLabel);
 const errorIssueKind = createDataParserKind("error-issue");
-const SymbolDataParserErrorPromiseIssueLabel = "SymbolDataParserErrorPromiseIssue";
-const SymbolDataParserErrorPromiseIssue = Symbol.for(SymbolDataParserErrorPromiseIssueLabel);
-const errorPromiseIssueKind = createDataParserKind("error-issue-promise");
 const errorKind = createDataParserKind("error");
 function createError() {
     return errorKind.setTo({
@@ -13,23 +20,14 @@ function createError() {
         currentPath: [],
     });
 }
-function addIssue(error, source, data, moreInformation) {
+function addIssue(error, expected, data, message) {
     error.issues.push(errorIssueKind.setTo({
-        source,
+        expected,
         path: error.currentPath.join("."),
         data,
-        moreInformation,
+        message,
     }));
-    return error;
-}
-function addPromiseIssue(error, source, data, moreInformation) {
-    error.issues.push(errorPromiseIssueKind.setTo({
-        source,
-        path: error.currentPath.join("."),
-        data,
-        moreInformation,
-    }));
-    return error;
+    return SymbolDataParserError;
 }
 function setErrorPath(error, value, index) {
     error.currentPath[index] = value;
@@ -39,5 +37,26 @@ function popErrorPath(error) {
     error.currentPath.pop();
     return error;
 }
+function interpretError(error) {
+    const dataParserError = errorKind.has(error)
+        ? error
+        : unwrap(error);
+    return Printer.renderParagraph([
+        Printer.colorizedBold("Validation failed", "red"),
+        dataParserError.issues.map((issue) => Printer.renderParagraph([
+            "",
+            Printer.renderLine([
+                Printer.colorizedBold("✖", "red"),
+                Printer.colorizedBold(issue.path || "<root>", "cyan"),
+                "expected",
+                Printer.colorized(issue.expected, "green"),
+                "but received",
+                Printer.colorized(Printer.stringify(issue.data), "red"),
+            ]),
+            issue.message !== undefined && `${Printer.indent(1)}↳ ${issue.message}`,
+        ])),
+        dataParserError.issues.length === 0 && "No issue found",
+    ]);
+}
 
-export { SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorPromiseIssue, SymbolDataParserErrorPromiseIssueLabel, addIssue, addPromiseIssue, createError, errorIssueKind, errorKind, errorPromiseIssueKind, popErrorPath, setErrorPath };
+export { SymbolDataParserError, SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorLabel, addIssue, createError, errorIssueKind, errorKind, interpretError, popErrorPath, setErrorPath };

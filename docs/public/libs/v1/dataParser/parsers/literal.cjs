@@ -15,11 +15,11 @@ function literal(value, definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         value: coalescing.coalescing(value),
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (self.definition.value.includes(data)) {
             return data;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, `one of ${self.definition.value.map((value) => String(value)).join(", ")}`, data, self.definition.errorMessage);
     }, literal.overrideHandler);
     return self;
 }

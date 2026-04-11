@@ -1,5 +1,5 @@
 import { dataParserInit } from '../../base.mjs';
-import { SymbolDataParserErrorIssue } from '../../error.mjs';
+import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { isoTimeRegex } from '../../../date/constants.mjs';
 import { createTime } from '../../../date/createTime.mjs';
@@ -20,12 +20,12 @@ function time(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error, self) => {
         if (self.definition.coerce) {
             if (typeof data === "string" && isoTimeRegex.test(data)) {
                 const result = createTime({ value: data });
                 if (isLeft(result)) {
-                    return SymbolDataParserErrorIssue;
+                    return addIssue(error, "time", data, self.definition.errorMessage);
                 }
                 return unwrap(result);
             }
@@ -38,11 +38,11 @@ function time(definition) {
         }
         else if (typeof data === "number") {
             if (!isSafeTimeValue(data)) {
-                return SymbolDataParserErrorIssue;
+                return addIssue(error, "time", data, self.definition.errorMessage);
             }
             return TheTime.new(data);
         }
-        return SymbolDataParserErrorIssue;
+        return addIssue(error, "time", data, self.definition.errorMessage);
     }, time.overrideHandler);
     return self;
 }

@@ -1,6 +1,6 @@
 import { C, DP, type ExpectType } from "@duplojs/utils";
 
-const UserId = C.createNewType("userId", DP.number(), C.PositiveInt);
+const UserId = C.createNewType("userId", DP.number(), C.Positive);
 const User = C.createEntity("User", () => ({
 	id: UserId,
 }));

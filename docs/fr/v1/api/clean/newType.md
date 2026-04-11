@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Un NewType est un type conçu pour répondre aux exigences métier, tout en étant basé sur un type primitif (ou une structure de données) existant. Il permet d'ajouter des contraintes et des règles spécifiques, garantissant que les valeurs respectent les conditions définies par le métier."
 prev:
-  text: "Contraintes"
-  link: "/fr/v1/api/clean/constraints"
+  text: "castConstraint"
+  link: "/fr/v1/api/clean/castConstraint"
 next:
   text: "Entités"
   link: "/fr/v1/api/clean/entity"
@@ -107,14 +107,6 @@ function getConstraint(
 #### `name`
 
 Le nom unique du `NewType` (ex: `"userId"`).
-
-#### `dataParser`
-
-Le `DataParser` utilisé pour valider la donnée (incluant les checkers ajoutés par les contraintes).
-
-#### `constrains`
-
-La liste des contraintes appliquées au `NewType`.
 
 ## Voir aussi
 

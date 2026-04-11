@@ -14,14 +14,14 @@ function empty(definition) {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
-    }, (data, _error, self) => {
+    }, (data, error$1, self) => {
         if (data === undefined) {
             return data;
         }
         else if (self.definition.coerce && data === "undefined") {
             return undefined;
         }
-        return error.SymbolDataParserErrorIssue;
+        return error.addIssue(error$1, "undefined", data, self.definition.errorMessage);
     }, empty.overrideHandler);
     return self;
 }

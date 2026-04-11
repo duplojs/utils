@@ -69,6 +69,7 @@ var toRegExp = require('./common/toRegExp.cjs');
 var justExec = require('./common/justExec.cjs');
 var callThen = require('./common/callThen.cjs');
 var queue = require('./common/queue.cjs');
+var printer = require('./common/printer.cjs');
 
 
 
@@ -176,3 +177,7 @@ exports.justExec = justExec.justExec;
 exports.callThen = callThen.callThen;
 exports.createQueue = queue.createQueue;
 exports.queueKind = queue.queueKind;
+Object.defineProperty(exports, "Printer", {
+	enumerable: true,
+	get: function () { return printer.Printer; }
+});

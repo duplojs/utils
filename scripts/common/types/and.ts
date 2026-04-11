@@ -1,5 +1,5 @@
-import { type IsEqual } from "./isEqual";
-
 export type And<
 	GenericBooleans extends [boolean, ...boolean[]],
-> = IsEqual<GenericBooleans[number], true>;
+> = GenericBooleans[number] extends true
+	? true
+	: false;

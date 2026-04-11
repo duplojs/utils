@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
 import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
-import { SymbolDataParserErrorIssue } from "@scripts/dataParser/error";
+import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import { type CheckerRefineImplementation } from "./refine";
 import { type GetPropsWithValueExtends } from "@scripts/object";
@@ -82,14 +82,14 @@ export function nil<
 			checkers: definition?.checkers ?? [],
 			coerce: definition?.coerce ?? false,
 		},
-		(data, _error, self) => {
+		(data, error, self) => {
 			if (data === null) {
 				return data;
 			} else if (self.definition.coerce && data === "null") {
 				return null;
 			}
 
-			return SymbolDataParserErrorIssue;
+			return addIssue(error, "null", data, self.definition.errorMessage);
 		},
 		nil.overrideHandler,
 	) as never;

@@ -13,9 +13,9 @@ function checkerEmail(definition = {}) {
             ...definition,
             pattern: emailPattern,
         },
-    }, (input, self) => {
+    }, (input, error$1, self) => {
         if (!self.definition.pattern.test(input)) {
-            return error.SymbolDataParserErrorIssue;
+            return error.addIssue(error$1, "email", input, self.definition.errorMessage);
         }
         return self.definition.normalize ? input.toLowerCase() : input;
     });

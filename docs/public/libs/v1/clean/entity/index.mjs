@@ -6,12 +6,12 @@ import { kindHeritage } from '../../common/kind.mjs';
 import { pipe } from '../../common/pipe.mjs';
 import { map } from '../../array/map.mjs';
 import { entry } from '../../object/entry.mjs';
-import { fromEntries } from '../../object/fromEntries.mjs';
 import { transform } from '../../dataParser/parsers/transform.mjs';
 import { entries } from '../../object/entries.mjs';
 import { forward } from '../../common/forward.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
 import { object } from '../../dataParser/parsers/object/index.mjs';
+import { fromEntries } from '../../object/fromEntries.mjs';
 import { constrainedTypeKind } from '../constraint/base.mjs';
 import { wrapValue } from '../../common/wrapValue.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -39,10 +39,7 @@ function createEntity(name, getPropertiesDefinition) {
         return entityKind.addTo(properties, name);
     }
     const propertiesDefinition = getPropertiesDefinition(entityPropertyDefinitionTools);
-    const mapDataParser = pipe(forward(propertiesDefinition), entries, map(([key, property]) => entry(key, entityPropertyDefinitionToDataParser(property, (newTypeHandler) => {
-        const constraintKindValue = pipe(newTypeHandler.constraints, map(({ name }) => entry(name, null)), fromEntries);
-        return transform(newTypeHandler.dataParser, (value) => constrainedTypeKind.setTo(newTypeKind.setTo(wrapValue(value), newTypeHandler.name), constraintKindValue));
-    }))), fromEntries, object, (dataParser) => transform(dataParser, (value) => entityKind.setTo(value, name)));
+    const mapDataParser = pipe(forward(propertiesDefinition), entries, map(([key, property]) => entry(key, entityPropertyDefinitionToDataParser(property, (newTypeHandler) => transform(newTypeHandler.internal.dataParser, (value) => constrainedTypeKind.setTo(newTypeKind.setTo(wrapValue(value), newTypeHandler.name), newTypeHandler.internal.constraintKindValue))))), fromEntries, object, (dataParser) => transform(dataParser, (value) => entityKind.setTo(value, name)));
     function map$1(rawProperties) {
         const result = mapDataParser.parse(rawProperties);
         if (isLeft(result)) {
@@ -73,6 +70,9 @@ function createEntity(name, getPropertiesDefinition) {
         name,
         propertiesDefinition,
         mapDataParser,
+        internal: {
+            mapDataParser,
+        },
         new: theNew,
         map: map$1,
         mapOrThrow,
@@ -82,4 +82,4 @@ function createEntity(name, getPropertiesDefinition) {
 }
 createEntity.overrideHandler = createOverride("@duplojs/utils/clean/entity");
 
-export { CreateEntityError, createEntity, entityKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools };
+export { CreateEntityError, createEntity, entityHandlerKind, entityKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools };
