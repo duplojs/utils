@@ -45,7 +45,7 @@ describe("DDataParser pipe", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "",
+							path: "(pipeIn)",
 							data: "nope",
 							message: "not-number",
 						}),
@@ -71,7 +71,7 @@ describe("DDataParser pipe", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "string",
-							path: "",
+							path: "(pipeOut)",
 							data: 5,
 							message: undefined,
 						}),
@@ -109,7 +109,7 @@ describe("DDataParser pipe", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "",
+								path: "(pipeIn)",
 								data: "nope",
 								message: "not-number",
 							}),

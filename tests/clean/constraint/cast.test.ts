@@ -1,4 +1,4 @@
-import { DClean, unwrap, type ExpectType } from "@scripts";
+import { DClean, DPE, unwrap, type ExpectType } from "@scripts";
 
 describe("castConstraint", () => {
 	it("adds a single constraint to an already constrained value", () => {
@@ -14,6 +14,9 @@ describe("castConstraint", () => {
 				},
 			),
 		);
+
+		expect(DClean.StringMin(3).is(result)).toBe(true);
+		expect(DClean.StringMin(5).is(result)).toBe(true);
 
 		type Check = ExpectType<
 			typeof result,
@@ -54,7 +57,7 @@ describe("castConstraint", () => {
 	});
 
 	it("preserves wrapped value identity while extending constraint metadata", () => {
-		const base = DClean.NumberMax(2).createOrThrow(-2);
+		const base = DClean.createNewType("nt", DPE.number(), DClean.NumberMax(2)).createOrThrow(-2);
 		const result = DClean.castConstraint(base, DClean.NumberMax(5));
 
 		expect(result).not.toBe(base);

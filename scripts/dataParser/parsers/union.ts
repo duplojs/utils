@@ -106,7 +106,7 @@ export function union<
 				const currentIndexPath = unionError.currentPath.length;
 
 				for (let index = 0; index < self.definition.options.length; index++) {
-					setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
 
 					const dataParser = self.definition.options[index]!;
 					const result = dataParser.exec(data, unionError);
@@ -129,7 +129,7 @@ export function union<
 				const currentIndexPath = unionError.currentPath.length;
 
 				for (let index = 0; index < self.definition.options.length; index++) {
-					setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
 
 					const dataParser = self.definition.options[index]!;
 					const result = await dataParser.asyncExec(data, unionError);

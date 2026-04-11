@@ -1,5 +1,4 @@
 import { DDataParser, DEither, E, type ExpectType } from "@scripts";
-import { interpretError } from "@scripts/dataParser";
 
 describe("DDataParser union", () => {
 	it("parses with the first matching parser", () => {
@@ -58,13 +57,13 @@ describe("DDataParser union", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "string",
-							path: "(option 0)",
+							path: "(option: 0)",
 							data: true,
 							message: undefined,
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "(option 1)",
+							path: "(option: 1)",
 							data: true,
 							message: undefined,
 						}),
@@ -109,13 +108,13 @@ describe("DDataParser union", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "string",
-								path: "(option 0)",
+								path: "(option: 0)",
 								data: true,
 								message: undefined,
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "(option 1)",
+								path: "(option: 1)",
 								data: true,
 								message: undefined,
 							}),

@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, wrapValue, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, GetKind, type GetKindValue } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -192,16 +192,26 @@ export function createEntity<
 				key,
 				entityPropertyDefinitionToDataParser(
 					property,
-					(newTypeHandler) => DDataParser.transform(
-						newTypeHandler.internal.dataParser,
-						(value) => constrainedTypeKind.setTo(
-							newTypeKind.setTo(
-								wrapValue(value),
+					(newTypeHandler) => {
+						const allKind = {
+							...constrainedTypeKind.setTo(
+								{},
+								newTypeHandler.internal.constraintKindValue,
+							),
+							...newTypeKind.setTo(
+								{},
 								newTypeHandler.name,
 							),
-							newTypeHandler.internal.constraintKindValue,
-						),
-					),
+						};
+
+						return DDataParser.transform(
+							newTypeHandler.internal.dataParser,
+							(value) => ({
+								...allKind,
+								[keyWrappedValue]: value,
+							}),
+						);
+					},
 				),
 			),
 		),

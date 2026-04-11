@@ -106,7 +106,7 @@ describe("DDataParser record", () => {
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "one of value, tt",
-							path: "forbidden",
+							path: "(recordKey: forbidden)",
 							data: "forbidden",
 							message: undefined,
 						}),
@@ -366,7 +366,7 @@ describe("DDataParser record", () => {
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "one of value, tt",
-								path: "forbidden",
+								path: "(recordKey: forbidden)",
 								data: "forbidden",
 								message: undefined,
 							}),

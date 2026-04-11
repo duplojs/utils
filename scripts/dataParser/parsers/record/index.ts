@@ -216,7 +216,7 @@ export function record<
 				const currentIndexPath = error.currentPath.length;
 
 				for (const key in fromData) {
-					setErrorPath(error, key, currentIndexPath);
+					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
 
 					const resultKey = self
 						.definition
@@ -226,6 +226,8 @@ export function record<
 					if (resultKey === SymbolDataParserError) {
 						output = SymbolDataParserError;
 					}
+
+					setErrorPath(error, key, currentIndexPath);
 
 					const resultValue = self
 						.definition
@@ -266,7 +268,7 @@ export function record<
 				const currentIndexPath = error.currentPath.length;
 
 				for (const key in fromData) {
-					setErrorPath(error, key, currentIndexPath);
+					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
 
 					const resultKey = await self
 						.definition
@@ -276,6 +278,8 @@ export function record<
 					if (resultKey === SymbolDataParserError) {
 						output = SymbolDataParserError;
 					}
+
+					setErrorPath(error, key, currentIndexPath);
 
 					const resultValue = await self
 						.definition
