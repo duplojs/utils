@@ -88,6 +88,7 @@ export function bigint<
 			coerce: definition?.coerce ?? false,
 		},
 		(data, error, self) => {
+			const inputData = data;
 			if (self.definition.coerce) {
 				try {
 					// eslint-disable-next-line no-param-reassign
@@ -99,7 +100,7 @@ export function bigint<
 				return data;
 			}
 
-			return addIssue(error, "bigint", data, self.definition.errorMessage);
+			return addIssue(error, "bigint", inputData, self.definition.errorMessage);
 		},
 		bigint.overrideHandler,
 	) as never;

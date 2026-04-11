@@ -91,6 +91,7 @@ export function string<
 			coerce: definition?.coerce ?? false,
 		},
 		(data, error, self) => {
+			const inputData = data;
 			if (self.definition.coerce) {
 				try {
 					// eslint-disable-next-line no-param-reassign
@@ -102,7 +103,7 @@ export function string<
 				return data;
 			}
 
-			return addIssue(error, "string", data, self.definition.errorMessage);
+			return addIssue(error, "string", inputData, self.definition.errorMessage);
 		},
 		string.overrideHandler,
 	) as never;

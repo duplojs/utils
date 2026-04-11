@@ -69,7 +69,7 @@ describe("DDataParser number", () => {
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
 							path: "",
-							data: Number.NaN,
+							data: "not-a-number",
 							message: undefined,
 						}),
 					],
