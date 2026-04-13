@@ -5,11 +5,10 @@ import { string } from "..";
 import { createDataParserKind } from "../../../kind";
 
 export interface DataParserCheckerDefinitionEmail extends DataParserCheckerDefinition {
-	normalize?: boolean;
-	pattern: RegExp;
+	regex: RegExp;
 }
 
-export const checkerEmailKind = createDataParserKind("checker-string-email");
+export const checkerEmailKind = createDataParserKind("checker-email");
 
 type _DataParserCheckerEmail = (
 	& Kind<typeof checkerEmailKind.definition>
@@ -23,31 +22,31 @@ export interface DataParserCheckerEmail extends _DataParserCheckerEmail {
 
 }
 
-const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
+const emailRegex = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 
 export function checkerEmail(
-	definition: Partial<DataParserCheckerDefinitionEmail> = {},
+	definition: Partial<
+		Omit<DataParserCheckerDefinitionEmail, "regex">
+	> = {},
 ): DataParserCheckerEmail {
 	return dataParserCheckerInit<DataParserCheckerEmail>(
 		checkerEmailKind,
 		{
 			definition: {
 				...definition,
-				pattern: emailPattern,
+				regex: emailRegex,
 			},
 		},
-		(input, error, self) => {
-			if (!self.definition.pattern.test(input)) {
-				return addIssue(error, "email", input, self.definition.errorMessage);
-			}
-
-			return self.definition.normalize ? input.toLowerCase() : input;
-		},
+		(data, error, self) => self.definition.regex.test(data)
+			? data
+			: addIssue(error, "email", data, self.definition.errorMessage),
 	);
 }
 
 export function email(
-	definition?: Partial<DataParserCheckerDefinitionEmail>,
+	definition?: Partial<
+		Omit<DataParserCheckerDefinitionEmail, "regex">
+	>,
 ) {
 	return string({
 		checkers: [checkerEmail(definition)],

@@ -1,31 +1,21 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import { popErrorPath, setErrorPath } from "../error";
-
-export interface DataParserPipeCheckerCustom<
-	GenericInput extends unknown = unknown,
-> {}
 
 export type DataParserPipeCheckers<
 	GenericInput extends unknown = unknown,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserPipeCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserPipeCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionPipe extends DataParserDefinition<
-	DataParserPipeCheckers<unknown>
-> {
+export interface DataParserDefinitionPipe<
+	GenericInput extends unknown = unknown,
+> extends DataParserDefinition<
+		DataParserPipeCheckers<GenericInput>
+	> {
 	readonly input: DataParser;
 	readonly output: DataParser;
 }
@@ -74,7 +64,12 @@ export function pipe<
 	GenericInput extends DataParser,
 	GenericOutput extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionPipe, "input" | "output">
+		Omit<
+			DataParserDefinitionPipe<
+				Output<GenericOutput>
+			>,
+		"input" | "output"
+		>
 	> = never,
 >(
 	input: GenericInput,

@@ -10,7 +10,7 @@ import { booleanKind } from "../boolean";
 import { nilKind } from "../nil";
 import { emptyKind } from "../empty";
 import { literalKind } from "../literal";
-import { checkerEmailKind, checkerStringMaxKind, checkerStringMinKind, checkerStringRegexKind, stringKind } from "../string";
+import { checkerStringMaxKind, checkerStringMinKind, stringKind } from "../string";
 import { unionKind } from "../union";
 
 export function createTemplateLiteralPattern(templatePart: readonly TemplateLiteralParts[]): string {
@@ -91,55 +91,28 @@ export function createTemplateLiteralPattern(templatePart: readonly TemplateLite
 					(dataParser) => pipe(
 						dataParser.definition.checkers,
 						DObject.to({
-							email: innerPipe(
-								DArray.find(checkerEmailKind.has),
-								when(
-									checkerEmailKind.has,
-									(checker) => pipe(
-										checker.definition.pattern.source,
-										DString.replace(/^\^/, ""),
-										DString.replace(/\$$/, ""),
-									),
-								),
-							),
 							min: innerPipe(
-								DArray.find(checkerStringMinKind.has),
-								when(
-									checkerStringMinKind.has,
-									(checker) => checker.definition.min,
+								DArray.select(
+									({ element, select, skip }) => checkerStringMinKind.has(element)
+										? select(element.definition.min)
+										: skip(),
 								),
+								DArray.maxOf,
 							),
 							max: innerPipe(
-								DArray.find(checkerStringMaxKind.has),
-								when(
-									checkerStringMaxKind.has,
-									(checker) => checker.definition.max,
+								DArray.select(
+									({ element, select, skip }) => checkerStringMaxKind.has(element)
+										? select(element.definition.max)
+										: skip(),
 								),
-							),
-							regex: innerPipe(
-								DArray.find(checkerStringRegexKind.has),
-								when(
-									checkerStringRegexKind.has,
-									(checker) => pipe(
-										checker.definition.regex.source,
-										DString.replace(/^\^/, ""),
-										DString.replace(/\$$/, ""),
-									),
-								),
+								DArray.minOf,
 							),
 						}),
-						({ email, regex, max, min }) => {
-							if (email) {
-								return email;
-							} else if (regex) {
-								return regex;
-							} else if (max !== undefined && min !== undefined) {
-								return `(?:[^]{${min},${max}})`;
-							} else if (max !== undefined) {
-								return `(?:[^]{0,${max}})`;
-							} else if (min !== undefined) {
-								return `(?:[^]{${min},})`;
+						({ max, min }) => {
+							if (max !== undefined || min !== undefined) {
+								return `(?:[^]{${min ?? 0},${max ?? ""}})`;
 							}
+
 							return "(?:[^]*)";
 						},
 					),

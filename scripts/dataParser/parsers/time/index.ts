@@ -1,30 +1,17 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import * as DDate from "@scripts/date";
 import * as DEither from "@scripts/either";
-import { type DataParserCheckerTimeMax, type DataParserCheckerTimeMin } from "./checkers";
 
 export * from "./checkers";
 
-export interface DataParserTimeCheckerCustom {}
-
-export type DataParserTimeCheckers = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserTimeCheckerCustom[
-		GetPropsWithValueExtends<
-			DataParserTimeCheckerCustom,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<DDate.TheTime>
-	| DataParserCheckerTimeMax
-	| DataParserCheckerTimeMin
-);
+export type DataParserTimeCheckers = DataParserChecker<
+	DataParserCheckerDefinition,
+	DDate.TheTime
+>;
 
 export interface DataParserDefinitionTime extends DataParserDefinition<
 	DataParserTimeCheckers

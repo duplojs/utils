@@ -1,8 +1,8 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride, type SimplifyTopLevel } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
-import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserCheckerStringRegex, type DataParserCheckerEmail, type DataParserDefinitionString, type DataParserString } from "../string";
+import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
@@ -10,10 +10,8 @@ import { type DataParserDefinitionEmpty, type DataParserEmpty } from "../empty";
 import { type DataParserDefinitionNil, type DataParserNil } from "../nil";
 import { type DataParserDefinitionBoolean, type DataParserBoolean } from "../boolean";
 import { createDataParserKind } from "../../kind";
-import { type CheckerRefineImplementation } from "../refine";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { createTemplateLiteralPattern } from "./createTemplateLiteralPattern";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./createTemplateLiteralPattern";
 
@@ -33,10 +31,8 @@ export type TemplateLiteralParts = (
 			& Omit<DataParserDefinitionString, "checkers">
 			& {
 				readonly checkers: readonly (
-					| DataParserCheckerEmail
 					| DataParserCheckerStringMax
 					| DataParserCheckerStringMin
-					| DataParserCheckerStringRegex
 				)[];
 			}
 		>
@@ -161,26 +157,18 @@ export type TemplateLiteralShapeInput<
 		: never
 	: never;
 
-export interface DataParserTemplateLiteralCheckerCustom<
-	GenericInput extends string = string,
-> {}
-
 export type DataParserTemplateLiteralCheckers<
 	GenericInput extends string = string,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserTemplateLiteralCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserTemplateLiteralCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionTemplateLiteral extends DataParserDefinition<
-	DataParserTemplateLiteralCheckers<string>
-> {
+export interface DataParserDefinitionTemplateLiteral<
+	GenericInput extends string = string,
+> extends DataParserDefinition<
+		DataParserTemplateLiteralCheckers<GenericInput>
+	> {
 	readonly template: TemplateLiteralShape;
 	readonly pattern: RegExp;
 }
@@ -228,7 +216,12 @@ export interface DataParserTemplateLiteral<
 export function templateLiteral<
 	const GenericTemplate extends TemplateLiteralShape,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">
+		Omit<
+			DataParserDefinitionTemplateLiteral<
+				TemplateLiteralShapeOutput<GenericTemplate>
+			>,
+			"template" | "pattern"
+		>
 	> = never,
 >(
 	template: GenericTemplate,

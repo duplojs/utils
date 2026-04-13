@@ -283,7 +283,7 @@ describe("DDataParser record", () => {
 					DDataParser.union([
 						DDataParser.literal(["eu", "us"]),
 						DDataParser.string({
-							checkers: [DDataParser.checkerStringRegex(/^[a-z]{2}$/)],
+							checkers: [DDataParser.checkerStringMin(2)],
 						}),
 					]),
 				]),
@@ -498,7 +498,7 @@ describe("DDataParser record", () => {
 						DDataParser.union([
 							DDataParser.literal(["eu", "us"]),
 							DDataParser.string({
-								checkers: [DDataParser.checkerStringRegex(/^[a-z]{2}$/)],
+								checkers: [DDataParser.checkerStringMin(2)],
 							}),
 						]),
 					]),

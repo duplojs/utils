@@ -1,4 +1,4 @@
-import { DDataParser, type ExpectType } from "@scripts";
+import { DDataParser, DP, type ExpectType } from "@scripts";
 
 describe("findRecordRequiredKey", () => {
 	it("returns null for string key parser", () => {
@@ -106,7 +106,7 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 	});
 
 	it("handles string parser part", () => {
-		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.email()]);
+		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([DDataParser.string()]);
 
 		expect(result).toStrictEqual([]);
 	});
@@ -168,7 +168,7 @@ describe("findRecordRequiredKeyOnTemplateLiteralPart", () => {
 		const result = DDataParser.findRecordRequiredKeyOnTemplateLiteralPart([
 			DDataParser.union([
 				DDataParser.literal(["union"]),
-				DDataParser.email(),
+				DDataParser.string(),
 			]),
 		]);
 

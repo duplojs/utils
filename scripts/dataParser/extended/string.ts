@@ -86,12 +86,12 @@ export interface DataParserStringExtended<
 	regex(
 		regex: RegExp,
 		definition?: Partial<
-			Omit<dataParsers.DataParserCheckerDefinitionStringRegex, "regex">
+			Omit<dataParsers.DataParserCheckerDefinitionRegex, "regex">
 		>
 	): DataParserStringExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerStringRegex]
+			readonly [dataParsers.DataParserCheckerRegex]
 		>
 	>;
 }
@@ -127,7 +127,7 @@ export function string<
 			},
 			regex(self, regex, definition) {
 				return self.addChecker(
-					dataParsers.checkerStringRegex(regex, definition),
+					dataParsers.checkerRegex(regex, definition),
 				);
 			},
 		},
@@ -143,7 +143,9 @@ string.overrideHandler = createOverride<DataParserStringExtended>("@duplojs/util
  * {@include dataParser/extended/email/index.md}
  */
 export function email(
-	definition?: Partial<dataParsers.DataParserCheckerDefinitionEmail>,
+	definition?: Partial<
+		Omit<dataParsers.DataParserCheckerDefinitionEmail, "regex">
+	>,
 ) {
 	return string({
 		checkers: [dataParsers.checkerEmail(definition)],
@@ -158,5 +160,15 @@ export function url(
 ) {
 	return string({
 		checkers: [dataParsers.checkerUrl(definition)],
+	});
+}
+
+export function uuid(
+	definition?: Partial<
+		Omit<dataParsers.DataParserCheckerDefinitionUuid, "regex">
+	>,
+) {
+	return string({
+		checkers: [dataParsers.checkerUuid(definition)],
 	});
 }

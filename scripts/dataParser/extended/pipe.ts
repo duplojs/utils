@@ -58,7 +58,10 @@ export function pipe<
 	GenericInput extends DataParser,
 	GenericOutput extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">
+		Omit<
+			dataParsers.DataParserDefinitionPipe<Output<GenericOutput>>,
+			"input" | "output"
+		>
 	> = never,
 >(
 	input: GenericInput,

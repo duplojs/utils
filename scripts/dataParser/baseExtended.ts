@@ -87,12 +87,17 @@ export interface DataParserExtended<
 	array<
 		GenericThis extends this = this,
 		const GenericDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionArray, "element">
+			Omit<
+				dataParsers.DataParserDefinitionArray<
+					Output<GenericThis>[]
+				>,
+				"element"
+			>
 		> = never,
 	>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionArray,
-			NeverCoalescing<GenericDefinition, {}> & { element: GenericThis }
+			NeverCoalescing<GenericDefinition, {}> & { readonly element: GenericThis }
 		>
 	>;
 
@@ -103,7 +108,9 @@ export interface DataParserExtended<
 		GenericThis extends this = this,
 		GenericOutput extends AnyValue = AnyValue,
 		const GenericDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">
+			Omit<dataParsers.DataParserDefinitionTransform<
+				dataParsers.DataParserTransformOutput<() => GenericOutput>
+			>, "inner" | "theFunction">
 		> = never,
 	>(
 		theFunction: (

@@ -35,8 +35,8 @@ export function checkerStringMin(
 				min,
 			},
 		},
-		(value, error, self) => value.length >= self.definition.min
-			? value
-			: addIssue(error, `string.length >= ${self.definition.min}`, value, self.definition.errorMessage),
+		(data, error, self) => data.length >= self.definition.min
+			? data
+			: addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage),
 	);
 }

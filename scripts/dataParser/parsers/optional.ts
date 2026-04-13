@@ -1,31 +1,19 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
-
-export interface DataParserOptionalCheckerCustom<
-	GenericInput extends unknown = unknown,
-> {}
 
 export type DataParserOptionalCheckers<
 	GenericInput extends unknown = unknown,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserOptionalCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserOptionalCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput | undefined
+>;
 
 export interface DataParserDefinitionOptional<
 	GenericOutput extends unknown = unknown,
 > extends DataParserDefinition<
-		DataParserOptionalCheckers
+		DataParserOptionalCheckers<GenericOutput>
 	> {
 	readonly inner: DataParser;
 	readonly coalescingValue: GenericOutput;
@@ -80,7 +68,9 @@ export function optional<
 	GenericDataParser extends DataParser,
 	const GenericDefinition extends Partial<
 		Omit<
-			DataParserDefinitionOptional,
+			DataParserDefinitionOptional<
+				Output<GenericDataParser>
+			>,
 			"inner"
 		>
 	> = never,

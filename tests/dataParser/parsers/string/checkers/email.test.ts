@@ -7,13 +7,6 @@ describe("DDataParser string checker email", () => {
 		expect(schema.parse("user@example.com")).toStrictEqual(DEither.success("user@example.com"));
 	});
 
-	it("normalizes when option enabled", () => {
-		const checker = DDataParser.checkerEmail({ normalize: true });
-		const schema = DDataParser.string({ checkers: [checker] });
-
-		expect(schema.parse("User@Example.com")).toStrictEqual(DEither.success("user@example.com"));
-	});
-
 	it("fails for invalid email", () => {
 		const checker = DDataParser.checkerEmail();
 		const schema = DDataParser.string({

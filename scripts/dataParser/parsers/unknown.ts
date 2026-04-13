@@ -1,22 +1,12 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 
-export interface DataParserUnknownCheckerCustom {}
-
-export type DataParserUnknownCheckers = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserUnknownCheckerCustom[
-		GetPropsWithValueExtends<
-			DataParserUnknownCheckerCustom,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<unknown>
-);
+export type DataParserUnknownCheckers = DataParserChecker<
+	DataParserCheckerDefinition,
+	unknown
+>;
 
 export interface DataParserDefinitionUnknown extends DataParserDefinition<
 	DataParserUnknownCheckers

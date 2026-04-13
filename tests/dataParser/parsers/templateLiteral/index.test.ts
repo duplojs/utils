@@ -33,7 +33,7 @@ describe("DDataParser templateLiteral", () => {
 	it("parses template with email and number", () => {
 		const schema = DDataParser.templateLiteral([
 			DDataParser.string({
-				checkers: [DDataParser.checkerEmail()],
+				checkers: [DDataParser.checkerStringMin(5)],
 			}),
 			"-id-",
 			DDataParser.number(),
@@ -137,7 +137,7 @@ describe("DDataParser templateLiteral", () => {
 			"-",
 			DDataParser.templateLiteral([
 				"ok-",
-				DDataParser.email(),
+				DDataParser.string().addChecker(DDataParser.checkerStringMin(5)),
 			]),
 			null,
 			true,
@@ -148,7 +148,7 @@ describe("DDataParser templateLiteral", () => {
 		]);
 
 		expect(schema.definition.pattern.source).toBe(
-			"^(?:test\\-)(?:-?[0-9]+(?:\\.[0-9]+)?)(?:\\-)(?:[0-9]+n)(?:\\-)(?:true|false)(?:\\-)(?:[^]*)(?:null)(?:\\-)(?:undefined)(?:\\-)(?:(?:math)|(?:1)|(?:undefined)|(?:null)|(?:12n)|(?:false))(?:\\-)(?:(?:ok\\-)(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\\.)+[A-Za-z]{2,})(?:null)(?:true)(?:false)(?:undefined)(?:12)(?:12n)$",
+			"^(?:test\\-)(?:-?[0-9]+(?:\\.[0-9]+)?)(?:\\-)(?:[0-9]+n)(?:\\-)(?:true|false)(?:\\-)(?:[^]*)(?:null)(?:\\-)(?:undefined)(?:\\-)(?:(?:math)|(?:1)|(?:undefined)|(?:null)|(?:12n)|(?:false))(?:\\-)(?:(?:ok\\-)(?:[^]{5,}))(?:null)(?:true)(?:false)(?:undefined)(?:12)(?:12n)$",
 		);
 
 		const result = schema.parse("test-0-20n-false-okokkokonull-undefined-undefined-ok-campani.mathieu@gmail.comnulltruefalseundefined1212n");
@@ -206,22 +206,6 @@ describe("DDataParser templateLiteral", () => {
 			.toStrictEqual(
 				DEither.error(expect.any(Object)),
 			);
-	});
-
-	it("parses template with regex constrained string segment", () => {
-		const schema = DDataParser.templateLiteral([
-			DDataParser.string({
-				checkers: [DDataParser.checkerStringRegex(/^ID-[0-9]{3}$/)],
-			}),
-			"-",
-			DDataParser.literal(["ok", "ko"]),
-		]);
-
-		const successResult = schema.parse("ID-123-ok");
-		const failureResult = schema.parse("WRONG-ok");
-
-		expect(successResult).toStrictEqual(DEither.success("ID-123-ok"));
-		expect(failureResult).toStrictEqual(DEither.error(expect.any(Object)));
 	});
 
 	it("parses template with min and max constrained string", () => {

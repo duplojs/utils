@@ -59,7 +59,12 @@ export function transform<
 	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">
+		Omit<
+			dataParsers.DataParserDefinitionTransform<
+				dataParsers.DataParserTransformOutput<() => GenericOutput>
+			>,
+			"inner" | "theFunction"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,

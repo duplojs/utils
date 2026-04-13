@@ -1,31 +1,21 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
-
-export interface DataParserTransformCheckerCustom<
-	GenericInput extends unknown = unknown,
-> {}
 
 export type DataParserTransformCheckers<
 	GenericInput extends unknown = unknown,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserTransformCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserTransformCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionTransform extends DataParserDefinition<
-	DataParserTransformCheckers<unknown>
-> {
+export interface DataParserDefinitionTransform<
+	GenericInput extends unknown = unknown,
+> extends DataParserDefinition<
+		DataParserTransformCheckers<GenericInput>
+	> {
 	readonly inner: DataParser;
 	theFunction(input: any, error: DataParserError): unknown;
 }
@@ -81,7 +71,12 @@ export function transform<
 	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionTransform, "inner" | "theFunction">
+		Omit<
+			DataParserDefinitionTransform<
+				DataParserTransformOutput<() => GenericOutput>
+			>,
+			"inner" | "theFunction"
+		>
 	> = never,
 >(
 	inner: GenericDataParser,

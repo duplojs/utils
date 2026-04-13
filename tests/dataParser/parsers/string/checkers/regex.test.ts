@@ -2,7 +2,7 @@ import { DDataParser, DEither } from "@scripts";
 
 describe("DDataParser string checker match with regex", () => {
 	it("match with regex", () => {
-		const checker = DDataParser.checkerStringRegex(/t/);
+		const checker = DDataParser.checkerRegex(/t/);
 		const schema = DDataParser.string({
 			checkers: [checker],
 		});
@@ -12,7 +12,7 @@ describe("DDataParser string checker match with regex", () => {
 	});
 
 	it("not match with regex", () => {
-		const checker = DDataParser.checkerStringRegex(/t/);
+		const checker = DDataParser.checkerRegex(/t/);
 		const schema = DDataParser.string({
 			checkers: [checker],
 		});

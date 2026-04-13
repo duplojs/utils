@@ -13,13 +13,15 @@ export interface DataParserCheckerDefinition {
 export interface DataParserChecker<
 	GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
 	GenericInput extends unknown = unknown,
-> extends Kind<typeof checkerKind.definition, GenericInput> {
+> extends Kind<typeof checkerKind.definition> {
 	readonly definition: GenericDefinition;
-	exec(
+	exec<
+		GenericOutput extends GenericInput,
+	>(
 		data: GenericInput,
 		error: DataParserError,
 		self: this,
-	): GenericInput | SymbolDataParserError;
+	): GenericOutput | SymbolDataParserError;
 }
 
 export type InputChecker<
@@ -42,10 +44,7 @@ export function dataParserCheckerInit<
 	exec: (
 		...args: Parameters<GenericDataParserChecker["exec"]>
 	) =>
-		| GetKindValue<
-		typeof checkerKind,
-			GenericDataParserChecker
-		>
+		| InputChecker<GenericDataParserChecker>
 		| SymbolDataParserError,
 ): GenericDataParserChecker {
 	return (kind as KindHandler).setTo(

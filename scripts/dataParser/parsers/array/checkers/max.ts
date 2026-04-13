@@ -13,7 +13,7 @@ type _DataParserCheckerArrayMax = (
 	& Kind<typeof checkerArrayMaxKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionArrayMax,
-		unknown[]
+		any[]
 	>
 );
 

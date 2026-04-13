@@ -19,7 +19,7 @@ export interface DataParserLiteralExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionLiteral = dataParsers.DataParserDefinitionLiteral,
 > extends _DataParserLiteralExtended<GenericDefinition> {
 	addChecker<
-		GenericChecker extends readonly [
+		const GenericChecker extends readonly [
 			dataParsers.DataParserLiteralCheckers<Output<this>>,
 			...dataParsers.DataParserLiteralCheckers<Output<this>>[],
 		],
@@ -57,7 +57,12 @@ export interface DataParserLiteralExtended<
 export function literal<
 	const GenericValue extends dataParsers.LiteralValue,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionLiteral, "value">
+		Omit<
+			dataParsers.DataParserDefinitionLiteral<
+				GenericValue
+			>,
+			"value"
+		>
 	> = never,
 >(
 	value: GenericValue | GenericValue[],
@@ -65,7 +70,7 @@ export function literal<
 ): DataParserLiteralExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { value: GenericValue[] }
+			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
 		>
 	> {
 	const self = dataParserExtendedInit<

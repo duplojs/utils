@@ -37,18 +37,6 @@ describe("createTemplateLiteralPattern", () => {
 		expect(result).toBe("(?:true)");
 	});
 
-	it("creates pattern for string parser with email checker", () => {
-		const schema = DDataParser.string({
-			checkers: [DDataParser.checkerEmail()],
-		});
-
-		const result = DDataParser.createTemplateLiteralPattern([schema]);
-
-		expect(result).toBe(
-			"(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\\.)+[A-Za-z]{2,}",
-		);
-	});
-
 	it("creates pattern for number parser", () => {
 		const schema = DDataParser.number();
 
@@ -81,16 +69,6 @@ describe("createTemplateLiteralPattern", () => {
 		const result = DDataParser.createTemplateLiteralPattern([schema]);
 
 		expect(result).toBe("(?:true|false)");
-	});
-
-	it("creates pattern for string parser with regex checker", () => {
-		const schema = DDataParser.string({
-			checkers: [DDataParser.checkerStringRegex(/^abc$/)],
-		});
-
-		const result = DDataParser.createTemplateLiteralPattern([schema]);
-
-		expect(result).toBe("abc");
 	});
 
 	it("creates pattern for string parser with min checker", () => {

@@ -62,7 +62,7 @@ export interface DataParserObjectExtended<
 			>
 		>,
 		const GenericSubDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">
 		> = never,
 	>(
 		omitObject: GenericOmitObject,
@@ -70,14 +70,14 @@ export interface DataParserObjectExtended<
 	): DataParserObjectExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionObject,
-				NeverCoalescing<GenericSubDefinition, {}> & {
-					readonly shape: SimplifyTopLevel<
-						Omit<
-							GenericDefinition["shape"],
-							keyof GenericOmitObject
-						>
-					>;
-				}
+			NeverCoalescing<GenericSubDefinition, {}> & {
+				readonly shape: SimplifyTopLevel<
+					Omit<
+						GenericDefinition["shape"],
+						keyof GenericOmitObject
+					>
+				>;
+			}
 		>
 	>;
 
@@ -92,7 +92,7 @@ export interface DataParserObjectExtended<
 			>
 		>,
 		const GenericSubDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">
 		> = never,
 	>(
 		pickObject: GenericPickObject,
@@ -100,17 +100,17 @@ export interface DataParserObjectExtended<
 	): DataParserObjectExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionObject,
-				NeverCoalescing<GenericSubDefinition, {}> & {
-					readonly shape: SimplifyTopLevel<
-						Pick<
-							GenericDefinition["shape"],
-							Adaptor<
-								keyof GenericPickObject,
-								keyof GenericDefinition["shape"]
-							>
+			NeverCoalescing<GenericSubDefinition, {}> & {
+				readonly shape: SimplifyTopLevel<
+					Pick<
+						GenericDefinition["shape"],
+						Adaptor<
+							keyof GenericPickObject,
+							keyof GenericDefinition["shape"]
 						>
-					>;
-				}
+					>
+				>;
+			}
 		>
 	>;
 
@@ -120,7 +120,7 @@ export interface DataParserObjectExtended<
 	extends<
 		const GenericExtension extends dataParsers.DataParserObjectShape,
 		const GenericSubDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">
 		> = never,
 	>(
 		extension: GenericExtension,
@@ -142,7 +142,7 @@ export interface DataParserObjectExtended<
 	 */
 	partial<
 		const GenericSubDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">
 		> = never,
 	>(
 		definition?: GenericDefinition,
@@ -162,7 +162,7 @@ export interface DataParserObjectExtended<
 	 */
 	required<
 		const GenericSubDefinition extends Partial<
-			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">
+			Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">
 		> = never,
 	>(
 		definition?: GenericDefinition,
@@ -184,7 +184,12 @@ export interface DataParserObjectExtended<
 export function object<
 	const GenericShape extends dataParsers.DataParserObjectShape,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionObject, "shape">
+		Omit<
+			dataParsers.DataParserDefinitionObject<
+				dataParsers.DataParserObjectShapeOutput<GenericShape>
+			>,
+			"shape"
+		>
 	> = never,
 >(
 	shape: GenericShape,
@@ -199,7 +204,7 @@ export function object<
 		dataParsers.DataParserObject,
 		DataParserObjectExtended
 	>(
-		dataParsers.object(shape, definition) as never,
+		dataParsers.object(shape, definition),
 		{
 			omit: (self, omitObject, definition) => {
 				const newShape = dataParsers.omitShape(
@@ -209,7 +214,7 @@ export function object<
 
 				return object(
 					newShape,
-					definition,
+					definition as never,
 				);
 			},
 			pick: (self, pickObject, definition) => {
@@ -220,7 +225,7 @@ export function object<
 
 				return object(
 					newShape,
-					definition,
+					definition as never,
 				);
 			},
 			extends: (self, extension, definition) => {
@@ -231,7 +236,7 @@ export function object<
 
 				return object(
 					newShape,
-					definition,
+					definition as never,
 				);
 			},
 			partial: (self, definition) => {
@@ -242,7 +247,7 @@ export function object<
 				return object(
 					newShape,
 					definition,
-				);
+				) as never;
 			},
 			required: (self, definition) => {
 				const newShape = dataParsers.requiredShape(
@@ -252,7 +257,7 @@ export function object<
 				return object(
 					newShape,
 					definition,
-				);
+				) as never;
 			},
 		},
 		object.overrideHandler,

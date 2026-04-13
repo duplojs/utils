@@ -58,7 +58,12 @@ export interface DataParserTemplateLiteralExtended<
 export function templateLiteral<
 	const GenericTemplate extends dataParsers.TemplateLiteralShape,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionTemplateLiteral, "template" | "pattern">
+		Omit<
+			dataParsers.DataParserDefinitionTemplateLiteral<
+				dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
+			>,
+			"template" | "pattern"
+		>
 	> = never,
 >(
 	template: GenericTemplate,

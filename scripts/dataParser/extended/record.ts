@@ -57,7 +57,17 @@ export interface DataParserRecordExtended<
 export function record<
 	GenericDataParserKey extends dataParsers.DataParserRecordKey,
 	GenericDataParserValue extends DataParser,
-	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionRecord> = never,
+	const GenericDefinition extends Partial<
+		Omit<
+			dataParsers.DataParserDefinitionRecord<
+				Record<
+					Extract<Output<GenericDataParserKey>, string | number>,
+					Output<GenericDataParserValue>
+				>
+			>,
+			"key" | "value" | "baseData" | "requireKey"
+		>
+	> = never,
 >(
 	key: GenericDataParserKey,
 	value: GenericDataParserValue,

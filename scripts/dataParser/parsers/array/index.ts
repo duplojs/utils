@@ -1,36 +1,23 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
-import { type DataParserCheckerArrayMin, type DataParserCheckerArrayMax } from "./checkers";
 import { createDataParserKind } from "../../kind";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export * from "./checkers";
 
-export interface DataParserArrayCheckerCustom<
-	GenericInput extends unknown[] = unknown[],
-> {}
-
 export type DataParserArrayCheckers<
 	GenericInput extends unknown[] = unknown[],
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserArrayCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserArrayCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| DataParserCheckerArrayMin
-	| DataParserCheckerArrayMax
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionArray extends DataParserDefinition<
-	DataParserArrayCheckers<unknown[]>
-> {
+export interface DataParserDefinitionArray<
+	GenericInput extends unknown[] = unknown[],
+> extends DataParserDefinition<
+		DataParserArrayCheckers<GenericInput>
+	> {
 	readonly element: DataParser;
 }
 
@@ -77,7 +64,7 @@ export interface DataParserArray<
 export function array<
 	GenericElement extends DataParser,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionArray, "element">
+		Omit<DataParserDefinitionArray<Output<GenericElement>[]>, "element">
 	> = never,
 >(
 	element: GenericElement,

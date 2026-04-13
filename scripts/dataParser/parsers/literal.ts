@@ -1,34 +1,24 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
 
-export interface DataParserLiteralCheckerCustom<
-	GenericInput extends LiteralValue = LiteralValue,
-> {}
-
 export type DataParserLiteralCheckers<
 	GenericInput extends LiteralValue = LiteralValue,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserLiteralCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserLiteralCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionLiteral extends DataParserDefinition<
-	DataParserLiteralCheckers<LiteralValue>
-> {
+export interface DataParserDefinitionLiteral<
+	GenericInput extends LiteralValue = LiteralValue,
+> extends DataParserDefinition<
+		DataParserLiteralCheckers<GenericInput>
+	> {
 	readonly value: readonly LiteralValue[];
 }
 
@@ -49,7 +39,7 @@ export interface DataParserLiteral<
 	GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral,
 > extends _DataParserLiteral<GenericDefinition> {
 	addChecker<
-		GenericChecker extends readonly [
+		const GenericChecker extends readonly [
 			DataParserLiteralCheckers<Output<this>>,
 			...DataParserLiteralCheckers<Output<this>>[],
 		],
@@ -75,7 +65,10 @@ export interface DataParserLiteral<
 export function literal<
 	const GenericValue extends LiteralValue,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionLiteral, "value">
+		Omit<
+			DataParserDefinitionLiteral<GenericValue>,
+			"value"
+		>
 	> = never,
 >(
 	value: GenericValue | readonly GenericValue[],
@@ -83,7 +76,7 @@ export function literal<
 ): DataParserLiteral<
 		MergeDefinition<
 			DataParserDefinitionLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { value: readonly GenericValue[] }
+			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
 		>
 	> {
 	const self = dataParserInit<DataParserLiteral>(

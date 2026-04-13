@@ -56,7 +56,11 @@ export interface DataParserLazyExtended<
  */
 export function lazy<
 	GenericDataParser extends DataParser,
-	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionLazy> = never,
+	const GenericDefinition extends Partial<
+		dataParsers.DataParserDefinitionLazy<
+			Output<GenericDataParser>
+		>
+	> = never,
 >(
 	getter: () => GenericDataParser,
 	definition?: GenericDefinition,

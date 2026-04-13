@@ -19,7 +19,7 @@ export interface DataParserUnionExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionUnion = dataParsers.DataParserDefinitionUnion,
 > extends _DataParserUnionExtended<GenericDefinition> {
 	addChecker<
-		GenericChecker extends readonly [
+		const GenericChecker extends readonly [
 			dataParsers.DataParserUnionCheckers<Output<this>>,
 			...dataParsers.DataParserUnionCheckers<Output<this>>[],
 		],
@@ -55,7 +55,7 @@ export interface DataParserUnionExtended<
  * {@include dataParser/extended/union/index.md}
  */
 export function union<
-	GenericOptions extends dataParsers.UnionOptions,
+	const GenericOptions extends dataParsers.UnionOptions,
 	const GenericDefinition extends Partial<
 		Omit<dataParsers.DataParserDefinitionUnion, "options">
 	> = never,

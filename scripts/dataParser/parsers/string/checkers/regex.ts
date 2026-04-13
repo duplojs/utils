@@ -3,40 +3,40 @@ import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParse
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
-export interface DataParserCheckerDefinitionStringRegex extends DataParserCheckerDefinition {
+export interface DataParserCheckerDefinitionRegex extends DataParserCheckerDefinition {
 	regex: RegExp;
 }
 
-export const checkerStringRegexKind = createDataParserKind("checker-string-regex");
+export const checkerRegexKind = createDataParserKind("checker-regex");
 
 type _DataParserCheckerStringRegex = (
-	& Kind<typeof checkerStringRegexKind.definition>
+	& Kind<typeof checkerRegexKind.definition>
 	& DataParserChecker<
-		DataParserCheckerDefinitionStringRegex,
+		DataParserCheckerDefinitionRegex,
 		string
 	>
 );
 
-export interface DataParserCheckerStringRegex extends _DataParserCheckerStringRegex {
+export interface DataParserCheckerRegex extends _DataParserCheckerStringRegex {
 
 }
 
-export function checkerStringRegex(
+export function checkerRegex(
 	regex: RegExp,
 	definition: Partial<
-		Omit<DataParserCheckerDefinitionStringRegex, "regex">
+		Omit<DataParserCheckerDefinitionRegex, "regex">
 	> = {},
-): DataParserCheckerStringRegex {
-	return dataParserCheckerInit<DataParserCheckerStringRegex>(
-		checkerStringRegexKind,
+): DataParserCheckerRegex {
+	return dataParserCheckerInit<DataParserCheckerRegex>(
+		checkerRegexKind,
 		{
 			definition: {
 				...definition,
 				regex,
 			},
 		},
-		(value, error, self) => self.definition.regex.test(value)
-			? value
-			: addIssue(error, `string with pattern ${self.definition.regex.source.toString()}`, value, self.definition.errorMessage),
+		(data, error, self) => self.definition.regex.test(data)
+			? data
+			: addIssue(error, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage),
 	);
 }

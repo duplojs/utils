@@ -59,7 +59,7 @@ export function recover<
 	GenericRecoveredValue extends Output<GenericDataParser>,
 	const GenericDefinition extends Partial<
 		Omit<
-			dataParsers.DataParserDefinitionRecover,
+			dataParsers.DataParserDefinitionRecover<Output<GenericDataParser>>,
 			"inner" | "recoveredValue"
 		>
 	> = never,

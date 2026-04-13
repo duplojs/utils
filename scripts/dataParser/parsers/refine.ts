@@ -1,28 +1,34 @@
-import { type NeverCoalescing, type Kind } from "@scripts/common";
+import { type NeverCoalescing, type Kind, type SimplifyTopLevel } from "@scripts/common";
 import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
-import { type AssignObjects } from "@scripts/object";
 
-export interface DataParserCheckerDefinitionRefine extends DataParserCheckerDefinition {
-	theFunction(input: unknown): boolean;
+export interface DataParserCheckerDefinitionRefine<
+	GenericInput extends unknown = unknown,
+> extends DataParserCheckerDefinition {
+	theFunction(input: GenericInput): boolean;
 }
 
 export const dataParserCheckerRefineKind = createDataParserKind("refine");
 
 type _DataParserCheckerRefine<
 	GenericDefinition extends DataParserCheckerDefinitionRefine,
+	GenericInput extends Parameters<GenericDefinition["theFunction"]>[0] = Parameters<GenericDefinition["theFunction"]>[0],
 > = (
 	& Kind<typeof dataParserCheckerRefineKind.definition>
 	& DataParserChecker<
 		GenericDefinition,
-		string
+		GenericInput
 	>
 );
 
 export interface DataParserCheckerRefine<
 	GenericDefinition extends DataParserCheckerDefinitionRefine = DataParserCheckerDefinitionRefine,
-> extends _DataParserCheckerRefine<GenericDefinition> {
+	GenericInput extends Parameters<GenericDefinition["theFunction"]>[0] = Parameters<GenericDefinition["theFunction"]>[0],
+> extends _DataParserCheckerRefine<
+		GenericDefinition,
+		GenericInput
+	> {
 
 }
 
@@ -35,10 +41,16 @@ export function checkerRefine<
 	theFunction: (input: GenericInput) => boolean,
 	definition?: GenericDefinition,
 ): DataParserCheckerRefine<
-		AssignObjects<
-			NeverCoalescing<GenericDefinition, DataParserCheckerDefinitionRefine>,
-			{ theFunction(input: GenericInput): boolean }
-		>
+		SimplifyTopLevel<
+			& NeverCoalescing<
+				GenericDefinition,
+				DataParserCheckerDefinitionRefine<GenericInput>
+			>
+			& {
+				theFunction(input: GenericInput): boolean;
+			}
+		>,
+		GenericInput
 	> {
 	return dataParserCheckerInit<DataParserCheckerRefine>(
 		dataParserCheckerRefineKind,
@@ -57,12 +69,5 @@ export function checkerRefine<
 export type CheckerRefineImplementation<
 	GenericInput extends unknown,
 > = DataParserCheckerRefine<
-	AssignObjects<
-		DataParserCheckerDefinitionRefine,
-		{
-			theFunction(
-				input: GenericInput,
-			): boolean;
-		}
-	>
+	DataParserCheckerDefinitionRefine<GenericInput>
 >;

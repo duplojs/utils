@@ -1,24 +1,14 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import * as DDate from "@scripts/date";
 
-export interface DataParserDateCheckerCustom {}
-
-export type DataParserDateCheckers = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserDateCheckerCustom[
-		GetPropsWithValueExtends<
-			DataParserDateCheckerCustom,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<DDate.TheDate>
-);
+export type DataParserDateCheckers = DataParserChecker<
+	DataParserCheckerDefinition,
+	DDate.TheDate
+>;
 
 export interface DataParserDefinitionDate extends DataParserDefinition<
 	DataParserDateCheckers

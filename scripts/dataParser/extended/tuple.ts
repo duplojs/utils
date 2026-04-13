@@ -101,7 +101,12 @@ export interface DataParserTupleExtended<
 export function tuple<
 	GenericShape extends dataParsers.TupleShape,
 	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionTuple, "shape">
+		Omit<
+			dataParsers.DataParserDefinitionTuple<
+				dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
+			>,
+			"shape"
+		>
 	> = never,
 >(
 	shape: GenericShape,

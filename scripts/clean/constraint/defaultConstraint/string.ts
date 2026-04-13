@@ -13,6 +13,14 @@ export const Email = createConstraint(
 );
 export type Email = GetConstraint<typeof Email>;
 
+export const Uuid = createConstraint(
+	"uuid",
+	String,
+	DDataParser.checkerUuid(),
+);
+
+export type Uuid = GetConstraint<typeof Url>;
+
 /**
  * {@include clean/Url/index.md}
  */

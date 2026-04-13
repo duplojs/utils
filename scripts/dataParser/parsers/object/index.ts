@@ -1,12 +1,10 @@
 import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker } from "../../base";
+import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { addIssue, popErrorPath, setErrorPath } from "../../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import { createDataParserKind } from "../../kind";
-import { type CheckerRefineImplementation } from "../refine";
 
 export * from "./omit";
 export * from "./pick";
@@ -52,26 +50,18 @@ export type DataParserObjectShapeInput<
 	>
 	: never;
 
-export interface DataParserObjectCheckerCustom<
-	GenericInput extends object = object,
-> {}
-
 export type DataParserObjectCheckers<
 	GenericInput extends object = object,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserObjectCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserObjectCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionObject extends DataParserDefinition<
-	DataParserObjectCheckers<object>
-> {
+export interface DataParserDefinitionObject<
+	GenericInput extends Record<string | number, unknown> = Record<string | number, unknown>,
+> extends DataParserDefinition<
+		DataParserObjectCheckers<GenericInput>
+	> {
 	readonly shape: DataParserObjectShape;
 	readonly optimizedShape: Memoized<{
 		readonly key: string;
@@ -122,7 +112,12 @@ export interface DataParserObject<
 export function object<
 	const GenericShape extends DataParserObjectShape,
 	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionObject, "shape" | "optimizedShape">
+		Omit<
+			DataParserDefinitionObject<
+				DataParserObjectShapeOutput<GenericShape>
+			>,
+		"shape" | "optimizedShape"
+		>
 	> = never,
 >(
 	shape: GenericShape,

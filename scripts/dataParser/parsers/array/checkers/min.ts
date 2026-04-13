@@ -13,7 +13,7 @@ type _DataParserCheckerArrayMin = (
 	& Kind<typeof checkerArrayMinKind.definition>
 	& DataParserChecker<
 		DataParserCheckerDefinitionArrayMin,
-		unknown[]
+		any[]
 	>
 );
 

@@ -1,6 +1,6 @@
 
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
@@ -9,9 +9,7 @@ import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../lit
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { createDataParserKind } from "../../kind";
-import { type CheckerRefineImplementation } from "../refine";
 import { findRecordRequiredKey } from "./findRecordRequiredKey";
-import { type GetPropsWithValueExtends } from "@scripts/object";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 
@@ -21,45 +19,37 @@ export type DataParserRecordKey = (
 	| DataParserString
 	| DataParserTemplateLiteral
 	| DataParserLiteral<
-		& DataParserDefinitionLiteral
+		& Omit<DataParserDefinitionLiteral, "value">
 		& {
-			value: readonly string[];
+			readonly value: readonly string[];
 		}
 	>
 	| DataParserNumber<
-		& DataParserDefinitionNumber
+		& Omit<DataParserDefinitionNumber, "coerce">
 		& {
-			coerce: true;
+			readonly coerce: true;
 		}
 	>
 	| DataParserUnion<
-		& DataParserDefinitionUnion
+		& Omit<DataParserDefinitionUnion, "options">
 		& {
-			options: DataParserRecordKey[];
+			readonly options: readonly [DataParserRecordKey, ...DataParserRecordKey[]];
 		}
 	>
 );
 
-export interface DataParserRecordCheckerCustom<
-	GenericInput extends Record<string, unknown> = Record<string, unknown>,
-> {}
-
 export type DataParserRecordCheckers<
 	GenericInput extends Record<string, unknown> = Record<string, unknown>,
-> = (
-	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-	| DataParserRecordCheckerCustom<GenericInput>[
-		GetPropsWithValueExtends<
-			DataParserRecordCheckerCustom<GenericInput>,
-			DataParserChecker
-		>
-	]
-	| CheckerRefineImplementation<GenericInput>
-);
+> = DataParserChecker<
+	DataParserCheckerDefinition,
+	GenericInput
+>;
 
-export interface DataParserDefinitionRecord extends DataParserDefinition<
-	DataParserRecordCheckers<Record<string, unknown>>
-> {
+export interface DataParserDefinitionRecord<
+	GenericInput extends Record<string, unknown> = Record<string, unknown>,
+> extends DataParserDefinition<
+		DataParserRecordCheckers<GenericInput>
+	> {
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
 	readonly baseData: Partial<Record<string, undefined>>;
@@ -163,7 +153,17 @@ export interface DataParserRecord<
 export function record<
 	GenericDataParserKey extends DataParserRecordKey,
 	GenericDataParserValue extends DataParser,
-	const GenericDefinition extends Partial<DataParserDefinitionRecord> = never,
+	const GenericDefinition extends Partial<
+		Omit<
+			DataParserDefinitionRecord<
+				Record<
+					Extract<Output<GenericDataParserKey>, string | number>,
+					Output<GenericDataParserValue>
+				>
+			>,
+			"key" | "value" | "baseData" | "requireKey"
+		>
+	> = never,
 >(
 	key: GenericDataParserKey,
 	value: GenericDataParserValue,
