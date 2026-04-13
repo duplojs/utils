@@ -106,6 +106,8 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * 
      * Checkers are executed after the parser core logic, the original parser is not mutated, and the extended methods remain available.
      * 
+     * Checker compatibility is output-based: a checker typed for `T` can be added to a parser whose output type is `T`.
+     * 
      * ```ts
      * const withMin = DPE.string()
      * 	.addChecker(DP.checkerStringMin(3));
@@ -182,8 +184,8 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
-        element: GenericThis;
+    array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray<Output<GenericThis>[]>, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+        readonly element: GenericThis;
     }>>;
     /**
      * Transforms the output of the current parser.
@@ -210,7 +212,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    transform<GenericThis extends this = this, GenericOutput extends AnyValue = AnyValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">> = never>(theFunction: (input: Output<GenericThis>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
+    transform<GenericThis extends this = this, GenericOutput extends AnyValue = AnyValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTransform<dataParsers.DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction">> = never>(theFunction: (input: Output<GenericThis>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
         theFunction(input: Output<GenericThis>): GenericOutput;
     }>>;

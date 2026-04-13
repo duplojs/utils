@@ -1,6 +1,7 @@
 import { createConstraint } from '../base.mjs';
 import { String } from '../../primitive/base.mjs';
 import { checkerEmail } from '../../../dataParser/parsers/string/checkers/email.mjs';
+import { checkerUuid } from '../../../dataParser/parsers/string/checkers/uuid.mjs';
 import { checkerUrl } from '../../../dataParser/parsers/string/checkers/url.mjs';
 import { checkerStringMin } from '../../../dataParser/parsers/string/checkers/min.mjs';
 import { checkerStringMax } from '../../../dataParser/parsers/string/checkers/max.mjs';
@@ -9,6 +10,7 @@ import { checkerStringMax } from '../../../dataParser/parsers/string/checkers/ma
  * {@include clean/Email/index.md}
  */
 const Email = createConstraint("email", String, checkerEmail());
+const Uuid = createConstraint("uuid", String, checkerUuid());
 /**
  * {@include clean/Url/index.md}
  */
@@ -26,4 +28,4 @@ function StringMax(value) {
     return createConstraint(`string-max-${value}`, String, checkerStringMax(value));
 }
 
-export { Email, StringMax, StringMin, Url };
+export { Email, StringMax, StringMin, Url, Uuid };

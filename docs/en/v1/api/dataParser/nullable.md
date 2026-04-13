@@ -18,7 +18,7 @@ Allows `null` while applying a strict parser when the value is present. `DDataPa
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/nullable/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Parameters

@@ -1,14 +1,9 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
-import { type DataParserCheckerArrayMin, type DataParserCheckerArrayMax } from "./checkers";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./checkers";
-export interface DataParserArrayCheckerCustom<GenericInput extends unknown[] = unknown[]> {
-}
-export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = (DataParserArrayCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserArrayCheckerCustom<GenericInput>, DataParserChecker>] | DataParserCheckerArrayMin | DataParserCheckerArrayMax | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionArray extends DataParserDefinition<DataParserArrayCheckers<unknown[]>> {
+export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionArray<GenericInput extends unknown[] = unknown[]> extends DataParserDefinition<DataParserArrayCheckers<GenericInput>> {
     readonly element: DataParser;
 }
 export declare const arrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;
@@ -52,9 +47,9 @@ export interface DataParserArray<GenericDefinition extends DataParserDefinitionA
  * @namespace DP
  * 
  */
-export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionArray<Output<GenericElement>[]>, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArray<MergeDefinition<DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
     readonly element: GenericElement;
 }>>;
 export declare namespace array {
-    var overrideHandler: import("../../../common").OverrideHandler<DataParserArray<DataParserDefinitionArray>>;
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserArray<DataParserDefinitionArray<unknown[]>>>;
 }

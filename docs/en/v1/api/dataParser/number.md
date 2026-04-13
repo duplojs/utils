@@ -18,7 +18,7 @@ Validates numbers (integers or floats) with optional constraints. `DDataParser.n
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/number/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Parameters

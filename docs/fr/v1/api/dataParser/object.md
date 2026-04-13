@@ -18,7 +18,7 @@ Décrit un objet typé via un dictionnaire de parsers. `DDataParser.object()` co
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/object/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="544px"
 />
 
 ## Paramètres

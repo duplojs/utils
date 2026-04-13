@@ -18,7 +18,7 @@ Describes a typed object via a dictionary of parsers. `DDataParser.object()` bui
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/object/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="544px"
 />
 
 ## Parameters

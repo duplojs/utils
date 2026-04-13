@@ -27,6 +27,10 @@ next:
 - Centralize a reusable rule across multiple schemas (`checkerRefine` is a reusable value).
 - Express rules on complex structures (objects, tuples...) by relying on `addChecker`.
 
+## Checker contract
+
+The contract is based on the target parser output type: a checker `DataParserChecker<..., T>` is compatible with a parser whose output is `T`.
+
 ## Additional examples
 
 ### Validate coordinates

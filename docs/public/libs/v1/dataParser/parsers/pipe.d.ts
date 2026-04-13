@@ -1,12 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
-export interface DataParserPipeCheckerCustom<GenericInput extends unknown = unknown> {
-}
-export type DataParserPipeCheckers<GenericInput extends unknown = unknown> = (DataParserPipeCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserPipeCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionPipe extends DataParserDefinition<DataParserPipeCheckers<unknown>> {
+export type DataParserPipeCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionPipe<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserPipeCheckers<GenericInput>> {
     readonly input: DataParser;
     readonly output: DataParser;
 }
@@ -52,11 +48,11 @@ export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPi
  * @namespace DP
  * 
  */
-export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionPipe, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
+export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionPipe<Output<GenericOutput>>, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipe<MergeDefinition<DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
     input: GenericInput;
     output: GenericOutput;
 }>>;
 export declare namespace pipe {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserPipe<DataParserDefinitionPipe>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserPipe<DataParserDefinitionPipe<unknown>>>;
 }
 export {};

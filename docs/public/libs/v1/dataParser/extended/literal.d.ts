@@ -5,7 +5,7 @@ import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
 type _DataParserLiteralExtended<GenericDefinition extends dataParsers.DataParserDefinitionLiteral> = (Kind<typeof dataParsers.literalKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserLiteral<GenericDefinition>>, Input<dataParsers.DataParserLiteral<GenericDefinition>>>);
 export interface DataParserLiteralExtended<GenericDefinition extends dataParsers.DataParserDefinitionLiteral = dataParsers.DataParserDefinitionLiteral> extends _DataParserLiteralExtended<GenericDefinition> {
-    addChecker<GenericChecker extends readonly [
+    addChecker<const GenericChecker extends readonly [
         dataParsers.DataParserLiteralCheckers<Output<this>>,
         ...dataParsers.DataParserLiteralCheckers<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
@@ -42,10 +42,10 @@ export interface DataParserLiteralExtended<GenericDefinition extends dataParsers
  * @namespace DPE
  * 
  */
-export declare function literal<const GenericValue extends dataParsers.LiteralValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionLiteral, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
-    value: GenericValue[];
+export declare function literal<const GenericValue extends dataParsers.LiteralValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionLiteral<GenericValue>, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
+    readonly value: readonly GenericValue[];
 }>>;
 export declare namespace literal {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserLiteralExtended<dataParsers.DataParserDefinitionLiteral>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserLiteralExtended<dataParsers.DataParserDefinitionLiteral<dataParsers.LiteralValue>>>;
 }
 export {};

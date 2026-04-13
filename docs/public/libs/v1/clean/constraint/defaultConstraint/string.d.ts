@@ -30,6 +30,8 @@ import { type OnlyLiteralNumber } from "../../../common";
  */
 export declare const Email: ConstraintHandler<"email", string, readonly [DDataParser.DataParserCheckerEmail], never>;
 export type Email = GetConstraint<typeof Email>;
+export declare const Uuid: ConstraintHandler<"uuid", string, readonly [DDataParser.DataParserCheckerUuid], never>;
+export type Uuid = GetConstraint<typeof Url>;
 /**
  * Constraint handler that validates a URL string.
  * 

@@ -57,7 +57,7 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    omit<const GenericOmitObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(omitObject: GenericOmitObject, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
+    omit<const GenericOmitObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">> = never>(omitObject: GenericOmitObject, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: SimplifyTopLevel<Omit<GenericDefinition["shape"], keyof GenericOmitObject>>;
     }>>;
     /**
@@ -100,7 +100,7 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    pick<const GenericPickObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(pickObject: GenericPickObject, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
+    pick<const GenericPickObject extends Partial<Record<keyof GenericDefinition["shape"], true>>, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">> = never>(pickObject: GenericPickObject, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: SimplifyTopLevel<Pick<GenericDefinition["shape"], Adaptor<keyof GenericPickObject, keyof GenericDefinition["shape"]>>>;
     }>>;
     /**
@@ -148,7 +148,7 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    extends<const GenericExtension extends dataParsers.DataParserObjectShape, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(extension: GenericExtension, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
+    extends<const GenericExtension extends dataParsers.DataParserObjectShape, const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">> = never>(extension: GenericExtension, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: AssignObjects<GenericDefinition["shape"], GenericExtension>;
     }>>;
     /**
@@ -183,7 +183,7 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    partial<const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
+    partial<const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">> = never>(definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: dataParsers.PartialDataParserObject<GenericDefinition["shape"]>;
     }>>;
     /**
@@ -226,7 +226,7 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    required<const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
+    required<const GenericSubDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape" | "optimizedShape" | "checkers">> = never>(definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: dataParsers.RequireDataParserObject<GenericDefinition["shape"]>;
     }>>;
 }
@@ -273,10 +273,10 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
  * @namespace DPE
  * 
  */
-export declare function object<const GenericShape extends dataParsers.DataParserObjectShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
+export declare function object<const GenericShape extends dataParsers.DataParserObjectShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<GenericShape>>, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     shape: GenericShape;
 }>>;
 export declare namespace object {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserObjectExtended<dataParsers.DataParserDefinitionObject>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserObjectExtended<dataParsers.DataParserDefinitionObject<Record<string | number, unknown>>>>;
 }
 export {};

@@ -1,12 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
-export interface DataParserRecoverCheckerCustom<GenericInput extends unknown = unknown> {
-}
-export type DataParserRecoverCheckers<GenericInput extends unknown = unknown> = (DataParserRecoverCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserRecoverCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionRecover extends DataParserDefinition<DataParserRecoverCheckers> {
+export type DataParserRecoverCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionRecover<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserRecoverCheckers<GenericInput>> {
     readonly inner: DataParser;
     readonly recoveredValue: unknown;
 }
@@ -51,11 +47,11 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
  * @namespace DP
  * 
  */
-export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
+export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     recoveredValue: GenericRecoveredValue;
 }>>;
 export declare namespace recover {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserRecover<DataParserDefinitionRecover>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserRecover<DataParserDefinitionRecover<unknown>>>;
 }
 export {};

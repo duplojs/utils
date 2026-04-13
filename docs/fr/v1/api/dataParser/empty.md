@@ -18,7 +18,7 @@ next:
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/empty/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres

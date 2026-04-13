@@ -4,7 +4,7 @@ export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDe
     max: number;
 }
 export declare const checkerArrayMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-array-max", unknown>>;
-type _DataParserCheckerArrayMax = (Kind<typeof checkerArrayMaxKind.definition> & DataParserChecker<DataParserCheckerDefinitionArrayMax, unknown[]>);
+type _DataParserCheckerArrayMax = (Kind<typeof checkerArrayMaxKind.definition> & DataParserChecker<DataParserCheckerDefinitionArrayMax, any[]>);
 export interface DataParserCheckerArrayMax extends _DataParserCheckerArrayMax {
 }
 export declare function checkerArrayMax(max: number, definition?: Partial<Omit<DataParserCheckerDefinitionArrayMax, "max">>): DataParserCheckerArrayMax;

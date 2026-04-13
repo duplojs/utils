@@ -18,7 +18,7 @@ Construit un parser pour les booléens. `DDataParser.boolean()` vérifie l'entr�
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/boolean/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres

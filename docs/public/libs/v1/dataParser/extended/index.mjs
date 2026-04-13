@@ -1,6 +1,6 @@
 import * as index from './coerce/index.mjs';
 export { index as coerce };
-export { email, string, url } from './string.mjs';
+export { email, string, url, uuid } from './string.mjs';
 export { array } from './array.mjs';
 export { bigint } from './bigint.mjs';
 export { int, number } from './number.mjs';

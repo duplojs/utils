@@ -36,7 +36,7 @@ function record(key, value, definition) {
             };
             const currentIndexPath = error.currentPath.length;
             for (const key in fromData) {
-                setErrorPath(error, key, currentIndexPath);
+                setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
                 const resultKey = self
                     .definition
                     .key
@@ -44,6 +44,7 @@ function record(key, value, definition) {
                 if (resultKey === SymbolDataParserError) {
                     output = SymbolDataParserError;
                 }
+                setErrorPath(error, key, currentIndexPath);
                 const resultValue = self
                     .definition
                     .value
@@ -74,7 +75,7 @@ function record(key, value, definition) {
             };
             const currentIndexPath = error.currentPath.length;
             for (const key in fromData) {
-                setErrorPath(error, key, currentIndexPath);
+                setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
                 const resultKey = await self
                     .definition
                     .key
@@ -82,6 +83,7 @@ function record(key, value, definition) {
                 if (resultKey === SymbolDataParserError) {
                     output = SymbolDataParserError;
                 }
+                setErrorPath(error, key, currentIndexPath);
                 const resultValue = await self
                     .definition
                     .value

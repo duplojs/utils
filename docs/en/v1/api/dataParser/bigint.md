@@ -18,7 +18,7 @@ Validates `bigint` while preserving native precision. `DDataParser.bigint()` han
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/bigint/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Parameters

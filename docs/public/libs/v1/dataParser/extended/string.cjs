@@ -4,6 +4,7 @@ var baseExtended = require('../baseExtended.cjs');
 var index = require('../parsers/string/index.cjs');
 var email$1 = require('../parsers/string/checkers/email.cjs');
 var url$1 = require('../parsers/string/checkers/url.cjs');
+var uuid$1 = require('../parsers/string/checkers/uuid.cjs');
 var regex = require('../parsers/string/checkers/regex.cjs');
 var max = require('../parsers/string/checkers/max.cjs');
 var min = require('../parsers/string/checkers/min.cjs');
@@ -21,7 +22,7 @@ function string(definition) {
             return self.addChecker(max.checkerStringMax(max$1, definition));
         },
         regex(self, regex$1, definition) {
-            return self.addChecker(regex.checkerStringRegex(regex$1, definition));
+            return self.addChecker(regex.checkerRegex(regex$1, definition));
         },
     }, string.overrideHandler);
     return self;
@@ -43,7 +44,16 @@ function url(definition) {
         checkers: [url$1.checkerUrl(definition)],
     });
 }
+/**
+ * {@include dataParser/extended/uuid/index.md}
+ */
+function uuid(definition) {
+    return string({
+        checkers: [uuid$1.checkerUuid(definition)],
+    });
+}
 
 exports.email = email;
 exports.string = string;
 exports.url = url;
+exports.uuid = uuid;

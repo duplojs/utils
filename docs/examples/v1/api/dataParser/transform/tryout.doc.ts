@@ -20,3 +20,7 @@ if (E.isRight(result)) {
 } else {
 	const error = unwrap(result);
 }
+
+const schemaWithChecker = schema.addChecker(
+	DP.checkerRefine((value) => value.length > 0),
+);

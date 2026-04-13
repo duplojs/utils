@@ -10,10 +10,8 @@ var literal = require('../literal.cjs');
 var index$1 = require('../string/index.cjs');
 var union = require('../union.cjs');
 var innerPipe = require('../../../common/innerPipe.cjs');
-var regex = require('../string/checkers/regex.cjs');
 var max = require('../string/checkers/max.cjs');
 var min = require('../string/checkers/min.cjs');
-var email = require('../string/checkers/email.cjs');
 var int = require('../number/checkers/int.cjs');
 var justReturn = require('../../../common/justReturn.cjs');
 var escapeRegExp = require('../../../common/escapeRegExp.cjs');
@@ -25,6 +23,9 @@ var when = require('../../../pattern/when.cjs');
 var replace = require('../../../string/replace.cjs');
 var exhaustive = require('../../../pattern/exhaustive.cjs');
 var to = require('../../../object/to.cjs');
+var select = require('../../../array/select.cjs');
+var minOf = require('../../../array/minOf.cjs');
+var maxOf = require('../../../array/maxOf.cjs');
 var find = require('../../../array/find.cjs');
 var when$1 = require('../../../common/when.cjs');
 var isType = require('../../../common/isType.cjs');
@@ -45,25 +46,15 @@ function createTemplateLiteralPattern(templatePart) {
         }
         return "(?:-?[0-9]+(?:\\.[0-9]+)?)";
     })), when.when(index$2.bigIntKind.has, () => "(?:[0-9]+n)"), when.when(boolean.booleanKind.has, () => "(?:true|false)"), when.when(nil.nilKind.has, () => "(?:null)"), when.when(empty.emptyKind.has, () => "(?:undefined)"), when.when(literal.literalKind.has, (dataParser) => pipe.pipe(dataParser.definition.value, map.map((element) => createTemplateLiteralPattern([element])), join.join("|"), (pattern) => `(?:${pattern})`)), when.when(index$1.stringKind.has, (dataParser) => pipe.pipe(dataParser.definition.checkers, to.to({
-        email: innerPipe.innerPipe(find.find(email.checkerEmailKind.has), when$1.when(email.checkerEmailKind.has, (checker) => pipe.pipe(checker.definition.pattern.source, replace.replace(/^\^/, ""), replace.replace(/\$$/, "")))),
-        min: innerPipe.innerPipe(find.find(min.checkerStringMinKind.has), when$1.when(min.checkerStringMinKind.has, (checker) => checker.definition.min)),
-        max: innerPipe.innerPipe(find.find(max.checkerStringMaxKind.has), when$1.when(max.checkerStringMaxKind.has, (checker) => checker.definition.max)),
-        regex: innerPipe.innerPipe(find.find(regex.checkerStringRegexKind.has), when$1.when(regex.checkerStringRegexKind.has, (checker) => pipe.pipe(checker.definition.regex.source, replace.replace(/^\^/, ""), replace.replace(/\$$/, "")))),
-    }), ({ email, regex, max, min }) => {
-        if (email) {
-            return email;
-        }
-        else if (regex) {
-            return regex;
-        }
-        else if (max !== undefined && min !== undefined) {
-            return `(?:[^]{${min},${max}})`;
-        }
-        else if (max !== undefined) {
-            return `(?:[^]{0,${max}})`;
-        }
-        else if (min !== undefined) {
-            return `(?:[^]{${min},})`;
+        min: innerPipe.innerPipe(select.select(({ element, select, skip }) => min.checkerStringMinKind.has(element)
+            ? select(element.definition.min)
+            : skip()), maxOf.maxOf),
+        max: innerPipe.innerPipe(select.select(({ element, select, skip }) => max.checkerStringMaxKind.has(element)
+            ? select(element.definition.max)
+            : skip()), minOf.minOf),
+    }), ({ max, min }) => {
+        if (max !== undefined || min !== undefined) {
+            return `(?:[^]{${min ?? 0},${max ?? ""}})`;
         }
         return "(?:[^]*)";
     })), innerPipe.innerPipe(when.when(index.templateLiteralKind.has, (dataParser) => pipe.pipe(dataParser.definition.pattern.source, replace.replace(/^\^/, ""), replace.replace(/\$$/, ""), (pattern) => `(?:${pattern})`)), when.when(union.unionKind.has, (dataParser) => pipe.pipe(dataParser.definition.options, map.map((option) => createTemplateLiteralPattern([option])), join.join("|"), (pattern) => `(?:${pattern})`)), exhaustive.exhaustive))), join.join(""));

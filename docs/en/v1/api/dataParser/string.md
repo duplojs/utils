@@ -18,14 +18,18 @@ Builds a parser for strings. `DDataParser.string()` guarantees the input is a st
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/string/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Parameters
 
 - `errorMessage`: custom message injected into each `issue` when the input is not a string.
-- `checkers`: array of checkers (`checkerStringMin`, `checkerStringMax`, `checkerStringRegex`, `checkerEmail`, `checkerUrl`, `checkerRefine`, etc.) executed after the base validation.
+- `checkers`: array of checkers (`checkerStringMin`, `checkerStringMax`, `checkerStringRegex`, `checkerEmail`, `checkerUrl`, `checkerUuid`, `checkerRefine`, etc.) executed after the base validation.
 - `coerce`: `true` to transform non-string inputs (numbers, booleans, objects with `toString`) before running the checkers. Defaults to `false`.
+
+## Checker contract
+
+Checkers follow a type contract: a checker is compatible when its input type matches the parser output type.
 
 ## Return value
 

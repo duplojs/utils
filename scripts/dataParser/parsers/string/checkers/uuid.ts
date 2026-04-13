@@ -42,6 +42,9 @@ export function checkerUuid(
 	);
 }
 
+/**
+ * {@include dataParser/classic/uuid/index.md}
+ */
 export function uuid(
 	definition?: Partial<
 		Omit<DataParserCheckerDefinitionUuid, "regex">

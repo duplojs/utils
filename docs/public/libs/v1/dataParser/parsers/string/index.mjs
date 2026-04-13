@@ -13,6 +13,7 @@ function string(definition) {
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
     }, (data, error, self) => {
+        const inputData = data;
         if (self.definition.coerce) {
             try {
                 // eslint-disable-next-line no-param-reassign
@@ -23,7 +24,7 @@ function string(definition) {
         if (typeof data === "string") {
             return data;
         }
-        return addIssue(error, "string", data, self.definition.errorMessage);
+        return addIssue(error, "string", inputData, self.definition.errorMessage);
     }, string.overrideHandler);
     return self;
 }

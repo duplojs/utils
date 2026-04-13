@@ -100,10 +100,10 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
  * @namespace DPE
  * 
  */
-export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray<Output<GenericElement>[]>, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
     element: GenericElement;
 }>>;
 export declare namespace array {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserArrayExtended<dataParsers.DataParserDefinitionArray>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserArrayExtended<dataParsers.DataParserDefinitionArray<unknown[]>>>;
 }
 export {};

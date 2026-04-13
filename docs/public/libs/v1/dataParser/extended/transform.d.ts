@@ -43,11 +43,11 @@ export interface DataParserTransformExtended<GenericDefinition extends dataParse
  * @namespace DPE
  * 
  */
-export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
+export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTransform<dataParsers.DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     theFunction(input: Output<GenericDataParser>): GenericOutput;
 }>>;
 export declare namespace transform {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserTransformExtended<dataParsers.DataParserDefinitionTransform>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTransformExtended<dataParsers.DataParserDefinitionTransform<unknown>>>;
 }
 export {};

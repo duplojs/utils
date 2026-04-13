@@ -1,11 +1,11 @@
 import { type Kind } from "../../../../common";
 import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
-export interface DataParserCheckerDefinitionStringRegex extends DataParserCheckerDefinition {
+export interface DataParserCheckerDefinitionRegex extends DataParserCheckerDefinition {
     regex: RegExp;
 }
-export declare const checkerStringRegexKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-string-regex", unknown>>;
-type _DataParserCheckerStringRegex = (Kind<typeof checkerStringRegexKind.definition> & DataParserChecker<DataParserCheckerDefinitionStringRegex, string>);
-export interface DataParserCheckerStringRegex extends _DataParserCheckerStringRegex {
+export declare const checkerRegexKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-regex", unknown>>;
+type _DataParserCheckerStringRegex = (Kind<typeof checkerRegexKind.definition> & DataParserChecker<DataParserCheckerDefinitionRegex, string>);
+export interface DataParserCheckerRegex extends _DataParserCheckerStringRegex {
 }
-export declare function checkerStringRegex(regex: RegExp, definition?: Partial<Omit<DataParserCheckerDefinitionStringRegex, "regex">>): DataParserCheckerStringRegex;
+export declare function checkerRegex(regex: RegExp, definition?: Partial<Omit<DataParserCheckerDefinitionRegex, "regex">>): DataParserCheckerRegex;
 export {};

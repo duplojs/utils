@@ -18,7 +18,7 @@ Autorise `undefined` tout en conservant un parser strict pour la valeur présent
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/optional/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres

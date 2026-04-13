@@ -10,7 +10,8 @@ export { checkerUrl, checkerUrlKind, url } from './parsers/string/checkers/url.m
 export { checkerEmail, checkerEmailKind, email } from './parsers/string/checkers/email.mjs';
 export { checkerStringMax, checkerStringMaxKind } from './parsers/string/checkers/max.mjs';
 export { checkerStringMin, checkerStringMinKind } from './parsers/string/checkers/min.mjs';
-export { checkerStringRegex, checkerStringRegexKind } from './parsers/string/checkers/regex.mjs';
+export { checkerRegex, checkerRegexKind } from './parsers/string/checkers/regex.mjs';
+export { checkerUuid, checkerUuidKind, uuid } from './parsers/string/checkers/uuid.mjs';
 export { string, stringKind } from './parsers/string/index.mjs';
 export { omit, omitShape } from './parsers/object/omit.mjs';
 export { pick, pickShape } from './parsers/object/pick.mjs';

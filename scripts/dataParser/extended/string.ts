@@ -163,6 +163,9 @@ export function url(
 	});
 }
 
+/**
+ * {@include dataParser/extended/uuid/index.md}
+ */
 export function uuid(
 	definition?: Partial<
 		Omit<dataParsers.DataParserCheckerDefinitionUuid, "regex">

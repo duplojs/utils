@@ -22,3 +22,7 @@ if (E.isRight(result)) {
 		"strict"
 	>;
 }
+
+const schemaWithChecker = schema.addChecker(
+	DP.checkerRefine((value) => value[0].length > 0),
+);

@@ -31,6 +31,7 @@ exports.coerce = index;
 exports.email = string.email;
 exports.string = string.string;
 exports.url = string.url;
+exports.uuid = string.uuid;
 exports.array = array.array;
 exports.bigint = bigint.bigint;
 exports.int = number.int;

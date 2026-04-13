@@ -99,7 +99,7 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    regex(regex: RegExp, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionStringRegex, "regex">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerStringRegex]>>;
+    regex(regex: RegExp, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRegex, "regex">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerRegex]>>;
 }
 /**
  * Creates an extended data parser for strings.
@@ -158,7 +158,7 @@ export declare namespace string {
  * @namespace DPE
  * 
  */
-export declare function email(definition?: Partial<dataParsers.DataParserCheckerDefinitionEmail>): DataParserStringExtended<{
+export declare function email(definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionEmail, "regex">>): DataParserStringExtended<{
     readonly checkers: readonly [dataParsers.DataParserCheckerEmail];
     readonly errorMessage?: string | undefined;
     readonly coerce: boolean;
@@ -190,6 +190,39 @@ export declare function email(definition?: Partial<dataParsers.DataParserChecker
  */
 export declare function url(definition?: Partial<dataParsers.DataParserCheckerDefinitionUrl>): DataParserStringExtended<{
     readonly checkers: readonly [dataParsers.DataParserCheckerUrl];
+    readonly errorMessage?: string | undefined;
+    readonly coerce: boolean;
+}>;
+/**
+ * Creates an extended data parser for UUID strings.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.uuid(definition?)` -> returns a UUID parser
+ * 
+ * Validates that the input is a string formatted as a UUID.
+ * 
+ * ```ts
+ * const parser = DPE.uuid();
+ * const result = parser.parse("8e1f2a3b-4c5d-6e7f-8a9b-0c1d2e3f4a5b");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const withMessage = DPE.uuid({ errorMessage: "string.uuid" });
+ * const messageResult = withMessage.parse("invalid-value");
+ * ```
+ * 
+ * @remarks
+ * - `DPE.uuid()` is a convenience wrapper around `DPE.string({ checkers: [checkerUuid(...)] })`.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/uuid
+ * 
+ * @namespace DPE
+ * 
+ */
+export declare function uuid(definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionUuid, "regex">>): DataParserStringExtended<{
+    readonly checkers: readonly [dataParsers.DataParserCheckerUuid];
     readonly errorMessage?: string | undefined;
     readonly coerce: boolean;
 }>;

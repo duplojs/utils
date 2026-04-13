@@ -27,6 +27,10 @@ next:
 - Centraliser une règle réutilisable entre plusieurs schémas (`checkerRefine` est une valeur réutilisable).
 - Exprimer des règles sur des structures complexes (objets, tuples...) en s'appuyant sur `addChecker`.
 
+## Contrat checker
+
+Le contrat repose sur le type de sortie du parser ciblé : un checker `DataParserChecker<..., T>` est compatible avec un parser dont la sortie est `T`.
+
 ## Exemples supplémentaires
 
 ### Valider des coordonnées

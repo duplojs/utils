@@ -18,3 +18,7 @@ type check = ExpectType<
 	}>,
 	"strict"
 >;
+
+const schemaWithChecker = schema.addChecker(
+	DP.checkerRefine((value) => value.age >= 18),
+);

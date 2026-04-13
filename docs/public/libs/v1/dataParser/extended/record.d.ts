@@ -52,11 +52,11 @@ export interface DataParserRecordExtended<GenericDefinition extends dataParsers.
  * @namespace DPE
  * 
  */
-export declare function record<GenericDataParserKey extends dataParsers.DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<dataParsers.DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecordExtended<MergeDefinition<dataParsers.DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
+export declare function record<GenericDataParserKey extends dataParsers.DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionRecord<Record<Extract<Output<GenericDataParserKey>, string | number>, Output<GenericDataParserValue>>>, "key" | "value" | "baseData" | "requireKey">> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecordExtended<MergeDefinition<dataParsers.DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;
     value: GenericDataParserValue;
 }>>;
 export declare namespace record {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserRecordExtended<dataParsers.DataParserDefinitionRecord>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserRecordExtended<dataParsers.DataParserDefinitionRecord<Record<string, unknown>>>>;
 }
 export {};

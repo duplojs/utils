@@ -129,6 +129,16 @@ Validates a string in URL format.
   height="240px"
 />
 
+### `Uuid`
+
+Validates a string in UUID format.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/uuid.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `StringMin`
 
 Validates a string with a minimum length (>= min).

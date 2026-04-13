@@ -1,11 +1,8 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type AnyTuple, type Or } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type Or } from "../../common";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-import { type DataParserCheckerArrayMax, type DataParserCheckerArrayMin } from "./array";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
 export type TupleShape = readonly [DataParser, ...DataParser[]];
-export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends readonly [
+export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? unknown[] : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
     ...infer InferredRest extends DataParser[]
 ] ? [
@@ -13,7 +10,7 @@ export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericR
     ...(Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[] ? IsEqual<InferredShapeRest[number], never> extends true ? [] : Output<InferredShapeRest[number]>[] : []),
     ...(InferredRest extends TupleShape ? DataParserTupleShapeOutput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Output<Adaptor<GenericRest, DataParser>>[])
 ] : never;
-export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? TupleShape : GenericShape extends readonly [
+export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? unknown[] : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
     ...infer InferredRest extends DataParser[]
 ] ? [
@@ -21,10 +18,8 @@ export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRe
     ...(Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[] ? IsEqual<InferredShapeRest[number], never> extends true ? [] : Input<InferredShapeRest[number]>[] : []),
     ...(InferredRest extends TupleShape ? DataParserTupleShapeInput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Input<Adaptor<GenericRest, DataParser>>[])
 ] : never;
-export interface DataParserTupleCheckerCustom<GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>> {
-}
-export type DataParserTupleCheckers<GenericInput extends AnyTuple<unknown> = AnyTuple<unknown>> = (DataParserTupleCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserTupleCheckerCustom<GenericInput>, DataParserChecker>] | DataParserCheckerArrayMin | DataParserCheckerArrayMax | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionTuple extends DataParserDefinition<DataParserTupleCheckers<AnyTuple<unknown>>> {
+export type DataParserTupleCheckers<GenericInput extends unknown[] = unknown[]> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionTuple<GenericInput extends unknown[] = unknown[]> extends DataParserDefinition<DataParserTupleCheckers<GenericInput>> {
     readonly shape: TupleShape;
     readonly rest?: DataParser;
 }
@@ -65,7 +60,7 @@ export interface DataParserTuple<GenericDefinition extends DataParserDefinitionT
  * @namespace DP
  * 
  */
-export declare function tuple<const GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
+export declare function tuple<const GenericShape extends TupleShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTuple<DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>>, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTuple<MergeDefinition<DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;
     readonly rest: Or<[
         IsEqual<GenericDefinition["rest"], unknown>,
@@ -73,6 +68,6 @@ export declare function tuple<const GenericShape extends TupleShape, const Gener
     ]> extends true ? undefined : GenericDefinition["rest"];
 }>>;
 export declare namespace tuple {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserTuple<DataParserDefinitionTuple>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTuple<DataParserDefinitionTuple<unknown[]>>>;
 }
 export {};

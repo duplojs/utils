@@ -20,3 +20,7 @@ if (E.isRight(fallback)) {
 	const value = unwrap(fallback);
 	// value === 0 (recovered)
 }
+
+const schemaWithChecker = schema.addChecker(
+	DP.checkerRefine((value) => value >= 0),
+);

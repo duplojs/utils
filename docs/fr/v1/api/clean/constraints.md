@@ -129,6 +129,16 @@ Valide une chaîne au format URL.
   height="240px"
 />
 
+### `Uuid`
+
+Valide une chaîne au format UUID.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/uuid.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `StringMin`
 
 Valide une chaîne avec une longueur minimale (>= min).

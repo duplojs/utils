@@ -34,11 +34,15 @@ import * as DDataParserExtended from "@duplojs/utils/dataParserExtended";
 import * as DPE from "@duplojs/utils/dataParserExtended";
 ```
 
+## Contrat checker
+
+Le contrat de checker est centré sur le type de sortie du parser : un checker est compatible si son type d'entrée correspond à `Output<Parser>`. Les checkers sont modélisés via ce contrat de compatibilité de type.
+
 
 ## Parsers primitifs
 
 ### [string](/fr/v1/api/dataParser/string)
-Valide les chaînes : checkers `min`, `max`, `regex`, `email`, `url`, support de la coercition (`"42"` → `"42"` normalisé).
+Valide les chaînes : checkers `min`, `max`, `regex`, `email`, `url`, `uuid`, support de la coercition (`42` → `"42"` normalisé).
 
 ### [number](/fr/v1/api/dataParser/number)
 Valide les nombres avec contraintes `min`, `max`, `int` et support de la coercition (`Number(value)`).

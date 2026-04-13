@@ -1,4 +1,4 @@
-import { type StringLength } from "./types/stringLength";
+import { type TemplateLiteralContainLargeType, type StringLength } from "./types";
 /**
  * Returns the length of a string.
  * 
@@ -23,4 +23,4 @@ import { type StringLength } from "./types/stringLength";
  * @namespace S
  * 
  */
-export declare function length<GenericInput extends string>(input: GenericInput): StringLength<GenericInput>;
+export declare function length<GenericInput extends string>(input: GenericInput): TemplateLiteralContainLargeType<GenericInput> extends true ? number : StringLength<GenericInput>;

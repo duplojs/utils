@@ -2,7 +2,8 @@ import { dataParserExtendedInit } from '../baseExtended.mjs';
 import { string as string$1 } from '../parsers/string/index.mjs';
 import { checkerEmail } from '../parsers/string/checkers/email.mjs';
 import { checkerUrl } from '../parsers/string/checkers/url.mjs';
-import { checkerStringRegex } from '../parsers/string/checkers/regex.mjs';
+import { checkerUuid } from '../parsers/string/checkers/uuid.mjs';
+import { checkerRegex } from '../parsers/string/checkers/regex.mjs';
 import { checkerStringMax } from '../parsers/string/checkers/max.mjs';
 import { checkerStringMin } from '../parsers/string/checkers/min.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -19,7 +20,7 @@ function string(definition) {
             return self.addChecker(checkerStringMax(max, definition));
         },
         regex(self, regex, definition) {
-            return self.addChecker(checkerStringRegex(regex, definition));
+            return self.addChecker(checkerRegex(regex, definition));
         },
     }, string.overrideHandler);
     return self;
@@ -41,5 +42,13 @@ function url(definition) {
         checkers: [checkerUrl(definition)],
     });
 }
+/**
+ * {@include dataParser/extended/uuid/index.md}
+ */
+function uuid(definition) {
+    return string({
+        checkers: [checkerUuid(definition)],
+    });
+}
 
-export { email, string, url };
+export { email, string, url, uuid };

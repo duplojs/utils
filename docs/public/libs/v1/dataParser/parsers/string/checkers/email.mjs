@@ -3,20 +3,17 @@ import { addIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
 
-const checkerEmailKind = createDataParserKind("checker-string-email");
-const emailPattern = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
+const checkerEmailKind = createDataParserKind("checker-email");
+const emailRegex = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 function checkerEmail(definition = {}) {
     return dataParserCheckerInit(checkerEmailKind, {
         definition: {
             ...definition,
-            pattern: emailPattern,
+            regex: emailRegex,
         },
-    }, (input, error, self) => {
-        if (!self.definition.pattern.test(input)) {
-            return addIssue(error, "email", input, self.definition.errorMessage);
-        }
-        return self.definition.normalize ? input.toLowerCase() : input;
-    });
+    }, (data, error, self) => self.definition.regex.test(data)
+        ? data
+        : addIssue(error, "email", data, self.definition.errorMessage));
 }
 function email(definition) {
     return string({

@@ -1,13 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
-import { type DataParserCheckerBigIntMin, type DataParserCheckerBigIntMax } from "./checkers";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./checkers";
-export interface DataParserBigIntCheckerCustom {
-}
-export type DataParserBigIntCheckers = (DataParserBigIntCheckerCustom[GetPropsWithValueExtends<DataParserBigIntCheckerCustom, DataParserChecker>] | DataParserCheckerBigIntMin | DataParserCheckerBigIntMax | CheckerRefineImplementation<bigint>);
+export type DataParserBigIntCheckers = DataParserChecker<DataParserCheckerDefinition, bigint>;
 export interface DataParserDefinitionBigInt extends DataParserDefinition<DataParserBigIntCheckers> {
     readonly coerce: boolean;
 }

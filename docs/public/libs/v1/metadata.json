@@ -2397,6 +2397,15 @@
                     },
                     {
                       "name": "url.mjs"
+                    },
+                    {
+                      "name": "uuid.cjs"
+                    },
+                    {
+                      "name": "uuid.d.ts"
+                    },
+                    {
+                      "name": "uuid.mjs"
                     }
                   ]
                 },

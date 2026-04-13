@@ -89,6 +89,7 @@ exports.Email = string.Email;
 exports.StringMax = string.StringMax;
 exports.StringMin = string.StringMin;
 exports.Url = string.Url;
+exports.Uuid = string.Uuid;
 exports.NegativeTime = time.NegativeTime;
 exports.PositiveTime = time.PositiveTime;
 exports.CreateConstraintsSetError = set.CreateConstraintsSetError;

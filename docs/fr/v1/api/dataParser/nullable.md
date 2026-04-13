@@ -18,7 +18,7 @@ Autorise `null` tout en appliquant un parser strict lorsque la valeur est prése
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/nullable/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres

@@ -1,13 +1,9 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserDefinition, type DataParser, type Input, type Output, SymbolDataParserError, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, type Input, type Output, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type DataParserError } from "../../dataParser/error";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
-export interface DataParserTransformCheckerCustom<GenericInput extends unknown = unknown> {
-}
-export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = (DataParserTransformCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserTransformCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionTransform extends DataParserDefinition<DataParserTransformCheckers<unknown>> {
+export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionTransform<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserTransformCheckers<GenericInput>> {
     readonly inner: DataParser;
     theFunction(input: any, error: DataParserError): unknown;
 }
@@ -52,11 +48,11 @@ export interface DataParserTransform<GenericDefinition extends DataParserDefinit
  * @namespace DP
  * 
  */
-export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<DataParserDefinitionTransform, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
+export declare function transform<GenericDataParser extends DataParser, GenericOutput extends unknown, const GenericDefinition extends Partial<Omit<DataParserDefinitionTransform<DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction">> = never>(inner: GenericDataParser, theFunction: (input: Output<GenericDataParser>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): DataParserTransform<MergeDefinition<DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     theFunction(input: Output<GenericDataParser>): GenericOutput;
 }>>;
 export declare namespace transform {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserTransform<DataParserDefinitionTransform>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTransform<DataParserDefinitionTransform<unknown>>>;
 }
 export {};

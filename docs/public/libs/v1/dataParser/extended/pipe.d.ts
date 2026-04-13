@@ -42,11 +42,11 @@ export interface DataParserPipeExtended<GenericDefinition extends dataParsers.Da
  * @namespace DPE
  * 
  */
-export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
+export declare function pipe<GenericInput extends DataParser, GenericOutput extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe<Output<GenericOutput>>, "input" | "output">> = never>(input: GenericInput, output: GenericOutput, definition?: GenericDefinition): DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
     input: GenericInput;
     output: GenericOutput;
 }>>;
 export declare namespace pipe {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserPipeExtended<dataParsers.DataParserDefinitionPipe>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserPipeExtended<dataParsers.DataParserDefinitionPipe<unknown>>>;
 }
 export {};

@@ -18,7 +18,7 @@ Allows `undefined` while keeping a strict parser for the present value. `DDataPa
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/optional/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Parameters

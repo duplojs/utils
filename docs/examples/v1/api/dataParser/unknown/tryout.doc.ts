@@ -19,3 +19,7 @@ if (E.isRight(result)) {
 		"strict"
 	>;
 }
+
+const schemaWithChecker = schema.addChecker(
+	DP.checkerRefine((value) => typeof value === "object" && value !== null),
+);

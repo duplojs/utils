@@ -18,7 +18,7 @@ Valide des nombres (entiers ou flottants) avec des contraintes optionnelles. `DD
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/number/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres

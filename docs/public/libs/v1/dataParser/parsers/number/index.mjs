@@ -13,6 +13,7 @@ function number(definition) {
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,
     }, (data, error, self) => {
+        const inputData = data;
         if (self.definition.coerce) {
             try {
                 // eslint-disable-next-line no-param-reassign
@@ -23,7 +24,7 @@ function number(definition) {
         if (typeof data === "number" && !Number.isNaN(data)) {
             return data;
         }
-        return addIssue(error, "number", data, self.definition.errorMessage);
+        return addIssue(error, "number", inputData, self.definition.errorMessage);
     }, number.overrideHandler);
     return self;
 }

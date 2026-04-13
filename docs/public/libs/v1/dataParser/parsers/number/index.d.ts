@@ -1,13 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
-import { type DataParserCheckerInt, type DataParserCheckerNumberMin, type DataParserCheckerNumberMax } from "./checkers";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./checkers";
-export interface DataParserNumberCheckerCustom {
-}
-export type DataParserNumberCheckers = (DataParserNumberCheckerCustom[GetPropsWithValueExtends<DataParserNumberCheckerCustom, DataParserChecker>] | DataParserCheckerInt | DataParserCheckerNumberMin | DataParserCheckerNumberMax | CheckerRefineImplementation<number>);
+export type DataParserNumberCheckers = DataParserChecker<DataParserCheckerDefinition, number>;
 export interface DataParserDefinitionNumber extends DataParserDefinition<DataParserNumberCheckers> {
     readonly coerce: boolean;
 }

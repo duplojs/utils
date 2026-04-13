@@ -7,13 +7,13 @@ var kind$1 = require('../../common/kind.cjs');
 var pipe = require('../../common/pipe.cjs');
 var map = require('../../array/map.cjs');
 var entry = require('../../object/entry.cjs');
+var base = require('../constraint/base.cjs');
 var transform = require('../../dataParser/parsers/transform.cjs');
 var entries = require('../../object/entries.cjs');
 var forward = require('../../common/forward.cjs');
 var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
 var index = require('../../dataParser/parsers/object/index.cjs');
 var fromEntries = require('../../object/fromEntries.cjs');
-var base = require('../constraint/base.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
 var override = require('../../common/override.cjs');
 var is = require('../../either/left/is.cjs');
@@ -40,7 +40,16 @@ function createEntity(name, getPropertiesDefinition) {
         return entityKind.addTo(properties, name);
     }
     const propertiesDefinition = getPropertiesDefinition(property.entityPropertyDefinitionTools);
-    const mapDataParser = pipe.pipe(forward.forward(propertiesDefinition), entries.entries, map.map(([key, property$1]) => entry.entry(key, property.entityPropertyDefinitionToDataParser(property$1, (newTypeHandler) => transform.transform(newTypeHandler.internal.dataParser, (value) => base.constrainedTypeKind.setTo(newType.newTypeKind.setTo(wrapValue.wrapValue(value), newTypeHandler.name), newTypeHandler.internal.constraintKindValue))))), fromEntries.fromEntries, index.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name)));
+    const mapDataParser = pipe.pipe(forward.forward(propertiesDefinition), entries.entries, map.map(([key, property$1]) => entry.entry(key, property.entityPropertyDefinitionToDataParser(property$1, (newTypeHandler) => {
+        const allKind = {
+            ...base.constrainedTypeKind.setTo({}, newTypeHandler.internal.constraintKindValue),
+            ...newType.newTypeKind.setTo({}, newTypeHandler.name),
+        };
+        return transform.transform(newTypeHandler.internal.dataParser, (value) => ({
+            ...allKind,
+            [wrapValue.keyWrappedValue]: value,
+        }));
+    }))), fromEntries.fromEntries, index.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name)));
     function map$1(rawProperties) {
         const result = mapDataParser.parse(rawProperties);
         if (is.isLeft(result)) {

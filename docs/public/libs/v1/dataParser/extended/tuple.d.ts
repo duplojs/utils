@@ -138,7 +138,7 @@ export interface DataParserTupleExtended<GenericDefinition extends dataParsers.D
  * @namespace DPE
  * 
  */
-export declare function tuple<GenericShape extends dataParsers.TupleShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTuple, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
+export declare function tuple<GenericShape extends dataParsers.TupleShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTuple<dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>>, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;
     readonly rest: Or<[
         IsEqual<GenericDefinition["rest"], unknown>,
@@ -146,6 +146,6 @@ export declare function tuple<GenericShape extends dataParsers.TupleShape, const
     ]> extends true ? undefined : GenericDefinition["rest"];
 }>>;
 export declare namespace tuple {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserTupleExtended<dataParsers.DataParserDefinitionTuple>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserTupleExtended<dataParsers.DataParserDefinitionTuple<unknown[]>>>;
 }
 export {};

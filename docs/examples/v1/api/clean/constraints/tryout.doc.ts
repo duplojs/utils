@@ -3,7 +3,7 @@ import { C, DP } from "@duplojs/utils";
 const SlugContraint = C.createConstraint(
 	"slugContraint",
 	C.String,
-	DP.checkerStringRegex(/^[a-z0-9-]+$/),
+	DP.checkerRegex(/^[a-z0-9-]+$/),
 );
 type SlugContraint = C.GetConstraint<typeof SlugContraint>;
 

@@ -1,11 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
-export interface DataParserEmptyCheckerCustom {
-}
-export type DataParserEmptyCheckers = (DataParserEmptyCheckerCustom[GetPropsWithValueExtends<DataParserEmptyCheckerCustom, DataParserChecker>] | CheckerRefineImplementation<undefined>);
+export type DataParserEmptyCheckers = DataParserChecker<DataParserCheckerDefinition, undefined>;
 export interface DataParserDefinitionEmpty extends DataParserDefinition<DataParserEmptyCheckers> {
     readonly coerce: boolean;
 }

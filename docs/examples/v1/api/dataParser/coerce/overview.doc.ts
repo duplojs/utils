@@ -2,7 +2,7 @@ import { DP } from "@duplojs/utils";
 
 const schema = DP.object({
 	name: DP.coerce.string().addChecker(DP.checkerStringMin(3)),
-	email: DP.coerce.string().addChecker(DP.checkerEmail({ normalize: true })),
+	email: DP.coerce.string().addChecker(DP.checkerEmail()),
 	age: DP.coerce.number().addChecker(DP.checkerNumberMin(0)),
 	vip: DP.coerce.boolean(),
 	budget: DP.coerce.bigint().addChecker(DP.checkerBigIntMin(0n)),
@@ -14,7 +14,7 @@ const schema = DP.object({
 
 const result = schema.parse({
 	name: "Alice",
-	email: "Alice@example.com   ",
+	email: "alice@example.com",
 	age: "29",
 	vip: "true",
 	budget: "100000",

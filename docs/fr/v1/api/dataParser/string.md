@@ -18,14 +18,18 @@ Construit un parser pour les chaînes de caractères. `DDataParser.string()` gar
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/string/tryout.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="565px"
 />
 
 ## Paramètres
 
 - `errorMessage` : message personnalisé injecté dans chaque `issue` lorsque l'entrée n'est pas une chaîne.
-- `checkers` : tableau de checkers (`checkerStringMin`, `checkerStringMax`, `checkerStringRegex`, `checkerEmail`, `checkerUrl`, `checkerRefine`, etc.) exécutés après la validation de base.
+- `checkers` : tableau de checkers (`checkerStringMin`, `checkerStringMax`, `checkerStringRegex`, `checkerEmail`, `checkerUrl`, `checkerUuid`, `checkerRefine`, etc.) exécutés après la validation de base.
 - `coerce` : `true` pour transformer les entrées non-string (nombres, booleans, objets avec `toString`) avant de lancer les checkers. Par défaut `false`.
+
+## Contrat checker
+
+Les checkers suivent un contrat de type : un checker est compatible si son type d'entrée correspond à la sortie du parser.
 
 
 ## Valeur de retour

@@ -5,7 +5,7 @@ import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
 type _DataParserUnionExtended<GenericDefinition extends dataParsers.DataParserDefinitionUnion> = (Kind<typeof dataParsers.unionKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserUnion<GenericDefinition>>, Input<dataParsers.DataParserUnion<GenericDefinition>>>);
 export interface DataParserUnionExtended<GenericDefinition extends dataParsers.DataParserDefinitionUnion = dataParsers.DataParserDefinitionUnion> extends _DataParserUnionExtended<GenericDefinition> {
-    addChecker<GenericChecker extends readonly [
+    addChecker<const GenericChecker extends readonly [
         dataParsers.DataParserUnionCheckers<Output<this>>,
         ...dataParsers.DataParserUnionCheckers<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
@@ -42,10 +42,10 @@ export interface DataParserUnionExtended<GenericDefinition extends dataParsers.D
  * @namespace DPE
  * 
  */
-export declare function union<GenericOptions extends dataParsers.UnionOptions, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
+export declare function union<const GenericOptions extends dataParsers.UnionOptions, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(options: GenericOptions, definition?: GenericDefinition): DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
     options: GenericOptions;
 }>>;
 export declare namespace union {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserUnionExtended<dataParsers.DataParserDefinitionUnion>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserUnionExtended<dataParsers.DataParserDefinitionUnion<unknown>>>;
 }
 export {};

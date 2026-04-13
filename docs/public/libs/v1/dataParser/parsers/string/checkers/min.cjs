@@ -11,9 +11,9 @@ function checkerStringMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, error$1, self) => value.length >= self.definition.min
-        ? value
-        : error.addIssue(error$1, `string.length >= ${self.definition.min}`, value, self.definition.errorMessage));
+    }, (data, error$1, self) => data.length >= self.definition.min
+        ? data
+        : error.addIssue(error$1, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage));
 }
 
 exports.checkerStringMin = checkerStringMin;

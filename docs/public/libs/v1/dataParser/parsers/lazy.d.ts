@@ -1,12 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../base";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-import { type CheckerRefineImplementation } from "./refine";
-import { type GetPropsWithValueExtends } from "../../object";
-export interface DataParserLazyCheckerCustom<GenericInput extends unknown = unknown> {
-}
-export type DataParserLazyCheckers<GenericInput extends unknown = unknown> = (DataParserLazyCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserLazyCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionLazy extends DataParserDefinition<DataParserLazyCheckers<unknown>> {
+export type DataParserLazyCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionLazy<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserLazyCheckers<GenericInput>> {
     getter: Memoized<DataParser>;
 }
 export declare const lazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>;
@@ -59,10 +55,10 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
  * @namespace DP
  * 
  */
-export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
+export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionLazy<Output<GenericDataParser>>> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazy<MergeDefinition<DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
     getter: Memoized<GenericDataParser>;
 }>>;
 export declare namespace lazy {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserLazy<DataParserDefinitionLazy>>;
+    var overrideHandler: import("../../common").OverrideHandler<DataParserLazy<DataParserDefinitionLazy<unknown>>>;
 }
 export {};

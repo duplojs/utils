@@ -1,9 +1,7 @@
 import { type Kind, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "../../../common";
-import { dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, type DataParserChecker } from "../../base";
+import { dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import * as DObject from "../../../object";
-import { type GetPropsWithValueExtends } from "../../../object";
-import { type CheckerRefineImplementation } from "../refine";
 export * from "./omit";
 export * from "./pick";
 export * from "./partial";
@@ -16,10 +14,8 @@ export type DataParserObjectShapeOutput<GenericShape extends DataParserObjectSha
 export type DataParserObjectShapeInput<GenericShape extends DataParserObjectShape> = {
     -readonly [Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition> ? Prop : never]: Input<GenericShape[Prop]>;
 } extends infer InferredResult extends object ? DObject.PartialKeys<InferredResult, DObject.GetPropsWithValueExtends<InferredResult, undefined>> : never;
-export interface DataParserObjectCheckerCustom<GenericInput extends object = object> {
-}
-export type DataParserObjectCheckers<GenericInput extends object = object> = (DataParserObjectCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserObjectCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionObject extends DataParserDefinition<DataParserObjectCheckers<object>> {
+export type DataParserObjectCheckers<GenericInput extends object = object> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionObject<GenericInput extends Record<string | number, unknown> = Record<string | number, unknown>> extends DataParserDefinition<DataParserObjectCheckers<GenericInput>> {
     readonly shape: DataParserObjectShape;
     readonly optimizedShape: Memoized<{
         readonly key: string;
@@ -76,9 +72,9 @@ export interface DataParserObject<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function object<const GenericShape extends DataParserObjectShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionObject, "shape" | "optimizedShape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
+export declare function object<const GenericShape extends DataParserObjectShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionObject<DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;
 }>>;
 export declare namespace object {
-    var overrideHandler: import("../../../common").OverrideHandler<DataParserObject<DataParserDefinitionObject>>;
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserObject<DataParserDefinitionObject<Record<string | number, unknown>>>>;
 }

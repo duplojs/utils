@@ -5,6 +5,8 @@ The addChecker() method returns a new data parser with one or more additional ch
 
 Checkers are executed after the parser core logic, and the original parser is not mutated.
 
+Checker compatibility is output-based: a checker typed for `T` can be added to a parser whose output type is `T`.
+
 ```ts
 {@include dataParser/classic/base/addChecker/example.ts[3,13]}
 ```

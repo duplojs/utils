@@ -9,9 +9,9 @@ function checkerStringMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, error, self) => value.length <= self.definition.max
-        ? value
-        : addIssue(error, `string.length <= ${self.definition.max}`, value, self.definition.errorMessage));
+    }, (data, error, self) => data.length <= self.definition.max
+        ? data
+        : addIssue(error, `string.length <= ${self.definition.max}`, data, self.definition.errorMessage));
 }
 
 export { checkerStringMax, checkerStringMaxKind };

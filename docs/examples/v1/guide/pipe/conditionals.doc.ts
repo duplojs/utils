@@ -12,7 +12,7 @@ const maybeTokens = pipe(
 
 type CheckMaybeTokens = ExpectType<
 	typeof maybeTokens,
-	string | [string, ...string[]],
+	string | [string, string, ...string[]],
 	"strict"
 >;
 
@@ -30,6 +30,6 @@ const tokens = pipe(
 
 type CheckTokens = ExpectType<
 	typeof tokens,
-	[string, ...string[]] | [string],
+	[string, string, ...string[]] | [string],
 	"strict"
 >;

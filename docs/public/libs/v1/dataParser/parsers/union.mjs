@@ -22,7 +22,7 @@ function union(options, definition) {
             };
             const currentIndexPath = unionError.currentPath.length;
             for (let index = 0; index < self.definition.options.length; index++) {
-                setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+                setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
                 const dataParser = self.definition.options[index];
                 const result = dataParser.exec(data, unionError);
                 if (result !== SymbolDataParserError) {
@@ -40,7 +40,7 @@ function union(options, definition) {
             };
             const currentIndexPath = unionError.currentPath.length;
             for (let index = 0; index < self.definition.options.length; index++) {
-                setErrorPath(unionError, `(option ${index})`, currentIndexPath);
+                setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
                 const dataParser = self.definition.options[index];
                 const result = await dataParser.asyncExec(data, unionError);
                 if (result !== SymbolDataParserError) {

@@ -1,25 +1,21 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker } from "../../base";
+import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
-import { type CheckerRefineImplementation } from "../refine";
-import { type GetPropsWithValueExtends } from "../../../object";
 export * from "./findRecordRequiredKey";
-export type DataParserRecordKey = (DataParserString | DataParserTemplateLiteral | DataParserLiteral<DataParserDefinitionLiteral & {
-    value: readonly string[];
-}> | DataParserNumber<DataParserDefinitionNumber & {
-    coerce: true;
-}> | DataParserUnion<DataParserDefinitionUnion & {
-    options: DataParserRecordKey[];
+export type DataParserRecordKey = (DataParserString | DataParserTemplateLiteral | DataParserLiteral<Omit<DataParserDefinitionLiteral, "value"> & {
+    readonly value: readonly string[];
+}> | DataParserNumber<Omit<DataParserDefinitionNumber, "coerce"> & {
+    readonly coerce: true;
+}> | DataParserUnion<Omit<DataParserDefinitionUnion, "options"> & {
+    readonly options: readonly [DataParserRecordKey, ...DataParserRecordKey[]];
 }>);
-export interface DataParserRecordCheckerCustom<GenericInput extends Record<string, unknown> = Record<string, unknown>> {
-}
-export type DataParserRecordCheckers<GenericInput extends Record<string, unknown> = Record<string, unknown>> = (DataParserRecordCheckerCustom<GenericInput>[GetPropsWithValueExtends<DataParserRecordCheckerCustom<GenericInput>, DataParserChecker>] | CheckerRefineImplementation<GenericInput>);
-export interface DataParserDefinitionRecord extends DataParserDefinition<DataParserRecordCheckers<Record<string, unknown>>> {
+export type DataParserRecordCheckers<GenericInput extends Record<string, unknown> = Record<string, unknown>> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export interface DataParserDefinitionRecord<GenericInput extends Record<string, unknown> = Record<string, unknown>> extends DataParserDefinition<DataParserRecordCheckers<GenericInput>> {
     readonly key: DataParserRecordKey;
     readonly value: DataParser;
     readonly baseData: Partial<Record<string, undefined>>;
@@ -78,10 +74,10 @@ export interface DataParserRecord<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<DataParserDefinitionRecord> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
+export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecord<Record<Extract<Output<GenericDataParserKey>, string | number>, Output<GenericDataParserValue>>>, "key" | "value" | "baseData" | "requireKey">> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;
     value: GenericDataParserValue;
 }>>;
 export declare namespace record {
-    var overrideHandler: import("../../../common").OverrideHandler<DataParserRecord<DataParserDefinitionRecord>>;
+    var overrideHandler: import("../../../common").OverrideHandler<DataParserRecord<DataParserDefinitionRecord<Record<string, unknown>>>>;
 }

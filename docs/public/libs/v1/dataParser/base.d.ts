@@ -6,12 +6,12 @@ export declare const checkerKind: KindHandler<import("../common").KindDefinition
 export interface DataParserCheckerDefinition {
     readonly errorMessage?: string;
 }
-export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition, GenericInput> {
+export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition> {
     readonly definition: GenericDefinition;
-    exec(data: GenericInput, error: DataParserError, self: this): GenericInput | SymbolDataParserError;
+    exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this): GenericOutput | SymbolDataParserError;
 }
 export type InputChecker<GenericDataParser extends DataParserChecker> = Parameters<GenericDataParser["exec"]>[0];
-export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => GetKindValue<typeof checkerKind, GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
+export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => InputChecker<GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
 export declare const dataParserKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
     input: unknown;
     output: unknown;
@@ -85,6 +85,8 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * - Method: `dataParser.addChecker(checker1, checker2)` -> returns a new parser
      * 
      * Checkers are executed after the parser core logic, and the original parser is not mutated.
+     * 
+     * Checker compatibility is output-based: a checker typed for `T` can be added to a parser whose output type is `T`.
      * 
      * ```ts
      * const withMin = DP.string()
