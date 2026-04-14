@@ -489,13 +489,10 @@ describe("create", () => {
 		>;
 	});
 
-	it("returns error for spooling date with invalid timezone", () => {
-		const result = DDate.create({
-			value: "2024-01-01T00:00:00.000Z",
-			timezone: "Invalid/Timezone" as any,
-		});
+	it("create from spooling date with simple ISO", () => {
+		const result = DDate.create({ value: "2024-01-01" });
 
-		expect(result).toStrictEqual(DEither.left("date-created-error", null));
+		expect(result).toStrictEqual(DEither.right("date-created", expect.any(DDate.TheDate)));
 
 		type check = ExpectType<
 			typeof result,
@@ -504,8 +501,11 @@ describe("create", () => {
 		>;
 	});
 
-	it("returns error for spooling date with invalid ISO value", () => {
-		const result = DDate.create({ value: "2024-01-01" });
+	it("returns error for spooling date with invalid timezone", () => {
+		const result = DDate.create({
+			value: "2024-01-01T00:00:00.000Z",
+			timezone: "Invalid/Timezone" as any,
+		});
 
 		expect(result).toStrictEqual(DEither.left("date-created-error", null));
 

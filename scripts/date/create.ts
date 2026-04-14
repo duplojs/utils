@@ -105,7 +105,7 @@ export function create(
 	if (safeDateMatch) {
 		const { year, monthWithDay } = safeDateMatch.groups as Record<"year" | "monthWithDay", string>;
 		const date = new Date(
-			`0000-${monthWithDay}T${params?.hour ?? "00"}:${params?.minute ?? "00"}:${params?.second ?? "00"}.${params?.millisecond ?? "000"}Z`,
+			`0004-${monthWithDay}T${params?.hour ?? "00"}:${params?.minute ?? "00"}:${params?.second ?? "00"}.${params?.millisecond ?? "000"}Z`,
 		);
 
 		date.setUTCFullYear(Number(year));
@@ -147,10 +147,18 @@ export function create(
 						Number(year),
 						Number(month) - 1,
 						Number(date),
-						Number(hour),
-						Number(minute),
-						Number(second),
-						Number(millisecond),
+						typeof hour === "string"
+							? Number(hour)
+							: 0,
+						typeof minute === "string"
+							? Number(minute)
+							: 0,
+						typeof second === "string"
+							? Number(second)
+							: 0,
+						typeof millisecond === "string"
+							? Number(millisecond)
+							: 0,
 					),
 				);
 			}
