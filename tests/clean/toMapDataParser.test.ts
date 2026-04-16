@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, keyWrappedValue, pipe, type ExpectType } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, keyWrappedValue, pipe, type ExpectType } from "@scripts";
 
 describe("toMapDataParser", () => {
 	it("maps newType handler to a data parser with newType and constraint kinds", () => {
@@ -108,5 +108,42 @@ describe("toMapDataParser", () => {
 		expect(result).toStrictEqual({
 			[keyWrappedValue]: "42",
 		});
+	});
+
+	it("support convert entity property definition", () => {
+		const Label = DClean.createNewType("label", DPE.string());
+		const Count = DClean.createNewType("count", DPE.number());
+
+		const parser = DClean.toMapDataParser(
+			DClean.entityPropertyDefinitionTools.structure({
+				label: Label,
+				count: DClean.entityPropertyDefinitionTools.nullable(Count),
+				tags: DClean.entityPropertyDefinitionTools.array(Label),
+			}),
+		);
+
+		expect(parser.parse({
+			label: "A",
+			count: 1,
+			tags: ["x"],
+		})).toStrictEqual(DEither.success({
+			label: Label.createOrThrow("A"),
+			count: Count.createOrThrow(1),
+			tags: [Label.createOrThrow("x")],
+		}));
+		expect(parser.parse({
+			label: "A",
+			count: null,
+			tags: [],
+		})).toStrictEqual(DEither.success({
+			label: Label.createOrThrow("A"),
+			count: null,
+			tags: [],
+		}));
+		expect(parser.parse({
+			label: Label.createOrThrow("A"),
+			count: "x",
+			tags: [],
+		})).toStrictEqual(DEither.error(expect.any(Object)));
 	});
 });

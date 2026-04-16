@@ -31,6 +31,9 @@ Constraints allow adding additional rules on primitives.
 ## [castConstraint](/en/v1/api/clean/castConstraint)
 Extends a constrained value with compatible constraints without re-validating it.
 
+## [toMapDataParser](/en/v1/api/clean/toMapDataParser)
+Converts a Clean handler into a `DataParser` mapped to a wrapped object.
+
 ## [NewType](/en/v1/api/clean/newType)
 Creates a `NewType` (brand) backed by a `DataParser`, with optional constraints.
 

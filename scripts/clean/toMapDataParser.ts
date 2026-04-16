@@ -1,26 +1,28 @@
 import * as DDataParser from "../dataParser";
-import * as DCommon from "../common";
 import * as DPattern from "../pattern";
 import { constrainedTypeKind, constraintHandlerKind, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintsSetHandler, type GetConstraint, type GetConstraints } from "./constraint";
-import { newTypeHandlerKind, newTypeKind, type GetNewType, type NewTypeHandler } from "./newType";
+import { newTypeHandlerKind, newTypeKind } from "./newType";
 import { primitiveHandlerKind, type PrimitiveHandler } from "./primitive";
+import { type EntityPropertyDefinition, entityPropertyUnionKind, entityPropertyIdentifierKind, entityPropertyStructureKind, entityPropertyArrayKind, entityPropertyNullableKind, entityPropertyDefinitionToDataParser, type EntityProperty } from "./entity";
+import { hasSomeKinds, keyWrappedValue } from "@scripts/common";
 
-type ToMapDataParserInput =
-	| NewTypeHandler<any, any, readonly any[], any>
+type ToMapDataParserInput = (
 	| ConstraintHandler<any, any, readonly any[], any>
 	| ConstraintsSetHandler<any, readonly any[], any>
-	| PrimitiveHandler;
+	| PrimitiveHandler
+	| EntityPropertyDefinition
+);
 
 type OutputDataParser<
 	GenericInput extends ToMapDataParserInput,
-> = GenericInput extends NewTypeHandler<any, any, readonly any[], any>
-	? GetNewType<GenericInput>
-	: GenericInput extends ConstraintHandler<any, any, readonly any[], any>
-		? GetConstraint<GenericInput>
-		: GenericInput extends ConstraintsSetHandler<any, readonly any[], any>
-			? GetConstraints<GenericInput>
-			: GenericInput extends PrimitiveHandler
-				? ReturnType<GenericInput["createWithUnknownOrThrow"]>
+> = GenericInput extends ConstraintHandler<any, any, readonly any[], any>
+	? GetConstraint<GenericInput>
+	: GenericInput extends ConstraintsSetHandler<any, readonly any[], any>
+		? GetConstraints<GenericInput>
+		: GenericInput extends PrimitiveHandler
+			? ReturnType<GenericInput["createWithUnknownOrThrow"]>
+			: GenericInput extends EntityPropertyDefinition
+				? EntityProperty<GenericInput>
 				: never;
 
 interface ToMapDataParserParams {
@@ -32,26 +34,47 @@ interface ToMapDataParserParams {
  */
 export function toMapDataParser<
 	GenericInput extends ToMapDataParserInput,
-	GenericInputDataParser extends unknown = unknown,
+	GenericOutput extends OutputDataParser<GenericInput>,
 >(
 	input: GenericInput,
 	params?: ToMapDataParserParams,
 ): DDataParser.Contract<
-	OutputDataParser<GenericInput>,
-	GenericInputDataParser
+	NoInfer<GenericOutput>,
+	unknown
 >;
 
 export function toMapDataParser(
 	input: ToMapDataParserInput,
 	params?: ToMapDataParserParams,
 ) {
+	if (
+		hasSomeKinds(
+			input,
+			[
+				entityPropertyNullableKind,
+				entityPropertyArrayKind,
+				entityPropertyStructureKind,
+				entityPropertyIdentifierKind,
+				entityPropertyUnionKind,
+			],
+		)
+	) {
+		return entityPropertyDefinitionToDataParser(
+			input,
+			(newTypeHandler) => toMapDataParser(
+				newTypeHandler,
+				params,
+			),
+		);
+	}
+
 	const dataParser = (primitiveHandlerKind.has(input)
 		? input.dataParser.clone()
 		: input.internal.dataParser.clone()) as DDataParser.DataParsers;
 
 	if (
 		params?.coerce
-		&& DCommon.hasSomeKinds(
+		&& hasSomeKinds(
 			dataParser,
 			[
 				DDataParser.stringKind,
@@ -78,7 +101,7 @@ export function toMapDataParser(
 			}),
 		)
 		.when(
-			DCommon.hasSomeKinds([constraintHandlerKind, constraintsSetHandlerKind]),
+			hasSomeKinds([constraintHandlerKind, constraintsSetHandlerKind]),
 			(constraintOrSet) => constrainedTypeKind.setTo(
 				{},
 				constraintOrSet.internal.constraintKindValue,
@@ -94,7 +117,7 @@ export function toMapDataParser(
 		dataParser,
 		(value) => ({
 			...valueContainer,
-			[DCommon.keyWrappedValue]: value,
+			[keyWrappedValue]: value,
 		}),
 	) as never;
 }

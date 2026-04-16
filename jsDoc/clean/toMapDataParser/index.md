@@ -11,7 +11,7 @@ The resulting parser preserves kind tags (`newTypeKind`, `constrainedTypeKind`) 
 ```
 
 @remarks
-- Supported inputs: `NewTypeHandler`, `ConstraintHandler`, `ConstraintsSetHandler`, and `PrimitiveHandler`.
+- Supported inputs: `NewTypeHandler`, `ConstraintHandler`, `ConstraintsSetHandler`, `PrimitiveHandler`, and `EntityProperty`.
 - Use `coerce: true` to allow conversions (e.g. number to string) on compatible parsers.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/toMapDataParser

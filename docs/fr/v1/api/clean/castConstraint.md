@@ -4,8 +4,8 @@ prev:
   text: "Contraintes"
   link: "/fr/v1/api/clean/constraints"
 next:
-  text: "NewType"
-  link: "/fr/v1/api/clean/newType"
+  text: "toMapDataParser"
+  link: "/fr/v1/api/clean/toMapDataParser"
 description: "Étend le typage d'une valeur contrainte en ajoutant des contraintes compatibles sans revalider."
 ---
 

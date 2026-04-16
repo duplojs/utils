@@ -31,6 +31,9 @@ Les contraintes permettent d'ajouter des règles supplémentaires sur les primit
 ## [castConstraint](/fr/v1/api/clean/castConstraint)
 Étend une valeur contrainte avec des contraintes compatibles sans revalidation.
 
+## [toMapDataParser](/fr/v1/api/clean/toMapDataParser)
+Convertit un handler Clean en `DataParser` mappé vers un objet wrappé.
+
 ## [NewType](/fr/v1/api/clean/newType)
 Crée un `NewType` (brand) adossé à un `DataParser`, avec contraintes optionnelles.
 
