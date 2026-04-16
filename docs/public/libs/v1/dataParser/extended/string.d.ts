@@ -216,7 +216,7 @@ export declare function url(definition?: Partial<dataParsers.DataParserCheckerDe
  * @remarks
  * - `DPE.uuid()` is a convenience wrapper around `DPE.string({ checkers: [checkerUuid(...)] })`.
  * 
- * @see https://utils.duplojs.dev/en/v1/api/dataParser/uuid
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
  * 
  * @namespace DPE
  * 

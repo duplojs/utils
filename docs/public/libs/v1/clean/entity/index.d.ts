@@ -112,6 +112,7 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      * ```
      * 
      */
+    update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(properties: GenericProperties): (entity: GenericEntity) => EntityUpdate<GenericEntity, GenericProperties>;
     update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(entity: GenericEntity, properties: GenericProperties): EntityUpdate<GenericEntity, GenericProperties>;
 }
 declare const CreateEntityError_base: new (params: {

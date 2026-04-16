@@ -167,8 +167,8 @@ describe("unwrapEntity", () => {
 			},
 		});
 
-		const Archived = DClean.createFlag<typeof entity, "archived", boolean>("archived");
-		const featuredEntity = Archived.append(entity, true);
+		const Archived = DClean.createFlag<typeof entity, "archived", { value: boolean }>("archived");
+		const featuredEntity = Archived.append(entity, { value: true });
 
 		const result = pipe(
 			featuredEntity,
@@ -186,7 +186,7 @@ describe("unwrapEntity", () => {
 			},
 			_entityName: "Article",
 			_flags: {
-				archived: true,
+				archived: { value: true },
 			},
 		});
 
@@ -203,7 +203,7 @@ describe("unwrapEntity", () => {
 				};
 				readonly _entityName: "Article";
 				readonly _flags: {
-					readonly archived: true;
+					readonly archived: { readonly value: true };
 				};
 			},
 			"strict"

@@ -2,7 +2,7 @@ import { type Kind, type IsEqual, type Or, type GetKindValue } from "../common";
 import { type Entity } from "./entity";
 declare const flagHandlerKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/flag-handler", unknown>>;
 export declare const flagKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/flag", Record<string, unknown>>>;
-export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName extends string = string, GenericValue extends unknown = never> extends Kind<typeof flagHandlerKind.definition> {
+export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName extends string = string, GenericValue extends Record<string, unknown> = never> extends Kind<typeof flagHandlerKind.definition> {
     /**
      * The flag name stored as the key on the entity.
      * 
@@ -20,7 +20,8 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
      * ```
      * 
      */
-    append<GenericInputEntity extends GenericEntity, GenericInputValue extends GenericValue>(entity: GenericInputEntity, ...args: IsEqual<GenericValue, never> extends true ? [] : [GenericInputValue]): (GenericInputEntity & Flag<GenericName, GenericInputValue>);
+    append<GenericInputEntity extends GenericEntity, const GenericInputValue extends GenericValue>(...args: IsEqual<GenericValue, never> extends true ? [] : [GenericInputValue]): (entity: GenericInputEntity) => (GenericInputEntity & Flag<GenericName, GenericInputValue>);
+    append<GenericInputEntity extends GenericEntity, const GenericInputValue extends GenericValue>(entity: GenericInputEntity, ...args: IsEqual<GenericValue, never> extends true ? [] : [GenericInputValue]): (GenericInputEntity & Flag<GenericName, GenericInputValue>);
     /**
      * Retrieves the value carried by the flag.
      * 
@@ -106,7 +107,7 @@ export interface Flag<GenericName extends string = string, GenericValue extends 
  * @namespace C
  * 
  */
-export declare function createFlag<GenericEntity extends Entity = never, GenericName extends string = never, GenericValue extends unknown = never>(name: Or<[
+export declare function createFlag<GenericEntity extends Entity = never, GenericName extends string = never, GenericValue extends Record<string, unknown> = never>(name: Or<[
     IsEqual<GenericEntity, never>,
     IsEqual<GenericName, never>
 ]> extends true ? never : NoInfer<GenericName>): FlagHandler<GenericEntity, GenericName, GenericValue>;

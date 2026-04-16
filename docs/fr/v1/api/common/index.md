@@ -127,6 +127,9 @@ Pause asynchrone pour attendre un certain temps.
 ### [memo](/fr/v1/api/common/memo)
 Évalue une fonction une seule fois et réutilise le résultat (memoization lazy).
 
+### [memoObject](/fr/v1/api/common/memoObject)
+Mémoïse un objet exposé via `Proxy` et garde les clés alignées avec les écritures.
+
 ### [memoPromise](/fr/v1/api/common/memoPromise)
 Mémoïsation paresseuse pour des fonctions retournant une valeur ou une promesse.
 

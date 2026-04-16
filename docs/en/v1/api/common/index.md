@@ -127,6 +127,9 @@ Async pause to wait for a certain time.
 ### [memo](/en/v1/api/common/memo)
 Evaluates a function only once and reuses the result (lazy memoization).
 
+### [memoObject](/en/v1/api/common/memoObject)
+Memoizes an object exposed through a `Proxy` and keeps keys aligned with writes.
+
 ### [memoPromise](/en/v1/api/common/memoPromise)
 Lazy memoization for functions returning a value or a promise.
 

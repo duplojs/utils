@@ -16,14 +16,14 @@ namespace User {
 	export const MajorFlag = C.createFlag<
 		Entity, // mandatory
 		"majorUser", // mandatory
-		Age // optional
+		{ age: Age } // optional
 	>("majorUser");
 	export type MajorFlag = C.GetFlag<typeof MajorFlag>;
 
 	export function isMajor(entity: Entity) {
 		if (C.greaterThan(entity.age, 18)) {
 			return E.success(
-				MajorFlag.append(entity, entity.age),
+				MajorFlag.append(entity, { age: entity.age }),
 			);
 		}
 		return E.left("not-major");

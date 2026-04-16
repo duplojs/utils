@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue, memo } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -142,6 +142,13 @@ export interface EntityHandler<
 		const GenericEntity extends Entity<GenericName>,
 		const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>,
 	>(
+		properties: GenericProperties,
+	): (entity: GenericEntity) => EntityUpdate<GenericEntity, GenericProperties>;
+
+	update<
+		const GenericEntity extends Entity<GenericName>,
+		const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>,
+	>(
 		entity: GenericEntity,
 		properties: GenericProperties,
 	): EntityUpdate<GenericEntity, GenericProperties>;
@@ -182,49 +189,53 @@ export function createEntity<
 		return entityKind.addTo(properties, name);
 	}
 
-	const propertiesDefinition = getPropertiesDefinition(entityPropertyDefinitionTools);
+	const propertiesDefinition = memo(
+		() => getPropertiesDefinition(entityPropertyDefinitionTools),
+	);
 
-	const mapDataParser = pipe(
-		forward<EntityPropertiesDefinition>(propertiesDefinition),
-		DObject.entries,
-		DArray.map(
-			([key, property]) => DObject.entry(
-				key,
-				entityPropertyDefinitionToDataParser(
-					property,
-					(newTypeHandler) => {
-						const allKind = {
-							...constrainedTypeKind.setTo(
-								{},
-								newTypeHandler.internal.constraintKindValue,
-							),
-							...newTypeKind.setTo(
-								{},
-								newTypeHandler.name,
-							),
-						};
+	const mapDataParser = memo(
+		() => pipe(
+			forward<EntityPropertiesDefinition>(propertiesDefinition.value),
+			DObject.entries,
+			DArray.map(
+				([key, property]) => DObject.entry(
+					key,
+					entityPropertyDefinitionToDataParser(
+						property,
+						(newTypeHandler) => {
+							const allKind = {
+								...constrainedTypeKind.setTo(
+									{},
+									newTypeHandler.internal.constraintKindValue,
+								),
+								...newTypeKind.setTo(
+									{},
+									newTypeHandler.name,
+								),
+							};
 
-						return DDataParser.transform(
-							newTypeHandler.internal.dataParser,
-							(value) => ({
-								...allKind,
-								[keyWrappedValue]: value,
-							}),
-						);
-					},
+							return DDataParser.transform(
+								newTypeHandler.internal.dataParser,
+								(value) => ({
+									...allKind,
+									[keyWrappedValue]: value,
+								}),
+							);
+						},
+					),
 				),
 			),
-		),
-		DObject.fromEntries,
-		DDataParser.object,
-		(dataParser) => DDataParser.transform(
-			dataParser,
-			(value) => entityKind.setTo(value, name),
+			DObject.fromEntries,
+			DDataParser.object,
+			(dataParser) => DDataParser.transform(
+				dataParser,
+				(value) => entityKind.setTo(value, name),
+			),
 		),
 	);
 
 	function map(rawProperties: PropertiesToMapOfEntity) {
-		const result = mapDataParser.parse(rawProperties);
+		const result = mapDataParser.value.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {
 			return DEither.left(
@@ -240,7 +251,7 @@ export function createEntity<
 	}
 
 	function mapOrThrow(rawProperties: PropertiesToMapOfEntity) {
-		const result = mapDataParser.parse(rawProperties);
+		const result = mapDataParser.value.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {
 			throw new CreateEntityError(rawProperties, unwrap(result));
@@ -254,12 +265,17 @@ export function createEntity<
 	}
 
 	function update(
-		entity: EntityProperties,
-		newProperties: Partial<EntityProperties>,
+		...args: [Partial<EntityProperties>]
+		| [EntityProperties, Partial<EntityProperties>]
 	) {
+		if (args.length === 1) {
+			const [newProperties] = args;
+			return (entity: EntityProperties) => update(entity, newProperties);
+		}
+		const [entity, newProperties] = args;
 		const updatedEntity: RemoveReadonly<EntityProperties> = {};
 
-		for (const key in propertiesDefinition) {
+		for (const key in propertiesDefinition.value) {
 			updatedEntity[key] = newProperties[key] !== undefined
 				? newProperties[key]
 				: entity[key];
@@ -271,10 +287,16 @@ export function createEntity<
 	return pipe(
 		{
 			name,
-			propertiesDefinition,
-			mapDataParser,
+			get propertiesDefinition() {
+				return propertiesDefinition.value;
+			},
+			get mapDataParser() {
+				return mapDataParser.value;
+			},
 			internal: {
-				mapDataParser,
+				get mapDataParser() {
+					return mapDataParser.value;
+				},
 			},
 			new: theNew,
 			map,

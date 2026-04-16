@@ -31,7 +31,7 @@ function create(input, params) {
     const safeDateMatch = typeof input === "string" && input.match(safeDateRegex);
     if (safeDateMatch) {
         const { year, monthWithDay } = safeDateMatch.groups;
-        const date = new Date(`0000-${monthWithDay}T${params?.hour ?? "00"}:${params?.minute ?? "00"}:${params?.second ?? "00"}.${params?.millisecond ?? "000"}Z`);
+        const date = new Date(`0004-${monthWithDay}T${params?.hour ?? "00"}:${params?.minute ?? "00"}:${params?.second ?? "00"}.${params?.millisecond ?? "000"}Z`);
         date.setUTCFullYear(Number(year));
         return theDate.TheDate.new(date.getTime());
     }
@@ -57,7 +57,15 @@ function create(input, params) {
             const isoDateMatch = input.value.match(constants.isoDateRegex);
             if (isoDateMatch) {
                 const { year, month, date, hour, minute, second, millisecond } = isoDateMatch.groups;
-                inputValueResult = createFromTimestamp(Date.UTC(Number(year), Number(month) - 1, Number(date), Number(hour), Number(minute), Number(second), Number(millisecond)));
+                inputValueResult = createFromTimestamp(Date.UTC(Number(year), Number(month) - 1, Number(date), typeof hour === "string"
+                    ? Number(hour)
+                    : 0, typeof minute === "string"
+                    ? Number(minute)
+                    : 0, typeof second === "string"
+                    ? Number(second)
+                    : 0, typeof millisecond === "string"
+                    ? Number(millisecond)
+                    : 0));
             }
         }
         if (!inputValueResult || is$1.isLeft(inputValueResult)) {

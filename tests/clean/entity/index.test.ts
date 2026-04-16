@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, pipe } from "@scripts";
 
 describe("createEntity", () => {
 	const MaxConstraint = DClean.createConstraint(
@@ -575,12 +575,15 @@ describe("createEntity", () => {
 			),
 		);
 
-		const updated = ProfileEntity.update(created, {
-			config: {
-				...created.config,
-				note: ProfileLabel.createOrThrow("owner"),
-			},
-		});
+		const updated = pipe(
+			created,
+			ProfileEntity.update({
+				config: {
+					...created.config,
+					note: ProfileLabel.createOrThrow("owner"),
+				},
+			}),
+		);
 
 		expect(updated).toStrictEqual(
 			DClean.entityKind.setTo({
@@ -609,5 +612,18 @@ describe("createEntity", () => {
 			>,
 			"strict"
 		>;
+	});
+
+	it("expect getter return good value", () => {
+		expect(Object.keys(FormEntity.propertiesDefinition)).toStrictEqual([
+			"name",
+			"type",
+			"inputs",
+			"description",
+			"tags",
+			"test",
+		]);
+		expect(DDataParser.dataParserKind.has(FormEntity.mapDataParser)).toStrictEqual(true);
+		expect(DDataParser.dataParserKind.has(FormEntity.internal.mapDataParser)).toStrictEqual(true);
 	});
 });

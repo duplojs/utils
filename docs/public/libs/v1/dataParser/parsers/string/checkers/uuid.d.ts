@@ -32,7 +32,7 @@ export declare function checkerUuid(definition?: Partial<Omit<DataParserCheckerD
  * @remarks
  * - The checker contract is output-based: checker compatibility is determined by the parser output type.
  * 
- * @see https://utils.duplojs.dev/en/v1/api/dataParser/uuid
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
  * 
  * @namespace DP
  * 

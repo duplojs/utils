@@ -1,5 +1,5 @@
-import { type Kind, type IsEqual, type Or, type GetKindValue, createOverride, pipe, type AnyFunction, type RemoveKind } from "@scripts/common";
-import { type Entity } from "./entity";
+import { type Kind, type IsEqual, type Or, type GetKindValue, createOverride, pipe, type AnyFunction, type RemoveKind, type AnyValue } from "@scripts/common";
+import { entityKind, type Entity } from "./entity";
 import { createCleanKind } from "./kind";
 
 const flagHandlerKind = createCleanKind("flag-handler");
@@ -12,7 +12,7 @@ export const flagKind = createCleanKind<
 export interface FlagHandler<
 	GenericEntity extends Entity = Entity,
 	GenericName extends string = string,
-	GenericValue extends unknown = never,
+	GenericValue extends Record<string, unknown> = never,
 > extends Kind<typeof flagHandlerKind.definition> {
 
 	/**
@@ -25,7 +25,22 @@ export interface FlagHandler<
 	 */
 	append<
 		GenericInputEntity extends GenericEntity,
-		GenericInputValue extends GenericValue,
+		const GenericInputValue extends GenericValue,
+	>(
+		...args: IsEqual<
+			GenericValue,
+			never
+		> extends true
+			? []
+			: [GenericInputValue]
+	): (entity: GenericInputEntity) => (
+		& GenericInputEntity
+		& Flag<GenericName, GenericInputValue>
+	);
+
+	append<
+		GenericInputEntity extends GenericEntity,
+		const GenericInputValue extends GenericValue,
 	>(
 		entity: GenericInputEntity,
 		...args: IsEqual<
@@ -77,7 +92,7 @@ export interface Flag<
 export function createFlag<
 	GenericEntity extends Entity = never,
 	GenericName extends string = never,
-	GenericValue extends unknown = never,
+	GenericValue extends Record<string, unknown> = never,
 >(
 	name: Or<[
 		IsEqual<GenericEntity, never>,
@@ -90,22 +105,28 @@ export function createFlag<
 		GenericName,
 		GenericValue
 	> {
+	function append(maybeEntity: Entity | AnyValue, value: any) {
+		if (!entityKind.has(maybeEntity)) {
+			return (entity: Entity) => append(entity, maybeEntity);
+		}
+
+		const flagValue = flagKind.has(maybeEntity)
+			? {
+				...(flagKind.getValue(maybeEntity) as object),
+				[name]: value,
+			}
+			: { [name]: value };
+
+		return flagKind.addTo(
+			maybeEntity,
+			flagValue,
+		);
+	}
+
 	return pipe(
 		{
 			name,
-			append(entity: Entity, value: any) {
-				const flagValue = flagKind.has(entity)
-					? {
-						...(flagKind.getValue(entity) as object),
-						[name]: value,
-					}
-					: { [name]: value };
-
-				return flagKind.addTo(
-					entity,
-					flagValue,
-				);
-			},
+			append,
 			getValue(entity: Entity) {
 				return flagKind.getValue(entity as never)[name];
 			},
