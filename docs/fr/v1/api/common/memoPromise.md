@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction memoPromise() évalue paresseusement une fonction qui retourne une valeur ou une promesse, puis mémorise le résultat résolu."
 prev:
-  text: "memo"
-  link: "/fr/v1/api/common/memo"
+  text: "memoObject"
+  link: "/fr/v1/api/common/memoObject"
 next:
   text: "stringToMillisecond"
   link: "/fr/v1/api/common/stringToMillisecond"

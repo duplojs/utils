@@ -1,4 +1,4 @@
-import { DPE, type ExpectType, DClean } from "@scripts";
+import { DPE, type ExpectType, DClean, pipe } from "@scripts";
 
 describe("createFlag", () => {
 	const Id = DClean.createNewType("id", DPE.number());
@@ -14,11 +14,11 @@ describe("createFlag", () => {
 	});
 
 	it("creates a handler with the provided name", () => {
-		const isAdmin = DClean.createFlag<User, "isAdmin", boolean>("isAdmin");
+		const isAdmin = DClean.createFlag<User, "isAdmin", { value: boolean }>("isAdmin");
 
 		type check = ExpectType<
 			DClean.GetFlag<typeof isAdmin>,
-			DClean.Flag<"isAdmin", boolean>,
+			DClean.Flag<"isAdmin", { value: boolean }>,
 			"strict"
 		>;
 
@@ -26,13 +26,13 @@ describe("createFlag", () => {
 	});
 
 	it("appends flags and merges existing flag data", () => {
-		const isAdmin = DClean.createFlag<User, "isAdmin", boolean>("isAdmin");
-		const beta = DClean.createFlag<User, "beta", string>("beta");
+		const isAdmin = DClean.createFlag<User, "isAdmin", { value: boolean }>("isAdmin");
+		const beta = DClean.createFlag<User, "beta", { value: string }>("beta");
 		const marker = DClean.createFlag<User, "marker">("marker");
 
-		const withAdmin = isAdmin.append(baseUser, true);
-		expect(DClean.flagKind.getValue(withAdmin)).toEqual({ isAdmin: true });
-		expect(isAdmin.getValue(withAdmin)).toStrictEqual(true);
+		const withAdmin = isAdmin.append(baseUser, { value: true });
+		expect(DClean.flagKind.getValue(withAdmin)).toEqual({ isAdmin: { value: true } });
+		expect(isAdmin.getValue(withAdmin)).toStrictEqual({ value: true });
 
 		type Check1 = ExpectType<
 			typeof withAdmin,
@@ -41,17 +41,17 @@ describe("createFlag", () => {
 				& {
 					readonly id: DClean.NewType<"id", 1, never>;
 				}
-				& DClean.Flag<"isAdmin", true>
+				& DClean.Flag<"isAdmin", { readonly value: true }>
 			),
 			"strict"
 		>;
 
-		const withBeta = beta.append(withAdmin, "on");
+		const withBeta = beta.append(withAdmin, { value: "on" });
 		expect(DClean.flagKind.getValue(withBeta)).toEqual({
-			isAdmin: true,
-			beta: "on",
+			isAdmin: { value: true },
+			beta: { value: "on" },
 		});
-		expect(beta.getValue(withBeta)).toStrictEqual("on");
+		expect(beta.getValue(withBeta)).toStrictEqual({ value: "on" });
 
 		type Check2 = ExpectType<
 			typeof withBeta,
@@ -60,16 +60,16 @@ describe("createFlag", () => {
 				& {
 					readonly id: DClean.NewType<"id", 1, never>;
 				}
-				& DClean.Flag<"isAdmin", true>
-				& DClean.Flag<"beta", "on">
+				& DClean.Flag<"isAdmin", { readonly value: true }>
+				& DClean.Flag<"beta", { readonly value: "on" }>
 			),
 			"strict"
 		>;
 
 		const withMarker = marker.append(withBeta);
 		expect(DClean.flagKind.getValue(withMarker)).toEqual({
-			isAdmin: true,
-			beta: "on",
+			isAdmin: { value: true },
+			beta: { value: "on" },
 			marker: undefined,
 		});
 		expect(marker.getValue(withMarker)).toStrictEqual(undefined);
@@ -81,8 +81,8 @@ describe("createFlag", () => {
 				& {
 					readonly id: DClean.NewType<"id", 1, never>;
 				}
-				& DClean.Flag<"isAdmin", true>
-				& DClean.Flag<"beta", "on">
+				& DClean.Flag<"isAdmin", { readonly value: true }>
+				& DClean.Flag<"beta", { readonly value: "on" }>
 				& DClean.Flag<"marker", never>
 			),
 			"strict"
@@ -93,20 +93,20 @@ describe("createFlag", () => {
 	});
 
 	it("checks if a flag is present on the entity", () => {
-		const isAdmin = DClean.createFlag<User, "isAdmin", boolean>("isAdmin");
+		const isAdmin = DClean.createFlag<User, "isAdmin", { value: boolean }>("isAdmin");
 		const marker = DClean.createFlag<User, "marker">("marker");
 
 		expect(isAdmin.has(baseUser)).toBe(false);
 		expect(marker.has(baseUser)).toBe(false);
 
-		const withAdmin = isAdmin.append(baseUser, true);
+		const withAdmin = isAdmin.append(baseUser, { value: true });
 
 		if (isAdmin.has(withAdmin)) {
 			type check = ExpectType<
 				typeof withAdmin,
 				DClean.Entity<"User"> & {
 					readonly id: DClean.NewType<"id", 1, never>;
-				} & DClean.Flag<"isAdmin", true>,
+				} & DClean.Flag<"isAdmin", { readonly value: true }>,
 				"strict"
 			>;
 		}
@@ -115,5 +115,38 @@ describe("createFlag", () => {
 
 		const withMarker = marker.append(baseUser);
 		expect(marker.has(withMarker)).toBe(true);
+	});
+
+	it("append in pipe", () => {
+		const isAdmin = DClean.createFlag<User, "isAdmin", { value: boolean }>("isAdmin");
+		const marker = DClean.createFlag<User, "marker">("marker");
+
+		const entityIsAdmin = pipe(
+			baseUser,
+			isAdmin.append({ value: false }),
+		);
+
+		type check = ExpectType<
+			typeof entityIsAdmin,
+			DClean.Entity<"User"> & {
+				readonly id: DClean.NewType<"id", 1, never>;
+			} & DClean.Flag<"isAdmin", {
+				readonly value: false;
+			}>,
+			"strict"
+		>;
+
+		const entityWithMarker = pipe(
+			baseUser,
+			marker.append,
+		);
+
+		type check1 = ExpectType<
+			typeof entityWithMarker,
+			DClean.Entity<"User"> & {
+				readonly id: DClean.NewType<"id", number, never>;
+			} & DClean.Flag<"marker", never>,
+			"strict"
+		>;
 	});
 });

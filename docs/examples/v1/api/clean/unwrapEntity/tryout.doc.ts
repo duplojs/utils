@@ -21,7 +21,7 @@ export namespace User {
 	export const IsAdmin = C.createFlag<
 		Entity,
 		"isAdmin",
-		boolean
+		{ value: boolean }
 	>("isAdmin");
 	export type IsAdmin = C.GetFlag<typeof IsAdmin>;
 }
@@ -33,7 +33,7 @@ const user = User.Entity.new({
 	createdAt: User.CreatedAt.createOrThrow(D.now()),
 });
 
-const flaggedUser = User.IsAdmin.append(user, true);
+const flaggedUser = User.IsAdmin.append(user, { value: true });
 const unwrappedUser = C.unwrapEntity(flaggedUser);
 
 type check = ExpectType<

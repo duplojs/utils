@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The memoPromise() function lazily evaluates a function that returns a value or a promise, then memoizes the resolved result."
 prev:
-  text: "memo"
-  link: "/en/v1/api/common/memo"
+  text: "memoObject"
+  link: "/en/v1/api/common/memoObject"
 next:
   text: "stringToMillisecond"
   link: "/en/v1/api/common/stringToMillisecond"

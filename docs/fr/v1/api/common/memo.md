@@ -5,8 +5,8 @@ prev:
   text: "sleep"
   link: "/fr/v1/api/common/sleep"
 next:
-  text: "memoPromise"
-  link: "/fr/v1/api/common/memoPromise"
+  text: "memoObject"
+  link: "/fr/v1/api/common/memoObject"
 ---
 
 # memo

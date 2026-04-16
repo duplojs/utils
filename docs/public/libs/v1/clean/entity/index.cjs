@@ -5,21 +5,22 @@ var newType = require('../newType.cjs');
 var property = require('./property.cjs');
 var kind$1 = require('../../common/kind.cjs');
 var pipe = require('../../common/pipe.cjs');
-var map = require('../../array/map.cjs');
-var entry = require('../../object/entry.cjs');
-var base = require('../constraint/base.cjs');
-var transform = require('../../dataParser/parsers/transform.cjs');
-var entries = require('../../object/entries.cjs');
-var forward = require('../../common/forward.cjs');
 var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
-var index = require('../../dataParser/parsers/object/index.cjs');
-var fromEntries = require('../../object/fromEntries.cjs');
-var wrapValue = require('../../common/wrapValue.cjs');
+var memo = require('../../common/memo.cjs');
 var override = require('../../common/override.cjs');
 var is = require('../../either/left/is.cjs');
 var unwrap$1 = require('../../common/unwrap.cjs');
 var create = require('../../either/left/create.cjs');
 var create$1 = require('../../either/right/create.cjs');
+var transform = require('../../dataParser/parsers/transform.cjs');
+var index = require('../../dataParser/parsers/object/index.cjs');
+var fromEntries = require('../../object/fromEntries.cjs');
+var map = require('../../array/map.cjs');
+var entry = require('../../object/entry.cjs');
+var base = require('../constraint/base.cjs');
+var wrapValue = require('../../common/wrapValue.cjs');
+var entries = require('../../object/entries.cjs');
+var forward = require('../../common/forward.cjs');
 
 const entityKind = kind.createCleanKind("entity");
 const entityHandlerKind = kind.createCleanKind("entity-handler");
@@ -39,8 +40,8 @@ function createEntity(name, getPropertiesDefinition) {
     function theNew(properties) {
         return entityKind.addTo(properties, name);
     }
-    const propertiesDefinition = getPropertiesDefinition(property.entityPropertyDefinitionTools);
-    const mapDataParser = pipe.pipe(forward.forward(propertiesDefinition), entries.entries, map.map(([key, property$1]) => entry.entry(key, property.entityPropertyDefinitionToDataParser(property$1, (newTypeHandler) => {
+    const propertiesDefinition = memo.memo(() => getPropertiesDefinition(property.entityPropertyDefinitionTools));
+    const mapDataParser = memo.memo(() => pipe.pipe(forward.forward(propertiesDefinition.value), entries.entries, map.map(([key, property$1]) => entry.entry(key, property.entityPropertyDefinitionToDataParser(property$1, (newTypeHandler) => {
         const allKind = {
             ...base.constrainedTypeKind.setTo({}, newTypeHandler.internal.constraintKindValue),
             ...newType.newTypeKind.setTo({}, newTypeHandler.name),
@@ -49,16 +50,16 @@ function createEntity(name, getPropertiesDefinition) {
             ...allKind,
             [wrapValue.keyWrappedValue]: value,
         }));
-    }))), fromEntries.fromEntries, index.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name)));
+    }))), fromEntries.fromEntries, index.object, (dataParser) => transform.transform(dataParser, (value) => entityKind.setTo(value, name))));
     function map$1(rawProperties) {
-        const result = mapDataParser.parse(rawProperties);
+        const result = mapDataParser.value.parse(rawProperties);
         if (is.isLeft(result)) {
             return create.left("createEntityError", unwrap$1.unwrap(result));
         }
         return create$1.right("createEntity", unwrap$1.unwrap(result));
     }
     function mapOrThrow(rawProperties) {
-        const result = mapDataParser.parse(rawProperties);
+        const result = mapDataParser.value.parse(rawProperties);
         if (is.isLeft(result)) {
             throw new CreateEntityError(rawProperties, unwrap$1.unwrap(result));
         }
@@ -67,9 +68,14 @@ function createEntity(name, getPropertiesDefinition) {
     function is$1(input) {
         return entityKind.has(input) && entityKind.getValue(input) === name;
     }
-    function update(entity, newProperties) {
+    function update(...args) {
+        if (args.length === 1) {
+            const [newProperties] = args;
+            return (entity) => update(entity, newProperties);
+        }
+        const [entity, newProperties] = args;
         const updatedEntity = {};
-        for (const key in propertiesDefinition) {
+        for (const key in propertiesDefinition.value) {
             updatedEntity[key] = newProperties[key] !== undefined
                 ? newProperties[key]
                 : entity[key];
@@ -78,10 +84,16 @@ function createEntity(name, getPropertiesDefinition) {
     }
     return pipe.pipe({
         name,
-        propertiesDefinition,
-        mapDataParser,
+        get propertiesDefinition() {
+            return propertiesDefinition.value;
+        },
+        get mapDataParser() {
+            return mapDataParser.value;
+        },
         internal: {
-            mapDataParser,
+            get mapDataParser() {
+                return mapDataParser.value;
+            },
         },
         new: theNew,
         map: map$1,

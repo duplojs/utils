@@ -71,6 +71,7 @@ export { or } from './common/or.mjs';
 export { whenElse } from './common/whenElse.mjs';
 export { justReturn } from './common/justReturn.mjs';
 export { memo } from './common/memo.mjs';
+export { memoObject } from './common/memoObject.mjs';
 export { memoPromise } from './common/memoPromise.mjs';
 export { instanceOf } from './common/instanceOf.mjs';
 export { createGlobalStore } from './common/globalStore.mjs';

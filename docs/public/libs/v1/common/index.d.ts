@@ -58,6 +58,7 @@ export * from "./or";
 export * from "./whenElse";
 export * from "./justReturn";
 export * from "./memo";
+export * from "./memoObject";
 export * from "./memoPromise";
 export * from "./instanceOf";
 export * from "./globalStore";

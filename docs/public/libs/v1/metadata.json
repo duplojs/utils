@@ -1517,6 +1517,15 @@
           "name": "memo.mjs"
         },
         {
+          "name": "memoObject.cjs"
+        },
+        {
+          "name": "memoObject.d.ts"
+        },
+        {
+          "name": "memoObject.mjs"
+        },
+        {
           "name": "memoPromise.cjs"
         },
         {
