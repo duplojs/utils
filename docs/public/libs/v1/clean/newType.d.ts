@@ -1,8 +1,7 @@
-import { type Kind, type WrappedValue, type Unwrap, type NeverCoalescing, type DeepReadonly, type IsEqual } from "..";
-import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
+import { type Kind, type WrappedValue, type Unwrap, type DeepReadonly, type IsEqual } from "..";
+import { constrainedTypeKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
-import * as DArray from "../array";
 import type * as DDataParser from "../dataParser";
 import { type DataParserContainTransform } from "./types";
 export declare const newTypeKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type", string>>;
@@ -159,15 +158,19 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * 
  * ```
  * 
+ * @remarks
+ * - You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
+ * - Constraints sets are expanded internally before being added to the NewType, preserving declaration order.
+ * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/newType
  * 
  * @namespace C
  * 
  */
-export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstraintsHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | readonly [
-    ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>,
-    ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]
-]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, DArray.ArrayCoalescing<NeverCoalescing<GenericConstraintsHandler, readonly []>>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstraintsHandler extends (ConstraintSetInputConstraint<GenericDataParser> | readonly [
+    ConstraintSetInputConstraint<GenericDataParser>,
+    ...ConstraintSetInputConstraint<GenericDataParser>[]
+]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
 }

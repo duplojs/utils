@@ -1,6 +1,7 @@
 'use strict';
 
 var kind = require('./kind.cjs');
+var set = require('./constraint/set.cjs');
 var kind$1 = require('../common/kind.cjs');
 var flatMap = require('../array/flatMap.cjs');
 var coalescing = require('../array/coalescing.cjs');
@@ -34,7 +35,9 @@ class CreateNewTypeError extends kind$1.kindHeritage("create-new-type-error", er
  * {@include clean/createNewType/index.md}
  */
 function createNewType(name, dataParser, constraint) {
-    const constraints = coalescing.coalescing(constraint ?? []);
+    const constraints = flatMap.flatMap(coalescing.coalescing(constraint ?? []), (constraint) => set.constraintsSetHandlerKind.has(constraint)
+        ? constraint.internal.constraints
+        : constraint);
     const checkers = flatMap.flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)

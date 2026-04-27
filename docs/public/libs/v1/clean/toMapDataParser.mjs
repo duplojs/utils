@@ -3,7 +3,10 @@ import { hasSomeKinds } from '../common/hasSomeKinds.mjs';
 import { entityPropertyDefinitionToDataParser, entityPropertyNullableKind, entityPropertyArrayKind, entityPropertyStructureKind, entityPropertyIdentifierKind, entityPropertyUnionKind } from './entity/property.mjs';
 import { primitiveHandlerKind } from './primitive/base.mjs';
 import { constrainedTypeKind, constraintHandlerKind } from './constraint/base.mjs';
+<<<<<<< HEAD
 import { constraintsSetHandlerKind } from './constraint/set.mjs';
+=======
+>>>>>>> 6cb91c8c (feat(75): add documentation)
 import { match } from '../pattern/match/index.mjs';
 import { transform } from '../dataParser/parsers/transform.mjs';
 import { stringKind } from '../dataParser/parsers/string/index.mjs';
@@ -14,6 +17,7 @@ import { dateKind } from '../dataParser/parsers/date.mjs';
 import { timeKind } from '../dataParser/parsers/time/index.mjs';
 import { emptyKind } from '../dataParser/parsers/empty.mjs';
 import { nilKind } from '../dataParser/parsers/nil.mjs';
+import { constraintsSetHandlerKind } from './constraint/set.mjs';
 import { keyWrappedValue } from '../common/wrapValue.mjs';
 
 function toMapDataParser(input, params) {

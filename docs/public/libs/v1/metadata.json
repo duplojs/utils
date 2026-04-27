@@ -646,6 +646,23 @@
               ]
             },
             {
+              "name": "defaultConstraintSet",
+              "files": [
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "number.cjs"
+                },
+                {
+                  "name": "number.d.ts"
+                },
+                {
+                  "name": "number.mjs"
+                }
+              ]
+            },
+            {
               "name": "base.cjs"
             },
             {

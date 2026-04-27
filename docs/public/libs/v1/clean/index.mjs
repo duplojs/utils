@@ -11,10 +11,11 @@ export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPr
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';
 export { castConstraint } from './constraint/cast.mjs';
-export { Int, Negative, NumberMax, NumberMin, Positive } from './constraint/defaultConstraint/number.mjs';
+export { Int, Negative, NumberMax, NumberMin, Positive, StrictNegative, StrictPositive } from './constraint/defaultConstraint/number.mjs';
 export { Email, StringMax, StringMin, Url, Uuid } from './constraint/defaultConstraint/string.mjs';
 export { NegativeTime, PositiveTime } from './constraint/defaultConstraint/time.mjs';
 export { CreateConstraintsSetError, constraintsSetHandlerKind, createConstraintsSet } from './constraint/set.mjs';
+export { NegativeInt, Percent, PositiveInt, StrictNegativeInt, StrictPositiveInt } from './constraint/defaultConstraintSet/number.mjs';
 export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, createPrimitive, primitiveHandlerKind } from './primitive/base.mjs';
 export { equal } from './primitive/operations/equal.mjs';
 export { add } from './primitive/operations/number/add.mjs';

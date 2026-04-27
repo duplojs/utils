@@ -171,7 +171,7 @@ Valide un nombre entier.
 
 ### `Positive`
 
-Valide un nombre strictement positif (>= 1).
+Valide un nombre positif ou nul (>= 0).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/positive.doc.ts"
@@ -179,12 +179,32 @@ Valide un nombre strictement positif (>= 1).
   height="240px"
 />
 
+### `StrictPositive`
+
+Valide un nombre strictement positif (>= 1).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictPositive.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `Negative`
+
+Valide un nombre négatif ou nul (<= 0).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/negative.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictNegative`
 
 Valide un nombre strictement négatif (<= -1).
 
 <MonacoTSEditor
-  src="/examples/v1/api/clean/constraints/negative.doc.ts"
+  src="/examples/v1/api/clean/constraints/strictNegative.doc.ts"
   majorVersion="v1"
   height="240px"
 />
@@ -227,6 +247,60 @@ Valide une durée strictement négative (<= -1 milliseconde) sur la primitive `C
   src="/examples/v1/api/clean/constraints/negativeTime.doc.ts"
   majorVersion="v1"
   height="271px"
+/>
+
+## Ensembles de contraintes fournis par la librairie
+
+La librairie exporte aussi des ensembles de contraintes prêts à l'emploi via `C.*`. Ils regroupent plusieurs contraintes et peuvent être utilisés directement avec `C.createNewType(...)` ou comme handlers de validation.
+
+### `PositiveInt`
+
+Valide un nombre entier positif ou nul (`Positive` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/positiveInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictPositiveInt`
+
+Valide un nombre entier strictement positif (`StrictPositive` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictPositiveInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `NegativeInt`
+
+Valide un nombre entier négatif ou nul (`Negative` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/negativeInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictNegativeInt`
+
+Valide un nombre entier strictement négatif (`StrictNegative` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictNegativeInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `Percent`
+
+Valide un nombre compris entre 0 et 100 inclus (`NumberMin(0)` + `NumberMax(100)`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/percent.doc.ts"
+  majorVersion="v1"
+  height="240px"
 />
 
 ## Voir aussi

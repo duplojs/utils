@@ -2,7 +2,6 @@ import { type Kind, type WrappedValue, type UnionToIntersection } from "../..";
 import { type GetConstraint, type ConstraintHandler } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DEither from "../../either";
-import * as DArray from "../../array";
 import type * as DDataParser from "../../dataParser";
 export declare const constraintsSetHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraints-set-handler", unknown>>;
 export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintsSetHandlerKind.definition> {
@@ -113,6 +112,14 @@ export declare class CreateConstraintsSetError extends CreateConstraintsSetError
     dataParserError: DDataParser.DataParserError;
     constructor(data: unknown, dataParserError: DDataParser.DataParserError);
 }
+export type ConstraintSetInputConstraint<GenericDataParser extends DDataParser.DataParser = DDataParser.DataParser> = (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]> | ConstraintsSetHandler<EligiblePrimitive, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, DDataParser.Output<GenericDataParser>>[]>[]>);
+export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (ConstraintSetInputConstraint | readonly ConstraintSetInputConstraint[] | readonly [])> = GenericConstraint extends ConstraintHandler<any, any, any, any> ? readonly [GenericConstraint] : GenericConstraint extends ConstraintsSetHandler<any, any, any> ? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]> : GenericConstraint extends readonly [] ? GenericConstraint : GenericConstraint extends readonly [
+    infer InferredFirst extends ConstraintSetInputConstraint<any>,
+    ...infer InferredRest extends readonly ConstraintSetInputConstraint<any>[]
+] ? ExtractConstraintSetConstraintHandlers<InferredRest> extends infer InferredResultRest extends readonly any[] ? readonly [
+    ...ExtractConstraintSetConstraintHandlers<InferredFirst>,
+    ...InferredResultRest
+] : never : never;
 /**
  * Creates a constraints set handler to apply multiple constraints to a primitive.
  * 
@@ -150,7 +157,8 @@ export declare class CreateConstraintsSetError extends CreateConstraintsSetError
  * ```
  * 
  * @remarks
- * - You can pass a single constraint handler or a tuple of constraints.
+ * - You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
+ * - Constraints sets are expanded internally, so their contained constraints are applied in declaration order.
  * - The handler accepts both raw values and primitives.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
@@ -158,10 +166,10 @@ export declare class CreateConstraintsSetError extends CreateConstraintsSetError
  * @namespace C
  * 
  */
-export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends (ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]> | readonly [
-    ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]>,
-    ...ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]>[]
-]) = never>(primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, DArray.ArrayCoalescing<GenericConstrainHandler>, GenericPrimitiveInput>;
+export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends (ConstraintSetInputConstraint | readonly [
+    ConstraintSetInputConstraint,
+    ...ConstraintSetInputConstraint[]
+]) = never>(primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>, GenericPrimitiveInput>;
 export declare namespace createConstraintsSet {
     var overrideHandler: import("../..").OverrideHandler<ConstraintsSetHandler<EligiblePrimitive, readonly [], unknown>>;
 }

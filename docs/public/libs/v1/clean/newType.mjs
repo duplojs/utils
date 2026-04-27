@@ -1,4 +1,5 @@
 import { createCleanKind } from './kind.mjs';
+import { constraintsSetHandlerKind } from './constraint/set.mjs';
 import { kindHeritage } from '../common/kind.mjs';
 import { flatMap } from '../array/flatMap.mjs';
 import { coalescing } from '../array/coalescing.mjs';
@@ -32,7 +33,9 @@ class CreateNewTypeError extends kindHeritage("create-new-type-error", createErr
  * {@include clean/createNewType/index.md}
  */
 function createNewType(name, dataParser, constraint) {
-    const constraints = coalescing(constraint ?? []);
+    const constraints = flatMap(coalescing(constraint ?? []), (constraint) => constraintsSetHandlerKind.has(constraint)
+        ? constraint.internal.constraints
+        : constraint);
     const checkers = flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)

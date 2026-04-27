@@ -60,6 +60,35 @@ export type Int = GetConstraint<typeof Int>;
 export declare const Positive: ConstraintHandler<"positive", number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
 export type Positive = GetConstraint<typeof Positive>;
 /**
+ * Constraint handler that validates strictly positive numbers (>= 1).
+ * 
+ * **Supported call styles:**
+ * - Classic: `StrictPositive.create(value)` -> returns Either
+ * 
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers greater than or equal to 1.
+ * 
+ * ```ts
+ * const result = C.StrictPositive.create(4);
+ * 
+ * if (E.isRight(result)) {
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"strict-positive", 4>>
+ * }
+ * 
+ * const value = C.StrictPositive.createOrThrow(10);
+ * // value: C.ConstrainedType<"strict-positive", 10>
+ * 
+ * C.StrictPositive.is(value); // type guard
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
+export declare const StrictPositive: ConstraintHandler<"strict-positive", number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
+export type StrictPositive = GetConstraint<typeof StrictPositive>;
+/**
  * Constraint handler that validates strictly negative numbers (<= -1).
  * 
  * **Supported call styles:**
@@ -88,6 +117,35 @@ export type Positive = GetConstraint<typeof Positive>;
  */
 export declare const Negative: ConstraintHandler<"negative", number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
 export type Negative = GetConstraint<typeof Negative>;
+/**
+ * Constraint handler that validates strictly negative numbers (<= -1).
+ * 
+ * **Supported call styles:**
+ * - Classic: `StrictNegative.create(value)` -> returns Either
+ * 
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers less than or equal to -1.
+ * 
+ * ```ts
+ * const result = C.StrictNegative.create(-4);
+ * 
+ * if (E.isRight(result)) {
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"strict-negative", -4>>
+ * }
+ * 
+ * const value = C.StrictNegative.createOrThrow(-10);
+ * // value: C.ConstrainedType<"strict-negative", -10>
+ * 
+ * C.StrictNegative.is(value); // type guard
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
+export declare const StrictNegative: ConstraintHandler<"strict-negative", number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
+export type StrictNegative = GetConstraint<typeof StrictNegative>;
 export type NumberMinHandlerInternal<GenericValue extends number = number> = Extract<ConstraintHandler<`number-min-${GenericValue}`, number, readonly [DDataParser.DataParserCheckerNumberMin], never>, any>;
 export type NumberMinInternal<GenericValue extends number = number> = GetConstraint<NumberMinHandlerInternal<GenericValue>>;
 /**
