@@ -27,7 +27,7 @@ describe("DDataParser string checker uuid", () => {
 							expected: "uuid",
 							path: "",
 							data: "not-a-uuid",
-							message: undefined,
+							message: "string.uuid",
 						}),
 					],
 					currentPath: [],

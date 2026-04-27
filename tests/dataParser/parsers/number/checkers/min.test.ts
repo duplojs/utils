@@ -28,7 +28,7 @@ describe("DDataParser number checker min", () => {
 							expected: "number >= 0",
 							path: "",
 							data: -1,
-							message: undefined,
+							message: "number.min",
 						}),
 					],
 					currentPath: [],

@@ -38,7 +38,7 @@ describe("DDataParser time checker min", () => {
 							expected: "time >= time60000+",
 							path: "",
 							data: input,
-							message: undefined,
+							message: "time.min",
 						}),
 					],
 					currentPath: [],

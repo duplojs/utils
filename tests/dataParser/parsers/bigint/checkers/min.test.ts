@@ -28,7 +28,7 @@ describe("DDataParser bigint checker min", () => {
 							expected: "bigint >= 0n",
 							path: "",
 							data: -1n,
-							message: undefined,
+							message: "bigint.min",
 						}),
 					],
 					currentPath: [],

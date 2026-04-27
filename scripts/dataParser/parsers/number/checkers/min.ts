@@ -35,8 +35,8 @@ export function checkerNumberMin(
 				min,
 			},
 		},
-		(value, error, self) => value >= self.definition.min
+		(value, error, self, dataParser) => value >= self.definition.min
 			? value
-			: addIssue(error, `number >= ${self.definition.min}`, value, self.definition.errorMessage),
+			: addIssue(error, `number >= ${self.definition.min}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
 	);
 }

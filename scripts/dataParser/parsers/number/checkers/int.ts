@@ -30,12 +30,12 @@ export function checkerInt(
 		{
 			definition,
 		},
-		(data, error, self) => {
+		(data, error, self, dataParser) => {
 			if (Number.isInteger(data)) {
 				return data;
 			}
 
-			return addIssue(error, "integer", data, self.definition.errorMessage);
+			return addIssue(error, "integer", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
 		},
 	);
 }

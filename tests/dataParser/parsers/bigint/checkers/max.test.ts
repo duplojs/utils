@@ -28,7 +28,7 @@ describe("DDataParser bigint checker max", () => {
 							expected: "bigint <= 10n",
 							path: "",
 							data: 11n,
-							message: undefined,
+							message: "bigint.max",
 						}),
 					],
 					currentPath: [],

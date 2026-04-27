@@ -101,7 +101,7 @@ describe("base parser", () => {
 
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker);
+			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker, parser);
 		});
 
 		it("parseOrThrow returns value on success", () => {
@@ -239,7 +239,7 @@ describe("base parser", () => {
 
 			expect(result).toStrictEqual(DEither.success(5));
 			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker);
+			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker, parser);
 		});
 
 		it("asyncParseOrThrow returns value on success", async() => {

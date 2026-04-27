@@ -35,8 +35,8 @@ export function checkerNumberMax(
 				max,
 			},
 		},
-		(value, error, self) => value <= self.definition.max
+		(value, error, self, dataParser) => value <= self.definition.max
 			? value
-			: addIssue(error, `number <= ${self.definition.max}`, value, self.definition.errorMessage),
+			: addIssue(error, `number <= ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
 	);
 }

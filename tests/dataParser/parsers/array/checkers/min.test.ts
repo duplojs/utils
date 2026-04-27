@@ -36,7 +36,7 @@ describe("DDataParser array checker min", () => {
 							expected: "array.length >= 3",
 							path: "",
 							data: ["a", "b"],
-							message: undefined,
+							message: "array.min",
 						}),
 					],
 					currentPath: [],

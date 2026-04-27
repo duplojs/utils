@@ -35,9 +35,14 @@ export function checkerArrayMax(
 				max,
 			},
 		},
-		(data, error, self) => data.length <= self.definition.max
+		(data, error, self, dataParser) => data.length <= self.definition.max
 			? data
-			: addIssue(error, `array.length <= ${self.definition.max}`, data, self.definition.errorMessage),
+			: addIssue(
+				error,
+				`array.length <= ${self.definition.max}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			),
 
 	);
 }

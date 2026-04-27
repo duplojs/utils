@@ -36,7 +36,7 @@ describe("DDataParser array checker max", () => {
 							expected: "array.length <= 2",
 							path: "",
 							data: ["one", "two", "three"],
-							message: undefined,
+							message: "array.max",
 						}),
 					],
 					currentPath: [],

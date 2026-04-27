@@ -39,8 +39,8 @@ export function checkerTimeMin(
 				min,
 			},
 		},
-		(value, error, self) => DDate.greaterTime(value, self.definition.min)
+		(value, error, self, dataParser) => DDate.greaterTime(value, self.definition.min)
 			? value
-			: addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage),
+			: addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
 	);
 }

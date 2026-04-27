@@ -60,9 +60,9 @@ export function checkerRefine<
 				theFunction,
 			},
 		},
-		(value, error, self) => self.definition.theFunction(value)
+		(value, error, self, dataParser) => self.definition.theFunction(value)
 			? value
-			: addIssue(error, "value matching refine predicate", value, self.definition.errorMessage),
+			: addIssue(error, "value matching refine predicate", value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
 	) as never;
 }
 

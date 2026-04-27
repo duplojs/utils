@@ -24,7 +24,7 @@ describe("DDataParser string checker email", () => {
 							expected: "email",
 							path: "",
 							data: "invalid-email",
-							message: undefined,
+							message: "string.email",
 						}),
 					],
 					currentPath: [],

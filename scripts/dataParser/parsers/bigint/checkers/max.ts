@@ -35,9 +35,9 @@ export function checkerBigIntMax(
 				max,
 			},
 		},
-		(value, error, self) => {
+		(value, error, self, dataParser) => {
 			if (value > self.definition.max) {
-				return addIssue(error, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage);
+				return addIssue(error, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
 			}
 
 			return value;

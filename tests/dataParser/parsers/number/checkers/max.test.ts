@@ -28,7 +28,7 @@ describe("DDataParser number checker max", () => {
 							expected: "number <= 10",
 							path: "",
 							data: 11,
-							message: undefined,
+							message: "number.max",
 						}),
 					],
 					currentPath: [],
