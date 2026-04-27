@@ -1,6 +1,6 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type NeverCoalescing, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "./kind";
-import { constrainedTypeKind, type ConstraintHandler } from "./constraint";
+import { constrainedTypeKind, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";
@@ -253,31 +253,10 @@ export function createNewType<
 	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParser,
 	const GenericConstraintsHandler extends(
-		| ConstraintHandler<
-			string,
-			EligiblePrimitive,
-			readonly DDataParser.DataParserChecker<
-				DDataParser.DataParserCheckerDefinition,
-				DDataParser.Output<GenericDataParser>
-			>[]
-		>
+		| ConstraintSetInputConstraint<GenericDataParser>
 		| readonly [
-			ConstraintHandler<
-				string,
-				EligiblePrimitive,
-				readonly DDataParser.DataParserChecker<
-					DDataParser.DataParserCheckerDefinition,
-					DDataParser.Output<GenericDataParser>
-				>[]
-			>,
-			...ConstraintHandler<
-				string,
-				EligiblePrimitive,
-				readonly DDataParser.DataParserChecker<
-					DDataParser.DataParserCheckerDefinition,
-					DDataParser.Output<GenericDataParser>
-				>[]
-			>[],
+			ConstraintSetInputConstraint<GenericDataParser>,
+			...ConstraintSetInputConstraint<GenericDataParser>[],
 		]
 	) = never,
 >(
@@ -287,14 +266,17 @@ export function createNewType<
 ): NewTypeHandler<
 		GenericName,
 		DeepReadonly<DDataParser.Output<GenericDataParser>>,
-		DArray.ArrayCoalescing<
-			NeverCoalescing<GenericConstraintsHandler, readonly []>
-		>,
+		ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
 		IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
 			? never
 			: DDataParser.Input<GenericDataParser>
 	> {
-	const constraints = DArray.coalescing(constraint ?? []);
+	const constraints = DArray.flatMap(
+		DArray.coalescing(constraint ?? []),
+		(constraint) => constraintsSetHandlerKind.has(constraint)
+			? constraint.internal.constraints
+			: constraint,
+	) as ConstraintHandler[];
 
 	const checkers = DArray.flatMap(
 		constraints,

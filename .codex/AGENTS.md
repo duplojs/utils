@@ -9,6 +9,7 @@ La librairie est organisée par namespaces (`DArray`, `DObject`, etc.) et couvre
 - outils orientés DDD (`DClean`)
 - concepts monadiques (`DEither`)
 - pattern matching (`DPattern`)
+- Process et flux (`DFlow`)
 
 ## Philosophie
 
@@ -40,6 +41,7 @@ DPattern
 DDataParser
 DDate
 DClean
+DFlow
 
 ## Répertoires de travail
 - `scripts/` : code source
