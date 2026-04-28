@@ -2,6 +2,13 @@ import { createCleanKind } from './kind.mjs';
 import { isLeft } from '../either/left/is.mjs';
 
 const chainEndKind = createCleanKind("chain-end");
+function* breakIfLeft(value) {
+    if (isLeft(value)) {
+        yield value;
+    }
+    return value;
+}
+const chainedFunctionParams = { breakIfLeft };
 /**
  * {@include clean/chainedFunction/index.md}
  */
@@ -30,7 +37,7 @@ function chainedFunction(function1, function2, ...functions) {
                 return [result, nextLink];
             })();
         };
-        const generator = theFunction(createLink(functionChain));
+        const generator = theFunction(createLink(functionChain), chainedFunctionParams);
         let result = undefined;
         if (Symbol.asyncIterator in generator) {
             return (async () => {

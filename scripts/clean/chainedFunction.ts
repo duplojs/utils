@@ -122,6 +122,27 @@ type ComputeResult<
 		>
 		: never;
 
+function *breakIfLeft<
+	GenericValue extends unknown,
+>(
+	value: GenericValue,
+): Generator<
+		Extract<GenericValue, EE.Left>,
+		Exclude<GenericValue, EE.Left>
+	> {
+	if (EE.isLeft(value)) {
+		yield value;
+	}
+
+	return value as never;
+}
+
+export interface ChainedFunctionParams {
+	breakIfLeft: typeof breakIfLeft;
+}
+
+const chainedFunctionParams: ChainedFunctionParams = { breakIfLeft };
+
 export type ChainedFunction<
 	GenericValue extends FunctionChain = FunctionChain,
 > = <
@@ -130,7 +151,7 @@ export type ChainedFunction<
 		MaybePromise<EE.Left | ChainEnd>
 	>,
 >(
-	callback: (firstLink: Chain<GenericValue>) => (
+	callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (
 		& GenericGenerator
 		& OutputMustContainChainEnd<
 			GenericGenerator
@@ -190,6 +211,7 @@ export function chainedFunction<
 
 		const generator = theFunction(
 			createLink(functionChain) as never,
+			chainedFunctionParams,
 		);
 
 		let result: undefined | IteratorResult<MaybePromise<EE.Left>, unknown> = undefined;

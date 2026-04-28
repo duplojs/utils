@@ -113,6 +113,63 @@ describe("chainedFunction", () => {
 		>;
 	});
 
+	it("breakIfLeft returns a synchronous value without its left branch", () => {
+		const error = DEither.error("manual-left");
+		const value = "hello" as string | typeof error;
+		const useCase = DClean.chainedFunction(
+			["parseTitle", (input: string) => input.trim()],
+			["persistTitle", (input: string) => input.length],
+		);
+
+		const result = useCase(function *(link1, { breakIfLeft }) {
+			const titleInput = yield *breakIfLeft(value);
+			const [title, link2] = yield *link1(({ parseTitle }) => parseTitle(titleInput));
+			const [length, chainEnd] = yield *link2(({ persistTitle }) => persistTitle(title));
+
+			return chainEnd(length);
+		});
+
+		expect(result).toBe(5);
+
+		type Check = ExpectType<
+			typeof result,
+			DEither.Error<"manual-left"> | number,
+			"strict"
+		>;
+	});
+
+	it("breakIfLeft short-circuits on a synchronous left", () => {
+		const error = DEither.error("manual-left");
+		const value = error as string | typeof error;
+		const useCase = DClean.chainedFunction(
+			["parseTitle", (input: string) => input.trim()],
+			["persistTitle", (input: string) => input.length],
+		);
+		const persistTitleSpy = vi.fn((input: string) => input.length);
+
+		const result = useCase(function *(link1, { breakIfLeft }) {
+			const titleInput = yield *breakIfLeft(value);
+			type check = ExpectType<
+				typeof titleInput,
+				string,
+				"strict"
+			>;
+			const [title, link2] = yield *link1(({ parseTitle }) => parseTitle(titleInput));
+			const [length, chainEnd] = yield *link2(() => persistTitleSpy(title));
+
+			return chainEnd(length);
+		});
+
+		expect(result).toBe(error);
+		expect(persistTitleSpy).not.toHaveBeenCalled();
+
+		type Check = ExpectType<
+			typeof result,
+			DEither.Error<"manual-left"> | number,
+			"strict"
+		>;
+	});
+
 	it("awaits asynchronous links and returns asynchronous chain end values", async() => {
 		const useCase = DClean.chainedFunction(
 			["loadCount", async(input: number) => Promise.resolve(input + 1)],

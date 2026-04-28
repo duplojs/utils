@@ -31,7 +31,11 @@ type OutputMustContainChainEnd<GenericGenerator extends MaybeAsyncGenerator> = I
     [SymbolError]: "Output must contain a chainEnd";
 } : unknown;
 type ComputeResult<GenericGenerator extends MaybeAsyncGenerator> = GenericGenerator extends Generator<infer InferredIterateValue, infer InferredReturnValue> ? (InferredIterateValue | InferredReturnValue) extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never : GenericGenerator extends AsyncGenerator<infer InferredIterateValue, infer InferredReturnValue> ? Promise<Awaited<InferredIterateValue | InferredReturnValue> extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never> : never;
-export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> = <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)) => ComputeResult<GenericGenerator>;
+declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue): Generator<Extract<GenericValue, EE.Left>, Exclude<GenericValue, EE.Left>>;
+export interface ChainedFunctionParams {
+    breakIfLeft: typeof breakIfLeft;
+}
+export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> = <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)) => ComputeResult<GenericGenerator>;
 /**
  * Declares a typed aggregate of pure linked business actions that must run in order.
  * 

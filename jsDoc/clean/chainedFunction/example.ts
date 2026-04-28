@@ -56,27 +56,18 @@ const PublishCommentUseCase = C.createUseCase(
 	({
 		commentRepository,
 		articleRepository,
-	}) => (draft: CommentDraft) => CommentPublicationAggregate(function *(link1) {
+	}) => (draft: CommentDraft) => CommentPublicationAggregate(function *(link1, { breakIfLeft }) {
 		const [comment, link2] = yield *link1(({ createComment }) => createComment(draft));
 
-		const savedComment = commentRepository.save(comment);
-		if (E.isLeft(savedComment)) {
-			return savedComment;
-		}
+		const savedComment = yield *breakIfLeft(commentRepository.save(comment));
 
-		const article = articleRepository.findById(savedComment.articleId);
-		if (E.isLeft(article)) {
-			return article;
-		}
+		const article = yield *breakIfLeft(articleRepository.findById(savedComment.articleId));
 
 		const [updatedArticle, chainEnd] = yield *link2(
 			({ incrementArticleCommentCount }) => incrementArticleCommentCount(article),
 		);
 
-		const savedArticle = articleRepository.save(updatedArticle);
-		if (E.isLeft(savedArticle)) {
-			return savedArticle;
-		}
+		const savedArticle = yield *breakIfLeft(articleRepository.save(updatedArticle));
 
 		return chainEnd({
 			comment: savedComment,
