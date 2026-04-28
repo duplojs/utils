@@ -13,9 +13,9 @@ function checkerUuid(definition = {}) {
             ...definition,
             regex: uuidRegex,
         },
-    }, (data, error$1, self) => uuidRegex.test(data)
+    }, (data, error$1, self, dataParser) => uuidRegex.test(data)
         ? data
-        : error.addIssue(error$1, "uuid", data, self.definition.errorMessage));
+        : error.addIssue(error$1, "uuid", data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 /**
  * {@include dataParser/classic/uuid/index.md}

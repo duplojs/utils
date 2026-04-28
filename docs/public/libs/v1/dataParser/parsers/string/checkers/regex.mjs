@@ -9,9 +9,9 @@ function checkerRegex(regex, definition = {}) {
             ...definition,
             regex,
         },
-    }, (data, error, self) => self.definition.regex.test(data)
+    }, (data, error, self, dataParser) => self.definition.regex.test(data)
         ? data
-        : addIssue(error, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage));
+        : addIssue(error, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 export { checkerRegex, checkerRegexKind };

@@ -55,6 +55,9 @@ Declares a repository (contract) and type-checks the implementation.
 ## [UseCase](/en/v1/api/clean/useCase)
 Declares a use case with dependencies (repositories or other use cases).
 
+## [chainedFunction](/en/v1/api/clean/chainedFunction)
+Declares an aggregate of linked business actions that must run in order.
+
 ## Operations on primitives
 
 ### [equal](/en/v1/api/clean/primitives/operators/equal)

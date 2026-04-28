@@ -1,10 +1,11 @@
 'use strict';
 
 var newType = require('./newType.cjs');
+var hasSomeKinds = require('../common/hasSomeKinds.cjs');
+var property = require('./entity/property.cjs');
 var base = require('./primitive/base.cjs');
 var base$1 = require('./constraint/base.cjs');
 var set = require('./constraint/set.cjs');
-var hasSomeKinds = require('../common/hasSomeKinds.cjs');
 var index = require('../pattern/match/index.cjs');
 var transform = require('../dataParser/parsers/transform.cjs');
 var index$1 = require('../dataParser/parsers/string/index.cjs');
@@ -18,6 +19,15 @@ var nil = require('../dataParser/parsers/nil.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 
 function toMapDataParser(input, params) {
+    if (hasSomeKinds.hasSomeKinds(input, [
+        property.entityPropertyNullableKind,
+        property.entityPropertyArrayKind,
+        property.entityPropertyStructureKind,
+        property.entityPropertyIdentifierKind,
+        property.entityPropertyUnionKind,
+    ])) {
+        return property.entityPropertyDefinitionToDataParser(input, (newTypeHandler) => toMapDataParser(newTypeHandler, params));
+    }
     const dataParser = (base.primitiveHandlerKind.has(input)
         ? input.dataParser.clone()
         : input.internal.dataParser.clone());

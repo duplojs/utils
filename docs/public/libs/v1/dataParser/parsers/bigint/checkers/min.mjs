@@ -9,9 +9,9 @@ function checkerBigIntMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, error, self) => {
+    }, (value, error, self, dataParser) => {
         if (value < self.definition.min) {
-            return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage);
+            return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
         }
         return value;
     });

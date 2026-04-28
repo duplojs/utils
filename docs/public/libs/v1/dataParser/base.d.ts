@@ -8,7 +8,7 @@ export interface DataParserCheckerDefinition {
 }
 export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition> {
     readonly definition: GenericDefinition;
-    exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this): GenericOutput | SymbolDataParserError;
+    exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this, dataParser: DataParser): GenericOutput | SymbolDataParserError;
 }
 export type InputChecker<GenericDataParser extends DataParserChecker> = Parameters<GenericDataParser["exec"]>[0];
 export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => InputChecker<GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;

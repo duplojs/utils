@@ -9,9 +9,9 @@ function checkerStringMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (data, error, self) => data.length >= self.definition.min
+    }, (data, error, self, dataParser) => data.length >= self.definition.min
         ? data
-        : addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage));
+        : addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 export { checkerStringMin, checkerStringMinKind };

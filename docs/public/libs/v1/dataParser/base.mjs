@@ -43,7 +43,7 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         if (result !== SDPE
             && self.definition.checkers.length) {
             for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, error, checker);
+                const checkerResult = checker.exec(result, error, checker, self);
                 if (checkerResult === SDPE) {
                     return SDPE;
                 }
@@ -59,7 +59,7 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         if (result !== SDPE
             && self.definition.checkers.length) {
             for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, error, checker);
+                const checkerResult = checker.exec(result, error, checker, self);
                 if (checkerResult === SDPE) {
                     return SDPE;
                 }

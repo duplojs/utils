@@ -5,8 +5,8 @@ prev:
   text: "Repository"
   link: "/en/v1/api/clean/repository"
 next:
-  text: "Clean"
-  link: "/en/v1/api/clean/"
+  text: "chainedFunction"
+  link: "/en/v1/api/clean/chainedFunction"
 ---
 
 # UseCase
