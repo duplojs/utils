@@ -1,4 +1,4 @@
-import { type Unwrap, type WrappedValue, type IsEqual, type Transformer, type TransformerFunction, type SimplifyTopLevel, type DeepReadonly, type GetKindValue, type Kind, unwrap, isWrappedValue } from "@scripts/common";
+import { type Unwrap, type WrappedValue, type IsEqual, type Transformer, type TransformerFunction, type SimplifyTopLevel, type DeepReadonly, type GetKindValue, type Kind, unwrap, isWrappedValue, isRuntimeKind } from "@scripts/common";
 import { entityKind, type Entity } from ".";
 import { flagKind } from "../flag";
 
@@ -54,7 +54,7 @@ export type UnwrapEntity<
 						GetKindValue<typeof flagKind, GenericEntity>
 					>
 				}
-				: {}
+				: { _flags?: Record<string, unknown> }
 		)
 	>
 >;
@@ -124,7 +124,7 @@ export function unwrapEntity<
 			unwrapEntity._entityName = entity[prop];
 		} else if (prop === flagKind.runTimeKey) {
 			unwrapEntity._flags = entity[prop];
-		} else {
+		} else if (!isRuntimeKind(prop)) {
 			unwrapEntity[prop] = unwrapEntityProperty(entity[prop], params);
 		}
 	}

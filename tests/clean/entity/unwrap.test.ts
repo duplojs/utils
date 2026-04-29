@@ -1,4 +1,5 @@
 import { DClean, DDataParser, pipe, type ExpectType } from "@scripts";
+import { newTypeKind } from "@scripts/clean";
 
 describe("unwrapEntityProperty", () => {
 	it("unwraps wrapped values without transformer and supports pipe", () => {
@@ -172,7 +173,7 @@ describe("unwrapEntity", () => {
 
 		const result = pipe(
 			featuredEntity,
-			(value) => DClean.unwrapEntity(value),
+			DClean.unwrapEntity,
 		);
 
 		expect(result).toStrictEqual({
@@ -233,6 +234,8 @@ describe("unwrapEntity", () => {
 			},
 		});
 
+		newTypeKind.setTo(entity, "");
+
 		const result = DClean.unwrapEntity(
 			entity,
 			{
@@ -248,5 +251,21 @@ describe("unwrapEntity", () => {
 			},
 			_entityName: "User",
 		});
+
+		type check = ExpectType<
+			typeof result,
+			{
+				readonly name: "alice";
+				readonly role: "member";
+				readonly profile: {
+					readonly label: "member";
+				};
+				readonly _entityName: "User";
+				readonly _flags?: {
+					readonly [x: string]: unknown;
+				};
+			},
+			"strict"
+		>;
 	});
 });
