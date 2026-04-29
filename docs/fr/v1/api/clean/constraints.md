@@ -181,7 +181,7 @@ Valide un nombre positif ou nul (>= 0).
 
 ### `StrictPositive`
 
-Valide un nombre strictement positif (>= 1).
+Valide un nombre strictement positif (> 0).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/strictPositive.doc.ts"
@@ -201,7 +201,7 @@ Valide un nombre négatif ou nul (<= 0).
 
 ### `StrictNegative`
 
-Valide un nombre strictement négatif (<= -1).
+Valide un nombre strictement négatif (< 0).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/strictNegative.doc.ts"

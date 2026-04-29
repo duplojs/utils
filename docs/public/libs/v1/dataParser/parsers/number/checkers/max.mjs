@@ -7,11 +7,18 @@ function checkerNumberMax(max, definition = {}) {
     return dataParserCheckerInit(checkerNumberMaxKind, {
         definition: {
             ...definition,
+            exclusive: definition.exclusive ?? false,
             max,
         },
-    }, (value, error, self, dataParser) => value <= self.definition.max
-        ? value
-        : addIssue(error, `number <= ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage));
+    }, (value, error, self, dataParser) => {
+        const isValid = self.definition.exclusive
+            ? value < self.definition.max
+            : value <= self.definition.max;
+        if (isValid) {
+            return value;
+        }
+        return addIssue(error, `number ${self.definition.exclusive ? "<" : "<="} ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+    });
 }
 
 export { checkerNumberMax, checkerNumberMaxKind };

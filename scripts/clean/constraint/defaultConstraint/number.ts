@@ -29,7 +29,7 @@ export type Positive = GetConstraint<typeof Positive>;
 export const StrictPositive = createConstraint(
 	"strict-positive",
 	Number,
-	DDataParser.checkerNumberMin(1),
+	DDataParser.checkerNumberMin(0, { exclusive: true }),
 );
 export type StrictPositive = GetConstraint<typeof StrictPositive>;
 
@@ -49,7 +49,7 @@ export type Negative = GetConstraint<typeof Negative>;
 export const StrictNegative = createConstraint(
 	"strict-negative",
 	Number,
-	DDataParser.checkerNumberMax(-1),
+	DDataParser.checkerNumberMax(0, { exclusive: true }),
 );
 export type StrictNegative = GetConstraint<typeof StrictNegative>;
 

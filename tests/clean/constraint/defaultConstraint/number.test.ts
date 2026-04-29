@@ -55,12 +55,18 @@ describe("defaultConstraint number", () => {
 	});
 
 	it("validates strictly positive numbers", () => {
-		const value = DClean.StrictPositive.createOrThrow(1);
+		const value = DClean.StrictPositive.createOrThrow(Number.EPSILON);
 
 		expect(value).toStrictEqual(
 			DClean.constrainedTypeKind.setTo(
-				wrapValue(1),
+				wrapValue(Number.EPSILON),
 				{ "strict-positive": null },
+			),
+		);
+		expect(DClean.Positive.createOrThrow(0)).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue(0),
+				{ positive: null },
 			),
 		);
 		expect(() => DClean.StrictPositive.createOrThrow(0))
@@ -105,12 +111,18 @@ describe("defaultConstraint number", () => {
 	});
 
 	it("validates strictly negative numbers", () => {
-		const value = DClean.StrictNegative.createOrThrow(-1);
+		const value = DClean.StrictNegative.createOrThrow(-Number.EPSILON);
 
 		expect(value).toStrictEqual(
 			DClean.constrainedTypeKind.setTo(
-				wrapValue(-1),
+				wrapValue(-Number.EPSILON),
 				{ "strict-negative": null },
+			),
+		);
+		expect(DClean.Negative.createOrThrow(0)).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue(0),
+				{ negative: null },
 			),
 		);
 		expect(() => DClean.StrictNegative.createOrThrow(0))

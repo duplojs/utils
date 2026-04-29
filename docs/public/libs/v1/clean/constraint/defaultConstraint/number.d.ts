@@ -60,12 +60,12 @@ export type Int = GetConstraint<typeof Int>;
 export declare const Positive: ConstraintHandler<"positive", number, readonly [DDataParser.DataParserCheckerNumberMin], never>;
 export type Positive = GetConstraint<typeof Positive>;
 /**
- * Constraint handler that validates strictly positive numbers (>= 1).
+ * Constraint handler that validates strictly positive numbers (> 0).
  * 
  * **Supported call styles:**
  * - Classic: `StrictPositive.create(value)` -> returns Either
  * 
- * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers greater than or equal to 1.
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers strictly greater than zero.
  * 
  * ```ts
  * const result = C.StrictPositive.create(4);
@@ -81,7 +81,7 @@ export type Positive = GetConstraint<typeof Positive>;
  * 
  * ```
  * 
- * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints#strictpositive
  * 
  * @namespace C
  * 
@@ -118,12 +118,12 @@ export type StrictPositive = GetConstraint<typeof StrictPositive>;
 export declare const Negative: ConstraintHandler<"negative", number, readonly [DDataParser.DataParserCheckerNumberMax], never>;
 export type Negative = GetConstraint<typeof Negative>;
 /**
- * Constraint handler that validates strictly negative numbers (<= -1).
+ * Constraint handler that validates strictly negative numbers (< 0).
  * 
  * **Supported call styles:**
  * - Classic: `StrictNegative.create(value)` -> returns Either
  * 
- * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers less than or equal to -1.
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes to numbers strictly less than zero.
  * 
  * ```ts
  * const result = C.StrictNegative.create(-4);
@@ -139,7 +139,7 @@ export type Negative = GetConstraint<typeof Negative>;
  * 
  * ```
  * 
- * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints#strictnegative
  * 
  * @namespace C
  * 

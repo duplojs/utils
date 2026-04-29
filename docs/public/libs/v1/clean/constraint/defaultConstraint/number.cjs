@@ -17,7 +17,7 @@ const Positive = base.createConstraint("positive", base$1.Number, min.checkerNum
 /**
  * {@include clean/StrictPositive/index.md}
  */
-const StrictPositive = base.createConstraint("strict-positive", base$1.Number, min.checkerNumberMin(1));
+const StrictPositive = base.createConstraint("strict-positive", base$1.Number, min.checkerNumberMin(0, { exclusive: true }));
 /**
  * {@include clean/Negative/index.md}
  */
@@ -25,7 +25,7 @@ const Negative = base.createConstraint("negative", base$1.Number, max.checkerNum
 /**
  * {@include clean/StrictNegative/index.md}
  */
-const StrictNegative = base.createConstraint("strict-negative", base$1.Number, max.checkerNumberMax(-1));
+const StrictNegative = base.createConstraint("strict-negative", base$1.Number, max.checkerNumberMax(0, { exclusive: true }));
 /**
  * {@include clean/NumberMin/index.md}
  */

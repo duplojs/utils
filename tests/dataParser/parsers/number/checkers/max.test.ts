@@ -11,6 +11,17 @@ describe("DDataParser number checker max", () => {
 		expect(schema.parse(5)).toStrictEqual(DEither.success(5));
 	});
 
+	it("allows numbers strictly less than max when exclusive is true", () => {
+		const checker = DDataParser.checkerNumberMax(10, {
+			exclusive: true,
+		});
+		const schema = DDataParser.number({
+			checkers: [checker],
+		});
+
+		expect(schema.parse(9)).toStrictEqual(DEither.success(9));
+	});
+
 	it("fails numbers above maximum", () => {
 		const checker = DDataParser.checkerNumberMax(10);
 		const schema = DDataParser.number({
@@ -29,6 +40,34 @@ describe("DDataParser number checker max", () => {
 							path: "",
 							data: 11,
 							message: "number.max",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+	});
+
+	it("fails number equal to max when exclusive is true", () => {
+		const checker = DDataParser.checkerNumberMax(10, {
+			exclusive: true,
+		});
+		const schema = DDataParser.number({
+			checkers: [checker],
+			errorMessage: "number.max.exclusive",
+		});
+
+		const result = schema.parse(10);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "number < 10",
+							path: "",
+							data: 10,
+							message: "number.max.exclusive",
 						}),
 					],
 					currentPath: [],

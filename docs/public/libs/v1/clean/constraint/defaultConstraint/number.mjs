@@ -15,7 +15,7 @@ const Positive = createConstraint("positive", Number, checkerNumberMin(0));
 /**
  * {@include clean/StrictPositive/index.md}
  */
-const StrictPositive = createConstraint("strict-positive", Number, checkerNumberMin(1));
+const StrictPositive = createConstraint("strict-positive", Number, checkerNumberMin(0, { exclusive: true }));
 /**
  * {@include clean/Negative/index.md}
  */
@@ -23,7 +23,7 @@ const Negative = createConstraint("negative", Number, checkerNumberMax(0));
 /**
  * {@include clean/StrictNegative/index.md}
  */
-const StrictNegative = createConstraint("strict-negative", Number, checkerNumberMax(-1));
+const StrictNegative = createConstraint("strict-negative", Number, checkerNumberMax(0, { exclusive: true }));
 /**
  * {@include clean/NumberMin/index.md}
  */
