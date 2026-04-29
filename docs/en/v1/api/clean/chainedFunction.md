@@ -63,7 +63,7 @@ function chainedFunction(
 ```typescript
 const aggregate = chainedFunction(...functions);
 
-const result = aggregate(function *(firstLink) {
+const result = aggregate(function *(firstLink, { breakIfLeft }) {
 	const [value, nextLink] = yield *firstLink(({ functionName }) => functionName(...args));
 
 	return chainEnd(value);
@@ -76,6 +76,7 @@ const result = aggregate(function *(firstLink) {
 - `function2`: second pure business function in the chain.
 - `functions`: additional pure business functions, executed in declaration order.
 - `firstLink`: generated first link passed to the implementation callback.
+- `breakIfLeft`: synchronous helper injected into the callback. It accepts a value that may contain an `Either.Left`, stops the chain when it is a `Left`, otherwise returns the discriminated non-`Left` value.
 
 ## Return value
 
@@ -88,6 +89,8 @@ const result = aggregate(function *(firstLink) {
 ## Error flow
 
 When a chained function returns an `Either.Left`, the generator yields it and `chainedFunction` stops the implementation before the next links run. Business errors should be represented as `Either.Left`; thrown exceptions and rejected promises are not caught.
+
+`breakIfLeft` follows the same rule from inside the callback: use it to explicitly short-circuit from an intermediate synchronous value (`value | Left`) before calling the next link.
 
 ## See also
 

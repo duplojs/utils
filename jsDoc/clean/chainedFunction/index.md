@@ -10,6 +10,7 @@ Use it inside a Clean Architecture use case when several pure domain operations 
 ```
 
 @remarks `chainedFunction` expects at least two functions in the chain. It does not catch thrown exceptions or rejected promises; model handled business errors with `Either.Left`.
+The callback receives `(firstLink, { breakIfLeft })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/chainedFunction
 @see [`C.createUseCase`](https://utils.duplojs.dev/en/v1/api/clean/useCase)
