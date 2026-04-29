@@ -258,33 +258,43 @@ export class CreateConstraintsSetError extends kindHeritage(
 }
 
 export type ConstraintSetInputConstraint<
-	GenericDataParser extends DDataParser.DataParser = DDataParser.DataParser,
+	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 > = (
 	ConstraintHandler<
 		string,
-		EligiblePrimitive,
+		GenericValue,
 		readonly DDataParser.DataParserChecker<
 			DDataParser.DataParserCheckerDefinition,
-			DDataParser.Output<GenericDataParser>
+			GenericValue
 		>[]
 	>
 	| ConstraintsSetHandler<
-		EligiblePrimitive,
+		GenericValue,
 		readonly ConstraintHandler<
 			string,
-			EligiblePrimitive,
+			GenericValue,
 			readonly DDataParser.DataParserChecker<
 				DDataParser.DataParserCheckerDefinition,
-				DDataParser.Output<GenericDataParser>
+				GenericValue
 			>[]
 		>[]
 	>
 );
 
+export type ConstraintsHandlerArguments<
+	GenericValue extends EligiblePrimitive,
+> = (
+	| ConstraintSetInputConstraint<GenericValue>
+	| readonly [
+		ConstraintSetInputConstraint<GenericValue>,
+		...ConstraintSetInputConstraint<GenericValue>[],
+	]
+);
+
 export type ExtractConstraintSetConstraintHandlers<
 	GenericConstraint extends (
-		| ConstraintSetInputConstraint
-		| readonly ConstraintSetInputConstraint[]
+		| ConstraintSetInputConstraint<any>
+		| readonly ConstraintSetInputConstraint<any>[]
 		| readonly []
 	),
 > = GenericConstraint extends ConstraintHandler<any, any, any, any>
@@ -312,13 +322,7 @@ export type ExtractConstraintSetConstraintHandlers<
 export function createConstraintsSet<
 	GenericPrimitiveValue extends EligiblePrimitive,
 	GenericPrimitiveInput extends unknown,
-	const GenericConstrainHandler extends(
-		| ConstraintSetInputConstraint
-		| readonly [
-			ConstraintSetInputConstraint,
-			...ConstraintSetInputConstraint[],
-		]
-	) = never,
+	const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never,
 >(
 	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,

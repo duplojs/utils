@@ -1,6 +1,6 @@
 import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "./kind";
-import { constrainedTypeKind, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
+import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";
@@ -252,13 +252,9 @@ export class CreateNewTypeError extends kindHeritage(
 export function createNewType<
 	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParser,
-	const GenericConstraintsHandler extends(
-		| ConstraintSetInputConstraint<GenericDataParser>
-		| readonly [
-			ConstraintSetInputConstraint<GenericDataParser>,
-			...ConstraintSetInputConstraint<GenericDataParser>[],
-		]
-	) = never,
+	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
+		Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>
+	> = never,
 >(
 	name: GenericName,
 	dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>,
