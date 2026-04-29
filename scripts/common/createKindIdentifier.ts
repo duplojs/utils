@@ -1,6 +1,6 @@
 import { type GetKindHandler, type Kind, type KindDefinition, type KindHandler } from "./kind";
 import { type UnionContain, type UnionToIntersection } from "./types";
-import * as DArray from "@scripts/array";
+import { coalescing } from "@scripts/array/coalescing";
 
 export function createKindIdentifier<
 	GenericParent extends Kind<KindDefinition>,
@@ -81,7 +81,7 @@ export function createKindIdentifier<
 
 		const [input, kind] = args;
 
-		const formattedKind = DArray.coalescing(kind);
+		const formattedKind = coalescing(kind);
 
 		for (const kind of formattedKind) {
 			if (!kind.has(input)) {

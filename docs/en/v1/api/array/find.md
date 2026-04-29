@@ -5,8 +5,8 @@ prev:
   text: "isLastIndex"
   link: "/en/v1/api/array/isLastIndex"
 next:
-  text: "findLast"
-  link: "/en/v1/api/array/findLast"
+  text: "findDuplicates"
+  link: "/en/v1/api/array/findDuplicates"
 ---
 
 # find

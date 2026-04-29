@@ -68,6 +68,9 @@ Indique si un index correspond au dernier élément du tableau.
 ### [find](/fr/v1/api/array/find)
 Trouve le premier élément qui satisfait une condition.
 
+### [findDuplicates](/fr/v1/api/array/findDuplicates)
+Trouve les valeurs dupliquées et conserve une occurrence par doublon.
+
 ### [findLast](/fr/v1/api/array/findLast)
 Trouve le dernier élément qui satisfait une condition.
 

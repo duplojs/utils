@@ -11,9 +11,9 @@ function checkerRegex(regex, definition = {}) {
             ...definition,
             regex,
         },
-    }, (data, error$1, self) => self.definition.regex.test(data)
+    }, (data, error$1, self, dataParser) => self.definition.regex.test(data)
         ? data
-        : error.addIssue(error$1, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage));
+        : error.addIssue(error$1, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 exports.checkerRegex = checkerRegex;

@@ -107,7 +107,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
 }
 declare const CreateConstraintsSetError_base: new (params: {
     "@DuplojsUtilsError/create-constraint-set-error"?: unknown;
-}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"create-constraint-set-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constraint-set-error", unknown>, unknown>;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constraint-set-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"create-constraint-set-error", unknown>, unknown>;
 export declare class CreateConstraintsSetError extends CreateConstraintsSetError_base {
     data: unknown;
     dataParserError: DDataParser.DataParserError;

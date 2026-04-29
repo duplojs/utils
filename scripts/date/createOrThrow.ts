@@ -1,4 +1,6 @@
-import { createErrorKind, kindHeritage, unwrap } from "@scripts/common";
+import { kindHeritage } from "@scripts/common/kind";
+import { unwrap } from "@scripts/common/unwrap";
+import { createErrorKind } from "@scripts/common/errorKindNamespace";
 import { create } from "./create";
 import type { SerializedTheDate, SpoolingDate } from "./types";
 import * as DEither from "@scripts/either";

@@ -1,7 +1,7 @@
 import type { SerializedTheDate } from "./types/serializedTheDate";
 declare const TheDate_base: new (params: {
     "@DuplojsUtilsDate/the-date"?: unknown;
-}, parentParams: readonly [value: string | number | Date]) => Date & import("../common/kind").Kind<import("../common/kind").KindDefinition<"the-date", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsDate/the-date", unknown>, unknown>;
+}, parentParams: readonly [value: string | number | Date]) => import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsDate/the-date", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"the-date", unknown>, unknown> & Date;
 /**
  * Represents an immutable date-time object (`TheDate`) based on UTC.
  * 

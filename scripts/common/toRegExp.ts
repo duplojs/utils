@@ -1,6 +1,5 @@
 import type { AnyTuple } from "./types";
 import { escapeRegExp } from "./escapeRegExp";
-import * as DArray from "@scripts/array";
 
 /**
  * {@include common/toRegExp/index.md}
@@ -10,7 +9,7 @@ export function toRegExp(input: string | AnyTuple<string> | RegExp): RegExp {
 		return new RegExp(`^${escapeRegExp(input)}$`);
 	}
 
-	if (DArray.is(input)) {
+	if (input instanceof Array) {
 		const result = input.map(escapeRegExp).join("|");
 
 		return new RegExp(`^(?:${result})$`);
