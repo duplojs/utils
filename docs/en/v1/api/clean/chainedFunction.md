@@ -48,7 +48,7 @@ Persistence stays in the use case through the library repository system. The cha
 
 ## Syntax
 
-### Classic signature
+### Signature
 
 ```typescript
 function chainedFunction(
@@ -58,7 +58,7 @@ function chainedFunction(
 ): ChainedFunction
 ```
 
-### Implementation signature
+### Implementation
 
 ```typescript
 const aggregate = chainedFunction(...functions);

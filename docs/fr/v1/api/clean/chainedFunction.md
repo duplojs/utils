@@ -49,7 +49,7 @@ La persistance reste dans le use case via le système de repository de la librai
 
 ## Syntaxe
 
-### Signature classique
+### Signature
 
 ```typescript
 function chainedFunction(
@@ -59,7 +59,7 @@ function chainedFunction(
 ): ChainedFunction
 ```
 
-### Signature d'implémentation
+### Implémentation
 
 ```typescript
 const aggregate = chainedFunction(...functions);

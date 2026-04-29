@@ -6,7 +6,7 @@ Declares a typed aggregate of pure linked business actions that must run in orde
 Use it inside a Clean Architecture use case when several pure domain operations that update different entities must belong to the same business consistency boundary. Each link exposes exactly one named action, yields `Left` values to short-circuit the implementation, and provides the next link until the last step returns `chainEnd(value)`. Repository calls stay in the use case through the library repository system; functions passed to `chainedFunction` remain pure domain functions.
 
 ```ts
-{@include clean/chainedFunction/example.ts[3,145]}
+{@include clean/chainedFunction/example.ts[31,145]}
 ```
 
 @remarks `chainedFunction` expects at least two functions in the chain. It does not catch thrown exceptions or rejected promises; model handled business errors with `Either.Left`.
