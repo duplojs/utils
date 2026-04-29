@@ -13,3 +13,4 @@ export * from "./useCase";
 export * from "./flag";
 export * from "./maybe";
 export * from "./toMapDataParser";
+export * from "./chainedFunction";

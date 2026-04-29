@@ -1003,6 +1003,15 @@
           ]
         },
         {
+          "name": "chainedFunction.cjs"
+        },
+        {
+          "name": "chainedFunction.d.ts"
+        },
+        {
+          "name": "chainedFunction.mjs"
+        },
+        {
           "name": "flag.cjs"
         },
         {
@@ -1119,7 +1128,7 @@
               "name": "deepPartial.d.ts"
             },
             {
-              "name": "DeepReadonly.d.ts"
+              "name": "deepReadonly.d.ts"
             },
             {
               "name": "deepRemoveReadonly.d.ts"
@@ -1165,6 +1174,9 @@
             },
             {
               "name": "maybeArray.d.ts"
+            },
+            {
+              "name": "maybeAsyncGenerator.d.ts"
             },
             {
               "name": "maybeGetter.d.ts"

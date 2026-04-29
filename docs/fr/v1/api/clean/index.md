@@ -55,6 +55,9 @@ Déclare un repository (contrat) et type-check l'implémentation.
 ## [UseCase](/fr/v1/api/clean/useCase)
 Déclare un use case avec des dépendances (repositories ou autres use cases).
 
+## [chainedFunction](/fr/v1/api/clean/chainedFunction)
+Déclare un agrégat d'actions métier liées qui doivent s'exécuter dans l'ordre.
+
 ## Opérations sur primitives
 
 ### [equal](/fr/v1/api/clean/primitives/operators/equal)
