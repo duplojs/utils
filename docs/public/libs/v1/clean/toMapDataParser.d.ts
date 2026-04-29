@@ -1,9 +1,9 @@
 import * as DDataParser from "../dataParser";
 import { type ConstraintHandler, type ConstraintsSetHandler, type GetConstraint, type GetConstraints } from "./constraint";
-import { type GetNewType, type NewTypeHandler } from "./newType";
 import { type PrimitiveHandler } from "./primitive";
-type ToMapDataParserInput = NewTypeHandler<any, any, readonly any[], any> | ConstraintHandler<any, any, readonly any[], any> | ConstraintsSetHandler<any, readonly any[], any> | PrimitiveHandler;
-type OutputDataParser<GenericInput extends ToMapDataParserInput> = GenericInput extends NewTypeHandler<any, any, readonly any[], any> ? GetNewType<GenericInput> : GenericInput extends ConstraintHandler<any, any, readonly any[], any> ? GetConstraint<GenericInput> : GenericInput extends ConstraintsSetHandler<any, readonly any[], any> ? GetConstraints<GenericInput> : GenericInput extends PrimitiveHandler ? ReturnType<GenericInput["createWithUnknownOrThrow"]> : never;
+import { type EntityPropertyDefinition, type EntityProperty } from "./entity";
+type ToMapDataParserInput = (ConstraintHandler<any, any, readonly any[], any> | ConstraintsSetHandler<any, readonly any[], any> | PrimitiveHandler | EntityPropertyDefinition);
+type OutputDataParser<GenericInput extends ToMapDataParserInput> = GenericInput extends ConstraintHandler<any, any, readonly any[], any> ? GetConstraint<GenericInput> : GenericInput extends ConstraintsSetHandler<any, readonly any[], any> ? GetConstraints<GenericInput> : GenericInput extends PrimitiveHandler ? ReturnType<GenericInput["createWithUnknownOrThrow"]> : GenericInput extends EntityPropertyDefinition ? EntityProperty<GenericInput> : never;
 interface ToMapDataParserParams {
     coerce?: boolean;
 }
@@ -41,7 +41,7 @@ interface ToMapDataParserParams {
  * ```
  * 
  * @remarks
- * - Supported inputs: `NewTypeHandler`, `ConstraintHandler`, `ConstraintsSetHandler`, and `PrimitiveHandler`.
+ * - Supported inputs: `NewTypeHandler`, `ConstraintHandler`, `ConstraintsSetHandler`, `PrimitiveHandler`, and `EntityProperty`.
  * - Use `coerce: true` to allow conversions (e.g. number to string) on compatible parsers.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/toMapDataParser
@@ -49,5 +49,5 @@ interface ToMapDataParserParams {
  * @namespace C
  * 
  */
-export declare function toMapDataParser<GenericInput extends ToMapDataParserInput, GenericInputDataParser extends unknown = unknown>(input: GenericInput, params?: ToMapDataParserParams): DDataParser.Contract<OutputDataParser<GenericInput>, GenericInputDataParser>;
+export declare function toMapDataParser<GenericInput extends ToMapDataParserInput, GenericOutput extends OutputDataParser<GenericInput>>(input: GenericInput, params?: ToMapDataParserParams): DDataParser.Contract<NoInfer<GenericOutput>, unknown>;
 export {};

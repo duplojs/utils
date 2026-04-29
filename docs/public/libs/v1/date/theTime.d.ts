@@ -1,7 +1,7 @@
 import type { SerializedTheTime } from "./types";
 declare const TheTime_base: new (params?: {
     "@DuplojsUtilsDate/the-time"?: unknown;
-} | undefined) => import("../common/kind").Kind<import("../common/kind").KindDefinition<"the-time", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsDate/the-time", unknown>, unknown>;
+} | undefined) => import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsDate/the-time", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"the-time", unknown>, unknown>;
 /**
  * Represents an immutable signed time value object (`TheTime`) stored in milliseconds.
  * 

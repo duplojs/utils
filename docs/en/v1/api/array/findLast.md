@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The findLast() method returns the last element of an array that satisfies a given condition."
 prev:
-  text: "find"
-  link: "/en/v1/api/array/find"
+  text: "findDuplicates"
+  link: "/en/v1/api/array/findDuplicates"
 next:
   text: "findIndex"
   link: "/en/v1/api/array/findIndex"

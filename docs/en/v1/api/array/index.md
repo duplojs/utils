@@ -68,6 +68,9 @@ Indicates whether an index corresponds to the last element of the array.
 ### [find](/en/v1/api/array/find)
 Finds the first element that satisfies a condition.
 
+### [findDuplicates](/en/v1/api/array/findDuplicates)
+Finds duplicated values and keeps one occurrence per duplicate.
+
 ### [findLast](/en/v1/api/array/findLast)
 Finds the last element that satisfies a condition.
 

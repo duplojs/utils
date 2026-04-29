@@ -13,9 +13,9 @@ function checkerTimeMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, error, self) => greaterTime(value, self.definition.min)
+    }, (value, error, self, dataParser) => greaterTime(value, self.definition.min)
         ? value
-        : addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage));
+        : addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 export { checkerTimeMin, checkerTimeMinKind };

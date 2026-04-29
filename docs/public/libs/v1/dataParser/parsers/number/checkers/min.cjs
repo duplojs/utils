@@ -11,9 +11,9 @@ function checkerNumberMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (value, error$1, self) => value >= self.definition.min
+    }, (value, error$1, self, dataParser) => value >= self.definition.min
         ? value
-        : error.addIssue(error$1, `number >= ${self.definition.min}`, value, self.definition.errorMessage));
+        : error.addIssue(error$1, `number >= ${self.definition.min}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 exports.checkerNumberMin = checkerNumberMin;

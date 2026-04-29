@@ -11,9 +11,9 @@ function checkerArrayMin(min, definition = {}) {
             ...definition,
             min,
         },
-    }, (data, error$1, self) => data.length >= self.definition.min
+    }, (data, error$1, self, dataParser) => data.length >= self.definition.min
         ? data
-        : error.addIssue(error$1, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage));
+        : error.addIssue(error$1, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 exports.checkerArrayMin = checkerArrayMin;

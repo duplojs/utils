@@ -1,4 +1,4 @@
-import * as DArray from "@scripts/array";
+import { coalescing } from "@scripts/array/coalescing";
 import { type AnyConstructor } from "./types";
 
 /**
@@ -37,7 +37,7 @@ export function instanceOf(
 
 	const [input, constructor] = args;
 
-	const formattedConstructor = DArray.coalescing(constructor);
+	const formattedConstructor = coalescing(constructor);
 
 	for (const constructor of formattedConstructor) {
 		if (input instanceof constructor) {

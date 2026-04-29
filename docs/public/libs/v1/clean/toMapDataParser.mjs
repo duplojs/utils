@@ -1,8 +1,9 @@
 import { newTypeHandlerKind, newTypeKind } from './newType.mjs';
+import { hasSomeKinds } from '../common/hasSomeKinds.mjs';
+import { entityPropertyDefinitionToDataParser, entityPropertyNullableKind, entityPropertyArrayKind, entityPropertyStructureKind, entityPropertyIdentifierKind, entityPropertyUnionKind } from './entity/property.mjs';
 import { primitiveHandlerKind } from './primitive/base.mjs';
 import { constrainedTypeKind, constraintHandlerKind } from './constraint/base.mjs';
 import { constraintsSetHandlerKind } from './constraint/set.mjs';
-import { hasSomeKinds } from '../common/hasSomeKinds.mjs';
 import { match } from '../pattern/match/index.mjs';
 import { transform } from '../dataParser/parsers/transform.mjs';
 import { stringKind } from '../dataParser/parsers/string/index.mjs';
@@ -16,6 +17,15 @@ import { nilKind } from '../dataParser/parsers/nil.mjs';
 import { keyWrappedValue } from '../common/wrapValue.mjs';
 
 function toMapDataParser(input, params) {
+    if (hasSomeKinds(input, [
+        entityPropertyNullableKind,
+        entityPropertyArrayKind,
+        entityPropertyStructureKind,
+        entityPropertyIdentifierKind,
+        entityPropertyUnionKind,
+    ])) {
+        return entityPropertyDefinitionToDataParser(input, (newTypeHandler) => toMapDataParser(newTypeHandler, params));
+    }
     const dataParser = (primitiveHandlerKind.has(input)
         ? input.dataParser.clone()
         : input.internal.dataParser.clone());

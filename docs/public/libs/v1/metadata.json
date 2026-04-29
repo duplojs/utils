@@ -252,6 +252,15 @@
           "name": "findAndReplace.mjs"
         },
         {
+          "name": "findDuplicates.cjs"
+        },
+        {
+          "name": "findDuplicates.d.ts"
+        },
+        {
+          "name": "findDuplicates.mjs"
+        },
+        {
           "name": "findIndex.cjs"
         },
         {

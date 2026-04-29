@@ -2,9 +2,9 @@
 
 var createTime = require('./createTime.cjs');
 var kind = require('../common/kind.cjs');
+var errorKindNamespace = require('../common/errorKindNamespace.cjs');
 var is = require('../either/left/is.cjs');
 var unwrap = require('../common/unwrap.cjs');
-var errorKindNamespace = require('../common/errorKindNamespace.cjs');
 
 class CreateTheTimeError extends kind.kindHeritage("create-the-time-error", errorKindNamespace.createErrorKind("create-the-time-error"), Error) {
     input;

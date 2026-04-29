@@ -11,9 +11,9 @@ function checkerNumberMax(max, definition = {}) {
             ...definition,
             max,
         },
-    }, (value, error$1, self) => value <= self.definition.max
+    }, (value, error$1, self, dataParser) => value <= self.definition.max
         ? value
-        : error.addIssue(error$1, `number <= ${self.definition.max}`, value, self.definition.errorMessage));
+        : error.addIssue(error$1, `number <= ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 
 exports.checkerNumberMax = checkerNumberMax;

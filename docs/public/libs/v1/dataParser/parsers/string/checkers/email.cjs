@@ -13,9 +13,9 @@ function checkerEmail(definition = {}) {
             ...definition,
             regex: emailRegex,
         },
-    }, (data, error$1, self) => self.definition.regex.test(data)
+    }, (data, error$1, self, dataParser) => self.definition.regex.test(data)
         ? data
-        : error.addIssue(error$1, "email", data, self.definition.errorMessage));
+        : error.addIssue(error$1, "email", data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
 }
 function email(definition) {
     return index.string({

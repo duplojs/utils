@@ -15,7 +15,7 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
      * 	export function isMajor(entity: Entity) {
      * 		if (C.greaterThan(entity.age, 18)) {
      * 			return E.success(
-     * 				MajorFlag.append(entity, entity.age),
+     * 				MajorFlag.append(entity, { age: entity.age }),
      * 			);
      * ```
      * 
@@ -26,7 +26,7 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
      * Retrieves the value carried by the flag.
      * 
      * ```ts
-     * const flagged = User.MajorFlag.append(user, user.age);
+     * const flagged = User.MajorFlag.append(user, { age: user.age });
      * const value = User.MajorFlag.getValue(flagged);
      * ```
      * 
@@ -61,14 +61,14 @@ export interface Flag<GenericName extends string = string, GenericValue extends 
  * 	export const MajorFlag = C.createFlag<
  * 		Entity, // mandatory
  * 		"majorUser", // mandatory
- * 		Age // optional
+ * 		{ age: Age } // optional
  * 	>("majorUser");
  * 	export type MajorFlag = C.GetFlag<typeof MajorFlag>;
  * 
  * 	export function isMajor(entity: Entity) {
  * 		if (C.greaterThan(entity.age, 18)) {
  * 			return E.success(
- * 				MajorFlag.append(entity, entity.age),
+ * 				MajorFlag.append(entity, { age: entity.age }),
  * 			);
  * 		}
  * 		return E.left("not-major");
@@ -94,7 +94,7 @@ export interface Flag<GenericName extends string = string, GenericValue extends 
  * );
  * // E.Left<"not-major", undefined> | E.Right<"not-thirsty-anymore", undefined>
  * 
- * const flagged = User.MajorFlag.append(user, user.age);
+ * const flagged = User.MajorFlag.append(user, { age: user.age });
  * const value = User.MajorFlag.getValue(flagged);
  * 
  * ```

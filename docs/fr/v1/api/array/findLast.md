@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La méthode findLast() retourne le dernier élément d'un tableau qui satisfait une condition donnée."
 prev:
-  text: "find"
-  link: "/fr/v1/api/array/find"
+  text: "findDuplicates"
+  link: "/fr/v1/api/array/findDuplicates"
 next:
   text: "findIndex"
   link: "/fr/v1/api/array/findIndex"
