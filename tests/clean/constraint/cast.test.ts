@@ -218,4 +218,82 @@ describe("castConstraint", () => {
 			DClean.Email,
 		);
 	});
+
+	it("supports strict positive and strict negative cast boundaries at the type level", () => {
+		// StrictPositive
+		const strictPositiveFromNumberMin = DClean.castConstraint(
+			DClean.NumberMin(1).createOrThrow(2),
+			DClean.StrictPositive,
+		);
+		type CheckStrictPositiveFromNumberMin = ExpectType<
+			typeof strictPositiveFromNumberMin,
+			& DClean.ConstrainedType<"number-min-1", 2>
+			& DClean.ConstrainedType<"strict-positive", number>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			DClean.NumberMin(0.5).createOrThrow(2),
+			DClean.StrictPositive,
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error strict-positive is potentially less 0.5
+			DClean.StrictPositive.createOrThrow(2),
+			DClean.NumberMin(0.5),
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error strict-positive is not negative
+			DClean.StrictPositive.createOrThrow(2),
+			DClean.Negative,
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error no casting possible
+			DClean.StrictPositive.createOrThrow(2),
+			DClean.Email,
+		);
+
+		// StrictNegative
+		const strictNegativeFromNumberMax = DClean.castConstraint(
+			DClean.NumberMax(-1).createOrThrow(-2),
+			DClean.StrictNegative,
+		);
+		type CheckStrictNegativeFromNumberMax = ExpectType<
+			typeof strictNegativeFromNumberMax,
+			& DClean.ConstrainedType<"number-max--1", -2>
+			& DClean.ConstrainedType<"strict-negative", number>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			DClean.NumberMax(-0.5).createOrThrow(-2),
+			DClean.StrictNegative,
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error strict-negative is less 0.5
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.NumberMin(0.5),
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error strict-negative is not positive
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.Positive,
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error strict-negative is less 0
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.Negative,
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error no casting possible
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.Email,
+		);
+	});
 });

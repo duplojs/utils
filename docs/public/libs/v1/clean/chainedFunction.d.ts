@@ -45,34 +45,6 @@ export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> 
  * Use it inside a Clean Architecture use case when several pure domain operations that update different entities must belong to the same business consistency boundary. Each link exposes exactly one named action, yields `Left` values to short-circuit the implementation, and provides the next link until the last step returns `chainEnd(value)`. Repository calls stay in the use case through the library repository system; functions passed to `chainedFunction` remain pure domain functions.
  * 
  * ```ts
- * interface CommentDraft {
- * 	articleId: number;
- * 	content: string;
- * }
- * 
- * interface Comment {
- * 	id: number;
- * 	articleId: number;
- * 	content: string;
- * }
- * 
- * interface Article {
- * 	id: number;
- * 	commentCount: number;
- * }
- * 
- * interface CommentRepository {
- * 	save(comment: Comment): Comment | E.Fail;
- * }
- * 
- * interface ArticleRepository {
- * 	findById(articleId: number): Article | E.Fail;
- * 	save(article: Article): Article | E.Fail;
- * }
- * 
- * const CommentRepository = C.createRepository<CommentRepository>();
- * const ArticleRepository = C.createRepository<ArticleRepository>();
- * 
  * const CommentPublicationAggregate = C.chainedFunction(
  * 	[
  * 		"createComment",
@@ -101,27 +73,18 @@ export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> 
  * 	({
  * 		commentRepository,
  * 		articleRepository,
- * 	}) => (draft: CommentDraft) => CommentPublicationAggregate(function *(link1) {
+ * 	}) => (draft: CommentDraft) => CommentPublicationAggregate(function *(link1, { breakIfLeft }) {
  * 		const [comment, link2] = yield *link1(({ createComment }) => createComment(draft));
  * 
- * 		const savedComment = commentRepository.save(comment);
- * 		if (E.isLeft(savedComment)) {
- * 			return savedComment;
- * 		}
+ * 		const savedComment = yield *breakIfLeft(commentRepository.save(comment));
  * 
- * 		const article = articleRepository.findById(savedComment.articleId);
- * 		if (E.isLeft(article)) {
- * 			return article;
- * 		}
+ * 		const article = yield *breakIfLeft(articleRepository.findById(savedComment.articleId));
  * 
  * 		const [updatedArticle, chainEnd] = yield *link2(
  * 			({ incrementArticleCommentCount }) => incrementArticleCommentCount(article),
  * 		);
  * 
- * 		const savedArticle = articleRepository.save(updatedArticle);
- * 		if (E.isLeft(savedArticle)) {
- * 			return savedArticle;
- * 		}
+ * 		const savedArticle = yield *breakIfLeft(articleRepository.save(updatedArticle));
  * 
  * 		return chainEnd({
  * 			comment: savedComment,
@@ -200,6 +163,7 @@ export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> 
  * ```
  * 
  * @remarks `chainedFunction` expects at least two functions in the chain. It does not catch thrown exceptions or rejected promises; model handled business errors with `Either.Left`.
+ * The callback receives `(firstLink, { breakIfLeft })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/chainedFunction
  * @see [`C.createUseCase`](https://utils.duplojs.dev/en/v1/api/clean/useCase)

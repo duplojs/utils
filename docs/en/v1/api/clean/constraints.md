@@ -171,7 +171,7 @@ Validates an integer.
 
 ### `Positive`
 
-Validates a strictly positive number (>= 1).
+Validates a positive or zero number (>= 0).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/positive.doc.ts"
@@ -179,12 +179,32 @@ Validates a strictly positive number (>= 1).
   height="240px"
 />
 
+### `StrictPositive`
+
+Validates a strictly positive number (> 0).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictPositive.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `Negative`
 
-Validates a strictly negative number (<= -1).
+Validates a negative or zero number (<= 0).
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/constraints/negative.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictNegative`
+
+Validates a strictly negative number (< 0).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictNegative.doc.ts"
   majorVersion="v1"
   height="240px"
 />
@@ -227,6 +247,60 @@ Validates a strictly negative duration (<= -1 millisecond) on the `C.Time` primi
   src="/examples/v1/api/clean/constraints/negativeTime.doc.ts"
   majorVersion="v1"
   height="271px"
+/>
+
+## Constraint sets provided by the library
+
+The library also exports ready-to-use constraint sets via `C.*`. They group multiple constraints and can be used directly with `C.createNewType(...)` or as validation handlers.
+
+### `PositiveInt`
+
+Validates a positive or zero integer (`Positive` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/positiveInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictPositiveInt`
+
+Validates a strictly positive integer (`StrictPositive` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictPositiveInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `NegativeInt`
+
+Validates a negative or zero integer (`Negative` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/negativeInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `StrictNegativeInt`
+
+Validates a strictly negative integer (`StrictNegative` + `Int`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/strictNegativeInt.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
+### `Percent`
+
+Validates a number between 0 and 100 included (`NumberMin(0)` + `NumberMax(100)`).
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/percent.doc.ts"
+  majorVersion="v1"
+  height="240px"
 />
 
 ## See also

@@ -257,51 +257,86 @@ export class CreateConstraintsSetError extends kindHeritage(
 	}
 }
 
+export type ConstraintSetInputConstraint<
+	GenericValue extends EligiblePrimitive = EligiblePrimitive,
+> = (
+	ConstraintHandler<
+		string,
+		GenericValue,
+		readonly DDataParser.DataParserChecker<
+			DDataParser.DataParserCheckerDefinition,
+			GenericValue
+		>[]
+	>
+	| ConstraintsSetHandler<
+		GenericValue,
+		readonly ConstraintHandler<
+			string,
+			GenericValue,
+			readonly DDataParser.DataParserChecker<
+				DDataParser.DataParserCheckerDefinition,
+				GenericValue
+			>[]
+		>[]
+	>
+);
+
+export type ConstraintsHandlerArguments<
+	GenericValue extends EligiblePrimitive,
+> = (
+	| ConstraintSetInputConstraint<GenericValue>
+	| readonly [
+		ConstraintSetInputConstraint<GenericValue>,
+		...ConstraintSetInputConstraint<GenericValue>[],
+	]
+);
+
+export type ExtractConstraintSetConstraintHandlers<
+	GenericConstraint extends (
+		| ConstraintSetInputConstraint<any>
+		| readonly ConstraintSetInputConstraint<any>[]
+		| readonly []
+	),
+> = GenericConstraint extends ConstraintHandler<any, any, any, any>
+	? readonly [GenericConstraint]
+	: GenericConstraint extends ConstraintsSetHandler<any, any, any>
+		? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]>
+		: GenericConstraint extends readonly []
+			? GenericConstraint
+			: GenericConstraint extends readonly [
+				infer InferredFirst extends ConstraintSetInputConstraint<any>,
+				...infer InferredRest extends readonly ConstraintSetInputConstraint<any>[],
+			]
+				? ExtractConstraintSetConstraintHandlers<InferredRest> extends infer
+				InferredResultRest extends readonly any[]
+					? readonly [
+						...ExtractConstraintSetConstraintHandlers<InferredFirst>,
+						...InferredResultRest,
+					]
+					: never
+				: never;
+
 /**
  * {@include clean/createConstraintsSet/index.md}
  */
 export function createConstraintsSet<
 	GenericPrimitiveValue extends EligiblePrimitive,
 	GenericPrimitiveInput extends unknown,
-	const GenericConstrainHandler extends(
-		| ConstraintHandler<
-			string,
-			EligiblePrimitive,
-			readonly DDataParser.DataParserChecker<
-				DDataParser.DataParserCheckerDefinition,
-				GenericPrimitiveValue
-			>[]
-		>
-		| readonly [
-			ConstraintHandler<
-				string,
-				EligiblePrimitive,
-				readonly DDataParser.DataParserChecker<
-					DDataParser.DataParserCheckerDefinition,
-					GenericPrimitiveValue
-				>[]
-			>,
-			...ConstraintHandler<
-				string,
-				EligiblePrimitive,
-				readonly DDataParser.DataParserChecker<
-					DDataParser.DataParserCheckerDefinition,
-					GenericPrimitiveValue
-				>[]
-			>[],
-		]
-	) = never,
+	const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never,
 >(
 	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,
 ): ConstraintsSetHandler<
 		GenericPrimitiveValue,
-		DArray.ArrayCoalescing<
-			GenericConstrainHandler
-		>,
+		ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>,
 		GenericPrimitiveInput
 	> {
-	const constraints = DArray.coalescing(constraint);
+	const constraints = DArray.flatMap(
+		DArray.coalescing(constraint),
+		(constraint) => constraintsSetHandlerKind.has(constraint)
+			? constraint.internal.constraints
+			: constraint,
+	) as ConstraintHandler[];
 
 	const checkers = DArray.flatMap(
 		constraints,

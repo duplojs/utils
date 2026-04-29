@@ -19,7 +19,7 @@ export const Uuid = createConstraint(
 	DDataParser.checkerUuid(),
 );
 
-export type Uuid = GetConstraint<typeof Url>;
+export type Uuid = GetConstraint<typeof Uuid>;
 
 /**
  * {@include clean/Url/index.md}

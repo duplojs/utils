@@ -10,7 +10,8 @@ A constraints set validates input with the primitive DataParser, applies all con
 ```
 
 @remarks
-- You can pass a single constraint handler or a tuple of constraints.
+- You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
+- Constraints sets are expanded internally, so their contained constraints are applied in declaration order.
 - The handler accepts both raw values and primitives.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/constraints

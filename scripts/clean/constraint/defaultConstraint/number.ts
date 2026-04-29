@@ -24,6 +24,16 @@ export const Positive = createConstraint(
 export type Positive = GetConstraint<typeof Positive>;
 
 /**
+ * {@include clean/StrictPositive/index.md}
+ */
+export const StrictPositive = createConstraint(
+	"strict-positive",
+	Number,
+	DDataParser.checkerNumberMin(0, { exclusive: true }),
+);
+export type StrictPositive = GetConstraint<typeof StrictPositive>;
+
+/**
  * {@include clean/Negative/index.md}
  */
 export const Negative = createConstraint(
@@ -33,11 +43,21 @@ export const Negative = createConstraint(
 );
 export type Negative = GetConstraint<typeof Negative>;
 
+/**
+ * {@include clean/StrictNegative/index.md}
+ */
+export const StrictNegative = createConstraint(
+	"strict-negative",
+	Number,
+	DDataParser.checkerNumberMax(0, { exclusive: true }),
+);
+export type StrictNegative = GetConstraint<typeof StrictNegative>;
+
 export type NumberMinHandlerInternal<
 	GenericValue extends number = number,
 > = Extract<
 	ConstraintHandler<
-	`number-min-${GenericValue}`,
+		`number-min-${GenericValue}`,
 		number,
 		readonly [DDataParser.DataParserCheckerNumberMin],
 		never
@@ -78,7 +98,7 @@ export type NumberMaxHandlerInternal<
 	GenericValue extends number = number,
 > = Extract<
 	ConstraintHandler<
-	`number-max-${GenericValue}`,
+		`number-max-${GenericValue}`,
 		number,
 		readonly [DDataParser.DataParserCheckerNumberMax],
 		never

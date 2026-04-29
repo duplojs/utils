@@ -9,11 +9,18 @@ function checkerNumberMin(min, definition = {}) {
     return base.dataParserCheckerInit(checkerNumberMinKind, {
         definition: {
             ...definition,
+            exclusive: definition.exclusive ?? false,
             min,
         },
-    }, (value, error$1, self, dataParser) => value >= self.definition.min
-        ? value
-        : error.addIssue(error$1, `number >= ${self.definition.min}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage));
+    }, (value, error$1, self, dataParser) => {
+        const isValid = self.definition.exclusive
+            ? value > self.definition.min
+            : value >= self.definition.min;
+        if (isValid) {
+            return value;
+        }
+        return error.addIssue(error$1, `number ${self.definition.exclusive ? ">" : ">="} ${self.definition.min}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+    });
 }
 
 exports.checkerNumberMin = checkerNumberMin;

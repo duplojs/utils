@@ -4,6 +4,7 @@ var index = require('./index.cjs');
 var flag = require('../flag.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
 var unwrap = require('../../common/unwrap.cjs');
+var kind = require('../../common/kind.cjs');
 
 /**
  * {@include clean/unwrapEntity/index.md}
@@ -50,7 +51,7 @@ function unwrapEntity(entity, params) {
         else if (prop === flag.flagKind.runTimeKey) {
             unwrapEntity._flags = entity[prop];
         }
-        else {
+        else if (!kind.isRuntimeKind(prop)) {
             unwrapEntity[prop] = unwrapEntityProperty(entity[prop], params);
         }
     }

@@ -1,4 +1,4 @@
-import { DEither, DClean, pipe, type ExpectType, type DDate, type DDataParser } from "@scripts";
+import { DEither, DClean, type ExpectType, type DDate, type DDataParser } from "@scripts";
 
 describe("defaultConstraint time", () => {
 	it("creates a positive time constraint for positive input", () => {

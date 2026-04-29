@@ -9,6 +9,10 @@ A NewType validates input with a DataParser, applies optional constraints, and b
 {@include clean/createNewType/example.ts[3,29]}
 ```
 
+@remarks
+- You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
+- Constraints sets are expanded internally before being added to the NewType, preserving declaration order.
+
 @see https://utils.duplojs.dev/en/v1/api/clean/newType
 
 @namespace C

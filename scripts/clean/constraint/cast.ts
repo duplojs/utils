@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { type UnionToIntersection, type SimplifyTopLevel, type NeverCoalescing, type And, type Not, type IsEqual } from "@scripts/common";
 import { type ConstraintHandler, type ConstrainedType, type GetConstraint, constrainedTypeKind } from "./base";
-import { type Negative, type NumberMaxHandlerInternal, type NumberMaxInternal, type NumberMinHandlerInternal, type NumberMinInternal, type Positive, type StringMaxHandlerInternal, type StringMaxInternal, type StringMinHandlerInternal, type StringMinInternal } from "./defaultConstraint";
+import { type StrictNegative, type StrictPositive, type Negative, type NumberMaxHandlerInternal, type NumberMaxInternal, type NumberMinHandlerInternal, type NumberMinInternal, type Positive, type StringMaxHandlerInternal, type StringMaxInternal, type StringMinHandlerInternal, type StringMinInternal } from "./defaultConstraint";
 import { type IsLess, type IsGreater } from "@scripts/number";
 import * as DArray from "@scripts/array";
 
@@ -24,14 +24,21 @@ type ForbiddenBadCast<
 				? IsLess<InferredConstraintValue, 0> extends true
 					? never
 					: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is greater than zero`>
-				: GenericConstrainedType extends NumberMinInternal<infer InferredReferenceValue extends number>
+				: GenericConstrainedType extends StrictPositive
 					? And<[
-						IsLess<InferredConstraintValue, InferredReferenceValue>,
-						Not<IsEqual<InferredReferenceValue, number>>,
+						IsLess<InferredConstraintValue, 0>,
+						Not<IsEqual<InferredConstraintValue, 0>>,
 					]> extends true
 						? never
-						: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is greater than ${InferredReferenceValue}`>
-					: CastConstraintError<GenericConstrainHandler, "no casting possible with number-min">
+						: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is strictly greater than zero`>
+					: GenericConstrainedType extends NumberMinInternal<infer InferredReferenceValue extends number>
+						? And<[
+							IsLess<InferredConstraintValue, InferredReferenceValue>,
+							Not<IsEqual<InferredReferenceValue, number>>,
+						]> extends true
+							? never
+							: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is greater than ${InferredReferenceValue}`>
+						: CastConstraintError<GenericConstrainHandler, "no casting possible with number-min">
 			: never
 		)
 		| (
@@ -40,14 +47,22 @@ type ForbiddenBadCast<
 					? IsGreater<InferredConstraintValue, 0> extends true
 						? never
 						: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is less than zero`>
-					: GenericConstrainedType extends NumberMaxInternal<infer InferredReferenceValue extends number>
+					: GenericConstrainedType extends StrictNegative
 						? And<[
-							IsGreater<InferredConstraintValue, InferredReferenceValue>,
-							Not<IsEqual<InferredReferenceValue, number>>,
+							IsGreater<InferredConstraintValue, 0>,
+							Not<IsEqual<InferredConstraintValue, 0>>,
 						]> extends true
 							? never
-							: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is less than ${InferredReferenceValue}`>
-						: CastConstraintError<GenericConstrainHandler, "no casting possible with number-max">
+							: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is strictly less than zero`>
+
+						: GenericConstrainedType extends NumberMaxInternal<infer InferredReferenceValue extends number>
+							? And<[
+								IsGreater<InferredConstraintValue, InferredReferenceValue>,
+								Not<IsEqual<InferredReferenceValue, number>>,
+							]> extends true
+								? never
+								: CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is less than ${InferredReferenceValue}`>
+							: CastConstraintError<GenericConstrainHandler, "no casting possible with number-max">
 				: never
 		)
 		| (
@@ -99,9 +114,37 @@ type ForbiddenBadCast<
 				: never
 		)
 		| (
+			GenericConstrainHandler extends typeof StrictPositive
+				? GenericConstrainedType extends NumberMinInternal<infer InferredReferenceValue extends number>
+					? And<[
+						IsLess<0, InferredReferenceValue>,
+						Not<IsEqual<InferredReferenceValue, 0>>,
+						Not<IsEqual<InferredReferenceValue, number>>,
+					]> extends true
+						? never
+						: CastConstraintError<GenericConstrainHandler, `constraint ${InferredReferenceValue} is strictly less than zero`>
+					: CastConstraintError<GenericConstrainHandler, "no casting possible with StrictPositive">
+				: never
+		)
+		| (
+			GenericConstrainHandler extends typeof StrictNegative
+				? GenericConstrainedType extends NumberMaxInternal<infer InferredReferenceValue extends number>
+					? And<[
+						IsGreater<0, InferredReferenceValue>,
+						Not<IsEqual<InferredReferenceValue, 0>>,
+						Not<IsEqual<InferredReferenceValue, number>>,
+					]> extends true
+						? never
+						: CastConstraintError<GenericConstrainHandler, `constraint ${InferredReferenceValue} is strictly greater than zero`>
+					: CastConstraintError<GenericConstrainHandler, "no casting possible with negative">
+				: never
+		)
+		| (
 			GenericConstrainHandler extends (
 				| typeof Negative
 				| typeof Positive
+				| typeof StrictNegative
+				| typeof StrictPositive
 				| StringMaxHandlerInternal
 				| StringMinHandlerInternal
 				| NumberMaxHandlerInternal

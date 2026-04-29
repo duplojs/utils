@@ -215,4 +215,164 @@ describe("createNewType", () => {
 			"strict"
 		>;
 	});
+
+	it("supports constraints set", () => {
+		const minConstraint = DClean.StringMin(2);
+		const maxConstraint = DClean.StringMax(5);
+		const constraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				minConstraint,
+				maxConstraint,
+			],
+		);
+
+		const handler = DClean.createNewType(
+			"Label",
+			DDataParser.string(),
+			constraintsSet,
+		);
+
+		type check = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"Label",
+				string,
+				readonly [
+					DClean.ConstraintHandler<
+						"string-min-2",
+						string,
+						readonly [DDataParser.DataParserCheckerStringMin],
+						never
+					>,
+					DClean.ConstraintHandler<
+						"string-max-5",
+						string,
+						readonly [DDataParser.DataParserCheckerStringMax],
+						never
+					>,
+				],
+				never
+			>,
+			"strict"
+		>;
+
+		const value = handler.createOrThrow("test");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("test"),
+					{
+						"string-min-2": null,
+						"string-max-5": null,
+					},
+				),
+				"Label",
+			),
+		);
+		expect(handler.is(value)).toBe(true);
+		expect(handler.getConstraint("string-min-2")).toBe(minConstraint);
+		expect(handler.getConstraint("string-max-5")).toBe(maxConstraint);
+		expect(() => handler.createOrThrow("t")).toThrow(DClean.CreateNewTypeError);
+
+		type Check = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"Label",
+				"test",
+				"string-min-2" | "string-max-5"
+			>,
+			"strict"
+		>;
+	});
+
+	it("preserves mixed constraints and constraints sets order at runtime", () => {
+		const executionOrder: string[] = [];
+		const firstConstraint = DClean.createConstraint(
+			"first",
+			DClean.String,
+			DDataParser.checkerRefine<string>(() => {
+				executionOrder.push("first");
+				return true;
+			}),
+		);
+		const secondConstraint = DClean.createConstraint(
+			"second",
+			DClean.String,
+			DDataParser.checkerRefine<string>(() => {
+				executionOrder.push("second");
+				return true;
+			}),
+		);
+		const thirdConstraint = DClean.createConstraint(
+			"third",
+			DClean.String,
+			DDataParser.checkerRefine<string>(() => {
+				executionOrder.push("third");
+				return true;
+			}),
+		);
+		const fourthConstraint = DClean.createConstraint(
+			"fourth",
+			DClean.String,
+			DDataParser.checkerRefine<string>(() => {
+				executionOrder.push("fourth");
+				return true;
+			}),
+		);
+		const fifthConstraint = DClean.createConstraint(
+			"fifth",
+			DClean.String,
+			DDataParser.checkerRefine<string>(() => {
+				executionOrder.push("fifth");
+				return true;
+			}),
+		);
+		const middleConstraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				secondConstraint,
+				thirdConstraint,
+			],
+		);
+		const lastConstraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			fifthConstraint,
+		);
+
+		const handler = DClean.createNewType(
+			"Label",
+			DDataParser.string(),
+			[
+				firstConstraint,
+				middleConstraintsSet,
+				fourthConstraint,
+				lastConstraintsSet,
+			],
+		);
+		const value = handler.createOrThrow("test");
+
+		expect(handler.internal.constraints.map(({ name }) => name)).toStrictEqual([
+			"first",
+			"second",
+			"third",
+			"fourth",
+			"fifth",
+		]);
+		expect(Object.keys(DClean.constrainedTypeKind.getValue(value))).toStrictEqual([
+			"first",
+			"second",
+			"third",
+			"fourth",
+			"fifth",
+		]);
+		expect(executionOrder).toStrictEqual([
+			"first",
+			"second",
+			"third",
+			"fourth",
+			"fifth",
+		]);
+	});
 });

@@ -5,7 +5,6 @@ var hasSomeKinds = require('../common/hasSomeKinds.cjs');
 var property = require('./entity/property.cjs');
 var base = require('./primitive/base.cjs');
 var base$1 = require('./constraint/base.cjs');
-var set = require('./constraint/set.cjs');
 var index = require('../pattern/match/index.cjs');
 var transform = require('../dataParser/parsers/transform.cjs');
 var index$1 = require('../dataParser/parsers/string/index.cjs');
@@ -16,6 +15,7 @@ var date = require('../dataParser/parsers/date.cjs');
 var index$4 = require('../dataParser/parsers/time/index.cjs');
 var empty = require('../dataParser/parsers/empty.cjs');
 var nil = require('../dataParser/parsers/nil.cjs');
+var set = require('./constraint/set.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 
 function toMapDataParser(input, params) {

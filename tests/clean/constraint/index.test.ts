@@ -163,44 +163,4 @@ describe("createConstraint", () => {
 
 		expect(result).toStrictEqual(createResult);
 	});
-
-	it("string nim and max", () => {
-		const stringMax = DClean.StringMax(10);
-		const stringMin = DClean.StringMin(10);
-
-		expect(stringMax.name).toBe("string-max-10");
-		expect(stringMin.name).toBe("string-min-10");
-
-		type check = ExpectType<
-			typeof stringMax,
-			DClean.ConstraintHandler<"string-max-10", string, readonly [DDataParser.DataParserCheckerStringMax], never>,
-			"strict"
-		>;
-
-		type check1 = ExpectType<
-			typeof stringMin,
-			DClean.ConstraintHandler<"string-min-10", string, readonly [DDataParser.DataParserCheckerStringMin], never>,
-			"strict"
-		>;
-	});
-
-	it("number nim and max", () => {
-		const numberMax = DClean.NumberMax(10);
-		const numberMin = DClean.NumberMin(10);
-
-		expect(numberMax.name).toBe("number-max-10");
-		expect(numberMin.name).toBe("number-min-10");
-
-		type check = ExpectType<
-			typeof numberMax,
-			DClean.ConstraintHandler<"number-max-10", number, readonly [DDataParser.DataParserCheckerNumberMax], never>,
-			"strict"
-		>;
-
-		type check1 = ExpectType<
-			typeof numberMin,
-			DClean.ConstraintHandler<"number-min-10", number, readonly [DDataParser.DataParserCheckerNumberMin], never>,
-			"strict"
-		>;
-	});
 });

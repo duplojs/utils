@@ -2,6 +2,7 @@ import { entityKind } from './index.mjs';
 import { flagKind } from '../flag.mjs';
 import { isWrappedValue } from '../../common/wrapValue.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import { isRuntimeKind } from '../../common/kind.mjs';
 
 /**
  * {@include clean/unwrapEntity/index.md}
@@ -48,7 +49,7 @@ function unwrapEntity(entity, params) {
         else if (prop === flagKind.runTimeKey) {
             unwrapEntity._flags = entity[prop];
         }
-        else {
+        else if (!isRuntimeKind(prop)) {
             unwrapEntity[prop] = unwrapEntityProperty(entity[prop], params);
         }
     }
