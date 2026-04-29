@@ -5,10 +5,6 @@ var hasSomeKinds = require('../common/hasSomeKinds.cjs');
 var property = require('./entity/property.cjs');
 var base = require('./primitive/base.cjs');
 var base$1 = require('./constraint/base.cjs');
-<<<<<<< HEAD
-var set = require('./constraint/set.cjs');
-=======
->>>>>>> 6cb91c8c (feat(75): add documentation)
 var index = require('../pattern/match/index.cjs');
 var transform = require('../dataParser/parsers/transform.cjs');
 var index$1 = require('../dataParser/parsers/string/index.cjs');

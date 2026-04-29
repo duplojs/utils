@@ -13,7 +13,9 @@ export type UnwrapEntity<GenericEntity extends Entity, GenericTransformer extend
     [Prop in "_entityName"]: GetKindValue<typeof entityKind, GenericEntity>;
 } & (GenericEntity extends Kind<typeof flagKind.definition, any> ? {
     [Prop in "_flags"]: SimplifyTopLevel<GetKindValue<typeof flagKind, GenericEntity>>;
-} : {})>>;
+} : {
+    _flags?: Record<string, unknown>;
+})>>;
 /**
  * Unwraps a `Clean` entity into a readonly plain object.
  * 

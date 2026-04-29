@@ -1,5 +1,5 @@
 import { type Kind, type WrappedValue, type Unwrap, type DeepReadonly, type IsEqual } from "..";
-import { constrainedTypeKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
+import { constrainedTypeKind, type ConstraintsHandlerArguments, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import type * as DDataParser from "../dataParser";
@@ -167,10 +167,7 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * @namespace C
  * 
  */
-export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstraintsHandler extends (ConstraintSetInputConstraint<GenericDataParser> | readonly [
-    ConstraintSetInputConstraint<GenericDataParser>,
-    ...ConstraintSetInputConstraint<GenericDataParser>[]
-]) = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParser, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>> = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
 }
