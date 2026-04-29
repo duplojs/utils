@@ -1,5 +1,5 @@
-model = "gpt-5.5"
-review_model = "gpt-5.5"
+model = "gpt-5.3-codex"
+review_model = "gpt-5.3-codex"
 model_provider = "openai"
 
 approval_policy = "untrusted"
