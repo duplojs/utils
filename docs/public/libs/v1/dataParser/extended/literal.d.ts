@@ -42,7 +42,7 @@ export interface DataParserLiteralExtended<GenericDefinition extends dataParsers
  * @namespace DPE
  * 
  */
-export declare function literal<const GenericValue extends dataParsers.LiteralValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionLiteral<GenericValue>, "value">> = never>(value: GenericValue | GenericValue[], definition?: GenericDefinition): DataParserLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
+export declare function literal<const GenericValue extends dataParsers.LiteralValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionLiteral<GenericValue>, "value">> = never>(value: GenericValue | readonly GenericValue[], definition?: GenericDefinition): DataParserLiteralExtended<MergeDefinition<dataParsers.DataParserDefinitionLiteral, NeverCoalescing<GenericDefinition, {}> & {
     readonly value: readonly GenericValue[];
 }>>;
 export declare namespace literal {

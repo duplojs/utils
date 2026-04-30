@@ -65,7 +65,7 @@ export function literal<
 		>
 	> = never,
 >(
-	value: GenericValue | GenericValue[],
+	value: GenericValue | readonly GenericValue[],
 	definition?: GenericDefinition,
 ): DataParserLiteralExtended<
 		MergeDefinition<
