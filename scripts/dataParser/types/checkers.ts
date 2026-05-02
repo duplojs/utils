@@ -7,7 +7,6 @@ export interface CheckerCustom {
 
 export type DataParserCheckers = (
 	| CheckerCustom[keyof CheckerCustom]
-	| AllDataParser.DataParserCheckerUrl
 	| AllDataParser.DataParserCheckerArrayMax
 	| AllDataParser.DataParserCheckerArrayMin
 	| AllDataParser.DataParserCheckerBigIntMax
@@ -15,7 +14,11 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerNumberMax
 	| AllDataParser.DataParserCheckerNumberMin
 	| AllDataParser.DataParserCheckerInt
+	| AllDataParser.DataParserCheckerStringMax
+	| AllDataParser.DataParserCheckerStringMin
 	| AllDataParser.DataParserCheckerEmail
+	| AllDataParser.DataParserCheckerRegex
+	| AllDataParser.DataParserCheckerUrl
 	| AllDataParser.DataParserCheckerUuid
 	| AllDataParser.DataParserCheckerRefine
 	| AllDataParser.DataParserCheckerTimeMin
