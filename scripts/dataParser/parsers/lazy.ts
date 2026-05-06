@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
@@ -23,7 +23,7 @@ export const lazyKind = createDataParserKind("lazy");
 type _DataParserLazy<
 	GenericDefinition extends DataParserDefinitionLazy,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		Output<GenericDefinition["getter"]["value"]>,
 		Input<GenericDefinition["getter"]["value"]>
@@ -76,7 +76,7 @@ export function lazy<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserLazy>(
+	const self = dataParserBaseInit<DataParserLazy>(
 		lazyKind,
 		{
 			errorMessage: definition?.errorMessage,

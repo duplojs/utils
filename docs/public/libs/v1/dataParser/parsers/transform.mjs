@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { SymbolDataParserError, addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -8,7 +8,7 @@ const transformKind = createDataParserKind("transform");
  * {@include dataParser/classic/transform/index.md}
  */
 function transform(inner, theFunction, definition) {
-    const self = dataParserInit(transformKind, {
+    const self = dataParserBaseInit(transformKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

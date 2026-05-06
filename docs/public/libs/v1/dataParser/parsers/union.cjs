@@ -11,7 +11,7 @@ const unionKind = kind.createDataParserKind("union");
  * {@include dataParser/classic/union/index.md}
  */
 function union(options, definition) {
-    const self = base.dataParserInit(unionKind, {
+    const self = base.dataParserBaseInit(unionKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         options,

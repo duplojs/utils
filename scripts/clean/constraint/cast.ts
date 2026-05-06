@@ -1,18 +1,14 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { type UnionToIntersection, type SimplifyTopLevel, type NeverCoalescing, type And, type Not, type IsEqual } from "@scripts/common";
+import { type UnionToIntersection, type NeverCoalescing, type And, type Not, type IsEqual, type ComputedTypeError } from "@scripts/common";
 import { type ConstraintHandler, type ConstrainedType, type GetConstraint, constrainedTypeKind } from "./base";
 import { type StrictNegative, type StrictPositive, type Negative, type NumberMaxHandlerInternal, type NumberMaxInternal, type NumberMinHandlerInternal, type NumberMinInternal, type Positive, type StringMaxHandlerInternal, type StringMaxInternal, type StringMinHandlerInternal, type StringMinInternal } from "./defaultConstraint";
 import { type IsLess, type IsGreater } from "@scripts/number";
 import * as DArray from "@scripts/array";
 
-declare const SymbolCastErrorMessage: unique symbol;
-
 type CastConstraintError<
 	GenericConstrainHandler extends ConstraintHandler,
 	GenericReason extends string,
-> = SimplifyTopLevel<{
-	[SymbolCastErrorMessage]: `The constraint "${GenericConstrainHandler["name"]}" is not applicable: ${GenericReason}.`;
-}>;
+> = ComputedTypeError<`The constraint "${GenericConstrainHandler["name"]}" is not applicable: ${GenericReason}.`>;
 
 type ForbiddenBadCast<
 	GenericConstrainedType extends ConstrainedType,

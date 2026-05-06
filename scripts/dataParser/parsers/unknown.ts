@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
@@ -17,7 +17,7 @@ export const unknownKind = createDataParserKind("unknown");
 type _DataParserUnknown<
 	GenericDefinition extends DataParserDefinitionUnknown,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		unknown,
 		unknown
@@ -62,7 +62,7 @@ export function unknown<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserInit<DataParserUnknown>(
+	const self = dataParserBaseInit<DataParserUnknown>(
 		unknownKind,
 		{
 			errorMessage: definition?.errorMessage,

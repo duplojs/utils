@@ -33,7 +33,7 @@ describe("DDataParser lazy", () => {
 			children?: Tree[];
 		}
 
-		const parser: DDataParser.Contract<Tree> = DDataParser.object({
+		const parser: DDataParser.DataParser<Tree> = DDataParser.object({
 			value: DDataParser.number(),
 			children: pipe(
 				DDataParser.lazy(() => parser),
@@ -88,7 +88,7 @@ describe("DDataParser lazy", () => {
 				children?: Tree[];
 			}
 
-			const parser: DDataParser.Contract<Tree> = DDataParser.object({
+			const parser: DDataParser.DataParser<Tree> = DDataParser.object({
 				value: DDataParser.number(),
 				children: pipe(
 					DDataParser.lazy(() => parser),

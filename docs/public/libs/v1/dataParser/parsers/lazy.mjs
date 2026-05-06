@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { memo } from '../../common/memo.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -8,7 +8,7 @@ const lazyKind = createDataParserKind("lazy");
  * {@include dataParser/classic/lazy/index.md}
  */
 function lazy(getter, definition) {
-    const self = dataParserInit(lazyKind, {
+    const self = dataParserBaseInit(lazyKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         getter: memo(getter),

@@ -1,5 +1,5 @@
 import { type Kind, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "../../../common";
-import { dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import * as DObject from "../../../object";
 export * from "./omit";
@@ -23,7 +23,7 @@ export interface DataParserDefinitionObject<GenericInput extends Record<string |
     }[]>;
 }
 export declare const objectKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>>;
-type _DataParserObject<GenericDefinition extends DataParserDefinitionObject> = (DataParser<GenericDefinition, DataParserObjectShapeOutput<GenericDefinition["shape"]>, DataParserObjectShapeInput<GenericDefinition["shape"]>> & Kind<typeof objectKind.definition>);
+type _DataParserObject<GenericDefinition extends DataParserDefinitionObject> = (DataParserBase<GenericDefinition, DataParserObjectShapeOutput<GenericDefinition["shape"]>, DataParserObjectShapeInput<GenericDefinition["shape"]>> & Kind<typeof objectKind.definition>);
 export interface DataParserObject<GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject> extends _DataParserObject<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserObjectCheckers<Output<this>>,

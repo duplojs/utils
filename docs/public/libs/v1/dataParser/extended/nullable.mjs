@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { nullable as nullable$1 } from '../parsers/nullable.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -6,7 +6,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/nullable/index.md}
  */
 function nullable(inner, definition) {
-    const self = dataParserExtendedInit(nullable$1(inner, definition), {
+    const self = dataParserBaseExtendedInit(nullable$1(inner, definition), {
         default: (self, value) => nullable(self.definition.inner, {
             ...self.definition,
             coalescingValue: value,

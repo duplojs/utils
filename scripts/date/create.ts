@@ -3,7 +3,7 @@ import { isSafeTimestamp } from "./isSafeTimestamp";
 import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "@scripts/either";
 import type * as DString from "@scripts/string";
-import { type And, type IsEqual, type Not, type IsExtends, unwrap } from "@scripts/common";
+import { type And, type IsEqual, type Not, type IsExtends, unwrap, type ComputedTypeError } from "@scripts/common";
 import { applyTimezone } from "./applyTimezone";
 import { is } from "./is";
 import { toNative } from "./toNative";
@@ -14,8 +14,6 @@ export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-
 
 type SafeDate = `${number}-${MonthWithDay}`;
 
-declare const SymbolForbiddenDate: unique symbol;
-
 type ForbiddenDate<
 	GenericDate extends string,
 > = And<[
@@ -25,21 +23,21 @@ type ForbiddenDate<
 	? (
 		& (
 			DString.Includes<GenericDate, "."> extends true
-				? { [SymbolForbiddenDate]: "Year can't be includes a float number." }
+				? ComputedTypeError<"Year can't be includes a float number.">
 				: GenericDate
 		)
 		& (
 			GenericDate extends `${infer InferredYear extends number}-02-29`
 				? IsLeapYear<InferredYear> extends true
 					? GenericDate
-					: { [SymbolForbiddenDate]: "Is not a leap year." }
+					: ComputedTypeError<"Is not a leap year.">
 				: GenericDate
 		)
 		& (
 			GenericDate extends `${infer InferredYear extends number}-${MonthWithDay}`
 				? IsSafeYear<InferredYear> extends true
 					? GenericDate
-					: { [SymbolForbiddenDate]: "Support that the years between -271820 and 275759." }
+					: ComputedTypeError<"Support that the years between -271820 and 275759.">
 				: GenericDate
 		)
 	)

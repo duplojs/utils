@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 export type DataParserUnionCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionUnion<GenericInput extends unknown = unknow
     readonly options: UnionOptions;
 }
 export declare const unionKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>>;
-type _DataParserUnion<GenericDefinition extends DataParserDefinitionUnion> = (DataParser<GenericDefinition, Output<GenericDefinition["options"][number]>, Input<GenericDefinition["options"][number]>> & Kind<typeof unionKind.definition>);
+type _DataParserUnion<GenericDefinition extends DataParserDefinitionUnion> = (DataParserBase<GenericDefinition, Output<GenericDefinition["options"][number]>, Input<GenericDefinition["options"][number]>> & Kind<typeof unionKind.definition>);
 export interface DataParserUnion<GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion> extends _DataParserUnion<GenericDefinition> {
     addChecker<const GenericChecker extends readonly [
         DataParserUnionCheckers<Output<this>>,

@@ -1,4 +1,4 @@
-import { dataParserInit, dataParserKind } from '../../base.mjs';
+import { dataParserBaseInit, dataParserKind } from '../../base.mjs';
 import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { memo } from '../../../common/memo.mjs';
@@ -15,7 +15,7 @@ const objectKind = createDataParserKind("object");
  * {@include dataParser/classic/object/index.md}
  */
 function object(shape, definition) {
-    const self = dataParserInit(objectKind, {
+    const self = dataParserBaseInit(objectKind, {
         shape,
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],

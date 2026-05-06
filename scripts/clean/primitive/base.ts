@@ -18,7 +18,7 @@ export interface PrimitiveHandler<
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericInput extends unknown = unknown,
 > extends Kind<typeof primitiveHandlerKind.definition> {
-	readonly dataParser: DDataParser.Contract<
+	readonly dataParser: DDataParser.DataParser<
 		GenericValue,
 		unknown
 	>;
@@ -116,7 +116,7 @@ export class CreatePrimitiveError extends kindHeritage(
 }
 
 export function createPrimitive<
-	GenericDataParser extends DDataParser.Contract<EligiblePrimitive, unknown>,
+	GenericDataParser extends DDataParser.DataParser<EligiblePrimitive, unknown>,
 >(
 	dataParser: GenericDataParser,
 ): PrimitiveHandler<

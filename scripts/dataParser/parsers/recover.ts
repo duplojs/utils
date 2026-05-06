@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
@@ -24,7 +24,7 @@ export const recoverKind = createDataParserKind("recover");
 type _DataParserRecover<
 	GenericDefinition extends DataParserDefinitionRecover,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		GenericDefinition["recoveredValue"],
 		Input<GenericDefinition["inner"]>
@@ -83,7 +83,7 @@ export function recover<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserRecover>(
+	const self = dataParserBaseInit<DataParserRecover>(
 		recoverKind,
 		{
 			errorMessage: definition?.errorMessage,

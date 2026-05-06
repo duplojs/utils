@@ -3,7 +3,7 @@ import type * as AllDataParser from "../parsers";
 import type { DataParserExtended } from "../baseExtended";
 import type * as AllDataParserExtended from "../extended";
 export interface DataParserCustom {
-    base: DataParser;
+    dataParser: DataParser;
 }
 export type DataParsers = (DataParserCustom[keyof DataParserCustom] | AllDataParser.DataParserString | AllDataParser.DataParserObject | AllDataParser.DataParserNumber | AllDataParser.DataParserLiteral | AllDataParser.DataParserUnion | AllDataParser.DataParserArray | AllDataParser.DataParserBigInt | AllDataParser.DataParserTuple | AllDataParser.DataParserTransform | AllDataParser.DataParserBoolean | AllDataParser.DataParserDate | AllDataParser.DataParserTime | AllDataParser.DataParserNil | AllDataParser.DataParserEmpty | AllDataParser.DataParserTemplateLiteral | AllDataParser.DataParserPipe | AllDataParser.DataParserNullable | AllDataParser.DataParserOptional | AllDataParser.DataParserLazy | AllDataParser.DataParserUnknown | AllDataParser.DataParserRecord | AllDataParser.DataParserRecover);
 export interface DataParserExtendedCustom {

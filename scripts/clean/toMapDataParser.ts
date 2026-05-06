@@ -38,7 +38,7 @@ export function toMapDataParser<
 >(
 	input: GenericInput,
 	params?: ToMapDataParserParams,
-): DDataParser.Contract<
+): DDataParser.DataParser<
 	NoInfer<GenericOutput>,
 	unknown
 >;

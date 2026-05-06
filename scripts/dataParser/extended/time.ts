@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -9,7 +9,7 @@ type _DataParserTimeExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionTime,
 > = (
 	& Kind<typeof dataParsers.timeKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserTime<GenericDefinition>>,
 		Input<dataParsers.DataParserTime<GenericDefinition>>
@@ -95,7 +95,7 @@ export function time<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserTime,
 		DataParserTimeExtended
 	>(

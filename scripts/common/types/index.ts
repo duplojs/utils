@@ -48,3 +48,4 @@ export * from "./json";
 export * from "./predicate";
 export * from "./bivariantFunction";
 export * from "./maybeAsyncGenerator";
+export * from "./ComputedTypeError";

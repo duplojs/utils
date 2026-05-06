@@ -1,11 +1,11 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type DataParserUnknownCheckers = DataParserChecker<DataParserCheckerDefinition, unknown>;
 export interface DataParserDefinitionUnknown extends DataParserDefinition<DataParserUnknownCheckers> {
 }
 export declare const unknownKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>>;
-type _DataParserUnknown<GenericDefinition extends DataParserDefinitionUnknown> = (DataParser<GenericDefinition, unknown, unknown> & Kind<typeof unknownKind.definition>);
+type _DataParserUnknown<GenericDefinition extends DataParserDefinitionUnknown> = (DataParserBase<GenericDefinition, unknown, unknown> & Kind<typeof unknownKind.definition>);
 export interface DataParserUnknown<GenericDefinition extends DataParserDefinitionUnknown = DataParserDefinitionUnknown> extends _DataParserUnknown<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserUnknownCheckers,

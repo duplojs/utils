@@ -5,7 +5,7 @@ interface Schema {
 	children?: Schema[];
 }
 
-const schema: DP.Contract<Schema> = DP.object({
+const schema: DP.DataParser<Schema> = DP.object({
 	name: DP.string(),
 	children: pipe(
 		DP.lazy(() => schema),

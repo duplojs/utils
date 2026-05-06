@@ -1,4 +1,4 @@
-import { type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
+import { type ComputedTypeError, type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, type Kind, type KindHandler, type OverrideHandler, type RemoveKind } from "../common";
 import { SymbolDataParserError, type DataParserError } from "./error";
 import * as DEither from "../either";
 export { SymbolDataParserError } from "./error";
@@ -8,7 +8,7 @@ export interface DataParserCheckerDefinition {
 }
 export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition> {
     readonly definition: GenericDefinition;
-    exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this, dataParser: DataParser): GenericOutput | SymbolDataParserError;
+    exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this, dataParser: DataParserBase): GenericOutput | SymbolDataParserError;
 }
 export type InputChecker<GenericDataParser extends DataParserChecker> = Parameters<GenericDataParser["exec"]>[0];
 export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => InputChecker<GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
@@ -20,8 +20,7 @@ export interface DataParserDefinition<GenericChecker extends DataParserChecker =
     readonly errorMessage?: string;
     readonly checkers: readonly GenericChecker[];
 }
-declare const SymbolContractError: unique symbol;
-export interface DataParser<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends Kind<typeof dataParserKind.definition, {
+export interface DataParserBase<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends Kind<typeof dataParserKind.definition, {
     input: GenericInput;
     output: GenericOutput;
 }> {
@@ -105,7 +104,7 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * @namespace DP
      * 
      */
-    addChecker(...args: never): DataParser;
+    addChecker(...args: never): DataParserBase;
     /**
      * The clone() method creates a new data parser instance with the same definition and checkers.
      * 
@@ -145,12 +144,12 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * 	name: string;
      * }
      * 
-     * const userParser: DP.Contract<User> = DP.object({
+     * const userParser: DP.DataParser<User> = DP.object({
      * 	id: DP.number(),
      * 	name: DP.string(),
      * }).contract();
      * 
-     * const statusParser: DP.Contract<"draft" | "published">
+     * const statusParser: DP.DataParser<"draft" | "published">
      * 	= DP.literal(["draft", "published"]).contract();
      * ```
      * 
@@ -159,9 +158,7 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      * @namespace DP
      * 
      */
-    contract<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & {
-        [SymbolContractError]: "Contract error.";
-    }): Contract<GenericValue>;
+    contract<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & ComputedTypeError<"Contract error.">): DataParser<GenericValue>;
     /**
      * The parseOrThrow() method runs a data parser synchronously and returns the parsed value or throws a DataParserThrowError.
      * 
@@ -238,7 +235,7 @@ export interface DataParser<GenericDefinition extends DataParserDefinition = Dat
      */
     isAsynchronous(): boolean;
 }
-interface DataParserInitExecParams<GenericDataParser extends DataParser> {
+interface DataParserInitExecParams<GenericDataParser extends DataParserBase> {
     sync(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): (GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError);
     async(...args: [...Parameters<GenericDataParser["exec"]>, self: GenericDataParser]): Promise<GetKindValue<typeof dataParserKind, GenericDataParser>["output"] | SymbolDataParserError>;
     isAsynchronous(self: GenericDataParser): boolean;
@@ -250,14 +247,16 @@ export declare class DataParserThrowError extends DataParserThrowError_base {
     value: unknown;
     constructor(value: unknown);
 }
-export declare function dataParserInit<GenericDataParser extends DataParser>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"]), specificOverrideHandler: OverrideHandler<GenericDataParser>): GenericDataParser;
-export declare namespace dataParserInit {
-    var overrideHandler: OverrideHandler<DataParser<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
+export declare function dataParserBaseInit<GenericDataParser extends DataParserBase>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"]), specificOverrideHandler: OverrideHandler<GenericDataParser>): GenericDataParser;
+export declare namespace dataParserBaseInit {
+    var overrideHandler: OverrideHandler<DataParserBase<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
-export type Output<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
-export type Input<GenericDataParser extends DataParser> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];
-export type Contract<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParser<DataParserDefinition, GenericOutput, GenericInput>;
-export type AdvancedContract<GenericDataParser extends DataParser> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParser>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
-    addChecker(...args: never): AdvancedContract<GenericDataParser>;
-    clone(): AdvancedContract<GenericDataParser>;
+export type Output<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
+export type Input<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];
+export interface DataParser<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBase<DataParserDefinition, GenericOutput, GenericInput> {
+    addChecker(...args: DataParserChecker<DataParserCheckerDefinition, GenericOutput>[]): DataParser<GenericOutput, GenericInput>;
+}
+export type Contract<GenericDataParser extends DataParserBase> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserBase>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
+    addChecker(...args: never): Contract<GenericDataParser>;
+    clone(): Contract<GenericDataParser>;
 });

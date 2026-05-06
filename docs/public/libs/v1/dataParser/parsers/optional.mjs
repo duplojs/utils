@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -7,7 +7,7 @@ const optionalKind = createDataParserKind("optional");
  * {@include dataParser/classic/optional/index.md}
  */
 function optional(inner, definition) {
-    const self = dataParserInit(optionalKind, {
+    const self = dataParserBaseInit(optionalKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

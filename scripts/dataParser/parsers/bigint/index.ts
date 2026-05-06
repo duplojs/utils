@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
@@ -22,7 +22,7 @@ export const bigIntKind = createDataParserKind("bigint");
 type _DataParserBigInt<
 	GenericDefinition extends DataParserDefinitionBigInt,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		bigint,
 		bigint
@@ -67,7 +67,7 @@ export function bigint<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserInit<DataParserBigInt>(
+	const self = dataParserBaseInit<DataParserBigInt>(
 		bigIntKind,
 		{
 			errorMessage: definition?.errorMessage,

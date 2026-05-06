@@ -1,6 +1,3 @@
+import { type ComputedTypeError } from "../../common";
 import type * as DDataParser from "../../dataParser";
-declare const SymbolErrorForbidden: unique symbol;
-export type DataParserContainTransform<GenericDataParser extends DDataParser.DataParser> = DDataParser.Contain<GenericDataParser, DDataParser.DataParserTransform<any>> extends true ? {
-    [SymbolErrorForbidden]: "It is forbidden to use a transform dataParser.";
-} : GenericDataParser;
-export {};
+export type DataParserContainTransform<GenericDataParser extends DDataParser.DataParserBase> = DDataParser.Contain<GenericDataParser, DDataParser.DataParserTransform<any>> extends true ? ComputedTypeError<"It is forbidden to use a transform dataParser."> : GenericDataParser;

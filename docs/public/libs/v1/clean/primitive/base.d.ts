@@ -7,7 +7,7 @@ export interface Primitive<GenericValue extends EligiblePrimitive> extends Wrapp
 }
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
 export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {
-    readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
+    readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
     /**
      * Creates a primitive value and returns an Either.
      * 
@@ -76,7 +76,7 @@ export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
     dataParserError: DDataParser.DataParserError;
     constructor(data: unknown, dataParserError: DDataParser.DataParserError);
 }
-export declare function createPrimitive<GenericDataParser extends DDataParser.Contract<EligiblePrimitive, unknown>>(dataParser: GenericDataParser): PrimitiveHandler<DDataParser.Output<GenericDataParser>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createPrimitive<GenericDataParser extends DDataParser.DataParser<EligiblePrimitive, unknown>>(dataParser: GenericDataParser): PrimitiveHandler<DDataParser.Output<GenericDataParser>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createPrimitive {
     var overrideHandler: import("../../common").OverrideHandler<PrimitiveHandler<EligiblePrimitive, unknown>>;
 }

@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
@@ -24,7 +24,7 @@ export const timeKind = createDataParserKind("time");
 type _DataParserTime<
 	GenericDefinition extends DataParserDefinitionTime,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		DDate.TheTime,
 		DDate.TheTime | number | DDate.SerializedTheTime
@@ -69,7 +69,7 @@ export function time<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserInit<DataParserTime>(
+	const self = dataParserBaseInit<DataParserTime>(
 		timeKind,
 		{
 			errorMessage: definition?.errorMessage,

@@ -10,7 +10,7 @@ const numberKind = kind.createDataParserKind("number");
  * {@include dataParser/classic/number/index.md}
  */
 function number(definition) {
-    const self = base.dataParserInit(numberKind, {
+    const self = base.dataParserBaseInit(numberKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

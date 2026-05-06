@@ -10,7 +10,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/bigint/index.md}
  */
 function bigint(definition) {
-    const self = baseExtended.dataParserExtendedInit(index.bigint(definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(index.bigint(definition), {
         min(self, min$1, definition) {
             return self.addChecker(min.checkerBigIntMin(min$1, definition));
         },

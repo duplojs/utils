@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { tuple as tuple$1 } from '../parsers/tuple.mjs';
 import { checkerArrayMax } from '../parsers/array/checkers/max.mjs';
 import { checkerArrayMin } from '../parsers/array/checkers/min.mjs';
@@ -8,7 +8,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/tuple/index.md}
  */
 function tuple(shape, definition) {
-    const self = dataParserExtendedInit(tuple$1(shape, definition), {
+    const self = dataParserBaseExtendedInit(tuple$1(shape, definition), {
         min(self, min, definition) {
             return self.addChecker(checkerArrayMin(min, definition));
         },

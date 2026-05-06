@@ -14,7 +14,7 @@ const dateKind = kind.createDataParserKind("date");
  * {@include dataParser/classic/date/index.md}
  */
 function date(definition) {
-    const self = base.dataParserInit(dateKind, {
+    const self = base.dataParserBaseInit(dateKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

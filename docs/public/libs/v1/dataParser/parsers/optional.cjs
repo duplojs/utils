@@ -9,7 +9,7 @@ const optionalKind = kind.createDataParserKind("optional");
  * {@include dataParser/classic/optional/index.md}
  */
 function optional(inner, definition) {
-    const self = base.dataParserInit(optionalKind, {
+    const self = base.dataParserBaseInit(optionalKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

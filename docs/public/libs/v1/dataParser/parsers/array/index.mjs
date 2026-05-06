@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
@@ -8,7 +8,7 @@ const arrayKind = createDataParserKind("array");
  * {@include dataParser/classic/array/index.md}
  */
 function array(element, definition) {
-    const self = dataParserInit(arrayKind, {
+    const self = dataParserBaseInit(arrayKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         element,

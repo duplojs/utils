@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { time as time$1 } from '../parsers/time/index.mjs';
 import { checkerTimeMax } from '../parsers/time/checkers/max.mjs';
 import { checkerTimeMin } from '../parsers/time/checkers/min.mjs';
@@ -8,7 +8,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/time/index.md}
  */
 function time(definition) {
-    const self = dataParserExtendedInit(time$1(definition), {
+    const self = dataParserBaseExtendedInit(time$1(definition), {
         min(self, min, definition) {
             return self.addChecker(checkerTimeMin(min, definition));
         },

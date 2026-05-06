@@ -8,7 +8,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/nullable/index.md}
  */
 function nullable(inner, definition) {
-    const self = baseExtended.dataParserExtendedInit(nullable$1.nullable(inner, definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(nullable$1.nullable(inner, definition), {
         default: (self, value) => nullable(self.definition.inner, {
             ...self.definition,
             coalescingValue: value,

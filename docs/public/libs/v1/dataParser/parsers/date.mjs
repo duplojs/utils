@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { isSafeTimestamp } from '../../date/isSafeTimestamp.mjs';
@@ -12,7 +12,7 @@ const dateKind = createDataParserKind("date");
  * {@include dataParser/classic/date/index.md}
  */
 function date(definition) {
-    const self = dataParserInit(dateKind, {
+    const self = dataParserBaseInit(dateKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

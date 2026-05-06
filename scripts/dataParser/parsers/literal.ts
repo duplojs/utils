@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
@@ -27,7 +27,7 @@ export const literalKind = createDataParserKind("literal");
 type _DataParserLiteral<
 	GenericDefinition extends DataParserDefinitionLiteral,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		GenericDefinition["value"][number],
 		GenericDefinition["value"][number]
@@ -79,7 +79,7 @@ export function literal<
 			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
 		>
 	> {
-	const self = dataParserInit<DataParserLiteral>(
+	const self = dataParserBaseInit<DataParserLiteral>(
 		literalKind,
 		{
 			errorMessage: definition?.errorMessage,

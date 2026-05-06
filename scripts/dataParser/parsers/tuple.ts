@@ -1,5 +1,5 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, createOverride, type Or, type AnyTuple } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, createOverride, type Or } from "@scripts/common";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
@@ -82,7 +82,7 @@ export interface DataParserDefinitionTuple<
 		DataParserTupleCheckers<GenericInput>
 	> {
 	readonly shape: TupleShape;
-	readonly rest?: DataParser;
+	readonly rest: DataParser | undefined;
 }
 
 export const tupleKind = createDataParserKind("tuple");
@@ -90,7 +90,7 @@ export const tupleKind = createDataParserKind("tuple");
 type _DataParserTuple<
 	GenericDefinition extends DataParserDefinitionTuple,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		DataParserTupleShapeOutput<
 			GenericDefinition["shape"],
@@ -159,7 +159,7 @@ export function tuple<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserTuple>(
+	const self = dataParserBaseInit<DataParserTuple>(
 		tupleKind,
 		{
 			errorMessage: definition?.errorMessage,

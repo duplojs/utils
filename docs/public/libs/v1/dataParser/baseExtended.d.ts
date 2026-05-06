@@ -1,14 +1,13 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual } from "../common";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual, type ComputedTypeError } from "../common";
 import { type MergeDefinition } from "./types";
-import { type Output, type DataParser, type DataParserDefinition } from "./base";
+import { type Output, type DataParserBase, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition } from "./base";
 import type * as DEither from "../either";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 export declare const extendedKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>>;
-type _DataParserExtended<GenericDefinition extends DataParserDefinition, GenericOutput extends unknown, GenericInput extends unknown> = (DataParser<GenericDefinition, GenericOutput, GenericInput> & Kind<typeof extendedKind.definition>);
-declare const SymbolContractExtendedError: unique symbol;
-export interface DataParserExtended<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends _DataParserExtended<GenericDefinition, GenericOutput, GenericInput> {
+type _DataParserExtended<GenericDefinition extends DataParserDefinition, GenericOutput extends unknown, GenericInput extends unknown> = (DataParserBase<GenericDefinition, GenericOutput, GenericInput> & Kind<typeof extendedKind.definition>);
+export interface DataParserBaseExtended<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends _DataParserExtended<GenericDefinition, GenericOutput, GenericInput> {
     /**
      * The parse() method runs an extended data parser synchronously and returns an Either with the parsed value or a DataParserError.
      * 
@@ -128,7 +127,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    addChecker(...args: never): DataParserExtended;
+    addChecker(...args: never): DataParserBaseExtended;
     /**
      * The clone() method creates a new extended data parser instance with the same definition and checkers.
      * 
@@ -152,9 +151,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * 
      */
     clone(): this;
-    contractExtended<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & {
-        [SymbolContractExtendedError]: "ContractExtended error.";
-    }): ContractExtended<GenericValue>;
+    contractExtended<GenericValue extends unknown>(...args: IsEqual<Output<this>, GenericValue> extends true ? [] : [] & ComputedTypeError<"ContractExtended error.">): DataParserExtended<GenericValue>;
     /**
      * Creates an array parser from the current parser.
      * 
@@ -284,7 +281,7 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    pipe<GenericThis extends this = this, GenericOutput extends DataParser = DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(output: GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
+    pipe<GenericThis extends this = this, GenericOutput extends DataParserBase = DataParserBase, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(output: GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
         input: GenericThis;
         output: GenericOutput;
     }>>;
@@ -381,10 +378,10 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
      * @namespace DPE
      * 
      */
-    or<GenericThis extends this = this, GenericDataParser extends DataParser = DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(option: GenericDataParser, definition?: GenericDefinition): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
+    or<GenericThis extends this = this, GenericDataParser extends DataParserBase = DataParserBase, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(option: GenericDataParser, definition?: GenericDefinition): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
         options: [GenericThis, GenericDataParser];
     }>>;
-    refine(...args: never): DataParserExtended;
+    refine(...args: never): DataParserBaseExtended;
     /**
      * Recovers with a fallback value when parsing fails.
      * 
@@ -415,15 +412,17 @@ export interface DataParserExtended<GenericDefinition extends DataParserDefiniti
         recoveredValue: GenericRecoveredValue;
     }>>;
 }
-export declare function dataParserExtendedInit<GenericDataParser extends DataParser, GenericDataParserExtended extends GenericDataParser & DataParserExtended>(dataParser: NoInfer<GenericDataParser>, rest: NoInfer<{
-    [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
+export declare function dataParserBaseExtendedInit<GenericDataParser extends DataParserBase, GenericDataParserExtended extends GenericDataParser & DataParserBaseExtended>(dataParser: NoInfer<GenericDataParser>, rest: NoInfer<{
+    [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserBaseExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
 }>, specificOverrideHandler: OverrideHandler<NoInfer<GenericDataParserExtended>>): GenericDataParserExtended;
-export declare namespace dataParserExtendedInit {
-    var overrideHandler: OverrideHandler<DataParserExtended<DataParserDefinition<import("./base").DataParserChecker<import("./base").DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
+export declare namespace dataParserBaseExtendedInit {
+    var overrideHandler: OverrideHandler<DataParserBaseExtended<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
-export type ContractExtended<GenericOutput extends unknown, GenericInput extends unknown = GenericOutput> = DataParserExtended<DataParserDefinition, GenericOutput, GenericInput>;
-export type AdvancedContractExtended<GenericDataParser extends DataParserExtended> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserExtended>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
-    addChecker(...args: never): AdvancedContractExtended<GenericDataParser>;
-    clone(): AdvancedContractExtended<GenericDataParser>;
+export interface DataParserExtended<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBaseExtended<DataParserDefinition, GenericOutput, GenericInput> {
+    addChecker(...args: DataParserChecker<DataParserCheckerDefinition, GenericOutput>[]): DataParserExtended<GenericOutput, GenericInput>;
+}
+export type ContractExtended<GenericDataParser extends DataParserBaseExtended> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserBaseExtended>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
+    addChecker(...args: never): DataParserBaseExtended;
+    clone(): ContractExtended<GenericDataParser>;
 });
 export {};

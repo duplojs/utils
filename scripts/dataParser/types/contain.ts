@@ -1,10 +1,10 @@
 import { type IsEqual } from "@scripts/common";
-import { type DataParser } from "../base";
+import { type DataParserBase } from "../base";
 import { type DataParserObject, type DataParserArray, type DataParserRecord, type DataParserTemplateLiteral, type DataParserLazy, type DataParserNullable, type DataParserOptional, type DataParserPipe, type DataParserRecover, type DataParserTransform, type DataParserTuple, type DataParserUnion } from "../parsers";
 
 export type Contain<
-	GenericDataParser extends DataParser,
-	GenericExpectDataParser extends DataParser,
+	GenericDataParser extends DataParserBase,
+	GenericExpectDataParser extends DataParserBase,
 > = IsEqual<GenericDataParser, never> extends true
 	? false
 	: GenericDataParser extends GenericExpectDataParser
@@ -28,7 +28,7 @@ export type Contain<
 					>
 					: GenericDataParser extends DataParserTemplateLiteral
 						? Contain<
-							Extract<GenericDataParser["definition"]["template"], DataParser>,
+							Extract<GenericDataParser["definition"]["template"], DataParserBase>,
 							GenericExpectDataParser
 						> extends false
 							? false

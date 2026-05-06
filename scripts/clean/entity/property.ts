@@ -238,8 +238,8 @@ export const entityPropertyDefinitionTools = {
 
 export function entityPropertyDefinitionToDataParser(
 	propertyDefinition: EntityPropertyDefinition,
-	treatNewTypeHandler: (newTypeHandler: NewTypeHandler) => DDataParser.DataParser,
-): DDataParser.DataParser {
+	treatNewTypeHandler: (newTypeHandler: NewTypeHandler) => DDataParser.DataParserBase,
+): DDataParser.DataParserBase {
 	return pipe(
 		propertyDefinition,
 		DPattern.when(

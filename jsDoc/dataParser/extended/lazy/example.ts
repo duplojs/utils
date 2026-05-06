@@ -12,7 +12,7 @@ interface RecursiveSchema {
 	next?: RecursiveSchema;
 }
 
-const recursive: DPE.Contract<RecursiveSchema> = DPE.lazy(
+const recursive: DPE.DataParserExtended<RecursiveSchema> = DPE.lazy(
 	() => DPE.object({
 		value: DPE.number(),
 		next: DPE.optional(recursive),

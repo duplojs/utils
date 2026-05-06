@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { setErrorPath, SymbolDataParserError, addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { some } from '../../array/some.mjs';
@@ -9,7 +9,7 @@ const unionKind = createDataParserKind("union");
  * {@include dataParser/classic/union/index.md}
  */
 function union(options, definition) {
-    const self = dataParserInit(unionKind, {
+    const self = dataParserBaseInit(unionKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         options,

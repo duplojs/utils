@@ -30,7 +30,7 @@ Le résultat parse une entrée et renvoie un objet typé, en conservant les kind
 function toMapDataParser(
 	input: ConstraintHandler | ConstraintsSetHandler | PrimitiveHandler | EntityPropertyDefinition,
 	params?: { coerce?: boolean }
-): DDataParser.Contract<MappedValue, unknown>
+): DDataParser.DataParser<MappedValue, unknown>
 ```
 
 ## Paramètres
@@ -41,7 +41,7 @@ function toMapDataParser(
 
 ## Valeur de retour
 
-Un `DDataParser.Contract` qui :
+Un `DDataParser.DataParser` qui :
 - parse des `unknown`,
 - mappe la sortie vers un objet typé exploitable côté domaine,
 - conserve les marques de type métier quand elles sont présentes.

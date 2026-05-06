@@ -8,7 +8,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/boolean/index.md}
  */
 function boolean(definition) {
-    const self = baseExtended.dataParserExtendedInit(boolean$1.boolean(definition), {}, boolean.overrideHandler);
+    const self = baseExtended.dataParserBaseExtendedInit(boolean$1.boolean(definition), {}, boolean.overrideHandler);
     return self;
 }
 boolean.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/boolean");

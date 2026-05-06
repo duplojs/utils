@@ -8,7 +8,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/templateLiteral/index.md}
  */
 function templateLiteral(template, definition) {
-    const self = baseExtended.dataParserExtendedInit(index.templateLiteral(template, definition), {}, templateLiteral.overrideHandler);
+    const self = baseExtended.dataParserBaseExtendedInit(index.templateLiteral(template, definition), {}, templateLiteral.overrideHandler);
     return self;
 }
 templateLiteral.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/templateLiteral");

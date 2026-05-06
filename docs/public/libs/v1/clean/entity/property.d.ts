@@ -44,4 +44,4 @@ export declare const entityPropertyDefinitionTools: {
     structure<const GenericDefinitionValue extends Record<string, EntityPropertyDefinition>>(definition: GenericDefinitionValue): EntityPropertyDefinitionStructure<GenericDefinitionValue>;
     identifier<const GenericDefinitionValue extends string>(definition: GenericDefinitionValue): EntityPropertyDefinitionIdentifier<GenericDefinitionValue>;
 };
-export declare function entityPropertyDefinitionToDataParser(propertyDefinition: EntityPropertyDefinition, treatNewTypeHandler: (newTypeHandler: NewTypeHandler) => DDataParser.DataParser): DDataParser.DataParser;
+export declare function entityPropertyDefinitionToDataParser(propertyDefinition: EntityPropertyDefinition, treatNewTypeHandler: (newTypeHandler: NewTypeHandler) => DDataParser.DataParserBase): DDataParser.DataParserBase;

@@ -1,4 +1,4 @@
-import { type Builder, type FixDeepFunctionInfer, type IsEqual } from "../../common";
+import { type ComputedTypeError, type Builder, type FixDeepFunctionInfer, type IsEqual } from "../../common";
 import { type ComplexMatchedValue, type ComplexUnMatchedValue, type Pattern, type PatternValue } from "../types";
 export interface BuilderMatcher {
     isMatch(value: unknown): boolean;
@@ -8,17 +8,15 @@ export interface MatchBuilderDefinition {
     input: unknown;
     matchers: BuilderMatcher[];
 }
-declare const SymbolErrorMatchExhaustive: unique symbol;
 export interface MatchBuilder<GenericValue extends unknown = never, GenericResult extends unknown = never> extends Builder<MatchBuilderDefinition> {
     with<const GenericPattern extends Pattern<GenericValue>, GenericOutput extends unknown>(pattern: FixDeepFunctionInfer<Pattern<GenericValue>, GenericPattern>, theFunction: (value: ComplexMatchedValue<GenericValue, PatternValue<GenericPattern>>) => GenericOutput): MatchBuilder<ComplexUnMatchedValue<GenericValue, PatternValue<GenericPattern>>, GenericOutput | GenericResult>;
     when<GenericPredicatedInput extends GenericValue, GenericOutput extends unknown>(predicate: (input: GenericValue) => input is GenericPredicatedInput, theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput): MatchBuilder<Exclude<GenericValue, GenericPredicatedInput>, GenericOutput | GenericResult>;
     when<GenericOutput extends unknown>(predicate: (input: GenericValue) => boolean, theFunction: (predicatedInput: GenericValue) => GenericOutput): MatchBuilder<GenericValue, GenericOutput | GenericResult>;
     whenNot<GenericPredicatedInput extends GenericValue, GenericOutput extends unknown>(predicate: (input: GenericValue) => input is GenericPredicatedInput, theFunction: (predicatedInput: Exclude<GenericValue, GenericPredicatedInput>) => GenericOutput): MatchBuilder<Extract<GenericValue, GenericPredicatedInput>, GenericOutput | GenericResult>;
     whenNot<GenericOutput extends unknown>(predicate: (input: GenericValue) => boolean, theFunction: (predicatedInput: GenericValue) => GenericOutput): MatchBuilder<GenericValue, GenericOutput | GenericResult>;
-    exhaustive: IsEqual<GenericValue, never> extends true ? () => GenericResult : {
-        [SymbolErrorMatchExhaustive]: "Pattern are not exhaustive.";
+    exhaustive: IsEqual<GenericValue, never> extends true ? () => GenericResult : (ComputedTypeError<"Pattern are not exhaustive."> & {
         restValue: GenericValue;
-    };
+    });
     otherwise<GenericOtherwiseResult extends unknown>(theFunction: (value: GenericValue) => GenericOtherwiseResult): GenericResult | GenericOtherwiseResult;
 }
 declare const InvalidExhaustivePatternError_base: new (params: {

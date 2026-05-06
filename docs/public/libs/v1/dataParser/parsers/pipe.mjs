@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { setErrorPath, SymbolDataParserError, popErrorPath } from '../error.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -8,7 +8,7 @@ const pipeKind = createDataParserKind("pipe");
  * {@include dataParser/classic/pipe/index.md}
  */
 function pipe(input, output, definition) {
-    const self = dataParserInit(pipeKind, {
+    const self = dataParserBaseInit(pipeKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         input,

@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -8,7 +8,7 @@ type _DataParserBooleanExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBoolean,
 > = (
 	& Kind<typeof dataParsers.booleanKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserBoolean<GenericDefinition>>,
 		Input<dataParsers.DataParserBoolean<GenericDefinition>>
@@ -66,7 +66,7 @@ export function boolean<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserBoolean,
 		DataParserBooleanExtended
 	>(

@@ -1,22 +1,15 @@
 import type { Hour, IsLeapYear, IsSafeYear, Millisecond, Minute, Second, MonthWithDay, SpoolingDate } from "./types";
 import * as DEither from "../either";
 import type * as DString from "../string";
-import { type And, type IsEqual, type Not, type IsExtends } from "../common";
+import { type And, type IsEqual, type Not, type IsExtends, type ComputedTypeError } from "../common";
 import { TheDate } from "./theDate";
 import type { SerializedTheDate } from "./types/serializedTheDate";
 export type MayBe = DEither.Right<"date-created", TheDate> | DEither.Left<"date-created-error", null>;
 type SafeDate = `${number}-${MonthWithDay}`;
-declare const SymbolForbiddenDate: unique symbol;
 type ForbiddenDate<GenericDate extends string> = And<[
     IsExtends<GenericDate, SafeDate>,
     Not<IsEqual<GenericDate, SafeDate>>
-]> extends true ? ((DString.Includes<GenericDate, "."> extends true ? {
-    [SymbolForbiddenDate]: "Year can't be includes a float number.";
-} : GenericDate) & (GenericDate extends `${infer InferredYear extends number}-02-29` ? IsLeapYear<InferredYear> extends true ? GenericDate : {
-    [SymbolForbiddenDate]: "Is not a leap year.";
-} : GenericDate) & (GenericDate extends `${infer InferredYear extends number}-${MonthWithDay}` ? IsSafeYear<InferredYear> extends true ? GenericDate : {
-    [SymbolForbiddenDate]: "Support that the years between -271820 and 275759.";
-} : GenericDate)) : GenericDate;
+]> extends true ? ((DString.Includes<GenericDate, "."> extends true ? ComputedTypeError<"Year can't be includes a float number."> : GenericDate) & (GenericDate extends `${infer InferredYear extends number}-02-29` ? IsLeapYear<InferredYear> extends true ? GenericDate : ComputedTypeError<"Is not a leap year."> : GenericDate) & (GenericDate extends `${infer InferredYear extends number}-${MonthWithDay}` ? IsSafeYear<InferredYear> extends true ? GenericDate : ComputedTypeError<"Support that the years between -271820 and 275759."> : GenericDate)) : GenericDate;
 interface SafeDateParams {
     hour?: Hour;
     minute?: Minute;

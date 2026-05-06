@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Input, type Output, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Input, type Output, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
@@ -32,7 +32,7 @@ export type DataParserTransformOutput<
 type _DataParserTransform<
 	GenericDefinition extends DataParserDefinitionTransform,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		DataParserTransformOutput<GenericDefinition["theFunction"]>,
 		Input<GenericDefinition["inner"]>
@@ -94,7 +94,7 @@ export function transform<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserTransform>(
+	const self = dataParserBaseInit<DataParserTransform>(
 		transformKind,
 		{
 			errorMessage: definition?.errorMessage,

@@ -23,7 +23,7 @@ Le `DataParser` expose un système d'override qui permet d'ajouter ou de remplac
 
 ## Étapes
 
-1. **Étendre l'interface `DataParser`** via `declare module` pour que TypeScript connaisse votre API (`parseOrThrow` dans l'exemple).
+1. **Étendre l'interface `DataParserBase`** via `declare module` pour que TypeScript connaisse votre API (`parseOrThrow` dans l'exemple).
 2. **Définir la méthode** avec `dataParserInit.overrideHandler.setMethod(...)` en réutilisant les méthodes existantes (`parser.parse`, `parser.asyncParse`, etc.).
 3. **Utiliser le plugin** : une fois la méthode enregistrée, tous vos parsers (`DP.*`, `DPE.*`) la partagent au runtime.
 

@@ -1,14 +1,11 @@
-import { type IsEqual } from "@scripts/common";
-
-declare const SymbolRequireAtLeastOneError: unique symbol;
-declare const SymbolOneOf: unique symbol;
+import { type ComputedTypeError, type IsEqual } from "@scripts/common";
 
 export type RequireAtLeastOne<
 	GenericObject extends object,
 	GenericKeys extends keyof GenericObject = keyof GenericObject,
 > = IsEqual<Extract<keyof GenericObject, GenericKeys>, never> extends true
-	? {
-		[SymbolRequireAtLeastOneError]: "requires at least one key.";
-		[SymbolOneOf]: `key: ${Extract<GenericKeys, string>}`;
-	}
+	? (
+		& ComputedTypeError<"requires at least one key.">
+		& ComputedTypeError<`one of keys: ${Extract<GenericKeys, string>}`>
+	)
 	: unknown;

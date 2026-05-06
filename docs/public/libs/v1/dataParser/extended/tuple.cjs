@@ -10,7 +10,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/tuple/index.md}
  */
 function tuple(shape, definition) {
-    const self = baseExtended.dataParserExtendedInit(tuple$1.tuple(shape, definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(tuple$1.tuple(shape, definition), {
         min(self, min$1, definition) {
             return self.addChecker(min.checkerArrayMin(min$1, definition));
         },

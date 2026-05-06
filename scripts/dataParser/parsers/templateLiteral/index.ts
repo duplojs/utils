@@ -1,5 +1,5 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride, type SimplifyTopLevel } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
@@ -178,7 +178,7 @@ export const templateLiteralKind = createDataParserKind("template-literal");
 type _DataParserTemplateLiteral<
 	GenericDefinition extends DataParserDefinitionTemplateLiteral,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		TemplateLiteralShapeOutput<GenericDefinition["template"]>,
 		TemplateLiteralShapeInput<GenericDefinition["template"]>
@@ -237,7 +237,7 @@ export function templateLiteral<
 		(result) => new RegExp(`^${result}$`),
 	);
 
-	const self = dataParserInit<DataParserTemplateLiteral>(
+	const self = dataParserBaseInit<DataParserTemplateLiteral>(
 		templateLiteralKind,
 		{
 			errorMessage: definition?.errorMessage,

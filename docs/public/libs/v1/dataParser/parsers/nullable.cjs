@@ -9,7 +9,7 @@ const nullableKind = kind.createDataParserKind("nullable");
  * {@include dataParser/classic/nullable/index.md}
  */
 function nullable(inner, definition) {
-    const self = base.dataParserInit(nullableKind, {
+    const self = base.dataParserBaseInit(nullableKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

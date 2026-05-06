@@ -1,5 +1,5 @@
 import type { GetPropsWithValueExtends } from "@scripts/object/types";
-import type { Adaptor, AnyFunction, IsEqual, NeverCoalescing, Or, UnionToIntersection } from "./types";
+import type { Adaptor, AnyFunction, ComputedTypeError, IsEqual, NeverCoalescing, Or, UnionToIntersection } from "./types";
 
 export type Transformer<
 	GenericValue extends unknown,
@@ -23,7 +23,6 @@ export type Transformer<
 						}
 						: GenericValue;
 
-declare const SymbolTransformError: unique symbol;
 export type CheckTransformArgument<
 	GenericValue extends unknown,
 	GenericMethodName extends string = string,
@@ -38,11 +37,11 @@ export type CheckTransformArgument<
 				IsEqual<GenericValue, any>,
 				IsEqual<GenericMethodName, string>,
 			]> extends true
-				? { [SymbolTransformError]: "Input contain an indeterminate value." }
+				? ComputedTypeError<"Input contain an indeterminate value.">
 				: GenericValue extends Record<GenericMethodName, () => unknown>
 					? unknown
 					: GenericValue extends Record<GenericMethodName, AnyFunction>
-						? { [SymbolTransformError]: `A method ${GenericMethodName} in input have an argument.` }
+						? ComputedTypeError<`A method ${GenericMethodName} in input have an argument.`>
 						: GenericValue extends readonly [infer InferredFirst, ...infer InferredRest]
 							? (
 								& CheckTransformArgument<InferredFirst, GenericMethodName>

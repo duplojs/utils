@@ -10,7 +10,7 @@ const lazyKind = kind.createDataParserKind("lazy");
  * {@include dataParser/classic/lazy/index.md}
  */
 function lazy(getter, definition) {
-    const self = base.dataParserInit(lazyKind, {
+    const self = base.dataParserBaseInit(lazyKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         getter: memo.memo(getter),

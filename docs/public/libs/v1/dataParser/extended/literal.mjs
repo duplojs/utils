@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { literal as literal$1 } from '../parsers/literal.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -6,7 +6,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/literal/index.md}
  */
 function literal(value, definition) {
-    const self = dataParserExtendedInit(literal$1(value, definition), {}, literal.overrideHandler);
+    const self = dataParserBaseExtendedInit(literal$1(value, definition), {}, literal.overrideHandler);
     return self;
 }
 literal.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/literal");

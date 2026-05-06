@@ -17,7 +17,7 @@ var array = require('./extended/array.cjs');
 var override = require('../common/override.cjs');
 
 const extendedKind = kind.createDataParserKind("extended");
-function dataParserExtendedInit(dataParser, rest, specificOverrideHandler) {
+function dataParserBaseExtendedInit(dataParser, rest, specificOverrideHandler) {
     const self = pipe.pipe({
         ...dataParser,
         ...pipe.pipe(rest, entries.entries, map.map(([key, value]) => entry.entry(key, typeof value === "function"
@@ -48,13 +48,13 @@ function dataParserExtendedInit(dataParser, rest, specificOverrideHandler) {
             return union.union([self, option], definition);
         },
         addChecker(...checkers) {
-            return dataParserExtendedInit(dataParser.addChecker(...checkers), rest, specificOverrideHandler);
+            return dataParserBaseExtendedInit(dataParser.addChecker(...checkers), rest, specificOverrideHandler);
         },
         clone() {
-            return dataParserExtendedInit(dataParser.clone(), rest, specificOverrideHandler);
+            return dataParserBaseExtendedInit(dataParser.clone(), rest, specificOverrideHandler);
         },
         refine(theFunction) {
-            return dataParserExtendedInit(dataParser.addChecker(refine.checkerRefine(theFunction)), rest, specificOverrideHandler);
+            return dataParserBaseExtendedInit(dataParser.addChecker(refine.checkerRefine(theFunction)), rest, specificOverrideHandler);
         },
         recover(recoveredValue, definition) {
             return recover.recover(self, recoveredValue, definition);
@@ -65,10 +65,10 @@ function dataParserExtendedInit(dataParser, rest, specificOverrideHandler) {
         contractExtended() {
             return self;
         },
-    }, extendedKind.setTo, dataParserExtendedInit.overrideHandler.apply, specificOverrideHandler.apply);
+    }, extendedKind.setTo, dataParserBaseExtendedInit.overrideHandler.apply, specificOverrideHandler.apply);
     return self;
 }
-dataParserExtendedInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/base");
+dataParserBaseExtendedInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/base");
 
-exports.dataParserExtendedInit = dataParserExtendedInit;
+exports.dataParserBaseExtendedInit = dataParserBaseExtendedInit;
 exports.extendedKind = extendedKind;

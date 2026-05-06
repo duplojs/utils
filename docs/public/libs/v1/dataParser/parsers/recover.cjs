@@ -10,7 +10,7 @@ const recoverKind = kind.createDataParserKind("recover");
  * {@include dataParser/classic/recover/index.md}
  */
 function recover(inner, recoveredValue, definition) {
-    const self = base.dataParserInit(recoverKind, {
+    const self = base.dataParserBaseInit(recoverKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

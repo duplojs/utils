@@ -13,7 +13,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/object/index.md}
  */
 function object(shape, definition) {
-    const self = baseExtended.dataParserExtendedInit(index.object(shape, definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(index.object(shape, definition), {
         omit: (self, omitObject, definition) => {
             const newShape = omit.omitShape(self.definition.shape, omitObject);
             return object(newShape, definition);

@@ -1,12 +1,12 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type DataParserLazyCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
 export interface DataParserDefinitionLazy<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserLazyCheckers<GenericInput>> {
     getter: Memoized<DataParser>;
 }
 export declare const lazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>;
-type _DataParserLazy<GenericDefinition extends DataParserDefinitionLazy> = (DataParser<GenericDefinition, Output<GenericDefinition["getter"]["value"]>, Input<GenericDefinition["getter"]["value"]>> & Kind<typeof lazyKind.definition>);
+type _DataParserLazy<GenericDefinition extends DataParserDefinitionLazy> = (DataParserBase<GenericDefinition, Output<GenericDefinition["getter"]["value"]>, Input<GenericDefinition["getter"]["value"]>> & Kind<typeof lazyKind.definition>);
 export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy> extends _DataParserLazy<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserLazyCheckers<Output<this>>,
@@ -38,7 +38,7 @@ export interface DataParserLazy<GenericDefinition extends DataParserDefinitionLa
  * 	next?: RecursiveSchema;
  * }
  * 
- * const recursive: DP.Contract<RecursiveSchema> = DP.lazy(
+ * const recursive: DP.DataParser<RecursiveSchema> = DP.lazy(
  * 	() => DP.object({
  * 		value: DP.number(),
  * 		next: DP.optional(recursive),

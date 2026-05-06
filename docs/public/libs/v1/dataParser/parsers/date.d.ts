@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import * as DDate from "../../date";
 export type DataParserDateCheckers = DataParserChecker<DataParserCheckerDefinition, DDate.TheDate>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionDate extends DataParserDefinition<DataParse
     readonly coerce: boolean;
 }
 export declare const dateKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>>;
-type _DataParserDate<GenericDefinition extends DataParserDefinitionDate> = (DataParser<GenericDefinition, DDate.TheDate, DDate.TheDate | Date | DDate.SerializedTheDate> & Kind<typeof dateKind.definition>);
+type _DataParserDate<GenericDefinition extends DataParserDefinitionDate> = (DataParserBase<GenericDefinition, DDate.TheDate, DDate.TheDate | Date | DDate.SerializedTheDate> & Kind<typeof dateKind.definition>);
 export interface DataParserDate<GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate> extends _DataParserDate<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserDateCheckers,

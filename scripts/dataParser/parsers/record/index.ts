@@ -1,6 +1,6 @@
 
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
@@ -109,7 +109,7 @@ export type DataParserRecordShapeInput<
 type _DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		DataParserRecordShapeOutput<
 			GenericDefinition["key"],
@@ -179,7 +179,7 @@ export function record<
 	> {
 	const requireKey = findRecordRequiredKey(key);
 
-	const self = dataParserInit<DataParserRecord>(
+	const self = dataParserBaseInit<DataParserRecord>(
 		recordKind,
 		{
 			errorMessage: definition?.errorMessage,

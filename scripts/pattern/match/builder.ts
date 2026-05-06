@@ -1,4 +1,4 @@
-import { createBuilder, createErrorKind, kindHeritage, type Builder, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
+import { type ComputedTypeError, createBuilder, createErrorKind, kindHeritage, type Builder, type FixDeepFunctionInfer, type IsEqual } from "@scripts/common";
 import { type ComplexMatchedValue, type ComplexUnMatchedValue, type Pattern, type PatternValue } from "../types";
 import { isMatch } from "../isMatch";
 
@@ -92,10 +92,10 @@ export interface MatchBuilder<
 
 	exhaustive: IsEqual<GenericValue, never> extends true
 		? () => GenericResult
-		: {
-			[SymbolErrorMatchExhaustive]: "Pattern are not exhaustive.";
-			restValue: GenericValue;
-		};
+		: (
+			& ComputedTypeError<"Pattern are not exhaustive.">
+			& { restValue: GenericValue }
+		);
 
 	otherwise<GenericOtherwiseResult extends unknown>(
 		theFunction: (value: GenericValue) => GenericOtherwiseResult

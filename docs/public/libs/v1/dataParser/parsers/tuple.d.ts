@@ -1,5 +1,5 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type Or } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? unknown[] : GenericShape extends readonly [
@@ -21,10 +21,10 @@ export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRe
 export type DataParserTupleCheckers<GenericInput extends unknown[] = unknown[]> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
 export interface DataParserDefinitionTuple<GenericInput extends unknown[] = unknown[]> extends DataParserDefinition<DataParserTupleCheckers<GenericInput>> {
     readonly shape: TupleShape;
-    readonly rest?: DataParser;
+    readonly rest: DataParser | undefined;
 }
 export declare const tupleKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>>;
-type _DataParserTuple<GenericDefinition extends DataParserDefinitionTuple> = (DataParser<GenericDefinition, DataParserTupleShapeOutput<GenericDefinition["shape"], GenericDefinition["rest"]>, DataParserTupleShapeInput<GenericDefinition["shape"], GenericDefinition["rest"]>> & Kind<typeof tupleKind.definition>);
+type _DataParserTuple<GenericDefinition extends DataParserDefinitionTuple> = (DataParserBase<GenericDefinition, DataParserTupleShapeOutput<GenericDefinition["shape"], GenericDefinition["rest"]>, DataParserTupleShapeInput<GenericDefinition["shape"], GenericDefinition["rest"]>> & Kind<typeof tupleKind.definition>);
 export interface DataParserTuple<GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple> extends _DataParserTuple<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserTupleCheckers<Output<this>>,

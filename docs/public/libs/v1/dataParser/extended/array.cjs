@@ -10,7 +10,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/array/index.md}
  */
 function array(element, definition) {
-    const self = baseExtended.dataParserExtendedInit(index.array(element, definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(index.array(element, definition), {
         min(self, min$1, definition) {
             return self.addChecker(min.checkerArrayMin(min$1, definition));
         },

@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
@@ -8,7 +8,7 @@ const numberKind = createDataParserKind("number");
  * {@include dataParser/classic/number/index.md}
  */
 function number(definition) {
-    const self = dataParserInit(numberKind, {
+    const self = dataParserBaseInit(numberKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

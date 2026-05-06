@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -7,7 +7,7 @@ const nullableKind = createDataParserKind("nullable");
  * {@include dataParser/classic/nullable/index.md}
  */
 function nullable(inner, definition) {
-    const self = dataParserInit(nullableKind, {
+    const self = dataParserBaseInit(nullableKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

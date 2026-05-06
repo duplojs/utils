@@ -156,7 +156,7 @@ describe("base extended", () => {
 	});
 
 	it("add non function property", () => {
-		const schema = DDataParser.dataParserExtendedInit(
+		const schema = DDataParser.dataParserBaseExtendedInit(
 			DDataParser.string(),
 			{ test: 12 },
 			DDataParserExtended.string.overrideHandler as never,
@@ -225,7 +225,7 @@ describe("base extended", () => {
 	it("contract", () => {
 			type RecursiveTuple = [string, (RecursiveTuple | string)[]];
 
-			const schema: DDataParser.Contract<RecursiveTuple> = DDataParserExtended
+			const schema: DDataParser.DataParser<RecursiveTuple> = DDataParserExtended
 				.tuple([
 					DDataParserExtended.string(),
 					DDataParserExtended
@@ -239,7 +239,7 @@ describe("base extended", () => {
 	it("contractExtended", () => {
 		type RecursiveTuple = [string, (RecursiveTuple | string)[]];
 
-		const schema: DDataParser.ContractExtended<RecursiveTuple> = DDataParserExtended
+		const schema: DDataParser.DataParserExtended<RecursiveTuple> = DDataParserExtended
 			.tuple([
 				DDataParserExtended.string(),
 				DDataParserExtended
@@ -261,12 +261,12 @@ describe("base extended", () => {
 
 		type check = ExpectType<
 			typeof schema,
-			DDataParser.ContractExtended<RecursiveTuple>,
+			DDataParser.DataParserExtended<RecursiveTuple>,
 			"strict"
 		>;
 
-		const tupleSchema: DDataParser.AdvancedContract<
-			DDataParser.DataParserTuple<
+		const tupleSchema: DDataParser.ContractExtended<
+			DDataParser.extended.DataParserTupleExtended<
 				SimplifyTopLevel<
 					& Omit<DDataParser.DataParserDefinitionTuple, "shape" | "rest">
 					& {

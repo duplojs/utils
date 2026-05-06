@@ -1,10 +1,10 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserExtended } from "../baseExtended";
+import { type DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
 import { type TheTime } from "../../date";
-type _DataParserTimeExtended<GenericDefinition extends dataParsers.DataParserDefinitionTime> = (Kind<typeof dataParsers.timeKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserTime<GenericDefinition>>, Input<dataParsers.DataParserTime<GenericDefinition>>>);
+type _DataParserTimeExtended<GenericDefinition extends dataParsers.DataParserDefinitionTime> = (Kind<typeof dataParsers.timeKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserTime<GenericDefinition>>, Input<dataParsers.DataParserTime<GenericDefinition>>>);
 export interface DataParserTimeExtended<GenericDefinition extends dataParsers.DataParserDefinitionTime = dataParsers.DataParserDefinitionTime> extends _DataParserTimeExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserTimeCheckers,

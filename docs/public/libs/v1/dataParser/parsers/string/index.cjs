@@ -10,7 +10,7 @@ const stringKind = kind.createDataParserKind("string");
  * {@include dataParser/classic/string/index.md}
  */
 function string(definition) {
-    const self = base.dataParserInit(stringKind, {
+    const self = base.dataParserBaseInit(stringKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

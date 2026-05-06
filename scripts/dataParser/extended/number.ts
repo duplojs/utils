@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -8,7 +8,7 @@ type _DataParserNumberExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNumber,
 > = (
 	& Kind<typeof dataParsers.numberKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserNumber<GenericDefinition>>,
 		Input<dataParsers.DataParserNumber<GenericDefinition>>
@@ -108,7 +108,7 @@ export function number<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserNumber,
 		DataParserNumberExtended
 	>(

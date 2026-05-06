@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 import { popErrorPath, setErrorPath } from "../error";
@@ -25,7 +25,7 @@ export const pipeKind = createDataParserKind("pipe");
 type _DataParserPipe<
 	GenericDefinition extends DataParserDefinitionPipe,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		Output<GenericDefinition["output"]>,
 		Input<GenericDefinition["input"]>
@@ -84,7 +84,7 @@ export function pipe<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserPipe>(
+	const self = dataParserBaseInit<DataParserPipe>(
 		pipeKind,
 		{
 			errorMessage: definition?.errorMessage,

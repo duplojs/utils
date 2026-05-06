@@ -1,4 +1,4 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue } from "../common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError } from "../common";
 import * as EE from "../either";
 export type FunctionOfChain = [string, AnyFunction];
 export type FunctionChain = [
@@ -26,10 +26,7 @@ export type Chain<GenericFunctionChain extends readonly FunctionOfChain[]> = Gen
     infer InferredFirst extends FunctionOfChain,
     ...infer InferredRest extends readonly FunctionOfChain[]
 ] ? Chain<InferredRest> extends infer InferredRestResult extends (Link | CreateChainEnd) ? Link<InferredFirst, InferredRestResult> : never : never;
-declare const SymbolError: unique symbol;
-type OutputMustContainChainEnd<GenericGenerator extends MaybeAsyncGenerator> = IsEqual<GenericGenerator extends MaybeAsyncGenerator<any, infer InferredReturnValue> ? InferredReturnValue extends ChainEnd ? InferredReturnValue : never : never, never> extends true ? {
-    [SymbolError]: "Output must contain a chainEnd";
-} : unknown;
+type OutputMustContainChainEnd<GenericGenerator extends MaybeAsyncGenerator> = IsEqual<GenericGenerator extends MaybeAsyncGenerator<any, infer InferredReturnValue> ? InferredReturnValue extends ChainEnd ? InferredReturnValue : never : never, never> extends true ? ComputedTypeError<"Output must contain a chainEnd"> : unknown;
 type ComputeResult<GenericGenerator extends MaybeAsyncGenerator> = GenericGenerator extends Generator<infer InferredIterateValue, infer InferredReturnValue> ? (InferredIterateValue | InferredReturnValue) extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never : GenericGenerator extends AsyncGenerator<infer InferredIterateValue, infer InferredReturnValue> ? Promise<Awaited<InferredIterateValue | InferredReturnValue> extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never> : never;
 declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue): Generator<Extract<GenericValue, EE.Left>, Exclude<GenericValue, EE.Left>>;
 export interface ChainedFunctionParams {

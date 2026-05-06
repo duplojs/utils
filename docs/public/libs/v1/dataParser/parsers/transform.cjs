@@ -10,7 +10,7 @@ const transformKind = kind.createDataParserKind("transform");
  * {@include dataParser/classic/transform/index.md}
  */
 function transform(inner, theFunction, definition) {
-    const self = base.dataParserInit(transformKind, {
+    const self = base.dataParserBaseInit(transformKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         inner,

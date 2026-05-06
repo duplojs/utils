@@ -11,7 +11,7 @@ const tupleKind = kind.createDataParserKind("tuple");
  * {@include dataParser/classic/tuple/index.md}
  */
 function tuple(shape, definition) {
-    const self = base.dataParserInit(tupleKind, {
+    const self = base.dataParserBaseInit(tupleKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         rest: definition?.rest,

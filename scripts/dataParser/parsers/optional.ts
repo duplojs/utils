@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
@@ -24,7 +24,7 @@ export const optionalKind = createDataParserKind("optional");
 type _DataParserOptional<
 	GenericDefinition extends DataParserDefinitionOptional,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		IsEqual<
 			GenericDefinition["coalescingValue"],
@@ -83,7 +83,7 @@ export function optional<
 			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 		>
 	> {
-	const self = dataParserInit<DataParserOptional>(
+	const self = dataParserBaseInit<DataParserOptional>(
 		optionalKind,
 		{
 			errorMessage: definition?.errorMessage,

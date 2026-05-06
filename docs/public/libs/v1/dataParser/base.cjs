@@ -32,7 +32,7 @@ class DataParserThrowError extends kind$1.kindHeritage("dataParserThrowError", e
         this.value = value;
     }
 }
-function dataParserInit(kind, definition, exec, specificOverrideHandler) {
+function dataParserBaseInit(kind, definition, exec, specificOverrideHandler) {
     const formattedExec = typeof exec === "object"
         ? exec
         : {
@@ -112,11 +112,11 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
                 [KWV]: result,
             };
         },
-        addChecker: (...checkers) => dataParserInit(kind, {
+        addChecker: (...checkers) => dataParserBaseInit(kind, {
             ...definition,
             checkers: [...definition.checkers, ...checkers],
         }, exec, specificOverrideHandler),
-        clone: () => dataParserInit(kind, simpleClone.simpleClone(definition), exec, specificOverrideHandler),
+        clone: () => dataParserBaseInit(kind, simpleClone.simpleClone(definition), exec, specificOverrideHandler),
         contract: () => self,
         parseOrThrow(data) {
             const error = {
@@ -145,14 +145,14 @@ function dataParserInit(kind, definition, exec, specificOverrideHandler) {
         isAsynchronous() {
             return formattedExec.isAsynchronous(self);
         },
-    }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
+    }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserBaseInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
     return self;
 }
-dataParserInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
+dataParserBaseInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
 
 exports.SymbolDataParserError = error.SymbolDataParserError;
 exports.DataParserThrowError = DataParserThrowError;
 exports.checkerKind = checkerKind;
+exports.dataParserBaseInit = dataParserBaseInit;
 exports.dataParserCheckerInit = dataParserCheckerInit;
-exports.dataParserInit = dataParserInit;
 exports.dataParserKind = dataParserKind;

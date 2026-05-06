@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { createTemplateLiteralPattern } from './createTemplateLiteralPattern.mjs';
@@ -11,7 +11,7 @@ const templateLiteralKind = createDataParserKind("template-literal");
  */
 function templateLiteral(template, definition) {
     const pattern = pipe(createTemplateLiteralPattern(template), (result) => new RegExp(`^${result}$`));
-    const self = dataParserInit(templateLiteralKind, {
+    const self = dataParserBaseInit(templateLiteralKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         template,

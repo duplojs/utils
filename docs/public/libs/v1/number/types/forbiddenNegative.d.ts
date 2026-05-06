@@ -1,6 +1,3 @@
+import { type ComputedTypeError } from "../../common";
 import { type IsPositive } from "./isPositive";
-declare const SymbolForbiddenNumber: unique symbol;
-export type ForbiddenNegative<GenericNumber extends number> = IsPositive<GenericNumber> extends true ? GenericNumber : {
-    [SymbolForbiddenNumber]: "Only positive number is allowed.";
-};
-export {};
+export type ForbiddenNegative<GenericNumber extends number> = IsPositive<GenericNumber> extends true ? GenericNumber : ComputedTypeError<"Only positive number is allowed.">;

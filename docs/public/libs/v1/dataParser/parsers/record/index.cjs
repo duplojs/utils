@@ -16,7 +16,7 @@ const recordKind = kind.createDataParserKind("record");
  */
 function record(key, value, definition) {
     const requireKey = findRecordRequiredKey.findRecordRequiredKey(key);
-    const self = base.dataParserInit(recordKind, {
+    const self = base.dataParserBaseInit(recordKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         key,

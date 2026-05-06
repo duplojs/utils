@@ -26,7 +26,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
          * The DataParser with the constraint checkers applied.
          * 
          */
-        readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+        readonly dataParser: DDataParser.DataParser<GenericPrimitiveValue, unknown>;
         /**
          * The primitive handler on which the constraint applies (String, Number, etc.).
          * 

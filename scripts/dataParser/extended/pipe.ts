@@ -1,14 +1,14 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type DataParser, type Input, type Output } from "../base";
 
 type _DataParserPipeExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionPipe,
 > = (
 	& Kind<typeof dataParsers.pipeKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserPipe<GenericDefinition>>,
 		Input<dataParsers.DataParserPipe<GenericDefinition>>
@@ -76,7 +76,7 @@ export function pipe<
 			}
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserPipe,
 		DataParserPipeExtended
 	>(

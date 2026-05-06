@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { string as string$1 } from '../parsers/string/index.mjs';
 import { checkerEmail } from '../parsers/string/checkers/email.mjs';
 import { checkerUrl } from '../parsers/string/checkers/url.mjs';
@@ -12,7 +12,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/string/index.md}
  */
 function string(definition) {
-    const self = dataParserExtendedInit(string$1(definition), {
+    const self = dataParserBaseExtendedInit(string$1(definition), {
         min(self, min, definition) {
             return self.addChecker(checkerStringMin(min, definition));
         },

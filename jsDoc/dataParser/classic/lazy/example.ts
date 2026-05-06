@@ -12,7 +12,7 @@ interface RecursiveSchema {
 	next?: RecursiveSchema;
 }
 
-const recursive: DP.Contract<RecursiveSchema> = DP.lazy(
+const recursive: DP.DataParser<RecursiveSchema> = DP.lazy(
 	() => DP.object({
 		value: DP.number(),
 		next: DP.optional(recursive),

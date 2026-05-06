@@ -1,11 +1,8 @@
-import { type UnionToIntersection, type SimplifyTopLevel, type NeverCoalescing, type And, type Not, type IsEqual } from "../../common";
+import { type UnionToIntersection, type NeverCoalescing, type And, type Not, type IsEqual, type ComputedTypeError } from "../../common";
 import { type ConstraintHandler, type ConstrainedType, type GetConstraint } from "./base";
 import { type StrictNegative, type StrictPositive, type Negative, type NumberMaxHandlerInternal, type NumberMaxInternal, type NumberMinHandlerInternal, type NumberMinInternal, type Positive, type StringMaxHandlerInternal, type StringMaxInternal, type StringMinHandlerInternal, type StringMinInternal } from "./defaultConstraint";
 import { type IsLess, type IsGreater } from "../../number";
-declare const SymbolCastErrorMessage: unique symbol;
-type CastConstraintError<GenericConstrainHandler extends ConstraintHandler, GenericReason extends string> = SimplifyTopLevel<{
-    [SymbolCastErrorMessage]: `The constraint "${GenericConstrainHandler["name"]}" is not applicable: ${GenericReason}.`;
-}>;
+type CastConstraintError<GenericConstrainHandler extends ConstraintHandler, GenericReason extends string> = ComputedTypeError<`The constraint "${GenericConstrainHandler["name"]}" is not applicable: ${GenericReason}.`>;
 type ForbiddenBadCast<GenericConstrainedType extends ConstrainedType, GenericConstrainHandler extends ConstraintHandler> = ((GenericConstrainHandler extends NumberMinHandlerInternal<infer InferredConstraintValue extends number> ? GenericConstrainedType extends Positive ? IsLess<InferredConstraintValue, 0> extends true ? never : CastConstraintError<GenericConstrainHandler, `constraint ${InferredConstraintValue} is greater than zero`> : GenericConstrainedType extends StrictPositive ? And<[
     IsLess<InferredConstraintValue, 0>,
     Not<IsEqual<InferredConstraintValue, 0>>

@@ -21,7 +21,7 @@ describe("extended.lazy", () => {
 			children?: Tree[];
 		}
 
-		const treeParser: DDataParser.Contract<Tree> = extended.object({
+		const treeParser: DDataParser.DataParser<Tree> = extended.object({
 			value: extended.number(),
 			children: extended.lazy(() => treeParser).array().optional(),
 		});

@@ -23,7 +23,7 @@ next:
 
 ## Steps
 
-1. **Extend the `DataParser` interface** via `declare module` so TypeScript knows your API (`parseOrThrow` in the example).
+1. **Extend the `DataParserBase` interface** via `declare module` so TypeScript knows your API (`parseOrThrow` in the example).
 2. **Define the method** with `dataParserInit.overrideHandler.setMethod(...)` while reusing existing methods (`parser.parse`, `parser.asyncParse`, etc.).
 3. **Use the plugin**: once the method is registered, all your parsers (`DP.*`, `DPE.*`) share it at runtime.
 

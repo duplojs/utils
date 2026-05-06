@@ -10,7 +10,7 @@ const pipeKind = kind.createDataParserKind("pipe");
  * {@include dataParser/classic/pipe/index.md}
  */
 function pipe(input, output, definition) {
-    const self = base.dataParserInit(pipeKind, {
+    const self = base.dataParserBaseInit(pipeKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         input,

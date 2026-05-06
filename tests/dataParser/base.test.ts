@@ -54,7 +54,7 @@ describe("base parser", () => {
 
 		const exec = vi.fn((input) => typeof input === "number" ? input : DDataParser.SymbolDataParserErrorIssue);
 
-		const parser = DDataParser.dataParserInit(
+		const parser = DDataParser.dataParserBaseInit(
 			dataParserTestKind as never,
 			{
 				errorMessage: "invalid",
@@ -115,7 +115,7 @@ describe("base parser", () => {
 		});
 
 		it("run base exec and check return error", () => {
-			const parser = DDataParser.dataParserInit(
+			const parser = DDataParser.dataParserBaseInit(
 				dataParserTestKind as never,
 				{
 					errorMessage: "invalid",
@@ -132,7 +132,7 @@ describe("base parser", () => {
 		});
 
 		it("add checkers", () => {
-			const newParser = parser.addChecker(...[checker] as never);
+			const newParser = parser.addChecker(checker);
 
 			expect(newParser).toStrictEqual(
 				dataParserTestKind.addTo(
@@ -215,7 +215,7 @@ describe("base parser", () => {
 			),
 		);
 
-		const parser = DDataParser.dataParserInit(
+		const parser = DDataParser.dataParserBaseInit(
 			dataParserTestKind as never,
 			{
 				errorMessage: "invalid",
@@ -253,7 +253,7 @@ describe("base parser", () => {
 		});
 
 		it("run base exec and check return error", async() => {
-			const parser = DDataParser.dataParserInit(
+			const parser = DDataParser.dataParserBaseInit(
 				dataParserTestKind as never,
 				{
 					errorMessage: "invalid",
@@ -318,7 +318,7 @@ describe("base parser", () => {
 
 		type RecursiveTuple = [string, (RecursiveTuple | string)[]];
 
-		const schema: DDataParser.Contract<RecursiveTuple> = DDataParser
+		const schema: DDataParser.DataParser<RecursiveTuple> = DDataParser
 			.tuple([
 				DDataParser.string(),
 				DDataParser.array(
@@ -330,7 +330,7 @@ describe("base parser", () => {
 			])
 			.contract();
 
-		const tupleSchema: DDataParser.AdvancedContract<
+		const tupleSchema: DDataParser.Contract<
 			DDataParser.DataParserTuple<
 				SimplifyTopLevel<
 				& Omit<DDataParser.DataParserDefinitionTuple, "shape" | "rest">

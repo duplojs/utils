@@ -1,12 +1,12 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type DataParserBooleanCheckers = DataParserChecker<DataParserCheckerDefinition, boolean>;
 export interface DataParserDefinitionBoolean extends DataParserDefinition<DataParserBooleanCheckers> {
     readonly coerce: boolean;
 }
 export declare const booleanKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>>;
-type _DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean> = (DataParser<GenericDefinition, boolean, boolean> & Kind<typeof booleanKind.definition>);
+type _DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean> = (DataParserBase<GenericDefinition, boolean, boolean> & Kind<typeof booleanKind.definition>);
 export interface DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean> extends _DataParserBoolean<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserBooleanCheckers,

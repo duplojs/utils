@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
@@ -9,7 +9,7 @@ const literalKind = createDataParserKind("literal");
  * {@include dataParser/classic/literal/index.md}
  */
 function literal(value, definition) {
-    const self = dataParserInit(literalKind, {
+    const self = dataParserBaseInit(literalKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         value: coalescing(value),

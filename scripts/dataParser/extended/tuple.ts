@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type Or, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -8,7 +8,7 @@ type _DataParserTupleExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionTuple,
 > = (
 	& Kind<typeof dataParsers.tupleKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserTuple<GenericDefinition>>,
 		Input<dataParsers.DataParserTuple<GenericDefinition>>
@@ -99,7 +99,7 @@ export interface DataParserTupleExtended<
  * {@include dataParser/extended/tuple/index.md}
  */
 export function tuple<
-	GenericShape extends dataParsers.TupleShape,
+	const GenericShape extends dataParsers.TupleShape,
 	const GenericDefinition extends Partial<
 		Omit<
 			dataParsers.DataParserDefinitionTuple<
@@ -126,7 +126,7 @@ export function tuple<
 			}
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserTuple,
 		DataParserTupleExtended
 	>(

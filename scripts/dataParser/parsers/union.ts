@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
@@ -27,7 +27,7 @@ export const unionKind = createDataParserKind("union");
 type _DataParserUnion<
 	GenericDefinition extends DataParserDefinitionUnion,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		Output<GenericDefinition["options"][number]>,
 		Input<GenericDefinition["options"][number]>
@@ -84,7 +84,7 @@ export function union<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserUnion>(
+	const self = dataParserBaseInit<DataParserUnion>(
 		unionKind,
 		{
 			errorMessage: definition?.errorMessage,

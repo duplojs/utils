@@ -14,7 +14,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/string/index.md}
  */
 function string(definition) {
-    const self = baseExtended.dataParserExtendedInit(index.string(definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(index.string(definition), {
         min(self, min$1, definition) {
             return self.addChecker(min.checkerStringMin(min$1, definition));
         },

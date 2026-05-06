@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -8,7 +8,7 @@ const emptyKind = createDataParserKind("empty");
  * {@include dataParser/classic/empty/index.md}
  */
 function empty(definition) {
-    const self = dataParserInit(emptyKind, {
+    const self = dataParserBaseInit(emptyKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
@@ -20,7 +20,7 @@ export const nilKind = createDataParserKind("nil");
 type _DataParserNil<
 	GenericDefinition extends DataParserDefinitionNil,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		null,
 		null
@@ -65,7 +65,7 @@ export function nil<
 			NeverCoalescing<GenericDefinition, {}>
 		>
 	> {
-	const self = dataParserInit<DataParserNil>(
+	const self = dataParserBaseInit<DataParserNil>(
 		nilKind,
 		{
 			errorMessage: definition?.errorMessage,

@@ -75,7 +75,7 @@ export interface EntityHandler<
 	/**
 	 * @deprecated
 	 */
-	readonly mapDataParser: DDataParser.Contract<
+	readonly mapDataParser: DDataParser.DataParser<
 		EntityProperties<GenericPropertiesDefinition>,
 		unknown
 	>;
@@ -85,7 +85,7 @@ export interface EntityHandler<
 		/**
 		 * {@include clean/createEntity/mapDataParser.md}
 		 */
-		readonly mapDataParser: DDataParser.Contract<
+		readonly mapDataParser: DDataParser.DataParser<
 			EntityProperties<GenericPropertiesDefinition>,
 			unknown
 		>;

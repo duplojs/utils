@@ -26,5 +26,5 @@ export * from "./unknown";
 export * from "./recover";
 
 export * from "../error";
-export { type Contract, type Output, type Input } from "../base";
-export { type ContractExtended } from "../baseExtended";
+export { type DataParser, type Output, type Input } from "../base";
+export { type DataParserExtended } from "../baseExtended";

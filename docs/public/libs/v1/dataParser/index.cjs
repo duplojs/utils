@@ -56,10 +56,10 @@ var recover = require('./parsers/recover.cjs');
 
 exports.DataParserThrowError = base.DataParserThrowError;
 exports.checkerKind = base.checkerKind;
+exports.dataParserBaseInit = base.dataParserBaseInit;
 exports.dataParserCheckerInit = base.dataParserCheckerInit;
-exports.dataParserInit = base.dataParserInit;
 exports.dataParserKind = base.dataParserKind;
-exports.dataParserExtendedInit = baseExtended.dataParserExtendedInit;
+exports.dataParserBaseExtendedInit = baseExtended.dataParserBaseExtendedInit;
 exports.extendedKind = baseExtended.extendedKind;
 exports.SymbolDataParserError = error.SymbolDataParserError;
 exports.SymbolDataParserErrorIssue = error.SymbolDataParserErrorIssue;

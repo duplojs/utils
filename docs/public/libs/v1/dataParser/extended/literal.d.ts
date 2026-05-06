@@ -1,9 +1,9 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserExtended } from "../baseExtended";
+import { type DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
-type _DataParserLiteralExtended<GenericDefinition extends dataParsers.DataParserDefinitionLiteral> = (Kind<typeof dataParsers.literalKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserLiteral<GenericDefinition>>, Input<dataParsers.DataParserLiteral<GenericDefinition>>>);
+type _DataParserLiteralExtended<GenericDefinition extends dataParsers.DataParserDefinitionLiteral> = (Kind<typeof dataParsers.literalKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserLiteral<GenericDefinition>>, Input<dataParsers.DataParserLiteral<GenericDefinition>>>);
 export interface DataParserLiteralExtended<GenericDefinition extends dataParsers.DataParserDefinitionLiteral = dataParsers.DataParserDefinitionLiteral> extends _DataParserLiteralExtended<GenericDefinition> {
     addChecker<const GenericChecker extends readonly [
         dataParsers.DataParserLiteralCheckers<Output<this>>,

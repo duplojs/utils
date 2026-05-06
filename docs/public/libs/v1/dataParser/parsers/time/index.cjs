@@ -18,7 +18,7 @@ const timeKind = kind.createDataParserKind("time");
  * {@include dataParser/classic/time/index.md}
  */
 function time(definition) {
-    const self = base.dataParserInit(timeKind, {
+    const self = base.dataParserBaseInit(timeKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

@@ -1,5 +1,5 @@
 import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -9,7 +9,7 @@ type _DataParserObjectExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionObject,
 > = (
 	& Kind<typeof dataParsers.objectKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserObject<GenericDefinition>>,
 		Input<dataParsers.DataParserObject<GenericDefinition>>
@@ -200,7 +200,7 @@ export function object<
 			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserObject,
 		DataParserObjectExtended
 	>(

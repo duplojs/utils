@@ -1,14 +1,14 @@
 import { type Kind, type Memoized, type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type DataParser, type Input, type Output } from "../base";
 
 type _DataParserLazyExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionLazy,
 > = (
 	& Kind<typeof dataParsers.lazyKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserLazy<GenericDefinition>>,
 		Input<dataParsers.DataParserLazy<GenericDefinition>>
@@ -72,7 +72,7 @@ export function lazy<
 			}
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserLazy,
 		DataParserLazyExtended
 	>(

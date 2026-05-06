@@ -8,7 +8,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/optional/index.md}
  */
 function optional(inner, definition) {
-    const self = baseExtended.dataParserExtendedInit(optional$1.optional(inner, definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(optional$1.optional(inner, definition), {
         default: (self, value) => optional(self.definition.inner, {
             ...self.definition,
             coalescingValue: value,

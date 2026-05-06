@@ -1,9 +1,9 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
-import { type DataParserExtended } from "../baseExtended";
+import { type DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
-type _DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable> = (Kind<typeof dataParsers.nullableKind.definition> & DataParserExtended<GenericDefinition, Output<dataParsers.DataParserNullable<GenericDefinition>>, Input<dataParsers.DataParserNullable<GenericDefinition>>>);
+import { type DataParser, type Input, type Output } from "../base";
+type _DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable> = (Kind<typeof dataParsers.nullableKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserNullable<GenericDefinition>>, Input<dataParsers.DataParserNullable<GenericDefinition>>>);
 export interface DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable = dataParsers.DataParserDefinitionNullable> extends _DataParserNullableExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         dataParsers.DataParserNullableCheckers<Output<this>>,

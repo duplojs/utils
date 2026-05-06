@@ -11,7 +11,7 @@ const literalKind = kind.createDataParserKind("literal");
  * {@include dataParser/classic/literal/index.md}
  */
 function literal(value, definition) {
-    const self = base.dataParserInit(literalKind, {
+    const self = base.dataParserBaseInit(literalKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         value: coalescing.coalescing(value),

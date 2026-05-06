@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParser, dataParserInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
@@ -26,7 +26,7 @@ export const arrayKind = createDataParserKind("array");
 type _DataParserArray<
 	GenericDefinition extends DataParserDefinitionArray,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		Output<GenericDefinition["element"]>[],
 		Input<GenericDefinition["element"]>[]
@@ -78,7 +78,7 @@ export function array<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserArray>(
+	const self = dataParserBaseInit<DataParserArray>(
 		arrayKind,
 		{
 			errorMessage: definition?.errorMessage,

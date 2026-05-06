@@ -1,6 +1,4 @@
-import { type IsEqual } from "@scripts/common";
-
-declare const SymbolErrorForbiddenString: unique symbol;
+import { type ComputedTypeError, type IsEqual } from "@scripts/common";
 
 export type ForbiddenString<
 	GenericValue extends string,
@@ -14,5 +12,5 @@ export type ForbiddenString<
 	| false,
 	boolean
 > extends true
-	? { [SymbolErrorForbiddenString]: `String "${GenericCharacters}" is forbidden in value.` }
+	? ComputedTypeError<`String "${GenericCharacters}" is forbidden in value.`>
 	: GenericValue;

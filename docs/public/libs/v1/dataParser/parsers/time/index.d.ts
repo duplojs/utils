@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import * as DDate from "../../../date";
 export * from "./checkers";
@@ -8,7 +8,7 @@ export interface DataParserDefinitionTime extends DataParserDefinition<DataParse
     readonly coerce: boolean;
 }
 export declare const timeKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>>;
-type _DataParserTime<GenericDefinition extends DataParserDefinitionTime> = (DataParser<GenericDefinition, DDate.TheTime, DDate.TheTime | number | DDate.SerializedTheTime> & Kind<typeof timeKind.definition>);
+type _DataParserTime<GenericDefinition extends DataParserDefinitionTime> = (DataParserBase<GenericDefinition, DDate.TheTime, DDate.TheTime | number | DDate.SerializedTheTime> & Kind<typeof timeKind.definition>);
 export interface DataParserTime<GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime> extends _DataParserTime<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserTimeCheckers,

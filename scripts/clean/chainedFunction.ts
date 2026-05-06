@@ -1,4 +1,4 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue } from "@scripts/common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError } from "@scripts/common";
 import * as EE from "@scripts/either";
 import { createCleanKind } from "./kind";
 
@@ -77,8 +77,6 @@ export type Chain<
 			: never
 		: never;
 
-declare const SymbolError: unique symbol;
-
 type OutputMustContainChainEnd<
 	GenericGenerator extends MaybeAsyncGenerator,
 > = IsEqual<
@@ -89,7 +87,7 @@ type OutputMustContainChainEnd<
 		: never,
 	never
 > extends true
-	? { [SymbolError]: "Output must contain a chainEnd" }
+	? ComputedTypeError<"Output must contain a chainEnd">
 	: unknown;
 
 type ComputeResult<

@@ -30,7 +30,7 @@ export interface ConstraintsSetHandler<
 		/**
 		 * {@include clean/createConstraintsSet/dataParser.md}
 		 */
-		readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+		readonly dataParser: DDataParser.DataParser<GenericPrimitiveValue, unknown>;
 
 		/**
 		 * {@include clean/createConstraintsSet/primitiveHandler.md}
@@ -345,7 +345,7 @@ export function createConstraintsSet<
 
 	const dataParserWithCheckers = primitiveHandler
 		.dataParser
-		.addChecker(...checkers as never);
+		.addChecker(...checkers);
 
 	const constraintKindValue = pipe(
 		constraints,

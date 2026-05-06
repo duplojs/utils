@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 export * from "./checkers";
 export type DataParserNumberCheckers = DataParserChecker<DataParserCheckerDefinition, number>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionNumber extends DataParserDefinition<DataPar
     readonly coerce: boolean;
 }
 export declare const numberKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>>;
-type _DataParserNumber<GenericDefinition extends DataParserDefinitionNumber> = (DataParser<GenericDefinition, number, number> & Kind<typeof numberKind.definition>);
+type _DataParserNumber<GenericDefinition extends DataParserDefinitionNumber> = (DataParserBase<GenericDefinition, number, number> & Kind<typeof numberKind.definition>);
 export interface DataParserNumber<GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber> extends _DataParserNumber<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserNumberCheckers,

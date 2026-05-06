@@ -18,7 +18,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
          * The DataParser with all constraint checkers from the set applied.
          * 
          */
-        readonly dataParser: DDataParser.Contract<GenericPrimitiveValue, unknown>;
+        readonly dataParser: DDataParser.DataParser<GenericPrimitiveValue, unknown>;
         /**
          * The primitive handler used to validate and wrap values (e.g. `C.String`, `C.Number`).
          * 

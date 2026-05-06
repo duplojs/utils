@@ -51,7 +51,7 @@ export interface NewTypeHandler<
 	/**
 	 * @deprecated
 	 */
-	readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
+	readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
 
 	/**
 	 * @deprecated
@@ -63,7 +63,7 @@ export interface NewTypeHandler<
 		/**
 		 * {@include clean/createNewType/dataParser.md}
 		 */
-		readonly dataParser: DDataParser.Contract<GenericValue, unknown>;
+		readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
 
 		/**
 		 * {@include clean/createNewType/constraints.md}
@@ -251,7 +251,7 @@ export class CreateNewTypeError extends kindHeritage(
  */
 export function createNewType<
 	GenericName extends string,
-	GenericDataParser extends DDataParser.DataParser,
+	GenericDataParser extends DDataParser.DataParserBase,
 	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
 		Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>
 	> = never,

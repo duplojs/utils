@@ -5,10 +5,10 @@ interface User {
 	name: string;
 }
 
-const userParser: DP.Contract<User> = DP.object({
+const userParser: DP.DataParser<User> = DP.object({
 	id: DP.number(),
 	name: DP.string(),
 }).contract();
 
-const statusParser: DP.Contract<"draft" | "published">
+const statusParser: DP.DataParser<"draft" | "published">
 	= DP.literal(["draft", "published"]).contract();

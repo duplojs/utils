@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type DataParserPipeCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
 export interface DataParserDefinitionPipe<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserPipeCheckers<GenericInput>> {
@@ -7,7 +7,7 @@ export interface DataParserDefinitionPipe<GenericInput extends unknown = unknown
     readonly output: DataParser;
 }
 export declare const pipeKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>>;
-type _DataParserPipe<GenericDefinition extends DataParserDefinitionPipe> = (DataParser<GenericDefinition, Output<GenericDefinition["output"]>, Input<GenericDefinition["input"]>> & Kind<typeof pipeKind.definition>);
+type _DataParserPipe<GenericDefinition extends DataParserDefinitionPipe> = (DataParserBase<GenericDefinition, Output<GenericDefinition["output"]>, Input<GenericDefinition["input"]>> & Kind<typeof pipeKind.definition>);
 export interface DataParserPipe<GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe> extends _DataParserPipe<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserPipeCheckers<Output<this>>,

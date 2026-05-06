@@ -10,7 +10,7 @@ const nilKind = kind.createDataParserKind("nil");
  * {@include dataParser/classic/nil/index.md}
  */
 function nil(definition) {
-    const self = base.dataParserInit(nilKind, {
+    const self = base.dataParserBaseInit(nilKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

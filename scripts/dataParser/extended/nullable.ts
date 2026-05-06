@@ -1,14 +1,14 @@
-import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type DataParser, type Input, type Output } from "../base";
 
 type _DataParserNullableExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNullable,
 > = (
 	& Kind<typeof dataParsers.nullableKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserNullable<GenericDefinition>>,
 		Input<dataParsers.DataParserNullable<GenericDefinition>>
@@ -86,7 +86,7 @@ export function nullable<
 			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserNullable<any>,
 		DataParserNullableExtended
 	>(

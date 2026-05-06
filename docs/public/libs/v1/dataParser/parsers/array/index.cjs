@@ -10,7 +10,7 @@ const arrayKind = kind.createDataParserKind("array");
  * {@include dataParser/classic/array/index.md}
  */
 function array(element, definition) {
-    const self = base.dataParserInit(arrayKind, {
+    const self = base.dataParserBaseInit(arrayKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         element,

@@ -9,7 +9,7 @@ const unknownKind = kind.createDataParserKind("unknown");
  * {@include dataParser/classic/unknown/index.md}
  */
 function unknown(definition) {
-    const self = base.dataParserInit(unknownKind, {
+    const self = base.dataParserBaseInit(unknownKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
     }, (data) => data, unknown.overrideHandler);

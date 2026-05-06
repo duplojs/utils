@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { object as object$1 } from '../parsers/object/index.mjs';
 import { requiredShape } from '../parsers/object/required.mjs';
 import { partialShape } from '../parsers/object/partial.mjs';
@@ -11,7 +11,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/object/index.md}
  */
 function object(shape, definition) {
-    const self = dataParserExtendedInit(object$1(shape, definition), {
+    const self = dataParserBaseExtendedInit(object$1(shape, definition), {
         omit: (self, omitObject, definition) => {
             const newShape = omitShape(self.definition.shape, omitObject);
             return object(newShape, definition);

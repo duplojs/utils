@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { optional as optional$1 } from '../parsers/optional.mjs';
 import { createOverride } from '../../common/override.mjs';
 
@@ -6,7 +6,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/optional/index.md}
  */
 function optional(inner, definition) {
-    const self = dataParserExtendedInit(optional$1(inner, definition), {
+    const self = dataParserBaseExtendedInit(optional$1(inner, definition), {
         default: (self, value) => optional(self.definition.inner, {
             ...self.definition,
             coalescingValue: value,

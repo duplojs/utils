@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { findRecordRequiredKey } from './findRecordRequiredKey.mjs';
@@ -15,7 +15,7 @@ const recordKind = createDataParserKind("record");
  */
 function record(key, value, definition) {
     const requireKey = findRecordRequiredKey(key);
-    const self = dataParserInit(recordKind, {
+    const self = dataParserBaseInit(recordKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         key,

@@ -5,7 +5,7 @@ interface Schema {
 	children?: Schema[];
 }
 
-const schema: DP.Contract<Schema> = DPE.object({
+const schema: DP.DataParser<Schema> = DPE.object({
 	id: DPE.string(),
 	children: DPE
 		.lazy(() => schema)

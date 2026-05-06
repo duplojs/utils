@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output, type DataParser } from "../base";
@@ -8,7 +8,7 @@ type _DataParserRecordExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionRecord,
 > = (
 	& Kind<typeof dataParsers.recordKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserRecord<GenericDefinition>>,
 		Input<dataParsers.DataParserRecord<GenericDefinition>>
@@ -81,7 +81,7 @@ export function record<
 			}
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserRecord,
 		DataParserRecordExtended
 	>(

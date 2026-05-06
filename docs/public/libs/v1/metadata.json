@@ -1142,6 +1142,9 @@
               "name": "breakGenericLink.d.ts"
             },
             {
+              "name": "ComputedTypeError.d.ts"
+            },
+            {
               "name": "deepPartial.d.ts"
             },
             {

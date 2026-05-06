@@ -33,13 +33,13 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
     /**
      * @deprecated
      */
-    readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, unknown>;
+    readonly mapDataParser: DDataParser.DataParser<EntityProperties<GenericPropertiesDefinition>, unknown>;
     readonly internal: {
         /**
          * The DataParser used internally to map raw properties into an entity.
          * 
          */
-        readonly mapDataParser: DDataParser.Contract<EntityProperties<GenericPropertiesDefinition>, unknown>;
+        readonly mapDataParser: DDataParser.DataParser<EntityProperties<GenericPropertiesDefinition>, unknown>;
     };
     /**
      * Builds an entity from already typed properties.

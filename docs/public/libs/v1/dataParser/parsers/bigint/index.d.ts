@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 export * from "./checkers";
 export type DataParserBigIntCheckers = DataParserChecker<DataParserCheckerDefinition, bigint>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionBigInt extends DataParserDefinition<DataPar
     readonly coerce: boolean;
 }
 export declare const bigIntKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>>;
-type _DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt> = (DataParser<GenericDefinition, bigint, bigint> & Kind<typeof bigIntKind.definition>);
+type _DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt> = (DataParserBase<GenericDefinition, bigint, bigint> & Kind<typeof bigIntKind.definition>);
 export interface DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt> extends _DataParserBigInt<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserBigIntCheckers,

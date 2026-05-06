@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { isoTimeRegex } from '../../../date/constants.mjs';
@@ -16,7 +16,7 @@ const timeKind = createDataParserKind("time");
  * {@include dataParser/classic/time/index.md}
  */
 function time(definition) {
-    const self = dataParserInit(timeKind, {
+    const self = dataParserBaseInit(timeKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

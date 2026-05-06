@@ -49,5 +49,5 @@ interface ToMapDataParserParams {
  * @namespace C
  * 
  */
-export declare function toMapDataParser<GenericInput extends ToMapDataParserInput, GenericOutput extends OutputDataParser<GenericInput>>(input: GenericInput, params?: ToMapDataParserParams): DDataParser.Contract<NoInfer<GenericOutput>, unknown>;
+export declare function toMapDataParser<GenericInput extends ToMapDataParserInput, GenericOutput extends OutputDataParser<GenericInput>>(input: GenericInput, params?: ToMapDataParserParams): DDataParser.DataParser<NoInfer<GenericOutput>, unknown>;
 export {};

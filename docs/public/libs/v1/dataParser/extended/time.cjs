@@ -10,7 +10,7 @@ var override = require('../../common/override.cjs');
  * {@include dataParser/extended/time/index.md}
  */
 function time(definition) {
-    const self = baseExtended.dataParserExtendedInit(index.time(definition), {
+    const self = baseExtended.dataParserBaseExtendedInit(index.time(definition), {
         min(self, min$1, definition) {
             return self.addChecker(min.checkerTimeMin(min$1, definition));
         },

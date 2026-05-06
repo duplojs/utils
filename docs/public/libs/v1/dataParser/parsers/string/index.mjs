@@ -1,4 +1,4 @@
-import { dataParserInit } from '../../base.mjs';
+import { dataParserBaseInit } from '../../base.mjs';
 import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
 import { createOverride } from '../../../common/override.mjs';
@@ -8,7 +8,7 @@ const stringKind = createDataParserKind("string");
  * {@include dataParser/classic/string/index.md}
  */
 function string(definition) {
-    const self = dataParserInit(stringKind, {
+    const self = dataParserBaseInit(stringKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

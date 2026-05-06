@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParser, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 export * from "./checkers";
 export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionArray<GenericInput extends unknown[] = unkn
     readonly element: DataParser;
 }
 export declare const arrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;
-type _DataParserArray<GenericDefinition extends DataParserDefinitionArray> = (DataParser<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]> & Kind<typeof arrayKind.definition>);
+type _DataParserArray<GenericDefinition extends DataParserDefinitionArray> = (DataParserBase<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]> & Kind<typeof arrayKind.definition>);
 export interface DataParserArray<GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray> extends _DataParserArray<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
         DataParserArrayCheckers<Output<this>>,

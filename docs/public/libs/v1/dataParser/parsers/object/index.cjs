@@ -17,7 +17,7 @@ const objectKind = kind.createDataParserKind("object");
  * {@include dataParser/classic/object/index.md}
  */
 function object(shape, definition) {
-    const self = base.dataParserInit(objectKind, {
+    const self = base.dataParserBaseInit(objectKind, {
         shape,
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],

@@ -30,7 +30,7 @@ The resulting parser maps parsed input into a typed object while preserving busi
 function toMapDataParser(
 	input: ConstraintHandler | ConstraintsSetHandler | PrimitiveHandler | EntityPropertyDefinition,
 	params?: { coerce?: boolean }
-): DDataParser.Contract<MappedValue, unknown>
+): DDataParser.DataParser<MappedValue, unknown>
 ```
 
 ## Parameters
@@ -41,7 +41,7 @@ function toMapDataParser(
 
 ## Return value
 
-A `DDataParser.Contract` that:
+A `DDataParser.DataParser` that:
 - parses `unknown` input,
 - maps output into a typed object ready for domain usage,
 - preserves business type markers when present.

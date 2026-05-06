@@ -1,5 +1,5 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserExtended, dataParserExtendedInit } from "../baseExtended";
+import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
 import * as dataParsers from "../parsers";
 import { type Input, type Output } from "../base";
@@ -8,7 +8,7 @@ type _DataParserLiteralExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionLiteral,
 > = (
 	& Kind<typeof dataParsers.literalKind.definition>
-	& DataParserExtended<
+	& DataParserBaseExtended<
 		GenericDefinition,
 		Output<dataParsers.DataParserLiteral<GenericDefinition>>,
 		Input<dataParsers.DataParserLiteral<GenericDefinition>>
@@ -73,7 +73,7 @@ export function literal<
 			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
 		>
 	> {
-	const self = dataParserExtendedInit<
+	const self = dataParserBaseExtendedInit<
 		dataParsers.DataParserLiteral,
 		DataParserLiteralExtended
 	>(

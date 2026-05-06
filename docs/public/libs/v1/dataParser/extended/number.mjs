@@ -1,4 +1,4 @@
-import { dataParserExtendedInit } from '../baseExtended.mjs';
+import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
 import { number as number$1 } from '../parsers/number/index.mjs';
 import { checkerInt } from '../parsers/number/checkers/int.mjs';
 import { checkerNumberMax } from '../parsers/number/checkers/max.mjs';
@@ -9,7 +9,7 @@ import { createOverride } from '../../common/override.mjs';
  * {@include dataParser/extended/number/index.md}
  */
 function number(definition) {
-    const self = dataParserExtendedInit(number$1(definition), {
+    const self = dataParserBaseExtendedInit(number$1(definition), {
         min(self, min, definition) {
             return self.addChecker(checkerNumberMin(min, definition));
         },

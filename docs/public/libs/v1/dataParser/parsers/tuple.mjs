@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { some } from '../../array/some.mjs';
@@ -9,7 +9,7 @@ const tupleKind = createDataParserKind("tuple");
  * {@include dataParser/classic/tuple/index.md}
  */
 function tuple(shape, definition) {
-    const self = dataParserInit(tupleKind, {
+    const self = dataParserBaseInit(tupleKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         rest: definition?.rest,

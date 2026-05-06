@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParser, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
 export type DataParserLiteralCheckers<GenericInput extends LiteralValue = LiteralValue> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
@@ -7,7 +7,7 @@ export interface DataParserDefinitionLiteral<GenericInput extends LiteralValue =
     readonly value: readonly LiteralValue[];
 }
 export declare const literalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>>;
-type _DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral> = (DataParser<GenericDefinition, GenericDefinition["value"][number], GenericDefinition["value"][number]> & Kind<typeof literalKind.definition>);
+type _DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral> = (DataParserBase<GenericDefinition, GenericDefinition["value"][number], GenericDefinition["value"][number]> & Kind<typeof literalKind.definition>);
 export interface DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral> extends _DataParserLiteral<GenericDefinition> {
     addChecker<const GenericChecker extends readonly [
         DataParserLiteralCheckers<Output<this>>,

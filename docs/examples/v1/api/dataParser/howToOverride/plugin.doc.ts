@@ -1,8 +1,8 @@
 import { E, unwrap, DP, type ExpectType } from "@duplojs/utils";
-import { type DataParserDefinition, dataParserInit } from "@duplojs/utils/dataParser";
+import { type DataParserDefinition, dataParserBaseInit } from "@duplojs/utils/dataParser";
 
 declare module "@duplojs/utils/dataParser" {
-	interface DataParser<
+	interface DataParserBase<
 		GenericDefinition extends DataParserDefinition = DataParserDefinition,
 		GenericOutput extends unknown = unknown,
 		GenericInput extends unknown = GenericOutput,
@@ -13,7 +13,7 @@ declare module "@duplojs/utils/dataParser" {
 	}
 }
 
-dataParserInit.overrideHandler.setMethod("parseOrThrow", (parser, data) => {
+dataParserBaseInit.overrideHandler.setMethod("parseOrThrow", (parser, data) => {
 	const result = parser.parse(data);
 
 	if (E.isLeft(result)) {

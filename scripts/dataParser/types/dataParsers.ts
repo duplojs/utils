@@ -4,7 +4,7 @@ import type { DataParserExtended } from "../baseExtended";
 import type * as AllDataParserExtended from "../extended";
 
 export interface DataParserCustom {
-	base: DataParser;
+	dataParser: DataParser;
 }
 
 export type DataParsers = (

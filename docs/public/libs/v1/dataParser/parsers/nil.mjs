@@ -1,4 +1,4 @@
-import { dataParserInit } from '../base.mjs';
+import { dataParserBaseInit } from '../base.mjs';
 import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
 import { createOverride } from '../../common/override.mjs';
@@ -8,7 +8,7 @@ const nilKind = createDataParserKind("nil");
  * {@include dataParser/classic/nil/index.md}
  */
 function nil(definition) {
-    const self = dataParserInit(nilKind, {
+    const self = dataParserBaseInit(nilKind, {
         errorMessage: definition?.errorMessage,
         checkers: definition?.checkers ?? [],
         coerce: definition?.coerce ?? false,

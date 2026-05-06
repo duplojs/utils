@@ -1,5 +1,5 @@
 import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { dataParserInit, dataParserKind, type Input, type Output, type DataParser, type DataParserDefinition, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
+import { dataParserBaseInit, dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
 import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { addIssue, popErrorPath, setErrorPath } from "../../error";
 import * as DArray from "@scripts/array";
@@ -74,7 +74,7 @@ export const objectKind = createDataParserKind("object");
 type _DataParserObject<
 	GenericDefinition extends DataParserDefinitionObject,
 > = (
-	& DataParser<
+	& DataParserBase<
 		GenericDefinition,
 		DataParserObjectShapeOutput<GenericDefinition["shape"]>,
 		DataParserObjectShapeInput<GenericDefinition["shape"]>
@@ -130,7 +130,7 @@ export function object<
 			}
 		>
 	> {
-	const self = dataParserInit<DataParserObject>(
+	const self = dataParserBaseInit<DataParserObject>(
 		objectKind,
 		{
 			shape,
