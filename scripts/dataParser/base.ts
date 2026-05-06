@@ -367,6 +367,11 @@ export function dataParserBaseInit<
 
 dataParserBaseInit.overrideHandler = createOverride<DataParserBase>("@duplojs/utils/data-parser/base");
 
+/**
+ * @deprecated use dataParserBaseInit
+ */
+export const dataParserInit = dataParserBaseInit;
+
 export type Output<
 	GenericDataParser extends DataParserBase,
 > = GetKindValue<

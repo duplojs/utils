@@ -401,6 +401,11 @@ export function dataParserBaseExtendedInit<
 
 dataParserBaseExtendedInit.overrideHandler = createOverride<DataParserBaseExtended>("@duplojs/utils/data-parser-extended/base");
 
+/**
+ * @deprecated use dataParserBaseExtendedInit
+ */
+export const dataParserExtendedInit = dataParserBaseExtendedInit;
+
 export interface DataParserExtended<
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
