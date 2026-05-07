@@ -1,6 +1,6 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, createOverride, type Or } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import * as DArray from "@scripts/array";
@@ -71,10 +71,7 @@ export type DataParserTupleShapeInput<
 
 export type DataParserTupleCheckers<
 	GenericInput extends unknown[] = unknown[],
-> = DataParserChecker<
-	DataParserCheckerDefinition,
-	GenericInput
->;
+> = GetEligibleChecker<GenericInput>;
 
 export interface DataParserDefinitionTuple<
 	GenericInput extends unknown[] = unknown[],

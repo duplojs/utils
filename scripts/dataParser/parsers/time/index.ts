@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
 import * as DDate from "@scripts/date";
@@ -8,10 +8,7 @@ import * as DEither from "@scripts/either";
 
 export * from "./checkers";
 
-export type DataParserTimeCheckers = DataParserChecker<
-	DataParserCheckerDefinition,
-	DDate.TheTime
->;
+export type DataParserTimeCheckers = GetEligibleChecker<DDate.TheTime>;
 
 export interface DataParserDefinitionTime extends DataParserDefinition<
 	DataParserTimeCheckers

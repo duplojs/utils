@@ -1,6 +1,6 @@
 import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { dataParserBaseInit, dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { dataParserBaseInit, dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, SymbolDataParserError, type DataParser } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import { addIssue, popErrorPath, setErrorPath } from "../../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
@@ -52,10 +52,7 @@ export type DataParserObjectShapeInput<
 
 export type DataParserObjectCheckers<
 	GenericInput extends object = object,
-> = DataParserChecker<
-	DataParserCheckerDefinition,
-	GenericInput
->;
+> = GetEligibleChecker<GenericInput>;
 
 export interface DataParserDefinitionObject<
 	GenericInput extends Record<string | number, unknown> = Record<string | number, unknown>,

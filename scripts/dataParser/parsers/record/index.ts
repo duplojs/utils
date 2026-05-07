@@ -1,7 +1,7 @@
 
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
@@ -40,10 +40,7 @@ export type DataParserRecordKey = (
 
 export type DataParserRecordCheckers<
 	GenericInput extends Record<string, unknown> = Record<string, unknown>,
-> = DataParserChecker<
-	DataParserCheckerDefinition,
-	GenericInput
->;
+> = GetEligibleChecker<GenericInput>;
 
 export interface DataParserDefinitionRecord<
 	GenericInput extends Record<string, unknown> = Record<string, unknown>,

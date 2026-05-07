@@ -1,5 +1,7 @@
-import { type DataParserChecker } from "../base";
+import { type IsExtends } from "@scripts/common";
+import { type DataParserCheckerDefinition, type DataParserChecker } from "../base";
 import type * as AllDataParser from "../parsers";
+import { type TheTime } from "@scripts/date";
 
 export interface CheckerCustom {
 	base: DataParserChecker;
@@ -24,3 +26,62 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerTimeMin
 	| AllDataParser.DataParserCheckerTimeMax
 );
+
+export interface EligibleChecker<
+	GenericValue extends unknown,
+> {
+	base: DataParserChecker<
+		DataParserCheckerDefinition,
+		GenericValue
+	>;
+	refine: AllDataParser.DataParserCheckerRefine<
+		AllDataParser.DataParserCheckerDefinitionRefine<GenericValue>
+	>;
+	array: IsExtends<GenericValue, unknown[]> extends true
+		? (
+			| AllDataParser.DataParserCheckerArrayMax
+			| AllDataParser.DataParserCheckerArrayMin
+		)
+		: never;
+	bigInt: IsExtends<GenericValue, bigint> extends true
+		? (
+			| AllDataParser.DataParserCheckerBigIntMax
+			| AllDataParser.DataParserCheckerBigIntMin
+		)
+		: never;
+	number: IsExtends<GenericValue, number> extends true
+		? (
+			| AllDataParser.DataParserCheckerNumberMax
+			| AllDataParser.DataParserCheckerNumberMin
+			| AllDataParser.DataParserCheckerInt
+		)
+		: never;
+	string: IsExtends<GenericValue, string> extends true
+		? (
+			| AllDataParser.DataParserCheckerStringMax
+			| AllDataParser.DataParserCheckerStringMin
+			| AllDataParser.DataParserCheckerEmail
+			| AllDataParser.DataParserCheckerRegex
+			| AllDataParser.DataParserCheckerUrl
+			| AllDataParser.DataParserCheckerUuid
+		)
+		: never;
+	time: IsExtends<GenericValue, TheTime> extends true
+		? (
+			| AllDataParser.DataParserCheckerTimeMin
+			| AllDataParser.DataParserCheckerTimeMax
+		)
+		: never;
+}
+
+export type GetEligibleChecker<
+	GenericValue extends unknown,
+> = EligibleChecker<GenericValue> extends infer InferredResult
+	? Extract<
+		InferredResult[keyof InferredResult],
+		DataParserChecker<
+			DataParserCheckerDefinition,
+			GenericValue
+		>
+	>
+	: never;

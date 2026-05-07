@@ -1,12 +1,9 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
-export type DataParserUnknownCheckers = DataParserChecker<
-	DataParserCheckerDefinition,
-	unknown
->;
+export type DataParserUnknownCheckers = GetEligibleChecker<unknown>;
 
 export interface DataParserDefinitionUnknown extends DataParserDefinition<
 	DataParserUnknownCheckers

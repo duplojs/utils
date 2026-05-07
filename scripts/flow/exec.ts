@@ -1,4 +1,4 @@
-import { justExec, type SimplifyTopLevel, type IsEqual, type IsExtends, type Or, forward, type AnyFunction, createExternalPromise, type Queue, createQueue } from "@scripts/common";
+import { justExec, type SimplifyTopLevel, type IsEqual, type Or, forward, type AnyFunction, createExternalPromise, createQueue, type UnionContain } from "@scripts/common";
 import { type TheFlowGenerator, type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type Exit, type Break, type Injection, theFlowKind, exitKind, breakKind, type Step, stepKind, type FlowDependencies, type Effect, injectionKind, dependenceHandlerKind, throttlingKind, calledByNextKind, queueKind, type Throttling, type Debounce, debounceKind } from "./theFlow";
 import { type Defer, deferKind } from "./theFlow/defer";
 import { type Finalizer, finalizerKind } from "./theFlow/finalizer";
@@ -12,7 +12,8 @@ type ComputeExecParams<
 		Or<[
 			IsEqual<GenericInput, unknown>,
 			IsEqual<GenericInput, never>,
-			IsExtends<GenericInput, undefined>,
+			IsEqual<GenericInput, any>,
+			UnionContain<GenericInput, undefined>,
 		]> extends true
 			? { input?: GenericInput }
 			: { input: GenericInput }
