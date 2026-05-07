@@ -21,5 +21,6 @@
 	
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.updateImportsOnFileMove.enabled": "prompt",
-  	"javascript.updateImportsOnFileMove.enabled": "prompt"
+	"javascript.updateImportsOnFileMove.enabled": "prompt",
+	"js/ts.tsdk.path": "node_modules/typescript/lib"
 }
