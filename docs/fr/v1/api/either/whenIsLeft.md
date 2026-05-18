@@ -5,8 +5,8 @@ prev:
   text: "isLeft"
   link: "/fr/v1/api/either/isLeft"
 next:
-  text: "rightPipe"
-  link: "/fr/v1/api/either/rightPipe"
+  text: "whenIsLeftElse"
+  link: "/fr/v1/api/either/whenIsLeftElse"
 ---
 
 # whenIsLeft

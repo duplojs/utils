@@ -3735,6 +3735,15 @@
             },
             {
               "name": "when.mjs"
+            },
+            {
+              "name": "whenElse.cjs"
+            },
+            {
+              "name": "whenElse.d.ts"
+            },
+            {
+              "name": "whenElse.mjs"
             }
           ]
         },
@@ -3956,8 +3965,26 @@
             },
             {
               "name": "when.mjs"
+            },
+            {
+              "name": "whenElse.cjs"
+            },
+            {
+              "name": "whenElse.d.ts"
+            },
+            {
+              "name": "whenElse.mjs"
             }
           ]
+        },
+        {
+          "name": "expect.cjs"
+        },
+        {
+          "name": "expect.d.ts"
+        },
+        {
+          "name": "expect.mjs"
         },
         {
           "name": "hasInformation.cjs"
@@ -3985,6 +4012,24 @@
         },
         {
           "name": "kind.mjs"
+        },
+        {
+          "name": "matchInformation.cjs"
+        },
+        {
+          "name": "matchInformation.d.ts"
+        },
+        {
+          "name": "matchInformation.mjs"
+        },
+        {
+          "name": "matchInformationOtherwise.cjs"
+        },
+        {
+          "name": "matchInformationOtherwise.d.ts"
+        },
+        {
+          "name": "matchInformationOtherwise.mjs"
         },
         {
           "name": "safeCallback.cjs"

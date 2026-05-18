@@ -33,3 +33,6 @@ export * from "./hasInformation";
 export * from "./whenHasInformation";
 export * from "./kind";
 export * from "./safeCallback";
+export * from "./expect";
+export * from "./matchInformation";
+export * from "./matchInformationOtherwise";

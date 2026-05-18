@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-export type DataParserUnknownCheckers = DataParserChecker<DataParserCheckerDefinition, unknown>;
+import { type DataParserDefinition, type DataParserBase } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+export type DataParserUnknownCheckers = GetEligibleChecker<unknown>;
 export interface DataParserDefinitionUnknown extends DataParserDefinition<DataParserUnknownCheckers> {
 }
 export declare const unknownKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>>;

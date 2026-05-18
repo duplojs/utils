@@ -1,6 +1,6 @@
 import { type Kind, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "../../../common";
-import { dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, type DataParser } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../types";
 import * as DObject from "../../../object";
 export * from "./omit";
 export * from "./pick";
@@ -14,7 +14,7 @@ export type DataParserObjectShapeOutput<GenericShape extends DataParserObjectSha
 export type DataParserObjectShapeInput<GenericShape extends DataParserObjectShape> = {
     -readonly [Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition> ? Prop : never]: Input<GenericShape[Prop]>;
 } extends infer InferredResult extends object ? DObject.PartialKeys<InferredResult, DObject.GetPropsWithValueExtends<InferredResult, undefined>> : never;
-export type DataParserObjectCheckers<GenericInput extends object = object> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserObjectCheckers<GenericInput extends object = object> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionObject<GenericInput extends Record<string | number, unknown> = Record<string | number, unknown>> extends DataParserDefinition<DataParserObjectCheckers<GenericInput>> {
     readonly shape: DataParserObjectShape;
     readonly optimizedShape: Memoized<{

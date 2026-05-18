@@ -1,8 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type DataParserCheckerDefinition, type DataParserChecker } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 export * from "./checkers";
-export type DataParserStringCheckers = DataParserChecker<DataParserCheckerDefinition, string>;
+export type DataParserStringCheckers = GetEligibleChecker<string>;
 export interface DataParserDefinitionString extends DataParserDefinition<DataParserStringCheckers> {
     readonly coerce: boolean;
 }

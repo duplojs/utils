@@ -1,4 +1,4 @@
-import { type AnyFunction, type ComputedTypeError, createErrorKind, createOverride, type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, NeverCoalescing, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
+import { type AnyFunction, type ComputedTypeError, createErrorKind, createOverride, type GetKind, type GetKindHandler, type GetKindValue, type IsEqual, keyWrappedValue, type Kind, type KindHandler, kindHeritage, type OverrideHandler, pipe, type RemoveKind, simpleClone } from "@scripts/common";
 import { createError, SymbolDataParserError, type DataParserError } from "./error";
 import * as DEither from "@scripts/either";
 import { createDataParserKind } from "./kind";

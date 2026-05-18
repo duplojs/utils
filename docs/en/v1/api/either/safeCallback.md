@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Runs a callback in a safe block. If the callback throws, the function returns a \"callback\" typed Left instead of propagating the exception."
 prev:
-  text: "whenHasInformation"
-  link: "/en/v1/api/either/whenHasInformation"
+  text: "expect"
+  link: "/en/v1/api/either/expect"
 next:
   text: "bool"
   link: "/en/v1/api/either/bool"

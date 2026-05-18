@@ -149,10 +149,15 @@ function dataParserBaseInit(kind, definition, exec, specificOverrideHandler) {
     return self;
 }
 dataParserBaseInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
+/**
+ * @deprecated use dataParserBaseInit
+ */
+const dataParserInit = dataParserBaseInit;
 
 exports.SymbolDataParserError = error.SymbolDataParserError;
 exports.DataParserThrowError = DataParserThrowError;
 exports.checkerKind = checkerKind;
 exports.dataParserBaseInit = dataParserBaseInit;
 exports.dataParserCheckerInit = dataParserCheckerInit;
+exports.dataParserInit = dataParserInit;
 exports.dataParserKind = dataParserKind;

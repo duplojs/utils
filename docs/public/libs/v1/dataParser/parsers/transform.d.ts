@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Input, type Output, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Input, type Output, SymbolDataParserError, type DataParser } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 import { type DataParserError } from "../../dataParser/error";
-export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionTransform<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserTransformCheckers<GenericInput>> {
     readonly inner: DataParser;
     theFunction(input: any, error: DataParserError): unknown;

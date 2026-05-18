@@ -251,6 +251,10 @@ export declare function dataParserBaseInit<GenericDataParser extends DataParserB
 export declare namespace dataParserBaseInit {
     var overrideHandler: OverrideHandler<DataParserBase<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
+/**
+ * @deprecated use dataParserBaseInit
+ */
+export declare const dataParserInit: typeof dataParserBaseInit;
 export type Output<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
 export type Input<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];
 export interface DataParser<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBase<DataParserDefinition, GenericOutput, GenericInput> {

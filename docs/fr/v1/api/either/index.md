@@ -59,6 +59,9 @@ Type guard qui vérifie si une valeur est un `Right`.
 ### [whenIsRight](/fr/v1/api/either/whenIsRight)
 Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la valeur originale.
 
+### [whenIsRightElse](/fr/v1/api/either/whenIsRightElse)
+Exécute un callback sur `Right` (avec valeur unwrap) et un callback sur toutes les autres entrées.
+
 ## Contrôles `Left`
 
 ### [isLeft](/fr/v1/api/either/isLeft)
@@ -66,6 +69,9 @@ Type guard qui détecte un `Left`.
 
 ### [whenIsLeft](/fr/v1/api/either/whenIsLeft)
 Permet d'appliquer une fonction lorsqu'on reçoit un `Left` puis de continuer le flux.
+
+### [whenIsLeftElse](/fr/v1/api/either/whenIsLeftElse)
+Exécute un callback sur `Left` (avec valeur unwrap) et un callback sur toutes les autres entrées.
 
 ## Pipelines orientés `Right`
 
@@ -88,6 +94,15 @@ Type guard basé sur l'information littérale pour cibler précisément un cas m
 
 ### [whenHasInformation](/fr/v1/api/either/whenHasInformation)
 Pattern matching qui déclenche une fonction quand l'information (ou une liste d'infos) correspond.
+
+### [matchInformation](/fr/v1/api/either/matchInformation)
+Pattern matching exhaustif par information où chaque cas Either doit être traité.
+
+### [matchInformationOtherwise](/fr/v1/api/either/matchInformationOtherwise)
+Pattern matching non exhaustif par information avec callback de fallback obligatoire.
+
+### [expect](/fr/v1/api/either/expect)
+Helper de typage qui renvoie le même Either en conservant strictement les types Left/Right.
 
 ### [safeCallback](/fr/v1/api/either/safeCallback)
 Exécute un callback en capturant les exceptions dans un `Left<"callback">`.

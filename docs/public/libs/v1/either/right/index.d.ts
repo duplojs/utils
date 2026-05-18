@@ -7,3 +7,4 @@ export * from "./success";
 export * from "./when";
 export * from "./group";
 export * from "./asyncGroup";
+export * from "./whenElse";

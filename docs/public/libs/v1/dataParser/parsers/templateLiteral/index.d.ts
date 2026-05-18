@@ -1,6 +1,6 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -41,7 +41,7 @@ export type TemplateLiteralShapeInput<GenericTemplate extends TemplateLiteralSha
     infer InferredFirst extends TemplateLiteralParts,
     ...infer InferredRest extends TemplateLiteralParts[]
 ] ? (`${GenericLastResult}${InferredFirst extends TemplateLiteralPrimitiveParts ? InferredFirst extends bigint ? `${InferredFirst}n` : InferredFirst : Adaptor<Input<Exclude<InferredFirst, TemplateLiteralPrimitiveParts>>, EligibleTemplateLiteral>}`) extends infer InferredResult extends string ? InferredRest extends readonly [] ? InferredResult : InferredRest extends TemplateLiteralShape ? TemplateLiteralShapeInput<InferredRest, InferredResult> : TemplateLiteralShapeInput<[InferredRest[number]], InferredResult> : never : never;
-export type DataParserTemplateLiteralCheckers<GenericInput extends string = string> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserTemplateLiteralCheckers<GenericInput extends string = string> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionTemplateLiteral<GenericInput extends string = string> extends DataParserDefinition<DataParserTemplateLiteralCheckers<GenericInput>> {
     readonly template: TemplateLiteralShape;
     readonly pattern: RegExp;

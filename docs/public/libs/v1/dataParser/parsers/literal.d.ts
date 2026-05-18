@@ -1,8 +1,8 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker, type DataParserCheckerDefinition } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
-export type DataParserLiteralCheckers<GenericInput extends LiteralValue = LiteralValue> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserLiteralCheckers<GenericInput extends LiteralValue = LiteralValue> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionLiteral<GenericInput extends LiteralValue = LiteralValue> extends DataParserDefinition<DataParserLiteralCheckers<GenericInput>> {
     readonly value: readonly LiteralValue[];
 }

@@ -1,5 +1,5 @@
-export { DataParserThrowError, checkerKind, dataParserBaseInit, dataParserCheckerInit, dataParserKind } from './base.mjs';
-export { dataParserBaseExtendedInit, extendedKind } from './baseExtended.mjs';
+export { DataParserThrowError, checkerKind, dataParserBaseInit, dataParserCheckerInit, dataParserInit, dataParserKind } from './base.mjs';
+export { dataParserBaseExtendedInit, dataParserExtendedInit, extendedKind } from './baseExtended.mjs';
 export { SymbolDataParserError, SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorLabel, addIssue, createError, errorIssueKind, errorKind, interpretError, popErrorPath, setErrorPath } from './error.mjs';
 import * as index from './extended/index.mjs';
 export { index as extended };

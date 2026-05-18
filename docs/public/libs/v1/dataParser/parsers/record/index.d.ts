@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
@@ -14,7 +14,7 @@ export type DataParserRecordKey = (DataParserString | DataParserTemplateLiteral 
 }> | DataParserUnion<Omit<DataParserDefinitionUnion, "options"> & {
     readonly options: readonly [DataParserRecordKey, ...DataParserRecordKey[]];
 }>);
-export type DataParserRecordCheckers<GenericInput extends Record<string, unknown> = Record<string, unknown>> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserRecordCheckers<GenericInput extends Record<string, unknown> = Record<string, unknown>> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionRecord<GenericInput extends Record<string, unknown> = Record<string, unknown>> extends DataParserDefinition<DataParserRecordCheckers<GenericInput>> {
     readonly key: DataParserRecordKey;
     readonly value: DataParser;

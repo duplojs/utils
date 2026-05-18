@@ -1,9 +1,9 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type DataParserChecker, type DataParserCheckerDefinition } from "../../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
 import * as DDate from "../../../date";
 export * from "./checkers";
-export type DataParserTimeCheckers = DataParserChecker<DataParserCheckerDefinition, DDate.TheTime>;
+export type DataParserTimeCheckers = GetEligibleChecker<DDate.TheTime>;
 export interface DataParserDefinitionTime extends DataParserDefinition<DataParserTimeCheckers> {
     readonly coerce: boolean;
 }

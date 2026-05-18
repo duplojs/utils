@@ -1,11 +1,12 @@
-import { type SimplifyTopLevel, type IsEqual, type IsExtends, type Or } from "../common";
+import { type SimplifyTopLevel, type IsEqual, type Or, type UnionContain } from "../common";
 import { type TheFlow, type TheFlowFunction, type FlowInput, type WrapFlow, type TheFlowGenerator, type Exit, type Break, type Step, type FlowDependencies, type DependenceHandler, type ExtractFlowGenerator, type Throttling, type Injection, type Debounce } from "./theFlow";
 import { type Defer } from "./theFlow/defer";
 import { type Finalizer } from "./theFlow/finalizer";
 type ComputeRunParams<GenericInput extends unknown = unknown, GenericDependencies extends Record<string, unknown> = Record<string, unknown>> = SimplifyTopLevel<(Or<[
     IsEqual<GenericInput, unknown>,
     IsEqual<GenericInput, never>,
-    IsExtends<GenericInput, undefined>
+    IsEqual<GenericInput, any>,
+    UnionContain<GenericInput, undefined>
 ]> extends true ? {
     input?: GenericInput;
 } : {

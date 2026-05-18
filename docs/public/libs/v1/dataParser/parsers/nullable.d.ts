@@ -1,7 +1,7 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
-export type DataParserNullableCheckers<GenericInput extends unknown = unknown> = DataParserChecker<DataParserCheckerDefinition, GenericInput | null>;
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+export type DataParserNullableCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput | null>;
 export interface DataParserDefinitionNullable<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserNullableCheckers<GenericOutput>> {
     readonly inner: DataParser;
     readonly coalescingValue: GenericOutput;

@@ -1,6 +1,6 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, type Or } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../base";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? unknown[] : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
@@ -18,7 +18,7 @@ export type DataParserTupleShapeInput<GenericShape extends TupleShape, GenericRe
     ...(Exclude<InferredRest, TupleShape> extends infer InferredShapeRest extends readonly any[] ? IsEqual<InferredShapeRest[number], never> extends true ? [] : Input<InferredShapeRest[number]>[] : []),
     ...(InferredRest extends TupleShape ? DataParserTupleShapeInput<InferredRest, GenericRest> : UnionContain<GenericRest, undefined> extends true ? [] : Input<Adaptor<GenericRest, DataParser>>[])
 ] : never;
-export type DataParserTupleCheckers<GenericInput extends unknown[] = unknown[]> = DataParserChecker<DataParserCheckerDefinition, GenericInput>;
+export type DataParserTupleCheckers<GenericInput extends unknown[] = unknown[]> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionTuple<GenericInput extends unknown[] = unknown[]> extends DataParserDefinition<DataParserTupleCheckers<GenericInput>> {
     readonly shape: TupleShape;
     readonly rest: DataParser | undefined;

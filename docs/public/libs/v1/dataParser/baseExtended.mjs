@@ -67,5 +67,9 @@ function dataParserBaseExtendedInit(dataParser, rest, specificOverrideHandler) {
     return self;
 }
 dataParserBaseExtendedInit.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/base");
+/**
+ * @deprecated use dataParserBaseExtendedInit
+ */
+const dataParserExtendedInit = dataParserBaseExtendedInit;
 
-export { dataParserBaseExtendedInit, extendedKind };
+export { dataParserBaseExtendedInit, dataParserExtendedInit, extendedKind };
