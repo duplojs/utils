@@ -3,6 +3,32 @@ import { DDataParser, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.string", () => {
+	it("create data parser with checker", () => {
+		const dataParser = extended.string({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						string,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					string,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses strings", () => {
 		const parser = extended.string();
 		const result = parser.parse("hello");

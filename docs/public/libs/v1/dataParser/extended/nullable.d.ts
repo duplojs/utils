@@ -1,16 +1,16 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output } from "../base";
+import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
 type _DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable> = (Kind<typeof dataParsers.nullableKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserNullable<GenericDefinition>>, Input<dataParsers.DataParserNullable<GenericDefinition>>>);
 export interface DataParserNullableExtended<GenericDefinition extends dataParsers.DataParserDefinitionNullable = dataParsers.DataParserDefinitionNullable> extends _DataParserNullableExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserNullableCheckers<Output<this>>,
-        ...dataParsers.DataParserNullableCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserNullableCheckers<Output<this>>,
-        ...dataParsers.DataParserNullableCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNullableExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
@@ -51,7 +51,7 @@ export interface DataParserNullableExtended<GenericDefinition extends dataParser
  * @namespace DPE
  * 
  */
-export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser>>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
+export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser>>, "inner"> = never>(inner: GenericDataParser, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNullable<Output<GenericDataParser>>, "inner">, GenericDefinition>): DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
 export declare namespace nullable {

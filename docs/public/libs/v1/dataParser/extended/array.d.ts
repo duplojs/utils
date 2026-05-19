@@ -1,16 +1,16 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type Input, type Output, type DataParser, type DataParserChecker } from "../base";
 type _DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray> = (Kind<typeof dataParsers.arrayKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserArray<GenericDefinition>>, Input<dataParsers.DataParserArray<GenericDefinition>>>);
 export interface DataParserArrayExtended<GenericDefinition extends dataParsers.DataParserDefinitionArray = dataParsers.DataParserDefinitionArray> extends _DataParserArrayExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserArrayCheckers<Output<this>>,
-        ...dataParsers.DataParserArrayCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserArrayCheckers<Output<this>>,
-        ...dataParsers.DataParserArrayCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserArrayExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
@@ -100,7 +100,7 @@ export interface DataParserArrayExtended<GenericDefinition extends dataParsers.D
  * @namespace DPE
  * 
  */
-export declare function array<GenericElement extends DataParser, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray<Output<GenericElement>[]>, "element">> = never>(element: GenericElement, definition?: GenericDefinition): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+export declare function array<GenericElement extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionArray<Output<GenericElement>[]>, "element"> = never>(element: GenericElement, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionArray<Output<GenericElement>[]>, "element">, GenericDefinition>): DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
     element: GenericElement;
 }>>;
 export declare namespace array {

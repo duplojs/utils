@@ -1,14 +1,21 @@
-import { type NeverCoalescing } from "@scripts/common";
-import { type MergeDefinition } from "../../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
 import type * as dataParsers from "../../parsers";
 import * as dataParsersExtended from "..";
 
 export function date<
-	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionDate, "coerce">
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionDate,
+		"coerce"
 	> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionDate,
+			"coerce"
+		>,
+		GenericDefinition
+	>,
 ): dataParsersExtended.DataParserDateExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionDate,

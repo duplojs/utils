@@ -1,6 +1,32 @@
-import { DDataParserExtended, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, type ExpectType } from "@scripts";
 
 describe("extended.nullable", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParserExtended.nullable(DDataParserExtended.number(), {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						number | null,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					number | null,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses null and inner values", () => {
 		const parser = DDataParserExtended.nullable(DDataParserExtended.number());
 		const nullResult = parser.parse(null);

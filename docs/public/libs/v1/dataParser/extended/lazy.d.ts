@@ -1,16 +1,16 @@
 import { type Kind, type Memoized, type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output } from "../base";
+import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
 type _DataParserLazyExtended<GenericDefinition extends dataParsers.DataParserDefinitionLazy> = (Kind<typeof dataParsers.lazyKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserLazy<GenericDefinition>>, Input<dataParsers.DataParserLazy<GenericDefinition>>>);
 export interface DataParserLazyExtended<GenericDefinition extends dataParsers.DataParserDefinitionLazy = dataParsers.DataParserDefinitionLazy> extends _DataParserLazyExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserLazyCheckers<Output<this>>,
-        ...dataParsers.DataParserLazyCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserLazyCheckers<Output<this>>,
-        ...dataParsers.DataParserLazyCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserLazyExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserLazyExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
 }
@@ -52,7 +52,7 @@ export interface DataParserLazyExtended<GenericDefinition extends dataParsers.Da
  * @namespace DPE
  * 
  */
-export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends Partial<dataParsers.DataParserDefinitionLazy<Output<GenericDataParser>>> = never>(getter: () => GenericDataParser, definition?: GenericDefinition): DataParserLazyExtended<MergeDefinition<dataParsers.DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
+export declare function lazy<GenericDataParser extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionLazy<Output<GenericDataParser>>, "getter"> = never>(getter: () => GenericDataParser, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionLazy<Output<GenericDataParser>>, "getter">, GenericDefinition>): DataParserLazyExtended<MergeDefinition<dataParsers.DataParserDefinitionLazy, NeverCoalescing<GenericDefinition, {}> & {
     getter: Memoized<GenericDataParser>;
 }>>;
 export declare namespace lazy {

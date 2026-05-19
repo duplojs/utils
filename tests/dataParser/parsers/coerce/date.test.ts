@@ -1,6 +1,32 @@
-import { DEither, DDataParser, DDate } from "@scripts";
+import { DEither, DDataParser, DDate, type ExpectType } from "@scripts";
 
 describe("coerce.date", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.coerce.date({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						DDate.TheDate,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					DDate.TheDate,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("coerces number, Date and TheDate inputs", () => {
 		const parser = DDataParser.coerce.date();
 		const nativeDate = new Date("2021-01-01T00:00:00.000Z");

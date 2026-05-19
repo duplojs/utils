@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserBooleanExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBoolean,
@@ -20,14 +20,14 @@ export interface DataParserBooleanExtended<
 > extends _DataParserBooleanExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserBooleanCheckers,
-			...dataParsers.DataParserBooleanCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserBooleanCheckers,
-				...dataParsers.DataParserBooleanCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -55,11 +55,12 @@ export interface DataParserBooleanExtended<
  * {@include dataParser/extended/boolean/index.md}
  */
 export function boolean<
-	const GenericDefinition extends Partial<
-		dataParsers.DataParserDefinitionBoolean
-	> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean>,
+		GenericDefinition
+	>,
 ): DataParserBooleanExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionBoolean,

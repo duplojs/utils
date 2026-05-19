@@ -10,7 +10,7 @@ export interface DataParserCheckerDefinition {
 	readonly errorMessage?: string;
 }
 
-export interface DataParserChecker<
+export interface DataParserCheckerBase<
 	GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
 	GenericInput extends unknown = unknown,
 > extends Kind<typeof checkerKind.definition> {
@@ -25,12 +25,21 @@ export interface DataParserChecker<
 	): GenericOutput | SymbolDataParserError;
 }
 
+export interface DataParserChecker<
+	GenericInput extends unknown = unknown,
+> extends DataParserCheckerBase<
+		DataParserCheckerDefinition,
+		GenericInput
+	> {
+
+}
+
 export type InputChecker<
-	GenericDataParser extends DataParserChecker,
+	GenericDataParser extends DataParserCheckerBase,
 > = Parameters<GenericDataParser["exec"]>[0];
 
 export function dataParserCheckerInit<
-	GenericDataParserChecker extends DataParserChecker,
+	GenericDataParserChecker extends DataParserCheckerBase,
 >(
 	kind: Exclude<
 		GetKindHandler<GenericDataParserChecker>,
@@ -65,7 +74,7 @@ export const dataParserKind = createDataParserKind<
 >("base");
 
 export interface DataParserDefinition<
-	GenericChecker extends DataParserChecker = DataParserChecker,
+	GenericChecker extends DataParserCheckerBase = DataParserCheckerBase,
 > {
 	readonly errorMessage?: string;
 	readonly checkers: readonly GenericChecker[];
@@ -395,7 +404,7 @@ export interface DataParser<
 		GenericInput
 	> {
 	addChecker(
-		...args: DataParserChecker<
+		...args: DataParserCheckerBase<
 			DataParserCheckerDefinition,
 			GenericOutput
 		>[]

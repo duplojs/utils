@@ -194,7 +194,7 @@ describe("base parser", () => {
 
 	describe("async dataParserInit", () => {
 		const execChecker = vi.fn(
-			(value: number) => value > 0 ? value : DDataParser.SymbolDataParserErrorIssue,
+			(value: number) => value > 0 ? value : DDataParser.SymbolDataParserError,
 		);
 
 		const checker = DDataParser.dataParserCheckerInit(
@@ -211,7 +211,7 @@ describe("base parser", () => {
 			(input) => Promise.resolve(
 				typeof input === "number"
 					? input
-					: DDataParser.SymbolDataParserErrorIssue,
+					: DDataParser.SymbolDataParserError,
 			),
 		);
 

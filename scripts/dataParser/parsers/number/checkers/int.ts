@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
+import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { number as numberParser } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -12,7 +12,7 @@ export const checkerIntKind = createDataParserKind("checker-number-int");
 
 type _DataParserCheckerInt = (
 	& Kind<typeof checkerIntKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionInt,
 		number
 	>

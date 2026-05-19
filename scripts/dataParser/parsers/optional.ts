@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export type DataParserOptionalCheckers<
@@ -39,14 +39,14 @@ export interface DataParserOptional<
 > extends _DataParserOptional<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserOptionalCheckers<Output<this>>,
-			...DataParserOptionalCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserOptionalCheckers<Output<this>>,
-				...DataParserOptionalCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -63,17 +63,23 @@ export interface DataParserOptional<
  */
 export function optional<
 	GenericDataParser extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionOptional<
+			Output<GenericDataParser>
+		>,
+		"inner"
+	> = never,
+>(
+	inner: GenericDataParser,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			DataParserDefinitionOptional<
 				Output<GenericDataParser>
 			>,
 			"inner"
-		>
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserOptional<
 		MergeDefinition<
 			DataParserDefinitionOptional,

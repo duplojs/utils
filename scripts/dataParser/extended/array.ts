@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type Input, type Output, type DataParser, type DataParserChecker } from "../base";
 
 type _DataParserArrayExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionArray,
@@ -20,14 +20,14 @@ export interface DataParserArrayExtended<
 > extends _DataParserArrayExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserArrayCheckers<Output<this>>,
-			...dataParsers.DataParserArrayCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserArrayCheckers<Output<this>>,
-				...dataParsers.DataParserArrayCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -86,17 +86,23 @@ export interface DataParserArrayExtended<
  */
 export function array<
 	GenericElement extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionArray<
+			Output<GenericElement>[]
+		>,
+		"element"
+	> = never,
+>(
+	element: GenericElement,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionArray<
 				Output<GenericElement>[]
 			>,
 			"element"
-		>
-	> = never,
->(
-	element: GenericElement,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserArrayExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionArray,

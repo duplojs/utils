@@ -1,5 +1,5 @@
 import { type NeverCoalescing, type Kind, type SimplifyTopLevel } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
+import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 
@@ -16,7 +16,7 @@ type _DataParserCheckerRefine<
 	GenericInput extends Parameters<GenericDefinition["theFunction"]>[0] = Parameters<GenericDefinition["theFunction"]>[0],
 > = (
 	& Kind<typeof dataParserCheckerRefineKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		GenericDefinition,
 		GenericInput
 	>

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserBooleanCheckers = GetEligibleChecker<boolean>;
 export interface DataParserDefinitionBoolean extends DataParserDefinition<DataParserBooleanCheckers> {
     readonly coerce: boolean;
@@ -9,11 +9,11 @@ export declare const booleanKind: import("../../common").KindHandler<import("../
 type _DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean> = (DataParserBase<GenericDefinition, boolean, boolean> & Kind<typeof booleanKind.definition>);
 export interface DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean> extends _DataParserBoolean<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserBooleanCheckers,
-        ...DataParserBooleanCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserBooleanCheckers,
-        ...DataParserBooleanCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserBoolean<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -46,7 +46,7 @@ export interface DataParserBoolean<GenericDefinition extends DataParserDefinitio
  * @namespace DP
  * 
  */
-export declare function boolean<const GenericDefinition extends Partial<DataParserDefinitionBoolean> = never>(definition?: GenericDefinition): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function boolean<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionBoolean>, GenericDefinition>): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace boolean {
     var overrideHandler: import("../../common").OverrideHandler<DataParserBoolean<DataParserDefinitionBoolean>>;
 }

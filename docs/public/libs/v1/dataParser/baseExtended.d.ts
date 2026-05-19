@@ -1,6 +1,6 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual, type ComputedTypeError } from "../common";
-import { type MergeDefinition } from "./types";
-import { type Output, type DataParserBase, type DataParserDefinition, type DataParserChecker, type DataParserCheckerDefinition } from "./base";
+import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual, type ComputedTypeError, type FixDeepFunctionInfer } from "../common";
+import { type MergeDefinition, type PrepareDataParserDefinition } from "./types";
+import { type Output, type DataParserBase, type DataParserDefinition, type DataParserCheckerBase, type DataParserCheckerDefinition } from "./base";
 import type * as DEither from "../either";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
@@ -181,7 +181,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    array<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionArray<Output<GenericThis>[]>, "element">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
+    array<GenericThis extends this = this, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionArray<Output<this>[]>, "element"> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionArray<Output<this>[]>, "element">, GenericDefinition>): dataParsersExtended.DataParserArrayExtended<MergeDefinition<dataParsers.DataParserDefinitionArray, NeverCoalescing<GenericDefinition, {}> & {
         readonly element: GenericThis;
     }>>;
     /**
@@ -209,7 +209,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    transform<GenericThis extends this = this, GenericOutput extends AnyValue = AnyValue, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTransform<dataParsers.DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction">> = never>(theFunction: (input: Output<GenericThis>, error: DataParserError) => GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
+    transform<GenericThis extends this = this, GenericOutput extends AnyValue = AnyValue, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionTransform<dataParsers.DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction"> = never>(theFunction: (input: Output<this>, error: DataParserError) => GenericOutput, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionTransform<dataParsers.DataParserTransformOutput<() => GenericOutput>>, "inner" | "theFunction">, GenericDefinition>): dataParsersExtended.DataParserTransformExtended<MergeDefinition<dataParsers.DataParserDefinitionTransform, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
         theFunction(input: Output<GenericThis>): GenericOutput;
     }>>;
@@ -240,7 +240,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    arrayCoalescing<GenericThis extends this = this>(): dataParsersExtended.DataParserUnionExtended<SimplifyTopLevel<Omit<dataParsers.DataParserDefinitionUnion, "options"> & {
+    arrayCoalescing<GenericThis extends this = this, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnion<Output<this>[]>, "options"> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnion<Output<this>[]>, "options">, GenericDefinition>): dataParsersExtended.DataParserUnionExtended<SimplifyTopLevel<Omit<dataParsers.DataParserDefinitionUnion, "options"> & {
         readonly options: [
             dataParsersExtended.DataParserArrayExtended<SimplifyTopLevel<Omit<dataParsers.DataParserDefinitionArray, "element"> & {
                 readonly element: GenericThis;
@@ -281,7 +281,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    pipe<GenericThis extends this = this, GenericOutput extends DataParserBase = DataParserBase, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionPipe, "input" | "output">> = never>(output: GenericOutput, definition?: GenericDefinition): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
+    pipe<GenericThis extends this = this, GenericOutput extends DataParserBase = DataParserBase, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionPipe<Output<GenericOutput>>, "input" | "output"> = never>(output: GenericOutput, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionPipe<Output<GenericOutput>>, "input" | "output">, GenericDefinition>): dataParsersExtended.DataParserPipeExtended<MergeDefinition<dataParsers.DataParserDefinitionPipe, NeverCoalescing<GenericDefinition, {}> & {
         input: GenericThis;
         output: GenericOutput;
     }>>;
@@ -314,7 +314,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    nullable<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionNullable<Output<GenericThis> | null>, "inner">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
+    nullable<GenericThis extends this = this, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNullable<Output<this> | null>, "inner"> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNullable<Output<this> | null>, "inner">, GenericDefinition>): dataParsersExtended.DataParserNullableExtended<MergeDefinition<dataParsers.DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
     }>>;
     /**
@@ -346,7 +346,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    optional<GenericThis extends this = this, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionOptional<Output<GenericThis> | undefined>, "inner">> = never>(definition?: GenericDefinition): dataParsersExtended.DataParserOptionalExtended<MergeDefinition<dataParsers.DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
+    optional<GenericThis extends this = this, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionOptional<Output<this> | undefined>, "inner"> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionOptional<Output<this> | undefined>, "inner">, GenericDefinition>): dataParsersExtended.DataParserOptionalExtended<MergeDefinition<dataParsers.DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
     }>>;
     /**
@@ -378,7 +378,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    or<GenericThis extends this = this, GenericDataParser extends DataParserBase = DataParserBase, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionUnion, "options">> = never>(option: GenericDataParser, definition?: GenericDefinition): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
+    or<GenericThis extends this = this, GenericDataParser extends DataParserBase = DataParserBase, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnion<Output<this | GenericDataParser>>, "options"> = never>(option: GenericDataParser, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnion<Output<this | GenericDataParser>>, "options">, GenericDefinition>): dataParsersExtended.DataParserUnionExtended<MergeDefinition<dataParsers.DataParserDefinitionUnion, NeverCoalescing<GenericDefinition, {}> & {
         options: [GenericThis, GenericDataParser];
     }>>;
     refine(...args: never): DataParserBaseExtended;
@@ -407,7 +407,7 @@ export interface DataParserBaseExtended<GenericDefinition extends DataParserDefi
      * @namespace DPE
      * 
      */
-    recover<GenericThis extends this = this, GenericRecoveredValue extends unknown = unknown, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionRecover, "inner" | "recoveredValue">> = never>(recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): dataParsersExtended.DataParserRecoverExtended<MergeDefinition<dataParsers.DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
+    recover<GenericThis extends this = this, GenericRecoveredValue extends unknown = unknown, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionRecover<Output<this>>, "inner" | "recoveredValue"> = never>(recoveredValue: GenericRecoveredValue, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionRecover<Output<this>>, "inner" | "recoveredValue">, GenericDefinition>): dataParsersExtended.DataParserRecoverExtended<MergeDefinition<dataParsers.DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericThis;
         recoveredValue: GenericRecoveredValue;
     }>>;
@@ -416,14 +416,15 @@ export declare function dataParserBaseExtendedInit<GenericDataParser extends Dat
     [Prop in Exclude<keyof GenericDataParserExtended, keyof (GenericDataParser & DataParserBaseExtended)>]: GenericDataParserExtended[Prop] extends AnyFunction ? (self: GenericDataParserExtended, ...args: Parameters<GenericDataParserExtended[Prop]>) => ReturnType<GenericDataParserExtended[Prop]> : GenericDataParserExtended[Prop];
 }>, specificOverrideHandler: OverrideHandler<NoInfer<GenericDataParserExtended>>): GenericDataParserExtended;
 export declare namespace dataParserBaseExtendedInit {
-    var overrideHandler: OverrideHandler<DataParserBaseExtended<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
+    var overrideHandler: OverrideHandler<DataParserBaseExtended<DataParserDefinition<DataParserCheckerBase<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
 /**
  * @deprecated use dataParserBaseExtendedInit
  */
 export declare const dataParserExtendedInit: typeof dataParserBaseExtendedInit;
 export interface DataParserExtended<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBaseExtended<DataParserDefinition, GenericOutput, GenericInput> {
-    addChecker(...args: DataParserChecker<DataParserCheckerDefinition, GenericOutput>[]): DataParserExtended<GenericOutput, GenericInput>;
+    addChecker(...args: DataParserCheckerBase<DataParserCheckerDefinition, GenericOutput>[]): DataParserExtended<GenericOutput, GenericInput>;
+    refine(theFunction: (input: GenericOutput) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserExtended<GenericOutput, GenericInput>;
 }
 export type ContractExtended<GenericDataParser extends DataParserBaseExtended> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserBaseExtended>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
     addChecker(...args: never): DataParserBaseExtended;

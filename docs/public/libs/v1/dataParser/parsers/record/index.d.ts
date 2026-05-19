@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../../dataParser/types";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
@@ -30,11 +30,11 @@ export type DataParserRecordShapeInput<GenericDataParserKey extends DataParserRe
 type _DataParserRecord<GenericDefinition extends DataParserDefinitionRecord> = (DataParserBase<GenericDefinition, DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>, DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>> & Kind<typeof recordKind.definition>);
 export interface DataParserRecord<GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord> extends _DataParserRecord<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserRecordCheckers<Output<this>>,
-        ...DataParserRecordCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserRecordCheckers<Output<this>>,
-        ...DataParserRecordCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserRecord<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -74,7 +74,7 @@ export interface DataParserRecord<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecord<Record<Extract<Output<GenericDataParserKey>, string | number>, Output<GenericDataParserValue>>>, "key" | "value" | "baseData" | "requireKey">> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: GenericDefinition): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
+export declare function record<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionRecord<Record<Extract<Output<GenericDataParserKey>, string | number>, Output<GenericDataParserValue>>>, "key" | "value" | "baseData" | "requireKey"> = never>(key: GenericDataParserKey, value: GenericDataParserValue, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionRecord<Record<Extract<Output<GenericDataParserKey>, string | number>, Output<GenericDataParserValue>>>, "key" | "value" | "baseData" | "requireKey">, GenericDefinition>): DataParserRecord<MergeDefinition<DataParserDefinitionRecord, NeverCoalescing<GenericDefinition, {}> & {
     key: GenericDataParserKey;
     value: GenericDataParserValue;
 }>>;

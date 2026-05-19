@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserBigIntExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBigInt,
@@ -20,14 +20,14 @@ export interface DataParserBigIntExtended<
 > extends _DataParserBigIntExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserBigIntCheckers,
-			...dataParsers.DataParserBigIntCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserBigIntCheckers,
-				...dataParsers.DataParserBigIntCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -85,9 +85,12 @@ export interface DataParserBigIntExtended<
  * {@include dataParser/extended/bigint/index.md}
  */
 export function bigint<
-	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionBigInt> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt>,
+		GenericDefinition
+	>,
 ): DataParserBigIntExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionBigInt,

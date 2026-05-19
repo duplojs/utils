@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParserBase } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../../dataParser/types";
 import * as DDate from "../../../date";
 export * from "./checkers";
 export type DataParserTimeCheckers = GetEligibleChecker<DDate.TheTime>;
@@ -11,11 +11,11 @@ export declare const timeKind: import("../../../common").KindHandler<import("../
 type _DataParserTime<GenericDefinition extends DataParserDefinitionTime> = (DataParserBase<GenericDefinition, DDate.TheTime, DDate.TheTime | number | DDate.SerializedTheTime> & Kind<typeof timeKind.definition>);
 export interface DataParserTime<GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime> extends _DataParserTime<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserTimeCheckers,
-        ...DataParserTimeCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserTimeCheckers,
-        ...DataParserTimeCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserTime<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -54,7 +54,7 @@ export interface DataParserTime<GenericDefinition extends DataParserDefinitionTi
  * @namespace DP
  * 
  */
-export declare function time<const GenericDefinition extends Partial<DataParserDefinitionTime> = never>(definition?: GenericDefinition): DataParserTime<MergeDefinition<DataParserDefinitionTime, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function time<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTime> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionTime>, GenericDefinition>): DataParserTime<MergeDefinition<DataParserDefinitionTime, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace time {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserTime<DataParserDefinitionTime>>;
 }

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserNullableCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput | null>;
 export interface DataParserDefinitionNullable<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserNullableCheckers<GenericOutput>> {
     readonly inner: DataParser;
@@ -10,11 +10,11 @@ export declare const nullableKind: import("../../common").KindHandler<import("..
 type _DataParserNullable<GenericDefinition extends DataParserDefinitionNullable> = (DataParserBase<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | null : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | null> & Kind<typeof nullableKind.definition>);
 export interface DataParserNullable<GenericDefinition extends DataParserDefinitionNullable = DataParserDefinitionNullable> extends _DataParserNullable<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserNullableCheckers<Output<this>>,
-        ...DataParserNullableCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserNullableCheckers<Output<this>>,
-        ...DataParserNullableCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserNullable<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -47,7 +47,7 @@ export interface DataParserNullable<GenericDefinition extends DataParserDefiniti
  * @namespace DP
  * 
  */
-export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionNullable<Output<GenericDataParser>>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserNullable<MergeDefinition<DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
+export declare function nullable<GenericDataParser extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNullable<Output<GenericDataParser>>, "inner"> = never>(inner: GenericDataParser, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionNullable<Output<GenericDataParser>>, "inner">, GenericDefinition>): DataParserNullable<MergeDefinition<DataParserDefinitionNullable, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
 export declare namespace nullable {

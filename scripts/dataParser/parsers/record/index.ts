@@ -1,7 +1,7 @@
 
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
@@ -125,14 +125,14 @@ export interface DataParserRecord<
 > extends _DataParserRecord<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserRecordCheckers<Output<this>>,
-			...DataParserRecordCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserRecordCheckers<Output<this>>,
-				...DataParserRecordCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -150,8 +150,20 @@ export interface DataParserRecord<
 export function record<
 	GenericDataParserKey extends DataParserRecordKey,
 	GenericDataParserValue extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionRecord<
+			Record<
+				Extract<Output<GenericDataParserKey>, string | number>,
+				Output<GenericDataParserValue>
+			>
+		>,
+		"key" | "value" | "baseData" | "requireKey"
+	> = never,
+>(
+	key: GenericDataParserKey,
+	value: GenericDataParserValue,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			DataParserDefinitionRecord<
 				Record<
 					Extract<Output<GenericDataParserKey>, string | number>,
@@ -159,12 +171,9 @@ export function record<
 				>
 			>,
 			"key" | "value" | "baseData" | "requireKey"
-		>
-	> = never,
->(
-	key: GenericDataParserKey,
-	value: GenericDataParserValue,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserRecord<
 		MergeDefinition<
 			DataParserDefinitionRecord,

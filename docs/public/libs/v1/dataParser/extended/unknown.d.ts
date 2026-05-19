@@ -1,16 +1,16 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 type _DataParserUnknownExtended<GenericDefinition extends dataParsers.DataParserDefinitionUnknown> = (Kind<typeof dataParsers.unknownKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserUnknown<GenericDefinition>>, Input<dataParsers.DataParserUnknown<GenericDefinition>>>);
 export interface DataParserUnknownExtended<GenericDefinition extends dataParsers.DataParserDefinitionUnknown = dataParsers.DataParserDefinitionUnknown> extends _DataParserUnknownExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserUnknownCheckers,
-        ...dataParsers.DataParserUnknownCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserUnknownCheckers,
-        ...dataParsers.DataParserUnknownCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserUnknownExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserUnknownExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
 }
@@ -40,7 +40,7 @@ export interface DataParserUnknownExtended<GenericDefinition extends dataParsers
  * @namespace DPE
  * 
  */
-export declare function unknown<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionUnknown> = never>(definition?: GenericDefinition): DataParserUnknownExtended<MergeDefinition<dataParsers.DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function unknown<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown>, GenericDefinition>): DataParserUnknownExtended<MergeDefinition<dataParsers.DataParserDefinitionUnknown, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace unknown {
     var overrideHandler: import("../../common").OverrideHandler<DataParserUnknownExtended<dataParsers.DataParserDefinitionUnknown>>;
 }

@@ -3,6 +3,32 @@ import { DDataParser, DDate, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.date", () => {
+	it("create data parser with checker", () => {
+		const dataParser = extended.date({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						DDate.TheDate,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					DDate.TheDate,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses TheDate values", () => {
 		const parser = extended.date();
 		const value: DDate.SerializedTheDate = "date42+";

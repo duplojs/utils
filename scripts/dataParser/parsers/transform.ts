@@ -1,6 +1,6 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Input, type Output, SymbolDataParserError, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Input, type Output, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 
@@ -9,12 +9,12 @@ export type DataParserTransformCheckers<
 > = GetEligibleChecker<GenericInput>;
 
 export interface DataParserDefinitionTransform<
-	GenericInput extends unknown = unknown,
+	GenericOutput extends unknown = unknown,
 > extends DataParserDefinition<
-		DataParserTransformCheckers<GenericInput>
+		DataParserTransformCheckers<GenericOutput>
 	> {
 	readonly inner: DataParser;
-	theFunction(input: any, error: DataParserError): unknown;
+	theFunction(input: any, error: DataParserError): GenericOutput;
 }
 
 export const transformKind = createDataParserKind("transform");
@@ -42,14 +42,14 @@ export interface DataParserTransform<
 > extends _DataParserTransform<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserTransformCheckers<Output<this>>,
-			...DataParserTransformCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserTransformCheckers<Output<this>>,
-				...DataParserTransformCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -67,13 +67,11 @@ export interface DataParserTransform<
 export function transform<
 	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
-	const GenericDefinition extends Partial<
-		Omit<
-			DataParserDefinitionTransform<
-				DataParserTransformOutput<() => GenericOutput>
-			>,
-			"inner" | "theFunction"
-		>
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionTransform<
+			DataParserTransformOutput<() => GenericOutput>
+		>,
+		"inner" | "theFunction"
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -81,13 +79,21 @@ export function transform<
 		input: Output<GenericDataParser>,
 		error: DataParserError
 	) => GenericOutput,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionTransform<
+				DataParserTransformOutput<() => GenericOutput>
+			>,
+			"inner" | "theFunction"
+		>,
+		GenericDefinition
+	>,
 ): DataParserTransform<
 		MergeDefinition<
 			DataParserDefinitionTransform,
 			NeverCoalescing<GenericDefinition, {}> & {
 				inner: GenericDataParser;
-				theFunction(input: Output<GenericDataParser>): GenericOutput;
+				theFunction(input: Output<GenericDataParser>, error: DataParserError): GenericOutput;
 			}
 		>
 	> {

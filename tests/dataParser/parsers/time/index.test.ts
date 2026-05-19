@@ -1,6 +1,24 @@
 import { DDataParser, DEither, DDate, type ExpectType } from "@scripts";
 
 describe("DDataParser time", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.time({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<typeof value, DDate.TheTime, "strict">;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, DDate.TheTime, "strict">;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses TheTime literals", () => {
 		const schema = DDataParser.time();
 

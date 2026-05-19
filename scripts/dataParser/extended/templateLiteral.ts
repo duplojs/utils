@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserTemplateLiteralExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral,
@@ -21,14 +21,14 @@ export interface DataParserTemplateLiteralExtended<
 > extends _DataParserTemplateLiteralExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserTemplateLiteralCheckers<Output<this>>,
-			...dataParsers.DataParserTemplateLiteralCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserTemplateLiteralCheckers<Output<this>>,
-				...dataParsers.DataParserTemplateLiteralCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -57,17 +57,23 @@ export interface DataParserTemplateLiteralExtended<
  */
 export function templateLiteral<
 	const GenericTemplate extends dataParsers.TemplateLiteralShape,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionTemplateLiteral<
+			dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
+		>,
+		"template" | "pattern"
+	> = never,
+>(
+	template: GenericTemplate,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTemplateLiteral<
 				dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
 			>,
 			"template" | "pattern"
-		>
-	> = never,
->(
-	template: GenericTemplate,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserTemplateLiteralExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionTemplateLiteral,

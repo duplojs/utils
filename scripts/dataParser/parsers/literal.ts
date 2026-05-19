@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import * as DArray from "@scripts/array";
 import { createDataParserKind } from "../kind";
@@ -37,14 +37,14 @@ export interface DataParserLiteral<
 > extends _DataParserLiteral<GenericDefinition> {
 	addChecker<
 		const GenericChecker extends readonly [
-			DataParserLiteralCheckers<Output<this>>,
-			...DataParserLiteralCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserLiteralCheckers<Output<this>>,
-				...DataParserLiteralCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -61,15 +61,19 @@ export interface DataParserLiteral<
  */
 export function literal<
 	const GenericValue extends LiteralValue,
-	const GenericDefinition extends Partial<
-		Omit<
-			DataParserDefinitionLiteral<GenericValue>,
-			"value"
-		>
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionLiteral<GenericValue>,
+		"value"
 	> = never,
 >(
 	value: GenericValue | readonly GenericValue[],
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionLiteral<GenericValue>,
+			"value"
+		>,
+		GenericDefinition
+	>,
 ): DataParserLiteral<
 		MergeDefinition<
 			DataParserDefinitionLiteral,

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParserChecker, type DataParserCheckerDefinition, type DataParser } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../kind";
 
@@ -36,14 +36,14 @@ export interface DataParserArray<
 > extends _DataParserArray<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserArrayCheckers<Output<this>>,
-			...DataParserArrayCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserArrayCheckers<Output<this>>,
-				...DataParserArrayCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -60,12 +60,19 @@ export interface DataParserArray<
  */
 export function array<
 	GenericElement extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<DataParserDefinitionArray<Output<GenericElement>[]>, "element">
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionArray<Output<GenericElement>[]>,
+		"element"
 	> = never,
 >(
 	element: GenericElement,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionArray<Output<GenericElement>[]>,
+			"element"
+		>,
+		GenericDefinition
+	>,
 ): DataParserArray<
 		MergeDefinition<
 			DataParserDefinitionArray,

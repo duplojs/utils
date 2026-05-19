@@ -200,16 +200,13 @@ export function createConstraint<
 	GenericPrimitiveInput extends unknown,
 	const GenericChecker extends(
 		| DDataParser.DataParserChecker<
-			DDataParser.DataParserCheckerDefinition,
 			GenericPrimitiveValue
 		>
 		| readonly [
 			DDataParser.DataParserChecker<
-				DDataParser.DataParserCheckerDefinition,
 				GenericPrimitiveValue
 			>,
 			...DDataParser.DataParserChecker<
-				DDataParser.DataParserCheckerDefinition,
 				GenericPrimitiveValue
 			>[],
 		]

@@ -1,16 +1,16 @@
 import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type Or, type SimplifyTopLevel } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type DataParserChecker, type Input, type Output } from "../base";
 type _DataParserTupleExtended<GenericDefinition extends dataParsers.DataParserDefinitionTuple> = (Kind<typeof dataParsers.tupleKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserTuple<GenericDefinition>>, Input<dataParsers.DataParserTuple<GenericDefinition>>>);
 export interface DataParserTupleExtended<GenericDefinition extends dataParsers.DataParserDefinitionTuple = dataParsers.DataParserDefinitionTuple> extends _DataParserTupleExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserTupleCheckers<Output<this>>,
-        ...dataParsers.DataParserTupleCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserTupleCheckers<Output<this>>,
-        ...dataParsers.DataParserTupleCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserTupleExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
@@ -138,7 +138,7 @@ export interface DataParserTupleExtended<GenericDefinition extends dataParsers.D
  * @namespace DPE
  * 
  */
-export declare function tuple<const GenericShape extends dataParsers.TupleShape, const GenericDefinition extends Partial<Omit<dataParsers.DataParserDefinitionTuple<dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>>, "shape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
+export declare function tuple<const GenericShape extends dataParsers.TupleShape, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionTuple<dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>>, "shape"> = never>(shape: GenericShape, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionTuple<dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>>, "shape">, GenericDefinition>): DataParserTupleExtended<MergeDefinition<dataParsers.DataParserDefinitionTuple, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;
     readonly rest: Or<[
         IsEqual<GenericDefinition["rest"], unknown>,

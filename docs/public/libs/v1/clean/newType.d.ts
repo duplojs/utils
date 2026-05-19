@@ -169,7 +169,7 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  */
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParserBase, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>> = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createNewType {
-    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>[], unknown>>;
+    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<unknown>[], unknown>[], unknown>>;
 }
 export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = DDataParser.Output<GenericHandler["internal"]["dataParser"]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], GenericValue, GenericHandler["internal"]["constraints"][number]["name"]> : never, any>;
 export {};

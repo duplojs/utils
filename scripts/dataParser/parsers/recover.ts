@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export type DataParserRecoverCheckers<
@@ -34,14 +34,14 @@ export interface DataParserRecover<
 > extends _DataParserRecover<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserRecoverCheckers<Output<this>>,
-			...DataParserRecoverCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserRecoverCheckers<Output<this>>,
-				...DataParserRecoverCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -59,18 +59,24 @@ export interface DataParserRecover<
 export function recover<
 	GenericDataParser extends DataParser,
 	GenericRecoveredValue extends Output<GenericDataParser>,
-	const GenericDefinition extends Partial<
-		Omit<
-			DataParserDefinitionRecover<
-				Output<GenericDataParser>
-			>,
-			"inner" | "recoveredValue"
-		>
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionRecover<
+			Output<GenericDataParser>
+		>,
+		"inner" | "recoveredValue"
 	> = never,
 >(
 	inner: GenericDataParser,
 	recoveredValue: GenericRecoveredValue,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionRecover<
+				Output<GenericDataParser>
+			>,
+			"inner" | "recoveredValue"
+		>,
+		GenericDefinition
+	>,
 ): DataParserRecover<
 		MergeDefinition<
 			DataParserDefinitionRecover,

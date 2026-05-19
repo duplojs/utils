@@ -156,12 +156,12 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
  * @namespace C
  * 
  */
-export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue> | readonly [
-    DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>,
-    ...DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericPrimitiveValue>[]
+export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
+    DDataParser.DataParserChecker<GenericPrimitiveValue>,
+    ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
 ]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, checker: GenericChecker): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;
 export declare namespace createConstraint {
-    var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, unknown>[], unknown>>;
+    var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<unknown>[], unknown>>;
 }
 export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
 export {};

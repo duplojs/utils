@@ -1,6 +1,6 @@
 import { type Kind, pipe, forward, type AnyValue, memo, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { dataParserBaseInit, dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, SymbolDataParserError, type DataParser } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { dataParserBaseInit, dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, SymbolDataParserError, type DataParser, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
 import { addIssue, popErrorPath, setErrorPath } from "../../error";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
@@ -84,14 +84,14 @@ export interface DataParserObject<
 > extends _DataParserObject<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserObjectCheckers<Output<this>>,
-			...DataParserObjectCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserObjectCheckers<Output<this>>,
-				...DataParserObjectCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -108,17 +108,23 @@ export interface DataParserObject<
  */
 export function object<
 	const GenericShape extends DataParserObjectShape,
-	const GenericDefinition extends Partial<
-		Omit<
-			DataParserDefinitionObject<
-				DataParserObjectShapeOutput<GenericShape>
-			>,
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionObject<
+			DataParserObjectShapeOutput<GenericShape>
+		>,
 		"shape" | "optimizedShape"
-		>
 	> = never,
 >(
 	shape: GenericShape,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionObject<
+				DataParserObjectShapeOutput<GenericShape>
+			>,
+			"shape" | "optimizedShape"
+		>,
+		GenericDefinition
+	>,
 ): DataParserObject<
 		MergeDefinition<
 			DataParserDefinitionObject,

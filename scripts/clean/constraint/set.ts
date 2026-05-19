@@ -264,7 +264,6 @@ export type ConstraintSetInputConstraint<
 		string,
 		GenericValue,
 		readonly DDataParser.DataParserChecker<
-			DDataParser.DataParserCheckerDefinition,
 			GenericValue
 		>[]
 	>
@@ -274,7 +273,6 @@ export type ConstraintSetInputConstraint<
 			string,
 			GenericValue,
 			readonly DDataParser.DataParserChecker<
-				DDataParser.DataParserCheckerDefinition,
 				GenericValue
 			>[]
 		>[]

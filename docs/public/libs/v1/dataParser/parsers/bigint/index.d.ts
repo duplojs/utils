@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParserBase } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../../dataParser/types";
 export * from "./checkers";
 export type DataParserBigIntCheckers = GetEligibleChecker<bigint>;
 export interface DataParserDefinitionBigInt extends DataParserDefinition<DataParserBigIntCheckers> {
@@ -10,11 +10,11 @@ export declare const bigIntKind: import("../../../common").KindHandler<import(".
 type _DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt> = (DataParserBase<GenericDefinition, bigint, bigint> & Kind<typeof bigIntKind.definition>);
 export interface DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt> extends _DataParserBigInt<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserBigIntCheckers,
-        ...DataParserBigIntCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserBigIntCheckers,
-        ...DataParserBigIntCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserBigInt<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -47,7 +47,7 @@ export interface DataParserBigInt<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function bigint<const GenericDefinition extends Partial<DataParserDefinitionBigInt> = never>(definition?: GenericDefinition): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function bigint<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBigInt> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionBigInt>, GenericDefinition>): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace bigint {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserBigInt<DataParserDefinitionBigInt>>;
 }

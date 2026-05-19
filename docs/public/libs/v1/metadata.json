@@ -2693,6 +2693,9 @@
             },
             {
               "name": "mergeDefinition.d.ts"
+            },
+            {
+              "name": "prepareDataParserDefinition.d.ts"
             }
           ]
         },

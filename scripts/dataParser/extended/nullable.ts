@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output } from "../base";
+import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserNullableExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNullable,
@@ -20,14 +20,14 @@ export interface DataParserNullableExtended<
 > extends _DataParserNullableExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserNullableCheckers<Output<this>>,
-			...dataParsers.DataParserNullableCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserNullableCheckers<Output<this>>,
-				...dataParsers.DataParserNullableCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -69,17 +69,23 @@ export interface DataParserNullableExtended<
  */
 export function nullable<
 	GenericDataParser extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionNullable<
+			Output<GenericDataParser>
+		>,
+		"inner"
+	> = never,
+>(
+	inner: GenericDataParser,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionNullable<
 				Output<GenericDataParser>
 			>,
 			"inner"
-		>
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserNullableExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionNullable,

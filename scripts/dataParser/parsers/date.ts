@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import * as DDate from "@scripts/date";
@@ -31,14 +31,14 @@ export interface DataParserDate<
 > extends _DataParserDate<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserDateCheckers,
-			...DataParserDateCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserDateCheckers,
-				...DataParserDateCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -54,9 +54,12 @@ export interface DataParserDate<
  * {@include dataParser/classic/date/index.md}
  */
 export function date<
-	const GenericDefinition extends Partial<DataParserDefinitionDate> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<DataParserDefinitionDate>,
+		GenericDefinition
+	>,
 ): DataParserDate<
 		MergeDefinition<
 			DataParserDefinitionDate,

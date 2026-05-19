@@ -112,7 +112,7 @@ export declare class CreateConstraintsSetError extends CreateConstraintsSetError
     dataParserError: DDataParser.DataParserError;
     constructor(data: unknown, dataParserError: DDataParser.DataParserError);
 }
-export type ConstraintSetInputConstraint<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericValue>[]> | ConstraintsSetHandler<GenericValue, readonly ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<DDataParser.DataParserCheckerDefinition, GenericValue>[]>[]>);
+export type ConstraintSetInputConstraint<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]> | ConstraintsSetHandler<GenericValue, readonly ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]>[]>);
 export type ConstraintsHandlerArguments<GenericValue extends EligiblePrimitive> = (ConstraintSetInputConstraint<GenericValue> | readonly [
     ConstraintSetInputConstraint<GenericValue>,
     ...ConstraintSetInputConstraint<GenericValue>[]

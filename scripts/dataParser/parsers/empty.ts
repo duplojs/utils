@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 
@@ -30,14 +30,14 @@ export interface DataParserEmpty<
 > extends _DataParserEmpty<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserEmptyCheckers,
-			...DataParserEmptyCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserEmptyCheckers,
-				...DataParserEmptyCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -53,9 +53,12 @@ export interface DataParserEmpty<
  * {@include dataParser/classic/empty/index.md}
  */
 export function empty<
-	const GenericDefinition extends Partial<DataParserDefinitionEmpty> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionEmpty> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<DataParserDefinitionEmpty>,
+		GenericDefinition
+	>,
 ): DataParserEmpty<
 		MergeDefinition<
 			DataParserDefinitionEmpty,

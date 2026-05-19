@@ -3,6 +3,32 @@ import { DDataParser, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.recover", () => {
+	it("create data parser with checker", () => {
+		const dataParser = extended.recover(extended.number(), 0, {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						number,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					number,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("returns inner value on success and recovered value on failure", () => {
 		const parser = extended.recover(extended.number(), 0);
 

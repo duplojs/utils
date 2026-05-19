@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export type DataParserLazyCheckers<
@@ -33,14 +33,14 @@ export interface DataParserLazy<
 > extends _DataParserLazy<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserLazyCheckers<Output<this>>,
-			...DataParserLazyCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserLazyCheckers<Output<this>>,
-				...DataParserLazyCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -57,14 +57,22 @@ export interface DataParserLazy<
  */
 export function lazy<
 	GenericDataParser extends DataParser,
-	const GenericDefinition extends Partial<
+	const GenericDefinition extends PrepareDataParserDefinition<
 		DataParserDefinitionLazy<
 			Output<GenericDataParser>
 		>
 	> = never,
 >(
 	getter: () => GenericDataParser,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionLazy<
+				Output<GenericDataParser>
+			>,
+			"getter"
+		>,
+		GenericDefinition
+	>,
 ): DataParserLazy<
 		MergeDefinition<
 			DataParserDefinitionLazy,

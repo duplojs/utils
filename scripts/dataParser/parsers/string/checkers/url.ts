@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
+import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -14,7 +14,7 @@ export const checkerUrlKind = createDataParserKind("checker-url");
 
 type _DataParserCheckerUrl = (
 	& Kind<typeof checkerUrlKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionUrl,
 		string
 	>

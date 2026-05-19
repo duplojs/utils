@@ -1,10 +1,10 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
     min: number;
 }
 export declare const checkerArrayMinKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-array-min", unknown>>;
-type _DataParserCheckerArrayMin = (Kind<typeof checkerArrayMinKind.definition> & DataParserChecker<DataParserCheckerDefinitionArrayMin, any[]>);
+type _DataParserCheckerArrayMin = (Kind<typeof checkerArrayMinKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionArrayMin, any[]>);
 export interface DataParserCheckerArrayMin extends _DataParserCheckerArrayMin {
 }
 export declare function checkerArrayMin(min: number, definition?: Partial<Omit<DataParserCheckerDefinitionArrayMin, "min">>): DataParserCheckerArrayMin;

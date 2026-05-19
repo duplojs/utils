@@ -1,6 +1,6 @@
 import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../../dataParser/types";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -50,11 +50,11 @@ export declare const templateLiteralKind: import("../../../common").KindHandler<
 type _DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral> = (DataParserBase<GenericDefinition, TemplateLiteralShapeOutput<GenericDefinition["template"]>, TemplateLiteralShapeInput<GenericDefinition["template"]>> & Kind<typeof templateLiteralKind.definition>);
 export interface DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral> extends _DataParserTemplateLiteral<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserTemplateLiteralCheckers<Output<this>>,
-        ...DataParserTemplateLiteralCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserTemplateLiteralCheckers<Output<this>>,
-        ...DataParserTemplateLiteralCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserTemplateLiteral<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -87,7 +87,7 @@ export interface DataParserTemplateLiteral<GenericDefinition extends DataParserD
  * @namespace DP
  * 
  */
-export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionTemplateLiteral<TemplateLiteralShapeOutput<GenericTemplate>>, "template" | "pattern">> = never>(template: GenericTemplate, definition?: GenericDefinition): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {
+export declare function templateLiteral<const GenericTemplate extends TemplateLiteralShape, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTemplateLiteral<TemplateLiteralShapeOutput<GenericTemplate>>, "template" | "pattern"> = never>(template: GenericTemplate, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionTemplateLiteral<TemplateLiteralShapeOutput<GenericTemplate>>, "template" | "pattern">, GenericDefinition>): DataParserTemplateLiteral<MergeDefinition<DataParserDefinitionTemplateLiteral, NeverCoalescing<GenericDefinition, {}> & {
     template: GenericTemplate;
 }>>;
 export declare namespace templateLiteral {

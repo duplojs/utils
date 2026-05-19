@@ -1,6 +1,32 @@
-import { DEither, DDataParser } from "@scripts";
+import { DEither, DDataParser, type ExpectType } from "@scripts";
 
 describe("extended.coerce.bigint", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.extended.coerce.bigint({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						bigint,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					bigint,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("coerces numeric string", () => {
 		expect(DDataParser.extended.coerce.bigint().parse("5")).toStrictEqual(DEither.success(5n));
 	});

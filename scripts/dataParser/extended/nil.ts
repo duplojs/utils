@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserNilExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNil,
@@ -20,14 +20,14 @@ export interface DataParserNilExtended<
 > extends _DataParserNilExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserNilCheckers,
-			...dataParsers.DataParserNilCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserNilCheckers,
-				...dataParsers.DataParserNilCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -55,11 +55,12 @@ export interface DataParserNilExtended<
  * {@include dataParser/extended/nil/index.md}
  */
 export function nil<
-	const GenericDefinition extends Partial<
-		dataParsers.DataParserDefinitionNil
-	> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil>,
+		GenericDefinition
+	>,
 ): DataParserNilExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionNil,

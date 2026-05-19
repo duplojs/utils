@@ -1,6 +1,24 @@
 import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser templateLiteral", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.templateLiteral(["id-", DDataParser.number({ checkers: [DDataParser.checkerInt()] })], {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<typeof value, `id-${number}`, "strict">;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, `id-${number}`, "strict">;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses simple literal with number", () => {
 		const schema = DDataParser.templateLiteral([
 			"user-",

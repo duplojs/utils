@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserEmptyCheckers = GetEligibleChecker<undefined>;
 export interface DataParserDefinitionEmpty extends DataParserDefinition<DataParserEmptyCheckers> {
     readonly coerce: boolean;
@@ -9,11 +9,11 @@ export declare const emptyKind: import("../../common").KindHandler<import("../..
 type _DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty> = (DataParserBase<GenericDefinition, undefined, undefined> & Kind<typeof emptyKind.definition>);
 export interface DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty> extends _DataParserEmpty<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserEmptyCheckers,
-        ...DataParserEmptyCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserEmptyCheckers,
-        ...DataParserEmptyCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserEmpty<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -45,7 +45,7 @@ export interface DataParserEmpty<GenericDefinition extends DataParserDefinitionE
  * @namespace DP
  * 
  */
-export declare function empty<const GenericDefinition extends Partial<DataParserDefinitionEmpty> = never>(definition?: GenericDefinition): DataParserEmpty<MergeDefinition<DataParserDefinitionEmpty, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function empty<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionEmpty> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionEmpty>, GenericDefinition>): DataParserEmpty<MergeDefinition<DataParserDefinitionEmpty, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace empty {
     var overrideHandler: import("../../common").OverrideHandler<DataParserEmpty<DataParserDefinitionEmpty>>;
 }

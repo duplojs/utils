@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserUnionExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionUnion,
@@ -20,14 +20,14 @@ export interface DataParserUnionExtended<
 > extends _DataParserUnionExtended<GenericDefinition> {
 	addChecker<
 		const GenericChecker extends readonly [
-			dataParsers.DataParserUnionCheckers<Output<this>>,
-			...dataParsers.DataParserUnionCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserUnionCheckers<Output<this>>,
-				...dataParsers.DataParserUnionCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -56,12 +56,23 @@ export interface DataParserUnionExtended<
  */
 export function union<
 	const GenericOptions extends dataParsers.UnionOptions,
-	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionUnion, "options">
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionUnion<
+			Output<GenericOptions[number]>
+		>,
+		"options"
 	> = never,
 >(
 	options: GenericOptions,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionUnion<
+				Output<GenericOptions[number]>
+			>,
+			"options"
+		>,
+		GenericDefinition
+	>,
 ): DataParserUnionExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionUnion,

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserOptionalCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput | undefined>;
 export interface DataParserDefinitionOptional<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserOptionalCheckers<GenericOutput>> {
     readonly inner: DataParser;
@@ -10,11 +10,11 @@ export declare const optionalKind: import("../../common").KindHandler<import("..
 type _DataParserOptional<GenericDefinition extends DataParserDefinitionOptional> = (DataParserBase<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | undefined : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | undefined> & Kind<typeof optionalKind.definition>);
 export interface DataParserOptional<GenericDefinition extends DataParserDefinitionOptional = DataParserDefinitionOptional> extends _DataParserOptional<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserOptionalCheckers<Output<this>>,
-        ...DataParserOptionalCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserOptionalCheckers<Output<this>>,
-        ...DataParserOptionalCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserOptional<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -47,7 +47,7 @@ export interface DataParserOptional<GenericDefinition extends DataParserDefiniti
  * @namespace DP
  * 
  */
-export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends Partial<Omit<DataParserDefinitionOptional<Output<GenericDataParser>>, "inner">> = never>(inner: GenericDataParser, definition?: GenericDefinition): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
+export declare function optional<GenericDataParser extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionOptional<Output<GenericDataParser>>, "inner"> = never>(inner: GenericDataParser, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionOptional<Output<GenericDataParser>>, "inner">, GenericDefinition>): DataParserOptional<MergeDefinition<DataParserDefinitionOptional, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
 }>>;
 export declare namespace optional {

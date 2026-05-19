@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
+import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import * as DDate from "@scripts/date";
@@ -12,7 +12,7 @@ export const checkerTimeMinKind = createDataParserKind("checker-time-min");
 
 type _DataParserCheckerTimeMin = (
 	& Kind<typeof checkerTimeMinKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionTimeMin,
 		DDate.TheTime
 	>

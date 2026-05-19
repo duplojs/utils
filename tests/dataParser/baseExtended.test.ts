@@ -222,6 +222,136 @@ describe("base extended", () => {
 		expect(refined.parse("invalid")).toStrictEqual(DEither.error(expect.any(Object)));
 	});
 
+	it("infers methods definitions with checker refine", () => {
+		const arraySchema = DDataParser.extended.boolean().array({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type Check = ExpectType<
+						typeof value,
+						boolean[],
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		});
+
+		const transformSchema = DDataParser.extended.boolean().transform(
+			(value) => value ? "true" : "false",
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						// unresolved inference bug : value expect number
+						type Check = ExpectType<
+							typeof value,
+							unknown,
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		const pipeSchema = DDataParser.extended.boolean().pipe(
+			DDataParser.extended.string(),
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type Check = ExpectType<
+							typeof value,
+							string,
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		const nullableSchema = DDataParser.extended.boolean().nullable({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type Check = ExpectType<
+						typeof value,
+						boolean | null,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		});
+
+		const optionalSchema = DDataParser.extended.boolean().optional({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type Check = ExpectType<
+						typeof value,
+						boolean | undefined,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		});
+
+		const orSchema = DDataParser.extended.boolean().or(
+			DDataParser.extended.number(),
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type Check = ExpectType<
+							typeof value,
+							boolean | number,
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		const recoverSchema = DDataParser.extended.boolean().recover(
+			true,
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type Check = ExpectType<
+							typeof value,
+							boolean,
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		const arrayCoalescingSchema = DDataParser.extended.boolean().arrayCoalescing(
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type Check = ExpectType<
+							typeof value,
+							boolean[],
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		void arraySchema;
+		void transformSchema;
+		void pipeSchema;
+		void nullableSchema;
+		void optionalSchema;
+		void orSchema;
+		void recoverSchema;
+		void arrayCoalescingSchema;
+	});
+
 	it("contract", () => {
 			type RecursiveTuple = [string, (RecursiveTuple | string)[]];
 

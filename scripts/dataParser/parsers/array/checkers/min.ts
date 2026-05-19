@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserChecker } from "@scripts/dataParser/base";
+import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 
@@ -11,7 +11,7 @@ export const checkerArrayMinKind = createDataParserKind("checker-array-min");
 
 type _DataParserCheckerArrayMin = (
 	& Kind<typeof checkerArrayMinKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionArrayMin,
 		any[]
 	>

@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserChecker, type DataParserCheckerDefinition } from "@scripts/dataParser/base";
+import { dataParserCheckerInit, type DataParserCheckerBase, type DataParserCheckerDefinition } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -12,7 +12,7 @@ export const checkerEmailKind = createDataParserKind("checker-email");
 
 type _DataParserCheckerEmail = (
 	& Kind<typeof checkerEmailKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionEmail,
 		string
 	>

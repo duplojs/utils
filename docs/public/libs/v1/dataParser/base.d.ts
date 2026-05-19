@@ -6,17 +6,19 @@ export declare const checkerKind: KindHandler<import("../common").KindDefinition
 export interface DataParserCheckerDefinition {
     readonly errorMessage?: string;
 }
-export interface DataParserChecker<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition> {
+export interface DataParserCheckerBase<GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition, GenericInput extends unknown = unknown> extends Kind<typeof checkerKind.definition> {
     readonly definition: GenericDefinition;
     exec<GenericOutput extends GenericInput>(data: GenericInput, error: DataParserError, self: this, dataParser: DataParserBase): GenericOutput | SymbolDataParserError;
 }
-export type InputChecker<GenericDataParser extends DataParserChecker> = Parameters<GenericDataParser["exec"]>[0];
-export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserChecker>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => InputChecker<GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
+export interface DataParserChecker<GenericInput extends unknown = unknown> extends DataParserCheckerBase<DataParserCheckerDefinition, GenericInput> {
+}
+export type InputChecker<GenericDataParser extends DataParserCheckerBase> = Parameters<GenericDataParser["exec"]>[0];
+export declare function dataParserCheckerInit<GenericDataParserChecker extends DataParserCheckerBase>(kind: Exclude<GetKindHandler<GenericDataParserChecker>, typeof checkerKind>, params: NoInfer<Omit<RemoveKind<GenericDataParserChecker>, "exec">>, exec: (...args: Parameters<GenericDataParserChecker["exec"]>) => InputChecker<GenericDataParserChecker> | SymbolDataParserError): GenericDataParserChecker;
 export declare const dataParserKind: KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
     input: unknown;
     output: unknown;
 }>>;
-export interface DataParserDefinition<GenericChecker extends DataParserChecker = DataParserChecker> {
+export interface DataParserDefinition<GenericChecker extends DataParserCheckerBase = DataParserCheckerBase> {
     readonly errorMessage?: string;
     readonly checkers: readonly GenericChecker[];
 }
@@ -249,7 +251,7 @@ export declare class DataParserThrowError extends DataParserThrowError_base {
 }
 export declare function dataParserBaseInit<GenericDataParser extends DataParserBase>(kind: Exclude<GetKindHandler<GenericDataParser>, typeof dataParserKind>, definition: GenericDataParser["definition"], exec: (DataParserInitExecParams<GenericDataParser> | DataParserInitExecParams<GenericDataParser>["sync"]), specificOverrideHandler: OverrideHandler<GenericDataParser>): GenericDataParser;
 export declare namespace dataParserBaseInit {
-    var overrideHandler: OverrideHandler<DataParserBase<DataParserDefinition<DataParserChecker<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
+    var overrideHandler: OverrideHandler<DataParserBase<DataParserDefinition<DataParserCheckerBase<DataParserCheckerDefinition, unknown>>, unknown, unknown>>;
 }
 /**
  * @deprecated use dataParserBaseInit
@@ -258,7 +260,7 @@ export declare const dataParserInit: typeof dataParserBaseInit;
 export type Output<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["output"];
 export type Input<GenericDataParser extends DataParserBase> = GetKindValue<typeof dataParserKind, GenericDataParser>["input"];
 export interface DataParser<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBase<DataParserDefinition, GenericOutput, GenericInput> {
-    addChecker(...args: DataParserChecker<DataParserCheckerDefinition, GenericOutput>[]): DataParser<GenericOutput, GenericInput>;
+    addChecker(...args: DataParserCheckerBase<DataParserCheckerDefinition, GenericOutput>[]): DataParser<GenericOutput, GenericInput>;
 }
 export type Contract<GenericDataParser extends DataParserBase> = (GetKind<GenericDataParser> & Omit<RemoveKind<DataParserBase>, "addChecker" | "clone" | "definition"> & Pick<GenericDataParser, "definition"> & {
     addChecker(...args: never): Contract<GenericDataParser>;

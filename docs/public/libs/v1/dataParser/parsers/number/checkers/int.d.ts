@@ -1,9 +1,9 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinition {
 }
 export declare const checkerIntKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-int", unknown>>;
-type _DataParserCheckerInt = (Kind<typeof checkerIntKind.definition> & DataParserChecker<DataParserCheckerDefinitionInt, number>);
+type _DataParserCheckerInt = (Kind<typeof checkerIntKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionInt, number>);
 export interface DataParserCheckerInt extends _DataParserCheckerInt {
 }
 export declare function checkerInt(definition?: Partial<DataParserCheckerDefinitionInt>): DataParserCheckerInt;

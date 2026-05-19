@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
+import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import { string } from "..";
@@ -12,7 +12,7 @@ export const checkerUuidKind = createDataParserKind("checker-uuid");
 
 type _DataParserCheckerUuid = (
 	& Kind<typeof checkerUuidKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionUuid,
 		string
 	>

@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output } from "../base";
+import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
 import { type DataParserError } from "../error";
 
 type _DataParserTransformExtended<
@@ -21,14 +21,14 @@ export interface DataParserTransformExtended<
 > extends _DataParserTransformExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserTransformCheckers<Output<this>>,
-			...dataParsers.DataParserTransformCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserTransformCheckers<Output<this>>,
-				...dataParsers.DataParserTransformCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -58,13 +58,11 @@ export interface DataParserTransformExtended<
 export function transform<
 	GenericDataParser extends DataParser,
 	GenericOutput extends unknown,
-	const GenericDefinition extends Partial<
-		Omit<
-			dataParsers.DataParserDefinitionTransform<
-				dataParsers.DataParserTransformOutput<() => GenericOutput>
-			>,
-			"inner" | "theFunction"
-		>
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionTransform<
+			dataParsers.DataParserTransformOutput<() => GenericOutput>
+		>,
+		"inner" | "theFunction"
 	> = never,
 >(
 	inner: GenericDataParser,
@@ -72,7 +70,15 @@ export function transform<
 		input: Output<GenericDataParser>,
 		error: DataParserError
 	) => GenericOutput,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionTransform<
+				dataParsers.DataParserTransformOutput<() => GenericOutput>
+			>,
+			"inner" | "theFunction"
+		>,
+		GenericDefinition
+	>,
 ): DataParserTransformExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionTransform,

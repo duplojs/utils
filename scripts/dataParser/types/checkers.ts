@@ -31,7 +31,6 @@ export interface EligibleChecker<
 	GenericValue extends unknown,
 > {
 	base: DataParserChecker<
-		DataParserCheckerDefinition,
 		GenericValue
 	>;
 	refine: AllDataParser.DataParserCheckerRefine<
@@ -80,7 +79,6 @@ export type GetEligibleChecker<
 	? Extract<
 		InferredResult[keyof InferredResult],
 		DataParserChecker<
-			DataParserCheckerDefinition,
 			GenericValue
 		>
 	>

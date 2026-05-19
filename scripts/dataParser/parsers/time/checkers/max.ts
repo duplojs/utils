@@ -1,5 +1,5 @@
 import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserChecker } from "@scripts/dataParser/base";
+import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
 import { addIssue } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import * as DDate from "@scripts/date";
@@ -12,7 +12,7 @@ export const checkerTimeMaxKind = createDataParserKind("checker-time-max");
 
 type _DataParserCheckerTimeMax = (
 	& Kind<typeof checkerTimeMaxKind.definition>
-	& DataParserChecker<
+	& DataParserCheckerBase<
 		DataParserCheckerDefinitionTimeMax,
 		DDate.TheTime
 	>

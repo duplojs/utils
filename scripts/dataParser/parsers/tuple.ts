@@ -1,6 +1,6 @@
 import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, createOverride, type Or } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../kind";
 import * as DArray from "@scripts/array";
@@ -31,7 +31,10 @@ export type DataParserTupleShapeOutput<
 						InferredRest,
 						GenericRest
 					>
-					: UnionContain<GenericRest, undefined> extends true
+					: Or<[
+						UnionContain<GenericRest, undefined>,
+						IsEqual<GenericRest, never>,
+					]> extends true
 						? []
 						: Output<Adaptor<GenericRest, DataParser>>[]
 			),
@@ -62,7 +65,10 @@ export type DataParserTupleShapeInput<
 						InferredRest,
 						GenericRest
 					>
-					: UnionContain<GenericRest, undefined> extends true
+					: Or<[
+						UnionContain<GenericRest, undefined>,
+						IsEqual<GenericRest, never>,
+					]> extends true
 						? []
 						: Input<Adaptor<GenericRest, DataParser>>[]
 			),
@@ -106,14 +112,14 @@ export interface DataParserTuple<
 > extends _DataParserTuple<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserTupleCheckers<Output<this>>,
-			...DataParserTupleCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserTupleCheckers<Output<this>>,
-				...DataParserTupleCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -130,17 +136,23 @@ export interface DataParserTuple<
  */
 export function tuple<
 	const GenericShape extends TupleShape,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionTuple<
+			DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
+		>,
+		"shape"
+	> = never,
+>(
+	shape: GenericShape,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			DataParserDefinitionTuple<
 				DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
 			>,
 			"shape"
-		>
-	> = never,
->(
-	shape: GenericShape,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserTuple<
 		MergeDefinition<
 			DataParserDefinitionTuple,

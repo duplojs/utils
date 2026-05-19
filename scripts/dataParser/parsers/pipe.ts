@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 import { popErrorPath, setErrorPath } from "../error";
 
@@ -35,14 +35,14 @@ export interface DataParserPipe<
 > extends _DataParserPipe<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserPipeCheckers<Output<this>>,
-			...DataParserPipeCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserPipeCheckers<Output<this>>,
-				...DataParserPipeCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -60,18 +60,24 @@ export interface DataParserPipe<
 export function pipe<
 	GenericInput extends DataParser,
 	GenericOutput extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
-			DataParserDefinitionPipe<
-				Output<GenericOutput>
-			>,
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionPipe<
+			Output<GenericOutput>
+		>,
 		"input" | "output"
-		>
 	> = never,
 >(
 	input: GenericInput,
 	output: GenericOutput,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			DataParserDefinitionPipe<
+				Output<GenericOutput>
+			>,
+			"input" | "output"
+		>,
+		GenericDefinition
+	>,
 ): DataParserPipe<
 		MergeDefinition<
 			DataParserDefinitionPipe,

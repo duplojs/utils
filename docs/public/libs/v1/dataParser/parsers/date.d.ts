@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 import * as DDate from "../../date";
 export type DataParserDateCheckers = GetEligibleChecker<DDate.TheDate>;
 export interface DataParserDefinitionDate extends DataParserDefinition<DataParserDateCheckers> {
@@ -10,11 +10,11 @@ export declare const dateKind: import("../../common").KindHandler<import("../../
 type _DataParserDate<GenericDefinition extends DataParserDefinitionDate> = (DataParserBase<GenericDefinition, DDate.TheDate, DDate.TheDate | Date | DDate.SerializedTheDate> & Kind<typeof dateKind.definition>);
 export interface DataParserDate<GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate> extends _DataParserDate<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserDateCheckers,
-        ...DataParserDateCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserDateCheckers,
-        ...DataParserDateCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserDate<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -53,7 +53,7 @@ export interface DataParserDate<GenericDefinition extends DataParserDefinitionDa
  * @namespace DP
  * 
  */
-export declare function date<const GenericDefinition extends Partial<DataParserDefinitionDate> = never>(definition?: GenericDefinition): DataParserDate<MergeDefinition<DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function date<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionDate>, GenericDefinition>): DataParserDate<MergeDefinition<DataParserDefinitionDate, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace date {
     var overrideHandler: import("../../common").OverrideHandler<DataParserDate<DataParserDefinitionDate>>;
 }

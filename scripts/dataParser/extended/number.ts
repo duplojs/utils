@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 
 type _DataParserNumberExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNumber,
@@ -20,14 +20,14 @@ export interface DataParserNumberExtended<
 > extends _DataParserNumberExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserNumberCheckers,
-			...dataParsers.DataParserNumberCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserNumberCheckers,
-				...dataParsers.DataParserNumberCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -99,9 +99,12 @@ export interface DataParserNumberExtended<
  * {@include dataParser/extended/number/index.md}
  */
 export function number<
-	const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNumber> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>,
+		GenericDefinition
+	>,
 ): DataParserNumberExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionNumber,

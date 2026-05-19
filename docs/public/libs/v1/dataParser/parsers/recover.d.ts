@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserRecoverCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionRecover<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserRecoverCheckers<GenericInput>> {
     readonly inner: DataParser;
@@ -10,11 +10,11 @@ export declare const recoverKind: import("../../common").KindHandler<import("../
 type _DataParserRecover<GenericDefinition extends DataParserDefinitionRecover> = (DataParserBase<GenericDefinition, GenericDefinition["recoveredValue"], Input<GenericDefinition["inner"]>> & Kind<typeof recoverKind.definition>);
 export interface DataParserRecover<GenericDefinition extends DataParserDefinitionRecover = DataParserDefinitionRecover> extends _DataParserRecover<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserRecoverCheckers<Output<this>>,
-        ...DataParserRecoverCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserRecoverCheckers<Output<this>>,
-        ...DataParserRecoverCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserRecover<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -47,7 +47,7 @@ export interface DataParserRecover<GenericDefinition extends DataParserDefinitio
  * @namespace DP
  * 
  */
-export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends Partial<Omit<DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue">> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: GenericDefinition): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
+export declare function recover<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue"> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue">, GenericDefinition>): DataParserRecover<MergeDefinition<DataParserDefinitionRecover, NeverCoalescing<GenericDefinition, {}> & {
     inner: GenericDataParser;
     recoveredValue: GenericRecoveredValue;
 }>>;

@@ -1,6 +1,6 @@
 import { type Kind, type NeverCoalescing, type Memoized, type FixDeepFunctionInfer } from "../../../common";
-import { dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, type DataParser } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../types";
+import { dataParserKind, type Input, type Output, type DataParserBase, type DataParserDefinition, type DataParser, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
 import * as DObject from "../../../object";
 export * from "./omit";
 export * from "./pick";
@@ -26,11 +26,11 @@ export declare const objectKind: import("../../../common").KindHandler<import(".
 type _DataParserObject<GenericDefinition extends DataParserDefinitionObject> = (DataParserBase<GenericDefinition, DataParserObjectShapeOutput<GenericDefinition["shape"]>, DataParserObjectShapeInput<GenericDefinition["shape"]>> & Kind<typeof objectKind.definition>);
 export interface DataParserObject<GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject> extends _DataParserObject<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserObjectCheckers<Output<this>>,
-        ...DataParserObjectCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserObjectCheckers<Output<this>>,
-        ...DataParserObjectCheckers<Output<this>>[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserObject<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -72,7 +72,7 @@ export interface DataParserObject<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function object<const GenericShape extends DataParserObjectShape, const GenericDefinition extends Partial<Omit<DataParserDefinitionObject<DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape">> = never>(shape: GenericShape, definition?: GenericDefinition): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
+export declare function object<const GenericShape extends DataParserObjectShape, const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionObject<DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape"> = never>(shape: GenericShape, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionObject<DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape">, GenericDefinition>): DataParserObject<MergeDefinition<DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
     readonly shape: GenericShape;
 }>>;
 export declare namespace object {

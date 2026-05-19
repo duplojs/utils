@@ -1,16 +1,16 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
 import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output } from "../base";
+import { type Input, type Output, type DataParserChecker } from "../base";
 type _DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber> = (Kind<typeof dataParsers.numberKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserNumber<GenericDefinition>>, Input<dataParsers.DataParserNumber<GenericDefinition>>>);
 export interface DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber> extends _DataParserNumberExtended<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        dataParsers.DataParserNumberCheckers,
-        ...dataParsers.DataParserNumberCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        dataParsers.DataParserNumberCheckers,
-        ...dataParsers.DataParserNumberCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
     refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
@@ -132,7 +132,7 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
  * @namespace DPE
  * 
  */
-export declare function number<const GenericDefinition extends Partial<dataParsers.DataParserDefinitionNumber> = never>(definition?: GenericDefinition): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function number<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>, GenericDefinition>): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace number {
     var overrideHandler: import("../../common").OverrideHandler<DataParserNumberExtended<dataParsers.DataParserDefinitionNumber>>;
 }

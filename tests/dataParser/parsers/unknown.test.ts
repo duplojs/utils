@@ -1,6 +1,24 @@
 import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser unknown", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.unknown({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<typeof value, unknown, "strict">;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, unknown, "strict">;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("returns input as-is", () => {
 		const schema = DDataParser.unknown();
 

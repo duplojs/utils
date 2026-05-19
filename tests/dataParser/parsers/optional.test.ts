@@ -1,6 +1,24 @@
 import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser optional", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.optional(DDataParser.string(), {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<typeof value, string | undefined, "strict">;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, string | undefined, "strict">;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses value using inner parser", () => {
 		const schema = DDataParser.optional(DDataParser.string());
 

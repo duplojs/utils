@@ -1,6 +1,32 @@
-import { DEither, DDataParser } from "@scripts";
+import { DEither, DDataParser, type ExpectType } from "@scripts";
 
 describe("coerce.string", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.coerce.string({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						string,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					string,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("coerces value to string", () => {
 		expect(DDataParser.coerce.string().parse(42)).toStrictEqual(DEither.success("42"));
 	});

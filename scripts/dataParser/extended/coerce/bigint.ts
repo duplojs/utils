@@ -1,14 +1,21 @@
-import { type NeverCoalescing } from "@scripts/common";
-import { type MergeDefinition } from "../../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
 import type * as dataParsers from "../../parsers";
 import * as dataParsersExtended from "..";
 
 export function bigint<
-	const GenericDefinition extends Partial<
-		Omit<dataParsers.DataParserDefinitionBigInt, "coerce">
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionBigInt,
+		"coerce"
 	> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionBigInt,
+			"coerce"
+		>,
+		GenericDefinition
+	>,
 ): dataParsersExtended.DataParserBigIntExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionBigInt,

@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export type DataParserNullableCheckers<
@@ -39,14 +39,14 @@ export interface DataParserNullable<
 > extends _DataParserNullable<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserNullableCheckers<Output<this>>,
-			...DataParserNullableCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserNullableCheckers<Output<this>>,
-				...DataParserNullableCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -63,17 +63,23 @@ export interface DataParserNullable<
  */
 export function nullable<
 	GenericDataParser extends DataParser,
-	const GenericDefinition extends Partial<
-		Omit<
+	const GenericDefinition extends PrepareDataParserDefinition<
+		DataParserDefinitionNullable<
+			Output<GenericDataParser>
+		>,
+		"inner"
+	> = never,
+>(
+	inner: GenericDataParser,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
 			DataParserDefinitionNullable<
 				Output<GenericDataParser>
 			>,
 			"inner"
-		>
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: GenericDefinition,
+		>,
+		GenericDefinition
+	>,
 ): DataParserNullable<
 		MergeDefinition<
 			DataParserDefinitionNullable,

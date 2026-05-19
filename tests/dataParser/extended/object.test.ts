@@ -3,6 +3,32 @@ import { DDataParser, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.object", () => {
+	it("create data parser with checker", () => {
+		const dataParser = extended.object({ name: extended.string() }, {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						{ name: string },
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					{ name: string },
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("parses object shape", () => {
 		const parser = extended.object({
 			name: extended.string(),
@@ -146,5 +172,137 @@ describe("extended.object", () => {
 
 		const missing = { name: "alice" };
 		expect(DEither.isLeft(parser.parse(missing))).toBe(true);
+	});
+
+	it("infers checker refine value on omit definition", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+			city: extended.string(),
+		}).omit(
+			{ city: true },
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type check = ExpectType<
+							typeof value,
+							{
+								name: string;
+								age: number;
+							},
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		void parser;
+	});
+
+	it("infers checker refine value on pick definition", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+			city: extended.string(),
+		}).pick(
+			{
+				name: true,
+				city: true,
+			},
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type check = ExpectType<
+							typeof value,
+							{
+								name: string;
+								city: string;
+							},
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		void parser;
+	});
+
+	it("infers checker refine value on extends definition", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+		}).extends(
+			{
+				city: extended.string(),
+			},
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type check = ExpectType<
+							typeof value,
+							{
+								name: string;
+								age: number;
+								city: string;
+							},
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		);
+
+		void parser;
+	});
+
+	it("infers checker refine value on partial definition", () => {
+		const parser = extended.object({
+			name: extended.string(),
+			age: extended.number(),
+		}).partial({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							name?: string;
+							age?: number;
+						},
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		});
+
+		void parser;
+	});
+
+	it("infers checker refine value on required definition", () => {
+		const parser = extended.object({
+			name: extended.optional(extended.string()),
+			age: extended.optional(extended.number()),
+		}).required({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						{
+							name: string;
+							age: number;
+						},
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		});
+
+		void parser;
 	});
 });

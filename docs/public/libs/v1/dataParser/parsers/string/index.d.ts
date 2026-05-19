@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../../common";
-import { type DataParserDefinition, type DataParserBase } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../../dataParser/types";
 export * from "./checkers";
 export type DataParserStringCheckers = GetEligibleChecker<string>;
 export interface DataParserDefinitionString extends DataParserDefinition<DataParserStringCheckers> {
@@ -10,11 +10,11 @@ export declare const stringKind: import("../../../common").KindHandler<import(".
 type _DataParserString<GenericDefinition extends DataParserDefinitionString> = (DataParserBase<GenericDefinition, string, string> & Kind<typeof stringKind.definition>);
 export interface DataParserString<GenericDefinition extends DataParserDefinitionString = DataParserDefinitionString> extends _DataParserString<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserStringCheckers,
-        ...DataParserStringCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserStringCheckers,
-        ...DataParserStringCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserString<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -47,7 +47,7 @@ export interface DataParserString<GenericDefinition extends DataParserDefinition
  * @namespace DP
  * 
  */
-export declare function string<const GenericDefinition extends Partial<DataParserDefinitionString> = never>(definition?: GenericDefinition): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function string<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionString>, GenericDefinition>): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace string {
     var overrideHandler: import("../../../common").OverrideHandler<DataParserString<DataParserDefinitionString>>;
 }

@@ -1,8 +1,8 @@
 import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
 import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition } from "../types";
+import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser } from "../base";
+import { type Input, type Output, type DataParser, type DataParserChecker } from "../base";
 
 type _DataParserRecoverExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionRecover,
@@ -20,14 +20,14 @@ export interface DataParserRecoverExtended<
 > extends _DataParserRecoverExtended<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			dataParsers.DataParserRecoverCheckers<Output<this>>,
-			...dataParsers.DataParserRecoverCheckers<Output<this>>[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				dataParsers.DataParserRecoverCheckers<Output<this>>,
-				...dataParsers.DataParserRecoverCheckers<Output<this>>[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -57,16 +57,24 @@ export interface DataParserRecoverExtended<
 export function recover<
 	GenericDataParser extends DataParser,
 	GenericRecoveredValue extends Output<GenericDataParser>,
-	const GenericDefinition extends Partial<
-		Omit<
-			dataParsers.DataParserDefinitionRecover<Output<GenericDataParser>>,
-			"inner" | "recoveredValue"
-		>
+	const GenericDefinition extends PrepareDataParserDefinition<
+		dataParsers.DataParserDefinitionRecover<
+			Output<GenericDataParser>
+		>,
+		"inner" | "recoveredValue"
 	> = never,
 >(
 	inner: GenericDataParser,
 	recoveredValue: GenericRecoveredValue,
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionRecover<
+				Output<GenericDataParser>
+			>,
+			"inner" | "recoveredValue"
+		>,
+		GenericDefinition
+	>,
 ): DataParserRecoverExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionRecover,

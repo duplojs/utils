@@ -49,6 +49,36 @@ describe("DDataParser tuple", () => {
 		>;
 	});
 
+	it("create data parser tuple with checker", () => {
+		const dataParser = DDataParser.tuple(
+			[
+				DDataParser.string(),
+				DDataParser.number(),
+			],
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+						type check = ExpectType<
+							typeof value,
+							[string, number],
+							"strict"
+						>;
+						return true;
+					}),
+				],
+			},
+		).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					[string, number],
+					"strict"
+				>;
+				return true;
+			}),
+		);
+	});
+
 	it("parses tuple with rest parser", () => {
 		const schema = DDataParser.tuple([DDataParser.string()], {
 			rest: DDataParser.number(),

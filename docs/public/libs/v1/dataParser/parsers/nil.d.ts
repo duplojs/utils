@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer } from "../../common";
-import { type DataParserDefinition, type DataParserBase } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "../../dataParser/types";
+import { type DataParserDefinition, type DataParserBase, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../../dataParser/types";
 export type DataParserNilCheckers = GetEligibleChecker<null>;
 export interface DataParserDefinitionNil extends DataParserDefinition<DataParserNilCheckers> {
     readonly coerce: boolean;
@@ -9,11 +9,11 @@ export declare const nilKind: import("../../common").KindHandler<import("../../c
 type _DataParserNil<GenericDefinition extends DataParserDefinitionNil> = (DataParserBase<GenericDefinition, null, null> & Kind<typeof nilKind.definition>);
 export interface DataParserNil<GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil> extends _DataParserNil<GenericDefinition> {
     addChecker<GenericChecker extends readonly [
-        DataParserNilCheckers,
-        ...DataParserNilCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
-        DataParserNilCheckers,
-        ...DataParserNilCheckers[]
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
     ], GenericChecker>): DataParserNil<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
 }
 /**
@@ -46,7 +46,7 @@ export interface DataParserNil<GenericDefinition extends DataParserDefinitionNil
  * @namespace DP
  * 
  */
-export declare function nil<const GenericDefinition extends Partial<DataParserDefinitionNil> = never>(definition?: GenericDefinition): DataParserNil<MergeDefinition<DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;
+export declare function nil<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNil> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionNil>, GenericDefinition>): DataParserNil<MergeDefinition<DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;
 export declare namespace nil {
     var overrideHandler: import("../../common").OverrideHandler<DataParserNil<DataParserDefinitionNil>>;
 }

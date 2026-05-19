@@ -1,6 +1,32 @@
-import { DEither, DDataParser, DDate } from "@scripts";
+import { DEither, DDataParser, DDate, type ExpectType } from "@scripts";
 
 describe("coerce.time", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.coerce.time({
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						DDate.TheTime,
+						"strict"
+					>;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<
+					typeof value,
+					DDate.TheTime,
+					"strict"
+				>;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("coerces number, TheTime and ISO time inputs", () => {
 		const parser = DDataParser.coerce.time();
 		const existing = DDate.createTime(1, "minute");

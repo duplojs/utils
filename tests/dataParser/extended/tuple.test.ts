@@ -1,4 +1,4 @@
-import { DDataParserExtended, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DDataParserExtended, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParserExtended.tuple", () => {
 	it("parses tuple shape", () => {
@@ -15,6 +15,36 @@ describe("DDataParserExtended.tuple", () => {
 			DEither.Error<DDataParserExtended.DataParserError> | DEither.Success<[string, number]>,
 			"strict"
 		>;
+	});
+
+	it("create data parser tuple with checker", () => {
+		const dataParser = DDataParserExtended.tuple(
+			[
+				DDataParserExtended.string(),
+				DDataParserExtended.number(),
+			],
+			{
+				checkers: [
+					DDataParser.checkerRefine((value) => {
+							type check = ExpectType<
+								typeof value,
+								[string, number],
+								"strict"
+							>;
+							return true;
+					}),
+				],
+			},
+		).addChecker(
+			DDataParser.checkerRefine((value) => {
+					type check = ExpectType<
+						typeof value,
+						[string, number],
+						"strict"
+					>;
+					return true;
+			}),
+		);
 	});
 
 	it("support min/max checker", () => {

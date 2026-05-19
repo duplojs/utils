@@ -1,6 +1,6 @@
 import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition } from "@scripts/dataParser/types";
+import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import { createDataParserKind } from "../kind";
 
 export type DataParserUnknownCheckers = GetEligibleChecker<unknown>;
@@ -27,14 +27,14 @@ export interface DataParserUnknown<
 > extends _DataParserUnknown<GenericDefinition> {
 	addChecker<
 		GenericChecker extends readonly [
-			DataParserUnknownCheckers,
-			...DataParserUnknownCheckers[],
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
 		],
 	>(
 		...args: FixDeepFunctionInfer<
 			readonly [
-				DataParserUnknownCheckers,
-				...DataParserUnknownCheckers[],
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
 			],
 			GenericChecker
 		>
@@ -50,9 +50,12 @@ export interface DataParserUnknown<
  * {@include dataParser/classic/unknown/index.md}
  */
 export function unknown<
-	const GenericDefinition extends Partial<DataParserDefinitionUnknown> = never,
+	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionUnknown> = never,
 >(
-	definition?: GenericDefinition,
+	definition?: FixDeepFunctionInfer<
+		PrepareDataParserDefinition<DataParserDefinitionUnknown>,
+		GenericDefinition
+	>,
 ): DataParserUnknown<
 		MergeDefinition<
 			DataParserDefinitionUnknown,

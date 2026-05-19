@@ -1,10 +1,10 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionUuid extends DataParserCheckerDefinition {
     regex: RegExp;
 }
 export declare const checkerUuidKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-uuid", unknown>>;
-type _DataParserCheckerUuid = (Kind<typeof checkerUuidKind.definition> & DataParserChecker<DataParserCheckerDefinitionUuid, string>);
+type _DataParserCheckerUuid = (Kind<typeof checkerUuidKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionUuid, string>);
 export interface DataParserCheckerUuid extends _DataParserCheckerUuid {
 }
 export declare function checkerUuid(definition?: Partial<Omit<DataParserCheckerDefinitionUuid, "regex">>): DataParserCheckerUuid;

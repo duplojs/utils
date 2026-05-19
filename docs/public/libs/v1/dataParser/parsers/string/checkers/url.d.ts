@@ -1,12 +1,12 @@
 import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../../../../dataParser/base";
+import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
 export interface DataParserCheckerDefinitionUrl extends DataParserCheckerDefinition {
     hostname?: RegExp;
     protocol?: RegExp;
     normalize?: boolean;
 }
 export declare const checkerUrlKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-url", unknown>>;
-type _DataParserCheckerUrl = (Kind<typeof checkerUrlKind.definition> & DataParserChecker<DataParserCheckerDefinitionUrl, string>);
+type _DataParserCheckerUrl = (Kind<typeof checkerUrlKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionUrl, string>);
 export interface DataParserCheckerUrl extends _DataParserCheckerUrl {
 }
 export declare function checkerUrl(definition?: Partial<DataParserCheckerDefinitionUrl>): DataParserCheckerUrl;

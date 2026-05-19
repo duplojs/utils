@@ -1,6 +1,24 @@
 import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
 
 describe("DDataParser lazy", () => {
+	it("create data parser with checker", () => {
+		const dataParser = DDataParser.lazy(() => DDataParser.string(), {
+			checkers: [
+				DDataParser.checkerRefine((value) => {
+					type check = ExpectType<typeof value, string, "strict">;
+					return true;
+				}),
+			],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, string, "strict">;
+				return true;
+			}),
+		);
+
+		void dataParser;
+	});
+
 	it("defers parser creation", () => {
 		const schema = DDataParser.lazy(() => DDataParser.number());
 
