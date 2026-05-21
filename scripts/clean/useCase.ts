@@ -1,13 +1,13 @@
 import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, pipe, createOverride, type RemoveKind, type AnyFunction, type Adaptor } from "@scripts/common";
-import { type RepositoryHandler } from "./repository";
 import { createCleanKind } from "./kind";
 import * as DObject from "../object";
 import * as DArray from "../array";
 import * as DString from "../string";
+import { type PortHandler } from "./port";
 
 export type UseCaseDependencies = Record<
 	string,
-	RepositoryHandler | UseCaseHandler
+	UseCaseHandler | PortHandler
 >;
 
 export type UseCaseDependenciesValue<
@@ -15,19 +15,19 @@ export type UseCaseDependenciesValue<
 > = SimplifyTopLevel<{
 	[
 	Prop in keyof GenericDependencies as Uncapitalize<Adaptor<Prop, string>>
-	]: GenericDependencies[Prop] extends RepositoryHandler
+	]: GenericDependencies[Prop] extends PortHandler
 		? ReturnType<GenericDependencies[Prop]["createImplementation"]>
 		: GenericDependencies[Prop] extends UseCaseHandler
 			? ReturnType<GenericDependencies[Prop]["getUseCase"]>
 			: never
 }>;
 
-export type GetAllRepositories<
+export type GetAllPorts<
 	GenericDependenciesValue extends UseCaseDependencies,
 > = GenericDependenciesValue extends any
 	? ({
 		[Prop in keyof GenericDependenciesValue]: (
-			GenericDependenciesValue[Prop] extends RepositoryHandler
+			GenericDependenciesValue[Prop] extends PortHandler
 				? [
 					Uncapitalize<Adaptor<Prop, string>>,
 					ReturnType<
@@ -35,7 +35,7 @@ export type GetAllRepositories<
 					>,
 				]
 				: GenericDependenciesValue[Prop] extends UseCaseHandler
-					? GetAllRepositories<GenericDependenciesValue[Prop]["dependencies"]>
+					? GetAllPorts<GenericDependenciesValue[Prop]["dependencies"]>
 					: never
 		)
 	})[keyof GenericDependenciesValue]
@@ -57,9 +57,9 @@ export interface UseCaseHandler<
 	 * {@include clean/createUseCase/getUseCase.md}
 	 */
 	getUseCase(
-		repositories: (
+		ports: (
 			& (
-				GetAllRepositories<
+				GetAllPorts<
 					GenericDependencies
 				> extends infer InferredEntriesDependenciesValue extends ObjectEntry
 					? {
@@ -137,10 +137,10 @@ export function useCaseInstances<
 	GenericUseCases extends Record<string, UseCaseHandler>,
 >(
 	useCases: GenericUseCases,
-	repositories: SimplifyTopLevel<
+	ports: SimplifyTopLevel<
 		UnionToIntersection<
 			{
-				[Prop in keyof GenericUseCases]: GetAllRepositories<
+				[Prop in keyof GenericUseCases]: GetAllPorts<
 					GenericUseCases[Prop]["dependencies"]
 				> extends infer InferredEntriesDependenciesValue extends ObjectEntry
 					? {
@@ -159,7 +159,7 @@ export function useCaseInstances<
 		DArray.map(
 			([key, useCase]) => DObject.entry(
 				DString.uncapitalize(key),
-				useCase.getUseCase(repositories as never),
+				useCase.getUseCase(ports as never),
 			),
 		),
 		DObject.fromEntries,

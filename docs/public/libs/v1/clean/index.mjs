@@ -1,13 +1,14 @@
 export { createCleanKind } from './kind.mjs';
 export { CreateNewTypeError, createNewType, newTypeHandlerKind, newTypeKind } from './newType.mjs';
 export { CreateEntityError, createEntity, entityHandlerKind, entityKind } from './entity/index.mjs';
-export { createRepository, repositoryHandlerKind } from './repository.mjs';
+export { createRepository } from './repository.mjs';
 export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.mjs';
 export { createFlag, flagKind } from './flag.mjs';
 export { none, some } from './maybe.mjs';
 export { toMapDataParser } from './toMapDataParser.mjs';
 export { chainEndKind, chainedFunction, requirementsChainedFunctionKind } from './chainedFunction.mjs';
 export { appendEvidence, evidenceKind } from './evidence.mjs';
+export { createPort, portHandlerKind } from './port.mjs';
 export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './entity/property.mjs';
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "chainedFunction declares a typed aggregate of pure business actions that must run in order. The use case then orchestrates repositories around that aggregate."
+description: "chainedFunction declares a typed aggregate of pure business actions that must run in order. The use case then orchestrates ports around that aggregate."
 prev:
   text: "UseCase"
   link: "/en/v1/api/clean/useCase"
@@ -13,7 +13,7 @@ next:
 
 `chainedFunction` solves a Clean Architecture coordination problem: inside a use case, you sometimes need to associate operations that update different entities. The chained function represents the aggregate that makes those operations part of the same business consistency boundary.
 
-It lets the domain explicitly declare that several pure business actions are linked. Functions passed to `chainedFunction` do not inject dependencies and do not call repositories: they only control entity lifecycle from the business point of view. The use case then orchestrates the aggregate, repositories, and technical effects.
+It lets the domain explicitly declare that several pure business actions are linked. Functions passed to `chainedFunction` do not inject dependencies and do not call ports: they only control entity lifecycle from the business point of view. The use case then orchestrates the aggregate, ports, and technical effects.
 
 ## Interactive example
 
@@ -33,7 +33,11 @@ For example, publishing a comment can require:
 - producing a valid comment entity;
 - producing an updated article entity.
 
-Persistence stays in the use case through the library repository system. The chained function only models the aggregate contract: "creating the comment" and "incrementing the article comment count" are linked business actions.
+Persistence stays in the use case through the library port system. The chained function only models the aggregate contract: "creating the comment" and "incrementing the article comment count" are linked business actions.
+
+::: info
+In this context, `repository` remains a semantic alias of `port` through `createRepository`.
+:::
 
 ## Guarantees
 
@@ -110,5 +114,6 @@ Those values are not necessarily useful as runtime arguments for the next functi
 ## See also
 
 - [`useCase`](/en/v1/api/clean/useCase) - Calls application logic with dependencies.
-- [`repository`](/en/v1/api/clean/repository) - Declares a repository contract.
+- [`port`](/en/v1/api/clean/port) - Declares a port contract.
+- [`repository`](/en/v1/api/clean/repository) - Semantic alias of `createPort`.
 - [`Either`](/en/v1/api/either/) - Represents explicit success and error values.

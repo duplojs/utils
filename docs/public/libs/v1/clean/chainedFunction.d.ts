@@ -37,7 +37,15 @@ declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue):
 export interface ChainedFunctionParams {
     breakIfLeft: typeof breakIfLeft;
 }
-export type ChainedFunction<GenericValue extends FunctionChain = FunctionChain> = <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)) => ComputeResult<GenericGenerator>;
+export interface ChainedFunction<GenericValue extends FunctionChain = FunctionChain> {
+    <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)): ComputeResult<GenericGenerator>;
+    /**
+     * @deprecated use this only for the tests.
+     */
+    functions: {
+        [Entry in GenericValue[number] as Entry[0]]: Entry[1];
+    };
+}
 /**
  * Declares a typed aggregate of pure linked business actions that must run in order.
  * 

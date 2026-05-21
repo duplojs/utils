@@ -1,6 +1,6 @@
 import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "./kind";
-import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintSetInputConstraint, type ExtractConstraintSetConstraintHandlers } from "./constraint";
+import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";

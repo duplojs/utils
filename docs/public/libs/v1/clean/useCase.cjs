@@ -28,8 +28,8 @@ createUseCase.overrideHandler = override.createOverride("@duplojs/utils/clean/us
 /**
  * {@include clean/useCaseInstances/index.md}
  */
-function useCaseInstances(useCases, repositories) {
-    return pipe.pipe(useCases, entries.entries, map.map(([key, useCase]) => entry.entry(uncapitalize.uncapitalize(key), useCase.getUseCase(repositories))), fromEntries.fromEntries);
+function useCaseInstances(useCases, ports) {
+    return pipe.pipe(useCases, entries.entries, map.map(([key, useCase]) => entry.entry(uncapitalize.uncapitalize(key), useCase.getUseCase(ports))), fromEntries.fromEntries);
 }
 
 exports.createUseCase = createUseCase;

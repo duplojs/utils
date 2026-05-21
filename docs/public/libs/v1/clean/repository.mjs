@@ -1,18 +1,8 @@
-import { createCleanKind } from './kind.mjs';
-import { pipe } from '../common/pipe.mjs';
-import { createOverride } from '../common/override.mjs';
+import { createPort } from './port.mjs';
 
-const repositoryHandlerKind = createCleanKind("repository-handler");
 /**
  * {@include clean/createRepository/index.md}
  */
-function createRepository() {
-    return pipe({
-        createImplementation(implementation) {
-            return implementation;
-        },
-    }, repositoryHandlerKind.setTo, createRepository.overrideHandler.apply);
-}
-createRepository.overrideHandler = createOverride("@duplojs/utils/clean/repository");
+const createRepository = createPort;
 
-export { createRepository, repositoryHandlerKind };
+export { createRepository };

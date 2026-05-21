@@ -5,8 +5,8 @@ prev:
   text: "appendEvidence"
   link: "/en/v1/api/clean/appendEvidence"
 next:
-  text: "UseCase"
-  link: "/en/v1/api/clean/useCase"
+  text: "Port"
+  link: "/en/v1/api/clean/port"
 ---
 
 # Repository
@@ -24,22 +24,23 @@ A `repository` is an abstraction layer between the application and the infrastru
 
 ## How it works
 
-`C.createRepository<GenericRepository>()` returns a **repository handler**.
-Its goal is simple: force you to provide an implementation that exactly matches the `GenericRepository` contract (parameters, returns, async, etc.).
+`C.createRepository<GenericRepository>()` is a wrapper over `C.createPort<GenericRepository>()`.
+It is only a semantic alias to keep repository naming in your codebase.
 
 ::: info
-This helper is intentionally minimal: it provides no runtime logic. Its value is in typing and composition with [useCase](/en/v1/api/clean/useCase).
+`createRepository` has the exact same behavior as `createPort`: same typing, same runtime behavior, same returned handler.
 :::
 
 ## Declare a contract
 
-The contract of a repository is generally an interface of the application layer (e.g. `findById`, `save`, ...).
+The contract of a repository is generally an interface of the application layer (e.g. `findById`, `save`, ...). Internally, this contract is handled by the same machinery as a port contract.
+Depending on the context, this declaration can also be made in the domain layer to link aggregates at the type level with specific repository input or return types.
 
 Once the handler is created, you can pass it as a dependency to `C.createUseCase(...)` and instantiate the use case with a real implementation (infrastructure layer).
 
 ## Methods and Properties
 
-A `RepositoryHandler<GenericRepository>` exposes:
+Because `createRepository` delegates to `createPort`, it exposes the same handler API:
 
 ### Methods
 

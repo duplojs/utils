@@ -53,7 +53,10 @@ Ajoute dynamiquement une information (flag) sur une entité, avec typage strict.
 Ajoute un trait d'evidence sur une valeur clean pour marquer des étapes métier terminées.
 
 ## [Repository](/fr/v1/api/clean/repository)
-Déclare un repository (contrat) et type-check l'implémentation.
+Déclare un contrat repository via un wrapper sémantique de `createPort`.
+
+## [Port](/fr/v1/api/clean/port)
+Déclare un port (contrat) et type-check l'implémentation.
 
 ## [UseCase](/fr/v1/api/clean/useCase)
 Déclare un use case avec des dépendances (repositories ou autres use cases).

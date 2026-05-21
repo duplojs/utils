@@ -14,8 +14,8 @@ const chainedFunctionParams = { breakIfLeft };
  * {@include clean/chainedFunction/index.md}
  */
 function chainedFunction(function1, function2, ...functions) {
-    return (theFunction) => {
-        const functionChain = [function1, function2, ...functions];
+    const functionChain = [function1, function2, ...functions];
+    const chainedFunction = (theFunction) => {
         const createLink = (functionChain) => (theFunction) => {
             const [functionName, chainedFunction] = functionChain.shift();
             const result = theFunction({ [functionName]: chainedFunction });
@@ -63,6 +63,8 @@ function chainedFunction(function1, function2, ...functions) {
             ? chainEndKind.getValue(result.value)
             : result.value);
     };
+    chainedFunction.functions = Object.fromEntries(functionChain);
+    return chainedFunction;
 }
 chainedFunction.requirements = () => requirementsChainedFunctionKind.setTo({}, []);
 

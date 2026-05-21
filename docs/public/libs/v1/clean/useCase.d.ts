@@ -1,14 +1,14 @@
 import { type ObjectEntry, type Kind, type SimplifyTopLevel, type UnionToIntersection, type Adaptor } from "../common";
-import { type RepositoryHandler } from "./repository";
-export type UseCaseDependencies = Record<string, RepositoryHandler | UseCaseHandler>;
+import { type PortHandler } from "./port";
+export type UseCaseDependencies = Record<string, UseCaseHandler | PortHandler>;
 export type UseCaseDependenciesValue<GenericDependencies extends UseCaseDependencies> = SimplifyTopLevel<{
-    [Prop in keyof GenericDependencies as Uncapitalize<Adaptor<Prop, string>>]: GenericDependencies[Prop] extends RepositoryHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
+    [Prop in keyof GenericDependencies as Uncapitalize<Adaptor<Prop, string>>]: GenericDependencies[Prop] extends PortHandler ? ReturnType<GenericDependencies[Prop]["createImplementation"]> : GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
 }>;
-export type GetAllRepositories<GenericDependenciesValue extends UseCaseDependencies> = GenericDependenciesValue extends any ? ({
-    [Prop in keyof GenericDependenciesValue]: (GenericDependenciesValue[Prop] extends RepositoryHandler ? [
+export type GetAllPorts<GenericDependenciesValue extends UseCaseDependencies> = GenericDependenciesValue extends any ? ({
+    [Prop in keyof GenericDependenciesValue]: (GenericDependenciesValue[Prop] extends PortHandler ? [
         Uncapitalize<Adaptor<Prop, string>>,
         ReturnType<GenericDependenciesValue[Prop]["createImplementation"]>
-    ] : GenericDependenciesValue[Prop] extends UseCaseHandler ? GetAllRepositories<GenericDependenciesValue[Prop]["dependencies"]> : never);
+    ] : GenericDependenciesValue[Prop] extends UseCaseHandler ? GetAllPorts<GenericDependenciesValue[Prop]["dependencies"]> : never);
 })[keyof GenericDependenciesValue] : never;
 export declare const useCaseHandlerKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/use-case-handler", unknown>>;
 export interface UseCaseHandler<GenericDependencies extends UseCaseDependencies = any, GenericUseCase extends (input: any) => any = any> extends Kind<typeof useCaseHandlerKind.definition> {
@@ -26,7 +26,7 @@ export interface UseCaseHandler<GenericDependencies extends UseCaseDependencies 
      * ```
      * 
      */
-    getUseCase(repositories: ((GetAllRepositories<GenericDependencies> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
+    getUseCase(ports: ((GetAllPorts<GenericDependencies> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
         [Entry in InferredEntriesDependenciesValue as Entry[0]]: Entry[1];
     } : never) & ({
         [Prop in keyof GenericDependencies as GenericDependencies[Prop] extends UseCaseHandler ? Uncapitalize<Adaptor<Prop, string>> : never]?: GenericDependencies[Prop] extends UseCaseHandler ? ReturnType<GenericDependencies[Prop]["getUseCase"]> : never;
@@ -163,8 +163,8 @@ export declare namespace createUseCase {
  * @namespace C
  * 
  */
-export declare function useCaseInstances<GenericUseCases extends Record<string, UseCaseHandler>>(useCases: GenericUseCases, repositories: SimplifyTopLevel<UnionToIntersection<{
-    [Prop in keyof GenericUseCases]: GetAllRepositories<GenericUseCases[Prop]["dependencies"]> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
+export declare function useCaseInstances<GenericUseCases extends Record<string, UseCaseHandler>>(useCases: GenericUseCases, ports: SimplifyTopLevel<UnionToIntersection<{
+    [Prop in keyof GenericUseCases]: GetAllPorts<GenericUseCases[Prop]["dependencies"]> extends infer InferredEntriesDependenciesValue extends ObjectEntry ? {
         [Entry in InferredEntriesDependenciesValue as Entry[0]]: Entry[1];
     } : never;
 }[keyof GenericUseCases]>>): UseCaseDependenciesValue<GenericUseCases>;

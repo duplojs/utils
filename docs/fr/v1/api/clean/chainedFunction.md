@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "chainedFunction déclare un agrégat typé d'actions métier pures qui doivent s'exécuter dans l'ordre. Le use case orchestre ensuite les repositories autour de cet agrégat."
+description: "chainedFunction déclare un agrégat typé d'actions métier pures qui doivent s'exécuter dans l'ordre. Le use case orchestre ensuite les ports autour de cet agrégat."
 prev:
   text: "UseCase"
   link: "/fr/v1/api/clean/useCase"
@@ -13,7 +13,7 @@ next:
 
 `chainedFunction` répond à un problème de coordination en Clean Architecture : dans un use case, on doit parfois associer des opérations qui mettent à jour des entités différentes. La chained function représente alors l'agrégat qui rend ces opérations solidaires dans une même frontière de cohérence métier.
 
-Elle permet au domaine de déclarer explicitement que plusieurs actions métier pures sont liées. Les fonctions passées à `chainedFunction` ne font pas d'injection de dépendance et n'appellent pas de repository : elles contrôlent uniquement le cycle de vie des entités. Le use case orchestre ensuite l'agrégat, les repositories et les effets techniques.
+Elle permet au domaine de déclarer explicitement que plusieurs actions métier pures sont liées. Les fonctions passées à `chainedFunction` ne font pas d'injection de dépendance et n'appellent pas de port : elles contrôlent uniquement le cycle de vie des entités. Le use case orchestre ensuite l'agrégat, les ports et les effets techniques.
 
 ## Exemple interactif
 
@@ -34,7 +34,11 @@ Par exemple, publier un commentaire peut demander :
 - de produire une entité commentaire valide ;
 - de produire une entité article mise à jour.
 
-La persistance reste dans le use case via le système de repository de la librairie. La chained function modélise seulement le contrat d'agrégat : "créer le commentaire" et "incrémenter le nombre de commentaires de l'article" sont des actions métier liées.
+La persistance reste dans le use case via le système de port de la librairie. La chained function modélise seulement le contrat d'agrégat : "créer le commentaire" et "incrémenter le nombre de commentaires de l'article" sont des actions métier liées.
+
+::: info
+Dans ce contexte, `repository` reste un alias sémantique de `port` via `createRepository`.
+:::
 
 ## Garanties
 
@@ -111,5 +115,6 @@ Ces valeurs ne sont pas nécessairement utiles comme arguments runtime de la fon
 ## Voir aussi
 
 - [`useCase`](/fr/v1/api/clean/useCase) - Appelle une logique applicative avec dépendances.
-- [`repository`](/fr/v1/api/clean/repository) - Déclare un contrat de repository.
+- [`port`](/fr/v1/api/clean/port) - Déclare un contrat de port.
+- [`repository`](/fr/v1/api/clean/repository) - Alias sémantique de `createPort`.
 - [`Either`](/fr/v1/api/either/) - Représente des valeurs explicites de succès et d'erreur.

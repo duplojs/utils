@@ -1,37 +1,11 @@
-import { type SimplifyTopLevel, type AnyFunction, type Kind } from "../common";
-export declare const repositoryHandlerKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/repository-handler", unknown>>;
-export interface RepositoryHandler<GenericRepository extends object = object> extends Kind<typeof repositoryHandlerKind.definition> {
-    /**
-     * Returns the implementation after verifying it matches the repository contract.
-     * 
-     * ```ts
-     * // Infrastructure Layer
-     * const userRepository = UserRepository.createImplementation({
-     * 	findById(userId) {
-     * 		// database call
-     * 		const user = User.Entity.mapOrThrow({
-     * 			id: unwrap(userId),
-     * 			nickname: "Daniel",
-     * 			roles: ["manager"],
-     * 		});
-     * 
-     * 		return Promise.resolve(E.success(user));
-     * 	},
-     * });
-     * ```
-     * 
-     */
-    createImplementation(implementation: SimplifyTopLevel<{
-        [Prop in keyof GenericRepository]: GenericRepository[Prop] extends AnyFunction ? (...args: Parameters<GenericRepository[Prop]>) => ReturnType<GenericRepository[Prop]> : GenericRepository[Prop];
-    }>): GenericRepository;
-}
+import { createPort } from "./port";
 /**
- * Creates a repository handler for a contract interface.
+ * Creates a repository handler as a label of `createPort`.
  * 
  * **Supported call styles:**
  * - Classic: `createRepository<Repository>()` -> returns a handler
  * 
- * The handler enforces the repository contract at compile time and stays runtime-free. It is meant to be composed with use cases.
+ * `createRepository` is an alias of `createPort`: it behaves the same and returns a port handler. Use it when you want repository-oriented naming in your Clean Architecture code.
  * 
  * ```ts
  * // Domain Layer
@@ -85,14 +59,12 @@ export interface RepositoryHandler<GenericRepository extends object = object> ex
  * ```
  * 
  * @remarks
- * - This helper adds no runtime logic; it only validates the contract at compile time.
+ * - This helper is only a semantic wrapper around `createPort` and adds no runtime logic.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/repository
+ * @see https://utils.duplojs.dev/en/v1/api/clean/port
  * 
  * @namespace C
  * 
  */
-export declare function createRepository<GenericRepository extends object>(): RepositoryHandler<GenericRepository>;
-export declare namespace createRepository {
-    var overrideHandler: import("../common").OverrideHandler<RepositoryHandler<object>>;
-}
+export declare const createRepository: typeof createPort;

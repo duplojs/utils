@@ -1083,6 +1083,15 @@
           "name": "newType.mjs"
         },
         {
+          "name": "port.cjs"
+        },
+        {
+          "name": "port.d.ts"
+        },
+        {
+          "name": "port.mjs"
+        },
+        {
           "name": "repository.cjs"
         },
         {

@@ -5,8 +5,8 @@ prev:
   text: "appendEvidence"
   link: "/fr/v1/api/clean/appendEvidence"
 next:
-  text: "UseCase"
-  link: "/fr/v1/api/clean/useCase"
+  text: "Port"
+  link: "/fr/v1/api/clean/port"
 ---
 
 # Repository
@@ -24,22 +24,23 @@ Un `repository` constitue une couche d'abstraction entre l'application et l'infr
 
 ## Fonctionnement
 
-`C.createRepository<GenericRepository>()` retourne un **handler de repository**.
-Son objectif est simple : vous forcer à fournir une implémentation qui respecte exactement le contrat `GenericRepository` (paramètres, retours, async, etc.).
+`C.createRepository<GenericRepository>()` est un wrapper de `C.createPort<GenericRepository>()`.
+C'est uniquement un alias sémantique pour garder le vocabulaire repository dans votre code.
 
 ::: info
-Ce helper est volontairement minimal : il ne fournit pas de logique runtime. Sa valeur est dans le typage et la composition avec [useCase](/fr/v1/api/clean/useCase).
+`createRepository` a exactement le même comportement que `createPort` : même typage, même runtime, même handler retourné.
 :::
 
 ## Déclarer un contrat
 
-Le contrat d'un repository est généralement une interface de l'application layer (ex: `findById`, `save`, ...).
+Le contrat d'un repository est généralement une interface de l'application layer (ex: `findById`, `save`, ...). En interne, ce contrat est géré par la même mécanique que les contrats de port.
+Selon le contexte, cette déclaration peut aussi être faite côté domaine afin de lier les agrégats au niveau du type avec certains types d'entrées ou de retours des repositories.
 
 Une fois le handler créé, vous pouvez le passer comme dépendance à `C.createUseCase(...)` et instancier le use case avec une implémentation réelle (infrastructure layer).
 
 ## Méthodes et Propriétés
 
-Un `RepositoryHandler<GenericRepository>` expose :
+Comme `createRepository` délègue à `createPort`, l'API exposée est la même :
 
 ### Méthodes
 

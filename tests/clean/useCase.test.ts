@@ -1,6 +1,10 @@
 import { DClean, type ExpectType } from "@scripts";
 
 describe("createUseCase and useCaseInstances", () => {
+	const NotifyPort = DClean.createPort<{
+		send(message: string): void;
+	}>();
+
 	const UserRepository = DClean.createRepository<{
 		getName(id: number): Promise<string>;
 	}>();
@@ -21,16 +25,19 @@ describe("createUseCase and useCaseInstances", () => {
 		{
 			UserRepository,
 			LogUseCase,
+			NotifyPort,
 		},
-		({ userRepository, logUseCase }) => async(id: number) => {
+		({ userRepository, logUseCase, notifyPort }) => async(id: number) => {
 			const name = await userRepository.getName(id);
 			logUseCase(`hello ${name}`);
+			notifyPort.send(name);
 			return `Hello ${name}`;
 		},
 	);
 
 	it("createUseCase wires repositories and nested use cases", async() => {
 		const logSpy = vi.fn();
+		const notifySpy = vi.fn();
 		const logRepository = LogRepository.createImplementation({
 			log: logSpy,
 		});
@@ -42,12 +49,16 @@ describe("createUseCase and useCaseInstances", () => {
 		const greetUseCase = GreetUseCase.getUseCase({
 			logRepository,
 			userRepository,
+			notifyPort: NotifyPort.createImplementation({
+				send: notifySpy,
+			}),
 		});
 
 		const result = await greetUseCase(5);
 
 		expect(result).toBe("Hello User5");
 		expect(logSpy).toHaveBeenCalledWith("hello User5");
+		expect(notifySpy).toHaveBeenCalledWith("User5");
 
 		type Check = ExpectType<
 			typeof greetUseCase,
@@ -58,6 +69,7 @@ describe("createUseCase and useCaseInstances", () => {
 
 	it("useCaseInstances resolves all use cases with shared repositories", async() => {
 		const logSpy = vi.fn();
+		const notifySpy = vi.fn();
 
 		const instances = DClean.useCaseInstances(
 			{
@@ -67,6 +79,9 @@ describe("createUseCase and useCaseInstances", () => {
 			{
 				logRepository: LogRepository.createImplementation({
 					log: logSpy,
+				}),
+				notifyPort: NotifyPort.createImplementation({
+					send: notifySpy,
 				}),
 				userRepository: UserRepository.createImplementation({
 					getName: (id) => Promise.resolve(`Name${id}`),
@@ -80,6 +95,7 @@ describe("createUseCase and useCaseInstances", () => {
 		expect(greetResult).toBe("Hello Name2");
 		expect(logResult).toBe(2);
 		expect(logSpy).toHaveBeenCalledWith("hello Name2");
+		expect(notifySpy).toHaveBeenCalledWith("Name2");
 
 		type Check = ExpectType<
 			typeof instances,
@@ -93,6 +109,7 @@ describe("createUseCase and useCaseInstances", () => {
 
 	it("override usecase dependencies", async() => {
 		const logSpy = vi.fn();
+		const notifySpy = vi.fn();
 		const logRepository = LogRepository.createImplementation({
 			log: logSpy,
 		});
@@ -106,6 +123,9 @@ describe("createUseCase and useCaseInstances", () => {
 		const greetUseCase = GreetUseCase.getUseCase({
 			logRepository,
 			userRepository,
+			notifyPort: NotifyPort.createImplementation({
+				send: notifySpy,
+			}),
 			logUseCase: useCaseLogSpy,
 		});
 
@@ -114,5 +134,6 @@ describe("createUseCase and useCaseInstances", () => {
 		expect(result).toBe("Hello User1");
 		expect(logSpy).not.toHaveBeenCalled();
 		expect(useCaseLogSpy).toHaveBeenCalledOnce();
+		expect(notifySpy).toHaveBeenCalledWith("User1");
 	});
 });

@@ -53,7 +53,10 @@ Dynamically adds information (flag) on an entity, with strict typing.
 Adds an evidence trait on a clean value to mark completed business steps.
 
 ## [Repository](/en/v1/api/clean/repository)
-Declares a repository (contract) and type-checks the implementation.
+Declares a repository contract using a semantic wrapper around `createPort`.
+
+## [Port](/en/v1/api/clean/port)
+Declares a port (contract) and type-checks the implementation.
 
 ## [UseCase](/en/v1/api/clean/useCase)
 Declares a use case with dependencies (repositories or other use cases).
