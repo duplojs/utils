@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Helper orienté typage qui renvoie le même Either en conservant strictement les types Left/Right."
 prev:
-  text: "matchInformationOtherwise"
-  link: "/fr/v1/api/either/matchInformationOtherwise"
+  text: "unwrapByInformationOrThrow"
+  link: "/fr/v1/api/either/unwrapByInformationOrThrow"
 next:
   text: "safeCallback"
   link: "/fr/v1/api/either/safeCallback"

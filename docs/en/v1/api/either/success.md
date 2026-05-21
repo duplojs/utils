@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Readable shortcut to create an Right with the literal info \"success\". Ideal for functions that return only one type of success."
 prev:
-  text: "right"
-  link: "/en/v1/api/either/right"
+  text: "result"
+  link: "/en/v1/api/either/result"
 next:
   text: "ok"
   link: "/en/v1/api/either/ok"

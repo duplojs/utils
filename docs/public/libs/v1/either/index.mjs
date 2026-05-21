@@ -5,6 +5,7 @@ export { callbackError, callbackErrorKind, callbackSuccess, callbackSuccessKind,
 export { expect } from './expect.mjs';
 export { matchInformation } from './matchInformation.mjs';
 export { matchInformationOtherwise } from './matchInformationOtherwise.mjs';
+export { HasNotInformationError, unwrapByInformationOrThrow } from './unwrapByInformationOrThrow.mjs';
 export { bool } from './bool/create.mjs';
 export { boolFalsy, boolFalsyKind, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy } from './bool/falsy.mjs';
 export { boolTruthy, boolTruthyKind, eitherBoolTruthyKind, isBoolTruthy, whenIsBoolTruthy } from './bool/truthy.mjs';
@@ -19,6 +20,7 @@ export { eitherFailKind, fail, failKind } from './left/fail.mjs';
 export { isLeft } from './left/is.mjs';
 export { whenIsLeft } from './left/when.mjs';
 export { whenIsLeftElse } from './left/whenElse.mjs';
+export { NotLeftError, unwrapLeftOrThrow } from './left/unwrapOrThrow.mjs';
 export { nullable } from './nullable/create.mjs';
 export { eitherNullableEmptyKind, isNullableEmpty, nullableEmpty, nullableEmptyKind, whenIsNullableEmpty } from './nullable/empty.mjs';
 export { eitherNullableFilledKind, isNullableFilled, nullableFilled, nullableFilledKind, whenIsNullableFilled } from './nullable/filled.mjs';
@@ -41,6 +43,8 @@ export { whenIsRight } from './right/when.mjs';
 export { group } from './right/group.mjs';
 export { asyncGroup } from './right/asyncGroup.mjs';
 export { whenIsRightElse } from './right/whenElse.mjs';
+export { result, resultKind } from './right/result.mjs';
+export { NotRightError, unwrapRightOrThrow } from './right/unwrapOrThrow.mjs';
 
 /**
  * {@include either/index.md}

@@ -5,8 +5,8 @@ prev:
   text: "whenIsLeft"
   link: "/en/v1/api/either/whenIsLeft"
 next:
-  text: "rightPipe"
-  link: "/en/v1/api/either/rightPipe"
+  text: "unwrapLeftOrThrow"
+  link: "/en/v1/api/either/unwrapLeftOrThrow"
 ---
 
 # whenIsLeftElse

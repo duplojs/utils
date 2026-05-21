@@ -71,6 +71,7 @@ var justExec = require('./common/justExec.cjs');
 var callThen = require('./common/callThen.cjs');
 var queue = require('./common/queue.cjs');
 var printer = require('./common/printer.cjs');
+var kindClass = require('./common/kindClass.cjs');
 
 
 
@@ -183,3 +184,4 @@ Object.defineProperty(exports, "Printer", {
 	enumerable: true,
 	get: function () { return printer.Printer; }
 });
+exports.kindClass = kindClass.kindClass;

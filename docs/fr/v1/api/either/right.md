@@ -5,8 +5,8 @@ prev:
   text: "Either"
   link: "/fr/v1/api/either/"
 next:
-  text: "success"
-  link: "/fr/v1/api/either/success"
+  text: "result"
+  link: "/fr/v1/api/either/result"
 ---
 
 # right
@@ -50,6 +50,7 @@ Un `Right<Information, Value>` qui peut être discriminé avec `E.isRight`, `E.h
 
 ## Voir aussi
 
+- [`result`](/fr/v1/api/either/result) – `Right` de résultat neutre, ni positif ni négatif.
 - [`success`](/fr/v1/api/either/success) – Raccourci spécialisé pour `right("success", value)`.
 - [`ok`](/fr/v1/api/either/ok) – Variante sans payload (`Right<"ok">`).
 - [`hasInformation`](/fr/v1/api/either/hasInformation) – Type guard sur l'information métier.

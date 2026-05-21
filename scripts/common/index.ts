@@ -61,3 +61,4 @@ export * from "./justExec";
 export * from "./callThen";
 export * from "./queue";
 export * from "./printer";
+export * from "./kindClass";

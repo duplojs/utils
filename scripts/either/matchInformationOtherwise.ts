@@ -2,7 +2,7 @@ import { type AnyFunction, unwrap, type FixDeepFunctionInfer, type GetKindValue,
 import { informationKind } from "./kind";
 import { type Right } from "./right";
 import { type Left } from "./left";
-import { GetPropsWithValue, type GetPropsWithValueExtends } from "@scripts/object";
+import { type GetPropsWithValueExtends } from "@scripts/object";
 
 type Either = Right | Left;
 

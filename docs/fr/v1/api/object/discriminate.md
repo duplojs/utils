@@ -5,8 +5,8 @@ prev:
   text: "hasKeys"
   link: "/fr/v1/api/object/hasKeys"
 next:
-  text: "deepDiscriminate"
-  link: "/fr/v1/api/object/deepDiscriminate"
+  text: "discriminateEntryKey"
+  link: "/fr/v1/api/object/discriminateEntryKey"
 ---
 
 # discriminate
@@ -66,5 +66,7 @@ Un booléen qui agit comme type guard pour affiner le type d'union.
 
 ## Voir aussi
 
+- [`discriminateEntryKey`](/fr/v1/api/object/discriminateEntryKey) - Applique un prédicat sur la clé d'une entry.
+- [`discriminateEntryValue`](/fr/v1/api/object/discriminateEntryValue) - Applique un prédicat sur la valeur d'une entry.
 - [`deepDiscriminate`](/fr/v1/api/object/deepDiscriminate) - Discrimine par une propriété profonde
 - [`hasKeys`](/fr/v1/api/object/hasKeys) - Vérifie la présence de clés

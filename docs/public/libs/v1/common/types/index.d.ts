@@ -49,3 +49,4 @@ export * from "./predicate";
 export * from "./bivariantFunction";
 export * from "./maybeAsyncGenerator";
 export * from "./ComputedTypeError";
+export * from "./CleanObjectEntry";

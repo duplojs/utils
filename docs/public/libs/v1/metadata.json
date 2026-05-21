@@ -1142,6 +1142,9 @@
               "name": "breakGenericLink.d.ts"
             },
             {
+              "name": "CleanObjectEntry.d.ts"
+            },
+            {
               "name": "ComputedTypeError.d.ts"
             },
             {
@@ -1538,6 +1541,15 @@
         },
         {
           "name": "kind.mjs"
+        },
+        {
+          "name": "kindClass.cjs"
+        },
+        {
+          "name": "kindClass.d.ts"
+        },
+        {
+          "name": "kindClass.mjs"
         },
         {
           "name": "loop.cjs"
@@ -3731,6 +3743,15 @@
               "name": "is.mjs"
             },
             {
+              "name": "unwrapOrThrow.cjs"
+            },
+            {
+              "name": "unwrapOrThrow.d.ts"
+            },
+            {
+              "name": "unwrapOrThrow.mjs"
+            },
+            {
               "name": "when.cjs"
             },
             {
@@ -3952,6 +3973,15 @@
               "name": "pipe.mjs"
             },
             {
+              "name": "result.cjs"
+            },
+            {
+              "name": "result.d.ts"
+            },
+            {
+              "name": "result.mjs"
+            },
+            {
               "name": "success.cjs"
             },
             {
@@ -3959,6 +3989,15 @@
             },
             {
               "name": "success.mjs"
+            },
+            {
+              "name": "unwrapOrThrow.cjs"
+            },
+            {
+              "name": "unwrapOrThrow.d.ts"
+            },
+            {
+              "name": "unwrapOrThrow.mjs"
             },
             {
               "name": "when.cjs"
@@ -4042,6 +4081,15 @@
         },
         {
           "name": "safeCallback.mjs"
+        },
+        {
+          "name": "unwrapByInformationOrThrow.cjs"
+        },
+        {
+          "name": "unwrapByInformationOrThrow.d.ts"
+        },
+        {
+          "name": "unwrapByInformationOrThrow.mjs"
         },
         {
           "name": "whenHasInformation.cjs"
@@ -4885,6 +4933,24 @@
         },
         {
           "name": "discriminate.mjs"
+        },
+        {
+          "name": "discriminateEntryKey.cjs"
+        },
+        {
+          "name": "discriminateEntryKey.d.ts"
+        },
+        {
+          "name": "discriminateEntryKey.mjs"
+        },
+        {
+          "name": "discriminateEntryValue.cjs"
+        },
+        {
+          "name": "discriminateEntryValue.d.ts"
+        },
+        {
+          "name": "discriminateEntryValue.mjs"
         },
         {
           "name": "entries.cjs"

@@ -2,7 +2,7 @@ import type { SerializedTheDate, SpoolingDate } from "./types";
 import type { TheDate } from "./theDate";
 declare const CreateTheDateError_base: new (params: {
     "@DuplojsUtilsError/create-the-date-error"?: unknown;
-}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsError/create-the-date-error", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"create-the-date-error", unknown>, unknown> & Error;
+}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & import("../common/kind").Kind<import("../common/kind").KindDefinition<"@DuplojsUtilsError/create-the-date-error", unknown>, unknown> & import("../common/kind").Kind<import("../common/kind").KindDefinition<"create-the-date-error", unknown>, unknown>;
 export declare class CreateTheDateError extends CreateTheDateError_base {
     input: string | Date | number | SpoolingDate | TheDate;
     constructor(input: string | Date | number | SpoolingDate | TheDate);

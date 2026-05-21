@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Raccourci lisible pour créer un Right avec l'information littérale \"success\". Idéal pour les fonctions qui retournent un seul type de succès."
 prev:
-  text: "right"
-  link: "/fr/v1/api/either/right"
+  text: "result"
+  link: "/fr/v1/api/either/result"
 next:
   text: "ok"
   link: "/fr/v1/api/either/ok"

@@ -34,6 +34,9 @@ Une explication complète (concept, info obligatoire, pattern matching, pipeline
 ### [right](/fr/v1/api/either/right)
 Construit un `Right` typé avec une information métier obligatoire (payload optionnel).
 
+### [result](/fr/v1/api/either/result)
+Construit un `Right` de résultat neutre, ni positif ni négatif, avec une information métier et un payload optionnel.
+
 ### [success](/fr/v1/api/either/success)
 Raccourci pour retourner un succès `right("success", value)` de manière expressive.
 
@@ -62,6 +65,9 @@ Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la va
 ### [whenIsRightElse](/fr/v1/api/either/whenIsRightElse)
 Exécute un callback sur `Right` (avec valeur unwrap) et un callback sur toutes les autres entrées.
 
+### [unwrapRightOrThrow](/fr/v1/api/either/unwrapRightOrThrow)
+Unwrap immédiatement le payload d'un `Right` et lève une erreur si l'entrée n'est pas `Right`.
+
 ## Contrôles `Left`
 
 ### [isLeft](/fr/v1/api/either/isLeft)
@@ -72,6 +78,9 @@ Permet d'appliquer une fonction lorsqu'on reçoit un `Left` puis de continuer le
 
 ### [whenIsLeftElse](/fr/v1/api/either/whenIsLeftElse)
 Exécute un callback sur `Left` (avec valeur unwrap) et un callback sur toutes les autres entrées.
+
+### [unwrapLeftOrThrow](/fr/v1/api/either/unwrapLeftOrThrow)
+Unwrap immédiatement le payload d'un `Left` et lève une erreur si l'entrée n'est pas `Left`.
 
 ## Pipelines orientés `Right`
 
@@ -100,6 +109,9 @@ Pattern matching exhaustif par information où chaque cas Either doit être trai
 
 ### [matchInformationOtherwise](/fr/v1/api/either/matchInformationOtherwise)
 Pattern matching non exhaustif par information avec callback de fallback obligatoire.
+
+### [unwrapByInformationOrThrow](/fr/v1/api/either/unwrapByInformationOrThrow)
+Unwrap un `Either` uniquement lorsqu'une information littérale précise correspond, sinon lève une erreur.
 
 ### [expect](/fr/v1/api/either/expect)
 Helper de typage qui renvoie le même Either en conservant strictement les types Left/Right.

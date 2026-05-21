@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type guard that checks whether a value is an Left. Ideal to secure an unwrap or trigger an error branch."
 prev:
-  text: "whenIsRightElse"
-  link: "/en/v1/api/either/whenIsRightElse"
+  text: "unwrapRightOrThrow"
+  link: "/en/v1/api/either/unwrapRightOrThrow"
 next:
   text: "whenIsLeft"
   link: "/en/v1/api/either/whenIsLeft"

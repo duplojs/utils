@@ -21,3 +21,5 @@ export * from "./deepDiscriminate";
 export * from "./getDeepProperty";
 export * from "./discriminate";
 export * from "./entry";
+export * from "./discriminateEntryKey";
+export * from "./discriminateEntryValue";

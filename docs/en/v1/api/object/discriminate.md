@@ -5,8 +5,8 @@ prev:
   text: "hasKeys"
   link: "/en/v1/api/object/hasKeys"
 next:
-  text: "deepDiscriminate"
-  link: "/en/v1/api/object/deepDiscriminate"
+  text: "discriminateEntryKey"
+  link: "/en/v1/api/object/discriminateEntryKey"
 ---
 
 # discriminate
@@ -66,5 +66,7 @@ A boolean that acts as a type guard to narrow the union type.
 
 ## See also
 
+- [`discriminateEntryKey`](/en/v1/api/object/discriminateEntryKey) - Applies a predicate to one object entry key.
+- [`discriminateEntryValue`](/en/v1/api/object/discriminateEntryValue) - Applies a predicate to one object entry value.
 - [`deepDiscriminate`](/en/v1/api/object/deepDiscriminate) - Discriminates by a deep property
 - [`hasKeys`](/en/v1/api/object/hasKeys) - Checks for the presence of keys

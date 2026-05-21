@@ -230,6 +230,9 @@ export type KindHeritageConstructorParams<
 	>
 	: never;
 
+/**
+ * @deprecated use kindClass
+ */
 export function kindHeritage<
 	GenericUniqueName extends string,
 	GenericKindHandler extends KindHandler,

@@ -80,5 +80,11 @@ Checks whether an object has certain keys (type guard).
 ### [discriminate](/en/v1/api/object/discriminate)
 Discriminates an object by the value of a property (type guard for unions).
 
+### [discriminateEntryKey](/en/v1/api/object/discriminateEntryKey)
+Applies a predicate to one object entry key and narrows the tuple when possible.
+
+### [discriminateEntryValue](/en/v1/api/object/discriminateEntryValue)
+Applies a predicate to one object entry value and narrows the tuple when possible.
+
 ### [deepDiscriminate](/en/v1/api/object/deepDiscriminate)
 Discriminates an object by the value of a deep property (type guard for unions).

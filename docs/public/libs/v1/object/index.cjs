@@ -18,6 +18,8 @@ var deepDiscriminate = require('./deepDiscriminate.cjs');
 var getDeepProperty = require('./getDeepProperty.cjs');
 var discriminate = require('./discriminate.cjs');
 var entry = require('./entry.cjs');
+var discriminateEntryKey = require('./discriminateEntryKey.cjs');
+var discriminateEntryValue = require('./discriminateEntryValue.cjs');
 
 /**
  * {@include object/index.md}
@@ -41,3 +43,5 @@ exports.deepDiscriminate = deepDiscriminate.deepDiscriminate;
 exports.getDeepProperty = getDeepProperty.getDeepProperty;
 exports.discriminate = discriminate.discriminate;
 exports.entry = entry.entry;
+exports.discriminateEntryKey = discriminateEntryKey.discriminateEntryKey;
+exports.discriminateEntryValue = discriminateEntryValue.discriminateEntryValue;

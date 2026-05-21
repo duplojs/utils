@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The deepDiscriminate() method discriminates an object by the value of a deep property (type guard for unions)."
 prev:
-  text: "discriminate"
-  link: "/en/v1/api/object/discriminate"
+  text: "discriminateEntryValue"
+  link: "/en/v1/api/object/discriminateEntryValue"
 next:
   text: "Object"
   link: "/en/v1/api/object/"

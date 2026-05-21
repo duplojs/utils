@@ -42,6 +42,9 @@ function createKindNamespace(namespace) {
         return kindHandler;
     };
 }
+/**
+ * @deprecated use kindClass
+ */
 function kindHeritage(uniqueName, kind, parent) {
     const uniqueKind = createKind(uniqueName);
     const kinds = kind instanceof Array

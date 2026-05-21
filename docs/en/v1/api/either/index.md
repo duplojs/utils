@@ -119,6 +119,9 @@ The info must be explicit and representative. Use clear names like `"emailAlread
 ### [right](/en/v1/api/either/right)
 Builds a typed `Right` with mandatory business information (optional payload).
 
+### [result](/en/v1/api/either/result)
+Builds a neutral `Right` result, neither positive nor negative, with business information and an optional payload.
+
 ### [success](/en/v1/api/either/success)
 Shortcut to return a success `right("success", value)` in an expressive way.
 
@@ -147,6 +150,9 @@ Runs a function only when the input is `Right`, otherwise forwards the original 
 ### [whenIsRightElse](/en/v1/api/either/whenIsRightElse)
 Runs one callback on `Right` (with unwrapped value) and one callback on all other inputs.
 
+### [unwrapRightOrThrow](/en/v1/api/either/unwrapRightOrThrow)
+Unwraps a `Right` payload immediately and throws if the input is not `Right`.
+
 ## `Left` checks
 
 ### [isLeft](/en/v1/api/either/isLeft)
@@ -157,6 +163,9 @@ Allows applying a function when receiving a `Left` and then continuing the flow.
 
 ### [whenIsLeftElse](/en/v1/api/either/whenIsLeftElse)
 Runs one callback on `Left` (with unwrapped value) and one callback on all other inputs.
+
+### [unwrapLeftOrThrow](/en/v1/api/either/unwrapLeftOrThrow)
+Unwraps a `Left` payload immediately and throws if the input is not `Left`.
 
 ## `Right`-oriented pipelines
 
@@ -185,6 +194,9 @@ Exhaustive pattern matching by information where every Either case must be handl
 
 ### [matchInformationOtherwise](/en/v1/api/either/matchInformationOtherwise)
 Non-exhaustive pattern matching by information with a mandatory fallback callback.
+
+### [unwrapByInformationOrThrow](/en/v1/api/either/unwrapByInformationOrThrow)
+Unwraps an `Either` only when one precise literal information matches, otherwise throws.
 
 ### [expect](/en/v1/api/either/expect)
 Type-level helper that returns the same Either while preserving strict Left/Right typing.

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type-focused helper that returns the same Either while keeping strict Left/Right typing."
 prev:
-  text: "matchInformationOtherwise"
-  link: "/en/v1/api/either/matchInformationOtherwise"
+  text: "unwrapByInformationOrThrow"
+  link: "/en/v1/api/either/unwrapByInformationOrThrow"
 next:
   text: "safeCallback"
   link: "/en/v1/api/either/safeCallback"
