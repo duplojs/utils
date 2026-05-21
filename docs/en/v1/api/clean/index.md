@@ -49,6 +49,9 @@ Defines an explicit business contract to represent a present (`some`) or absent 
 ## [Flag](/en/v1/api/clean/flag)
 Dynamically adds information (flag) on an entity, with strict typing.
 
+## [appendEvidence](/en/v1/api/clean/appendEvidence)
+Adds an evidence trait on a clean value to mark completed business steps.
+
 ## [Repository](/en/v1/api/clean/repository)
 Declares a repository (contract) and type-checks the implementation.
 

@@ -1,6 +1,7 @@
 import { createCleanKind } from './kind.mjs';
 import { isLeft } from '../either/left/is.mjs';
 
+const requirementsChainedFunctionKind = createCleanKind("requirements-chained-function");
 const chainEndKind = createCleanKind("chain-end");
 function* breakIfLeft(value) {
     if (isLeft(value)) {
@@ -63,5 +64,6 @@ function chainedFunction(function1, function2, ...functions) {
             : result.value);
     };
 }
+chainedFunction.requirements = () => requirementsChainedFunctionKind.setTo({}, []);
 
-export { chainEndKind, chainedFunction };
+export { chainEndKind, chainedFunction, requirementsChainedFunctionKind };

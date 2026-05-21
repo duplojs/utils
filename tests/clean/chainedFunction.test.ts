@@ -31,6 +31,11 @@ describe("chainedFunction", () => {
 
 		expect(calls).toStrictEqual(["parseTitle", "createSlug", "persistSlug"]);
 		expect(result).toBe(11);
+		expect(useCase.functions).toStrictEqual({
+			parseTitle: expect.any(Function),
+			createSlug: expect.any(Function),
+			persistSlug: expect.any(Function),
+		});
 
 		type Check = ExpectType<
 			typeof result,
@@ -197,15 +202,16 @@ describe("chainedFunction", () => {
 	it("short-circuits on an asynchronous left before running the next link", async() => {
 		const error = DEither.error({ code: "load-failed" });
 		const useCase = DClean.chainedFunction(
-			["loadCount", async() => Promise.resolve(error)],
-			["saveCount", async(input: number) => Promise.resolve(input * 2)],
+			["loadCount", async() => Promise.resolve(error), DClean.chainedFunction.requirements<[string]>()],
+			["saveCount", async(input: number) => Promise.resolve(input * 2), DClean.chainedFunction.requirements<[string]>()],
 		);
 
 		const saveCountSpy = vi.fn(async(input: number) => Promise.resolve(input * 2));
 
 		const result = useCase(async function *(link1) {
+			//@ts-expect-error chainedFunction missing requirements
 			const [loadedCount, link2] = yield *link1(({ loadCount }) => loadCount());
-			const [savedCount, chainEnd] = yield *link2(() => saveCountSpy(loadedCount));
+			const [savedCount, chainEnd] = yield *link2(() => saveCountSpy(loadedCount), [""]);
 
 			await Promise.resolve();
 

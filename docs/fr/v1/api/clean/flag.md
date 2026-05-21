@@ -5,8 +5,8 @@ prev:
   text: "Maybe"
   link: "/fr/v1/api/clean/maybe"
 next:
-  text: "Repository"
-  link: "/fr/v1/api/clean/repository"
+  text: "appendEvidence"
+  link: "/fr/v1/api/clean/appendEvidence"
 ---
 
 # Flag

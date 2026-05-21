@@ -3,7 +3,7 @@ import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
 import type * as DDate from "../../date";
 export type EligiblePrimitive = string | number | boolean | bigint | DDate.TheDate | DDate.TheTime;
-export interface Primitive<GenericValue extends EligiblePrimitive> extends WrappedValue<GenericValue> {
+export interface Primitive<GenericValue extends EligiblePrimitive = EligiblePrimitive> extends WrappedValue<GenericValue> {
 }
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
 export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {

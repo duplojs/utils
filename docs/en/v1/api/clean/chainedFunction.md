@@ -52,9 +52,9 @@ Persistence stays in the use case through the library repository system. The cha
 
 ```typescript
 function chainedFunction(
-	function1: [name: string, fn: Function],
-	function2: [name: string, fn: Function],
-	...functions: [name: string, fn: Function][]
+	function1: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction],
+	function2: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction],
+	...functions: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction][]
 ): ChainedFunction
 ```
 
@@ -75,6 +75,7 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 - `function1`: first pure business function in the chain.
 - `function2`: second pure business function in the chain.
 - `functions`: additional pure business functions, executed in declaration order.
+- `requirements` (optional tuple item on each function): typed required values that must be provided when calling the link generated for that function.
 - `firstLink`: generated first link passed to the implementation callback.
 - `breakIfLeft`: synchronous helper injected into the callback. It accepts a value that may contain an `Either.Left`, stops the chain when it is a `Left`, otherwise returns the discriminated non-`Left` value.
 
@@ -91,6 +92,20 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 When a chained function returns an `Either.Left`, the generator yields it and `chainedFunction` stops the implementation before the next links run. Business errors should be represented as `Either.Left`; thrown exceptions and rejected promises are not caught.
 
 `breakIfLeft` follows the same rule from inside the callback: use it to explicitly short-circuit from an intermediate synchronous value (`value | Left`) before calling the next link.
+
+## Requirements and lifecycle invariants
+
+`requirements` are a typing tool for business lifecycle control. They force callers to provide specific typed values before a link can run.
+
+Those values are not necessarily useful as runtime arguments for the next function. Their primary purpose is to prove, at compile time, that prerequisite information has been acquired earlier in the flow (validation done, authorization context loaded, prior step completed, etc.).
+
+## Requirements example
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/chainedFunction/otherExample.doc.ts"
+  majorVersion="v1"
+  height="1069px"
+/>
 
 ## See also
 

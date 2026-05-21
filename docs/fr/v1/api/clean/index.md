@@ -49,6 +49,9 @@ Définit un contrat métier explicite pour représenter une entité présente (`
 ## [Flag](/fr/v1/api/clean/flag)
 Ajoute dynamiquement une information (flag) sur une entité, avec typage strict.
 
+## [appendEvidence](/fr/v1/api/clean/appendEvidence)
+Ajoute un trait d'evidence sur une valeur clean pour marquer des étapes métier terminées.
+
 ## [Repository](/fr/v1/api/clean/repository)
 Déclare un repository (contrat) et type-check l'implémentation.
 

@@ -6,7 +6,8 @@ export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.m
 export { createFlag, flagKind } from './flag.mjs';
 export { none, some } from './maybe.mjs';
 export { toMapDataParser } from './toMapDataParser.mjs';
-export { chainEndKind, chainedFunction } from './chainedFunction.mjs';
+export { chainEndKind, chainedFunction, requirementsChainedFunctionKind } from './chainedFunction.mjs';
+export { appendEvidence, evidenceKind } from './evidence.mjs';
 export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './entity/property.mjs';
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';

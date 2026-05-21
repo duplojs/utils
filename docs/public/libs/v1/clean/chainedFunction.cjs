@@ -3,6 +3,7 @@
 var kind = require('./kind.cjs');
 var is = require('../either/left/is.cjs');
 
+const requirementsChainedFunctionKind = kind.createCleanKind("requirements-chained-function");
 const chainEndKind = kind.createCleanKind("chain-end");
 function* breakIfLeft(value) {
     if (is.isLeft(value)) {
@@ -65,6 +66,8 @@ function chainedFunction(function1, function2, ...functions) {
             : result.value);
     };
 }
+chainedFunction.requirements = () => requirementsChainedFunctionKind.setTo({}, []);
 
 exports.chainEndKind = chainEndKind;
 exports.chainedFunction = chainedFunction;
+exports.requirementsChainedFunctionKind = requirementsChainedFunctionKind;

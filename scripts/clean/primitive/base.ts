@@ -7,7 +7,7 @@ import type * as DDate from "../../date";
 export type EligiblePrimitive = string | number | boolean | bigint | DDate.TheDate | DDate.TheTime;
 
 export interface Primitive<
-	GenericValue extends EligiblePrimitive,
+	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 > extends WrappedValue<GenericValue> {
 
 }

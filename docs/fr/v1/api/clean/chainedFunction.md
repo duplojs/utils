@@ -53,9 +53,9 @@ La persistance reste dans le use case via le système de repository de la librai
 
 ```typescript
 function chainedFunction(
-	function1: [name: string, fn: Function],
-	function2: [name: string, fn: Function],
-	...functions: [name: string, fn: Function][]
+	function1: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction],
+	function2: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction],
+	...functions: [name: string, fn: Function, requirements?: C.RequirementsChainedFunction][]
 ): ChainedFunction
 ```
 
@@ -76,6 +76,7 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 - `function1` : première fonction métier pure de la chaîne.
 - `function2` : deuxième fonction métier pure de la chaîne.
 - `functions` : fonctions métier pures supplémentaires, exécutées dans l'ordre de déclaration.
+- `requirements` (élément de tuple optionnel sur chaque fonction) : valeurs requises typées qui doivent être fournies lors de l'appel du link généré pour cette fonction.
 - `firstLink` : premier link généré et passé au callback d'implémentation.
 - `breakIfLeft` : helper synchrone injecté dans le callback. Il accepte une valeur potentiellement `Either.Left`, stoppe la chaîne si c'est un `Left`, sinon retourne la valeur discriminée sans le `Left`.
 
@@ -92,6 +93,20 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 Quand une fonction chaînée retourne un `Either.Left`, le générateur le yield et `chainedFunction` arrête l'implémentation avant d'exécuter les links suivants. Les erreurs métier doivent être représentées avec `Either.Left` ; les exceptions lancées et les promesses rejetées ne sont pas interceptées.
 
 `breakIfLeft` suit la même règle, mais côté callback : il sert à court-circuiter explicitement le flux à partir d'une valeur intermédiaire synchrone (`value | Left`) avant d'appeler le link suivant.
+
+## Requirements et invariants de cycle de vie
+
+Les `requirements` sont un outil de typage pour contrôler le cycle de vie métier. Ils obligent l'appelant à fournir certaines valeurs typées avant d'exécuter un link.
+
+Ces valeurs ne sont pas nécessairement utiles comme arguments runtime de la fonction suivante. Leur rôle principal est de prouver, à la compilation, que des informations préalables ont bien été obtenues dans le flux (validation effectuée, contexte d'autorisation chargé, étape précédente terminée, etc.).
+
+## Exemple requirements
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/chainedFunction/otherExample.doc.ts"
+  majorVersion="v1"
+  height="1069px"
+/>
 
 ## Voir aussi
 

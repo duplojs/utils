@@ -1,8 +1,19 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError } from "@scripts/common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type IsExtends, type AnyTuple } from "@scripts/common";
 import * as EE from "@scripts/either";
 import { createCleanKind } from "./kind";
 
-export type FunctionOfChain = [string, AnyFunction];
+export const requirementsChainedFunctionKind = createCleanKind("requirements-chained-function");
+
+export interface RequirementsChainedFunction<
+	GenericRequirements extends AnyTuple<unknown> = AnyTuple<unknown>,
+> extends Kind<
+	typeof requirementsChainedFunctionKind.definition,
+		GenericRequirements
+	> {
+
+}
+
+export type FunctionOfChain = [string, AnyFunction, RequirementsChainedFunction?];
 
 export type FunctionChain = [
 	FunctionOfChain,
@@ -35,7 +46,16 @@ export type Link<
 >(
 	theFunction: (
 		theFunction: { [Prop in GenericFunction[0]]: GenericFunction[1] }
-	) => GenericOutput
+	) => GenericOutput,
+	...args: GenericFunction[2] extends RequirementsChainedFunction
+		? [
+			requirements: GetKindValue<
+				typeof requirementsChainedFunctionKind,
+				GenericFunction[2]
+			>,
+		]
+		: []
+
 ) => (
 	| (
 		Extract<GenericOutput, Promise<unknown>> extends infer InferredPromise
@@ -69,7 +89,7 @@ export type Chain<
 		infer InferredFirst extends FunctionOfChain,
 		...infer InferredRest extends readonly FunctionOfChain[],
 	]
-		? Chain<InferredRest> extends infer InferredRestResult extends (Link | CreateChainEnd)
+		? Chain<InferredRest> extends infer InferredRestResult extends (Link<any, any> | CreateChainEnd)
 			? Link<
 				InferredFirst,
 				InferredRestResult
@@ -141,21 +161,28 @@ export interface ChainedFunctionParams {
 
 const chainedFunctionParams: ChainedFunctionParams = { breakIfLeft };
 
-export type ChainedFunction<
+export interface ChainedFunction<
 	GenericValue extends FunctionChain = FunctionChain,
-> = <
-	GenericGenerator extends MaybeAsyncGenerator<
-		MaybePromise<EE.Left>,
-		MaybePromise<EE.Left | ChainEnd>
-	>,
->(
-	callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (
+> {
+	<
+		GenericGenerator extends MaybeAsyncGenerator<
+			MaybePromise<EE.Left>,
+			MaybePromise<EE.Left | ChainEnd>
+		>,
+	>(
+		callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (
 		& GenericGenerator
 		& OutputMustContainChainEnd<
 			GenericGenerator
 		>
-	)
-) => ComputeResult<GenericGenerator>;
+		)
+	): ComputeResult<GenericGenerator>;
+
+	/**
+	 * @deprecated use this only for the tests.
+	 */
+	functions: { [Entry in GenericValue[number] as Entry[0]]: Entry[1] };
+}
 
 /**
  * {@include clean/chainedFunction/index.md}
@@ -173,9 +200,9 @@ export function chainedFunction<
 		GenericFunction2,
 		...GenericFunctions,
 	]> {
-	return (theFunction) => {
-		const functionChain: FunctionChain = [function1, function2, ...functions];
+	const functionChain: FunctionChain = [function1, function2, ...functions];
 
+	const chainedFunction: ChainedFunction = (theFunction) => {
 		const createLink = (
 			functionChain: FunctionChain,
 		): Link => (theFunction) => {
@@ -242,4 +269,14 @@ export function chainedFunction<
 				: result.value
 		) as never;
 	};
+	chainedFunction.functions = Object.fromEntries(functionChain);
+
+	return chainedFunction;
 }
+
+chainedFunction.requirements = <
+	GenericRequirements extends AnyTuple<unknown>,
+>(): RequirementsChainedFunction<GenericRequirements> => requirementsChainedFunctionKind.setTo(
+	{},
+	[] as never,
+);
