@@ -1,5 +1,6 @@
 import { createCleanKind } from './kind.mjs';
 import { isLeft } from '../either/left/is.mjs';
+import { unwrap } from '../common/unwrap.mjs';
 
 const requirementsChainedFunctionKind = createCleanKind("requirements-chained-function");
 const chainEndKind = createCleanKind("chain-end");
@@ -9,7 +10,13 @@ function* breakIfLeft(value) {
     }
     return value;
 }
-const chainedFunctionParams = { breakIfLeft };
+function unwrapResult(resultLink) {
+    return [unwrap(resultLink[0]), resultLink[1]];
+}
+const chainedFunctionParams = {
+    breakIfLeft,
+    unwrapResult,
+};
 /**
  * {@include clean/chainedFunction/index.md}
  */

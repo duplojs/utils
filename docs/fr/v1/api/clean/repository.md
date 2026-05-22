@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Un repository constitue une couche d'abstraction entre l'application et l'infrastructure. Il encapsule les opérations métier sur les données en masquant les détails techniques, permettant ainsi à la couche application de manipuler les données métier sans se préoccuper de leur implémentation technique."
 prev:
-  text: "appendEvidence"
-  link: "/fr/v1/api/clean/appendEvidence"
+  text: "Evidence"
+  link: "/fr/v1/api/clean/evidence"
 next:
   text: "Port"
   link: "/fr/v1/api/clean/port"

@@ -49,8 +49,8 @@ Définit un contrat métier explicite pour représenter une entité présente (`
 ## [Flag](/fr/v1/api/clean/flag)
 Ajoute dynamiquement une information (flag) sur une entité, avec typage strict.
 
-## [appendEvidence](/fr/v1/api/clean/appendEvidence)
-Ajoute un trait d'evidence sur une valeur clean pour marquer des étapes métier terminées.
+## [Evidence](/fr/v1/api/clean/evidence)
+Définit une marque de passage métier typée, ajoutée via `appendEvidence`.
 
 ## [Repository](/fr/v1/api/clean/repository)
 Déclare un contrat repository via un wrapper sémantique de `createPort`.

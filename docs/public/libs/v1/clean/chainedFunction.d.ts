@@ -1,4 +1,4 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type AnyTuple } from "../common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type AnyTuple, type Unwrap } from "../common";
 import * as EE from "../either";
 export declare const requirementsChainedFunctionKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/requirements-chained-function", unknown>>;
 export interface RequirementsChainedFunction<GenericRequirements extends AnyTuple<unknown> = AnyTuple<unknown>> extends Kind<typeof requirementsChainedFunctionKind.definition, GenericRequirements> {
@@ -34,8 +34,10 @@ export type Chain<GenericFunctionChain extends readonly FunctionOfChain[]> = Gen
 type OutputMustContainChainEnd<GenericGenerator extends MaybeAsyncGenerator> = IsEqual<GenericGenerator extends MaybeAsyncGenerator<any, infer InferredReturnValue> ? InferredReturnValue extends ChainEnd ? InferredReturnValue : never : never, never> extends true ? ComputedTypeError<"Output must contain a chainEnd"> : unknown;
 type ComputeResult<GenericGenerator extends MaybeAsyncGenerator> = GenericGenerator extends Generator<infer InferredIterateValue, infer InferredReturnValue> ? (InferredIterateValue | InferredReturnValue) extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never : GenericGenerator extends AsyncGenerator<infer InferredIterateValue, infer InferredReturnValue> ? Promise<Awaited<InferredIterateValue | InferredReturnValue> extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never> : never;
 declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue): Generator<Extract<GenericValue, EE.Left>, Exclude<GenericValue, EE.Left>>;
+declare function unwrapResult<GenericLinkResult extends [unknown, Link<any, any> | ChainEnd]>(resultLink: GenericLinkResult): [Unwrap<GenericLinkResult[0]>, GenericLinkResult[1]];
 export interface ChainedFunctionParams {
     breakIfLeft: typeof breakIfLeft;
+    unwrapResult: typeof unwrapResult;
 }
 export interface ChainedFunction<GenericValue extends FunctionChain = FunctionChain> {
     <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)): ComputeResult<GenericGenerator>;
@@ -175,7 +177,8 @@ export interface ChainedFunction<GenericValue extends FunctionChain = FunctionCh
  * ```
  * 
  * @remarks `chainedFunction` expects at least two functions in the chain. It does not catch thrown exceptions or rejected promises; model handled business errors with `Either.Left`.
- * The callback receives `(firstLink, { breakIfLeft })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
+ * The callback receives `(firstLink, { breakIfLeft, unwrapResult })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
+ * `unwrapResult` unwraps the value returned by a link result tuple (`[value, nextLinkOrChainEnd]`) while preserving the next link in the same tuple shape.
  * `requirements` act as compile-time guards for flow invariants: they can enforce that a step cannot run unless specific typed markers are provided, even when those markers are not useful as runtime arguments for the next function.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/chainedFunction

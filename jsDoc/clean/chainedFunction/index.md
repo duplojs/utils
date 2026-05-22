@@ -12,7 +12,8 @@ You can also declare typed `requirements` on a link (`C.chainedFunction.requirem
 ```
 
 @remarks `chainedFunction` expects at least two functions in the chain. It does not catch thrown exceptions or rejected promises; model handled business errors with `Either.Left`.
-The callback receives `(firstLink, { breakIfLeft })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
+The callback receives `(firstLink, { breakIfLeft, unwrapResult })`. `breakIfLeft` is synchronous and narrows `value | Left` to `value`, yielding the `Left` branch to short-circuit when needed.
+`unwrapResult` unwraps the value returned by a link result tuple (`[value, nextLinkOrChainEnd]`) while preserving the next link in the same tuple shape.
 `requirements` act as compile-time guards for flow invariants: they can enforce that a step cannot run unless specific typed markers are provided, even when those markers are not useful as runtime arguments for the next function.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/chainedFunction

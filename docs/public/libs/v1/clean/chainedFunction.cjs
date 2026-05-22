@@ -2,6 +2,7 @@
 
 var kind = require('./kind.cjs');
 var is = require('../either/left/is.cjs');
+var unwrap = require('../common/unwrap.cjs');
 
 const requirementsChainedFunctionKind = kind.createCleanKind("requirements-chained-function");
 const chainEndKind = kind.createCleanKind("chain-end");
@@ -11,7 +12,13 @@ function* breakIfLeft(value) {
     }
     return value;
 }
-const chainedFunctionParams = { breakIfLeft };
+function unwrapResult(resultLink) {
+    return [unwrap.unwrap(resultLink[0]), resultLink[1]];
+}
+const chainedFunctionParams = {
+    breakIfLeft,
+    unwrapResult,
+};
 /**
  * {@include clean/chainedFunction/index.md}
  */

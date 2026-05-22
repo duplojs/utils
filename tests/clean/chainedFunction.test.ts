@@ -242,4 +242,24 @@ describe("chainedFunction", () => {
 			},
 		);
 	});
+
+	it("use unwrapResult", () => {
+		const useCase = DClean.chainedFunction(
+			["readValue", () => DEither.success(1)],
+			["saveValue", (input: number) => input + 1],
+		);
+
+		const result = useCase(
+			function *(link1, { unwrapResult }) {
+				const [value, link2] = unwrapResult(
+					yield *link1(({ readValue }) => readValue()),
+				);
+				const [result, chainEnd] = yield *link2(({ saveValue }) => saveValue(value));
+
+				return chainEnd(result);
+			},
+		);
+
+		expect(result).toBe(2);
+	});
 });

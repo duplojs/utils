@@ -68,7 +68,7 @@ function chainedFunction(
 ```typescript
 const aggregate = chainedFunction(...functions);
 
-const result = aggregate(function *(firstLink, { breakIfLeft }) {
+const result = aggregate(function *(firstLink, { breakIfLeft, unwrapResult }) {
 	const [value, nextLink] = yield *firstLink(({ functionName }) => functionName(...args));
 
 	return chainEnd(value);
@@ -83,6 +83,7 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 - `requirements` (élément de tuple optionnel sur chaque fonction) : valeurs requises typées qui doivent être fournies lors de l'appel du link généré pour cette fonction.
 - `firstLink` : premier link généré et passé au callback d'implémentation.
 - `breakIfLeft` : helper synchrone injecté dans le callback. Il accepte une valeur potentiellement `Either.Left`, stoppe la chaîne si c'est un `Left`, sinon retourne la valeur discriminée sans le `Left`.
+- `unwrapResult` : helper synchrone injecté dans le callback. Il accepte le tuple retourné par un link (`[value, nextLink | chainEnd]`), dépaquette `value` via `unwrap(...)` et renvoie le tuple avec le même second élément.
 
 ## Valeur de retour
 
@@ -97,6 +98,8 @@ const result = aggregate(function *(firstLink, { breakIfLeft }) {
 Quand une fonction chaînée retourne un `Either.Left`, le générateur le yield et `chainedFunction` arrête l'implémentation avant d'exécuter les links suivants. Les erreurs métier doivent être représentées avec `Either.Left` ; les exceptions lancées et les promesses rejetées ne sont pas interceptées.
 
 `breakIfLeft` suit la même règle, mais côté callback : il sert à court-circuiter explicitement le flux à partir d'une valeur intermédiaire synchrone (`value | Left`) avant d'appeler le link suivant.
+
+`unwrapResult` permet de simplifier le traitement des valeurs wrapées retournées par un link : il conserve le flux de chaînage (`nextLink` / `chainEnd`) tout en donnant directement la valeur dépaquetée pour l'étape suivante.
 
 ## Requirements et invariants de cycle de vie
 

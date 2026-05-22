@@ -7,12 +7,12 @@ Appends an evidence trait on a clean value to mark that a business step was comp
 Use it to enrich an input with one or more named evidences across a workflow, while keeping the same business value.
 
 ```ts
-{@include clean/appendEvidence/example.ts[3,15]}
+{@include clean/evidence/example.ts[3,15]}
 ```
 
 @remarks
 - Useful to trace business processing steps by progressively attaching evidence traits.
 
-@see https://utils.duplojs.dev/en/v1/api/clean/appendEvidence
+@see https://utils.duplojs.dev/en/v1/api/clean/evidence
 
 @namespace C

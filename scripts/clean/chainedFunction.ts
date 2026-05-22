@@ -1,4 +1,4 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type IsExtends, type AnyTuple } from "@scripts/common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type IsExtends, type AnyTuple, type Unwrap, unwrap } from "@scripts/common";
 import * as EE from "@scripts/either";
 import { createCleanKind } from "./kind";
 
@@ -155,11 +155,23 @@ function *breakIfLeft<
 	return value as never;
 }
 
-export interface ChainedFunctionParams {
-	breakIfLeft: typeof breakIfLeft;
+function unwrapResult<
+	GenericLinkResult extends [unknown, Link<any, any> | ChainEnd],
+>(
+	resultLink: GenericLinkResult,
+): [Unwrap<GenericLinkResult[0]>, GenericLinkResult[1]] {
+	return [unwrap(resultLink[0]), resultLink[1]] as never;
 }
 
-const chainedFunctionParams: ChainedFunctionParams = { breakIfLeft };
+export interface ChainedFunctionParams {
+	breakIfLeft: typeof breakIfLeft;
+	unwrapResult: typeof unwrapResult;
+}
+
+const chainedFunctionParams: ChainedFunctionParams = {
+	breakIfLeft,
+	unwrapResult,
+};
 
 export interface ChainedFunction<
 	GenericValue extends FunctionChain = FunctionChain,
