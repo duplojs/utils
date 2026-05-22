@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The flat() function flattens nested iterables into a single generator. By default it expands one level, with configurable depth."
 prev:
-  text: "asyncMap"
-  link: "/en/v1/api/generator/asyncMap"
+  text: "asyncConcat"
+  link: "/en/v1/api/generator/asyncConcat"
 next:
   text: "asyncFlat"
   link: "/en/v1/api/generator/asyncFlat"

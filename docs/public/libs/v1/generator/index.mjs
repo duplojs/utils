@@ -14,6 +14,8 @@ export { asyncGroup } from './asyncGroup.mjs';
 export { createExternalAsyncGenerator } from './createExternalAsyncGenerator.mjs';
 export { flat } from './flat.mjs';
 export { asyncFlat } from './asyncFlat.mjs';
+export { concat } from './concat.mjs';
+export { asyncConcat } from './asyncConcat.mjs';
 
 /**
  * {@include generator/index.md}

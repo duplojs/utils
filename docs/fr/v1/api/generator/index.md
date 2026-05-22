@@ -47,6 +47,12 @@ Transforme chaque élément d'un générateur en appliquant une fonction.
 ### [asyncMap](/fr/v1/api/generator/asyncMap)
 Transforme chaque élément d'un générateur avec une fonction asynchrone.
 
+### [concat](/fr/v1/api/generator/concat)
+Concatène plusieurs itérables dans un seul générateur.
+
+### [asyncConcat](/fr/v1/api/generator/asyncConcat)
+Concatène des itérables sync ou async dans un seul générateur asynchrone.
+
 ### [flat](/fr/v1/api/generator/flat)
 Aplatit les itérables imbriqués dans un générateur unique.
 

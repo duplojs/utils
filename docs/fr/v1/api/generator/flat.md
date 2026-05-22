@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction flat() aplatit les itérables imbriqués dans un générateur unique. Par défaut, un seul niveau est déroulé, avec une profondeur configurable."
 prev:
-  text: "asyncMap"
-  link: "/fr/v1/api/generator/asyncMap"
+  text: "asyncConcat"
+  link: "/fr/v1/api/generator/asyncConcat"
 next:
   text: "asyncFlat"
   link: "/fr/v1/api/generator/asyncFlat"

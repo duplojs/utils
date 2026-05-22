@@ -16,6 +16,8 @@ var asyncGroup = require('./asyncGroup.cjs');
 var createExternalAsyncGenerator = require('./createExternalAsyncGenerator.cjs');
 var flat = require('./flat.cjs');
 var asyncFlat = require('./asyncFlat.cjs');
+var concat = require('./concat.cjs');
+var asyncConcat = require('./asyncConcat.cjs');
 
 /**
  * {@include generator/index.md}
@@ -39,3 +41,5 @@ exports.asyncGroup = asyncGroup.asyncGroup;
 exports.createExternalAsyncGenerator = createExternalAsyncGenerator.createExternalAsyncGenerator;
 exports.flat = flat.flat;
 exports.asyncFlat = asyncFlat.asyncFlat;
+exports.concat = concat.concat;
+exports.asyncConcat = asyncConcat.asyncConcat;

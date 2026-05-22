@@ -19,3 +19,5 @@ export * from "./asyncGroup";
 export * from "./createExternalAsyncGenerator";
 export * from "./flat";
 export * from "./asyncFlat";
+export * from "./concat";
+export * from "./asyncConcat";

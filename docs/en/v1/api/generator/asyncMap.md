@@ -5,8 +5,8 @@ prev:
   text: "map"
   link: "/en/v1/api/generator/map"
 next:
-  text: "flat"
-  link: "/en/v1/api/generator/flat"
+  text: "concat"
+  link: "/en/v1/api/generator/concat"
 ---
 
 # asyncMap

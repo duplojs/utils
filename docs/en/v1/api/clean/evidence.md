@@ -31,18 +31,24 @@ In practice, one function can return an entity enriched with an evidence, and an
 ### Classic
 
 ```typescript
-function appendEvidence<Input extends C.AppendEvidenceInput, EvidenceName extends string>(
-	input: Input,
-	evidenceName: EvidenceName,
-): Input & C.Evidence<EvidenceName>
+function appendEvidence<
+	GenericInput extends C.AppendEvidenceInput, 
+	GenericEvidenceName extends string
+>(
+	input: GenericInput,
+	evidenceName: GenericEvidenceName,
+): GenericInput & C.Evidence<GenericEvidenceName>
 ```
 
 ### Curried
 
 ```typescript
-function appendEvidence<EvidenceName extends string>(
-	evidenceName: EvidenceName,
-): <Input extends C.AppendEvidenceInput>(input: Input) => Input & C.Evidence<EvidenceName>
+function appendEvidence<
+	GenericInput extends C.AppendEvidenceInput
+	EvidenceName extends string
+>(
+	evidenceName: GenericEvidenceName,
+): (input: GenericInput) => GenericInput & C.Evidence<GenericEvidenceName>
 ```
 
 ## Parameters

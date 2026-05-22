@@ -47,6 +47,12 @@ Transforms each element of a generator by applying a function.
 ### [asyncMap](/en/v1/api/generator/asyncMap)
 Transforms each element of a generator with an async function.
 
+### [concat](/en/v1/api/generator/concat)
+Concatenates multiple iterables into a single generator.
+
+### [asyncConcat](/en/v1/api/generator/asyncConcat)
+Concatenates sync or async iterables into a single async generator.
+
 ### [flat](/en/v1/api/generator/flat)
 Flattens nested iterables into a single generator.
 
