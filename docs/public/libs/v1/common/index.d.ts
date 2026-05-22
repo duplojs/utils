@@ -15,7 +15,7 @@
  * - composition helpers (`pipe`, `innerPipe`, `asyncPipe`, `asyncInnerPipe`, `forward`)
  * - predicates and guards (`when`, `whenNot`, `whenElse`, `and`, `or`, `isType`, `asserts`, `instanceOf`)
  * - control flow (`loop`, `asyncLoop`, `asyncRetry`, `sleep`, `memo`)
- * - promise utilities (`externalPromise`, `promiseObject`)
+ * - promise utilities (`externalPromise`, `promiseAll`, `promiseObject`)
  * - form-data utilities (`createFormData`, `TheFormData.fromEntries`, `TheFormData.toFlatEntries`)
  * - string and value conversions (`stringToMillisecond`, `stringToBytes`, `escapeRegExp`, `toRegExp`)
  * - wrappers and kinds (`wrapValue`, `unwrap`, `toWrappedValue`, `hasKinds`, `hasSomeKinds`)
@@ -83,3 +83,4 @@ export * from "./callThen";
 export * from "./queue";
 export * from "./printer";
 export * from "./kindClass";
+export * from "./promiseAll";

@@ -72,6 +72,7 @@ var callThen = require('./common/callThen.cjs');
 var queue = require('./common/queue.cjs');
 var printer = require('./common/printer.cjs');
 var kindClass = require('./common/kindClass.cjs');
+var promiseAll = require('./common/promiseAll.cjs');
 
 
 
@@ -185,3 +186,4 @@ Object.defineProperty(exports, "Printer", {
 	get: function () { return printer.Printer; }
 });
 exports.kindClass = kindClass.kindClass;
+exports.promiseAll = promiseAll.promiseAll;

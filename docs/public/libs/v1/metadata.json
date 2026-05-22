@@ -1669,6 +1669,15 @@
           "name": "printer.mjs"
         },
         {
+          "name": "promiseAll.cjs"
+        },
+        {
+          "name": "promiseAll.d.ts"
+        },
+        {
+          "name": "promiseAll.mjs"
+        },
+        {
           "name": "promiseObject.cjs"
         },
         {

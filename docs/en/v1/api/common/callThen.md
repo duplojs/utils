@@ -5,8 +5,8 @@ prev:
   text: "externalPromise"
   link: "/en/v1/api/common/externalPromise"
 next:
-  text: "promiseObject"
-  link: "/en/v1/api/common/promiseObject"
+  text: "promiseAll"
+  link: "/en/v1/api/common/promiseAll"
 ---
 
 # callThen
@@ -50,5 +50,6 @@ function callThen<
 ## See also
 
 - [`externalPromise`](/en/v1/api/common/externalPromise) - Creates a promise controllable from the outside
+- [`promiseAll`](/en/v1/api/common/promiseAll) - Resolves a tuple or iterable of promises/values
 - [`promiseObject`](/en/v1/api/common/promiseObject) - Resolves an object of promises
 - [`asyncPipe`](/en/v1/api/common/asyncPipe) - Chains asynchronous transformations

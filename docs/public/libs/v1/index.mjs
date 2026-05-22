@@ -96,3 +96,4 @@ export { callThen } from './common/callThen.mjs';
 export { createQueue, queueKind } from './common/queue.mjs';
 export { Printer } from './common/printer.mjs';
 export { kindClass } from './common/kindClass.mjs';
+export { promiseAll } from './common/promiseAll.mjs';

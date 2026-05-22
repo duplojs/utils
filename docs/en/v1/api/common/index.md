@@ -110,6 +110,9 @@ Creates a promise with its `resolve`/`reject` methods exposed to be controlled f
 ### [callThen](/en/v1/api/common/callThen)
 Applies a callback to a direct value or after a `Promise` resolves.
 
+### [promiseAll](/en/v1/api/common/promiseAll)
+Resolves a tuple or iterable containing promises and/or direct values.
+
 ### [promiseObject](/en/v1/api/common/promiseObject)
 Transforms an object of promises into a promise of an object with resolved, typed values.
 

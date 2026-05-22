@@ -62,3 +62,4 @@ export * from "./callThen";
 export * from "./queue";
 export * from "./printer";
 export * from "./kindClass";
+export * from "./promiseAll";

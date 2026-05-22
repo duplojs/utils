@@ -110,6 +110,9 @@ Crée une promesse avec ses méthodes `resolve`/`reject` exposées pour être co
 ### [callThen](/fr/v1/api/common/callThen)
 Applique un callback sur une valeur directe ou après résolution d'une `Promise`.
 
+### [promiseAll](/fr/v1/api/common/promiseAll)
+Résout un tuple ou un iterable contenant des promesses et/ou des valeurs directes.
+
 ### [promiseObject](/fr/v1/api/common/promiseObject)
 Transforme un objet de promesses en promesse d'objet avec des valeurs résolues et typées.
 
