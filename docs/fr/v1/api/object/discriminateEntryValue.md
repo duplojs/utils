@@ -18,7 +18,7 @@ Applique un prédicat sur la valeur d'une entry d'objet et affine le type du tup
 <MonacoTSEditor
   src="/examples/v1/api/object/discriminateEntryValue/tryout.doc.ts"
   majorVersion="v1"
-  height="586px"
+  height="334px"
 />
 
 ## Syntaxe

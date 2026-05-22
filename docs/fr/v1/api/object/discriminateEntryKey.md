@@ -18,7 +18,7 @@ Applique un prédicat sur la clé d'une entry d'objet et affine le type du tuple
 <MonacoTSEditor
   src="/examples/v1/api/object/discriminateEntryKey/tryout.doc.ts"
   majorVersion="v1"
-  height="586px"
+  height="334px"
 />
 
 ## Syntaxe

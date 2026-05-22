@@ -18,7 +18,7 @@ Applies a predicate to an object entry value and narrows the tuple type when the
 <MonacoTSEditor
   src="/examples/v1/api/object/discriminateEntryValue/tryout.doc.ts"
   majorVersion="v1"
-  height="586px"
+  height="334px"
 />
 
 ## Syntax
