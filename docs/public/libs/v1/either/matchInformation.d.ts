@@ -51,6 +51,6 @@ type ComputeMatcher<GenericEither extends Either> = Extract<{
  * @namespace E
  * 
  */
-export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(matcher: (ComputeMatcher<Extract<NoInfer<GenericInput>, Either>> & GenericMatcher)): (input: GenericInput) => (ReturnType<NoInfer<GenericMatcher[keyof GenericMatcher]>> | Exclude<GenericInput, Either>);
+export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(matcher: (ComputeMatcher<Extract<NoInfer<GenericInput>, Either>> & GenericMatcher)): (input: GenericInput) => (ReturnType<NoInfer<GenericMatcher[keyof GenericMatcher]>> | Exclude<NoInfer<GenericInput>, Either>);
 export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(input: GenericInput, matcher: FixDeepFunctionInfer<ComputeMatcher<Extract<GenericInput, Either>>, GenericMatcher>): (ReturnType<GenericMatcher[keyof GenericMatcher]> | Exclude<GenericInput, Either>);
 export {};

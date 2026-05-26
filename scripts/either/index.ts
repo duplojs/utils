@@ -15,4 +15,5 @@ export * from "./safeCallback";
 export * from "./expect";
 export * from "./matchInformation";
 export * from "./matchInformationOtherwise";
+export * from "./unwrapByInformation";
 export * from "./unwrapByInformationOrThrow";

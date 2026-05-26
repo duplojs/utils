@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
+import { type MaybeArray, type Kind } from "@scripts/common";
 import { type Left } from "./left";
 import { type Right } from "./right";
 import { informationKind } from "./kind";
+import * as DArray from "@scripts/array";
 
 type Either = Right | Left;
 
@@ -16,7 +17,7 @@ export function hasInformation<
 			: never
 	),
 >(
-	information: GenericInformation,
+	information: GenericInformation | GenericInformation[],
 ): (input: GenericInput) => input is Extract<
 	GenericInput,
 	Kind<typeof informationKind.definition, GenericInformation>
@@ -31,14 +32,14 @@ export function hasInformation<
 	),
 >(
 	input: GenericInput,
-	information: GenericInformation,
+	information: GenericInformation | GenericInformation[],
 ): input is Extract<
 	GenericInput,
 	Kind<typeof informationKind.definition, GenericInformation>
 >;
 
 export function hasInformation(
-	...args: [unknown, string] | [string]
+	...args: [unknown, MaybeArray<string>] | [MaybeArray<string>]
 ): any {
 	if (args.length === 1) {
 		const [information] = args;
@@ -47,7 +48,8 @@ export function hasInformation(
 	}
 
 	const [input, information] = args;
+	const formattedInformation = DArray.coalescing(information);
 
 	return informationKind.has(input)
-		&& informationKind.getValue(input) === information;
+		&& formattedInformation.includes(informationKind.getValue(input));
 }

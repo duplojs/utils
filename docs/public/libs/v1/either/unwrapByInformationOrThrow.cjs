@@ -9,7 +9,10 @@ class HasNotInformationError extends kindClass.kindClass(errorKindNamespace.crea
     value;
     information;
     constructor(value, information) {
-        super(undefined, `Value has not information "${information}".`);
+        const formattedInformation = information instanceof Array
+            ? information.join(" or ")
+            : information;
+        super(undefined, `Value has not information "${formattedInformation}".`);
         this.value = value;
         this.information = information;
     }

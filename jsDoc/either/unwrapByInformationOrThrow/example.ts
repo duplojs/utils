@@ -6,15 +6,18 @@ const amount = E.unwrapByInformationOrThrow(
 );
 // type: 120
 
-const reason = E.unwrapByInformationOrThrow(
-	"payment.rejected",
-)(
-	E.left("payment.rejected", "insufficient funds"),
+const payload = E.unwrapByInformationOrThrow(
+	true
+		? E.left("payment.rejected", "insufficient funds")
+		: E.left("payment.accepted", 120),
+	["payment.accepted", "payment.rejected"],
 );
-// type: "insufficient funds"
+// type: 120 | "insufficient funds"
 
 const total = pipe(
-	E.result("invoice.total", 450),
-	E.unwrapByInformationOrThrow("invoice.total"),
+	true
+		? E.result("invoice.total", 450)
+		: E.result("invoice.fallback", null),
+	E.unwrapByInformation(["invoice.total", "invoice.fallback"]),
 );
 // type: 450

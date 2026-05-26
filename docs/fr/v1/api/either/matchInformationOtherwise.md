@@ -5,8 +5,8 @@ prev:
   text: "matchInformation"
   link: "/fr/v1/api/either/matchInformation"
 next:
-  text: "unwrapByInformationOrThrow"
-  link: "/fr/v1/api/either/unwrapByInformationOrThrow"
+  text: "unwrapByInformation"
+  link: "/fr/v1/api/either/unwrapByInformation"
 ---
 
 # matchInformationOtherwise

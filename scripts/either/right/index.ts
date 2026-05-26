@@ -10,3 +10,4 @@ export * from "./asyncGroup";
 export * from "./whenElse";
 export * from "./result";
 export * from "./unwrapOrThrow";
+export * from "./unwrap";

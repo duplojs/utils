@@ -14,4 +14,9 @@ if (E.isLeft(result)) {
 	if (E.hasInformation(result, "left-2")) {
 		// type: E.Left<"left-2", 2>
 	}
+
+	if (E.hasInformation(result, ["left-2", "left-3"])) {
+		// type: E.Left<"left-2", 2> | E.Left<"left-3", 3>
+	}
 }
+

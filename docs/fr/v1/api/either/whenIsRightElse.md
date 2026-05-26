@@ -5,8 +5,8 @@ prev:
   text: "whenIsRight"
   link: "/fr/v1/api/either/whenIsRight"
 next:
-  text: "unwrapRightOrThrow"
-  link: "/fr/v1/api/either/unwrapRightOrThrow"
+  text: "unwrapRight"
+  link: "/fr/v1/api/either/unwrapRight"
 ---
 
 # whenIsRightElse

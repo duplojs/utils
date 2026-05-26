@@ -14,7 +14,7 @@
  * 
  * What you will find in this namespace:
  * - constructors (`E.left`, `E.right`, `E.bool`, `E.nullable`, `E.nullish`, `E.optional`)
- * - guards and utilities (`E.hasInformation`, `E.whenHasInformation`, `E.kind`)
+ * - guards and utilities (`E.hasInformation`, `E.whenHasInformation`, `E.unwrapByInformation`, `E.kind`)
  * - async helpers (`E.future`, `E.safeCallback`)
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either
@@ -36,4 +36,5 @@ export * from "./safeCallback";
 export * from "./expect";
 export * from "./matchInformation";
 export * from "./matchInformationOtherwise";
+export * from "./unwrapByInformation";
 export * from "./unwrapByInformationOrThrow";

@@ -5,3 +5,4 @@ export * from "./is";
 export * from "./when";
 export * from "./whenElse";
 export * from "./unwrapOrThrow";
+export * from "./unwrap";

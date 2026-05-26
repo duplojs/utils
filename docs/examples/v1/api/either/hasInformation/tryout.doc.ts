@@ -20,4 +20,12 @@ if (E.isLeft(result)) {
 			"strict"
 		>;
 	}
+
+	if (E.hasInformation(result, ["left-2", "left-3"])) {
+		type check = ExpectType<
+			typeof result,
+			E.Left<"left-2", 2> | E.Left<"left-3", 3>,
+			"strict"
+		>;
+	}
 }

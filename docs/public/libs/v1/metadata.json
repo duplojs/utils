@@ -3770,6 +3770,15 @@
               "name": "is.mjs"
             },
             {
+              "name": "unwrap.cjs"
+            },
+            {
+              "name": "unwrap.d.ts"
+            },
+            {
+              "name": "unwrap.mjs"
+            },
+            {
               "name": "unwrapOrThrow.cjs"
             },
             {
@@ -4018,6 +4027,15 @@
               "name": "success.mjs"
             },
             {
+              "name": "unwrap.cjs"
+            },
+            {
+              "name": "unwrap.d.ts"
+            },
+            {
+              "name": "unwrap.mjs"
+            },
+            {
               "name": "unwrapOrThrow.cjs"
             },
             {
@@ -4108,6 +4126,15 @@
         },
         {
           "name": "safeCallback.mjs"
+        },
+        {
+          "name": "unwrapByInformation.cjs"
+        },
+        {
+          "name": "unwrapByInformation.d.ts"
+        },
+        {
+          "name": "unwrapByInformation.mjs"
         },
         {
           "name": "unwrapByInformationOrThrow.cjs"

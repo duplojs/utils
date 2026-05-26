@@ -2,7 +2,7 @@ import { unwrap, type Unwrap } from "@scripts/common/unwrap";
 import { createErrorKind } from "@scripts/common/errorKindNamespace";
 import { kindClass } from "@scripts/common/kindClass";
 import { type Left } from "./create";
-import { isLeft } from "..";
+import { isLeft } from "./is";
 
 export class NotLeftError extends kindClass(
 	createErrorKind("not-left-error"),

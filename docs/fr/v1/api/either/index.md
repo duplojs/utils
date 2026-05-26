@@ -65,6 +65,9 @@ Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la va
 ### [whenIsRightElse](/fr/v1/api/either/whenIsRightElse)
 Exécute un callback sur `Right` (avec valeur unwrap) et un callback sur toutes les autres entrées.
 
+### [unwrapRight](/fr/v1/api/either/unwrapRight)
+Unwrap le payload d'un `Right` et renvoie l'entrée inchangée si l'entrée n'est pas `Right`.
+
 ### [unwrapRightOrThrow](/fr/v1/api/either/unwrapRightOrThrow)
 Unwrap immédiatement le payload d'un `Right` et lève une erreur si l'entrée n'est pas `Right`.
 
@@ -78,6 +81,9 @@ Permet d'appliquer une fonction lorsqu'on reçoit un `Left` puis de continuer le
 
 ### [whenIsLeftElse](/fr/v1/api/either/whenIsLeftElse)
 Exécute un callback sur `Left` (avec valeur unwrap) et un callback sur toutes les autres entrées.
+
+### [unwrapLeft](/fr/v1/api/either/unwrapLeft)
+Unwrap le payload d'un `Left` et renvoie l'entrée inchangée si l'entrée n'est pas `Left`.
 
 ### [unwrapLeftOrThrow](/fr/v1/api/either/unwrapLeftOrThrow)
 Unwrap immédiatement le payload d'un `Left` et lève une erreur si l'entrée n'est pas `Left`.
@@ -109,6 +115,9 @@ Pattern matching exhaustif par information où chaque cas Either doit être trai
 
 ### [matchInformationOtherwise](/fr/v1/api/either/matchInformationOtherwise)
 Pattern matching non exhaustif par information avec callback de fallback obligatoire.
+
+### [unwrapByInformation](/fr/v1/api/either/unwrapByInformation)
+Unwrap un `Either` quand une information (ou l'une de plusieurs informations) correspond, sinon renvoie l'entrée inchangée.
 
 ### [unwrapByInformationOrThrow](/fr/v1/api/either/unwrapByInformationOrThrow)
 Unwrap un `Either` uniquement lorsqu'une information littérale précise correspond, sinon lève une erreur.

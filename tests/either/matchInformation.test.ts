@@ -1,4 +1,4 @@
-import { pipe, type ExpectType, DEither } from "@scripts";
+import { pipe, type ExpectType, DEither, forward, type EscapeVoid } from "@scripts";
 
 describe("matchInformation", () => {
 	it("matches each information branch for an either input", () => {
@@ -16,15 +16,7 @@ describe("matchInformation", () => {
 
 				return value + 1;
 			},
-			failure: (value) => {
-				type check = ExpectType<
-					typeof value,
-					"error",
-					"strict"
-				>;
-
-				return value;
-			},
+			failure: forward,
 		});
 
 		expect(result).toBe(43);
@@ -52,21 +44,13 @@ describe("matchInformation", () => {
 		const result = pipe(
 			true
 				? DEither.ok()
-				: DEither.fail(),
+				: DEither.error("test"),
 			DEither.matchInformation({
-				ok: (value) => {
+				ok: forward,
+				error: (value) => {
 					type check = ExpectType<
 						typeof value,
-						void,
-						"strict"
-					>;
-
-					return "ok" as const;
-				},
-				fail: (value) => {
-					type check = ExpectType<
-						typeof value,
-						void,
+						"test",
 						"strict"
 					>;
 
@@ -75,11 +59,11 @@ describe("matchInformation", () => {
 			}),
 		);
 
-		expect(result).toBe("ok");
+		expect(result).toBe(undefined);
 
 		type check = ExpectType<
 			typeof result,
-			"ok" | "fail",
+			EscapeVoid | "fail",
 			"strict"
 		>;
 	});

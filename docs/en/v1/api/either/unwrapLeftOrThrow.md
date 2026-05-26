@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Unwraps the payload of a Left and throws a NotLeftError when the input is not Left."
 prev:
-  text: "whenIsLeftElse"
-  link: "/en/v1/api/either/whenIsLeftElse"
+  text: "unwrapLeft"
+  link: "/en/v1/api/either/unwrapLeft"
 next:
   text: "rightPipe"
   link: "/en/v1/api/either/rightPipe"

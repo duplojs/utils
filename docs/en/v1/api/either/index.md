@@ -150,6 +150,9 @@ Runs a function only when the input is `Right`, otherwise forwards the original 
 ### [whenIsRightElse](/en/v1/api/either/whenIsRightElse)
 Runs one callback on `Right` (with unwrapped value) and one callback on all other inputs.
 
+### [unwrapRight](/en/v1/api/either/unwrapRight)
+Unwraps a `Right` payload and returns the input unchanged when it is not `Right`.
+
 ### [unwrapRightOrThrow](/en/v1/api/either/unwrapRightOrThrow)
 Unwraps a `Right` payload immediately and throws if the input is not `Right`.
 
@@ -163,6 +166,9 @@ Allows applying a function when receiving a `Left` and then continuing the flow.
 
 ### [whenIsLeftElse](/en/v1/api/either/whenIsLeftElse)
 Runs one callback on `Left` (with unwrapped value) and one callback on all other inputs.
+
+### [unwrapLeft](/en/v1/api/either/unwrapLeft)
+Unwraps a `Left` payload and returns the input unchanged when it is not `Left`.
 
 ### [unwrapLeftOrThrow](/en/v1/api/either/unwrapLeftOrThrow)
 Unwraps a `Left` payload immediately and throws if the input is not `Left`.
@@ -194,6 +200,9 @@ Exhaustive pattern matching by information where every Either case must be handl
 
 ### [matchInformationOtherwise](/en/v1/api/either/matchInformationOtherwise)
 Non-exhaustive pattern matching by information with a mandatory fallback callback.
+
+### [unwrapByInformation](/en/v1/api/either/unwrapByInformation)
+Unwraps an `Either` when one information (or one of several informations) matches, otherwise returns the input unchanged.
 
 ### [unwrapByInformationOrThrow](/en/v1/api/either/unwrapByInformationOrThrow)
 Unwraps an `Either` only when one precise literal information matches, otherwise throws.

@@ -13,7 +13,7 @@ import * as E from "@duplojs/utils/either";
 
 What you will find in this namespace:
 - constructors (`E.left`, `E.right`, `E.bool`, `E.nullable`, `E.nullish`, `E.optional`)
-- guards and utilities (`E.hasInformation`, `E.whenHasInformation`, `E.kind`)
+- guards and utilities (`E.hasInformation`, `E.whenHasInformation`, `E.unwrapByInformation`, `E.kind`)
 - async helpers (`E.future`, `E.safeCallback`)
 
 @see https://utils.duplojs.dev/en/v1/api/either

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Unwrap le payload d'un Left et lève une NotLeftError lorsque l'entrée n'est pas Left."
 prev:
-  text: "whenIsLeftElse"
-  link: "/fr/v1/api/either/whenIsLeftElse"
+  text: "unwrapLeft"
+  link: "/fr/v1/api/either/unwrapLeft"
 next:
   text: "rightPipe"
   link: "/fr/v1/api/either/rightPipe"

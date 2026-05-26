@@ -6,6 +6,7 @@ import { type Left } from "./left";
 import { type Right } from "./right";
 import { type informationKind } from "./kind";
 import { hasInformation } from "./hasInformation";
+import { type MaybeArray } from "@scripts/common";
 
 export class HasNotInformationError extends kindClass(
 	createErrorKind("has-not-information-error"),
@@ -13,9 +14,13 @@ export class HasNotInformationError extends kindClass(
 ) {
 	public constructor(
 		public value: unknown,
-		public information: string,
+		public information: MaybeArray<string>,
 	) {
-		super(undefined, `Value has not information "${information}".`);
+		const formattedInformation = information instanceof Array
+			? information.join(" or ")
+			: information;
+
+		super(undefined, `Value has not information "${formattedInformation}".`);
 	}
 }
 
@@ -26,9 +31,13 @@ type Either = Right | Left;
  */
 export function unwrapByInformationOrThrow<
 	GenericInput extends unknown,
-	const GenericInformation extends string,
+	const GenericInformation extends (
+		GenericInput extends Either
+			? ReturnType<typeof informationKind.getValue<GenericInput>>
+			: never
+	),
 >(
-	information: GenericInformation,
+	information: GenericInformation | GenericInformation[],
 ): (
 	input: GenericInput,
 ) => Unwrap<
@@ -47,7 +56,7 @@ export function unwrapByInformationOrThrow<
 	),
 >(
 	input: GenericInput,
-	information: GenericInformation,
+	information: GenericInformation | GenericInformation[],
 ): Unwrap<
 	Extract<
 		GenericInput,
@@ -56,7 +65,7 @@ export function unwrapByInformationOrThrow<
 >;
 
 export function unwrapByInformationOrThrow(
-	...args: [unknown, string] | [string]
+	...args: [unknown, MaybeArray<string>] | [MaybeArray<string>]
 ): any {
 	if (args.length === 1) {
 		const [information] = args;

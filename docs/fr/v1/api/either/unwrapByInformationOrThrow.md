@@ -1,9 +1,9 @@
 ---
 outline: [2, 3]
-description: "Unwrap le payload d'un Either uniquement lorsque l'information littérale attendue correspond, sinon lève une HasNotInformationError."
+description: "Unwrap le payload d'un Either lorsqu'une information littérale, ou l'une de plusieurs informations littérales, correspond; sinon lève une HasNotInformationError."
 prev:
-  text: "matchInformationOtherwise"
-  link: "/fr/v1/api/either/matchInformationOtherwise"
+  text: "unwrapByInformation"
+  link: "/fr/v1/api/either/unwrapByInformation"
 next:
   text: "expect"
   link: "/fr/v1/api/either/expect"
@@ -11,14 +11,14 @@ next:
 
 # unwrapByInformationOrThrow
 
-Unwrap le payload d'un `Either` uniquement lorsque l'information littérale attendue correspond, sinon lève une `HasNotInformationError`.
+Unwrap le payload d'un `Either` lorsqu'une information littérale, ou l'une de plusieurs informations littérales, correspond; sinon lève une `HasNotInformationError`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/either/unwrapByInformationOrThrow/tryout.doc.ts"
   majorVersion="v1"
-  height="397px"
+  height="586px"
 />
 
 ## Syntaxe
@@ -28,36 +28,55 @@ Unwrap le payload d'un `Either` uniquement lorsque l'information littérale atte
 ```typescript
 function unwrapByInformationOrThrow<
   GenericInput extends unknown,
-  GenericInformation extends ReturnType<typeof informationKind.getValue<GenericInput>>
+  GenericInformation extends (
+    GenericInput extends Either
+      ? ReturnType<typeof informationKind.getValue<GenericInput>>
+      : never
+  ),
 >(
   input: GenericInput,
-  information: GenericInformation
-): Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>>
+  information: GenericInformation | GenericInformation[],
+): Unwrap<
+  Extract<
+    GenericInput,
+    Kind<typeof informationKind.definition, GenericInformation>
+  >
+>
 ```
 
 ### Signature currifiée
 
 ```typescript
 function unwrapByInformationOrThrow<
-  GenericInformation extends string
+  GenericInput extends unknown,
+  const GenericInformation extends (
+    GenericInput extends Either
+      ? ReturnType<typeof informationKind.getValue<GenericInput>>
+      : never
+  ),
 >(
-  information: GenericInformation
-): <GenericInput extends unknown>(
-  input: GenericInput
-) => Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>>
+  information: GenericInformation | GenericInformation[],
+): (
+  input: GenericInput,
+) => Unwrap<
+  Extract<
+    GenericInput,
+    Kind<typeof informationKind.definition, GenericInformation>
+  >
+>
 ```
 
 ## Paramètres
 
-- `information` : Information littérale attendue.
+- `information` : Information littérale attendue, ou tableau d'informations littérales.
 - `input` : Valeur `Either` à unwrap immédiatement, ou plus tard via la forme currifiée.
 
 ## Valeur de retour
 
-Retourne le payload unwrap lorsque l'information correspond. Sinon, la fonction lève `E.HasNotInformationError`.
+Retourne le payload unwrap lorsqu'une information correspond. Sinon, la fonction lève `E.HasNotInformationError`.
 
 ## Voir aussi
 
+- [`unwrapByInformation`](/fr/v1/api/either/unwrapByInformation) – Variante non bloquante qui renvoie l'entrée inchangée si aucune information ne correspond.
 - [`hasInformation`](/fr/v1/api/either/hasInformation) – Contrôle non bloquant sur l'information littérale.
 - [`whenHasInformation`](/fr/v1/api/either/whenHasInformation) – Variante à callback.
-- [`unwrapRightOrThrow`](/fr/v1/api/either/unwrapRightOrThrow) / [`unwrapLeftOrThrow`](/fr/v1/api/either/unwrapLeftOrThrow) – Helpers d'unwrap orientés par côté.

@@ -46,7 +46,7 @@ export function matchInformation<
 	)
 ): (input: GenericInput) => (
 	| ReturnType<NoInfer<GenericMatcher[keyof GenericMatcher]>>
-	| Exclude<GenericInput, Either>
+	| Exclude<NoInfer<GenericInput>, Either>
 );
 
 export function matchInformation<
