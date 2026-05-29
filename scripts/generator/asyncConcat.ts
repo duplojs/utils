@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 /**
  * {@include generator/asyncConcat/index.md}
  */
@@ -40,18 +41,11 @@ export function asyncConcat(
 	];
 
 	return (async function *() {
-		for await (const value of iterator) {
-			yield value;
-		}
+		yield *iterator;
+		yield *elements;
 
-		for await (const value of elements) {
-			yield value;
-		}
-
-		for (const iterable of elementsRest) {
-			for await (const value of iterable) {
-				yield value;
-			}
+		for (const value of elementsRest) {
+			yield *value;
 		}
 	})();
 }
