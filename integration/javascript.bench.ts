@@ -1,4 +1,6 @@
-import { DEither, keyWrappedValue, kindHeritage } from "@scripts";
+/* eslint-disable @typescript-eslint/max-params */
+/* eslint-disable @typescript-eslint/prefer-for-of */
+import { A, type AnyFunction, DEither, forward, keyWrappedValue, kindHeritage, S } from "@duplojs/utils";
 import { bench } from "vitest";
 
 describe("better argument", () => {
@@ -188,5 +190,205 @@ describe("instance", () => {
 
 	bench("with class", () => {
 		const newValue = new EitherErrorClass("test");
+	});
+});
+
+describe("pipe", () => {
+	function spreadForOfPipe(input: any, ...args: AnyFunction[]) {
+		let result = input;
+
+		for (const pipe of args) {
+			result = pipe(result);
+		}
+		return result;
+	}
+
+	function spreadForPipe(input: any, ...args: AnyFunction[]) {
+		let result = input;
+
+		for (let index = 0; index < args.length; index++) {
+			result = args[index]!(result);
+		}
+
+		return result;
+	}
+
+	function spreadWithoutForPipe(input: any, ...args: AnyFunction[]) {
+		const length = args.length;
+
+		if (length === 1) {
+			return args[0]!(input);
+		} else if (length === 2) {
+			return args[1]!(args[0]!(input));
+		} else if (length === 3) {
+			return args[2]!(args[1]!(args[0]!(input)));
+		} else if (length === 4) {
+			return args[3]!(args[2]!(args[1]!(args[0]!(input))));
+		}
+	}
+
+	function pipeIfArg(
+		input: any,
+		function1: AnyFunction,
+		function2?: AnyFunction,
+		function3?: AnyFunction,
+		function4?: AnyFunction,
+	) {
+		let result = function1(input);
+
+		if (!function2) {
+			return result;
+		}
+
+		result = function2(result);
+
+		if (!function3) {
+			return result;
+		}
+
+		result = function3(result);
+
+		if (!function4) {
+			return result;
+		}
+
+		result = function4(result);
+
+		return result;
+	}
+
+	bench("if arg", () => {
+		const result = pipeIfArg(
+			"test",
+			S.split(""),
+			A.join("-"),
+			S.split("-"),
+			A.join("-"),
+		);
+
+		expect(result).toBe("t-e-s-t");
+	}, {
+		time: 1000,
+		iterations: 1000,
+	});
+
+	bench("spread for of", () => {
+		const result = spreadForOfPipe(
+			"test",
+			S.split(""),
+			A.join("-"),
+			S.split("-"),
+			A.join("-"),
+		);
+
+		expect(result).toBe("t-e-s-t");
+	});
+
+	bench("spread for", () => {
+		const result = spreadForPipe(
+			"test",
+			S.split(""),
+			A.join("-"),
+			S.split("-"),
+			A.join("-"),
+		);
+
+		expect(result).toBe("t-e-s-t");
+	});
+
+	bench("spread without for", () => {
+		const result = spreadWithoutForPipe(
+			"test",
+			S.split(""),
+			A.join("-"),
+			S.split("-"),
+			A.join("-"),
+		);
+
+		expect(result).toBe("t-e-s-t");
+	});
+
+	bench("manual", () => {
+		const result = (() => {
+			let result: any = "test";
+
+			result = S.split(result, "");
+
+			result = A.join(result, "-");
+
+			result = S.split(result, "-");
+
+			result = A.join(result, "-");
+
+			return result;
+		})();
+
+		expect(result).toBe("t-e-s-t");
+	});
+});
+
+describe("asyncPipe", () => {
+	async function asyncPipe(input: any, ...args: AnyFunction[]) {
+		let result = await input;
+
+		for (const pipe of args) {
+			result = await pipe(result);
+		}
+
+		return result;
+	}
+
+	async function asyncPipeWithIf(input: any, ...args: AnyFunction[]) {
+		let result = input instanceof Promise ? await input : input;
+
+		for (const pipe of args) {
+			result = pipe(result);
+
+			if (result instanceof Promise) {
+				result = await result;
+			}
+		}
+
+		return result;
+	}
+
+	bench("normal with only Promise", async() => {
+		const result = await asyncPipe(
+			Promise.resolve("test"),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+		);
+	});
+
+	bench("if with only Promise", async() => {
+		const result = await asyncPipeWithIf(
+			Promise.resolve("test"),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+			(value) => Promise.resolve(value),
+		);
+	});
+
+	bench("normal with only sync and promise", async() => {
+		const result = await asyncPipe(
+			"test",
+			(value) => Promise.resolve(value),
+			forward,
+			(value) => Promise.resolve(value),
+			forward,
+		);
+	});
+
+	bench("if with only sync and promise", async() => {
+		const result = await asyncPipeWithIf(
+			"test",
+			(value) => Promise.resolve(value),
+			forward,
+			(value) => Promise.resolve(value),
+			forward,
+		);
 	});
 });

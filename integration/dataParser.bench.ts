@@ -15,4 +15,21 @@ describe("data parser", () => {
 			zodSchema.parse("test");
 		});
 	});
+
+	describe("object", () => {
+		const zodSchema = zod.object({
+			test: zod.string(),
+		});
+		const DPSchema = DP.object({
+			test: DP.string(),
+		});
+
+		bench("dataParser", () => {
+			DPSchema.parse({ test: "toto" });
+		});
+
+		bench("zod", () => {
+			zodSchema.parse({ test: "toto" });
+		});
+	});
 });
