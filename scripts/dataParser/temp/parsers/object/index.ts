@@ -83,7 +83,8 @@ export class DataParserObject<
 		DataParserBase<
 			GenericDefinition,
 			DataParserObjectShapeOutput<GenericDefinition["shape"]>,
-			DataParserObjectShapeInput<GenericDefinition["shape"]>
+			DataParserObjectShapeInput<GenericDefinition["shape"]>,
+			DataParserObject<GenericDefinition>
 		>
 	> {
 	public constructor(

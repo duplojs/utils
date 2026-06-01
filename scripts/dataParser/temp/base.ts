@@ -1,4 +1,4 @@
-import { kindClass, keyWrappedValue, type ComputedTypeError, type RemoveAbstractFromConstructor, simpleClone, type MaybePromise, type IsEqual, type GetKind, type AnyConstructor } from "@scripts/common";
+import { kindClass, keyWrappedValue, type ComputedTypeError, type RemoveAbstractFromConstructor, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type BivariantFunction } from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import * as DEither from "@scripts/either";
 import { type DataParserError, SymbolDataParserError, createError, addIssue } from "../error";
@@ -48,6 +48,7 @@ export abstract class DataParserBase<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
+	GenericSelf extends DataParserBase = any,
 > extends kindClass(
 		dataParserKind,
 	)<
@@ -66,24 +67,24 @@ export abstract class DataParserBase<
 		this.definition = definition;
 	}
 
-	public abstract get classConstructor(): GetKind<this> extends infer InferredKind
-		? (
-			& RemoveAbstractFromConstructor<
-				typeof DataParserBase<
-					any
-				>
+	public abstract get classConstructor(): (
+		& RemoveAbstractFromConstructor<
+			typeof DataParserBase<
+				any
 			>
-			& AnyConstructor<[any], InferredKind>
-			& {
-				create(...args: never[]): DataParserBase & InferredKind;
-				execParse(
-					self: DataParserBase & InferredKind,
+		>
+		& AnyConstructor<[any], DataParserBase>
+		& {
+			create(...args: never[]): DataParserBase;
+			execParse: BivariantFunction<
+				(
+					self: GenericSelf,
 					data: unknown,
 					error: DataParserError,
-				): unknown;
-			}
-		)
-		: never;
+				) => unknown
+			>;
+		}
+	);
 
 	private execParse(
 		data: unknown,
