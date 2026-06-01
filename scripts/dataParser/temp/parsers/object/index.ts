@@ -1,0 +1,267 @@
+import { type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized, type NeverCoalescing, forward, kindClass, memo, pipe } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, dataParserKind, type DataParser, type DataParserDefinition } from "../../base";
+import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import * as DArray from "@scripts/array";
+import * as DObject from "@scripts/object";
+
+export * from "./omit";
+export * from "./pick";
+export * from "./partial";
+export * from "./required";
+export * from "./extends";
+
+export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
+
+export type DataParserObjectShapeOutput<
+	GenericShape extends DataParserObjectShape,
+> = {
+	-readonly [
+	Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
+		? Prop
+		: never
+	]: Output<GenericShape[Prop]>
+} extends infer InferredResult extends object
+	? DObject.PartialKeys<
+		InferredResult,
+		DObject.GetPropsWithValueExtends<
+			InferredResult,
+			undefined
+		>
+	>
+	: never;
+
+export type DataParserObjectShapeInput<
+	GenericShape extends DataParserObjectShape,
+> = {
+	-readonly [
+	Prop in keyof GenericShape as GenericShape[Prop] extends Kind<typeof dataParserKind.definition>
+		? Prop
+		: never
+	]: Input<GenericShape[Prop]>
+} extends infer InferredResult extends object
+	? DObject.PartialKeys<
+		InferredResult,
+		DObject.GetPropsWithValueExtends<
+			InferredResult,
+			undefined
+		>
+	>
+	: never;
+
+export type DataParserObjectCheckers<
+	GenericInput extends object = object,
+> = GetEligibleChecker<GenericInput>;
+
+export interface DataParserObjectShapeEntry {
+	readonly key: string;
+	readonly value: DataParser;
+}
+
+export interface DataParserDefinitionObject<
+	GenericInput extends Record<string | number, unknown> = Record<string | number, unknown>,
+> extends DataParserDefinition<
+		DataParserObjectCheckers<GenericInput>
+	> {
+	readonly shape: DataParserObjectShape;
+	readonly optimizedShape: Memoized<{
+		readonly key: string;
+		readonly value: DataParser;
+	}[]>;
+}
+
+export const objectKind = createDataParserKind("object");
+
+export class DataParserObject<
+	GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject,
+> extends kindClass(
+		objectKind,
+		DataParserBase,
+	)<
+		DataParserBase<
+			GenericDefinition,
+			DataParserObjectShapeOutput<GenericDefinition["shape"]>,
+			DataParserObjectShapeInput<GenericDefinition["shape"]>
+		>
+	> {
+	public constructor(
+		definition: GenericDefinition,
+	) {
+		super(null as never, definition);
+	}
+
+	public get classConstructor() {
+		return DataParserObject;
+	}
+
+	protected dataParserIsAsynchronous() {
+		return this.definition.optimizedShape.value.some(
+			(entry) => entry.value.isAsynchronous(),
+		);
+	}
+
+	public declare addChecker: <
+		GenericChecker extends readonly [
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
+		],
+	>(
+		...args: FixDeepFunctionInfer<
+			readonly [
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
+			],
+			GenericChecker
+		>
+	) => DataParserObject<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
+
+	public static execParse(
+		self: DataParserObject,
+		data: unknown,
+		error: DataParserError,
+	): (
+			| Record<string, unknown>
+			| SymbolDataParserErrorType
+			| Promise<
+				| Record<string, unknown>
+				| SymbolDataParserErrorType
+			>
+		) {
+		if (
+			!data
+			|| typeof data !== "object"
+			|| data instanceof Array
+		) {
+			return addIssue(error, "object", data, self.definition.errorMessage);
+		}
+
+		const currentIndexPath = error.currentPath.length;
+
+		const output = self.definition.optimizedShape.value.reduce<
+			| MaybePromise<Record<string, unknown>
+			| SymbolDataParserErrorType>
+		>(
+			(accumulator, entry) => {
+				if (accumulator instanceof Promise) {
+					return accumulator.then(
+						(awaitedAccumulator) => {
+							if (awaitedAccumulator === SymbolDataParserError) {
+								return awaitedAccumulator;
+							}
+
+							setErrorPath(error, entry.key, currentIndexPath);
+							const result = entry.value.exec((data as Record<string, unknown>)[entry.key], error);
+							if (result instanceof Promise) {
+								return result.then((awaitedResult) => {
+									if (awaitedResult === SymbolDataParserError) {
+										return awaitedResult;
+									}
+									if (awaitedResult !== undefined) {
+										awaitedAccumulator[entry.key] = awaitedResult;
+									}
+									return awaitedAccumulator;
+								});
+							}
+
+							if (result === SymbolDataParserError) {
+								return result;
+							}
+							if (result !== undefined) {
+								awaitedAccumulator[entry.key] = result;
+							}
+
+							return awaitedAccumulator;
+						},
+					);
+				}
+
+				if (accumulator === SymbolDataParserError) {
+					return accumulator;
+				}
+
+				setErrorPath(error, entry.key, currentIndexPath);
+				const result = entry.value.exec((data as Record<string, unknown>)[entry.key], error);
+				if (result instanceof Promise) {
+					return result.then((awaitedResult) => {
+						if (awaitedResult === SymbolDataParserError) {
+							return awaitedResult;
+						}
+						if (awaitedResult !== undefined) {
+							accumulator[entry.key] = awaitedResult;
+						}
+						return accumulator;
+					});
+				}
+
+				if (result === SymbolDataParserError) {
+					return result;
+				}
+				if (result !== undefined) {
+					accumulator[entry.key] = result;
+				}
+
+				return accumulator;
+			},
+			{},
+		);
+
+		void (self.definition.optimizedShape.value.length && popErrorPath(error));
+
+		return output;
+	}
+
+	public static create<
+		const GenericShape extends DataParserObjectShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
+			DataParserDefinitionObject<
+				DataParserObjectShapeOutput<GenericShape>
+			>,
+			"shape" | "optimizedShape"
+		> = never,
+	>(
+		shape: GenericShape,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionObject<
+					DataParserObjectShapeOutput<GenericShape>
+				>,
+				"shape" | "optimizedShape"
+			>,
+			GenericDefinition
+		>,
+	): DataParserObject<
+			MergeDefinition<
+				DataParserDefinitionObject,
+				NeverCoalescing<GenericDefinition, {}> & {
+					readonly shape: GenericShape;
+				}
+			>
+		> {
+		return new DataParserObject({
+			...definition,
+			shape,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+			optimizedShape: memo(
+				() => pipe(
+					forward<DataParserObjectShape>(shape),
+					DObject.entries,
+					DArray.filter((entry) => dataParserKind.has(entry[1])),
+					DArray.map(([key, value]) => ({
+						key,
+						value,
+					})),
+				),
+			),
+		}) as never;
+	}
+}
+
+export const object = DataParserObject.create;

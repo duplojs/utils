@@ -1,0 +1,61 @@
+import { kindClass } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
+
+export interface DataParserCheckerDefinitionRegex extends DataParserCheckerDefinition {
+	regex: RegExp;
+}
+
+export const checkerRegexKind = createDataParserKind("checker-regex");
+
+export class DataParserCheckerRegex extends kindClass(
+	checkerRegexKind,
+	DataParserCheckerBase<
+		DataParserCheckerDefinitionRegex,
+		string
+	>,
+) {
+	public constructor(definition: DataParserCheckerDefinitionRegex) {
+		super(null as never, definition);
+	}
+
+	public get classConstructor() {
+		return DataParserCheckerRegex;
+	}
+
+	public isAsynchronous() {
+		return false;
+	}
+
+	public static execCheck(
+		data: string,
+		error: DataParserError,
+		self: DataParserCheckerRegex,
+		dataParser: DataParser,
+	) {
+		return self.definition.regex.test(data)
+			? data
+			: addIssue(
+				error,
+				`string with pattern ${self.definition.regex.source.toString()}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static create(
+		regex: RegExp,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionRegex, "regex">
+		> = {},
+	) {
+		return new DataParserCheckerRegex({
+			...definition,
+			regex,
+		});
+	}
+}
+
+export const checkerRegex = DataParserCheckerRegex.create;

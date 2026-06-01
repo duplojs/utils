@@ -1,41 +1,54 @@
 import { createKind, type Kind, type KindDefinition, type KindHandler } from "./kind";
-import { type NeverCoalescing, type AnyConstructor, type UnionToIntersection } from "./types";
+import { type NeverCoalescing, type AnyConstructor, type RequireConstructor, type IsEqual, type ClearClassKeys, type AnyAbstractConstructor } from "./types";
 
 export type KindClass<
 	GenericKindHandler extends KindHandler,
-	GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>,
-> = new<
-	GenericParentInstance extends InstanceType<GenericParent> = InstanceType<GenericParent>,
->(
-	...args: [
-		kindValue: GenericKindHandler["definition"]["value"],
-		...ConstructorParameters<GenericParent>,
-	]
-) => UnionToIntersection<
-	| NeverCoalescing<GenericParentInstance, {}>
-	| Kind<GenericKindHandler["definition"]>
->;
+	GenericParent extends AnyAbstractConstructor = AnyAbstractConstructor<unknown[], never>,
+> = (
+	& (
+		new<
+			GenericParentInstance extends InstanceType<GenericParent> = InstanceType<GenericParent>,
+			GenericKindValue extends GenericKindHandler["definition"]["value"] = GenericKindHandler["definition"]["value"],
+		>(
+			kindValue: GenericKindValue,
+			...args: NeverCoalescing<ConstructorParameters<GenericParent>, []>
+		) => (
+			& NeverCoalescing<GenericParentInstance, {}>
+			& Kind<GenericKindHandler["definition"], GenericKindValue>
+		)
+	)
+	& {
+		[Prop in GenericKindHandler["definition"]["name"] as `kindHandler:${Prop}`]: GenericKindHandler
+	}
+	& (
+		IsEqual<GenericParent, never> extends true
+			? {}
+			: {
+				[Prop in Exclude<keyof GenericParent, ClearClassKeys>]: GenericParent[Prop]
+			}
+	)
+);
 
 export function kindClass<
 	GenericKind extends string,
-	GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>,
+	GenericParent extends object = never,
 >(
 	kind: GenericKind,
-	parent?: GenericParent,
+	parent?: GenericParent & RequireConstructor<GenericParent>,
 ): KindClass<
 	KindHandler<KindDefinition<GenericKind>>,
-	GenericParent
+	Extract<GenericParent, AnyAbstractConstructor>
 >;
 
 export function kindClass<
 	GenericKindHandler extends KindHandler,
-	GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>,
+	GenericParent extends object = never,
 >(
 	kindHandler: GenericKindHandler,
-	parent?: GenericParent,
+	parent?: GenericParent & RequireConstructor<GenericParent>,
 ): KindClass<
 	GenericKindHandler,
-	GenericParent
+	Extract<GenericParent, AnyAbstractConstructor>
 >;
 
 export function kindClass(
@@ -46,6 +59,8 @@ export function kindClass(
 		? createKind(kindHandler as never)
 		: kindHandler;
 
+	const kindHandlerKey = `kindHandler:${formattedKindHandler.definition.name}`;
+
 	return class extends (parent ?? class {}) {
 		public constructor(
 			kindValue: unknown,
@@ -54,6 +69,8 @@ export function kindClass(
 			super(...parentParams);
 			this[formattedKindHandler.runTimeKey] = kindValue;
 		}
+
+		public static [kindHandlerKey] = formattedKindHandler;
 
 		public static override [Symbol.hasInstance] = formattedKindHandler.has;
 	};

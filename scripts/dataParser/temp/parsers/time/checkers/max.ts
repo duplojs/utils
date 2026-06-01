@@ -1,0 +1,62 @@
+import { kindClass } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
+import * as DDate from "@scripts/date";
+
+export interface DataParserCheckerDefinitionTimeMax extends DataParserCheckerDefinition {
+	max: DDate.TheTime;
+}
+
+export const checkerTimeMaxKind = createDataParserKind("checker-time-max");
+
+export class DataParserCheckerTimeMax extends kindClass(
+	checkerTimeMaxKind,
+	DataParserCheckerBase<
+		DataParserCheckerDefinitionTimeMax,
+		DDate.TheTime
+	>,
+) {
+	public constructor(definition: DataParserCheckerDefinitionTimeMax) {
+		super(null as never, definition);
+	}
+
+	public get classConstructor() {
+		return DataParserCheckerTimeMax;
+	}
+
+	public isAsynchronous() {
+		return false;
+	}
+
+	public static execCheck(
+		value: DDate.TheTime,
+		error: DataParserError,
+		self: DataParserCheckerTimeMax,
+		dataParser: DataParser,
+	) {
+		return DDate.lessTime(value, self.definition.max)
+			? value
+			: addIssue(
+				error,
+				`time <= ${self.definition.max.toString()}`,
+				value,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static create(
+		max: DDate.TheTime,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionTimeMax, "max">
+		> = {},
+	) {
+		return new DataParserCheckerTimeMax({
+			...definition,
+			max,
+		});
+	}
+}
+
+export const checkerTimeMax = DataParserCheckerTimeMax.create;

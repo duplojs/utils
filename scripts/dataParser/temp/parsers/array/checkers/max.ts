@@ -1,0 +1,61 @@
+import { kindClass } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
+import { createDataParserKind } from "../../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
+
+export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDefinition {
+	max: number;
+}
+
+export const checkerArrayMaxKind = createDataParserKind("checker-array-max");
+
+export class DataParserCheckerArrayMax extends kindClass(
+	checkerArrayMaxKind,
+	DataParserCheckerBase<
+		DataParserCheckerDefinitionArrayMax,
+		unknown[]
+	>,
+) {
+	public constructor(definition: DataParserCheckerDefinitionArrayMax) {
+		super(null as never, definition);
+	}
+
+	public get classConstructor() {
+		return DataParserCheckerArrayMax;
+	}
+
+	public isAsynchronous() {
+		return false;
+	}
+
+	public static execCheck(
+		data: unknown[],
+		error: DataParserError,
+		self: DataParserCheckerArrayMax,
+		dataParser: DataParser,
+	) {
+		return data.length <= self.definition.max
+			? data
+			: addIssue(
+				error,
+				`array.length <= ${self.definition.max}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static create(
+		max: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionArrayMax, "max">
+		> = {},
+	) {
+		return new DataParserCheckerArrayMax({
+			...definition,
+			max,
+		});
+	}
+}
+
+export const checkerArrayMax = DataParserCheckerArrayMax.create;
