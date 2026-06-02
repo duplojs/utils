@@ -82,7 +82,7 @@ export class DataParserTransformExtended<
 			}
 			>
 		> {
-		return new DataParserTransformExtended(dataParsers.transform(inner, theFunction, definition).definition) as never;
+		return new DataParserTransformExtended(this.prepareDefinition(inner, theFunction, definition)) as never;
 	}
 }
 

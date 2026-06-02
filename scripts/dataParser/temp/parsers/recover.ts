@@ -70,6 +70,22 @@ export class DataParserRecover<
 		return self.definition.inner.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		inner: DataParser,
+		recoveredValue: unknown,
+		definition?: Partial<
+			Omit<DataParserDefinitionRecover, "inner" | "recoveredValue">
+		>,
+	): DataParserDefinitionRecover {
+		return {
+			...definition,
+			inner,
+			recoveredValue,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParser extends DataParser,
 		GenericRecoveredValue extends Output<GenericDataParser>,
@@ -100,13 +116,7 @@ export class DataParserRecover<
 				}
 			>
 		> {
-		return new DataParserRecover({
-			...definition,
-			inner,
-			recoveredValue,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserRecover(this.prepareDefinition(inner, recoveredValue, definition)) as never;
 	}
 }
 

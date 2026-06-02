@@ -189,6 +189,19 @@ export class DataParserTuple<
 		) || !!self.definition.rest?.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		shape: TupleShape,
+		definition?: Partial<Omit<DataParserDefinitionTuple, "shape">>,
+	): DataParserDefinitionTuple {
+		return {
+			...definition,
+			shape,
+			rest: definition?.rest,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericShape extends TupleShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -223,13 +236,7 @@ export class DataParserTuple<
 				}
 			>
 		> {
-		return new DataParserTuple({
-			...definition,
-			shape,
-			rest: definition?.rest,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserTuple(this.prepareDefinition(shape, definition)) as never;
 	}
 }
 

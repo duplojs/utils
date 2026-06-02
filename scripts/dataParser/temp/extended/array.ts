@@ -103,7 +103,7 @@ export class DataParserArrayExtended<
 			}
 			>
 		> {
-		return new DataParserArrayExtended(dataParsers.array(element, definition).definition) as never;
+		return new DataParserArrayExtended(this.prepareDefinition(element, definition)) as never;
 	}
 }
 

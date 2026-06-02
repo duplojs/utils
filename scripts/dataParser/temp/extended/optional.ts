@@ -91,7 +91,7 @@ export class DataParserOptionalExtended<
 			}
 			>
 		> {
-		return new DataParserOptionalExtended(dataParsers.optional(inner, definition).definition) as never;
+		return new DataParserOptionalExtended(this.prepareDefinition(inner, definition)) as never;
 	}
 }
 

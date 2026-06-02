@@ -89,7 +89,7 @@ export class DataParserTimeExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserTimeExtended(dataParsers.time(definition).definition) as never;
+		return new DataParserTimeExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

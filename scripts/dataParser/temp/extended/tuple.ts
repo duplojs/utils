@@ -131,7 +131,7 @@ export class DataParserTupleExtended<
 			}
 			>
 		> {
-		return new DataParserTupleExtended(dataParsers.tuple(shape, definition).definition) as never;
+		return new DataParserTupleExtended(this.prepareDefinition(shape, definition)) as never;
 	}
 }
 

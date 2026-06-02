@@ -91,6 +91,25 @@ export class DataParserTransform<
 			|| self.definition.theFunction.constructor.name === "AsyncFunction";
 	}
 
+	public static override prepareDefinition(
+		inner: DataParser,
+		theFunction: (
+			input: unknown,
+			error: DataParserError
+		) => unknown,
+		definition?: Partial<
+			Omit<DataParserDefinitionTransform, "inner" | "theFunction">
+		>,
+	): DataParserDefinitionTransform {
+		return {
+			...definition,
+			inner,
+			theFunction,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParser extends DataParser,
 		GenericOutput extends unknown,
@@ -124,13 +143,9 @@ export class DataParserTransform<
 				}
 			>
 		> {
-		return new DataParserTransform({
-			...definition,
-			inner,
-			theFunction,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserTransform(
+			this.prepareDefinition(inner, theFunction, definition),
+		) as never;
 	}
 }
 

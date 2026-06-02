@@ -74,6 +74,19 @@ export class DataParserNullable<
 		return self.definition.inner.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		inner: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionNullable, "inner">>,
+	): DataParserDefinitionNullable {
+		return {
+			...definition,
+			inner,
+			coalescingValue: definition?.coalescingValue ?? null,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -99,13 +112,7 @@ export class DataParserNullable<
 				NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 			>
 		> {
-		return new DataParserNullable({
-			...definition,
-			inner,
-			coalescingValue: definition?.coalescingValue ?? null,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserNullable(this.prepareDefinition(inner, definition)) as never;
 	}
 }
 

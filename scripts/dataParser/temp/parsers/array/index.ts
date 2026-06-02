@@ -104,6 +104,18 @@ export class DataParserArray<
 		return self.definition.element.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		element: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionArray, "element">>,
+	): DataParserDefinitionArray {
+		return {
+			...definition,
+			element,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericElement extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -128,12 +140,7 @@ export class DataParserArray<
 				}
 			>
 		> {
-		return new DataParserArray({
-			...definition,
-			element,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserArray(this.prepareDefinition(element, definition)) as never;
 	}
 }
 

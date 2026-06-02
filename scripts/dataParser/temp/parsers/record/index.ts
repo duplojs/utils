@@ -182,6 +182,29 @@ export class DataParserRecord<
 		return self.definition.key.isAsynchronous() || self.definition.value.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		key: DataParserRecordKey,
+		value: DataParser,
+		definition?: Partial<
+			Omit<DataParserDefinitionRecord, "key" | "value" | "baseData">
+		>,
+	): DataParserDefinitionRecord {
+		const requireKey = findRecordRequiredKey(key);
+
+		return {
+			...definition,
+			key,
+			value,
+			baseData: pipe(
+				requireKey,
+				DArray.map((key) => DObject.entry(key, undefined)),
+				DObject.fromEntries,
+			),
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParserKey extends DataParserRecordKey,
 		GenericDataParserValue extends DataParser,
@@ -218,21 +241,7 @@ export class DataParserRecord<
 				}
 			>
 		> {
-		const requireKey = findRecordRequiredKey(key);
-
-		return new DataParserRecord({
-			...definition,
-			key,
-			value,
-			baseData: pipe(
-				requireKey,
-				DArray.map((key) => DObject.entry(key, undefined)),
-				DObject.fromEntries,
-			),
-			requireKey,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserRecord(this.prepareDefinition(key, value, definition)) as never;
 	}
 }
 

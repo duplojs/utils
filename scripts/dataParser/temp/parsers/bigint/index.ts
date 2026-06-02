@@ -82,6 +82,17 @@ export class DataParserBigInt<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionBigInt>,
+	): DataParserDefinitionBigInt {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBigInt> = never,
 	>(
@@ -95,12 +106,7 @@ export class DataParserBigInt<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserBigInt({
-			...definition,
-			coerce: definition?.coerce ?? false,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserBigInt(this.prepareDefinition(definition)) as never;
 	}
 }
 

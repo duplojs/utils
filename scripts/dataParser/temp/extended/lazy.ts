@@ -75,7 +75,7 @@ export class DataParserLazyExtended<
 			}
 			>
 		> {
-		return new DataParserLazyExtended(dataParsers.lazy(getter, definition).definition) as never;
+		return new DataParserLazyExtended(this.prepareDefinition(getter, definition)) as never;
 	}
 }
 

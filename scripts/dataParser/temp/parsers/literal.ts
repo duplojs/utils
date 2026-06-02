@@ -76,6 +76,18 @@ export class DataParserLiteral<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		value: LiteralValue | readonly LiteralValue[],
+		definition?: Partial<Omit<DataParserDefinitionLiteral, "value">>,
+	): DataParserDefinitionLiteral {
+		return {
+			...definition,
+			value: DArray.coalescing(value),
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericValue extends LiteralValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -97,12 +109,7 @@ export class DataParserLiteral<
 				NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
 			>
 		> {
-		return new DataParserLiteral({
-			...definition,
-			value: DArray.coalescing(value),
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserLiteral(this.prepareDefinition(value, definition)) as never;
 	}
 }
 

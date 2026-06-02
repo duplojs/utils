@@ -162,6 +162,31 @@ export class DataParserObject<
 		);
 	}
 
+	public static override prepareDefinition(
+		shape: DataParserObjectShape,
+		definition?: Partial<
+			Omit<DataParserDefinitionObject, "shape" | "optimizedShape">
+		>,
+	): DataParserDefinitionObject {
+		return {
+			...definition,
+			shape,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+			optimizedShape: memo(
+				() => pipe(
+					forward<DataParserObjectShape>(shape),
+					DObject.entries,
+					DArray.filter((entry) => dataParserKind.has(entry[1])),
+					DArray.map(([key, value]) => ({
+						key,
+						value,
+					})),
+				),
+			),
+		};
+	}
+
 	public static override create<
 		const GenericShape extends DataParserObjectShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -189,23 +214,7 @@ export class DataParserObject<
 				}
 			>
 		> {
-		return new DataParserObject({
-			...definition,
-			shape,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-			optimizedShape: memo(
-				() => pipe(
-					forward<DataParserObjectShape>(shape),
-					DObject.entries,
-					DArray.filter((entry) => dataParserKind.has(entry[1])),
-					DArray.map(([key, value]) => ({
-						key,
-						value,
-					})),
-				),
-			),
-		}) as never;
+		return new DataParserObject(this.prepareDefinition(shape, definition)) as never;
 	}
 }
 

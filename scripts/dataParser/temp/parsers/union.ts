@@ -105,6 +105,18 @@ export class DataParserUnion<
 		);
 	}
 
+	public static override prepareDefinition(
+		options: UnionOptions,
+		definition?: Partial<Omit<DataParserDefinitionUnion, "options">>,
+	): DataParserDefinitionUnion {
+		return {
+			...definition,
+			options,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericOptions extends UnionOptions,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -133,12 +145,7 @@ export class DataParserUnion<
 				}
 			>
 		> {
-		return new DataParserUnion({
-			...definition,
-			options,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserUnion(this.prepareDefinition(options, definition)) as never;
 	}
 }
 

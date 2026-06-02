@@ -61,7 +61,7 @@ export class DataParserEmptyExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserEmptyExtended(dataParsers.empty(definition).definition) as never;
+		return new DataParserEmptyExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

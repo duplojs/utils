@@ -61,7 +61,7 @@ export class DataParserUnknownExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserUnknownExtended(dataParsers.unknown(definition).definition) as never;
+		return new DataParserUnknownExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

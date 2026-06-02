@@ -61,7 +61,7 @@ export class DataParserNilExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserNilExtended(dataParsers.nil(definition).definition) as never;
+		return new DataParserNilExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

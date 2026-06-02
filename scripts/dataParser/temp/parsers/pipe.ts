@@ -85,6 +85,20 @@ export class DataParserPipe<
 		return self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		input: DataParser,
+		output: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionPipe, "input" | "output">>,
+	): DataParserDefinitionPipe {
+		return {
+			...definition,
+			input,
+			output,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericInput extends DataParser,
 		GenericOutput extends DataParser,
@@ -115,13 +129,7 @@ export class DataParserPipe<
 				}
 			>
 		> {
-		return new DataParserPipe({
-			...definition,
-			input,
-			output,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserPipe(this.prepareDefinition(input, output, definition)) as never;
 	}
 }
 

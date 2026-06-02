@@ -66,6 +66,17 @@ export class DataParserNil<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionNil>,
+	): DataParserDefinitionNil {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNil> = never,
 	>(
@@ -79,12 +90,7 @@ export class DataParserNil<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserNil({
-			...definition,
-			coerce: definition?.coerce ?? false,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserNil(this.prepareDefinition(definition)) as never;
 	}
 }
 

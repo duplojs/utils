@@ -303,7 +303,7 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return new DataParserObjectExtended(dataParsers.object(shape, definition).definition) as never;
+		return new DataParserObjectExtended(this.prepareDefinition(shape, definition)) as never;
 	}
 }
 

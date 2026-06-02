@@ -61,7 +61,7 @@ export class DataParserDateExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserDateExtended(dataParsers.date(definition).definition) as never;
+		return new DataParserDateExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

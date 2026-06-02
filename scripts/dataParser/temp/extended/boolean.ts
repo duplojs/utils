@@ -61,7 +61,7 @@ export class DataParserBooleanExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserBooleanExtended(dataParsers.boolean(definition).definition) as never;
+		return new DataParserBooleanExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

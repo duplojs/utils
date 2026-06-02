@@ -75,7 +75,7 @@ export class DataParserTemplateLiteralExtended<
 			}
 			>
 		> {
-		return new DataParserTemplateLiteralExtended(dataParsers.templateLiteral(template, definition).definition) as never;
+		return new DataParserTemplateLiteralExtended(this.prepareDefinition(template, definition)) as never;
 	}
 }
 

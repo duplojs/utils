@@ -227,6 +227,26 @@ export class DataParserTemplateLiteral<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		template: TemplateLiteralShape,
+		definition?: Partial<
+			Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">
+		>,
+	): DataParserDefinitionTemplateLiteral {
+		const pattern = pipe(
+			createTemplateLiteralPattern(template),
+			(result) => new RegExp(`^${result}$`),
+		);
+
+		return {
+			...definition,
+			template,
+			pattern,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericTemplate extends TemplateLiteralShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -252,18 +272,7 @@ export class DataParserTemplateLiteral<
 				NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
 			>
 		> {
-		const pattern = pipe(
-			createTemplateLiteralPattern(template),
-			(result) => new RegExp(`^${result}$`),
-		);
-
-		return new DataParserTemplateLiteral({
-			...definition,
-			template,
-			pattern,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserTemplateLiteral(this.prepareDefinition(template, definition)) as never;
 	}
 }
 

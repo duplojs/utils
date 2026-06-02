@@ -74,7 +74,7 @@ export class DataParserUnionExtended<
 			}
 			>
 		> {
-		return new DataParserUnionExtended(dataParsers.union(options, definition).definition) as never;
+		return new DataParserUnionExtended(this.prepareDefinition(options, definition)) as never;
 	}
 }
 

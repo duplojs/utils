@@ -74,6 +74,19 @@ export class DataParserOptional<
 		return self.definition.inner.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		inner: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionOptional, "inner">>,
+	): DataParserDefinitionOptional {
+		return {
+			...definition,
+			inner,
+			coalescingValue: definition?.coalescingValue,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -99,13 +112,7 @@ export class DataParserOptional<
 				NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
 			>
 		> {
-		return new DataParserOptional({
-			...definition,
-			inner,
-			coalescingValue: definition?.coalescingValue,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserOptional(this.prepareDefinition(inner, definition)) as never;
 	}
 }
 

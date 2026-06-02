@@ -78,7 +78,7 @@ export class DataParserRecoverExtended<
 			}
 			>
 		> {
-		return new DataParserRecoverExtended(dataParsers.recover(inner, recoveredValue, definition).definition) as never;
+		return new DataParserRecoverExtended(this.prepareDefinition(inner, recoveredValue, definition)) as never;
 	}
 }
 

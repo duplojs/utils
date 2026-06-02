@@ -64,6 +64,18 @@ export class DataParserLazy<
 		return self.definition.getter.value.isAsynchronous();
 	}
 
+	public static override prepareDefinition(
+		getter: () => DataParser,
+		definition?: Partial<Omit<DataParserDefinitionLazy, "getter">>,
+	): DataParserDefinitionLazy {
+		return {
+			...definition,
+			getter: memo(getter),
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -91,12 +103,7 @@ export class DataParserLazy<
 				}
 			>
 		> {
-		return new DataParserLazy({
-			...definition,
-			getter: memo(getter),
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserLazy(this.prepareDefinition(getter, definition)) as never;
 	}
 }
 

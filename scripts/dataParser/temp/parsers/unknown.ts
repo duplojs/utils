@@ -58,6 +58,16 @@ export class DataParserUnknown<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionUnknown>,
+	): DataParserDefinitionUnknown {
+		return {
+			...definition,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionUnknown> = never,
 	>(
@@ -71,11 +81,7 @@ export class DataParserUnknown<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserUnknown({
-			...definition,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserUnknown(this.prepareDefinition(definition)) as never;
 	}
 }
 

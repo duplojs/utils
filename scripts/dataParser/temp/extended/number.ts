@@ -96,7 +96,7 @@ export class DataParserNumberExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserNumberExtended(dataParsers.number(definition).definition) as never;
+		return new DataParserNumberExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

@@ -78,7 +78,7 @@ export class DataParserPipeExtended<
 			}
 			>
 		> {
-		return new DataParserPipeExtended(dataParsers.pipe(input, output, definition).definition) as never;
+		return new DataParserPipeExtended(this.prepareDefinition(input, output, definition)) as never;
 	}
 }
 

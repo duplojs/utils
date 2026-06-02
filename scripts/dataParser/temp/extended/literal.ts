@@ -70,7 +70,7 @@ export class DataParserLiteralExtended<
 			}
 			>
 		> {
-		return new DataParserLiteralExtended(dataParsers.literal(value, definition).definition) as never;
+		return new DataParserLiteralExtended(this.prepareDefinition(value, definition)) as never;
 	}
 }
 

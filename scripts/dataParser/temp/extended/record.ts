@@ -90,7 +90,7 @@ export class DataParserRecordExtended<
 			}
 			>
 		> {
-		return new DataParserRecordExtended(dataParsers.record(key, value, definition).definition) as never;
+		return new DataParserRecordExtended(this.prepareDefinition(key, value, definition)) as never;
 	}
 }
 

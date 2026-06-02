@@ -79,7 +79,7 @@ export abstract class DataParserBase<
 				self: DataParserBase<any>,
 			): boolean;
 			prepareDefinition(
-				definition: Partial<DataParserDefinition>
+				...args: any[]
 			): DataParserDefinition;
 		}
 	);
@@ -270,7 +270,7 @@ export abstract class DataParserBase<
 	) => boolean;
 
 	public declare static prepareDefinition: (
-		...args: never[]
+		...args: any[]
 	) => DataParserDefinition;
 
 	public static init<
@@ -364,7 +364,7 @@ export abstract class DataParserBase<
 						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
 					): boolean;
 					prepareDefinition(
-						...args: never[]
+						...args: any[]
 					): DataParserDefinition;
 				}
 				& CheckedConstructorKind

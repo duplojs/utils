@@ -91,7 +91,7 @@ export class DataParserNullableExtended<
 			}
 			>
 		> {
-		return new DataParserNullableExtended(dataParsers.nullable(inner, definition).definition) as never;
+		return new DataParserNullableExtended(this.prepareDefinition(inner, definition)) as never;
 	}
 }
 

@@ -88,7 +88,7 @@ export class DataParserBigIntExtended<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserBigIntExtended(dataParsers.bigint(definition).definition) as never;
+		return new DataParserBigIntExtended(this.prepareDefinition(definition)) as never;
 	}
 }
 

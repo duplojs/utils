@@ -92,6 +92,17 @@ export class DataParserDate<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionDate>,
+	): DataParserDefinitionDate {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
 	>(
@@ -105,12 +116,7 @@ export class DataParserDate<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserDate({
-			...definition,
-			coerce: definition?.coerce ?? false,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserDate(this.prepareDefinition(definition)) as never;
 	}
 }
 
