@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, kindClass } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
@@ -19,22 +19,13 @@ export const bigIntKind = createDataParserKind("bigint");
 
 export class DataParserBigInt<
 	GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt,
-> extends kindClass(
+> extends DataParserBase.init(
 		bigIntKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			bigint,
-			bigint
-		>
+		GenericDefinition,
+		bigint,
+		bigint
 	> {
-	public constructor(
-		definition: GenericDefinition,
-	) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserBigInt;
 	}

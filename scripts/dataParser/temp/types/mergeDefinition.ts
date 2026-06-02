@@ -7,7 +7,7 @@ export type MergeDefinition<
 	GenericPartialDefinition extends Partial<GenericDefinition>,
 > = SimplifyTopLevel<
 	Readonly<
-		& GenericPartialDefinition
+		& Omit<GenericPartialDefinition, "errorMessage">
 		& Omit<
 			GenericDefinition,
 			keyof GenericPartialDefinition | "checkers"

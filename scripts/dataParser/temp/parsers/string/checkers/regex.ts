@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
@@ -10,17 +9,12 @@ export interface DataParserCheckerDefinitionRegex extends DataParserCheckerDefin
 
 export const checkerRegexKind = createDataParserKind("checker-regex");
 
-export class DataParserCheckerRegex extends kindClass(
+export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 	checkerRegexKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionRegex,
 		string
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionRegex) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerRegex;
 	}

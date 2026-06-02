@@ -17,9 +17,6 @@ export type KindClass<
 			& Kind<GenericKindHandler["definition"], GenericKindValue>
 		)
 	)
-	& {
-		[Prop in GenericKindHandler["definition"]["name"] as `kindHandler:${Prop}`]: GenericKindHandler
-	}
 	& (
 		IsEqual<GenericParent, never> extends true
 			? {}
@@ -59,8 +56,6 @@ export function kindClass(
 		? createKind(kindHandler as never)
 		: kindHandler;
 
-	const kindHandlerKey = `kindHandler:${formattedKindHandler.definition.name}`;
-
 	return class extends (parent ?? class {}) {
 		public constructor(
 			kindValue: unknown,
@@ -69,8 +64,6 @@ export function kindClass(
 			super(...parentParams);
 			this[formattedKindHandler.runTimeKey] = kindValue;
 		}
-
-		public static [kindHandlerKey] = formattedKindHandler;
 
 		public static override [Symbol.hasInstance] = formattedKindHandler.has;
 	};

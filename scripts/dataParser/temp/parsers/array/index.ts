@@ -1,7 +1,7 @@
-import { type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing, kindClass } from "@scripts/common";
+import { type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
-import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
+import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
 import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
@@ -23,22 +23,13 @@ export const arrayKind = createDataParserKind("array");
 
 export class DataParserArray<
 	GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray,
-> extends kindClass(
+> extends DataParserBase.init(
 		arrayKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			Output<GenericDefinition["element"]>[],
-			Input<GenericDefinition["element"]>[]
-		>
+		GenericDefinition,
+		Output<GenericDefinition["element"]>[],
+		Input<GenericDefinition["element"]>[]
 	> {
-	public constructor(
-		definition: GenericDefinition,
-	) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserArray;
 	}
@@ -71,14 +62,7 @@ export class DataParserArray<
 		self: DataParserArray,
 		data: unknown,
 		error: DataParserError,
-	): (
-			| unknown[]
-			| SymbolDataParserErrorType
-			| Promise<
-				| unknown[]
-				| SymbolDataParserErrorType
-			>
-		) {
+	): MaybePromise<SymbolDataParserError | unknown[]> {
 		if (!(data instanceof Array)) {
 			return addIssue(
 				error,

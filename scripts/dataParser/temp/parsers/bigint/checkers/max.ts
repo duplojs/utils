@@ -1,7 +1,6 @@
-import { kindClass } from "@scripts/common";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../../kind";
-import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
 import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerDefinition {
@@ -10,17 +9,12 @@ export interface DataParserCheckerDefinitionBigIntMax extends DataParserCheckerD
 
 export const checkerBigIntMaxKind = createDataParserKind("checker-bigint-max");
 
-export class DataParserCheckerBigIntMax extends kindClass(
+export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 	checkerBigIntMaxKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionBigIntMax,
 		bigint
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionBigIntMax) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerBigIntMax;
 	}

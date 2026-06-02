@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
@@ -11,17 +10,12 @@ export interface DataParserCheckerDefinitionTimeMax extends DataParserCheckerDef
 
 export const checkerTimeMaxKind = createDataParserKind("checker-time-max");
 
-export class DataParserCheckerTimeMax extends kindClass(
+export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 	checkerTimeMaxKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionTimeMax,
 		DDate.TheTime
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionTimeMax) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerTimeMax;
 	}

@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, kindClass } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
@@ -19,22 +19,13 @@ export const numberKind = createDataParserKind("number");
 
 export class DataParserNumber<
 	GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber,
-> extends kindClass(
+> extends DataParserBase.init(
 		numberKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			number,
-			number
-		>
+		GenericDefinition,
+		number,
+		number
 	> {
-	public constructor(
-		definition: GenericDefinition,
-	) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserNumber;
 	}

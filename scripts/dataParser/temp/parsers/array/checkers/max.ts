@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
@@ -10,17 +9,12 @@ export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDe
 
 export const checkerArrayMaxKind = createDataParserKind("checker-array-max");
 
-export class DataParserCheckerArrayMax extends kindClass(
+export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
 	checkerArrayMaxKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionArrayMax,
 		unknown[]
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionArrayMax) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerArrayMax;
 	}

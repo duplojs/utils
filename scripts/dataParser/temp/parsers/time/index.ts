@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, kindClass, unwrap } from "@scripts/common";
+import { type FixDeepFunctionInfer, type NeverCoalescing, unwrap } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
@@ -21,22 +21,13 @@ export const timeKind = createDataParserKind("time");
 
 export class DataParserTime<
 	GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime,
-> extends kindClass(
+> extends DataParserBase.init(
 		timeKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			DDate.TheTime,
-			DDate.TheTime | number | DDate.SerializedTheTime
-		>
+		GenericDefinition,
+		DDate.TheTime,
+		DDate.TheTime | number | DDate.SerializedTheTime
 	> {
-	public constructor(
-		definition: GenericDefinition,
-	) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserTime;
 	}

@@ -1,4 +1,4 @@
-import { kindClass, keyWrappedValue, type ComputedTypeError, type RemoveAbstractFromConstructor, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type BivariantFunction } from "@scripts/common";
+import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler } from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import * as DEither from "@scripts/either";
 import { type DataParserError, SymbolDataParserError, createError, addIssue } from "../error";
@@ -48,7 +48,6 @@ export abstract class DataParserBase<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
-	GenericSelf extends DataParserBase = any,
 > extends kindClass(
 		dataParserKind,
 	)<
@@ -68,21 +67,14 @@ export abstract class DataParserBase<
 	}
 
 	public abstract get classConstructor(): (
-		& RemoveAbstractFromConstructor<
-			typeof DataParserBase<
-				any
-			>
-		>
-		& AnyConstructor<[any], DataParserBase>
+		& AnyConstructor<[any], DataParserBase<any>>
 		& {
-			create(...args: never[]): DataParserBase;
-			execParse: BivariantFunction<
-				(
-					self: GenericSelf,
-					data: unknown,
-					error: DataParserError,
-				) => unknown
-			>;
+			create(...args: never[]): DataParserBase<any>;
+			execParse(
+				self: DataParserBase<any>,
+				data: unknown,
+				error: DataParserError,
+			): unknown;
 		}
 	);
 
@@ -235,7 +227,7 @@ export abstract class DataParserBase<
 	public clone(): this;
 
 	public clone() {
-		return new this.classConstructor(simpleClone(this.definition));
+		return new this.classConstructor(simpleClone(this.definition)) as never;
 	}
 
 	protected abstract dataParserIsAsynchronous(): boolean;
@@ -257,6 +249,47 @@ export abstract class DataParserBase<
 
 	public contract() {
 		return this;
+	}
+
+	public static init<
+		GenericKindHandler extends KindHandler,
+	>(
+		kindHandler: GenericKindHandler,
+	) {
+		abstract class DataParserBaseInit<
+			GenericDefinition extends DataParserDefinition = DataParserDefinition,
+			GenericOutput extends unknown = unknown,
+			GenericInput extends unknown = GenericOutput,
+		> extends kindClass(
+				kindHandler,
+				DataParserBase,
+			)<
+				DataParserBase<
+					GenericDefinition,
+					GenericOutput,
+					GenericInput
+				>
+			> {
+			public constructor(
+				definition: GenericDefinition,
+			) {
+				super(null as never, definition);
+			}
+
+			public abstract override get classConstructor(): (
+				& AnyConstructor<[any], DataParserBase<any> & Kind<GenericKindHandler["definition"]>>
+				& {
+					create(...args: never[]): DataParserBase<any> & Kind<GenericKindHandler["definition"]>;
+					execParse(
+						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
+						data: unknown,
+						error: DataParserError,
+					): unknown;
+				}
+			);
+		}
+
+		return DataParserBaseInit;
 	}
 }
 

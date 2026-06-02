@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../../kind";
@@ -15,17 +14,12 @@ export const checkerUrlKind = createDataParserKind("checker-url");
 
 const regexRemoveDote = /:$/;
 
-export class DataParserCheckerUrl extends kindClass(
+export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 	checkerUrlKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionUrl,
 		string
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionUrl) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerUrl;
 	}

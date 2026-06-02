@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../../kind";
@@ -13,17 +12,12 @@ export const checkerEmailKind = createDataParserKind("checker-email");
 
 const emailRegex = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/;
 
-export class DataParserCheckerEmail extends kindClass(
+export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 	checkerEmailKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionEmail,
 		string
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionEmail) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerEmail;
 	}

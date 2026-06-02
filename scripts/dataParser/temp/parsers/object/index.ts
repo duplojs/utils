@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized, type NeverCoalescing, forward, kindClass, memo, pipe } from "@scripts/common";
+import { type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized, type NeverCoalescing, forward, memo, pipe } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, dataParserKind, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
@@ -6,12 +6,6 @@ import { type DataParserChecker } from "../../baseChecker";
 import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
-
-export * from "./omit";
-export * from "./pick";
-export * from "./partial";
-export * from "./required";
-export * from "./extends";
 
 export type DataParserObjectShape = Readonly<Record<string, DataParser>>;
 
@@ -76,23 +70,13 @@ export const objectKind = createDataParserKind("object");
 
 export class DataParserObject<
 	GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject,
-> extends kindClass(
+> extends DataParserBase.init(
 		objectKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			DataParserObjectShapeOutput<GenericDefinition["shape"]>,
-			DataParserObjectShapeInput<GenericDefinition["shape"]>,
-			DataParserObject<GenericDefinition>
-		>
+		GenericDefinition,
+		DataParserObjectShapeOutput<GenericDefinition["shape"]>,
+		DataParserObjectShapeInput<GenericDefinition["shape"]>
 	> {
-	public constructor(
-		definition: GenericDefinition,
-	) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserObject;
 	}
@@ -127,14 +111,7 @@ export class DataParserObject<
 		self: DataParserObject,
 		data: unknown,
 		error: DataParserError,
-	): (
-			| Record<string, unknown>
-			| SymbolDataParserErrorType
-			| Promise<
-				| Record<string, unknown>
-				| SymbolDataParserErrorType
-			>
-		) {
+	): MaybePromise<Record<string, unknown> | typeof SymbolDataParserError> {
 		if (
 			!data
 			|| typeof data !== "object"

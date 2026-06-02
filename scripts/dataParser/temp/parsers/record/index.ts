@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, pipe, kindClass } from "@scripts/common";
+import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, pipe } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
@@ -79,20 +79,13 @@ export type DataParserRecordShapeInput<
 
 export class DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord,
-> extends kindClass(
+> extends DataParserBase.init(
 		recordKind,
-		DataParserBase,
 	)<
-		DataParserBase<
-			GenericDefinition,
-			DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>,
-			DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>
-		>
+		GenericDefinition,
+		DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>,
+		DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>
 	> {
-	public constructor(definition: GenericDefinition) {
-		super(null as never, definition);
-	}
-
 	public get classConstructor() {
 		return DataParserRecord;
 	}
@@ -125,14 +118,7 @@ export class DataParserRecord<
 		self: DataParserRecord,
 		data: unknown,
 		error: DataParserError,
-	): (
-			| Record<string, unknown>
-			| SymbolDataParserErrorType
-			| Promise<
-				| Record<string, unknown>
-				| SymbolDataParserErrorType
-			>
-		) {
+	) {
 		if (!data || typeof data !== "object" || data instanceof Array) {
 			return addIssue(error, "record object", data, self.definition.errorMessage);
 		}
@@ -199,9 +185,9 @@ export class DataParserRecord<
 		GenericDataParserValue extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionRecord<
-				Record<
-					Extract<Output<GenericDataParserKey>, string | number>,
-					Output<GenericDataParserValue>
+				DataParserRecordShapeOutput<
+					GenericDataParserKey,
+					GenericDataParserValue
 				>
 			>,
 			"key" | "value" | "baseData"
@@ -212,9 +198,9 @@ export class DataParserRecord<
 		definition?: FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				DataParserDefinitionRecord<
-					Record<
-						Extract<Output<GenericDataParserKey>, string | number>,
-						Output<GenericDataParserValue>
+					DataParserRecordShapeOutput<
+						GenericDataParserKey,
+						GenericDataParserValue
 					>
 				>,
 				"key" | "value" | "baseData"

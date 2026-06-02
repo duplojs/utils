@@ -1,4 +1,3 @@
-import { kindClass } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
@@ -11,17 +10,12 @@ export interface DataParserCheckerDefinitionNumberMin extends DataParserCheckerD
 
 export const checkerNumberMinKind = createDataParserKind("checker-number-min");
 
-export class DataParserCheckerNumberMin extends kindClass(
+export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
 	checkerNumberMinKind,
-	DataParserCheckerBase<
+)<
 		DataParserCheckerDefinitionNumberMin,
 		number
-	>,
-) {
-	public constructor(definition: DataParserCheckerDefinitionNumberMin) {
-		super(null as never, definition);
-	}
-
+	> {
 	public get classConstructor() {
 		return DataParserCheckerNumberMin;
 	}
