@@ -24,7 +24,7 @@ export class DataParserCheckerNumberMax extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: number,
 		error: DataParserError,
 		self: DataParserCheckerNumberMax,
@@ -46,7 +46,7 @@ export class DataParserCheckerNumberMax extends DataParserCheckerBase.init(
 		);
 	}
 
-	public static create(
+	public static override create(
 		max: number,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionNumberMax, "max">

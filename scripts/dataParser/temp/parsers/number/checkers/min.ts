@@ -24,7 +24,7 @@ export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: number,
 		error: DataParserError,
 		self: DataParserCheckerNumberMin,
@@ -46,7 +46,7 @@ export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
 		);
 	}
 
-	public static create(
+	public static override create(
 		min: number,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionNumberMin, "min">

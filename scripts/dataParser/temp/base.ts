@@ -1,4 +1,4 @@
-import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler, type RequireConstructor, type AnyFunction, type IsExtends } from "@scripts/common";
+import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler, type RequireConstructor, type AnyFunction, type IsExtends, type GetKind, type RemoveKind } from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import * as DEither from "@scripts/either";
 import { type DataParserError, SymbolDataParserError, createError, addIssue } from "../error";
@@ -75,6 +75,7 @@ export abstract class DataParserBase<
 				data: unknown,
 				error: DataParserError,
 			): unknown;
+			dataParserIsAsynchronous(self: DataParserBase<any>,): boolean;
 		}
 	);
 
@@ -230,10 +231,8 @@ export abstract class DataParserBase<
 		return new this.classConstructor(simpleClone(this.definition)) as never;
 	}
 
-	protected abstract dataParserIsAsynchronous(): boolean;
-
 	public isAsynchronous() {
-		return this.dataParserIsAsynchronous()
+		return this.classConstructor.dataParserIsAsynchronous(this)
 			|| this.definition.checkers.some(
 				(checker) => checker.isAsynchronous(),
 			);
@@ -250,6 +249,20 @@ export abstract class DataParserBase<
 	public contract() {
 		return this;
 	}
+
+	public declare static create: (
+		...args: never[]
+	) => unknown;
+
+	public declare static execParse: (
+		self: any,
+		data: unknown,
+		error: DataParserError,
+	) => unknown;
+
+	public declare static dataParserIsAsynchronous: (
+		self: any,
+	) => boolean;
 
 	public static init<
 		GenericKindHandler extends KindHandler,
@@ -295,7 +308,19 @@ export abstract class DataParserBase<
 									Kind<GenericKindHandler["definition"]>
 								> extends true
 									? unknown
-									: ComputedTypeError<"Wrong type of self argument.">
+									: ComputedTypeError<"Self argument of execParse function has wrong type.">
+								: unknown
+							: unknown
+					)
+					& (
+						"dataParserIsAsynchronous" extends keyof GenericConstructor
+							? GenericConstructor["dataParserIsAsynchronous"] extends AnyFunction
+								? IsExtends<
+									Parameters<GenericConstructor["dataParserIsAsynchronous"]>[0],
+									Kind<GenericKindHandler["definition"]>
+								> extends true
+									? unknown
+									: ComputedTypeError<"Self argument of dataParserIsAsynchronous function has wrong type.">
 								: unknown
 							: unknown
 					)
@@ -305,17 +330,22 @@ export abstract class DataParserBase<
 			}
 
 			public abstract override get classConstructor(): (
-				& AnyConstructor<[any], DataParserBase<any> & Kind<GenericKindHandler["definition"]>>
+				& AnyConstructor<[any], DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>>
 				& {
-					create(...args: never[]): DataParserBase<any> & Kind<GenericKindHandler["definition"]>;
+					create(...args: never[]): DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>;
 					execParse(
-						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
+						self: DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>,
 						data: unknown,
 						error: DataParserError,
 					): unknown;
+					dataParserIsAsynchronous(
+						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
+					): boolean;
 				}
 				& CheckedConstructorKind
 			);
+
+			public static specificKindHandler = kindHandler;
 		}
 
 		return DataParserBaseInit;
@@ -336,3 +366,15 @@ export interface DataParser<
 		>[]
 	): DataParser<GenericOutput, GenericInput>;
 }
+
+export type Contract<
+	GenericDataParser extends DataParserBase,
+> = (
+	& GetKind<GenericDataParser>
+	& Omit<RemoveKind<DataParserBase>, "addChecker" | "clone" | "definition">
+	& Pick<GenericDataParser, "definition">
+	& {
+		addChecker(...args: never): Contract<GenericDataParser>;
+		clone(): Contract<GenericDataParser>;
+	}
+);

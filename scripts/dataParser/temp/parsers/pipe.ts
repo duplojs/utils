@@ -33,10 +33,6 @@ export class DataParserPipe<
 		return this.checkConstructor(DataParserPipe);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.input.isAsynchronous() || this.definition.output.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -57,7 +53,7 @@ export class DataParserPipe<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserPipe,
 		data: unknown,
 		error: DataParserError,
@@ -85,7 +81,11 @@ export class DataParserPipe<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserPipe) {
+		return self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous();
+	}
+
+	public static override create<
 		GenericInput extends DataParser,
 		GenericOutput extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

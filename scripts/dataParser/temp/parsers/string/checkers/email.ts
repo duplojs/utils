@@ -26,7 +26,7 @@ export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		data: string,
 		error: DataParserError,
 		self: DataParserCheckerEmail,
@@ -42,7 +42,7 @@ export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static create(
+	public static override create(
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionEmail, "regex">
 		> = {},

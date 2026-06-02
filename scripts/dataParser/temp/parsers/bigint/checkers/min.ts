@@ -23,7 +23,7 @@ export class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: bigint,
 		error: DataParserError,
 		self: DataParserCheckerBigIntMin,
@@ -41,7 +41,7 @@ export class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(
 		return value;
 	}
 
-	public static create(
+	public static override create(
 		min: bigint,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionBigIntMin, "min">

@@ -34,10 +34,6 @@ export class DataParserArray<
 		return this.checkConstructor(DataParserArray);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.element.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -58,7 +54,7 @@ export class DataParserArray<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserArray,
 		data: unknown,
 		error: DataParserError,
@@ -104,7 +100,11 @@ export class DataParserArray<
 		return output;
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserArray) {
+		return self.definition.element.isAsynchronous();
+	}
+
+	public static override create<
 		GenericElement extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionArray<Output<GenericElement>[]>,

@@ -35,10 +35,6 @@ export class DataParserLiteral<
 		return this.checkConstructor(DataParserLiteral);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return false;
-	}
-
 	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -59,7 +55,7 @@ export class DataParserLiteral<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserLiteral,
 		data: unknown,
 		error: DataParserError,
@@ -76,7 +72,11 @@ export class DataParserLiteral<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserLiteral) {
+		return false;
+	}
+
+	public static override create<
 		const GenericValue extends LiteralValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionLiteral<GenericValue>,

@@ -106,10 +106,6 @@ export class DataParserRecord<
 		return this.checkConstructor(DataParserRecord);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.key.isAsynchronous() || this.definition.value.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -130,7 +126,7 @@ export class DataParserRecord<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserRecord,
 		data: unknown,
 		error: DataParserError,
@@ -182,7 +178,11 @@ export class DataParserRecord<
 		return output;
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserRecord) {
+		return self.definition.key.isAsynchronous() || self.definition.value.isAsynchronous();
+	}
+
+	public static override create<
 		GenericDataParserKey extends DataParserRecordKey,
 		GenericDataParserValue extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

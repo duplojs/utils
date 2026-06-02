@@ -26,10 +26,6 @@ export class DataParserUnknown<
 		return this.checkConstructor(DataParserUnknown);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return false;
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -50,7 +46,7 @@ export class DataParserUnknown<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		_self: DataParserUnknown,
 		data: unknown,
 		_error: DataParserError,
@@ -58,7 +54,11 @@ export class DataParserUnknown<
 		return data;
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserUnknown) {
+		return false;
+	}
+
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionUnknown> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

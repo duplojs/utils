@@ -38,10 +38,6 @@ export class DataParserNullable<
 		return this.checkConstructor(DataParserNullable);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.inner.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -62,7 +58,7 @@ export class DataParserNullable<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserNullable,
 		data: unknown,
 		error: DataParserError,
@@ -74,7 +70,11 @@ export class DataParserNullable<
 		return self.definition.inner.exec(data, error);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserNullable) {
+		return self.definition.inner.isAsynchronous();
+	}
+
+	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionNullable<

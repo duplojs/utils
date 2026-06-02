@@ -34,12 +34,6 @@ export class DataParserUnion<
 		return this.checkConstructor(DataParserUnion);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.options.some(
-			(element) => element.isAsynchronous(),
-		);
-	}
-
 	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -60,7 +54,7 @@ export class DataParserUnion<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserUnion,
 		data: unknown,
 		error: DataParserError,
@@ -105,7 +99,13 @@ export class DataParserUnion<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserUnion) {
+		return self.definition.options.some(
+			(element) => element.isAsynchronous(),
+		);
+	}
+
+	public static override create<
 		const GenericOptions extends UnionOptions,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionUnion<

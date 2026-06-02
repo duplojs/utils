@@ -133,6 +133,17 @@ export abstract class DataParserCheckerBase<
 				}
 				& CheckedConstructorKind
 			);
+
+			public declare static create: (
+				...args: never[]
+			) => unknown;
+
+			public declare static execCheck: (
+				data: any,
+				error: DataParserError,
+				self: any,
+				dataParser: DataParser,
+			) => unknown;
 		}
 
 		return DataParserCheckerBaseInit;

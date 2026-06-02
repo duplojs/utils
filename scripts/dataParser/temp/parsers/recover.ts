@@ -33,10 +33,6 @@ export class DataParserRecover<
 		return this.checkConstructor(DataParserRecover);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.inner.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -57,7 +53,7 @@ export class DataParserRecover<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserRecover,
 		data: unknown,
 		error: DataParserError,
@@ -70,7 +66,11 @@ export class DataParserRecover<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserRecover) {
+		return self.definition.inner.isAsynchronous();
+	}
+
+	public static override create<
 		GenericDataParser extends DataParser,
 		GenericRecoveredValue extends Output<GenericDataParser>,
 		const GenericDefinition extends PrepareDataParserDefinition<

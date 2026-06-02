@@ -24,7 +24,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: DDate.TheTime,
 		error: DataParserError,
 		self: DataParserCheckerTimeMin,
@@ -40,7 +40,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static create(
+	public static override create(
 		min: DDate.TheTime,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionTimeMin, "min">

@@ -28,10 +28,6 @@ export class DataParserBoolean<
 		return this.checkConstructor(DataParserBoolean);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return false;
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -52,7 +48,7 @@ export class DataParserBoolean<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserBoolean,
 		data: unknown,
 		error: DataParserError,
@@ -73,7 +69,11 @@ export class DataParserBoolean<
 		return addIssue(error, "boolean", data, self.definition.errorMessage);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserBoolean) {
+		return false;
+	}
+
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

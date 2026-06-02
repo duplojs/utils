@@ -32,10 +32,6 @@ export class DataParserLazy<
 		return this.checkConstructor(DataParserLazy);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.getter.value.isAsynchronous();
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -56,7 +52,7 @@ export class DataParserLazy<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserLazy,
 		data: unknown,
 		error: DataParserError,
@@ -64,7 +60,11 @@ export class DataParserLazy<
 		return self.definition.getter.value.exec(data, error);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserLazy) {
+		return self.definition.getter.value.isAsynchronous();
+	}
+
+	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionLazy<

@@ -23,7 +23,7 @@ export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		data: string,
 		error: DataParserError,
 		self: DataParserCheckerRegex,
@@ -39,7 +39,7 @@ export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static create(
+	public static override create(
 		regex: RegExp,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionRegex, "regex">

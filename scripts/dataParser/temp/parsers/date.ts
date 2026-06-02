@@ -29,10 +29,6 @@ export class DataParserDate<
 		return this.checkConstructor(DataParserDate);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return false;
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -53,7 +49,7 @@ export class DataParserDate<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserDate,
 		data: unknown,
 		error: DataParserError,
@@ -92,7 +88,11 @@ export class DataParserDate<
 		return addIssue(error, "date", data, self.definition.errorMessage);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserDate) {
+		return false;
+	}
+
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

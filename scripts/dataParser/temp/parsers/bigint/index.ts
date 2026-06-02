@@ -30,10 +30,6 @@ export class DataParserBigInt<
 		return this.checkConstructor(DataParserBigInt);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return false;
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -54,7 +50,7 @@ export class DataParserBigInt<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserBigInt,
 		data: unknown,
 		error: DataParserError,
@@ -82,7 +78,11 @@ export class DataParserBigInt<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserBigInt) {
+		return false;
+	}
+
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBigInt> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

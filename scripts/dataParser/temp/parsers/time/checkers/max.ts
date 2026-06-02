@@ -24,7 +24,7 @@ export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: DDate.TheTime,
 		error: DataParserError,
 		self: DataParserCheckerTimeMax,
@@ -40,7 +40,7 @@ export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static create(
+	public static override create(
 		max: DDate.TheTime,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionTimeMax, "max">

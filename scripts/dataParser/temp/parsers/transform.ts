@@ -40,11 +40,6 @@ export class DataParserTransform<
 		return this.checkConstructor(DataParserTransform);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.inner.isAsynchronous()
-			|| this.definition.theFunction.constructor.name === "AsyncFunction";
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -65,7 +60,7 @@ export class DataParserTransform<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserTransform,
 		data: unknown,
 		error: DataParserError,
@@ -91,7 +86,12 @@ export class DataParserTransform<
 		);
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserTransform) {
+		return self.definition.inner.isAsynchronous()
+			|| self.definition.theFunction.constructor.name === "AsyncFunction";
+	}
+
+	public static override create<
 		GenericDataParser extends DataParser,
 		GenericOutput extends unknown,
 		const GenericDefinition extends PrepareDataParserDefinition<

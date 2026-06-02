@@ -29,7 +29,7 @@ export class DataParserCheckerRefine<
 		return this.definition.theFunction.constructor.name === "AsyncFunction";
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: unknown,
 		error: DataParserError,
 		self: DataParserCheckerRefine,
@@ -54,7 +54,7 @@ export class DataParserCheckerRefine<
 		);
 	}
 
-	public static create<
+	public static override create<
 		GenericInput extends unknown,
 		const GenericDefinition extends Partial<
 			Omit<DataParserCheckerDefinitionRefine, "theFunction">

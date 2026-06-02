@@ -87,12 +87,6 @@ export class DataParserObject<
 		return this.checkConstructor(DataParserObject);
 	}
 
-	protected dataParserIsAsynchronous() {
-		return this.definition.optimizedShape.value.some(
-			(entry) => entry.value.isAsynchronous(),
-		);
-	}
-
 	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
@@ -113,7 +107,7 @@ export class DataParserObject<
 		>
 	>;
 
-	public static execParse(
+	public static override execParse(
 		self: DataParserObject,
 		data: unknown,
 		error: DataParserError,
@@ -162,7 +156,13 @@ export class DataParserObject<
 		return output;
 	}
 
-	public static create<
+	public static override dataParserIsAsynchronous(self: DataParserObject) {
+		return self.definition.optimizedShape.value.some(
+			(entry) => entry.value.isAsynchronous(),
+		);
+	}
+
+	public static override create<
 		const GenericShape extends DataParserObjectShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionObject<

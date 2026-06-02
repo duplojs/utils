@@ -23,7 +23,7 @@ export class DataParserCheckerStringMax extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		data: string,
 		error: DataParserError,
 		self: DataParserCheckerStringMax,
@@ -39,7 +39,7 @@ export class DataParserCheckerStringMax extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static create(
+	public static override create(
 		max: number,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionStringMax, "max">

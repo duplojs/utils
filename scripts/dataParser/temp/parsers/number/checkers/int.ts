@@ -24,7 +24,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		data: number,
 		error: DataParserError,
 		self: DataParserCheckerInt,
@@ -42,7 +42,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 		);
 	}
 
-	public static create(
+	public static override create(
 		definition: Partial<DataParserCheckerDefinitionInt> = {},
 	) {
 		return new DataParserCheckerInt(definition);

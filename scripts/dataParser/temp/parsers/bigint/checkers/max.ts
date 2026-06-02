@@ -23,7 +23,7 @@ export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		value: bigint,
 		error: DataParserError,
 		self: DataParserCheckerBigIntMax,
@@ -41,7 +41,7 @@ export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 		return value;
 	}
 
-	public static create(
+	public static override create(
 		max: bigint,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionBigIntMax, "max">

@@ -28,7 +28,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 		return false;
 	}
 
-	public static execCheck(
+	public static override execCheck(
 		data: string,
 		error: DataParserError,
 		self: DataParserCheckerUrl,
@@ -75,7 +75,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 		}
 	}
 
-	public static create(
+	public static override create(
 		definition: Partial<DataParserCheckerDefinitionUrl> = {},
 	) {
 		return new DataParserCheckerUrl(definition);
