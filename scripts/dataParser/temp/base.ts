@@ -75,7 +75,12 @@ export abstract class DataParserBase<
 				data: unknown,
 				error: DataParserError,
 			): unknown;
-			dataParserIsAsynchronous(self: DataParserBase<any>,): boolean;
+			dataParserIsAsynchronous(
+				self: DataParserBase<any>,
+			): boolean;
+			prepareDefinition(
+				definition: Partial<DataParserDefinition>
+			): DataParserDefinition;
 		}
 	);
 
@@ -264,6 +269,10 @@ export abstract class DataParserBase<
 		self: any,
 	) => boolean;
 
+	public declare static prepareDefinition: (
+		...args: never[]
+	) => DataParserDefinition;
+
 	public static init<
 		GenericKindHandler extends KindHandler,
 	>(
@@ -324,6 +333,19 @@ export abstract class DataParserBase<
 								: unknown
 							: unknown
 					)
+
+					& (
+						"prepareDefinition" extends keyof GenericConstructor
+							? GenericConstructor["prepareDefinition"] extends AnyFunction
+								? IsEqual<
+									Parameters<GenericConstructor["prepareDefinition"]>[0],
+									never
+								> extends true
+									? ComputedTypeError<"Missing declaration prepareDefinition function">
+									: unknown
+								: unknown
+							: unknown
+					)
 				),
 			): GenericConstructor & CheckedConstructorKind {
 				return constructor as never;
@@ -341,6 +363,9 @@ export abstract class DataParserBase<
 					dataParserIsAsynchronous(
 						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
 					): boolean;
+					prepareDefinition(
+						...args: never[]
+					): DataParserDefinition;
 				}
 				& CheckedConstructorKind
 			);

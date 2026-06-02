@@ -82,6 +82,17 @@ export class DataParserString<
 		return false;
 	}
 
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionString>,
+	): DataParserDefinitionString {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never,
 	>(
@@ -95,12 +106,7 @@ export class DataParserString<
 				NeverCoalescing<GenericDefinition, {}>
 			>
 		> {
-		return new DataParserString({
-			...definition,
-			coerce: definition?.coerce ?? false,
-			checkers: definition?.checkers ?? [],
-			errorMessage: definition?.errorMessage,
-		}) as never;
+		return new DataParserString(this.prepareDefinition(definition)) as never;
 	}
 }
 

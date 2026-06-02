@@ -1,7 +1,7 @@
-import { type AnyConstructor, type GetKind, type Kind, kindClass, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
+import { type AnyConstructor, type AnyFunction, type GetKind, type Kind, kindClass, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import { DataParserBase, type DataParserDefinition } from "./base";
-import type * as dataParsers from "./parsers";
+import * as dataParsers from "./parsers";
 import { type DataParserError } from "../error";
 import { type DataParserCheckerBase } from "./baseChecker";
 import { type DataParserCheckerDefinition } from "../base";
@@ -32,6 +32,17 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/addChecker/index.md}
 	 */
 	public declare addChecker: (...args: never) => DataParserBaseExtended;
+
+	public refine(
+		theFunction: (input: GenericOutput) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>,
+	): DataParserBaseExtended {
+		return (this.addChecker as AnyFunction<[unknown], never>)(
+			dataParsers.checkerRefine(theFunction, definition),
+		);
+	}
 
 	public static initExtended<
 		GenericConstructor extends SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
@@ -98,6 +109,9 @@ export abstract class DataParserBaseExtended<
 							& Kind<typeof dataParserConstructor.specificKindHandler.definition>
 						),
 					): boolean;
+					prepareDefinition(
+						...args: never[]
+					): DataParserDefinition;
 				}
 				& CheckedConstructorKind
 			);
@@ -105,6 +119,8 @@ export abstract class DataParserBaseExtended<
 			public static execParse = dataParserConstructor.execParse as GenericConstructor["execParse"];
 
 			public static dataParserIsAsynchronous = dataParserConstructor.dataParserIsAsynchronous as GenericConstructor["dataParserIsAsynchronous"];
+
+			public static prepareDefinition = dataParserConstructor.prepareDefinition as GenericConstructor["prepareDefinition"];
 
 			public static specificKindHandler = dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"];
 		}
