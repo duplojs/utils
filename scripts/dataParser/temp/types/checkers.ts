@@ -18,6 +18,7 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerNumberMax
 	| AllDataParser.DataParserCheckerNumberMin
 	| AllDataParser.DataParserCheckerRegex
+	| AllDataParser.DataParserCheckerRefine
 	| AllDataParser.DataParserCheckerStringMax
 	| AllDataParser.DataParserCheckerStringMin
 	| AllDataParser.DataParserCheckerTimeMax
@@ -32,7 +33,9 @@ export interface EligibleChecker<
 	base: DataParserChecker<
 		GenericValue
 	>;
-	refine: never;
+	refine: AllDataParser.DataParserCheckerRefine<
+		AllDataParser.DataParserCheckerDefinitionRefine<GenericValue>
+	>;
 	array: IsExtends<GenericValue, unknown[]> extends true
 		? (
 			| AllDataParser.DataParserCheckerArrayMax

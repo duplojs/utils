@@ -17,7 +17,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 		number
 	> {
 	public get classConstructor() {
-		return DataParserCheckerInt;
+		return this.checkConstructor(DataParserCheckerInt);
 	}
 
 	public isAsynchronous() {

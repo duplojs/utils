@@ -19,7 +19,7 @@ export class DataParserCheckerUuid extends DataParserCheckerBase.init(
 		string
 	> {
 	public get classConstructor() {
-		return DataParserCheckerUuid;
+		return this.checkConstructor(DataParserCheckerUuid);
 	}
 
 	public isAsynchronous() {

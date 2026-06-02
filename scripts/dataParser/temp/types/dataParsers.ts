@@ -10,8 +10,23 @@ export type DataParsers = (
 	| AllDataParser.DataParserArray
 	| AllDataParser.DataParserString
 	| AllDataParser.DataParserNumber
+	| AllDataParser.DataParserLiteral
+	| AllDataParser.DataParserUnion
 	| AllDataParser.DataParserBigInt
+	| AllDataParser.DataParserTuple
+	| AllDataParser.DataParserTransform
+	| AllDataParser.DataParserBoolean
+	| AllDataParser.DataParserDate
 	| AllDataParser.DataParserTime
+	| AllDataParser.DataParserNil
+	| AllDataParser.DataParserEmpty
+	| AllDataParser.DataParserTemplateLiteral
+	| AllDataParser.DataParserPipe
+	| AllDataParser.DataParserNullable
+	| AllDataParser.DataParserOptional
+	| AllDataParser.DataParserLazy
+	| AllDataParser.DataParserUnknown
 	| AllDataParser.DataParserObject
 	| AllDataParser.DataParserRecord
+	| AllDataParser.DataParserRecover
 );

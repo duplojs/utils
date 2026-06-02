@@ -27,7 +27,7 @@ export class DataParserNumber<
 		number
 	> {
 	public get classConstructor() {
-		return DataParserNumber;
+		return this.checkConstructor(DataParserNumber);
 	}
 
 	protected dataParserIsAsynchronous() {

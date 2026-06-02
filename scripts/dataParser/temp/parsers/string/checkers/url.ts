@@ -21,7 +21,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 		string
 	> {
 	public get classConstructor() {
-		return DataParserCheckerUrl;
+		return this.checkConstructor(DataParserCheckerUrl);
 	}
 
 	public isAsynchronous() {

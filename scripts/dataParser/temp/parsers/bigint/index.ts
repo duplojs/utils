@@ -27,7 +27,7 @@ export class DataParserBigInt<
 		bigint
 	> {
 	public get classConstructor() {
-		return DataParserBigInt;
+		return this.checkConstructor(DataParserBigInt);
 	}
 
 	protected dataParserIsAsynchronous() {

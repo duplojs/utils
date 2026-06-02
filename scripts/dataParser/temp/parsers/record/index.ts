@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, pipe } from "@scripts/common";
+import { callThen, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, pipe } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
@@ -10,15 +10,31 @@ import * as DObject from "@scripts/object";
 import { findRecordRequiredKey } from "./findRecordRequiredKey";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserString } from "../string";
+import { type DataParserTemplateLiteral } from "../templateLiteral";
+import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
+import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 
 export * from "./findRecordRequiredKey";
 
 export type DataParserRecordKey = (
 	| DataParserString
+	| DataParserTemplateLiteral
+	| DataParserLiteral<
+		& Omit<DataParserDefinitionLiteral, "value">
+		& {
+			readonly value: readonly string[];
+		}
+	>
 	| DataParserNumber<
 		& Omit<DataParserDefinitionNumber, "coerce">
 		& {
 			readonly coerce: true;
+		}
+	>
+	| DataParserUnion<
+		& Omit<DataParserDefinitionUnion, "options">
+		& {
+			readonly options: readonly [DataParserRecordKey, ...DataParserRecordKey[]];
 		}
 	>
 );
@@ -87,7 +103,7 @@ export class DataParserRecord<
 		DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>
 	> {
 	public get classConstructor() {
-		return DataParserRecord;
+		return this.checkConstructor(DataParserRecord);
 	}
 
 	protected dataParserIsAsynchronous() {
@@ -129,54 +145,40 @@ export class DataParserRecord<
 		};
 		const entries = Object.entries(fromData);
 		const currentIndexPath = error.currentPath.length;
-		let output: Record<string, unknown> | SymbolDataParserErrorType = {};
-
-		for (let index = 0; index < entries.length; index++) {
-			const [key, value] = entries[index];
-			setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
-			const resultKey = self.definition.key.exec(key, error);
-			setErrorPath(error, key, currentIndexPath);
-			const resultValue = self.definition.value.exec(value, error);
-
-			if (resultKey instanceof Promise || resultValue instanceof Promise) {
-				return (async() => {
-					let asyncOutput: Record<string, unknown> | SymbolDataParserErrorType = output;
-					const resolvedKey = resultKey instanceof Promise ? await resultKey : resultKey;
-					const resolvedValue = resultValue instanceof Promise ? await resultValue : resultValue;
-
-					if (resolvedKey === SymbolDataParserError || resolvedValue === SymbolDataParserError) {
-						asyncOutput = SymbolDataParserError;
-					} else if (asyncOutput !== SymbolDataParserError) {
-						asyncOutput[resolvedKey as never] = resolvedValue;
-					}
-
-					for (let nextIndex = index + 1; nextIndex < entries.length; nextIndex++) {
-						const [nextKey, nextValue] = entries[nextIndex];
-						setErrorPath(error, `(recordKey: ${nextKey})`, currentIndexPath);
-						const nextResultKey = await self.definition.key.exec(nextKey, error);
-						setErrorPath(error, nextKey, currentIndexPath);
-						const nextResultValue = await self.definition.value.exec(nextValue, error);
-
-						if (nextResultKey === SymbolDataParserError || nextResultValue === SymbolDataParserError) {
-							asyncOutput = SymbolDataParserError;
-						} else if (asyncOutput !== SymbolDataParserError) {
-							asyncOutput[nextResultKey as never] = nextResultValue;
-						}
-					}
-
-					void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
-					return asyncOutput;
-				})();
-			}
-
-			if (resultKey === SymbolDataParserError || resultValue === SymbolDataParserError) {
-				output = SymbolDataParserError;
-			} else if (output !== SymbolDataParserError) {
-				output[resultKey as never] = resultValue;
-			}
-		}
+		const output = entries.reduce<
+			MaybePromise<Record<string, unknown> | SymbolDataParserErrorType>
+		>(
+			(accumulator, entry) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					setErrorPath(error, `(recordKey: ${entry[0]})`, currentIndexPath);
+					return callThen(
+						self.definition.key.exec(entry[0], error),
+						(awaitedKeyResult) => {
+							setErrorPath(error, `(recordValue: ${entry[0]})`, currentIndexPath);
+							return callThen(
+								self.definition.value.exec(entry[1], error),
+								(awaitedValueResult) => {
+									if (
+										awaitedAccumulator === SymbolDataParserError
+										|| awaitedKeyResult === SymbolDataParserError
+										|| awaitedValueResult === SymbolDataParserError
+									) {
+										return SymbolDataParserError;
+									}
+									awaitedAccumulator[awaitedKeyResult as string] = awaitedValueResult;
+									return awaitedAccumulator;
+								},
+							);
+						},
+					);
+				},
+			),
+			{},
+		);
 
 		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+
 		return output;
 	}
 
@@ -227,6 +229,7 @@ export class DataParserRecord<
 				DArray.map((key) => DObject.entry(key, undefined)),
 				DObject.fromEntries,
 			),
+			requireKey,
 			checkers: definition?.checkers ?? [],
 			errorMessage: definition?.errorMessage,
 		}) as never;

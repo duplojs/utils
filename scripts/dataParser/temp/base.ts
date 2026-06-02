@@ -1,4 +1,4 @@
-import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler } from "@scripts/common";
+import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler, type RequireConstructor, type AnyFunction, type IsExtends } from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import * as DEither from "@scripts/either";
 import { type DataParserError, SymbolDataParserError, createError, addIssue } from "../error";
@@ -256,6 +256,11 @@ export abstract class DataParserBase<
 	>(
 		kindHandler: GenericKindHandler,
 	) {
+		type CheckedConstructorKind = & Kind<{
+			name: "checked-constructor";
+			value: never;
+		}>;
+
 		abstract class DataParserBaseInit<
 			GenericDefinition extends DataParserDefinition = DataParserDefinition,
 			GenericOutput extends unknown = unknown,
@@ -276,6 +281,29 @@ export abstract class DataParserBase<
 				super(null as never, definition);
 			}
 
+			public checkConstructor<
+				GenericConstructor extends object,
+			>(
+				constructor: (
+					GenericConstructor
+					& RequireConstructor<GenericConstructor>
+					& (
+						"execParse" extends keyof GenericConstructor
+							? GenericConstructor["execParse"] extends AnyFunction
+								? IsExtends<
+									Parameters<GenericConstructor["execParse"]>[0],
+									Kind<GenericKindHandler["definition"]>
+								> extends true
+									? unknown
+									: ComputedTypeError<"Wrong type of self argument.">
+								: unknown
+							: unknown
+					)
+				),
+			): GenericConstructor & CheckedConstructorKind {
+				return constructor as never;
+			}
+
 			public abstract override get classConstructor(): (
 				& AnyConstructor<[any], DataParserBase<any> & Kind<GenericKindHandler["definition"]>>
 				& {
@@ -286,6 +314,7 @@ export abstract class DataParserBase<
 						error: DataParserError,
 					): unknown;
 				}
+				& CheckedConstructorKind
 			);
 		}
 

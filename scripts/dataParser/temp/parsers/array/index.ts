@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
+import { callThen, type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
@@ -31,7 +31,7 @@ export class DataParserArray<
 		Input<GenericDefinition["element"]>[]
 	> {
 	public get classConstructor() {
-		return DataParserArray;
+		return this.checkConstructor(DataParserArray);
 	}
 
 	protected dataParserIsAsynchronous() {
@@ -75,67 +75,31 @@ export class DataParserArray<
 		const currentIndexPath = error.currentPath.length;
 
 		const output = data.reduce<MaybePromise<unknown[] | SymbolDataParserError>>(
-			(accumulator, element, index) => {
-				if (accumulator instanceof Promise) {
-					return accumulator.then(
-						(awaitedAccumulator) => {
-							if (awaitedAccumulator === SymbolDataParserError) {
-								return awaitedAccumulator;
+			(accumulator, element, index) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					setErrorPath(error, `[${index}]`, currentIndexPath);
+					return callThen(
+						self.definition.element.exec(element, error),
+						(awaitedResult) => {
+							if (
+								awaitedResult === SymbolDataParserError
+								|| awaitedAccumulator === SymbolDataParserError
+							) {
+								return SymbolDataParserError;
 							}
 
-							setErrorPath(error, `[${index}]`, currentIndexPath);
-							const result = self.definition.element.exec(element, error);
-							if (result instanceof Promise) {
-								return result.then((awaitedResult) => {
-									if (awaitedResult === SymbolDataParserError) {
-										return awaitedResult;
-									}
+							awaitedAccumulator.push(awaitedResult);
 
-									awaitedAccumulator.push(awaitedResult);
-
-									return accumulator;
-								});
-							}
-
-							if (result === SymbolDataParserError) {
-								return result;
-							}
-							awaitedAccumulator.push(result);
-
-							return accumulator;
+							return awaitedAccumulator;
 						},
 					);
-				}
-				if (accumulator === SymbolDataParserError) {
-					return accumulator;
-				}
-
-				setErrorPath(error, `[${index}]`, currentIndexPath);
-				const result = self.definition.element.exec(element, error);
-
-				if (result instanceof Promise) {
-					return result.then((awaitedResult) => {
-						if (awaitedResult === SymbolDataParserError) {
-							return awaitedResult;
-						}
-
-						accumulator.push(awaitedResult);
-
-						return accumulator;
-					});
-				}
-
-				if (result === SymbolDataParserError) {
-					return result;
-				}
-				accumulator.push(result);
-
-				return accumulator;
-			},
+				},
+			),
 			[],
 		);
 
-		void (data.length && popErrorPath(error));
+		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
 
 		return output;
 	}

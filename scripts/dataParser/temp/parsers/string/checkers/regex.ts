@@ -16,7 +16,7 @@ export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 		string
 	> {
 	public get classConstructor() {
-		return DataParserCheckerRegex;
+		return this.checkConstructor(DataParserCheckerRegex);
 	}
 
 	public isAsynchronous() {

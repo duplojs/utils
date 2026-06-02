@@ -16,7 +16,7 @@ export class DataParserCheckerStringMax extends DataParserCheckerBase.init(
 		string
 	> {
 	public get classConstructor() {
-		return DataParserCheckerStringMax;
+		return this.checkConstructor(DataParserCheckerStringMax);
 	}
 
 	public isAsynchronous() {

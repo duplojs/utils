@@ -16,7 +16,7 @@ export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 		bigint
 	> {
 	public get classConstructor() {
-		return DataParserCheckerBigIntMax;
+		return this.checkConstructor(DataParserCheckerBigIntMax);
 	}
 
 	public isAsynchronous() {

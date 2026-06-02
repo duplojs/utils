@@ -16,7 +16,7 @@ export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
 		unknown[]
 	> {
 	public get classConstructor() {
-		return DataParserCheckerArrayMax;
+		return this.checkConstructor(DataParserCheckerArrayMax);
 	}
 
 	public isAsynchronous() {

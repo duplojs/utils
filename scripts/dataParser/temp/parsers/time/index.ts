@@ -29,7 +29,7 @@ export class DataParserTime<
 		DDate.TheTime | number | DDate.SerializedTheTime
 	> {
 	public get classConstructor() {
-		return DataParserTime;
+		return this.checkConstructor(DataParserTime);
 	}
 
 	protected dataParserIsAsynchronous() {

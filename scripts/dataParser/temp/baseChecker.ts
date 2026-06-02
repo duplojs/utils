@@ -1,4 +1,4 @@
-import { type AnyConstructor, type Kind, kindClass, type KindHandler, type MaybePromise } from "@scripts/common";
+import { type AnyConstructor, type AnyFunction, type BreakGenericLink, type ComputedTypeError, type IsEqual, type IsExtends, type Kind, kindClass, type KindHandler, type MaybePromise, NeverCoalescing, type RequireConstructor } from "@scripts/common";
 import { type SymbolDataParserError, type DataParserError } from "../error";
 import { createDataParserKind } from "../kind";
 import { type DataParser } from "./base";
@@ -70,9 +70,14 @@ export abstract class DataParserCheckerBase<
 	>(
 		kindHandler: GenericKindHandler,
 	) {
+		type CheckedConstructorKind = & Kind<{
+			name: "checked-constructor";
+			value: never;
+		}>;
+
 		abstract class DataParserCheckerBaseInit<
 			GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
-			GenericInput extends unknown = unknown,
+			GenericInput extends unknown = never,
 		> extends kindClass(
 				kindHandler,
 				DataParserCheckerBase,
@@ -88,6 +93,33 @@ export abstract class DataParserCheckerBase<
 				super(null as never, definition);
 			}
 
+			public checkConstructor<
+				GenericConstructor extends object,
+			>(
+				constructor: (
+					GenericConstructor
+					& RequireConstructor<GenericConstructor>
+					& (
+						"execCheck" extends keyof GenericConstructor
+							? GenericConstructor["execCheck"] extends AnyFunction
+								? (
+									& (
+										IsExtends<
+											Parameters<GenericConstructor["execCheck"]>[2],
+											Kind<GenericKindHandler["definition"]>
+										> extends true
+											? unknown
+											: ComputedTypeError<"Wrong type of self argument.">
+									)
+								)
+								: unknown
+							: unknown
+					)
+				),
+			): GenericConstructor & CheckedConstructorKind {
+				return constructor as never;
+			}
+
 			public abstract override get classConstructor(): (
 				& AnyConstructor<[any], DataParserCheckerBase<any> & Kind<GenericKindHandler["definition"]>>
 				& {
@@ -99,6 +131,7 @@ export abstract class DataParserCheckerBase<
 						dataParser: DataParser,
 					): unknown;
 				}
+				& CheckedConstructorKind
 			);
 		}
 

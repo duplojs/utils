@@ -16,7 +16,7 @@ export class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(
 		bigint
 	> {
 	public get classConstructor() {
-		return DataParserCheckerBigIntMin;
+		return this.checkConstructor(DataParserCheckerBigIntMin);
 	}
 
 	public isAsynchronous() {

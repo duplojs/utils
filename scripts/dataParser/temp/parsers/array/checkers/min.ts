@@ -16,7 +16,7 @@ export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
 		unknown[]
 	> {
 	public get classConstructor() {
-		return DataParserCheckerArrayMin;
+		return this.checkConstructor(DataParserCheckerArrayMin);
 	}
 
 	public isAsynchronous() {

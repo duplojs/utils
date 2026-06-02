@@ -17,7 +17,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 		DDate.TheTime
 	> {
 	public get classConstructor() {
-		return DataParserCheckerTimeMin;
+		return this.checkConstructor(DataParserCheckerTimeMin);
 	}
 
 	public isAsynchronous() {

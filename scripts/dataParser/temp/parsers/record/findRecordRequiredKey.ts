@@ -1,17 +1,17 @@
 import { innerPipe, isType, justReturn, or, pipe, when } from "@scripts/common";
-import * as DArray from "@scripts/array";
-import * as DPattern from "@scripts/pattern";
-import * as DString from "@scripts/string";
-import { bigIntKind } from "@scripts/dataParser/parsers/bigint";
-import { booleanKind } from "@scripts/dataParser/parsers/boolean";
-import { emptyKind } from "@scripts/dataParser/parsers/empty";
-import { literalKind } from "@scripts/dataParser/parsers/literal";
-import { nilKind } from "@scripts/dataParser/parsers/nil";
-import { numberKind } from "@scripts/dataParser/parsers/number";
-import { stringKind } from "@scripts/dataParser/parsers/string";
-import { templateLiteralKind, type TemplateLiteralParts } from "@scripts/dataParser/parsers/templateLiteral";
-import { unionKind } from "@scripts/dataParser/parsers/union";
 import { type DataParserRecordKey } from ".";
+import * as DPattern from "@scripts/pattern";
+import * as DArray from "@scripts/array";
+import * as DString from "@scripts/string";
+import { stringKind } from "../string";
+import { numberKind } from "../number";
+import { literalKind } from "../literal";
+import { unionKind } from "../union";
+import { templateLiteralKind, type TemplateLiteralParts } from "../templateLiteral";
+import { bigIntKind } from "../bigint";
+import { booleanKind } from "../boolean";
+import { emptyKind } from "../empty";
+import { nilKind } from "../nil";
 
 export function findRecordRequiredKeyOnTemplateLiteralPart(
 	templatePart: readonly TemplateLiteralParts[],
