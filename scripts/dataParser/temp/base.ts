@@ -79,7 +79,7 @@ export abstract class DataParserBase<
 				self: DataParserBase<any>,
 			): boolean;
 			prepareDefinition(
-				...args: any[]
+				...args: never[]
 			): DataParserDefinition;
 		}
 	);
@@ -270,7 +270,7 @@ export abstract class DataParserBase<
 	) => boolean;
 
 	public declare static prepareDefinition: (
-		...args: any[]
+		...args: never[]
 	) => DataParserDefinition;
 
 	public static init<

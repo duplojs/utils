@@ -110,7 +110,7 @@ export abstract class DataParserBaseExtended<
 						),
 					): boolean;
 					prepareDefinition(
-						...args: any[]
+						...args: never[]
 					): DataParserDefinition;
 				}
 				& CheckedConstructorKind
