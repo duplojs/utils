@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -54,7 +55,7 @@ export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerEmail = DataParserCheckerEmail.create;
+export const checkerEmail = detachObjectMethod(DataParserCheckerEmail, "create");
 
 export function email(
 	definition?: Partial<

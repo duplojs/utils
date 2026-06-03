@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
@@ -56,4 +57,4 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerTimeMin = DataParserCheckerTimeMin.create;
+export const checkerTimeMin = detachObjectMethod(DataParserCheckerTimeMin, "create");

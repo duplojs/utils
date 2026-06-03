@@ -1,7 +1,7 @@
-import { kindClass, keyWrappedValue, type ComputedTypeError, simpleClone, type MaybePromise, type IsEqual, type AnyConstructor, type Kind, type KindHandler, type RequireConstructor, type AnyFunction, type IsExtends, type GetKind, type RemoveKind } from "@scripts/common";
+import * as DCommon from "@scripts/common";
 import { createDataParserKind } from "./kind";
 import * as DEither from "@scripts/either";
-import { type DataParserError, SymbolDataParserError, createError, addIssue } from "./error";
+import { type DataParserError, SymbolDataParserError, createError, addAsyncIssue } from "./error";
 import { type DataParserChecker } from "./baseChecker";
 import type { Output } from "./types";
 
@@ -23,22 +23,14 @@ export const dataParserKind = createDataParserKind<
 const DPE = createError();
 const EE = DEither.error(null);
 const ES = DEither.success(null);
-const KWV = keyWrappedValue;
-function createSyncError(error: DataParserError): SymbolDataParserError {
-	return addIssue(
-		error,
-		"Parser execution must be synchronous",
-		undefined,
-		undefined,
-	);
-}
+const KWV = DCommon.keyWrappedValue;
 
-export class DataParserThrowError extends kindClass(
-	"dataParserThrowError",
+export class ParseError extends DCommon.kindClass(
+	"parse-error",
 	Error,
 ) {
 	public constructor(
-		public value: unknown,
+		public error: DataParserError,
 	) {
 		super({}, "Parse Error.");
 	}
@@ -48,7 +40,7 @@ export abstract class DataParserBase<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
-> extends kindClass(
+> extends DCommon.kindClass(
 		dataParserKind,
 	)<
 		never,
@@ -64,10 +56,12 @@ export abstract class DataParserBase<
 	) {
 		super(null as never);
 		this.definition = definition;
+
+		DCommon.bindPrototypeMethods(this);
 	}
 
 	public abstract get classConstructor(): (
-		& AnyConstructor<[any], DataParserBase<any>>
+		& DCommon.AnyConstructor<[any], DataParserBase<any>>
 		& {
 			create(...args: never[]): DataParserBase<any>;
 			execParse(
@@ -84,7 +78,7 @@ export abstract class DataParserBase<
 		}
 	);
 
-	private execParse(
+	public execParse(
 		data: unknown,
 		error: DataParserError,
 	): unknown {
@@ -97,7 +91,7 @@ export abstract class DataParserBase<
 	public exec(
 		data: unknown,
 		error: DataParserError,
-	): MaybePromise<
+	): DCommon.MaybePromise<
 		| GenericOutput
 		| SymbolDataParserError
 	>;
@@ -149,9 +143,11 @@ export abstract class DataParserBase<
 		const result = this.exec(data, error);
 
 		if (result instanceof Promise) {
+			addAsyncIssue(error, result);
+
 			return {
 				...EE,
-				[KWV]: createSyncError(error),
+				[KWV]: error,
 			} as DEither.Error<any>;
 		}
 
@@ -207,11 +203,13 @@ export abstract class DataParserBase<
 		const result = this.exec(data, error);
 
 		if (result instanceof Promise) {
-			throw new DataParserThrowError(createSyncError(error));
+			addAsyncIssue(error, result);
+
+			throw new ParseError(error);
 		}
 
 		if (result === SymbolDataParserError) {
-			throw new DataParserThrowError(error);
+			throw new ParseError(error);
 		}
 
 		return result;
@@ -229,7 +227,7 @@ export abstract class DataParserBase<
 		const result = await this.exec(data, error);
 
 		if (result === SymbolDataParserError) {
-			throw new DataParserThrowError(error);
+			throw new ParseError(error);
 		}
 
 		return result;
@@ -251,7 +249,7 @@ export abstract class DataParserBase<
 	public clone(): this;
 
 	public clone() {
-		return new this.classConstructor(simpleClone(this.definition)) as never;
+		return new this.classConstructor(DCommon.simpleClone(this.definition)) as never;
 	}
 
 	/**
@@ -270,9 +268,9 @@ export abstract class DataParserBase<
 	public contract<
 		GenericValue extends unknown,
 	>(
-		...args: IsEqual<Output<this>, GenericValue> extends true
+		...args: DCommon.IsEqual<Output<this>, GenericValue> extends true
 			? []
-			: [] & ComputedTypeError<"Contract error.">
+			: [] & DCommon.ComputedTypeError<"Contract error.">
 	): DataParser<GenericValue>;
 
 	public contract() {
@@ -298,11 +296,11 @@ export abstract class DataParserBase<
 	) => DataParserDefinition;
 
 	public static init<
-		GenericKindHandler extends KindHandler,
+		GenericKindHandler extends DCommon.KindHandler,
 	>(
 		kindHandler: GenericKindHandler,
 	) {
-		type CheckedConstructorKind = & Kind<{
+		type CheckedConstructorKind = & DCommon.Kind<{
 			name: "checked-constructor";
 			value: never;
 		}>;
@@ -311,7 +309,7 @@ export abstract class DataParserBase<
 			GenericDefinition extends DataParserDefinition = DataParserDefinition,
 			GenericOutput extends unknown = unknown,
 			GenericInput extends unknown = GenericOutput,
-		> extends kindClass(
+		> extends DCommon.kindClass(
 				kindHandler,
 				DataParserBase,
 			)<
@@ -332,40 +330,40 @@ export abstract class DataParserBase<
 			>(
 				constructor: (
 					GenericConstructor
-					& RequireConstructor<GenericConstructor>
+					& DCommon.RequireConstructor<GenericConstructor>
 					& (
 						"execParse" extends keyof GenericConstructor
-							? GenericConstructor["execParse"] extends AnyFunction
-								? IsExtends<
+							? GenericConstructor["execParse"] extends DCommon.AnyFunction
+								? DCommon.IsExtends<
 									Parameters<GenericConstructor["execParse"]>[0],
-									Kind<GenericKindHandler["definition"]>
+									DCommon.Kind<GenericKindHandler["definition"]>
 								> extends true
 									? unknown
-									: ComputedTypeError<"Self argument of execParse function has wrong type.">
+									: DCommon.ComputedTypeError<"Self argument of execParse function has wrong type.">
 								: unknown
 							: unknown
 					)
 					& (
 						"dataParserIsAsynchronous" extends keyof GenericConstructor
-							? GenericConstructor["dataParserIsAsynchronous"] extends AnyFunction
-								? IsExtends<
+							? GenericConstructor["dataParserIsAsynchronous"] extends DCommon.AnyFunction
+								? DCommon.IsExtends<
 									Parameters<GenericConstructor["dataParserIsAsynchronous"]>[0],
-									Kind<GenericKindHandler["definition"]>
+									DCommon.Kind<GenericKindHandler["definition"]>
 								> extends true
 									? unknown
-									: ComputedTypeError<"Self argument of dataParserIsAsynchronous function has wrong type.">
+									: DCommon.ComputedTypeError<"Self argument of dataParserIsAsynchronous function has wrong type.">
 								: unknown
 							: unknown
 					)
 
 					& (
 						"prepareDefinition" extends keyof GenericConstructor
-							? GenericConstructor["prepareDefinition"] extends AnyFunction
-								? IsEqual<
+							? GenericConstructor["prepareDefinition"] extends DCommon.AnyFunction
+								? DCommon.IsEqual<
 									Parameters<GenericConstructor["prepareDefinition"]>[0],
 									never
 								> extends true
-									? ComputedTypeError<"Missing declaration prepareDefinition function">
+									? DCommon.ComputedTypeError<"Missing declaration prepareDefinition function">
 									: unknown
 								: unknown
 							: unknown
@@ -376,16 +374,16 @@ export abstract class DataParserBase<
 			}
 
 			public abstract override get classConstructor(): (
-				& AnyConstructor<[any], DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>>
+				& DCommon.AnyConstructor<[any], DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>>
 				& {
-					create(...args: never[]): DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>;
+					create(...args: never[]): DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>;
 					execParse(
-						self: DataParserBaseInit<any> & Kind<GenericKindHandler["definition"]>,
+						self: DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>,
 						data: unknown,
 						error: DataParserError,
 					): unknown;
 					dataParserIsAsynchronous(
-						self: DataParserBase<any> & Kind<GenericKindHandler["definition"]>,
+						self: DataParserBase<any> & DCommon.Kind<GenericKindHandler["definition"]>,
 					): boolean;
 					prepareDefinition(
 						...args: any[]
@@ -419,8 +417,8 @@ export interface DataParser<
 export type Contract<
 	GenericDataParser extends DataParserBase,
 > = (
-	& GetKind<GenericDataParser>
-	& Omit<RemoveKind<DataParserBase>, "addChecker" | "clone" | "definition">
+	& DCommon.GetKind<GenericDataParser>
+	& Omit<DCommon.RemoveKind<DataParserBase>, "addChecker" | "clone" | "definition">
 	& Pick<GenericDataParser, "definition">
 	& {
 		addChecker(...args: never): Contract<GenericDataParser>;

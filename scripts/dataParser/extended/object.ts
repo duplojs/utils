@@ -1,4 +1,4 @@
-import { type Adaptor, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, type Adaptor, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type AssignObjects } from "@scripts/object";
 import { DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
@@ -325,4 +325,4 @@ export class DataParserObjectExtended<
 	}
 }
 
-export const object = DataParserObjectExtended.create;
+export const object = detachObjectMethod(DataParserObjectExtended, "create");

@@ -1,4 +1,4 @@
-import { type AnyFunction, type FixDeepFunctionInfer, type NeverCoalescing, unwrap } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing, unwrap } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
@@ -122,16 +122,4 @@ export class DataParserTime<
 	}
 }
 
-export const time = DataParserTime.create;
-
-import { type O } from "@scripts";
-
-export function detachObjectMethod<
-	GenericObject extends object,
-	GenericMethod extends O.GetPropsWithValueExtends<GenericObject, AnyFunction>,
->(
-	inputObject: GenericObject,
-	method: GenericMethod,
-): GenericObject[GenericMethod] {
-	return (inputObject[method] as AnyFunction).bind(inputObject) as never;
-}
+export const time = detachObjectMethod(DataParserTime, "create");

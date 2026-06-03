@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { string } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -82,7 +83,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerUrl = DataParserCheckerUrl.create;
+export const checkerUrl = detachObjectMethod(DataParserCheckerUrl, "create");
 
 export function url(
 	definition?: Partial<DataParserCheckerDefinitionUrl>,

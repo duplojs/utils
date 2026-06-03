@@ -64,3 +64,4 @@ export * from "./printer";
 export * from "./kindClass";
 export * from "./promiseAll";
 export * from "./detachObjectMethod";
+export * from "./bindPrototypeMethods";

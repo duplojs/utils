@@ -168,13 +168,13 @@ describe("DDataParser tuple", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "[1]",
+							path: "[tuple: 1]",
 							data: "33",
 							message: undefined,
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "string",
-							path: "[4]",
+							path: "[tupleRest: 4]",
 							data: 40,
 							message: undefined,
 						}),
@@ -253,13 +253,13 @@ describe("DDataParser tuple", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "[1]",
+								path: "[tuple: 1]",
 								data: "33",
 								message: undefined,
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "string",
-								path: "[4]",
+								path: "[tupleRest: 4]",
 								data: 40,
 								message: undefined,
 							}),

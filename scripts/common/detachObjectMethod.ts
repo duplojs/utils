@@ -3,10 +3,10 @@ import type { AnyFunction } from "./types";
 
 export function detachObjectMethod<
 	GenericObject extends object,
-	GenericMethod extends DObject.GetPropsWithValueExtends<GenericObject, AnyFunction>,
+	GenericMethod extends keyof GenericObject,
 >(
 	inputObject: GenericObject,
-	method: GenericMethod,
+	method: GenericMethod & DObject.GetPropsWithValueExtends<GenericObject, AnyFunction>,
 ): GenericObject[GenericMethod] {
 	return (inputObject[method] as AnyFunction).bind(inputObject) as never;
 }

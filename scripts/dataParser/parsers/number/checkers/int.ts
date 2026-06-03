@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { number as numberParser } from "..";
 import { createDataParserKind } from "../../../kind";
@@ -49,7 +50,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerInt = DataParserCheckerInt.create;
+export const checkerInt = detachObjectMethod(DataParserCheckerInt, "create");
 
 export function int(
 	definition?: Partial<DataParserCheckerDefinitionInt>,

@@ -76,7 +76,7 @@ describe("DDataParser transform", () => {
 				expect.objectContaining({
 					issues: [
 						expect.objectContaining({
-							expected: "non-promise transform result",
+							expected: "synchronous result",
 							data: expect.any(Promise),
 						}),
 					],
@@ -124,8 +124,8 @@ describe("DDataParser transform", () => {
 					expect.objectContaining({
 						issues: [
 							expect.objectContaining({
-								expected: "successful async transform result",
-								data: expect.any(Promise),
+								expected: "successful transform result",
+								data: expect.any(Error),
 							}),
 						],
 					}),

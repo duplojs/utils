@@ -1,4 +1,4 @@
-import { callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { addIssue, setErrorPath, type DataParserError, SymbolDataParserError, popErrorPath } from "@scripts/dataParser/error";
@@ -152,4 +152,4 @@ export class DataParserUnion<
 	}
 }
 
-export const union = DataParserUnion.create;
+export const union = detachObjectMethod(DataParserUnion, "create");

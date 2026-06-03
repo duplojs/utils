@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized, type NeverCoalescing, callThen, forward, memo, pipe } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized, type NeverCoalescing, callThen, forward, memo, pipe } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, dataParserKind, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
@@ -221,4 +221,4 @@ export class DataParserObject<
 	}
 }
 
-export const object = DataParserObject.create;
+export const object = detachObjectMethod(DataParserObject, "create");

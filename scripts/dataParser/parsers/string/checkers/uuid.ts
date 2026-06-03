@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import { string } from "..";
@@ -54,7 +55,7 @@ export class DataParserCheckerUuid extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerUuid = DataParserCheckerUuid.create;
+export const checkerUuid = detachObjectMethod(DataParserCheckerUuid, "create");
 
 /**
  * {@include dataParser/classic/uuid/index.md}

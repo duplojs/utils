@@ -1,4 +1,4 @@
-import { type AnyConstructor, type AnyFunction, type AnyValue, type ComputedTypeError, type FixDeepFunctionInfer, type GetKind, type IsEqual, type Kind, kindClass, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
+import * as DCommon from "@scripts/common";
 import { createDataParserKind } from "./kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "./base";
 import * as dataParsers from "./parsers";
@@ -13,7 +13,7 @@ export abstract class DataParserBaseExtended<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
-> extends kindClass(
+> extends DCommon.kindClass(
 		dataParserExtendedKind,
 		DataParserBase,
 	)<
@@ -78,9 +78,9 @@ export abstract class DataParserBaseExtended<
 	public contractExtended<
 		GenericValue extends unknown,
 	>(
-		...args: IsEqual<Output<this>, GenericValue> extends true
+		...args: DCommon.IsEqual<Output<this>, GenericValue> extends true
 			? []
-			: [] & ComputedTypeError<"ContractExtended error.">
+			: [] & DCommon.ComputedTypeError<"ContractExtended error.">
 	): DataParserExtended<GenericValue>;
 
 	public contractExtended() {
@@ -98,7 +98,7 @@ export abstract class DataParserBaseExtended<
 			"element"
 		> = never,
 	>(
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionArray<
 					Output<this>[]
@@ -115,7 +115,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/transform/index.md}
 	 */
 	public transform<
-		GenericNewOutput extends AnyValue = AnyValue,
+		GenericNewOutput extends DCommon.AnyValue = DCommon.AnyValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTransform<
 				dataParsers.DataParserTransformOutput<() => GenericNewOutput>
@@ -127,7 +127,7 @@ export abstract class DataParserBaseExtended<
 			input: Output<this>,
 			error: DataParserError,
 		) => GenericNewOutput,
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionTransform<
 					dataParsers.DataParserTransformOutput<() => GenericNewOutput>
@@ -151,7 +151,7 @@ export abstract class DataParserBaseExtended<
 			"options"
 		> = never,
 	>(
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionUnion<
 					Output<this>[]
@@ -183,7 +183,7 @@ export abstract class DataParserBaseExtended<
 		> = never,
 	>(
 		output: GenericOutputParser,
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionPipe<
 					Output<GenericOutputParser>
@@ -207,7 +207,7 @@ export abstract class DataParserBaseExtended<
 			"inner"
 		> = never,
 	>(
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionNullable<
 					Output<this>
@@ -231,7 +231,7 @@ export abstract class DataParserBaseExtended<
 			"inner"
 		> = never,
 	>(
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionOptional<
 					Output<this>
@@ -257,7 +257,7 @@ export abstract class DataParserBaseExtended<
 		> = never,
 	>(
 		option: GenericDataParser,
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionUnion<
 					Output<this | GenericDataParser>
@@ -279,7 +279,7 @@ export abstract class DataParserBaseExtended<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
 		>,
 	): DataParserBaseExtended {
-		return (this.addChecker as AnyFunction<[unknown], never>)(
+		return (this.addChecker as DCommon.AnyFunction<[unknown], never>)(
 			dataParsers.checkerRefine(theFunction, definition),
 		);
 	}
@@ -297,7 +297,7 @@ export abstract class DataParserBaseExtended<
 		> = never,
 	>(
 		recoveredValue: GenericRecoveredValue,
-		definition?: FixDeepFunctionInfer<
+		definition?: DCommon.FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionRecover<
 					Output<this>
@@ -315,11 +315,11 @@ export abstract class DataParserBaseExtended<
 	}
 
 	public static initExtended<
-		GenericConstructor extends SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
+		GenericConstructor extends DCommon.SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
 	>(
 		dataParserConstructor: GenericConstructor,
 	) {
-		type CheckedConstructorKind = & Kind<{
+		type CheckedConstructorKind = & DCommon.Kind<{
 			name: "checked-constructor";
 			value: never;
 		}>;
@@ -328,7 +328,7 @@ export abstract class DataParserBaseExtended<
 			GenericDefinition extends DataParserDefinition = DataParserDefinition,
 			GenericOutput extends unknown = unknown,
 			GenericInput extends unknown = GenericOutput,
-		> extends kindClass(
+		> extends DCommon.kindClass(
 				dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"],
 				DataParserBaseExtended,
 			)<
@@ -349,26 +349,26 @@ export abstract class DataParserBaseExtended<
 			>(
 				constructor: (
 					GenericConstructor
-					& RequireConstructor<GenericConstructor>
+					& DCommon.RequireConstructor<GenericConstructor>
 				),
 			): GenericConstructor & CheckedConstructorKind {
 				return constructor as never;
 			}
 
 			public abstract override get classConstructor(): (
-				& AnyConstructor<[any], (
+				& DCommon.AnyConstructor<[any], (
 					& DataParserBaseExtended<any>
-					& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+					& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
 				)>
 				& {
 					create(...args: never[]): (
 						& DataParserBaseExtended<any>
-						& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+						& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
 					);
 					execParse(
 						self: (
 							& DataParserBase<any>
-							& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+							& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
 						),
 						data: unknown,
 						error: DataParserError,
@@ -376,7 +376,7 @@ export abstract class DataParserBaseExtended<
 					dataParserIsAsynchronous(
 						self: (
 							& DataParserBase<any>
-							& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+							& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
 						),
 					): boolean;
 					prepareDefinition(
@@ -426,8 +426,8 @@ export interface DataParserExtended<
 export type ContractExtended<
 	GenericDataParser extends DataParserBaseExtended,
 > = (
-	& GetKind<GenericDataParser>
-	& Omit<RemoveKind<DataParserBaseExtended>, "addChecker" | "clone" | "definition">
+	& DCommon.GetKind<GenericDataParser>
+	& Omit<DCommon.RemoveKind<DataParserBaseExtended>, "addChecker" | "clone" | "definition">
 	& Pick<GenericDataParser, "definition">
 	& {
 		addChecker(...args: never): DataParserBaseExtended;

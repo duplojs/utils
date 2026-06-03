@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
@@ -98,4 +98,4 @@ export class DataParserNullableExtended<
 	}
 }
 
-export const nullable = DataParserNullableExtended.create;
+export const nullable = detachObjectMethod(DataParserNullableExtended, "create");

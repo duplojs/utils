@@ -8,7 +8,7 @@ const value = stringSchema.parseOrThrow("DuploJS");
 try {
 	stringSchema.parseOrThrow("ok");
 } catch (error) {
-	if (error instanceof DP.DataParserThrowError) {
-		// DP.DataParserError
+	if (error instanceof DP.ParseError) {
+		// DP.ParseError
 	}
 }

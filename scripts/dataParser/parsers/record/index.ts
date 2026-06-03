@@ -1,4 +1,4 @@
-import { callThen, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, pipe } from "@scripts/common";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, pipe } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
@@ -162,7 +162,11 @@ export class DataParserRecord<
 									) {
 										return SymbolDataParserError;
 									}
-									awaitedAccumulator[awaitedKeyResult as string] = awaitedValueResult;
+
+									if (awaitedValueResult !== undefined) {
+										awaitedAccumulator[awaitedKeyResult as string] = awaitedValueResult;
+									}
+
 									return awaitedAccumulator;
 								},
 							);
@@ -248,4 +252,4 @@ export class DataParserRecord<
 	}
 }
 
-export const record = DataParserRecord.create;
+export const record = detachObjectMethod(DataParserRecord, "create");

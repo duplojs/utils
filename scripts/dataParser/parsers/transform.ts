@@ -1,4 +1,4 @@
-import { callThen, forward, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, callThen, forward, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { addIssue, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
@@ -152,4 +152,4 @@ export class DataParserTransform<
 	}
 }
 
-export const transform = DataParserTransform.create;
+export const transform = detachObjectMethod(DataParserTransform, "create");

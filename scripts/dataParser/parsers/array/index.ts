@@ -1,4 +1,4 @@
-import { callThen, type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
@@ -147,4 +147,4 @@ export class DataParserArray<
 	}
 }
 
-export const array = DataParserArray.create;
+export const array = detachObjectMethod(DataParserArray, "create");

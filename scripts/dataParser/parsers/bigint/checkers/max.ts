@@ -1,3 +1,4 @@
+import { detachObjectMethod } from "@scripts/common";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
@@ -54,4 +55,4 @@ export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 	}
 }
 
-export const checkerBigIntMax = DataParserCheckerBigIntMax.create;
+export const checkerBigIntMax = detachObjectMethod(DataParserCheckerBigIntMax, "create");

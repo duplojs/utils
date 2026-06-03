@@ -1,4 +1,4 @@
-import { callThen, type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "@scripts/dataParser/error";
@@ -119,4 +119,4 @@ export class DataParserNullable<
 	}
 }
 
-export const nullable = DataParserNullable.create;
+export const nullable = detachObjectMethod(DataParserNullable, "create");

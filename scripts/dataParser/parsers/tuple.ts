@@ -1,4 +1,4 @@
-import { callThen, type Adaptor, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, type Or, type UnionContain } from "@scripts/common";
+import { detachObjectMethod, callThen, type Adaptor, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, type Or, type UnionContain } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
@@ -175,7 +175,7 @@ export class DataParserTuple<
 					);
 				},
 			),
-			data,
+			[],
 		);
 
 		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
@@ -243,4 +243,4 @@ export class DataParserTuple<
 	}
 }
 
-export const tuple = DataParserTuple.create;
+export const tuple = detachObjectMethod(DataParserTuple, "create");

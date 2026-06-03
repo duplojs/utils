@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, memo, type Memoized, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, memo, type Memoized, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "@scripts/dataParser/error";
@@ -110,4 +110,4 @@ export class DataParserLazy<
 	}
 }
 
-export const lazy = DataParserLazy.create;
+export const lazy = detachObjectMethod(DataParserLazy, "create");

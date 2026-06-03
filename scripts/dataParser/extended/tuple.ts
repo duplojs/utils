@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, type Or, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, type Or, type SimplifyTopLevel } from "@scripts/common";
 import { DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
@@ -137,4 +137,4 @@ export class DataParserTupleExtended<
 	}
 }
 
-export const tuple = DataParserTupleExtended.create;
+export const tuple = detachObjectMethod(DataParserTupleExtended, "create");

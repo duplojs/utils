@@ -226,7 +226,7 @@ describe("base parser", () => {
 		const parser = ParserTest.create();
 
 		expect(parser.parseOrThrow(5)).toBe(5);
-		expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.DataParserThrowError);
+		expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.ParseError);
 	});
 
 	it("adds checkers without mutating the original parser", () => {
@@ -272,7 +272,7 @@ describe("base parser", () => {
 		await expect(parser.asyncParse(5)).resolves.toStrictEqual(DEither.success(5));
 		await expect(parser.asyncParse("test")).resolves.toStrictEqual(DEither.error(expect.any(Object)));
 		await expect(parser.asyncParseOrThrow(5)).resolves.toBe(5);
-		await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.DataParserThrowError);
+		await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.ParseError);
 	});
 
 	it("returns or throws the synchronous execution error symbol for asynchronous parsing", () => {
@@ -280,8 +280,19 @@ describe("base parser", () => {
 
 		const result = parser.parse(5);
 
-		expect(result).toStrictEqual(DEither.error(DDataParser.SymbolDataParserError));
-		expect(() => parser.parseOrThrow(5)).toThrow(DDataParser.DataParserThrowError);
+		expect(result).toStrictEqual(
+			DEither.error(
+				expect.objectContaining({
+					issues: [
+						expect.objectContaining({
+							expected: "synchronous result",
+							data: expect.any(Promise),
+						}),
+					],
+				}),
+			),
+		);
+		expect(() => parser.parseOrThrow(5)).toThrow(DDataParser.ParseError);
 	});
 
 	it("preserves the parser instance and output type with contract", () => {

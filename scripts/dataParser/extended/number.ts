@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { DataParserBaseExtended } from "../baseExtended";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
@@ -100,7 +100,7 @@ export class DataParserNumberExtended<
 	}
 }
 
-export const number = DataParserNumberExtended.create;
+export const number = detachObjectMethod(DataParserNumberExtended, "create");
 
 /**
  * {@include dataParser/extended/int/index.md}

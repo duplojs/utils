@@ -1,4 +1,4 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
@@ -97,4 +97,4 @@ export class DataParserEmpty<
 	}
 }
 
-export const empty = DataParserEmpty.create;
+export const empty = detachObjectMethod(DataParserEmpty, "create");

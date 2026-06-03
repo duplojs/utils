@@ -1,4 +1,4 @@
-import { callThen, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, callThen, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../baseChecker";
 import { type DataParser } from "../base";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
@@ -81,7 +81,7 @@ export class DataParserCheckerRefine<
 	}
 }
 
-export const checkerRefine = DataParserCheckerRefine.create;
+export const checkerRefine = detachObjectMethod(DataParserCheckerRefine, "create");
 
 export type CheckerRefineImplementation<
 	GenericInput extends unknown,

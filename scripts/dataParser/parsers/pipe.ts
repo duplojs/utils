@@ -1,4 +1,4 @@
-import { callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
@@ -136,4 +136,4 @@ export class DataParserPipe<
 	}
 }
 
-export const pipe = DataParserPipe.create;
+export const pipe = detachObjectMethod(DataParserPipe, "create");
