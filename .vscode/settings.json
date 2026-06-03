@@ -18,8 +18,9 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
-	
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.updateImportsOnFileMove.enabled": "prompt",
-  	"javascript.updateImportsOnFileMove.enabled": "prompt"
+
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"js/ts.format.enabled": false,
+	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
+	"js/ts.updateImportsOnFileMove.enabled": "prompt",
 }
