@@ -40,6 +40,9 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 			);
 	}
 
+	/**
+	 * {@include dataParser/classic/checkerTimeMin/index.md}
+	 */
 	public static override create(
 		min: DDate.TheTime,
 		definition: Partial<

@@ -3,6 +3,6 @@ The asyncParse() method runs a data parser asynchronously and resolves to an Eit
 **Supported call styles:**
 - Method: `dataParser.asyncParse(input)` -> returns a promise
 
-It executes the async parser path, applies all registered checkers, and never mutates the input.
+It awaits the parser and all registered checkers, whether their execution is synchronous or asynchronous.
 
 @namespace DP

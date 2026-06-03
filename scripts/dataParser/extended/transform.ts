@@ -49,6 +49,9 @@ export class DataParserTransformExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/transform/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		GenericOutput extends unknown,

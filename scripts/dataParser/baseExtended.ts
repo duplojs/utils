@@ -30,9 +30,50 @@ export abstract class DataParserBaseExtended<
 	}
 
 	/**
+	 * {@include dataParser/extended/base/parse/index.md}
+	 */
+	public declare parse: DataParserBase<
+		GenericDefinition,
+		GenericOutput,
+		GenericInput
+	>["parse"];
+
+	/**
+	 * {@include dataParser/extended/base/asyncParse/index.md}
+	 */
+	public declare asyncParse: DataParserBase<
+		GenericDefinition,
+		GenericOutput,
+		GenericInput
+	>["asyncParse"];
+
+	/**
+	 * {@include dataParser/extended/base/parseOrThrow/index.md}
+	 */
+	public declare parseOrThrow: DataParserBase<
+		GenericDefinition,
+		GenericOutput,
+		GenericInput
+	>["parseOrThrow"];
+
+	/**
+	 * {@include dataParser/extended/base/asyncParseOrThrow/index.md}
+	 */
+	public declare asyncParseOrThrow: DataParserBase<
+		GenericDefinition,
+		GenericOutput,
+		GenericInput
+	>["asyncParseOrThrow"];
+
+	/**
 	 * {@include dataParser/extended/base/addChecker/index.md}
 	 */
 	public declare addChecker: (...args: never) => DataParserBaseExtended;
+
+	/**
+	 * {@include dataParser/extended/base/clone/index.md}
+	 */
+	public declare clone: () => this;
 
 	public contractExtended<
 		GenericValue extends unknown,

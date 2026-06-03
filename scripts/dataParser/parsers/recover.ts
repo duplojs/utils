@@ -86,6 +86,9 @@ export class DataParserRecover<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/recover/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		GenericRecoveredValue extends Output<GenericDataParser>,

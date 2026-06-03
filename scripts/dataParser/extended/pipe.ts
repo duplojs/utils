@@ -48,6 +48,9 @@ export class DataParserPipeExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/pipe/index.md}
+	 */
 	public static override create<
 		GenericInput extends DataParser,
 		GenericOutput extends DataParser,

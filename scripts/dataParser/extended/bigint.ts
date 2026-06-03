@@ -47,6 +47,9 @@ export class DataParserBigIntExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/bigint/min/index.md}
+	 */
 	public min(
 		min: bigint,
 		definition?: Partial<
@@ -56,6 +59,9 @@ export class DataParserBigIntExtended<
 		return this.addChecker(dataParsers.checkerBigIntMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/bigint/max/index.md}
+	 */
 	public max(
 		max: bigint,
 		definition?: Partial<
@@ -65,6 +71,9 @@ export class DataParserBigIntExtended<
 		return this.addChecker(dataParsers.checkerBigIntMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/bigint/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt> = never,
 	>(

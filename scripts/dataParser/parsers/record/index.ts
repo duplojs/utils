@@ -205,6 +205,9 @@ export class DataParserRecord<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/record/index.md}
+	 */
 	public static override create<
 		GenericDataParserKey extends DataParserRecordKey,
 		GenericDataParserValue extends DataParser,

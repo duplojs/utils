@@ -48,6 +48,9 @@ export class DataParserDateExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/date/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionDate> = never,
 	>(

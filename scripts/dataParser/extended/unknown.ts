@@ -48,6 +48,9 @@ export class DataParserUnknownExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/unknown/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown> = never,
 	>(

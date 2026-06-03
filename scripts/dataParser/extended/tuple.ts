@@ -48,6 +48,9 @@ export class DataParserTupleExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/tuple/min/index.md}
+	 */
 	public min(
 		min: number,
 		definition?: Partial<
@@ -57,6 +60,9 @@ export class DataParserTupleExtended<
 		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/tuple/max/index.md}
+	 */
 	public max(
 		max: number,
 		definition?: Partial<
@@ -66,6 +72,9 @@ export class DataParserTupleExtended<
 		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/tuple/rest/index.md}
+	 */
 	public rest<
 		GenericDataParser extends DataParsers,
 	>(
@@ -77,6 +86,9 @@ export class DataParserTupleExtended<
 		});
 	}
 
+	/**
+	 * {@include dataParser/extended/tuple/index.md}
+	 */
 	public static override create<
 		const GenericShape extends dataParsers.TupleShape,
 		const GenericDefinition extends PrepareDataParserDefinition<

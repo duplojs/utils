@@ -93,6 +93,9 @@ export class DataParserNumber<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/number/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNumber> = never,
 	>(

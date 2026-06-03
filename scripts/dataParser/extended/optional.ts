@@ -64,6 +64,9 @@ export class DataParserOptionalExtended<
 		}) as never;
 	}
 
+	/**
+	 * {@include dataParser/extended/optional/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

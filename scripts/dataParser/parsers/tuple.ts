@@ -202,6 +202,9 @@ export class DataParserTuple<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/tuple/index.md}
+	 */
 	public static override create<
 		const GenericShape extends TupleShape,
 		const GenericDefinition extends PrepareDataParserDefinition<

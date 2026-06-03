@@ -93,6 +93,9 @@ export class DataParserString<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/string/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never,
 	>(

@@ -48,6 +48,9 @@ export class DataParserLazyExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/lazy/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -56,6 +56,9 @@ export class DataParserCheckerUuid extends DataParserCheckerBase.init(
 
 export const checkerUuid = DataParserCheckerUuid.create;
 
+/**
+ * {@include dataParser/classic/uuid/index.md}
+ */
 export function uuid(
 	definition?: Partial<
 		Omit<DataParserCheckerDefinitionUuid, "regex">

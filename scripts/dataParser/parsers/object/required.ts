@@ -31,6 +31,9 @@ export function requiredShape(
 	);
 }
 
+/**
+ * {@include dataParser/classic/object/required/index.md}
+ */
 export function required<
 	GenericDataParserObject extends DataParserObject,
 	const GenericDefinition extends Partial<

@@ -47,6 +47,9 @@ export class DataParserNumberExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/number/min/index.md}
+	 */
 	public min(
 		min: number,
 		definition?: Partial<
@@ -56,6 +59,9 @@ export class DataParserNumberExtended<
 		return this.addChecker(dataParsers.checkerNumberMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/number/max/index.md}
+	 */
 	public max(
 		max: number,
 		definition?: Partial<
@@ -65,12 +71,18 @@ export class DataParserNumberExtended<
 		return this.addChecker(dataParsers.checkerNumberMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/number/int/index.md}
+	 */
 	public int(
 		definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
 	) {
 		return this.addChecker(dataParsers.checkerInt(definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/number/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never,
 	>(
@@ -90,6 +102,9 @@ export class DataParserNumberExtended<
 
 export const number = DataParserNumberExtended.create;
 
+/**
+ * {@include dataParser/extended/int/index.md}
+ */
 export function int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>) {
 	return number({ checkers: [dataParsers.checkerInt(definition)] });
 }

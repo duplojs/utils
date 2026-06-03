@@ -48,6 +48,9 @@ export class DataParserObjectExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/object/omit/index.md}
+	 */
 	public omit<
 		const GenericOmitObject extends Partial<
 			Record<
@@ -102,6 +105,9 @@ export class DataParserObjectExtended<
 		return object(dataParsers.omitShape(this.definition.shape, omitObject), definition);
 	}
 
+	/**
+	 * {@include dataParser/extended/object/pick/index.md}
+	 */
 	public pick<
 		const GenericPickObject extends Partial<
 			Record<
@@ -165,6 +171,9 @@ export class DataParserObjectExtended<
 		return object(dataParsers.pickShape(this.definition.shape, pickObject), definition);
 	}
 
+	/**
+	 * {@include dataParser/extended/object/extends/index.md}
+	 */
 	public extends<
 		const GenericExtension extends dataParsers.DataParserObjectShape,
 		const GenericSubDefinition extends PrepareDataParserDefinition<
@@ -208,6 +217,9 @@ export class DataParserObjectExtended<
 		return object(dataParsers.extendsShape(this.definition.shape, extension), definition);
 	}
 
+	/**
+	 * {@include dataParser/extended/object/partial/index.md}
+	 */
 	public partial<
 		const GenericSubDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
@@ -242,6 +254,9 @@ export class DataParserObjectExtended<
 		return object(dataParsers.partialShape(this.definition.shape), definition);
 	}
 
+	/**
+	 * {@include dataParser/extended/object/required/index.md}
+	 */
 	public required<
 		const GenericSubDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
@@ -276,6 +291,9 @@ export class DataParserObjectExtended<
 		return object(dataParsers.requiredShape(this.definition.shape), definition);
 	}
 
+	/**
+	 * {@include dataParser/extended/object/index.md}
+	 */
 	public static override create<
 		const GenericShape extends dataParsers.DataParserObjectShape,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -247,6 +247,9 @@ export class DataParserTemplateLiteral<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/templateLiteral/index.md}
+	 */
 	public static override create<
 		const GenericTemplate extends TemplateLiteralShape,
 		const GenericDefinition extends PrepareDataParserDefinition<

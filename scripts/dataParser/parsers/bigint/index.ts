@@ -93,6 +93,9 @@ export class DataParserBigInt<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/bigint/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBigInt> = never,
 	>(

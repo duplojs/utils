@@ -77,6 +77,9 @@ export class DataParserEmpty<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/empty/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionEmpty> = never,
 	>(

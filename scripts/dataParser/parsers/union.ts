@@ -117,6 +117,9 @@ export class DataParserUnion<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/union/index.md}
+	 */
 	public static override create<
 		const GenericOptions extends UnionOptions,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -116,6 +116,9 @@ export class DataParserArray<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/array/index.md}
+	 */
 	public static override create<
 		GenericElement extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

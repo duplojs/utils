@@ -77,6 +77,9 @@ export class DataParserNil<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/nil/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNil> = never,
 	>(

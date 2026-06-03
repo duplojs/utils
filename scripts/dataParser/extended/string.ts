@@ -48,6 +48,9 @@ export class DataParserStringExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/string/min/index.md}
+	 */
 	public min(
 		min: number,
 		definition?: Partial<
@@ -62,6 +65,9 @@ export class DataParserStringExtended<
 		return this.addChecker(dataParsers.checkerStringMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/string/max/index.md}
+	 */
 	public max(
 		max: number,
 		definition?: Partial<
@@ -76,6 +82,9 @@ export class DataParserStringExtended<
 		return this.addChecker(dataParsers.checkerStringMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/string/regex/index.md}
+	 */
 	public regex(
 		regex: RegExp,
 		definition?: Partial<
@@ -90,6 +99,9 @@ export class DataParserStringExtended<
 		return this.addChecker(dataParsers.checkerRegex(regex, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/string/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never,
 	>(
@@ -109,6 +121,9 @@ export class DataParserStringExtended<
 
 export const string = DataParserStringExtended.create;
 
+/**
+ * {@include dataParser/extended/email/index.md}
+ */
 export function email(
 	definition?: Partial<
 		Omit<dataParsers.DataParserCheckerDefinitionEmail, "regex">
@@ -119,6 +134,9 @@ export function email(
 	});
 }
 
+/**
+ * {@include dataParser/extended/url/index.md}
+ */
 export function url(
 	definition?: Partial<dataParsers.DataParserCheckerDefinitionUrl>,
 ) {
@@ -127,6 +145,9 @@ export function url(
 	});
 }
 
+/**
+ * {@include dataParser/extended/uuid/index.md}
+ */
 export function uuid(
 	definition?: Partial<
 		Omit<dataParsers.DataParserCheckerDefinitionUuid, "regex">

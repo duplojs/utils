@@ -84,6 +84,9 @@ export class DataParserBoolean<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/boolean/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never,
 	>(

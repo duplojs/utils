@@ -17,6 +17,9 @@ export function pickShape(
 	);
 }
 
+/**
+ * {@include dataParser/classic/object/pick/index.md}
+ */
 export function pick<
 	GenericDataParserObject extends DataParserObject,
 	const GenericOmitObject extends Partial<

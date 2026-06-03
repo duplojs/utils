@@ -102,6 +102,9 @@ export class DataParserTime<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/time/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTime> = never,
 	>(

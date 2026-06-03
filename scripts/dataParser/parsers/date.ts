@@ -103,6 +103,9 @@ export class DataParserDate<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/date/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
 	>(

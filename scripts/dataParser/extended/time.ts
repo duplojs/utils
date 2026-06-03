@@ -48,6 +48,9 @@ export class DataParserTimeExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/time/min/index.md}
+	 */
 	public min(
 		min: TheTime,
 		definition?: Partial<
@@ -57,6 +60,9 @@ export class DataParserTimeExtended<
 		return this.addChecker(dataParsers.checkerTimeMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/time/max/index.md}
+	 */
 	public max(
 		max: TheTime,
 		definition?: Partial<
@@ -66,6 +72,9 @@ export class DataParserTimeExtended<
 		return this.addChecker(dataParsers.checkerTimeMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/time/index.md}
+	 */
 	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionTime> = never,
 	>(

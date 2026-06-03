@@ -87,6 +87,9 @@ export class DataParserNullable<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/nullable/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -40,6 +40,9 @@ export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 			);
 	}
 
+	/**
+	 * {@include dataParser/classic/checkerTimeMax/index.md}
+	 */
 	public static override create(
 		max: DDate.TheTime,
 		definition: Partial<

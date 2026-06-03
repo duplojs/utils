@@ -48,6 +48,9 @@ export class DataParserArrayExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/array/min/index.md}
+	 */
 	public min(
 		min: number,
 		definition?: Partial<
@@ -57,6 +60,9 @@ export class DataParserArrayExtended<
 		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/array/max/index.md}
+	 */
 	public max(
 		max: number,
 		definition?: Partial<
@@ -66,6 +72,9 @@ export class DataParserArrayExtended<
 		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/array/index.md}
+	 */
 	public static override create<
 		GenericElement extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

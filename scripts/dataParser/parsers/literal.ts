@@ -88,6 +88,9 @@ export class DataParserLiteral<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/literal/index.md}
+	 */
 	public static override create<
 		const GenericValue extends LiteralValue,
 		const GenericDefinition extends PrepareDataParserDefinition<

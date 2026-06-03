@@ -187,6 +187,9 @@ export class DataParserObject<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/object/index.md}
+	 */
 	public static override create<
 		const GenericShape extends DataParserObjectShape,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -134,6 +134,9 @@ export abstract class DataParserBase<
 		return result;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/parse/index.md}
+	 */
 	public parse(data: unknown): (
 		| DEither.Success<GenericOutput>
 		| DEither.Error<DataParserError>
@@ -165,6 +168,9 @@ export abstract class DataParserBase<
 		} as DEither.Success<any>;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/asyncParse/index.md}
+	 */
 	public async asyncParse(data: unknown): Promise<
 		| DEither.Success<GenericOutput>
 		| DEither.Error<DataParserError>
@@ -189,6 +195,9 @@ export abstract class DataParserBase<
 		} as DEither.Success<any>;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/parseOrThrow/index.md}
+	 */
 	public parseOrThrow(data: unknown): GenericOutput {
 		const error = {
 			...DPE,
@@ -208,6 +217,9 @@ export abstract class DataParserBase<
 		return result;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/asyncParseOrThrow/index.md}
+	 */
 	public async asyncParseOrThrow(data: unknown): Promise<GenericOutput> {
 		const error = {
 			...DPE,
@@ -223,6 +235,9 @@ export abstract class DataParserBase<
 		return result;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/addChecker/index.md}
+	 */
 	public addChecker(...checkers: never): DataParserBase {
 		return new this.classConstructor({
 			...this.definition,
@@ -230,12 +245,18 @@ export abstract class DataParserBase<
 		}) as never;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/clone/index.md}
+	 */
 	public clone(): this;
 
 	public clone() {
 		return new this.classConstructor(simpleClone(this.definition)) as never;
 	}
 
+	/**
+	 * {@include dataParser/classic/base/isAsynchronous/index.md}
+	 */
 	public isAsynchronous() {
 		return this.classConstructor.dataParserIsAsynchronous(this)
 			|| this.definition.checkers.some(
@@ -243,6 +264,9 @@ export abstract class DataParserBase<
 			);
 	}
 
+	/**
+	 * {@include dataParser/classic/base/contract/index.md}
+	 */
 	public contract<
 		GenericValue extends unknown,
 	>(
