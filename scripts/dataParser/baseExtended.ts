@@ -5,7 +5,7 @@ import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 import { type DataParserCheckerBase, type DataParserCheckerDefinition } from "./baseChecker";
-import { type Output, type PrepareDataParserDefinition } from "./types";
+import { type Output, type PrepareDataParserDefinition, type DataParserExtendedBaseInit, type MergeDefinition } from "./types";
 
 export const dataParserExtendedKind = createDataParserKind("extended");
 
@@ -91,6 +91,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/array/index.md}
 	 */
 	public array<
+		GenericThis extends this = this,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionArray<
 				Output<this>[]
@@ -107,7 +108,12 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserArrayExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionArray,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & { readonly element: GenericThis }
+			>
+		> {
 		return dataParsersExtended.array(this, definition);
 	}
 
@@ -115,6 +121,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/transform/index.md}
 	 */
 	public transform<
+		GenericThis extends this = this,
 		GenericNewOutput extends DCommon.AnyValue = DCommon.AnyValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTransform<
@@ -136,14 +143,23 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
-		return dataParsersExtended.transform(this, theFunction, definition);
+	): dataParsersExtended.DataParserTransformExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionTransform,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					inner: GenericThis;
+					theFunction(input: Output<GenericThis>): GenericOutput;
+				}
+			>
+		> {
+		return dataParsersExtended.transform(this, theFunction, definition) as never;
 	}
 
 	/**
 	 * {@include dataParser/extended/base/arrayCoalescing/index.md}
 	 */
 	public arrayCoalescing<
+		GenericThis extends this = this,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
 				Output<this>[]
@@ -160,20 +176,49 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserUnionExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionUnion,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					readonly options: [
+						dataParsersExtended.DataParserArrayExtended<
+							DCommon.SimplifyTopLevel<
+								& Omit<dataParsers.DataParserDefinitionArray, "element">
+								& {
+									readonly element: GenericThis;
+								}
+							>
+						>,
+						dataParsersExtended.DataParserTransformExtended<
+							DCommon.SimplifyTopLevel<
+								& Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">
+								& {
+									readonly inner: GenericThis;
+									theFunction(
+										input: Output<GenericThis>,
+										error: DataParserError
+									): Output<GenericThis>[];
+								}
+							>
+						>,
+					];
+				}
+			>
+		> {
 		return dataParsersExtended.union(
 			[
 				this.array(),
 				this.transform((data) => [data]),
 			],
-			definition,
-		);
+			definition as never,
+		) as never;
 	}
 
 	/**
 	 * {@include dataParser/extended/base/pipe/index.md}
 	 */
 	public pipe<
+		GenericThis extends this = this,
 		GenericOutputParser extends DataParser = DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionPipe<
@@ -192,7 +237,15 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserPipeExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionPipe,
+			DCommon.NeverCoalescing<GenericDefinition, {}> & {
+				input: GenericThis;
+				output: GenericOutputParser;
+			}
+			>
+		> {
 		return dataParsersExtended.pipe(this, output, definition);
 	}
 
@@ -200,6 +253,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/nullable/index.md}
 	 */
 	public nullable<
+		GenericThis extends this = this,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionNullable<
 				Output<this>
@@ -216,7 +270,12 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserNullableExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionNullable,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & { inner: GenericThis }
+			>
+		> {
 		return dataParsersExtended.nullable(this, definition);
 	}
 
@@ -224,6 +283,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/optional/index.md}
 	 */
 	public optional<
+		GenericThis extends this = this,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionOptional<
 				Output<this>
@@ -240,7 +300,12 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserOptionalExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionOptional,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & { inner: GenericThis }
+			>
+		> {
 		return dataParsersExtended.optional(this, definition);
 	}
 
@@ -248,6 +313,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/or/index.md}
 	 */
 	public or<
+		GenericThis extends this = this,
 		GenericDataParser extends DataParser = DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
@@ -266,7 +332,14 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserUnionExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionUnion,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					options: [GenericThis, GenericDataParser];
+				}
+			>
+		> {
 		return dataParsersExtended.union(
 			[this, option],
 			definition,
@@ -288,6 +361,7 @@ export abstract class DataParserBaseExtended<
 	 * {@include dataParser/extended/base/recover/index.md}
 	 */
 	public recover<
+		GenericThis extends this = this,
 		GenericRecoveredValue extends Output<this> = Output<this>,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionRecover<
@@ -306,7 +380,15 @@ export abstract class DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	) {
+	): dataParsersExtended.DataParserRecoverExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionRecover,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					inner: GenericThis;
+					recoveredValue: GenericRecoveredValue;
+				}
+			>
+		> {
 		return dataParsersExtended.recover(
 			this,
 			recoveredValue,
@@ -318,86 +400,31 @@ export abstract class DataParserBaseExtended<
 		GenericConstructor extends DCommon.SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
 	>(
 		dataParserConstructor: GenericConstructor,
-	) {
-		type CheckedConstructorKind = & DCommon.Kind<{
-			name: "checked-constructor";
-			value: never;
-		}>;
-
-		abstract class DataParserBaseExtendedInit<
-			GenericDefinition extends DataParserDefinition = DataParserDefinition,
-			GenericOutput extends unknown = unknown,
-			GenericInput extends unknown = GenericOutput,
-		> extends DCommon.kindClass(
-				dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"],
-				DataParserBaseExtended,
-			)<
-				DataParserBaseExtended<
-					GenericDefinition,
-					GenericOutput,
-					GenericInput
-				>
-			> {
+	): DataParserExtendedBaseInit<GenericConstructor> {
+		abstract class _DataParserBaseExtendedInit extends DCommon.kindClass(
+			dataParserConstructor.specificKindHandler,
+			DataParserBaseExtended,
+		) {
 			public constructor(
-				definition: GenericDefinition,
+				definition: DataParserDefinition,
 			) {
 				super(null as never, definition);
 			}
 
-			public checkConstructor<
-				GenericConstructor extends object,
-			>(
-				constructor: (
-					GenericConstructor
-					& DCommon.RequireConstructor<GenericConstructor>
-				),
-			): GenericConstructor & CheckedConstructorKind {
-				return constructor as never;
+			public checkConstructor(constructor: object) {
+				return constructor;
 			}
 
-			public abstract override get classConstructor(): (
-				& DCommon.AnyConstructor<[any], (
-					& DataParserBaseExtended<any>
-					& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
-				)>
-				& {
-					create(...args: never[]): (
-						& DataParserBaseExtended<any>
-						& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
-					);
-					execParse(
-						self: (
-							& DataParserBase<any>
-							& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
-						),
-						data: unknown,
-						error: DataParserError,
-					): unknown;
-					dataParserIsAsynchronous(
-						self: (
-							& DataParserBase<any>
-							& DCommon.Kind<typeof dataParserConstructor.specificKindHandler.definition>
-						),
-					): boolean;
-					prepareDefinition(
-						...args: never[]
-					): DataParserDefinition;
-				}
-				& CheckedConstructorKind
-			);
+			public static execParse = dataParserConstructor.execParse;
 
-			public static execParse = dataParserConstructor.execParse as GenericConstructor["execParse"];
+			public static dataParserIsAsynchronous = dataParserConstructor.dataParserIsAsynchronous;
 
-			public static dataParserIsAsynchronous = dataParserConstructor.dataParserIsAsynchronous as GenericConstructor["dataParserIsAsynchronous"];
+			public static prepareDefinition = dataParserConstructor.prepareDefinition;
 
-			public static prepareDefinition = dataParserConstructor.prepareDefinition as GenericConstructor["prepareDefinition"];
-
-			public static declare create: GenericConstructor["create"];
-
-			public static specificKindHandler = dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"];
+			public static specificKindHandler = dataParserConstructor.specificKindHandler;
 		}
 
-		return DataParserBaseExtendedInit;
+		return _DataParserBaseExtendedInit as never;
 	}
 }
 

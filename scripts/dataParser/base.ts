@@ -3,7 +3,7 @@ import { createDataParserKind } from "./kind";
 import * as DEither from "@scripts/either";
 import { type DataParserError, SymbolDataParserError, createError, addAsyncIssue } from "./error";
 import { type DataParserChecker } from "./baseChecker";
-import type { Output } from "./types";
+import type { Output, DataParserBaseInit } from "./types";
 
 export interface DataParserDefinition<
 	GenericChecker extends DataParserChecker = DataParserChecker,
@@ -78,7 +78,7 @@ export abstract class DataParserBase<
 		}
 	);
 
-	public execParse(
+	private execParse(
 		data: unknown,
 		error: DataParserError,
 	): unknown {
@@ -100,7 +100,7 @@ export abstract class DataParserBase<
 		data: unknown,
 		error: DataParserError,
 	) {
-		const result = this.execParse(data, error);
+		const result: unknown = this.execParse(data, error);
 
 		if (
 			result !== SymbolDataParserError
@@ -299,103 +299,25 @@ export abstract class DataParserBase<
 		GenericKindHandler extends DCommon.KindHandler,
 	>(
 		kindHandler: GenericKindHandler,
-	) {
-		type CheckedConstructorKind = & DCommon.Kind<{
-			name: "checked-constructor";
-			value: never;
-		}>;
-
-		abstract class DataParserBaseInit<
-			GenericDefinition extends DataParserDefinition = DataParserDefinition,
-			GenericOutput extends unknown = unknown,
-			GenericInput extends unknown = GenericOutput,
-		> extends DCommon.kindClass(
-				kindHandler,
-				DataParserBase,
-			)<
-				DataParserBase<
-					GenericDefinition,
-					GenericOutput,
-					GenericInput
-				>
-			> {
+	): DataParserBaseInit<GenericKindHandler> {
+		abstract class _DataParserBaseInit extends DCommon.kindClass(
+			kindHandler,
+			DataParserBase,
+		) {
 			public constructor(
-				definition: GenericDefinition,
+				definition: DataParserDefinition,
 			) {
 				super(null as never, definition);
 			}
 
-			public checkConstructor<
-				GenericConstructor extends object,
-			>(
-				constructor: (
-					GenericConstructor
-					& DCommon.RequireConstructor<GenericConstructor>
-					& (
-						"execParse" extends keyof GenericConstructor
-							? GenericConstructor["execParse"] extends DCommon.AnyFunction
-								? DCommon.IsExtends<
-									Parameters<GenericConstructor["execParse"]>[0],
-									DCommon.Kind<GenericKindHandler["definition"]>
-								> extends true
-									? unknown
-									: DCommon.ComputedTypeError<"Self argument of execParse function has wrong type.">
-								: unknown
-							: unknown
-					)
-					& (
-						"dataParserIsAsynchronous" extends keyof GenericConstructor
-							? GenericConstructor["dataParserIsAsynchronous"] extends DCommon.AnyFunction
-								? DCommon.IsExtends<
-									Parameters<GenericConstructor["dataParserIsAsynchronous"]>[0],
-									DCommon.Kind<GenericKindHandler["definition"]>
-								> extends true
-									? unknown
-									: DCommon.ComputedTypeError<"Self argument of dataParserIsAsynchronous function has wrong type.">
-								: unknown
-							: unknown
-					)
-
-					& (
-						"prepareDefinition" extends keyof GenericConstructor
-							? GenericConstructor["prepareDefinition"] extends DCommon.AnyFunction
-								? DCommon.IsEqual<
-									Parameters<GenericConstructor["prepareDefinition"]>[0],
-									never
-								> extends true
-									? DCommon.ComputedTypeError<"Missing declaration prepareDefinition function">
-									: unknown
-								: unknown
-							: unknown
-					)
-				),
-			): GenericConstructor & CheckedConstructorKind {
-				return constructor as never;
+			public checkConstructor(constructor: object) {
+				return constructor;
 			}
-
-			public abstract override get classConstructor(): (
-				& DCommon.AnyConstructor<[any], DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>>
-				& {
-					create(...args: never[]): DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>;
-					execParse(
-						self: DataParserBaseInit<any> & DCommon.Kind<GenericKindHandler["definition"]>,
-						data: unknown,
-						error: DataParserError,
-					): unknown;
-					dataParserIsAsynchronous(
-						self: DataParserBase<any> & DCommon.Kind<GenericKindHandler["definition"]>,
-					): boolean;
-					prepareDefinition(
-						...args: any[]
-					): DataParserDefinition;
-				}
-				& CheckedConstructorKind
-			);
 
 			public static specificKindHandler = kindHandler;
 		}
 
-		return DataParserBaseInit;
+		return _DataParserBaseInit as never;
 	}
 }
 

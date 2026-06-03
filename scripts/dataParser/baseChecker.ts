@@ -2,6 +2,7 @@ import * as DCommon from "@scripts/common";
 import { type SymbolDataParserError, type DataParserError } from "./error";
 import { createDataParserKind } from "./kind";
 import { type DataParser } from "./base";
+import { type DataParserCheckerBaseInit } from "./types";
 
 export const checkerKind = createDataParserKind("checker");
 
@@ -18,6 +19,7 @@ export abstract class DataParserCheckerBase<
 	public constructor(definition: GenericDefinition) {
 		super(null as never);
 		this.definition = definition;
+		DCommon.bindPrototypeMethods(this);
 	}
 
 	public abstract get classConstructor(): (
@@ -65,88 +67,40 @@ export abstract class DataParserCheckerBase<
 
 	public abstract isAsynchronous(): boolean;
 
+	public declare static create: (
+		...args: never[]
+	) => unknown;
+
+	public declare static execCheck: (
+		data: any,
+		error: DataParserError,
+		self: any,
+		dataParser: DataParser,
+	) => unknown;
+
 	public static init<
 		GenericKindHandler extends DCommon.KindHandler,
 	>(
 		kindHandler: GenericKindHandler,
-	) {
-		type CheckedConstructorKind = & DCommon.Kind<{
-			name: "checked-constructor";
-			value: never;
-		}>;
-
-		abstract class DataParserCheckerBaseInit<
-			GenericDefinition extends DataParserCheckerDefinition = DataParserCheckerDefinition,
-			GenericInput extends unknown = never,
-		> extends DCommon.kindClass(
-				kindHandler,
-				DataParserCheckerBase,
-			)<
-				DataParserCheckerBase<
-					GenericDefinition,
-					GenericInput
-				>
-			> {
+	): DataParserCheckerBaseInit<GenericKindHandler> {
+		abstract class _DataParserCheckerBaseInit extends DCommon.kindClass(
+			kindHandler,
+			DataParserCheckerBase,
+		) {
 			public constructor(
-				definition: GenericDefinition,
+				definition: DataParserCheckerDefinition,
 			) {
 				super(null as never, definition);
 			}
 
-			public checkConstructor<
-				GenericConstructor extends object,
-			>(
-				constructor: (
-					GenericConstructor
-					& DCommon.RequireConstructor<GenericConstructor>
-					& (
-						"execCheck" extends keyof GenericConstructor
-							? GenericConstructor["execCheck"] extends DCommon.AnyFunction
-								? (
-									& (
-										DCommon.IsExtends<
-											Parameters<GenericConstructor["execCheck"]>[2],
-											DCommon.Kind<GenericKindHandler["definition"]>
-										> extends true
-											? unknown
-											: DCommon.ComputedTypeError<"Wrong type of self argument.">
-									)
-								)
-								: unknown
-							: unknown
-					)
-				),
-			): GenericConstructor & CheckedConstructorKind {
-				return constructor as never;
+			public checkConstructor(constructor: object) {
+				return constructor;
 			}
 
-			public abstract override get classConstructor(): (
-				& DCommon.AnyConstructor<[any], DataParserCheckerBase<any> & DCommon.Kind<GenericKindHandler["definition"]>>
-				& {
-					create(...args: never[]): DataParserCheckerBase<any> & DCommon.Kind<GenericKindHandler["definition"]>;
-					execCheck(
-						data: GenericInput,
-						error: DataParserError,
-						self: DataParserCheckerBase<any> & DCommon.Kind<GenericKindHandler["definition"]>,
-						dataParser: DataParser,
-					): unknown;
-				}
-				& CheckedConstructorKind
-			);
-
-			public declare static create: (
-				...args: never[]
-			) => unknown;
-
-			public declare static execCheck: (
-				data: any,
-				error: DataParserError,
-				self: any,
-				dataParser: DataParser,
-			) => unknown;
+			public static specificKindHandler = kindHandler;
 		}
 
-		return DataParserCheckerBaseInit;
+		return _DataParserCheckerBaseInit as never;
 	}
 }
 
