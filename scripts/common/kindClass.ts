@@ -65,6 +65,8 @@ export function kindClass(
 			this[formattedKindHandler.runTimeKey] = kindValue;
 		}
 
-		public static override [Symbol.hasInstance] = formattedKindHandler.has;
+		public static override [Symbol.hasInstance] = parent
+			? (input: unknown) => input instanceof parent && formattedKindHandler.has(input)
+			: formattedKindHandler.has;
 	};
 }
