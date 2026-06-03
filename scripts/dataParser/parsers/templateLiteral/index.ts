@@ -1,7 +1,9 @@
-import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, pipe, createOverride, type SimplifyTopLevel } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
+import { type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type NeverCoalescing, pipe, type SimplifyTopLevel } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -9,7 +11,6 @@ import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../lit
 import { type DataParserDefinitionEmpty, type DataParserEmpty } from "../empty";
 import { type DataParserDefinitionNil, type DataParserNil } from "../nil";
 import { type DataParserDefinitionBoolean, type DataParserBoolean } from "../boolean";
-import { createDataParserKind } from "../../kind";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
 import { createTemplateLiteralPattern } from "./createTemplateLiteralPattern";
 
@@ -172,21 +173,20 @@ export interface DataParserDefinitionTemplateLiteral<
 
 export const templateLiteralKind = createDataParserKind("template-literal");
 
-type _DataParserTemplateLiteral<
-	GenericDefinition extends DataParserDefinitionTemplateLiteral,
-> = (
-	& DataParserBase<
+export class DataParserTemplateLiteral<
+	GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral,
+> extends DataParserBase.init(
+		templateLiteralKind,
+	)<
 		GenericDefinition,
 		TemplateLiteralShapeOutput<GenericDefinition["template"]>,
 		TemplateLiteralShapeInput<GenericDefinition["template"]>
-	>
-	& Kind<typeof templateLiteralKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTemplateLiteral);
+	}
 
-export interface DataParserTemplateLiteral<
-	GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral,
-> extends _DataParserTemplateLiteral<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -199,71 +199,81 @@ export interface DataParserTemplateLiteral<
 			],
 			GenericChecker
 		>
-	): DataParserTemplateLiteral<
+	) => DataParserTemplateLiteral<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/templateLiteral/index.md}
- */
-export function templateLiteral<
-	const GenericTemplate extends TemplateLiteralShape,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionTemplateLiteral<
-			TemplateLiteralShapeOutput<GenericTemplate>
+	public static override execParse(
+		self: DataParserTemplateLiteral,
+		data: unknown,
+		error: DataParserError,
+	): string | typeof SymbolDataParserError {
+		if (typeof data === "string" && self.definition.pattern.test(data)) {
+			return data as never;
+		}
+
+		return addIssue(
+			error,
+			`string matching template literal pattern ${self.definition.pattern.source}`,
+			data,
+			self.definition.errorMessage,
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserTemplateLiteral) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		template: TemplateLiteralShape,
+		definition?: Partial<
+			Omit<DataParserDefinitionTemplateLiteral, "template" | "pattern">
 		>,
-		"template" | "pattern"
-	> = never,
->(
-	template: GenericTemplate,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	): DataParserDefinitionTemplateLiteral {
+		const pattern = pipe(
+			createTemplateLiteralPattern(template),
+			(result) => new RegExp(`^${result}$`),
+		);
+
+		return {
+			...definition,
+			template,
+			pattern,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		const GenericTemplate extends TemplateLiteralShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionTemplateLiteral<
 				TemplateLiteralShapeOutput<GenericTemplate>
 			>,
 			"template" | "pattern"
+		> = never,
+	>(
+		template: GenericTemplate,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionTemplateLiteral<
+					TemplateLiteralShapeOutput<GenericTemplate>
+				>,
+				"template" | "pattern"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserTemplateLiteral<
-		MergeDefinition<
-			DataParserDefinitionTemplateLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
-		>
-	> {
-	const pattern = pipe(
-		createTemplateLiteralPattern(template),
-		(result) => new RegExp(`^${result}$`),
-	);
-
-	const self = dataParserBaseInit<DataParserTemplateLiteral>(
-		templateLiteralKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			template,
-			pattern,
-		},
-		(data, error, self) => {
-			if (typeof data === "string" && self.definition.pattern.test(data)) {
-				return data as never;
-			}
-
-			return addIssue(
-				error,
-				`string matching template literal pattern ${self.definition.pattern.source}`,
-				data,
-				self.definition.errorMessage,
-			);
-		},
-		templateLiteral.overrideHandler,
-	) as never;
-
-	return self as never;
+	): DataParserTemplateLiteral<
+			MergeDefinition<
+				DataParserDefinitionTemplateLiteral,
+				NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
+			>
+		> {
+		return new DataParserTemplateLiteral(this.prepareDefinition(template, definition)) as never;
+	}
 }
 
-templateLiteral.overrideHandler = createOverride<DataParserTemplateLiteral>("@duplojs/utils/data-parser/templateLiteral");
+export const templateLiteral = DataParserTemplateLiteral.create;

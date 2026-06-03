@@ -1,5 +1,6 @@
 import { type GetKind } from "@scripts/common";
-import { type DataParserChecker, type DataParserDefinition } from "../base";
+import { type DataParserDefinition } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
 type DataParserCheckerKindName = keyof GetKind<DataParserChecker>[keyof GetKind<DataParserChecker>];
 

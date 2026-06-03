@@ -1,7 +1,7 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionStringMax extends DataParserCheckerDefinition {
 	max: number;
@@ -9,34 +9,47 @@ export interface DataParserCheckerDefinitionStringMax extends DataParserCheckerD
 
 export const checkerStringMaxKind = createDataParserKind("checker-string-max");
 
-type _DataParserCheckerStringMax = (
-	& Kind<typeof checkerStringMaxKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerStringMax extends DataParserCheckerBase.init(
+	checkerStringMaxKind,
+)<
 		DataParserCheckerDefinitionStringMax,
 		string
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerStringMax);
+	}
 
-export interface DataParserCheckerStringMax extends _DataParserCheckerStringMax {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-export function checkerStringMax(
-	max: number,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionStringMax, "max">
-	> = {},
-): DataParserCheckerStringMax {
-	return dataParserCheckerInit<DataParserCheckerStringMax>(
-		checkerStringMaxKind,
-		{
-			definition: {
-				...definition,
-				max,
-			},
-		},
-		(data, error, self, dataParser) => data.length <= self.definition.max
+	public static override execCheck(
+		data: string,
+		error: DataParserError,
+		self: DataParserCheckerStringMax,
+		dataParser: DataParser,
+	) {
+		return data.length <= self.definition.max
 			? data
-			: addIssue(error, `string.length <= ${self.definition.max}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				`string.length <= ${self.definition.max}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static override create(
+		max: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionStringMax, "max">
+		> = {},
+	) {
+		return new DataParserCheckerStringMax({
+			...definition,
+			max,
+		});
+	}
 }
+
+export const checkerStringMax = DataParserCheckerStringMax.create;

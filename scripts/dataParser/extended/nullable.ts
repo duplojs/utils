@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserNullableExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNullable,
-> = (
-	& Kind<typeof dataParsers.nullableKind.definition>
-	& DataParserBaseExtended<
+export class DataParserNullableExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionNullable = dataParsers.DataParserDefinitionNullable,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserNullable)<
 		GenericDefinition,
 		Output<dataParsers.DataParserNullable<GenericDefinition>>,
 		Input<dataParsers.DataParserNullable<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserNullableExtended);
+	}
 
-export interface DataParserNullableExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNullable = dataParsers.DataParserDefinitionNullable,
-> extends _DataParserNullableExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,85 +29,70 @@ export interface DataParserNullableExtended<
 			],
 			GenericChecker
 		>
-	): DataParserNullableExtended<
+	) => DataParserNullableExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserNullableExtended<
+		>,
+	) => DataParserNullableExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * Alias to define the default value
-	 * Using `default()` is equivalent to defining the `coalescingValue` in the dataParser definition.
-	 */
-	default<
+	public default<
 		GenericInput extends Output<GenericDefinition["inner"]>,
-	>(input: GenericInput): DataParserNullableExtended<
-		SimplifyTopLevel<
-				& Omit<GenericDefinition, "coalescingValue">
-				& { readonly coalescingValue: GenericInput }
-		>
-	>;
-}
+	>(
+		input: GenericInput,
+	): DataParserNullableExtended<
+			SimplifyTopLevel<
+			Omit<GenericDefinition, "coalescingValue">
+			& { readonly coalescingValue: GenericInput }
+			>
+		> {
+		return nullable(this.definition.inner, {
+			...this.definition,
+			coalescingValue: input,
+		}) as never;
+	}
 
-/**
- * {@include dataParser/extended/nullable/index.md}
- */
-export function nullable<
-	GenericDataParser extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionNullable<
-			Output<GenericDataParser>
-		>,
-		"inner"
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionNullable<
 				Output<GenericDataParser>
 			>,
 			"inner"
-		>,
-		GenericDefinition
-	>,
-): DataParserNullableExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionNullable,
-			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserNullable<any>,
-		DataParserNullableExtended
+		> = never,
 	>(
-		dataParsers.nullable(inner, definition),
-		{
-			default: (self, value) => nullable(
-				self.definition.inner,
-				{
-					...self.definition,
-					coalescingValue: value,
-				},
-			),
-		},
-		nullable.overrideHandler,
-	);
-
-	return self as never;
+		inner: GenericDataParser,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionNullable<
+					Output<GenericDataParser>
+				>,
+				"inner"
+			>,
+			GenericDefinition
+		>,
+	): DataParserNullableExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionNullable,
+			NeverCoalescing<GenericDefinition, {}> & {
+				inner: GenericDataParser;
+			}
+			>
+		> {
+		return new DataParserNullableExtended(this.prepareDefinition(inner, definition)) as never;
+	}
 }
 
-nullable.overrideHandler = createOverride<DataParserNullableExtended>("@duplojs/utils/data-parser-extended/nullable");
+export const nullable = DataParserNullableExtended.create;

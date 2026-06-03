@@ -1,9 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue, setErrorPath } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
-import * as DArray from "@scripts/array";
+import { callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { addIssue, setErrorPath, type DataParserError, SymbolDataParserError, popErrorPath } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 
@@ -21,21 +21,20 @@ export interface DataParserDefinitionUnion<
 
 export const unionKind = createDataParserKind("union");
 
-type _DataParserUnion<
-	GenericDefinition extends DataParserDefinitionUnion,
-> = (
-	& DataParserBase<
+export class DataParserUnion<
+	GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion,
+> extends DataParserBase.init(
+		unionKind,
+	)<
 		GenericDefinition,
 		Output<GenericDefinition["options"][number]>,
 		Input<GenericDefinition["options"][number]>
-	>
-	& Kind<typeof unionKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserUnion);
+	}
 
-export interface DataParserUnion<
-	GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion,
-> extends _DataParserUnion<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -48,108 +47,106 @@ export interface DataParserUnion<
 			],
 			GenericChecker
 		>
-	): DataParserUnion<
+	) => DataParserUnion<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/union/index.md}
- */
-export function union<
-	const GenericOptions extends UnionOptions,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionUnion<
-			Output<GenericOptions[number]>
-		>,
-		"options"
-	> = never,
->(
-	options: GenericOptions,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserUnion,
+		data: unknown,
+		error: DataParserError,
+	): unknown {
+		const unionError = {
+			...error,
+			currentPath: [...error.currentPath],
+			issues: [],
+		};
+		const currentIndexPath = unionError.currentPath.length;
+
+		const output = self.definition.options.reduce<
+			unknown
+		>(
+			(accumulator, dataParser, index) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					if (awaitedAccumulator !== SymbolDataParserError) {
+						return awaitedAccumulator;
+					}
+
+					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
+					return dataParser.exec(data, unionError);
+				},
+			),
+			SymbolDataParserError,
+		);
+
+		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+
+		return callThen(
+			output,
+			(awaitedOutput) => {
+				if (awaitedOutput !== SymbolDataParserError) {
+					return awaitedOutput;
+				}
+
+				error.issues.push(...unionError.issues);
+
+				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
+			},
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserUnion) {
+		return self.definition.options.some(
+			(element) => element.isAsynchronous(),
+		);
+	}
+
+	public static override prepareDefinition(
+		options: UnionOptions,
+		definition?: Partial<Omit<DataParserDefinitionUnion, "options">>,
+	): DataParserDefinitionUnion {
+		return {
+			...definition,
+			options,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		const GenericOptions extends UnionOptions,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionUnion<
 				Output<GenericOptions[number]>
 			>,
 			"options"
+		> = never,
+	>(
+		options: GenericOptions,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionUnion<
+					Output<GenericOptions[number]>
+				>,
+				"options"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserUnion<
-		MergeDefinition<
-			DataParserDefinitionUnion,
-			& NeverCoalescing<GenericDefinition, {}>
-			& {
-				readonly options: GenericOptions;
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserUnion>(
-		unionKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			options,
-		},
-		{
-			sync: (data, error, self) => {
-				const unionError = {
-					...error,
-					currentPath: [...error.currentPath],
-					issues: [],
-				};
-				const currentIndexPath = unionError.currentPath.length;
-
-				for (let index = 0; index < self.definition.options.length; index++) {
-					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
-
-					const dataParser = self.definition.options[index]!;
-					const result = dataParser.exec(data, unionError);
-
-					if (result !== SymbolDataParserError) {
-						return result;
-					}
+	): DataParserUnion<
+			MergeDefinition<
+				DataParserDefinitionUnion,
+				& NeverCoalescing<GenericDefinition, {}>
+				& {
+					readonly options: GenericOptions;
 				}
-
-				error.issues.push(...unionError.issues);
-
-				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
-			},
-			async: async(data, error, self) => {
-				const unionError = {
-					...error,
-					currentPath: [...error.currentPath],
-					issues: [],
-				};
-				const currentIndexPath = unionError.currentPath.length;
-
-				for (let index = 0; index < self.definition.options.length; index++) {
-					setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
-
-					const dataParser = self.definition.options[index]!;
-					const result = await dataParser.asyncExec(data, unionError);
-
-					if (result !== SymbolDataParserError) {
-						return result;
-					}
-				}
-
-				error.issues.push(...unionError.issues);
-
-				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
-			},
-			isAsynchronous: (self) => DArray.some(
-				self.definition.options,
-				(element) => element.isAsynchronous(),
-			),
-		},
-		union.overrideHandler,
-	) as never;
-
-	return self as never;
+			>
+		> {
+		return new DataParserUnion(this.prepareDefinition(options, definition)) as never;
+	}
 }
 
-union.overrideHandler = createOverride<DataParserUnion>("@duplojs/utils/data-parser/union");
+export const union = DataParserUnion.create;

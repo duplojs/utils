@@ -1,25 +1,22 @@
-import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type DataParserChecker, type Input, type Output } from "../base";
+import { type Adaptor, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type AssignObjects } from "@scripts/object";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserObjectExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionObject,
-> = (
-	& Kind<typeof dataParsers.objectKind.definition>
-	& DataParserBaseExtended<
+export class DataParserObjectExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionObject = dataParsers.DataParserDefinitionObject,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserObject)<
 		GenericDefinition,
 		Output<dataParsers.DataParserObject<GenericDefinition>>,
 		Input<dataParsers.DataParserObject<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserObjectExtended);
+	}
 
-export interface DataParserObjectExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionObject = dataParsers.DataParserDefinitionObject,
-> extends _DataParserObjectExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -32,29 +29,26 @@ export interface DataParserObjectExtended<
 			],
 			GenericChecker
 		>
-	): DataParserObjectExtended<
+	) => DataParserObjectExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserObjectExtended<
+		>,
+	) => DataParserObjectExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * {@include dataParser/extended/object/omit/index.md}
-	 */
-	omit<
+	public omit<
 		const GenericOmitObject extends Partial<
 			Record<
 				keyof GenericDefinition["shape"],
@@ -93,8 +87,8 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>,
 	): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
 			NeverCoalescing<GenericSubDefinition, {}> & {
 				readonly shape: SimplifyTopLevel<
 					Omit<
@@ -103,13 +97,12 @@ export interface DataParserObjectExtended<
 					>
 				>;
 			}
-		>
-	>;
+			>
+		> {
+		return object(dataParsers.omitShape(this.definition.shape, omitObject), definition);
+	}
 
-	/**
-	 * {@include dataParser/extended/object/pick/index.md}
-	 */
-	pick<
+	public pick<
 		const GenericPickObject extends Partial<
 			Record<
 				keyof GenericDefinition["shape"],
@@ -154,8 +147,8 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>,
 	): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
 			NeverCoalescing<GenericSubDefinition, {}> & {
 				readonly shape: SimplifyTopLevel<
 					Pick<
@@ -167,13 +160,12 @@ export interface DataParserObjectExtended<
 					>
 				>;
 			}
-		>
-	>;
+			>
+		> {
+		return object(dataParsers.pickShape(this.definition.shape, pickObject), definition);
+	}
 
-	/**
-	 * {@include dataParser/extended/object/extends/index.md}
-	 */
-	extends<
+	public extends<
 		const GenericExtension extends dataParsers.DataParserObjectShape,
 		const GenericSubDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
@@ -203,27 +195,24 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>,
 	): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
 			NeverCoalescing<GenericSubDefinition, {}> & {
 				readonly shape: AssignObjects<
 					GenericDefinition["shape"],
 					GenericExtension
 				>;
 			}
-		>
-	>;
+			>
+		> {
+		return object(dataParsers.extendsShape(this.definition.shape, extension), definition);
+	}
 
-	/**
-	 * {@include dataParser/extended/object/partial/index.md}
-	 */
-	partial<
+	public partial<
 		const GenericSubDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
 				dataParsers.DataParserObjectShapeOutput<
-					dataParsers.PartialDataParserObject<
-						GenericDefinition["shape"]
-					>
+					dataParsers.PartialDataParserObject<GenericDefinition["shape"]>
 				>
 			>,
 			"shape" | "optimizedShape" | "checkers"
@@ -233,9 +222,7 @@ export interface DataParserObjectExtended<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionObject<
 					dataParsers.DataParserObjectShapeOutput<
-						dataParsers.PartialDataParserObject<
-							GenericDefinition["shape"]
-						>
+						dataParsers.PartialDataParserObject<GenericDefinition["shape"]>
 					>
 				>,
 				"shape" | "optimizedShape" | "checkers"
@@ -243,26 +230,23 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>,
 	): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
 			NeverCoalescing<GenericSubDefinition, {}> & {
 				readonly shape: dataParsers.PartialDataParserObject<
 					GenericDefinition["shape"]
 				>;
 			}
-		>
-	>;
+			>
+		> {
+		return object(dataParsers.partialShape(this.definition.shape), definition);
+	}
 
-	/**
-	 * {@include dataParser/extended/object/required/index.md}
-	 */
-	required<
+	public required<
 		const GenericSubDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
 				dataParsers.DataParserObjectShapeOutput<
-					dataParsers.RequireDataParserObject<
-						GenericDefinition["shape"]
-					>
+					dataParsers.RequireDataParserObject<GenericDefinition["shape"]>
 				>
 			>,
 			"shape" | "optimizedShape" | "checkers"
@@ -272,9 +256,7 @@ export interface DataParserObjectExtended<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionObject<
 					dataParsers.DataParserObjectShapeOutput<
-						dataParsers.RequireDataParserObject<
-							GenericDefinition["shape"]
-						>
+						dataParsers.RequireDataParserObject<GenericDefinition["shape"]>
 					>
 				>,
 				"shape" | "optimizedShape" | "checkers"
@@ -282,109 +264,47 @@ export interface DataParserObjectExtended<
 			GenericSubDefinition
 		>,
 	): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
 			NeverCoalescing<GenericSubDefinition, {}> & {
 				readonly shape: dataParsers.RequireDataParserObject<
 					GenericDefinition["shape"]
 				>;
 			}
-		>
-	>;
-}
+			>
+		> {
+		return object(dataParsers.requiredShape(this.definition.shape), definition);
+	}
 
-/**
- * {@include dataParser/extended/object/index.md}
- */
-export function object<
-	const GenericShape extends dataParsers.DataParserObjectShape,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionObject<
-			dataParsers.DataParserObjectShapeOutput<GenericShape>
-		>,
-		"shape"
-	> = never,
->(
-	shape: GenericShape,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		const GenericShape extends dataParsers.DataParserObjectShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<
 				dataParsers.DataParserObjectShapeOutput<GenericShape>
 			>,
-			"shape"
-		>,
-		GenericDefinition
-	>,
-): DataParserObjectExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionObject,
-			NeverCoalescing<GenericDefinition, {}> & { shape: GenericShape }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserObject,
-		DataParserObjectExtended
+			"shape" | "optimizedShape"
+		> = never,
 	>(
-		dataParsers.object(shape, definition),
-		{
-			omit: (self, omitObject, definition) => {
-				const newShape = dataParsers.omitShape(
-					self.definition.shape,
-					omitObject,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-			pick: (self, pickObject, definition) => {
-				const newShape = dataParsers.pickShape(
-					self.definition.shape,
-					pickObject,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-			extends: (self, extension, definition) => {
-				const newShape = dataParsers.extendsShape(
-					self.definition.shape,
-					extension,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-			partial: (self, definition) => {
-				const newShape = dataParsers.partialShape(
-					self.definition.shape,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-			required: (self, definition) => {
-				const newShape = dataParsers.requiredShape(
-					self.definition.shape,
-				);
-
-				return object(
-					newShape,
-					definition,
-				);
-			},
-		},
-		object.overrideHandler,
-	);
-
-	return self as never;
+		shape: GenericShape,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionObject<
+					dataParsers.DataParserObjectShapeOutput<GenericShape>
+				>,
+				"shape" | "optimizedShape"
+			>,
+			GenericDefinition
+		>,
+	): DataParserObjectExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionObject,
+			NeverCoalescing<GenericDefinition, {}> & {
+				readonly shape: GenericShape;
+			}
+			>
+		> {
+		return new DataParserObjectExtended(this.prepareDefinition(shape, definition)) as never;
+	}
 }
 
-object.overrideHandler = createOverride<DataParserObjectExtended>("@duplojs/utils/data-parser-extended/object");
+export const object = DataParserObjectExtended.create;

@@ -1,6 +1,6 @@
 import { type AnyConstructor, type AnyFunction, type BreakGenericLink, type ComputedTypeError, type IsEqual, type IsExtends, type Kind, kindClass, type KindHandler, type MaybePromise, NeverCoalescing, type RequireConstructor } from "@scripts/common";
-import { type SymbolDataParserError, type DataParserError } from "../error";
-import { createDataParserKind } from "../kind";
+import { type SymbolDataParserError, type DataParserError } from "./error";
+import { createDataParserKind } from "./kind";
 import { type DataParser } from "./base";
 
 export const checkerKind = createDataParserKind("checker");

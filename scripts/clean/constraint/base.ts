@@ -1,9 +1,9 @@
 import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction } from "@scripts";
 import { createCleanKind } from "../kind";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
-import * as DArray from "../../array";
-import * as DEither from "../../either";
-import type * as DDataParser from "../../dataParser";
+import * as DArray from "@scripts/array";
+import * as DEither from "@scripts/either";
+import type * as DDataParser from "@scripts/dataParser";
 
 export const constrainedTypeKind = createCleanKind<
 	"constrained-type",

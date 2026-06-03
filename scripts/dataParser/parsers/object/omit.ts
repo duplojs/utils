@@ -17,9 +17,6 @@ export function omitShape(
 	);
 }
 
-/**
- * {@include dataParser/classic/object/omit/index.md}
- */
 export function omit<
 	GenericDataParserObject extends DataParserObject,
 	const GenericOmitObject extends Partial<

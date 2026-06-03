@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
 
-type _DataParserBooleanExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionBoolean,
-> = (
-	& Kind<typeof dataParsers.booleanKind.definition>
-	& DataParserBaseExtended<
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
+
+export class DataParserBooleanExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserBoolean)<
 		GenericDefinition,
 		Output<dataParsers.DataParserBoolean<GenericDefinition>>,
 		Input<dataParsers.DataParserBoolean<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserBooleanExtended);
+	}
 
-export interface DataParserBooleanExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean,
-> extends _DataParserBooleanExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,52 +29,40 @@ export interface DataParserBooleanExtended<
 			],
 			GenericChecker
 		>
-	): DataParserBooleanExtended<
+	) => DataParserBooleanExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserBooleanExtended<
+		>,
+	) => DataParserBooleanExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/boolean/index.md}
- */
-export function boolean<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean>,
-		GenericDefinition
-	>,
-): DataParserBooleanExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionBoolean,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserBoolean,
-		DataParserBooleanExtended
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean> = never,
 	>(
-		dataParsers.boolean(definition),
-		{},
-		boolean.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionBoolean>,
+			GenericDefinition
+		>,
+	): DataParserBooleanExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionBoolean,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserBooleanExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-boolean.overrideHandler = createOverride<DataParserBooleanExtended>("@duplojs/utils/data-parser-extended/boolean");
+export const boolean = DataParserBooleanExtended.create;

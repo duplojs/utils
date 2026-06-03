@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type IsEqual, type Kind, type NeverCoalescing, type Or, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type DataParsers, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing, type Or, type SimplifyTopLevel } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParserChecker, type Input, type Output } from "../base";
+import { type DataParsers } from "../types/dataParsers";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserTupleExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTuple,
-> = (
-	& Kind<typeof dataParsers.tupleKind.definition>
-	& DataParserBaseExtended<
+export class DataParserTupleExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionTuple = dataParsers.DataParserDefinitionTuple,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserTuple)<
 		GenericDefinition,
 		Output<dataParsers.DataParserTuple<GenericDefinition>>,
 		Input<dataParsers.DataParserTuple<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTupleExtended);
+	}
 
-export interface DataParserTupleExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTuple = dataParsers.DataParserDefinitionTuple,
-> extends _DataParserTupleExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,97 +29,83 @@ export interface DataParserTupleExtended<
 			],
 			GenericChecker
 		>
-	): DataParserTupleExtended<
+	) => DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserTupleExtended<
+		>,
+	) => DataParserTupleExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * {@include dataParser/extended/tuple/min/index.md}
-	 */
-	min(
+	public min(
 		min: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">
-		>
-	): DataParserTupleExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerArrayMin]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
+	}
 
-	/**
-	 * {@include dataParser/extended/tuple/max/index.md}
-	 */
-	max(
+	public max(
 		max: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
-		>
-	): DataParserTupleExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerArrayMax]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
+	}
 
-	/**
-	 * {@include dataParser/extended/tuple/rest/index.md}
-	 */
-	rest<
+	public rest<
 		GenericDataParser extends DataParsers,
 	>(
-		dataParser: GenericDataParser
-	): DataParserTupleExtended<
-		SimplifyTopLevel<
-			& Omit<GenericDefinition, "rest">
-			& { readonly rest: GenericDataParser }
-		>
-	>;
-}
+		dataParser: GenericDataParser,
+	) {
+		return tuple(this.definition.shape, {
+			...this.definition,
+			rest: dataParser,
+		});
+	}
 
-/**
- * {@include dataParser/extended/tuple/index.md}
- */
-export function tuple<
-	const GenericShape extends dataParsers.TupleShape,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionTuple<
-			dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
-		>,
-		"shape"
-	> = never,
->(
-	shape: GenericShape,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		const GenericShape extends dataParsers.TupleShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTuple<
-				dataParsers.DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
+				dataParsers.DataParserTupleShapeOutput<
+					GenericShape,
+					GenericDefinition["rest"]
+				>
 			>,
 			"shape"
+		> = never,
+	>(
+		shape: GenericShape,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionTuple<
+					dataParsers.DataParserTupleShapeOutput<
+						GenericShape,
+						GenericDefinition["rest"]
+					>
+				>,
+				"shape"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserTupleExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTuple,
-			& NeverCoalescing<GenericDefinition, {}>
-			& {
+	): DataParserTupleExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionTuple,
+			NeverCoalescing<GenericDefinition, {}> & {
 				readonly shape: GenericShape;
 				readonly rest: Or<[
 					IsEqual<GenericDefinition["rest"], unknown>,
@@ -130,42 +114,10 @@ export function tuple<
 					? undefined
 					: GenericDefinition["rest"];
 			}
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserTuple,
-		DataParserTupleExtended
-	>(
-		dataParsers.tuple(shape, definition) as never,
-		{
-			min(self, min, definition) {
-				return self.addChecker(
-					dataParsers.checkerArrayMin(
-						min,
-						definition,
-					),
-				);
-			},
-			max(self, max, definition) {
-				return self.addChecker(
-					dataParsers.checkerArrayMax(
-						max,
-						definition,
-					),
-				);
-			},
-			rest: (self, dataParser) => tuple(
-				self.definition.shape,
-				{
-					...self.definition,
-					rest: dataParser,
-				},
-			),
-		},
-		tuple.overrideHandler,
-	);
-
-	return self as never;
+			>
+		> {
+		return new DataParserTupleExtended(this.prepareDefinition(shape, definition)) as never;
+	}
 }
 
-tuple.overrideHandler = createOverride<DataParserTupleExtended>("@duplojs/utils/data-parser-extended/tuple");
+export const tuple = DataParserTupleExtended.create;

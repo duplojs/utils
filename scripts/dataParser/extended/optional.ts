@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserOptionalExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionOptional,
-> = (
-	& Kind<typeof dataParsers.optionalKind.definition>
-	& DataParserBaseExtended<
+export class DataParserOptionalExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionOptional = dataParsers.DataParserDefinitionOptional,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserOptional)<
 		GenericDefinition,
 		Output<dataParsers.DataParserOptional<GenericDefinition>>,
 		Input<dataParsers.DataParserOptional<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserOptionalExtended);
+	}
 
-export interface DataParserOptionalExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionOptional = dataParsers.DataParserDefinitionOptional,
-> extends _DataParserOptionalExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,85 +29,70 @@ export interface DataParserOptionalExtended<
 			],
 			GenericChecker
 		>
-	): DataParserOptionalExtended<
+	) => DataParserOptionalExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserOptionalExtended<
+		>,
+	) => DataParserOptionalExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * Alias to define the default value
-	 * Using `default()` is equivalent to defining the `coalescingValue` in the dataParser definition.
-	 */
-	default<
+	public default<
 		GenericInput extends Output<GenericDefinition["inner"]>,
-	>(input: GenericInput): DataParserOptionalExtended<
-		SimplifyTopLevel<
-			& Omit<GenericDefinition, "coalescingValue">
+	>(
+		input: GenericInput,
+	): DataParserOptionalExtended<
+			SimplifyTopLevel<
+			Omit<GenericDefinition, "coalescingValue">
 			& { readonly coalescingValue: GenericInput }
-		>
-	>;
-}
+			>
+		> {
+		return optional(this.definition.inner, {
+			...this.definition,
+			coalescingValue: input,
+		}) as never;
+	}
 
-/**
- * {@include dataParser/extended/optional/index.md}
- */
-export function optional<
-	GenericDataParser extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionOptional<
-			Output<GenericDataParser>
-		>,
-		"inner"
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionOptional<
 				Output<GenericDataParser>
 			>,
 			"inner"
-		>,
-		GenericDefinition
-	>,
-): DataParserOptionalExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionOptional,
-			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserOptional<any>,
-		DataParserOptionalExtended
+		> = never,
 	>(
-		dataParsers.optional(inner, definition),
-		{
-			default: (self, value) => optional(
-				self.definition.inner,
-				{
-					...self.definition,
-					coalescingValue: value,
-				},
-			),
-		},
-		optional.overrideHandler,
-	);
-
-	return self as never;
+		inner: GenericDataParser,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionOptional<
+					Output<GenericDataParser>
+				>,
+				"inner"
+			>,
+			GenericDefinition
+		>,
+	): DataParserOptionalExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionOptional,
+			NeverCoalescing<GenericDefinition, {}> & {
+				inner: GenericDataParser;
+			}
+			>
+		> {
+		return new DataParserOptionalExtended(this.prepareDefinition(inner, definition)) as never;
+	}
 }
 
-optional.overrideHandler = createOverride<DataParserOptionalExtended>("@duplojs/utils/data-parser-extended/optional");
+export const optional = DataParserOptionalExtended.create;

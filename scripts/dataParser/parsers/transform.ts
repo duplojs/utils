@@ -1,8 +1,9 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Input, type Output, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue, type DataParserError } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
+import { callThen, forward, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserTransformCheckers<
 	GenericInput extends unknown = unknown,
@@ -23,24 +24,23 @@ export type DataParserTransformOutput<
 	GenericTheFunction extends DataParserDefinitionTransform["theFunction"],
 > = Exclude<
 	Awaited<ReturnType<GenericTheFunction>>,
-	| SymbolDataParserError
+	| typeof SymbolDataParserError
 >;
 
-type _DataParserTransform<
-	GenericDefinition extends DataParserDefinitionTransform,
-> = (
-	& DataParserBase<
+export class DataParserTransform<
+	GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform,
+> extends DataParserBase.init(
+		transformKind,
+	)<
 		GenericDefinition,
 		DataParserTransformOutput<GenericDefinition["theFunction"]>,
 		Input<GenericDefinition["inner"]>
-	>
-	& Kind<typeof transformKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTransform);
+	}
 
-export interface DataParserTransform<
-	GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform,
-> extends _DataParserTransform<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -53,97 +53,100 @@ export interface DataParserTransform<
 			],
 			GenericChecker
 		>
-	): DataParserTransform<
+	) => DataParserTransform<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/transform/index.md}
- */
-export function transform<
-	GenericDataParser extends DataParser,
-	GenericOutput extends unknown,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionTransform<
-			DataParserTransformOutput<() => GenericOutput>
+	public static override execParse(
+		self: DataParserTransform,
+		data: unknown,
+		error: DataParserError,
+	) {
+		return callThen(
+			self.definition.inner.exec(data, error),
+			(innerResult) => {
+				if (innerResult === SymbolDataParserError) {
+					return SymbolDataParserError;
+				}
+
+				return callThen(
+					self.definition.theFunction(innerResult, error),
+					forward,
+					(catchError) => addIssue(
+						error,
+						"successful transform result",
+						catchError,
+						self.definition.errorMessage,
+					),
+				);
+			},
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserTransform) {
+		return self.definition.inner.isAsynchronous()
+			|| self.definition.theFunction.constructor.name === "AsyncFunction";
+	}
+
+	public static override prepareDefinition(
+		inner: DataParser,
+		theFunction: (
+			input: unknown,
+			error: DataParserError
+		) => unknown,
+		definition?: Partial<
+			Omit<DataParserDefinitionTransform, "inner" | "theFunction">
 		>,
-		"inner" | "theFunction"
-	> = never,
->(
-	inner: GenericDataParser,
-	theFunction: (
-		input: Output<GenericDataParser>,
-		error: DataParserError
-	) => GenericOutput,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	): DataParserDefinitionTransform {
+		return {
+			...definition,
+			inner,
+			theFunction,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		GenericDataParser extends DataParser,
+		GenericOutput extends unknown,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionTransform<
 				DataParserTransformOutput<() => GenericOutput>
 			>,
 			"inner" | "theFunction"
+		> = never,
+	>(
+		inner: GenericDataParser,
+		theFunction: (
+			input: Output<GenericDataParser>,
+			error: DataParserError
+		) => GenericOutput,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionTransform<
+					DataParserTransformOutput<() => GenericOutput>
+				>,
+				"inner" | "theFunction"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserTransform<
-		MergeDefinition<
-			DataParserDefinitionTransform,
-			NeverCoalescing<GenericDefinition, {}> & {
-				inner: GenericDataParser;
-				theFunction(input: Output<GenericDataParser>, error: DataParserError): GenericOutput;
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserTransform>(
-		transformKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			inner,
-			theFunction,
-		},
-		{
-			sync: (data, error, self) => {
-				const innerResult = self.definition.inner.exec(data, error);
-
-				if (innerResult === SymbolDataParserError) {
-					return SymbolDataParserError;
+	): DataParserTransform<
+			MergeDefinition<
+				DataParserDefinitionTransform,
+				NeverCoalescing<GenericDefinition, {}> & {
+					inner: GenericDataParser;
+					theFunction(input: Output<GenericDataParser>, error: DataParserError): GenericOutput;
 				}
-
-				const result = self.definition.theFunction(innerResult as never, error);
-
-				if (result instanceof Promise) {
-					return addIssue(error, "non-promise transform result", result, self.definition.errorMessage);
-				}
-
-				return result;
-			},
-			async: async(data, error, self) => {
-				const innerResult = await self.definition.inner.asyncExec(data, error);
-
-				if (innerResult === SymbolDataParserError) {
-					return SymbolDataParserError;
-				}
-
-				let result: unknown = self.definition.theFunction(innerResult as never, error);
-
-				if (result instanceof Promise) {
-					result = await result.catch(
-						() => addIssue(error, "successful async transform result", result, self.definition.errorMessage),
-					);
-				}
-
-				return result as never;
-			},
-			isAsynchronous: (self) => self.definition.theFunction.constructor.name === "AsyncFunction",
-		},
-		transform.overrideHandler,
-	) as never;
-
-	return self as never;
+			>
+		> {
+		return new DataParserTransform(
+			this.prepareDefinition(inner, theFunction, definition),
+		) as never;
+	}
 }
 
-transform.overrideHandler = createOverride<DataParserTransform>("@duplojs/utils/data-parser/transform");
+export const transform = DataParserTransform.create;

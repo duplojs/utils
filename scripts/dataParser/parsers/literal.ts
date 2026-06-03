@@ -1,9 +1,10 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import * as DArray from "@scripts/array";
-import { createDataParserKind } from "../kind";
 
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
 
@@ -21,21 +22,20 @@ export interface DataParserDefinitionLiteral<
 
 export const literalKind = createDataParserKind("literal");
 
-type _DataParserLiteral<
-	GenericDefinition extends DataParserDefinitionLiteral,
-> = (
-	& DataParserBase<
+export class DataParserLiteral<
+	GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral,
+> extends DataParserBase.init(
+		literalKind,
+	)<
 		GenericDefinition,
 		GenericDefinition["value"][number],
 		GenericDefinition["value"][number]
-	>
-	& Kind<typeof literalKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserLiteral);
+	}
 
-export interface DataParserLiteral<
-	GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral,
-> extends _DataParserLiteral<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -48,61 +48,69 @@ export interface DataParserLiteral<
 			],
 			GenericChecker
 		>
-	): DataParserLiteral<
+	) => DataParserLiteral<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/literal/index.md}
- */
-export function literal<
-	const GenericValue extends LiteralValue,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionLiteral<GenericValue>,
-		"value"
-	> = never,
->(
-	value: GenericValue | readonly GenericValue[],
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserLiteral,
+		data: unknown,
+		error: DataParserError,
+	): LiteralValue | typeof SymbolDataParserError {
+		if (self.definition.value.includes(data as never)) {
+			return data as never;
+		}
+
+		return addIssue(
+			error,
+			`one of ${self.definition.value.join(", ")}`,
+			data,
+			self.definition.errorMessage,
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserLiteral) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		value: LiteralValue | readonly LiteralValue[],
+		definition?: Partial<Omit<DataParserDefinitionLiteral, "value">>,
+	): DataParserDefinitionLiteral {
+		return {
+			...definition,
+			value: DArray.coalescing(value),
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		const GenericValue extends LiteralValue,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionLiteral<GenericValue>,
 			"value"
+		> = never,
+	>(
+		value: GenericValue | readonly GenericValue[],
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionLiteral<GenericValue>,
+				"value"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserLiteral<
-		MergeDefinition<
-			DataParserDefinitionLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
-		>
-	> {
-	const self = dataParserBaseInit<DataParserLiteral>(
-		literalKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			value: DArray.coalescing(value),
-		},
-		(data, error, self) => {
-			if (self.definition.value.includes(data as never)) {
-				return data as never;
-			}
-
-			return addIssue(
-				error,
-				`one of ${self.definition.value.map((value) => String(value)).join(", ")}`,
-				data,
-				self.definition.errorMessage,
-			);
-		},
-		literal.overrideHandler,
-	) as never;
-
-	return self as never;
+	): DataParserLiteral<
+			MergeDefinition<
+				DataParserDefinitionLiteral,
+				NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
+			>
+		> {
+		return new DataParserLiteral(this.prepareDefinition(value, definition)) as never;
+	}
 }
 
-literal.overrideHandler = createOverride<DataParserLiteral>("@duplojs/utils/data-parser/literal");
+export const literal = DataParserLiteral.create;

@@ -1,7 +1,7 @@
-import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionBigIntMin extends DataParserCheckerDefinition {
 	min: bigint;
@@ -9,38 +9,49 @@ export interface DataParserCheckerDefinitionBigIntMin extends DataParserCheckerD
 
 export const checkerBigIntMinKind = createDataParserKind("checker-bigint-min");
 
-type _DataParserCheckerBigIntMin = (
-	& Kind<typeof checkerBigIntMinKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(
+	checkerBigIntMinKind,
+)<
 		DataParserCheckerDefinitionBigIntMin,
 		bigint
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerBigIntMin);
+	}
 
-export interface DataParserCheckerBigIntMin extends _DataParserCheckerBigIntMin {
+	public isAsynchronous() {
+		return false;
+	}
 
+	public static override execCheck(
+		value: bigint,
+		error: DataParserError,
+		self: DataParserCheckerBigIntMin,
+		dataParser: DataParser,
+	) {
+		if (value < self.definition.min) {
+			return addIssue(
+				error,
+				`bigint >= ${self.definition.min}n`,
+				value,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+		}
+
+		return value;
+	}
+
+	public static override create(
+		min: bigint,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionBigIntMin, "min">
+		> = {},
+	) {
+		return new DataParserCheckerBigIntMin({
+			...definition,
+			min,
+		});
+	}
 }
 
-export function checkerBigIntMin(
-	min: bigint,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionBigIntMin, "min">
-	> = {},
-): DataParserCheckerBigIntMin {
-	return dataParserCheckerInit<DataParserCheckerBigIntMin>(
-		checkerBigIntMinKind,
-		{
-			definition: {
-				...definition,
-				min,
-			},
-		},
-		(value, error, self, dataParser) => {
-			if (value < self.definition.min) {
-				return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
-			}
-
-			return value;
-		},
-	);
-}
+export const checkerBigIntMin = DataParserCheckerBigIntMin.create;

@@ -1,7 +1,7 @@
 import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
 import type * as dataParsers from "../../parsers";
-import * as dataParsersExtended from "../";
+import * as dataParsersExtended from "..";
 
 export function boolean<
 	const GenericDefinition extends PrepareDataParserDefinition<

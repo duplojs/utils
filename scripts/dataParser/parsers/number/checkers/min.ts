@@ -1,7 +1,7 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionNumberMin extends DataParserCheckerDefinition {
 	min: number;
@@ -10,48 +10,54 @@ export interface DataParserCheckerDefinitionNumberMin extends DataParserCheckerD
 
 export const checkerNumberMinKind = createDataParserKind("checker-number-min");
 
-type _DataParserCheckerNumberMin = (
-	& Kind<typeof checkerNumberMinKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
+	checkerNumberMinKind,
+)<
 		DataParserCheckerDefinitionNumberMin,
 		number
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerNumberMin);
+	}
 
-export interface DataParserCheckerNumberMin extends _DataParserCheckerNumberMin {
+	public isAsynchronous() {
+		return false;
+	}
 
+	public static override execCheck(
+		value: number,
+		error: DataParserError,
+		self: DataParserCheckerNumberMin,
+		dataParser: DataParser,
+	) {
+		const isValid = self.definition.exclusive
+			? value > self.definition.min
+			: value >= self.definition.min;
+
+		if (isValid) {
+			return value;
+		}
+
+		return addIssue(
+			error,
+			`number ${self.definition.exclusive ? ">" : ">="} ${self.definition.min}`,
+			value,
+			self.definition.errorMessage ?? dataParser.definition.errorMessage,
+		);
+	}
+
+	public static override create(
+		min: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionNumberMin, "min">
+		> = {},
+	) {
+		return new DataParserCheckerNumberMin({
+			...definition,
+			exclusive: definition.exclusive ?? false,
+			min,
+		});
+	}
 }
 
-export function checkerNumberMin(
-	min: number,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionNumberMin, "min">
-	> = {},
-): DataParserCheckerNumberMin {
-	return dataParserCheckerInit<DataParserCheckerNumberMin>(
-		checkerNumberMinKind,
-		{
-			definition: {
-				...definition,
-				exclusive: definition.exclusive ?? false,
-				min,
-			},
-		},
-		(value, error, self, dataParser) => {
-			const isValid = self.definition.exclusive
-				? value > self.definition.min
-				: value >= self.definition.min;
-
-			if (isValid) {
-				return value;
-			}
-
-			return addIssue(
-				error,
-				`number ${self.definition.exclusive ? ">" : ">="} ${self.definition.min}`,
-				value,
-				self.definition.errorMessage ?? dataParser.definition.errorMessage,
-			);
-		},
-	);
-}
+export const checkerNumberMin = DataParserCheckerNumberMin.create;

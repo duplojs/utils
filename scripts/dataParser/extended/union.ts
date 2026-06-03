@@ -1,24 +1,21 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserUnionExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionUnion,
-> = (
-	& Kind<typeof dataParsers.unionKind.definition>
-	& DataParserBaseExtended<
+export class DataParserUnionExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionUnion = dataParsers.DataParserDefinitionUnion,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserUnion)<
 		GenericDefinition,
 		Output<dataParsers.DataParserUnion<GenericDefinition>>,
 		Input<dataParsers.DataParserUnion<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserUnionExtended);
+	}
 
-export interface DataParserUnionExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionUnion = dataParsers.DataParserDefinitionUnion,
-> extends _DataParserUnionExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,64 +28,54 @@ export interface DataParserUnionExtended<
 			],
 			GenericChecker
 		>
-	): DataParserUnionExtended<
+	) => DataParserUnionExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserUnionExtended<
+		>,
+	) => DataParserUnionExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/union/index.md}
- */
-export function union<
-	const GenericOptions extends dataParsers.UnionOptions,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionUnion<
-			Output<GenericOptions[number]>
-		>,
-		"options"
-	> = never,
->(
-	options: GenericOptions,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		const GenericOptions extends dataParsers.UnionOptions,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
 				Output<GenericOptions[number]>
 			>,
 			"options"
-		>,
-		GenericDefinition
-	>,
-): DataParserUnionExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionUnion,
-			NeverCoalescing<GenericDefinition, {}> & { options: GenericOptions }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserUnion,
-		DataParserUnionExtended
+		> = never,
 	>(
-		dataParsers.union(options, definition),
-		{},
-		union.overrideHandler,
-	);
-
-	return self as never;
+		options: GenericOptions,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionUnion<
+					Output<GenericOptions[number]>
+				>,
+				"options"
+			>,
+			GenericDefinition
+		>,
+	): DataParserUnionExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionUnion,
+			NeverCoalescing<GenericDefinition, {}> & {
+				options: GenericOptions;
+			}
+			>
+		> {
+		return new DataParserUnionExtended(this.prepareDefinition(options, definition)) as never;
+	}
 }
 
-union.overrideHandler = createOverride<DataParserUnionExtended>("@duplojs/utils/data-parser-extended/union");
+export const union = DataParserUnionExtended.create;

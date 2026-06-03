@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser, type DataParserChecker } from "../base";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserArrayExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionArray,
-> = (
-	& Kind<typeof dataParsers.arrayKind.definition>
-	& DataParserBaseExtended<
+export class DataParserArrayExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionArray = dataParsers.DataParserDefinitionArray,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserArray)<
 		GenericDefinition,
 		Output<dataParsers.DataParserArray<GenericDefinition>>,
 		Input<dataParsers.DataParserArray<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserArrayExtended);
+	}
 
-export interface DataParserArrayExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionArray = dataParsers.DataParserDefinitionArray,
-> extends _DataParserArrayExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,114 +29,72 @@ export interface DataParserArrayExtended<
 			],
 			GenericChecker
 		>
-	): DataParserArrayExtended<
+	) => DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserArrayExtended<
+		>,
+	) => DataParserArrayExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * {@include dataParser/extended/array/min/index.md}
-	 */
-	min(
+	public min(
 		min: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">
-		>
-	): DataParserArrayExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerArrayMin]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
+	}
 
-	/**
-	 * {@include dataParser/extended/array/max/index.md}
-	 */
-	max(
+	public max(
 		max: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
-		>
-	): DataParserArrayExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerArrayMax]
-		>
-	>;
-}
-
-/**
- * {@include dataParser/extended/array/index.md}
- */
-export function array<
-	GenericElement extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionArray<
-			Output<GenericElement>[]
 		>,
-		"element"
-	> = never,
->(
-	element: GenericElement,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	) {
+		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
+	}
+
+	public static override create<
+		GenericElement extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionArray<
 				Output<GenericElement>[]
 			>,
 			"element"
-		>,
-		GenericDefinition
-	>,
-): DataParserArrayExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionArray,
-			NeverCoalescing<GenericDefinition, {}> & { element: GenericElement }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserArray,
-		DataParserArrayExtended
+		> = never,
 	>(
-		dataParsers.array(
-			element,
-			definition,
-		),
-		{
-			min(self, min, definition) {
-				return self.addChecker(
-					dataParsers.checkerArrayMin(
-						min,
-						definition,
-					),
-				);
-			},
-			max(self, max, definition) {
-				return self.addChecker(
-					dataParsers.checkerArrayMax(
-						max,
-						definition,
-					),
-				);
-			},
-		},
-		array.overrideHandler,
-	);
-
-	return self as never;
+		element: GenericElement,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionArray<
+					Output<GenericElement>[]
+				>,
+				"element"
+			>,
+			GenericDefinition
+		>,
+	): DataParserArrayExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionArray,
+				NeverCoalescing<GenericDefinition, {}> & {
+					element: GenericElement;
+				}
+			>
+		> {
+		return new DataParserArrayExtended(this.prepareDefinition(element, definition)) as never;
+	}
 }
 
-array.overrideHandler = createOverride<DataParserArrayExtended>("@duplojs/utils/data-parser-extended/array");
+export const array = DataParserArrayExtended.create;

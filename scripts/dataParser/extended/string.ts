@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
 
-type _DataParserStringExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionString,
-> = (
-	& Kind<typeof dataParsers.stringKind.definition>
-	& DataParserBaseExtended<
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
+
+export class DataParserStringExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionString = dataParsers.DataParserDefinitionString,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserString)<
 		GenericDefinition,
 		Output<dataParsers.DataParserString<GenericDefinition>>,
 		Input<dataParsers.DataParserString<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserStringExtended);
+	}
 
-export interface DataParserStringExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionString = dataParsers.DataParserDefinitionString,
-> extends _DataParserStringExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,120 +29,86 @@ export interface DataParserStringExtended<
 			],
 			GenericChecker
 		>
-	): DataParserStringExtended<
+	) => DataParserStringExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserStringExtended<
+		>,
+	) => DataParserStringExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
 
-	/**
-	 * {@include dataParser/extended/string/min/index.md}
-	 */
-	min(
+	public min(
 		min: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionStringMin, "min">
-		>
+		>,
 	): DataParserStringExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerStringMin]
-		>
-	>;
+			AddCheckersToDefinition<
+				GenericDefinition,
+				readonly [dataParsers.DataParserCheckerStringMin]
+			>
+		> {
+		return this.addChecker(dataParsers.checkerStringMin(min, definition));
+	}
 
-	/**
-	 * {@include dataParser/extended/string/max/index.md}
-	 */
-	max(
+	public max(
 		max: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionStringMax, "max">
-		>
+		>,
 	): DataParserStringExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerStringMax]
-		>
-	>;
+			AddCheckersToDefinition<
+				GenericDefinition,
+				readonly [dataParsers.DataParserCheckerStringMax]
+			>
+		> {
+		return this.addChecker(dataParsers.checkerStringMax(max, definition));
+	}
 
-	/**
-	 * {@include dataParser/extended/string/regex/index.md}
-	 */
-	regex(
+	public regex(
 		regex: RegExp,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRegex, "regex">
-		>
+		>,
 	): DataParserStringExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerRegex]
-		>
-	>;
-}
+			AddCheckersToDefinition<
+				GenericDefinition,
+				readonly [dataParsers.DataParserCheckerRegex]
+			>
+		> {
+		return this.addChecker(dataParsers.checkerRegex(regex, definition));
+	}
 
-/**
- * {@include dataParser/extended/string/index.md}
- */
-export function string<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionString>,
-		GenericDefinition
-	>,
-): DataParserStringExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionString,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserString,
-		DataParserStringExtended
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never,
 	>(
-		dataParsers.string(definition),
-		{
-			min(self, min, definition) {
-				return self.addChecker(
-					dataParsers.checkerStringMin(min, definition),
-				);
-			},
-			max(self, max, definition) {
-				return self.addChecker(
-					dataParsers.checkerStringMax(max, definition),
-				);
-			},
-			regex(self, regex, definition) {
-				return self.addChecker(
-					dataParsers.checkerRegex(regex, definition),
-				);
-			},
-		},
-		string.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionString>,
+			GenericDefinition
+		>,
+	): DataParserStringExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionString,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserStringExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-string.overrideHandler = createOverride<DataParserStringExtended>("@duplojs/utils/data-parser-extended/string");
+export const string = DataParserStringExtended.create;
 
-/**
- * {@include dataParser/extended/email/index.md}
- */
 export function email(
 	definition?: Partial<
 		Omit<dataParsers.DataParserCheckerDefinitionEmail, "regex">
@@ -155,9 +119,6 @@ export function email(
 	});
 }
 
-/**
- * {@include dataParser/extended/url/index.md}
- */
 export function url(
 	definition?: Partial<dataParsers.DataParserCheckerDefinitionUrl>,
 ) {
@@ -166,9 +127,6 @@ export function url(
 	});
 }
 
-/**
- * {@include dataParser/extended/uuid/index.md}
- */
 export function uuid(
 	definition?: Partial<
 		Omit<dataParsers.DataParserCheckerDefinitionUuid, "regex">

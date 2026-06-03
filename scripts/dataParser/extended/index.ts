@@ -19,12 +19,11 @@ export * from "./optional";
 export * from "./pipe";
 export * from "./record";
 export * from "./templateLiteral";
-export * from "./transform";
 export * from "./tuple";
-export * from "./union";
 export * from "./unknown";
 export * from "./recover";
 
 export * from "../error";
-export { type DataParser, type Output, type Input } from "../base";
+export { type DataParser } from "../base";
 export { type DataParserExtended } from "../baseExtended";
+export { type Output, type Input } from "../types";

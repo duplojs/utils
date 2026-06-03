@@ -1,8 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import { string } from "..";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionUuid extends DataParserCheckerDefinition {
 	regex: RegExp;
@@ -10,41 +10,52 @@ export interface DataParserCheckerDefinitionUuid extends DataParserCheckerDefini
 
 export const checkerUuidKind = createDataParserKind("checker-uuid");
 
-type _DataParserCheckerUuid = (
-	& Kind<typeof checkerUuidKind.definition>
-	& DataParserCheckerBase<
-		DataParserCheckerDefinitionUuid,
-		string
-	>
-);
-
-export interface DataParserCheckerUuid extends _DataParserCheckerUuid {
-}
-
 const uuidRegex = /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/;
 
-export function checkerUuid(
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionUuid, "regex">
-	> = {},
-): DataParserCheckerUuid {
-	return dataParserCheckerInit<DataParserCheckerUuid>(
-		checkerUuidKind,
-		{
-			definition: {
-				...definition,
-				regex: uuidRegex,
-			},
-		},
-		(data, error, self, dataParser) => uuidRegex.test(data)
+export class DataParserCheckerUuid extends DataParserCheckerBase.init(
+	checkerUuidKind,
+)<
+		DataParserCheckerDefinitionUuid,
+		string
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerUuid);
+	}
+
+	public isAsynchronous() {
+		return false;
+	}
+
+	public static override execCheck(
+		data: string,
+		error: DataParserError,
+		self: DataParserCheckerUuid,
+		dataParser: DataParser,
+	) {
+		return uuidRegex.test(data)
 			? data
-			: addIssue(error, "uuid", data, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				"uuid",
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static override create(
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionUuid, "regex">
+		> = {},
+	) {
+		return new DataParserCheckerUuid({
+			...definition,
+			regex: uuidRegex,
+		});
+	}
 }
 
-/**
- * {@include dataParser/classic/uuid/index.md}
- */
+export const checkerUuid = DataParserCheckerUuid.create;
+
 export function uuid(
 	definition?: Partial<
 		Omit<DataParserCheckerDefinitionUuid, "regex">

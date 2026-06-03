@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserEmptyCheckers = GetEligibleChecker<undefined>;
 
@@ -14,21 +15,20 @@ export interface DataParserDefinitionEmpty extends DataParserDefinition<
 
 export const emptyKind = createDataParserKind("empty");
 
-type _DataParserEmpty<
-	GenericDefinition extends DataParserDefinitionEmpty,
-> = (
-	& DataParserBase<
+export class DataParserEmpty<
+	GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty,
+> extends DataParserBase.init(
+		emptyKind,
+	)<
 		GenericDefinition,
 		undefined,
 		undefined
-	>
-	& Kind<typeof emptyKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserEmpty);
+	}
 
-export interface DataParserEmpty<
-	GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty,
-> extends _DataParserEmpty<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -41,50 +41,57 @@ export interface DataParserEmpty<
 			],
 			GenericChecker
 		>
-	): DataParserEmpty<
+	) => DataParserEmpty<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/empty/index.md}
- */
-export function empty<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionEmpty> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionEmpty>,
-		GenericDefinition
-	>,
-): DataParserEmpty<
-		MergeDefinition<
-			DataParserDefinitionEmpty,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserEmpty>(
-		emptyKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
+	public static override execParse(
+		self: DataParserEmpty,
+		data: unknown,
+		error: DataParserError,
+	): undefined | typeof SymbolDataParserError {
+		if (data === undefined) {
+			return data;
+		} else if (self.definition.coerce && data === "undefined") {
+			return undefined;
+		}
+
+		return addIssue(error, "undefined", data, self.definition.errorMessage);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserEmpty) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionEmpty>,
+	): DataParserDefinitionEmpty {
+		return {
+			...definition,
 			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			if (data === undefined) {
-				return data;
-			} else if (self.definition.coerce && data === "undefined") {
-				return undefined;
-			}
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
 
-			return addIssue(error, "undefined", data, self.definition.errorMessage);
-		},
-		empty.overrideHandler,
-	) as never;
-
-	return self as never;
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionEmpty> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionEmpty>,
+			GenericDefinition
+		>,
+	): DataParserEmpty<
+			MergeDefinition<
+				DataParserDefinitionEmpty,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserEmpty(this.prepareDefinition(definition)) as never;
+	}
 }
 
-empty.overrideHandler = createOverride<DataParserEmpty>("@duplojs/utils/data-parser/empty");
+export const empty = DataParserEmpty.create;

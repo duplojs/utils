@@ -1,77 +1,40 @@
-import { type Kind, type NeverCoalescing, type AnyFunction, type SimplifyTopLevel, type AnyValue, pipe, createOverride, type OverrideHandler, type GetKind, type RemoveKind, type IsEqual, type ComputedTypeError, type FixDeepFunctionInfer } from "@scripts/common";
-import { type MergeDefinition, type PrepareDataParserDefinition } from "./types";
-import { type Output, type DataParserBase, type DataParserDefinition, type DataParserCheckerBase, type DataParserCheckerDefinition } from "./base";
-import type * as DEither from "../either";
+import { type AnyConstructor, type AnyFunction, type AnyValue, type ComputedTypeError, type FixDeepFunctionInfer, type GetKind, type IsEqual, type Kind, kindClass, type NeverCoalescing, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
+import { createDataParserKind } from "./kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "./base";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
-import * as DObject from "../object";
-import * as DArray from "../array";
-import { createDataParserKind } from "./kind";
+import { type DataParserCheckerBase, type DataParserCheckerDefinition } from "./baseChecker";
+import { type MergeDefinition, type Output, type PrepareDataParserDefinition } from "./types";
 
-export const extendedKind = createDataParserKind("extended");
+export const dataParserExtendedKind = createDataParserKind("extended");
 
-type _DataParserExtended<
-	GenericDefinition extends DataParserDefinition,
-	GenericOutput extends unknown,
-	GenericInput extends unknown,
-> = (
-	& DataParserBase<GenericDefinition, GenericOutput, GenericInput>
-	& Kind<typeof extendedKind.definition>
-);
-
-export interface DataParserBaseExtended<
+export abstract class DataParserBaseExtended<
 	GenericDefinition extends DataParserDefinition = DataParserDefinition,
 	GenericOutput extends unknown = unknown,
 	GenericInput extends unknown = GenericOutput,
-> extends _DataParserExtended<
-		GenericDefinition,
-		GenericOutput,
-		GenericInput
+> extends kindClass(
+		dataParserExtendedKind,
+		DataParserBase,
+	)<
+		DataParserBase<
+			GenericDefinition,
+			GenericOutput,
+			GenericInput
+		>
 	> {
-
-	/**
-	 * {@include dataParser/extended/base/parse/index.md}
-	 */
-	parse(
-		data: unknown,
-	): DEither.Success<GenericOutput> | DEither.Error<DataParserError>;
-
-	/**
-	 * {@include dataParser/extended/base/asyncParse/index.md}
-	 */
-	asyncParse(
-		data: unknown,
-	): Promise<
-		| DEither.Success<GenericOutput>
-		| DEither.Error<DataParserError>
-	>;
-
-	/**
-	 * {@include dataParser/extended/base/parseOrThrow/index.md}
-	 */
-	parseOrThrow(
-		data: unknown,
-	): GenericOutput;
-
-	/**
-	 * {@include dataParser/extended/base/asyncParseOrThrow/index.md}
-	 */
-	asyncParseOrThrow(
-		data: unknown,
-	): Promise<GenericOutput>;
+	public constructor(
+		definition: GenericDefinition,
+	) {
+		super(null as never, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/addChecker/index.md}
 	 */
-	addChecker(...args: never): DataParserBaseExtended;
+	public declare addChecker: (...args: never) => DataParserBaseExtended;
 
-	/**
-	 * {@include dataParser/extended/base/clone/index.md}
-	 */
-	clone(): this;
-
-	contractExtended<
+	public contractExtended<
 		GenericValue extends unknown,
 	>(
 		...args: IsEqual<Output<this>, GenericValue> extends true
@@ -79,11 +42,14 @@ export interface DataParserBaseExtended<
 			: [] & ComputedTypeError<"ContractExtended error.">
 	): DataParserExtended<GenericValue>;
 
+	public contractExtended() {
+		return this as never;
+	}
+
 	/**
 	 * {@include dataParser/extended/base/array/index.md}
 	 */
-	array<
-		GenericThis extends this = this,
+	public array<
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionArray<
 				Output<this>[]
@@ -99,55 +65,44 @@ export interface DataParserBaseExtended<
 				"element"
 			>,
 			GenericDefinition
-		>
-	): dataParsersExtended.DataParserArrayExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionArray,
-			NeverCoalescing<GenericDefinition, {}> & { readonly element: GenericThis }
-		>
-	>;
+		>,
+	) {
+		return dataParsersExtended.array(this, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/transform/index.md}
 	 */
-	transform<
-		GenericThis extends this = this,
-		GenericOutput extends AnyValue = AnyValue,
+	public transform<
+		GenericNewOutput extends AnyValue = AnyValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTransform<
-				dataParsers.DataParserTransformOutput<() => GenericOutput>
+				dataParsers.DataParserTransformOutput<() => GenericNewOutput>
 			>,
 			"inner" | "theFunction"
 		> = never,
 	>(
 		theFunction: (
 			input: Output<this>,
-			error: DataParserError
-		) => GenericOutput,
+			error: DataParserError,
+		) => GenericNewOutput,
 		definition?: FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionTransform<
-					dataParsers.DataParserTransformOutput<() => GenericOutput>
+					dataParsers.DataParserTransformOutput<() => GenericNewOutput>
 				>,
 				"inner" | "theFunction"
 			>,
 			GenericDefinition
-		>
-	): dataParsersExtended.DataParserTransformExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTransform,
-			NeverCoalescing<GenericDefinition, {}> & {
-				inner: GenericThis;
-				theFunction(input: Output<GenericThis>): GenericOutput;
-			}
-		>
-	>;
+		>,
+	) {
+		return dataParsersExtended.transform(this, theFunction, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/arrayCoalescing/index.md}
 	 */
-	arrayCoalescing<
-		GenericThis extends this = this,
+	public arrayCoalescing<
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
 				Output<this>[]
@@ -164,74 +119,49 @@ export interface DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserUnionExtended<
-		SimplifyTopLevel<
-			& Omit<dataParsers.DataParserDefinitionUnion, "options">
-			& {
-				readonly options: [
-					dataParsersExtended.DataParserArrayExtended<
-						SimplifyTopLevel<
-							& Omit<dataParsers.DataParserDefinitionArray, "element">
-							& {
-								readonly element: GenericThis;
-							}
-						>
-					>,
-					dataParsersExtended.DataParserTransformExtended<
-						SimplifyTopLevel<
-							& Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">
-							& {
-								readonly inner: GenericThis;
-								theFunction(input: Output<GenericThis>, error: DataParserError): Output<GenericThis>[];
-							}
-						>
-					>,
-				];
-			}
-		>
-	>;
+	) {
+		return dataParsersExtended.union(
+			[
+				this.array(),
+				this.transform((data) => [data]),
+			],
+			definition,
+		);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/pipe/index.md}
 	 */
-	pipe<
-		GenericThis extends this = this,
-		GenericOutput extends DataParserBase = DataParserBase,
+	public pipe<
+		GenericOutputParser extends DataParser = DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionPipe<
-				Output<GenericOutput>
+				Output<GenericOutputParser>
 			>,
 			"input" | "output"
 		> = never,
 	>(
-		output: GenericOutput,
+		output: GenericOutputParser,
 		definition?: FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionPipe<
-					Output<GenericOutput>
+					Output<GenericOutputParser>
 				>,
 				"input" | "output"
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserPipeExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionPipe,
-			NeverCoalescing<GenericDefinition, {}> & {
-				input: GenericThis;
-				output: GenericOutput;
-			}
-		>
-	>;
+	) {
+		return dataParsersExtended.pipe(this, output, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/nullable/index.md}
 	 */
-	nullable<
-		GenericThis extends this = this,
+	public nullable<
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionNullable<
-					Output<this> | null
+				Output<this>
 			>,
 			"inner"
 		> = never,
@@ -239,27 +169,23 @@ export interface DataParserBaseExtended<
 		definition?: FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionNullable<
-					Output<this> | null
+					Output<this>
 				>,
 				"inner"
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserNullableExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionNullable,
-			NeverCoalescing<GenericDefinition, {}> & { inner: GenericThis }
-		>
-	>;
+	) {
+		return dataParsersExtended.nullable(this, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/optional/index.md}
 	 */
-	optional<
-		GenericThis extends this = this,
+	public optional<
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionOptional<
-					Output<this> | undefined
+				Output<this>
 			>,
 			"inner"
 		> = never,
@@ -267,25 +193,21 @@ export interface DataParserBaseExtended<
 		definition?: FixDeepFunctionInfer<
 			PrepareDataParserDefinition<
 				dataParsers.DataParserDefinitionOptional<
-					Output<this> | undefined
+					Output<this>
 				>,
 				"inner"
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserOptionalExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionOptional,
-			NeverCoalescing<GenericDefinition, {}> & { inner: GenericThis }
-		>
-	>;
+	) {
+		return dataParsersExtended.optional(this, definition);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/or/index.md}
 	 */
-	or<
-		GenericThis extends this = this,
-		GenericDataParser extends DataParserBase = DataParserBase,
+	public or<
+		GenericDataParser extends DataParser = DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
 				Output<this | GenericDataParser>
@@ -303,23 +225,29 @@ export interface DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserUnionExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionUnion,
-			NeverCoalescing<GenericDefinition, {}> & {
-				options: [GenericThis, GenericDataParser];
-			}
-		>
-	>;
+	) {
+		return dataParsersExtended.union(
+			[this, option],
+			definition,
+		);
+	}
 
-	refine(...args: never): DataParserBaseExtended;
+	public refine(
+		theFunction: (input: GenericOutput) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>,
+	): DataParserBaseExtended {
+		return (this.addChecker as AnyFunction<[unknown], never>)(
+			dataParsers.checkerRefine(theFunction, definition),
+		);
+	}
 
 	/**
 	 * {@include dataParser/extended/base/recover/index.md}
 	 */
-	recover<
-		GenericThis extends this = this,
-		GenericRecoveredValue extends unknown = unknown,
+	public recover<
+		GenericRecoveredValue extends Output<this> = Output<this>,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionRecover<
 				Output<this>
@@ -337,152 +265,100 @@ export interface DataParserBaseExtended<
 			>,
 			GenericDefinition
 		>,
-	): dataParsersExtended.DataParserRecoverExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionRecover,
-			NeverCoalescing<GenericDefinition, {}> & {
-				inner: GenericThis;
-				recoveredValue: GenericRecoveredValue;
+	) {
+		return dataParsersExtended.recover(
+			this,
+			recoveredValue,
+			definition,
+		);
+	}
+
+	public static initExtended<
+		GenericConstructor extends SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
+	>(
+		dataParserConstructor: GenericConstructor,
+	) {
+		type CheckedConstructorKind = & Kind<{
+			name: "checked-constructor";
+			value: never;
+		}>;
+
+		abstract class DataParserBaseExtendedInit<
+			GenericDefinition extends DataParserDefinition = DataParserDefinition,
+			GenericOutput extends unknown = unknown,
+			GenericInput extends unknown = GenericOutput,
+		> extends kindClass(
+				dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"],
+				DataParserBaseExtended,
+			)<
+				DataParserBaseExtended<
+					GenericDefinition,
+					GenericOutput,
+					GenericInput
+				>
+			> {
+			public constructor(
+				definition: GenericDefinition,
+			) {
+				super(null as never, definition);
 			}
-		>
-	>;
-}
 
-export function dataParserBaseExtendedInit<
-	GenericDataParser extends DataParserBase,
-	GenericDataParserExtended extends GenericDataParser & DataParserBaseExtended,
->(
-	dataParser: NoInfer<
-		GenericDataParser
-	>,
-	rest: NoInfer<
-		{
-			[
-			Prop in Exclude<
-				keyof GenericDataParserExtended,
-				keyof (GenericDataParser & DataParserBaseExtended)
-			>
-			]: GenericDataParserExtended[Prop] extends AnyFunction
-				? (
-					self: GenericDataParserExtended,
-					...args: Parameters<GenericDataParserExtended[Prop]>
-				) => ReturnType<GenericDataParserExtended[Prop]>
-				: GenericDataParserExtended[Prop]
-		}
-	>,
-	specificOverrideHandler: OverrideHandler<NoInfer<GenericDataParserExtended>>,
-): GenericDataParserExtended {
-	const self: DataParserBaseExtended = pipe(
-		{
-			...dataParser,
-			...pipe(
-				rest,
-				DObject.entries,
-				DArray.map(
-					([key, value]) => DObject.entry(
-						key,
-						typeof value === "function"
-							? (...args: never[]) => (value as AnyFunction)(self, ...args)
-							: value,
-					),
+			public checkConstructor<
+				GenericConstructor extends object,
+			>(
+				constructor: (
+					GenericConstructor
+					& RequireConstructor<GenericConstructor>
 				),
-				DObject.fromEntries,
-			),
-			array(definition) {
-				return dataParsersExtended.array(
-					self,
-					definition,
-				);
-			},
-			transform(theFunction, definition) {
-				return dataParsersExtended.transform(
-					self as never,
-					theFunction,
-					definition,
-				);
-			},
-			arrayCoalescing() {
-				return dataParsersExtended.union([
-					self.array(),
-					self.transform((data) => [data]),
-				]) as never;
-			},
-			pipe(output, definition) {
-				return dataParsersExtended.pipe(
-					self,
-					output,
-					definition,
-				);
-			},
-			nullable(definition) {
-				return dataParsersExtended.nullable(
-					self,
-					definition,
-				);
-			},
-			optional(definition) {
-				return dataParsersExtended.optional(
-					self,
-					definition,
-				);
-			},
-			or(option, definition) {
-				return dataParsersExtended.union(
-					[self, option],
-					definition,
-				);
-			},
-			addChecker(...checkers: any[]) {
-				return dataParserBaseExtendedInit(
-					dataParser.addChecker(...checkers as never),
-					rest,
-					specificOverrideHandler,
-				);
-			},
-			clone() {
-				return dataParserBaseExtendedInit(
-					dataParser.clone(),
-					rest,
-					specificOverrideHandler,
-				);
-			},
-			refine(theFunction) {
-				return dataParserBaseExtendedInit(
-					(dataParser.addChecker as AnyFunction<[unknown], never>)(
-						dataParsers.checkerRefine(theFunction),
-					),
-					rest,
-					specificOverrideHandler,
-				);
-			},
-			recover(recoveredValue, definition) {
-				return dataParsersExtended.recover(
-					self,
-					recoveredValue,
-					definition,
-				);
-			},
-			contract() {
-				return self;
-			},
-			contractExtended() {
-				return self as never;
-			},
-		} satisfies RemoveKind<DataParserBaseExtended>,
-		extendedKind.setTo,
-		dataParserBaseExtendedInit.overrideHandler.apply,
-		specificOverrideHandler.apply as AnyFunction,
-	);
+			): GenericConstructor & CheckedConstructorKind {
+				return constructor as never;
+			}
 
-	return self as never;
+			public abstract override get classConstructor(): (
+				& AnyConstructor<[any], (
+					& DataParserBaseExtended<any>
+					& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+				)>
+				& {
+					create(...args: never[]): (
+						& DataParserBaseExtended<any>
+						& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+					);
+					execParse(
+						self: (
+							& DataParserBase<any>
+							& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+						),
+						data: unknown,
+						error: DataParserError,
+					): unknown;
+					dataParserIsAsynchronous(
+						self: (
+							& DataParserBase<any>
+							& Kind<typeof dataParserConstructor.specificKindHandler.definition>
+						),
+					): boolean;
+					prepareDefinition(
+						...args: never[]
+					): DataParserDefinition;
+				}
+				& CheckedConstructorKind
+			);
+
+			public static execParse = dataParserConstructor.execParse as GenericConstructor["execParse"];
+
+			public static dataParserIsAsynchronous = dataParserConstructor.dataParserIsAsynchronous as GenericConstructor["dataParserIsAsynchronous"];
+
+			public static prepareDefinition = dataParserConstructor.prepareDefinition as GenericConstructor["prepareDefinition"];
+
+			public static declare create: GenericConstructor["create"];
+
+			public static specificKindHandler = dataParserConstructor.specificKindHandler as GenericConstructor["specificKindHandler"];
+		}
+
+		return DataParserBaseExtendedInit;
+	}
 }
-
-dataParserBaseExtendedInit.overrideHandler = createOverride<DataParserBaseExtended>("@duplojs/utils/data-parser-extended/base");
-
-/**
- * @deprecated use dataParserBaseExtendedInit
- */
-export const dataParserExtendedInit = dataParserBaseExtendedInit;
 
 export interface DataParserExtended<
 	GenericOutput extends unknown = unknown,

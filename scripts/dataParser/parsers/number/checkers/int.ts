@@ -1,8 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { number as numberParser } from "..";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinition {
 
@@ -10,35 +10,46 @@ export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinit
 
 export const checkerIntKind = createDataParserKind("checker-number-int");
 
-type _DataParserCheckerInt = (
-	& Kind<typeof checkerIntKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerInt extends DataParserCheckerBase.init(
+	checkerIntKind,
+)<
 		DataParserCheckerDefinitionInt,
 		number
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerInt);
+	}
 
-export interface DataParserCheckerInt extends _DataParserCheckerInt {
+	public isAsynchronous() {
+		return false;
+	}
 
+	public static override execCheck(
+		data: number,
+		error: DataParserError,
+		self: DataParserCheckerInt,
+		dataParser: DataParser,
+	) {
+		if (Number.isInteger(data)) {
+			return data;
+		}
+
+		return addIssue(
+			error,
+			"integer",
+			data,
+			self.definition.errorMessage ?? dataParser.definition.errorMessage,
+		);
+	}
+
+	public static override create(
+		definition: Partial<DataParserCheckerDefinitionInt> = {},
+	) {
+		return new DataParserCheckerInt(definition);
+	}
 }
 
-export function checkerInt(
-	definition: Partial<DataParserCheckerDefinitionInt> = {},
-): DataParserCheckerInt {
-	return dataParserCheckerInit<DataParserCheckerInt>(
-		checkerIntKind,
-		{
-			definition,
-		},
-		(data, error, self, dataParser) => {
-			if (Number.isInteger(data)) {
-				return data;
-			}
-
-			return addIssue(error, "integer", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
-		},
-	);
-}
+export const checkerInt = DataParserCheckerInt.create;
 
 export function int(
 	definition?: Partial<DataParserCheckerDefinitionInt>,

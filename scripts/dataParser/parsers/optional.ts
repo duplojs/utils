@@ -1,7 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type IsEqual, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { createDataParserKind } from "../kind";
+import { callThen, type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { type DataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserOptionalCheckers<
 	GenericInput extends unknown = unknown,
@@ -18,10 +20,11 @@ export interface DataParserDefinitionOptional<
 
 export const optionalKind = createDataParserKind("optional");
 
-type _DataParserOptional<
-	GenericDefinition extends DataParserDefinitionOptional,
-> = (
-	& DataParserBase<
+export class DataParserOptional<
+	GenericDefinition extends DataParserDefinitionOptional = DataParserDefinitionOptional,
+> extends DataParserBase.init(
+		optionalKind,
+	)<
 		GenericDefinition,
 		IsEqual<
 			GenericDefinition["coalescingValue"],
@@ -30,14 +33,12 @@ type _DataParserOptional<
 			? Output<GenericDefinition["inner"]> | undefined
 			: Output<GenericDefinition["inner"]>,
 		Input<GenericDefinition["inner"]> | undefined
-	>
-	& Kind<typeof optionalKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserOptional);
+	}
 
-export interface DataParserOptional<
-	GenericDefinition extends DataParserDefinitionOptional = DataParserDefinitionOptional,
-> extends _DataParserOptional<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -50,71 +51,69 @@ export interface DataParserOptional<
 			],
 			GenericChecker
 		>
-	): DataParserOptional<
+	) => DataParserOptional<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/optional/index.md}
- */
-export function optional<
-	GenericDataParser extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionOptional<
-			Output<GenericDataParser>
-		>,
-		"inner"
-	> = never,
->(
-	inner: GenericDataParser,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserOptional,
+		data: unknown,
+		error: DataParserError,
+	) {
+		if (data === undefined) {
+			return self.definition.coalescingValue;
+		}
+
+		return self.definition.inner.exec(data, error);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserOptional) {
+		return self.definition.inner.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		inner: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionOptional, "inner">>,
+	): DataParserDefinitionOptional {
+		return {
+			...definition,
+			inner,
+			coalescingValue: definition?.coalescingValue,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionOptional<
 				Output<GenericDataParser>
 			>,
 			"inner"
+		> = never,
+	>(
+		inner: GenericDataParser,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionOptional<
+					Output<GenericDataParser>
+				>,
+				"inner"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserOptional<
-		MergeDefinition<
-			DataParserDefinitionOptional,
-			NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
-		>
-	> {
-	const self = dataParserBaseInit<DataParserOptional>(
-		optionalKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			inner,
-			coalescingValue: definition?.coalescingValue,
-		},
-		{
-			sync: (data, error, self) => {
-				if (data === undefined) {
-					return self.definition.coalescingValue;
-				}
-
-				return self.definition.inner.exec(data, error);
-			},
-			async: async(data, error, self) => {
-				if (data === undefined) {
-					return self.definition.coalescingValue;
-				}
-
-				return self.definition.inner.asyncExec(data, error);
-			},
-			isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
-		},
-		optional.overrideHandler,
-	) as never;
-
-	return self as never;
+	): DataParserOptional<
+			MergeDefinition<
+				DataParserDefinitionOptional,
+				NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
+			>
+		> {
+		return new DataParserOptional(this.prepareDefinition(inner, definition)) as never;
+	}
 }
 
-optional.overrideHandler = createOverride<DataParserOptional>("@duplojs/utils/data-parser/optional");
+export const optional = DataParserOptional.create;

@@ -38,9 +38,6 @@ export function partialShape(
 	);
 }
 
-/**
- * {@include dataParser/classic/object/partial/index.md}
- */
 export function partial<
 	GenericDataParserObject extends DataParserObject,
 	const GenericDefinition extends Partial<

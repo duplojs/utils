@@ -1,24 +1,22 @@
-import { type Kind, type Memoized, type FixDeepFunctionInfer, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type Memoized, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserLazyExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionLazy,
-> = (
-	& Kind<typeof dataParsers.lazyKind.definition>
-	& DataParserBaseExtended<
+export class DataParserLazyExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionLazy = dataParsers.DataParserDefinitionLazy,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserLazy)<
 		GenericDefinition,
 		Output<dataParsers.DataParserLazy<GenericDefinition>>,
 		Input<dataParsers.DataParserLazy<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserLazyExtended);
+	}
 
-export interface DataParserLazyExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionLazy = dataParsers.DataParserDefinitionLazy,
-> extends _DataParserLazyExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,66 +29,54 @@ export interface DataParserLazyExtended<
 			],
 			GenericChecker
 		>
-	): DataParserLazyExtended<
+	) => DataParserLazyExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserLazyExtended<
+		>,
+	) => DataParserLazyExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/lazy/index.md}
- */
-export function lazy<
-	GenericDataParser extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionLazy<
-			Output<GenericDataParser>
-		>,
-		"getter"
-	> = never,
->(
-	getter: () => GenericDataParser,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionLazy<
 				Output<GenericDataParser>
 			>,
 			"getter"
+		> = never,
+	>(
+		getter: () => GenericDataParser,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionLazy<
+					Output<GenericDataParser>
+				>,
+				"getter"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserLazyExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionLazy,
+	): DataParserLazyExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionLazy,
 			NeverCoalescing<GenericDefinition, {}> & {
 				getter: Memoized<GenericDataParser>;
 			}
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserLazy,
-		DataParserLazyExtended
-	>(
-		dataParsers.lazy(getter, definition),
-		{},
-		lazy.overrideHandler,
-	);
-
-	return self as never;
+			>
+		> {
+		return new DataParserLazyExtended(this.prepareDefinition(getter, definition)) as never;
+	}
 }
 
-lazy.overrideHandler = createOverride<DataParserLazyExtended>("@duplojs/utils/data-parser-extended/lazy");
+export const lazy = DataParserLazyExtended.create;

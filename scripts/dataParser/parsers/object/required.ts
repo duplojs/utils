@@ -1,11 +1,9 @@
 import { type MergeDefinition } from "@scripts/dataParser/types";
 import { type DataParserObjectShape, type DataParserDefinitionObject, type DataParserObject, object } from ".";
-import { forward, pipe, when, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { pipe, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserOptional, optionalKind } from "../optional";
-import { identifier } from "@scripts/dataParser/identifier";
 import * as DObject from "@scripts/object";
 import * as DArray from "@scripts/array";
-import * as DEither from "@scripts/either";
 
 export type RequireDataParserObject<
 	GenericShape extends DataParserObjectShape,
@@ -22,23 +20,17 @@ export function requiredShape(
 		shape,
 		DObject.entries,
 		DArray.map(
-			([key, dataParser]) => pipe(
-				dataParser,
-				when(
-					identifier(optionalKind),
-					(dataParser) => dataParser.definition.inner,
-				),
-				DEither.whenIsLeft(forward),
-				(dataParser) => DObject.entry(key, dataParser),
+			([key, dataParser]) => DObject.entry(
+				key,
+				optionalKind.has(dataParser)
+					? (dataParser as DataParserOptional).definition.inner
+					: dataParser,
 			),
 		),
 		DObject.fromEntries,
 	);
 }
 
-/**
- * {@include dataParser/classic/object/required/index.md}
- */
 export function required<
 	GenericDataParserObject extends DataParserObject,
 	const GenericDefinition extends Partial<

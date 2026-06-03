@@ -1,9 +1,9 @@
-import { type UnionContain, type IsEqual, type Kind, type Adaptor, type NeverCoalescing, type FixDeepFunctionInfer, createOverride, type Or } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
-import * as DArray from "@scripts/array";
+import { callThen, type Adaptor, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, type Or, type UnionContain } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 
@@ -90,10 +90,11 @@ export interface DataParserDefinitionTuple<
 
 export const tupleKind = createDataParserKind("tuple");
 
-type _DataParserTuple<
-	GenericDefinition extends DataParserDefinitionTuple,
-> = (
-	& DataParserBase<
+export class DataParserTuple<
+	GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple,
+> extends DataParserBase.init(
+		tupleKind,
+	)<
 		GenericDefinition,
 		DataParserTupleShapeOutput<
 			GenericDefinition["shape"],
@@ -103,14 +104,12 @@ type _DataParserTuple<
 			GenericDefinition["shape"],
 			GenericDefinition["rest"]
 		>
-	>
-	& Kind<typeof tupleKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTuple);
+	}
 
-export interface DataParserTuple<
-	GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple,
-> extends _DataParserTuple<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -123,145 +122,122 @@ export interface DataParserTuple<
 			],
 			GenericChecker
 		>
-	): DataParserTuple<
+	) => DataParserTuple<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/tuple/index.md}
- */
-export function tuple<
-	const GenericShape extends TupleShape,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionTuple<
-			DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
-		>,
-		"shape"
-	> = never,
->(
-	shape: GenericShape,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserTuple,
+		data: unknown,
+		error: DataParserError,
+	): MaybePromise<unknown[] | SymbolDataParserError> {
+		if (!(data instanceof Array)) {
+			return addIssue(error, "tuple array", data, self.definition.errorMessage);
+		}
+
+		const currentIndexPath = error.currentPath.length;
+
+		const output = data.reduce<
+			MaybePromise<unknown[] | SymbolDataParserError>
+		>(
+			(accumulator, value, index) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					const dataParser = self.definition.shape[index] ?? self.definition.rest;
+					setErrorPath(
+						error,
+						dataParser === self.definition.rest
+							? `[tupleRest: ${index}]`
+							: `[tuple: ${index}]`,
+						currentIndexPath,
+					);
+					if (!dataParser) {
+						addIssue(error, "empty", data, self.definition.errorMessage);
+						return SymbolDataParserError;
+					}
+
+					return callThen(
+						dataParser.exec(value, error),
+						(result) => {
+							if (
+								result === SymbolDataParserError
+								|| awaitedAccumulator === SymbolDataParserError
+							) {
+								return SymbolDataParserError;
+							}
+
+							awaitedAccumulator.push(result);
+							return awaitedAccumulator;
+						},
+					);
+				},
+			),
+			data,
+		);
+
+		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+
+		return output;
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserTuple) {
+		return self.definition.shape.some(
+			(element) => element.isAsynchronous(),
+		) || !!self.definition.rest?.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		shape: TupleShape,
+		definition?: Partial<Omit<DataParserDefinitionTuple, "shape">>,
+	): DataParserDefinitionTuple {
+		return {
+			...definition,
+			shape,
+			rest: definition?.rest,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	public static override create<
+		const GenericShape extends TupleShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionTuple<
 				DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
 			>,
 			"shape"
+		> = never,
+	>(
+		shape: GenericShape,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionTuple<
+					DataParserTupleShapeOutput<GenericShape, GenericDefinition["rest"]>
+				>,
+				"shape"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserTuple<
-		MergeDefinition<
-			DataParserDefinitionTuple,
-			& NeverCoalescing<GenericDefinition, {}>
-			& {
-				readonly shape: GenericShape;
-				readonly rest: Or<[
-					IsEqual<GenericDefinition["rest"], unknown>,
-					IsEqual<GenericDefinition, never>,
-				]> extends true
-					? undefined
-					: GenericDefinition["rest"];
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserTuple>(
-		tupleKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			rest: definition?.rest,
-			shape,
-		},
-		{
-			sync: (data, error, self) => {
-				if (!(data instanceof Array)) {
-					return addIssue(error, "tuple array", data, self.definition.errorMessage);
+	): DataParserTuple<
+			MergeDefinition<
+				DataParserDefinitionTuple,
+				& NeverCoalescing<GenericDefinition, {}>
+				& {
+					readonly shape: GenericShape;
+					readonly rest: Or<[
+						IsEqual<GenericDefinition["rest"], unknown>,
+						IsEqual<GenericDefinition, never>,
+					]> extends true
+						? undefined
+						: GenericDefinition["rest"];
 				}
-
-				let output: SymbolDataParserError | unknown[] = [];
-				const currentIndexPath = error.currentPath.length;
-
-				for (let index = 0; index < self.definition.shape.length; index++) {
-					setErrorPath(error, `[${index}]`, currentIndexPath);
-
-					const result = self.definition.shape[index]?.exec(data[index], error);
-
-					if (result === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					} else if (output !== SymbolDataParserError) {
-						output.push(result);
-					}
-				}
-
-				if (self.definition.rest) {
-					for (let index = self.definition.shape.length; index < data.length; index++) {
-						setErrorPath(error, `[${index}]`, currentIndexPath);
-
-						const result = self.definition.rest.exec(data[index], error);
-
-						if (result === SymbolDataParserError) {
-							output = SymbolDataParserError;
-						} else if (output !== SymbolDataParserError) {
-							output.push(result);
-						}
-					}
-				}
-
-				void (self.definition.shape.length && popErrorPath(error));
-
-				return output as never;
-			},
-			async: async(data, error, self) => {
-				if (!(data instanceof Array)) {
-					return addIssue(error, "tuple array", data, self.definition.errorMessage);
-				}
-
-				let output: SymbolDataParserError | unknown[] = [];
-				const currentIndexPath = error.currentPath.length;
-
-				for (let index = 0; index < self.definition.shape.length; index++) {
-					setErrorPath(error, `[${index}]`, currentIndexPath);
-
-					const result = await self.definition.shape[index]?.asyncExec(data[index], error);
-
-					if (result === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					} else if (output !== SymbolDataParserError) {
-						output.push(result);
-					}
-				}
-
-				if (self.definition?.rest) {
-					for (let index = self.definition.shape.length; index < data.length; index++) {
-						setErrorPath(error, `[${index}]`, currentIndexPath);
-
-						const result = await self.definition.rest.asyncExec(data[index], error);
-
-						if (result === SymbolDataParserError) {
-							output = SymbolDataParserError;
-						} else if (output !== SymbolDataParserError) {
-							output.push(result);
-						}
-					}
-				}
-
-				void (self.definition.shape.length && popErrorPath(error));
-
-				return output as never;
-			},
-			isAsynchronous: (self) => DArray.some(
-				self.definition.shape,
-				(element) => element.isAsynchronous(),
-			) || !!self.definition.rest?.isAsynchronous(),
-		},
-		tuple.overrideHandler,
-	) as never;
-
-	return self as never;
+			>
+		> {
+		return new DataParserTuple(this.prepareDefinition(shape, definition)) as never;
+	}
 }
 
-tuple.overrideHandler = createOverride<DataParserTuple>("@duplojs/utils/data-parser/tuple");
+export const tuple = DataParserTuple.create;

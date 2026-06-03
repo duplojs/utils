@@ -1,5 +1,5 @@
 import { type IsExtends } from "@scripts/common";
-import { type DataParserCheckerDefinition, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 import type * as AllDataParser from "../parsers";
 import { type TheTime } from "@scripts/date";
 
@@ -13,18 +13,18 @@ export type DataParserCheckers = (
 	| AllDataParser.DataParserCheckerArrayMin
 	| AllDataParser.DataParserCheckerBigIntMax
 	| AllDataParser.DataParserCheckerBigIntMin
+	| AllDataParser.DataParserCheckerEmail
+	| AllDataParser.DataParserCheckerInt
 	| AllDataParser.DataParserCheckerNumberMax
 	| AllDataParser.DataParserCheckerNumberMin
-	| AllDataParser.DataParserCheckerInt
+	| AllDataParser.DataParserCheckerRegex
+	| AllDataParser.DataParserCheckerRefine
 	| AllDataParser.DataParserCheckerStringMax
 	| AllDataParser.DataParserCheckerStringMin
-	| AllDataParser.DataParserCheckerEmail
-	| AllDataParser.DataParserCheckerRegex
+	| AllDataParser.DataParserCheckerTimeMax
+	| AllDataParser.DataParserCheckerTimeMin
 	| AllDataParser.DataParserCheckerUrl
 	| AllDataParser.DataParserCheckerUuid
-	| AllDataParser.DataParserCheckerRefine
-	| AllDataParser.DataParserCheckerTimeMin
-	| AllDataParser.DataParserCheckerTimeMax
 );
 
 export interface EligibleChecker<
@@ -50,25 +50,25 @@ export interface EligibleChecker<
 		: never;
 	number: IsExtends<GenericValue, number> extends true
 		? (
+			| AllDataParser.DataParserCheckerInt
 			| AllDataParser.DataParserCheckerNumberMax
 			| AllDataParser.DataParserCheckerNumberMin
-			| AllDataParser.DataParserCheckerInt
 		)
 		: never;
 	string: IsExtends<GenericValue, string> extends true
 		? (
-			| AllDataParser.DataParserCheckerStringMax
-			| AllDataParser.DataParserCheckerStringMin
 			| AllDataParser.DataParserCheckerEmail
 			| AllDataParser.DataParserCheckerRegex
+			| AllDataParser.DataParserCheckerStringMax
+			| AllDataParser.DataParserCheckerStringMin
 			| AllDataParser.DataParserCheckerUrl
 			| AllDataParser.DataParserCheckerUuid
 		)
 		: never;
 	time: IsExtends<GenericValue, TheTime> extends true
 		? (
-			| AllDataParser.DataParserCheckerTimeMin
 			| AllDataParser.DataParserCheckerTimeMax
+			| AllDataParser.DataParserCheckerTimeMin
 		)
 		: never;
 }

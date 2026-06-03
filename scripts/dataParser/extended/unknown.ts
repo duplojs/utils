@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
 
-type _DataParserUnknownExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionUnknown,
-> = (
-	& Kind<typeof dataParsers.unknownKind.definition>
-	& DataParserBaseExtended<
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
+
+export class DataParserUnknownExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionUnknown = dataParsers.DataParserDefinitionUnknown,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserUnknown)<
 		GenericDefinition,
 		Output<dataParsers.DataParserUnknown<GenericDefinition>>,
 		Input<dataParsers.DataParserUnknown<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserUnknownExtended);
+	}
 
-export interface DataParserUnknownExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionUnknown = dataParsers.DataParserDefinitionUnknown,
-> extends _DataParserUnknownExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,52 +29,40 @@ export interface DataParserUnknownExtended<
 			],
 			GenericChecker
 		>
-	): DataParserUnknownExtended<
+	) => DataParserUnknownExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserUnknownExtended<
+		>,
+	) => DataParserUnknownExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/unknown/index.md}
- */
-export function unknown<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown>,
-		GenericDefinition
-	>,
-): DataParserUnknownExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionUnknown,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserUnknown,
-		DataParserUnknownExtended
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown> = never,
 	>(
-		dataParsers.unknown(definition),
-		{},
-		unknown.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionUnknown>,
+			GenericDefinition
+		>,
+	): DataParserUnknownExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionUnknown,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserUnknownExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-unknown.overrideHandler = createOverride<DataParserUnknownExtended>("@duplojs/utils/data-parser-extended/unknown");
+export const unknown = DataParserUnknownExtended.create;

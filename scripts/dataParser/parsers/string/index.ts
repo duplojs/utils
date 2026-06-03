@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../../kind";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -16,21 +17,20 @@ export interface DataParserDefinitionString extends DataParserDefinition<
 
 export const stringKind = createDataParserKind("string");
 
-type _DataParserString<
-	GenericDefinition extends DataParserDefinitionString,
-> = (
-	& DataParserBase<
+export class DataParserString<
+	GenericDefinition extends DataParserDefinitionString = DataParserDefinitionString,
+> extends DataParserBase.init(
+		stringKind,
+	)<
 		GenericDefinition,
 		string,
 		string
-	>
-	& Kind<typeof stringKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserString);
+	}
 
-export interface DataParserString<
-	GenericDefinition extends DataParserDefinitionString = DataParserDefinitionString,
-> extends _DataParserString<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -43,56 +43,71 @@ export interface DataParserString<
 			],
 			GenericChecker
 		>
-	): DataParserString<
+	) => DataParserString<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/string/index.md}
- */
-export function string<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionString>,
-		GenericDefinition
-	>,
-): DataParserString<
-		MergeDefinition<
-			DataParserDefinitionString,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserString>(
-		stringKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
+	public static override execParse(
+		self: DataParserString,
+		data: unknown,
+		error: DataParserError,
+	): (
+			| string
+			| typeof SymbolDataParserError
+		) {
+		const inputData = data;
+		if (self.definition.coerce) {
+			try {
+				// eslint-disable-next-line no-param-reassign
+				data = String(data);
+			} catch {}
+		}
+
+		if (typeof data === "string") {
+			return data;
+		}
+
+		return addIssue(
+			error,
+			"string",
+			inputData,
+			self.definition.errorMessage,
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserString) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionString>,
+	): DataParserDefinitionString {
+		return {
+			...definition,
 			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			const inputData = data;
-			if (self.definition.coerce) {
-				try {
-					// eslint-disable-next-line no-param-reassign
-					data = String(data);
-				} catch {}
-			}
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
 
-			if (typeof data === "string") {
-				return data;
-			}
-
-			return addIssue(error, "string", inputData, self.definition.errorMessage);
-		},
-		string.overrideHandler,
-	) as never;
-
-	return self as never;
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionString>,
+			GenericDefinition
+		>,
+	): DataParserString<
+			MergeDefinition<
+				DataParserDefinitionString,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserString(this.prepareDefinition(definition)) as never;
+	}
 }
 
-string.overrideHandler = createOverride<DataParserString>("@duplojs/utils/data-parser/string");
+export const string = DataParserString.create;

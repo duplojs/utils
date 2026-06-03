@@ -1,25 +1,23 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "../baseExtended";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParser, type Input, type Output, type DataParserChecker } from "../base";
-import { type DataParserError } from "../error";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
+import { type DataParserError } from "@scripts/dataParser/error";
 
-type _DataParserTransformExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTransform,
-> = (
-	& Kind<typeof dataParsers.transformKind.definition>
-	& DataParserBaseExtended<
+export class DataParserTransformExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionTransform = dataParsers.DataParserDefinitionTransform,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserTransform)<
 		GenericDefinition,
 		Output<dataParsers.DataParserTransform<GenericDefinition>>,
 		Input<dataParsers.DataParserTransform<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTransformExtended);
+	}
 
-export interface DataParserTransformExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTransform = dataParsers.DataParserDefinitionTransform,
-> extends _DataParserTransformExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -32,72 +30,60 @@ export interface DataParserTransformExtended<
 			],
 			GenericChecker
 		>
-	): DataParserTransformExtended<
+	) => DataParserTransformExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserTransformExtended<
+		>,
+	) => DataParserTransformExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/transform/index.md}
- */
-export function transform<
-	GenericDataParser extends DataParser,
-	GenericOutput extends unknown,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionTransform<
-			dataParsers.DataParserTransformOutput<() => GenericOutput>
-		>,
-		"inner" | "theFunction"
-	> = never,
->(
-	inner: GenericDataParser,
-	theFunction: (
-		input: Output<GenericDataParser>,
-		error: DataParserError
-	) => GenericOutput,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override create<
+		GenericDataParser extends DataParser,
+		GenericOutput extends unknown,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTransform<
 				dataParsers.DataParserTransformOutput<() => GenericOutput>
 			>,
 			"inner" | "theFunction"
+		> = never,
+	>(
+		inner: GenericDataParser,
+		theFunction: (
+			input: Output<GenericDataParser>,
+			error: DataParserError
+		) => GenericOutput,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionTransform<
+					dataParsers.DataParserTransformOutput<() => GenericOutput>
+				>,
+				"inner" | "theFunction"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserTransformExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTransform,
+	): DataParserTransformExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionTransform,
 			NeverCoalescing<GenericDefinition, {}> & {
 				inner: GenericDataParser;
 				theFunction(input: Output<GenericDataParser>): GenericOutput;
 			}
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserTransform,
-		DataParserTransformExtended
-	>(
-		dataParsers.transform(inner, theFunction, definition),
-		{},
-		transform.overrideHandler,
-	);
-
-	return self as never;
+			>
+		> {
+		return new DataParserTransformExtended(this.prepareDefinition(inner, theFunction, definition)) as never;
+	}
 }
 
-transform.overrideHandler = createOverride<DataParserTransformExtended>("@duplojs/utils/data-parser-extended/transform");
+export const transform = DataParserTransformExtended.create;

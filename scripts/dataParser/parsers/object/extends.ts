@@ -11,9 +11,6 @@ export function extendsShape(
 	return DObject.assign(shape, extension);
 }
 
-/**
- * {@include dataParser/classic/object/extends/index.md}
- */
 function extend<
 	GenericDataParserObject extends DataParserObject,
 	const GenericExtension extends DataParserObjectShape,
