@@ -54,7 +54,7 @@ describe("createKindIdentifier", () => {
 			schema,
 			[
 				DDataParser.stringKind,
-				DDataParser.extendedKind,
+				DDataParser.dataParserExtendedKind,
 			],
 		);
 
@@ -77,7 +77,7 @@ describe("createKindIdentifier", () => {
 			when(
 				identifier([
 					DDataParser.stringKind,
-					DDataParser.extendedKind,
+					DDataParser.dataParserExtendedKind,
 				]),
 				(schema) => {
 					type check = ExpectType<
@@ -102,14 +102,14 @@ describe("createKindIdentifier", () => {
 		const schema = DDataParser.string() as unknown as (
 			& DDataParser.DataParser
 			& Kind<typeof DDataParser.stringKind["definition"]>
-			& Kind<typeof DDataParser.extendedKind["definition"]>
+			& Kind<typeof DDataParser.dataParserExtendedKind["definition"]>
 		);
 
 		const predicate = identifier(
 			schema,
 			[
 				DDataParser.stringKind,
-				DDataParser.extendedKind,
+				DDataParser.dataParserExtendedKind,
 			],
 		);
 
@@ -118,7 +118,7 @@ describe("createKindIdentifier", () => {
 				typeof schema,
 				& DDataParser.DataParser
 				& Kind<typeof DDataParser.stringKind["definition"]>
-				& Kind<typeof DDataParser.extendedKind["definition"]>,
+				& Kind<typeof DDataParser.dataParserExtendedKind["definition"]>,
 				"strict"
 			>;
 		}

@@ -1,11 +1,11 @@
-import { type AnyConstructor, type AnyFunction, type AnyValue, type ComputedTypeError, type FixDeepFunctionInfer, type GetKind, type IsEqual, type Kind, kindClass, type NeverCoalescing, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
+import { type AnyConstructor, type AnyFunction, type AnyValue, type ComputedTypeError, type FixDeepFunctionInfer, type GetKind, type IsEqual, type Kind, kindClass, type RemoveKind, type RequireConstructor, type SimplifyTopLevel } from "@scripts/common";
 import { createDataParserKind } from "./kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "./base";
 import * as dataParsers from "./parsers";
 import * as dataParsersExtended from "./extended";
 import { type DataParserError } from "./error";
 import { type DataParserCheckerBase, type DataParserCheckerDefinition } from "./baseChecker";
-import { type MergeDefinition, type Output, type PrepareDataParserDefinition } from "./types";
+import { type Output, type PrepareDataParserDefinition } from "./types";
 
 export const dataParserExtendedKind = createDataParserKind("extended");
 

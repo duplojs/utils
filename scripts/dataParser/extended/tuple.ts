@@ -79,11 +79,16 @@ export class DataParserTupleExtended<
 		GenericDataParser extends DataParsers,
 	>(
 		dataParser: GenericDataParser,
-	) {
+	): DataParserTupleExtended<
+			SimplifyTopLevel<
+				& Omit<GenericDefinition, "rest">
+				& { readonly rest: GenericDataParser }
+			>
+		> {
 		return tuple(this.definition.shape, {
 			...this.definition,
 			rest: dataParser,
-		});
+		}) as never;
 	}
 
 	/**
