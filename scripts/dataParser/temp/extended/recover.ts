@@ -48,7 +48,7 @@ export class DataParserRecoverExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		GenericDataParser extends DataParser,
 		GenericRecoveredValue extends Output<GenericDataParser>,
 		const GenericDefinition extends PrepareDataParserDefinition<

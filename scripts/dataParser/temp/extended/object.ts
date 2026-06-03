@@ -99,7 +99,7 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return object(dataParsers.omitShape(this.definition.shape, omitObject), definition) as never;
+		return object(dataParsers.omitShape(this.definition.shape, omitObject), definition);
 	}
 
 	public pick<
@@ -162,7 +162,7 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return object(dataParsers.pickShape(this.definition.shape, pickObject), definition) as never;
+		return object(dataParsers.pickShape(this.definition.shape, pickObject), definition);
 	}
 
 	public extends<
@@ -205,7 +205,7 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return object(dataParsers.extendsShape(this.definition.shape, extension), definition) as never;
+		return object(dataParsers.extendsShape(this.definition.shape, extension), definition);
 	}
 
 	public partial<
@@ -239,7 +239,7 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return object(dataParsers.partialShape(this.definition.shape), definition) as never;
+		return object(dataParsers.partialShape(this.definition.shape), definition);
 	}
 
 	public required<
@@ -273,10 +273,10 @@ export class DataParserObjectExtended<
 			}
 			>
 		> {
-		return object(dataParsers.requiredShape(this.definition.shape), definition) as never;
+		return object(dataParsers.requiredShape(this.definition.shape), definition);
 	}
 
-	public static create<
+	public static override create<
 		const GenericShape extends dataParsers.DataParserObjectShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionObject<

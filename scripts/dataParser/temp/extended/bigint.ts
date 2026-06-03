@@ -52,13 +52,8 @@ export class DataParserBigIntExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionBigIntMin, "min">
 		>,
-	): DataParserBigIntExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerBigIntMin]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerBigIntMin(min, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerBigIntMin(min, definition));
 	}
 
 	public max(
@@ -66,16 +61,11 @@ export class DataParserBigIntExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionBigIntMax, "max">
 		>,
-	): DataParserBigIntExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerBigIntMax]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerBigIntMax(max, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerBigIntMax(max, definition));
 	}
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

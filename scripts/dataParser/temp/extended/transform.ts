@@ -49,7 +49,7 @@ export class DataParserTransformExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		GenericDataParser extends DataParser,
 		GenericOutput extends unknown,
 		const GenericDefinition extends PrepareDataParserDefinition<

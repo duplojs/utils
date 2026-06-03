@@ -64,7 +64,7 @@ export class DataParserNullableExtended<
 		}) as never;
 	}
 
-	public static create<
+	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionNullable<

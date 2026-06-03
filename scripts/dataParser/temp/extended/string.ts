@@ -59,7 +59,7 @@ export class DataParserStringExtended<
 				readonly [dataParsers.DataParserCheckerStringMin]
 			>
 		> {
-		return this.addChecker(dataParsers.checkerStringMin(min, definition)) as never;
+		return this.addChecker(dataParsers.checkerStringMin(min, definition));
 	}
 
 	public max(
@@ -90,7 +90,7 @@ export class DataParserStringExtended<
 		return this.addChecker(dataParsers.checkerRegex(regex, definition));
 	}
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

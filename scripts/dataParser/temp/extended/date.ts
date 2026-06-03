@@ -48,7 +48,7 @@ export class DataParserDateExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionDate> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

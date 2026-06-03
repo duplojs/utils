@@ -48,7 +48,7 @@ export class DataParserNilExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

@@ -48,7 +48,7 @@ export class DataParserRecordExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		GenericDataParserKey extends dataParsers.DataParserRecordKey,
 		GenericDataParserValue extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

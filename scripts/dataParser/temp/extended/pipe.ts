@@ -48,7 +48,7 @@ export class DataParserPipeExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		GenericInput extends DataParser,
 		GenericOutput extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

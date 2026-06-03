@@ -53,13 +53,8 @@ export class DataParserTupleExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">
 		>,
-	): DataParserTupleExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerArrayMin]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerArrayMin(min, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
 	}
 
 	public max(
@@ -67,32 +62,22 @@ export class DataParserTupleExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
 		>,
-	): DataParserTupleExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerArrayMax]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerArrayMax(max, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
 	}
 
 	public rest<
 		GenericDataParser extends DataParsers,
 	>(
 		dataParser: GenericDataParser,
-	): DataParserTupleExtended<
-			SimplifyTopLevel<
-			Omit<GenericDefinition, "rest">
-			& { readonly rest: GenericDataParser }
-			>
-		> {
+	) {
 		return tuple(this.definition.shape, {
 			...this.definition,
 			rest: dataParser,
-		}) as never;
+		});
 	}
 
-	public static create<
+	public static override create<
 		const GenericShape extends dataParsers.TupleShape,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTuple<

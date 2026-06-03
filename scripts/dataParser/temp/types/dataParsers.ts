@@ -1,5 +1,7 @@
 import type { DataParser } from "../base";
 import type * as AllDataParser from "../parsers";
+import type { DataParserExtended } from "../baseExtended";
+import type * as AllDataParserExtended from "../extended";
 
 export interface DataParserCustom {
 	dataParser: DataParser;
@@ -7,11 +9,12 @@ export interface DataParserCustom {
 
 export type DataParsers = (
 	| DataParserCustom[keyof DataParserCustom]
-	| AllDataParser.DataParserArray
 	| AllDataParser.DataParserString
+	| AllDataParser.DataParserObject
 	| AllDataParser.DataParserNumber
 	| AllDataParser.DataParserLiteral
 	| AllDataParser.DataParserUnion
+	| AllDataParser.DataParserArray
 	| AllDataParser.DataParserBigInt
 	| AllDataParser.DataParserTuple
 	| AllDataParser.DataParserTransform
@@ -26,7 +29,36 @@ export type DataParsers = (
 	| AllDataParser.DataParserOptional
 	| AllDataParser.DataParserLazy
 	| AllDataParser.DataParserUnknown
-	| AllDataParser.DataParserObject
 	| AllDataParser.DataParserRecord
 	| AllDataParser.DataParserRecover
+);
+
+export interface DataParserExtendedCustom {
+	base: DataParserExtended;
+}
+
+export type DataParsersExtended = (
+	| DataParserExtendedCustom[keyof DataParserExtendedCustom]
+	| AllDataParserExtended.DataParserStringExtended
+	| AllDataParserExtended.DataParserObjectExtended
+	| AllDataParserExtended.DataParserNumberExtended
+	| AllDataParserExtended.DataParserLiteralExtended
+	| AllDataParserExtended.DataParserUnionExtended
+	| AllDataParserExtended.DataParserArrayExtended
+	| AllDataParserExtended.DataParserBigIntExtended
+	| AllDataParserExtended.DataParserTupleExtended
+	| AllDataParserExtended.DataParserTransformExtended
+	| AllDataParserExtended.DataParserBooleanExtended
+	| AllDataParserExtended.DataParserDateExtended
+	| AllDataParserExtended.DataParserTimeExtended
+	| AllDataParserExtended.DataParserNilExtended
+	| AllDataParserExtended.DataParserEmptyExtended
+	| AllDataParserExtended.DataParserTemplateLiteralExtended
+	| AllDataParserExtended.DataParserPipeExtended
+	| AllDataParserExtended.DataParserNullableExtended
+	| AllDataParserExtended.DataParserOptionalExtended
+	| AllDataParserExtended.DataParserLazyExtended
+	| AllDataParserExtended.DataParserUnknownExtended
+	| AllDataParserExtended.DataParserRecordExtended
+	| AllDataParserExtended.DataParserRecoverExtended
 );

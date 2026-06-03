@@ -53,13 +53,8 @@ export class DataParserTimeExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionTimeMin, "min">
 		>,
-	): DataParserTimeExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerTimeMin]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerTimeMin(min, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerTimeMin(min, definition));
 	}
 
 	public max(
@@ -67,16 +62,11 @@ export class DataParserTimeExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionTimeMax, "max">
 		>,
-	): DataParserTimeExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerTimeMax]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerTimeMax(max, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerTimeMax(max, definition));
 	}
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionTime> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

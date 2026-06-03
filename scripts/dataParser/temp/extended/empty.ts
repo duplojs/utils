@@ -48,7 +48,7 @@ export class DataParserEmptyExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionEmpty> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

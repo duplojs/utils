@@ -53,13 +53,8 @@ export class DataParserArrayExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">
 		>,
-	): DataParserArrayExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerArrayMin]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerArrayMin(min, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerArrayMin(min, definition));
 	}
 
 	public max(
@@ -67,16 +62,11 @@ export class DataParserArrayExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
 		>,
-	): DataParserArrayExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerArrayMax]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerArrayMax(max, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerArrayMax(max, definition));
 	}
 
-	public static create<
+	public static override create<
 		GenericElement extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionArray<
@@ -98,9 +88,9 @@ export class DataParserArrayExtended<
 	): DataParserArrayExtended<
 			MergeDefinition<
 				dataParsers.DataParserDefinitionArray,
-			NeverCoalescing<GenericDefinition, {}> & {
-				element: GenericElement;
-			}
+				NeverCoalescing<GenericDefinition, {}> & {
+					element: GenericElement;
+				}
 			>
 		> {
 		return new DataParserArrayExtended(this.prepareDefinition(element, definition)) as never;

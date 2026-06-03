@@ -52,13 +52,8 @@ export class DataParserNumberExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">
 		>,
-	): DataParserNumberExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerNumberMin]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerNumberMin(min, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerNumberMin(min, definition));
 	}
 
 	public max(
@@ -66,24 +61,17 @@ export class DataParserNumberExtended<
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">
 		>,
-	): DataParserNumberExtended<
-			AddCheckersToDefinition<
-				GenericDefinition,
-				readonly [dataParsers.DataParserCheckerNumberMax]
-			>
-		> {
-		return this.addChecker(dataParsers.checkerNumberMax(max, definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerNumberMax(max, definition));
 	}
 
 	public int(
 		definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
-	): DataParserNumberExtended<AddCheckersToDefinition<
-			GenericDefinition, readonly [dataParsers.DataParserCheckerInt]>
-		> {
-		return this.addChecker(dataParsers.checkerInt(definition)) as never;
+	) {
+		return this.addChecker(dataParsers.checkerInt(definition));
 	}
 
-	public static create<
+	public static override create<
 		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never,
 	>(
 		definition?: FixDeepFunctionInfer<

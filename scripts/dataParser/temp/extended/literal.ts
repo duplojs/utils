@@ -47,7 +47,7 @@ export class DataParserLiteralExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		const GenericValue extends dataParsers.LiteralValue,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionLiteral<GenericValue>,

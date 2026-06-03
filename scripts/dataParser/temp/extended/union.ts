@@ -47,7 +47,7 @@ export class DataParserUnionExtended<
 		>
 	>;
 
-	public static create<
+	public static override create<
 		const GenericOptions extends dataParsers.UnionOptions,
 		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionUnion<
