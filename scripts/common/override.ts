@@ -115,7 +115,7 @@ export function createOverride<
 					return undefined;
 				},
 				ownKeys() {
-					const result: string[] = [];
+					const result = Object.keys(overrideInterface);
 
 					for (const overrideStore of overrideStoreList) {
 						for (const prop in overrideStore) {

@@ -203,6 +203,35 @@ describe("base parser", () => {
 		expect(parser.parse(-1)).toStrictEqual(DEither.error(expect.any(Object)));
 	});
 
+	it("keeps a checker error through the remaining checkers", () => {
+		const parser = ParserTest.create({
+			checkers: [
+				CheckerTest.create(),
+				CheckerTest.create({
+					positive: false,
+				}),
+			],
+		});
+
+		const result = parser.parse(-1);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "positive number",
+							path: "",
+							data: -1,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+	});
+
 	it("returns a parser error when core parsing fails", () => {
 		const parser = ParserTest.create({
 			errorMessage: "invalid",
@@ -261,9 +290,18 @@ describe("base parser", () => {
 		const asyncParser = ParserTest.create({
 			asynchronous: true,
 		});
+		const parserWithAsyncChecker = ParserTest.create({
+			checkers: [
+				DDataParser.checkerRefine((async() => {
+					await Promise.resolve();
+					return true;
+				}) as never),
+			] as never,
+		});
 
 		expect(syncParser.isAsynchronous()).toBe(false);
 		expect(asyncParser.isAsynchronous()).toBe(true);
+		expect(parserWithAsyncChecker.isAsynchronous()).toBe(true);
 	});
 
 	it("awaits asynchronous parsing with asyncParse and asyncParseOrThrow", async() => {
@@ -273,6 +311,35 @@ describe("base parser", () => {
 		await expect(parser.asyncParse("test")).resolves.toStrictEqual(DEither.error(expect.any(Object)));
 		await expect(parser.asyncParseOrThrow(5)).resolves.toBe(5);
 		await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.ParseError);
+	});
+
+	it("keeps an asynchronous checker error through the remaining checkers", async() => {
+		const parser = AsyncParserTest.create({
+			checkers: [
+				CheckerTest.create(),
+				CheckerTest.create({
+					positive: false,
+				}),
+			],
+		});
+
+		const result = await parser.asyncParse(-1);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "positive number",
+							path: "",
+							data: -1,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
 	});
 
 	it("returns or throws the synchronous execution error symbol for asynchronous parsing", () => {

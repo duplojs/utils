@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser bigint checker min", () => {
 	it("accepts bigint values above threshold", () => {
 		const checker = DDataParser.checkerBigIntMin(10n);
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.bigint({
 			checkers: [checker],
 		});

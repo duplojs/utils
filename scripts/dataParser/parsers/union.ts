@@ -83,7 +83,7 @@ export class DataParserUnion<
 			SymbolDataParserError,
 		);
 
-		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+		void (currentIndexPath !== unionError.currentPath.length && popErrorPath(unionError));
 
 		return callThen(
 			output,

@@ -146,6 +146,30 @@ describe("DDataParser tuple", () => {
 		);
 	});
 
+	it("fails when input contains an element without a matching parser", () => {
+		const schema = DDataParser.tuple([DDataParser.string()], {
+			errorMessage: "tuple.extra",
+		});
+
+		const result = schema.parse(["value", "extra"] as never);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "empty",
+							path: "[tupleRest: 1]",
+							data: ["value", "extra"],
+							message: "tuple.extra",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+	});
+
 	it("collects element error with index path", () => {
 		const stringParser = DDataParser.string();
 		const numberParser = DDataParser.number();

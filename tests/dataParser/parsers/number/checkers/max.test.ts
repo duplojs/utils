@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser number checker max", () => {
 	it("allows numbers less or equal to max", () => {
 		const checker = DDataParser.checkerNumberMax(10);
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.number({
 			checkers: [checker],
 		});

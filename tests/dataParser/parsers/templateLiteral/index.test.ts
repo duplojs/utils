@@ -24,6 +24,7 @@ describe("DDataParser templateLiteral", () => {
 			"user-",
 			DDataParser.number(),
 		]);
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

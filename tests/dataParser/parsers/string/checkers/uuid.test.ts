@@ -12,6 +12,8 @@ describe("DDataParser string checker uuid", () => {
 
 	it("fails for invalid uuid", () => {
 		const checker = DDataParser.checkerUuid();
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.string({
 			checkers: [checker],
 			errorMessage: "string.uuid",

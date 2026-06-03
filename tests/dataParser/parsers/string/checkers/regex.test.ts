@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser string checker match with regex", () => {
 	it("match with regex", () => {
 		const checker = DDataParser.checkerRegex(/t/);
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.string({
 			checkers: [checker],
 		});

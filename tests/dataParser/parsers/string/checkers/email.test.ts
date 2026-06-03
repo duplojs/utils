@@ -9,6 +9,8 @@ describe("DDataParser string checker email", () => {
 
 	it("fails for invalid email", () => {
 		const checker = DDataParser.checkerEmail();
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.string({
 			checkers: [checker],
 			errorMessage: "string.email",

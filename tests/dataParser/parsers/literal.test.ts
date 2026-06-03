@@ -21,6 +21,7 @@ describe("literal parser", () => {
 
 	it("parses allowed literal values", () => {
 		const schema = DDataParser.literal(["on", "off"]);
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

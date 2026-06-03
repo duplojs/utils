@@ -21,6 +21,7 @@ describe("DDataParser null", () => {
 
 	it("parses null value", () => {
 		const schema = DDataParser.nil();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

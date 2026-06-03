@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser number checker int", () => {
 	it("accepts integer values", () => {
 		const checker = DDataParser.checkerInt();
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.number({
 			checkers: [checker],
 		});

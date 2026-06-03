@@ -21,6 +21,7 @@ describe("DDataParser time", () => {
 
 	it("parses TheTime literals", () => {
 		const schema = DDataParser.time();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

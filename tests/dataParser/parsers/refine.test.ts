@@ -35,4 +35,47 @@ describe("DDataParser checker refine", () => {
 			),
 		);
 	});
+
+	it("reports whether the refine predicate is asynchronous", () => {
+		const syncChecker = DDataParser.checkerRefine(() => true);
+		const asyncChecker = DDataParser.checkerRefine(
+			(async() => {
+				await Promise.resolve();
+				return true;
+			}) as never,
+		);
+
+		expect(syncChecker.isAsynchronous()).toBe(false);
+		expect(asyncChecker.isAsynchronous()).toBe(true);
+	});
+
+	it("reports an issue when the asynchronous refine predicate rejects", async() => {
+		const error = new Error("refine failed");
+		const schema = DDataParser.string({
+			errorMessage: "refine.error",
+		}).addChecker(
+			DDataParser.checkerRefine(
+				(async() => {
+					await Promise.resolve();
+					throw error;
+				}) as never,
+			),
+		);
+
+		await expect(schema.asyncParse("value")).resolves.toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "successful refine result",
+							path: "",
+							data: error,
+							message: "refine.error",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+	});
 });
