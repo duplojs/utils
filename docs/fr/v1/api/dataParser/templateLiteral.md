@@ -24,7 +24,7 @@ Construit un parser pour une forme de chaîne déterministe (`"order-${number}"`
 ## Paramètres
 
 - `template` : forme à valider (parties primitives ou sous-parsers compatibles).
-- `pattern` : `RegExp` généré automatiquement à partir du template (surcharge rarement nécessaire).
+- `pattern` : `RegExp` généré automatiquement à partir du template (une configuration manuelle est rarement nécessaire).
 - `checkers` : `checkerRefine` pour appliquer des règles additionnelles.
 
 ## Valeur de retour

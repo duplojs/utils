@@ -125,7 +125,3 @@ Indique si un parser (ou ses parsers internes) nécessite une exécution async.
 
 ### [coerce.*](/fr/v1/api/dataParser/coerce)
 Espace réservé aux variantes coercitives (`coerce.string`, `coerce.number`, `coerce.boolean`, `coerce.date`, etc.) lorsque vous devez normaliser les données avant validation stricte.
-
-## Override & extensions
-
-Pour modifier le comportement par défaut du `DataParser`, ajouter vos propres helpers ou construire une librairie/extension au-dessus, consultez le guide [Comment override les méthodes du DataParser ?](/fr/v1/api/dataParser/howToOverride).

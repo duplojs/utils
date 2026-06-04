@@ -25,5 +25,5 @@ export * from "./recover";
 
 export * from "../error";
 export { type DataParser } from "../base";
-export { type DataParserExtended } from "../baseExtended";
+export * from "./base";
 export { type Output, type Input } from "../types";

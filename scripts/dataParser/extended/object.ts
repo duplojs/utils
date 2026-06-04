@@ -1,6 +1,6 @@
 import { detachObjectMethod, type Adaptor, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { type AssignObjects } from "@scripts/object";
-import { DataParserBaseExtended } from "../baseExtended";
+import { DataParserBaseExtended } from "./base";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
 import { type DataParserChecker } from "../baseChecker";

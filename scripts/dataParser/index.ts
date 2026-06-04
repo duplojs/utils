@@ -6,6 +6,6 @@ export * from "./parsers";
 export * from "./types";
 export * from "./base";
 export * from "./baseChecker";
-export * from "./baseExtended";
+export { type ContractExtended, DataParserBaseExtended, type DataParserExtended, dataParserExtendedKind } from "./extended/base";
 export * from "./identifier";
 export * from "./error";

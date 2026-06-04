@@ -1,6 +1,6 @@
 import type * as DCommon from "@scripts/common";
 import { type DataParserDefinition, type DataParserBase, type dataParserKind } from "../base";
-import { type dataParserExtendedKind, type DataParserBaseExtended } from "../baseExtended";
+import { type dataParserExtendedKind, type DataParserBaseExtended } from "../extended/base";
 import { type CheckedConstructorKind } from "./baseInit";
 import { type DataParserError } from "../error";
 

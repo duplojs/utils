@@ -30,8 +30,6 @@ import * as DPC from "@duplojs/utils/dataParserCoerce";
 
 // DataParserExtended
 import { DDataParserExtended, DPE } from "@duplojs/utils";
-import * as DDataParserExtended from "@duplojs/utils/dataParserExtended";
-import * as DPE from "@duplojs/utils/dataParserExtended";
 ```
 
 ## Checker contract
@@ -124,7 +122,3 @@ Tells whether a parser (or nested parsers) requires async execution.
 
 ### [coerce.*](/en/v1/api/dataParser/coerce)
 Placeholder space for coercive variants (`coerce.string`, `coerce.number`, `coerce.boolean`, `coerce.date`, etc.) when you must normalize data before strict validation.
-
-## Override & extensions
-
-To change the default behavior of `DataParser`, add your own helpers, or build a library/extension on top of it, see the guide [How to override DataParser methods?](/en/v1/api/dataParser/howToOverride).
