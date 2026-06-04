@@ -10,8 +10,11 @@ import * as DO from "@duplojs/utils/object";
 import * as DP from "@duplojs/utils/pattern";
 import * as DS from "@duplojs/utils/string";
 import * as DD from "@duplojs/utils/date";
+import * as DC from "@duplojs/utils/clean";
+import * as DF from "@duplojs/utils/flow";
+import * as DCommon from "@duplojs/utils/common";
 
 it("just import lib", async() => {
-	[All, DA, DDP, DDPC, DDPE, DE, DG, DN, DO, DP, DS, DD].concat();
+	[All, DA, DDP, DDPC, DDPE, DE, DG, DN, DO, DP, DS, DD, DC, DF, DCommon].concat();
 	await import("@duplojs/utils");
 });
