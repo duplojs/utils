@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-for-of */
+
 import { createGlobalStore } from "./globalStore";
 import { type ObjectKey, type Adaptor, type AnyFunction, type AnyValue } from "./types";
 import type * as DObject from "@scripts/object";
@@ -70,39 +70,78 @@ export function createOverride<
 			cachedStoreKey = Object.keys(overridePropertiesStore);
 		},
 		apply(overrideInterface) {
+			const injectOverrideStoreFunction = overrideInterface[SymbolOverrideStore as never] as (
+				| undefined
+				| typeof injectOverrideStore
+			);
+			if (injectOverrideStoreFunction) {
+				injectOverrideStoreFunction(overridePropertiesStore);
+				return overrideInterface;
+			}
+
+			const overrideStoreList = [overridePropertiesStore];
+
 			const cachedOverrideProperties: Record<ObjectKey, unknown> = {};
+			function injectOverrideStore(overrideStore: Record<ObjectKey, unknown>) {
+				overrideStoreList.unshift(overrideStore);
+			}
 
 			const proxyHandler = {
 				get(_target: object, prop: ObjectKey): unknown {
-					if (prop in overridePropertiesStore) {
-						if (!(prop in cachedOverrideProperties)) {
+					if (prop in overrideInterface) {
+						return overrideInterface[prop as keyof typeof overrideInterface];
+					}
+
+					if (prop in cachedOverrideProperties) {
+						return cachedOverrideProperties[prop];
+					}
+
+					for (const overrideStore of overrideStoreList) {
+						if (prop in overrideStore) {
 							cachedOverrideProperties[prop] = typeof overridePropertiesStore[prop] === "function"
 								? (...args: unknown[]) => (
 									overridePropertiesStore[prop] as AnyFunction
 								)(self, ...args)
 								: overridePropertiesStore[prop];
-						}
 
-						return cachedOverrideProperties[prop];
+							return cachedOverrideProperties[prop];
+						}
 					}
 
-					return overrideInterface[prop as keyof typeof overrideInterface];
+					if (prop === SymbolOverrideStore) {
+						return injectOverrideStore;
+					}
+
+					return undefined;
 				},
 				ownKeys() {
 					const result = Object.keys(overrideInterface);
 
-					for (let index = 0; index < cachedStoreKey.length; index++) {
-						const prop = cachedStoreKey[index]!;
-						if (!result.includes(prop)) {
-							result.push(prop);
+					for (const overrideStore of overrideStoreList) {
+						for (const prop in overrideStore) {
+							if (!result.includes(prop)) {
+								result.push(prop);
+							}
 						}
 					}
 
 					return result;
 				},
 				has(_target: object, prop: ObjectKey) {
-					return Object.keys(overrideInterface).includes(prop as never)
-						|| cachedStoreKey.includes(prop as never);
+					if (
+						prop in overrideInterface
+						|| prop in cachedOverrideProperties
+					) {
+						return true;
+					}
+
+					for (const overrideStore of overrideStoreList) {
+						if (prop in overrideStore) {
+							return true;
+						}
+					}
+
+					return false;
 				},
 				getOwnPropertyDescriptor(target: object, prop: ObjectKey) {
 					return {
@@ -114,14 +153,13 @@ export function createOverride<
 			};
 
 			const self = new Proxy(
-				{},
+				cachedOverrideProperties,
 				proxyHandler,
 			);
 
-			return new Proxy(
-				self,
-				proxyHandler,
-			) as never;
+			void ({ ...self });
+
+			return self as never;
 		},
 	};
 }

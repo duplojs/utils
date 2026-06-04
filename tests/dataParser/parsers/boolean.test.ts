@@ -21,6 +21,7 @@ describe("DDataParser boolean", () => {
 
 	it("parses boolean without coercion", () => {
 		const schema = DDataParser.boolean();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

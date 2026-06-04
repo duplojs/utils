@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParser, type DataParserChecker } from "../base";
+import { type DataParser } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserRecordExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionRecord,
-> = (
-	& Kind<typeof dataParsers.recordKind.definition>
-	& DataParserBaseExtended<
+export class DataParserRecordExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionRecord = dataParsers.DataParserDefinitionRecord,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserRecord)<
 		GenericDefinition,
 		Output<dataParsers.DataParserRecord<GenericDefinition>>,
 		Input<dataParsers.DataParserRecord<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserRecordExtended);
+	}
 
-export interface DataParserRecordExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionRecord = dataParsers.DataParserDefinitionRecord,
-> extends _DataParserRecordExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,75 +29,72 @@ export interface DataParserRecordExtended<
 			],
 			GenericChecker
 		>
-	): DataParserRecordExtended<
+	) => DataParserRecordExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserRecordExtended<
+		>,
+	) => DataParserRecordExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/record/index.md}
- */
-export function record<
-	GenericDataParserKey extends dataParsers.DataParserRecordKey,
-	GenericDataParserValue extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionRecord<
-			Record<
-				Extract<Output<GenericDataParserKey>, string | number>,
-				Output<GenericDataParserValue>
-			>
-		>,
-		"key" | "value" | "baseData" | "requireKey"
-	> = never,
->(
-	key: GenericDataParserKey,
-	value: GenericDataParserValue,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	/**
+	 * {@include dataParser/extended/record/index.md}
+	 */
+	public static override create<
+		GenericDataParserKey extends dataParsers.DataParserRecordKey,
+		GenericDataParserValue extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionRecord<
 				Record<
-					Extract<Output<GenericDataParserKey>, string | number>,
+					Extract<
+						Output<GenericDataParserKey>,
+						string | number
+					>,
 					Output<GenericDataParserValue>
 				>
 			>,
-			"key" | "value" | "baseData" | "requireKey"
+			"key" | "value" | "baseData"
+		> = never,
+	>(
+		key: GenericDataParserKey,
+		value: GenericDataParserValue,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionRecord<
+					Record<
+						Extract<
+							Output<GenericDataParserKey>,
+							string | number
+						>,
+						Output<GenericDataParserValue>
+					>
+				>,
+				"key" | "value" | "baseData"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserRecordExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionRecord,
+	): DataParserRecordExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionRecord,
 			NeverCoalescing<GenericDefinition, {}> & {
 				key: GenericDataParserKey;
 				value: GenericDataParserValue;
 			}
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserRecord,
-		DataParserRecordExtended
-	>(
-		dataParsers.record(key, value, definition),
-		{},
-		record.overrideHandler,
-	);
-
-	return self as never;
+			>
+		> {
+		return new DataParserRecordExtended(this.prepareDefinition(key, value, definition)) as never;
+	}
 }
 
-record.overrideHandler = createOverride<DataParserRecordExtended>("@duplojs/utils/data-parser-extended/record");
+export const record = detachObjectMethod(DataParserRecordExtended, "create");

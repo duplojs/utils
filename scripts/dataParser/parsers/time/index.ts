@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, unwrap } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing, unwrap } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DDate from "@scripts/date";
 import * as DEither from "@scripts/either";
 
@@ -18,21 +19,20 @@ export interface DataParserDefinitionTime extends DataParserDefinition<
 
 export const timeKind = createDataParserKind("time");
 
-type _DataParserTime<
-	GenericDefinition extends DataParserDefinitionTime,
-> = (
-	& DataParserBase<
+export class DataParserTime<
+	GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime,
+> extends DataParserBase.init(
+		timeKind,
+	)<
 		GenericDefinition,
 		DDate.TheTime,
 		DDate.TheTime | number | DDate.SerializedTheTime
-	>
-	& Kind<typeof timeKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTime);
+	}
 
-export interface DataParserTime<
-	GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime,
-> extends _DataParserTime<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -45,68 +45,81 @@ export interface DataParserTime<
 			],
 			GenericChecker
 		>
-	): DataParserTime<
+	) => DataParserTime<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/time/index.md}
- */
-export function time<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTime> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionTime>,
-		GenericDefinition
-	>,
-): DataParserTime<
-		MergeDefinition<
-			DataParserDefinitionTime,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserTime>(
-		timeKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			if (self.definition.coerce) {
-				if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
-					const result = DDate.createTime({ value: data });
+	public static override execParse(
+		self: DataParserTime,
+		data: unknown,
+		error: DataParserError,
+	): (
+			| DDate.TheTime
+			| typeof SymbolDataParserError
+		) {
+		if (self.definition.coerce) {
+			if (typeof data === "string" && DDate.isoTimeRegex.test(data)) {
+				const result = DDate.createTime({ value: data });
 
-					if (DEither.isLeft(result)) {
-						return addIssue(error, "time", data, self.definition.errorMessage);
-					}
-
-					return unwrap(result);
-				}
-			}
-
-			if (data instanceof DDate.TheTime) {
-				return data;
-			} else if (typeof data === "string" && DDate.isSerializedTheTime(data)) {
-				return DDate.TheTime.new(DDate.toTimeValue(data));
-			} else if (typeof data === "number") {
-				if (!DDate.isSafeTimeValue(data)) {
+				if (DEither.isLeft(result)) {
 					return addIssue(error, "time", data, self.definition.errorMessage);
 				}
 
-				return DDate.TheTime.new(data);
+				return unwrap(result);
+			}
+		}
+
+		if (data instanceof DDate.TheTime) {
+			return data;
+		} else if (typeof data === "string" && DDate.isSerializedTheTime(data)) {
+			return DDate.TheTime.new(DDate.toTimeValue(data));
+		} else if (typeof data === "number") {
+			if (!DDate.isSafeTimeValue(data)) {
+				return addIssue(error, "time", data, self.definition.errorMessage);
 			}
 
-			return addIssue(error, "time", data, self.definition.errorMessage);
-		},
-		time.overrideHandler,
-	) as never;
+			return DDate.TheTime.new(data);
+		}
 
-	return self as never;
+		return addIssue(error, "time", data, self.definition.errorMessage);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserTime) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionTime>,
+	): DataParserDefinitionTime {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/time/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTime> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionTime>,
+			GenericDefinition
+		>,
+	): DataParserTime<
+			MergeDefinition<
+				DataParserDefinitionTime,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserTime(this.prepareDefinition(definition)) as never;
+	}
 }
 
-time.overrideHandler = createOverride<DataParserTime>("@duplojs/utils/data-parser/time");
+export const time = detachObjectMethod(DataParserTime, "create");

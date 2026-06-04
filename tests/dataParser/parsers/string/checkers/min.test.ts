@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser string checker min length", () => {
 	it("allows string greater or equal to min length", () => {
 		const checker = DDataParser.checkerStringMin(3);
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.string({
 			checkers: [checker],
 		});

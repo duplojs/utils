@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import * as DDate from "@scripts/date";
 
 export type DataParserDateCheckers = GetEligibleChecker<DDate.TheDate>;
@@ -15,21 +16,20 @@ export interface DataParserDefinitionDate extends DataParserDefinition<
 
 export const dateKind = createDataParserKind("date");
 
-type _DataParserDate<
-	GenericDefinition extends DataParserDefinitionDate,
-> = (
-	& DataParserBase<
+export class DataParserDate<
+	GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate,
+> extends DataParserBase.init(
+		dateKind,
+	)<
 		GenericDefinition,
 		DDate.TheDate,
 		DDate.TheDate | Date | DDate.SerializedTheDate
-	>
-	& Kind<typeof dateKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserDate);
+	}
 
-export interface DataParserDate<
-	GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate,
-> extends _DataParserDate<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -42,75 +42,85 @@ export interface DataParserDate<
 			],
 			GenericChecker
 		>
-	): DataParserDate<
+	) => DataParserDate<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/date/index.md}
- */
-export function date<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionDate>,
-		GenericDefinition
-	>,
-): DataParserDate<
-		MergeDefinition<
-			DataParserDefinitionDate,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserDate>(
-		dateKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			if (self.definition.coerce) {
-				if (typeof data === "number") {
-					if (!DDate.isSafeTimestamp(data)) {
-						return addIssue(error, "date", data, self.definition.errorMessage);
-					}
-
-					return DDate.TheDate.new(data);
-				}
-
-				if (typeof data === "string") {
-					const date = new Date(data);
-					const timestamp = date.getTime();
-					if (DDate.isSafeTimestamp(timestamp)) {
-						return DDate.TheDate.new(timestamp);
-					}
-				}
-			}
-
-			if (data instanceof DDate.TheDate) {
-				return data;
-			} else if (typeof data === "string" && DDate.isSerializedTheDate(data)) {
-				return DDate.TheDate.new(DDate.toTimestamp(data));
-			} else if (data instanceof Date) {
-				const timestamp = data.getTime();
-
-				if (!DDate.isSafeTimestamp(timestamp)) {
+	public static override execParse(
+		self: DataParserDate,
+		data: unknown,
+		error: DataParserError,
+	): DDate.TheDate | typeof SymbolDataParserError {
+		if (self.definition.coerce) {
+			if (typeof data === "number") {
+				if (!DDate.isSafeTimestamp(data)) {
 					return addIssue(error, "date", data, self.definition.errorMessage);
 				}
-				return DDate.TheDate.new(timestamp);
+
+				return DDate.TheDate.new(data);
 			}
 
-			return addIssue(error, "date", data, self.definition.errorMessage);
-		},
-		date.overrideHandler,
-	) as never;
+			if (typeof data === "string") {
+				const date = new Date(data);
+				const timestamp = date.getTime();
+				if (DDate.isSafeTimestamp(timestamp)) {
+					return DDate.TheDate.new(timestamp);
+				}
+			}
+		}
 
-	return self as never;
+		if (data instanceof DDate.TheDate) {
+			return data;
+		} else if (typeof data === "string" && DDate.isSerializedTheDate(data)) {
+			return DDate.TheDate.new(DDate.toTimestamp(data));
+		} else if (data instanceof Date) {
+			const timestamp = data.getTime();
+
+			if (!DDate.isSafeTimestamp(timestamp)) {
+				return addIssue(error, "date", data, self.definition.errorMessage);
+			}
+			return DDate.TheDate.new(timestamp);
+		}
+
+		return addIssue(error, "date", data, self.definition.errorMessage);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserDate) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionDate>,
+	): DataParserDefinitionDate {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/date/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionDate> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionDate>,
+			GenericDefinition
+		>,
+	): DataParserDate<
+			MergeDefinition<
+				DataParserDefinitionDate,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserDate(this.prepareDefinition(definition)) as never;
+	}
 }
 
-date.overrideHandler = createOverride<DataParserDate>("@duplojs/utils/data-parser/date");
+export const date = detachObjectMethod(DataParserDate, "create");

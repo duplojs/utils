@@ -1,17 +1,18 @@
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing, pipe } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
+import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride, type IsEqual, pipe } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
+import * as DArray from "@scripts/array";
+import * as DObject from "@scripts/object";
+import { findRecordRequiredKey } from "./findRecordRequiredKey";
+import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
-import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionUnion, type DataParserUnion } from "../union";
-import { createDataParserKind } from "../../kind";
-import { findRecordRequiredKey } from "./findRecordRequiredKey";
-import * as DArray from "@scripts/array";
-import * as DObject from "@scripts/object";
 
 export * from "./findRecordRequiredKey";
 
@@ -50,11 +51,6 @@ export interface DataParserDefinitionRecord<
 	readonly key: DataParserRecordKey;
 	readonly value: DataParser;
 	readonly baseData: Partial<Record<string, undefined>>;
-
-	/**
-	 * @deprecated replaced by baseData
-	 */
-	readonly requireKey: readonly string[];
 }
 
 export const recordKind = createDataParserKind("record");
@@ -71,10 +67,7 @@ export type DataParserRecordShapeOutput<
 			? InferredValue
 			: never
 	> extends infer InferredResult extends Record<string, unknown>
-		? IsEqual<
-			Extract<InferredResult[keyof InferredResult], undefined>,
-			never
-		> extends true
+		? IsEqual<Extract<InferredResult[keyof InferredResult], undefined>, never> extends true
 			? InferredResult
 			: Partial<InferredResult>
 		: never,
@@ -93,37 +86,27 @@ export type DataParserRecordShapeInput<
 			? InferredValue
 			: never
 	> extends infer InferredResult extends Record<string, unknown>
-		? IsEqual<
-			Extract<InferredResult[keyof InferredResult], undefined>,
-			never
-		> extends true
+		? IsEqual<Extract<InferredResult[keyof InferredResult], undefined>, never> extends true
 			? InferredResult
 			: Partial<InferredResult>
 		: never,
 	any
 >;
 
-type _DataParserRecord<
-	GenericDefinition extends DataParserDefinitionRecord,
-> = (
-	& DataParserBase<
-		GenericDefinition,
-		DataParserRecordShapeOutput<
-			GenericDefinition["key"],
-			GenericDefinition["value"]
-		>,
-		DataParserRecordShapeInput<
-			GenericDefinition["key"],
-			GenericDefinition["value"]
-		>
-	>
-	& Kind<typeof recordKind.definition>
-);
-
-export interface DataParserRecord<
+export class DataParserRecord<
 	GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord,
-> extends _DataParserRecord<GenericDefinition> {
-	addChecker<
+> extends DataParserBase.init(
+		recordKind,
+	)<
+		GenericDefinition,
+		DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>,
+		DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserRecord);
+	}
+
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -136,185 +119,137 @@ export interface DataParserRecord<
 			],
 			GenericChecker
 		>
-	): DataParserRecord<
+	) => DataParserRecord<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/record/index.md}
- */
-export function record<
-	GenericDataParserKey extends DataParserRecordKey,
-	GenericDataParserValue extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionRecord<
-			Record<
-				Extract<Output<GenericDataParserKey>, string | number>,
-				Output<GenericDataParserValue>
-			>
-		>,
-		"key" | "value" | "baseData" | "requireKey"
-	> = never,
->(
-	key: GenericDataParserKey,
-	value: GenericDataParserValue,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
-			DataParserDefinitionRecord<
-				Record<
-					Extract<Output<GenericDataParserKey>, string | number>,
-					Output<GenericDataParserValue>
-				>
-			>,
-			"key" | "value" | "baseData" | "requireKey"
-		>,
-		GenericDefinition
-	>,
-): DataParserRecord<
-		MergeDefinition<
-			DataParserDefinitionRecord,
-			NeverCoalescing<GenericDefinition, {}> & {
-				key: GenericDataParserKey;
-				value: GenericDataParserValue;
-			}
-		>
-	> {
-	const requireKey = findRecordRequiredKey(key);
+	public static override execParse(
+		self: DataParserRecord,
+		data: unknown,
+		error: DataParserError,
+	) {
+		if (!data || typeof data !== "object" || data instanceof Array) {
+			return addIssue(error, "record object", data, self.definition.errorMessage);
+		}
 
-	const self = dataParserBaseInit<DataParserRecord>(
-		recordKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
+		const fromData = {
+			...self.definition.baseData,
+			...(data as Record<string, unknown>),
+		};
+		const entries = Object.entries(fromData);
+		const currentIndexPath = error.currentPath.length;
+		const output = entries.reduce<
+			MaybePromise<Record<string, unknown> | SymbolDataParserErrorType>
+		>(
+			(accumulator, entry) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					setErrorPath(error, `(recordKey: ${entry[0]})`, currentIndexPath);
+					return callThen(
+						self.definition.key.exec(entry[0], error),
+						(awaitedKeyResult) => {
+							setErrorPath(error, `(recordValue: ${entry[0]})`, currentIndexPath);
+							return callThen(
+								self.definition.value.exec(entry[1], error),
+								(awaitedValueResult) => {
+									if (
+										awaitedAccumulator === SymbolDataParserError
+										|| awaitedKeyResult === SymbolDataParserError
+										|| awaitedValueResult === SymbolDataParserError
+									) {
+										return SymbolDataParserError;
+									}
+
+									if (awaitedValueResult !== undefined) {
+										awaitedAccumulator[awaitedKeyResult as string] = awaitedValueResult;
+									}
+
+									return awaitedAccumulator;
+								},
+							);
+						},
+					);
+				},
+			),
+			{},
+		);
+
+		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+
+		return output;
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserRecord) {
+		return self.definition.key.isAsynchronous() || self.definition.value.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		key: DataParserRecordKey,
+		value: DataParser,
+		definition?: Partial<
+			Omit<DataParserDefinitionRecord, "key" | "value" | "baseData">
+		>,
+	): DataParserDefinitionRecord {
+		const requireKey = findRecordRequiredKey(key);
+
+		return {
+			...definition,
 			key,
 			value,
-			requireKey,
 			baseData: pipe(
 				requireKey,
-				DArray.map(
-					(key) => DObject.entry(
-						key,
-						undefined,
-					),
-				),
+				DArray.map((key) => DObject.entry(key, undefined)),
 				DObject.fromEntries,
 			),
-		},
-		{
-			sync: (data, error, self) => {
-				if (
-					!data
-					|| typeof data !== "object"
-					|| data instanceof Array
-				) {
-					return addIssue(error, "record object", data, self.definition.errorMessage);
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/record/index.md}
+	 */
+	public static override create<
+		GenericDataParserKey extends DataParserRecordKey,
+		GenericDataParserValue extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
+			DataParserDefinitionRecord<
+				DataParserRecordShapeOutput<
+					GenericDataParserKey,
+					GenericDataParserValue
+				>
+			>,
+			"key" | "value" | "baseData"
+		> = never,
+	>(
+		key: GenericDataParserKey,
+		value: GenericDataParserValue,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionRecord<
+					DataParserRecordShapeOutput<
+						GenericDataParserKey,
+						GenericDataParserValue
+					>
+				>,
+				"key" | "value" | "baseData"
+			>,
+			GenericDefinition
+		>,
+	): DataParserRecord<
+			MergeDefinition<
+				DataParserDefinitionRecord,
+				NeverCoalescing<GenericDefinition, {}> & {
+					key: GenericDataParserKey;
+					value: GenericDataParserValue;
 				}
-
-				let output = {};
-				const fromData = {
-					...self.definition.baseData,
-					...data,
-				};
-				const currentIndexPath = error.currentPath.length;
-
-				for (const key in fromData) {
-					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
-
-					const resultKey = self
-						.definition
-						.key
-						.exec(key, error);
-
-					if (resultKey === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					}
-
-					setErrorPath(error, key, currentIndexPath);
-
-					const resultValue = self
-						.definition
-						.value
-						.exec(fromData[key as never], error);
-
-					if (resultValue === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					}
-
-					if (output !== SymbolDataParserError) {
-						(output as Record<string, any>)[resultKey as never] = resultValue;
-					}
-				}
-
-				void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
-
-				if (output === SymbolDataParserError) {
-					return output;
-				}
-
-				return output;
-			},
-			async: async(data, error, self) => {
-				if (
-					!data
-					|| typeof data !== "object"
-					|| data instanceof Array
-				) {
-					return addIssue(error, "record object", data, self.definition.errorMessage);
-				}
-
-				let output = {};
-				const fromData = {
-					...self.definition.baseData,
-					...data,
-				};
-				const currentIndexPath = error.currentPath.length;
-
-				for (const key in fromData) {
-					setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
-
-					const resultKey = await self
-						.definition
-						.key
-						.asyncExec(key, error);
-
-					if (resultKey === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					}
-
-					setErrorPath(error, key, currentIndexPath);
-
-					const resultValue = await self
-						.definition
-						.value
-						.asyncExec(fromData[key as never], error);
-
-					if (resultValue === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					}
-
-					if (output !== SymbolDataParserError) {
-						(output as Record<string, any>)[resultKey as never] = resultValue;
-					}
-				}
-
-				void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
-
-				if (output === SymbolDataParserError) {
-					return output;
-				}
-
-				return output;
-			},
-			isAsynchronous: (self) => self.definition.value.isAsynchronous(),
-		},
-		record.overrideHandler,
-	) as never;
-
-	return self as never;
+			>
+		> {
+		return new DataParserRecord(this.prepareDefinition(key, value, definition)) as never;
+	}
 }
 
-record.overrideHandler = createOverride<DataParserRecord>("@duplojs/utils/data-parser/record");
+export const record = detachObjectMethod(DataParserRecord, "create");

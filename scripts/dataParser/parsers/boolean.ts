@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserBooleanCheckers = GetEligibleChecker<boolean>;
 
@@ -14,21 +15,20 @@ export interface DataParserDefinitionBoolean extends DataParserDefinition<
 
 export const booleanKind = createDataParserKind("boolean");
 
-type _DataParserBoolean<
-	GenericDefinition extends DataParserDefinitionBoolean,
-> = (
-	& DataParserBase<
+export class DataParserBoolean<
+	GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean,
+> extends DataParserBase.init(
+		booleanKind,
+	)<
 		GenericDefinition,
 		boolean,
 		boolean
-	>
-	& Kind<typeof booleanKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserBoolean);
+	}
 
-export interface DataParserBoolean<
-	GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean,
-> extends _DataParserBoolean<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -41,65 +41,67 @@ export interface DataParserBoolean<
 			],
 			GenericChecker
 		>
-	): DataParserBoolean<
+	) => DataParserBoolean<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/boolean/index.md}
- */
-export function boolean<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionBoolean>,
-		GenericDefinition
-	>,
-): DataParserBoolean<
-		MergeDefinition<
-			DataParserDefinitionBoolean,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserBoolean>(
-		booleanKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			if (typeof data === "boolean") {
-				return data;
-			} else if (self.definition.coerce) {
-				if (typeof data === "string") {
-					const lower = data.trim().toLowerCase();
-					if (lower === "true" || lower === "false") {
-						return lower === "true";
-					} else {
-						return addIssue(error, "boolean", data, self.definition.errorMessage);
-					}
-				} else if (
-					typeof data === "number"
-					&& (
-						data === 0
-						|| data === 1
-					)
-				) {
-					return data === 1;
+	public static override execParse(
+		self: DataParserBoolean,
+		data: unknown,
+		error: DataParserError,
+	): boolean | typeof SymbolDataParserError {
+		if (typeof data === "boolean") {
+			return data;
+		} else if (self.definition.coerce) {
+			if (typeof data === "string") {
+				const lower = data.trim().toLowerCase();
+				if (lower === "true" || lower === "false") {
+					return lower === "true";
 				}
+			} else if (typeof data === "number" && (data === 0 || data === 1)) {
+				return data === 1;
 			}
+		}
 
-			return addIssue(error, "boolean", data, self.definition.errorMessage);
-		},
-		boolean.overrideHandler,
-	) as never;
+		return addIssue(error, "boolean", data, self.definition.errorMessage);
+	}
 
-	return self as never;
+	public static override dataParserIsAsynchronous(self: DataParserBoolean) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionBoolean>,
+	): DataParserDefinitionBoolean {
+		return {
+			...definition,
+			coerce: definition?.coerce ?? false,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/boolean/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionBoolean>,
+			GenericDefinition
+		>,
+	): DataParserBoolean<
+			MergeDefinition<
+				DataParserDefinitionBoolean,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserBoolean(this.prepareDefinition(definition)) as never;
+	}
 }
 
-boolean.overrideHandler = createOverride<DataParserBoolean>("@duplojs/utils/data-parser/boolean");
+export const boolean = detachObjectMethod(DataParserBoolean, "create");

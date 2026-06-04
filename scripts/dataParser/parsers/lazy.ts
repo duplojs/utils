@@ -1,7 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, type Memoized, memo, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { createDataParserKind } from "../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, memo, type Memoized, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { type DataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserLazyCheckers<
 	GenericInput extends unknown = unknown,
@@ -17,21 +19,20 @@ export interface DataParserDefinitionLazy<
 
 export const lazyKind = createDataParserKind("lazy");
 
-type _DataParserLazy<
-	GenericDefinition extends DataParserDefinitionLazy,
-> = (
-	& DataParserBase<
+export class DataParserLazy<
+	GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy,
+> extends DataParserBase.init(
+		lazyKind,
+	)<
 		GenericDefinition,
 		Output<GenericDefinition["getter"]["value"]>,
 		Input<GenericDefinition["getter"]["value"]>
-	>
-	& Kind<typeof lazyKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserLazy);
+	}
 
-export interface DataParserLazy<
-	GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy,
-> extends _DataParserLazy<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -44,59 +45,69 @@ export interface DataParserLazy<
 			],
 			GenericChecker
 		>
-	): DataParserLazy<
+	) => DataParserLazy<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/lazy/index.md}
- */
-export function lazy<
-	GenericDataParser extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionLazy<
-			Output<GenericDataParser>
-		>
-	> = never,
->(
-	getter: () => GenericDataParser,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserLazy,
+		data: unknown,
+		error: DataParserError,
+	) {
+		return self.definition.getter.value.exec(data, error);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserLazy) {
+		return self.definition.getter.value.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		getter: () => DataParser,
+		definition?: Partial<Omit<DataParserDefinitionLazy, "getter">>,
+	): DataParserDefinitionLazy {
+		return {
+			...definition,
+			getter: memo(getter),
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/lazy/index.md}
+	 */
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionLazy<
 				Output<GenericDataParser>
 			>,
 			"getter"
+		> = never,
+	>(
+		getter: () => GenericDataParser,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionLazy<
+					Output<GenericDataParser>
+				>,
+				"getter"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserLazy<
-		MergeDefinition<
-			DataParserDefinitionLazy,
-			NeverCoalescing<GenericDefinition, {}> & {
-				getter: Memoized<GenericDataParser>;
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserLazy>(
-		lazyKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			getter: memo(getter),
-		},
-		{
-			sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
-			async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
-			isAsynchronous: (self) => self.definition.getter.value.isAsynchronous(),
-		},
-		lazy.overrideHandler,
-	) as never;
-
-	return self as never;
+	): DataParserLazy<
+			MergeDefinition<
+				DataParserDefinitionLazy,
+				NeverCoalescing<GenericDefinition, {}> & {
+					getter: Memoized<GenericDataParser>;
+				}
+			>
+		> {
+		return new DataParserLazy(this.prepareDefinition(getter, definition)) as never;
+	}
 }
 
-lazy.overrideHandler = createOverride<DataParserLazy>("@duplojs/utils/data-parser/lazy");
+export const lazy = detachObjectMethod(DataParserLazy, "create");

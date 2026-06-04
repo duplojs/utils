@@ -1,25 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserTemplateLiteralExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral,
-> = (
-	& Kind<typeof dataParsers.templateLiteralKind.definition>
-	& DataParserBaseExtended<
+export class DataParserTemplateLiteralExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral
+	= dataParsers.DataParserDefinitionTemplateLiteral,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserTemplateLiteral)<
 		GenericDefinition,
 		Output<dataParsers.DataParserTemplateLiteral<GenericDefinition>>,
 		Input<dataParsers.DataParserTemplateLiteral<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserTemplateLiteralExtended);
+	}
 
-export interface DataParserTemplateLiteralExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionTemplateLiteral
-	= dataParsers.DataParserDefinitionTemplateLiteral,
-> extends _DataParserTemplateLiteralExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -32,64 +29,57 @@ export interface DataParserTemplateLiteralExtended<
 			],
 			GenericChecker
 		>
-	): DataParserTemplateLiteralExtended<
+	) => DataParserTemplateLiteralExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserTemplateLiteralExtended<
+		>,
+	) => DataParserTemplateLiteralExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/templateLiteral/index.md}
- */
-export function templateLiteral<
-	const GenericTemplate extends dataParsers.TemplateLiteralShape,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionTemplateLiteral<
-			dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
-		>,
-		"template" | "pattern"
-	> = never,
->(
-	template: GenericTemplate,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	/**
+	 * {@include dataParser/extended/templateLiteral/index.md}
+	 */
+	public static override create<
+		const GenericTemplate extends dataParsers.TemplateLiteralShape,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionTemplateLiteral<
 				dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
 			>,
 			"template" | "pattern"
-		>,
-		GenericDefinition
-	>,
-): DataParserTemplateLiteralExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionTemplateLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserTemplateLiteral,
-		DataParserTemplateLiteralExtended
+		> = never,
 	>(
-		dataParsers.templateLiteral(template, definition),
-		{},
-		templateLiteral.overrideHandler,
-	);
-
-	return self as never;
+		template: GenericTemplate,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionTemplateLiteral<
+					dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
+				>,
+				"template" | "pattern"
+			>,
+			GenericDefinition
+		>,
+	): DataParserTemplateLiteralExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionTemplateLiteral,
+			NeverCoalescing<GenericDefinition, {}> & {
+				template: GenericTemplate;
+			}
+			>
+		> {
+		return new DataParserTemplateLiteralExtended(this.prepareDefinition(template, definition)) as never;
+	}
 }
 
-templateLiteral.overrideHandler = createOverride<DataParserTemplateLiteralExtended>("@duplojs/utils/data-parser-extended/templateLiteral");
+export const templateLiteral = detachObjectMethod(DataParserTemplateLiteralExtended, "create");

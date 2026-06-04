@@ -115,7 +115,6 @@ describe("DDataParser tuple", () => {
 		type check = ExpectType<
 			typeof schema,
 			DDataParser.DataParserTuple<{
-				readonly errorMessage: "tuple.invalid";
 				readonly shape: readonly [DDataParser.DataParserString<{
 					readonly errorMessage?: string | undefined;
 					readonly coerce: boolean;
@@ -123,6 +122,7 @@ describe("DDataParser tuple", () => {
 				}>];
 				readonly rest: undefined;
 				readonly checkers: readonly [];
+				readonly errorMessage: string;
 			}>,
 			"strict"
 		>;
@@ -138,6 +138,30 @@ describe("DDataParser tuple", () => {
 							path: "",
 							data: "invalid",
 							message: "tuple.invalid",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+	});
+
+	it("fails when input contains an element without a matching parser", () => {
+		const schema = DDataParser.tuple([DDataParser.string()], {
+			errorMessage: "tuple.extra",
+		});
+
+		const result = schema.parse(["value", "extra"] as never);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "empty",
+							path: "[tupleRest: 1]",
+							data: ["value", "extra"],
+							message: "tuple.extra",
 						}),
 					],
 					currentPath: [],
@@ -168,13 +192,13 @@ describe("DDataParser tuple", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "[1]",
+							path: "[tuple: 1]",
 							data: "33",
 							message: undefined,
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "string",
-							path: "[4]",
+							path: "[tupleRest: 4]",
 							data: 40,
 							message: undefined,
 						}),
@@ -253,13 +277,13 @@ describe("DDataParser tuple", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "[1]",
+								path: "[tuple: 1]",
 								data: "33",
 								message: undefined,
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "string",
-								path: "[4]",
+								path: "[tupleRest: 4]",
 								data: 40,
 								message: undefined,
 							}),

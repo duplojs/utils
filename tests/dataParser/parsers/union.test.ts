@@ -98,6 +98,19 @@ describe("DDataParser union", () => {
 		);
 	});
 
+	it("cleans the temporary option path after execution", () => {
+		const schema = DDataParser.union([
+			DDataParser.string(),
+			DDataParser.number(),
+		]);
+		const error = DDataParser.createError();
+
+		const result = schema.exec(true, error);
+
+		expect(result).toBe(DDataParser.SymbolDataParserError);
+		expect(error.currentPath).toStrictEqual([]);
+	});
+
 	describe("async", () => {
 		it("parses with the first matching parser", async() => {
 			const schema = DDataParser.union([

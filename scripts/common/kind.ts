@@ -1,5 +1,5 @@
 import { type ForbiddenString } from "@scripts/string";
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor, type And } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type ObjectKey, type AnyConstructor, type And, type SimplifyTopLevel } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "@scripts/object";
 
 export interface KindHandler<
@@ -73,7 +73,7 @@ export interface KindDefinition<
 }
 
 const SymbolKind = Symbol.for("@duplojs/utils/kind");
-type SymbolKind = typeof SymbolKind;
+export type SymbolKind = typeof SymbolKind;
 
 export interface Kind<
 	GenericKindDefinition extends KindDefinition,
@@ -109,6 +109,21 @@ export interface GetKind<
 > {
 	[SymbolKind]: GenericObject[SymbolKind];
 }
+
+export type OmitKind<
+	GenericObject extends Kind<any>,
+	GenericKindHandler extends KindHandler,
+> = (
+	& RemoveKind<GenericObject>
+	& {
+		[SymbolKind]: SimplifyTopLevel<
+			Omit<
+				GetKind<GenericObject>[SymbolKind],
+				GenericKindHandler["definition"]["name"]
+			>
+		>;
+	}
+);
 
 export const keyKindPrefix = "@duplojs/utils/kind/";
 

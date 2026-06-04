@@ -1,24 +1,21 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserLiteralExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionLiteral,
-> = (
-	& Kind<typeof dataParsers.literalKind.definition>
-	& DataParserBaseExtended<
+export class DataParserLiteralExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionLiteral = dataParsers.DataParserDefinitionLiteral,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserLiteral)<
 		GenericDefinition,
 		Output<dataParsers.DataParserLiteral<GenericDefinition>>,
 		Input<dataParsers.DataParserLiteral<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserLiteralExtended);
+	}
 
-export interface DataParserLiteralExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionLiteral = dataParsers.DataParserDefinitionLiteral,
-> extends _DataParserLiteralExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		const GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,60 +28,53 @@ export interface DataParserLiteralExtended<
 			],
 			GenericChecker
 		>
-	): DataParserLiteralExtended<
+	) => DataParserLiteralExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserLiteralExtended<
+		>,
+	) => DataParserLiteralExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/literal/index.md}
- */
-export function literal<
-	const GenericValue extends dataParsers.LiteralValue,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionLiteral<GenericValue>,
-		"value"
-	> = never,
->(
-	value: GenericValue | readonly GenericValue[],
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	/**
+	 * {@include dataParser/extended/literal/index.md}
+	 */
+	public static override create<
+		const GenericValue extends dataParsers.LiteralValue,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			dataParsers.DataParserDefinitionLiteral<GenericValue>,
 			"value"
-		>,
-		GenericDefinition
-	>,
-): DataParserLiteralExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionLiteral,
-			NeverCoalescing<GenericDefinition, {}> & { readonly value: readonly GenericValue[] }
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserLiteral,
-		DataParserLiteralExtended
+		> = never,
 	>(
-		dataParsers.literal(value, definition),
-		{},
-		literal.overrideHandler,
-	);
-
-	return self as never;
+		value: GenericValue | readonly GenericValue[],
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionLiteral<GenericValue>,
+				"value"
+			>,
+			GenericDefinition
+		>,
+	): DataParserLiteralExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionLiteral,
+			NeverCoalescing<GenericDefinition, {}> & {
+				readonly value: readonly GenericValue[];
+			}
+			>
+		> {
+		return new DataParserLiteralExtended(this.prepareDefinition(value, definition)) as never;
+	}
 }
 
-literal.overrideHandler = createOverride<DataParserLiteralExtended>("@duplojs/utils/data-parser-extended/literal");
+export const literal = detachObjectMethod(DataParserLiteralExtended, "create");

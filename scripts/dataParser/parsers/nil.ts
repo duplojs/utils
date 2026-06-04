@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserNilCheckers = GetEligibleChecker<null>;
 
@@ -14,21 +15,20 @@ export interface DataParserDefinitionNil extends DataParserDefinition<
 
 export const nilKind = createDataParserKind("nil");
 
-type _DataParserNil<
-	GenericDefinition extends DataParserDefinitionNil,
-> = (
-	& DataParserBase<
+export class DataParserNil<
+	GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil,
+> extends DataParserBase.init(
+		nilKind,
+	)<
 		GenericDefinition,
 		null,
 		null
-	>
-	& Kind<typeof nilKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserNil);
+	}
 
-export interface DataParserNil<
-	GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil,
-> extends _DataParserNil<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -41,50 +41,60 @@ export interface DataParserNil<
 			],
 			GenericChecker
 		>
-	): DataParserNil<
+	) => DataParserNil<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/nil/index.md}
- */
-export function nil<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNil> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionNil>,
-		GenericDefinition
-	>,
-): DataParserNil<
-		MergeDefinition<
-			DataParserDefinitionNil,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserNil>(
-		nilKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
+	public static override execParse(
+		self: DataParserNil,
+		data: unknown,
+		error: DataParserError,
+	): null | typeof SymbolDataParserError {
+		if (data === null) {
+			return data;
+		} else if (self.definition.coerce && data === "null") {
+			return null;
+		}
+
+		return addIssue(error, "null", data, self.definition.errorMessage);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserNil) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionNil>,
+	): DataParserDefinitionNil {
+		return {
+			...definition,
 			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			if (data === null) {
-				return data;
-			} else if (self.definition.coerce && data === "null") {
-				return null;
-			}
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
 
-			return addIssue(error, "null", data, self.definition.errorMessage);
-		},
-		nil.overrideHandler,
-	) as never;
-
-	return self as never;
+	/**
+	 * {@include dataParser/classic/nil/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNil> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionNil>,
+			GenericDefinition
+		>,
+	): DataParserNil<
+			MergeDefinition<
+				DataParserDefinitionNil,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserNil(this.prepareDefinition(definition)) as never;
+	}
 }
 
-nil.overrideHandler = createOverride<DataParserNil>("@duplojs/utils/data-parser/nil");
+export const nil = detachObjectMethod(DataParserNil, "create");

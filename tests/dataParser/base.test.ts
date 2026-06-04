@@ -1,351 +1,378 @@
-import { DEither, DDataParser, createOverride, forward, type SimplifyTopLevel, RemoveKind } from "@scripts";
+import * as DDataParser from "@scripts/dataParser";
+import * as DEither from "@scripts/either";
+import { type ExpectType } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
-	const dataParserTestKind = createDataParserKind("checker-test");
+	const checkerTestKind = createDataParserKind("checker-test");
+	const parserTestKind = createDataParserKind("parser-test");
+	const asyncParserTestKind = createDataParserKind("async-parser-test");
 
-	const specificOverrideHandler = createOverride<DDataParser.DataParser>("@test/data-parser-base");
-	const mockSpecificOverrideHandler = vi.fn(forward);
-	specificOverrideHandler.apply = mockSpecificOverrideHandler;
+	interface CheckerTestDefinition extends DDataParser.DataParserCheckerDefinition {
+		readonly positive: boolean;
+	}
 
-	beforeEach(() => {
-		mockSpecificOverrideHandler.mockClear();
+	class CheckerTest extends DDataParser.DataParserCheckerBase.init(
+		checkerTestKind,
+	)<
+			CheckerTestDefinition,
+			number
+		> {
+		public get classConstructor() {
+			return this.checkConstructor(CheckerTest);
+		}
+
+		public isAsynchronous() {
+			return false;
+		}
+
+		public static override execCheck(
+			value: number,
+			error: DDataParser.DataParserError,
+			self: CheckerTest,
+			dataParser: DDataParser.DataParser,
+		) {
+			if (!self.definition.positive || value > 0) {
+				return value;
+			}
+
+			return DDataParser.addIssue(
+				error,
+				"positive number",
+				value,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+		}
+
+		public static override create(
+			definition: Partial<CheckerTestDefinition> = {},
+		) {
+			return new CheckerTest({
+				...definition,
+				positive: definition.positive ?? true,
+			});
+		}
+	}
+
+	interface ParserTestDefinition extends DDataParser.DataParserDefinition<CheckerTest> {
+		readonly asynchronous: boolean;
+	}
+
+	class ParserTest extends DDataParser.DataParserBase.init(
+		parserTestKind,
+	)<
+			ParserTestDefinition,
+			number,
+			unknown
+		> {
+		public get classConstructor() {
+			return this.checkConstructor(ParserTest);
+		}
+
+		public declare addChecker: (
+			...checkers: CheckerTest[]
+		) => ParserTest;
+
+		public static override execParse(
+			self: ParserTest,
+			data: unknown,
+			error: DDataParser.DataParserError,
+		) {
+			if (typeof data === "number") {
+				return data;
+			}
+
+			return DDataParser.addIssue(
+				error,
+				"number",
+				data,
+				self.definition.errorMessage,
+			);
+		}
+
+		public static override dataParserIsAsynchronous(self: ParserTest) {
+			return self.definition.asynchronous;
+		}
+
+		public static override prepareDefinition(
+			definition: Partial<ParserTestDefinition> = {},
+		): ParserTestDefinition {
+			return {
+				...definition,
+				asynchronous: definition.asynchronous ?? false,
+				checkers: definition.checkers ?? [],
+				errorMessage: definition.errorMessage,
+			};
+		}
+
+		public static override create(
+			definition?: Partial<ParserTestDefinition>,
+		) {
+			return new ParserTest(this.prepareDefinition(definition));
+		}
+	}
+
+	class AsyncParserTest extends DDataParser.DataParserBase.init(
+		asyncParserTestKind,
+	)<
+			ParserTestDefinition,
+			number,
+			unknown
+		> {
+		public get classConstructor() {
+			return this.checkConstructor(AsyncParserTest);
+		}
+
+		public static override execParse(
+			self: AsyncParserTest,
+			data: unknown,
+			error: DDataParser.DataParserError,
+		) {
+			return Promise.resolve(
+				typeof data === "number"
+					? data
+					: DDataParser.addIssue(
+						error,
+						"number",
+						data,
+						self.definition.errorMessage,
+					),
+			);
+		}
+
+		public static override dataParserIsAsynchronous(self: AsyncParserTest) {
+			return self.definition.asynchronous;
+		}
+
+		public static override prepareDefinition(
+			definition: Partial<ParserTestDefinition> = {},
+		): ParserTestDefinition {
+			return {
+				...definition,
+				asynchronous: true,
+				checkers: definition.checkers ?? [],
+				errorMessage: definition.errorMessage,
+			};
+		}
+
+		public static override create(
+			definition?: Partial<ParserTestDefinition>,
+		) {
+			return new AsyncParserTest(this.prepareDefinition(definition));
+		}
+	}
+
+	it("creates a checker class instance with its definition and kinds", () => {
+		const checker = CheckerTest.create({
+			errorMessage: "positive",
+		});
+
+		expect(checker).toBeInstanceOf(CheckerTest);
+		expect(DDataParser.checkerKind.has(checker)).toBe(true);
+		expect(checkerTestKind.has(checker)).toBe(true);
+		expect(checker.definition).toStrictEqual({
+			errorMessage: "positive",
+			positive: true,
+		});
+		expect(checker.isAsynchronous()).toBe(false);
 	});
 
-	it("dataParserCheckerInit", () => {
-		const exec = (input: unknown) => input;
+	it("creates a parser class instance with its definition and kinds", () => {
+		const checker = CheckerTest.create();
+		const parser = ParserTest.create({
+			errorMessage: "invalid",
+			checkers: [checker],
+		});
 
-		const result = DDataParser.dataParserCheckerInit(
-			dataParserTestKind as never,
-			{
-				definition: {
-					errorMessage: "error",
-				},
-			},
-			exec,
-		);
+		expect(parser).toBeInstanceOf(ParserTest);
+		expect(DDataParser.dataParserKind.has(parser)).toBe(true);
+		expect(parserTestKind.has(parser)).toBe(true);
+		expect(parser.definition).toStrictEqual({
+			asynchronous: false,
+			errorMessage: "invalid",
+			checkers: [checker],
+		});
+	});
 
-		expect(DDataParser.checkerKind.has(result)).toBe(true);
-		expect(dataParserTestKind.has(result)).toBe(true);
+	it("parses valid data and applies registered checkers", () => {
+		const parser = ParserTest.create({
+			checkers: [CheckerTest.create()],
+		});
+
+		expect(parser.parse(5)).toStrictEqual(DEither.success(5));
+		expect(parser.parse(-1)).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
+	it("keeps a checker error through the remaining checkers", () => {
+		const parser = ParserTest.create({
+			checkers: [
+				CheckerTest.create(),
+				CheckerTest.create({
+					positive: false,
+				}),
+			],
+		});
+
+		const result = parser.parse(-1);
+
 		expect(result).toStrictEqual(
-			dataParserTestKind.addTo(
-				DDataParser.checkerKind.addTo({
-					definition: {
-						errorMessage: "error",
-					},
-					exec,
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "positive number",
+							path: "",
+							data: -1,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
 				}),
 			),
 		);
 	});
 
-	describe("dataParserInit", () => {
-		const execChecker = vi.fn((value: number) => value > 0 ? value : DDataParser.SymbolDataParserErrorIssue);
-
-		const checker = DDataParser.dataParserCheckerInit(
-			dataParserTestKind as never,
-			{
-				definition: {
-					errorMessage: "positive",
-				},
-			},
-			execChecker as never,
-		);
-
-		const exec = vi.fn((input) => typeof input === "number" ? input : DDataParser.SymbolDataParserErrorIssue);
-
-		const parser = DDataParser.dataParserBaseInit(
-			dataParserTestKind as never,
-			{
-				errorMessage: "invalid",
-				checkers: [checker],
-			},
-			exec as never,
-			specificOverrideHandler,
-		);
-
-		beforeEach(() => {
-			execChecker.mockClear();
-			exec.mockClear();
+	it("returns a parser error when core parsing fails", () => {
+		const parser = ParserTest.create({
+			errorMessage: "invalid",
 		});
 
-		it("have correct structure", () => {
-			expect(DDataParser.dataParserKind.has(parser)).toBe(true);
-			expect(parser).toStrictEqual(
-				dataParserTestKind.addTo(
-					DDataParser.dataParserKind.addTo(
-						{
-							definition: {
-								errorMessage: "invalid",
-								checkers: [checker],
-							},
-							exec: expect.any(Function),
-							parse: expect.any(Function),
-							asyncExec: expect.any(Function),
-							asyncParse: expect.any(Function),
-							addChecker: expect.any(Function),
-							clone: expect.any(Function),
-							contract: expect.any(Function),
-							parseOrThrow: expect.any(Function),
-							asyncParseOrThrow: expect.any(Function),
-							isAsynchronous: expect.any(Function),
-						},
-						null as never,
-					),
-				),
-			);
-		});
+		const result = parser.parse("test");
 
-		it("run base exec and return success", () => {
-			const result = parser.parse(5);
-
-			expect(result).toStrictEqual(DEither.success(5));
-			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker, parser);
-		});
-
-		it("parseOrThrow returns value on success", () => {
-			const result = parser.parseOrThrow(5);
-
-			expect(result).toBe(5);
-		});
-
-		it("parseOrThrow throws on error", () => {
-			expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.DataParserThrowError);
-		});
-
-		it("run base exec and check return error", () => {
-			const parser = DDataParser.dataParserBaseInit(
-				dataParserTestKind as never,
-				{
-					errorMessage: "invalid",
-					checkers: [],
-				},
-				exec,
-				specificOverrideHandler,
-			);
-
-			const result = parser.parse(-1);
-
-			expect(result).toStrictEqual(DEither.success(-1));
-			expect(exec).toHaveBeenCalledWith(-1, DDataParser.createError(), parser);
-		});
-
-		it("add checkers", () => {
-			const newParser = parser.addChecker(checker);
-
-			expect(newParser).toStrictEqual(
-				dataParserTestKind.addTo(
-					DDataParser.dataParserKind.addTo(
-						{
-							definition: {
-								errorMessage: "invalid",
-								checkers: [checker, checker],
-							},
-							exec: expect.any(Function),
-							parse: expect.any(Function),
-							asyncExec: expect.any(Function),
-							asyncParse: expect.any(Function),
-							addChecker: expect.any(Function),
-							clone: expect.any(Function),
-							contract: expect.any(Function),
-							parseOrThrow: expect.any(Function),
-							asyncParseOrThrow: expect.any(Function),
-							isAsynchronous: expect.any(Function),
-						},
-						null as never,
-					),
-				),
-			);
-		});
-
-		it("clone correct structure", () => {
-			const newParser = parser.clone();
-			expect(DDataParser.dataParserKind.has(newParser)).toBe(true);
-			expect(newParser).toStrictEqual(
-				dataParserTestKind.addTo(
-					DDataParser.dataParserKind.addTo(
-						{
-							definition: {
-								errorMessage: "invalid",
-								checkers: [checker],
-							},
-							exec: expect.any(Function),
-							parse: expect.any(Function),
-							asyncExec: expect.any(Function),
-							asyncParse: expect.any(Function),
-							addChecker: expect.any(Function),
-							clone: expect.any(Function),
-							contract: expect.any(Function),
-							parseOrThrow: expect.any(Function),
-							asyncParseOrThrow: expect.any(Function),
-							isAsynchronous: expect.any(Function),
-						},
-						null as never,
-					),
-				),
-			);
-		});
-
-		it("isAsynchronous", () => {
-			expect(parser.isAsynchronous()).toBe(false);
-		});
+		expect(result).toStrictEqual(DEither.error(expect.any(Object)));
+		if (DEither.errorKind.has(result)) {
+			expect(DEither.unwrapLeft(result).issues).toStrictEqual([
+				expect.objectContaining({
+					expected: "number",
+					data: "test",
+					message: "invalid",
+				}),
+			]);
+		}
 	});
 
-	describe("async dataParserInit", () => {
-		const execChecker = vi.fn(
-			(value: number) => value > 0 ? value : DDataParser.SymbolDataParserError,
-		);
+	it("returns parsed data or throws from parseOrThrow", () => {
+		const parser = ParserTest.create();
 
-		const checker = DDataParser.dataParserCheckerInit(
-			dataParserTestKind as never,
-			{
-				definition: {
-					errorMessage: "positive",
-				},
-			},
-			execChecker as never,
-		);
+		expect(parser.parseOrThrow(5)).toBe(5);
+		expect(() => parser.parseOrThrow("test")).toThrow(DDataParser.ParseError);
+	});
 
-		const exec = vi.fn(
-			(input) => Promise.resolve(
-				typeof input === "number"
-					? input
-					: DDataParser.SymbolDataParserError,
+	it("adds checkers without mutating the original parser", () => {
+		const checker = CheckerTest.create();
+		const parser = ParserTest.create();
+
+		const newParser = parser.addChecker(checker) as ParserTest;
+
+		expect(newParser).toBeInstanceOf(ParserTest);
+		expect(newParser).not.toBe(parser);
+		expect(parser.definition.checkers).toStrictEqual([]);
+		expect(newParser.definition.checkers).toStrictEqual([checker]);
+	});
+
+	it("clones the parser definition without mutating the original parser", () => {
+		const checker = CheckerTest.create();
+		const parser = ParserTest.create({
+			checkers: [checker],
+		});
+
+		const clone = parser.clone();
+
+		expect(clone).toBeInstanceOf(ParserTest);
+		expect(clone).not.toBe(parser);
+		expect(clone.definition).toStrictEqual(parser.definition);
+		expect(clone.definition).not.toBe(parser.definition);
+		expect(clone.definition.checkers).not.toBe(parser.definition.checkers);
+	});
+
+	it("reports whether the parser or one of its checkers is asynchronous", () => {
+		const syncParser = ParserTest.create();
+		const asyncParser = ParserTest.create({
+			asynchronous: true,
+		});
+		const parserWithAsyncChecker = ParserTest.create({
+			checkers: [
+				DDataParser.checkerRefine((async() => {
+					await Promise.resolve();
+					return true;
+				}) as never),
+			] as never,
+		});
+
+		expect(syncParser.isAsynchronous()).toBe(false);
+		expect(asyncParser.isAsynchronous()).toBe(true);
+		expect(parserWithAsyncChecker.isAsynchronous()).toBe(true);
+	});
+
+	it("awaits asynchronous parsing with asyncParse and asyncParseOrThrow", async() => {
+		const parser = AsyncParserTest.create();
+
+		await expect(parser.asyncParse(5)).resolves.toStrictEqual(DEither.success(5));
+		await expect(parser.asyncParse("test")).resolves.toStrictEqual(DEither.error(expect.any(Object)));
+		await expect(parser.asyncParseOrThrow(5)).resolves.toBe(5);
+		await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.ParseError);
+	});
+
+	it("keeps an asynchronous checker error through the remaining checkers", async() => {
+		const parser = AsyncParserTest.create({
+			checkers: [
+				CheckerTest.create(),
+				CheckerTest.create({
+					positive: false,
+				}),
+			],
+		});
+
+		const result = await parser.asyncParse(-1);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "positive number",
+							path: "",
+							data: -1,
+							message: undefined,
+						}),
+					],
+					currentPath: [],
+				}),
 			),
 		);
-
-		const parser = DDataParser.dataParserBaseInit(
-			dataParserTestKind as never,
-			{
-				errorMessage: "invalid",
-				checkers: [checker],
-			},
-			{
-				sync: exec as never,
-				async: exec as never,
-				isAsynchronous: () => true,
-			},
-			specificOverrideHandler,
-		);
-
-		beforeEach(() => {
-			execChecker.mockClear();
-			exec.mockClear();
-		});
-
-		it("run base exec and return success", async() => {
-			const result = await parser.asyncParse(5);
-
-			expect(result).toStrictEqual(DEither.success(5));
-			expect(exec).toHaveBeenCalledWith(5, DDataParser.createError(), parser);
-			expect(execChecker).toHaveBeenCalledWith(5, DDataParser.createError(), checker, parser);
-		});
-
-		it("asyncParseOrThrow returns value on success", async() => {
-			const result = await parser.asyncParseOrThrow(5);
-
-			expect(result).toBe(5);
-		});
-
-		it("asyncParseOrThrow throws on error", async() => {
-			await expect(parser.asyncParseOrThrow("test")).rejects.toThrow(DDataParser.DataParserThrowError);
-		});
-
-		it("run base exec and check return error", async() => {
-			const parser = DDataParser.dataParserBaseInit(
-				dataParserTestKind as never,
-				{
-					errorMessage: "invalid",
-					checkers: [],
-				},
-				exec,
-				specificOverrideHandler,
-			);
-
-			const result = await parser.asyncParse(-1);
-
-			expect(result).toStrictEqual(DEither.success(-1));
-			expect(exec).toHaveBeenCalledWith(-1, DDataParser.createError(), parser);
-		});
-
-		it("isAsynchronous", () => {
-			expect(parser.isAsynchronous()).toBe(true);
-		});
 	});
 
-	it("contract", () => {
-		const contractWithChecker1: DDataParser.DataParserString = DDataParser
-			.extended
-			.string()
-			.max(1);
+	it("returns or throws the synchronous execution error symbol for asynchronous parsing", () => {
+		const parser = AsyncParserTest.create();
 
-		const contractWithChecker2: DDataParser.DataParserString = DDataParser
-			.string()
-			.addChecker(
-				DDataParser.checkerStringMax(1),
-			);
+		const result = parser.parse(5);
 
-		const contractWithChecker3: DDataParser.extended.DataParserStringExtended = DDataParser
-			.extended
-			.string()
-			.max(1);
+		expect(result).toStrictEqual(
+			DEither.error(
+				expect.objectContaining({
+					issues: [
+						expect.objectContaining({
+							expected: "synchronous result",
+							data: expect.any(Promise),
+						}),
+					],
+				}),
+			),
+		);
+		expect(() => parser.parseOrThrow(5)).toThrow(DDataParser.ParseError);
+	});
 
-		const contractWithCoerce: DDataParser.DataParserString = DDataParser
-			.extended
-			.string({ coerce: true })
-			.max(1);
+	it("preserves the parser instance and output type with contract", () => {
+		const parser = ParserTest.create();
 
-		const dataParserWithChecker: DDataParser.DataParserString<
-			Omit<DDataParser.DataParserDefinitionString, "checkers"> & {
-				readonly checkers: readonly DDataParser.DataParserCheckerStringMax[];
-			}
-		> = DDataParser
-			.extended
-			.string()
-			.max(1);
+		const contracted = parser.contract<number>();
 
-		// @ts-expect-error wrong checker
-		const dataParserWithWrongChecker: DDataParser.DataParserString<
-			Omit<DDataParser.DataParserDefinitionString, "checkers"> & {
-				readonly checkers: readonly DDataParser.DataParserCheckerStringMax[];
-			}
-		> = DDataParser
-			.extended
-			.string()
-			.max(1)
-			.min(0);
+		type Check = ExpectType<
+			typeof contracted,
+			DDataParser.DataParser<number>,
+			"strict"
+		>;
 
-		type RecursiveTuple = [string, (RecursiveTuple | string)[]];
-
-		const schema: DDataParser.DataParser<RecursiveTuple> = DDataParser
-			.tuple([
-				DDataParser.string(),
-				DDataParser.array(
-					DDataParser.union([
-						DDataParser.lazy(() => schema),
-						DDataParser.string(),
-					]),
-				),
-			])
-			.contract();
-
-		const tupleSchema: DDataParser.Contract<
-			DDataParser.DataParserTuple<
-				SimplifyTopLevel<
-				& Omit<DDataParser.DataParserDefinitionTuple, "shape" | "rest">
-				& {
-					readonly shape: readonly [
-						(DDataParser.DataParserString | DDataParser.DataParserNumber<
-							& DDataParser.DataParserDefinitionNumber
-							& { readonly coerce: true }
-						>),
-						...DDataParser.DataParserString[],
-					];
-					readonly rest: DDataParser.DataParserString | undefined;
-				}
-				>
-			>
-		> = DDataParser.tuple([DDataParser.number({ coerce: true })]);
+		expect(contracted).toBe(parser);
 	});
 });

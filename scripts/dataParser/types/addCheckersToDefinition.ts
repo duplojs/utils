@@ -1,5 +1,6 @@
 import { type SimplifyTopLevel } from "@scripts/common";
-import { type DataParserChecker, type DataParserDefinition } from "../base";
+import { type DataParserChecker } from "../baseChecker";
+import { type DataParserDefinition } from "../base";
 
 export type AddCheckersToDefinition<
 	GenericDefinition extends DataParserDefinition,

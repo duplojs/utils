@@ -21,6 +21,7 @@ describe("DDataParser string", () => {
 
 	it("succes parsing", () => {
 		const schema = DDataParser.string();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

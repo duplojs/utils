@@ -75,17 +75,12 @@ describe("DDataParser record", () => {
 			"strict"
 		>;
 
-		const input = {
+		const result = schema.parse({
 			test: "bar",
 			120: undefined,
-		};
+		});
 
-		const result = schema.parse(input);
-
-		expect(result).toStrictEqual(DEither.success({
-			...input,
-			ok: undefined,
-		}));
+		expect(result).toStrictEqual(DEither.success({ test: "bar" }));
 
 		type _Check = ExpectType<
 			typeof result,
@@ -112,13 +107,13 @@ describe("DDataParser record", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "value",
+							path: "(recordValue: value)",
 							data: undefined,
 							message: undefined,
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "tt",
+							path: "(recordValue: tt)",
 							data: undefined,
 							message: undefined,
 						}),
@@ -130,7 +125,7 @@ describe("DDataParser record", () => {
 						}),
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "forbidden",
+							path: "(recordValue: forbidden)",
 							data: "testValue",
 							message: undefined,
 						}),
@@ -216,7 +211,7 @@ describe("DDataParser record", () => {
 					issues: [
 						DDataParser.errorIssueKind.addTo({
 							expected: "number",
-							path: "foo",
+							path: "(recordValue: foo)",
 							data: "bar",
 							message: undefined,
 						}),
@@ -372,13 +367,13 @@ describe("DDataParser record", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "value",
+								path: "(recordValue: value)",
 								data: undefined,
 								message: undefined,
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "tt",
+								path: "(recordValue: tt)",
 								data: undefined,
 								message: undefined,
 							}),
@@ -390,7 +385,7 @@ describe("DDataParser record", () => {
 							}),
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "forbidden",
+								path: "(recordValue: forbidden)",
 								data: "testValue",
 								message: undefined,
 							}),
@@ -470,7 +465,7 @@ describe("DDataParser record", () => {
 						issues: [
 							DDataParser.errorIssueKind.addTo({
 								expected: "number",
-								path: "foo",
+								path: "(recordValue: foo)",
 								data: "bar",
 								message: undefined,
 							}),

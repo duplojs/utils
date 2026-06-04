@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../../kind";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParserDefinition } from "../../base";
+import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -16,21 +17,20 @@ export interface DataParserDefinitionNumber extends DataParserDefinition<
 
 export const numberKind = createDataParserKind("number");
 
-type _DataParserNumber<
-	GenericDefinition extends DataParserDefinitionNumber,
-> = (
-	& DataParserBase<
+export class DataParserNumber<
+	GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber,
+> extends DataParserBase.init(
+		numberKind,
+	)<
 		GenericDefinition,
 		number,
 		number
-	>
-	& Kind<typeof numberKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserNumber);
+	}
 
-export interface DataParserNumber<
-	GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber,
-> extends _DataParserNumber<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -43,56 +43,74 @@ export interface DataParserNumber<
 			],
 			GenericChecker
 		>
-	): DataParserNumber<
+	) => DataParserNumber<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/number/index.md}
- */
-export function number<
-	const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNumber> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<DataParserDefinitionNumber>,
-		GenericDefinition
-	>,
-): DataParserNumber<
-		MergeDefinition<
-			DataParserDefinitionNumber,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseInit<DataParserNumber>(
-		numberKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
+	public static override execParse(
+		self: DataParserNumber,
+		data: unknown,
+		error: DataParserError,
+	): (
+			| number
+			| typeof SymbolDataParserError
+		) {
+		const inputData = data;
+		if (self.definition.coerce) {
+			try {
+				// eslint-disable-next-line no-param-reassign
+				data = Number(data);
+			} catch {}
+		}
+
+		if (typeof data === "number" && !Number.isNaN(data)) {
+			return data;
+		}
+
+		return addIssue(
+			error,
+			"number",
+			inputData,
+			self.definition.errorMessage,
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserNumber) {
+		return false;
+	}
+
+	public static override prepareDefinition(
+		definition?: Partial<DataParserDefinitionNumber>,
+	): DataParserDefinitionNumber {
+		return {
+			...definition,
 			coerce: definition?.coerce ?? false,
-		},
-		(data, error, self) => {
-			const inputData = data;
-			if (self.definition.coerce) {
-				try {
-					// eslint-disable-next-line no-param-reassign
-					data = Number(data);
-				} catch {}
-			}
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
 
-			if (typeof data === "number" && !Number.isNaN(data)) {
-				return data;
-			}
-
-			return addIssue(error, "number", inputData, self.definition.errorMessage);
-		},
-		number.overrideHandler,
-	) as never;
-
-	return self as never;
+	/**
+	 * {@include dataParser/classic/number/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNumber> = never,
+	>(
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<DataParserDefinitionNumber>,
+			GenericDefinition
+		>,
+	): DataParserNumber<
+			MergeDefinition<
+				DataParserDefinitionNumber,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserNumber(this.prepareDefinition(definition)) as never;
+	}
 }
 
-number.overrideHandler = createOverride<DataParserNumber>("@duplojs/utils/data-parser/number");
+export const number = detachObjectMethod(DataParserNumber, "create");

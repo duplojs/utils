@@ -24,7 +24,7 @@ Builds a parser for a deterministic string shape (`"order-${number}"`, `"user-${
 ## Parameters
 
 - `template`: shape to validate (primitive parts or compatible sub-parsers).
-- `pattern`: `RegExp` automatically generated from the template (override rarely needed).
+- `pattern`: `RegExp` automatically generated from the template (manual configuration is rarely needed).
 - `checkers`: `checkerRefine` to apply additional rules.
 
 ## Return value

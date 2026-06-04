@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { detachObjectMethod } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionStringMin extends DataParserCheckerDefinition {
 	min: number;
@@ -9,34 +10,47 @@ export interface DataParserCheckerDefinitionStringMin extends DataParserCheckerD
 
 export const checkerStringMinKind = createDataParserKind("checker-string-min");
 
-type _DataParserCheckerStringMin = (
-	& Kind<typeof checkerStringMinKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerStringMin extends DataParserCheckerBase.init(
+	checkerStringMinKind,
+)<
 		DataParserCheckerDefinitionStringMin,
 		string
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerStringMin);
+	}
 
-export interface DataParserCheckerStringMin extends _DataParserCheckerStringMin {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-export function checkerStringMin(
-	min: number,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionStringMin, "min">
-	> = {},
-): DataParserCheckerStringMin {
-	return dataParserCheckerInit<DataParserCheckerStringMin>(
-		checkerStringMinKind,
-		{
-			definition: {
-				...definition,
-				min,
-			},
-		},
-		(data, error, self, dataParser) => data.length >= self.definition.min
+	public static override execCheck(
+		data: string,
+		error: DataParserError,
+		self: DataParserCheckerStringMin,
+		dataParser: DataParser,
+	) {
+		return data.length >= self.definition.min
 			? data
-			: addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				`string.length >= ${self.definition.min}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static override create(
+		min: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionStringMin, "min">
+		> = {},
+	) {
+		return new DataParserCheckerStringMin({
+			...definition,
+			min,
+		});
+	}
 }
+
+export const checkerStringMin = detachObjectMethod(DataParserCheckerStringMin, "create");

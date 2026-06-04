@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { detachObjectMethod } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDefinition {
 	max: number;
@@ -9,40 +10,47 @@ export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDe
 
 export const checkerArrayMaxKind = createDataParserKind("checker-array-max");
 
-type _DataParserCheckerArrayMax = (
-	& Kind<typeof checkerArrayMaxKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
+	checkerArrayMaxKind,
+)<
 		DataParserCheckerDefinitionArrayMax,
-		any[]
-	>
-);
+		unknown[]
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerArrayMax);
+	}
 
-export interface DataParserCheckerArrayMax extends _DataParserCheckerArrayMax {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-export function checkerArrayMax(
-	max: number,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionArrayMax, "max">
-	> = {},
-): DataParserCheckerArrayMax {
-	return dataParserCheckerInit<DataParserCheckerArrayMax>(
-		checkerArrayMaxKind,
-		{
-			definition: {
-				...definition,
-				max,
-			},
-		},
-		(data, error, self, dataParser) => data.length <= self.definition.max
+	public static override execCheck(
+		data: unknown[],
+		error: DataParserError,
+		self: DataParserCheckerArrayMax,
+		dataParser: DataParser,
+	) {
+		return data.length <= self.definition.max
 			? data
 			: addIssue(
 				error,
 				`array.length <= ${self.definition.max}`,
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
-			),
+			);
+	}
 
-	);
+	public static override create(
+		max: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionArrayMax, "max">
+		> = {},
+	) {
+		return new DataParserCheckerArrayMax({
+			...definition,
+			max,
+		});
+	}
 }
+
+export const checkerArrayMax = detachObjectMethod(DataParserCheckerArrayMax, "create");

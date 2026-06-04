@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { addIssue, popErrorPath, setErrorPath } from "@scripts/dataParser/error";
-import { createDataParserKind } from "../../kind";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
+import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -20,21 +21,20 @@ export interface DataParserDefinitionArray<
 
 export const arrayKind = createDataParserKind("array");
 
-type _DataParserArray<
-	GenericDefinition extends DataParserDefinitionArray,
-> = (
-	& DataParserBase<
+export class DataParserArray<
+	GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray,
+> extends DataParserBase.init(
+		arrayKind,
+	)<
 		GenericDefinition,
 		Output<GenericDefinition["element"]>[],
 		Input<GenericDefinition["element"]>[]
-	>
-	& Kind<typeof arrayKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserArray);
+	}
 
-export interface DataParserArray<
-	GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray,
-> extends _DataParserArray<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -47,109 +47,104 @@ export interface DataParserArray<
 			],
 			GenericChecker
 		>
-	): DataParserArray<
+	) => DataParserArray<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/array/index.md}
- */
-export function array<
-	GenericElement extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionArray<Output<GenericElement>[]>,
-		"element"
-	> = never,
->(
-	element: GenericElement,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserArray,
+		data: unknown,
+		error: DataParserError,
+	): MaybePromise<SymbolDataParserError | unknown[]> {
+		if (!(data instanceof Array)) {
+			return addIssue(
+				error,
+				"array",
+				data,
+				self.definition.errorMessage,
+			);
+		}
+
+		const currentIndexPath = error.currentPath.length;
+
+		const output = data.reduce<MaybePromise<unknown[] | SymbolDataParserError>>(
+			(accumulator, element, index) => callThen(
+				accumulator,
+				(awaitedAccumulator) => {
+					setErrorPath(error, `[${index}]`, currentIndexPath);
+					return callThen(
+						self.definition.element.exec(element, error),
+						(awaitedResult) => {
+							if (
+								awaitedResult === SymbolDataParserError
+								|| awaitedAccumulator === SymbolDataParserError
+							) {
+								return SymbolDataParserError;
+							}
+
+							awaitedAccumulator.push(awaitedResult);
+
+							return awaitedAccumulator;
+						},
+					);
+				},
+			),
+			[],
+		);
+
+		void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+
+		return output;
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserArray) {
+		return self.definition.element.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		element: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionArray, "element">>,
+	): DataParserDefinitionArray {
+		return {
+			...definition,
+			element,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/array/index.md}
+	 */
+	public static override create<
+		GenericElement extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionArray<Output<GenericElement>[]>,
 			"element"
+		> = never,
+	>(
+		element: GenericElement,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionArray<Output<GenericElement>[]>,
+				"element"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserArray<
-		MergeDefinition<
-			DataParserDefinitionArray,
-			& NeverCoalescing<GenericDefinition, {}>
-			& {
-				readonly element: GenericElement;
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserArray>(
-		arrayKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			element,
-		},
-		{
-			sync: (data, error, self) => {
-				if (!(data instanceof Array)) {
-					return addIssue(error, "array", data, self.definition.errorMessage);
+	): DataParserArray<
+			MergeDefinition<
+				DataParserDefinitionArray,
+				& NeverCoalescing<GenericDefinition, {}>
+				& {
+					readonly element: GenericElement;
 				}
-
-				let output: SymbolDataParserError | unknown[] = [];
-				const currentIndexPath = error.currentPath.length;
-
-				for (let index = 0; index < data.length; index++) {
-					setErrorPath(error, `[${index}]`, currentIndexPath);
-
-					const result = self
-						.definition
-						.element
-						.exec(data[index], error);
-
-					if (result === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					} else if (output !== SymbolDataParserError) {
-						output.push(result);
-					}
-				}
-
-				void (data.length && popErrorPath(error));
-
-				return output as never;
-			},
-			async: async(data, error, self) => {
-				if (!(data instanceof Array)) {
-					return addIssue(error, "array", data, self.definition.errorMessage);
-				}
-
-				let output: SymbolDataParserError | unknown[] = [];
-				const currentIndexPath = error.currentPath.length;
-
-				for (let index = 0; index < data.length; index++) {
-					setErrorPath(error, `[${index}]`, currentIndexPath);
-
-					const result = await self
-						.definition
-						.element
-						.asyncExec(data[index], error);
-
-					if (result === SymbolDataParserError) {
-						output = SymbolDataParserError;
-					} else if (output !== SymbolDataParserError) {
-						output.push(result);
-					}
-				}
-
-				void (data.length && popErrorPath(error));
-
-				return output as never;
-			},
-			isAsynchronous: (self) => self.definition.element.isAsynchronous(),
-		},
-		array.overrideHandler,
-	);
-
-	return self as never;
+			>
+		> {
+		return new DataParserArray(this.prepareDefinition(element, definition)) as never;
+	}
 }
 
-array.overrideHandler = createOverride<DataParserArray>("@duplojs/utils/data-parser/array");
+export const array = detachObjectMethod(DataParserArray, "create");

@@ -5,6 +5,8 @@ describe("DDataParser string url checker", () => {
 		const checker = DDataParser.checkerUrl({
 			protocol: /^https?$/,
 		});
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.string({
 			checkers: [checker],
 		});

@@ -78,6 +78,44 @@ describe("callThen", () => {
 		await expect(result).rejects.toBe(error);
 	});
 
+	it("catches errors thrown by the callback for a sync input", () => {
+		const error = new Error("boom");
+
+		const result = callThen(
+			"value",
+			() => {
+				throw error;
+			},
+			(caughtError) => caughtError,
+		);
+
+		expect(result).toBe(error);
+
+		type check = ExpectType<
+			typeof result,
+			unknown,
+			"strict"
+		>;
+	});
+
+	it("catches rejections from a promise input", async() => {
+		const error = new Error("boom");
+
+		const result = callThen(
+			Promise.reject(error),
+			(value: never) => value,
+			(caughtError) => caughtError,
+		);
+
+		await expect(result).resolves.toBe(error);
+
+		type check = ExpectType<
+			typeof result,
+			Promise<unknown>,
+			"strict"
+		>;
+	});
+
 	it("works in pipe", () => {
 		const result = pipe(
 			5,

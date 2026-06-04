@@ -21,6 +21,7 @@ describe("DDataParser empty", () => {
 
 	it("parses undefined value", () => {
 		const schema = DDataParser.empty();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

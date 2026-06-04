@@ -21,6 +21,10 @@ describe("createOverride", () => {
 
 		expect(result.value).toBe(10);
 		expect(result.getValue()).toBe(20);
+		expect("superValue" in result).toBe(true);
+		expect("increment" in result).toBe(true);
+		expect("missing" in result).toBe(false);
+		expect(Reflect.get(result, "missing")).toBeUndefined();
 		expect(result.increment(5)).toBe(16);
 		expect({ ...result }).toStrictEqual({
 			getValue: expect.any(Function),

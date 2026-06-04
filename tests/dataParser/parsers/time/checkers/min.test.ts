@@ -3,6 +3,8 @@ import { DDataParser, DEither, DDate, type ExpectType } from "@scripts";
 describe("DDataParser time checker min", () => {
 	it("allows times greater or equal to min", () => {
 		const checker = DDataParser.checkerTimeMin(DDate.createTime(1, "minute"));
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.time({
 			checkers: [checker],
 		});

@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { detachObjectMethod } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 import * as DDate from "@scripts/date";
 
 export interface DataParserCheckerDefinitionTimeMin extends DataParserCheckerDefinition {
@@ -10,37 +11,50 @@ export interface DataParserCheckerDefinitionTimeMin extends DataParserCheckerDef
 
 export const checkerTimeMinKind = createDataParserKind("checker-time-min");
 
-type _DataParserCheckerTimeMin = (
-	& Kind<typeof checkerTimeMinKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
+	checkerTimeMinKind,
+)<
 		DataParserCheckerDefinitionTimeMin,
 		DDate.TheTime
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerTimeMin);
+	}
 
-export interface DataParserCheckerTimeMin extends _DataParserCheckerTimeMin {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-/**
- * {@include dataParser/classic/checkerTimeMin/index.md}
- */
-export function checkerTimeMin(
-	min: DDate.TheTime,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionTimeMin, "min">
-	> = {},
-): DataParserCheckerTimeMin {
-	return dataParserCheckerInit<DataParserCheckerTimeMin>(
-		checkerTimeMinKind,
-		{
-			definition: {
-				...definition,
-				min,
-			},
-		},
-		(value, error, self, dataParser) => DDate.greaterTime(value, self.definition.min)
+	public static override execCheck(
+		value: DDate.TheTime,
+		error: DataParserError,
+		self: DataParserCheckerTimeMin,
+		dataParser: DataParser,
+	) {
+		return DDate.greaterTime(value, self.definition.min)
 			? value
-			: addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				`time >= ${self.definition.min.toString()}`,
+				value,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	/**
+	 * {@include dataParser/classic/checkerTimeMin/index.md}
+	 */
+	public static override create(
+		min: DDate.TheTime,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionTimeMin, "min">
+		> = {},
+	) {
+		return new DataParserCheckerTimeMin({
+			...definition,
+			min,
+		});
+	}
 }
+
+export const checkerTimeMin = detachObjectMethod(DataParserCheckerTimeMin, "create");

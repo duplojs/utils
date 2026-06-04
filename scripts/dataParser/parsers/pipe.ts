@@ -1,8 +1,9 @@
-import { type NeverCoalescing, type Kind, type FixDeepFunctionInfer, createOverride } from "@scripts/common";
-import { type DataParserDefinition, type DataParserBase, dataParserBaseInit, type Output, type Input, SymbolDataParserError, type DataParser, type DataParserChecker } from "../base";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import { createDataParserKind } from "../kind";
-import { popErrorPath, setErrorPath } from "../error";
+import { detachObjectMethod, callThen, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { createDataParserKind } from "@scripts/dataParser/kind";
+import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
+import { popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
+import { type DataParserChecker } from "../baseChecker";
+import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserPipeCheckers<
 	GenericInput extends unknown = unknown,
@@ -19,21 +20,20 @@ export interface DataParserDefinitionPipe<
 
 export const pipeKind = createDataParserKind("pipe");
 
-type _DataParserPipe<
-	GenericDefinition extends DataParserDefinitionPipe,
-> = (
-	& DataParserBase<
+export class DataParserPipe<
+	GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe,
+> extends DataParserBase.init(
+		pipeKind,
+	)<
 		GenericDefinition,
 		Output<GenericDefinition["output"]>,
 		Input<GenericDefinition["input"]>
-	>
-	& Kind<typeof pipeKind.definition>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserPipe);
+	}
 
-export interface DataParserPipe<
-	GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe,
-> extends _DataParserPipe<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -46,99 +46,94 @@ export interface DataParserPipe<
 			],
 			GenericChecker
 		>
-	): DataParserPipe<
+	) => DataParserPipe<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
-}
 
-/**
- * {@include dataParser/classic/pipe/index.md}
- */
-export function pipe<
-	GenericInput extends DataParser,
-	GenericOutput extends DataParser,
-	const GenericDefinition extends PrepareDataParserDefinition<
-		DataParserDefinitionPipe<
-			Output<GenericOutput>
-		>,
-		"input" | "output"
-	> = never,
->(
-	input: GenericInput,
-	output: GenericOutput,
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<
+	public static override execParse(
+		self: DataParserPipe,
+		data: unknown,
+		error: DataParserError,
+	) {
+		const currentIndexPath = error.currentPath.length;
+
+		setErrorPath(error, "(pipeIn)", currentIndexPath);
+		return callThen(
+			self.definition.input.exec(data, error),
+			(resultIn) => {
+				if (resultIn === SymbolDataParserError) {
+					popErrorPath(error);
+					return SymbolDataParserError;
+				}
+
+				setErrorPath(error, "(pipeOut)", currentIndexPath);
+				return callThen(
+					self.definition.output.exec(resultIn, error),
+					(resultOut) => {
+						popErrorPath(error);
+						return resultOut;
+					},
+				);
+			},
+		);
+	}
+
+	public static override dataParserIsAsynchronous(self: DataParserPipe) {
+		return self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous();
+	}
+
+	public static override prepareDefinition(
+		input: DataParser,
+		output: DataParser,
+		definition?: Partial<Omit<DataParserDefinitionPipe, "input" | "output">>,
+	): DataParserDefinitionPipe {
+		return {
+			...definition,
+			input,
+			output,
+			checkers: definition?.checkers ?? [],
+			errorMessage: definition?.errorMessage,
+		};
+	}
+
+	/**
+	 * {@include dataParser/classic/pipe/index.md}
+	 */
+	public static override create<
+		GenericInput extends DataParser,
+		GenericOutput extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
 			DataParserDefinitionPipe<
 				Output<GenericOutput>
 			>,
 			"input" | "output"
+		> = never,
+	>(
+		input: GenericInput,
+		output: GenericOutput,
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				DataParserDefinitionPipe<
+					Output<GenericOutput>
+				>,
+				"input" | "output"
+			>,
+			GenericDefinition
 		>,
-		GenericDefinition
-	>,
-): DataParserPipe<
-		MergeDefinition<
-			DataParserDefinitionPipe,
-			NeverCoalescing<GenericDefinition, {}> & {
-				input: GenericInput;
-				output: GenericOutput;
-			}
-		>
-	> {
-	const self = dataParserBaseInit<DataParserPipe>(
-		pipeKind,
-		{
-			errorMessage: definition?.errorMessage,
-			checkers: definition?.checkers ?? [],
-			input,
-			output,
-		},
-		{
-			sync: (data, error, self) => {
-				const currentIndexPath = error.currentPath.length;
-
-				setErrorPath(error, "(pipeIn)", currentIndexPath);
-				const resultIn = self.definition.input.exec(data, error);
-
-				if (resultIn === SymbolDataParserError) {
-					popErrorPath(error);
-					return SymbolDataParserError;
+	): DataParserPipe<
+			MergeDefinition<
+				DataParserDefinitionPipe,
+				NeverCoalescing<GenericDefinition, {}> & {
+					input: GenericInput;
+					output: GenericOutput;
 				}
-
-				setErrorPath(error, "(pipeOut)", currentIndexPath);
-				const resultOut = self.definition.output.exec(resultIn, error);
-
-				popErrorPath(error);
-				return resultOut;
-			},
-			async: async(data, error, self) => {
-				const currentIndexPath = error.currentPath.length;
-
-				setErrorPath(error, "(pipeIn)", currentIndexPath);
-				const resultIn = await self.definition.input.asyncExec(data, error);
-
-				if (resultIn === SymbolDataParserError) {
-					popErrorPath(error);
-					return SymbolDataParserError;
-				}
-
-				setErrorPath(error, "(pipeOut)", currentIndexPath);
-				return self.definition.output.asyncExec(resultIn, error)
-					.then(
-						(resultOut) => {
-							popErrorPath(error);
-							return resultOut;
-						},
-					);
-			},
-			isAsynchronous: (self) => self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous(),
-		},
-		pipe.overrideHandler,
-	) as never;
-
-	return self as never;
+			>
+		> {
+		return new DataParserPipe(this.prepareDefinition(input, output, definition)) as never;
+	}
 }
 
-pipe.overrideHandler = createOverride<DataParserPipe>("@duplojs/utils/data-parser/pipe");
+export const pipe = detachObjectMethod(DataParserPipe, "create");

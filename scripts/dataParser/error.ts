@@ -102,3 +102,12 @@ export function interpretError(error: DataParserError | DEither.Left<string, Dat
 		dataParserError.issues.length === 0 && "No issue found",
 	]);
 }
+
+export function addAsyncIssue(error: DataParserError, data: unknown): SymbolDataParserError {
+	return addIssue(
+		error,
+		"synchronous result",
+		data,
+		undefined,
+	);
+}

@@ -21,6 +21,7 @@ describe("DDataParser unknown", () => {
 
 	it("returns input as-is", () => {
 		const schema = DDataParser.unknown();
+		expect(schema.isAsynchronous()).toBe(false);
 
 		type _CheckOut = ExpectType<
 			DDataParser.Output<typeof schema>,

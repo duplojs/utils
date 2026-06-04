@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { dataParserCheckerInit, type DataParserCheckerDefinition, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { detachObjectMethod } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 import * as DDate from "@scripts/date";
 
 export interface DataParserCheckerDefinitionTimeMax extends DataParserCheckerDefinition {
@@ -10,37 +11,50 @@ export interface DataParserCheckerDefinitionTimeMax extends DataParserCheckerDef
 
 export const checkerTimeMaxKind = createDataParserKind("checker-time-max");
 
-type _DataParserCheckerTimeMax = (
-	& Kind<typeof checkerTimeMaxKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
+	checkerTimeMaxKind,
+)<
 		DataParserCheckerDefinitionTimeMax,
 		DDate.TheTime
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerTimeMax);
+	}
 
-export interface DataParserCheckerTimeMax extends _DataParserCheckerTimeMax {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-/**
- * {@include dataParser/classic/checkerTimeMax/index.md}
- */
-export function checkerTimeMax(
-	max: DDate.TheTime,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionTimeMax, "max">
-	> = {},
-): DataParserCheckerTimeMax {
-	return dataParserCheckerInit<DataParserCheckerTimeMax>(
-		checkerTimeMaxKind,
-		{
-			definition: {
-				...definition,
-				max,
-			},
-		},
-		(value, error, self, dataParser) => DDate.lessTime(value, self.definition.max)
+	public static override execCheck(
+		value: DDate.TheTime,
+		error: DataParserError,
+		self: DataParserCheckerTimeMax,
+		dataParser: DataParser,
+	) {
+		return DDate.lessTime(value, self.definition.max)
 			? value
-			: addIssue(error, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				`time <= ${self.definition.max.toString()}`,
+				value,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	/**
+	 * {@include dataParser/classic/checkerTimeMax/index.md}
+	 */
+	public static override create(
+		max: DDate.TheTime,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionTimeMax, "max">
+		> = {},
+	) {
+		return new DataParserCheckerTimeMax({
+			...definition,
+			max,
+		});
+	}
 }
+
+export const checkerTimeMax = detachObjectMethod(DataParserCheckerTimeMax, "create");

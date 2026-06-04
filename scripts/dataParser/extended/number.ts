@@ -1,24 +1,21 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserNumberExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNumber,
-> = (
-	& Kind<typeof dataParsers.numberKind.definition>
-	& DataParserBaseExtended<
+export class DataParserNumberExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserNumber)<
 		GenericDefinition,
 		Output<dataParsers.DataParserNumber<GenericDefinition>>,
 		Input<dataParsers.DataParserNumber<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserNumberExtended);
+	}
 
-export interface DataParserNumberExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber,
-> extends _DataParserNumberExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,19 +28,19 @@ export interface DataParserNumberExtended<
 			],
 			GenericChecker
 		>
-	): DataParserNumberExtended<
+	) => DataParserNumberExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserNumberExtended<
+		>,
+	) => DataParserNumberExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
@@ -53,109 +50,61 @@ export interface DataParserNumberExtended<
 	/**
 	 * {@include dataParser/extended/number/min/index.md}
 	 */
-	min(
+	public min(
 		min: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">
-		>
-	): DataParserNumberExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerNumberMin]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerNumberMin(min, definition));
+	}
 
 	/**
 	 * {@include dataParser/extended/number/max/index.md}
 	 */
-	max(
+	public max(
 		max: number,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">
-		>
-	): DataParserNumberExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerNumberMax]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerNumberMax(max, definition));
+	}
 
 	/**
 	 * {@include dataParser/extended/number/int/index.md}
 	 */
-	int(
-		definition?: Partial<
-			dataParsers.DataParserCheckerDefinitionInt
-		>
-	): DataParserNumberExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerInt]
-		>
-	>;
-}
+	public int(
+		definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
+	) {
+		return this.addChecker(dataParsers.checkerInt(definition));
+	}
 
-/**
- * {@include dataParser/extended/number/index.md}
- */
-export function number<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>,
-		GenericDefinition
-	>,
-): DataParserNumberExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionNumber,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserNumber,
-		DataParserNumberExtended
+	/**
+	 * {@include dataParser/extended/number/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never,
 	>(
-		dataParsers.number(definition),
-		{
-			min(self, min, definition) {
-				return self.addChecker(
-					dataParsers.checkerNumberMin(
-						min,
-						definition,
-					),
-				);
-			},
-			max(self, max, definition) {
-				return self.addChecker(
-					dataParsers.checkerNumberMax(
-						max,
-						definition,
-					),
-				);
-			},
-			int(self, definition) {
-				return self.addChecker(
-					dataParsers.checkerInt(
-						definition,
-					),
-				);
-			},
-		},
-		number.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>,
+			GenericDefinition
+		>,
+	): DataParserNumberExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionNumber,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserNumberExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-number.overrideHandler = createOverride<DataParserNumberExtended>("@duplojs/utils/data-parser-extended/number");
+export const number = detachObjectMethod(DataParserNumberExtended, "create");
 
 /**
  * {@include dataParser/extended/int/index.md}
  */
-export function int(
-	definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
-) {
-	return number({
-		checkers: [dataParsers.checkerInt(definition)],
-	});
+export function int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>) {
+	return number({ checkers: [dataParsers.checkerInt(definition)] });
 }

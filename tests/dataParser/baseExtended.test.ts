@@ -155,16 +155,6 @@ describe("base extended", () => {
 		);
 	});
 
-	it("add non function property", () => {
-		const schema = DDataParser.dataParserBaseExtendedInit(
-			DDataParser.string(),
-			{ test: 12 },
-			DDataParserExtended.string.overrideHandler as never,
-		);
-
-		expect((schema as any).test).toBe(12);
-	});
-
 	it("clone", () => {
 		const schema = DDataParser.extended.object({
 			prop1: DDataParser.extended.string(),

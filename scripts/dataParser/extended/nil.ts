@@ -1,24 +1,22 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
 
-type _DataParserNilExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNil,
-> = (
-	& Kind<typeof dataParsers.nilKind.definition>
-	& DataParserBaseExtended<
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
+
+export class DataParserNilExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionNil = dataParsers.DataParserDefinitionNil,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserNil)<
 		GenericDefinition,
 		Output<dataParsers.DataParserNil<GenericDefinition>>,
 		Input<dataParsers.DataParserNil<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserNilExtended);
+	}
 
-export interface DataParserNilExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionNil = dataParsers.DataParserDefinitionNil,
-> extends _DataParserNilExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,52 +29,43 @@ export interface DataParserNilExtended<
 			],
 			GenericChecker
 		>
-	): DataParserNilExtended<
+	) => DataParserNilExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserNilExtended<
+		>,
+	) => DataParserNilExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-}
 
-/**
- * {@include dataParser/extended/nil/index.md}
- */
-export function nil<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil>,
-		GenericDefinition
-	>,
-): DataParserNilExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionNil,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserNil,
-		DataParserNilExtended
+	/**
+	 * {@include dataParser/extended/nil/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil> = never,
 	>(
-		dataParsers.nil(definition),
-		{},
-		nil.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil>,
+			GenericDefinition
+		>,
+	): DataParserNilExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionNil,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserNilExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-nil.overrideHandler = createOverride<DataParserNilExtended>("@duplojs/utils/data-parser-extended/nil");
+export const nil = detachObjectMethod(DataParserNilExtended, "create");

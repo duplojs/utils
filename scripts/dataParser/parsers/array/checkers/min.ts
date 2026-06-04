@@ -1,7 +1,8 @@
-import { type Kind } from "@scripts/common";
-import { type DataParserCheckerDefinition, dataParserCheckerInit, type DataParserCheckerBase } from "@scripts/dataParser/base";
-import { addIssue } from "@scripts/dataParser/error";
+import { detachObjectMethod } from "@scripts/common";
+import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
+import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 
 export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
 	min: number;
@@ -9,34 +10,47 @@ export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDe
 
 export const checkerArrayMinKind = createDataParserKind("checker-array-min");
 
-type _DataParserCheckerArrayMin = (
-	& Kind<typeof checkerArrayMinKind.definition>
-	& DataParserCheckerBase<
+export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
+	checkerArrayMinKind,
+)<
 		DataParserCheckerDefinitionArrayMin,
-		any[]
-	>
-);
+		unknown[]
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCheckerArrayMin);
+	}
 
-export interface DataParserCheckerArrayMin extends _DataParserCheckerArrayMin {
+	public isAsynchronous() {
+		return false;
+	}
 
-}
-
-export function checkerArrayMin(
-	min: number,
-	definition: Partial<
-		Omit<DataParserCheckerDefinitionArrayMin, "min">
-	> = {},
-): DataParserCheckerArrayMin {
-	return dataParserCheckerInit<DataParserCheckerArrayMin>(
-		checkerArrayMinKind,
-		{
-			definition: {
-				...definition,
-				min,
-			},
-		},
-		(data, error, self, dataParser) => data.length >= self.definition.min
+	public static override execCheck(
+		data: unknown[],
+		error: DataParserError,
+		self: DataParserCheckerArrayMin,
+		dataParser: DataParser,
+	) {
+		return data.length >= self.definition.min
 			? data
-			: addIssue(error, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage),
-	);
+			: addIssue(
+				error,
+				`array.length >= ${self.definition.min}`,
+				data,
+				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			);
+	}
+
+	public static override create(
+		min: number,
+		definition: Partial<
+			Omit<DataParserCheckerDefinitionArrayMin, "min">
+		> = {},
+	) {
+		return new DataParserCheckerArrayMin({
+			...definition,
+			min,
+		});
+	}
 }
+
+export const checkerArrayMin = detachObjectMethod(DataParserCheckerArrayMin, "create");

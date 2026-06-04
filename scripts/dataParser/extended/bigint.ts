@@ -1,24 +1,21 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing, createOverride } from "@scripts/common";
-import { type DataParserBaseExtended, dataParserBaseExtendedInit } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
+import { DataParserBaseExtended } from "./base";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
+import { type DataParserChecker } from "../baseChecker";
 
-type _DataParserBigIntExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionBigInt,
-> = (
-	& Kind<typeof dataParsers.bigIntKind.definition>
-	& DataParserBaseExtended<
+export class DataParserBigIntExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionBigInt = dataParsers.DataParserDefinitionBigInt,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserBigInt)<
 		GenericDefinition,
 		Output<dataParsers.DataParserBigInt<GenericDefinition>>,
 		Input<dataParsers.DataParserBigInt<GenericDefinition>>
-	>
-);
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserBigIntExtended);
+	}
 
-export interface DataParserBigIntExtended<
-	GenericDefinition extends dataParsers.DataParserDefinitionBigInt = dataParsers.DataParserDefinitionBigInt,
-> extends _DataParserBigIntExtended<GenericDefinition> {
-	addChecker<
+	public declare addChecker: <
 		GenericChecker extends readonly [
 			DataParserChecker<Output<this>>,
 			...DataParserChecker<Output<this>>[],
@@ -31,19 +28,19 @@ export interface DataParserBigIntExtended<
 			],
 			GenericChecker
 		>
-	): DataParserBigIntExtended<
+	) => DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			GenericChecker
 		>
 	>;
 
-	refine(
+	public declare refine: (
 		theFunction: (input: Output<this>) => boolean,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
-		>
-	): DataParserBigIntExtended<
+		>,
+	) => DataParserBigIntExtended<
 		AddCheckersToDefinition<
 			GenericDefinition,
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
@@ -53,77 +50,45 @@ export interface DataParserBigIntExtended<
 	/**
 	 * {@include dataParser/extended/bigint/min/index.md}
 	 */
-	min(
+	public min(
 		min: bigint,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionBigIntMin, "min">
-		>
-	): DataParserBigIntExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerBigIntMin]
-		>
-	>;
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerBigIntMin(min, definition));
+	}
 
 	/**
 	 * {@include dataParser/extended/bigint/max/index.md}
 	 */
-	max(
+	public max(
 		max: bigint,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionBigIntMax, "max">
-		>
-	): DataParserBigIntExtended<
-		AddCheckersToDefinition<
-			GenericDefinition,
-			readonly [dataParsers.DataParserCheckerBigIntMax]
-		>
-	>;
-}
+		>,
+	) {
+		return this.addChecker(dataParsers.checkerBigIntMax(max, definition));
+	}
 
-/**
- * {@include dataParser/extended/bigint/index.md}
- */
-export function bigint<
-	const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt> = never,
->(
-	definition?: FixDeepFunctionInfer<
-		PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt>,
-		GenericDefinition
-	>,
-): DataParserBigIntExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionBigInt,
-			NeverCoalescing<GenericDefinition, {}>
-		>
-	> {
-	const self = dataParserBaseExtendedInit<
-		dataParsers.DataParserBigInt,
-		DataParserBigIntExtended
+	/**
+	 * {@include dataParser/extended/bigint/index.md}
+	 */
+	public static override create<
+		const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt> = never,
 	>(
-		dataParsers.bigint(definition),
-		{
-			min(self, min, definition) {
-				return self.addChecker(
-					dataParsers.checkerBigIntMin(
-						min,
-						definition,
-					),
-				);
-			},
-			max(self, max, definition) {
-				return self.addChecker(
-					dataParsers.checkerBigIntMax(
-						max,
-						definition,
-					),
-				);
-			},
-		},
-		bigint.overrideHandler,
-	);
-
-	return self as never;
+		definition?: FixDeepFunctionInfer<
+			PrepareDataParserDefinition<dataParsers.DataParserDefinitionBigInt>,
+			GenericDefinition
+		>,
+	): DataParserBigIntExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionBigInt,
+				NeverCoalescing<GenericDefinition, {}>
+			>
+		> {
+		return new DataParserBigIntExtended(this.prepareDefinition(definition)) as never;
+	}
 }
 
-bigint.overrideHandler = createOverride<DataParserBigIntExtended>("@duplojs/utils/data-parser-extended/bigint");
+export const bigint = detachObjectMethod(DataParserBigIntExtended, "create");

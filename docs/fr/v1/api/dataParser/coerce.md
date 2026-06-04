@@ -5,8 +5,8 @@ prev:
   text: "isAsynchronous"
   link: "/fr/v1/api/dataParser/isAsynchronous"
 next:
-  text: "override DataParser"
-  link: "/fr/v1/api/dataParser/howToOverride"
+  text: "DataParser"
+  link: "/fr/v1/api/dataParser/"
 ---
 
 # coerce.*

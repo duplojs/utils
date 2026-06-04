@@ -3,6 +3,8 @@ import { DDataParser, DEither } from "@scripts";
 describe("DDataParser array checker min", () => {
 	it("accepts arrays at or above minimum length", () => {
 		const checker = DDataParser.checkerArrayMin(2);
+		expect(checker.isAsynchronous()).toBe(false);
+
 		const schema = DDataParser.array(
 			DDataParser.string(),
 			{
