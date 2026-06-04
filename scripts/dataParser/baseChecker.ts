@@ -65,6 +65,34 @@ export abstract class DataParserCheckerBase<
 		return this.execCheck(data, error, dataParser);
 	}
 
+	/**
+	 * {@include dataParser/classic/baseChecker/clone/index.md}
+	 */
+	public clone(): this;
+
+	public clone() {
+		return new this.classConstructor(DCommon.simpleClone(this.definition));
+	}
+
+	/**
+	 * {@include dataParser/classic/baseChecker/setErrorMessage/index.md}
+	 */
+	public setErrorMessage(errorMessage: string): this {
+		(this.definition.errorMessage as any) = errorMessage;
+		return this;
+	}
+
+	/**
+	 * {@include dataParser/classic/baseChecker/addErrorMessage/index.md}
+	 */
+	public addErrorMessage(errorMessage: string): this {
+		const newSchema = this.clone();
+
+		newSchema.setErrorMessage(errorMessage);
+
+		return newSchema;
+	}
+
 	public abstract isAsynchronous(): boolean;
 
 	public declare static create: (

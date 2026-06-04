@@ -249,7 +249,7 @@ export abstract class DataParserBase<
 	public clone(): this;
 
 	public clone() {
-		return new this.classConstructor(DCommon.simpleClone(this.definition)) as never;
+		return new this.classConstructor(DCommon.simpleClone(this.definition));
 	}
 
 	/**
@@ -271,10 +271,27 @@ export abstract class DataParserBase<
 		...args: DCommon.IsEqual<Output<this>, GenericValue> extends true
 			? []
 			: [] & DCommon.ComputedTypeError<"Contract error.">
-	): DataParser<GenericValue>;
+	): DataParser<GenericValue> {
+		return this as never;
+	}
 
-	public contract() {
+	/**
+	 * {@include dataParser/classic/base/setErrorMessage/index.md}
+	 */
+	public setErrorMessage(errorMessage: string): this {
+		(this.definition.errorMessage as any) = errorMessage;
 		return this;
+	}
+
+	/**
+	 * {@include dataParser/classic/base/addErrorMessage/index.md}
+	 */
+	public addErrorMessage(errorMessage: string): this {
+		const newSchema = this.clone();
+
+		newSchema.setErrorMessage(errorMessage);
+
+		return newSchema;
 	}
 
 	public declare static create: (

@@ -1,6 +1,6 @@
 import * as DDataParser from "@scripts/dataParser";
 import * as DEither from "@scripts/either";
-import { type ExpectType } from "@scripts/common";
+import { asserts, type ExpectType } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 
 describe("base parser", () => {
@@ -194,6 +194,85 @@ describe("base parser", () => {
 		});
 	});
 
+	it("clones a checker definition without mutating the original checker", () => {
+		const checker = CheckerTest.create({
+			errorMessage: "positive",
+		});
+
+		const clone = checker.clone();
+
+		type Check = ExpectType<
+			typeof clone,
+			CheckerTest,
+			"strict"
+		>;
+
+		expect(clone).toBeInstanceOf(CheckerTest);
+		expect(clone).not.toBe(checker);
+		expect(clone.definition).toStrictEqual(checker.definition);
+		expect(clone.definition).not.toBe(checker.definition);
+	});
+
+	it("sets a checker error message by mutating the checker definition", () => {
+		const checker = CheckerTest.create();
+		const parser = ParserTest.create({
+			errorMessage: "number.invalid",
+			checkers: [checker],
+		});
+
+		const result = checker.setErrorMessage("positive.invalid");
+		const parsedResult = parser.parse(-1);
+
+		type Check = ExpectType<
+			typeof result,
+			CheckerTest,
+			"strict"
+		>;
+
+		expect(result).toBe(checker);
+		expect(checker.definition.errorMessage).toBe("positive.invalid");
+		expect(parsedResult).toStrictEqual(DEither.error(expect.any(Object)));
+		asserts(parsedResult, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(parsedResult).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "positive number",
+				data: -1,
+				message: "positive.invalid",
+			}),
+		]);
+	});
+
+	it("adds a checker error message without mutating the original checker", () => {
+		const checker = CheckerTest.create();
+		const newChecker = checker.addErrorMessage("positive.invalid");
+		const parser = ParserTest.create({
+			errorMessage: "number.invalid",
+			checkers: [newChecker],
+		});
+
+		const parsedResult = parser.parse(-1);
+
+		type Check = ExpectType<
+			typeof newChecker,
+			CheckerTest,
+			"strict"
+		>;
+
+		expect(newChecker).toBeInstanceOf(CheckerTest);
+		expect(newChecker).not.toBe(checker);
+		expect(checker.definition.errorMessage).toBeUndefined();
+		expect(newChecker.definition.errorMessage).toBe("positive.invalid");
+		expect(parsedResult).toStrictEqual(DEither.error(expect.any(Object)));
+		asserts(parsedResult, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(parsedResult).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "positive number",
+				data: -1,
+				message: "positive.invalid",
+			}),
+		]);
+	});
+
 	it("parses valid data and applies registered checkers", () => {
 		const parser = ParserTest.create({
 			checkers: [CheckerTest.create()],
@@ -240,15 +319,14 @@ describe("base parser", () => {
 		const result = parser.parse("test");
 
 		expect(result).toStrictEqual(DEither.error(expect.any(Object)));
-		if (DEither.errorKind.has(result)) {
-			expect(DEither.unwrapLeft(result).issues).toStrictEqual([
-				expect.objectContaining({
-					expected: "number",
-					data: "test",
-					message: "invalid",
-				}),
-			]);
-		}
+		asserts(result, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(result).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "number",
+				data: "test",
+				message: "invalid",
+			}),
+		]);
 	});
 
 	it("returns parsed data or throws from parseOrThrow", () => {
@@ -283,6 +361,72 @@ describe("base parser", () => {
 		expect(clone.definition).toStrictEqual(parser.definition);
 		expect(clone.definition).not.toBe(parser.definition);
 		expect(clone.definition.checkers).not.toBe(parser.definition.checkers);
+	});
+
+	it("sets an error message by mutating the parser definition", () => {
+		const parser = ParserTest.create();
+
+		const result = parser.setErrorMessage("number.invalid");
+		const parsedResult = parser.parse("test");
+
+		type Check = ExpectType<
+			typeof result,
+			ParserTest,
+			"strict"
+		>;
+
+		expect(result).toBe(parser);
+		expect(parser.definition.errorMessage).toBe("number.invalid");
+		expect(parsedResult).toStrictEqual(DEither.error(expect.any(Object)));
+		asserts(parsedResult, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(parsedResult).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "number",
+				data: "test",
+				message: "number.invalid",
+			}),
+		]);
+	});
+
+	it("adds an error message without mutating the original parser", () => {
+		const parser = ParserTest.create({
+			checkers: [CheckerTest.create()],
+		});
+
+		const newParser = parser.addErrorMessage("number.invalid");
+		const parsedResult = newParser.parse("test");
+		const checkerResult = newParser.parse(-1);
+
+		type Check = ExpectType<
+			typeof newParser,
+			ParserTest,
+			"strict"
+		>;
+
+		expect(newParser).toBeInstanceOf(ParserTest);
+		expect(newParser).not.toBe(parser);
+		expect(parser.definition.errorMessage).toBeUndefined();
+		expect(newParser.definition.errorMessage).toBe("number.invalid");
+		expect(newParser.definition.checkers).toStrictEqual(parser.definition.checkers);
+		expect(newParser.definition.checkers).not.toBe(parser.definition.checkers);
+		expect(parsedResult).toStrictEqual(DEither.error(expect.any(Object)));
+		asserts(parsedResult, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(parsedResult).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "number",
+				data: "test",
+				message: "number.invalid",
+			}),
+		]);
+		expect(checkerResult).toStrictEqual(DEither.error(expect.any(Object)));
+		asserts(checkerResult, DEither.errorKind.has);
+		expect(DEither.unwrapLeft(checkerResult).issues).toStrictEqual([
+			expect.objectContaining({
+				expected: "positive number",
+				data: -1,
+				message: "number.invalid",
+			}),
+		]);
 	});
 
 	it("reports whether the parser or one of its checkers is asynchronous", () => {

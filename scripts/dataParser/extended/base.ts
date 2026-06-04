@@ -39,9 +39,7 @@ export abstract class DataParserBaseExtended<
 		...args: DCommon.IsEqual<Output<this>, GenericValue> extends true
 			? []
 			: [] & DCommon.ComputedTypeError<"ContractExtended error.">
-	): DataParserExtended<GenericValue>;
-
-	public contractExtended() {
+	): DataParserExtended<GenericValue> {
 		return this as never;
 	}
 
