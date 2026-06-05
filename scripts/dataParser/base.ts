@@ -252,14 +252,27 @@ export abstract class DataParserBase<
 		return new this.classConstructor(DCommon.simpleClone(this.definition));
 	}
 
+	private cachedIsAsynchronous: undefined | boolean = undefined;
+
 	/**
 	 * {@include dataParser/classic/base/isAsynchronous/index.md}
 	 */
 	public isAsynchronous() {
-		return this.classConstructor.dataParserIsAsynchronous(this)
-			|| this.definition.checkers.some(
-				(checker) => checker.isAsynchronous(),
-			);
+		if (this.cachedIsAsynchronous !== undefined) {
+			return this.cachedIsAsynchronous;
+		}
+
+		this.cachedIsAsynchronous = this.definition.checkers.some(
+			(checker) => checker.isAsynchronous(),
+		);
+
+		if (this.cachedIsAsynchronous) {
+			return this.cachedIsAsynchronous;
+		}
+
+		this.cachedIsAsynchronous = this.classConstructor.dataParserIsAsynchronous(this);
+
+		return this.cachedIsAsynchronous;
 	}
 
 	/**

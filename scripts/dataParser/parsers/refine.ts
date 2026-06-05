@@ -1,4 +1,4 @@
-import { detachObjectMethod, callThen, type NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, callThen, type NeverCoalescing, type SimplifyTopLevel, type MaybePromise } from "@scripts/common";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../baseChecker";
 import { type DataParser } from "../base";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
@@ -7,7 +7,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 export interface DataParserCheckerDefinitionRefine<
 	GenericInput extends unknown = unknown,
 > extends DataParserCheckerDefinition {
-	theFunction(input: GenericInput): boolean;
+	theFunction(input: GenericInput): MaybePromise<boolean>;
 }
 
 export const dataParserCheckerRefineKind = createDataParserKind("refine");
@@ -60,7 +60,7 @@ export class DataParserCheckerRefine<
 			Omit<DataParserCheckerDefinitionRefine, "theFunction">
 		> = never,
 	>(
-		theFunction: (input: GenericInput) => boolean,
+		theFunction: (input: GenericInput) => MaybePromise<boolean>,
 		definition?: GenericDefinition,
 	): DataParserCheckerRefine<
 			SimplifyTopLevel<
@@ -69,7 +69,7 @@ export class DataParserCheckerRefine<
 					DataParserCheckerDefinitionRefine<GenericInput>
 				>
 				& {
-					theFunction(input: GenericInput): boolean;
+					theFunction(input: GenericInput): MaybePromise<boolean>;
 				}
 			>,
 			GenericInput

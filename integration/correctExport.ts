@@ -11,6 +11,7 @@ import type * as DP from "@duplojs/utils/pattern";
 import type * as DS from "@duplojs/utils/string";
 import type * as DD from "@duplojs/utils/date";
 import type * as DC from "@duplojs/utils/clean";
+import type * as DF from "@duplojs/utils/flow";
 import type * as DCommon from "@duplojs/utils/common";
 
 type Check1 = All.ExpectType<
@@ -98,6 +99,12 @@ type Check12 = All.ExpectType<
 >;
 
 type Check13 = All.ExpectType<
+	typeof All.DFlow,
+	typeof DF,
+	"strict"
+>;
+
+type Check14 = All.ExpectType<
 	typeof All.DCommon,
 	typeof DCommon,
 	"strict"

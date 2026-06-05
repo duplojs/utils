@@ -54,7 +54,10 @@ describe("base parser", () => {
 		}
 	}
 
-	interface ParserTestDefinition extends DDataParser.DataParserDefinition<CheckerTest> {
+	interface ParserTestDefinition extends DDataParser.DataParserDefinition<
+		| CheckerTest
+		| DDataParser.DataParserCheckerRefine
+	> {
 		readonly asynchronous: boolean;
 	}
 
@@ -436,16 +439,42 @@ describe("base parser", () => {
 		});
 		const parserWithAsyncChecker = ParserTest.create({
 			checkers: [
-				DDataParser.checkerRefine((async() => {
+				DDataParser.checkerRefine(async() => {
 					await Promise.resolve();
 					return true;
-				}) as never),
-			] as never,
+				}),
+			],
 		});
 
 		expect(syncParser.isAsynchronous()).toBe(false);
 		expect(asyncParser.isAsynchronous()).toBe(true);
 		expect(parserWithAsyncChecker.isAsynchronous()).toBe(true);
+	});
+
+	it("check if asynchronous on recursive schema", () => {
+		interface Schema {
+			test: Schema;
+			toto: string;
+		}
+
+		const recursiveSchema: DDataParser.DataParser<Schema> = DDataParser.object({
+			test: DDataParser.lazy(() => recursiveSchema),
+			toto: DDataParser.string(),
+		});
+
+		expect(recursiveSchema.isAsynchronous()).toBe(false);
+
+		const asyncRecursiveSchema: DDataParser.DataParser<Schema> = DDataParser.object({
+			test: DDataParser.lazy(() => recursiveSchema),
+			toto: DDataParser.string().addChecker(
+				DDataParser.checkerRefine(async() => {
+					await Promise.resolve();
+					return true;
+				}),
+			),
+		});
+
+		expect(asyncRecursiveSchema.isAsynchronous()).toBe(true);
 	});
 
 	it("awaits asynchronous parsing with asyncParse and asyncParseOrThrow", async() => {
