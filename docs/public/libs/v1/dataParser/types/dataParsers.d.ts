@@ -1,6 +1,6 @@
 import type { DataParser } from "../base";
 import type * as AllDataParser from "../parsers";
-import type { DataParserExtended } from "../baseExtended";
+import type { DataParserExtended } from "../extended/base";
 import type * as AllDataParserExtended from "../extended";
 export interface DataParserCustom {
     dataParser: DataParser;

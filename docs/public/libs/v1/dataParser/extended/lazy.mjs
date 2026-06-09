@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { lazy as lazy$1 } from '../parsers/lazy.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserLazy } from '../parsers/lazy.mjs';
 
-/**
- * {@include dataParser/extended/lazy/index.md}
- */
-function lazy(getter, definition) {
-    const self = dataParserBaseExtendedInit(lazy$1(getter, definition), {}, lazy.overrideHandler);
-    return self;
+class DataParserLazyExtended extends DataParserBaseExtended.initExtended(DataParserLazy) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLazyExtended);
+    }
+    /**
+     * {@include dataParser/extended/lazy/index.md}
+     */
+    static create(getter, definition) {
+        return new DataParserLazyExtended(this.prepareDefinition(getter, definition));
+    }
 }
-lazy.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/lazy");
+const lazy = detachObjectMethod(DataParserLazyExtended, "create");
 
-export { lazy };
+export { DataParserLazyExtended, lazy };

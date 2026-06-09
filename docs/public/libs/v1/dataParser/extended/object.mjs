@@ -1,40 +1,53 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { object as object$1 } from '../parsers/object/index.mjs';
-import { requiredShape } from '../parsers/object/required.mjs';
-import { partialShape } from '../parsers/object/partial.mjs';
-import { extendsShape } from '../parsers/object/extends.mjs';
-import { pickShape } from '../parsers/object/pick.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserObject } from '../parsers/object/index.mjs';
 import { omitShape } from '../parsers/object/omit.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { pickShape } from '../parsers/object/pick.mjs';
+import { extendsShape } from '../parsers/object/extends.mjs';
+import { partialShape } from '../parsers/object/partial.mjs';
+import { requiredShape } from '../parsers/object/required.mjs';
 
-/**
- * {@include dataParser/extended/object/index.md}
- */
-function object(shape, definition) {
-    const self = dataParserBaseExtendedInit(object$1(shape, definition), {
-        omit: (self, omitObject, definition) => {
-            const newShape = omitShape(self.definition.shape, omitObject);
-            return object(newShape, definition);
-        },
-        pick: (self, pickObject, definition) => {
-            const newShape = pickShape(self.definition.shape, pickObject);
-            return object(newShape, definition);
-        },
-        extends: (self, extension, definition) => {
-            const newShape = extendsShape(self.definition.shape, extension);
-            return object(newShape, definition);
-        },
-        partial: (self, definition) => {
-            const newShape = partialShape(self.definition.shape);
-            return object(newShape, definition);
-        },
-        required: (self, definition) => {
-            const newShape = requiredShape(self.definition.shape);
-            return object(newShape, definition);
-        },
-    }, object.overrideHandler);
-    return self;
+class DataParserObjectExtended extends DataParserBaseExtended.initExtended(DataParserObject) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserObjectExtended);
+    }
+    /**
+     * {@include dataParser/extended/object/omit/index.md}
+     */
+    omit(omitObject, definition) {
+        return object(omitShape(this.definition.shape, omitObject), definition);
+    }
+    /**
+     * {@include dataParser/extended/object/pick/index.md}
+     */
+    pick(pickObject, definition) {
+        return object(pickShape(this.definition.shape, pickObject), definition);
+    }
+    /**
+     * {@include dataParser/extended/object/extends/index.md}
+     */
+    extends(extension, definition) {
+        return object(extendsShape(this.definition.shape, extension), definition);
+    }
+    /**
+     * {@include dataParser/extended/object/partial/index.md}
+     */
+    partial(definition) {
+        return object(partialShape(this.definition.shape), definition);
+    }
+    /**
+     * {@include dataParser/extended/object/required/index.md}
+     */
+    required(definition) {
+        return object(requiredShape(this.definition.shape), definition);
+    }
+    /**
+     * {@include dataParser/extended/object/index.md}
+     */
+    static create(shape, definition) {
+        return new DataParserObjectExtended(this.prepareDefinition(shape, definition));
+    }
 }
-object.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/object");
+const object = detachObjectMethod(DataParserObjectExtended, "create");
 
-export { object };
+export { DataParserObjectExtended, object };

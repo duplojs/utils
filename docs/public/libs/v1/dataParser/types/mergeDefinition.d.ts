@@ -1,5 +1,8 @@
 import { type UnionContain, type SimplifyTopLevel } from "../../common";
-import { type DataParserCheckerDefinition, type DataParserDefinition } from "../base";
-export type MergeDefinition<GenericDefinition extends DataParserDefinition | DataParserCheckerDefinition, GenericPartialDefinition extends Partial<GenericDefinition>> = SimplifyTopLevel<Readonly<GenericPartialDefinition & Omit<GenericDefinition, keyof GenericPartialDefinition | "checkers"> & (UnionContain<keyof GenericPartialDefinition, "checkers"> extends true ? {} : {
+import { type DataParserDefinition } from "../base";
+import { type DataParserCheckerDefinition } from "../baseChecker";
+export type MergeDefinition<GenericDefinition extends DataParserDefinition | DataParserCheckerDefinition, GenericPartialDefinition extends Partial<GenericDefinition>> = SimplifyTopLevel<Readonly<Omit<GenericPartialDefinition, "errorMessage"> & Omit<GenericDefinition, keyof GenericPartialDefinition | "checkers"> & (UnionContain<keyof GenericPartialDefinition, "checkers"> extends true ? {} : {
     checkers: readonly [];
-})>> extends infer InferredResult extends GenericDefinition ? InferredResult : never;
+}) & (UnionContain<keyof GenericPartialDefinition, "errorMessage"> extends true ? {
+    errorMessage: string;
+} : {})>> extends infer InferredResult extends GenericDefinition ? InferredResult : never;

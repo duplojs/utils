@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var boolean$1 = require('../parsers/boolean.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/boolean/index.md}
- */
-function boolean(definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(boolean$1.boolean(definition), {}, boolean.overrideHandler);
-    return self;
+class DataParserBooleanExtended extends base.DataParserBaseExtended.initExtended(boolean$1.DataParserBoolean) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserBooleanExtended);
+    }
+    /**
+     * {@include dataParser/extended/boolean/index.md}
+     */
+    static create(definition) {
+        return new DataParserBooleanExtended(this.prepareDefinition(definition));
+    }
 }
-boolean.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/boolean");
+const boolean = detachObjectMethod.detachObjectMethod(DataParserBooleanExtended, "create");
 
+exports.DataParserBooleanExtended = DataParserBooleanExtended;
 exports.boolean = boolean;

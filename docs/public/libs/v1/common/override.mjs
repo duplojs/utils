@@ -8,47 +8,78 @@ const overrideStore = createGlobalStore(SymbolOverrideStore, {});
 function createOverride(overrideName) {
     const overridePropertiesStore = overrideStore.value[overrideName] ?? {};
     overrideStore.value[overrideName] ||= overridePropertiesStore;
-    let cachedStoreKey = Object.keys(overridePropertiesStore);
     return {
         setMethod(prop, theFunction) {
             overridePropertiesStore[prop] = theFunction;
-            cachedStoreKey = Object.keys(overridePropertiesStore);
         },
         setPropertyDefaultValue(prop, value) {
             overridePropertiesStore[prop] = value;
-            cachedStoreKey = Object.keys(overridePropertiesStore);
         },
         apply(overrideInterface) {
+            const injectOverrideStoreFunction = overrideInterface[SymbolOverrideStore];
+            if (injectOverrideStoreFunction) {
+                injectOverrideStoreFunction(overridePropertiesStore);
+                return overrideInterface;
+            }
+            const overrideStoreList = [overridePropertiesStore];
             const cachedOverrideProperties = {};
-            const self = new Proxy({}, {
-                get(target, prop) {
-                    if (overridePropertiesStore[prop]) {
-                        if (!cachedOverrideProperties[prop]) {
+            function injectOverrideStore(overrideStore) {
+                overrideStoreList.unshift(overrideStore);
+            }
+            const proxyHandler = {
+                get(_target, prop) {
+                    if (prop in overrideInterface) {
+                        return overrideInterface[prop];
+                    }
+                    if (prop in cachedOverrideProperties) {
+                        return cachedOverrideProperties[prop];
+                    }
+                    for (const overrideStore of overrideStoreList) {
+                        if (prop in overrideStore) {
                             cachedOverrideProperties[prop] = typeof overridePropertiesStore[prop] === "function"
                                 ? (...args) => overridePropertiesStore[prop](self, ...args)
                                 : overridePropertiesStore[prop];
+                            return cachedOverrideProperties[prop];
                         }
-                        return cachedOverrideProperties[prop];
                     }
-                    return overrideInterface[prop];
+                    if (prop === SymbolOverrideStore) {
+                        return injectOverrideStore;
+                    }
+                    return undefined;
                 },
                 ownKeys() {
-                    return [
-                        ...Object.keys(overrideInterface),
-                        ...cachedStoreKey,
-                    ];
+                    const result = Object.keys(overrideInterface);
+                    for (const overrideStore of overrideStoreList) {
+                        for (const prop in overrideStore) {
+                            if (!result.includes(prop)) {
+                                result.push(prop);
+                            }
+                        }
+                    }
+                    return result;
                 },
-                has(target, prop) {
-                    return Object.keys(overrideInterface).includes(prop)
-                        || cachedStoreKey.includes(prop);
+                has(_target, prop) {
+                    if (prop in overrideInterface
+                        || prop in cachedOverrideProperties) {
+                        return true;
+                    }
+                    for (const overrideStore of overrideStoreList) {
+                        if (prop in overrideStore) {
+                            return true;
+                        }
+                    }
+                    return false;
                 },
-                getOwnPropertyDescriptor() {
+                getOwnPropertyDescriptor(target, prop) {
                     return {
                         enumerable: true,
                         configurable: true,
+                        value: proxyHandler.get(target, prop),
                     };
                 },
-            });
+            };
+            const self = new Proxy(cachedOverrideProperties, proxyHandler);
+            void ({ ...self });
             return self;
         },
     };

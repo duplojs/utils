@@ -4,11 +4,11 @@ var pipe = require('../../common/pipe.cjs');
 var whenNot = require('../../common/whenNot.cjs');
 var when = require('../../common/when.cjs');
 var isType = require('../../common/isType.cjs');
+var success = require('./success.cjs');
+var is = require('../left/is.cjs');
 var reduce = require('../../array/reduce.cjs');
 var when$1 = require('./when.cjs');
 var entries = require('../../object/entries.cjs');
-var success = require('./success.cjs');
-var is = require('../left/is.cjs');
 
 /**
  * {@include either/group/index.md}

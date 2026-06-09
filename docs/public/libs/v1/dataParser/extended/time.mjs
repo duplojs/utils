@@ -1,23 +1,32 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { time as time$1 } from '../parsers/time/index.mjs';
-import { checkerTimeMax } from '../parsers/time/checkers/max.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserTime } from '../parsers/time/index.mjs';
 import { checkerTimeMin } from '../parsers/time/checkers/min.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { checkerTimeMax } from '../parsers/time/checkers/max.mjs';
 
-/**
- * {@include dataParser/extended/time/index.md}
- */
-function time(definition) {
-    const self = dataParserBaseExtendedInit(time$1(definition), {
-        min(self, min, definition) {
-            return self.addChecker(checkerTimeMin(min, definition));
-        },
-        max(self, max, definition) {
-            return self.addChecker(checkerTimeMax(max, definition));
-        },
-    }, time.overrideHandler);
-    return self;
+class DataParserTimeExtended extends DataParserBaseExtended.initExtended(DataParserTime) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTimeExtended);
+    }
+    /**
+     * {@include dataParser/extended/time/min/index.md}
+     */
+    min(min, definition) {
+        return this.addChecker(checkerTimeMin(min, definition));
+    }
+    /**
+     * {@include dataParser/extended/time/max/index.md}
+     */
+    max(max, definition) {
+        return this.addChecker(checkerTimeMax(max, definition));
+    }
+    /**
+     * {@include dataParser/extended/time/index.md}
+     */
+    static create(definition) {
+        return new DataParserTimeExtended(this.prepareDefinition(definition));
+    }
 }
-time.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/time");
+const time = detachObjectMethod(DataParserTimeExtended, "create");
 
-export { time };
+export { DataParserTimeExtended, time };

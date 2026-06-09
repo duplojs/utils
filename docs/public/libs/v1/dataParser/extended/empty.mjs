@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { empty as empty$1 } from '../parsers/empty.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserEmpty } from '../parsers/empty.mjs';
 
-/**
- * {@include dataParser/extended/empty/index.md}
- */
-function empty(definition) {
-    const self = dataParserBaseExtendedInit(empty$1(definition), {}, empty.overrideHandler);
-    return self;
+class DataParserEmptyExtended extends DataParserBaseExtended.initExtended(DataParserEmpty) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserEmptyExtended);
+    }
+    /**
+     * {@include dataParser/extended/empty/index.md}
+     */
+    static create(definition) {
+        return new DataParserEmptyExtended(this.prepareDefinition(definition));
+    }
 }
-empty.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/empty");
+const empty = detachObjectMethod(DataParserEmptyExtended, "create");
 
-export { empty };
+export { DataParserEmptyExtended, empty };

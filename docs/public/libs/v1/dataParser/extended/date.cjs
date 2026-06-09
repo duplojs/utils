@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var date$1 = require('../parsers/date.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/date/index.md}
- */
-function date(definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(date$1.date(definition), {}, date.overrideHandler);
-    return self;
+class DataParserDateExtended extends base.DataParserBaseExtended.initExtended(date$1.DataParserDate) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserDateExtended);
+    }
+    /**
+     * {@include dataParser/extended/date/index.md}
+     */
+    static create(definition) {
+        return new DataParserDateExtended(this.prepareDefinition(definition));
+    }
 }
-date.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/date");
+const date = detachObjectMethod.detachObjectMethod(DataParserDateExtended, "create");
 
+exports.DataParserDateExtended = DataParserDateExtended;
 exports.date = date;

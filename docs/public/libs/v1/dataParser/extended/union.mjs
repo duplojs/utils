@@ -1,14 +1,6 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { union as union$1 } from '../parsers/union.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserUnionExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
-/**
- * {@include dataParser/extended/union/index.md}
- */
-function union(options, definition) {
-    const self = dataParserBaseExtendedInit(union$1(options, definition), {}, union.overrideHandler);
-    return self;
-}
-union.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/union");
+const union = detachObjectMethod(DataParserUnionExtended, "create");
 
 export { union };

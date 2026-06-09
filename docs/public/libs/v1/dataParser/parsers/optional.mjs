@@ -1,34 +1,37 @@
-import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBase } from '../base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
 const optionalKind = createDataParserKind("optional");
-/**
- * {@include dataParser/classic/optional/index.md}
- */
-function optional(inner, definition) {
-    const self = dataParserBaseInit(optionalKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        inner,
-        coalescingValue: definition?.coalescingValue,
-    }, {
-        sync: (data, error, self) => {
-            if (data === undefined) {
-                return self.definition.coalescingValue;
-            }
-            return self.definition.inner.exec(data, error);
-        },
-        async: async (data, error, self) => {
-            if (data === undefined) {
-                return self.definition.coalescingValue;
-            }
-            return self.definition.inner.asyncExec(data, error);
-        },
-        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
-    }, optional.overrideHandler);
-    return self;
+class DataParserOptional extends DataParserBase.init(optionalKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserOptional);
+    }
+    static execParse(self, data, error) {
+        if (data === undefined) {
+            return self.definition.coalescingValue;
+        }
+        return self.definition.inner.exec(data, error);
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.inner.isAsynchronous();
+    }
+    static prepareDefinition(inner, definition) {
+        return {
+            ...definition,
+            inner,
+            coalescingValue: definition?.coalescingValue,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/optional/index.md}
+     */
+    static create(inner, definition) {
+        return new DataParserOptional(this.prepareDefinition(inner, definition));
+    }
 }
-optional.overrideHandler = createOverride("@duplojs/utils/data-parser/optional");
+const optional = detachObjectMethod(DataParserOptional, "create");
 
-export { optional, optionalKind };
+export { DataParserOptional, optional, optionalKind };

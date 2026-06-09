@@ -1,9 +1,9 @@
 import { createCleanKind } from './kind.mjs';
 import { pipe } from '../common/pipe.mjs';
-import { map } from '../array/map.mjs';
-import { entry } from '../object/entry.mjs';
-import { uncapitalize } from '../string/uncapitalize.mjs';
 import { entries } from '../object/entries.mjs';
+import { map } from '../array/map.mjs';
+import { uncapitalize } from '../string/uncapitalize.mjs';
+import { entry } from '../object/entry.mjs';
 import { fromEntries } from '../object/fromEntries.mjs';
 import { createOverride } from '../common/override.mjs';
 

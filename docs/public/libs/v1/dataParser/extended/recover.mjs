@@ -1,14 +1,6 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { recover as recover$1 } from '../parsers/recover.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserRecoverExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
-/**
- * {@include dataParser/extended/recover/index.md}
- */
-function recover(inner, recoveredValue, definition) {
-    const self = dataParserBaseExtendedInit(recover$1(inner, recoveredValue, definition), {}, recover.overrideHandler);
-    return self;
-}
-recover.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/recover");
+const recover = detachObjectMethod(DataParserRecoverExtended, "create");
 
 export { recover };

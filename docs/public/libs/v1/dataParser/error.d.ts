@@ -32,3 +32,4 @@ export declare function addIssue(error: DataParserError, expected: string, data:
 export declare function setErrorPath(error: DataParserError, value: string, index: number): DataParserError;
 export declare function popErrorPath(error: DataParserError): DataParserError;
 export declare function interpretError(error: DataParserError | DEither.Left<string, DataParserError>): string;
+export declare function addAsyncIssue(error: DataParserError, data: unknown): SymbolDataParserError;

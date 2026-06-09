@@ -1,25 +1,35 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var index = require('../parsers/time/index.cjs');
-var max = require('../parsers/time/checkers/max.cjs');
 var min = require('../parsers/time/checkers/min.cjs');
-var override = require('../../common/override.cjs');
+var max = require('../parsers/time/checkers/max.cjs');
 
-/**
- * {@include dataParser/extended/time/index.md}
- */
-function time(definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(index.time(definition), {
-        min(self, min$1, definition) {
-            return self.addChecker(min.checkerTimeMin(min$1, definition));
-        },
-        max(self, max$1, definition) {
-            return self.addChecker(max.checkerTimeMax(max$1, definition));
-        },
-    }, time.overrideHandler);
-    return self;
+class DataParserTimeExtended extends base.DataParserBaseExtended.initExtended(index.DataParserTime) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTimeExtended);
+    }
+    /**
+     * {@include dataParser/extended/time/min/index.md}
+     */
+    min(min$1, definition) {
+        return this.addChecker(min.checkerTimeMin(min$1, definition));
+    }
+    /**
+     * {@include dataParser/extended/time/max/index.md}
+     */
+    max(max$1, definition) {
+        return this.addChecker(max.checkerTimeMax(max$1, definition));
+    }
+    /**
+     * {@include dataParser/extended/time/index.md}
+     */
+    static create(definition) {
+        return new DataParserTimeExtended(this.prepareDefinition(definition));
+    }
 }
-time.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/time");
+const time = detachObjectMethod.detachObjectMethod(DataParserTimeExtended, "create");
 
+exports.DataParserTimeExtended = DataParserTimeExtended;
 exports.time = time;

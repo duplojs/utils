@@ -5,17 +5,17 @@ var hasSomeKinds = require('../common/hasSomeKinds.cjs');
 var property = require('./entity/property.cjs');
 var base = require('./primitive/base.cjs');
 var base$1 = require('./constraint/base.cjs');
-var index = require('../pattern/match/index.cjs');
-var transform = require('../dataParser/parsers/transform.cjs');
-var index$1 = require('../dataParser/parsers/string/index.cjs');
-var index$2 = require('../dataParser/parsers/number/index.cjs');
-var index$3 = require('../dataParser/parsers/bigint/index.cjs');
+var index = require('../dataParser/parsers/string/index.cjs');
+var index$1 = require('../dataParser/parsers/number/index.cjs');
+var index$2 = require('../dataParser/parsers/bigint/index.cjs');
 var boolean = require('../dataParser/parsers/boolean.cjs');
 var date = require('../dataParser/parsers/date.cjs');
-var index$4 = require('../dataParser/parsers/time/index.cjs');
+var index$3 = require('../dataParser/parsers/time/index.cjs');
 var empty = require('../dataParser/parsers/empty.cjs');
 var nil = require('../dataParser/parsers/nil.cjs');
+var index$4 = require('../pattern/match/index.cjs');
 var set = require('./constraint/set.cjs');
+var transform = require('../dataParser/parsers/transform.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
 
 function toMapDataParser(input, params) {
@@ -29,23 +29,23 @@ function toMapDataParser(input, params) {
         return property.entityPropertyDefinitionToDataParser(input, (newTypeHandler) => toMapDataParser(newTypeHandler, params));
     }
     const dataParser = (base.primitiveHandlerKind.has(input)
-        ? input.dataParser.clone()
+        ? input.internal.dataParser.clone()
         : input.internal.dataParser.clone());
     if (params?.coerce
         && hasSomeKinds.hasSomeKinds(dataParser, [
-            index$1.stringKind,
-            index$2.numberKind,
-            index$3.bigIntKind,
-            index$3.bigIntKind,
+            index.stringKind,
+            index$1.numberKind,
+            index$2.bigIntKind,
+            index$2.bigIntKind,
             boolean.booleanKind,
             date.dateKind,
-            index$4.timeKind,
+            index$3.timeKind,
             empty.emptyKind,
             nil.nilKind,
         ])) {
         dataParser.definition.coerce = true;
     }
-    const valueContainer = index.match(input)
+    const valueContainer = index$4.match(input)
         .when(newType.newTypeHandlerKind.has, (newType$1) => ({
         ...newType.newTypeKind.setTo({}, newType$1.name),
         ...base$1.constrainedTypeKind.setTo({}, newType$1.internal.constraintKindValue),

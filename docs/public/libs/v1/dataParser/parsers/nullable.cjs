@@ -1,37 +1,41 @@
 'use strict';
 
-var base = require('../base.cjs');
 var kind = require('../kind.cjs');
-var override = require('../../common/override.cjs');
+var base = require('../base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
 const nullableKind = kind.createDataParserKind("nullable");
-/**
- * {@include dataParser/classic/nullable/index.md}
- */
-function nullable(inner, definition) {
-    const self = base.dataParserBaseInit(nullableKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        inner,
-        coalescingValue: definition?.coalescingValue ?? null,
-    }, {
-        sync: (data, error, self) => {
-            if (data === null) {
-                return self.definition.coalescingValue;
-            }
-            return self.definition.inner.exec(data, error);
-        },
-        async: async (data, error, self) => {
-            if (data === null) {
-                return self.definition.coalescingValue;
-            }
-            return self.definition.inner.asyncExec(data, error);
-        },
-        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
-    }, nullable.overrideHandler);
-    return self;
+class DataParserNullable extends base.DataParserBase.init(nullableKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserNullable);
+    }
+    static execParse(self, data, error) {
+        if (data === null) {
+            return self.definition.coalescingValue;
+        }
+        return self.definition.inner.exec(data, error);
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.inner.isAsynchronous();
+    }
+    static prepareDefinition(inner, definition) {
+        return {
+            ...definition,
+            inner,
+            coalescingValue: definition?.coalescingValue ?? null,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/nullable/index.md}
+     */
+    static create(inner, definition) {
+        return new DataParserNullable(this.prepareDefinition(inner, definition));
+    }
 }
-nullable.overrideHandler = override.createOverride("@duplojs/utils/data-parser/nullable");
+const nullable = detachObjectMethod.detachObjectMethod(DataParserNullable, "create");
 
+exports.DataParserNullable = DataParserNullable;
 exports.nullable = nullable;
 exports.nullableKind = nullableKind;

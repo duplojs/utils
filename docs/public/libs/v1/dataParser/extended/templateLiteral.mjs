@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { templateLiteral as templateLiteral$1 } from '../parsers/templateLiteral/index.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserTemplateLiteral } from '../parsers/templateLiteral/index.mjs';
 
-/**
- * {@include dataParser/extended/templateLiteral/index.md}
- */
-function templateLiteral(template, definition) {
-    const self = dataParserBaseExtendedInit(templateLiteral$1(template, definition), {}, templateLiteral.overrideHandler);
-    return self;
+class DataParserTemplateLiteralExtended extends DataParserBaseExtended.initExtended(DataParserTemplateLiteral) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTemplateLiteralExtended);
+    }
+    /**
+     * {@include dataParser/extended/templateLiteral/index.md}
+     */
+    static create(template, definition) {
+        return new DataParserTemplateLiteralExtended(this.prepareDefinition(template, definition));
+    }
 }
-templateLiteral.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/templateLiteral");
+const templateLiteral = detachObjectMethod(DataParserTemplateLiteralExtended, "create");
 
-export { templateLiteral };
+export { DataParserTemplateLiteralExtended, templateLiteral };

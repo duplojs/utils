@@ -1,13 +1,18 @@
-import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
+import { type DataParserError } from "../../../../dataParser/error";
+import { type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 export interface DataParserCheckerDefinitionUuid extends DataParserCheckerDefinition {
     regex: RegExp;
 }
 export declare const checkerUuidKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-uuid", unknown>>;
-type _DataParserCheckerUuid = (Kind<typeof checkerUuidKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionUuid, string>);
-export interface DataParserCheckerUuid extends _DataParserCheckerUuid {
+declare const DataParserCheckerUuid_base: import("../../..").DataParserCheckerBaseInit<import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-uuid", unknown>>>;
+export declare class DataParserCheckerUuid extends DataParserCheckerUuid_base<DataParserCheckerDefinitionUuid, string> {
+    get classConstructor(): typeof DataParserCheckerUuid & import("../../..").CheckedConstructorKind;
+    isAsynchronous(): boolean;
+    static execCheck(data: string, error: DataParserError, self: DataParserCheckerUuid, dataParser: DataParser): string | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static create(definition?: Partial<Omit<DataParserCheckerDefinitionUuid, "regex">>): DataParserCheckerUuid;
 }
-export declare function checkerUuid(definition?: Partial<Omit<DataParserCheckerDefinitionUuid, "regex">>): DataParserCheckerUuid;
+export declare const checkerUuid: typeof DataParserCheckerUuid.create;
 /**
  * Creates a string parser specialized for UUID values.
  * 

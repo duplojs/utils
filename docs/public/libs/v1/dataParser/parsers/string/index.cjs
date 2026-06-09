@@ -1,20 +1,16 @@
 'use strict';
 
+var kind = require('../../kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
-var kind = require('../../kind.cjs');
-var override = require('../../../common/override.cjs');
+var detachObjectMethod = require('../../../common/detachObjectMethod.cjs');
 
 const stringKind = kind.createDataParserKind("string");
-/**
- * {@include dataParser/classic/string/index.md}
- */
-function string(definition) {
-    const self = base.dataParserBaseInit(stringKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error$1, self) => {
+class DataParserString extends base.DataParserBase.init(stringKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserString);
+    }
+    static execParse(self, data, error$1) {
         const inputData = data;
         if (self.definition.coerce) {
             try {
@@ -27,10 +23,27 @@ function string(definition) {
             return data;
         }
         return error.addIssue(error$1, "string", inputData, self.definition.errorMessage);
-    }, string.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/string/index.md}
+     */
+    static create(definition) {
+        return new DataParserString(this.prepareDefinition(definition));
+    }
 }
-string.overrideHandler = override.createOverride("@duplojs/utils/data-parser/string");
+const string = detachObjectMethod.detachObjectMethod(DataParserString, "create");
 
+exports.DataParserString = DataParserString;
 exports.string = string;
 exports.stringKind = stringKind;

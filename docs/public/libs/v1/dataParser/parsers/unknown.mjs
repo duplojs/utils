@@ -1,18 +1,32 @@
-import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBase } from '../base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
 const unknownKind = createDataParserKind("unknown");
-/**
- * {@include dataParser/classic/unknown/index.md}
- */
-function unknown(definition) {
-    const self = dataParserBaseInit(unknownKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-    }, (data) => data, unknown.overrideHandler);
-    return self;
+class DataParserUnknown extends DataParserBase.init(unknownKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserUnknown);
+    }
+    static execParse(_self, data, _error) {
+        return data;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/unknown/index.md}
+     */
+    static create(definition) {
+        return new DataParserUnknown(this.prepareDefinition(definition));
+    }
 }
-unknown.overrideHandler = createOverride("@duplojs/utils/data-parser/unknown");
+const unknown = detachObjectMethod(DataParserUnknown, "create");
 
-export { unknown, unknownKind };
+export { DataParserUnknown, unknown, unknownKind };

@@ -1,16 +1,17 @@
-import { dataParserCheckerInit } from '../../../base.mjs';
 import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
+import { DataParserCheckerBase } from '../../../baseChecker.mjs';
+import { detachObjectMethod } from '../../../../common/detachObjectMethod.mjs';
 
 const checkerNumberMinKind = createDataParserKind("checker-number-min");
-function checkerNumberMin(min, definition = {}) {
-    return dataParserCheckerInit(checkerNumberMinKind, {
-        definition: {
-            ...definition,
-            exclusive: definition.exclusive ?? false,
-            min,
-        },
-    }, (value, error, self, dataParser) => {
+class DataParserCheckerNumberMin extends DataParserCheckerBase.init(checkerNumberMinKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserCheckerNumberMin);
+    }
+    isAsynchronous() {
+        return false;
+    }
+    static execCheck(value, error, self, dataParser) {
         const isValid = self.definition.exclusive
             ? value > self.definition.min
             : value >= self.definition.min;
@@ -18,7 +19,15 @@ function checkerNumberMin(min, definition = {}) {
             return value;
         }
         return addIssue(error, `number ${self.definition.exclusive ? ">" : ">="} ${self.definition.min}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
-    });
+    }
+    static create(min, definition = {}) {
+        return new DataParserCheckerNumberMin({
+            ...definition,
+            exclusive: definition.exclusive ?? false,
+            min,
+        });
+    }
 }
+const checkerNumberMin = detachObjectMethod(DataParserCheckerNumberMin, "create");
 
-export { checkerNumberMin, checkerNumberMinKind };
+export { DataParserCheckerNumberMin, checkerNumberMin, checkerNumberMinKind };

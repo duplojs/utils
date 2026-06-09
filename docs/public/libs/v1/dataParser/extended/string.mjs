@@ -1,31 +1,43 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { string as string$1 } from '../parsers/string/index.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserString } from '../parsers/string/index.mjs';
+import { checkerStringMin } from '../parsers/string/checkers/min.mjs';
+import { checkerStringMax } from '../parsers/string/checkers/max.mjs';
+import { checkerRegex } from '../parsers/string/checkers/regex.mjs';
 import { checkerEmail } from '../parsers/string/checkers/email.mjs';
 import { checkerUrl } from '../parsers/string/checkers/url.mjs';
 import { checkerUuid } from '../parsers/string/checkers/uuid.mjs';
-import { checkerRegex } from '../parsers/string/checkers/regex.mjs';
-import { checkerStringMax } from '../parsers/string/checkers/max.mjs';
-import { checkerStringMin } from '../parsers/string/checkers/min.mjs';
-import { createOverride } from '../../common/override.mjs';
 
-/**
- * {@include dataParser/extended/string/index.md}
- */
-function string(definition) {
-    const self = dataParserBaseExtendedInit(string$1(definition), {
-        min(self, min, definition) {
-            return self.addChecker(checkerStringMin(min, definition));
-        },
-        max(self, max, definition) {
-            return self.addChecker(checkerStringMax(max, definition));
-        },
-        regex(self, regex, definition) {
-            return self.addChecker(checkerRegex(regex, definition));
-        },
-    }, string.overrideHandler);
-    return self;
+class DataParserStringExtended extends DataParserBaseExtended.initExtended(DataParserString) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserStringExtended);
+    }
+    /**
+     * {@include dataParser/extended/string/min/index.md}
+     */
+    min(min, definition) {
+        return this.addChecker(checkerStringMin(min, definition));
+    }
+    /**
+     * {@include dataParser/extended/string/max/index.md}
+     */
+    max(max, definition) {
+        return this.addChecker(checkerStringMax(max, definition));
+    }
+    /**
+     * {@include dataParser/extended/string/regex/index.md}
+     */
+    regex(regex, definition) {
+        return this.addChecker(checkerRegex(regex, definition));
+    }
+    /**
+     * {@include dataParser/extended/string/index.md}
+     */
+    static create(definition) {
+        return new DataParserStringExtended(this.prepareDefinition(definition));
+    }
 }
-string.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/string");
+const string = detachObjectMethod(DataParserStringExtended, "create");
 /**
  * {@include dataParser/extended/email/index.md}
  */
@@ -51,4 +63,4 @@ function uuid(definition) {
     });
 }
 
-export { email, string, url, uuid };
+export { DataParserStringExtended, email, string, url, uuid };

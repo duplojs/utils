@@ -1,20 +1,16 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
-var override = require('../../common/override.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
 const booleanKind = kind.createDataParserKind("boolean");
-/**
- * {@include dataParser/classic/boolean/index.md}
- */
-function boolean(definition) {
-    const self = base.dataParserBaseInit(booleanKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error$1, self) => {
+class DataParserBoolean extends base.DataParserBase.init(booleanKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserBoolean);
+    }
+    static execParse(self, data, error$1) {
         if (typeof data === "boolean") {
             return data;
         }
@@ -24,21 +20,33 @@ function boolean(definition) {
                 if (lower === "true" || lower === "false") {
                     return lower === "true";
                 }
-                else {
-                    return error.addIssue(error$1, "boolean", data, self.definition.errorMessage);
-                }
             }
-            else if (typeof data === "number"
-                && (data === 0
-                    || data === 1)) {
+            else if (typeof data === "number" && (data === 0 || data === 1)) {
                 return data === 1;
             }
         }
         return error.addIssue(error$1, "boolean", data, self.definition.errorMessage);
-    }, boolean.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/boolean/index.md}
+     */
+    static create(definition) {
+        return new DataParserBoolean(this.prepareDefinition(definition));
+    }
 }
-boolean.overrideHandler = override.createOverride("@duplojs/utils/data-parser/boolean");
+const boolean = detachObjectMethod.detachObjectMethod(DataParserBoolean, "create");
 
+exports.DataParserBoolean = DataParserBoolean;
 exports.boolean = boolean;
 exports.booleanKind = booleanKind;

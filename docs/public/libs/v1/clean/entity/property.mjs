@@ -2,6 +2,7 @@ import { newTypeHandlerKind } from '../newType.mjs';
 import { createCleanKind } from '../kind.mjs';
 import { pipe } from '../../common/pipe.mjs';
 import { wrapValue } from '../../common/wrapValue.mjs';
+import { exhaustive } from '../../pattern/exhaustive.mjs';
 import { when } from '../../pattern/when.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { entries } from '../../object/entries.mjs';
@@ -15,7 +16,6 @@ import { checkerArrayMax } from '../../dataParser/parsers/array/checkers/max.mjs
 import { literal } from '../../dataParser/parsers/literal.mjs';
 import { nullable } from '../../dataParser/parsers/nullable.mjs';
 import { union } from '../../dataParser/parsers/union.mjs';
-import { exhaustive } from '../../pattern/exhaustive.mjs';
 
 const entityPropertyUnionKind = createCleanKind("entity-property-union");
 const entityPropertyNullableKind = createCleanKind("entity-property-nullable");

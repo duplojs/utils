@@ -1,16 +1,8 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
-var transform$1 = require('../parsers/transform.cjs');
-var override = require('../../common/override.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
-/**
- * {@include dataParser/extended/transform/index.md}
- */
-function transform(inner, theFunction, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(transform$1.transform(inner, theFunction, definition), {}, transform.overrideHandler);
-    return self;
-}
-transform.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/transform");
+const transform = detachObjectMethod.detachObjectMethod(base.DataParserTransformExtended, "create");
 
 exports.transform = transform;

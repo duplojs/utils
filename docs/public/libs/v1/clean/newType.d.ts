@@ -1,8 +1,8 @@
-import { type Kind, type WrappedValue, type Unwrap, type DeepReadonly, type IsEqual } from "..";
+import { type Kind, type WrappedValue, type Unwrap, type DeepReadonly, type IsEqual, type DP } from "..";
 import { constrainedTypeKind, type ConstraintsHandlerArguments, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
-import { type Primitive, type EligiblePrimitive } from "./primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandlers, type PrimitiveHandler } from "./primitive";
 import * as DEither from "../either";
-import type * as DDataParser from "../dataParser";
+import * as DDataParser from "../dataParser";
 import { type DataParserContainTransform } from "./types";
 export declare const newTypeKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type", string>>;
 type _NewType<GenericName extends string, GenericValue extends unknown, GenericConstraintsName extends string> = (Kind<typeof newTypeKind.definition, GenericName> & Kind<typeof constrainedTypeKind.definition, Record<GenericConstraintsName, unknown>> & WrappedValue<GenericValue>);
@@ -72,12 +72,12 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * Creates a NewType value from an unknown input and returns an Either.
      * 
      * ```ts
-     * const unknownValue: unknown = 20;
-     * const maybe = UserId.createWithUnknown(unknownValue);
+     * 	C.String,
+     * 	C.StringMin(2),
+     * );
      * 
-     * if (E.isRight(maybe)) {
-     * 	// maybe: E.Right<"createNewType", UserId>
-     * }
+     * type UserName = C.GetNewType<typeof UserName>;
+     * 
      * ```
      * 
      */
@@ -86,7 +86,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * Creates a NewType value from an unknown input and throws on error.
      * 
      * ```ts
-     * const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
+     * 
      * ```
      * 
      */
@@ -95,7 +95,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * Checks if a value is a NewType of this handler (type guard).
      * 
      * ```ts
-     * UserId.is(result); // type guard
+     * const UserName = C.createNewType(
      * ```
      * 
      */
@@ -104,8 +104,8 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * Returns a constraint handler by name from the NewType constraints list.
      * 
      * ```ts
-     * const constraint = UserId.getConstraint("positive");
-     * constraint.createOrThrow(1);
+     * 
+     * const unknownValue: unknown = 20;
      * ```
      * 
      */
@@ -124,9 +124,10 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * Creates a NewType handler for a domain-specific value.
  * 
  * **Supported call styles:**
- * - Classic: `createNewType(name, dataParser, constraints?)` -> returns a handler
+ * - Classic with DataParser: `createNewType(name, dataParser, constraints?)` -> returns a handler
+ * - Classic with primitive handler: `createNewType(name, primitiveHandler, constraints?)` -> returns a handler
  * 
- * A NewType validates input with a DataParser, applies optional constraints, and brands the value to prevent accidental mix-ups across the domain.
+ * A NewType validates input with a DataParser, applies optional constraints, and brands the value to prevent accidental mix-ups across the domain. When a primitive handler is provided, its internal DataParser is reused.
  * 
  * ```ts
  * const UserId = C.createNewType(
@@ -145,6 +146,16 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * 	C.Number.createOrThrow(5),
  * );
  * 
+ * const UserName = C.createNewType(
+ * 	"user-name",
+ * 	C.String,
+ * 	C.StringMin(2),
+ * );
+ * 
+ * type UserName = C.GetNewType<typeof UserName>;
+ * 
+ * const userName = UserName.createOrThrow("Ada");
+ * 
  * UserId.is(result); // type guard
  * 
  * const unknownValue: unknown = 20;
@@ -156,10 +167,13 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * 
  * const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
  * 
+ * const constraint = UserId.getConstraint("positive");
+ * constraint.createOrThrow(1);
  * ```
  * 
  * @remarks
  * - You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
+ * - You can pass a primitive handler such as `C.String`, `C.Number`, or `C.Date` instead of manually passing its DataParser.
  * - Constraints sets are expanded internally before being added to the NewType, preserving declaration order.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/newType
@@ -167,9 +181,10 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * @namespace C
  * 
  */
-export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParserBase, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>> = never>(name: GenericName, dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParserBase, GenericDataParserError extends DataParserContainTransform<GenericDataParser>, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>> = never, GenericConstraints extends ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler> = ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>>(name: GenericName, dataParser: GenericDataParser & NoInfer<GenericDataParserError>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, GenericConstraints, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createNewType<GenericName extends string, GenericPrimitiveHandler extends PrimitiveHandlers, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, EligiblePrimitive>> = never, GenericConstraints extends ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler> = ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>>(name: GenericName, primitiveHandler: GenericPrimitiveHandler, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, NoInfer<GenericConstraints>, GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredInput> ? InferredInput : never>;
 export declare namespace createNewType {
-    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<unknown>[], unknown>[], unknown>>;
+    var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DP.DataParserChecker<unknown>[], unknown>[], unknown>>;
 }
 export type GetNewType<GenericHandler extends NewTypeHandler<string, unknown, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = DDataParser.Output<GenericHandler["internal"]["dataParser"]>> = Extract<GenericHandler extends any ? NewType<GenericHandler["name"], GenericValue, GenericHandler["internal"]["constraints"][number]["name"]> : never, any>;
 export {};

@@ -1,89 +1,63 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
-var some = require('../../array/some.cjs');
-var override = require('../../common/override.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
+var callThen = require('../../common/callThen.cjs');
 
 const tupleKind = kind.createDataParserKind("tuple");
-/**
- * {@include dataParser/classic/tuple/index.md}
- */
-function tuple(shape, definition) {
-    const self = base.dataParserBaseInit(tupleKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        rest: definition?.rest,
-        shape,
-    }, {
-        sync: (data, error$1, self) => {
-            if (!(data instanceof Array)) {
-                return error.addIssue(error$1, "tuple array", data, self.definition.errorMessage);
+class DataParserTuple extends base.DataParserBase.init(tupleKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTuple);
+    }
+    static execParse(self, data, error$1) {
+        if (!(data instanceof Array)) {
+            return error.addIssue(error$1, "tuple array", data, self.definition.errorMessage);
+        }
+        const currentIndexPath = error$1.currentPath.length;
+        const output = data.reduce((accumulator, value, index) => callThen.callThen(accumulator, (awaitedAccumulator) => {
+            const dataParser = self.definition.shape[index] ?? self.definition.rest;
+            error.setErrorPath(error$1, dataParser === self.definition.rest
+                ? `[tupleRest: ${index}]`
+                : `[tuple: ${index}]`, currentIndexPath);
+            if (!dataParser) {
+                error.addIssue(error$1, "empty", data, self.definition.errorMessage);
+                return error.SymbolDataParserError;
             }
-            let output = [];
-            const currentIndexPath = error$1.currentPath.length;
-            for (let index = 0; index < self.definition.shape.length; index++) {
-                error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                const result = self.definition.shape[index]?.exec(data[index], error$1);
-                if (result === error.SymbolDataParserError) {
-                    output = error.SymbolDataParserError;
+            return callThen.callThen(dataParser.exec(value, error$1), (result) => {
+                if (result === error.SymbolDataParserError
+                    || awaitedAccumulator === error.SymbolDataParserError) {
+                    return error.SymbolDataParserError;
                 }
-                else if (output !== error.SymbolDataParserError) {
-                    output.push(result);
-                }
-            }
-            if (self.definition.rest) {
-                for (let index = self.definition.shape.length; index < data.length; index++) {
-                    error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                    const result = self.definition.rest.exec(data[index], error$1);
-                    if (result === error.SymbolDataParserError) {
-                        output = error.SymbolDataParserError;
-                    }
-                    else if (output !== error.SymbolDataParserError) {
-                        output.push(result);
-                    }
-                }
-            }
-            void (self.definition.shape.length && error.popErrorPath(error$1));
-            return output;
-        },
-        async: async (data, error$1, self) => {
-            if (!(data instanceof Array)) {
-                return error.addIssue(error$1, "tuple array", data, self.definition.errorMessage);
-            }
-            let output = [];
-            const currentIndexPath = error$1.currentPath.length;
-            for (let index = 0; index < self.definition.shape.length; index++) {
-                error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                const result = await self.definition.shape[index]?.asyncExec(data[index], error$1);
-                if (result === error.SymbolDataParserError) {
-                    output = error.SymbolDataParserError;
-                }
-                else if (output !== error.SymbolDataParserError) {
-                    output.push(result);
-                }
-            }
-            if (self.definition?.rest) {
-                for (let index = self.definition.shape.length; index < data.length; index++) {
-                    error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                    const result = await self.definition.rest.asyncExec(data[index], error$1);
-                    if (result === error.SymbolDataParserError) {
-                        output = error.SymbolDataParserError;
-                    }
-                    else if (output !== error.SymbolDataParserError) {
-                        output.push(result);
-                    }
-                }
-            }
-            void (self.definition.shape.length && error.popErrorPath(error$1));
-            return output;
-        },
-        isAsynchronous: (self) => some.some(self.definition.shape, (element) => element.isAsynchronous()) || !!self.definition.rest?.isAsynchronous(),
-    }, tuple.overrideHandler);
-    return self;
+                awaitedAccumulator.push(result);
+                return awaitedAccumulator;
+            });
+        }), []);
+        void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
+        return output;
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.shape.some((element) => element.isAsynchronous()) || !!self.definition.rest?.isAsynchronous();
+    }
+    static prepareDefinition(shape, definition) {
+        return {
+            ...definition,
+            shape,
+            rest: definition?.rest,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/tuple/index.md}
+     */
+    static create(shape, definition) {
+        return new DataParserTuple(this.prepareDefinition(shape, definition));
+    }
 }
-tuple.overrideHandler = override.createOverride("@duplojs/utils/data-parser/tuple");
+const tuple = detachObjectMethod.detachObjectMethod(DataParserTuple, "create");
 
+exports.DataParserTuple = DataParserTuple;
 exports.tuple = tuple;
 exports.tupleKind = tupleKind;

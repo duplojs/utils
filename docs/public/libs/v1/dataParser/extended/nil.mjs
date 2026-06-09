@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { nil as nil$1 } from '../parsers/nil.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserNil } from '../parsers/nil.mjs';
 
-/**
- * {@include dataParser/extended/nil/index.md}
- */
-function nil(definition) {
-    const self = dataParserBaseExtendedInit(nil$1(definition), {}, nil.overrideHandler);
-    return self;
+class DataParserNilExtended extends DataParserBaseExtended.initExtended(DataParserNil) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserNilExtended);
+    }
+    /**
+     * {@include dataParser/extended/nil/index.md}
+     */
+    static create(definition) {
+        return new DataParserNilExtended(this.prepareDefinition(definition));
+    }
 }
-nil.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/nil");
+const nil = detachObjectMethod(DataParserNilExtended, "create");
 
-export { nil };
+export { DataParserNilExtended, nil };

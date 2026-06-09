@@ -1,19 +1,6 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { nullable as nullable$1 } from '../parsers/nullable.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserNullableExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
-/**
- * {@include dataParser/extended/nullable/index.md}
- */
-function nullable(inner, definition) {
-    const self = dataParserBaseExtendedInit(nullable$1(inner, definition), {
-        default: (self, value) => nullable(self.definition.inner, {
-            ...self.definition,
-            coalescingValue: value,
-        }),
-    }, nullable.overrideHandler);
-    return self;
-}
-nullable.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/nullable");
+const nullable = detachObjectMethod(DataParserNullableExtended, "create");
 
 export { nullable };

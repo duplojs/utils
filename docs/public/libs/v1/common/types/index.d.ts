@@ -50,3 +50,6 @@ export * from "./bivariantFunction";
 export * from "./maybeAsyncGenerator";
 export * from "./ComputedTypeError";
 export * from "./CleanObjectEntry";
+export * from "./requireConstructor";
+export * from "./removeAbstractFromConstructor";
+export * from "./clearClassKeys";

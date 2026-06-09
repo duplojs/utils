@@ -3,19 +3,19 @@
 var kind = require('../kind.cjs');
 var base = require('./base.cjs');
 var kind$1 = require('../../common/kind.cjs');
+var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
 var flatMap = require('../../array/flatMap.cjs');
 var coalescing = require('../../array/coalescing.cjs');
 var pipe = require('../../common/pipe.cjs');
+var fromEntries = require('../../object/fromEntries.cjs');
 var map = require('../../array/map.cjs');
 var entry = require('../../object/entry.cjs');
-var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
-var fromEntries = require('../../object/fromEntries.cjs');
-var override = require('../../common/override.cjs');
 var is = require('../../either/left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var create = require('../../either/left/create.cjs');
 var create$1 = require('../../either/right/create.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
+var override = require('../../common/override.cjs');
 
 const constraintsSetHandlerKind = kind.createCleanKind("constraints-set-handler");
 class CreateConstraintsSetError extends kind$1.kindHeritage("create-constraint-set-error", errorKindNamespace.createErrorKind("create-constraint-set-error"), Error) {
@@ -36,6 +36,7 @@ function createConstraintsSet(primitiveHandler, constraint) {
         : constraint);
     const checkers = flatMap.flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = primitiveHandler
+        .internal
         .dataParser
         .addChecker(...checkers);
     const constraintKindValue = pipe.pipe(constraints, map.map(({ name }) => entry.entry(name, null)), fromEntries.fromEntries);

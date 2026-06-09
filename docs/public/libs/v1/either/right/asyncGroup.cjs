@@ -2,11 +2,11 @@
 
 var asyncPipe = require('../../common/asyncPipe.cjs');
 var whenNot = require('../../common/whenNot.cjs');
+var success = require('./success.cjs');
+var is = require('../left/is.cjs');
 var asyncReduce = require('../../generator/asyncReduce.cjs');
 var reduce = require('../../generator/reduce.cjs');
 var entries = require('../../object/entries.cjs');
-var success = require('./success.cjs');
-var is = require('../left/is.cjs');
 var when = require('../../common/when.cjs');
 var isType = require('../../common/isType.cjs');
 var when$1 = require('./when.cjs');

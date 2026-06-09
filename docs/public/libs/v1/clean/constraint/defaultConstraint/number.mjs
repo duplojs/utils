@@ -3,6 +3,7 @@ import { Number } from '../../primitive/base.mjs';
 import { checkerInt } from '../../../dataParser/parsers/number/checkers/int.mjs';
 import { checkerNumberMin } from '../../../dataParser/parsers/number/checkers/min.mjs';
 import { checkerNumberMax } from '../../../dataParser/parsers/number/checkers/max.mjs';
+import { checkerRefine } from '../../../dataParser/parsers/refine.mjs';
 
 /**
  * {@include clean/Int/index.md}
@@ -36,5 +37,9 @@ function NumberMin(value) {
 function NumberMax(value) {
     return createConstraint(`number-max-${value}`, Number, checkerNumberMax(value));
 }
+/**
+ * {@include clean/NotZero/index.md}
+ */
+const NotZero = createConstraint("not-zero", Number, checkerRefine((value) => value !== 0));
 
-export { Int, Negative, NumberMax, NumberMin, Positive, StrictNegative, StrictPositive };
+export { Int, Negative, NotZero, NumberMax, NumberMin, Positive, StrictNegative, StrictPositive };

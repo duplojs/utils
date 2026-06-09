@@ -1,12 +1,17 @@
-import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
+import { type DataParserError } from "../../../../dataParser/error";
+import { type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 export interface DataParserCheckerDefinitionInt extends DataParserCheckerDefinition {
 }
 export declare const checkerIntKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-int", unknown>>;
-type _DataParserCheckerInt = (Kind<typeof checkerIntKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionInt, number>);
-export interface DataParserCheckerInt extends _DataParserCheckerInt {
+declare const DataParserCheckerInt_base: import("../../..").DataParserCheckerBaseInit<import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-int", unknown>>>;
+export declare class DataParserCheckerInt extends DataParserCheckerInt_base<DataParserCheckerDefinitionInt, number> {
+    get classConstructor(): typeof DataParserCheckerInt & import("../../..").CheckedConstructorKind;
+    isAsynchronous(): boolean;
+    static execCheck(data: number, error: DataParserError, self: DataParserCheckerInt, dataParser: DataParser): number | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static create(definition?: Partial<DataParserCheckerDefinitionInt>): DataParserCheckerInt;
 }
-export declare function checkerInt(definition?: Partial<DataParserCheckerDefinitionInt>): DataParserCheckerInt;
+export declare const checkerInt: typeof DataParserCheckerInt.create;
 export declare function int(definition?: Partial<DataParserCheckerDefinitionInt>): import("..").DataParserNumber<{
     readonly checkers: readonly [DataParserCheckerInt];
     readonly errorMessage?: string | undefined;

@@ -1,16 +1,8 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
-var union$1 = require('../parsers/union.cjs');
-var override = require('../../common/override.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
-/**
- * {@include dataParser/extended/union/index.md}
- */
-function union(options, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(union$1.union(options, definition), {}, union.overrideHandler);
-    return self;
-}
-union.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/union");
+const union = detachObjectMethod.detachObjectMethod(base.DataParserUnionExtended, "create");
 
 exports.union = union;

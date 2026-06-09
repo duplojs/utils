@@ -10,7 +10,9 @@ function kindClass(kindHandler, parent) {
             super(...parentParams);
             this[formattedKindHandler.runTimeKey] = kindValue;
         }
-        static [Symbol.hasInstance] = formattedKindHandler.has;
+        static [Symbol.hasInstance] = parent
+            ? (input) => input instanceof parent && formattedKindHandler.has(input)
+            : formattedKindHandler.has;
     };
 }
 

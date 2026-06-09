@@ -1,69 +1,55 @@
 'use strict';
 
+var kind = require('../../kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
-var kind = require('../../kind.cjs');
-var override = require('../../../common/override.cjs');
+var callThen = require('../../../common/callThen.cjs');
+var detachObjectMethod = require('../../../common/detachObjectMethod.cjs');
 
 const arrayKind = kind.createDataParserKind("array");
-/**
- * {@include dataParser/classic/array/index.md}
- */
-function array(element, definition) {
-    const self = base.dataParserBaseInit(arrayKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        element,
-    }, {
-        sync: (data, error$1, self) => {
-            if (!(data instanceof Array)) {
-                return error.addIssue(error$1, "array", data, self.definition.errorMessage);
-            }
-            let output = [];
-            const currentIndexPath = error$1.currentPath.length;
-            for (let index = 0; index < data.length; index++) {
-                error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                const result = self
-                    .definition
-                    .element
-                    .exec(data[index], error$1);
-                if (result === error.SymbolDataParserError) {
-                    output = error.SymbolDataParserError;
+class DataParserArray extends base.DataParserBase.init(arrayKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserArray);
+    }
+    static execParse(self, data, error$1) {
+        if (!(data instanceof Array)) {
+            return error.addIssue(error$1, "array", data, self.definition.errorMessage);
+        }
+        const currentIndexPath = error$1.currentPath.length;
+        const output = data.reduce((accumulator, element, index) => callThen.callThen(accumulator, (awaitedAccumulator) => {
+            error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
+            return callThen.callThen(self.definition.element.exec(element, error$1), (awaitedResult) => {
+                if (awaitedResult === error.SymbolDataParserError
+                    || awaitedAccumulator === error.SymbolDataParserError) {
+                    return error.SymbolDataParserError;
                 }
-                else if (output !== error.SymbolDataParserError) {
-                    output.push(result);
-                }
-            }
-            void (data.length && error.popErrorPath(error$1));
-            return output;
-        },
-        async: async (data, error$1, self) => {
-            if (!(data instanceof Array)) {
-                return error.addIssue(error$1, "array", data, self.definition.errorMessage);
-            }
-            let output = [];
-            const currentIndexPath = error$1.currentPath.length;
-            for (let index = 0; index < data.length; index++) {
-                error.setErrorPath(error$1, `[${index}]`, currentIndexPath);
-                const result = await self
-                    .definition
-                    .element
-                    .asyncExec(data[index], error$1);
-                if (result === error.SymbolDataParserError) {
-                    output = error.SymbolDataParserError;
-                }
-                else if (output !== error.SymbolDataParserError) {
-                    output.push(result);
-                }
-            }
-            void (data.length && error.popErrorPath(error$1));
-            return output;
-        },
-        isAsynchronous: (self) => self.definition.element.isAsynchronous(),
-    }, array.overrideHandler);
-    return self;
+                awaitedAccumulator.push(awaitedResult);
+                return awaitedAccumulator;
+            });
+        }), []);
+        void (currentIndexPath !== error$1.currentPath.length && error.popErrorPath(error$1));
+        return output;
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.element.isAsynchronous();
+    }
+    static prepareDefinition(element, definition) {
+        return {
+            ...definition,
+            element,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/array/index.md}
+     */
+    static create(element, definition) {
+        return new DataParserArray(this.prepareDefinition(element, definition));
+    }
 }
-array.overrideHandler = override.createOverride("@duplojs/utils/data-parser/array");
+const array = detachObjectMethod.detachObjectMethod(DataParserArray, "create");
 
+exports.DataParserArray = DataParserArray;
 exports.array = array;
 exports.arrayKind = arrayKind;

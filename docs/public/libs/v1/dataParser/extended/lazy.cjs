@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var lazy$1 = require('../parsers/lazy.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/lazy/index.md}
- */
-function lazy(getter, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(lazy$1.lazy(getter, definition), {}, lazy.overrideHandler);
-    return self;
+class DataParserLazyExtended extends base.DataParserBaseExtended.initExtended(lazy$1.DataParserLazy) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLazyExtended);
+    }
+    /**
+     * {@include dataParser/extended/lazy/index.md}
+     */
+    static create(getter, definition) {
+        return new DataParserLazyExtended(this.prepareDefinition(getter, definition));
+    }
 }
-lazy.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/lazy");
+const lazy = detachObjectMethod.detachObjectMethod(DataParserLazyExtended, "create");
 
+exports.DataParserLazyExtended = DataParserLazyExtended;
 exports.lazy = lazy;

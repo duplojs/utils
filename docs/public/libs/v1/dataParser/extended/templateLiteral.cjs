@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var index = require('../parsers/templateLiteral/index.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/templateLiteral/index.md}
- */
-function templateLiteral(template, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(index.templateLiteral(template, definition), {}, templateLiteral.overrideHandler);
-    return self;
+class DataParserTemplateLiteralExtended extends base.DataParserBaseExtended.initExtended(index.DataParserTemplateLiteral) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTemplateLiteralExtended);
+    }
+    /**
+     * {@include dataParser/extended/templateLiteral/index.md}
+     */
+    static create(template, definition) {
+        return new DataParserTemplateLiteralExtended(this.prepareDefinition(template, definition));
+    }
 }
-templateLiteral.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/templateLiteral");
+const templateLiteral = detachObjectMethod.detachObjectMethod(DataParserTemplateLiteralExtended, "create");
 
+exports.DataParserTemplateLiteralExtended = DataParserTemplateLiteralExtended;
 exports.templateLiteral = templateLiteral;

@@ -1,10 +1,10 @@
 import { asyncPipe } from '../../common/asyncPipe.mjs';
 import { whenNot } from '../../common/whenNot.mjs';
+import { success } from './success.mjs';
+import { isLeft } from '../left/is.mjs';
 import { asyncReduce } from '../../generator/asyncReduce.mjs';
 import { reduceFrom } from '../../generator/reduce.mjs';
 import { entries } from '../../object/entries.mjs';
-import { success } from './success.mjs';
-import { isLeft } from '../left/is.mjs';
 import { when } from '../../common/when.mjs';
 import { isType } from '../../common/isType.mjs';
 import { whenIsRight } from './when.mjs';

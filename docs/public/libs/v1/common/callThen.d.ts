@@ -32,4 +32,4 @@
  * @see https://utils.duplojs.dev/en/v1/api/common/callThen
  * 
  */
-export declare function callThen<GenericInput extends unknown, GenericOutput extends unknown>(input: GenericInput, TheFunction: (input: Awaited<GenericInput>) => GenericOutput): GenericInput extends Promise<unknown> ? Promise<Awaited<GenericOutput>> : GenericOutput;
+export declare function callThen<GenericInput extends unknown, GenericOutput extends unknown, GenericOutputCatch extends unknown = never>(input: GenericInput, theFunction: (input: Awaited<GenericInput>) => GenericOutput, catchFunction?: (error: unknown) => GenericOutputCatch): (GenericInput extends Promise<unknown> ? Promise<Awaited<GenericOutput | GenericOutputCatch>> : GenericOutput | GenericOutputCatch);

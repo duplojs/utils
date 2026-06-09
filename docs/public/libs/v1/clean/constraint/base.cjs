@@ -1,11 +1,11 @@
 'use strict';
 
 var kind = require('../kind.cjs');
+var override = require('../../common/override.cjs');
 var kind$1 = require('../../common/kind.cjs');
+var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
 var coalescing = require('../../array/coalescing.cjs');
 var pipe = require('../../common/pipe.cjs');
-var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
-var override = require('../../common/override.cjs');
 var is = require('../../either/left/is.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var create = require('../../either/left/create.cjs');
@@ -31,6 +31,7 @@ class CreateConstrainedTypeError extends kind$1.kindHeritage("create-constrained
 function createConstraint(name, primitiveHandler, checker) {
     const checkers = coalescing.coalescing(checker);
     const dataParserWithCheckers = primitiveHandler
+        .internal
         .dataParser
         .addChecker(...checkers);
     const constraintKindValue = { [name]: null };

@@ -5,6 +5,7 @@ var defer = require('./theFlow/defer.cjs');
 var finalizer = require('./theFlow/finalizer.cjs');
 var run = require('./run.cjs');
 var justExec = require('../common/justExec.cjs');
+var forward = require('../common/forward.cjs');
 var _break = require('./theFlow/break.cjs');
 var exit = require('./theFlow/exit.cjs');
 var step = require('./theFlow/step.cjs');
@@ -16,7 +17,6 @@ var calledByNext = require('./theFlow/calledByNext.cjs');
 var queue = require('./theFlow/queue.cjs');
 var queue$1 = require('../common/queue.cjs');
 var debounce = require('./theFlow/debounce.cjs');
-var forward = require('../common/forward.cjs');
 
 /**
  * {@include flow/exec/index.md}

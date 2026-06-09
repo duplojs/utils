@@ -1,51 +1,48 @@
-import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { DataParserBase } from '../base.mjs';
 import { setErrorPath, SymbolDataParserError, popErrorPath } from '../error.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { callThen } from '../../common/callThen.mjs';
 
 const pipeKind = createDataParserKind("pipe");
-/**
- * {@include dataParser/classic/pipe/index.md}
- */
-function pipe(input, output, definition) {
-    const self = dataParserBaseInit(pipeKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        input,
-        output,
-    }, {
-        sync: (data, error, self) => {
-            const currentIndexPath = error.currentPath.length;
-            setErrorPath(error, "(pipeIn)", currentIndexPath);
-            const resultIn = self.definition.input.exec(data, error);
+class DataParserPipe extends DataParserBase.init(pipeKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserPipe);
+    }
+    static execParse(self, data, error) {
+        const currentIndexPath = error.currentPath.length;
+        setErrorPath(error, "(pipeIn)", currentIndexPath);
+        return callThen(self.definition.input.exec(data, error), (resultIn) => {
             if (resultIn === SymbolDataParserError) {
                 popErrorPath(error);
                 return SymbolDataParserError;
             }
             setErrorPath(error, "(pipeOut)", currentIndexPath);
-            const resultOut = self.definition.output.exec(resultIn, error);
-            popErrorPath(error);
-            return resultOut;
-        },
-        async: async (data, error, self) => {
-            const currentIndexPath = error.currentPath.length;
-            setErrorPath(error, "(pipeIn)", currentIndexPath);
-            const resultIn = await self.definition.input.asyncExec(data, error);
-            if (resultIn === SymbolDataParserError) {
-                popErrorPath(error);
-                return SymbolDataParserError;
-            }
-            setErrorPath(error, "(pipeOut)", currentIndexPath);
-            return self.definition.output.asyncExec(resultIn, error)
-                .then((resultOut) => {
+            return callThen(self.definition.output.exec(resultIn, error), (resultOut) => {
                 popErrorPath(error);
                 return resultOut;
             });
-        },
-        isAsynchronous: (self) => self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous(),
-    }, pipe.overrideHandler);
-    return self;
+        });
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.input.isAsynchronous() || self.definition.output.isAsynchronous();
+    }
+    static prepareDefinition(input, output, definition) {
+        return {
+            ...definition,
+            input,
+            output,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/pipe/index.md}
+     */
+    static create(input, output, definition) {
+        return new DataParserPipe(this.prepareDefinition(input, output, definition));
+    }
 }
-pipe.overrideHandler = createOverride("@duplojs/utils/data-parser/pipe");
+const pipe = detachObjectMethod(DataParserPipe, "create");
 
-export { pipe, pipeKind };
+export { DataParserPipe, pipe, pipeKind };

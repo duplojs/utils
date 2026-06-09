@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { unknown as unknown$1 } from '../parsers/unknown.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserUnknown } from '../parsers/unknown.mjs';
 
-/**
- * {@include dataParser/extended/unknown/index.md}
- */
-function unknown(definition) {
-    const self = dataParserBaseExtendedInit(unknown$1(definition), {}, unknown.overrideHandler);
-    return self;
+class DataParserUnknownExtended extends DataParserBaseExtended.initExtended(DataParserUnknown) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserUnknownExtended);
+    }
+    /**
+     * {@include dataParser/extended/unknown/index.md}
+     */
+    static create(definition) {
+        return new DataParserUnknownExtended(this.prepareDefinition(definition));
+    }
 }
-unknown.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/unknown");
+const unknown = detachObjectMethod(DataParserUnknownExtended, "create");
 
-export { unknown };
+export { DataParserUnknownExtended, unknown };

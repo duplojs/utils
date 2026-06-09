@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { boolean as boolean$1 } from '../parsers/boolean.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserBoolean } from '../parsers/boolean.mjs';
 
-/**
- * {@include dataParser/extended/boolean/index.md}
- */
-function boolean(definition) {
-    const self = dataParserBaseExtendedInit(boolean$1(definition), {}, boolean.overrideHandler);
-    return self;
+class DataParserBooleanExtended extends DataParserBaseExtended.initExtended(DataParserBoolean) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserBooleanExtended);
+    }
+    /**
+     * {@include dataParser/extended/boolean/index.md}
+     */
+    static create(definition) {
+        return new DataParserBooleanExtended(this.prepareDefinition(definition));
+    }
 }
-boolean.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/boolean");
+const boolean = detachObjectMethod(DataParserBooleanExtended, "create");
 
-export { boolean };
+export { DataParserBooleanExtended, boolean };

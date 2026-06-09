@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var unknown$1 = require('../parsers/unknown.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/unknown/index.md}
- */
-function unknown(definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(unknown$1.unknown(definition), {}, unknown.overrideHandler);
-    return self;
+class DataParserUnknownExtended extends base.DataParserBaseExtended.initExtended(unknown$1.DataParserUnknown) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserUnknownExtended);
+    }
+    /**
+     * {@include dataParser/extended/unknown/index.md}
+     */
+    static create(definition) {
+        return new DataParserUnknownExtended(this.prepareDefinition(definition));
+    }
 }
-unknown.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/unknown");
+const unknown = detachObjectMethod.detachObjectMethod(DataParserUnknownExtended, "create");
 
+exports.DataParserUnknownExtended = DataParserUnknownExtended;
 exports.unknown = unknown;

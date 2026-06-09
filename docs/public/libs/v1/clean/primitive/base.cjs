@@ -2,6 +2,7 @@
 
 var kind = require('../kind.cjs');
 var kind$1 = require('../../common/kind.cjs');
+var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
 var pipe = require('../../common/pipe.cjs');
 var index = require('../../dataParser/parsers/string/index.cjs');
 var index$1 = require('../../dataParser/parsers/number/index.cjs');
@@ -9,14 +10,13 @@ var index$2 = require('../../dataParser/parsers/bigint/index.cjs');
 var boolean = require('../../dataParser/parsers/boolean.cjs');
 var date = require('../../dataParser/parsers/date.cjs');
 var index$3 = require('../../dataParser/parsers/time/index.cjs');
-var errorKindNamespace = require('../../common/errorKindNamespace.cjs');
-var override = require('../../common/override.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var is = require('../../either/right/is.cjs');
 var is$1 = require('../../either/left/is.cjs');
 var create = require('../../either/left/create.cjs');
 var create$1 = require('../../either/right/create.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
+var override = require('../../common/override.cjs');
 
 const primitiveHandlerKind = kind.createCleanKind("primitive-handler");
 class CreatePrimitiveError extends kind$1.kindHeritage("create-primitive-error", errorKindNamespace.createErrorKind("create-primitive-error"), Error) {
@@ -58,6 +58,9 @@ function createPrimitive(dataParser) {
         createWithUnknown: create$2,
         createWithUnknownOrThrow: createOrThrow,
         is: is$2,
+        internal: {
+            dataParser,
+        },
     }, primitiveHandlerKind.setTo, createPrimitive.overrideHandler.apply);
 }
 createPrimitive.overrideHandler = override.createOverride("@duplojs/utils/clean/primitive");

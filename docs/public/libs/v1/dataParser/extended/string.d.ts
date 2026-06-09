@@ -1,18 +1,18 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
-type _DataParserStringExtended<GenericDefinition extends dataParsers.DataParserDefinitionString> = (Kind<typeof dataParsers.stringKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserString<GenericDefinition>>, Input<dataParsers.DataParserString<GenericDefinition>>>);
-export interface DataParserStringExtended<GenericDefinition extends dataParsers.DataParserDefinitionString = dataParsers.DataParserDefinitionString> extends _DataParserStringExtended<GenericDefinition> {
-    addChecker<GenericChecker extends readonly [
+import { type DataParserChecker } from "../baseChecker";
+declare const DataParserStringExtended_base: import("..").DataParserExtendedBaseInit<typeof dataParsers.DataParserString>;
+export declare class DataParserStringExtended<GenericDefinition extends dataParsers.DataParserDefinitionString = dataParsers.DataParserDefinitionString> extends DataParserStringExtended_base<GenericDefinition, Output<dataParsers.DataParserString<GenericDefinition>>, Input<dataParsers.DataParserString<GenericDefinition>>> {
+    get classConstructor(): typeof DataParserStringExtended & import("..").CheckedConstructorKind;
+    addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
-    ], GenericChecker>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    ], GenericChecker>) => DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine: (theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>) => DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum length checker to a string parser.
      * 
@@ -100,39 +100,37 @@ export interface DataParserStringExtended<GenericDefinition extends dataParsers.
      * 
      */
     regex(regex: RegExp, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRegex, "regex">>): DataParserStringExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerRegex]>>;
+    /**
+     * Creates an extended data parser for strings.
+     * 
+     * **Supported call styles:**
+     * - Method: `DPE.string(definition?)` -> returns a string parser
+     * 
+     * Validates that the input is a string and exposes string-specific methods like min, max, and regex.
+     * 
+     * ```ts
+     * const parser = DPE.string().min(3).max(10);
+     * const result = parser.parse("DuploJS");
+     * if (E.isRight(result)) {
+     * 	const value = unwrap(result);
+     * 	// value: string
+     * }
+     * 
+     * const withRegex = DPE.string().regex(/^[A-Z][a-z]+$/);
+     * const regexResult = withRegex.parse("Duplo");
+     * 
+     * const coerceParser = DPE.coerce.string().min(2);
+     * const coerceResult = coerceParser.parse(123);
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
+     * 
+     * @namespace DPE
+     * 
+     */
+    static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionString>, GenericDefinition>): DataParserStringExtended<MergeDefinition<dataParsers.DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
 }
-/**
- * Creates an extended data parser for strings.
- * 
- * **Supported call styles:**
- * - Method: `DPE.string(definition?)` -> returns a string parser
- * 
- * Validates that the input is a string and exposes string-specific methods like min, max, and regex.
- * 
- * ```ts
- * const parser = DPE.string().min(3).max(10);
- * const result = parser.parse("DuploJS");
- * if (E.isRight(result)) {
- * 	const value = unwrap(result);
- * 	// value: string
- * }
- * 
- * const withRegex = DPE.string().regex(/^[A-Z][a-z]+$/);
- * const regexResult = withRegex.parse("Duplo");
- * 
- * const coerceParser = DPE.coerce.string().min(2);
- * const coerceResult = coerceParser.parse(123);
- * ```
- * 
- * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
- * 
- * @namespace DPE
- * 
- */
-export declare function string<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionString>, GenericDefinition>): DataParserStringExtended<MergeDefinition<dataParsers.DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
-export declare namespace string {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserStringExtended<dataParsers.DataParserDefinitionString>>;
-}
+export declare const string: typeof DataParserStringExtended.create;
 /**
  * Creates an extended data parser for email strings.
  * 

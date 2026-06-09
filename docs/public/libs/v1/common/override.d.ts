@@ -1,9 +1,9 @@
-import { type Adaptor, type AnyFunction, type AnyValue } from "./types";
+import { type ObjectKey, type Adaptor, type AnyFunction, type AnyValue } from "./types";
 import type * as DObject from "../object";
 declare const SymbolOverrideStore: unique symbol;
 declare module "./globalStore" {
     interface GlobalStore {
-        [SymbolOverrideStore]: Record<string, Record<string, unknown>>;
+        [SymbolOverrideStore]: Record<string, Record<ObjectKey, unknown>>;
     }
 }
 export interface OverrideHandler<GenericInterface extends object> {

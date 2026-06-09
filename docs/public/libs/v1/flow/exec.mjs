@@ -3,6 +3,7 @@ import { deferKind } from './theFlow/defer.mjs';
 import { finalizerKind } from './theFlow/finalizer.mjs';
 import { throttlingLastTimeWeakStore, throttlingResumerWeakStore, calledByNextFunctionWeakStore, queuesWeakStore, debounceTimeoutIdWeakStore, debounceResumerWeakStore } from './run.mjs';
 import { justExec } from '../common/justExec.mjs';
+import { forward } from '../common/forward.mjs';
 import { breakKind } from './theFlow/break.mjs';
 import { exitKind } from './theFlow/exit.mjs';
 import { stepKind } from './theFlow/step.mjs';
@@ -14,7 +15,6 @@ import { calledByNextKind } from './theFlow/calledByNext.mjs';
 import { queueKind } from './theFlow/queue.mjs';
 import { createQueue } from '../common/queue.mjs';
 import { debounceKind } from './theFlow/debounce.mjs';
-import { forward } from '../common/forward.mjs';
 
 /**
  * {@include flow/exec/index.md}

@@ -1,110 +1,71 @@
-import { dataParserBaseInit } from '../../base.mjs';
-import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+import { DataParserBase } from '../../base.mjs';
+import { addIssue, setErrorPath, SymbolDataParserError, popErrorPath } from '../../error.mjs';
 import { findRecordRequiredKey } from './findRecordRequiredKey.mjs';
 export { findRecordRequiredKeyOnTemplateLiteralPart } from './findRecordRequiredKey.mjs';
+import { detachObjectMethod } from '../../../common/detachObjectMethod.mjs';
+import { callThen } from '../../../common/callThen.mjs';
 import { pipe } from '../../../common/pipe.mjs';
+import { fromEntries } from '../../../object/fromEntries.mjs';
 import { map } from '../../../array/map.mjs';
 import { entry } from '../../../object/entry.mjs';
-import { fromEntries } from '../../../object/fromEntries.mjs';
-import { createOverride } from '../../../common/override.mjs';
 
 const recordKind = createDataParserKind("record");
-/**
- * {@include dataParser/classic/record/index.md}
- */
-function record(key, value, definition) {
-    const requireKey = findRecordRequiredKey(key);
-    const self = dataParserBaseInit(recordKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        key,
-        value,
-        requireKey,
-        baseData: pipe(requireKey, map((key) => entry(key, undefined)), fromEntries),
-    }, {
-        sync: (data, error, self) => {
-            if (!data
-                || typeof data !== "object"
-                || data instanceof Array) {
-                return addIssue(error, "record object", data, self.definition.errorMessage);
-            }
-            let output = {};
-            const fromData = {
-                ...self.definition.baseData,
-                ...data,
-            };
-            const currentIndexPath = error.currentPath.length;
-            for (const key in fromData) {
-                setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
-                const resultKey = self
-                    .definition
-                    .key
-                    .exec(key, error);
-                if (resultKey === SymbolDataParserError) {
-                    output = SymbolDataParserError;
-                }
-                setErrorPath(error, key, currentIndexPath);
-                const resultValue = self
-                    .definition
-                    .value
-                    .exec(fromData[key], error);
-                if (resultValue === SymbolDataParserError) {
-                    output = SymbolDataParserError;
-                }
-                if (output !== SymbolDataParserError) {
-                    output[resultKey] = resultValue;
-                }
-            }
-            void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
-            if (output === SymbolDataParserError) {
-                return output;
-            }
-            return output;
-        },
-        async: async (data, error, self) => {
-            if (!data
-                || typeof data !== "object"
-                || data instanceof Array) {
-                return addIssue(error, "record object", data, self.definition.errorMessage);
-            }
-            let output = {};
-            const fromData = {
-                ...self.definition.baseData,
-                ...data,
-            };
-            const currentIndexPath = error.currentPath.length;
-            for (const key in fromData) {
-                setErrorPath(error, `(recordKey: ${key})`, currentIndexPath);
-                const resultKey = await self
-                    .definition
-                    .key
-                    .asyncExec(key, error);
-                if (resultKey === SymbolDataParserError) {
-                    output = SymbolDataParserError;
-                }
-                setErrorPath(error, key, currentIndexPath);
-                const resultValue = await self
-                    .definition
-                    .value
-                    .asyncExec(fromData[key], error);
-                if (resultValue === SymbolDataParserError) {
-                    output = SymbolDataParserError;
-                }
-                if (output !== SymbolDataParserError) {
-                    output[resultKey] = resultValue;
-                }
-            }
-            void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
-            if (output === SymbolDataParserError) {
-                return output;
-            }
-            return output;
-        },
-        isAsynchronous: (self) => self.definition.value.isAsynchronous(),
-    }, record.overrideHandler);
-    return self;
+class DataParserRecord extends DataParserBase.init(recordKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserRecord);
+    }
+    static execParse(self, data, error) {
+        if (!data || typeof data !== "object" || data instanceof Array) {
+            return addIssue(error, "record object", data, self.definition.errorMessage);
+        }
+        const fromData = {
+            ...self.definition.baseData,
+            ...data,
+        };
+        const entries = Object.entries(fromData);
+        const currentIndexPath = error.currentPath.length;
+        const output = entries.reduce((accumulator, entry) => callThen(accumulator, (awaitedAccumulator) => {
+            setErrorPath(error, `(recordKey: ${entry[0]})`, currentIndexPath);
+            return callThen(self.definition.key.exec(entry[0], error), (awaitedKeyResult) => {
+                setErrorPath(error, `(recordValue: ${entry[0]})`, currentIndexPath);
+                return callThen(self.definition.value.exec(entry[1], error), (awaitedValueResult) => {
+                    if (awaitedAccumulator === SymbolDataParserError
+                        || awaitedKeyResult === SymbolDataParserError
+                        || awaitedValueResult === SymbolDataParserError) {
+                        return SymbolDataParserError;
+                    }
+                    if (awaitedValueResult !== undefined) {
+                        awaitedAccumulator[awaitedKeyResult] = awaitedValueResult;
+                    }
+                    return awaitedAccumulator;
+                });
+            });
+        }), {});
+        void (currentIndexPath !== error.currentPath.length && popErrorPath(error));
+        return output;
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.key.isAsynchronous() || self.definition.value.isAsynchronous();
+    }
+    static prepareDefinition(key, value, definition) {
+        const requireKey = findRecordRequiredKey(key);
+        return {
+            ...definition,
+            key,
+            value,
+            baseData: pipe(requireKey, map((key) => entry(key, undefined)), fromEntries),
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/record/index.md}
+     */
+    static create(key, value, definition) {
+        return new DataParserRecord(this.prepareDefinition(key, value, definition));
+    }
 }
-record.overrideHandler = createOverride("@duplojs/utils/data-parser/record");
+const record = detachObjectMethod(DataParserRecord, "create");
 
-export { findRecordRequiredKey, record, recordKind };
+export { DataParserRecord, findRecordRequiredKey, record, recordKind };

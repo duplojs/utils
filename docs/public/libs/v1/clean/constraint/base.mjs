@@ -1,9 +1,9 @@
 import { createCleanKind } from '../kind.mjs';
+import { createOverride } from '../../common/override.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
+import { createErrorKind } from '../../common/errorKindNamespace.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
 import { pipe } from '../../common/pipe.mjs';
-import { createErrorKind } from '../../common/errorKindNamespace.mjs';
-import { createOverride } from '../../common/override.mjs';
 import { isLeft } from '../../either/left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { left } from '../../either/left/create.mjs';
@@ -29,6 +29,7 @@ class CreateConstrainedTypeError extends kindHeritage("create-constrained-type-e
 function createConstraint(name, primitiveHandler, checker) {
     const checkers = coalescing(checker);
     const dataParserWithCheckers = primitiveHandler
+        .internal
         .dataParser
         .addChecker(...checkers);
     const constraintKindValue = { [name]: null };

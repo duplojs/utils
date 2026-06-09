@@ -1,5 +1,5 @@
 import { type ForbiddenString } from "../string";
-import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type AnyConstructor, type And } from "./types";
+import { type Or, type IsEqual, type BreakGenericLink, type Adaptor, type UnionToIntersection, type AnyConstructor, type And, type SimplifyTopLevel } from "./types";
 import { type GetPropsWithValue, type PartialKeys } from "../object";
 export interface KindHandler<GenericKindDefinition extends KindDefinition = KindDefinition> {
     definition: GenericKindDefinition;
@@ -25,7 +25,7 @@ export interface KindDefinition<GenericName extends string = string, GenericValu
     value: GenericValue;
 }
 declare const SymbolKind: unique symbol;
-type SymbolKind = typeof SymbolKind;
+export type SymbolKind = typeof SymbolKind;
 export interface Kind<GenericKindDefinition extends KindDefinition, GenericValue extends GenericKindDefinition["value"] = GenericKindDefinition["value"]> {
     [SymbolKind]: {
         [Prop in GenericKindDefinition["name"]]: GenericValue;
@@ -39,6 +39,9 @@ export type GetKindHandler<GenericObject extends Kind<any>> = {
 export interface GetKind<GenericObject extends Kind<any>> {
     [SymbolKind]: GenericObject[SymbolKind];
 }
+export type OmitKind<GenericObject extends Kind<any>, GenericKindHandler extends KindHandler> = (RemoveKind<GenericObject> & {
+    [SymbolKind]: SimplifyTopLevel<Omit<GetKind<GenericObject>[SymbolKind], GenericKindHandler["definition"]["name"]>>;
+});
 export declare const keyKindPrefix = "@duplojs/utils/kind/";
 type ForbiddenKindCharacters<GenericValue extends string> = ForbiddenString<GenericValue, "@" | "/">;
 /**

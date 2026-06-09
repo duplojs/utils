@@ -1,18 +1,18 @@
-import { type FixDeepFunctionInfer, type Kind, type NeverCoalescing } from "../../common";
-import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
+import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type Input, type Output, type DataParserChecker } from "../base";
-type _DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber> = (Kind<typeof dataParsers.numberKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserNumber<GenericDefinition>>, Input<dataParsers.DataParserNumber<GenericDefinition>>>);
-export interface DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber> extends _DataParserNumberExtended<GenericDefinition> {
-    addChecker<GenericChecker extends readonly [
+import { type DataParserChecker } from "../baseChecker";
+declare const DataParserNumberExtended_base: import("..").DataParserExtendedBaseInit<typeof dataParsers.DataParserNumber>;
+export declare class DataParserNumberExtended<GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber> extends DataParserNumberExtended_base<GenericDefinition, Output<dataParsers.DataParserNumber<GenericDefinition>>, Input<dataParsers.DataParserNumber<GenericDefinition>>> {
+    get classConstructor(): typeof DataParserNumberExtended & import("..").CheckedConstructorKind;
+    addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
-    ], GenericChecker>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    ], GenericChecker>) => DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine: (theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>) => DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Adds a minimum value checker to a number parser.
      * 
@@ -41,7 +41,9 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerNumberMin]>>;
+    min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMin, "min">>): DataParserNumberExtended<import("../../common").SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerNumberMin];
+    }>>;
     /**
      * Adds a maximum value checker to a number parser.
      * 
@@ -70,7 +72,9 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerNumberMax]>>;
+    max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionNumberMax, "max">>): DataParserNumberExtended<import("../../common").SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerNumberMax];
+    }>>;
     /**
      * Adds an integer checker to a number parser.
      * 
@@ -99,43 +103,43 @@ export interface DataParserNumberExtended<GenericDefinition extends dataParsers.
      * @namespace DPE
      * 
      */
-    int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.DataParserCheckerInt]>>;
+    int(definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>): DataParserNumberExtended<import("../../common").SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerInt];
+    }>>;
+    /**
+     * Creates an extended data parser for numbers.
+     * 
+     * **Supported call styles:**
+     * - Method: `DPE.number(definition?)` -> returns a number parser
+     * 
+     * Validates numbers and exposes number-specific methods like min, max, and int.
+     * 
+     * ```ts
+     * const parser = DPE.number()
+     * 	.min(0)
+     * 	.max(10)
+     * 	.int();
+     * const result = parser.parse(5);
+     * if (E.isRight(result)) {
+     * 	const value = unwrap(result);
+     * 	// value: number
+     * }
+     * 
+     * const coerceParser = DPE.coerce.number();
+     * const coerceResult = coerceParser.parse("42");
+     * 
+     * const intOnly = DPE.number().int();
+     * const intResult = intOnly.parse(3);
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/number
+     * 
+     * @namespace DPE
+     * 
+     */
+    static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>, GenericDefinition>): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
 }
-/**
- * Creates an extended data parser for numbers.
- * 
- * **Supported call styles:**
- * - Method: `DPE.number(definition?)` -> returns a number parser
- * 
- * Validates numbers and exposes number-specific methods like min, max, and int.
- * 
- * ```ts
- * const parser = DPE.number()
- * 	.min(0)
- * 	.max(10)
- * 	.int();
- * const result = parser.parse(5);
- * if (E.isRight(result)) {
- * 	const value = unwrap(result);
- * 	// value: number
- * }
- * 
- * const coerceParser = DPE.coerce.number();
- * const coerceResult = coerceParser.parse("42");
- * 
- * const intOnly = DPE.number().int();
- * const intResult = intOnly.parse(3);
- * ```
- * 
- * @see https://utils.duplojs.dev/en/v1/api/dataParser/number
- * 
- * @namespace DPE
- * 
- */
-export declare function number<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>, GenericDefinition>): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
-export declare namespace number {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserNumberExtended<dataParsers.DataParserDefinitionNumber>>;
-}
+export declare const number: typeof DataParserNumberExtended.create;
 /**
  * Creates an extended data parser for integers.
  * 

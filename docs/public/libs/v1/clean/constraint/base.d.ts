@@ -1,4 +1,4 @@
-import { type Unwrap, type Kind, type WrappedValue } from "../..";
+import { type Unwrap, type Kind, type WrappedValue, type FixDeepFunctionInfer } from "../..";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DArray from "../../array";
 import * as DEither from "../../either";
@@ -159,7 +159,10 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
 export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
-]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, checker: GenericChecker): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;
+]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, checker: FixDeepFunctionInfer<(DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
+    DDataParser.DataParserChecker<GenericPrimitiveValue>,
+    ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
+]), GenericChecker>): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;
 export declare namespace createConstraint {
     var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<unknown>[], unknown>>;
 }

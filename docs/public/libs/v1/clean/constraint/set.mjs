@@ -1,19 +1,19 @@
 import { createCleanKind } from '../kind.mjs';
 import { constrainedTypeKind } from './base.mjs';
 import { kindHeritage } from '../../common/kind.mjs';
+import { createErrorKind } from '../../common/errorKindNamespace.mjs';
 import { flatMap } from '../../array/flatMap.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
 import { pipe } from '../../common/pipe.mjs';
+import { fromEntries } from '../../object/fromEntries.mjs';
 import { map } from '../../array/map.mjs';
 import { entry } from '../../object/entry.mjs';
-import { createErrorKind } from '../../common/errorKindNamespace.mjs';
-import { fromEntries } from '../../object/fromEntries.mjs';
-import { createOverride } from '../../common/override.mjs';
 import { isLeft } from '../../either/left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
 import { left } from '../../either/left/create.mjs';
 import { right } from '../../either/right/create.mjs';
 import { wrapValue } from '../../common/wrapValue.mjs';
+import { createOverride } from '../../common/override.mjs';
 
 const constraintsSetHandlerKind = createCleanKind("constraints-set-handler");
 class CreateConstraintsSetError extends kindHeritage("create-constraint-set-error", createErrorKind("create-constraint-set-error"), Error) {
@@ -34,6 +34,7 @@ function createConstraintsSet(primitiveHandler, constraint) {
         : constraint);
     const checkers = flatMap(constraints, ({ internal }) => internal.checkers);
     const dataParserWithCheckers = primitiveHandler
+        .internal
         .dataParser
         .addChecker(...checkers);
     const constraintKindValue = pipe(constraints, map(({ name }) => entry(name, null)), fromEntries);

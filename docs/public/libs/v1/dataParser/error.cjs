@@ -60,11 +60,15 @@ function interpretError(error) {
         dataParserError.issues.length === 0 && "No issue found",
     ]);
 }
+function addAsyncIssue(error, data) {
+    return addIssue(error, "synchronous result", data, undefined);
+}
 
 exports.SymbolDataParserError = SymbolDataParserError;
 exports.SymbolDataParserErrorIssue = SymbolDataParserErrorIssue;
 exports.SymbolDataParserErrorIssueLabel = SymbolDataParserErrorIssueLabel;
 exports.SymbolDataParserErrorLabel = SymbolDataParserErrorLabel;
+exports.addAsyncIssue = addAsyncIssue;
 exports.addIssue = addIssue;
 exports.createError = createError;
 exports.errorIssueKind = errorIssueKind;

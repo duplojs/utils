@@ -2,10 +2,10 @@
 
 var kind = require('./kind.cjs');
 var pipe = require('../common/pipe.cjs');
-var map = require('../array/map.cjs');
-var entry = require('../object/entry.cjs');
-var uncapitalize = require('../string/uncapitalize.cjs');
 var entries = require('../object/entries.cjs');
+var map = require('../array/map.cjs');
+var uncapitalize = require('../string/uncapitalize.cjs');
+var entry = require('../object/entry.cjs');
 var fromEntries = require('../object/fromEntries.cjs');
 var override = require('../common/override.cjs');
 

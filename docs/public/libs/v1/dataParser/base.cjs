@@ -1,163 +1,202 @@
 'use strict';
 
-var error = require('./error.cjs');
 var kind = require('./kind.cjs');
-var simpleClone = require('../common/simpleClone.cjs');
-var wrapValue = require('../common/wrapValue.cjs');
-var override = require('../common/override.cjs');
-var kind$1 = require('../common/kind.cjs');
-var pipe = require('../common/pipe.cjs');
-var errorKindNamespace = require('../common/errorKindNamespace.cjs');
+var error = require('./error.cjs');
+var kindClass = require('../common/kindClass.cjs');
+var bindPrototypeMethods = require('../common/bindPrototypeMethods.cjs');
 var error$1 = require('../either/left/error.cjs');
 var success = require('../either/right/success.cjs');
+var simpleClone = require('../common/simpleClone.cjs');
+var wrapValue = require('../common/wrapValue.cjs');
 
-const checkerKind = kind.createDataParserKind("checker");
-function dataParserCheckerInit(kind, params, exec) {
-    return kind.setTo(checkerKind.setTo({
-        ...params,
-        exec,
-    }));
-}
 const dataParserKind = kind.createDataParserKind("base");
-// This allows for better performance WTF ???
-const SDPE = error.SymbolDataParserError;
 const DPE = error.createError();
 const EE = error$1.error(null);
 const ES = success.success(null);
 const KWV = wrapValue.keyWrappedValue;
-class DataParserThrowError extends kind$1.kindHeritage("dataParserThrowError", errorKindNamespace.createErrorKind("dataParserThrowError"), Error) {
-    value;
-    constructor(value) {
-        super({}, ["Parse Error."]);
-        this.value = value;
+class ParseError extends kindClass.kindClass("parse-error", Error) {
+    error;
+    constructor(error) {
+        super({}, "Parse Error.");
+        this.error = error;
     }
 }
-function dataParserBaseInit(kind, definition, exec, specificOverrideHandler) {
-    const formattedExec = typeof exec === "object"
-        ? exec
-        : {
-            sync: exec,
-            async: exec,
-            isAsynchronous: () => false,
+class DataParserBase extends kindClass.kindClass(dataParserKind) {
+    definition;
+    constructor(definition) {
+        super(null);
+        this.definition = definition;
+        bindPrototypeMethods.bindPrototypeMethods(this);
+    }
+    execParse(data, error) {
+        const execParse = this.classConstructor.execParse;
+        const self = this;
+        this.execParse = (data, error) => execParse(self, data, error);
+        return this.execParse(data, error);
+    }
+    exec(data, error$1) {
+        const result = this.execParse(data, error$1);
+        if (result !== error.SymbolDataParserError
+            && this.definition.checkers.length) {
+            return this.definition.checkers.reduce((accumulator, checker) => {
+                if (accumulator === error.SymbolDataParserError) {
+                    return accumulator;
+                }
+                if (accumulator instanceof Promise) {
+                    return accumulator.then((awaitedAccumulator) => awaitedAccumulator === error.SymbolDataParserError
+                        ? awaitedAccumulator
+                        : checker.exec(awaitedAccumulator, error$1, this));
+                }
+                return checker.exec(accumulator, error$1, this);
+            }, result);
+        }
+        return result;
+    }
+    /**
+     * {@include dataParser/classic/base/parse/index.md}
+     */
+    parse(data) {
+        const error$1 = {
+            ...DPE,
+            issues: [],
+            currentPath: [],
         };
-    function middleExec(data, error) {
-        let result = formattedExec.sync(data, error, self);
-        if (result !== SDPE
-            && self.definition.checkers.length) {
-            for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, error, checker, self);
-                if (checkerResult === SDPE) {
-                    return SDPE;
-                }
-                else {
-                    result = checkerResult;
-                }
-            }
+        const result = this.exec(data, error$1);
+        if (result instanceof Promise) {
+            error.addAsyncIssue(error$1, result);
+            return {
+                ...EE,
+                [KWV]: error$1,
+            };
+        }
+        if (result === error.SymbolDataParserError) {
+            return {
+                ...EE,
+                [KWV]: error$1,
+            };
+        }
+        return {
+            ...ES,
+            [KWV]: result,
+        };
+    }
+    /**
+     * {@include dataParser/classic/base/asyncParse/index.md}
+     */
+    async asyncParse(data) {
+        const error$1 = {
+            ...DPE,
+            issues: [],
+            currentPath: [],
+        };
+        const result = await this.exec(data, error$1);
+        if (result === error.SymbolDataParserError) {
+            return {
+                ...EE,
+                [KWV]: error$1,
+            };
+        }
+        return {
+            ...ES,
+            [KWV]: result,
+        };
+    }
+    /**
+     * {@include dataParser/classic/base/parseOrThrow/index.md}
+     */
+    parseOrThrow(data) {
+        const error$1 = {
+            ...DPE,
+            issues: [],
+            currentPath: [],
+        };
+        const result = this.exec(data, error$1);
+        if (result instanceof Promise) {
+            error.addAsyncIssue(error$1, result);
+            throw new ParseError(error$1);
+        }
+        if (result === error.SymbolDataParserError) {
+            throw new ParseError(error$1);
         }
         return result;
     }
-    async function middleAsyncExec(data, error) {
-        let result = await formattedExec.async(data, error, self);
-        if (result !== SDPE
-            && self.definition.checkers.length) {
-            for (const checker of self.definition.checkers) {
-                const checkerResult = checker.exec(result, error, checker, self);
-                if (checkerResult === SDPE) {
-                    return SDPE;
-                }
-                else {
-                    result = checkerResult;
-                }
-            }
+    /**
+     * {@include dataParser/classic/base/asyncParseOrThrow/index.md}
+     */
+    async asyncParseOrThrow(data) {
+        const error$1 = {
+            ...DPE,
+            issues: [],
+            currentPath: [],
+        };
+        const result = await this.exec(data, error$1);
+        if (result === error.SymbolDataParserError) {
+            throw new ParseError(error$1);
         }
         return result;
     }
-    const self = pipe.pipe({
-        definition,
-        exec: middleExec,
-        asyncExec: middleAsyncExec,
-        parse(data) {
-            const error = {
-                ...DPE,
-                issues: [],
-                currentPath: [],
-            };
-            const result = middleExec(data, error);
-            if (result === SDPE) {
-                return {
-                    ...EE,
-                    [KWV]: error,
-                };
+    /**
+     * {@include dataParser/classic/base/addChecker/index.md}
+     */
+    addChecker(...checkers) {
+        return new this.classConstructor({
+            ...this.definition,
+            checkers: [...this.definition.checkers, ...checkers],
+        });
+    }
+    clone() {
+        return new this.classConstructor(simpleClone.simpleClone(this.definition));
+    }
+    cachedIsAsynchronous = undefined;
+    /**
+     * {@include dataParser/classic/base/isAsynchronous/index.md}
+     */
+    isAsynchronous() {
+        if (this.cachedIsAsynchronous !== undefined) {
+            return this.cachedIsAsynchronous;
+        }
+        this.cachedIsAsynchronous = this.definition.checkers.some((checker) => checker.isAsynchronous());
+        if (this.cachedIsAsynchronous) {
+            return this.cachedIsAsynchronous;
+        }
+        this.cachedIsAsynchronous = this.classConstructor.dataParserIsAsynchronous(this);
+        return this.cachedIsAsynchronous;
+    }
+    /**
+     * {@include dataParser/classic/base/contract/index.md}
+     */
+    contract(...args) {
+        return this;
+    }
+    /**
+     * {@include dataParser/classic/base/setErrorMessage/index.md}
+     */
+    setErrorMessage(errorMessage) {
+        this.definition.errorMessage = errorMessage;
+        return this;
+    }
+    /**
+     * {@include dataParser/classic/base/addErrorMessage/index.md}
+     */
+    addErrorMessage(errorMessage) {
+        const newSchema = this.clone();
+        newSchema.setErrorMessage(errorMessage);
+        return newSchema;
+    }
+    static init(kindHandler) {
+        class _DataParserBaseInit extends kindClass.kindClass(kindHandler, DataParserBase) {
+            constructor(definition) {
+                super(null, definition);
             }
-            return {
-                ...ES,
-                [KWV]: result,
-            };
-        },
-        async asyncParse(data) {
-            const error = {
-                ...DPE,
-                issues: [],
-                currentPath: [],
-            };
-            const result = await middleAsyncExec(data, error);
-            if (result === SDPE) {
-                return {
-                    ...EE,
-                    [KWV]: error,
-                };
+            checkConstructor(constructor) {
+                return constructor;
             }
-            return {
-                ...ES,
-                [KWV]: result,
-            };
-        },
-        addChecker: (...checkers) => dataParserBaseInit(kind, {
-            ...definition,
-            checkers: [...definition.checkers, ...checkers],
-        }, exec, specificOverrideHandler),
-        clone: () => dataParserBaseInit(kind, simpleClone.simpleClone(definition), exec, specificOverrideHandler),
-        contract: () => self,
-        parseOrThrow(data) {
-            const error = {
-                ...DPE,
-                issues: [],
-                currentPath: [],
-            };
-            const result = middleExec(data, error);
-            if (result === SDPE) {
-                throw new DataParserThrowError(error);
-            }
-            return result;
-        },
-        async asyncParseOrThrow(data) {
-            const error = {
-                ...DPE,
-                issues: [],
-                currentPath: [],
-            };
-            const result = await middleAsyncExec(data, error);
-            if (result === SDPE) {
-                throw new DataParserThrowError(error);
-            }
-            return result;
-        },
-        isAsynchronous() {
-            return formattedExec.isAsynchronous(self);
-        },
-    }, (value) => dataParserKind.setTo(value, null), kind.setTo, (value) => dataParserBaseInit.overrideHandler.apply(value), (value) => specificOverrideHandler.apply(value));
-    return self;
+            static specificKindHandler = kindHandler;
+        }
+        return _DataParserBaseInit;
+    }
 }
-dataParserBaseInit.overrideHandler = override.createOverride("@duplojs/utils/data-parser/base");
-/**
- * @deprecated use dataParserBaseInit
- */
-const dataParserInit = dataParserBaseInit;
 
-exports.SymbolDataParserError = error.SymbolDataParserError;
-exports.DataParserThrowError = DataParserThrowError;
-exports.checkerKind = checkerKind;
-exports.dataParserBaseInit = dataParserBaseInit;
-exports.dataParserCheckerInit = dataParserCheckerInit;
-exports.dataParserInit = dataParserInit;
+exports.DataParserBase = DataParserBase;
+exports.ParseError = ParseError;
 exports.dataParserKind = dataParserKind;

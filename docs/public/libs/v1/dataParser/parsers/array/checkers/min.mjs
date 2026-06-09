@@ -1,17 +1,28 @@
-import { dataParserCheckerInit } from '../../../base.mjs';
 import { addIssue } from '../../../error.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
+import { DataParserCheckerBase } from '../../../baseChecker.mjs';
+import { detachObjectMethod } from '../../../../common/detachObjectMethod.mjs';
 
 const checkerArrayMinKind = createDataParserKind("checker-array-min");
-function checkerArrayMin(min, definition = {}) {
-    return dataParserCheckerInit(checkerArrayMinKind, {
-        definition: {
+class DataParserCheckerArrayMin extends DataParserCheckerBase.init(checkerArrayMinKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserCheckerArrayMin);
+    }
+    isAsynchronous() {
+        return false;
+    }
+    static execCheck(data, error, self, dataParser) {
+        return data.length >= self.definition.min
+            ? data
+            : addIssue(error, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+    }
+    static create(min, definition = {}) {
+        return new DataParserCheckerArrayMin({
             ...definition,
             min,
-        },
-    }, (data, error, self, dataParser) => data.length >= self.definition.min
-        ? data
-        : addIssue(error, `array.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage));
+        });
+    }
 }
+const checkerArrayMin = detachObjectMethod(DataParserCheckerArrayMin, "create");
 
-export { checkerArrayMin, checkerArrayMinKind };
+export { DataParserCheckerArrayMin, checkerArrayMin, checkerArrayMinKind };

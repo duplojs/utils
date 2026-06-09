@@ -1,38 +1,42 @@
 'use strict';
 
-var base = require('../base.cjs');
 var kind = require('../kind.cjs');
+var base = require('../base.cjs');
 var error = require('../error.cjs');
-var override = require('../../common/override.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
+var callThen = require('../../common/callThen.cjs');
 
 const recoverKind = kind.createDataParserKind("recover");
-/**
- * {@include dataParser/classic/recover/index.md}
- */
-function recover(inner, recoveredValue, definition) {
-    const self = base.dataParserBaseInit(recoverKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        inner,
-        recoveredValue,
-    }, {
-        sync: (data, error$1, self) => {
-            const result = self.definition.inner.exec(data, error$1);
-            return result === error.SymbolDataParserError
-                ? self.definition.recoveredValue
-                : result;
-        },
-        async: async (data, error$1, self) => {
-            const result = await self.definition.inner.asyncExec(data, error$1);
-            return result === error.SymbolDataParserError
-                ? self.definition.recoveredValue
-                : result;
-        },
-        isAsynchronous: (self) => self.definition.inner.isAsynchronous(),
-    }, recover.overrideHandler);
-    return self;
+class DataParserRecover extends base.DataParserBase.init(recoverKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserRecover);
+    }
+    static execParse(self, data, error$1) {
+        return callThen.callThen(self.definition.inner.exec(data, error$1), (result) => result === error.SymbolDataParserError
+            ? self.definition.recoveredValue
+            : result);
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.inner.isAsynchronous();
+    }
+    static prepareDefinition(inner, recoveredValue, definition) {
+        return {
+            ...definition,
+            inner,
+            recoveredValue,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/recover/index.md}
+     */
+    static create(inner, recoveredValue, definition) {
+        return new DataParserRecover(this.prepareDefinition(inner, recoveredValue, definition));
+    }
 }
-recover.overrideHandler = override.createOverride("@duplojs/utils/data-parser/recover");
+const recover = detachObjectMethod.detachObjectMethod(DataParserRecover, "create");
 
+exports.DataParserRecover = DataParserRecover;
 exports.recover = recover;
 exports.recoverKind = recoverKind;

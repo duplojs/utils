@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { literal as literal$1 } from '../parsers/literal.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserLiteral } from '../parsers/literal.mjs';
 
-/**
- * {@include dataParser/extended/literal/index.md}
- */
-function literal(value, definition) {
-    const self = dataParserBaseExtendedInit(literal$1(value, definition), {}, literal.overrideHandler);
-    return self;
+class DataParserLiteralExtended extends DataParserBaseExtended.initExtended(DataParserLiteral) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLiteralExtended);
+    }
+    /**
+     * {@include dataParser/extended/literal/index.md}
+     */
+    static create(value, definition) {
+        return new DataParserLiteralExtended(this.prepareDefinition(value, definition));
+    }
 }
-literal.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/literal");
+const literal = detachObjectMethod(DataParserLiteralExtended, "create");
 
-export { literal };
+export { DataParserLiteralExtended, literal };

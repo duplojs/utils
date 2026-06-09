@@ -1,20 +1,16 @@
 'use strict';
 
+var kind = require('../../kind.cjs');
 var base = require('../../base.cjs');
 var error = require('../../error.cjs');
-var kind = require('../../kind.cjs');
-var override = require('../../../common/override.cjs');
+var detachObjectMethod = require('../../../common/detachObjectMethod.cjs');
 
 const bigIntKind = kind.createDataParserKind("bigint");
-/**
- * {@include dataParser/classic/bigint/index.md}
- */
-function bigint(definition) {
-    const self = base.dataParserBaseInit(bigIntKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error$1, self) => {
+class DataParserBigInt extends base.DataParserBase.init(bigIntKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserBigInt);
+    }
+    static execParse(self, data, error$1) {
         const inputData = data;
         if (self.definition.coerce) {
             try {
@@ -27,10 +23,27 @@ function bigint(definition) {
             return data;
         }
         return error.addIssue(error$1, "bigint", inputData, self.definition.errorMessage);
-    }, bigint.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/bigint/index.md}
+     */
+    static create(definition) {
+        return new DataParserBigInt(this.prepareDefinition(definition));
+    }
 }
-bigint.overrideHandler = override.createOverride("@duplojs/utils/data-parser/bigint");
+const bigint = detachObjectMethod.detachObjectMethod(DataParserBigInt, "create");
 
+exports.DataParserBigInt = DataParserBigInt;
 exports.bigIntKind = bigIntKind;
 exports.bigint = bigint;

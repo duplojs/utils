@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type UnionToIntersection } from "../..";
+import { type Kind, type WrappedValue, type UnionToIntersection, type IsEqual } from "../..";
 import { type GetConstraint, type ConstraintHandler } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DEither from "../../either";
@@ -113,11 +113,11 @@ export declare class CreateConstraintsSetError extends CreateConstraintsSetError
     constructor(data: unknown, dataParserError: DDataParser.DataParserError);
 }
 export type ConstraintSetInputConstraint<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]> | ConstraintsSetHandler<GenericValue, readonly ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]>[]>);
-export type ConstraintsHandlerArguments<GenericValue extends EligiblePrimitive> = (ConstraintSetInputConstraint<GenericValue> | readonly [
+export type ConstraintsHandlerArguments<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintSetInputConstraint<GenericValue> | readonly [
     ConstraintSetInputConstraint<GenericValue>,
     ...ConstraintSetInputConstraint<GenericValue>[]
 ]);
-export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (ConstraintSetInputConstraint<any> | readonly ConstraintSetInputConstraint<any>[] | readonly [])> = GenericConstraint extends ConstraintHandler<any, any, any, any> ? readonly [GenericConstraint] : GenericConstraint extends ConstraintsSetHandler<any, any, any> ? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]> : GenericConstraint extends readonly [] ? GenericConstraint : GenericConstraint extends readonly [
+export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (ConstraintSetInputConstraint<any> | readonly ConstraintSetInputConstraint<any>[] | readonly [])> = IsEqual<GenericConstraint, never> extends true ? readonly [] : GenericConstraint extends ConstraintHandler<any, any, any, any> ? readonly [GenericConstraint] : GenericConstraint extends ConstraintsSetHandler<any, any, any> ? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]> : GenericConstraint extends readonly [] ? GenericConstraint : GenericConstraint extends readonly [
     infer InferredFirst extends ConstraintSetInputConstraint<any>,
     ...infer InferredRest extends readonly ConstraintSetInputConstraint<any>[]
 ] ? ExtractConstraintSetConstraintHandlers<InferredRest> extends infer InferredResultRest extends readonly any[] ? readonly [

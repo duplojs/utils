@@ -1,16 +1,8 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
-var recover$1 = require('../parsers/recover.cjs');
-var override = require('../../common/override.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
-/**
- * {@include dataParser/extended/recover/index.md}
- */
-function recover(inner, recoveredValue, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(recover$1.recover(inner, recoveredValue, definition), {}, recover.overrideHandler);
-    return self;
-}
-recover.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/recover");
+const recover = detachObjectMethod.detachObjectMethod(base.DataParserRecoverExtended, "create");
 
 exports.recover = recover;

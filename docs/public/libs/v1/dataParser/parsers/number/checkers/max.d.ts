@@ -1,12 +1,17 @@
-import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
+import { type DataParserError } from "../../../../dataParser/error";
+import { type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 export interface DataParserCheckerDefinitionNumberMax extends DataParserCheckerDefinition {
     max: number;
     exclusive: boolean;
 }
 export declare const checkerNumberMaxKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-max", unknown>>;
-type _DataParserCheckerNumberMax = (Kind<typeof checkerNumberMaxKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionNumberMax, number>);
-export interface DataParserCheckerNumberMax extends _DataParserCheckerNumberMax {
+declare const DataParserCheckerNumberMax_base: import("../../..").DataParserCheckerBaseInit<import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-number-max", unknown>>>;
+export declare class DataParserCheckerNumberMax extends DataParserCheckerNumberMax_base<DataParserCheckerDefinitionNumberMax, number> {
+    get classConstructor(): typeof DataParserCheckerNumberMax & import("../../..").CheckedConstructorKind;
+    isAsynchronous(): boolean;
+    static execCheck(value: number, error: DataParserError, self: DataParserCheckerNumberMax, dataParser: DataParser): number | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static create(max: number, definition?: Partial<Omit<DataParserCheckerDefinitionNumberMax, "max">>): DataParserCheckerNumberMax;
 }
-export declare function checkerNumberMax(max: number, definition?: Partial<Omit<DataParserCheckerDefinitionNumberMax, "max">>): DataParserCheckerNumberMax;
+export declare const checkerNumberMax: typeof DataParserCheckerNumberMax.create;
 export {};

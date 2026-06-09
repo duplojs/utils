@@ -1,18 +1,14 @@
-import { dataParserBaseInit } from '../base.mjs';
-import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBase } from '../base.mjs';
+import { addIssue } from '../error.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 
 const emptyKind = createDataParserKind("empty");
-/**
- * {@include dataParser/classic/empty/index.md}
- */
-function empty(definition) {
-    const self = dataParserBaseInit(emptyKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error, self) => {
+class DataParserEmpty extends DataParserBase.init(emptyKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserEmpty);
+    }
+    static execParse(self, data, error) {
         if (data === undefined) {
             return data;
         }
@@ -20,9 +16,25 @@ function empty(definition) {
             return undefined;
         }
         return addIssue(error, "undefined", data, self.definition.errorMessage);
-    }, empty.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/empty/index.md}
+     */
+    static create(definition) {
+        return new DataParserEmpty(this.prepareDefinition(definition));
+    }
 }
-empty.overrideHandler = createOverride("@duplojs/utils/data-parser/empty");
+const empty = detachObjectMethod(DataParserEmpty, "create");
 
-export { empty, emptyKind };
+export { DataParserEmpty, empty, emptyKind };

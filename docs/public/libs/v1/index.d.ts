@@ -1,4 +1,5 @@
 export * from "./common";
+export * as DCommon from "./common";
 export * as A from "./array";
 export * as DArray from "./array";
 export * as N from "./number";

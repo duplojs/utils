@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var literal$1 = require('../parsers/literal.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/literal/index.md}
- */
-function literal(value, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(literal$1.literal(value, definition), {}, literal.overrideHandler);
-    return self;
+class DataParserLiteralExtended extends base.DataParserBaseExtended.initExtended(literal$1.DataParserLiteral) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLiteralExtended);
+    }
+    /**
+     * {@include dataParser/extended/literal/index.md}
+     */
+    static create(value, definition) {
+        return new DataParserLiteralExtended(this.prepareDefinition(value, definition));
+    }
 }
-literal.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/literal");
+const literal = detachObjectMethod.detachObjectMethod(DataParserLiteralExtended, "create");
 
+exports.DataParserLiteralExtended = DataParserLiteralExtended;
 exports.literal = literal;

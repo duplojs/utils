@@ -1,18 +1,14 @@
-import { dataParserBaseInit } from '../../base.mjs';
-import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
-import { createOverride } from '../../../common/override.mjs';
+import { DataParserBase } from '../../base.mjs';
+import { addIssue } from '../../error.mjs';
+import { detachObjectMethod } from '../../../common/detachObjectMethod.mjs';
 
 const stringKind = createDataParserKind("string");
-/**
- * {@include dataParser/classic/string/index.md}
- */
-function string(definition) {
-    const self = dataParserBaseInit(stringKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error, self) => {
+class DataParserString extends DataParserBase.init(stringKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserString);
+    }
+    static execParse(self, data, error) {
         const inputData = data;
         if (self.definition.coerce) {
             try {
@@ -25,9 +21,25 @@ function string(definition) {
             return data;
         }
         return addIssue(error, "string", inputData, self.definition.errorMessage);
-    }, string.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/string/index.md}
+     */
+    static create(definition) {
+        return new DataParserString(this.prepareDefinition(definition));
+    }
 }
-string.overrideHandler = createOverride("@duplojs/utils/data-parser/string");
+const string = detachObjectMethod(DataParserString, "create");
 
-export { string, stringKind };
+export { DataParserString, string, stringKind };

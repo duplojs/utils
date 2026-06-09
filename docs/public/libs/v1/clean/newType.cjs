@@ -3,20 +3,21 @@
 var kind = require('./kind.cjs');
 var set = require('./constraint/set.cjs');
 var kind$1 = require('../common/kind.cjs');
+var errorKindNamespace = require('../common/errorKindNamespace.cjs');
 var flatMap = require('../array/flatMap.cjs');
 var coalescing = require('../array/coalescing.cjs');
+var base = require('../dataParser/base.cjs');
 var pipe = require('../common/pipe.cjs');
+var fromEntries = require('../object/fromEntries.cjs');
 var map = require('../array/map.cjs');
 var entry = require('../object/entry.cjs');
-var errorKindNamespace = require('../common/errorKindNamespace.cjs');
-var fromEntries = require('../object/fromEntries.cjs');
-var override = require('../common/override.cjs');
 var is = require('../either/left/is.cjs');
 var unwrap = require('../common/unwrap.cjs');
 var create = require('../either/left/create.cjs');
-var base = require('./constraint/base.cjs');
+var base$1 = require('./constraint/base.cjs');
 var create$1 = require('../either/right/create.cjs');
 var wrapValue = require('../common/wrapValue.cjs');
+var override = require('../common/override.cjs');
 
 const newTypeKind = kind.createCleanKind("new-type");
 const newTypeHandlerKind = kind.createCleanKind("new-type-handler");
@@ -31,14 +32,14 @@ class CreateNewTypeError extends kind$1.kindHeritage("create-new-type-error", er
         this.dataParserError = dataParserError;
     }
 }
-/**
- * {@include clean/createNewType/index.md}
- */
-function createNewType(name, dataParser, constraint) {
+function createNewType(name, maybeDataParser, constraint) {
     const constraints = flatMap.flatMap(coalescing.coalescing(constraint ?? []), (constraint) => set.constraintsSetHandlerKind.has(constraint)
         ? constraint.internal.constraints
         : constraint);
     const checkers = flatMap.flatMap(constraints, ({ internal }) => internal.checkers);
+    const dataParser = base.dataParserKind.has(maybeDataParser)
+        ? maybeDataParser
+        : maybeDataParser.internal.dataParser;
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)
         : dataParser;
@@ -52,14 +53,14 @@ function createNewType(name, dataParser, constraint) {
         if (is.isLeft(result)) {
             return create.left("createNewTypeError", unwrap.unwrap(result));
         }
-        else if (base.constrainedTypeKind.has(data)) {
-            return create$1.right("createNewType", newTypeKind.setTo(base.constrainedTypeKind.addTo(data, {
-                ...base.constrainedTypeKind.getValue(data),
+        else if (base$1.constrainedTypeKind.has(data)) {
+            return create$1.right("createNewType", newTypeKind.setTo(base$1.constrainedTypeKind.addTo(data, {
+                ...base$1.constrainedTypeKind.getValue(data),
                 ...constraintKindValue,
             }), name));
         }
         else {
-            return create$1.right("createNewType", newTypeKind.setTo(base.constrainedTypeKind.setTo(wrapValue.wrapValue(unwrap.unwrap(result)), constraintKindValue), name));
+            return create$1.right("createNewType", newTypeKind.setTo(base$1.constrainedTypeKind.setTo(wrapValue.wrapValue(unwrap.unwrap(result)), constraintKindValue), name));
         }
     }
     function createOrThrow(data) {

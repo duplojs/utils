@@ -1,45 +1,43 @@
-import { dataParserBaseInit } from '../base.mjs';
-import { SymbolDataParserError, addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBase } from '../base.mjs';
+import { SymbolDataParserError, addIssue } from '../error.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { callThen } from '../../common/callThen.mjs';
+import { forward } from '../../common/forward.mjs';
 
 const transformKind = createDataParserKind("transform");
-/**
- * {@include dataParser/classic/transform/index.md}
- */
-function transform(inner, theFunction, definition) {
-    const self = dataParserBaseInit(transformKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        inner,
-        theFunction,
-    }, {
-        sync: (data, error, self) => {
-            const innerResult = self.definition.inner.exec(data, error);
+class DataParserTransform extends DataParserBase.init(transformKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTransform);
+    }
+    static execParse(self, data, error) {
+        return callThen(self.definition.inner.exec(data, error), (innerResult) => {
             if (innerResult === SymbolDataParserError) {
                 return SymbolDataParserError;
             }
-            const result = self.definition.theFunction(innerResult, error);
-            if (result instanceof Promise) {
-                return addIssue(error, "non-promise transform result", result, self.definition.errorMessage);
-            }
-            return result;
-        },
-        async: async (data, error, self) => {
-            const innerResult = await self.definition.inner.asyncExec(data, error);
-            if (innerResult === SymbolDataParserError) {
-                return SymbolDataParserError;
-            }
-            let result = self.definition.theFunction(innerResult, error);
-            if (result instanceof Promise) {
-                result = await result.catch(() => addIssue(error, "successful async transform result", result, self.definition.errorMessage));
-            }
-            return result;
-        },
-        isAsynchronous: (self) => self.definition.theFunction.constructor.name === "AsyncFunction",
-    }, transform.overrideHandler);
-    return self;
+            return callThen(self.definition.theFunction(innerResult, error), forward, (catchError) => addIssue(error, "successful transform result", catchError, self.definition.errorMessage));
+        });
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.inner.isAsynchronous()
+            || self.definition.theFunction.constructor.name === "AsyncFunction";
+    }
+    static prepareDefinition(inner, theFunction, definition) {
+        return {
+            ...definition,
+            inner,
+            theFunction,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/transform/index.md}
+     */
+    static create(inner, theFunction, definition) {
+        return new DataParserTransform(this.prepareDefinition(inner, theFunction, definition));
+    }
 }
-transform.overrideHandler = createOverride("@duplojs/utils/data-parser/transform");
+const transform = detachObjectMethod(DataParserTransform, "create");
 
-export { transform, transformKind };
+export { DataParserTransform, transform, transformKind };

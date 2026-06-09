@@ -1,62 +1,59 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
-var some = require('../../array/some.cjs');
-var override = require('../../common/override.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
+var callThen = require('../../common/callThen.cjs');
 
 const unionKind = kind.createDataParserKind("union");
-/**
- * {@include dataParser/classic/union/index.md}
- */
-function union(options, definition) {
-    const self = base.dataParserBaseInit(unionKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        options,
-    }, {
-        sync: (data, error$1, self) => {
-            const unionError = {
-                ...error$1,
-                currentPath: [...error$1.currentPath],
-                issues: [],
-            };
-            const currentIndexPath = unionError.currentPath.length;
-            for (let index = 0; index < self.definition.options.length; index++) {
-                error.setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
-                const dataParser = self.definition.options[index];
-                const result = dataParser.exec(data, unionError);
-                if (result !== error.SymbolDataParserError) {
-                    return result;
-                }
+class DataParserUnion extends base.DataParserBase.init(unionKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserUnion);
+    }
+    static execParse(self, data, error$1) {
+        const unionError = {
+            ...error$1,
+            currentPath: [...error$1.currentPath],
+            issues: [],
+        };
+        const currentIndexPath = unionError.currentPath.length;
+        const output = self.definition.options.reduce((accumulator, dataParser, index) => callThen.callThen(accumulator, (awaitedAccumulator) => {
+            if (awaitedAccumulator !== error.SymbolDataParserError) {
+                return awaitedAccumulator;
+            }
+            error.setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
+            return dataParser.exec(data, unionError);
+        }), error.SymbolDataParserError);
+        void (currentIndexPath !== unionError.currentPath.length && error.popErrorPath(unionError));
+        return callThen.callThen(output, (awaitedOutput) => {
+            if (awaitedOutput !== error.SymbolDataParserError) {
+                return awaitedOutput;
             }
             error$1.issues.push(...unionError.issues);
             return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage);
-        },
-        async: async (data, error$1, self) => {
-            const unionError = {
-                ...error$1,
-                currentPath: [...error$1.currentPath],
-                issues: [],
-            };
-            const currentIndexPath = unionError.currentPath.length;
-            for (let index = 0; index < self.definition.options.length; index++) {
-                error.setErrorPath(unionError, `(option: ${index})`, currentIndexPath);
-                const dataParser = self.definition.options[index];
-                const result = await dataParser.asyncExec(data, unionError);
-                if (result !== error.SymbolDataParserError) {
-                    return result;
-                }
-            }
-            error$1.issues.push(...unionError.issues);
-            return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage);
-        },
-        isAsynchronous: (self) => some.some(self.definition.options, (element) => element.isAsynchronous()),
-    }, union.overrideHandler);
-    return self;
+        });
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.options.some((element) => element.isAsynchronous());
+    }
+    static prepareDefinition(options, definition) {
+        return {
+            ...definition,
+            options,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/union/index.md}
+     */
+    static create(options, definition) {
+        return new DataParserUnion(this.prepareDefinition(options, definition));
+    }
 }
-union.overrideHandler = override.createOverride("@duplojs/utils/data-parser/union");
+const union = detachObjectMethod.detachObjectMethod(DataParserUnion, "create");
 
+exports.DataParserUnion = DataParserUnion;
 exports.union = union;
 exports.unionKind = unionKind;

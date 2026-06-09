@@ -1,20 +1,21 @@
 import { createCleanKind } from './kind.mjs';
 import { constraintsSetHandlerKind } from './constraint/set.mjs';
 import { kindHeritage } from '../common/kind.mjs';
+import { createErrorKind } from '../common/errorKindNamespace.mjs';
 import { flatMap } from '../array/flatMap.mjs';
 import { coalescing } from '../array/coalescing.mjs';
+import { dataParserKind } from '../dataParser/base.mjs';
 import { pipe } from '../common/pipe.mjs';
+import { fromEntries } from '../object/fromEntries.mjs';
 import { map } from '../array/map.mjs';
 import { entry } from '../object/entry.mjs';
-import { createErrorKind } from '../common/errorKindNamespace.mjs';
-import { fromEntries } from '../object/fromEntries.mjs';
-import { createOverride } from '../common/override.mjs';
 import { isLeft } from '../either/left/is.mjs';
 import { unwrap } from '../common/unwrap.mjs';
 import { left } from '../either/left/create.mjs';
 import { constrainedTypeKind } from './constraint/base.mjs';
 import { right } from '../either/right/create.mjs';
 import { wrapValue } from '../common/wrapValue.mjs';
+import { createOverride } from '../common/override.mjs';
 
 const newTypeKind = createCleanKind("new-type");
 const newTypeHandlerKind = createCleanKind("new-type-handler");
@@ -29,14 +30,14 @@ class CreateNewTypeError extends kindHeritage("create-new-type-error", createErr
         this.dataParserError = dataParserError;
     }
 }
-/**
- * {@include clean/createNewType/index.md}
- */
-function createNewType(name, dataParser, constraint) {
+function createNewType(name, maybeDataParser, constraint) {
     const constraints = flatMap(coalescing(constraint ?? []), (constraint) => constraintsSetHandlerKind.has(constraint)
         ? constraint.internal.constraints
         : constraint);
     const checkers = flatMap(constraints, ({ internal }) => internal.checkers);
+    const dataParser = dataParserKind.has(maybeDataParser)
+        ? maybeDataParser
+        : maybeDataParser.internal.dataParser;
     const dataParserWithCheckers = constraint
         ? dataParser.addChecker(...checkers)
         : dataParser;

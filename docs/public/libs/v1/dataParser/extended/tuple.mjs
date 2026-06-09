@@ -1,27 +1,41 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { tuple as tuple$1 } from '../parsers/tuple.mjs';
-import { checkerArrayMax } from '../parsers/array/checkers/max.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserTuple } from '../parsers/tuple.mjs';
 import { checkerArrayMin } from '../parsers/array/checkers/min.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { checkerArrayMax } from '../parsers/array/checkers/max.mjs';
 
-/**
- * {@include dataParser/extended/tuple/index.md}
- */
-function tuple(shape, definition) {
-    const self = dataParserBaseExtendedInit(tuple$1(shape, definition), {
-        min(self, min, definition) {
-            return self.addChecker(checkerArrayMin(min, definition));
-        },
-        max(self, max, definition) {
-            return self.addChecker(checkerArrayMax(max, definition));
-        },
-        rest: (self, dataParser) => tuple(self.definition.shape, {
-            ...self.definition,
+class DataParserTupleExtended extends DataParserBaseExtended.initExtended(DataParserTuple) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTupleExtended);
+    }
+    /**
+     * {@include dataParser/extended/tuple/min/index.md}
+     */
+    min(min, definition) {
+        return this.addChecker(checkerArrayMin(min, definition));
+    }
+    /**
+     * {@include dataParser/extended/tuple/max/index.md}
+     */
+    max(max, definition) {
+        return this.addChecker(checkerArrayMax(max, definition));
+    }
+    /**
+     * {@include dataParser/extended/tuple/rest/index.md}
+     */
+    rest(dataParser) {
+        return tuple(this.definition.shape, {
+            ...this.definition,
             rest: dataParser,
-        }),
-    }, tuple.overrideHandler);
-    return self;
+        });
+    }
+    /**
+     * {@include dataParser/extended/tuple/index.md}
+     */
+    static create(shape, definition) {
+        return new DataParserTupleExtended(this.prepareDefinition(shape, definition));
+    }
 }
-tuple.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/tuple");
+const tuple = detachObjectMethod(DataParserTupleExtended, "create");
 
-export { tuple };
+export { DataParserTupleExtended, tuple };

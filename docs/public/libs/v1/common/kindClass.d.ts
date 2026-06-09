@@ -1,8 +1,7 @@
 import { type Kind, type KindDefinition, type KindHandler } from "./kind";
-import { type NeverCoalescing, type AnyConstructor, type UnionToIntersection } from "./types";
-export type KindClass<GenericKindHandler extends KindHandler, GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>> = new <GenericParentInstance extends InstanceType<GenericParent> = InstanceType<GenericParent>>(...args: [
-    kindValue: GenericKindHandler["definition"]["value"],
-    ...ConstructorParameters<GenericParent>
-]) => UnionToIntersection<NeverCoalescing<GenericParentInstance, {}> | Kind<GenericKindHandler["definition"]>>;
-export declare function kindClass<GenericKind extends string, GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>>(kind: GenericKind, parent?: GenericParent): KindClass<KindHandler<KindDefinition<GenericKind>>, GenericParent>;
-export declare function kindClass<GenericKindHandler extends KindHandler, GenericParent extends AnyConstructor = AnyConstructor<unknown[], never>>(kindHandler: GenericKindHandler, parent?: GenericParent): KindClass<GenericKindHandler, GenericParent>;
+import { type NeverCoalescing, type RequireConstructor, type IsEqual, type ClearClassKeys, type AnyAbstractConstructor } from "./types";
+export type KindClass<GenericKindHandler extends KindHandler, GenericParent extends AnyAbstractConstructor = AnyAbstractConstructor<unknown[], never>> = ((new <GenericParentInstance extends InstanceType<GenericParent> = InstanceType<GenericParent>, GenericKindValue extends GenericKindHandler["definition"]["value"] = GenericKindHandler["definition"]["value"]>(kindValue: GenericKindValue, ...args: NeverCoalescing<ConstructorParameters<GenericParent>, []>) => (NeverCoalescing<GenericParentInstance, {}> & Kind<GenericKindHandler["definition"], GenericKindValue>)) & (IsEqual<GenericParent, never> extends true ? {} : {
+    [Prop in Exclude<keyof GenericParent, ClearClassKeys>]: GenericParent[Prop];
+}));
+export declare function kindClass<GenericKind extends string, GenericParent extends object = never>(kind: GenericKind, parent?: GenericParent & RequireConstructor<GenericParent>): KindClass<KindHandler<KindDefinition<GenericKind>>, Extract<GenericParent, AnyAbstractConstructor>>;
+export declare function kindClass<GenericKindHandler extends KindHandler, GenericParent extends object = never>(kindHandler: GenericKindHandler, parent?: GenericParent & RequireConstructor<GenericParent>): KindClass<GenericKindHandler, Extract<GenericParent, AnyAbstractConstructor>>;

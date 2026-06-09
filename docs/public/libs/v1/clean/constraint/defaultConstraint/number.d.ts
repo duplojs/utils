@@ -210,3 +210,35 @@ export type NumberMaxInternal<GenericValue extends number = number> = GetConstra
  */
 export declare function NumberMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): NumberMaxHandlerInternal<GenericValue>;
 export type NumberMax<GenericValue extends number> = GetConstraint<ReturnType<typeof NumberMax<GenericValue>>>;
+/**
+ * Constraint handler that validates numbers different from zero.
+ * 
+ * **Supported call styles:**
+ * - Classic: `NotZero.create(value)` -> returns Either
+ * 
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes that must reject zero, for example divisors.
+ * 
+ * ```ts
+ * const result = C.NotZero.create(4);
+ * 
+ * if (E.isRight(result)) {
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"not-zero", 4>>
+ * }
+ * 
+ * const divisor = C.NotZero.createOrThrow(-2);
+ * // divisor: C.ConstrainedType<"not-zero", -2>
+ * 
+ * C.NotZero.is(divisor); // type guard
+ * 
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
+export declare const NotZero: ConstraintHandler<"not-zero", number, readonly [DDataParser.DataParserCheckerRefine<{
+    readonly errorMessage?: string | undefined;
+    theFunction: (input: number) => import("../../../common").MaybePromise<boolean>;
+}, number>], never>;
+export type NotZero = GetConstraint<typeof NotZero>;

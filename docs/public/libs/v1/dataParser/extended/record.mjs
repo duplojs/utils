@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { record as record$1 } from '../parsers/record/index.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserRecord } from '../parsers/record/index.mjs';
 
-/**
- * {@include dataParser/extended/record/index.md}
- */
-function record(key, value, definition) {
-    const self = dataParserBaseExtendedInit(record$1(key, value, definition), {}, record.overrideHandler);
-    return self;
+class DataParserRecordExtended extends DataParserBaseExtended.initExtended(DataParserRecord) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserRecordExtended);
+    }
+    /**
+     * {@include dataParser/extended/record/index.md}
+     */
+    static create(key, value, definition) {
+        return new DataParserRecordExtended(this.prepareDefinition(key, value, definition));
+    }
 }
-record.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/record");
+const record = detachObjectMethod(DataParserRecordExtended, "create");
 
-export { record };
+export { DataParserRecordExtended, record };

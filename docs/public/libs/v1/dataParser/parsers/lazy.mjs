@@ -1,24 +1,34 @@
-import { dataParserBaseInit } from '../base.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { DataParserBase } from '../base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 import { memo } from '../../common/memo.mjs';
-import { createOverride } from '../../common/override.mjs';
 
 const lazyKind = createDataParserKind("lazy");
-/**
- * {@include dataParser/classic/lazy/index.md}
- */
-function lazy(getter, definition) {
-    const self = dataParserBaseInit(lazyKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        getter: memo(getter),
-    }, {
-        sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
-        async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
-        isAsynchronous: (self) => self.definition.getter.value.isAsynchronous(),
-    }, lazy.overrideHandler);
-    return self;
+class DataParserLazy extends DataParserBase.init(lazyKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLazy);
+    }
+    static execParse(self, data, error) {
+        return self.definition.getter.value.exec(data, error);
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.getter.value.isAsynchronous();
+    }
+    static prepareDefinition(getter, definition) {
+        return {
+            ...definition,
+            getter: memo(getter),
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/lazy/index.md}
+     */
+    static create(getter, definition) {
+        return new DataParserLazy(this.prepareDefinition(getter, definition));
+    }
 }
-lazy.overrideHandler = createOverride("@duplojs/utils/data-parser/lazy");
+const lazy = detachObjectMethod(DataParserLazy, "create");
 
-export { lazy, lazyKind };
+export { DataParserLazy, lazy, lazyKind };

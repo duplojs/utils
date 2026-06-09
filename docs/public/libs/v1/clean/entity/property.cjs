@@ -4,6 +4,7 @@ var newType = require('../newType.cjs');
 var kind = require('../kind.cjs');
 var pipe = require('../../common/pipe.cjs');
 var wrapValue = require('../../common/wrapValue.cjs');
+var exhaustive = require('../../pattern/exhaustive.cjs');
 var when = require('../../pattern/when.cjs');
 var unwrap = require('../../common/unwrap.cjs');
 var entries = require('../../object/entries.cjs');
@@ -17,7 +18,6 @@ var max = require('../../dataParser/parsers/array/checkers/max.cjs');
 var literal = require('../../dataParser/parsers/literal.cjs');
 var nullable = require('../../dataParser/parsers/nullable.cjs');
 var union = require('../../dataParser/parsers/union.cjs');
-var exhaustive = require('../../pattern/exhaustive.cjs');
 
 const entityPropertyUnionKind = kind.createCleanKind("entity-property-union");
 const entityPropertyNullableKind = kind.createCleanKind("entity-property-nullable");

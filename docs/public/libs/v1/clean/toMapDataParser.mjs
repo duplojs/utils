@@ -1,10 +1,8 @@
 import { newTypeHandlerKind, newTypeKind } from './newType.mjs';
 import { hasSomeKinds } from '../common/hasSomeKinds.mjs';
-import { entityPropertyDefinitionToDataParser, entityPropertyNullableKind, entityPropertyArrayKind, entityPropertyStructureKind, entityPropertyIdentifierKind, entityPropertyUnionKind } from './entity/property.mjs';
+import { entityPropertyNullableKind, entityPropertyArrayKind, entityPropertyStructureKind, entityPropertyIdentifierKind, entityPropertyUnionKind, entityPropertyDefinitionToDataParser } from './entity/property.mjs';
 import { primitiveHandlerKind } from './primitive/base.mjs';
 import { constrainedTypeKind, constraintHandlerKind } from './constraint/base.mjs';
-import { match } from '../pattern/match/index.mjs';
-import { transform } from '../dataParser/parsers/transform.mjs';
 import { stringKind } from '../dataParser/parsers/string/index.mjs';
 import { numberKind } from '../dataParser/parsers/number/index.mjs';
 import { bigIntKind } from '../dataParser/parsers/bigint/index.mjs';
@@ -13,7 +11,9 @@ import { dateKind } from '../dataParser/parsers/date.mjs';
 import { timeKind } from '../dataParser/parsers/time/index.mjs';
 import { emptyKind } from '../dataParser/parsers/empty.mjs';
 import { nilKind } from '../dataParser/parsers/nil.mjs';
+import { match } from '../pattern/match/index.mjs';
 import { constraintsSetHandlerKind } from './constraint/set.mjs';
+import { transform } from '../dataParser/parsers/transform.mjs';
 import { keyWrappedValue } from '../common/wrapValue.mjs';
 
 function toMapDataParser(input, params) {
@@ -27,7 +27,7 @@ function toMapDataParser(input, params) {
         return entityPropertyDefinitionToDataParser(input, (newTypeHandler) => toMapDataParser(newTypeHandler, params));
     }
     const dataParser = (primitiveHandlerKind.has(input)
-        ? input.dataParser.clone()
+        ? input.internal.dataParser.clone()
         : input.internal.dataParser.clone());
     if (params?.coerce
         && hasSomeKinds(dataParser, [

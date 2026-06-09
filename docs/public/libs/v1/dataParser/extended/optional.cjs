@@ -1,21 +1,8 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
-var optional$1 = require('../parsers/optional.cjs');
-var override = require('../../common/override.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
-/**
- * {@include dataParser/extended/optional/index.md}
- */
-function optional(inner, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(optional$1.optional(inner, definition), {
-        default: (self, value) => optional(self.definition.inner, {
-            ...self.definition,
-            coalescingValue: value,
-        }),
-    }, optional.overrideHandler);
-    return self;
-}
-optional.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/optional");
+const optional = detachObjectMethod.detachObjectMethod(base.DataParserOptionalExtended, "create");
 
 exports.optional = optional;

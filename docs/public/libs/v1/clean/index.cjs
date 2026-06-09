@@ -92,6 +92,7 @@ exports.createConstraint = base.createConstraint;
 exports.castConstraint = cast.castConstraint;
 exports.Int = number.Int;
 exports.Negative = number.Negative;
+exports.NotZero = number.NotZero;
 exports.NumberMax = number.NumberMax;
 exports.NumberMin = number.NumberMin;
 exports.Positive = number.Positive;

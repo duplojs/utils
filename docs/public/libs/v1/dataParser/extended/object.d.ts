@@ -1,19 +1,19 @@
-import { type Adaptor, type FixDeepFunctionInfer, type Kind, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
-import { type DataParserBaseExtended } from "../baseExtended";
-import { type AddCheckersToDefinition, type MergeDefinition, type PrepareDataParserDefinition } from "../types";
-import * as dataParsers from "../parsers";
-import { type DataParserChecker, type Input, type Output } from "../base";
+import { type Adaptor, type FixDeepFunctionInfer, type NeverCoalescing, type SimplifyTopLevel } from "../../common";
 import { type AssignObjects } from "../../object";
-type _DataParserObjectExtended<GenericDefinition extends dataParsers.DataParserDefinitionObject> = (Kind<typeof dataParsers.objectKind.definition> & DataParserBaseExtended<GenericDefinition, Output<dataParsers.DataParserObject<GenericDefinition>>, Input<dataParsers.DataParserObject<GenericDefinition>>>);
-export interface DataParserObjectExtended<GenericDefinition extends dataParsers.DataParserDefinitionObject = dataParsers.DataParserDefinitionObject> extends _DataParserObjectExtended<GenericDefinition> {
-    addChecker<GenericChecker extends readonly [
+import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import * as dataParsers from "../parsers";
+import { type DataParserChecker } from "../baseChecker";
+declare const DataParserObjectExtended_base: import("..").DataParserExtendedBaseInit<typeof dataParsers.DataParserObject>;
+export declare class DataParserObjectExtended<GenericDefinition extends dataParsers.DataParserDefinitionObject = dataParsers.DataParserDefinitionObject> extends DataParserObjectExtended_base<GenericDefinition, Output<dataParsers.DataParserObject<GenericDefinition>>, Input<dataParsers.DataParserObject<GenericDefinition>>> {
+    get classConstructor(): typeof DataParserObjectExtended & import("..").CheckedConstructorKind;
+    addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
     ]>(...args: FixDeepFunctionInfer<readonly [
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
-    ], GenericChecker>): DataParserObjectExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    refine(theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>): DataParserObjectExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    ], GenericChecker>) => DataParserObjectExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine: (theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>) => DataParserObjectExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
     /**
      * Creates a new object parser by omitting keys from the current shape.
      * 
@@ -229,54 +229,52 @@ export interface DataParserObjectExtended<GenericDefinition extends dataParsers.
     required<const GenericSubDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<dataParsers.RequireDataParserObject<GenericDefinition["shape"]>>>, "shape" | "optimizedShape" | "checkers"> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<dataParsers.RequireDataParserObject<GenericDefinition["shape"]>>>, "shape" | "optimizedShape" | "checkers">, GenericSubDefinition>): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericSubDefinition, {}> & {
         readonly shape: dataParsers.RequireDataParserObject<GenericDefinition["shape"]>;
     }>>;
+    /**
+     * Creates an extended data parser for objects with a defined shape.
+     * 
+     * **Supported call styles:**
+     * - Method: `DPE.object(shape, definition?)` -> returns an object parser
+     * 
+     * Validates objects and exposes object-specific helpers like pick, omit, partial, and required.
+     * 
+     * ```ts
+     * const userParser = DPE.object({
+     * 	id: DPE.number(),
+     * 	name: DPE.string(),
+     * 	email: DPE.string(),
+     * });
+     * 
+     * const picked = userParser.pick({
+     * 	id: true,
+     * 	name: true,
+     * });
+     * const result = picked.parse({
+     * 	id: 1,
+     * 	name: "Alex",
+     * });
+     * if (E.isRight(result)) {
+     * 	const value = unwrap(result);
+     * 	// value: { id: number; name: string }
+     * }
+     * 
+     * const omitted = userParser.omit({ email: true });
+     * const omitResult = omitted.parse({
+     * 	id: 1,
+     * 	name: "Alex",
+     * });
+     * 
+     * const partialUser = userParser.partial();
+     * const partialResult = partialUser.parse({ name: "Alex" });
+     * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/object
+     * 
+     * @namespace DPE
+     * 
+     */
+    static create<const GenericShape extends dataParsers.DataParserObjectShape, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape"> = never>(shape: GenericShape, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<GenericShape>>, "shape" | "optimizedShape">, GenericDefinition>): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
+        readonly shape: GenericShape;
+    }>>;
 }
-/**
- * Creates an extended data parser for objects with a defined shape.
- * 
- * **Supported call styles:**
- * - Method: `DPE.object(shape, definition?)` -> returns an object parser
- * 
- * Validates objects and exposes object-specific helpers like pick, omit, partial, and required.
- * 
- * ```ts
- * const userParser = DPE.object({
- * 	id: DPE.number(),
- * 	name: DPE.string(),
- * 	email: DPE.string(),
- * });
- * 
- * const picked = userParser.pick({
- * 	id: true,
- * 	name: true,
- * });
- * const result = picked.parse({
- * 	id: 1,
- * 	name: "Alex",
- * });
- * if (E.isRight(result)) {
- * 	const value = unwrap(result);
- * 	// value: { id: number; name: string }
- * }
- * 
- * const omitted = userParser.omit({ email: true });
- * const omitResult = omitted.parse({
- * 	id: 1,
- * 	name: "Alex",
- * });
- * 
- * const partialUser = userParser.partial();
- * const partialResult = partialUser.parse({ name: "Alex" });
- * ```
- * 
- * @see https://utils.duplojs.dev/en/v1/api/dataParser/object
- * 
- * @namespace DPE
- * 
- */
-export declare function object<const GenericShape extends dataParsers.DataParserObjectShape, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<GenericShape>>, "shape"> = never>(shape: GenericShape, definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionObject<dataParsers.DataParserObjectShapeOutput<GenericShape>>, "shape">, GenericDefinition>): DataParserObjectExtended<MergeDefinition<dataParsers.DataParserDefinitionObject, NeverCoalescing<GenericDefinition, {}> & {
-    shape: GenericShape;
-}>>;
-export declare namespace object {
-    var overrideHandler: import("../../common").OverrideHandler<DataParserObjectExtended<dataParsers.DataParserDefinitionObject<Record<string | number, unknown>>>>;
-}
+export declare const object: typeof DataParserObjectExtended.create;
 export {};

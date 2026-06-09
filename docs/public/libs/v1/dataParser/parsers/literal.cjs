@@ -1,29 +1,42 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var coalescing = require('../../array/coalescing.cjs');
-var override = require('../../common/override.cjs');
 
 const literalKind = kind.createDataParserKind("literal");
-/**
- * {@include dataParser/classic/literal/index.md}
- */
-function literal(value, definition) {
-    const self = base.dataParserBaseInit(literalKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        value: coalescing.coalescing(value),
-    }, (data, error$1, self) => {
+class DataParserLiteral extends base.DataParserBase.init(literalKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLiteral);
+    }
+    static execParse(self, data, error$1) {
         if (self.definition.value.includes(data)) {
             return data;
         }
-        return error.addIssue(error$1, `one of ${self.definition.value.map((value) => String(value)).join(", ")}`, data, self.definition.errorMessage);
-    }, literal.overrideHandler);
-    return self;
+        return error.addIssue(error$1, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage);
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(value, definition) {
+        return {
+            ...definition,
+            value: coalescing.coalescing(value),
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/literal/index.md}
+     */
+    static create(value, definition) {
+        return new DataParserLiteral(this.prepareDefinition(value, definition));
+    }
 }
-literal.overrideHandler = override.createOverride("@duplojs/utils/data-parser/literal");
+const literal = detachObjectMethod.detachObjectMethod(DataParserLiteral, "create");
 
+exports.DataParserLiteral = DataParserLiteral;
 exports.literal = literal;
 exports.literalKind = literalKind;

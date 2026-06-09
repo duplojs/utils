@@ -1,27 +1,38 @@
 'use strict';
 
-var base = require('../base.cjs');
 var kind = require('../kind.cjs');
+var base = require('../base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var memo = require('../../common/memo.cjs');
-var override = require('../../common/override.cjs');
 
 const lazyKind = kind.createDataParserKind("lazy");
-/**
- * {@include dataParser/classic/lazy/index.md}
- */
-function lazy(getter, definition) {
-    const self = base.dataParserBaseInit(lazyKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        getter: memo.memo(getter),
-    }, {
-        sync: (data, _error, self) => self.definition.getter.value.exec(data, _error),
-        async: (data, _error, self) => self.definition.getter.value.asyncExec(data, _error),
-        isAsynchronous: (self) => self.definition.getter.value.isAsynchronous(),
-    }, lazy.overrideHandler);
-    return self;
+class DataParserLazy extends base.DataParserBase.init(lazyKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLazy);
+    }
+    static execParse(self, data, error) {
+        return self.definition.getter.value.exec(data, error);
+    }
+    static dataParserIsAsynchronous(self) {
+        return self.definition.getter.value.isAsynchronous();
+    }
+    static prepareDefinition(getter, definition) {
+        return {
+            ...definition,
+            getter: memo.memo(getter),
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/lazy/index.md}
+     */
+    static create(getter, definition) {
+        return new DataParserLazy(this.prepareDefinition(getter, definition));
+    }
 }
-lazy.overrideHandler = override.createOverride("@duplojs/utils/data-parser/lazy");
+const lazy = detachObjectMethod.detachObjectMethod(DataParserLazy, "create");
 
+exports.DataParserLazy = DataParserLazy;
 exports.lazy = lazy;
 exports.lazyKind = lazyKind;

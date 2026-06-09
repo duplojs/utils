@@ -1163,6 +1163,9 @@
               "name": "CleanObjectEntry.d.ts"
             },
             {
+              "name": "clearClassKeys.d.ts"
+            },
+            {
               "name": "ComputedTypeError.d.ts"
             },
             {
@@ -1250,6 +1253,9 @@
               "name": "predicate.d.ts"
             },
             {
+              "name": "removeAbstractFromConstructor.d.ts"
+            },
+            {
               "name": "removeDuplicateInUnion.d.ts"
             },
             {
@@ -1257,6 +1263,9 @@
             },
             {
               "name": "removeReadonly.d.ts"
+            },
+            {
+              "name": "requireConstructor.d.ts"
             },
             {
               "name": "simplifyTopLevel.d.ts"
@@ -1351,6 +1360,15 @@
           "name": "asyncRetry.mjs"
         },
         {
+          "name": "bindPrototypeMethods.cjs"
+        },
+        {
+          "name": "bindPrototypeMethods.d.ts"
+        },
+        {
+          "name": "bindPrototypeMethods.mjs"
+        },
+        {
           "name": "builder.cjs"
         },
         {
@@ -1385,6 +1403,15 @@
         },
         {
           "name": "createKindIdentifier.mjs"
+        },
+        {
+          "name": "detachObjectMethod.cjs"
+        },
+        {
+          "name": "detachObjectMethod.d.ts"
+        },
+        {
+          "name": "detachObjectMethod.mjs"
         },
         {
           "name": "enum.cjs"
@@ -1495,7 +1522,13 @@
           "name": "hasSomeKinds.mjs"
         },
         {
+          "name": "index.cjs"
+        },
+        {
           "name": "index.d.ts"
+        },
+        {
+          "name": "index.mjs"
         },
         {
           "name": "innerPipe.cjs"
@@ -1932,6 +1965,15 @@
             },
             {
               "name": "array.mjs"
+            },
+            {
+              "name": "base.cjs"
+            },
+            {
+              "name": "base.d.ts"
+            },
+            {
+              "name": "base.mjs"
             },
             {
               "name": "bigint.cjs"
@@ -2719,6 +2761,15 @@
               "name": "addCheckersToDefinition.d.ts"
             },
             {
+              "name": "baseCheckerInit.d.ts"
+            },
+            {
+              "name": "baseExtendedInit.d.ts"
+            },
+            {
+              "name": "baseInit.d.ts"
+            },
+            {
               "name": "checkers.d.ts"
             },
             {
@@ -2731,7 +2782,16 @@
               "name": "index.d.ts"
             },
             {
+              "name": "input.d.ts"
+            },
+            {
+              "name": "inputChecker.d.ts"
+            },
+            {
               "name": "mergeDefinition.d.ts"
+            },
+            {
+              "name": "output.d.ts"
             },
             {
               "name": "prepareDataParserDefinition.d.ts"
@@ -2748,13 +2808,13 @@
           "name": "base.mjs"
         },
         {
-          "name": "baseExtended.cjs"
+          "name": "baseChecker.cjs"
         },
         {
-          "name": "baseExtended.d.ts"
+          "name": "baseChecker.d.ts"
         },
         {
-          "name": "baseExtended.mjs"
+          "name": "baseChecker.mjs"
         },
         {
           "name": "error.cjs"

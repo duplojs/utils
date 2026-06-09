@@ -1,14 +1,19 @@
-import { dataParserCheckerInit } from '../../../base.mjs';
 import { addIssue } from '../../../error.mjs';
 import { string } from '../index.mjs';
 import { createDataParserKind } from '../../../kind.mjs';
+import { DataParserCheckerBase } from '../../../baseChecker.mjs';
+import { detachObjectMethod } from '../../../../common/detachObjectMethod.mjs';
 
 const checkerUrlKind = createDataParserKind("checker-url");
 const regexRemoveDote = /:$/;
-function checkerUrl(definition = {}) {
-    return dataParserCheckerInit(checkerUrlKind, {
-        definition: definition,
-    }, (data, error, self, dataParser) => {
+class DataParserCheckerUrl extends DataParserCheckerBase.init(checkerUrlKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserCheckerUrl);
+    }
+    isAsynchronous() {
+        return false;
+    }
+    static execCheck(data, error, self, dataParser) {
         try {
             const url = new URL(data);
             if (self.definition.hostname) {
@@ -33,12 +38,16 @@ function checkerUrl(definition = {}) {
         catch {
             return addIssue(error, "valid URL", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
         }
-    });
+    }
+    static create(definition = {}) {
+        return new DataParserCheckerUrl(definition);
+    }
 }
+const checkerUrl = detachObjectMethod(DataParserCheckerUrl, "create");
 function url(definition) {
     return string({
         checkers: [checkerUrl(definition)],
     });
 }
 
-export { checkerUrl, checkerUrlKind, url };
+export { DataParserCheckerUrl, checkerUrl, checkerUrlKind, url };

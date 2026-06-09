@@ -1,16 +1,21 @@
 'use strict';
 
-var baseExtended = require('../baseExtended.cjs');
+var base = require('./base.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var index = require('../parsers/record/index.cjs');
-var override = require('../../common/override.cjs');
 
-/**
- * {@include dataParser/extended/record/index.md}
- */
-function record(key, value, definition) {
-    const self = baseExtended.dataParserBaseExtendedInit(index.record(key, value, definition), {}, record.overrideHandler);
-    return self;
+class DataParserRecordExtended extends base.DataParserBaseExtended.initExtended(index.DataParserRecord) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserRecordExtended);
+    }
+    /**
+     * {@include dataParser/extended/record/index.md}
+     */
+    static create(key, value, definition) {
+        return new DataParserRecordExtended(this.prepareDefinition(key, value, definition));
+    }
 }
-record.overrideHandler = override.createOverride("@duplojs/utils/data-parser-extended/record");
+const record = detachObjectMethod.detachObjectMethod(DataParserRecordExtended, "create");
 
+exports.DataParserRecordExtended = DataParserRecordExtended;
 exports.record = record;

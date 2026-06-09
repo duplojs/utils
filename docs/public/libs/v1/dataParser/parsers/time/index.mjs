@@ -1,6 +1,7 @@
-import { dataParserBaseInit } from '../../base.mjs';
-import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
+import { DataParserBase } from '../../base.mjs';
+import { addIssue } from '../../error.mjs';
+import { detachObjectMethod } from '../../../common/detachObjectMethod.mjs';
 import { isoTimeRegex } from '../../../date/constants.mjs';
 import { createTime } from '../../../date/createTime.mjs';
 import { isLeft } from '../../../either/left/is.mjs';
@@ -9,18 +10,13 @@ import { TheTime } from '../../../date/theTime.mjs';
 import { isSerializedTheTime } from '../../../date/isSerializedTheTime.mjs';
 import { toTimeValue } from '../../../date/toTimeValue.mjs';
 import { isSafeTimeValue } from '../../../date/isSafeTimeValue.mjs';
-import { createOverride } from '../../../common/override.mjs';
 
 const timeKind = createDataParserKind("time");
-/**
- * {@include dataParser/classic/time/index.md}
- */
-function time(definition) {
-    const self = dataParserBaseInit(timeKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error, self) => {
+class DataParserTime extends DataParserBase.init(timeKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserTime);
+    }
+    static execParse(self, data, error) {
         if (self.definition.coerce) {
             if (typeof data === "string" && isoTimeRegex.test(data)) {
                 const result = createTime({ value: data });
@@ -43,9 +39,25 @@ function time(definition) {
             return TheTime.new(data);
         }
         return addIssue(error, "time", data, self.definition.errorMessage);
-    }, time.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/time/index.md}
+     */
+    static create(definition) {
+        return new DataParserTime(this.prepareDefinition(definition));
+    }
 }
-time.overrideHandler = createOverride("@duplojs/utils/data-parser/time");
+const time = detachObjectMethod(DataParserTime, "create");
 
-export { time, timeKind };
+export { DataParserTime, time, timeKind };

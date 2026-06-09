@@ -1,24 +1,20 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 var isSafeTimestamp = require('../../date/isSafeTimestamp.cjs');
 var theDate = require('../../date/theDate.cjs');
 var isSerializedTheDate = require('../../date/isSerializedTheDate.cjs');
 var toTimestamp = require('../../date/toTimestamp.cjs');
-var override = require('../../common/override.cjs');
 
 const dateKind = kind.createDataParserKind("date");
-/**
- * {@include dataParser/classic/date/index.md}
- */
-function date(definition) {
-    const self = base.dataParserBaseInit(dateKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error$1, self) => {
+class DataParserDate extends base.DataParserBase.init(dateKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserDate);
+    }
+    static execParse(self, data, error$1) {
         if (self.definition.coerce) {
             if (typeof data === "number") {
                 if (!isSafeTimestamp.isSafeTimestamp(data)) {
@@ -48,10 +44,27 @@ function date(definition) {
             return theDate.TheDate.new(timestamp);
         }
         return error.addIssue(error$1, "date", data, self.definition.errorMessage);
-    }, date.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/date/index.md}
+     */
+    static create(definition) {
+        return new DataParserDate(this.prepareDefinition(definition));
+    }
 }
-date.overrideHandler = override.createOverride("@duplojs/utils/data-parser/date");
+const date = detachObjectMethod.detachObjectMethod(DataParserDate, "create");
 
+exports.DataParserDate = DataParserDate;
 exports.date = date;
 exports.dateKind = dateKind;

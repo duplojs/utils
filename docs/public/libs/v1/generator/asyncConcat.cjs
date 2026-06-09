@@ -7,16 +7,10 @@ function asyncConcat(...args) {
     }
     const [iterator, elements, ...elementsRest] = args;
     return (async function* () {
-        for await (const value of iterator) {
-            yield value;
-        }
-        for await (const value of elements) {
-            yield value;
-        }
-        for (const iterable of elementsRest) {
-            for await (const value of iterable) {
-                yield value;
-            }
+        yield* iterator;
+        yield* elements;
+        for (const value of elementsRest) {
+            yield* value;
         }
     })();
 }

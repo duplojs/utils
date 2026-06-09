@@ -5,6 +5,7 @@ var base$1 = require('../../primitive/base.cjs');
 var int = require('../../../dataParser/parsers/number/checkers/int.cjs');
 var min = require('../../../dataParser/parsers/number/checkers/min.cjs');
 var max = require('../../../dataParser/parsers/number/checkers/max.cjs');
+var refine = require('../../../dataParser/parsers/refine.cjs');
 
 /**
  * {@include clean/Int/index.md}
@@ -38,9 +39,14 @@ function NumberMin(value) {
 function NumberMax(value) {
     return base.createConstraint(`number-max-${value}`, base$1.Number, max.checkerNumberMax(value));
 }
+/**
+ * {@include clean/NotZero/index.md}
+ */
+const NotZero = base.createConstraint("not-zero", base$1.Number, refine.checkerRefine((value) => value !== 0));
 
 exports.Int = Int;
 exports.Negative = Negative;
+exports.NotZero = NotZero;
 exports.NumberMax = NumberMax;
 exports.NumberMin = NumberMin;
 exports.Positive = Positive;

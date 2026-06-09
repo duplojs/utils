@@ -1,20 +1,16 @@
 'use strict';
 
+var kind = require('../kind.cjs');
 var base = require('../base.cjs');
 var error = require('../error.cjs');
-var kind = require('../kind.cjs');
-var override = require('../../common/override.cjs');
+var detachObjectMethod = require('../../common/detachObjectMethod.cjs');
 
 const emptyKind = kind.createDataParserKind("empty");
-/**
- * {@include dataParser/classic/empty/index.md}
- */
-function empty(definition) {
-    const self = base.dataParserBaseInit(emptyKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error$1, self) => {
+class DataParserEmpty extends base.DataParserBase.init(emptyKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserEmpty);
+    }
+    static execParse(self, data, error$1) {
         if (data === undefined) {
             return data;
         }
@@ -22,10 +18,27 @@ function empty(definition) {
             return undefined;
         }
         return error.addIssue(error$1, "undefined", data, self.definition.errorMessage);
-    }, empty.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/empty/index.md}
+     */
+    static create(definition) {
+        return new DataParserEmpty(this.prepareDefinition(definition));
+    }
 }
-empty.overrideHandler = override.createOverride("@duplojs/utils/data-parser/empty");
+const empty = detachObjectMethod.detachObjectMethod(DataParserEmpty, "create");
 
+exports.DataParserEmpty = DataParserEmpty;
 exports.empty = empty;
 exports.emptyKind = emptyKind;

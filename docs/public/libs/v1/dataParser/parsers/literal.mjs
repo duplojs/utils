@@ -1,26 +1,38 @@
-import { dataParserBaseInit } from '../base.mjs';
-import { addIssue } from '../error.mjs';
 import { createDataParserKind } from '../kind.mjs';
+import { DataParserBase } from '../base.mjs';
+import { addIssue } from '../error.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
 import { coalescing } from '../../array/coalescing.mjs';
-import { createOverride } from '../../common/override.mjs';
 
 const literalKind = createDataParserKind("literal");
-/**
- * {@include dataParser/classic/literal/index.md}
- */
-function literal(value, definition) {
-    const self = dataParserBaseInit(literalKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        value: coalescing(value),
-    }, (data, error, self) => {
+class DataParserLiteral extends DataParserBase.init(literalKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserLiteral);
+    }
+    static execParse(self, data, error) {
         if (self.definition.value.includes(data)) {
             return data;
         }
-        return addIssue(error, `one of ${self.definition.value.map((value) => String(value)).join(", ")}`, data, self.definition.errorMessage);
-    }, literal.overrideHandler);
-    return self;
+        return addIssue(error, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage);
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(value, definition) {
+        return {
+            ...definition,
+            value: coalescing(value),
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/literal/index.md}
+     */
+    static create(value, definition) {
+        return new DataParserLiteral(this.prepareDefinition(value, definition));
+    }
 }
-literal.overrideHandler = createOverride("@duplojs/utils/data-parser/literal");
+const literal = detachObjectMethod(DataParserLiteral, "create");
 
-export { literal, literalKind };
+export { DataParserLiteral, literal, literalKind };

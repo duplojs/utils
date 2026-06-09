@@ -1,18 +1,14 @@
-import { dataParserBaseInit } from '../../base.mjs';
-import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
-import { createOverride } from '../../../common/override.mjs';
+import { DataParserBase } from '../../base.mjs';
+import { addIssue } from '../../error.mjs';
+import { detachObjectMethod } from '../../../common/detachObjectMethod.mjs';
 
 const bigIntKind = createDataParserKind("bigint");
-/**
- * {@include dataParser/classic/bigint/index.md}
- */
-function bigint(definition) {
-    const self = dataParserBaseInit(bigIntKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error, self) => {
+class DataParserBigInt extends DataParserBase.init(bigIntKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserBigInt);
+    }
+    static execParse(self, data, error) {
         const inputData = data;
         if (self.definition.coerce) {
             try {
@@ -25,9 +21,25 @@ function bigint(definition) {
             return data;
         }
         return addIssue(error, "bigint", inputData, self.definition.errorMessage);
-    }, bigint.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/bigint/index.md}
+     */
+    static create(definition) {
+        return new DataParserBigInt(this.prepareDefinition(definition));
+    }
 }
-bigint.overrideHandler = createOverride("@duplojs/utils/data-parser/bigint");
+const bigint = detachObjectMethod(DataParserBigInt, "create");
 
-export { bigIntKind, bigint };
+export { DataParserBigInt, bigIntKind, bigint };

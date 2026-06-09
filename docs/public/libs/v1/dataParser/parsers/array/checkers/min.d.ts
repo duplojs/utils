@@ -1,11 +1,16 @@
-import { type Kind } from "../../../../common";
-import { type DataParserCheckerDefinition, type DataParserCheckerBase } from "../../../../dataParser/base";
+import { type DataParserError } from "../../../../dataParser/error";
+import { type DataParserCheckerDefinition } from "../../../baseChecker";
+import { type DataParser } from "../../../base";
 export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
     min: number;
 }
 export declare const checkerArrayMinKind: import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-array-min", unknown>>;
-type _DataParserCheckerArrayMin = (Kind<typeof checkerArrayMinKind.definition> & DataParserCheckerBase<DataParserCheckerDefinitionArrayMin, any[]>);
-export interface DataParserCheckerArrayMin extends _DataParserCheckerArrayMin {
+declare const DataParserCheckerArrayMin_base: import("../../..").DataParserCheckerBaseInit<import("../../../../common").KindHandler<import("../../../../common").KindDefinition<"@DuplojsUtilsDataParser/checker-array-min", unknown>>>;
+export declare class DataParserCheckerArrayMin extends DataParserCheckerArrayMin_base<DataParserCheckerDefinitionArrayMin, unknown[]> {
+    get classConstructor(): typeof DataParserCheckerArrayMin & import("../../..").CheckedConstructorKind;
+    isAsynchronous(): boolean;
+    static execCheck(data: unknown[], error: DataParserError, self: DataParserCheckerArrayMin, dataParser: DataParser): unknown[] | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static create(min: number, definition?: Partial<Omit<DataParserCheckerDefinitionArrayMin, "min">>): DataParserCheckerArrayMin;
 }
-export declare function checkerArrayMin(min: number, definition?: Partial<Omit<DataParserCheckerDefinitionArrayMin, "min">>): DataParserCheckerArrayMin;
+export declare const checkerArrayMin: typeof DataParserCheckerArrayMin.create;
 export {};

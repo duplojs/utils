@@ -7,7 +7,13 @@ export interface Primitive<GenericValue extends EligiblePrimitive = EligiblePrim
 }
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
 export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {
+    /**
+     * @deprecated
+     */
     readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
+    readonly internal: {
+        readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
+    };
     /**
      * Creates a primitive value and returns an Either.
      * 

@@ -1,14 +1,18 @@
-import { dataParserBaseExtendedInit } from '../baseExtended.mjs';
-import { date as date$1 } from '../parsers/date.mjs';
-import { createOverride } from '../../common/override.mjs';
+import { DataParserBaseExtended } from './base.mjs';
+import { detachObjectMethod } from '../../common/detachObjectMethod.mjs';
+import { DataParserDate } from '../parsers/date.mjs';
 
-/**
- * {@include dataParser/extended/date/index.md}
- */
-function date(definition) {
-    const self = dataParserBaseExtendedInit(date$1(definition), {}, date.overrideHandler);
-    return self;
+class DataParserDateExtended extends DataParserBaseExtended.initExtended(DataParserDate) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserDateExtended);
+    }
+    /**
+     * {@include dataParser/extended/date/index.md}
+     */
+    static create(definition) {
+        return new DataParserDateExtended(this.prepareDefinition(definition));
+    }
 }
-date.overrideHandler = createOverride("@duplojs/utils/data-parser-extended/date");
+const date = detachObjectMethod(DataParserDateExtended, "create");
 
-export { date };
+export { DataParserDateExtended, date };

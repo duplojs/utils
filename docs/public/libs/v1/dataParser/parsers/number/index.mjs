@@ -1,18 +1,14 @@
-import { dataParserBaseInit } from '../../base.mjs';
-import { addIssue } from '../../error.mjs';
 import { createDataParserKind } from '../../kind.mjs';
-import { createOverride } from '../../../common/override.mjs';
+import { DataParserBase } from '../../base.mjs';
+import { addIssue } from '../../error.mjs';
+import { detachObjectMethod } from '../../../common/detachObjectMethod.mjs';
 
 const numberKind = createDataParserKind("number");
-/**
- * {@include dataParser/classic/number/index.md}
- */
-function number(definition) {
-    const self = dataParserBaseInit(numberKind, {
-        errorMessage: definition?.errorMessage,
-        checkers: definition?.checkers ?? [],
-        coerce: definition?.coerce ?? false,
-    }, (data, error, self) => {
+class DataParserNumber extends DataParserBase.init(numberKind) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserNumber);
+    }
+    static execParse(self, data, error) {
         const inputData = data;
         if (self.definition.coerce) {
             try {
@@ -25,9 +21,25 @@ function number(definition) {
             return data;
         }
         return addIssue(error, "number", inputData, self.definition.errorMessage);
-    }, number.overrideHandler);
-    return self;
+    }
+    static dataParserIsAsynchronous(self) {
+        return false;
+    }
+    static prepareDefinition(definition) {
+        return {
+            ...definition,
+            coerce: definition?.coerce ?? false,
+            checkers: definition?.checkers ?? [],
+            errorMessage: definition?.errorMessage,
+        };
+    }
+    /**
+     * {@include dataParser/classic/number/index.md}
+     */
+    static create(definition) {
+        return new DataParserNumber(this.prepareDefinition(definition));
+    }
 }
-number.overrideHandler = createOverride("@duplojs/utils/data-parser/number");
+const number = detachObjectMethod(DataParserNumber, "create");
 
-export { number, numberKind };
+export { DataParserNumber, number, numberKind };
