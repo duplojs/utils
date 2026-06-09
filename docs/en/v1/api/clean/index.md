@@ -35,7 +35,7 @@ Extends a constrained value with compatible constraints without re-validating it
 Converts a Clean handler into a `DataParser` mapped to a wrapped object.
 
 ## [NewType](/en/v1/api/clean/newType)
-Creates a `NewType` (brand) backed by a `DataParser`, with optional constraints.
+Creates a `NewType` (brand) backed by a `DataParser` or primitive handler, with optional constraints.
 
 ## [Entities](/en/v1/api/clean/entity)
 Represents business data structures.

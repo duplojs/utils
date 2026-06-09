@@ -18,7 +18,8 @@ Un `NewType` est un type conçu pour répondre aux exigences métier, tout en é
 <MonacoTSEditor
   src="/examples/v1/api/clean/newType/tryout.doc.ts"
   majorVersion="v1"
-  height="300px"
+  height="565px"
+  :foldLines="[2, 18]"
 />
 
 ## Fonctionnement
@@ -31,11 +32,13 @@ Un `NewType` est un wrapper typé qui :
 
 Vous déclarez un `NewType` via `C.createNewType(...)`, ce qui retourne un **handler**. Ce handler sert ensuite à créer des valeurs sûres au runtime, tout en conservant un typage précis côté TypeScript.
 
+Le deuxième argument peut être un `DataParser` ou un handler de primitive Clean. Passer `C.String`, `C.Number`, `C.Boolean`, `C.BigInt`, `C.Date` ou `C.Time` réutilise le DataParser déjà porté par cette primitive.
+
 ## Créer un `NewType`
 
 Créer un `NewType`, c'est définir :
 - un nom (ex: `"userId"`)
-- un `DataParser` (ex: `DP.number()`)
+- un `DataParser` (ex: `DP.number()`) ou un handler de primitive (ex: `C.Number`)
 - des contraintes optionnelles (ex: `C.Positive`, `C.Email`, ...)
 
 Pour récupérer le type du `NewType` généré, utilisez :
@@ -43,6 +46,24 @@ Pour récupérer le type du `NewType` généré, utilisez :
 ```typescript
 type UserId = C.GetNewType<typeof UserId>;
 ```
+
+## Syntaxe
+
+```typescript
+const UserId = C.createNewType(
+	"userId",
+	DP.number(),
+	C.Positive,
+);
+
+const UserName = C.createNewType(
+	"userName",
+	C.String,
+	C.StringMin(2),
+);
+```
+
+Utilisez la surcharge `DataParser` lorsque la valeur repose sur une forme de parser ou un schéma personnalisé. Utilisez la surcharge avec handler de primitive lorsque le `NewType` correspond directement à une primitive Clean et doit réutiliser son parser existant.
 
 ## Méthodes et Propriétés
 

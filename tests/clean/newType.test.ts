@@ -45,6 +45,23 @@ describe("createNewType", () => {
 			>,
 			"strict"
 		>;
+		type HandlerCheck = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"Label",
+				string,
+				readonly [
+					DClean.ConstraintHandler<
+						"short",
+						string,
+						readonly [DDataParser.DataParserCheckerStringMax],
+						never
+					>,
+				],
+				never
+			>,
+			"strict"
+		>;
 	});
 
 	it("create returns error on invalid input", () => {
@@ -171,10 +188,9 @@ describe("createNewType", () => {
 			"userId",
 			DDataParser.number(),
 		);
+		const value = UserId.createOrThrow(1);
 
-		expect(
-			UserId.createOrThrow(1),
-		).toStrictEqual(
+		expect(value).toStrictEqual(
 			DClean.constrainedTypeKind.setTo(
 				DClean.newTypeKind.setTo(
 					wrapValue(1),
@@ -183,6 +199,211 @@ describe("createNewType", () => {
 				{},
 			),
 		);
+
+		type HandlerCheck = ExpectType<
+			typeof UserId,
+			DClean.NewTypeHandler<
+				"userId",
+				number,
+				readonly [],
+				never
+			>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"userId",
+				1,
+				never
+			>,
+			"strict"
+		>;
+	});
+
+	it("infers deep readonly value from object data parser", () => {
+		const Profile = DClean.createNewType(
+			"Profile",
+			DDataParser.object({
+				identity: DDataParser.object({
+					name: DDataParser.string(),
+				}),
+			}),
+		);
+
+		const value = Profile.createOrThrow({
+			identity: {
+				name: "Jane",
+			},
+		});
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue({
+						identity: {
+							name: "Jane",
+						},
+					}),
+					{},
+				),
+				"Profile",
+			),
+		);
+
+		type HandlerCheck = ExpectType<
+			typeof Profile,
+			DClean.NewTypeHandler<
+				"Profile",
+				{
+					readonly identity: {
+						readonly name: string;
+					};
+				},
+				readonly [],
+				never
+			>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"Profile",
+				{
+					readonly identity: {
+						readonly name: "Jane";
+					};
+				},
+				never
+			>,
+			"strict"
+		>;
+	});
+
+	it("creates new type from primitive handler data parser", () => {
+		const Label = DClean.createNewType(
+			"LabelFromPrimitive",
+			DClean.String,
+		);
+
+		const value = Label.createOrThrow("test");
+		const result = Label.create("test");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("test"),
+					{},
+				),
+				"LabelFromPrimitive",
+			),
+		);
+		expect(result).toStrictEqual(
+			DEither.right(
+				"createNewType",
+				value,
+			),
+		);
+
+		type HandlerCheck = ExpectType<
+			typeof Label,
+			DClean.NewTypeHandler<
+				"LabelFromPrimitive",
+				string,
+				readonly [],
+				never
+			>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"LabelFromPrimitive",
+				"test",
+				never
+			>,
+			"strict"
+		>;
+		type ResultCheck = ExpectType<
+			typeof result,
+			| DEither.Right<
+				"createNewType",
+				DClean.NewType<
+					"LabelFromPrimitive",
+					"test",
+					never
+				>
+			>
+			| DEither.Left<
+				"createNewTypeError",
+				DDataParser.DataParserError
+			>,
+			"strict"
+		>;
+	});
+
+	it("creates new type from primitive handler with constraints", () => {
+		const minConstraint = DClean.StringMin(2);
+		const maxConstraint = DClean.StringMax(5);
+		const Label = DClean.createNewType(
+			"ConstrainedLabelFromPrimitive",
+			DClean.String,
+			[
+				minConstraint,
+				maxConstraint,
+			],
+		);
+
+		const value = Label.createOrThrow("test");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("test"),
+					{
+						"string-min-2": null,
+						"string-max-5": null,
+					},
+				),
+				"ConstrainedLabelFromPrimitive",
+			),
+		);
+		expect(Label.getConstraint("string-min-2")).toBe(minConstraint);
+		expect(Label.getConstraint("string-max-5")).toBe(maxConstraint);
+		expect(() => Label.createOrThrow("t")).toThrow(DClean.CreateNewTypeError);
+
+		type HandlerCheck = ExpectType<
+			typeof Label,
+			DClean.NewTypeHandler<
+				"ConstrainedLabelFromPrimitive",
+				string,
+				readonly [
+					DClean.ConstraintHandler<
+						"string-min-2",
+						string,
+						readonly [DDataParser.DataParserCheckerStringMin],
+						never
+					>,
+					DClean.ConstraintHandler<
+						"string-max-5",
+						string,
+						readonly [DDataParser.DataParserCheckerStringMax],
+						never
+					>,
+				],
+				never
+			>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"ConstrainedLabelFromPrimitive",
+				"test",
+				"string-min-2" | "string-max-5"
+			>,
+			"strict"
+		>;
 	});
 
 	it("forbidden create newType with transform data parser", () => {

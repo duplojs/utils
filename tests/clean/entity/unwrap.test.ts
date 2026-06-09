@@ -212,7 +212,7 @@ describe("unwrapEntity", () => {
 	});
 
 	it("passes transformer to nested property unwrapping", () => {
-		const Name = DClean.createNewType("name", DClean.String.dataParser);
+		const Name = DClean.createNewType("name", DClean.String.internal.dataParser);
 		const Label = DClean.createNewType("label", DDataParser.string());
 
 		const User = DClean.createEntity(

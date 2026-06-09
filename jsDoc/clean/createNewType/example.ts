@@ -16,6 +16,16 @@ const fromPrimitive = UserId.createOrThrow(
 	C.Number.createOrThrow(5),
 );
 
+const UserName = C.createNewType(
+	"user-name",
+	C.String,
+	C.StringMin(2),
+);
+
+type UserName = C.GetNewType<typeof UserName>;
+
+const userName = UserName.createOrThrow("Ada");
+
 UserId.is(result); // type guard
 
 const unknownValue: unknown = 20;

@@ -252,17 +252,23 @@ export class CreateNewTypeError extends kindHeritage(
 export function createNewType<
 	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParserBase,
+	GenericDataParserError extends DataParserContainTransform<GenericDataParser>,
 	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
 		Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>
 	> = never,
+	GenericConstraints extends ExtractConstraintSetConstraintHandlers<
+		GenericConstraintsHandler
+	> = ExtractConstraintSetConstraintHandlers<
+		GenericConstraintsHandler
+	>,
 >(
 	name: GenericName,
-	dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>,
+	dataParser: GenericDataParser & NoInfer<GenericDataParserError>,
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
 	DeepReadonly<DDataParser.Output<GenericDataParser>>,
-	ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
+	GenericConstraints,
 	IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
 		? never
 		: DDataParser.Input<GenericDataParser>
@@ -272,16 +278,21 @@ export function createNewType<
 	GenericName extends string,
 	GenericPrimitiveHandler extends PrimitiveHandlers,
 	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
-		Extract<ReturnType<GenericPrimitiveHandler["createWithUnknownOrThrow"]>, EligiblePrimitive>
+		Extract<DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, EligiblePrimitive>
 	> = never,
+	GenericConstraints extends ExtractConstraintSetConstraintHandlers<
+		GenericConstraintsHandler
+	> = ExtractConstraintSetConstraintHandlers<
+		GenericConstraintsHandler
+	>,
 >(
 	name: GenericName,
 	primitiveHandler: GenericPrimitiveHandler,
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
-	ReturnType<GenericPrimitiveHandler["createWithUnknownOrThrow"]>,
-	ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
+	DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
+	NoInfer<GenericConstraints>,
 	GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredInput>
 		? InferredInput
 		: never
@@ -306,7 +317,7 @@ export function createNewType(
 
 	const dataParser = DDataParser.dataParserKind.has(maybeDataParser)
 		? maybeDataParser
-		: maybeDataParser.dataParser;
+		: maybeDataParser.internal.dataParser;
 
 	const dataParserWithCheckers = constraint
 		? dataParser.addChecker(...checkers)

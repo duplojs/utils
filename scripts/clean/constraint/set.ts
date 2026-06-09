@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "../kind";
 import { constrainedTypeKind, type GetConstraint, type ConstraintHandler } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
@@ -295,24 +295,26 @@ export type ExtractConstraintSetConstraintHandlers<
 		| readonly ConstraintSetInputConstraint<any>[]
 		| readonly []
 	),
-> = GenericConstraint extends ConstraintHandler<any, any, any, any>
-	? readonly [GenericConstraint]
-	: GenericConstraint extends ConstraintsSetHandler<any, any, any>
-		? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]>
-		: GenericConstraint extends readonly []
-			? GenericConstraint
-			: GenericConstraint extends readonly [
-				infer InferredFirst extends ConstraintSetInputConstraint<any>,
-				...infer InferredRest extends readonly ConstraintSetInputConstraint<any>[],
-			]
-				? ExtractConstraintSetConstraintHandlers<InferredRest> extends infer
-				InferredResultRest extends readonly any[]
-					? readonly [
-						...ExtractConstraintSetConstraintHandlers<InferredFirst>,
-						...InferredResultRest,
-					]
-					: never
-				: never;
+> = IsEqual<GenericConstraint, never> extends true
+	? readonly []
+	: GenericConstraint extends ConstraintHandler<any, any, any, any>
+		? readonly [GenericConstraint]
+		: GenericConstraint extends ConstraintsSetHandler<any, any, any>
+			? ExtractConstraintSetConstraintHandlers<GenericConstraint["internal"]["constraints"]>
+			: GenericConstraint extends readonly []
+				? GenericConstraint
+				: GenericConstraint extends readonly [
+					infer InferredFirst extends ConstraintSetInputConstraint<any>,
+					...infer InferredRest extends readonly ConstraintSetInputConstraint<any>[],
+				]
+					? ExtractConstraintSetConstraintHandlers<InferredRest> extends infer
+					InferredResultRest extends readonly any[]
+						? readonly [
+							...ExtractConstraintSetConstraintHandlers<InferredFirst>,
+							...InferredResultRest,
+						]
+						: never
+					: never;
 
 /**
  * {@include clean/createConstraintsSet/index.md}
@@ -342,6 +344,7 @@ export function createConstraintsSet<
 	);
 
 	const dataParserWithCheckers = primitiveHandler
+		.internal
 		.dataParser
 		.addChecker(...checkers);
 

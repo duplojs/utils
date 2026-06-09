@@ -18,10 +18,18 @@ export interface PrimitiveHandler<
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericInput extends unknown = unknown,
 > extends Kind<typeof primitiveHandlerKind.definition> {
+
+	/**
+	 * @deprecated
+	 */
 	readonly dataParser: DDataParser.DataParser<
 		GenericValue,
 		unknown
 	>;
+
+	readonly internal: {
+		readonly dataParser: DDataParser.DataParser<GenericValue, unknown>;
+	};
 
 	/**
 	 * {@include clean/primitive/create.md}
@@ -165,6 +173,9 @@ export function createPrimitive<
 			createWithUnknown: create,
 			createWithUnknownOrThrow: createOrThrow,
 			is,
+			internal: {
+				dataParser,
+			},
 		} satisfies Record<keyof RemoveKind<PrimitiveHandler>, unknown>,
 		primitiveHandlerKind.setTo,
 		createPrimitive.overrideHandler.apply as AnyFunction,

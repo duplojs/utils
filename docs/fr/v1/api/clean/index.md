@@ -35,7 +35,7 @@ Les contraintes permettent d'ajouter des règles supplémentaires sur les primit
 Convertit un handler Clean en `DataParser` mappé vers un objet wrappé.
 
 ## [NewType](/fr/v1/api/clean/newType)
-Crée un `NewType` (brand) adossé à un `DataParser`, avec contraintes optionnelles.
+Crée un `NewType` (brand) adossé à un `DataParser` ou à un handler de primitive, avec contraintes optionnelles.
 
 ## [Entités](/fr/v1/api/clean/entity)
 Représente les structures de données du métier.

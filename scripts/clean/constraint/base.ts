@@ -238,6 +238,7 @@ export function createConstraint<
 	> {
 	const checkers = DArray.coalescing(checker);
 	const dataParserWithCheckers = primitiveHandler
+		.internal
 		.dataParser
 		.addChecker(...checkers as [never]);
 

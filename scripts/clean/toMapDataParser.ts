@@ -69,7 +69,7 @@ export function toMapDataParser(
 	}
 
 	const dataParser = (primitiveHandlerKind.has(input)
-		? input.dataParser.clone()
+		? input.internal.dataParser.clone()
 		: input.internal.dataParser.clone()) as DDataParser.DataParsers;
 
 	if (
