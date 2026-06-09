@@ -1,11 +1,11 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
-import { type Primitive, type EligiblePrimitive } from "./primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandlers, type PrimitiveHandler } from "./primitive";
 import * as DEither from "../either";
 import * as DArray from "../array";
 import * as DObject from "../object";
-import type * as DDataParser from "../dataParser";
+import * as DDataParser from "../dataParser";
 import { type DataParserContainTransform } from "./types";
 
 export const newTypeKind = createCleanKind<"new-type", string>("new-type");
@@ -260,27 +260,56 @@ export function createNewType<
 	dataParser: GenericDataParser & DataParserContainTransform<GenericDataParser>,
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
-		GenericName,
-		DeepReadonly<DDataParser.Output<GenericDataParser>>,
-		ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
-		IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
-			? never
-			: DDataParser.Input<GenericDataParser>
-	> {
+	GenericName,
+	DeepReadonly<DDataParser.Output<GenericDataParser>>,
+	ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
+	IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
+		? never
+		: DDataParser.Input<GenericDataParser>
+>;
+
+export function createNewType<
+	GenericName extends string,
+	GenericPrimitiveHandler extends PrimitiveHandlers,
+	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
+		Extract<ReturnType<GenericPrimitiveHandler["createWithUnknownOrThrow"]>, EligiblePrimitive>
+	> = never,
+>(
+	name: GenericName,
+	primitiveHandler: GenericPrimitiveHandler,
+	constraint?: GenericConstraintsHandler,
+): NewTypeHandler<
+	GenericName,
+	ReturnType<GenericPrimitiveHandler["createWithUnknownOrThrow"]>,
+	ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>,
+	GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredInput>
+		? InferredInput
+		: never
+>;
+
+export function createNewType(
+	name: string,
+	maybeDataParser: DP.DataParser | PrimitiveHandlers,
+	constraint?: ConstraintsHandlerArguments,
+): any {
 	const constraints = DArray.flatMap(
 		DArray.coalescing(constraint ?? []),
 		(constraint) => constraintsSetHandlerKind.has(constraint)
 			? constraint.internal.constraints
 			: constraint,
-	) as ConstraintHandler[];
+	);
 
 	const checkers = DArray.flatMap(
 		constraints,
 		({ internal }) => internal.checkers,
 	);
 
+	const dataParser = DDataParser.dataParserKind.has(maybeDataParser)
+		? maybeDataParser
+		: maybeDataParser.dataParser;
+
 	const dataParserWithCheckers = constraint
-		? dataParser.addChecker(...checkers as never)
+		? dataParser.addChecker(...checkers)
 		: dataParser;
 
 	const constraintKindValue = pipe(

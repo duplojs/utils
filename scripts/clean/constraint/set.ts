@@ -280,7 +280,7 @@ export type ConstraintSetInputConstraint<
 );
 
 export type ConstraintsHandlerArguments<
-	GenericValue extends EligiblePrimitive,
+	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 > = (
 	| ConstraintSetInputConstraint<GenericValue>
 	| readonly [

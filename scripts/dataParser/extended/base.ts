@@ -115,11 +115,11 @@ export abstract class DataParserBaseExtended<
 				dataParsers.DataParserDefinitionTransform,
 				DCommon.NeverCoalescing<GenericDefinition, {}> & {
 					inner: GenericThis;
-					theFunction(input: Output<GenericThis>): GenericOutput;
+					theFunction(input: Output<GenericThis>, error: DataParserError): GenericNewOutput;
 				}
 			>
 		> {
-		return DataParserTransformExtended.create(this, theFunction, definition) as never;
+		return DataParserTransformExtended.create(this, theFunction, definition);
 	}
 
 	/**
@@ -150,16 +150,18 @@ export abstract class DataParserBaseExtended<
 					readonly options: [
 						DataParserArrayExtended<
 							DCommon.SimplifyTopLevel<
-								& Omit<dataParsers.DataParserDefinitionArray, "element">
+								& Omit<dataParsers.DataParserDefinitionArray, "element" | "checkers">
 								& {
+									readonly checkers: readonly [];
 									readonly element: GenericThis;
 								}
 							>
 						>,
 						DataParserTransformExtended<
 							DCommon.SimplifyTopLevel<
-								& Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction">
+								& Omit<dataParsers.DataParserDefinitionTransform, "inner" | "theFunction" | "checkers">
 								& {
+									readonly checkers: readonly [];
 									readonly inner: GenericThis;
 									theFunction(
 										input: Output<GenericThis>,
@@ -177,8 +179,8 @@ export abstract class DataParserBaseExtended<
 				this.array(),
 				this.transform((data) => [data]),
 			],
-			definition as never,
-		) as never;
+			definition,
+		);
 	}
 
 	/**
@@ -560,7 +562,7 @@ export class DataParserTransformExtended<
 				dataParsers.DataParserDefinitionTransform,
 			DCommon.NeverCoalescing<GenericDefinition, {}> & {
 				inner: GenericDataParser;
-				theFunction(input: Output<GenericDataParser>): GenericOutput;
+				theFunction(input: Output<GenericDataParser>, error: DataParserError): GenericOutput;
 			}
 			>
 		> {

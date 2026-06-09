@@ -134,3 +134,13 @@ export type NumberMax<
 		typeof NumberMax<GenericValue>
 	>
 >;
+
+/**
+ * {@include clean/NotZero/index.md}
+ */
+export const NotZero = createConstraint(
+	"not-zero",
+	Number,
+	DDataParser.checkerRefine((value) => value !== 0),
+);
+export type NotZero = GetConstraint<typeof NotZero>;

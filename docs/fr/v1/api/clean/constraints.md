@@ -229,6 +229,16 @@ Valide un nombre inférieur ou égal à max.
   height="271px"
 />
 
+### `NotZero`
+
+Valide un nombre différent de zéro.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/notZero.doc.ts"
+  majorVersion="v1"
+  height="271px"
+/>
+
 ### `PositiveTime`
 
 Valide une durée strictement positive (>= 1 milliseconde) sur la primitive `C.Time`.

@@ -1,4 +1,4 @@
-import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type IsExtends, type AnyTuple, type Unwrap, unwrap } from "@scripts/common";
+import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type AnyTuple, type Unwrap, unwrap } from "@scripts/common";
 import * as EE from "@scripts/either";
 import { createCleanKind } from "./kind";
 

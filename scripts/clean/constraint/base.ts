@@ -1,4 +1,4 @@
-import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction } from "@scripts";
+import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction, type FixDeepFunctionInfer } from "@scripts";
 import { createCleanKind } from "../kind";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
 import * as DArray from "@scripts/array";
@@ -214,7 +214,22 @@ export function createConstraint<
 >(
 	name: GenericName,
 	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
-	checker: GenericChecker,
+	checker: FixDeepFunctionInfer<
+		(
+			| DDataParser.DataParserChecker<
+				GenericPrimitiveValue
+			>
+			| readonly [
+				DDataParser.DataParserChecker<
+					GenericPrimitiveValue
+				>,
+				...DDataParser.DataParserChecker<
+					GenericPrimitiveValue
+				>[],
+			]
+		),
+		GenericChecker
+	>,
 ): ConstraintHandler<
 		GenericName,
 		GenericPrimitiveValue,
@@ -224,7 +239,7 @@ export function createConstraint<
 	const checkers = DArray.coalescing(checker);
 	const dataParserWithCheckers = primitiveHandler
 		.dataParser
-		.addChecker(...checkers);
+		.addChecker(...checkers as [never]);
 
 	const constraintKindValue = { [name]: null };
 

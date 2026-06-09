@@ -1,14 +1,51 @@
-import { DClean, unwrap } from "@scripts";
+import { C, type ExpectType, pipe, unwrap } from "@scripts";
 
-describe("clean primitive number divide", () => {
-	const four = DClean.Number.createOrThrow(4);
-	const two = DClean.Number.createOrThrow(2);
+describe("divide", () => {
+	it("divides a Number by a NotZero divisor directly", () => {
+		const value = C.Number.createOrThrow(4);
+		const divisor = C.NotZero.createOrThrow(2);
 
-	it("divides directly", () => {
-		expect(unwrap(DClean.divide(four, two))).toBe(2);
+		const result = C.divide(value, divisor);
+
+		type check = ExpectType<
+			typeof result,
+			C.Number,
+			"strict"
+		>;
+
+		expect(unwrap(result)).toBe(2);
 	});
 
-	it("divides curried", () => {
-		expect(unwrap(DClean.divide(two)(four))).toBe(2);
+	it("supports pipe with a NotZero divisor", () => {
+		const value = C.Number.createOrThrow(20);
+		const divisor = C.NotZero.createOrThrow(5);
+
+		const result = pipe(
+			value,
+			C.divide(divisor),
+		);
+
+		type check = ExpectType<
+			typeof result,
+			C.Number,
+			"strict"
+		>;
+
+		expect(unwrap(result)).toBe(4);
+	});
+
+	it("supports negative NotZero divisors", () => {
+		const value = C.Number.createOrThrow(6);
+		const divisor = C.NotZero.createOrThrow(-2);
+
+		const result = C.divide(value, divisor);
+
+		type check = ExpectType<
+			typeof result,
+			C.Number,
+			"strict"
+		>;
+
+		expect(unwrap(result)).toBe(-3);
 	});
 });

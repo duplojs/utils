@@ -1,5 +1,6 @@
 ---
 outline: [2, 3]
+description: "divide() divides a wrapped Number by a divisor validated with the NotZero constraint. Supports the curried version."
 prev:
   text: "multiply"
   link: "/en/v1/api/clean/primitives/operators/multiply"
@@ -10,14 +11,14 @@ next:
 
 # divide
 
-`divide()` divides a `Number` (wrapped) by a divisor (wrapped or raw). Supports the curried version.
+`divide()` divides a wrapped `Number` by a divisor validated with the `NotZero` constraint. Supports the curried version.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/primitives/operators/divide/tryout.doc.ts"
   majorVersion="v1"
-  height="320px"
+  height="313px"
 />
 
 ## Syntax
@@ -27,7 +28,7 @@ next:
 ```typescript
 function divide(
 	value: Number, 
-	divisor: Number | number
+	divisor: NotZero
 ): Number
 ```
 
@@ -35,14 +36,14 @@ function divide(
 
 ```typescript
 function divide(
-	divisor: Number | number
+	divisor: NotZero
 ): (value: Number) => Number
 ```
 
 ## Parameters
 
 - `value` : base value (classic signature only).
-- `divisor` : divisor.
+- `divisor` : divisor validated with `C.NotZero`.
 
 ## Return value
 
@@ -51,3 +52,4 @@ A wrapped `Number` containing the quotient.
 ## See also
 
 - [`multiply`](/en/v1/api/clean/primitives/operators/multiply)
+- [`NotZero`](/en/v1/api/clean/constraints#notzero)
