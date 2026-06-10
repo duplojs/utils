@@ -122,3 +122,4 @@ export const NoBlank = createConstraint(
 	String,
 	DDataParser.checkerRegex(/^\S+$/),
 );
+export type NoBlank = GetConstraint<typeof NoBlank>;
