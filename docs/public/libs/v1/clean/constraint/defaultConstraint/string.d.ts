@@ -125,3 +125,35 @@ export type StringMaxInternal<GenericValue extends number = number> = GetConstra
  */
 export declare function StringMax<GenericValue extends number>(value: GenericValue & OnlyLiteralNumber<GenericValue>): StringMaxHandlerInternal<GenericValue>;
 export type StringMax<GenericValue extends number> = GetConstraint<ReturnType<typeof StringMax<GenericValue>>>;
+/**
+ * Constraint handler that validates non-empty strings without whitespace characters.
+ * 
+ * **Supported call styles:**
+ * - Classic: `NoBlank.create(value)` -> returns Either
+ * 
+ * Use it as a reusable rule to validate inputs and to constrain NewTypes that must reject blank characters, such as slugs, identifiers, or compact tokens.
+ * 
+ * ```ts
+ * const result = C.NoBlank.create("user-name");
+ * 
+ * if (E.isRight(result)) {
+ * 	// result: E.Right<"createConstrainedType", C.ConstrainedType<"no-blank", "user-name">>
+ * }
+ * 
+ * const token = C.NoBlank.createOrThrow("alpha-123");
+ * // token: C.ConstrainedType<"no-blank", "alpha-123">
+ * 
+ * C.NoBlank.is(token); // type guard
+ * 
+ * const rejected = C.NoBlank.create("hello world");
+ * 
+ * if (E.isLeft(rejected)) {
+ * 	// The value contains a whitespace character.
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
+ * 
+ * @namespace C
+ * 
+ */
+export declare const NoBlank: ConstraintHandler<"no-blank", string, readonly [DDataParser.DataParserCheckerRegex], never>;

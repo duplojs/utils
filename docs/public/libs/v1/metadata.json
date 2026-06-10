@@ -4206,6 +4206,24 @@
           "name": "unwrapByInformationOrThrow.mjs"
         },
         {
+          "name": "unwrapSelection.cjs"
+        },
+        {
+          "name": "unwrapSelection.d.ts"
+        },
+        {
+          "name": "unwrapSelection.mjs"
+        },
+        {
+          "name": "unwrapSelectionOrThrow.cjs"
+        },
+        {
+          "name": "unwrapSelectionOrThrow.d.ts"
+        },
+        {
+          "name": "unwrapSelectionOrThrow.mjs"
+        },
+        {
           "name": "whenHasInformation.cjs"
         },
         {

@@ -7,6 +7,8 @@ export { matchInformation } from './matchInformation.mjs';
 export { matchInformationOtherwise } from './matchInformationOtherwise.mjs';
 export { unwrapByInformation } from './unwrapByInformation.mjs';
 export { HasNotInformationError, unwrapByInformationOrThrow } from './unwrapByInformationOrThrow.mjs';
+export { unwrapSelection } from './unwrapSelection.mjs';
+export { HasNotSelectedInformationError, unwrapSelectionOrThrow } from './unwrapSelectionOrThrow.mjs';
 export { bool } from './bool/create.mjs';
 export { boolFalsy, boolFalsyKind, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy } from './bool/falsy.mjs';
 export { boolTruthy, boolTruthyKind, eitherBoolTruthyKind, isBoolTruthy, whenIsBoolTruthy } from './bool/truthy.mjs';

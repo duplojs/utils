@@ -139,6 +139,16 @@ Valide une chaîne au format UUID.
   height="240px"
 />
 
+### `NoBlank`
+
+Valide une chaîne non vide sans caractères d'espacement.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/noBlank.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `StringMin`
 
 Valide une chaîne avec une longueur minimale (>= min).

@@ -15,6 +15,27 @@ function appendEvidence(...args) {
     };
     return evidenceKind.addTo(input, evidence);
 }
+function hasEvidence(...args) {
+    if (args.length === 1) {
+        const [evidenceName] = args;
+        return (input) => hasEvidence(input, evidenceName);
+    }
+    const [input, evidenceName] = args;
+    if (!evidenceKind.has(input)) {
+        return false;
+    }
+    const formattedEvidenceName = evidenceName instanceof Array
+        ? evidenceName
+        : [evidenceName];
+    const evidence = evidenceKind.getValue(input);
+    for (const name of formattedEvidenceName) {
+        if (name in evidence) {
+            return true;
+        }
+    }
+    return false;
+}
 
 exports.appendEvidence = appendEvidence;
 exports.evidenceKind = evidenceKind;
+exports.hasEvidence = hasEvidence;

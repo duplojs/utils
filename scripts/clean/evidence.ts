@@ -1,4 +1,4 @@
-import { type Kind } from "@scripts/common";
+import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type NewType } from "./newType";
 import { type Entity } from "./entity";
@@ -67,3 +67,95 @@ export function appendEvidence(
 		evidence,
 	);
 }
+
+/**
+ * {@include clean/hasEvidence/index.md}
+ */
+export function hasEvidence<
+	GenericInput extends unknown,
+	GenericEvidenceName extends Extract<
+		keyof UnionToIntersection<
+			GetKindValue<
+				typeof evidenceKind,
+				Extract<GenericInput, Evidence>
+			>
+		>,
+		string
+	>,
+>(
+	evidenceName: GenericEvidenceName | AnyTuple<GenericEvidenceName>
+): (input: GenericInput) => input is Extract<
+	GenericInput,
+	GenericEvidenceName extends any
+		? Evidence<GenericEvidenceName>
+		: never
+>;
+
+export function hasEvidence<
+	GenericInput extends unknown,
+	GenericEvidenceName extends Extract<
+		keyof UnionToIntersection<
+			GetKindValue<
+				typeof evidenceKind,
+				Extract<GenericInput, Evidence>
+			>
+		>,
+		string
+	>,
+>(
+	input: GenericInput,
+	evidenceName: GenericEvidenceName | AnyTuple<GenericEvidenceName>
+): input is Extract<
+	GenericInput,
+	GenericEvidenceName extends any
+		? Evidence<GenericEvidenceName>
+		: never
+>;
+
+export function hasEvidence(
+	...args: [unknown, string | AnyTuple<string>] | [string | AnyTuple<string>]
+): any {
+	if (args.length === 1) {
+		const [evidenceName] = args;
+		return (input: unknown) => hasEvidence(input, evidenceName as never);
+	}
+
+	const [input, evidenceName] = args;
+	if (!evidenceKind.has(input)) {
+		return false;
+	}
+
+	const formattedEvidenceName = evidenceName instanceof Array
+		? evidenceName
+		: [evidenceName];
+	const evidence = evidenceKind.getValue(input);
+
+	for (const name of formattedEvidenceName) {
+		if (name in evidence) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+export type GetEvidenceResult<
+	GenericFunction extends AnyFunction,
+	EvidenceName extends Extract<
+		keyof UnionToIntersection<
+			GetKindValue<
+				typeof evidenceKind,
+				Extract<
+					Awaited<ReturnType<GenericFunction>>,
+					Evidence
+				>
+			>
+		>,
+		string
+	>,
+> = Extract<
+	Awaited<ReturnType<GenericFunction>>,
+	EvidenceName extends any
+		? Evidence<EvidenceName>
+		: never
+>;

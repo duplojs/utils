@@ -5,8 +5,8 @@ prev:
   text: "unwrapByInformation"
   link: "/en/v1/api/either/unwrapByInformation"
 next:
-  text: "expect"
-  link: "/en/v1/api/either/expect"
+  text: "unwrapSelection"
+  link: "/en/v1/api/either/unwrapSelection"
 ---
 
 # unwrapByInformationOrThrow

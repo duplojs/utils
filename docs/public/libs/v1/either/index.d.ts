@@ -38,3 +38,5 @@ export * from "./matchInformation";
 export * from "./matchInformationOtherwise";
 export * from "./unwrapByInformation";
 export * from "./unwrapByInformationOrThrow";
+export * from "./unwrapSelection";
+export * from "./unwrapSelectionOrThrow";

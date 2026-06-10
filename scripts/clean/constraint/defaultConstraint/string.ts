@@ -113,3 +113,12 @@ export type StringMax<
 		typeof StringMax<GenericValue>
 	>
 >;
+
+/**
+ * {@include clean/NoBlank/index.md}
+ */
+export const NoBlank = createConstraint(
+	"no-blank",
+	String,
+	DDataParser.checkerRegex(/^\S+$/),
+);

@@ -7,6 +7,7 @@ var uuid = require('../../../dataParser/parsers/string/checkers/uuid.cjs');
 var url = require('../../../dataParser/parsers/string/checkers/url.cjs');
 var min = require('../../../dataParser/parsers/string/checkers/min.cjs');
 var max = require('../../../dataParser/parsers/string/checkers/max.cjs');
+var regex = require('../../../dataParser/parsers/string/checkers/regex.cjs');
 
 /**
  * {@include clean/Email/index.md}
@@ -29,8 +30,13 @@ function StringMin(value) {
 function StringMax(value) {
     return base.createConstraint(`string-max-${value}`, base$1.String, max.checkerStringMax(value));
 }
+/**
+ * {@include clean/NoBlank/index.md}
+ */
+const NoBlank = base.createConstraint("no-blank", base$1.String, regex.checkerRegex(/^\S+$/));
 
 exports.Email = Email;
+exports.NoBlank = NoBlank;
 exports.StringMax = StringMax;
 exports.StringMin = StringMin;
 exports.Url = Url;

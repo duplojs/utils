@@ -1,4 +1,4 @@
-import { DClean, pipe, type ExpectType } from "@scripts";
+import { DClean, pipe, type ExpectType, when } from "@scripts";
 
 describe("appendEvidence", () => {
 	it("appends an evidence entry on a clean input", () => {
@@ -48,6 +48,92 @@ describe("appendEvidence", () => {
 		type Check = ExpectType<
 			typeof result,
 			typeof input & DClean.Evidence<"from-pipe">,
+			"strict"
+		>;
+	});
+});
+
+describe("hasEvidence", () => {
+	it("checks if an evidence is present on the input", () => {
+		const input = DClean.String.createOrThrow("hello");
+		const withEvidence = DClean.appendEvidence(input, "validated");
+
+		const result = DClean.hasEvidence(withEvidence, "validated");
+
+		expect(result).toBe(true);
+
+		if (result) {
+			type check = ExpectType<
+				typeof withEvidence,
+				typeof input & DClean.Evidence<"validated">,
+				"strict"
+			>;
+		}
+	});
+
+	it("returns false when the input has no evidence", () => {
+		const input = DClean.String.createOrThrow("hello") as (
+			| (DClean.String & DClean.Evidence<"validated">)
+			| DClean.String
+		);
+
+		const result = DClean.hasEvidence(input, "validated");
+
+		expect(result).toBe(false);
+	});
+
+	it("returns false when the requested evidence is missing", () => {
+		const input = DClean.String.createOrThrow("hello");
+		const withEvidence = DClean.appendEvidence(input, "parsed" as string);
+
+		const result = DClean.hasEvidence(withEvidence, "validated");
+
+		expect(result).toBe(false);
+	});
+
+	it("checks if some evidence from a list is present on the input", () => {
+		const input = DClean.String.createOrThrow("hello");
+		const withEvidence = DClean.appendEvidence(input, "parsed") as (
+			| (DClean.String & DClean.Evidence<"validated">)
+			| DClean.String & DClean.Evidence<"parsed">
+		);
+
+		const result = DClean.hasEvidence(
+			withEvidence,
+			["validated", "parsed"],
+		);
+
+		expect(result).toBe(true);
+	});
+
+	it("works in pipe with when", () => {
+		const input = DClean.String.createOrThrow("hello");
+		const withEvidence = DClean.appendEvidence(input, "from-pipe") as (
+			| (DClean.String & DClean.Evidence<"validated">)
+			| DClean.Primitive<"hello"> & DClean.Evidence<"from-pipe">
+		);
+
+		const result = pipe(
+			withEvidence,
+			when(
+				DClean.hasEvidence("from-pipe"),
+				(value) => {
+					type check = ExpectType<
+						typeof value,
+						typeof input & DClean.Evidence<"from-pipe">,
+						"strict"
+					>;
+
+					return true;
+				},
+			),
+		);
+
+		expect(result).toBe(true);
+
+		type check = ExpectType<
+			typeof result,
+			boolean | (DClean.Primitive<string> & DClean.Evidence<"validated">),
 			"strict"
 		>;
 	});

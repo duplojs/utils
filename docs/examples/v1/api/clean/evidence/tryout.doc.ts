@@ -9,9 +9,22 @@ const withParsedEvidence = C.appendEvidence(
 );
 
 const withValidatedEvidence = C.appendEvidence(
-	withParsedEvidence,
+	userNameValue,
 	"validated",
 );
+
+const parsedOrValidated = false
+	? withParsedEvidence
+	: withValidatedEvidence;
+
+if (C.hasEvidence(parsedOrValidated, "validated")) {
+	type checkHasEvidence = ExpectType<
+		typeof parsedOrValidated,
+		C.NewType<"UserName", "Ada", never>
+		& C.Evidence<"validated">,
+		"strict"
+	>;
+}
 
 const withPipeEvidence = pipe(
 	userNameValue,
@@ -21,7 +34,6 @@ const withPipeEvidence = pipe(
 type checkValidated = ExpectType<
 	typeof withValidatedEvidence,
 	C.NewType<"UserName", "Ada", never>
-	& C.Evidence<"parsed">
 	& C.Evidence<"validated">,
 	"strict"
 >;

@@ -5,6 +5,7 @@ import { checkerUuid } from '../../../dataParser/parsers/string/checkers/uuid.mj
 import { checkerUrl } from '../../../dataParser/parsers/string/checkers/url.mjs';
 import { checkerStringMin } from '../../../dataParser/parsers/string/checkers/min.mjs';
 import { checkerStringMax } from '../../../dataParser/parsers/string/checkers/max.mjs';
+import { checkerRegex } from '../../../dataParser/parsers/string/checkers/regex.mjs';
 
 /**
  * {@include clean/Email/index.md}
@@ -27,5 +28,9 @@ function StringMin(value) {
 function StringMax(value) {
     return createConstraint(`string-max-${value}`, String, checkerStringMax(value));
 }
+/**
+ * {@include clean/NoBlank/index.md}
+ */
+const NoBlank = createConstraint("no-blank", String, checkerRegex(/^\S+$/));
 
-export { Email, StringMax, StringMin, Url, Uuid };
+export { Email, NoBlank, StringMax, StringMin, Url, Uuid };

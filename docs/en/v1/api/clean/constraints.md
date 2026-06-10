@@ -139,6 +139,16 @@ Validates a string in UUID format.
   height="240px"
 />
 
+### `NoBlank`
+
+Validates a non-empty string without whitespace characters.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/noBlank.doc.ts"
+  majorVersion="v1"
+  height="240px"
+/>
+
 ### `StringMin`
 
 Validates a string with a minimum length (>= min).

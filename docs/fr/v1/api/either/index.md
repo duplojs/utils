@@ -122,6 +122,12 @@ Unwrap un `Either` quand une information (ou l'une de plusieurs informations) co
 ### [unwrapByInformationOrThrow](/fr/v1/api/either/unwrapByInformationOrThrow)
 Unwrap un `Either` uniquement lorsqu'une information littérale précise correspond, sinon lève une erreur.
 
+### [unwrapSelection](/fr/v1/api/either/unwrapSelection)
+Unwrap les payloads `Either` sélectionnés par un sélecteur exhaustif d'informations, sinon renvoie l'entrée inchangée.
+
+### [unwrapSelectionOrThrow](/fr/v1/api/either/unwrapSelectionOrThrow)
+Unwrap les payloads `Either` sélectionnés par un sélecteur exhaustif d'informations, sinon lève une erreur.
+
 ### [expect](/fr/v1/api/either/expect)
 Helper de typage qui renvoie le même Either en conservant strictement les types Left/Right.
 

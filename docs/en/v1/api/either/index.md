@@ -207,6 +207,12 @@ Unwraps an `Either` when one information (or one of several informations) matche
 ### [unwrapByInformationOrThrow](/en/v1/api/either/unwrapByInformationOrThrow)
 Unwraps an `Either` only when one precise literal information matches, otherwise throws.
 
+### [unwrapSelection](/en/v1/api/either/unwrapSelection)
+Unwraps selected `Either` payloads from an exhaustive information selector, otherwise returns the input unchanged.
+
+### [unwrapSelectionOrThrow](/en/v1/api/either/unwrapSelectionOrThrow)
+Unwraps selected `Either` payloads from an exhaustive information selector, otherwise throws.
+
 ### [expect](/en/v1/api/either/expect)
 Type-level helper that returns the same Either while preserving strict Left/Right typing.
 
