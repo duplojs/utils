@@ -1,5 +1,5 @@
-import { constrainedTypeKind } from './base.mjs';
-import { coalescing } from '../../array/coalescing.mjs';
+import { constrainedTypeKind } from '../base.mjs';
+import { coalescing } from '../../../array/coalescing.mjs';
 
 function castConstraint(constrainedType, constraintHandler) {
     const preparedConstraintHandler = coalescing(constraintHandler);

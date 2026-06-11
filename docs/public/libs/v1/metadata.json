@@ -163,6 +163,9 @@
               "name": "mapTuple.d.ts"
             },
             {
+              "name": "maxElements.d.ts"
+            },
+            {
               "name": "mergeUnionTuple.d.ts"
             },
             {
@@ -178,6 +181,15 @@
               "name": "tupleHasSpread.d.ts"
             }
           ]
+        },
+        {
+          "name": "castMaxElements.cjs"
+        },
+        {
+          "name": "castMaxElements.d.ts"
+        },
+        {
+          "name": "castMaxElements.mjs"
         },
         {
           "name": "chunk.cjs"
@@ -611,6 +623,61 @@
           "name": "constraint",
           "files": [
             {
+              "name": "cast",
+              "files": [
+                {
+                  "name": "types",
+                  "files": [
+                    {
+                      "name": "castConstraintError.d.ts"
+                    },
+                    {
+                      "name": "constraintValue.d.ts"
+                    },
+                    {
+                      "name": "index.d.ts"
+                    },
+                    {
+                      "name": "resolveConstraintCast.d.ts"
+                    },
+                    {
+                      "name": "toNegative.d.ts"
+                    },
+                    {
+                      "name": "toNumberMax.d.ts"
+                    },
+                    {
+                      "name": "toNumberMin.d.ts"
+                    },
+                    {
+                      "name": "toPositive.d.ts"
+                    },
+                    {
+                      "name": "toStrictNegative.d.ts"
+                    },
+                    {
+                      "name": "toStrictPositive.d.ts"
+                    },
+                    {
+                      "name": "toStringMax.d.ts"
+                    },
+                    {
+                      "name": "toStringMin.d.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "index.cjs"
+                },
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "index.mjs"
+                }
+              ]
+            },
+            {
               "name": "defaultConstraint",
               "files": [
                 {
@@ -670,15 +737,6 @@
             },
             {
               "name": "base.mjs"
-            },
-            {
-              "name": "cast.cjs"
-            },
-            {
-              "name": "cast.d.ts"
-            },
-            {
-              "name": "cast.mjs"
             },
             {
               "name": "index.d.ts"

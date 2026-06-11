@@ -1,3 +1,5 @@
+import { type IsEqual } from "../common";
+import { type MaxElements } from "./types";
 /**
  * Checks whether an array has at most a given length.
  * 
@@ -31,5 +33,5 @@
  * @namespace A
  * 
  */
-export declare function maxElements<GenericArray extends readonly unknown[]>(maxLength: number): (array: GenericArray) => boolean;
-export declare function maxElements<GenericArray extends readonly unknown[]>(array: GenericArray, maxLength: number): boolean;
+export declare function maxElements<GenericArray extends readonly unknown[], GenericLength extends number>(maxLength: GenericLength): (array: GenericArray) => array is GenericArray & (IsEqual<GenericLength, number> extends true ? unknown : MaxElements<GenericLength>);
+export declare function maxElements<GenericArray extends readonly unknown[], GenericLength extends number>(array: GenericArray, maxLength: GenericLength): array is GenericArray & (IsEqual<GenericLength, number> extends true ? unknown : MaxElements<GenericLength>);

@@ -1,7 +1,7 @@
 'use strict';
 
-var base = require('./base.cjs');
-var coalescing = require('../../array/coalescing.cjs');
+var base = require('../base.cjs');
+var coalescing = require('../../../array/coalescing.cjs');
 
 function castConstraint(constrainedType, constraintHandler) {
     const preparedConstraintHandler = coalescing.coalescing(constraintHandler);

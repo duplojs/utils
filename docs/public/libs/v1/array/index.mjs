@@ -5,6 +5,7 @@ export { group, groupOutput } from './group.mjs';
 export { includes } from './includes.mjs';
 export { map } from './map.mjs';
 export { maxElements } from './maxElements.mjs';
+export { castMaxElements } from './castMaxElements.mjs';
 export { maxOf } from './maxOf.mjs';
 export { minElements } from './minElements.mjs';
 export { minOf } from './minOf.mjs';

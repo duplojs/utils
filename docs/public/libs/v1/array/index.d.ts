@@ -33,6 +33,7 @@ export * from "./group";
 export * from "./includes";
 export * from "./map";
 export * from "./maxElements";
+export * from "./castMaxElements";
 export * from "./maxOf";
 export * from "./minElements";
 export * from "./minOf";

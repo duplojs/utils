@@ -12,7 +12,7 @@ export { createPort, portHandlerKind } from './port.mjs';
 export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './entity/property.mjs';
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
 export { CreateConstrainedTypeError, constrainedTypeKind, constraintHandlerKind, createConstraint } from './constraint/base.mjs';
-export { castConstraint } from './constraint/cast.mjs';
+export { castConstraint } from './constraint/cast/index.mjs';
 export { Int, Negative, NotZero, NumberMax, NumberMin, Positive, StrictNegative, StrictPositive } from './constraint/defaultConstraint/number.mjs';
 export { Email, NoBlank, StringMax, StringMin, Url, Uuid } from './constraint/defaultConstraint/string.mjs';
 export { NegativeTime, PositiveTime } from './constraint/defaultConstraint/time.mjs';

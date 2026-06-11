@@ -11,7 +11,8 @@ describe("minElements", () => {
 		if (predicate) {
 			type check = ExpectType<
 				typeof value,
-				[string, string, string, string, string, string, string, string, string, string, ...string[]],
+				string[]
+				& [string, string, string, string, string, string, string, string, string, string, ...string[]],
 				"strict"
 			>;
 		}
@@ -25,7 +26,8 @@ describe("minElements", () => {
 				(value) => {
 					type check = ExpectType<
 						typeof value,
-						[string, string, string, string, string, string, string, string, string, string, ...string[]],
+						string[]
+						& [string, string, string, string, string, string, string, string, string, string, ...string[]],
 						"strict"
 					>;
 

@@ -46,11 +46,11 @@ import { type CreateTuple } from "./types/createTuple";
  * @namespace A
  * 
  */
-export declare function minElements<GenericArray extends readonly unknown[], GenericLength extends number>(minLength: GenericLength): (array: GenericArray) => array is [
+export declare function minElements<GenericArray extends readonly unknown[], GenericLength extends number>(minLength: GenericLength): (array: GenericArray) => array is GenericArray & [
     ...CreateTuple<GenericArray[number], GenericLength>,
     ...GenericArray[number][]
 ];
-export declare function minElements<GenericArray extends readonly unknown[], GenericLength extends number>(array: GenericArray, minLength: GenericLength): array is [
+export declare function minElements<GenericArray extends readonly unknown[], GenericLength extends number>(array: GenericArray, minLength: GenericLength): array is GenericArray & [
     ...CreateTuple<GenericArray[number], GenericLength>,
     ...GenericArray[number][]
 ];

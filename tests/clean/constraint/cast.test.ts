@@ -1,4 +1,7 @@
 import { DClean, DPE, unwrap, type ExpectType } from "@scripts";
+import { type ForbiddenBadCast } from "@scripts/clean";
+import { type ComputedErrorNumberMaxConstraintCast, type ConstraintNumberValue, ForbiddenBadNumberMaxCast } from "@scripts/clean/constraint/cast/types";
+import { IsGreater } from "@scripts/number";
 
 describe("castConstraint", () => {
 	it("adds a single constraint to an already constrained value", () => {
@@ -238,9 +241,31 @@ describe("castConstraint", () => {
 		);
 
 		DClean.castConstraint(
+			DClean.StrictPositive.createOrThrow(2),
+			DClean.NumberMin(0),
+		);
+
+		DClean.castConstraint(
 			//@ts-expect-error strict-positive is potentially less 0.5
 			DClean.StrictPositive.createOrThrow(2),
 			DClean.NumberMin(0.5),
+		);
+
+		const positiveFromStrictPositive = DClean.castConstraint(
+			DClean.StrictPositive.createOrThrow(2),
+			DClean.Positive,
+		);
+		type CheckPositiveFromStrictPositive = ExpectType<
+			typeof positiveFromStrictPositive,
+			& DClean.ConstrainedType<"strict-positive", 2>
+			& DClean.ConstrainedType<"positive", number>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			//@ts-expect-error positive includes zero
+			DClean.Positive.createOrThrow(2),
+			DClean.StrictPositive,
 		);
 
 		DClean.castConstraint(
@@ -273,9 +298,31 @@ describe("castConstraint", () => {
 		);
 
 		DClean.castConstraint(
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.NumberMax(0),
+		);
+
+		DClean.castConstraint(
 			//@ts-expect-error strict-negative is less 0.5
 			DClean.StrictNegative.createOrThrow(-2),
 			DClean.NumberMin(0.5),
+		);
+
+		const negativeFromStrictNegative = DClean.castConstraint(
+			DClean.StrictNegative.createOrThrow(-2),
+			DClean.Negative,
+		);
+		type CheckNegativeFromStrictNegative = ExpectType<
+			typeof negativeFromStrictNegative,
+			& DClean.ConstrainedType<"strict-negative", -2>
+			& DClean.ConstrainedType<"negative", number>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			//@ts-expect-error negative includes zero
+			DClean.Negative.createOrThrow(-2),
+			DClean.StrictNegative,
 		);
 
 		DClean.castConstraint(
@@ -285,15 +332,161 @@ describe("castConstraint", () => {
 		);
 
 		DClean.castConstraint(
-			//@ts-expect-error strict-negative is less 0
-			DClean.StrictNegative.createOrThrow(-2),
-			DClean.Negative,
-		);
-
-		DClean.castConstraint(
 			//@ts-expect-error no casting possible
 			DClean.StrictNegative.createOrThrow(-2),
 			DClean.Email,
+		);
+	});
+
+	it("supports combined numeric casts in a single call", () => {
+		const numberMin = DClean.NumberMin(10).createOrThrow(12);
+		const numberMinResult = DClean.castConstraint(
+			numberMin,
+			[
+				DClean.NumberMin(5),
+				DClean.Positive,
+				DClean.StrictPositive,
+			],
+		);
+
+		expect(DClean.constrainedTypeKind.getValue(numberMinResult)).toStrictEqual({
+			"number-min-10": null,
+			"number-min-5": null,
+			positive: null,
+			"strict-positive": null,
+		});
+
+		type CheckNumberMin = ExpectType<
+			typeof numberMinResult,
+			& DClean.ConstrainedType<"number-min-10", 12>
+			& DClean.ConstrainedType<"number-min-5", number>
+			& DClean.ConstrainedType<"positive", number>
+			& DClean.ConstrainedType<"strict-positive", number>,
+			"strict"
+		>;
+
+		const numberMax = DClean.NumberMax(-10).createOrThrow(-12);
+		const numberMaxResult = DClean.castConstraint(
+			numberMax,
+			[
+				DClean.NumberMax(0),
+				DClean.Negative,
+				DClean.StrictNegative,
+			],
+		);
+
+		expect(DClean.constrainedTypeKind.getValue(numberMaxResult)).toStrictEqual({
+			"number-max--10": null,
+			"number-max-0": null,
+			negative: null,
+			"strict-negative": null,
+		});
+
+		type CheckNumberMax = ExpectType<
+			typeof numberMaxResult,
+			& DClean.ConstrainedType<"number-max--10", -12>
+			& DClean.ConstrainedType<"number-max-0", number>
+			& DClean.ConstrainedType<"negative", number>
+			& DClean.ConstrainedType<"strict-negative", number>,
+			"strict"
+		>;
+	});
+
+	it("supports successive numeric casts from accumulated constraints", () => {
+		const numberMax = DClean.NumberMax(-10).createOrThrow(-12);
+		const negative = DClean.castConstraint(
+			numberMax,
+			DClean.Negative,
+		);
+		const strictNegative = DClean.castConstraint(
+			negative,
+			DClean.StrictNegative,
+		);
+		const widenedNumberMax = DClean.castConstraint(
+			strictNegative,
+			DClean.NumberMax(0),
+		);
+		const result = DClean.castConstraint(
+			widenedNumberMax,
+			DClean.NumberMax(-5),
+		);
+
+		expect(DClean.constrainedTypeKind.getValue(result)).toStrictEqual({
+			"number-max--10": null,
+			negative: null,
+			"strict-negative": null,
+			"number-max-0": null,
+			"number-max--5": null,
+		});
+
+		type Check = ExpectType<
+			typeof result,
+			& DClean.ConstrainedType<"number-max--10", -12>
+			& DClean.ConstrainedType<"negative", number>
+			& DClean.ConstrainedType<"strict-negative", number>
+			& DClean.ConstrainedType<"number-max-0", number>
+			& DClean.ConstrainedType<"number-max--5", number>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			//@ts-expect-error -20 is less than every known max boundary
+			result,
+			DClean.NumberMax(-20),
+		);
+
+		DClean.castConstraint(
+			//@ts-expect-error negative includes zero
+			DClean.Negative.createOrThrow(-12),
+			DClean.StrictNegative,
+		);
+	});
+
+	it("supports combined string casts and rejects impossible casts after composition", () => {
+		const stringMin = DClean.StringMin(10).createOrThrow("hello world");
+		const stringMinResult = DClean.castConstraint(
+			stringMin,
+			[
+				DClean.StringMin(8),
+				DClean.StringMin(5),
+			],
+		);
+
+		type CheckStringMin = ExpectType<
+			typeof stringMinResult,
+			& DClean.ConstrainedType<"string-min-10", "hello world">
+			& DClean.ConstrainedType<"string-min-8", string>
+			& DClean.ConstrainedType<"string-min-5", string>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			//@ts-expect-error 12 is greater than every known min boundary
+			stringMinResult,
+			DClean.StringMin(12),
+		);
+
+		const stringMax = DClean.StringMax(10).createOrThrow("hello");
+		const stringMaxResult = DClean.castConstraint(
+			stringMax,
+			[
+				DClean.StringMax(12),
+				DClean.StringMax(20),
+			],
+		);
+
+		type CheckStringMax = ExpectType<
+			typeof stringMaxResult,
+			& DClean.ConstrainedType<"string-max-10", "hello">
+			& DClean.ConstrainedType<"string-max-12", string>
+			& DClean.ConstrainedType<"string-max-20", string>,
+			"strict"
+		>;
+
+		DClean.castConstraint(
+			//@ts-expect-error 8 is less than every known max boundary
+			stringMaxResult,
+			DClean.StringMax(8),
 		);
 	});
 });
