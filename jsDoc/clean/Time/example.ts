@@ -4,7 +4,7 @@ const theTime = D.createTime(1, "hour");
 const result = C.Time.create(theTime);
 
 if (E.isRight(result)) {
-	// result: E.Right<"createNewType", C.Primitive<D.TheTime>>
+	// result: E.Right<"createPrimitive", C.Primitive<D.TheTime>>
 }
 
 const value = C.Time.createOrThrow(theTime);

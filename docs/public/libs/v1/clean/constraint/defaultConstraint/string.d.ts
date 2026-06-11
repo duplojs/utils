@@ -157,3 +157,4 @@ export type StringMax<GenericValue extends number> = GetConstraint<ReturnType<ty
  * 
  */
 export declare const NoBlank: ConstraintHandler<"no-blank", string, readonly [DDataParser.DataParserCheckerRegex], never>;
+export type NoBlank = GetConstraint<typeof NoBlank>;

@@ -18,19 +18,24 @@ import { createOverride } from '../../common/override.mjs';
 
 const primitiveHandlerKind = createCleanKind("primitive-handler");
 class CreatePrimitiveError extends kindHeritage("create-primitive-error", createErrorKind("create-primitive-error"), Error) {
+    primitiveName;
     data;
     dataParserError;
-    constructor(data, dataParserError) {
-        super({}, ["Error when create primitive."]);
+    constructor(primitiveName, data, dataParserError) {
+        super({}, [`Error when create primitive ${primitiveName}.`]);
+        this.primitiveName = primitiveName;
         this.data = data;
         this.dataParserError = dataParserError;
     }
 }
-function createPrimitive(dataParser) {
+function createPrimitive(name, dataParser) {
     function create(data) {
         const result = dataParser.parse(data);
         if (isLeft(result)) {
-            return left("createPrimitiveError", unwrap(result));
+            return left("createPrimitiveError", {
+                primitiveName: name,
+                dataParserError: unwrap(result),
+            });
         }
         else {
             return right("createPrimitive", wrapValue(unwrap(result)));
@@ -39,7 +44,8 @@ function createPrimitive(dataParser) {
     function createOrThrow(data) {
         const result = create(data);
         if (isLeft(result)) {
-            throw new CreatePrimitiveError(data, unwrap(result));
+            const { primitiveName, dataParserError } = unwrap(result);
+            throw new CreatePrimitiveError(primitiveName, data, dataParserError);
         }
         else {
             return unwrap(result);
@@ -50,6 +56,7 @@ function createPrimitive(dataParser) {
         return isRight(result);
     }
     return pipe({
+        name,
         dataParser,
         create,
         createOrThrow,
@@ -65,26 +72,26 @@ createPrimitive.overrideHandler = createOverride("@duplojs/utils/clean/primitive
 /**
  * {@include clean/String/index.md}
  */
-const String = createPrimitive(string());
+const String = createPrimitive("string", string());
 /**
  * {@include clean/Number/index.md}
  */
-const Number = createPrimitive(number());
+const Number = createPrimitive("number", number());
 /**
  * {@include clean/BigInt/index.md}
  */
-const BigInt = createPrimitive(bigint());
+const BigInt = createPrimitive("bigint", bigint());
 /**
  * {@include clean/Boolean/index.md}
  */
-const Boolean = createPrimitive(boolean());
+const Boolean = createPrimitive("boolean", boolean());
 /**
  * {@include clean/Date/index.md}
  */
-const Date = createPrimitive(date());
+const Date = createPrimitive("date", date());
 /**
  * {@include clean/Time/index.md}
  */
-const Time = createPrimitive(time());
+const Time = createPrimitive("time", time());
 
 export { BigInt, Boolean, CreatePrimitiveError, Date, Number, String, Time, createPrimitive, primitiveHandlerKind };

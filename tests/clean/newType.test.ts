@@ -41,7 +41,7 @@ describe("createNewType", () => {
 			>
 			| DEither.Left<
 				"createNewTypeError",
-				DDataParser.DataParserError
+				DClean.NewTypeError<"Label">
 			>,
 			"strict"
 		>;
@@ -78,14 +78,17 @@ describe("createNewType", () => {
 		expect(result).toStrictEqual(
 			DEither.left(
 				"createNewTypeError",
-				expectedError,
+				{
+					newTypeName: "Label",
+					dataParserError: expectedError,
+				},
 			),
 		);
 
 		type Check = ExpectType<
 			typeof result,
 			(
-				| DEither.Left<"createNewTypeError", DDataParser.DataParserError>
+				| DEither.Left<"createNewTypeError", DClean.NewTypeError<"Label">>
 				| DEither.Right<"createNewType", DClean.NewType<"Label", "too long", "short">>
 			),
 			"strict"
@@ -141,8 +144,25 @@ describe("createNewType", () => {
 	});
 
 	it("createOrThrow throws on invalid input", () => {
-		expect(() => handler.createOrThrow("longer than five"))
-			.toThrow(DClean.CreateNewTypeError);
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string.length <= 5",
+			"longer than five",
+			undefined,
+		);
+
+		try {
+			handler.createOrThrow("longer than five");
+			expect.fail("Expected createOrThrow to throw.");
+		} catch (error) {
+			expect(error).toBeInstanceOf(DClean.CreateNewTypeError);
+			expect(error).toMatchObject({
+				newTypeName: "Label",
+				data: "longer than five",
+				dataParserError: expectedError,
+			});
+		}
 	});
 
 	it("is returns false for non matching wrapped value", () => {
@@ -336,7 +356,7 @@ describe("createNewType", () => {
 			>
 			| DEither.Left<
 				"createNewTypeError",
-				DDataParser.DataParserError
+				DClean.NewTypeError<"LabelFromPrimitive">
 			>,
 			"strict"
 		>;

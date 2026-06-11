@@ -8,6 +8,10 @@ export declare const newTypeKind: import("..").KindHandler<import("..").KindDefi
 type _NewType<GenericName extends string, GenericValue extends unknown, GenericConstraintsName extends string> = (Kind<typeof newTypeKind.definition, GenericName> & Kind<typeof constrainedTypeKind.definition, Record<GenericConstraintsName, unknown>> & WrappedValue<GenericValue>);
 export interface NewType<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstraintsName extends string = never> extends _NewType<GenericName, GenericValue, GenericConstraintsName> {
 }
+export interface NewTypeError<GenericName extends string = string> {
+    newTypeName: GenericName;
+    dataParserError: DDataParser.DataParserError;
+}
 export declare const newTypeHandlerKind: import("..").KindHandler<import("..").KindDefinition<"@DuplojsUtilsClean/new-type-handler", unknown>>;
 export interface NewTypeHandler<GenericName extends string = string, GenericValue extends unknown = unknown, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly ConstraintHandler[], GenericInput extends unknown = unknown> extends Kind<typeof newTypeHandlerKind.definition> {
     /**
@@ -42,15 +46,16 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
     };
     /**
      * Creates a NewType value and returns an Either.
+     * On validation failure, the left value contains the NewType name and the underlying DataParser error.
      * 
      * ```ts
      * const result = UserId.create(12);
      * ```
      * 
      */
-    create<const GenericInput extends GenericValue>(data: GenericInput): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
-    create(data: GenericValue): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
-    create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.Right<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstraintsHandler[number]["name"]>)> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    create<const GenericInput extends GenericValue>(data: GenericInput): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", NewTypeError<GenericName>>);
+    create(data: GenericValue): (DEither.Right<"createNewType", NewType<GenericName, GenericInput, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", NewTypeError<GenericName>>);
+    create<GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>>(data: GenericPrimitive): (DEither.Right<"createNewType", (GenericPrimitive & NewType<GenericName, Unwrap<GenericPrimitive>, GenericConstraintsHandler[number]["name"]>)> | DEither.Left<"createNewTypeError", NewTypeError<GenericName>>);
     /**
      * Creates a NewType value and throws on error. Works with raw values or primitives.
      * 
@@ -81,7 +86,7 @@ export interface NewTypeHandler<GenericName extends string = string, GenericValu
      * ```
      * 
      */
-    createWithUnknown<GenericInput extends unknown>(data: GenericInput): (DEither.Right<"createNewType", NewType<GenericName, GenericValue, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericInput extends unknown>(data: GenericInput): (DEither.Right<"createNewType", NewType<GenericName, GenericValue, GenericConstraintsHandler[number]["name"]>> | DEither.Left<"createNewTypeError", NewTypeError<GenericName>>);
     /**
      * Creates a NewType value from an unknown input and throws on error.
      * 
@@ -182,7 +187,7 @@ export declare class CreateNewTypeError extends CreateNewTypeError_base {
  * 
  */
 export declare function createNewType<GenericName extends string, GenericDataParser extends DDataParser.DataParserBase, GenericDataParserError extends DataParserContainTransform<GenericDataParser>, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>> = never, GenericConstraints extends ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler> = ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>>(name: GenericName, dataParser: GenericDataParser & NoInfer<GenericDataParserError>, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DeepReadonly<DDataParser.Output<GenericDataParser>>, GenericConstraints, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
-export declare function createNewType<GenericName extends string, GenericPrimitiveHandler extends PrimitiveHandlers, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, EligiblePrimitive>> = never, GenericConstraints extends ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler> = ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>>(name: GenericName, primitiveHandler: GenericPrimitiveHandler, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, NoInfer<GenericConstraints>, GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredInput> ? InferredInput : never>;
+export declare function createNewType<GenericName extends string, GenericPrimitiveHandler extends PrimitiveHandlers, const GenericConstraintsHandler extends ConstraintsHandlerArguments<Extract<DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, EligiblePrimitive>> = never, GenericConstraints extends ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler> = ExtractConstraintSetConstraintHandlers<GenericConstraintsHandler>>(name: GenericName, primitiveHandler: GenericPrimitiveHandler, constraint?: GenericConstraintsHandler): NewTypeHandler<GenericName, DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, NoInfer<GenericConstraints>, GenericPrimitiveHandler extends PrimitiveHandler<any, any, infer InferredInput> ? InferredInput : never>;
 export declare namespace createNewType {
     var overrideHandler: import("..").OverrideHandler<NewTypeHandler<string, unknown, readonly ConstraintHandler<string, EligiblePrimitive, readonly DP.DataParserChecker<unknown>[], unknown>[], unknown>>;
 }

@@ -1,10 +1,14 @@
 import { type Unwrap, type Kind, type WrappedValue, type FixDeepFunctionInfer } from "../..";
-import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DArray from "../../array";
 import * as DEither from "../../either";
 import type * as DDataParser from "../../dataParser";
 export declare const constrainedTypeKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constrained-type", Record<string, unknown>>>;
 export interface ConstrainedType<GenericName extends string = string, GenericValue extends unknown = unknown> extends Kind<typeof constrainedTypeKind.definition, Record<GenericName, unknown>>, WrappedValue<GenericValue> {
+}
+export interface ConstraintError<GenericName extends string = string> {
+    constraintName: GenericName;
+    dataParserError: DDataParser.DataParserError;
 }
 export declare const constraintHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraint-handler", unknown>>;
 export interface ConstraintHandler<GenericName extends string = string, GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericCheckers extends readonly DDataParser.DataParserChecker[] = readonly DDataParser.DataParserChecker[], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintHandlerKind.definition> {
@@ -20,7 +24,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
     /**
      * @deprecated
      */
-    readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+    readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue>;
     readonly internal: {
         /**
          * The DataParser with the constraint checkers applied.
@@ -31,7 +35,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
          * The primitive handler on which the constraint applies (String, Number, etc.).
          * 
          */
-        readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+        readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue> & PrimitiveHandlers;
         /**
          * The list of DataParser checkers used to validate the primitive.
          * 
@@ -45,6 +49,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
     };
     /**
      * Creates a constrained value and returns an Either.
+     * On validation failure, the left value contains the constraint name and the underlying DataParser error.
      * 
      * ```ts
      * const result = Between1And10.create(5);
@@ -55,9 +60,9 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * ```
      * 
      */
-    create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
-    create(data: GenericPrimitiveInput): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
-    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
+    create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
+    create(data: GenericPrimitiveInput): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
+    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
     /**
      * Creates a constrained value and throws on error.
      * 
@@ -79,7 +84,7 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
     /**
      * Creates a constrained value from an unknown input and throws on error.
      * 
@@ -103,10 +108,10 @@ declare const CreateConstrainedTypeError_base: new (params: {
     "@DuplojsUtilsError/create-constrained-type-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constrained-type-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"create-constrained-type-error", unknown>, unknown>;
 export declare class CreateConstrainedTypeError extends CreateConstrainedTypeError_base {
-    constrainedTypeName: string;
+    constraintName: string;
     data: unknown;
     dataParserError: DDataParser.DataParserError;
-    constructor(constrainedTypeName: string, data: unknown, dataParserError: DDataParser.DataParserError);
+    constructor(constraintName: string, data: unknown, dataParserError: DDataParser.DataParserError);
 }
 /**
  * Creates a constraint handler to enforce a rule on a primitive.
@@ -159,7 +164,7 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
 export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
-]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, checker: FixDeepFunctionInfer<(DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
+]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, checker: FixDeepFunctionInfer<(DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
 ]), GenericChecker>): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;

@@ -49,7 +49,10 @@ function createNewType(name, maybeDataParser, constraint) {
     function create(data) {
         const result = dataParserWithCheckers.parse(unwrap(data));
         if (isLeft(result)) {
-            return left("createNewTypeError", unwrap(result));
+            return left("createNewTypeError", {
+                newTypeName: name,
+                dataParserError: unwrap(result),
+            });
         }
         else if (constrainedTypeKind.has(data)) {
             return right("createNewType", newTypeKind.setTo(constrainedTypeKind.addTo(data, {
@@ -64,7 +67,8 @@ function createNewType(name, maybeDataParser, constraint) {
     function createOrThrow(data) {
         const result = create(data);
         if (isLeft(result)) {
-            throw new CreateNewTypeError(name, data, unwrap(result));
+            const { newTypeName, dataParserError } = unwrap(result);
+            throw new CreateNewTypeError(newTypeName, data, dataParserError);
         }
         else {
             return unwrap(result);

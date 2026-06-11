@@ -60,7 +60,7 @@ A constraint is a *handler* (like a primitive). It therefore exposes creation/va
 ```typescript
 function create(
 	value: RawType | Primitive<RawType>
-): Right<ConstrainedType<ConstraintName, RawType>> | Left<DP.DataParserError>
+): Right<ConstrainedType<ConstraintName, RawType>> | Left<C.ConstraintError<ConstraintName>>
 ```
 
 #### `createOrThrow()`
@@ -78,7 +78,7 @@ Throws `C.CreateConstrainedTypeError` if validation fails.
 ```typescript
 function createWithUnknown(
 	value: unknown
-): Right<ConstrainedType<ConstraintName, RawType>> | Left<DP.DataParserError>
+): Right<ConstrainedType<ConstraintName, RawType>> | Left<C.ConstraintError<ConstraintName>>
 ```
 
 #### `createWithUnknownOrThrow()`

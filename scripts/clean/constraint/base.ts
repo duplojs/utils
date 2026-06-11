@@ -1,6 +1,6 @@
 import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction, type FixDeepFunctionInfer } from "@scripts";
 import { createCleanKind } from "../kind";
-import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DArray from "@scripts/array";
 import * as DEither from "@scripts/either";
 import type * as DDataParser from "@scripts/dataParser";
@@ -19,6 +19,11 @@ export interface ConstrainedType<
 	>,
 	WrappedValue<GenericValue> {
 
+}
+
+export interface ConstraintError<GenericName extends string = string> {
+	constraintName: GenericName;
+	dataParserError: DDataParser.DataParserError;
 }
 
 export const constraintHandlerKind = createCleanKind("constraint-handler");
@@ -43,7 +48,7 @@ export interface ConstraintHandler<
 	/**
 	 * @deprecated
 	 */
-	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+	readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue>;
 
 	readonly internal: {
 
@@ -55,7 +60,7 @@ export interface ConstraintHandler<
 		/**
 		 * {@include clean/createConstraint/primitiveHandler.md}
 		 */
-		readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+		readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue> & PrimitiveHandlers;
 
 		/**
 		 * {@include clean/createConstraint/checkers.md}
@@ -82,7 +87,7 @@ export interface ConstraintHandler<
 		>
 		| DEither.Left<
 			"createConstrainedTypeError",
-			DDataParser.DataParserError
+			ConstraintError<GenericName>
 		>
 	);
 
@@ -95,7 +100,7 @@ export interface ConstraintHandler<
 		>
 		| DEither.Left<
 			"createConstrainedTypeError",
-			DDataParser.DataParserError
+			ConstraintError<GenericName>
 		>
 	);
 
@@ -113,7 +118,7 @@ export interface ConstraintHandler<
 		>
 		| DEither.Left<
 			"createConstrainedTypeError",
-			DDataParser.DataParserError
+			ConstraintError<GenericName>
 		>
 	);
 
@@ -153,7 +158,7 @@ export interface ConstraintHandler<
 		>
 		| DEither.Left<
 			"createConstrainedTypeError",
-			DDataParser.DataParserError
+			ConstraintError<GenericName>
 		>
 	);
 
@@ -183,11 +188,11 @@ export class CreateConstrainedTypeError extends kindHeritage(
 	Error,
 ) {
 	public constructor(
-		public constrainedTypeName: string,
+		public constraintName: string,
 		public data: unknown,
 		public dataParserError: DDataParser.DataParserError,
 	) {
-		super({}, [`Error when create constrained type ${constrainedTypeName}.`]);
+		super({}, [`Error when create constrained type ${constraintName}.`]);
 	}
 }
 
@@ -213,7 +218,7 @@ export function createConstraint<
 	) = never,
 >(
 	name: GenericName,
-	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
+	primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>,
 	checker: FixDeepFunctionInfer<
 		(
 			| DDataParser.DataParserChecker<
@@ -250,7 +255,10 @@ export function createConstraint<
 		if (DEither.isLeft(result)) {
 			return DEither.left(
 				"createConstrainedTypeError",
-				unwrap(result),
+				{
+					constraintName: name,
+					dataParserError: unwrap(result),
+				} satisfies ConstraintError,
 			);
 		} else if (constrainedTypeKind.has(data)) {
 			return DEither.right(
@@ -278,7 +286,8 @@ export function createConstraint<
 		const result = create(data);
 
 		if (DEither.isLeft(result)) {
-			throw new CreateConstrainedTypeError(name, data, unwrap(result));
+			const { constraintName, dataParserError } = unwrap(result);
+			throw new CreateConstrainedTypeError(constraintName, data, dataParserError);
 		} else {
 			return unwrap(result) as never;
 		}

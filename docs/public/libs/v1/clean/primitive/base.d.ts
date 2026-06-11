@@ -5,8 +5,13 @@ import type * as DDate from "../../date";
 export type EligiblePrimitive = string | number | boolean | bigint | DDate.TheDate | DDate.TheTime;
 export interface Primitive<GenericValue extends EligiblePrimitive = EligiblePrimitive> extends WrappedValue<GenericValue> {
 }
+export interface PrimitiveError<GenericName extends string = string> {
+    primitiveName: GenericName;
+    dataParserError: DDataParser.DataParserError;
+}
 export declare const primitiveHandlerKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/primitive-handler", unknown>>;
-export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {
+export interface PrimitiveHandler<GenericName extends string = string, GenericValue extends EligiblePrimitive = EligiblePrimitive, GenericInput extends unknown = unknown> extends Kind<typeof primitiveHandlerKind.definition> {
+    readonly name: GenericName;
     /**
      * @deprecated
      */
@@ -16,18 +21,19 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
     };
     /**
      * Creates a primitive value and returns an Either.
+     * On validation failure, the left value contains the primitive name and the underlying DataParser error.
      * 
      * ```ts
      * const result = C.String.create("hello");
      * 
      * if (E.isRight(result)) {
-     * 	// result: E.Right<"createNewType", C.Primitive<"hello">>
+     * 	// result: E.Right<"createPrimitive", C.Primitive<"hello">>
      * }
      * ```
      * 
      */
-    create<GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericData>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
-    create(data: GenericInput): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
+    create<GenericData extends GenericValue>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericData>> | DEither.Left<"createPrimitiveError", PrimitiveError<GenericName>>);
+    create(data: GenericInput): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", PrimitiveError<GenericName>>);
     /**
      * Creates a primitive value and throws on error.
      * 
@@ -45,11 +51,11 @@ export interface PrimitiveHandler<GenericValue extends EligiblePrimitive = Eligi
      * ```ts
      * const unknownValue: unknown = "world";
      * const maybe = C.String.createWithUnknown(unknownValue);
-     * // E.Left<"createNewTypeError", DataParserError> | E.Right<"createNewType", C.Primitive<string>>
+     * // E.Left<"createPrimitiveError", C.PrimitiveError<"string">> | E.Right<"createPrimitive", C.Primitive<string>>
      * ```
      * 
      */
-    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", DDataParser.DataParserError>);
+    createWithUnknown<GenericData extends unknown>(data: GenericData): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", PrimitiveError<GenericName>>);
     /**
      * Creates a primitive value from an unknown input and throws on error.
      * 
@@ -78,13 +84,14 @@ declare const CreatePrimitiveError_base: new (params: {
     "@DuplojsUtilsError/create-primitive-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/create-primitive-error", unknown>, unknown> & Kind<import("../../common").KindDefinition<"create-primitive-error", unknown>, unknown>;
 export declare class CreatePrimitiveError extends CreatePrimitiveError_base {
+    primitiveName: string;
     data: unknown;
     dataParserError: DDataParser.DataParserError;
-    constructor(data: unknown, dataParserError: DDataParser.DataParserError);
+    constructor(primitiveName: string, data: unknown, dataParserError: DDataParser.DataParserError);
 }
-export declare function createPrimitive<GenericDataParser extends DDataParser.DataParser<EligiblePrimitive, unknown>>(dataParser: GenericDataParser): PrimitiveHandler<DDataParser.Output<GenericDataParser>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
+export declare function createPrimitive<GenericName extends string, GenericDataParser extends DDataParser.DataParser<EligiblePrimitive, unknown>>(name: GenericName, dataParser: GenericDataParser): PrimitiveHandler<GenericName, DDataParser.Output<GenericDataParser>, IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true ? never : DDataParser.Input<GenericDataParser>>;
 export declare namespace createPrimitive {
-    var overrideHandler: import("../../common").OverrideHandler<PrimitiveHandler<EligiblePrimitive, unknown>>;
+    var overrideHandler: import("../../common").OverrideHandler<PrimitiveHandler<string, EligiblePrimitive, unknown>>;
 }
 /**
  * Business primitive for string values.
@@ -102,7 +109,7 @@ export declare namespace createPrimitive {
  * const result = C.String.create("hello");
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<"hello">>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<"hello">>
  * }
  * 
  * const value = C.String.createOrThrow("world");
@@ -117,7 +124,7 @@ export declare namespace createPrimitive {
  * @namespace C
  * 
  */
-export declare const String: PrimitiveHandler<string, never>;
+export declare const String: PrimitiveHandler<"string", string, never>;
 export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for number values.
@@ -135,7 +142,7 @@ export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
  * const result = C.Number.create(42);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<42>>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<42>>
  * }
  * 
  * const value = C.Number.createOrThrow(7);
@@ -150,7 +157,7 @@ export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Number: PrimitiveHandler<number, never>;
+export declare const Number: PrimitiveHandler<"number", number, never>;
 export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for bigint values.
@@ -168,7 +175,7 @@ export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
  * const result = C.BigInt.create(10n);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<10n>>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<10n>>
  * }
  * 
  * const value = C.BigInt.createOrThrow(99n);
@@ -183,7 +190,7 @@ export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const BigInt: PrimitiveHandler<bigint, never>;
+export declare const BigInt: PrimitiveHandler<"bigint", bigint, never>;
 export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for boolean values.
@@ -201,7 +208,7 @@ export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
  * const result = C.Boolean.create(true);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<true>>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<true>>
  * }
  * 
  * const value = C.Boolean.createOrThrow(false);
@@ -216,7 +223,7 @@ export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Boolean: PrimitiveHandler<boolean, never>;
+export declare const Boolean: PrimitiveHandler<"boolean", boolean, never>;
 export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for date values (`TheDate`).
@@ -231,7 +238,7 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
  * const result = C.Date.create(date);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<D.TheDate>>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<D.TheDate>>
  * }
  * 
  * const value = C.Date.createOrThrow(date);
@@ -245,7 +252,7 @@ export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Date: PrimitiveHandler<DDate.TheDate, `date${number}-` | `date${number}+` | DDate.TheDate | globalThis.Date>;
+export declare const Date: PrimitiveHandler<"date", DDate.TheDate, `date${number}-` | `date${number}+` | DDate.TheDate | globalThis.Date>;
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 /**
  * Business primitive for duration values (`TheTime`).
@@ -260,7 +267,7 @@ export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
  * const result = C.Time.create(theTime);
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createNewType", C.Primitive<D.TheTime>>
+ * 	// result: E.Right<"createPrimitive", C.Primitive<D.TheTime>>
  * }
  * 
  * const value = C.Time.createOrThrow(theTime);
@@ -274,7 +281,7 @@ export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
  * @namespace C
  * 
  */
-export declare const Time: PrimitiveHandler<DDate.TheTime, number | DDate.TheTime | `time${number}-` | `time${number}+`>;
+export declare const Time: PrimitiveHandler<"time", DDate.TheTime, number | DDate.TheTime | `time${number}-` | `time${number}+`>;
 export type Time = ReturnType<typeof Time["createWithUnknownOrThrow"]>;
 export type Primitives = (String | Number | BigInt | Boolean | Date | Time);
 export type PrimitiveHandlers = (typeof String | typeof Number | typeof BigInt | typeof Boolean | typeof Date | typeof Time);

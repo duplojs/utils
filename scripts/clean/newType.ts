@@ -34,6 +34,11 @@ export interface NewType<
 
 }
 
+export interface NewTypeError<GenericName extends string = string> {
+	newTypeName: GenericName;
+	dataParserError: DDataParser.DataParserError;
+}
+
 export const newTypeHandlerKind = createCleanKind("new-type-handler");
 
 export interface NewTypeHandler<
@@ -94,7 +99,7 @@ export interface NewTypeHandler<
 		>
 		| DEither.Left<
 			"createNewTypeError",
-			DDataParser.DataParserError
+			NewTypeError<GenericName>
 		>
 	);
 	create(
@@ -110,7 +115,7 @@ export interface NewTypeHandler<
 		>
 		| DEither.Left<
 			"createNewTypeError",
-			DDataParser.DataParserError
+			NewTypeError<GenericName>
 		>
 	);
 
@@ -132,7 +137,7 @@ export interface NewTypeHandler<
 		>
 		| DEither.Left<
 			"createNewTypeError",
-			DDataParser.DataParserError
+			NewTypeError<GenericName>
 		>
 	);
 
@@ -188,7 +193,7 @@ export interface NewTypeHandler<
 		>
 		| DEither.Left<
 			"createNewTypeError",
-			DDataParser.DataParserError
+			NewTypeError<GenericName>
 		>
 	);
 
@@ -293,7 +298,7 @@ export function createNewType<
 	GenericName,
 	DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
 	NoInfer<GenericConstraints>,
-	GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredInput>
+	GenericPrimitiveHandler extends PrimitiveHandler<any, any, infer InferredInput>
 		? InferredInput
 		: never
 >;
@@ -345,7 +350,10 @@ export function createNewType(
 		if (DEither.isLeft(result)) {
 			return DEither.left(
 				"createNewTypeError",
-				unwrap(result),
+				{
+					newTypeName: name,
+					dataParserError: unwrap(result),
+				} satisfies NewTypeError,
 			);
 		} else if (constrainedTypeKind.has(data)) {
 			return DEither.right(
@@ -379,7 +387,8 @@ export function createNewType(
 		const result = create(data);
 
 		if (DEither.isLeft(result)) {
-			throw new CreateNewTypeError(name, data, unwrap(result));
+			const { newTypeName, dataParserError } = unwrap(result);
+			throw new CreateNewTypeError(newTypeName, data, dataParserError);
 		} else {
 			return unwrap(result);
 		}

@@ -12,12 +12,19 @@ export interface Primitive<
 
 }
 
+export interface PrimitiveError<GenericName extends string = string> {
+	primitiveName: GenericName;
+	dataParserError: DDataParser.DataParserError;
+}
+
 export const primitiveHandlerKind = createCleanKind("primitive-handler");
 
 export interface PrimitiveHandler<
+	GenericName extends string = string,
 	GenericValue extends EligiblePrimitive = EligiblePrimitive,
 	GenericInput extends unknown = unknown,
 > extends Kind<typeof primitiveHandlerKind.definition> {
+	readonly name: GenericName;
 
 	/**
 	 * @deprecated
@@ -45,7 +52,7 @@ export interface PrimitiveHandler<
 		>
 		| DEither.Left<
 			"createPrimitiveError",
-			DDataParser.DataParserError
+			PrimitiveError<GenericName>
 		>
 	);
 
@@ -58,7 +65,7 @@ export interface PrimitiveHandler<
 		>
 		| DEither.Left<
 			"createPrimitiveError",
-			DDataParser.DataParserError
+			PrimitiveError<GenericName>
 		>
 	);
 
@@ -89,7 +96,7 @@ export interface PrimitiveHandler<
 		>
 		| DEither.Left<
 			"createPrimitiveError",
-			DDataParser.DataParserError
+			PrimitiveError<GenericName>
 		>
 	);
 
@@ -116,18 +123,22 @@ export class CreatePrimitiveError extends kindHeritage(
 	Error,
 ) {
 	public constructor(
+		public primitiveName: string,
 		public data: unknown,
 		public dataParserError: DDataParser.DataParserError,
 	) {
-		super({}, ["Error when create primitive."]);
+		super({}, [`Error when create primitive ${primitiveName}.`]);
 	}
 }
 
 export function createPrimitive<
+	GenericName extends string,
 	GenericDataParser extends DDataParser.DataParser<EligiblePrimitive, unknown>,
 >(
+	name: GenericName,
 	dataParser: GenericDataParser,
 ): PrimitiveHandler<
+		GenericName,
 		DDataParser.Output<GenericDataParser>,
 		IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
 			? never
@@ -139,7 +150,10 @@ export function createPrimitive<
 		if (DEither.isLeft(result)) {
 			return DEither.left(
 				"createPrimitiveError",
-				unwrap(result),
+				{
+					primitiveName: name,
+					dataParserError: unwrap(result),
+				} satisfies PrimitiveError,
 			);
 		} else {
 			return DEither.right(
@@ -153,7 +167,8 @@ export function createPrimitive<
 		const result = create(data);
 
 		if (DEither.isLeft(result)) {
-			throw new CreatePrimitiveError(data, unwrap(result));
+			const { primitiveName, dataParserError } = unwrap(result);
+			throw new CreatePrimitiveError(primitiveName, data, dataParserError);
 		} else {
 			return unwrap(result);
 		}
@@ -167,6 +182,7 @@ export function createPrimitive<
 
 	return pipe(
 		{
+			name,
 			dataParser,
 			create,
 			createOrThrow,
@@ -187,37 +203,37 @@ createPrimitive.overrideHandler = createOverride<PrimitiveHandler>("@duplojs/uti
 /**
  * {@include clean/String/index.md}
  */
-export const String = createPrimitive(DDataParser.string());
+export const String = createPrimitive("string", DDataParser.string());
 export type String = ReturnType<typeof String["createWithUnknownOrThrow"]>;
 
 /**
  * {@include clean/Number/index.md}
  */
-export const Number = createPrimitive(DDataParser.number());
+export const Number = createPrimitive("number", DDataParser.number());
 export type Number = ReturnType<typeof Number["createWithUnknownOrThrow"]>;
 
 /**
  * {@include clean/BigInt/index.md}
  */
-export const BigInt = createPrimitive(DDataParser.bigint());
+export const BigInt = createPrimitive("bigint", DDataParser.bigint());
 export type BigInt = ReturnType<typeof BigInt["createWithUnknownOrThrow"]>;
 
 /**
  * {@include clean/Boolean/index.md}
  */
-export const Boolean = createPrimitive(DDataParser.boolean());
+export const Boolean = createPrimitive("boolean", DDataParser.boolean());
 export type Boolean = ReturnType<typeof Boolean["createWithUnknownOrThrow"]>;
 
 /**
  * {@include clean/Date/index.md}
  */
-export const Date = createPrimitive(DDataParser.date());
+export const Date = createPrimitive("date", DDataParser.date());
 export type Date = ReturnType<typeof Date["createWithUnknownOrThrow"]>;
 
 /**
  * {@include clean/Time/index.md}
  */
-export const Time = createPrimitive(DDataParser.time());
+export const Time = createPrimitive("time", DDataParser.time());
 export type Time = ReturnType<typeof Time["createWithUnknownOrThrow"]>;
 
 export type Primitives = (

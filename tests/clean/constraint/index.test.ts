@@ -29,7 +29,7 @@ describe("createConstraint", () => {
 			>
 			| DEither.Left<
 				"createConstrainedTypeError",
-				DDataParser.DataParserError
+				DClean.ConstraintError<"username">
 			>,
 			"strict"
 		>;
@@ -49,13 +49,16 @@ describe("createConstraint", () => {
 		expect(result).toStrictEqual(
 			DEither.left(
 				"createConstrainedTypeError",
-				expectedError,
+				{
+					constraintName: "username",
+					dataParserError: expectedError,
+				},
 			),
 		);
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+			| DEither.Left<"createConstrainedTypeError", DClean.ConstraintError<"username">>
 			| DEither.Right<"createConstrainedType", DClean.ConstrainedType<"username", "hi">>,
 			"strict"
 		>;
@@ -88,7 +91,7 @@ describe("createConstraint", () => {
 		type Check = ExpectType<
 			typeof result,
 			(
-				| DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+				| DEither.Left<"createConstrainedTypeError", DClean.ConstraintError<"username">>
 				| DEither.Right<
 					"createConstrainedType",
 					& DClean.ConstrainedType<"other", "valid">
@@ -117,8 +120,25 @@ describe("createConstraint", () => {
 	});
 
 	it("createOrThrow throws on invalid input", () => {
-		expect(() => constraint.createOrThrow("no"))
-			.toThrow(DClean.CreateConstrainedTypeError);
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string.length >= 3",
+			"no",
+			undefined,
+		);
+
+		try {
+			constraint.createOrThrow("no");
+			expect.fail("Expected createOrThrow to throw.");
+		} catch (error) {
+			expect(error).toBeInstanceOf(DClean.CreateConstrainedTypeError);
+			expect(error).toMatchObject({
+				constraintName: "username",
+				data: "no",
+				dataParserError: expectedError,
+			});
+		}
 	});
 
 	it("is detects constrained type", () => {

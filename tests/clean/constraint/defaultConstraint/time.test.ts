@@ -1,4 +1,4 @@
-import { DEither, DClean, type ExpectType, type DDate, type DDataParser } from "@scripts";
+import { DEither, DClean, type ExpectType, type DDate } from "@scripts";
 
 describe("defaultConstraint time", () => {
 	it("creates a positive time constraint for positive input", () => {
@@ -8,7 +8,7 @@ describe("defaultConstraint time", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+			DEither.Left<"createConstrainedTypeError", DClean.ConstraintError<"positive-time">>
 			| DEither.Right<"createConstrainedType", DClean.ConstrainedType<"positive-time", DDate.TheTime>>,
 			"strict"
 		>;
@@ -27,7 +27,7 @@ describe("defaultConstraint time", () => {
 
 		type check = ExpectType<
 			typeof result,
-			DEither.Left<"createConstrainedTypeError", DDataParser.DataParserError>
+			DEither.Left<"createConstrainedTypeError", DClean.ConstraintError<"negative-time">>
 			| DEither.Right<"createConstrainedType", DClean.ConstrainedType<"negative-time", DDate.TheTime>>,
 			"strict"
 		>;

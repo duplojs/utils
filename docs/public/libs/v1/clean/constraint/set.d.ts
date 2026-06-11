@@ -1,6 +1,6 @@
 import { type Kind, type WrappedValue, type UnionToIntersection, type IsEqual } from "../..";
 import { type GetConstraint, type ConstraintHandler } from "../constraint";
-import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DEither from "../../either";
 import type * as DDataParser from "../../dataParser";
 export declare const constraintsSetHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraints-set-handler", unknown>>;
@@ -8,7 +8,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
     /**
      * @deprecated
      */
-    readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+    readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue>;
     /**
      * @deprecated
      */
@@ -23,7 +23,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
          * The primitive handler used to validate and wrap values (e.g. `C.String`, `C.Number`).
          * 
          */
-        readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+        readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue> & PrimitiveHandlers;
         /**
          * The list of constraint handlers applied by this set.
          * 
@@ -170,7 +170,7 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * @namespace C
  * 
  */
-export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never>(primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>, GenericPrimitiveInput>;
+export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never>(primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>, GenericPrimitiveInput>;
 export declare namespace createConstraintsSet {
     var overrideHandler: import("../..").OverrideHandler<ConstraintsSetHandler<EligiblePrimitive, readonly [], unknown>>;
 }

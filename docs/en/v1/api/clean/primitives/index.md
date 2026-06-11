@@ -56,7 +56,7 @@ Unify types: when several NewTypes interact, their common point falls back to a 
 ```typescript
 function create(
 	value: RawType
-): Right<Primitive<RawType>> | Left<ParseError>
+): Right<Primitive<RawType>> | Left<C.PrimitiveError<PrimitiveName>>
 ```
 
 #### `createOrThrow()`
@@ -72,7 +72,7 @@ function createOrThrow(
 ```typescript
 function createWithUnknown(
 	value: unknown
-): Right<Primitive<RawType>> | Left<ParseError>
+): Right<Primitive<RawType>> | Left<C.PrimitiveError<PrimitiveName>>
 ```
 
 #### `createWithUnknownOrThrow()`

@@ -13,12 +13,12 @@ import { wrapValue } from '../../common/wrapValue.mjs';
 const constrainedTypeKind = createCleanKind("constrained-type");
 const constraintHandlerKind = createCleanKind("constraint-handler");
 class CreateConstrainedTypeError extends kindHeritage("create-constrained-type-error", createErrorKind("create-constrained-type-error"), Error) {
-    constrainedTypeName;
+    constraintName;
     data;
     dataParserError;
-    constructor(constrainedTypeName, data, dataParserError) {
-        super({}, [`Error when create constrained type ${constrainedTypeName}.`]);
-        this.constrainedTypeName = constrainedTypeName;
+    constructor(constraintName, data, dataParserError) {
+        super({}, [`Error when create constrained type ${constraintName}.`]);
+        this.constraintName = constraintName;
         this.data = data;
         this.dataParserError = dataParserError;
     }
@@ -36,7 +36,10 @@ function createConstraint(name, primitiveHandler, checker) {
     function create(data) {
         const result = dataParserWithCheckers.parse(unwrap(data));
         if (isLeft(result)) {
-            return left("createConstrainedTypeError", unwrap(result));
+            return left("createConstrainedTypeError", {
+                constraintName: name,
+                dataParserError: unwrap(result),
+            });
         }
         else if (constrainedTypeKind.has(data)) {
             return right("createConstrainedType", constrainedTypeKind.addTo(data, {
@@ -51,7 +54,8 @@ function createConstraint(name, primitiveHandler, checker) {
     function createOrThrow(data) {
         const result = create(data);
         if (isLeft(result)) {
-            throw new CreateConstrainedTypeError(name, data, unwrap(result));
+            const { constraintName, dataParserError } = unwrap(result);
+            throw new CreateConstrainedTypeError(constraintName, data, dataParserError);
         }
         else {
             return unwrap(result);

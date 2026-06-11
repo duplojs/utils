@@ -1,7 +1,7 @@
 import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
 import { createCleanKind } from "../kind";
 import { constrainedTypeKind, type GetConstraint, type ConstraintHandler } from "../constraint";
-import { type Primitive, type EligiblePrimitive, type PrimitiveHandler } from "../primitive";
+import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DEither from "../../either";
 import * as DArray from "../../array";
 import * as DObject from "../../object";
@@ -18,7 +18,7 @@ export interface ConstraintsSetHandler<
 	/**
 	 * @deprecated
 	 */
-	readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+	readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue>;
 
 	/**
 	 * @deprecated
@@ -35,7 +35,7 @@ export interface ConstraintsSetHandler<
 		/**
 		 * {@include clean/createConstraintsSet/primitiveHandler.md}
 		 */
-		readonly primitiveHandler: PrimitiveHandler<GenericPrimitiveValue>;
+		readonly primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue> & PrimitiveHandlers;
 
 		/**
 		 * {@include clean/createConstraintsSet/constraints.md}
@@ -324,7 +324,7 @@ export function createConstraintsSet<
 	GenericPrimitiveInput extends unknown,
 	const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never,
 >(
-	primitiveHandler: PrimitiveHandler<GenericPrimitiveValue, GenericPrimitiveInput>,
+	primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,
 ): ConstraintsSetHandler<
 		GenericPrimitiveValue,

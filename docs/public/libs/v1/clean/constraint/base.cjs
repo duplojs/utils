@@ -15,12 +15,12 @@ var wrapValue = require('../../common/wrapValue.cjs');
 const constrainedTypeKind = kind.createCleanKind("constrained-type");
 const constraintHandlerKind = kind.createCleanKind("constraint-handler");
 class CreateConstrainedTypeError extends kind$1.kindHeritage("create-constrained-type-error", errorKindNamespace.createErrorKind("create-constrained-type-error"), Error) {
-    constrainedTypeName;
+    constraintName;
     data;
     dataParserError;
-    constructor(constrainedTypeName, data, dataParserError) {
-        super({}, [`Error when create constrained type ${constrainedTypeName}.`]);
-        this.constrainedTypeName = constrainedTypeName;
+    constructor(constraintName, data, dataParserError) {
+        super({}, [`Error when create constrained type ${constraintName}.`]);
+        this.constraintName = constraintName;
         this.data = data;
         this.dataParserError = dataParserError;
     }
@@ -38,7 +38,10 @@ function createConstraint(name, primitiveHandler, checker) {
     function create$2(data) {
         const result = dataParserWithCheckers.parse(unwrap.unwrap(data));
         if (is.isLeft(result)) {
-            return create.left("createConstrainedTypeError", unwrap.unwrap(result));
+            return create.left("createConstrainedTypeError", {
+                constraintName: name,
+                dataParserError: unwrap.unwrap(result),
+            });
         }
         else if (constrainedTypeKind.has(data)) {
             return create$1.right("createConstrainedType", constrainedTypeKind.addTo(data, {
@@ -53,7 +56,8 @@ function createConstraint(name, primitiveHandler, checker) {
     function createOrThrow(data) {
         const result = create$2(data);
         if (is.isLeft(result)) {
-            throw new CreateConstrainedTypeError(name, data, unwrap.unwrap(result));
+            const { constraintName, dataParserError } = unwrap.unwrap(result);
+            throw new CreateConstrainedTypeError(constraintName, data, dataParserError);
         }
         else {
             return unwrap.unwrap(result);

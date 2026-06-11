@@ -27,9 +27,19 @@ describe("primitive handler String", () => {
 		expect(result).toStrictEqual(
 			DEither.left(
 				"createPrimitiveError",
-				expectedError,
+				{
+					primitiveName: "string",
+					dataParserError: expectedError,
+				},
 			),
 		);
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.Right<"createPrimitive", DClean.Primitive<never>>
+			| DEither.Left<"createPrimitiveError", DClean.PrimitiveError<"string">>,
+			"strict"
+		>;
 	});
 
 	it("createOrThrow returns primitive and is() accepts it", () => {
@@ -49,7 +59,17 @@ describe("primitive handler String", () => {
 			undefined,
 		);
 
-		expect(() => DClean.String.createOrThrow(invalidValue as never)).toThrow(DClean.CreatePrimitiveError);
+		try {
+			DClean.String.createOrThrow(invalidValue as never);
+			expect.fail("Expected createOrThrow to throw.");
+		} catch (error) {
+			expect(error).toBeInstanceOf(DClean.CreatePrimitiveError);
+			expect(error).toMatchObject({
+				primitiveName: "string",
+				data: invalidValue,
+				dataParserError: expectedError,
+			});
+		}
 	});
 
 	it("is returns true for wrapped valid string", () => {
