@@ -8,12 +8,10 @@ export function minElements<
 	GenericLength extends number,
 >(
 	minLength: GenericLength,
-): (array: GenericArray) =>
-	// @ts-expect-error predicate error
-	array is [
-		...CreateTuple<GenericArray[number], GenericLength>,
-		...GenericArray[number][],
-	];
+): (array: GenericArray) => array is GenericArray & [
+	...CreateTuple<GenericArray[number], GenericLength>,
+	...GenericArray[number][],
+];
 
 export function minElements<
 	GenericArray extends readonly unknown[],
@@ -21,12 +19,10 @@ export function minElements<
 >(
 	array: GenericArray,
 	minLength: GenericLength,
-):
-	// @ts-expect-error predicate error
-	array is [
-		...CreateTuple<GenericArray[number], GenericLength>,
-		...GenericArray[number][],
-	];
+): array is GenericArray & [
+	...CreateTuple<GenericArray[number], GenericLength>,
+	...GenericArray[number][],
+];
 
 export function minElements(...args: [readonly unknown[], number] | [number]): any {
 	if (args.length === 1) {

@@ -150,7 +150,10 @@ Returns the maximum value according to a projection function.
 Returns the element(s) having the minimum value.
 
 ### [maxElements](/en/v1/api/array/maxElements)
-Returns the element(s) having the maximum value.
+Checks that an array contains at most a certain number of elements.
+
+### [castMaxElements](/en/v1/api/array/castMaxElements)
+Readapts an existing `MaxElements` constraint to a less restrictive maximum.
 
 ## Modification
 

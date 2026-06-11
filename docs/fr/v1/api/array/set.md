@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction set() remplace la valeur à un index donné et retourne un nouveau tableau, sans modifier l'original."
 prev:
-  text: "maxElements"
-  link: "/fr/v1/api/array/maxElements"
+  text: "castMaxElements"
+  link: "/fr/v1/api/array/castMaxElements"
 next:
   text: "fill"
   link: "/fr/v1/api/array/fill"

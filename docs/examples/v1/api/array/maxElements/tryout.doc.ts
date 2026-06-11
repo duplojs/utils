@@ -5,7 +5,7 @@ const input = ["todo", "inProgress"];
 if (A.maxElements(input, 3)) {
 	type check = ExpectType<
 		typeof input,
-		string[],
+		string[] & A.MaxElements<3>,
 		"strict"
 	>;
 }

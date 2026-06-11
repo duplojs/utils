@@ -5,8 +5,8 @@ prev:
   text: "minElements"
   link: "/en/v1/api/array/minElements"
 next:
-  text: "set"
-  link: "/en/v1/api/array/set"
+  text: "castMaxElements"
+  link: "/en/v1/api/array/castMaxElements"
 ---
 
 # maxElements
@@ -56,6 +56,7 @@ function maxElements<
 ## See also
 
 - [`minElements`](/en/v1/api/array/minElements) - Checks a minimum number of elements
+- [`castMaxElements`](/en/v1/api/array/castMaxElements) - Readapts a `MaxElements` constraint
 - [`set`](/en/v1/api/array/set) - Modifies an element at a specific index
 
 ## Sources

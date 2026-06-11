@@ -150,7 +150,10 @@ Retourne la valeur maximale selon une fonction de projection.
 Retourne le(s) élément(s) ayant la valeur minimale.
 
 ### [maxElements](/fr/v1/api/array/maxElements)
-Retourne le(s) élément(s) ayant la valeur maximale.
+Vérifie qu'un tableau contient au plus un certain nombre d'éléments.
+
+### [castMaxElements](/fr/v1/api/array/castMaxElements)
+Réadapte une contrainte `MaxElements` existante vers un maximum moins restrictif.
 
 ## Modification
 
