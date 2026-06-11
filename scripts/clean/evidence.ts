@@ -1,9 +1,10 @@
-import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind } from "@scripts/common";
+import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import { type NewType } from "./newType";
 import { type Entity } from "./entity";
 import { type Primitive } from "./primitive";
 import { type ConstrainedType } from "./constraint";
+import type * as DEither from "@scripts/either";
 
 export const evidenceKind = createCleanKind<
 	"evidence",
@@ -146,7 +147,13 @@ export type GetEvidenceResult<
 			GetKindValue<
 				typeof evidenceKind,
 				Extract<
-					Awaited<ReturnType<GenericFunction>>,
+					Awaited<ReturnType<GenericFunction>> extends infer InferredResult
+						? InferredResult extends Evidence
+							? InferredResult
+							: InferredResult extends DEither.Right | DEither.Left
+								? Unwrap<InferredResult>
+								: InferredResult
+						: never,
 					Evidence
 				>
 			>
@@ -154,7 +161,13 @@ export type GetEvidenceResult<
 		string
 	>,
 > = Extract<
-	Awaited<ReturnType<GenericFunction>>,
+	Awaited<ReturnType<GenericFunction>> extends infer InferredResult
+		? InferredResult extends Evidence
+			? InferredResult
+			: InferredResult extends DEither.Right | DEither.Left
+				? Unwrap<InferredResult>
+				: InferredResult
+		: never,
 	EvidenceName extends any
 		? Evidence<EvidenceName>
 		: never

@@ -1,5 +1,5 @@
 import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type AnyTuple, type Unwrap } from "../common";
-import * as EE from "../either";
+import * as DEither from "../either";
 export declare const requirementsChainedFunctionKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/requirements-chained-function", unknown>>;
 export interface RequirementsChainedFunction<GenericRequirements extends AnyTuple<unknown> = AnyTuple<unknown>> extends Kind<typeof requirementsChainedFunctionKind.definition, GenericRequirements> {
 }
@@ -20,11 +20,11 @@ export type Link<GenericFunction extends FunctionOfChain = FunctionOfChain, Gene
     [Prop in GenericFunction[0]]: GenericFunction[1];
 }) => GenericOutput, ...args: GenericFunction[2] extends RequirementsChainedFunction ? [
     requirements: GetKindValue<typeof requirementsChainedFunctionKind, GenericFunction[2]>
-] : []) => ((Extract<GenericOutput, Promise<unknown>> extends infer InferredPromise ? IsEqual<InferredPromise, never> extends true ? never : Awaited<InferredPromise> extends infer InferredValue extends unknown ? AsyncGenerator<Extract<InferredValue, EE.Left>, [
-    Exclude<InferredValue, EE.Left>,
+] : []) => ((Extract<GenericOutput, Promise<unknown>> extends infer InferredPromise ? IsEqual<InferredPromise, never> extends true ? never : Awaited<InferredPromise> extends infer InferredValue extends unknown ? AsyncGenerator<Extract<InferredValue, DEither.Left>, [
+    Exclude<InferredValue, DEither.Left>,
     GenericNext
-]> : never : never) | (Exclude<GenericOutput, Promise<unknown>> extends infer InferredValue ? IsEqual<InferredValue, never> extends true ? never : Generator<Extract<InferredValue, EE.Left>, [
-    Exclude<InferredValue, EE.Left>,
+]> : never : never) | (Exclude<GenericOutput, Promise<unknown>> extends infer InferredValue ? IsEqual<InferredValue, never> extends true ? never : Generator<Extract<InferredValue, DEither.Left>, [
+    Exclude<InferredValue, DEither.Left>,
     GenericNext
 ]> : never));
 export type Chain<GenericFunctionChain extends readonly FunctionOfChain[]> = GenericFunctionChain extends readonly [] ? CreateChainEnd : GenericFunctionChain extends [
@@ -33,14 +33,14 @@ export type Chain<GenericFunctionChain extends readonly FunctionOfChain[]> = Gen
 ] ? Chain<InferredRest> extends infer InferredRestResult extends (Link<any, any> | CreateChainEnd) ? Link<InferredFirst, InferredRestResult> : never : never;
 type OutputMustContainChainEnd<GenericGenerator extends MaybeAsyncGenerator> = IsEqual<GenericGenerator extends MaybeAsyncGenerator<any, infer InferredReturnValue> ? InferredReturnValue extends ChainEnd ? InferredReturnValue : never : never, never> extends true ? ComputedTypeError<"Output must contain a chainEnd"> : unknown;
 type ComputeResult<GenericGenerator extends MaybeAsyncGenerator> = GenericGenerator extends Generator<infer InferredIterateValue, infer InferredReturnValue> ? (InferredIterateValue | InferredReturnValue) extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never : GenericGenerator extends AsyncGenerator<infer InferredIterateValue, infer InferredReturnValue> ? Promise<Awaited<InferredIterateValue | InferredReturnValue> extends infer InferredResult ? InferredResult extends ChainEnd ? GetKindValue<typeof chainEndKind, InferredResult> : InferredResult : never> : never;
-declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue): Generator<Extract<GenericValue, EE.Left>, Exclude<GenericValue, EE.Left>>;
+declare function breakIfLeft<GenericValue extends unknown>(value: GenericValue): Generator<Extract<GenericValue, DEither.Left>, Exclude<GenericValue, DEither.Left>>;
 declare function unwrapResult<GenericLinkResult extends [unknown, Link<any, any> | ChainEnd]>(resultLink: GenericLinkResult): [Unwrap<GenericLinkResult[0]>, GenericLinkResult[1]];
 export interface ChainedFunctionParams {
     breakIfLeft: typeof breakIfLeft;
     unwrapResult: typeof unwrapResult;
 }
 export interface ChainedFunction<GenericValue extends FunctionChain = FunctionChain> {
-    <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<EE.Left>, MaybePromise<EE.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)): ComputeResult<GenericGenerator>;
+    <GenericGenerator extends MaybeAsyncGenerator<MaybePromise<DEither.Left>, MaybePromise<DEither.Left | ChainEnd>>>(callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (GenericGenerator & OutputMustContainChainEnd<GenericGenerator>)): ComputeResult<GenericGenerator>;
     /**
      * @deprecated use this only for the tests.
      */

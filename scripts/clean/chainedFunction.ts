@@ -1,5 +1,5 @@
 import { type AnyFunction, type Kind, type IsEqual, type MaybePromise, type MaybeAsyncGenerator, type GetKindValue, type ComputedTypeError, type AnyTuple, type Unwrap, unwrap } from "@scripts/common";
-import * as EE from "@scripts/either";
+import * as DEither from "@scripts/either";
 import { createCleanKind } from "./kind";
 
 export const requirementsChainedFunctionKind = createCleanKind("requirements-chained-function");
@@ -63,8 +63,8 @@ export type Link<
 				? never
 				: Awaited<InferredPromise> extends infer InferredValue extends unknown
 					? AsyncGenerator<
-						Extract<InferredValue, EE.Left>,
-						[Exclude<InferredValue, EE.Left>, GenericNext]
+						Extract<InferredValue, DEither.Left>,
+						[Exclude<InferredValue, DEither.Left>, GenericNext]
 					>
 					: never
 			: never
@@ -74,8 +74,8 @@ export type Link<
 			? IsEqual<InferredValue, never> extends true
 				? never
 				: Generator<
-					Extract<InferredValue, EE.Left>,
-					[Exclude<InferredValue, EE.Left>, GenericNext]
+					Extract<InferredValue, DEither.Left>,
+					[Exclude<InferredValue, DEither.Left>, GenericNext]
 				>
 			: never
 	)
@@ -145,10 +145,10 @@ function *breakIfLeft<
 >(
 	value: GenericValue,
 ): Generator<
-		Extract<GenericValue, EE.Left>,
-		Exclude<GenericValue, EE.Left>
+		Extract<GenericValue, DEither.Left>,
+		Exclude<GenericValue, DEither.Left>
 	> {
-	if (EE.isLeft(value)) {
+	if (DEither.isLeft(value)) {
 		yield value;
 	}
 
@@ -178,8 +178,8 @@ export interface ChainedFunction<
 > {
 	<
 		GenericGenerator extends MaybeAsyncGenerator<
-			MaybePromise<EE.Left>,
-			MaybePromise<EE.Left | ChainEnd>
+			MaybePromise<DEither.Left>,
+			MaybePromise<DEither.Left | ChainEnd>
 		>,
 	>(
 		callback: (firstLink: Chain<GenericValue>, params: ChainedFunctionParams) => (
@@ -229,7 +229,7 @@ export function chainedFunction<
 				return (async function *() {
 					const awaitedResult = await result;
 
-					if (EE.isLeft(awaitedResult)) {
+					if (DEither.isLeft(awaitedResult)) {
 						yield awaitedResult;
 					}
 
@@ -238,7 +238,7 @@ export function chainedFunction<
 			}
 
 			return (function *() {
-				if (EE.isLeft(result)) {
+				if (DEither.isLeft(result)) {
 					yield result;
 				}
 
@@ -251,7 +251,7 @@ export function chainedFunction<
 			chainedFunctionParams,
 		);
 
-		let result: undefined | IteratorResult<MaybePromise<EE.Left>, unknown> = undefined;
+		let result: undefined | IteratorResult<MaybePromise<DEither.Left>, unknown> = undefined;
 
 		if (Symbol.asyncIterator in generator) {
 			return (async() => {
