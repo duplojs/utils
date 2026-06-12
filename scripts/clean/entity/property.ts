@@ -88,17 +88,25 @@ export type EntityProperty<
 				: GenericProperty extends EntityPropertyDefinitionIdentifier
 					? Unwrap<GenericProperty>
 					: GenericProperty extends EntityPropertyDefinitionArray
-						? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
-							? EntityProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
-								? readonly [
-									...DArray.CreateTuple<
-										InferredEntityProperty,
-										GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
-									>,
-									...InferredEntityProperty[],
-								]
-								: never
-							: readonly EntityProperty<Unwrap<GenericProperty>>[]
+						? (
+							GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
+								? EntityProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
+									? readonly [
+										...DArray.CreateTuple<
+											InferredEntityProperty,
+											GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
+										>,
+										...InferredEntityProperty[],
+									]
+									: never
+								: readonly EntityProperty<Unwrap<GenericProperty>>[]
+						) extends infer InferredArray
+							? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["max"] extends number
+								? InferredArray & DArray.MaxElements<
+									GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["max"]
+								>
+								: InferredArray
+							: never
 						: GenericProperty extends EntityPropertyDefinitionStructure
 							? Unwrap<GenericProperty> extends infer InferredShape extends Record<string, any>
 								? {
@@ -122,17 +130,25 @@ export type EntityRawProperty<
 				: GenericProperty extends EntityPropertyDefinitionIdentifier
 					? Unwrap<GenericProperty>
 					: GenericProperty extends EntityPropertyDefinitionArray
-						? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
-							? EntityRawProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
-								? readonly [
-									...DArray.CreateTuple<
-										InferredEntityProperty,
-										GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
-									>,
-									...InferredEntityProperty[],
-								]
-								: never
-							: readonly EntityRawProperty<Unwrap<GenericProperty>>[]
+						? (
+							GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"] extends number
+								? EntityRawProperty<Unwrap<GenericProperty>> extends infer InferredEntityProperty
+									? readonly [
+										...DArray.CreateTuple<
+											InferredEntityProperty,
+											GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["min"]
+										>,
+										...InferredEntityProperty[],
+									]
+									: never
+								: readonly EntityRawProperty<Unwrap<GenericProperty>>[]
+						) extends infer InferredArray
+							? GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["max"] extends number
+								? InferredArray & DArray.MaxElements<
+									GetKindValue<typeof entityPropertyArrayKind, GenericProperty>["max"]
+								>
+								: InferredArray
+							: never
 						: GenericProperty extends EntityPropertyDefinitionStructure
 							? Unwrap<GenericProperty> extends infer InferredEntityShape extends Record<string, any>
 								? {

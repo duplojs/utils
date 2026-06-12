@@ -38,6 +38,20 @@ describe("mapTuple", () => {
 		>;
 	});
 
+	it("preserves max elements constraint", () => {
+		const input = DArray.withMaxElements([1, 2, 3], 5);
+
+		const result = DArray.mapTuple(input, (value) => value.toString());
+
+		expect(result).toStrictEqual(["1", "2", "3"]);
+
+		type check = ExpectType<
+			typeof result,
+			[string, string, string] & DArray.MaxElements<5>,
+			"strict"
+		>;
+	});
+
 	it("works in pipe", () => {
 		const result = pipe(
 			[1, 2, 3] as const,
@@ -49,6 +63,23 @@ describe("mapTuple", () => {
 		type check = ExpectType<
 			typeof result,
 			[number, number, number],
+			"strict"
+		>;
+	});
+
+	it("preserves max elements constraint in pipe", () => {
+		const input = DArray.withMaxElements([1, 2, 3], 5);
+
+		const result = pipe(
+			input,
+			DArray.mapTuple((value) => value.toString()),
+		);
+
+		expect(result).toStrictEqual(["1", "2", "3"]);
+
+		type check = ExpectType<
+			typeof result,
+			[string, string, string] & DArray.MaxElements<5>,
 			"strict"
 		>;
 	});

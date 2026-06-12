@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "The set() function replaces the value at a given index and returns a new array without modifying the original."
 prev:
-  text: "castMaxElements"
-  link: "/en/v1/api/array/castMaxElements"
+  text: "withMaxElements"
+  link: "/en/v1/api/array/withMaxElements"
 next:
   text: "fill"
   link: "/en/v1/api/array/fill"

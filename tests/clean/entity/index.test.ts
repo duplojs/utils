@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, pipe } from "@scripts";
+import { DArray, DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, pipe } from "@scripts";
 
 describe("createEntity", () => {
 	const MaxConstraint = DClean.createConstraint(
@@ -133,7 +133,7 @@ describe("createEntity", () => {
 						never
 					>
 				)[],
-			];
+			] & DArray.MaxElements<5>;
 			readonly description: DClean.NewType<"formDescription", string, never> | null;
 			readonly tags: readonly DClean.NewType<"formTag", string, never>[] | null;
 			readonly test: readonly (DClean.NewType<"formTag", string, never> | null)[];
@@ -157,7 +157,7 @@ describe("createEntity", () => {
 		const form = FormEntity.new({
 			name,
 			type,
-			inputs,
+			inputs: DArray.withMaxElements(inputs),
 			description: null,
 			tags: null,
 			test: [],
@@ -188,7 +188,7 @@ describe("createEntity", () => {
 						readonly value: 2;
 						readonly require: false;
 					}, never>,
-				];
+				] & DArray.MaxElements<5>;
 				readonly description: null;
 				readonly tags: null;
 				readonly test: readonly [];
@@ -412,12 +412,12 @@ describe("createEntity", () => {
 		const formFromNew = FormEntity.new({
 			name: FormName.createOrThrow("Bob"),
 			type: FormTypeHuman.createOrThrow({ siret: "123" }),
-			inputs: [
+			inputs: DArray.withMaxElements([
 				InputNumber.createOrThrow({
 					value: 1,
 					require: false,
 				}),
-			],
+			]),
 			description: null,
 			tags: null,
 			test: [],
@@ -445,7 +445,7 @@ describe("createEntity", () => {
 		const form = FormEntity.new({
 			name,
 			type,
-			inputs,
+			inputs: DArray.withMaxElements(inputs),
 			description,
 			tags: null,
 			test: [],
@@ -479,7 +479,7 @@ describe("createEntity", () => {
 				readonly inputs: readonly [DClean.NewType<"inputNumber", {
 					readonly value: 10;
 					readonly require: true;
-				}, never>];
+				}, never>] & DArray.MaxElements<5>;
 				readonly description: DClean.NewType<"formDescription", "Updated", never>;
 				readonly tags: null;
 				readonly test: readonly [];
@@ -497,7 +497,7 @@ describe("createEntity", () => {
 				readonly inputs: readonly [DClean.NewType<"inputNumber", {
 					readonly value: 10;
 					readonly require: true;
-				}, never>];
+				}, never>] & DArray.MaxElements<5>;
 				readonly test: readonly [];
 				readonly name: DClean.NewType<"formName", "New", "max100">;
 				readonly description: DClean.NewType<"formDescription", "Updated", never> | null;

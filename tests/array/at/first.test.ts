@@ -25,6 +25,20 @@ describe("first", () => {
 		>;
 	});
 
+	it("infers first element from a max elements constrained tuple", () => {
+		const input = DArray.withMaxElements([1, 2, 3] as const, 5);
+
+		const result = DArray.first(input);
+
+		expect(result).toBe(1);
+
+		type check = ExpectType<
+			typeof result,
+			1,
+			"strict"
+		>;
+	});
+
 	it("get first element from empty array", () => {
 		const result = void DArray.first([]);
 

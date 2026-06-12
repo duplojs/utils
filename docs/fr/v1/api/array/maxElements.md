@@ -57,7 +57,7 @@ function maxElements<
 
 - [`minElements`](/fr/v1/api/array/minElements) - Vérifie un minimum d'éléments
 - [`castMaxElements`](/fr/v1/api/array/castMaxElements) - Réadapte une contrainte `MaxElements`
-- [`set`](/fr/v1/api/array/set) - Modifie un élément à un index précis
+- [`withMaxElements`](/fr/v1/api/array/withMaxElements) - Ajoute une contrainte `MaxElements` à un tuple fini
 
 ## Sources
 

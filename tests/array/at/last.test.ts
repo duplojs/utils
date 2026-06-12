@@ -25,6 +25,20 @@ describe("last", () => {
 		>;
 	});
 
+	it("infers last element from a max elements constrained tuple", () => {
+		const input = DArray.withMaxElements([1, 2, 3] as const, 5);
+
+		const result = DArray.last(input);
+
+		expect(result).toBe(3);
+
+		type check = ExpectType<
+			typeof result,
+			3,
+			"strict"
+		>;
+	});
+
 	it("get last element from empty array", () => {
 		const result = void DArray.first([]);
 

@@ -53,19 +53,50 @@ describe("map", () => {
 		>;
 	});
 
+	it("preserves max elements constraint", () => {
+		const arr = DArray.withMaxElements(["alpha", "beta"], 5);
+
+		const result = DArray.map(arr, (item) => item.length);
+
+		expect(result).toEqual([5, 4]);
+
+		type check = ExpectType<
+			typeof result,
+			number[] & DArray.MaxElements<5>,
+			"strict"
+		>;
+	});
+
+	it("preserves max elements constraint in pipe", () => {
+		const arr = DArray.withMaxElements(["alpha", "beta"], 5);
+
+		const result = pipe(
+			arr,
+			DArray.map((item) => item.length),
+		);
+
+		expect(result).toEqual([5, 4]);
+
+		type check = ExpectType<
+			typeof result,
+			number[] & DArray.MaxElements<5>,
+			"strict"
+		>;
+	});
+
 	it("works with complex pipe", () => {
 		const arr = [
 			{
 				id: 1,
-				name: "Alice",
+				name: "alice",
 			},
 			{
 				id: 2,
-				name: "Bob",
+				name: "bob",
 			},
 			{
 				id: 3,
-				name: "Charlie",
+				name: "charlie",
 			},
 		];
 		const result = pipe(

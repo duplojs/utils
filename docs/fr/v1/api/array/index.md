@@ -155,6 +155,9 @@ Vérifie qu'un tableau contient au plus un certain nombre d'éléments.
 ### [castMaxElements](/fr/v1/api/array/castMaxElements)
 Réadapte une contrainte `MaxElements` existante vers un maximum moins restrictif.
 
+### [withMaxElements](/fr/v1/api/array/withMaxElements)
+Ajoute une contrainte `MaxElements` à un tuple fini.
+
 ## Modification
 
 ### [set](/fr/v1/api/array/set)

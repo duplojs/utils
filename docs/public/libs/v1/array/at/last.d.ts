@@ -1,4 +1,5 @@
 import { type AnyTuple } from "../../common";
+import { type RemoveKind } from "../types";
 /**
  * Gets the last element of an array.
  * 
@@ -24,4 +25,4 @@ import { type AnyTuple } from "../../common";
  * @namespace A
  * 
  */
-export declare function last<GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends readonly [...any[], infer InferredValue] ? InferredValue : GenericArray extends AnyTuple ? GenericArray[number] : GenericArray[number] | undefined;
+export declare function last<GenericArray extends readonly unknown[]>(array: GenericArray): RemoveKind<GenericArray> extends readonly [...any[], infer InferredValue] ? InferredValue : GenericArray extends AnyTuple ? GenericArray[number] : GenericArray[number] | undefined;

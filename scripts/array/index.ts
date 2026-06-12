@@ -54,3 +54,4 @@ export * from "./select";
 export * from "./lengthEqual";
 export * from "./mapTuple";
 export * from "./findDuplicates";
+export * from "./withMaxElements";

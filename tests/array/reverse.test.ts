@@ -31,4 +31,18 @@ describe("reverse", () => {
 			"strict"
 		>;
 	});
+
+	it("infers tuple result from a max elements constrained tuple", () => {
+		const input = DArray.withMaxElements([1, 2, 3] as const, 5);
+
+		const result = DArray.reverse(input);
+
+		expect(result).toEqual([3, 2, 1]);
+
+		type check = ExpectType<
+			typeof result,
+			[3, 2, 1] & DArray.MaxElements<5>,
+			"strict"
+		>;
+	});
 });

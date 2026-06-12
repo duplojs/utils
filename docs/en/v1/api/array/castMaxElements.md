@@ -5,8 +5,8 @@ prev:
   text: "maxElements"
   link: "/en/v1/api/array/maxElements"
 next:
-  text: "set"
-  link: "/en/v1/api/array/set"
+  text: "withMaxElements"
+  link: "/en/v1/api/array/withMaxElements"
 ---
 
 # castMaxElements
@@ -60,4 +60,5 @@ The function does not validate the length at runtime. Use [`maxElements`](/en/v1
 ## See also
 
 - [`maxElements`](/en/v1/api/array/maxElements) - Checks and creates a `MaxElements` constraint
+- [`withMaxElements`](/en/v1/api/array/withMaxElements) - Adds a `MaxElements` constraint to a finite tuple
 - [`minElements`](/en/v1/api/array/minElements) - Checks a minimum number of elements

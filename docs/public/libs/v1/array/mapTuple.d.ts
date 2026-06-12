@@ -1,4 +1,4 @@
-import type { MapTuple } from "./types";
+import type { MapTuple, MaxElements, RemoveKind } from "./types";
 interface ArrayMapTupleParams<GenericInputTuple extends readonly unknown[]> {
     index: number;
     self: GenericInputTuple;
@@ -40,6 +40,6 @@ interface ArrayMapTupleParams<GenericInputTuple extends readonly unknown[]> {
  * @namespace A
  * 
  */
-export declare function mapTuple<GenericInput extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericInput[number], params: ArrayMapTupleParams<GenericInput>) => GenericOutput): (input: GenericInput) => MapTuple<GenericInput, GenericOutput>;
-export declare function mapTuple<GenericInput extends readonly unknown[], GenericOutput extends unknown>(input: GenericInput, theFunction: (element: GenericInput[number], params: ArrayMapTupleParams<GenericInput>) => GenericOutput): MapTuple<GenericInput, GenericOutput>;
+export declare function mapTuple<GenericInput extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericInput[number], params: ArrayMapTupleParams<GenericInput>) => GenericOutput): (input: GenericInput) => (MapTuple<RemoveKind<GenericInput>, GenericOutput> & (GenericInput extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown));
+export declare function mapTuple<GenericInput extends readonly unknown[], GenericOutput extends unknown>(input: GenericInput, theFunction: (element: GenericInput[number], params: ArrayMapTupleParams<GenericInput>) => GenericOutput): (MapTuple<RemoveKind<GenericInput>, GenericOutput> & (GenericInput extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown));
 export {};

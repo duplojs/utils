@@ -1,3 +1,4 @@
+import { type MaxElements } from "./types";
 interface ArrayMapParams<GenericInputArray extends readonly unknown[]> {
     index: number;
     self: GenericInputArray;
@@ -35,6 +36,6 @@ interface ArrayMapParams<GenericInputArray extends readonly unknown[]> {
  * @namespace A
  * 
  */
-export declare function map<GenericInput extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericInput[number], params: ArrayMapParams<GenericInput>) => GenericOutput): (input: GenericInput) => GenericOutput[];
-export declare function map<GenericInput extends readonly unknown[], GenericOutput extends unknown>(input: GenericInput, theFunction: (element: GenericInput[number], params: ArrayMapParams<GenericInput>) => GenericOutput): GenericOutput[];
+export declare function map<GenericInput extends readonly unknown[], GenericOutput extends unknown>(theFunction: (element: GenericInput[number], params: ArrayMapParams<GenericInput>) => GenericOutput): (input: GenericInput) => (GenericOutput[] & (GenericInput extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown));
+export declare function map<GenericInput extends readonly unknown[], GenericOutput extends unknown>(input: GenericInput, theFunction: (element: GenericInput[number], params: ArrayMapParams<GenericInput>) => GenericOutput): (GenericOutput[] & (GenericInput extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown));
 export {};

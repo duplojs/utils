@@ -1,4 +1,4 @@
-import { C, DP } from "@duplojs/utils";
+import { A, C, DP } from "@duplojs/utils";
 
 export namespace User {
 	export const Id = C.createNewType("UserId", DP.number(), C.Positive);
@@ -13,7 +13,10 @@ export namespace User {
 	export const Entity = C.createEntity("User", ({ array }) => ({
 		id: Id,
 		nickname: Nickname,
-		roles: array(Role, { min: 1 }),
+		roles: array(Role, {
+			min: 1,
+			max: 5,
+		}),
 	}));
 	export type Entity = C.GetEntity<typeof Entity>;
 
@@ -25,7 +28,7 @@ export namespace User {
 	}) {
 		return Entity.new({
 			...params,
-			roles: [defaultRole],
+			roles: A.withMaxElements([defaultRole]),
 		});
 	}
 }

@@ -1,5 +1,5 @@
 import type { AnyFunction } from "@scripts/common/types";
-import type { MapTuple } from "./types";
+import type { MapTuple, MaxElements, RemoveKind } from "./types";
 
 interface ArrayMapTupleParams<
 	GenericInputTuple extends readonly unknown[],
@@ -19,7 +19,17 @@ export function mapTuple<
 		element: GenericInput[number],
 		params: ArrayMapTupleParams<GenericInput>
 	) => GenericOutput,
-): (input: GenericInput) => MapTuple<GenericInput, GenericOutput>;
+): (input: GenericInput) => (
+	& MapTuple<
+		RemoveKind<GenericInput>,
+		GenericOutput
+	>
+	& (
+		GenericInput extends MaxElements<infer InferredMax>
+			? MaxElements<InferredMax>
+			: unknown
+	)
+);
 
 export function mapTuple<
 	GenericInput extends readonly unknown[],
@@ -30,7 +40,17 @@ export function mapTuple<
 		element: GenericInput[number],
 		params: ArrayMapTupleParams<GenericInput>
 	) => GenericOutput,
-): MapTuple<GenericInput, GenericOutput>;
+): (
+	& MapTuple<
+		RemoveKind<GenericInput>,
+		GenericOutput
+	>
+	& (
+		GenericInput extends MaxElements<infer InferredMax>
+			? MaxElements<InferredMax>
+			: unknown
+	)
+);
 
 export function mapTuple(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {

@@ -1,4 +1,5 @@
 import { type AnyFunction } from "@scripts/common/types/anyFunction";
+import { type MaxElements } from "./types";
 
 interface ArrayMapParams<
 	GenericInputArray extends readonly unknown[],
@@ -18,7 +19,14 @@ export function map<
 		element: GenericInput[number],
 		params: ArrayMapParams<GenericInput>
 	) => GenericOutput,
-): (input: GenericInput) => GenericOutput[];
+): (input: GenericInput) => (
+	& GenericOutput[]
+	& (
+		GenericInput extends MaxElements<infer InferredMax>
+			? MaxElements<InferredMax>
+			: unknown
+	)
+);
 
 export function map<
 	GenericInput extends readonly unknown[],
@@ -29,7 +37,14 @@ export function map<
 		element: GenericInput[number],
 		params: ArrayMapParams<GenericInput>
 	) => GenericOutput,
-): GenericOutput[];
+): (
+	& GenericOutput[]
+	& (
+		GenericInput extends MaxElements<infer InferredMax>
+			? MaxElements<InferredMax>
+			: unknown
+	)
+);
 
 export function map(...args: [readonly unknown[], AnyFunction] | [AnyFunction]): any {
 	if (args.length === 1) {

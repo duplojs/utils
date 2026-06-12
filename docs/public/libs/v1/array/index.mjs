@@ -45,6 +45,7 @@ export { select, selectTools } from './select.mjs';
 export { lengthEqual } from './lengthEqual.mjs';
 export { mapTuple } from './mapTuple.mjs';
 export { findDuplicates } from './findDuplicates.mjs';
+export { withMaxElements } from './withMaxElements.mjs';
 export { spliceDelete } from './splice/delete.mjs';
 export { spliceInsert } from './splice/insert.mjs';
 export { spliceReplace } from './splice/replace.mjs';

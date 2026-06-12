@@ -1,3 +1,4 @@
+import { type MaxElements, type RemoveKind } from "./types";
 /**
  * Removes the last element from an array.
  * 
@@ -29,4 +30,4 @@
  * @namespace A
  * 
  */
-export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends readonly [...infer InferredRest, any] ? InferredRest : GenericArray;
+export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): RemoveKind<GenericArray> extends readonly [...infer InferredRest, any] ? (InferredRest & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;

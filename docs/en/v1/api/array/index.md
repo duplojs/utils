@@ -155,6 +155,9 @@ Checks that an array contains at most a certain number of elements.
 ### [castMaxElements](/en/v1/api/array/castMaxElements)
 Readapts an existing `MaxElements` constraint to a less restrictive maximum.
 
+### [withMaxElements](/en/v1/api/array/withMaxElements)
+Adds a `MaxElements` constraint to a finite tuple.
+
 ## Modification
 
 ### [set](/en/v1/api/array/set)

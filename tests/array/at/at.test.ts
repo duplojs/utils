@@ -49,4 +49,18 @@ describe("at", () => {
 
 		expect(result).toBe(20);
 	});
+
+	it("infers tuple element from a max elements constrained tuple", () => {
+		const input = DArray.withMaxElements([10, 20, 30] as const, 5);
+
+		const result = DArray.at(input, 1);
+
+		type check = ExpectType<
+			typeof result,
+			20,
+			"strict"
+		>;
+
+		expect(result).toBe(20);
+	});
 });

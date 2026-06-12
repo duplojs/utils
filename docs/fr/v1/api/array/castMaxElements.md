@@ -5,8 +5,8 @@ prev:
   text: "maxElements"
   link: "/fr/v1/api/array/maxElements"
 next:
-  text: "set"
-  link: "/fr/v1/api/array/set"
+  text: "withMaxElements"
+  link: "/fr/v1/api/array/withMaxElements"
 ---
 
 # castMaxElements
@@ -60,4 +60,5 @@ La fonction ne valide pas la longueur à l'exécution. Utilisez d'abord [`maxEle
 ## Voir aussi
 
 - [`maxElements`](/fr/v1/api/array/maxElements) - Vérifie et crée une contrainte `MaxElements`
+- [`withMaxElements`](/fr/v1/api/array/withMaxElements) - Ajoute une contrainte `MaxElements` à un tuple fini
 - [`minElements`](/fr/v1/api/array/minElements) - Vérifie un minimum d'éléments

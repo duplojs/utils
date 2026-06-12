@@ -52,4 +52,18 @@ describe("shift", () => {
 			"strict"
 		>;
 	});
+
+	it("infers tuple result from a max elements constrained tuple", () => {
+		const arr = DArray.withMaxElements([1, 2, 3] as const, 5);
+
+		const result = DArray.shift(arr);
+
+		expect(result).toStrictEqual([2, 3]);
+
+		type check = ExpectType<
+			typeof result,
+			[2, 3] & DArray.MaxElements<5>,
+			"strict"
+		>;
+	});
 });

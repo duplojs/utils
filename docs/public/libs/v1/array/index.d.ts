@@ -20,10 +20,12 @@
  * - transforms (`A.map`, `A.flatMap`, `A.select`, `A.group`)
  * - structure updates (`A.set`, `A.insert`, `A.push`, `A.unshift`)
  * - slicing and composition (`A.slice`, `A.concat`, `A.chunk`, `A.copyWithin`)
+ * - size constraints (`A.minElements`, `A.maxElements`, `A.withMaxElements`, `A.castMaxElements`)
  * 
  * @see https://utils.duplojs.dev/en/v1/api/array
  * 
  * @namespace A
+ * 
  */
 export * from "./types";
 export * from "./filter";
@@ -77,3 +79,4 @@ export * from "./select";
 export * from "./lengthEqual";
 export * from "./mapTuple";
 export * from "./findDuplicates";
+export * from "./withMaxElements";

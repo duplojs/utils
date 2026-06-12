@@ -11,3 +11,4 @@ export * from "./arrayCoalescing";
 export * from "./joinTuple";
 export * from "./mapTuple";
 export * from "./maxElements";
+export * from "./removeKind";

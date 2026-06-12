@@ -18,7 +18,7 @@ Une entité représente une structure de données métier, composée de plusieur
 <MonacoTSEditor
   src="/examples/v1/api/clean/entity/tryout.doc.ts"
   majorVersion="v1"
-  height="680px"
+  height="754px"
 />
 
 :::info
@@ -57,6 +57,8 @@ Autorise `null` sur une propriété.
 ### `array(definition, { min?, max? })`
 
 Déclare une propriété sous forme de tableau, avec min/max optionnels (validation runtime + typage).
+
+Quand `max` est déclaré et que vous construisez une entité avec `new(...)`, la propriété doit déjà porter la contrainte de type `MaxElements` correspondante. Utilisez [`A.withMaxElements`](/fr/v1/api/array/withMaxElements) sur les tuples finis pour respecter ce contrat. Ce n'est pas nécessaire avec `map(...)` ou `mapOrThrow(...)`, car les tableaux bruts sont validés et contraints pendant le mapping.
 
 ### `union(...definitions)`
 

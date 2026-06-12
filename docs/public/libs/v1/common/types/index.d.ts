@@ -53,3 +53,4 @@ export * from "./CleanObjectEntry";
 export * from "./requireConstructor";
 export * from "./removeAbstractFromConstructor";
 export * from "./clearClassKeys";
+export * from "./forbiddenTupleWithUnknownLength";

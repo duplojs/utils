@@ -41,4 +41,18 @@ describe("join", () => {
 			"strict"
 		>;
 	});
+
+	it("infers literal result from a max elements constrained tuple", () => {
+		const input = DArray.withMaxElements(["a", "b", "c"] as const, 5);
+
+		const result = DArray.join(input, "-");
+
+		expect(result).toBe("a-b-c");
+
+		type check = ExpectType<
+			typeof result,
+			"a-b-c",
+			"strict"
+		>;
+	});
 });

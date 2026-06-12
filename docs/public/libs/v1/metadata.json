@@ -172,6 +172,9 @@
               "name": "popTuple.d.ts"
             },
             {
+              "name": "removeKind.d.ts"
+            },
+            {
               "name": "reverseTuple.d.ts"
             },
             {
@@ -613,6 +616,15 @@
         },
         {
           "name": "unshift.mjs"
+        },
+        {
+          "name": "withMaxElements.cjs"
+        },
+        {
+          "name": "withMaxElements.d.ts"
+        },
+        {
+          "name": "withMaxElements.mjs"
         }
       ]
     },
@@ -1249,6 +1261,9 @@
             },
             {
               "name": "fixDeepFunctionInfer.d.ts"
+            },
+            {
+              "name": "forbiddenTupleWithUnknownLength.d.ts"
             },
             {
               "name": "forcePredicate.d.ts"

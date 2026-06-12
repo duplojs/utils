@@ -1,5 +1,5 @@
 import { type AnyTuple } from "../common/types/anyTuple";
-import { type JoinTuple } from "./types";
+import { type RemoveKind, type JoinTuple } from "./types";
 /**
  * Joins array elements into a string.
  * 
@@ -35,5 +35,5 @@ import { type JoinTuple } from "./types";
  * @namespace A
  * 
  */
-export declare function join<GenericArray extends readonly string[], GenericSeparator extends string>(separator: GenericSeparator): (array: GenericArray) => GenericArray extends AnyTuple ? JoinTuple<GenericArray, GenericSeparator> : string;
-export declare function join<GenericArray extends readonly string[], GenericSeparator extends string>(array: GenericArray, separator: GenericSeparator): GenericArray extends AnyTuple ? JoinTuple<GenericArray, GenericSeparator> : string;
+export declare function join<GenericArray extends readonly string[], GenericSeparator extends string>(separator: GenericSeparator): (array: GenericArray) => GenericArray extends AnyTuple ? JoinTuple<RemoveKind<GenericArray>, GenericSeparator> : string;
+export declare function join<GenericArray extends readonly string[], GenericSeparator extends string>(array: GenericArray, separator: GenericSeparator): GenericArray extends AnyTuple ? JoinTuple<RemoveKind<GenericArray>, GenericSeparator> : string;

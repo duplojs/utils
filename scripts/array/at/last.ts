@@ -1,4 +1,5 @@
 import { type AnyTuple } from "@scripts/common";
+import { type RemoveKind } from "../types";
 
 /**
  * {@include array/last/index.md}
@@ -7,7 +8,7 @@ export function last<
 	GenericArray extends readonly unknown[],
 >(
 	array: GenericArray,
-): GenericArray extends readonly [...any[], infer InferredValue]
+): RemoveKind<GenericArray> extends readonly [...any[], infer InferredValue]
 		? InferredValue
 		: GenericArray extends AnyTuple
 			? GenericArray[number]

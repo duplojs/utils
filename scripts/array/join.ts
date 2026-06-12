@@ -1,5 +1,5 @@
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
-import { type JoinTuple } from "./types";
+import { type RemoveKind, type JoinTuple } from "./types";
 
 /**
  * {@include array/join/index.md}
@@ -11,7 +11,7 @@ export function join<
 	separator: GenericSeparator
 ): (array: GenericArray) => GenericArray extends AnyTuple
 	? JoinTuple<
-		GenericArray,
+		RemoveKind<GenericArray>,
 		GenericSeparator
 	>
 	: string;
@@ -24,7 +24,7 @@ export function join<
 	separator: GenericSeparator,
 ): GenericArray extends AnyTuple
 	? JoinTuple<
-		GenericArray,
+		RemoveKind<GenericArray>,
 		GenericSeparator
 	>
 	: string;

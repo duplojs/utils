@@ -1,4 +1,4 @@
-import { DClean, DDataParser, type DDate, DEither, DPE, pipe, unwrap, type ExpectType } from "@scripts";
+import { DClean, DDataParser, type DDate, DEither, DPE, pipe, unwrap, type ExpectType, type DArray } from "@scripts";
 
 describe("entity property", () => {
 	it("builds union definitions and preserves inner definitions", () => {
@@ -114,7 +114,7 @@ describe("entity property", () => {
 			readonly [
 				DClean.NewType<"score", number, never>,
 				...DClean.NewType<"score", number, never>[],
-			],
+			] & DArray.MaxElements<2>,
 			"strict"
 		>;
 
@@ -123,7 +123,7 @@ describe("entity property", () => {
 			readonly [
 				number,
 				...number[],
-			],
+			] & DArray.MaxElements<2>,
 			"strict"
 		>;
 
