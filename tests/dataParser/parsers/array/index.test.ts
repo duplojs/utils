@@ -1,4 +1,4 @@
-import { DDataParser, DEither, type ExpectType } from "@scripts";
+import { DArray, DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser array", () => {
 	it("create data parser with checker", () => {
@@ -20,7 +20,28 @@ describe("DDataParser array", () => {
 			}),
 		);
 
-		void dataParser;
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			string[],
+			"strict"
+		>;
+	});
+
+	it("create data parser with refine predicate checker", () => {
+		const dataParser = DDataParser.array(DDataParser.string(), {
+			checkers: [DDataParser.checkerRefine(DArray.maxElements(10))],
+		}).addChecker(
+			DDataParser.checkerRefine((value) => {
+				type check = ExpectType<typeof value, string[] & DArray.MaxElements<10>, "strict">;
+				return true;
+			}),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			string[] & DArray.MaxElements<10>,
+			"strict"
+		>;
 	});
 
 	it("success parsing", () => {

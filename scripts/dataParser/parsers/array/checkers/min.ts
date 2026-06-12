@@ -1,19 +1,23 @@
-import { detachObjectMethod } from "@scripts/common";
+import { detachObjectMethod, NeverCoalescing, type SimplifyTopLevel } from "@scripts/common";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
 import { createDataParserKind } from "../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
 import { type DataParser } from "../../../base";
 
-export interface DataParserCheckerDefinitionArrayMin extends DataParserCheckerDefinition {
-	min: number;
+export interface DataParserCheckerDefinitionArrayMin<
+	GenericMin extends number = number,
+> extends DataParserCheckerDefinition {
+	min: GenericMin;
 }
 
 export const checkerArrayMinKind = createDataParserKind("checker-array-min");
 
-export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
-	checkerArrayMinKind,
-)<
-		DataParserCheckerDefinitionArrayMin,
+export class DataParserCheckerArrayMin<
+	GenericMin extends number = number,
+> extends DataParserCheckerBase.init(
+		checkerArrayMinKind,
+	)<
+		DataParserCheckerDefinitionArrayMin<GenericMin>,
 		unknown[]
 	> {
 	public get classConstructor() {
@@ -41,8 +45,10 @@ export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static override create(
-		min: number,
+	public static override create<
+		GenericMin extends number,
+	>(
+		min: GenericMin,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionArrayMin, "min">
 		> = {},

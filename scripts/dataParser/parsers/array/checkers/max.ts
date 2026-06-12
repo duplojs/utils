@@ -4,16 +4,20 @@ import { createDataParserKind } from "../../../kind";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../../../baseChecker";
 import { type DataParser } from "../../../base";
 
-export interface DataParserCheckerDefinitionArrayMax extends DataParserCheckerDefinition {
-	max: number;
+export interface DataParserCheckerDefinitionArrayMax<
+	GenericMax extends number = number,
+> extends DataParserCheckerDefinition {
+	max: GenericMax;
 }
 
 export const checkerArrayMaxKind = createDataParserKind("checker-array-max");
 
-export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
-	checkerArrayMaxKind,
-)<
-		DataParserCheckerDefinitionArrayMax,
+export class DataParserCheckerArrayMax<
+	GenericMax extends number = number,
+> extends DataParserCheckerBase.init(
+		checkerArrayMaxKind,
+	)<
+		DataParserCheckerDefinitionArrayMax<GenericMax>,
 		unknown[]
 	> {
 	public get classConstructor() {
@@ -41,8 +45,10 @@ export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
 			);
 	}
 
-	public static override create(
-		max: number,
+	public static override create<
+		GenericMax extends number,
+	>(
+		max: GenericMax,
 		definition: Partial<
 			Omit<DataParserCheckerDefinitionArrayMax, "max">
 		> = {},
