@@ -29,7 +29,33 @@ describe("appendEvidence", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			typeof withFirstEvidence & DClean.Evidence<"checked">,
+			typeof input & DClean.Evidence<"parsed"> & DClean.Evidence<"checked">,
+			"strict"
+		>;
+	});
+
+	it("accepts a composed object as input", () => {
+		const input = {
+			user: DClean.String.createOrThrow("Ada"),
+			roles: ["admin", "writer"] as const,
+			metadata: {
+				loadedAt: new Date("2026-06-14T00:00:00.000Z"),
+			},
+		};
+
+		const result = DClean.appendEvidence(input, "loaded");
+
+		expect(result).not.toBe(input);
+		expect(result.user).toBe(input.user);
+		expect(result.roles).toBe(input.roles);
+		expect(result.metadata).toBe(input.metadata);
+		expect(DClean.evidenceKind.getValue(result)).toStrictEqual({
+			loaded: null,
+		});
+
+		type Check = ExpectType<
+			typeof result,
+			typeof input & DClean.Evidence<"loaded">,
 			"strict"
 		>;
 	});

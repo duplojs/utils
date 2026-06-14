@@ -1,9 +1,5 @@
 import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap } from "@scripts/common";
 import { createCleanKind } from "./kind";
-import { type NewType } from "./newType";
-import { type Entity } from "./entity";
-import { type Primitive } from "./primitive";
-import { type ConstrainedType } from "./constraint";
 import type * as DEither from "@scripts/either";
 
 export const evidenceKind = createCleanKind<
@@ -20,21 +16,11 @@ export interface Evidence<
 
 }
 
-export type AppendEvidenceInput = (
-	& (
-		| Primitive
-		| ConstrainedType
-		| NewType<string, any, any>
-		| Entity
-	)
-	& (
-		| Evidence
-		| {}
-	)
-);
-
+/**
+ * {@include clean/evidence/index.md}
+ */
 export function appendEvidence<
-	GenericInput extends AppendEvidenceInput,
+	GenericInput extends object,
 	GenericEvidenceName extends string,
 >(
 	input: GenericInput,
@@ -42,24 +28,24 @@ export function appendEvidence<
 ): GenericInput & Evidence<GenericEvidenceName>;
 
 export function appendEvidence<
-	GenericInput extends AppendEvidenceInput,
+	GenericInput extends object,
 	GenericEvidenceName extends string,
 >(
 	evidenceName: GenericEvidenceName,
 ): (input: GenericInput) => GenericInput & Evidence<GenericEvidenceName>;
 
 export function appendEvidence(
-	...args: [AppendEvidenceInput, string]
+	...args: [object, string]
 		| [string]
 ) {
 	if (args.length === 1) {
 		const [evidenceName] = args;
-		return (input: AppendEvidenceInput) => appendEvidence(input, evidenceName);
+		return (input: object) => appendEvidence(input, evidenceName);
 	}
 
 	const [input, evidenceName] = args;
 	const evidence = {
-		...(evidenceKind.has(input) && evidenceKind.getValue(input)),
+		...(evidenceKind.has(input) && evidenceKind.getValue(input) as {}),
 		[evidenceName]: null,
 	};
 

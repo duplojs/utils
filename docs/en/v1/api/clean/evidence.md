@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Evidence represents a business-flow proof marker attached to the type of a clean value; appendEvidence adds this marker, hasEvidence checks it, and GetEvidenceResult retrieves the associated result."
+description: "Evidence represents a business-flow proof marker attached to the type of an object value; appendEvidence adds this marker, hasEvidence checks it, and GetEvidenceResult retrieves the associated result."
 prev:
   text: "Flag"
   link: "/en/v1/api/clean/flag"
@@ -11,10 +11,10 @@ next:
 
 # Evidence
 
-An `Evidence` is a business flow marker attached to the type of a clean value.
+An `Evidence` is a business flow marker attached to the type of an object value.
 It is used to prove that a specific step has already been executed, without changing the business value itself.
 
-In practice, one function can return an entity enriched with an evidence, and another function can require that exact evidence in its input type. This gives a compile-time guarantee that the first step ran before the second.
+In practice, one function can return a clean value, an entity, or a composed result object enriched with an evidence, and another function can require that exact evidence in its input type. This gives a compile-time guarantee that the first step ran before the second.
 
 `appendEvidence` adds an evidence. `hasEvidence` checks that an evidence is present and acts as a predicate to narrow the type.
 `GetEvidenceResult` retrieves the result of a function that carries a given evidence, even when that result is wrapped in a promise or an `Either`.
@@ -24,7 +24,7 @@ In practice, one function can return an entity enriched with an evidence, and an
 <MonacoTSEditor
   src="/examples/v1/api/clean/evidence/tryout.doc.ts"
   majorVersion="v1"
-  height="1006px"
+  height="1363px"
 />
 
 ## Syntax
@@ -37,7 +37,7 @@ In practice, one function can return an entity enriched with an evidence, and an
 
 ```typescript
 function appendEvidence<
-	GenericInput extends C.AppendEvidenceInput, 
+	GenericInput extends object,
 	GenericEvidenceName extends string
 >(
 	input: GenericInput,
@@ -49,8 +49,8 @@ function appendEvidence<
 
 ```typescript
 function appendEvidence<
-	GenericInput extends C.AppendEvidenceInput
-	EvidenceName extends string
+	GenericInput extends object,
+	GenericEvidenceName extends string
 >(
 	evidenceName: GenericEvidenceName,
 ): (input: GenericInput) => GenericInput & C.Evidence<GenericEvidenceName>
@@ -97,14 +97,14 @@ It automatically goes through promises with `Awaited` and reads the value carrie
 
 ## Parameters
 
-- `input`: clean value (primitive, `ConstrainedType`, `NewType`, or `Entity`) to enrich with an evidence.
+- `input`: object value to enrich with an evidence. It can be a clean value, an entity, or a composed object whose properties were computed together.
 - `evidenceName`: business name of the evidence to attach or check (for example `"validated"`, `"authorized"`, `"loaded"`). For `hasEvidence`, it can also be a tuple of names.
-- `GenericFunction`: function whose return type contains, directly or through a promise / an `Either`, a clean value carrying an evidence.
+- `GenericFunction`: function whose return type contains, directly or through a promise / an `Either`, an object value carrying an evidence.
 - `EvidenceName`: evidence name available in `GenericFunction`'s result. The type is constrained by the evidences actually present in that result.
 
 ## Return value
 
-`appendEvidence` returns the same input value, enriched with `C.Evidence<evidenceName>` in its type.
+`appendEvidence` returns a shallow copy of the input, enriched with `C.Evidence<evidenceName>` in its type and with the evidence marker attached at runtime.
 
 `hasEvidence` returns a boolean typed as a predicate. If the result is positive, the input is narrowed to the branch carrying the requested evidence.
 

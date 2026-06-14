@@ -13,6 +13,16 @@ const withValidatedEvidence = C.appendEvidence(
 	"validated",
 );
 
+const userResult = {
+	name: userNameValue,
+	permissions: ["read", "write"] as const,
+};
+
+const withLoadedEvidence = C.appendEvidence(
+	userResult,
+	"loaded",
+);
+
 const parsedOrValidated = false
 	? withParsedEvidence
 	: withValidatedEvidence;
@@ -35,6 +45,13 @@ type checkValidated = ExpectType<
 	typeof withValidatedEvidence,
 	C.NewType<"UserName", "Ada", never>
 	& C.Evidence<"validated">,
+	"strict"
+>;
+
+type checkLoaded = ExpectType<
+	typeof withLoadedEvidence,
+	typeof userResult
+	& C.Evidence<"loaded">,
 	"strict"
 >;
 

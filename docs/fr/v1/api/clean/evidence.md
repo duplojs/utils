@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Evidence représente une preuve de passage métier attachée au type d'une valeur clean ; appendEvidence ajoute cette marque, hasEvidence la vérifie et GetEvidenceResult récupère le résultat associé."
+description: "Evidence représente une preuve de passage métier attachée au type d'une valeur objet ; appendEvidence ajoute cette marque, hasEvidence la vérifie et GetEvidenceResult récupère le résultat associé."
 prev:
   text: "Flag"
   link: "/fr/v1/api/clean/flag"
@@ -11,10 +11,10 @@ next:
 
 # Evidence
 
-Une `Evidence` est une marque de passage métier attachée au type d'une valeur clean.
+Une `Evidence` est une marque de passage métier attachée au type d'une valeur objet.
 Elle sert à prouver qu'une étape précise du flux a déjà été exécutée, sans modifier la valeur métier elle-même.
 
-Concrètement, une fonction peut retourner une entité enrichie avec une evidence, et une fonction suivante peut exiger cette même evidence dans son type d'entrée. Cela garantit, à la compilation, que la première étape a bien été appelée avant la seconde.
+Concrètement, une fonction peut retourner une valeur clean, une entité ou un objet résultat composé enrichi avec une evidence, et une fonction suivante peut exiger cette même evidence dans son type d'entrée. Cela garantit, à la compilation, que la première étape a bien été appelée avant la seconde.
 
 `appendEvidence` ajoute une evidence. `hasEvidence` vérifie qu'une evidence est présente et agit comme predicate pour affiner le type.
 `GetEvidenceResult` récupère le résultat d'une fonction qui porte une evidence donnée, même si ce résultat est enveloppé dans une promesse ou dans un `Either`.
@@ -24,7 +24,7 @@ Concrètement, une fonction peut retourner une entité enrichie avec une evidenc
 <MonacoTSEditor
   src="/examples/v1/api/clean/evidence/tryout.doc.ts"
   majorVersion="v1"
-  height="1006px"
+  height="1363px"
 />
 
 ## Syntaxe
@@ -37,7 +37,7 @@ Concrètement, une fonction peut retourner une entité enrichie avec une evidenc
 
 ```typescript
 function appendEvidence<
-	GenericInput extends C.AppendEvidenceInput, 
+	GenericInput extends object,
 	GenericEvidenceName extends string
 >(
 	input: GenericInput,
@@ -49,8 +49,8 @@ function appendEvidence<
 
 ```typescript
 function appendEvidence<
-	GenericInput extends C.AppendEvidenceInput
-	EvidenceName extends string
+	GenericInput extends object,
+	GenericEvidenceName extends string
 >(
 	evidenceName: GenericEvidenceName,
 ): (input: GenericInput) => GenericInput & C.Evidence<GenericEvidenceName>
@@ -97,14 +97,14 @@ Il traverse automatiquement les promesses avec `Awaited` et lit la valeur porté
 
 ## Paramètres
 
-- `input` : valeur clean (primitive, `ConstrainedType`, `NewType` ou `Entity`) à enrichir avec une evidence.
+- `input` : valeur objet à enrichir avec une evidence. Il peut s'agir d'une valeur clean, d'une entité ou d'un objet composé dont les propriétés ont été calculées ensemble.
 - `evidenceName` : nom métier de l'evidence à attacher ou vérifier (ex. `"validated"`, `"authorized"`, `"loaded"`). Pour `hasEvidence`, il peut aussi s'agir d'un tuple de noms.
-- `GenericFunction` : fonction dont le type de retour contient, directement ou via une promesse / un `Either`, une valeur clean portant une evidence.
+- `GenericFunction` : fonction dont le type de retour contient, directement ou via une promesse / un `Either`, une valeur objet portant une evidence.
 - `EvidenceName` : nom d'evidence disponible dans le résultat de `GenericFunction`. Le type est contraint par les evidences réellement présentes dans ce résultat.
 
 ## Valeur de retour
 
-`appendEvidence` retourne la même valeur d'entrée, enrichie avec `C.Evidence<evidenceName>` dans son type.
+`appendEvidence` retourne une copie superficielle de l'entrée, enrichie avec `C.Evidence<evidenceName>` dans son type et avec la marque d'evidence attachée au runtime.
 
 `hasEvidence` retourne un booléen typé comme predicate. Si le résultat est positif, l'entrée est affinée vers la branche qui porte l'evidence demandée.
 

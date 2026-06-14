@@ -1,15 +1,51 @@
 import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap } from "../common";
-import { type NewType } from "./newType";
-import { type Entity } from "./entity";
-import { type Primitive } from "./primitive";
-import { type ConstrainedType } from "./constraint";
 import type * as DEither from "../either";
 export declare const evidenceKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsClean/evidence", Record<string, unknown>>>;
 export interface Evidence<GenericName extends string = string> extends Kind<typeof evidenceKind.definition, Record<GenericName, unknown>> {
 }
-export type AppendEvidenceInput = ((Primitive | ConstrainedType | NewType<string, any, any> | Entity) & (Evidence | {}));
-export declare function appendEvidence<GenericInput extends AppendEvidenceInput, GenericEvidenceName extends string>(input: GenericInput, evidenceName: GenericEvidenceName): GenericInput & Evidence<GenericEvidenceName>;
-export declare function appendEvidence<GenericInput extends AppendEvidenceInput, GenericEvidenceName extends string>(evidenceName: GenericEvidenceName): (input: GenericInput) => GenericInput & Evidence<GenericEvidenceName>;
+/**
+ * Appends an evidence trait on an object value to mark that a business step was completed.
+ * 
+ * **Supported call styles:**
+ * - Classic: `appendEvidence(input, evidenceName)` -> returns the input with the evidence trait
+ * - Curried: `appendEvidence(evidenceName)` -> returns a function waiting for the input
+ * 
+ * Use it to enrich a clean value, an entity, or a composed result object with one or more named evidences across a workflow, while preserving the business properties of the input.
+ * 
+ * ```ts
+ * const name = C.String.createOrThrow("Ada");
+ * 
+ * const withParsedEvidence = C.appendEvidence(name, "parsed");
+ * // `withParsedEvidence` now carries the "parsed" evidence trait.
+ * 
+ * const withTwoEvidences = C.appendEvidence(withParsedEvidence, "validated");
+ * // `withTwoEvidences` now carries both "parsed" and "validated" evidence traits.
+ * 
+ * const userResult = {
+ * 	name,
+ * 	permissions: ["read", "write"] as const,
+ * };
+ * 
+ * const withLoadedEvidence = C.appendEvidence(userResult, "loaded");
+ * // `withLoadedEvidence` keeps the full composed object type and carries "loaded".
+ * 
+ * const withPipeEvidence = pipe(
+ * 	name,
+ * 	C.appendEvidence("from-pipe"),
+ * );
+ * // `withPipeEvidence` now carries the "from-pipe" evidence trait.
+ * ```
+ * 
+ * @remarks
+ * - Useful to trace business processing steps by progressively attaching evidence traits, including on objects whose properties were computed together.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/clean/evidence
+ * 
+ * @namespace C
+ * 
+ */
+export declare function appendEvidence<GenericInput extends object, GenericEvidenceName extends string>(input: GenericInput, evidenceName: GenericEvidenceName): GenericInput & Evidence<GenericEvidenceName>;
+export declare function appendEvidence<GenericInput extends object, GenericEvidenceName extends string>(evidenceName: GenericEvidenceName): (input: GenericInput) => GenericInput & Evidence<GenericEvidenceName>;
 /**
  * Predicate that checks whether a clean value carries one of the requested evidence traits.
  * 
