@@ -25,6 +25,6 @@ const pipeRoles = pipe(
 
 type checkPipeRoles = ExpectType<
 	typeof pipeRoles,
-	["guest"] & A.MaxElements<1>,
+	readonly ["guest"] & A.MaxElements<1>,
 	"strict"
 >;

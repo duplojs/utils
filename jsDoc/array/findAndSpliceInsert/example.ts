@@ -6,8 +6,9 @@ A.findAndSpliceInsert(
 	[9],
 ); // [1, 9, 2, 3]
 
+const input = ["alpha", "beta"];
 pipe(
-	["alpha", "beta"],
+	input,
 	A.findAndSpliceInsert((value) => value === "alpha", ["start"]),
 ); // ["start", "alpha", "beta"]
 

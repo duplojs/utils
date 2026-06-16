@@ -1,11 +1,12 @@
 import { DArray, DObject, type ExpectType, innerPipe, pipe } from "@scripts";
 
 it("innerPipe", () => {
+	const input = {
+		prop1: "test",
+		prop2: 2,
+	};
 	const result = pipe(
-		{
-			prop1: "test",
-			prop2: 2,
-		},
+		input,
 		innerPipe(
 			(value) => {
 				type check = ExpectType<

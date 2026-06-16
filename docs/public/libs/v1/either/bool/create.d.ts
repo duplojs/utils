@@ -9,8 +9,9 @@ import { type BoolTruthy } from "./truthy";
  * The input value is not mutated.
  * 
  * ```ts
+ * const input = ["duplo"];
  * const result = pipe(
- * 	["duplo"],
+ * 	input,
  * 	A.find(equal("nest")),
  * 	E.bool,
  * );

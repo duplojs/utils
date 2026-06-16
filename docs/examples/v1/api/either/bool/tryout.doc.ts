@@ -2,12 +2,12 @@ import { A, E, pipe, type ExpectType, equal } from "@duplojs/utils";
 
 const result = pipe(
 	["duplo"],
-	A.find(equal("nest")),
+	A.find(equal("duplo")),
 	E.bool,
 );
 
 type check = ExpectType<
 	typeof result,
-	E.BoolFalsy<undefined> | E.BoolTruthy<"nest">,
+	E.BoolFalsy<undefined> | E.BoolTruthy<"duplo">,
 	"strict"
 >;

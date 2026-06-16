@@ -16,12 +16,9 @@
  * 	3,
  * ); // [10, 0, 0, 40]
  * 
+ * const input = ["alpha", "beta", "gamma"];
  * pipe(
- * 	[
- * 		"alpha",
- * 		"beta",
- * 		"gamma",
- * 	],
+ * 	input,
  * 	A.fill("delta", 0, 2),
  * ); // ["delta", "delta", "gamma"]
  * ```

@@ -7,7 +7,7 @@ Finds the last index of a value.
 The input array is not mutated.
 
 ```ts
-{@include array/lastIndexOf/example.ts[3,17]}
+{@include array/lastIndexOf/example.ts[3,18]}
 ```
 
 @remarks

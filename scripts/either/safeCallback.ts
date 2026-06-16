@@ -1,99 +1,68 @@
-import type { Kind, EscapeVoid } from "@scripts/common";
-import { createEitherKind } from "./kind";
 import { type Left, isLeft, left } from "./left";
 import { isRight, right, type Right } from "./right";
 
-export const callbackErrorKind = createEitherKind(
-	"callback-error",
-);
-
-/**
- * @deprecated use callbackErrorKind
- */
-export const eitherCallbackErrorKind = callbackErrorKind;
-
-export const callbackSuccessKind = createEitherKind(
-	"callback-success",
-);
-
-/**
- * @deprecated use callbackSuccessKind
- */
-export const eitherCallbackSuccessKind = callbackSuccessKind;
-
-type _CallbackError = (
-	& Left<"callback", unknown>
-	& Kind<typeof callbackErrorKind.definition>
-);
-
-type _CallbackSuccess<
+export type SafeCallbackSuccess<
 	GenericValue extends unknown,
-> = (
-	& Right<"callback", GenericValue>
-	& Kind<typeof callbackSuccessKind.definition>
-);
+> = Right<"safe-callback-success", GenericValue>;
 
-export interface CallbackError extends _CallbackError {}
-
-export interface CallbackSuccess<
-	GenericValue extends unknown,
-> extends _CallbackSuccess<GenericValue> {}
-
-/**
- * @deprecated use CallbackError
- */
-export type EitherCallbackError = CallbackError;
-
-/**
- * @deprecated use CallbackSuccess
- */
-export type EitherCallbackSuccess<
-	GenericValue extends unknown,
-> = CallbackSuccess<GenericValue>;
-
-export function callbackError(value: unknown): CallbackError {
-	return callbackErrorKind.setTo(
-		left("callback", value),
-	);
-}
-
-export function callbackSuccess<
-	GenericValue extends unknown,
->(value: GenericValue): CallbackSuccess<GenericValue> {
-	return callbackSuccessKind.setTo(
-		right("callback", value),
-	);
-}
+export type SafeCallbackError = Left<"safe-callback-error", unknown>;
 
 type Either = Right | Left;
 
 type ComputeSafeCallbackResult<
 	GenericOutput extends unknown,
-> = GenericOutput extends Either
-	? GenericOutput
-	: GenericOutput extends EscapeVoid
-		? CallbackSuccess<undefined>
-		: CallbackSuccess<GenericOutput>;
+> = (
+	| (
+		GenericOutput extends Either
+			? GenericOutput
+			: GenericOutput extends Promise<infer InferredValue>
+				? Promise<
+					ComputeSafeCallbackResult<
+						InferredValue
+					>
+				>
+				: SafeCallbackSuccess<GenericOutput>
+	)
+	| SafeCallbackError
+);
 
 /**
  * {@include either/safeCallback/index.md}
  */
 export function safeCallback<
-	GenericOutput extends unknown,
+	const GenericOutput extends unknown,
 >(
 	theFunction: () => GenericOutput,
-): ComputeSafeCallbackResult<GenericOutput> | CallbackError {
+): Extract<ComputeSafeCallbackResult<GenericOutput>, any> {
+	let result: unknown = undefined;
+
 	try {
-		const result = theFunction();
-
-		if (isRight(result) || isLeft(result)) {
-			return result as ComputeSafeCallbackResult<GenericOutput>;
-		}
-
-		return callbackSuccess(
-			result,
-		) as ComputeSafeCallbackResult<GenericOutput>;
+		result = theFunction();
 	} catch (error) {
-		return callbackError(error);
+		return left("safe-callback-error", error) as never;
 	}
+
+	if (result instanceof Promise) {
+		return result
+			.then((result) => {
+				if (isRight(result) || isLeft(result)) {
+					return result;
+				}
+
+				return right(
+					"safe-callback-success",
+					result,
+				);
+			})
+			.catch((error) => left("safe-callback-error", error)) as never;
+	}
+
+	if (isRight(result) || isLeft(result)) {
+		return result;
+	}
+
+	return right(
+		"safe-callback-success",
+		result,
+	) as never;
 }

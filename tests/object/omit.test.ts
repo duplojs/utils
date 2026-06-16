@@ -56,12 +56,13 @@ describe("omit", () => {
 	});
 
 	it("omit with object", () => {
+		const input = {
+			prop1: "test",
+			prop2: 1,
+			prop3: [1, "test"],
+		};
 		const result = pipe(
-			{
-				prop1: "test",
-				prop2: 1,
-				prop3: [1, "test"],
-			},
+			input,
 			DObject.omit({
 				prop1: undefined as true | undefined,
 				prop2: true,

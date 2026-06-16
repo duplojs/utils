@@ -11,7 +11,8 @@ A.indexOf(
 	2,
 ); // undefined
 
+const input = ["alpha", "beta"];
 pipe(
-	["alpha", "beta"],
+	input,
 	A.indexOf("beta"),
 ); // 1

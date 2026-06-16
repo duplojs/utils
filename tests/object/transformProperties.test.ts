@@ -41,12 +41,14 @@ describe("transformProperties", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = {
+			prop1: 1,
+			prop2: "test",
+			prop3: [1, 2] as const,
+		};
+
 		const result = pipe(
-			{
-				prop1: 1,
-				prop2: "test",
-				prop3: [1, 2] as const,
-			},
+			input,
 			DObject.transformProperties({
 				prop1: () => "wow",
 				prop3: true ? DArray.shift : undefined,

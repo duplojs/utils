@@ -11,7 +11,8 @@ A.unshift(
 	2,
 ); // [1, 2, 3, 4]
 
+const input = ["beta", "gamma"];
 pipe(
-	["beta", "gamma"],
+	input,
 	A.unshift("alpha"),
 ); // ["alpha", "beta", "gamma"]

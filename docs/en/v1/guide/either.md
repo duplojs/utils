@@ -89,7 +89,7 @@ if (E.isLeft(result) && E.hasInformation(result, "emailAlreadyExists")) {
 
 When you want to chain transformations **as long as it stays a `Right`**:
 - `E.rightPipe` for sync
-- `E.rightAsyncPipe` for async (promises and `Future`)
+- `E.rightAsyncPipe` for async pipelines based on promises
 
 To aggregate multiple `Either`:
 - `E.group` returns the first `Left`, otherwise a `Right` with all values

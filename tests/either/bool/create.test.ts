@@ -150,8 +150,9 @@ describe("createEitherBool", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = ["test"];
 		const result = pipe(
-			["test"],
+			input,
 			DArray.find((value) => value === "toto"),
 			DEither.bool,
 		);

@@ -27,12 +27,12 @@ type checkContractLength = ExpectType<
 >;
 
 const pipeRoles = pipe(
-	["guest"] as const,
+	["guest"],
 	A.withMaxElements,
 );
 
 type checkPipe = ExpectType<
 	typeof pipeRoles,
-	["guest"] & A.MaxElements<1>,
+	readonly ["guest"] & A.MaxElements<1>,
 	"strict"
 >;

@@ -1,6 +1,6 @@
-Asynchronous version of rightPipe. Automatically handles promises, Future, and Either, and short-circuits on the first Left.
+Asynchronous version of rightPipe. Automatically handles promises and Either, and short-circuits on the first Left.
 
-Signature: `rightAsyncPipe(input, pipe1, pipe2)` → returns a value
+Signature: `rightAsyncPipe(input, pipe1, pipe2)` → returns a promise
 
 The input value is not mutated.
 

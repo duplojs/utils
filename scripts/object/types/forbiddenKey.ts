@@ -5,7 +5,7 @@ export type ForbiddenKey<
 	GenericKey extends string,
 > = (
 	GenericKey extends keyof GenericObject
-		? ComputedTypeError<`Key ${GenericKey} is forbidden.`>
+		? ComputedTypeError<`Key "${GenericKey}" is forbidden.`>
 		: never
 ) extends infer InferredResult
 	? IsEqual<InferredResult, never> extends true

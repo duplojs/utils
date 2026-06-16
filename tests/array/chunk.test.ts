@@ -26,8 +26,9 @@ describe("chunk", () => {
 	});
 
 	it("works with pipe (curried)", () => {
+		const input = [1, 2, 3, 4, 5];
 		const result = pipe(
-			[1, 2, 3, 4, 5],
+			input,
 			DArray.chunk(3),
 		);
 

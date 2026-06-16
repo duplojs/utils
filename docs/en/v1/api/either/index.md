@@ -179,7 +179,7 @@ Unwraps a `Left` payload immediately and throws if the input is not `Left`.
 Chains synchronous transformations as long as results are `Right`, and stops at the first `Left`.
 
 ### [rightAsyncPipe](/en/v1/api/either/rightAsyncPipe)
-Async version that accepts promises, `Future`, or `Either` and automatically stops on a `Left`.
+Async version that accepts promises or `Either` and automatically stops on a `Left`.
 
 ### [group](/en/v1/api/either/group)
 Aggregates multiple synchronous `Either` and returns the first `Left` or an object of `Right` values.
@@ -217,7 +217,7 @@ Unwraps selected `Either` payloads from an exhaustive information selector, othe
 Type-level helper that returns the same Either while preserving strict Left/Right typing.
 
 ### [safeCallback](/en/v1/api/either/safeCallback)
-Runs a callback and captures exceptions into a `Left<"callback">`.
+Runs a callback and captures thrown errors or promise rejections into, or resolves to, a `Left<"safe-callback-error">`.
 
 ## Boolean helpers
 

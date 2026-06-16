@@ -1,6 +1,6 @@
 import { isLeft } from './is.mjs';
-import { unwrap } from '../../common/unwrap.mjs';
 import { isRight } from '../right/is.mjs';
+import { unwrap } from '../../common/unwrap.mjs';
 
 function whenIsLeftElse(...args) {
     if (args.length === 2) {

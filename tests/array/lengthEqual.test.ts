@@ -34,8 +34,9 @@ describe("lengthEqual", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = ["alpha", "beta"];
 		const result = pipe(
-			["alpha", "beta"],
+			input,
 			when(
 				DArray.lengthEqual(2),
 				(value) => {

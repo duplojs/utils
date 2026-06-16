@@ -18,8 +18,9 @@ interface ArrayFindAndSpliceReplaceIndexParams {
  * 	[9, 8],
  * ); // [1, 9, 8, 4]
  * 
+ * const input = ["alpha", "beta", "gamma"];
  * pipe(
- * 	["alpha", "beta", "gamma"],
+ * 	input,
  * 	A.findAndSpliceReplace((value) => value === "beta", ["delta"]),
  * ); // ["alpha", "delta", "gamma"]
  * 
@@ -28,7 +29,6 @@ interface ArrayFindAndSpliceReplaceIndexParams {
  * 	(value) => value === 5,
  * 	[0],
  * ); // undefined
- * 
  * ```
  * 
  * @remarks

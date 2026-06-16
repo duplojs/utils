@@ -19,8 +19,9 @@
  * 	1,
  * ); // 0
  * 
+ * const input = ["alpha", "beta"];
  * pipe(
- * 	["alpha", "beta"],
+ * 	input,
  * 	A.lastIndexOf("gamma"),
  * ); // undefined
  * ```

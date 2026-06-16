@@ -21,7 +21,7 @@ describe("test", () => {
 
 		type check = ExpectType<
 			typeof result,
-			string[],
+			("duplojs" | "nestjs" | "django")[],
 			"strict"
 		>;
 	});

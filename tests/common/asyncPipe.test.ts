@@ -15,7 +15,7 @@ describe("asyncPipe", () => {
 
 		type check = ExpectType<
 			typeof result,
-			Promise<{ value: number }>,
+			Promise<{ readonly value: number }>,
 			"strict"
 		>;
 	});
@@ -34,7 +34,7 @@ describe("asyncPipe", () => {
 
 		type check = ExpectType<
 			typeof result,
-			Promise<{ value: number }>,
+			Promise<{ readonly value: number }>,
 			"strict"
 		>;
 	});
@@ -54,7 +54,7 @@ describe("asyncPipe", () => {
 		type check = ExpectType<
 			typeof result,
 			Promise<{
-				value: DEither.FutureSuccess<number>;
+				readonly value: DEither.FutureSuccess<number>;
 			}>,
 			"strict"
 		>;

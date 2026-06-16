@@ -6,8 +6,9 @@ A.spliceReplace(
 	[9, 8],
 ); // [1, 9, 8]
 
+const input = ["alpha", "beta", "gamma"];
 pipe(
-	["alpha", "beta", "gamma"],
+	input,
 	A.spliceReplace(1, ["delta"]),
 ); // ["alpha", "delta", "gamma"]
 

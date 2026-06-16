@@ -64,8 +64,9 @@ describe("from", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = [1, 2, 3];
 		const result = pipe(
-			[1, 2, 3],
+			input,
 			DArray.from,
 		);
 
