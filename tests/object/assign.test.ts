@@ -31,11 +31,12 @@ describe("assign", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = {
+			prop1: "test",
+			prop2: 1,
+		};
 		const result = pipe(
-			{
-				prop1: "test",
-				prop2: 1,
-			},
+			input,
 			DObject.assign({
 				prop2: "toto",
 				prop3: 1,

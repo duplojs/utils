@@ -217,7 +217,7 @@ describe("union discriminate array", () => {
 
 			type Check = ExpectType<
 				typeof result,
-				DPattern.PatternResult<"myValue"> | { input: Test[] },
+				DPattern.PatternResult<"myValue"> | { readonly input: Test[] },
 				"strict"
 			>;
 		});
@@ -248,7 +248,7 @@ describe("union discriminate array", () => {
 
 			type Check = ExpectType<
 				typeof result,
-				DPattern.PatternResult<"myValue"> | { input: Test[] },
+				DPattern.PatternResult<"myValue"> | { readonly input: Test[] },
 				"strict"
 			>;
 		});
@@ -257,7 +257,7 @@ describe("union discriminate array", () => {
 			const result = pipe(
 				{
 					input,
-					con: true,
+					con: true as boolean,
 				},
 				DPattern.match(
 					{
@@ -287,8 +287,8 @@ describe("union discriminate array", () => {
 			type Check = ExpectType<
 				typeof result,
 				DPattern.PatternResult<"myValue"> | {
-					input: Test[];
-					con: boolean;
+					readonly input: Test[];
+					readonly con: boolean;
 				},
 				"strict"
 			>;
@@ -483,7 +483,7 @@ describe("union discriminate array", () => {
 			type Check = ExpectType<
 				typeof result,
 				DPattern.PatternResult<"myValue"> | {
-					input: [Test, number, ...string[]];
+					readonly input: [Test, number, ...string[]];
 				},
 				"strict"
 			>;

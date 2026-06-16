@@ -28,7 +28,7 @@ describe("eitherRightPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			DEither.Right<"result", number> | DEither.Fail,
+			DEither.Right<"result", 10> | DEither.Fail,
 			"strict"
 		>;
 	});
@@ -45,7 +45,7 @@ describe("eitherRightPipe", () => {
 
 		type check = ExpectType<
 			Awaited<typeof result>,
-			DEither.Success<number> | DEither.Fail,
+			DEither.Success<10> | DEither.Fail,
 			"strict"
 		>;
 	});

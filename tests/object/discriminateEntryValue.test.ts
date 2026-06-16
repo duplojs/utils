@@ -1,4 +1,4 @@
-import { DObject, isType, pipe, when, type ExpectType } from "@scripts";
+import { DObject, equal, isType, pipe, when, type ExpectType } from "@scripts";
 
 describe("discriminateEntryValue", () => {
 	it("default usage", () => {

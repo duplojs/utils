@@ -14,7 +14,7 @@ it("pipe", () => {
 
 	type check = ExpectType<
 		typeof result,
-		{ value: number },
+		{ readonly value: number },
 		"strict"
 	>;
 });

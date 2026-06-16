@@ -2,10 +2,12 @@ import { type FixDeepFunctionInfer, type GetKindValue, type Kind, type Unwrap } 
 import { informationKind } from "./kind";
 import { type Right } from "./right";
 import { type Left } from "./left";
+import { type ForbiddenKey } from "../object";
 type Either = Right | Left;
 type ComputeMatcher<GenericEither extends Either> = Extract<{
     [Prop in GetKindValue<typeof informationKind, GenericEither>]: (value: Unwrap<Extract<GenericEither, Kind<typeof informationKind.definition, Prop>>>) => unknown;
 }, any>;
+type ForbiddenMoreKey<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>> = ForbiddenKey<GenericMatcher, Extract<Exclude<keyof GenericMatcher, GetKindValue<typeof informationKind, Extract<GenericInput, Either>>>, string>>;
 /**
  * Exhaustive pattern matching based on Either information. Every information case from the input must be handled.
  * 
@@ -51,6 +53,6 @@ type ComputeMatcher<GenericEither extends Either> = Extract<{
  * @namespace E
  * 
  */
-export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(matcher: (ComputeMatcher<Extract<NoInfer<GenericInput>, Either>> & GenericMatcher)): (input: GenericInput) => (ReturnType<NoInfer<GenericMatcher[keyof GenericMatcher]>> | Exclude<NoInfer<GenericInput>, Either>);
-export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(input: GenericInput, matcher: FixDeepFunctionInfer<ComputeMatcher<Extract<GenericInput, Either>>, GenericMatcher>): (ReturnType<GenericMatcher[keyof GenericMatcher]> | Exclude<GenericInput, Either>);
+export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>, GenericError extends ForbiddenMoreKey<GenericInput, GenericMatcher>>(matcher: (ComputeMatcher<Extract<NoInfer<GenericInput>, Either>> & GenericMatcher & NoInfer<GenericError>)): (input: GenericInput) => (ReturnType<NoInfer<GenericMatcher[keyof GenericMatcher]>> | Exclude<NoInfer<GenericInput>, Either>);
+export declare function matchInformation<GenericInput extends unknown, GenericMatcher extends ComputeMatcher<Extract<GenericInput, Either>>>(input: GenericInput, matcher: FixDeepFunctionInfer<ComputeMatcher<Extract<GenericInput, Either>>, GenericMatcher> & ForbiddenMoreKey<GenericInput, GenericMatcher>): (ReturnType<GenericMatcher[keyof GenericMatcher]> | Exclude<GenericInput, Either>);
 export {};

@@ -39,7 +39,6 @@ An instance of `Future`, subclass of `Promise`, whose `await` automatically retu
 
 ## Best practices
 
-- `Future` automatically propagates the first `Left` encountered: combine it with `E.rightAsyncPipe` for your async pipelines.
 - Use `Future.all([...])` to wait for multiple typed operations.
 - Prefer `futureSuccess` / `futureError` to create base cases.
 
@@ -47,4 +46,4 @@ An instance of `Future`, subclass of `Promise`, whose `await` automatically retu
 
 - [`futureSuccess`](/en/v1/api/either/futureSuccess).
 - [`futureError`](/en/v1/api/either/futureError).
-- [`rightAsyncPipe`](/en/v1/api/either/rightAsyncPipe) – To chain async operations.
+- [`asyncGroup`](/en/v1/api/either/asyncGroup) – To aggregate asynchronous `Either` values.

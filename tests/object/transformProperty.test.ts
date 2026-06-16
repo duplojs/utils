@@ -38,22 +38,23 @@ describe("transformProperty", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = {
+			prop1: 1,
+			prop2: "test",
+			prop3: [],
+		};
 		const result = pipe(
-			{
-				prop1: 1,
-				prop2: "test",
-				prop3: [],
-			},
+			input,
 			DObject.transformProperty(
 				"prop1",
 				(value) => {
-				type check = ExpectType<
-					typeof value,
-					number,
-					"strict"
-				>;
+					type check = ExpectType<
+						typeof value,
+						number,
+						"strict"
+					>;
 
-				return `toto-${value}`;
+					return `toto-${value}`;
 				},
 			),
 		);

@@ -38,8 +38,10 @@ describe("lastIndexOf", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = [1, 2, 3, 4, 2];
+
 		const result = pipe(
-			[1, 2, 3, 4, 2],
+			input,
 			DArray.lastIndexOf(2),
 		);
 		expect(result).toEqual(4);

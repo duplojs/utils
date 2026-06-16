@@ -12,7 +12,8 @@ A.set(
 	0,
 ); // [1, 2, 0]
 
+const input = ["alpha", "beta"];
 pipe(
-	["alpha", "beta"],
+	input,
 	A.set(0, "gamma"),
 ); // ["gamma", "beta"]

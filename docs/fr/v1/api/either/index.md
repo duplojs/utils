@@ -94,7 +94,7 @@ Unwrap immédiatement le payload d'un `Left` et lève une erreur si l'entrée n'
 Chaîne des transformations synchrones tant que les résultats restent `Right`, s'interrompt sur le premier `Left`.
 
 ### [rightAsyncPipe](/fr/v1/api/either/rightAsyncPipe)
-Version asynchrone acceptant promesses, `Future` ou `Either` et s'arrêtant automatiquement sur un `Left`.
+Version asynchrone acceptant promesses ou `Either` et s'arrêtant automatiquement sur un `Left`.
 
 ### [group](/fr/v1/api/either/group)
 Agrège plusieurs `Either` synchrones et renvoie le premier `Left` ou un objet des valeurs `Right`.
@@ -132,7 +132,7 @@ Unwrap les payloads `Either` sélectionnés par un sélecteur exhaustif d'inform
 Helper de typage qui renvoie le même Either en conservant strictement les types Left/Right.
 
 ### [safeCallback](/fr/v1/api/either/safeCallback)
-Exécute un callback en capturant les exceptions dans un `Left<"callback">`.
+Exécute un callback en capturant les exceptions et rejets de promesse dans, ou en résolvant vers, un `Left<"safe-callback-error">`.
 
 ## Helpers booléens
 

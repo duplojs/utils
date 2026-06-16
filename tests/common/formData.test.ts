@@ -144,10 +144,11 @@ describe("formData", () => {
 	});
 
 	it("can be used in pipe through createFormData", () => {
+		const input = {
+			name: "duplo",
+		};
 		const result = pipe(
-			{
-				name: "duplo",
-			},
+			input,
 			createFormData,
 		);
 

@@ -39,7 +39,6 @@ Une instance de `Future`, sous-classe de `Promise`, dont `await` retourne automa
 
 ## Bonnes pratiques
 
-- `Future` propage automatiquement le premier `Left` rencontré : combinez-le avec `E.rightAsyncPipe` pour vos pipelines async.
 - Utilisez `Future.all([...])` pour attendre plusieurs opérations typées.
 - Préférez `futureSuccess` / `futureError` pour créer des cas de base.
 
@@ -47,4 +46,4 @@ Une instance de `Future`, sous-classe de `Promise`, dont `await` retourne automa
 
 - [`futureSuccess`](/fr/v1/api/either/futureSuccess).
 - [`futureError`](/fr/v1/api/either/futureError).
-- [`rightAsyncPipe`](/fr/v1/api/either/rightAsyncPipe) – Pour chaîner des opérations async.
+- [`asyncGroup`](/fr/v1/api/either/asyncGroup) – Pour agréger des valeurs `Either` asynchrones.

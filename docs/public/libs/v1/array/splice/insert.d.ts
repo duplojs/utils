@@ -14,8 +14,9 @@
  * 	[9],
  * ); // [1, 9, 2, 3]
  * 
+ * const input = ["alpha", "beta"];
  * pipe(
- * 	["alpha", "beta"],
+ * 	input,
  * 	A.spliceInsert(0, ["start"]),
  * ); // ["start", "alpha", "beta"]
  * 
@@ -24,7 +25,6 @@
  * 	2,
  * 	[3],
  * ); // [1, 2, 3]
- * 
  * ```
  * 
  * @remarks

@@ -10,10 +10,9 @@ O.override(
 	},
 ); // { name: "Ada", age: 36 }
 
+const input = { count: 1 };
 pipe(
-	{
-		count: 1,
-	},
+	input,
 	O.override({
 		count: 2,
 	}),

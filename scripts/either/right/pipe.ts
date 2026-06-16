@@ -4,31 +4,23 @@ import { type Right } from "./create";
 import { isLeft, type Left } from "../left";
 import { success, type Success } from "./success";
 import { isRight } from "./is";
-import { type AnyValue, unwrap, type Unwrap } from "@scripts/common";
+import { unwrap, type Unwrap } from "@scripts/common";
 
 type Either = Right | Left;
 
-export type RightPipeFunction<
-	GenericInput extends AnyValue = AnyValue,
-	GenericOutput extends AnyValue = AnyValue,
+type RightPipeFunction<
+	GenericInput extends unknown,
+	GenericOutput extends unknown,
 > = (
 	input: GenericInput extends Either
 		? Unwrap<Exclude<GenericInput, Left>>
 		: GenericInput
 ) => GenericOutput;
 
-/**
- * @deprecated use RightPipeFunction
- */
-export type EitherRightPipeFunction<
-	GenericInput extends AnyValue = AnyValue,
-	GenericOutput extends AnyValue = AnyValue,
-> = RightPipeFunction<GenericInput, GenericOutput>;
-
-export type RightPipeResult<
-	GenericPipeOutputs extends AnyValue,
-	GenericLastPipeOutput extends AnyValue,
-> =
+type RightPipeResult<
+	GenericPipeOutputs extends unknown,
+	GenericLastPipeOutput extends unknown,
+> = (
 	| Extract<
 		GenericPipeOutputs,
 		Left
@@ -38,22 +30,15 @@ export type RightPipeResult<
 			? GenericLastPipeOutput
 			: Success<GenericLastPipeOutput>,
 		Left
-	>;
-
-/**
- * @deprecated use RightPipeResult
- */
-export type EitherRightPipeResult<
-	GenericPipeOutputs extends AnyValue,
-	GenericLastPipeOutput extends AnyValue,
-> = RightPipeResult<GenericPipeOutputs, GenericLastPipeOutput>;
+	>
+);
 
 /**
  * {@include either/rightPipe/index.md}
  */
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -66,9 +51,9 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -83,10 +68,10 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -103,11 +88,11 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -126,12 +111,12 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -152,13 +137,13 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -181,14 +166,14 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -213,15 +198,15 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -248,16 +233,16 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -286,17 +271,17 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -327,18 +312,18 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
-	GenericOutputPipe11 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
+	const GenericOutputPipe11 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -371,19 +356,19 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
-	GenericOutputPipe11 extends AnyValue,
-	GenericOutputPipe12 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
+	const GenericOutputPipe11 extends unknown,
+	const GenericOutputPipe12 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -418,20 +403,20 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
-	GenericOutputPipe11 extends AnyValue,
-	GenericOutputPipe12 extends AnyValue,
-	GenericOutputPipe13 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
+	const GenericOutputPipe11 extends unknown,
+	const GenericOutputPipe12 extends unknown,
+	const GenericOutputPipe13 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -468,21 +453,21 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
-	GenericOutputPipe11 extends AnyValue,
-	GenericOutputPipe12 extends AnyValue,
-	GenericOutputPipe13 extends AnyValue,
-	GenericOutputPipe14 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
+	const GenericOutputPipe11 extends unknown,
+	const GenericOutputPipe12 extends unknown,
+	const GenericOutputPipe13 extends unknown,
+	const GenericOutputPipe14 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -521,22 +506,22 @@ export function rightPipe<
 	any
 >;
 export function rightPipe<
-	GenericInput extends AnyValue,
-	GenericOutputPipe1 extends AnyValue,
-	GenericOutputPipe2 extends AnyValue,
-	GenericOutputPipe3 extends AnyValue,
-	GenericOutputPipe4 extends AnyValue,
-	GenericOutputPipe5 extends AnyValue,
-	GenericOutputPipe6 extends AnyValue,
-	GenericOutputPipe7 extends AnyValue,
-	GenericOutputPipe8 extends AnyValue,
-	GenericOutputPipe9 extends AnyValue,
-	GenericOutputPipe10 extends AnyValue,
-	GenericOutputPipe11 extends AnyValue,
-	GenericOutputPipe12 extends AnyValue,
-	GenericOutputPipe13 extends AnyValue,
-	GenericOutputPipe14 extends AnyValue,
-	GenericOutputPipe15 extends AnyValue,
+	const GenericInput extends unknown,
+	const GenericOutputPipe1 extends unknown,
+	const GenericOutputPipe2 extends unknown,
+	const GenericOutputPipe3 extends unknown,
+	const GenericOutputPipe4 extends unknown,
+	const GenericOutputPipe5 extends unknown,
+	const GenericOutputPipe6 extends unknown,
+	const GenericOutputPipe7 extends unknown,
+	const GenericOutputPipe8 extends unknown,
+	const GenericOutputPipe9 extends unknown,
+	const GenericOutputPipe10 extends unknown,
+	const GenericOutputPipe11 extends unknown,
+	const GenericOutputPipe12 extends unknown,
+	const GenericOutputPipe13 extends unknown,
+	const GenericOutputPipe14 extends unknown,
+	const GenericOutputPipe15 extends unknown,
 >(
 	input: GenericInput,
 	pipe1: RightPipeFunction<GenericInput, GenericOutputPipe1>,
@@ -578,14 +563,14 @@ export function rightPipe<
 >;
 
 export function rightPipe(
-	input: AnyValue,
-	...pipes: RightPipeFunction[]
+	input: unknown,
+	...pipes: RightPipeFunction<unknown, unknown>[]
 ): any {
 	if (isLeft(input)) {
 		return input;
 	}
 
-	let acc: AnyValue = isRight(input)
+	let acc: unknown = isRight(input)
 		? unwrap(input)
 		: input;
 

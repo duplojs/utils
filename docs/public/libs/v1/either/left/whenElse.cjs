@@ -1,8 +1,8 @@
 'use strict';
 
 var is = require('./is.cjs');
-var unwrap = require('../../common/unwrap.cjs');
 var is$1 = require('../right/is.cjs');
+var unwrap = require('../../common/unwrap.cjs');
 
 function whenIsLeftElse(...args) {
     if (args.length === 2) {

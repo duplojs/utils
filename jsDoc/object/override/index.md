@@ -7,7 +7,7 @@ Overrides object properties, ignoring undefined values.
 The input object is not mutated.
 
 ```ts
-{@include object/override/example.ts[3,30]}
+{@include object/override/example.ts[3,28]}
 ```
 
 @remarks

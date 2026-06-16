@@ -19,8 +19,9 @@ describe("minElements", () => {
 	});
 
 	it("use in pipe", () => {
+		const input = ["string"];
 		const result = pipe(
-			["string"],
+			input,
 			when(
 				DArray.minElements(10),
 				(value) => {

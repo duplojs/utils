@@ -42,7 +42,7 @@ describe("unwrapGroup", () => {
 
 		type check = ExpectType<
 			typeof result,
-			{ value: "test" },
+			{ readonly value: "test" },
 			"strict"
 		>;
 	});
