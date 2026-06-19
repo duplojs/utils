@@ -1,5 +1,5 @@
 import { type AnyAbstractConstructor } from "./anyConstructor";
-import { type ComputedTypeError } from "./ComputedTypeError";
+import { type ComputedTypeError } from "./computedTypeError";
 
 export type RequireConstructor<
 	GenericInput extends unknown,

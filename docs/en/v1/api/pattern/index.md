@@ -28,6 +28,18 @@ import * as P from "@duplojs/utils/pattern";
 ### [match](/fr/v1/api/pattern/match)
 Associates a pattern and a transformation function. Returns a `PatternResult` when the input matches the pattern exactly (primitive, tuple, object, union...).
 
+### [matchWithString](/en/v1/api/pattern/matchWithString)
+Exhaustively dispatches a string literal union to typed handlers.
+
+### [matchWithStringOtherwise](/en/v1/api/pattern/matchWithStringOtherwise)
+Handles selected string literals and sends remaining cases to a typed fallback.
+
+### [matchWithNumber](/en/v1/api/pattern/matchWithNumber)
+Exhaustively dispatches a number literal union to typed handlers.
+
+### [matchWithNumberOtherwise](/en/v1/api/pattern/matchWithNumberOtherwise)
+Handles selected number literals and sends remaining cases to a typed fallback.
+
 ### [when](/fr/v1/api/pattern/when)
 Adds a guard (type predicate or boolean) in a pipeline. If the condition is true, the associated function is executed and its result is wrapped.
 

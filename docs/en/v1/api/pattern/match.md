@@ -5,8 +5,8 @@ prev:
   text: "Pattern"
   link: "/en/v1/api/pattern/"
 next:
-  text: "when"
-  link: "/en/v1/api/pattern/when"
+  text: "matchWithString"
+  link: "/en/v1/api/pattern/matchWithString"
 ---
 
 # match

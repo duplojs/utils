@@ -110,6 +110,9 @@ Type guard basé sur l'information littérale pour cibler précisément un cas m
 ### [whenHasInformation](/fr/v1/api/either/whenHasInformation)
 Pattern matching qui déclenche une fonction quand l'information (ou une liste d'infos) correspond.
 
+### [whenIsSelected](/fr/v1/api/either/whenIsSelected)
+Exécute un callback pour les informations sélectionnées avec `true` dans un sélecteur exhaustif et relaie les autres entrées inchangées.
+
 ### [matchInformation](/fr/v1/api/either/matchInformation)
 Pattern matching exhaustif par information où chaque cas Either doit être traité.
 

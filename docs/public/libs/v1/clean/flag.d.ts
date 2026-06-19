@@ -32,17 +32,26 @@ export interface FlagHandler<GenericEntity extends Entity = Entity, GenericName 
      * 
      */
     getValue<GenericInputEntity extends GenericEntity & Flag<GenericName, GenericValue>>(entity: GenericInputEntity): GetKindValue<typeof flagKind, GenericInputEntity>[GenericName];
+    /**
+     * Checks whether the entity has this state and narrows its type to include the flag.
+     * 
+     * ```ts
+     * User.MajorFlag.has(user); // false
+     * User.MajorFlag.has(flagged); // true
+     * ```
+     * 
+     */
     has<GenericInputEntity extends GenericEntity>(entity: GenericInputEntity): entity is Extract<GenericInputEntity, Flag<GenericName, any>>;
 }
 export interface Flag<GenericName extends string = string, GenericValue extends unknown = never> extends Kind<typeof flagKind.definition, Record<GenericName, GenericValue>> {
 }
 /**
- * Creates a flag handler that can attach typed metadata to an entity.
+ * Creates a handler for assigning a typed business state to an entity.
  * 
  * **Supported call styles:**
  * - Classic: `createFlag(name)` -> returns a handler
  * 
- * Flags let you mark an entity after creation without changing its shape. The mark can optionally carry a value.
+ * Use flags to make an entity state part of a precise type contract. Functions can require an entity combined with one or more flags, while the same entity keeps its original business properties and can reuse its repositories, mappers, and other supporting code. A flag can optionally carry data associated with its state.
  * 
  * ```ts
  * namespace User {
@@ -97,10 +106,12 @@ export interface Flag<GenericName extends string = string, GenericValue extends 
  * const flagged = User.MajorFlag.append(user, { age: user.age });
  * const value = User.MajorFlag.getValue(flagged);
  * 
+ * User.MajorFlag.has(user); // false
+ * User.MajorFlag.has(flagged); // true
  * ```
  * 
  * @remarks
- * A flag lets you add a marker on an entity after its creation. Its purpose is to indicate that a verification has taken place, or that a particular operation has been performed, without modifying the structure of the entity. If the flag carries a value, `append` requires it and `getValue` retrieves it.
+ * A flag avoids defining and maintaining a separate entity variation for every possible state. `append` enriches the entity's type with that state, `has` checks and narrows it at runtime, and `getValue` retrieves the data carried by the state.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/flag
  * 

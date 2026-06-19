@@ -69,6 +69,12 @@ Declares an aggregate of linked business actions that must run in order.
 ### [equal](/en/v1/api/clean/primitives/operators/equal)
 Compares two wrapped primitives (or a primitive and a raw value) with a type guard.
 
+### [matchWithString](/en/v1/api/clean/primitives/operators/matchWithString)
+Performs exhaustive matching with raw string keys and passes the narrowed original Clean primitive.
+
+### [matchWithNumber](/en/v1/api/clean/primitives/operators/matchWithNumber)
+Performs exhaustive matching with raw number keys and passes the narrowed original Clean primitive.
+
 ### [add](/en/v1/api/clean/primitives/operators/add)
 Adds two `Number` (supports the curried version).
 

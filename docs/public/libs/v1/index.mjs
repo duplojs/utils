@@ -101,3 +101,5 @@ export { kindClass } from './common/kindClass.mjs';
 export { promiseAll } from './common/promiseAll.mjs';
 export { detachObjectMethod } from './common/detachObjectMethod.mjs';
 export { bindPrototypeMethods } from './common/bindPrototypeMethods.mjs';
+export { preparePipe } from './common/preparePipe.mjs';
+export { prepareAsyncPipe } from './common/prepareAsyncPipe.mjs';

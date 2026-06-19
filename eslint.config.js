@@ -41,6 +41,6 @@ export default [
 		},
 	},
 	{
-		ignores: ["coverage", "dist", "docs/public/*", "docs/.vitepress/cache/*", "docs/.vitepress/dist/*"]
+		ignores: ["coverage", "dist", "docs/public/*", "docs/.vitepress/cache/*", "docs/.vitepress/dist/*", "docs/.vitepress/.temp/*"]
 	}
 ];

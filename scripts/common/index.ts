@@ -65,3 +65,5 @@ export * from "./kindClass";
 export * from "./promiseAll";
 export * from "./detachObjectMethod";
 export * from "./bindPrototypeMethods";
+export * from "./preparePipe";
+export * from "./prepareAsyncPipe";

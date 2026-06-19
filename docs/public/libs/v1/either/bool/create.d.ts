@@ -12,11 +12,11 @@ import { type BoolTruthy } from "./truthy";
  * const input = ["duplo"];
  * const result = pipe(
  * 	input,
- * 	A.find(equal("nest")),
+ * 	A.find(equal("duplo")),
  * 	E.bool,
  * );
  * 
- * // type: E.BoolFalsy<undefined> | E.BoolTruthy<"nest">
+ * // type: E.BoolFalsy<undefined> | E.BoolTruthy<"duplo">
  * ```
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/bool

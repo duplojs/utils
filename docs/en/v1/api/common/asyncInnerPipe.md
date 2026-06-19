@@ -5,8 +5,8 @@ prev:
   text: "asyncPipe"
   link: "/en/v1/api/common/asyncPipe"
 next:
-  text: "forward"
-  link: "/en/v1/api/common/forward"
+  text: "prepareAsyncPipe"
+  link: "/en/v1/api/common/prepareAsyncPipe"
 ---
 
 # asyncInnerPipe

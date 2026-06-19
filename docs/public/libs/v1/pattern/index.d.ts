@@ -31,3 +31,7 @@ export * from "./types";
 export * from "./union";
 export * from "./when";
 export * from "./whenNot";
+export * from "./matchWithString";
+export * from "./matchWithNumber";
+export * from "./matchWithStringOtherwise";
+export * from "./matchWithNumberOtherwise";

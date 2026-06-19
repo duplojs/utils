@@ -20,7 +20,7 @@ describe("whenHasInformation", () => {
 
 		type check = ExpectType<
 			typeof result,
-			10 | DEither.Left<"left", undefined>,
+			number | DEither.Left<"left", undefined>,
 			"strict"
 		>;
 	});

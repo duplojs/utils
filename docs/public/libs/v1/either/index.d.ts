@@ -31,6 +31,7 @@ export * from "./optional";
 export * from "./right";
 export * from "./hasInformation";
 export * from "./whenHasInformation";
+export * from "./whenIsSelected";
 export * from "./kind";
 export * from "./safeCallback";
 export * from "./expect";

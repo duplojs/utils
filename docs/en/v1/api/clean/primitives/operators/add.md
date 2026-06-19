@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 prev:
-  text: "equal"
-  link: "/en/v1/api/clean/primitives/operators/equal"
+  text: "matchWithNumberOtherwise"
+  link: "/en/v1/api/clean/primitives/operators/matchWithNumberOtherwise"
 next:
   text: "subtract"
   link: "/en/v1/api/clean/primitives/operators/subtract"

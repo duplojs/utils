@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type AnyFunction, type AnyValue, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
+import { type Kind, type WrappedValue, type AnyFunction, type Unwrap, unwrap, type BreakGenericLink } from "@scripts/common";
 import { isRight, type Right } from "./right";
 import { isLeft, type Left } from "./left";
 import { informationKind } from "./kind";
@@ -15,7 +15,7 @@ export function whenHasInformation<
 			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends unknown,
 >(
 	information: GenericInformation | GenericInformation[],
 	theFunction: (
@@ -40,7 +40,7 @@ export function whenHasInformation<
 			? ReturnType<typeof informationKind.getValue<GenericInput>>
 			: never
 	),
-	const GenericOutput extends AnyValue,
+	const GenericOutput extends unknown,
 >(
 	input: GenericInput,
 	information: GenericInformation | GenericInformation[],

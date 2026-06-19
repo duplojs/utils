@@ -1,8 +1,15 @@
 'use strict';
 
 var kind = require('./kind.cjs');
+var kindClass = require('../common/kindClass.cjs');
 
 const evidenceKind = kind.createCleanKind("evidence");
+class ArrayWithEvidence extends kindClass.kindClass(evidenceKind, Array) {
+    constructor(array, evidence) {
+        super(evidence, ...array);
+    }
+    static [Symbol.species] = Array;
+}
 function appendEvidence(...args) {
     if (args.length === 1) {
         const [evidenceName] = args;
@@ -13,6 +20,9 @@ function appendEvidence(...args) {
         ...(evidenceKind.has(input) && evidenceKind.getValue(input)),
         [evidenceName]: null,
     };
+    if (input instanceof Array) {
+        return new ArrayWithEvidence(input, evidence);
+    }
     return evidenceKind.addTo(input, evidence);
 }
 function hasEvidence(...args) {
@@ -36,6 +46,7 @@ function hasEvidence(...args) {
     return false;
 }
 
+exports.ArrayWithEvidence = ArrayWithEvidence;
 exports.appendEvidence = appendEvidence;
 exports.evidenceKind = evidenceKind;
 exports.hasEvidence = hasEvidence;

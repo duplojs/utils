@@ -68,7 +68,7 @@ describe("matchInformation", () => {
 		>;
 	});
 
-	it("requires an exhaustive matcher for either information", () => {
+	it("rejects missing and additional matcher keys", () => {
 		const either = true
 			? DEither.ok()
 			: DEither.fail();
@@ -77,6 +77,33 @@ describe("matchInformation", () => {
 		DEither.matchInformation(either, {
 			ok: () => 1,
 		});
+
+		// @ts-expect-error matcher cannot contain unknown information values
+		DEither.matchInformation(either, {
+			ok: () => 1,
+			fail: () => 2,
+			unexpected: () => 3,
+		});
+
+		pipe(
+			either,
+			// @ts-expect-error curried matcher must handle all information values
+			DEither.matchInformation({
+				ok: () => 1,
+			}),
+		);
+
+		pipe(
+			either,
+			DEither.matchInformation(
+				// @ts-expect-error curried matcher cannot contain unknown information values
+				{
+					ok: () => 1,
+					fail: () => 2,
+					unexpected: () => 3,
+				},
+			),
+		);
 
 		expect(true).toBe(true);
 	});

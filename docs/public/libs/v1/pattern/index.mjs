@@ -6,6 +6,10 @@ export { isMatch } from './isMatch.mjs';
 export { union } from './union.mjs';
 export { when } from './when.mjs';
 export { whenNot } from './whenNot.mjs';
+export { matchWithString } from './matchWithString.mjs';
+export { matchWithNumber } from './matchWithNumber.mjs';
+export { matchWithStringOtherwise } from './matchWithStringOtherwise.mjs';
+export { matchWithNumberOtherwise } from './matchWithNumberOtherwise.mjs';
 export { InvalidExhaustivePatternError, matchBuilder } from './match/builder.mjs';
 export { SymbolToolPatternFunctionLabel } from './types/pattern.mjs';
 

@@ -2,6 +2,7 @@
 
 var hasInformation = require('./hasInformation.cjs');
 var whenHasInformation = require('./whenHasInformation.cjs');
+var whenIsSelected = require('./whenIsSelected.cjs');
 var kind = require('./kind.cjs');
 var safeCallback = require('./safeCallback.cjs');
 var expect = require('./expect.cjs');
@@ -59,6 +60,7 @@ var unwrap$1 = require('./right/unwrap.cjs');
 
 exports.hasInformation = hasInformation.hasInformation;
 exports.whenHasInformation = whenHasInformation.whenHasInformation;
+exports.whenIsSelected = whenIsSelected.whenIsSelected;
 exports.createEitherKind = kind.createEitherKind;
 exports.eitherInformationKind = kind.eitherInformationKind;
 exports.informationKind = kind.informationKind;

@@ -1,7 +1,7 @@
 import { unwrap, type Unwrap, type GetKindValue, type Kind } from "@scripts/common";
 import { createErrorKind } from "@scripts/common/errorKindNamespace";
 import { kindClass } from "@scripts/common/kindClass";
-import { type GetPropsWithValue } from "@scripts/object";
+import { type ForbiddenKey, type GetPropsWithValue } from "@scripts/object";
 import { type Left } from "./left";
 import { type Right } from "./right";
 import { informationKind } from "./kind";
@@ -20,12 +20,29 @@ export class HasNotSelectedInformationError extends kindClass(
 
 type Either = Right | Left;
 
+type ForbiddenMoreKey<
+	GenericInput extends unknown,
+	GenericSelector extends Record<string, boolean>,
+> = ForbiddenKey<
+	GenericSelector,
+	Extract<
+		Exclude<
+			keyof GenericSelector,
+			GetKindValue<
+				typeof informationKind,
+				Extract<GenericInput, Either>
+			>
+		>,
+		string
+	>
+>;
+
 /**
  * {@include either/unwrapSelectionOrThrow/index.md}
  */
 export function unwrapSelectionOrThrow<
 	GenericInput extends unknown,
-	const GenericSelector extends Record<
+	GenericSelector extends Record<
 		GetKindValue<
 			typeof informationKind,
 			Extract<
@@ -36,9 +53,8 @@ export function unwrapSelectionOrThrow<
 		boolean
 	>,
 >(
-	input: GenericInput,
-	selector: GenericSelector,
-): Unwrap<
+	selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>,
+): (input: GenericInput) => Unwrap<
 	Extract<
 		GenericInput,
 		Kind<
@@ -54,7 +70,7 @@ export function unwrapSelectionOrThrow<
 
 export function unwrapSelectionOrThrow<
 	GenericInput extends unknown,
-	GenericSelector extends Record<
+	const GenericSelector extends Record<
 		GetKindValue<
 			typeof informationKind,
 			Extract<
@@ -65,8 +81,9 @@ export function unwrapSelectionOrThrow<
 		boolean
 	>,
 >(
-	selector: GenericSelector,
-): (input: GenericInput) => Unwrap<
+	input: GenericInput,
+	selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>,
+): Unwrap<
 	Extract<
 		GenericInput,
 		Kind<
@@ -86,7 +103,7 @@ export function unwrapSelectionOrThrow(
 	if (args.length === 1) {
 		const [selector] = args;
 
-		return (input: unknown) => unwrapSelectionOrThrow(input, selector);
+		return (input: unknown) => unwrapSelectionOrThrow(input, selector as never);
 	}
 
 	const [input, selector] = args;

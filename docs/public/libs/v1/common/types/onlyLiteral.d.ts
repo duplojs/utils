@@ -1,4 +1,4 @@
-import { type ComputedTypeError } from "./ComputedTypeError";
+import { type ComputedTypeError } from "./computedTypeError";
 export type OnlyLiteralString<GenericValue extends unknown> = string extends GenericValue ? ComputedTypeError<"Input must be a literal string."> : GenericValue;
 export type OnlyLiteralNumber<GenericValue extends unknown> = number extends GenericValue ? ComputedTypeError<"Input must be a literal number."> : GenericValue;
 export type OnlyLiteralSymbol<GenericValue extends unknown> = symbol extends GenericValue ? ComputedTypeError<"Input must be a literal symbol."> : GenericValue;

@@ -60,6 +60,8 @@ export { kindClass } from './kindClass.mjs';
 export { promiseAll } from './promiseAll.mjs';
 export { detachObjectMethod } from './detachObjectMethod.mjs';
 export { bindPrototypeMethods } from './bindPrototypeMethods.mjs';
+export { preparePipe } from './preparePipe.mjs';
+export { prepareAsyncPipe } from './prepareAsyncPipe.mjs';
 
 /**
  * {@include common/index.md}

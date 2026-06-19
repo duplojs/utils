@@ -1,4 +1,4 @@
-import { type ComputedTypeError } from "./ComputedTypeError";
+import { type ComputedTypeError } from "./computedTypeError";
 
 export type OnlyLiteralString<
 	GenericValue extends unknown,
