@@ -1,16 +1,16 @@
-Creates a flag handler that can attach typed metadata to an entity.
+Creates a handler for assigning a typed business state to an entity.
 
 **Supported call styles:**
 - Classic: `createFlag(name)` -> returns a handler
 
-Flags let you mark an entity after creation without changing its shape. The mark can optionally carry a value.
+Use flags to make an entity state part of a precise type contract. Functions can require an entity combined with one or more flags, while the same entity keeps its original business properties and can reuse its repositories, mappers, and other supporting code. A flag can optionally carry data associated with its state.
 
 ```ts
-{@include clean/createFlag/example.ts[3,54]}
+{@include clean/createFlag/example.ts[3,56]}
 ```
 
 @remarks
-A flag lets you add a marker on an entity after its creation. Its purpose is to indicate that a verification has taken place, or that a particular operation has been performed, without modifying the structure of the entity. If the flag carries a value, `append` requires it and `getValue` retrieves it.
+A flag avoids defining and maintaining a separate entity variation for every possible state. `append` enriches the entity's type with that state, `has` checks and narrows it at runtime, and `getValue` retrieves the data carried by the state.
 
 @see https://utils.duplojs.dev/en/v1/api/clean/flag
 

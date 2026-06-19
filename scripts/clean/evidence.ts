@@ -1,4 +1,4 @@
-import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap } from "@scripts/common";
+import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap, kindClass } from "@scripts/common";
 import { createCleanKind } from "./kind";
 import type * as DEither from "@scripts/either";
 
@@ -14,6 +14,26 @@ export interface Evidence<
 		Record<GenericName, unknown>
 	> {
 
+}
+
+export class ArrayWithEvidence<
+	GenericElement extends unknown = unknown,
+	GenericEvidence extends string = string,
+> extends kindClass(
+		evidenceKind,
+		Array,
+	)<
+		GenericElement[],
+		Record<GenericEvidence, unknown>
+	> {
+	public constructor(
+		array: readonly GenericElement[],
+		evidence: Record<GenericEvidence, unknown>,
+	) {
+		super(evidence, ...array);
+	}
+
+	public static [Symbol.species] = Array;
 }
 
 /**
@@ -48,6 +68,10 @@ export function appendEvidence(
 		...(evidenceKind.has(input) && evidenceKind.getValue(input) as {}),
 		[evidenceName]: null,
 	};
+
+	if (input instanceof Array) {
+		return new ArrayWithEvidence(input, evidence);
+	}
 
 	return evidenceKind.addTo(
 		input,

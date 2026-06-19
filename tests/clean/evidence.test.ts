@@ -1,5 +1,139 @@
 import { DClean, pipe, type ExpectType, when } from "@scripts";
 
+describe("ArrayWithEvidence", () => {
+	it("behaves like an array and exposes its evidence", () => {
+		const input = new DClean.ArrayWithEvidence(
+			[1, 2, 3],
+			{ validated: null },
+		);
+
+		expect(Array.isArray(input)).toBe(true);
+		expect(input).toBeInstanceOf(Array);
+		expect(input).toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(input.length).toBe(3);
+		expect([...input]).toStrictEqual([1, 2, 3]);
+		expect(DClean.evidenceKind.getValue(input)).toStrictEqual({
+			validated: null,
+		});
+
+		type Check = ExpectType<
+			typeof input,
+			DClean.ArrayWithEvidence<number, "validated">,
+			"strict"
+		>;
+	});
+
+	it("supports mutating array operations while retaining its evidence", () => {
+		const input = new DClean.ArrayWithEvidence(
+			[2, 3],
+			{ validated: null },
+		);
+
+		input.unshift(1);
+		input.push(5);
+		const removed = input.splice(3, 0, 4);
+		input.reverse();
+		input.sort((left, right) => left - right);
+
+		expect(removed).toStrictEqual([]);
+		expect(Array.from(input)).toStrictEqual([1, 2, 3, 4, 5]);
+		expect(DClean.evidenceKind.getValue(input)).toStrictEqual({
+			validated: null,
+		});
+
+		type Check = ExpectType<
+			typeof removed,
+			number[],
+			"strict"
+		>;
+	});
+
+	it("supports array operations that create native arrays", () => {
+		const input = new DClean.ArrayWithEvidence(
+			[1, 2, 3, 4],
+			{ validated: null },
+		);
+
+		const mapped = input.map((value) => value * 2);
+		const filtered = input.filter((value) => value % 2 === 0);
+		const sliced = input.slice(1, 3);
+		const concatenated = input.concat([5, 6]);
+
+		expect(mapped).toStrictEqual([2, 4, 6, 8]);
+		expect(filtered).toStrictEqual([2, 4]);
+		expect(sliced).toStrictEqual([2, 3]);
+		expect(concatenated).toStrictEqual([1, 2, 3, 4, 5, 6]);
+		expect(mapped).not.toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(filtered).not.toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(sliced).not.toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(concatenated).not.toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(DClean.evidenceKind.has(mapped)).toBe(false);
+		expect(DClean.evidenceKind.has(filtered)).toBe(false);
+		expect(DClean.evidenceKind.has(sliced)).toBe(false);
+		expect(DClean.evidenceKind.has(concatenated)).toBe(false);
+		expect(Array.from(input)).toStrictEqual([1, 2, 3, 4]);
+
+		type MappedCheck = ExpectType<
+			typeof mapped,
+			number[],
+			"strict"
+		>;
+		type FilteredCheck = ExpectType<
+			typeof filtered,
+			number[],
+			"strict"
+		>;
+		type SlicedCheck = ExpectType<
+			typeof sliced,
+			number[],
+			"strict"
+		>;
+		type ConcatenatedCheck = ExpectType<
+			typeof concatenated,
+			number[],
+			"strict"
+		>;
+	});
+
+	it("supports iteration and aggregation operations", () => {
+		const input = new DClean.ArrayWithEvidence(
+			[1, 2, 3],
+			{ validated: null },
+		);
+
+		const values = Array.from(input.values());
+		const found = input.find((value) => value > 1);
+		const includes = input.includes(2);
+		const sum = input.reduce((total, value) => total + value, 0);
+
+		expect(values).toStrictEqual([1, 2, 3]);
+		expect(found).toBe(2);
+		expect(includes).toBe(true);
+		expect(sum).toBe(6);
+
+		type ValuesCheck = ExpectType<
+			typeof values,
+			number[],
+			"strict"
+		>;
+		type FoundCheck = ExpectType<
+			typeof found,
+			number | undefined,
+			"strict"
+		>;
+		type IncludesCheck = ExpectType<
+			typeof includes,
+			boolean,
+			"strict"
+		>;
+		type SumCheck = ExpectType<
+			typeof sum,
+			number,
+			"strict"
+		>;
+	});
+});
+
 describe("appendEvidence", () => {
 	it("appends an evidence entry on a clean input", () => {
 		const input = DClean.String.createOrThrow("hello");
@@ -56,6 +190,76 @@ describe("appendEvidence", () => {
 		type Check = ExpectType<
 			typeof result,
 			typeof input & DClean.Evidence<"loaded">,
+			"strict"
+		>;
+	});
+
+	it("clones an array without mutating it or adding the evidence name as a property", () => {
+		const input = [1, 2, 3];
+		const result = DClean.appendEvidence(input, "validated");
+
+		expect(result).toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(result).not.toBe(input);
+		expect(Array.from(result)).toStrictEqual(input);
+		expect("validated" in result).toBe(false);
+		expect(DClean.evidenceKind.has(input)).toBe(false);
+		expect(DClean.evidenceKind.has(result)).toBe(true);
+		expect(Object.keys(input)).toStrictEqual(["0", "1", "2"]);
+		expect(DClean.evidenceKind.getValue(result)).toStrictEqual({
+			validated: null,
+		});
+
+		result.push(4);
+
+		expect(input).toStrictEqual([1, 2, 3]);
+
+		type Check = ExpectType<
+			typeof result,
+			number[] & DClean.Evidence<"validated">,
+			"strict"
+		>;
+	});
+
+	it("clones a readonly tuple while preserving its type", () => {
+		const input = ["Ada", 36] as const;
+		const result = DClean.appendEvidence(input, "loaded");
+
+		expect(result).toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(result).not.toBe(input);
+		expect(Array.from(result)).toStrictEqual(["Ada", 36]);
+		expect(DClean.evidenceKind.has(input)).toBe(false);
+		expect(DClean.evidenceKind.getValue(result)).toStrictEqual({
+			loaded: null,
+		});
+
+		type Check = ExpectType<
+			typeof result,
+			typeof input & DClean.Evidence<"loaded">,
+			"strict"
+		>;
+	});
+
+	it("clones an ArrayWithEvidence and merges its evidence entries", () => {
+		const input = new DClean.ArrayWithEvidence(
+			["admin", "writer"],
+			{ parsed: null },
+		);
+		const result = DClean.appendEvidence(input, "checked");
+
+		expect(result).toBeInstanceOf(DClean.ArrayWithEvidence);
+		expect(result).not.toBe(input);
+		expect(Array.from(result)).toStrictEqual(["admin", "writer"]);
+		expect(DClean.evidenceKind.getValue(input)).toStrictEqual({
+			parsed: null,
+		});
+		expect(DClean.evidenceKind.getValue(result)).toStrictEqual({
+			parsed: null,
+			checked: null,
+		});
+
+		type Check = ExpectType<
+			typeof result,
+			typeof input & DClean.Evidence<"checked">,
 			"strict"
 		>;
 	});

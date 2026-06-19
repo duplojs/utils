@@ -66,6 +66,9 @@ export interface FlagHandler<
 		GenericInputEntity
 	>[GenericName];
 
+	/**
+	 * {@include clean/createFlag/has.md}
+	 */
 	has<
 		GenericInputEntity extends GenericEntity,
 	>(

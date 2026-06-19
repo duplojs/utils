@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "A flag lets you add a marker on an entity after its creation. Its purpose is to indicate that a verification has taken place, or that a particular operation has been performed, without modifying the structure of the entity."
+description: "A flag describes a business state of an entity and builds precise type contracts without multiplying variations of that entity."
 prev:
   text: "Maybe"
   link: "/en/v1/api/clean/maybe"
@@ -11,15 +11,18 @@ next:
 
 # Flag
 
-A `flag` lets you add a marker on an entity after its creation.
-Its purpose is to indicate that a verification has taken place, or that a particular operation has been performed, without modifying the structure of the entity.
+A `flag` describes a **business state** of an entity. This state can be acquired after a validation or an operation, and can carry its own data.
+
+A function can then require precisely `Entity & MyFlag` instead of a plain `Entity`. The type guarantees that the function receives an entity in the expected state.
+
+Flags avoid creating a new entity variation for every state, such as `MajorUserEntity`, and then duplicating its repositories, mappers, and other related functions. A single entity can accumulate several independent states while retaining its existing structure and ecosystem.
 
 ## Example
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/flag/tryout.doc.ts"
   majorVersion="v1"
-  height="1200px"
+  height="1279px"
 />
 
 ## How it works
@@ -30,14 +33,19 @@ Its purpose is to indicate that a verification has taken place, or that a partic
 - retrieving the associated value (optional) via `getValue(...)`
 - checking if the flag is present via `has(...)`
 
-Once the flag is added, the entity typing is enriched: you can require `Entity & MyFlag` in a function, to ensure that a business step has indeed been performed.
+`append(...)` returns the entity enriched with the flag type. Its business properties remain unchanged, but the new state is now part of the type contract. Several flags can be combined on the same entity to express a contract as precisely as needed.
+
+In the example, `drinkAlcohol` only accepts a `User.Entity & User.MajorFlag`. There is no need to declare a second entity dedicated to adult users or copy the code that already handles `User.Entity`.
 
 ## Create a `flag`
 
 Creating a flag means defining:
-- which entity it applies to
-- its name (key stored on the entity)
-- an optional value associated with the flag (useful to carry a computed piece of data)
+
+- the entity to which this state can apply;
+- the state's unique name;
+- optionally, the data associated with this state.
+
+The optional value preserves the result that justifies or characterizes the state. In the example, `MajorFlag` carries the age that was validated when the user entered the adult state in the type contract.
 
 ## Methods and Properties
 
@@ -76,7 +84,7 @@ function getValue(
 
 #### `has()`
 
-Checks whether the flag is present on the entity.
+Checks whether the flag is present on the entity. This method is a TypeScript predicate: when it returns `true`, the entity type is narrowed with the flag.
 
 ```typescript
 function has(

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Un flag permet d'ajouter un marqueur sur une entité postérieurement à sa création. Il a pour but d'indiquer qu'une vérification a eu lieu, ou qu'une opération particulière a été effectuée, sans modifier la structure de l'entité."
+description: "Un flag décrit un état métier d'une entité et permet de construire des contrats de type précis sans multiplier les déclinaisons de cette entité."
 prev:
   text: "Maybe"
   link: "/fr/v1/api/clean/maybe"
@@ -11,15 +11,18 @@ next:
 
 # Flag
 
-Un `flag` permet d'ajouter un marqueur sur une entité postérieurement à sa création.
-Il a pour but d'indiquer qu'une vérification a eu lieu, ou qu'une opération particulière a été effectuée, sans modifier la structure de l'entité.
+Un `flag` décrit un **état métier** d'une entité. Cet état peut être acquis après une validation ou une opération, et peut porter les données qui lui sont propres.
+
+Une fonction peut alors exiger précisément `Entity & MyFlag` plutôt qu'une simple `Entity`. Le type garantit que la fonction reçoit une entité dans l'état attendu.
+
+Les flags évitent de créer une nouvelle déclinaison d'entité pour chaque état, par exemple `MajorUserEntity`, puis de dupliquer les repositories, mappers et autres fonctions associés. Une même entité peut accumuler plusieurs états indépendants tout en conservant sa structure et son écosystème existants.
 
 ## Exemple
 
 <MonacoTSEditor
   src="/examples/v1/api/clean/flag/tryout.doc.ts"
   majorVersion="v1"
-  height="1200px"
+  height="1279px"
 />
 
 ## Fonctionnement
@@ -30,14 +33,19 @@ Il a pour but d'indiquer qu'une vérification a eu lieu, ou qu'une opération pa
 - de récupérer la valeur associée (optionnelle) via `getValue(...)`
 - de vérifier la présence du flag via `has(...)`
 
-Une fois le flag ajouté, le typage de l'entité est enrichi : vous pouvez exiger `Entity & MyFlag` dans une fonction, pour garantir qu'une étape métier a bien été effectuée.
+`append(...)` retourne l'entité enrichie par le type du flag. Les propriétés métier restent identiques, mais le nouvel état fait désormais partie du contrat de type. Plusieurs flags peuvent être combinés sur la même entité pour exprimer un contrat aussi précis que nécessaire.
+
+Dans l'exemple, `drinkAlcohol` accepte uniquement un `User.Entity & User.MajorFlag`. Il n'est donc pas nécessaire de déclarer une seconde entité dédiée aux utilisateurs majeurs ni de recopier le code qui manipule déjà `User.Entity`.
 
 ## Créer un `flag`
 
 Créer un flag, c'est définir :
-- sur quelle entité il s'applique
-- son nom (clé stockée sur l'entité)
-- une valeur optionnelle associée au flag (utile pour transporter une donnée calculée)
+
+- l'entité sur laquelle cet état peut s'appliquer ;
+- le nom unique de l'état ;
+- éventuellement, les données associées à cet état.
+
+La valeur optionnelle permet de conserver le résultat qui justifie ou caractérise l'état. Dans l'exemple, `MajorFlag` transporte l'âge validé au moment où l'utilisateur devient majeur dans le contrat de type.
 
 ## Méthodes et Propriétés
 
@@ -76,7 +84,7 @@ function getValue(
 
 #### `has()`
 
-Vérifie si le flag est présent sur l'entité.
+Vérifie si le flag est présent sur l'entité. Cette méthode est un predicate TypeScript : lorsqu'elle retourne `true`, le type de l'entité est affiné avec le flag.
 
 ```typescript
 function has(

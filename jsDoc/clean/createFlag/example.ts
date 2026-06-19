@@ -51,3 +51,6 @@ const result = pipe(
 
 const flagged = User.MajorFlag.append(user, { age: user.age });
 const value = User.MajorFlag.getValue(flagged);
+
+User.MajorFlag.has(user); // false
+User.MajorFlag.has(flagged); // true
