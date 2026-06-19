@@ -800,6 +800,50 @@
           "name": "primitive",
           "files": [
             {
+              "name": "matcher",
+              "files": [
+                {
+                  "name": "index.d.ts"
+                },
+                {
+                  "name": "matchWithNumber.cjs"
+                },
+                {
+                  "name": "matchWithNumber.d.ts"
+                },
+                {
+                  "name": "matchWithNumber.mjs"
+                },
+                {
+                  "name": "matchWithNumberOtherwise.cjs"
+                },
+                {
+                  "name": "matchWithNumberOtherwise.d.ts"
+                },
+                {
+                  "name": "matchWithNumberOtherwise.mjs"
+                },
+                {
+                  "name": "matchWithString.cjs"
+                },
+                {
+                  "name": "matchWithString.d.ts"
+                },
+                {
+                  "name": "matchWithString.mjs"
+                },
+                {
+                  "name": "matchWithStringOtherwise.cjs"
+                },
+                {
+                  "name": "matchWithStringOtherwise.d.ts"
+                },
+                {
+                  "name": "matchWithStringOtherwise.mjs"
+                }
+              ]
+            },
+            {
               "name": "operations",
               "files": [
                 {
@@ -1086,6 +1130,9 @@
             },
             {
               "name": "index.d.ts"
+            },
+            {
+              "name": "onlyLiteral.d.ts"
             }
           ]
         },
@@ -1230,13 +1277,13 @@
               "name": "breakGenericLink.d.ts"
             },
             {
-              "name": "CleanObjectEntry.d.ts"
+              "name": "cleanObjectEntry.d.ts"
             },
             {
               "name": "clearClassKeys.d.ts"
             },
             {
-              "name": "ComputedTypeError.d.ts"
+              "name": "computedTypeError.d.ts"
             },
             {
               "name": "deepPartial.d.ts"
@@ -1764,6 +1811,24 @@
         },
         {
           "name": "pipeCall.mjs"
+        },
+        {
+          "name": "prepareAsyncPipe.cjs"
+        },
+        {
+          "name": "prepareAsyncPipe.d.ts"
+        },
+        {
+          "name": "prepareAsyncPipe.mjs"
+        },
+        {
+          "name": "preparePipe.cjs"
+        },
+        {
+          "name": "preparePipe.d.ts"
+        },
+        {
+          "name": "preparePipe.mjs"
         },
         {
           "name": "printer.cjs"
@@ -4304,6 +4369,15 @@
         },
         {
           "name": "whenHasInformation.mjs"
+        },
+        {
+          "name": "whenIsSelected.cjs"
+        },
+        {
+          "name": "whenIsSelected.d.ts"
+        },
+        {
+          "name": "whenIsSelected.mjs"
         }
       ]
     },
@@ -5433,6 +5507,42 @@
         },
         {
           "name": "isMatch.mjs"
+        },
+        {
+          "name": "matchWithNumber.cjs"
+        },
+        {
+          "name": "matchWithNumber.d.ts"
+        },
+        {
+          "name": "matchWithNumber.mjs"
+        },
+        {
+          "name": "matchWithNumberOtherwise.cjs"
+        },
+        {
+          "name": "matchWithNumberOtherwise.d.ts"
+        },
+        {
+          "name": "matchWithNumberOtherwise.mjs"
+        },
+        {
+          "name": "matchWithString.cjs"
+        },
+        {
+          "name": "matchWithString.d.ts"
+        },
+        {
+          "name": "matchWithString.mjs"
+        },
+        {
+          "name": "matchWithStringOtherwise.cjs"
+        },
+        {
+          "name": "matchWithStringOtherwise.d.ts"
+        },
+        {
+          "name": "matchWithStringOtherwise.mjs"
         },
         {
           "name": "otherwise.cjs"

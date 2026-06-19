@@ -118,4 +118,36 @@ describe("matchInformationOtherwise", () => {
 			"strict"
 		>;
 	});
+
+	it("rejects additional matcher keys", () => {
+		const input = true
+			? DEither.ok()
+			: DEither.fail();
+
+		DEither.matchInformationOtherwise(
+			input,
+			// @ts-expect-error matcher cannot contain unknown information values
+			{
+				ok: () => "ok",
+				fail: undefined,
+				unexpected: () => "unexpected",
+			},
+			() => "otherwise",
+		);
+
+		pipe(
+			input,
+			DEither.matchInformationOtherwise(
+				// @ts-expect-error curried matcher cannot contain unknown information values
+				{
+					ok: () => "ok",
+					fail: undefined,
+					unexpected: () => "unexpected",
+				},
+				() => "otherwise",
+			),
+		);
+
+		expect(true).toBe(true);
+	});
 });

@@ -28,6 +28,18 @@ import * as P from "@duplojs/utils/pattern";
 ### [match](/fr/v1/api/pattern/match)
 Associe un motif et une fonction de transformation. Retourne un `PatternResult` quand l'entrée correspond exactement au motif (primitive, tuple, objet, union...).
 
+### [matchWithString](/fr/v1/api/pattern/matchWithString)
+Distribue exhaustivement une union de chaînes littérales vers des handlers typés.
+
+### [matchWithStringOtherwise](/fr/v1/api/pattern/matchWithStringOtherwise)
+Traite certaines chaînes littérales et transmet les cas restants à un fallback typé.
+
+### [matchWithNumber](/fr/v1/api/pattern/matchWithNumber)
+Distribue exhaustivement une union de nombres littéraux vers des handlers typés.
+
+### [matchWithNumberOtherwise](/fr/v1/api/pattern/matchWithNumberOtherwise)
+Traite certains nombres littéraux et transmet les cas restants à un fallback typé.
+
 ### [when](/fr/v1/api/pattern/when)
 Ajoute une garde (type predicate ou boolean) dans un pipeline. Si la condition est vraie, la fonction associée est exécutée et son résultat est encapsulé.
 

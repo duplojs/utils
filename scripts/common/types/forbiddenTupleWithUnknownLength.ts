@@ -1,5 +1,5 @@
 import { type AnyTuple } from "./anyTuple";
-import { type ComputedTypeError } from "./ComputedTypeError";
+import { type ComputedTypeError } from "./computedTypeError";
 
 export type ForbiddenTupleWithUnknownLength<
 	GenericTuple extends AnyTuple<unknown>,

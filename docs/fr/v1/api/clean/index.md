@@ -69,6 +69,12 @@ Déclare un agrégat d'actions métier liées qui doivent s'exécuter dans l'ord
 ### [equal](/fr/v1/api/clean/primitives/operators/equal)
 Compare deux primitives wrappées (ou une primitive et une valeur brute) avec un type guard.
 
+### [matchWithString](/fr/v1/api/clean/primitives/operators/matchWithString)
+Effectue un matching exhaustif avec des clés string brutes et transmet la primitive Clean originale affinée.
+
+### [matchWithNumber](/fr/v1/api/clean/primitives/operators/matchWithNumber)
+Effectue un matching exhaustif avec des clés number brutes et transmet la primitive Clean originale affinée.
+
 ### [add](/fr/v1/api/clean/primitives/operators/add)
 Additionne deux `Number` (supporte la version currifiée).
 

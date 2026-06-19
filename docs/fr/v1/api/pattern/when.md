@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "when() ajoute une garde dans le pipeline de pattern matching. Dès que predicate retourne true, la fonction associée est exécutée et son résultat est encapsulé dans un PatternResult. Avec un type guard, la branche est automatiquement typée avec la forme prédicatée."
 prev:
-  text: "match"
-  link: "/fr/v1/api/pattern/match"
+  text: "matchWithNumberOtherwise"
+  link: "/fr/v1/api/pattern/matchWithNumberOtherwise"
 next:
   text: "whenNot"
   link: "/fr/v1/api/pattern/whenNot"

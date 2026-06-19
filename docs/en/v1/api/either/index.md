@@ -195,6 +195,9 @@ Type guard based on the literal information to precisely target a business case.
 ### [whenHasInformation](/en/v1/api/either/whenHasInformation)
 Pattern matching that triggers a function when the information (or a list of infos) matches.
 
+### [whenIsSelected](/en/v1/api/either/whenIsSelected)
+Runs a callback for the informations selected with `true` in an exhaustive selector and forwards all other inputs unchanged.
+
 ### [matchInformation](/en/v1/api/either/matchInformation)
 Exhaustive pattern matching by information where every Either case must be handled.
 

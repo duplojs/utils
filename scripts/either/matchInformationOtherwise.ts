@@ -2,7 +2,7 @@ import { type AnyFunction, unwrap, type FixDeepFunctionInfer, type GetKindValue,
 import { informationKind } from "./kind";
 import { type Right } from "./right";
 import { type Left } from "./left";
-import { type GetPropsWithValueExtends } from "@scripts/object";
+import { type ForbiddenKey, type GetPropsWithValueExtends } from "@scripts/object";
 
 type Either = Right | Left;
 
@@ -30,6 +30,25 @@ type ComputeMatcher<
 	any
 >;
 
+type ForbiddenMoreKey<
+	GenericInput extends unknown,
+	GenericMatcher extends ComputeMatcher<
+		Extract<GenericInput, Either>
+	>,
+> = ForbiddenKey<
+	GenericMatcher,
+	Extract<
+		Exclude<
+			keyof GenericMatcher,
+			GetKindValue<
+				typeof informationKind,
+				Extract<GenericInput, Either>
+			>
+		>,
+		string
+	>
+>;
+
 /**
  * {@include either/matchInformationOtherwise/index.md}
  */
@@ -39,12 +58,14 @@ export function matchInformationOtherwise<
 		Extract<GenericInput, Either>
 	>,
 	GenericOutput extends unknown,
+	GenericError extends ForbiddenMoreKey<GenericInput, GenericMatcher>,
 >(
 	matcher: (
 		& ComputeMatcher<
 			Extract<NoInfer<GenericInput>, Either>
 		>
 		& GenericMatcher
+		& NoInfer<GenericError>
 	),
 	otherwise: (
 		value: Exclude<
@@ -86,7 +107,8 @@ export function matchInformationOtherwise<
 			Extract<GenericInput, Either>
 		>,
 		GenericMatcher
-	>,
+	>
+	& ForbiddenMoreKey<GenericInput, GenericMatcher>,
 	otherwise: (
 		value: Exclude<
 			GenericInput,

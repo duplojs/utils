@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La méthode asyncPipe() enchaîne des fonctions asynchrones (promesses ou FutureEither) en série. Chaque étape attend la résolution de la précédente et la dernière valeur est retournée dans une promesse."
 prev:
-  text: "innerPipe"
-  link: "/fr/v1/api/common/innerPipe"
+  text: "preparePipe"
+  link: "/fr/v1/api/common/preparePipe"
 next:
   text: "asyncInnerPipe"
   link: "/fr/v1/api/common/asyncInnerPipe"

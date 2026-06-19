@@ -96,6 +96,18 @@ function is(
 ### [equal](/en/v1/api/clean/primitives/operators/equal)
 Compares two wrapped primitives (or a primitive and a raw value) with a type guard.
 
+### [matchWithString](/en/v1/api/clean/primitives/operators/matchWithString)
+Performs exhaustive matching with raw string keys and passes the narrowed original Clean primitive.
+
+### [matchWithStringOtherwise](/en/v1/api/clean/primitives/operators/matchWithStringOtherwise)
+Partially matches raw string keys and passes remaining wrapped values to a typed fallback.
+
+### [matchWithNumber](/en/v1/api/clean/primitives/operators/matchWithNumber)
+Performs exhaustive matching with raw number keys and passes the narrowed original Clean primitive.
+
+### [matchWithNumberOtherwise](/en/v1/api/clean/primitives/operators/matchWithNumberOtherwise)
+Partially matches raw number keys and passes remaining wrapped values to a typed fallback.
+
 ### [add](/en/v1/api/clean/primitives/operators/add)
 Adds two `Number` (supports the curried version).
 

@@ -7,7 +7,7 @@ export { createFlag, flagKind } from './flag.mjs';
 export { none, some } from './maybe.mjs';
 export { toMapDataParser } from './toMapDataParser.mjs';
 export { chainEndKind, chainedFunction, requirementsChainedFunctionKind } from './chainedFunction.mjs';
-export { appendEvidence, evidenceKind, hasEvidence } from './evidence.mjs';
+export { ArrayWithEvidence, appendEvidence, evidenceKind, hasEvidence } from './evidence.mjs';
 export { createPort, portHandlerKind } from './port.mjs';
 export { entityPropertyArrayKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './entity/property.mjs';
 export { unwrapEntity, unwrapEntityProperty } from './entity/unwrap.mjs';
@@ -44,6 +44,10 @@ export { timeGreaterThan } from './primitive/operations/time/timeGreaterThan.mjs
 export { timeLessThan } from './primitive/operations/time/timeLessThan.mjs';
 export { timeMin } from './primitive/operations/time/timeMin.mjs';
 export { timeMax } from './primitive/operations/time/timeMax.mjs';
+export { matchWithString } from './primitive/matcher/matchWithString.mjs';
+export { matchWithNumber } from './primitive/matcher/matchWithNumber.mjs';
+export { matchWithStringOtherwise } from './primitive/matcher/matchWithStringOtherwise.mjs';
+export { matchWithNumberOtherwise } from './primitive/matcher/matchWithNumberOtherwise.mjs';
 
 /**
  * {@include clean/index.md}

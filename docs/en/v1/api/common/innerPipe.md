@@ -5,8 +5,8 @@ prev:
   text: "pipe"
   link: "/en/v1/api/common/pipe"
 next:
-  text: "asyncPipe"
-  link: "/en/v1/api/common/asyncPipe"
+  text: "preparePipe"
+  link: "/en/v1/api/common/preparePipe"
 ---
 
 # innerPipe

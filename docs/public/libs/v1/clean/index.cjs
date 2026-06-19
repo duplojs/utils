@@ -46,6 +46,10 @@ var timeGreaterThan = require('./primitive/operations/time/timeGreaterThan.cjs')
 var timeLessThan = require('./primitive/operations/time/timeLessThan.cjs');
 var timeMin = require('./primitive/operations/time/timeMin.cjs');
 var timeMax = require('./primitive/operations/time/timeMax.cjs');
+var matchWithString = require('./primitive/matcher/matchWithString.cjs');
+var matchWithNumber = require('./primitive/matcher/matchWithNumber.cjs');
+var matchWithStringOtherwise = require('./primitive/matcher/matchWithStringOtherwise.cjs');
+var matchWithNumberOtherwise = require('./primitive/matcher/matchWithNumberOtherwise.cjs');
 
 /**
  * {@include clean/index.md}
@@ -72,6 +76,7 @@ exports.toMapDataParser = toMapDataParser.toMapDataParser;
 exports.chainEndKind = chainedFunction.chainEndKind;
 exports.chainedFunction = chainedFunction.chainedFunction;
 exports.requirementsChainedFunctionKind = chainedFunction.requirementsChainedFunctionKind;
+exports.ArrayWithEvidence = evidence.ArrayWithEvidence;
 exports.appendEvidence = evidence.appendEvidence;
 exports.evidenceKind = evidence.evidenceKind;
 exports.hasEvidence = evidence.hasEvidence;
@@ -149,3 +154,7 @@ exports.timeGreaterThan = timeGreaterThan.timeGreaterThan;
 exports.timeLessThan = timeLessThan.timeLessThan;
 exports.timeMin = timeMin.timeMin;
 exports.timeMax = timeMax.timeMax;
+exports.matchWithString = matchWithString.matchWithString;
+exports.matchWithNumber = matchWithNumber.matchWithNumber;
+exports.matchWithStringOtherwise = matchWithStringOtherwise.matchWithStringOtherwise;
+exports.matchWithNumberOtherwise = matchWithNumberOtherwise.matchWithNumberOtherwise;

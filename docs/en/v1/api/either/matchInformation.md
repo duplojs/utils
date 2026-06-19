@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Exhaustive pattern matching on Either information. Every information case must be handled."
 prev:
-  text: "whenHasInformation"
-  link: "/en/v1/api/either/whenHasInformation"
+  text: "whenIsSelected"
+  link: "/en/v1/api/either/whenIsSelected"
 next:
   text: "matchInformationOtherwise"
   link: "/en/v1/api/either/matchInformationOtherwise"

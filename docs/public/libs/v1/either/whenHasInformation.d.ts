@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type AnyValue, type Unwrap, type BreakGenericLink } from "../common";
+import { type Kind, type WrappedValue, type Unwrap, type BreakGenericLink } from "../common";
 import { type Right } from "./right";
 import { type Left } from "./left";
 import { informationKind } from "./kind";
@@ -39,6 +39,6 @@ type Either = Right | Left;
  * @namespace E
  * 
  */
-export declare function whenHasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never), const GenericOutput extends AnyValue>(information: GenericInformation | GenericInformation[], theFunction: (value: Unwrap<Extract<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation> & WrappedValue>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation>>;
-export declare function whenHasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never), const GenericOutput extends AnyValue>(input: GenericInput, information: GenericInformation | GenericInformation[], theFunction: (value: Unwrap<Extract<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation> & WrappedValue>>) => GenericOutput): GenericOutput | Exclude<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>;
+export declare function whenHasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never), const GenericOutput extends unknown>(information: GenericInformation | GenericInformation[], theFunction: (value: Unwrap<Extract<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation> & WrappedValue>>) => GenericOutput): (input: GenericInput) => GenericOutput | Exclude<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation>>;
+export declare function whenHasInformation<const GenericInput extends unknown, GenericInformation extends (GenericInput extends Either ? ReturnType<typeof informationKind.getValue<GenericInput>> : never), const GenericOutput extends unknown>(input: GenericInput, information: GenericInformation | GenericInformation[], theFunction: (value: Unwrap<Extract<BreakGenericLink<GenericInput>, Kind<typeof informationKind.definition, GenericInformation> & WrappedValue>>) => GenericOutput): GenericOutput | Exclude<GenericInput, Kind<typeof informationKind.definition, GenericInformation>>;
 export {};

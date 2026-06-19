@@ -76,6 +76,8 @@ var kindClass = require('./common/kindClass.cjs');
 var promiseAll = require('./common/promiseAll.cjs');
 var detachObjectMethod = require('./common/detachObjectMethod.cjs');
 var bindPrototypeMethods = require('./common/bindPrototypeMethods.cjs');
+var preparePipe = require('./common/preparePipe.cjs');
+var prepareAsyncPipe = require('./common/prepareAsyncPipe.cjs');
 
 
 
@@ -193,3 +195,5 @@ exports.kindClass = kindClass.kindClass;
 exports.promiseAll = promiseAll.promiseAll;
 exports.detachObjectMethod = detachObjectMethod.detachObjectMethod;
 exports.bindPrototypeMethods = bindPrototypeMethods.bindPrototypeMethods;
+exports.preparePipe = preparePipe.preparePipe;
+exports.prepareAsyncPipe = prepareAsyncPipe.prepareAsyncPipe;

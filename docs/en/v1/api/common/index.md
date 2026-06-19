@@ -32,11 +32,17 @@ Composes synchronous functions by chaining a single input.
 ### [innerPipe](/en/v1/api/common/innerPipe)
 Prepares a reusable pipe that returns a function to apply later.
 
+### [preparePipe](/en/v1/api/common/preparePipe)
+Declares reusable synchronous steps with contextual input-to-output inference.
+
 ### [asyncPipe](/en/v1/api/common/asyncPipe)
 Composes promises or `FutureEither` sequentially and returns a `Promise`.
 
 ### [asyncInnerPipe](/en/v1/api/common/asyncInnerPipe)
 Curried version of `asyncPipe` that returns a function ready to accept a value (sync or async).
+
+### [prepareAsyncPipe](/en/v1/api/common/prepareAsyncPipe)
+Declares reusable maybe-promise steps with contextual input-to-output inference.
 
 ### [forward](/en/v1/api/common/forward)
 Convenient identity function in a chain to pass the value through unchanged.

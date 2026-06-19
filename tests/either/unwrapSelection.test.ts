@@ -116,7 +116,7 @@ describe("unwrapSelection", () => {
 		>;
 	});
 
-	it("requires the selector to handle every input information", () => {
+	it("requires exactly one selector entry for every input information", () => {
 		const input = true
 			? DEither.right("success", 42)
 			: DEither.left("failure", "error");
@@ -125,6 +125,25 @@ describe("unwrapSelection", () => {
 		DEither.unwrapSelection(input, {
 			success: true,
 		});
+
+		// @ts-expect-error selector cannot contain unknown information values
+		DEither.unwrapSelection(input, {
+			success: true,
+			failure: false,
+			unexpected: true,
+		});
+
+		pipe(
+			input,
+			DEither.unwrapSelection(
+				// @ts-expect-error curried selector cannot contain unknown information values
+				{
+					success: true,
+					failure: false,
+					unexpected: true,
+				},
+			),
+		);
 	});
 
 	it("works in a pipe chain with the curried signature", () => {

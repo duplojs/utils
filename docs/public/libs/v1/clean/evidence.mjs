@@ -1,6 +1,13 @@
 import { createCleanKind } from './kind.mjs';
+import { kindClass } from '../common/kindClass.mjs';
 
 const evidenceKind = createCleanKind("evidence");
+class ArrayWithEvidence extends kindClass(evidenceKind, Array) {
+    constructor(array, evidence) {
+        super(evidence, ...array);
+    }
+    static [Symbol.species] = Array;
+}
 function appendEvidence(...args) {
     if (args.length === 1) {
         const [evidenceName] = args;
@@ -11,6 +18,9 @@ function appendEvidence(...args) {
         ...(evidenceKind.has(input) && evidenceKind.getValue(input)),
         [evidenceName]: null,
     };
+    if (input instanceof Array) {
+        return new ArrayWithEvidence(input, evidence);
+    }
     return evidenceKind.addTo(input, evidence);
 }
 function hasEvidence(...args) {
@@ -34,4 +44,4 @@ function hasEvidence(...args) {
     return false;
 }
 
-export { appendEvidence, evidenceKind, hasEvidence };
+export { ArrayWithEvidence, appendEvidence, evidenceKind, hasEvidence };

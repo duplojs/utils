@@ -2,16 +2,33 @@ import { type Right } from "./right";
 import { type Left } from "./left";
 import { unwrap, type Unwrap, type GetKindValue, type Kind } from "@scripts/common";
 import { informationKind } from "./kind";
-import { type GetPropsWithValue } from "@scripts/object";
+import { type ForbiddenKey, type GetPropsWithValue } from "@scripts/object";
 
 type Either = Right | Left;
+
+type ForbiddenMoreKey<
+	GenericInput extends unknown,
+	GenericSelector extends Record<string, boolean>,
+> = ForbiddenKey<
+	GenericSelector,
+	Extract<
+		Exclude<
+			keyof GenericSelector,
+			GetKindValue<
+				typeof informationKind,
+				Extract<GenericInput, Either>
+			>
+		>,
+		string
+	>
+>;
 
 /**
  * {@include either/unwrapSelection/index.md}
  */
 export function unwrapSelection<
 	GenericInput extends unknown,
-	const GenericSelector extends Record<
+	GenericSelector extends Record<
 		GetKindValue<
 			typeof informationKind,
 			Extract<
@@ -22,9 +39,8 @@ export function unwrapSelection<
 		boolean
 	>,
 >(
-	input: GenericInput,
-	selector: GenericSelector,
-): (
+	selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>,
+): (input: GenericInput) => (
 	| Unwrap<
 		Extract<
 			GenericInput,
@@ -52,7 +68,7 @@ export function unwrapSelection<
 
 export function unwrapSelection<
 	GenericInput extends unknown,
-	GenericSelector extends Record<
+	const GenericSelector extends Record<
 		GetKindValue<
 			typeof informationKind,
 			Extract<
@@ -63,8 +79,9 @@ export function unwrapSelection<
 		boolean
 	>,
 >(
-	selector: GenericSelector,
-): (input: GenericInput) => (
+	input: GenericInput,
+	selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>,
+): (
 	| Unwrap<
 		Extract<
 			GenericInput,
@@ -96,7 +113,7 @@ export function unwrapSelection(
 	if (args.length === 1) {
 		const [selector] = args;
 
-		return (input: unknown) => unwrapSelection(input, selector);
+		return (input: unknown) => unwrapSelection(input, selector as never);
 	}
 
 	const [input, selector] = args;

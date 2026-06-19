@@ -1,8 +1,8 @@
 ---
 outline: [2, 3]
 next:
-  text: "add"
-  link: "/fr/v1/api/clean/primitives/operators/operators/add"
+  text: "matchWithString"
+  link: "/fr/v1/api/clean/primitives/operators/matchWithString"
 ---
 
 # equal

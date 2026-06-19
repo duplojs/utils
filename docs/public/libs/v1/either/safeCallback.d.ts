@@ -5,7 +5,7 @@ export type SafeCallbackError = Left<"safe-callback-error", unknown>;
 type Either = Right | Left;
 type ComputeSafeCallbackResult<GenericOutput extends unknown> = ((GenericOutput extends Either ? GenericOutput : GenericOutput extends Promise<infer InferredValue> ? Promise<ComputeSafeCallbackResult<InferredValue>> : SafeCallbackSuccess<GenericOutput>) | SafeCallbackError);
 /**
- * Runs a callback in a safe block. If the callback throws or returns a rejected promise, the function returns a "safe-callback-error" typed Left instead of propagating the error.
+ * Runs a callback in a safe block. If the callback throws or returns a rejected promise, the function returns or resolves to a "safe-callback-error" typed Left instead of propagating the error.
  * If the callback returns an Either, it is returned as-is; otherwise the value is wrapped in a Right. Promise results are handled the same way after resolution.
  * 
  * Signature: `safeCallback(theFunction)` → returns a value or promise
@@ -39,8 +39,8 @@ type ComputeSafeCallbackResult<GenericOutput extends unknown> = ((GenericOutput 
  * ```
  * 
  * @remarks
- * - Catches exceptions thrown by the callback and rejected promises, then wraps them in a `Left<"safe-callback-error">`
- * - Keeps an `Left` or `Right` returned by the callback untouched
+ * - Catches exceptions thrown by the callback and rejected promises, then returns or resolves to a `Left<"safe-callback-error">`
+ * - Keeps a `Left` or `Right` returned by the callback untouched
  * - Wraps successful non-Either values in a `Right<"safe-callback-success">`
  * - Useful for working in an unsafe environment (3rd party libraries, user code, etc.)
  * 

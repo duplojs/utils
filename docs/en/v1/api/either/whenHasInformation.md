@@ -5,8 +5,8 @@ prev:
   text: "hasInformation"
   link: "/en/v1/api/either/hasInformation"
 next:
-  text: "matchInformation"
-  link: "/en/v1/api/either/matchInformation"
+  text: "whenIsSelected"
+  link: "/en/v1/api/either/whenIsSelected"
 ---
 
 # whenHasInformation

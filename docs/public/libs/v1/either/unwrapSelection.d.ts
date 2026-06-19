@@ -2,8 +2,9 @@ import { type Right } from "./right";
 import { type Left } from "./left";
 import { type Unwrap, type GetKindValue, type Kind } from "../common";
 import { informationKind } from "./kind";
-import { type GetPropsWithValue } from "../object";
+import { type ForbiddenKey, type GetPropsWithValue } from "../object";
 type Either = Right | Left;
+type ForbiddenMoreKey<GenericInput extends unknown, GenericSelector extends Record<string, boolean>> = ForbiddenKey<GenericSelector, Extract<Exclude<keyof GenericSelector, GetKindValue<typeof informationKind, Extract<GenericInput, Either>>>, string>>;
 /**
  * Unwraps selected `Either` payloads according to an exhaustive information selector. Non-selected informations keep flowing as their original `Either`.
  * 
@@ -70,6 +71,6 @@ type Either = Right | Left;
  * @namespace E
  * 
  */
-export declare function unwrapSelection<GenericInput extends unknown, const GenericSelector extends Record<GetKindValue<typeof informationKind, Extract<GenericInput, Either>>, boolean>>(input: GenericInput, selector: GenericSelector): (Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true> | GetPropsWithValue<GenericSelector, boolean>, string>>>> | Exclude<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true>, string>>>);
-export declare function unwrapSelection<GenericInput extends unknown, GenericSelector extends Record<GetKindValue<typeof informationKind, Extract<GenericInput, Either>>, boolean>>(selector: GenericSelector): (input: GenericInput) => (Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true> | GetPropsWithValue<GenericSelector, boolean>, string>>>> | Exclude<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true>, string>>>);
+export declare function unwrapSelection<GenericInput extends unknown, GenericSelector extends Record<GetKindValue<typeof informationKind, Extract<GenericInput, Either>>, boolean>>(selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>): (input: GenericInput) => (Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true> | GetPropsWithValue<GenericSelector, boolean>, string>>>> | Exclude<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true>, string>>>);
+export declare function unwrapSelection<GenericInput extends unknown, const GenericSelector extends Record<GetKindValue<typeof informationKind, Extract<GenericInput, Either>>, boolean>>(input: GenericInput, selector: GenericSelector & ForbiddenMoreKey<GenericInput, GenericSelector>): (Unwrap<Extract<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true> | GetPropsWithValue<GenericSelector, boolean>, string>>>> | Exclude<GenericInput, Kind<typeof informationKind.definition, Extract<GetPropsWithValue<GenericSelector, true>, string>>>);
 export {};

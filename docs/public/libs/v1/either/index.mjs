@@ -1,5 +1,6 @@
 export { hasInformation } from './hasInformation.mjs';
 export { whenHasInformation } from './whenHasInformation.mjs';
+export { whenIsSelected } from './whenIsSelected.mjs';
 export { createEitherKind, eitherInformationKind, informationKind } from './kind.mjs';
 export { safeCallback } from './safeCallback.mjs';
 export { expect } from './expect.mjs';
