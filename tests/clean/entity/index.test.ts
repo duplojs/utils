@@ -1,4 +1,4 @@
-import { DArray, DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, pipe } from "@scripts";
+import { DArray, DClean, DDataParser, DEither, DPE, type RemoveKind, type ExpectType, pipe, unwrap } from "@scripts";
 
 describe("createEntity", () => {
 	const MaxConstraint = DClean.createConstraint(
@@ -237,8 +237,142 @@ describe("createEntity", () => {
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.Left<"createEntityError", DPE.DataParserError>
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
 			| DEither.Right<"createEntity", FormEntity>,
+			"strict"
+		>;
+	});
+
+	it("map returns refined flagged entity or refinement error", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+
+		const successResult = FormEntity.map(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: [],
+				test: [],
+			},
+			(entity) => {
+				const form: FormEntity = entity;
+
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(form));
+				}
+
+				return DEither.left("missingTags");
+			},
+		);
+
+		expect(DEither.isRight(successResult)).toBe(true);
+		if (DEither.isRight(successResult)) {
+			expect(WithTagsFlag.has(unwrap(successResult))).toBe(true);
+		}
+
+		type SuccessCheck = ExpectType<
+			typeof successResult,
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
+			| DEither.Left<"missingTags", undefined>
+			| DEither.Right<
+				"createEntity",
+				FormEntity & DClean.Flag<"withTags", never>
+			>,
+			"strict"
+		>;
+
+		const failureResult = FormEntity.map(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: null,
+				test: [],
+			},
+			(entity) => {
+				const form: FormEntity = entity;
+
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(form));
+				}
+
+				return DEither.left("missingTags");
+			},
+		);
+
+		expect(failureResult).toStrictEqual(DEither.left("missingTags"));
+	});
+
+	it("map distributes refined entity flags in the returned either", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+		const WithDescriptionFlag = DClean.createFlag<FormEntity, "withDescription">("withDescription");
+
+		const result = FormEntity.map(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: null,
+				test: [],
+			},
+			(entity) => {
+				const form: FormEntity = entity;
+
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(form));
+				}
+
+				if (entity.description !== null) {
+					return DEither.success(WithDescriptionFlag.append(form));
+				}
+
+				return DEither.left("unrefined");
+			},
+		);
+
+		expect(DEither.isRight(result)).toBe(true);
+		if (DEither.isRight(result)) {
+			expect(WithDescriptionFlag.has(unwrap(result))).toBe(true);
+		}
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
+			| DEither.Left<"unrefined", undefined>
+			| DEither.Right<
+				"createEntity",
+				(
+					| FormEntity & DClean.Flag<"withTags", never>
+					| FormEntity & DClean.Flag<"withDescription", never>
+				)
+			>,
 			"strict"
 		>;
 	});
@@ -381,7 +515,121 @@ describe("createEntity", () => {
 					require: false,
 				},
 			],
-		} as never)).toThrow(DClean.CreateEntityError);
+		} as never)).toThrow(DClean.HydrateEntityError);
+	});
+
+	it("mapOrThrow returns refined flagged entity or throws refinement error", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+
+		const form = FormEntity.mapOrThrow(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: [],
+				test: [null],
+			},
+			(entity) => {
+				const form: FormEntity = entity;
+
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(form));
+				}
+
+				return DEither.left("missingTags");
+			},
+		);
+
+		expect(WithTagsFlag.has(form)).toBe(true);
+
+		type Check = ExpectType<
+			typeof form,
+			FormEntity & DClean.Flag<"withTags", never>,
+			"strict"
+		>;
+
+		expect(() => FormEntity.mapOrThrow(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: null,
+				test: [null],
+			},
+			(entity) => {
+				const form: FormEntity = entity;
+
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(form));
+				}
+
+				return DEither.left("missingTags");
+			},
+		)).toThrow(DClean.RefineEntityError);
+	});
+
+	it("mapOrThrow distributes refined entity flags in the returned value", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+		const WithDescriptionFlag = DClean.createFlag<FormEntity, "withDescription">("withDescription");
+
+		const form = FormEntity.mapOrThrow(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: null,
+				test: [null],
+			},
+			(entity) => {
+				if (entity.tags !== null) {
+					return DEither.success(WithTagsFlag.append(entity));
+				}
+
+				if (entity.description !== null) {
+					return DEither.success(WithDescriptionFlag.append(entity));
+				}
+
+				return DEither.left("unrefined");
+			},
+		);
+
+		expect(WithDescriptionFlag.has(form)).toBe(true);
+
+		type Check = ExpectType<
+			typeof form,
+			(
+				| FormEntity & DClean.Flag<"withTags", never>
+				| FormEntity & DClean.Flag<"withDescription", never>
+			),
+			"strict"
+		>;
 	});
 
 	it("is returns true only for matching entity name", () => {
@@ -598,7 +846,7 @@ describe("createEntity", () => {
 
 		type Check = ExpectType<
 			typeof mapped,
-			| DEither.Left<"createEntityError", DPE.DataParserError>
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
 			| DEither.Right<
 				"createEntity",
 				DClean.Entity<"Profile"> & {

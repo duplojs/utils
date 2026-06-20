@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue, memo } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue, memo, kindClass } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -41,6 +41,8 @@ export type PropertiesToMapOfEntity<
 		GenericPropertiesDefinition[Prop]
 	>
 }>;
+
+export type EntityRefinerResult = DEither.Right<string, unknown> | DEither.Left<string, unknown>;
 
 export const entityKind = createCleanKind<
 	"entity",
@@ -111,8 +113,33 @@ export interface EntityHandler<
 			Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
 		>
 		| DEither.Left<
-			"createEntityError",
+			"hydrateEntityError",
 			DDataParser.DataParserError
+		>
+	);
+
+	map<
+		const GenericEntityRefinerResult extends EntityRefinerResult,
+	>(
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
+		refineEntity: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): (
+		| DEither.Left<
+			"hydrateEntityError",
+			DDataParser.DataParserError
+		>
+		| (
+			GenericEntityRefinerResult extends DEither.Left<string, unknown>
+				? GenericEntityRefinerResult
+				: never
+		)
+		| DEither.Right<
+			"createEntity",
+			GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue>
+				? GenericValue
+				: never
 		>
 	);
 
@@ -122,6 +149,17 @@ export interface EntityHandler<
 	mapOrThrow(
 		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+
+	mapOrThrow<
+		const GenericEntityRefinerResult extends EntityRefinerResult,
+	>(
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
+		refineEntity: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue>
+		? GenericValue
+		: never;
 
 	/**
  	* {@include clean/createEntity/is.md}
@@ -154,16 +192,28 @@ export interface EntityHandler<
 	): EntityUpdate<GenericEntity, GenericProperties>;
 }
 
-export class CreateEntityError extends kindHeritage(
-	"create-entity-error",
-	createErrorKind("create-entity-error"),
+export class HydrateEntityError extends kindClass(
+	createErrorKind("hydrate-entity-error"),
 	Error,
 ) {
 	public constructor(
 		public rawProperties: PropertiesToMapOfEntity,
 		public dataParserError: DDataParser.DataParserError,
 	) {
-		super({}, ["Error when create entity."]);
+		super({}, "Error when hydrate entity.");
+	}
+}
+
+export class RefineEntityError extends kindClass(
+	createErrorKind("refine-entity-error"),
+	Error,
+) {
+	public constructor(
+		public rawProperties: PropertiesToMapOfEntity,
+		public entity: Entity,
+		public error: unknown,
+	) {
+		super({}, "Error when refine entity.");
 	}
 }
 
@@ -234,7 +284,10 @@ export function createEntity<
 		),
 	);
 
-	function map(rawProperties: PropertiesToMapOfEntity) {
+	function map(
+		rawProperties: PropertiesToMapOfEntity,
+		refineEntity?: (entity: Entity) => EntityRefinerResult,
+	) {
 		const result = mapDataParser.value.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {
@@ -244,17 +297,44 @@ export function createEntity<
 			);
 		}
 
+		if (refineEntity) {
+			const refineResult = refineEntity(unwrap(result) as Entity);
+
+			if (DEither.isLeft(refineResult)) {
+				return refineResult;
+			}
+
+			return DEither.right(
+				"createEntity",
+				unwrap(refineResult),
+			);
+		}
+
 		return DEither.right(
 			"createEntity",
 			unwrap(result),
 		);
 	}
 
-	function mapOrThrow(rawProperties: PropertiesToMapOfEntity) {
+	function mapOrThrow(
+		rawProperties: PropertiesToMapOfEntity,
+		refineEntity?: (entity: Entity) => EntityRefinerResult,
+	) {
 		const result = mapDataParser.value.parse(rawProperties);
 
 		if (DEither.isLeft(result)) {
-			throw new CreateEntityError(rawProperties, unwrap(result));
+			throw new HydrateEntityError(rawProperties, unwrap(result));
+		}
+
+		if (refineEntity) {
+			const entity = unwrap(result) as Entity;
+			const refineResult = refineEntity(entity);
+
+			if (DEither.isLeft(refineResult)) {
+				throw new RefineEntityError(rawProperties, entity, unwrap(refineResult));
+			}
+
+			return unwrap(refineResult);
 		}
 
 		return unwrap(result);
