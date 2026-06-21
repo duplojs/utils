@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Unwraps the payload of a Left and returns the input unchanged when the input is not Left."
 prev:
-  text: "whenIsLeftElse"
-  link: "/en/v1/api/either/whenIsLeftElse"
+  text: "whenIsLeftOtherwise"
+  link: "/en/v1/api/either/whenIsLeftOtherwise"
 next:
   text: "unwrapLeftOrThrow"
   link: "/en/v1/api/either/unwrapLeftOrThrow"

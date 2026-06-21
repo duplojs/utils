@@ -9,14 +9,14 @@ next:
   link: "/fr/v1/api/either/unwrapLeft"
 ---
 
-# whenIsLeftElse
+# whenIsLeftOtherwise
 
 Applique un callback sur les valeurs `Left` et un second callback sur toutes les valeurs non-`Left`.
 
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/either/whenIsLeftElse/tryout.doc.ts"
+  src="/examples/v1/api/either/whenIsLeftOtherwise/tryout.doc.ts"
   majorVersion="v1"
   height="649px"
 />
@@ -26,41 +26,41 @@ Applique un callback sur les valeurs `Left` et un second callback sur toutes les
 ### Signature classique
 
 ```typescript
-function whenIsLeftElse<
+function whenIsLeftOtherwise<
   GenericInput extends unknown,
   GenericOutputLeft,
-  GenericOutputElse
+  GenericOutputOtherwise
 >(
   input: GenericInput,
   theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutputLeft,
-  elseFunction: (value: Extract<GenericInput, Right> | Exclude<GenericInput, Right | Left>) => GenericOutputElse
-): GenericOutputLeft | GenericOutputElse;
+  otherwiseFunction: (value: Extract<GenericInput, Right> | Exclude<GenericInput, Right | Left>) => GenericOutputOtherwise
+): GenericOutputLeft | GenericOutputOtherwise;
 ```
 
 ### Signature currifiée
 
 ```typescript
-function whenIsLeftElse<
+function whenIsLeftOtherwise<
   GenericInput extends unknown,
   GenericOutputLeft,
-  GenericOutputElse
+  GenericOutputOtherwise
 >(
   theFunction: (value: Unwrap<Extract<GenericInput, Left>>) => GenericOutputLeft,
-  elseFunction: (value: Extract<GenericInput, Right> | Exclude<GenericInput, Right | Left>) => GenericOutputElse
-): (input: GenericInput) => GenericOutputLeft | GenericOutputElse;
+  otherwiseFunction: (value: Extract<GenericInput, Right> | Exclude<GenericInput, Right | Left>) => GenericOutputOtherwise
+): (input: GenericInput) => GenericOutputLeft | GenericOutputOtherwise;
 ```
 
 ## Paramètres
 
 - `theFunction` : Callback exécuté quand l'entrée est `Left` (reçoit le payload unwrap).
-- `elseFunction` : Callback exécuté pour les valeurs restantes (`Right` ou non-Either), sans unwrap.
+- `otherwiseFunction` : Callback exécuté pour les valeurs restantes (`Right` ou non-Either), sans unwrap.
 - `input` : Valeur à traiter immédiatement (optionnelle en style currifié).
 
 ## Valeur de retour
 
-Renvoie le résultat de `theFunction` pour un `Left`, sinon le résultat de `elseFunction`.
+Renvoie le résultat de `theFunction` pour un `Left`, sinon le résultat de `otherwiseFunction`.
 
 ## Voir aussi
 
-- [`whenIsRightElse`](/fr/v1/api/either/whenIsRightElse) - Variante symétrique pour `Right`.
-- [`whenIsLeft`](/fr/v1/api/either/whenIsLeft) - Mapping côté Left sans else explicite.
+- [`whenIsRightOtherwise`](/fr/v1/api/either/whenIsRightOtherwise) - Variante symétrique pour `Right`.
+- [`whenIsLeft`](/fr/v1/api/either/whenIsLeft) - Mapping côté Left sans branche otherwise explicite.

@@ -1,21 +1,21 @@
 import { pipe, type ExpectType, DEither } from "@scripts";
 
-describe("whenIsLeftElse", () => {
-	it("executes the left callback with unwrapped value", () => {
-		const input = DEither.left("failure", {
-			reason: "x" as const,
+describe("whenIsRightOtherwise", () => {
+	it("executes the right callback with unwrapped value", () => {
+		const input = DEither.right("success", {
+			id: 1 as const,
 		});
 
-		const result = DEither.whenIsLeftElse(
+		const result = DEither.whenIsRightOtherwise(
 			input,
 			(value) => {
 				type check = ExpectType<
 					typeof value,
-					{ readonly reason: "x" },
+					{ readonly id: 1 },
 					"strict"
 				>;
 
-				expect(value).toStrictEqual({ reason: "x" });
+				expect(value).toStrictEqual({ id: 1 });
 				expect(value).not.toBe(input);
 
 				return 10;
@@ -32,38 +32,38 @@ describe("whenIsLeftElse", () => {
 		>;
 	});
 
-	it("executes the else callback with right input", () => {
-		const input = DEither.nullableFilled(true);
+	it("executes the otherwise callback with left input", () => {
+		const input = DEither.nullableEmpty();
 
-		const result = DEither.whenIsLeftElse(
+		const result = DEither.whenIsRightOtherwise(
 			input,
 			() => "unexpected",
 			(value) => {
 				type check = ExpectType<
 					typeof value,
-					DEither.NullableFilled<true>,
+					DEither.NullableEmpty,
 					"strict"
 				>;
 
 				expect(value).toBe(input);
 
-				return "right" as const;
+				return "left" as const;
 			},
 		);
 
-		expect(result).toBe("right");
+		expect(result).toBe("left");
 
 		type check = ExpectType<
 			typeof result,
-			"unexpected" | "right",
+			"unexpected" | "left",
 			"strict"
 		>;
 	});
 
-	it("executes the else callback with non-either input", () => {
+	it("executes the otherwise callback with non-either input", () => {
 		const input = 30 as const;
 
-		const result = DEither.whenIsLeftElse(
+		const result = DEither.whenIsRightOtherwise(
 			input,
 			() => "unexpected",
 			(value) => {
@@ -91,7 +91,7 @@ describe("whenIsLeftElse", () => {
 			true
 				? DEither.ok()
 				: DEither.fail(),
-			DEither.whenIsLeftElse(
+			DEither.whenIsRightOtherwise(
 				(value) => {
 					type check = ExpectType<
 						typeof value,
@@ -99,25 +99,25 @@ describe("whenIsLeftElse", () => {
 						"strict"
 					>;
 
-					return "left" as const;
+					return "right" as const;
 				},
 				(value) => {
 					type check = ExpectType<
 						typeof value,
-						DEither.Ok,
+						DEither.Fail,
 						"strict"
 					>;
 
-					return "else" as const;
+					return "otherwise" as const;
 				},
 			),
 		);
 
-		expect(result).toBe("else");
+		expect(result).toBe("right");
 
 		type check = ExpectType<
 			typeof result,
-			"left" | "else",
+			"right" | "otherwise",
 			"strict"
 		>;
 	});

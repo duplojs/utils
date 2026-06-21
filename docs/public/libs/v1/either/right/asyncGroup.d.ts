@@ -54,7 +54,7 @@ type ComputeResult<GenericGroup extends (Record<string, MayBeGetter<Either>> | r
  * ```
  * 
  * @remarks
- * - A tuple declared with `as const` preserves the type and position of each aggregated value.
+ * - The `const` generic parameter automatically infers an array literal as a tuple without requiring an assertion.
  * - Use getters to defer asynchronous work until the preceding values have succeeded.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/either/asyncGroup

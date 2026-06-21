@@ -1,14 +1,14 @@
 import { E, pipe, type ExpectType } from "@duplojs/utils";
 
-const directResult = E.whenIsRightElse(
-	E.right("success", 10),
-	(value) => value + 1,
-	() => 0,
+const directResult = E.whenIsLeftOtherwise(
+	E.left("failure", "error"),
+	(value) => value,
+	() => "fallback",
 );
 
 type directCheck = ExpectType<
 	typeof directResult,
-	number,
+	"error" | "fallback",
 	"strict"
 >;
 
@@ -16,14 +16,14 @@ const pipedResult = pipe(
 	true
 		? E.ok()
 		: E.fail(),
-	E.whenIsRightElse(
-		() => "right" as const,
-		() => "else" as const,
+	E.whenIsLeftOtherwise(
+		() => "left" as const,
+		() => "otherwise" as const,
 	),
 );
 
 type pipedCheck = ExpectType<
 	typeof pipedResult,
-	"right" | "else",
+	"left" | "otherwise",
 	"strict"
 >;

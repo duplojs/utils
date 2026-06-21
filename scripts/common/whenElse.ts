@@ -10,7 +10,7 @@ export function whenElse<
 	GenericOutput2 extends AnyValue | EscapeVoid,
 >(
 	predicate: (input: GenericInput) => input is GenericPredicatedInput,
-	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput1,
+	theFunction: (predicatedInput: Extract<GenericInput, GenericPredicatedInput>) => GenericOutput1,
 	elseFunction: (predicatedInput: Exclude<GenericInput, GenericPredicatedInput>) => GenericOutput2
 ): (input: GenericInput) => BreakGenericLink<GenericOutput1> | BreakGenericLink<GenericOutput2>;
 
@@ -22,7 +22,7 @@ export function whenElse<
 >(
 	input: GenericInput,
 	predicate: (input: GenericInput) => input is GenericPredicatedInput,
-	theFunction: (predicatedInput: GenericPredicatedInput) => GenericOutput1,
+	theFunction: (predicatedInput: Extract<GenericInput, GenericPredicatedInput>) => GenericOutput1,
 	elseFunction: (predicatedInput: Exclude<GenericInput, GenericPredicatedInput>) => GenericOutput2
 ): GenericOutput1 | GenericOutput2;
 

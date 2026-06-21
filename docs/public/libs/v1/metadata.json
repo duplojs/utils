@@ -3998,13 +3998,13 @@
               "name": "when.mjs"
             },
             {
-              "name": "whenElse.cjs"
+              "name": "whenOtherwise.cjs"
             },
             {
-              "name": "whenElse.d.ts"
+              "name": "whenOtherwise.d.ts"
             },
             {
-              "name": "whenElse.mjs"
+              "name": "whenOtherwise.mjs"
             }
           ]
         },
@@ -4255,13 +4255,13 @@
               "name": "when.mjs"
             },
             {
-              "name": "whenElse.cjs"
+              "name": "whenOtherwise.cjs"
             },
             {
-              "name": "whenElse.d.ts"
+              "name": "whenOtherwise.d.ts"
             },
             {
-              "name": "whenElse.mjs"
+              "name": "whenOtherwise.mjs"
             }
           ]
         },

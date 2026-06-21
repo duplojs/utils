@@ -147,7 +147,7 @@ Type guard that checks whether a value is an `Right`.
 ### [whenIsRight](/en/v1/api/either/whenIsRight)
 Runs a function only when the input is `Right`, otherwise forwards the original value.
 
-### [whenIsRightElse](/en/v1/api/either/whenIsRightElse)
+### [whenIsRightOtherwise](/en/v1/api/either/whenIsRightOtherwise)
 Runs one callback on `Right` (with unwrapped value) and one callback on all other inputs.
 
 ### [unwrapRight](/en/v1/api/either/unwrapRight)
@@ -164,7 +164,7 @@ Type guard that detects an `Left`.
 ### [whenIsLeft](/en/v1/api/either/whenIsLeft)
 Allows applying a function when receiving a `Left` and then continuing the flow.
 
-### [whenIsLeftElse](/en/v1/api/either/whenIsLeftElse)
+### [whenIsLeftOtherwise](/en/v1/api/either/whenIsLeftOtherwise)
 Runs one callback on `Left` (with unwrapped value) and one callback on all other inputs.
 
 ### [unwrapLeft](/en/v1/api/either/unwrapLeft)

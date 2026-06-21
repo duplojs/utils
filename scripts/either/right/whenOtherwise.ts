@@ -6,9 +6,9 @@ import { isLeft, type Left } from "../left";
 type Either = Right | Left;
 
 /**
- * {@include either/whenIsRightElse/index.md}
+ * {@include either/whenIsRightOtherwise/index.md}
  */
-export function whenIsRightElse<
+export function whenIsRightOtherwise<
 	const GenericInput extends unknown,
 	const GenericOutput1 extends AnyValue | EscapeVoid,
 	const GenericOutput2 extends AnyValue | EscapeVoid,
@@ -21,7 +21,7 @@ export function whenIsRightElse<
 			>
 		>
 	) => GenericOutput1,
-	elseFunction: (
+	otherwiseFunction: (
 		value: (
 			| Extract<
 				BreakGenericLink<GenericInput>,
@@ -35,7 +35,7 @@ export function whenIsRightElse<
 	| BreakGenericLink<GenericOutput2>
 );
 
-export function whenIsRightElse<
+export function whenIsRightOtherwise<
 	const GenericInput extends unknown,
 	const GenericOutput1 extends AnyValue | EscapeVoid,
 	const GenericOutput2 extends AnyValue | EscapeVoid,
@@ -49,7 +49,7 @@ export function whenIsRightElse<
 			>
 		>
 	) => GenericOutput1,
-	elseFunction: (
+	otherwiseFunction: (
 		value: (
 			| Extract<
 				BreakGenericLink<GenericInput>,
@@ -63,27 +63,27 @@ export function whenIsRightElse<
 	| BreakGenericLink<GenericOutput2>
 );
 
-export function whenIsRightElse(
+export function whenIsRightOtherwise(
 	...args: [unknown, AnyFunction, AnyFunction]
 	| [AnyFunction, AnyFunction]
 ) {
 	if (args.length === 2) {
-		const [theFunction, elseFunction] = args;
+		const [theFunction, otherwiseFunction] = args;
 
-		return (input: unknown) => whenIsRightElse(
+		return (input: unknown) => whenIsRightOtherwise(
 			input,
 			theFunction,
-			elseFunction,
+			otherwiseFunction,
 		);
 	}
 
-	const [input, theFunction, elseFunction] = args;
+	const [input, theFunction, otherwiseFunction] = args;
 
 	if (isRight(input)) {
 		return theFunction(unwrap(input));
 	} else if (isLeft(input)) {
-		return elseFunction(input);
+		return otherwiseFunction(input);
 	} else {
-		return elseFunction(input);
+		return otherwiseFunction(input);
 	}
 }

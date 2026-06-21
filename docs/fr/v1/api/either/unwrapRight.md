@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Unwrap le payload d'un Right et renvoie l'entrée inchangée lorsque l'entrée n'est pas Right."
 prev:
-  text: "whenIsRightElse"
-  link: "/fr/v1/api/either/whenIsRightElse"
+  text: "whenIsRightOtherwise"
+  link: "/fr/v1/api/either/whenIsRightOtherwise"
 next:
   text: "unwrapRightOrThrow"
   link: "/fr/v1/api/either/unwrapRightOrThrow"
