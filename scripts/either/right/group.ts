@@ -8,48 +8,101 @@ import * as DEither from "..";
 type Either = Right | Left;
 
 type ComputeResult<
-	GenericGroup extends Record<string, MayBeGetter<Either>>,
+	GenericGroup extends (
+		| Record<string, MayBeGetter<Either>>
+		| readonly MayBeGetter<Either>[]
+	),
 > = (
 	| DEither.Success<
 		SimplifyTopLevel<{
-			[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
-				? Unwrap<
-					Extract<
-						ReturnType<GenericGroup[Prop]>,
-						Right
+			-readonly [Prop in keyof GenericGroup]: GenericGroup[Prop] extends infer InferredValue
+				? InferredValue extends AnyFunction
+					? Unwrap<
+						Extract<
+							ReturnType<InferredValue>,
+							Right
+						>
 					>
-				>
-				: Unwrap<
-					Extract<
-						GenericGroup[Prop],
-						Right
+					: Unwrap<
+						Extract<
+							InferredValue,
+							Right
+						>
 					>
-				>
+				: never
 		}>
 	>
-	| {
-		[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
-			? Extract<
-				ReturnType<GenericGroup[Prop]>,
-				Left
-			>
-			: Extract<
-				GenericGroup[Prop],
-				Left
-			>
-	}[keyof GenericGroup]
+	| (
+		GenericGroup extends readonly (infer InferredElement)[]
+			? InferredElement extends AnyFunction
+				? Extract<
+					ReturnType<InferredElement>,
+					Left
+				>
+				: Extract<
+					InferredElement,
+					Left
+				>
+			: {
+				[Prop in Exclude<keyof GenericGroup, keyof any[]>]: GenericGroup[Prop] extends AnyFunction
+					? Extract<
+						ReturnType<GenericGroup[Prop]>,
+						Left
+					>
+					: Extract<
+						GenericGroup[Prop],
+						Left
+					>
+			}[Exclude<keyof GenericGroup, keyof any[]>]
+	)
 );
 
 /**
  * {@include either/group/index.md}
  */
 export function group<
-	GenericGroup extends Record<string, MayBeGetter<Either>>,
+	const GenericGroup extends(
+		| Record<string, MayBeGetter<Either>>
+		| readonly MayBeGetter<Either>[]
+	),
 >(
 	group: GenericGroup,
-) {
+): Extract<
+		ComputeResult<GenericGroup>,
+		any
+	> {
+	if (group instanceof Array) {
+		return pipe(
+			group as readonly MayBeGetter<Either>[],
+			DArray.reduce(
+				DArray.reduceFrom<unknown[]>([]),
+				({ element, lastValue, nextPush, exit }) => pipe(
+					element,
+					when(
+						isType("function"),
+						(getter) => getter(),
+					),
+					when(
+						DEither.isLeft,
+						exit,
+					),
+					DEither.whenIsRight(
+						(data) => nextPush(
+							lastValue,
+							data,
+						),
+					),
+				),
+			),
+			whenNot(
+				DEither.isLeft,
+				DEither.success,
+			),
+		) as never;
+	}
+
 	return pipe(
-		group,
+		group as Record<string, MayBeGetter<Either>>,
 		DObject.entries,
 		DArray.reduce(
 			DArray.reduceFrom<Record<string, unknown>>({}),
@@ -75,8 +128,5 @@ export function group<
 			DEither.isLeft,
 			DEither.success,
 		),
-	) as Extract<
-		ComputeResult<GenericGroup>,
-		any
-	>;
+	) as never;
 }
