@@ -216,7 +216,7 @@ describe("createEntity", () => {
 		});
 
 		expect(result).toStrictEqual(DEither.right(
-			"createEntity",
+			"hydratedEntity",
 			DClean.entityKind.setTo({
 				name: FormName.createOrThrow("Alice"),
 				type: FormTypeAgent.createOrThrow({
@@ -238,7 +238,40 @@ describe("createEntity", () => {
 		type Check = ExpectType<
 			typeof result,
 			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
-			| DEither.Right<"createEntity", FormEntity>,
+			| DEither.Right<"hydratedEntity", FormEntity>,
+			"strict"
+		>;
+	});
+
+	it("map in pipe", () => {
+		const result = pipe(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: null,
+				test: [],
+			},
+			FormEntity.map,
+		);
+
+		expect(result).toStrictEqual(
+			DEither.right("hydratedEntity", expect.any(Object)),
+		);
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
+			| DEither.Right<"hydratedEntity", FormEntity>,
 			"strict"
 		>;
 	});
@@ -283,8 +316,7 @@ describe("createEntity", () => {
 			typeof successResult,
 			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
 			| DEither.Left<"missingTags", undefined>
-			| DEither.Right<
-				"createEntity",
+			| DEither.Success<
 				FormEntity & DClean.Flag<"withTags", never>
 			>,
 			"strict"
@@ -366,15 +398,81 @@ describe("createEntity", () => {
 			typeof result,
 			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
 			| DEither.Left<"unrefined", undefined>
-			| DEither.Right<
-				"createEntity",
-				(
-					| FormEntity & DClean.Flag<"withTags", never>
-					| FormEntity & DClean.Flag<"withDescription", never>
-				)
+			| DEither.Success<
+				FormEntity & DClean.Flag<"withTags", never>
+			>
+			| DEither.Success<
+				FormEntity & DClean.Flag<"withDescription", never>
 			>,
 			"strict"
 		>;
+	});
+
+	it("map supports curried refinement in pipe", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+
+		const successResult = pipe(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: [],
+				test: [],
+			},
+			FormEntity.map(
+				(entity) => entity.tags !== null
+					? DEither.success(WithTagsFlag.append(entity))
+					: DEither.left("missingTags"),
+			),
+		);
+
+		expect(DEither.isRight(successResult)).toBe(true);
+		if (DEither.isRight(successResult)) {
+			expect(WithTagsFlag.has(unwrap(successResult))).toBe(true);
+		}
+
+		type SuccessCheck = ExpectType<
+			typeof successResult,
+			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
+			| DEither.Left<"missingTags", undefined>
+			| DEither.Success<FormEntity & DClean.Flag<"withTags", never>>,
+			"strict"
+		>;
+
+		const failureResult = pipe(
+			{
+				name: "Alice",
+				type: {
+					key: "agent",
+					webHook: "hook",
+				},
+				inputs: [
+					{
+						value: "hello",
+						require: true,
+					},
+				],
+				description: "desc",
+				tags: null,
+				test: [],
+			},
+			FormEntity.map(
+				(entity) => entity.tags !== null
+					? DEither.success(WithTagsFlag.append(entity))
+					: DEither.left("missingTags"),
+			),
+		);
+
+		expect(failureResult).toStrictEqual(DEither.left("missingTags"));
 	});
 
 	it("map handles alternative union branch", () => {
@@ -394,7 +492,7 @@ describe("createEntity", () => {
 
 		expect(result).toStrictEqual(
 			DEither.right(
-				"createEntity",
+				"hydratedEntity",
 				DClean.entityKind.setTo({
 					name: FormName.createOrThrow("Bob"),
 					type: FormTypeHuman.createOrThrow({ siret: "123" }),
@@ -424,7 +522,7 @@ describe("createEntity", () => {
 
 		expect(result).toStrictEqual(
 			DEither.left(
-				"createEntityError",
+				"hydrateEntityError",
 				expect.objectContaining({
 					issues: expect.arrayContaining([
 						expect.objectContaining({
@@ -454,7 +552,7 @@ describe("createEntity", () => {
 
 		expect(result).toStrictEqual(
 			DEither.left(
-				"createEntityError",
+				"hydrateEntityError",
 				expect.objectContaining({
 					issues: expect.any(Array),
 				}),
@@ -516,6 +614,36 @@ describe("createEntity", () => {
 				},
 			],
 		} as never)).toThrow(DClean.HydrateEntityError);
+	});
+
+	it("mapOrThrow in pipe", () => {
+		const form = pipe(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: [],
+				test: [null],
+			},
+			FormEntity.mapOrThrow,
+		);
+
+		expect(DClean.entityKind.has(form)).toStrictEqual(true);
+
+		type Check = ExpectType<
+			typeof form,
+			FormEntity,
+			"strict"
+		>;
 	});
 
 	it("mapOrThrow returns refined flagged entity or throws refinement error", () => {
@@ -630,6 +758,64 @@ describe("createEntity", () => {
 			),
 			"strict"
 		>;
+	});
+
+	it("mapOrThrow supports curried refinement in pipe", () => {
+		const WithTagsFlag = DClean.createFlag<FormEntity, "withTags">("withTags");
+
+		const form = pipe(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: [],
+				test: [null],
+			},
+			FormEntity.mapOrThrow(
+				(entity) => entity.tags !== null
+					? DEither.success(WithTagsFlag.append(entity))
+					: DEither.left("missingTags"),
+			),
+		);
+
+		expect(WithTagsFlag.has(form)).toBe(true);
+
+		type Check = ExpectType<
+			typeof form,
+			FormEntity & DClean.Flag<"withTags", never>,
+			"strict"
+		>;
+
+		expect(() => pipe(
+			{
+				name: "Charlie",
+				type: {
+					key: "a",
+					webHook: "b",
+				},
+				inputs: [
+					{
+						value: 3,
+						require: false,
+					},
+				],
+				description: "optional",
+				tags: null,
+				test: [null],
+			},
+			FormEntity.mapOrThrow((entity) => entity.tags !== null
+				? DEither.success(WithTagsFlag.append(entity))
+				: DEither.left("missingTags")),
+		)).toThrow(DClean.RefineEntityError);
 	});
 
 	it("is returns true only for matching entity name", () => {
@@ -811,7 +997,7 @@ describe("createEntity", () => {
 
 		expect(mapped).toStrictEqual(
 			DEither.right(
-				"createEntity",
+				"hydratedEntity",
 				DClean.entityKind.setTo({
 					kind: "profile",
 					config: {
@@ -848,7 +1034,7 @@ describe("createEntity", () => {
 			typeof mapped,
 			| DEither.Left<"hydrateEntityError", DPE.DataParserError>
 			| DEither.Right<
-				"createEntity",
+				"hydratedEntity",
 				DClean.Entity<"Profile"> & {
 					readonly kind: "profile";
 					readonly config: {
