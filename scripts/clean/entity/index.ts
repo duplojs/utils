@@ -42,7 +42,9 @@ export type PropertiesToMapOfEntity<
 	>
 }>;
 
-export type EntityRefinerResult = DEither.Right<string, unknown> | DEither.Left<string, unknown>;
+export type EntityRefinerResult<
+	GenericEntity extends Entity = Entity,
+> = DEither.Right<string, GenericEntity> | DEither.Left<string, unknown>;
 
 export const entityKind = createCleanKind<
 	"entity",
@@ -119,7 +121,9 @@ export interface EntityHandler<
 	);
 
 	map<
-		const GenericEntityRefinerResult extends EntityRefinerResult,
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
 	>(
 		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
 		refineEntity: (
@@ -151,7 +155,9 @@ export interface EntityHandler<
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
 
 	mapOrThrow<
-		const GenericEntityRefinerResult extends EntityRefinerResult,
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
 	>(
 		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
 		refineEntity: (
