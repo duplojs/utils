@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, type RemoveKind, type GetKindValue } from "../../common";
+import { type SimplifyTopLevel, type Kind, type RemoveKind, type GetKindValue, type IsEqual } from "../../common";
 import * as DEither from "../../either";
 import * as DDataParser from "../../dataParser";
 import * as DObject from "../../object";
@@ -15,6 +15,7 @@ export type EntityRawProperties<GenericPropertiesDefinition extends EntityProper
 export type PropertiesToMapOfEntity<GenericPropertiesDefinition extends EntityPropertiesDefinition = EntityPropertiesDefinition> = SimplifyTopLevel<{
     readonly [Prop in keyof GenericPropertiesDefinition]: EntityInputRawProperty<GenericPropertiesDefinition[Prop]>;
 }>;
+type EntityRefinerResult<GenericEntity extends Entity = Entity> = DEither.Right<string, GenericEntity> | DEither.Left<string, unknown>;
 export declare const entityKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsClean/entity", string>>;
 export interface Entity<GenericName extends string = string> extends Kind<typeof entityKind.definition, GenericName> {
 }
@@ -59,36 +60,121 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
      */
     "new"<const GenericProperties extends EntityProperties<GenericPropertiesDefinition>>(properties: GenericProperties): Entity<GenericName> & GenericProperties;
     /**
-     * Validates permissive raw properties and returns an Either with the typed entity.
+     * Validates raw properties and returns an Either containing the hydrated entity or a DataParser error.
+     * 
+     * **Supported call styles:**
+     * - Classic: `handler.map(rawProperties)`
+     * - Classic with refinement: `handler.map(rawProperties, refineEntity)`
+     * - Curried refinement: `handler.map(refineEntity)(rawProperties)`
+     * 
+     * After hydration, an optional refiner can apply business rules or add flags. Its Right or Left result is forwarded while preserving its precise type. Hydration failures return a `Left<"hydrateEntityError", DataParserError>` before the refiner is called.
      * 
      * ```ts
-     * 				pinnedNick: null,
-     * 			},
-     * 		});
-     * 	}
-     * }
+     * const User = C.createEntity("User", ({ nullable }) => ({
+     * 	id: C.createNewType("user-id", DP.number(), C.Positive),
+     * 	name: C.createNewType("user-name", DP.string()),
+     * 	nickname: nullable(C.createNewType("user-nickname", DP.string())),
+     * }));
      * 
-     * const mapped = User.Entity.mapOrThrow({
-     * 	kind: "user",
-     * 	id: 2,
+     * // Hydrate raw properties into an entity.
+     * const result = User.map({
+     * 	id: 1,
+     * 	name: "Ada",
+     * 	nickname: null,
+     * });
+     * // E.Right<"hydratedEntity", C.GetEntity<typeof User>>
+     * // | E.Left<"hydrateEntityError", DP.DataParserError>
+     * 
+     * // Refine the hydrated entity with a business rule.
+     * const refinedResult = User.map(
+     * 	{
+     * 		id: 1,
+     * 		name: "Ada",
+     * 		nickname: "A",
+     * 	},
+     * 	(entity) => entity.nickname !== null
+     * 		? E.success(entity)
+     * 		: E.left("nickname.required"),
+     * );
+     * 
+     * // Use the curried form in a pipe.
+     * const pipedResult = pipe(
+     * 	{
+     * 		id: 1,
+     * 		name: "Ada",
+     * 		nickname: "A",
+     * 	},
+     * 	User.map((entity) => entity.nickname !== null
+     * 		? E.success(entity)
+     * 		: E.left("nickname.required")),
+     * );
      * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/clean/entity
+     * 
+     * @namespace C
      * 
      */
-    map(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>): (DEither.Right<"createEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.Left<"createEntityError", DDataParser.DataParserError>);
+    map(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>): (DEither.Right<"hydratedEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> | DEither.Left<"hydrateEntityError", DDataParser.DataParserError>);
+    map<const GenericEntityRefinerResult extends EntityRefinerResult<Entity<GenericName>>>(refineEntity: (entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>) => GenericEntityRefinerResult): (rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>) => (DEither.Left<"hydrateEntityError", DDataParser.DataParserError> | GenericEntityRefinerResult);
+    map<const GenericEntityRefinerResult extends EntityRefinerResult<Entity<GenericName>>>(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>, refineEntity?: (entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>) => GenericEntityRefinerResult): (DEither.Left<"hydrateEntityError", DDataParser.DataParserError> | (IsEqual<GenericEntityRefinerResult, EntityRefinerResult<Entity<GenericName>>> extends true ? DEither.Right<"hydratedEntity", Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>> : GenericEntityRefinerResult));
     /**
-     * Validates permissive raw properties and throws on error.
+     * Validates raw properties and returns the hydrated entity, throwing when hydration or refinement fails.
+     * 
+     * **Supported call styles:**
+     * - Classic: `handler.mapOrThrow(rawProperties)`
+     * - Classic with refinement: `handler.mapOrThrow(rawProperties, refineEntity)`
+     * - Curried refinement: `handler.mapOrThrow(refineEntity)(rawProperties)`
+     * 
+     * After hydration, an optional refiner can apply business rules or add flags. A hydration failure throws `HydrateEntityError`; a Left returned by the refiner throws `RefineEntityError`. A successful refinement returns its unwrapped value with its precise type.
      * 
      * ```ts
-     * 		name: Name;
-     * 	}) {
-     * 		return Entity.new({
-     * 			...params,
-     * 			kind: "user",
-     * 			nick: null,
+     * const User = C.createEntity("User", ({ nullable }) => ({
+     * 	id: C.createNewType("user-id", DP.number(), C.Positive),
+     * 	name: C.createNewType("user-name", DP.string()),
+     * 	nickname: nullable(C.createNewType("user-nickname", DP.string())),
+     * }));
+     * 
+     * // Hydrate raw properties or throw HydrateEntityError.
+     * const user = User.mapOrThrow({
+     * 	id: 1,
+     * 	name: "Ada",
+     * 	nickname: null,
+     * });
+     * 
+     * // Refine the hydrated entity or throw RefineEntityError on Left.
+     * const refinedUser = User.mapOrThrow(
+     * 	{
+     * 		id: 1,
+     * 		name: "Ada",
+     * 		nickname: "A",
+     * 	},
+     * 	(entity) => entity.nickname !== null
+     * 		? E.success(entity)
+     * 		: E.left("nickname.required"),
+     * );
+     * 
+     * // Use the curried form in a pipe.
+     * const pipedUser = pipe(
+     * 	{
+     * 		id: 1,
+     * 		name: "Ada",
+     * 		nickname: "A",
+     * 	},
+     * 	User.mapOrThrow((entity) => entity.nickname !== null
+     * 		? E.success(entity)
+     * 		: E.left("nickname.required")),
+     * );
      * ```
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/clean/entity
+     * 
+     * @namespace C
      * 
      */
     mapOrThrow(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+    mapOrThrow<const GenericEntityRefinerResult extends EntityRefinerResult<Entity<GenericName>>>(refineEntity: (entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>) => GenericEntityRefinerResult): (rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>) => (GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue> ? GenericValue : never);
+    mapOrThrow<const GenericEntityRefinerResult extends EntityRefinerResult<Entity<GenericName>>>(rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>, refineEntity?: (entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>) => GenericEntityRefinerResult): (IsEqual<GenericEntityRefinerResult, EntityRefinerResult<Entity<GenericName>>> extends true ? Entity<GenericName> & EntityProperties<GenericPropertiesDefinition> : (GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue> ? GenericValue : never));
     /**
     * Checks if a value is an entity of this handler (type guard).
     * 
@@ -115,13 +201,19 @@ export interface EntityHandler<GenericName extends string = string, GenericPrope
     update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(properties: GenericProperties): (entity: GenericEntity) => EntityUpdate<GenericEntity, GenericProperties>;
     update<const GenericEntity extends Entity<GenericName>, const GenericProperties extends Partial<EntityProperties<GenericPropertiesDefinition>>>(entity: GenericEntity, properties: GenericProperties): EntityUpdate<GenericEntity, GenericProperties>;
 }
-declare const CreateEntityError_base: new (params: {
-    "@DuplojsUtilsError/create-entity-error"?: unknown;
-}, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../../common").KindDefinition<"@DuplojsUtilsError/create-entity-error", unknown>, unknown> & Kind<import("../../common").KindDefinition<"create-entity-error", unknown>, unknown>;
-export declare class CreateEntityError extends CreateEntityError_base {
+declare const HydrateEntityError_base: import("../../common").KindClass<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsError/hydrate-entity-error", unknown>>, ErrorConstructor>;
+export declare class HydrateEntityError extends HydrateEntityError_base {
     rawProperties: PropertiesToMapOfEntity;
     dataParserError: DDataParser.DataParserError;
     constructor(rawProperties: PropertiesToMapOfEntity, dataParserError: DDataParser.DataParserError);
+}
+declare const RefineEntityError_base: import("../../common").KindClass<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsError/refine-entity-error", unknown>>, ErrorConstructor>;
+export declare class RefineEntityError extends RefineEntityError_base {
+    rawProperties: PropertiesToMapOfEntity;
+    entity: Entity;
+    information: string;
+    error: unknown;
+    constructor(rawProperties: PropertiesToMapOfEntity, entity: Entity, information: string, error: unknown);
 }
 /**
  * Creates an entity handler from a property definition.
@@ -207,7 +299,7 @@ export declare class CreateEntityError extends CreateEntityError_base {
  * });
  * 
  * if (E.isRight(mappedResult)) {
- * 	// mappedResult: E.Right<"createEntity", C.Entity<"User">>
+ * 	// mappedResult: E.Right<"hydratedEntity", C.Entity<"User">>
  * }
  * 
  * const updated = User.Entity.update(mapped, {

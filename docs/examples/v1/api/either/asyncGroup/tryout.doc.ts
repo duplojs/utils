@@ -1,25 +1,17 @@
 import { E, type ExpectType } from "@duplojs/utils";
 
-const asyncLoad = E.future(Promise.resolve(E.right("user.loaded", { id: 1 })));
-const callbackRights = () => E.right("rights.loaded", ["read"] as const);
-const promiseProfile = Promise.resolve(E.right("profile.loaded", { name: "Ada" } as const));
-
-const result = await E.asyncGroup({
-	user: asyncLoad,
-	rights: callbackRights,
-	profile: promiseProfile,
-});
+const result = await E.asyncGroup([
+	Promise.resolve(E.right("user.loaded", { id: 1 })),
+	E.future(Promise.resolve(E.right("rights.loaded", ["read"]))),
+]);
 
 type check = ExpectType<
 	typeof result,
-	E.FutureError | E.Success<{
-		user: {
+	E.FutureError | E.Success<[
+		{
 			readonly id: 1;
-		};
-		rights: readonly ["read"];
-		profile: {
-			readonly name: "Ada";
-		};
-	}>,
+		},
+		readonly ["read"],
+	]>,
 	"strict"
 >;

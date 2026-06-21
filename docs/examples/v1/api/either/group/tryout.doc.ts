@@ -1,19 +1,17 @@
 import { E, type ExpectType } from "@duplojs/utils";
 
-const result = E.group({
-	user: E.right("user.loaded", { id: 1 }),
-	rights: E.right("rights.loaded", ["read", "write"] as const),
-	profile: E.left("profile.missing", null),
-});
+const result = E.group([
+	E.right("user.loaded", { id: 1 }),
+	E.right("rights.loaded", ["read", "write"]),
+]);
 
 type check = ExpectType<
 	typeof result,
-	E.Left<"profile.missing", null> | E.Success<{
-		user: {
+	E.Success<[
+		{
 			readonly id: 1;
-		};
-		rights: readonly ["read", "write"];
-		profile: never;
-	}>,
+		},
+		readonly ["read", "write"],
+	]>,
 	"strict"
 >;

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The asyncGroup() function runs synchronous or asynchronous Either values in parallel (promises, Future) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object."
+description: "The asyncGroup() function aggregates synchronous or asynchronous Right values from an object, array, or tuple, or returns the first Left encountered."
 prev:
   text: "group"
   link: "/en/v1/api/either/group"
@@ -11,24 +11,32 @@ next:
 
 # asyncGroup
 
-The **`asyncGroup()`** function runs synchronous or asynchronous `Either` values in parallel (promises, `Future`) and returns the first `Left` encountered. If all are `Right`, it aggregates their values into a typed object.
+The **`asyncGroup()`** function aggregates synchronous or asynchronous `Right` values from an object, array, or tuple into a `Success`. It awaits entries in order and returns the first `Left` encountered.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/either/asyncGroup/tryout.doc.ts"
   majorVersion="v1"
-  height="565px"
+  height="397px"
 />
+
+The `const` generic parameter automatically infers an array literal as a tuple, without an `as const` assertion.
+
+## Syntax
+
+```typescript
+await E.asyncGroup(group)
+```
 
 ## Parameters
 
-- `group`: Object where each property is an `Either`/`Promise`/`Future` or a function returning any of them.
+- `group`: Object, array, or tuple containing `Either`, `Promise`, or `Future` values, or functions returning any of these types.
 
 ## Return value
 
-- `Right` with an object gathering all values when they are all `Right`.
-- Otherwise the first `Left` that fails in the order of the group's declaration (including synchronous and asynchronous).
+- A `Promise` of a `Success` containing an object, array, or tuple of unwrapped values when every entry produces a `Right`.
+- Otherwise, a `Promise` of the first `Left` in declaration order. Functions placed after that `Left` are not called.
 
 ## See also
 

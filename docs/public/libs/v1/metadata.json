@@ -1325,6 +1325,9 @@
               "name": "IsExtends.d.ts"
             },
             {
+              "name": "isNever.d.ts"
+            },
+            {
               "name": "isStringLIteral.d.ts"
             },
             {

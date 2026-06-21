@@ -2,12 +2,13 @@ import { createCleanKind } from '../kind.mjs';
 import { newTypeKind } from '../newType.mjs';
 import { entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools } from './property.mjs';
 export { entityPropertyArrayKind, entityPropertyIdentifierKind, entityPropertyNullableKind, entityPropertyStructureKind, entityPropertyUnionKind } from './property.mjs';
-import { kindHeritage } from '../../common/kind.mjs';
+import { kindClass } from '../../common/kindClass.mjs';
 import { createErrorKind } from '../../common/errorKindNamespace.mjs';
 import { pipe } from '../../common/pipe.mjs';
 import { memo } from '../../common/memo.mjs';
 import { isLeft } from '../../either/left/is.mjs';
 import { unwrap } from '../../common/unwrap.mjs';
+import { informationKind } from '../../either/kind.mjs';
 import { left } from '../../either/left/create.mjs';
 import { right } from '../../either/right/create.mjs';
 import { transform } from '../../dataParser/parsers/transform.mjs';
@@ -23,13 +24,26 @@ import { createOverride } from '../../common/override.mjs';
 
 const entityKind = createCleanKind("entity");
 const entityHandlerKind = createCleanKind("entity-handler");
-class CreateEntityError extends kindHeritage("create-entity-error", createErrorKind("create-entity-error"), Error) {
+class HydrateEntityError extends kindClass(createErrorKind("hydrate-entity-error"), Error) {
     rawProperties;
     dataParserError;
     constructor(rawProperties, dataParserError) {
-        super({}, ["Error when create entity."]);
+        super({}, "Error when hydrate entity.");
         this.rawProperties = rawProperties;
         this.dataParserError = dataParserError;
+    }
+}
+class RefineEntityError extends kindClass(createErrorKind("refine-entity-error"), Error) {
+    rawProperties;
+    entity;
+    information;
+    error;
+    constructor(rawProperties, entity, information, error) {
+        super({}, "Error when refine entity.");
+        this.rawProperties = rawProperties;
+        this.entity = entity;
+        this.information = information;
+        this.error = error;
     }
 }
 /**
@@ -50,17 +64,34 @@ function createEntity(name, getPropertiesDefinition) {
             [keyWrappedValue]: value,
         }));
     }))), fromEntries, object, (dataParser) => transform(dataParser, (value) => entityKind.setTo(value, name))));
-    function map$1(rawProperties) {
-        const result = mapDataParser.value.parse(rawProperties);
-        if (isLeft(result)) {
-            return left("createEntityError", unwrap(result));
+    function map$1(maybeRawProperties, refineEntity) {
+        if (typeof maybeRawProperties === "function") {
+            return (rawProperties) => map$1(rawProperties, maybeRawProperties);
         }
-        return right("createEntity", unwrap(result));
-    }
-    function mapOrThrow(rawProperties) {
-        const result = mapDataParser.value.parse(rawProperties);
+        const result = mapDataParser.value.parse(maybeRawProperties);
         if (isLeft(result)) {
-            throw new CreateEntityError(rawProperties, unwrap(result));
+            return left("hydrateEntityError", unwrap(result));
+        }
+        if (refineEntity) {
+            const refineResult = refineEntity(unwrap(result));
+            return refineResult;
+        }
+        return right("hydratedEntity", unwrap(result));
+    }
+    function mapOrThrow(maybeRawProperties, refineEntity) {
+        if (typeof maybeRawProperties === "function") {
+            return (rawProperties) => mapOrThrow(rawProperties, maybeRawProperties);
+        }
+        const result = mapDataParser.value.parse(maybeRawProperties);
+        if (isLeft(result)) {
+            throw new HydrateEntityError(maybeRawProperties, unwrap(result));
+        }
+        if (refineEntity) {
+            const refineResult = refineEntity(unwrap(result));
+            if (isLeft(refineResult)) {
+                throw new RefineEntityError(maybeRawProperties, unwrap(result), informationKind.getValue(refineResult), unwrap(refineResult));
+            }
+            return unwrap(refineResult);
         }
         return unwrap(result);
     }
@@ -103,4 +134,4 @@ function createEntity(name, getPropertiesDefinition) {
 }
 createEntity.overrideHandler = createOverride("@duplojs/utils/clean/entity");
 
-export { CreateEntityError, createEntity, entityHandlerKind, entityKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools };
+export { HydrateEntityError, RefineEntityError, createEntity, entityHandlerKind, entityKind, entityPropertyDefinitionToDataParser, entityPropertyDefinitionTools };

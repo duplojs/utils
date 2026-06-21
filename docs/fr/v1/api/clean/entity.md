@@ -96,25 +96,46 @@ function new(
 
 #### `map()`
 
-Valide et transforme des propriétés brutes en propriétés typées, puis construit l'entité.
+Valide et transforme des propriétés brutes en propriétés typées, puis construit l'entité. Un callback optionnel peut ensuite raffiner l'entité avec des règles métier ou lui ajouter des flags.
 
 ```typescript
 function map(
-	rawProperties: PropertiesToMapOfEntity
-): Right<Entity<EntityName> & Properties> | Left<DP.DataParserError>
+	rawProperties: PropertiesToMapOfEntity,
+	refineEntity?: (entity: Entity) => Right | Left
+): Right<"hydratedEntity", Entity> | Left<"hydrateEntityError", DP.DataParserError> | RefinerResult
+
+function map(
+	refineEntity: (entity: Entity) => Right | Left
+): (rawProperties: PropertiesToMapOfEntity) => Left<"hydrateEntityError", DP.DataParserError> | RefinerResult
 ```
 
 `rawProperties` est volontairement permissif : certaines contraintes (par exemple `array(..., { min })`) sont vérifiées au moment de la validation.
+
+Sans callback, un mapping réussi renvoie `Right<"hydratedEntity", Entity>`. Avec un callback, son `Right` ou son `Left` est renvoyé tel quel et son type précis est conservé. Le callback n'est pas appelé si l'hydratation échoue.
 
 #### `mapOrThrow()`
 
 ```typescript
 function mapOrThrow(
-	rawProperties: PropertiesToMapOfEntity
-): Entity<EntityName> & Properties
+	rawProperties: PropertiesToMapOfEntity,
+	refineEntity?: (entity: Entity) => Right | Left
+): Entity | RefinedEntity
+
+function mapOrThrow(
+	refineEntity: (entity: Entity) => Right | Left
+): (rawProperties: PropertiesToMapOfEntity) => RefinedEntity
 ```
 
-Lève `C.CreateEntityError` en cas d'échec de validation.
+Lève `C.HydrateEntityError` si les propriétés brutes ne peuvent pas être hydratées. Si le callback de raffinement renvoie un `Left`, la méthode lève `C.RefineEntityError`. Sinon, elle renvoie directement la valeur déballée du `Right`.
+
+Les deux méthodes acceptent le raffinement en second argument ou sous forme curryfiée, notamment pour une utilisation avec `pipe` :
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/entity/refine.doc.ts"
+  majorVersion="v1"
+  height="502px"
+  :foldLines="[2]"
+/>
 
 #### `is()`
 

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The group() function runs several Either values (or functions returning an Either) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object."
+description: "The group() function aggregates Right values from an object, array, or tuple into a Success, or returns the first Left encountered."
 prev:
   text: "rightAsyncPipe"
   link: "/en/v1/api/either/rightAsyncPipe"
@@ -11,24 +11,32 @@ next:
 
 # group
 
-The **`group()`** function runs several `Either` values (or functions returning an `Either`) and returns the first `Left` encountered. If all are `Right`, it aggregates their values into a typed object.
+The **`group()`** function aggregates `Right` values from an object, array, or tuple into a `Success`. If a value is a `Left`, it returns the first one encountered in declaration order.
 
 ## Interactive example
 
 <MonacoTSEditor
   src="/examples/v1/api/either/group/tryout.doc.ts"
   majorVersion="v1"
-  height="439px"
+  height="397px"
 />
+
+The `const` generic parameter automatically infers an array literal as a tuple, without an `as const` assertion.
+
+## Syntax
+
+```typescript
+E.group(group)
+```
 
 ## Parameters
 
-- `group`: Object where each property is an `Either` or a function returning an `Either`.
+- `group`: Object, array, or tuple containing `Either` values or functions returning an `Either`.
 
 ## Return value
 
-- `Right` with an object gathering all values when they are all `Right`.
-- Otherwise the first `Left` that fails in the order of declaration of the group.
+- A `Success` containing an object, array, or tuple of unwrapped values when every entry is a `Right`.
+- Otherwise, the first `Left` in declaration order. Functions placed after that `Left` are not called.
 
 ## See also
 
