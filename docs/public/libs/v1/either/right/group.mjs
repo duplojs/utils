@@ -12,6 +12,9 @@ import { entries } from '../../object/entries.mjs';
  * {@include either/group/index.md}
  */
 function group(group) {
+    if (group instanceof Array) {
+        return pipe(group, reduce(reduceFrom([]), ({ element, lastValue, nextPush, exit }) => pipe(element, when(isType("function"), (getter) => getter()), when(isLeft, exit), whenIsRight((data) => nextPush(lastValue, data)))), whenNot(isLeft, success));
+    }
     return pipe(group, entries, reduce(reduceFrom({}), ({ element: [key, value], lastValue, nextWithObject, exit }) => pipe(value, when(isType("function"), (getter) => getter()), when(isLeft, exit), whenIsRight((data) => nextWithObject(lastValue, { [key]: data })))), whenNot(isLeft, success));
 }
 

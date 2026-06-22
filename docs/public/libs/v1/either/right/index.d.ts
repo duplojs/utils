@@ -7,7 +7,7 @@ export * from "./success";
 export * from "./when";
 export * from "./group";
 export * from "./asyncGroup";
-export * from "./whenElse";
+export * from "./whenOtherwise";
 export * from "./result";
 export * from "./unwrapOrThrow";
 export * from "./unwrap";

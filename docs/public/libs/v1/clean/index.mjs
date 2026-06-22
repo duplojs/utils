@@ -1,6 +1,6 @@
 export { createCleanKind } from './kind.mjs';
 export { CreateNewTypeError, createNewType, newTypeHandlerKind, newTypeKind } from './newType.mjs';
-export { CreateEntityError, createEntity, entityHandlerKind, entityKind } from './entity/index.mjs';
+export { HydrateEntityError, RefineEntityError, createEntity, entityHandlerKind, entityKind } from './entity/index.mjs';
 export { createRepository } from './repository.mjs';
 export { createUseCase, useCaseHandlerKind, useCaseInstances } from './useCase.mjs';
 export { createFlag, flagKind } from './flag.mjs';

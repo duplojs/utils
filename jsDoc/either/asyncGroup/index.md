@@ -1,15 +1,18 @@
-The asyncGroup() function runs synchronous or asynchronous Either values in parallel (promises, Future) and returns the first Left encountered. If all are Right, it aggregates their values into a typed object.
+The asyncGroup() function evaluates several synchronous or asynchronous Either values, promises, Futures, or getters and aggregates their Right values into a Success.
 
-Signature: `asyncGroup(group)` → returns a value
+**Supported call styles:**
+- Object: `asyncGroup({ key: either })` → returns a Promise of a Success containing a typed object
+- Array or tuple: `asyncGroup([either, getter])` → returns a Promise of a Success containing an array or typed tuple
 
-The input value is not mutated.
+Values are awaited in order. The first Left is returned as-is and subsequent getters are not called. The input object or array is not mutated.
 
 ```ts
-{@include either/asyncGroup/example.ts[3,13]}
+{@include either/asyncGroup/example.ts[3,35]}
 ```
 
 @remarks
-- Stops at the first Left and forwards it as-is.
+- The `const` generic parameter automatically infers an array literal as a tuple without requiring an assertion.
+- Use getters to defer asynchronous work until the preceding values have succeeded.
 
 @see https://utils.duplojs.dev/en/v1/api/either/asyncGroup
 

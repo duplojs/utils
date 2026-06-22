@@ -2,23 +2,25 @@ import { DEither, type ExpectType } from "@scripts";
 
 describe("either.right.asyncGroup", () => {
 	it("aggregates all right values into a success", async() => {
-		const result = await DEither.asyncGroup({
+		const result = DEither.asyncGroup({
 			first: DEither.future(DEither.bool(1 as number)),
 			second: () => Promise.resolve(DEither.optional("second" as string | undefined)),
 		});
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.BoolFalsy<0>
-			| DEither.OptionalEmpty
-			| DEither.Success<{
-				first: number;
-				second: string;
-			}>,
+			Promise<
+				| DEither.BoolFalsy<0>
+				| DEither.OptionalEmpty
+				| DEither.Success<{
+					first: number;
+					second: string;
+				}>
+			>,
 			"strict"
 		>;
 
-		expect(result).toStrictEqual(
+		await expect(result).resolves.toStrictEqual(
 			DEither.success({
 				first: 1,
 				second: "second",
@@ -34,6 +36,59 @@ describe("either.right.asyncGroup", () => {
 			error: () => DEither.optional(undefined as string | undefined),
 			skipped: spy,
 		});
+
+		expect(result).toStrictEqual(DEither.optional(undefined));
+		expect(spy).toBeCalledTimes(0);
+	});
+
+	it("aggregates all right values into an tuple", async() => {
+		const result = DEither.asyncGroup([
+			Promise.resolve(DEither.bool(1 as number)),
+			() => DEither.optional("second" as string | undefined),
+		]);
+
+		type Check = ExpectType<
+			typeof result,
+			Promise<
+				| DEither.BoolFalsy<0>
+				| DEither.OptionalEmpty
+				| DEither.Success<[number, string]>
+			>,
+			"strict"
+		>;
+
+		await expect(result).resolves.toStrictEqual(
+			DEither.success([1, "second"]),
+		);
+	});
+
+	it("aggregates all right values into an array", async() => {
+		const array = [DEither.bool(1 as number), () => DEither.optional("second" as string | undefined)];
+		const result = DEither.asyncGroup(array);
+
+		type Check = ExpectType<
+			typeof result,
+			Promise<
+				| DEither.BoolFalsy<0>
+				| DEither.OptionalEmpty
+				| DEither.Success<(number | string)[]>
+			>,
+			"strict"
+		>;
+
+		await expect(result).resolves.toStrictEqual(
+			DEither.success([1, "second"]),
+		);
+	});
+
+	it("returns first left and stops further evaluation", async() => {
+		const spy = vi.fn(() => DEither.right("skipped", 3));
+
+		const result = await DEither.asyncGroup([
+			DEither.bool(1 as number),
+			() => DEither.optional(undefined as string | undefined),
+			spy,
+		]);
 
 		expect(result).toStrictEqual(DEither.optional(undefined));
 		expect(spy).toBeCalledTimes(0);

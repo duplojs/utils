@@ -5,8 +5,8 @@ prev:
   text: "isNullishEmpty"
   link: "/en/v1/api/either/isNullishEmpty"
 next:
-  text: "isNullishFilled"
-  link: "/en/v1/api/either/isNullishFilled"
+  text: "whenIsNullishEmptyOtherwise"
+  link: "/en/v1/api/either/whenIsNullishEmptyOtherwise"
 ---
 
 # whenIsNullishEmpty

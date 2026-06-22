@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type guard qui détecte un NullishFilled."
 prev:
-  text: "whenIsNullishEmpty"
-  link: "/fr/v1/api/either/whenIsNullishEmpty"
+  text: "whenIsNullishEmptyOtherwise"
+  link: "/fr/v1/api/either/whenIsNullishEmptyOtherwise"
 next:
   text: "whenIsNullishFilled"
   link: "/fr/v1/api/either/whenIsNullishFilled"

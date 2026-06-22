@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Transforme une valeur potentiellement null/undefined en Either. Permet de propager la présence/absence de manière type-safe."
 prev:
-  text: "whenIsBoolFalsy"
-  link: "/fr/v1/api/either/whenIsBoolFalsy"
+  text: "whenIsBoolFalsyOtherwise"
+  link: "/fr/v1/api/either/whenIsBoolFalsyOtherwise"
 next:
   text: "nullishEmpty"
   link: "/fr/v1/api/either/nullishEmpty"

@@ -1325,6 +1325,9 @@
               "name": "IsExtends.d.ts"
             },
             {
+              "name": "isNever.d.ts"
+            },
+            {
               "name": "isStringLIteral.d.ts"
             },
             {
@@ -3865,6 +3868,15 @@
               "name": "falsy.mjs"
             },
             {
+              "name": "falsyOtherwise.cjs"
+            },
+            {
+              "name": "falsyOtherwise.d.ts"
+            },
+            {
+              "name": "falsyOtherwise.mjs"
+            },
+            {
               "name": "index.d.ts"
             },
             {
@@ -3875,6 +3887,15 @@
             },
             {
               "name": "truthy.mjs"
+            },
+            {
+              "name": "truthyOtherwise.cjs"
+            },
+            {
+              "name": "truthyOtherwise.d.ts"
+            },
+            {
+              "name": "truthyOtherwise.mjs"
             }
           ]
         },
@@ -3995,13 +4016,13 @@
               "name": "when.mjs"
             },
             {
-              "name": "whenElse.cjs"
+              "name": "whenOtherwise.cjs"
             },
             {
-              "name": "whenElse.d.ts"
+              "name": "whenOtherwise.d.ts"
             },
             {
-              "name": "whenElse.mjs"
+              "name": "whenOtherwise.mjs"
             }
           ]
         },
@@ -4036,6 +4057,15 @@
               "name": "empty.mjs"
             },
             {
+              "name": "emptyOtherwise.cjs"
+            },
+            {
+              "name": "emptyOtherwise.d.ts"
+            },
+            {
+              "name": "emptyOtherwise.mjs"
+            },
+            {
               "name": "filled.cjs"
             },
             {
@@ -4043,6 +4073,15 @@
             },
             {
               "name": "filled.mjs"
+            },
+            {
+              "name": "filledOtherwise.cjs"
+            },
+            {
+              "name": "filledOtherwise.d.ts"
+            },
+            {
+              "name": "filledOtherwise.mjs"
             },
             {
               "name": "index.d.ts"
@@ -4080,6 +4119,15 @@
               "name": "empty.mjs"
             },
             {
+              "name": "emptyOtherwise.cjs"
+            },
+            {
+              "name": "emptyOtherwise.d.ts"
+            },
+            {
+              "name": "emptyOtherwise.mjs"
+            },
+            {
               "name": "filled.cjs"
             },
             {
@@ -4087,6 +4135,15 @@
             },
             {
               "name": "filled.mjs"
+            },
+            {
+              "name": "filledOtherwise.cjs"
+            },
+            {
+              "name": "filledOtherwise.d.ts"
+            },
+            {
+              "name": "filledOtherwise.mjs"
             },
             {
               "name": "index.d.ts"
@@ -4124,6 +4181,15 @@
               "name": "empty.mjs"
             },
             {
+              "name": "emptyOtherwise.cjs"
+            },
+            {
+              "name": "emptyOtherwise.d.ts"
+            },
+            {
+              "name": "emptyOtherwise.mjs"
+            },
+            {
               "name": "filled.cjs"
             },
             {
@@ -4131,6 +4197,15 @@
             },
             {
               "name": "filled.mjs"
+            },
+            {
+              "name": "filledOtherwise.cjs"
+            },
+            {
+              "name": "filledOtherwise.d.ts"
+            },
+            {
+              "name": "filledOtherwise.mjs"
             },
             {
               "name": "index.d.ts"
@@ -4252,13 +4327,13 @@
               "name": "when.mjs"
             },
             {
-              "name": "whenElse.cjs"
+              "name": "whenOtherwise.cjs"
             },
             {
-              "name": "whenElse.d.ts"
+              "name": "whenOtherwise.d.ts"
             },
             {
-              "name": "whenElse.mjs"
+              "name": "whenOtherwise.mjs"
             }
           ]
         },
@@ -4371,6 +4446,15 @@
           "name": "whenHasInformation.mjs"
         },
         {
+          "name": "whenHasInformationOtherwise.cjs"
+        },
+        {
+          "name": "whenHasInformationOtherwise.d.ts"
+        },
+        {
+          "name": "whenHasInformationOtherwise.mjs"
+        },
+        {
           "name": "whenIsSelected.cjs"
         },
         {
@@ -4378,6 +4462,15 @@
         },
         {
           "name": "whenIsSelected.mjs"
+        },
+        {
+          "name": "whenIsSelectedOtherwise.cjs"
+        },
+        {
+          "name": "whenIsSelectedOtherwise.d.ts"
+        },
+        {
+          "name": "whenIsSelectedOtherwise.mjs"
         }
       ]
     },

@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction asyncGroup() exécute en parallèle des Either synchrones ou asynchrones (promesses, Future) et renvoie le premier Left rencontré. Si tous sont Right, elle agrège leurs valeurs dans un objet typé."
+description: "La fonction asyncGroup() agrège les valeurs Right synchrones ou asynchrones d'un objet, d'un tableau ou d'un tuple, ou renvoie le premier Left rencontré."
 prev:
   text: "group"
   link: "/fr/v1/api/either/group"
@@ -11,24 +11,32 @@ next:
 
 # asyncGroup
 
-La fonction **`asyncGroup()`** exécute en parallèle des `Either` synchrones ou asynchrones (promesses, `Future`) et renvoie le premier `Left` rencontré. Si tous sont `Right`, elle agrège leurs valeurs dans un objet typé.
+La fonction **`asyncGroup()`** agrège les valeurs `Right` synchrones ou asynchrones d'un objet, d'un tableau ou d'un tuple dans un `Success`. Elle attend les entrées dans l'ordre et renvoie le premier `Left` rencontré.
 
 ## Exemple interactif
 
 <MonacoTSEditor
   src="/examples/v1/api/either/asyncGroup/tryout.doc.ts"
   majorVersion="v1"
-  height="565px"
+  height="397px"
 />
+
+Grâce au paramètre générique `const`, un tableau littéral est automatiquement inféré comme un tuple, sans assertion `as const`.
+
+## Syntaxe
+
+```typescript
+await E.asyncGroup(group)
+```
 
 ## Paramètres
 
-- `group` : Objet dont chaque propriété est un `Either`/`Promise`/`Future` ou une fonction retournant chacun d'entre eux.
+- `group` : objet, tableau ou tuple contenant des `Either`, `Promise`, `Future` ou des fonctions retournant l'un de ces types.
 
 ## Valeur de retour
 
-- `Right` avec un objet regroupant toutes les valeurs lorsqu'elles sont toutes `Right`.
-- Sinon le premier `Left` qui échoue dans l'ordre de déclaration du groupe (synchrones ou asynchrones compris).
+- Une `Promise` d'un `Success` contenant un objet, un tableau ou un tuple de valeurs déballées lorsque toutes les entrées produisent un `Right`.
+- Sinon, une `Promise` du premier `Left` dans l'ordre de déclaration. Les fonctions placées après ce `Left` ne sont pas appelées.
 
 ## Voir aussi
 

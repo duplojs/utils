@@ -62,7 +62,7 @@ Type guard qui vérifie si une valeur est un `Right`.
 ### [whenIsRight](/fr/v1/api/either/whenIsRight)
 Exécute une fonction uniquement quand l'entrée est `Right`, sinon relaie la valeur originale.
 
-### [whenIsRightElse](/fr/v1/api/either/whenIsRightElse)
+### [whenIsRightOtherwise](/fr/v1/api/either/whenIsRightOtherwise)
 Exécute un callback sur `Right` (avec valeur unwrap) et un callback sur toutes les autres entrées.
 
 ### [unwrapRight](/fr/v1/api/either/unwrapRight)
@@ -79,7 +79,7 @@ Type guard qui détecte un `Left`.
 ### [whenIsLeft](/fr/v1/api/either/whenIsLeft)
 Permet d'appliquer une fonction lorsqu'on reçoit un `Left` puis de continuer le flux.
 
-### [whenIsLeftElse](/fr/v1/api/either/whenIsLeftElse)
+### [whenIsLeftOtherwise](/fr/v1/api/either/whenIsLeftOtherwise)
 Exécute un callback sur `Left` (avec valeur unwrap) et un callback sur toutes les autres entrées.
 
 ### [unwrapLeft](/fr/v1/api/either/unwrapLeft)
@@ -110,8 +110,14 @@ Type guard basé sur l'information littérale pour cibler précisément un cas m
 ### [whenHasInformation](/fr/v1/api/either/whenHasInformation)
 Pattern matching qui déclenche une fonction quand l'information (ou une liste d'infos) correspond.
 
+### [whenHasInformationOtherwise](/fr/v1/api/either/whenHasInformationOtherwise)
+Exécute le callback correspondant ou un callback otherwise recevant l'entrée brute restante.
+
 ### [whenIsSelected](/fr/v1/api/either/whenIsSelected)
 Exécute un callback pour les informations sélectionnées avec `true` dans un sélecteur exhaustif et relaie les autres entrées inchangées.
+
+### [whenIsSelectedOtherwise](/fr/v1/api/either/whenIsSelectedOtherwise)
+Exécute le callback sélectionné ou un callback otherwise recevant l'entrée brute non sélectionnée.
 
 ### [matchInformation](/fr/v1/api/either/matchInformation)
 Pattern matching exhaustif par information où chaque cas Either doit être traité.
@@ -154,11 +160,17 @@ Type guard spécialisé pour les `boolTruthy`.
 ### [whenIsBoolTruthy](/fr/v1/api/either/whenIsBoolTruthy)
 Déclenche une fonction uniquement lorsqu'une valeur (ou le résultat de `bool`) est truthy.
 
+### [whenIsBoolTruthyOtherwise](/fr/v1/api/either/whenIsBoolTruthyOtherwise)
+Traite les valeurs truthy et toutes les entrées brutes restantes avec deux callbacks explicites.
+
 ### [isBoolFalsy](/fr/v1/api/either/isBoolFalsy)
 Type guard spécialisé pour les `boolFalsy`.
 
 ### [whenIsBoolFalsy](/fr/v1/api/either/whenIsBoolFalsy)
 Déclenche une fonction uniquement lorsqu'une valeur (ou le résultat de `bool`) est falsy.
+
+### [whenIsBoolFalsyOtherwise](/fr/v1/api/either/whenIsBoolFalsyOtherwise)
+Traite les valeurs falsy et toutes les entrées brutes restantes avec deux callbacks explicites.
 
 ## Gestion des valeurs nullish
 
@@ -177,11 +189,17 @@ Type guard pour détecter un `nullishEmpty`.
 ### [whenIsNullishEmpty](/fr/v1/api/either/whenIsNullishEmpty)
 Applique une fonction uniquement pour le cas `nullishEmpty`.
 
+### [whenIsNullishEmptyOtherwise](/fr/v1/api/either/whenIsNullishEmptyOtherwise)
+Traite les valeurs nullish vides et toutes les entrées brutes restantes avec deux callbacks.
+
 ### [isNullishFilled](/fr/v1/api/either/isNullishFilled)
 Type guard pour détecter un `nullishFilled`.
 
 ### [whenIsNullishFilled](/fr/v1/api/either/whenIsNullishFilled)
 Applique une fonction lorsque la valeur nullish est effectivement définie (`Right`).
+
+### [whenIsNullishFilledOtherwise](/fr/v1/api/either/whenIsNullishFilledOtherwise)
+Traite les valeurs nullish remplies et toutes les entrées brutes restantes avec deux callbacks.
 
 ## Gestion des valeurs nullables
 
@@ -200,11 +218,17 @@ Type guard pour les `nullableEmpty`.
 ### [whenIsNullableEmpty](/fr/v1/api/either/whenIsNullableEmpty)
 Callback déclenché uniquement lorsque la valeur est `null`.
 
+### [whenIsNullableEmptyOtherwise](/fr/v1/api/either/whenIsNullableEmptyOtherwise)
+Traite les valeurs nullable vides et toutes les entrées brutes restantes avec deux callbacks.
+
 ### [isNullableFilled](/fr/v1/api/either/isNullableFilled)
 Type guard pour les `nullableFilled`.
 
 ### [whenIsNullableFilled](/fr/v1/api/either/whenIsNullableFilled)
 Callback déclenché lorsque la valeur nullable est présente (`Right`).
+
+### [whenIsNullableFilledOtherwise](/fr/v1/api/either/whenIsNullableFilledOtherwise)
+Traite les valeurs nullable remplies et toutes les entrées brutes restantes avec deux callbacks.
 
 ## Gestion des optionnels
 
@@ -223,11 +247,17 @@ Type guard pour les `optionalEmpty`.
 ### [whenIsOptionalEmpty](/fr/v1/api/either/whenIsOptionalEmpty)
 Callback déclenché uniquement lorsqu'un optionnel est vide.
 
+### [whenIsOptionalEmptyOtherwise](/fr/v1/api/either/whenIsOptionalEmptyOtherwise)
+Traite les valeurs optionnelles vides et toutes les entrées brutes restantes avec deux callbacks.
+
 ### [isOptionalFilled](/fr/v1/api/either/isOptionalFilled)
 Type guard pour les `optionalFilled`.
 
 ### [whenIsOptionalFilled](/fr/v1/api/either/whenIsOptionalFilled)
 Callback déclenché lorsqu'un optionnel contient une valeur.
+
+### [whenIsOptionalFilledOtherwise](/fr/v1/api/either/whenIsOptionalFilledOtherwise)
+Traite les valeurs optionnelles remplies et toutes les entrées brutes restantes avec deux callbacks.
 
 ## Futures et asynchronisme
 

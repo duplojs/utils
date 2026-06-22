@@ -8,48 +8,104 @@ import * as DEither from "..";
 type Either = MaybePromise<Right | Left>;
 
 type ComputeResult<
-	GenericGroup extends Record<string, MayBeGetter<Either>>,
-> = Promise<
-	| DEither.Success<
-		SimplifyTopLevel<{
-			[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
-				? Unwrap<
-					Extract<
-						Awaited<ReturnType<GenericGroup[Prop]>>,
-						Right
+	GenericGroup extends (
+		| Record<string, MayBeGetter<Either>>
+		| readonly MayBeGetter<Either>[]
+	),
+> = Extract<
+	Promise<
+		| DEither.Success<
+			SimplifyTopLevel<{
+				-readonly [Prop in keyof GenericGroup]: GenericGroup[Prop] extends infer InferredValue
+					? InferredValue extends AnyFunction
+						? Unwrap<
+							Extract<
+								Awaited<ReturnType<InferredValue>>,
+								Right
+							>
+						>
+						: Unwrap<
+							Extract<
+								Awaited<InferredValue>,
+								Right
+							>
+						>
+					: never
+			}>
+		>
+		| (
+			GenericGroup extends readonly (infer InferredElement)[]
+				? InferredElement extends AnyFunction
+					? Extract<
+						Awaited<ReturnType<InferredElement>>,
+						Left
 					>
-				>
-				: Unwrap<
-					Extract<
-						Awaited<GenericGroup[Prop]>,
-						Right
+					: Extract<
+						Awaited<InferredElement>,
+						Left
 					>
-				>
-		}>
-	>
-	| {
-		[Prop in keyof GenericGroup]: GenericGroup[Prop] extends AnyFunction
-			? Extract<
-				Awaited<ReturnType<GenericGroup[Prop]>>,
-				Left
-			>
-			: Extract<
-				Awaited<GenericGroup[Prop]>,
-				Left
-			>
-	}[keyof GenericGroup]
+				: {
+					[Prop in Exclude<keyof GenericGroup, keyof any[]>]: GenericGroup[Prop] extends AnyFunction
+						? Extract<
+							Awaited<ReturnType<GenericGroup[Prop]>>,
+							Left
+						>
+						: Extract<
+							Awaited<GenericGroup[Prop]>,
+							Left
+						>
+				}[Exclude<keyof GenericGroup, keyof any[]>]
+		)
+	>,
+	any
 >;
 
 /**
  * {@include either/asyncGroup/index.md}
  */
 export function asyncGroup<
-	GenericGroup extends Record<string, MayBeGetter<Either>>,
+	const GenericGroup extends(
+		| Record<string, MayBeGetter<Either>>
+		| readonly MayBeGetter<Either>[]
+	),
 >(
 	group: GenericGroup,
-) {
+): Extract<
+		ComputeResult<GenericGroup>,
+		any
+	> {
+	if (group instanceof Array) {
+		return asyncPipe(
+			group as readonly MayBeGetter<Either>[],
+			DGenerator.asyncReduce(
+				DGenerator.reduceFrom<unknown[]>([]),
+				({ element, lastValue, nextPush, exit }) => asyncPipe(
+					element,
+					when(
+						isType("function"),
+						(getter) => getter(),
+					),
+					when(
+						DEither.isLeft,
+						exit,
+					),
+					DEither.whenIsRight(
+						(data) => nextPush(
+							lastValue,
+							data,
+						),
+					),
+				),
+			),
+			whenNot(
+				DEither.isLeft,
+				DEither.success,
+			),
+		) as never;
+	}
+
 	return asyncPipe(
-		group,
+		group as Record<string, MayBeGetter<Either>>,
 		DObject.entries,
 		DGenerator.asyncReduce(
 			DGenerator.reduceFrom<Record<string, unknown>>({}),
@@ -75,8 +131,5 @@ export function asyncGroup<
 			DEither.isLeft,
 			DEither.success,
 		),
-	) as Extract<
-		ComputeResult<GenericGroup>,
-		any
-	>;
+	) as never;
 }

@@ -54,3 +54,4 @@ export * from "./requireConstructor";
 export * from "./removeAbstractFromConstructor";
 export * from "./clearClassKeys";
 export * from "./forbiddenTupleWithUnknownLength";
+export * from "./isNever";

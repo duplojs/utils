@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Encapsule une valeur null ou non-null dans un Either, tout en conservant l'information sill est remplie ou vide."
 prev:
-  text: "whenIsNullishFilled"
-  link: "/fr/v1/api/either/whenIsNullishFilled"
+  text: "whenIsNullishFilledOtherwise"
+  link: "/fr/v1/api/either/whenIsNullishFilledOtherwise"
 next:
   text: "nullableEmpty"
   link: "/fr/v1/api/either/nullableEmpty"

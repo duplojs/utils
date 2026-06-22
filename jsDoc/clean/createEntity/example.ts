@@ -75,7 +75,7 @@ const mappedResult = User.Entity.map({
 });
 
 if (E.isRight(mappedResult)) {
-	// mappedResult: E.Right<"createEntity", C.Entity<"User">>
+	// mappedResult: E.Right<"hydratedEntity", C.Entity<"User">>
 }
 
 const updated = User.Entity.update(mapped, {

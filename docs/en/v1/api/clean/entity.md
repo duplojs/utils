@@ -96,25 +96,46 @@ function new(
 
 #### `map()`
 
-Validates and transforms raw properties into typed properties, then builds the entity.
+Validates and transforms raw properties into typed properties, then builds the entity. An optional callback can subsequently refine the entity with business rules or add flags to it.
 
 ```typescript
 function map(
-	rawProperties: PropertiesToMapOfEntity
-): Right<Entity<EntityName> & Properties> | Left<DP.DataParserError>
+	rawProperties: PropertiesToMapOfEntity,
+	refineEntity?: (entity: Entity) => Right | Left
+): Right<"hydratedEntity", Entity> | Left<"hydrateEntityError", DP.DataParserError> | RefinerResult
+
+function map(
+	refineEntity: (entity: Entity) => Right | Left
+): (rawProperties: PropertiesToMapOfEntity) => Left<"hydrateEntityError", DP.DataParserError> | RefinerResult
 ```
 
 `rawProperties` is intentionally permissive: some constraints (for example `array(..., { min })`) are enforced at validation time.
+
+Without a callback, a successful mapping returns `Right<"hydratedEntity", Entity>`. With a callback, its `Right` or `Left` is returned as-is and its precise type is preserved. The callback is not called if hydration fails.
 
 #### `mapOrThrow()`
 
 ```typescript
 function mapOrThrow(
-	rawProperties: PropertiesToMapOfEntity
-): Entity<EntityName> & Properties
+	rawProperties: PropertiesToMapOfEntity,
+	refineEntity?: (entity: Entity) => Right | Left
+): Entity | RefinedEntity
+
+function mapOrThrow(
+	refineEntity: (entity: Entity) => Right | Left
+): (rawProperties: PropertiesToMapOfEntity) => RefinedEntity
 ```
 
-Throws `C.CreateEntityError` if validation fails.
+Throws `C.HydrateEntityError` when the raw properties cannot be hydrated. If the refinement callback returns a `Left`, the method throws `C.RefineEntityError`. Otherwise, it directly returns the unwrapped `Right` value.
+
+Both methods accept the refinement as a second argument or in curried form, notably for use with `pipe`:
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/entity/refine.doc.ts"
+  majorVersion="v1"
+  height="502px"
+  :foldLines="[2]"
+/>
 
 #### `is()`
 

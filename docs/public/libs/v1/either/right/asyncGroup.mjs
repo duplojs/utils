@@ -13,6 +13,9 @@ import { whenIsRight } from './when.mjs';
  * {@include either/asyncGroup/index.md}
  */
 function asyncGroup(group) {
+    if (group instanceof Array) {
+        return asyncPipe(group, asyncReduce(reduceFrom([]), ({ element, lastValue, nextPush, exit }) => asyncPipe(element, when(isType("function"), (getter) => getter()), when(isLeft, exit), whenIsRight((data) => nextPush(lastValue, data)))), whenNot(isLeft, success));
+    }
     return asyncPipe(group, entries, asyncReduce(reduceFrom({}), ({ element: [key, value], lastValue, nextWithObject, exit }) => asyncPipe(value, when(isType("function"), (getter) => getter()), when(isLeft, exit), whenIsRight((data) => nextWithObject(lastValue, { [key]: data })))), whenNot(isLeft, success));
 }
 

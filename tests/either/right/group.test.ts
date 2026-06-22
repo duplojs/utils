@@ -39,4 +39,53 @@ describe("either.right.group", () => {
 		expect(result).toStrictEqual(DEither.optional(undefined));
 		expect(spy).toBeCalledTimes(0);
 	});
+
+	it("aggregates all right values into an tuple", () => {
+		const result = DEither.group([
+			DEither.bool(1 as number),
+			() => DEither.optional("second" as string | undefined),
+		]);
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.BoolFalsy<0>
+			| DEither.OptionalEmpty
+			| DEither.Success<[number, string]>,
+			"strict"
+		>;
+
+		expect(result).toStrictEqual(
+			DEither.success([1, "second"]),
+		);
+	});
+
+	it("aggregates all right values into an array", () => {
+		const array = [DEither.bool(1 as number), () => DEither.optional("second" as string | undefined)];
+		const result = DEither.group(array);
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.BoolFalsy<0>
+			| DEither.OptionalEmpty
+			| DEither.Success<(number | string)[]>,
+			"strict"
+		>;
+
+		expect(result).toStrictEqual(
+			DEither.success([1, "second"]),
+		);
+	});
+
+	it("returns first left and stops further evaluation", () => {
+		const spy = vi.fn(() => DEither.right("skipped", 3));
+
+		const result = DEither.group([
+			DEither.bool(1 as number),
+			() => DEither.optional(undefined as string | undefined),
+			spy,
+		]);
+
+		expect(result).toStrictEqual(DEither.optional(undefined));
+		expect(spy).toBeCalledTimes(0);
+	});
 });

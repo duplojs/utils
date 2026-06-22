@@ -1,4 +1,4 @@
-import { type AnyFunction, unwrap, type FixDeepFunctionInfer, type GetKindValue, type Kind, type Unwrap, type IsEqual } from "@scripts/common";
+import { type AnyFunction, unwrap, type FixDeepFunctionInfer, type GetKindValue, type Kind, type Unwrap } from "@scripts/common";
 import { informationKind } from "./kind";
 import { type Right } from "./right";
 import { type Left } from "./left";

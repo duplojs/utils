@@ -147,7 +147,7 @@ Type guard that checks whether a value is an `Right`.
 ### [whenIsRight](/en/v1/api/either/whenIsRight)
 Runs a function only when the input is `Right`, otherwise forwards the original value.
 
-### [whenIsRightElse](/en/v1/api/either/whenIsRightElse)
+### [whenIsRightOtherwise](/en/v1/api/either/whenIsRightOtherwise)
 Runs one callback on `Right` (with unwrapped value) and one callback on all other inputs.
 
 ### [unwrapRight](/en/v1/api/either/unwrapRight)
@@ -164,7 +164,7 @@ Type guard that detects an `Left`.
 ### [whenIsLeft](/en/v1/api/either/whenIsLeft)
 Allows applying a function when receiving a `Left` and then continuing the flow.
 
-### [whenIsLeftElse](/en/v1/api/either/whenIsLeftElse)
+### [whenIsLeftOtherwise](/en/v1/api/either/whenIsLeftOtherwise)
 Runs one callback on `Left` (with unwrapped value) and one callback on all other inputs.
 
 ### [unwrapLeft](/en/v1/api/either/unwrapLeft)
@@ -195,8 +195,14 @@ Type guard based on the literal information to precisely target a business case.
 ### [whenHasInformation](/en/v1/api/either/whenHasInformation)
 Pattern matching that triggers a function when the information (or a list of infos) matches.
 
+### [whenHasInformationOtherwise](/en/v1/api/either/whenHasInformationOtherwise)
+Runs the matching callback or an otherwise callback receiving the remaining raw input.
+
 ### [whenIsSelected](/en/v1/api/either/whenIsSelected)
 Runs a callback for the informations selected with `true` in an exhaustive selector and forwards all other inputs unchanged.
+
+### [whenIsSelectedOtherwise](/en/v1/api/either/whenIsSelectedOtherwise)
+Runs the selected callback or an otherwise callback receiving the unselected raw input.
 
 ### [matchInformation](/en/v1/api/either/matchInformation)
 Exhaustive pattern matching by information where every Either case must be handled.
@@ -239,11 +245,17 @@ Specialized type guard for `boolTruthy`.
 ### [whenIsBoolTruthy](/en/v1/api/either/whenIsBoolTruthy)
 Triggers a function only when a value (or the result of `bool`) is truthy.
 
+### [whenIsBoolTruthyOtherwise](/en/v1/api/either/whenIsBoolTruthyOtherwise)
+Handles truthy values and all remaining raw inputs with two explicit callbacks.
+
 ### [isBoolFalsy](/en/v1/api/either/isBoolFalsy)
 Specialized type guard for `boolFalsy`.
 
 ### [whenIsBoolFalsy](/en/v1/api/either/whenIsBoolFalsy)
 Triggers a function only when a value (or the result of `bool`) is falsy.
+
+### [whenIsBoolFalsyOtherwise](/en/v1/api/either/whenIsBoolFalsyOtherwise)
+Handles falsy values and all remaining raw inputs with two explicit callbacks.
 
 ## Handling nullish values
 
@@ -262,11 +274,17 @@ Type guard to detect a `nullishEmpty`.
 ### [whenIsNullishEmpty](/en/v1/api/either/whenIsNullishEmpty)
 Applies a function only for the `nullishEmpty` case.
 
+### [whenIsNullishEmptyOtherwise](/en/v1/api/either/whenIsNullishEmptyOtherwise)
+Handles empty nullish values and all remaining raw inputs with two callbacks.
+
 ### [isNullishFilled](/en/v1/api/either/isNullishFilled)
 Type guard to detect a `nullishFilled`.
 
 ### [whenIsNullishFilled](/en/v1/api/either/whenIsNullishFilled)
 Applies a function when the nullish value is actually defined (`Right`).
+
+### [whenIsNullishFilledOtherwise](/en/v1/api/either/whenIsNullishFilledOtherwise)
+Handles filled nullish values and all remaining raw inputs with two callbacks.
 
 ## Handling nullable values
 
@@ -285,11 +303,17 @@ Type guard for `nullableEmpty`.
 ### [whenIsNullableEmpty](/en/v1/api/either/whenIsNullableEmpty)
 Callback triggered only when the value is `null`.
 
+### [whenIsNullableEmptyOtherwise](/en/v1/api/either/whenIsNullableEmptyOtherwise)
+Handles empty nullable values and all remaining raw inputs with two callbacks.
+
 ### [isNullableFilled](/en/v1/api/either/isNullableFilled)
 Type guard for `nullableFilled`.
 
 ### [whenIsNullableFilled](/en/v1/api/either/whenIsNullableFilled)
 Callback triggered when the nullable value is present (`Right`).
+
+### [whenIsNullableFilledOtherwise](/en/v1/api/either/whenIsNullableFilledOtherwise)
+Handles filled nullable values and all remaining raw inputs with two callbacks.
 
 ## Handling optional values
 
@@ -308,11 +332,17 @@ Type guard for `optionalEmpty`.
 ### [whenIsOptionalEmpty](/en/v1/api/either/whenIsOptionalEmpty)
 Callback triggered only when an optional is empty.
 
+### [whenIsOptionalEmptyOtherwise](/en/v1/api/either/whenIsOptionalEmptyOtherwise)
+Handles empty optional values and all remaining raw inputs with two callbacks.
+
 ### [isOptionalFilled](/en/v1/api/either/isOptionalFilled)
 Type guard for `optionalFilled`.
 
 ### [whenIsOptionalFilled](/en/v1/api/either/whenIsOptionalFilled)
 Callback triggered when an optional contains a value.
+
+### [whenIsOptionalFilledOtherwise](/en/v1/api/either/whenIsOptionalFilledOtherwise)
+Handles filled optional values and all remaining raw inputs with two callbacks.
 
 ## Futures and asynchronism
 

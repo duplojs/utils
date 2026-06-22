@@ -1,4 +1,4 @@
-import { type SimplifyTopLevel, type Kind, unwrap, kindHeritage, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue, memo } from "@scripts/common";
+import { type SimplifyTopLevel, type Kind, unwrap, createErrorKind, pipe, forward, type RemoveKind, type RemoveReadonly, createOverride, type AnyFunction, type GetKindValue, keyWrappedValue, memo, kindClass, type IsEqual } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import { newTypeKind } from "../newType";
 import { constrainedTypeKind } from "../constraint";
@@ -41,6 +41,10 @@ export type PropertiesToMapOfEntity<
 		GenericPropertiesDefinition[Prop]
 	>
 }>;
+
+type EntityRefinerResult<
+	GenericEntity extends Entity = Entity,
+> = DEither.Right<string, GenericEntity> | DEither.Left<string, unknown>;
 
 export const entityKind = createCleanKind<
 	"entity",
@@ -107,13 +111,56 @@ export interface EntityHandler<
 		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>
 	): (
 		| DEither.Right<
-			"createEntity",
+			"hydratedEntity",
 			Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
 		>
 		| DEither.Left<
-			"createEntityError",
+			"hydrateEntityError",
 			DDataParser.DataParserError
 		>
+	);
+
+	map<
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
+	>(
+		refineEntity: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): (rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>) => (
+		| DEither.Left<
+			"hydrateEntityError",
+			DDataParser.DataParserError
+		>
+		| GenericEntityRefinerResult
+	);
+
+	map<
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
+	>(
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
+		refineEntity?: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): (
+		| DEither.Left<
+			"hydrateEntityError",
+			DDataParser.DataParserError
+		>
+		| (
+			IsEqual<
+				GenericEntityRefinerResult,
+				EntityRefinerResult<Entity<GenericName>>
+			> extends true
+				? DEither.Right<
+					"hydratedEntity",
+					Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+				>
+				: GenericEntityRefinerResult
+		)
 	);
 
 	/**
@@ -122,6 +169,42 @@ export interface EntityHandler<
 	mapOrThrow(
 		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>
 	): Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>;
+
+	mapOrThrow<
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
+	>(
+		refineEntity: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): (rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>) => (
+		GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue>
+			? GenericValue
+			: never
+	);
+
+	mapOrThrow<
+		const GenericEntityRefinerResult extends EntityRefinerResult<
+			Entity<GenericName>
+		>,
+	>(
+		rawProperties: PropertiesToMapOfEntity<GenericPropertiesDefinition>,
+		refineEntity?: (
+			entity: Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+		) => GenericEntityRefinerResult
+	): (
+		IsEqual<
+			GenericEntityRefinerResult,
+			EntityRefinerResult<Entity<GenericName>>
+		> extends true
+			? Entity<GenericName> & EntityProperties<GenericPropertiesDefinition>
+			: (
+				GenericEntityRefinerResult extends DEither.Right<string, infer GenericValue>
+					? GenericValue
+					: never
+			)
+	);
 
 	/**
  	* {@include clean/createEntity/is.md}
@@ -154,16 +237,29 @@ export interface EntityHandler<
 	): EntityUpdate<GenericEntity, GenericProperties>;
 }
 
-export class CreateEntityError extends kindHeritage(
-	"create-entity-error",
-	createErrorKind("create-entity-error"),
+export class HydrateEntityError extends kindClass(
+	createErrorKind("hydrate-entity-error"),
 	Error,
 ) {
 	public constructor(
 		public rawProperties: PropertiesToMapOfEntity,
 		public dataParserError: DDataParser.DataParserError,
 	) {
-		super({}, ["Error when create entity."]);
+		super({}, "Error when hydrate entity.");
+	}
+}
+
+export class RefineEntityError extends kindClass(
+	createErrorKind("refine-entity-error"),
+	Error,
+) {
+	public constructor(
+		public rawProperties: PropertiesToMapOfEntity,
+		public entity: Entity,
+		public information: string,
+		public error: unknown,
+	) {
+		super({}, "Error when refine entity.");
 	}
 }
 
@@ -234,27 +330,65 @@ export function createEntity<
 		),
 	);
 
-	function map(rawProperties: PropertiesToMapOfEntity) {
-		const result = mapDataParser.value.parse(rawProperties);
+	function map(
+		maybeRawProperties: PropertiesToMapOfEntity | ((entity: Entity) => EntityRefinerResult),
+		refineEntity?: (entity: Entity) => EntityRefinerResult,
+	) {
+		if (typeof maybeRawProperties === "function") {
+			return (rawProperties: PropertiesToMapOfEntity) => map(rawProperties, maybeRawProperties as never);
+		}
+
+		const result = mapDataParser.value.parse(maybeRawProperties);
 
 		if (DEither.isLeft(result)) {
 			return DEither.left(
-				"createEntityError",
+				"hydrateEntityError",
 				unwrap(result),
 			);
 		}
 
+		if (refineEntity) {
+			const refineResult = refineEntity(unwrap(result) as Entity);
+
+			return refineResult;
+		}
+
 		return DEither.right(
-			"createEntity",
+			"hydratedEntity",
 			unwrap(result),
 		);
 	}
 
-	function mapOrThrow(rawProperties: PropertiesToMapOfEntity) {
-		const result = mapDataParser.value.parse(rawProperties);
+	function mapOrThrow(
+		maybeRawProperties: PropertiesToMapOfEntity | ((entity: Entity) => EntityRefinerResult),
+		refineEntity?: (entity: Entity) => EntityRefinerResult,
+	) {
+		if (typeof maybeRawProperties === "function") {
+			return (rawProperties: PropertiesToMapOfEntity) => mapOrThrow(rawProperties, maybeRawProperties as never);
+		}
+
+		const result = mapDataParser.value.parse(maybeRawProperties);
 
 		if (DEither.isLeft(result)) {
-			throw new CreateEntityError(rawProperties, unwrap(result));
+			throw new HydrateEntityError(
+				maybeRawProperties,
+				unwrap(result),
+			);
+		}
+
+		if (refineEntity) {
+			const refineResult = refineEntity(unwrap(result) as Entity);
+
+			if (DEither.isLeft(refineResult)) {
+				throw new RefineEntityError(
+					maybeRawProperties,
+					unwrap(result),
+					DEither.informationKind.getValue(refineResult),
+					unwrap(refineResult),
+				);
+			}
+
+			return unwrap(refineResult);
 		}
 
 		return unwrap(result);
