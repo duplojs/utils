@@ -5,8 +5,8 @@ prev:
   text: "isBoolFalsy"
   link: "/en/v1/api/either/isBoolFalsy"
 next:
-  text: "nullish"
-  link: "/en/v1/api/either/nullish"
+  text: "whenIsBoolFalsyOtherwise"
+  link: "/en/v1/api/either/whenIsBoolFalsyOtherwise"
 ---
 
 # whenIsBoolFalsy

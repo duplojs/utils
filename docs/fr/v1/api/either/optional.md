@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Encapsule une valeur undefined/définie dans un Either, utile pour propager les champs optionnels."
 prev:
-  text: "whenIsNullableFilled"
-  link: "/fr/v1/api/either/whenIsNullableFilled"
+  text: "whenIsNullableFilledOtherwise"
+  link: "/fr/v1/api/either/whenIsNullableFilledOtherwise"
 next:
   text: "optionalEmpty"
   link: "/fr/v1/api/either/optionalEmpty"

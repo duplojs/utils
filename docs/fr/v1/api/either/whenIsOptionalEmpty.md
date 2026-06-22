@@ -5,8 +5,8 @@ prev:
   text: "isOptionalEmpty"
   link: "/fr/v1/api/either/isOptionalEmpty"
 next:
-  text: "isOptionalFilled"
-  link: "/fr/v1/api/either/isOptionalFilled"
+  text: "whenIsOptionalEmptyOtherwise"
+  link: "/fr/v1/api/either/whenIsOptionalEmptyOtherwise"
 ---
 
 # whenIsOptionalEmpty

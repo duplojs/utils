@@ -2,11 +2,11 @@
 outline: [2, 3]
 description: "Runs a callback on the unwrapped Either payloads selected by an exhaustive information selector and forwards all other inputs unchanged."
 prev:
-  text: "whenHasInformation"
-  link: "/en/v1/api/either/whenHasInformation"
+  text: "whenHasInformationOtherwise"
+  link: "/en/v1/api/either/whenHasInformationOtherwise"
 next:
-  text: "matchInformation"
-  link: "/en/v1/api/either/matchInformation"
+  text: "whenIsSelectedOtherwise"
+  link: "/en/v1/api/either/whenIsSelectedOtherwise"
 ---
 
 # whenIsSelected

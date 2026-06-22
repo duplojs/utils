@@ -5,8 +5,8 @@ prev:
   text: "isNullableFilled"
   link: "/en/v1/api/either/isNullableFilled"
 next:
-  text: "optional"
-  link: "/en/v1/api/either/optional"
+  text: "whenIsNullableFilledOtherwise"
+  link: "/en/v1/api/either/whenIsNullableFilledOtherwise"
 ---
 
 # whenIsNullableFilled

@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type guard that checks that an optional contains a value."
 prev:
-  text: "whenIsOptionalEmpty"
-  link: "/en/v1/api/either/whenIsOptionalEmpty"
+  text: "whenIsOptionalEmptyOtherwise"
+  link: "/en/v1/api/either/whenIsOptionalEmptyOtherwise"
 next:
   text: "whenIsOptionalFilled"
   link: "/en/v1/api/either/whenIsOptionalFilled"

@@ -2,11 +2,11 @@
 outline: [2, 3]
 description: "Exécute un callback sur les payloads Either sélectionnés par un sélecteur exhaustif d'informations et relaie les autres entrées inchangées."
 prev:
-  text: "whenHasInformation"
-  link: "/fr/v1/api/either/whenHasInformation"
+  text: "whenHasInformationOtherwise"
+  link: "/fr/v1/api/either/whenHasInformationOtherwise"
 next:
-  text: "matchInformation"
-  link: "/fr/v1/api/either/matchInformation"
+  text: "whenIsSelectedOtherwise"
+  link: "/fr/v1/api/either/whenIsSelectedOtherwise"
 ---
 
 # whenIsSelected

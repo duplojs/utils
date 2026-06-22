@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type guard that checks that the nullable Either actually contains a value."
 prev:
-  text: "whenIsNullableEmpty"
-  link: "/en/v1/api/either/whenIsNullableEmpty"
+  text: "whenIsNullableEmptyOtherwise"
+  link: "/en/v1/api/either/whenIsNullableEmptyOtherwise"
 next:
   text: "whenIsNullableFilled"
   link: "/en/v1/api/either/whenIsNullableFilled"

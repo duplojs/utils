@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Type guard that detects an BoolFalsy."
 prev:
-  text: "whenIsBoolTruthy"
-  link: "/en/v1/api/either/whenIsBoolTruthy"
+  text: "whenIsBoolTruthyOtherwise"
+  link: "/en/v1/api/either/whenIsBoolTruthyOtherwise"
 next:
   text: "whenIsBoolFalsy"
   link: "/en/v1/api/either/whenIsBoolFalsy"
