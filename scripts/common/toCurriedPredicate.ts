@@ -7,5 +7,5 @@ export function toCurriedPredicate<
 >(
 	thePredicate: (input: GenericInput) => input is GenericPredicate,
 ): (input: GenericInput) => input is GenericPredicate {
-	return thePredicate;
+	return (input) => thePredicate(input);
 }

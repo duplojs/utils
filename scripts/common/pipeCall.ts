@@ -7,5 +7,5 @@ export function pipeCall<
 >(
 	theFunction: (input: NoInfer<GenericInput>) => GenericOutput,
 ): (input: GenericInput) => NoInfer<GenericOutput> {
-	return theFunction;
+	return (input) => theFunction(input);
 }
