@@ -22,3 +22,4 @@ export * from "./unwrapByInformation";
 export * from "./unwrapByInformationOrThrow";
 export * from "./unwrapSelection";
 export * from "./unwrapSelectionOrThrow";
+export * from "./forwardAssertsSelection";

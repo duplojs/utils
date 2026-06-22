@@ -4347,6 +4347,15 @@
           "name": "expect.mjs"
         },
         {
+          "name": "forwardAssertsSelection.cjs"
+        },
+        {
+          "name": "forwardAssertsSelection.d.ts"
+        },
+        {
+          "name": "forwardAssertsSelection.mjs"
+        },
+        {
           "name": "hasInformation.cjs"
         },
         {

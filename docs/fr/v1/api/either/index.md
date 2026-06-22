@@ -137,6 +137,9 @@ Unwrap les payloads `Either` sélectionnés par un sélecteur exhaustif d'inform
 ### [unwrapSelectionOrThrow](/fr/v1/api/either/unwrapSelectionOrThrow)
 Unwrap les payloads `Either` sélectionnés par un sélecteur exhaustif d'informations, sinon lève une erreur.
 
+### [forwardAssertsSelection](/fr/v1/api/either/forwardAssertsSelection)
+Transmet sans modification les `Either` sélectionnés par un sélecteur exhaustif d'informations et lève une erreur pour les autres.
+
 ### [expect](/fr/v1/api/either/expect)
 Helper de typage qui renvoie le même Either en conservant strictement les types Left/Right.
 

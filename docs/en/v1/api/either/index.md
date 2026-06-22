@@ -222,6 +222,9 @@ Unwraps selected `Either` payloads from an exhaustive information selector, othe
 ### [unwrapSelectionOrThrow](/en/v1/api/either/unwrapSelectionOrThrow)
 Unwraps selected `Either` payloads from an exhaustive information selector, otherwise throws.
 
+### [forwardAssertsSelection](/en/v1/api/either/forwardAssertsSelection)
+Forwards `Either` values selected by an exhaustive information selector unchanged and throws for the others.
+
 ### [expect](/en/v1/api/either/expect)
 Type-level helper that returns the same Either while preserving strict Left/Right typing.
 

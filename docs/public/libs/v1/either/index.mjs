@@ -12,6 +12,7 @@ export { unwrapByInformation } from './unwrapByInformation.mjs';
 export { HasNotInformationError, unwrapByInformationOrThrow } from './unwrapByInformationOrThrow.mjs';
 export { unwrapSelection } from './unwrapSelection.mjs';
 export { HasNotSelectedInformationError, unwrapSelectionOrThrow } from './unwrapSelectionOrThrow.mjs';
+export { ForwardAssertsSelectionError, forwardAssertsSelection } from './forwardAssertsSelection.mjs';
 export { bool } from './bool/create.mjs';
 export { boolFalsy, boolFalsyKind, eitherBoolFalsyKind, isBoolFalsy, whenIsBoolFalsy } from './bool/falsy.mjs';
 export { whenIsBoolFalsyOtherwise } from './bool/falsyOtherwise.mjs';

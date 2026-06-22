@@ -5,8 +5,8 @@ prev:
   text: "unwrapSelection"
   link: "/fr/v1/api/either/unwrapSelection"
 next:
-  text: "expect"
-  link: "/fr/v1/api/either/expect"
+  text: "forwardAssertsSelection"
+  link: "/fr/v1/api/either/forwardAssertsSelection"
 ---
 
 # unwrapSelectionOrThrow
