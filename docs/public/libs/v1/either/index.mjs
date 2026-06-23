@@ -5,6 +5,7 @@ export { whenIsSelected } from './whenIsSelected.mjs';
 export { whenIsSelectedOtherwise } from './whenIsSelectedOtherwise.mjs';
 export { createEitherKind, eitherInformationKind, informationKind } from './kind.mjs';
 export { safeCallback } from './safeCallback.mjs';
+export { asyncSafeCallback } from './asyncSafeCallback.mjs';
 export { expect } from './expect.mjs';
 export { matchInformation } from './matchInformation.mjs';
 export { matchInformationOtherwise } from './matchInformationOtherwise.mjs';

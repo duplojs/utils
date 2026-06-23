@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Converts any value into a boolean monad (BoolTruthy or BoolFalsy). Handy to keep track of the test while benefiting from the whenIsBoolTruthy/whenIsBoolFalsy helpers."
 prev:
-  text: "safeCallback"
-  link: "/en/v1/api/either/safeCallback"
+  text: "asyncSafeCallback"
+  link: "/en/v1/api/either/asyncSafeCallback"
 next:
   text: "boolTruthy"
   link: "/en/v1/api/either/boolTruthy"

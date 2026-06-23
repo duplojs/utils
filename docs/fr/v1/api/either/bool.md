@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Convertit n'importe quelle valeur en monade booléenne (BoolTruthy ou BoolFalsy). Pratique pour conserver la trace du test tout en bénéficiant des helpers whenIsBoolTruthy/whenIsBoolFalsy."
 prev:
-  text: "safeCallback"
-  link: "/fr/v1/api/either/safeCallback"
+  text: "asyncSafeCallback"
+  link: "/fr/v1/api/either/asyncSafeCallback"
 next:
   text: "boolTruthy"
   link: "/fr/v1/api/either/boolTruthy"

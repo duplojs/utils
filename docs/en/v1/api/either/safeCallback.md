@@ -5,8 +5,8 @@ prev:
   text: "expect"
   link: "/en/v1/api/either/expect"
 next:
-  text: "bool"
-  link: "/en/v1/api/either/bool"
+  text: "asyncSafeCallback"
+  link: "/en/v1/api/either/asyncSafeCallback"
 ---
 
 # safeCallback

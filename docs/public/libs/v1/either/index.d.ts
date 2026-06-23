@@ -36,6 +36,7 @@ export * from "./whenIsSelected";
 export * from "./whenIsSelectedOtherwise";
 export * from "./kind";
 export * from "./safeCallback";
+export * from "./asyncSafeCallback";
 export * from "./expect";
 export * from "./matchInformation";
 export * from "./matchInformationOtherwise";

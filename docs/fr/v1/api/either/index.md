@@ -146,6 +146,9 @@ Helper de typage qui renvoie le même Either en conservant strictement les types
 ### [safeCallback](/fr/v1/api/either/safeCallback)
 Exécute un callback en capturant les exceptions et rejets de promesse dans, ou en résolvant vers, un `Left<"safe-callback-error">`.
 
+### [asyncSafeCallback](/fr/v1/api/either/asyncSafeCallback)
+Exécute un callback ou une promesse en capturant les exceptions et rejets dans un `Promise<Left<"safe-callback-error">>`.
+
 ## Helpers booléens
 
 ### [bool](/fr/v1/api/either/bool)

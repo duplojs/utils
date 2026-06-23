@@ -231,6 +231,9 @@ Type-level helper that returns the same Either while preserving strict Left/Righ
 ### [safeCallback](/en/v1/api/either/safeCallback)
 Runs a callback and captures thrown errors or promise rejections into, or resolves to, a `Left<"safe-callback-error">`.
 
+### [asyncSafeCallback](/en/v1/api/either/asyncSafeCallback)
+Runs a callback or promise and captures thrown errors or rejections into a `Promise<Left<"safe-callback-error">>`.
+
 ## Boolean helpers
 
 ### [bool](/en/v1/api/either/bool)
