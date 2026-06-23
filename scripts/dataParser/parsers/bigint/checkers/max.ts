@@ -29,13 +29,14 @@ export class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerBigIntMax,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		if (value > self.definition.max) {
 			return addIssue(
 				error,
 				`bigint <= ${self.definition.max}n`,
 				value,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 		}
 

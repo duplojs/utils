@@ -94,7 +94,7 @@ export class DataParserUnion<
 
 				error.issues.push(...unionError.issues);
 
-				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
+				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage, self);
 			},
 		);
 	}

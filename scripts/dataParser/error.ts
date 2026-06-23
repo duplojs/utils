@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/max-params */
 import { type Kind, Printer, unwrap } from "@scripts/common";
 import { createDataParserKind } from "./kind";
 import type * as DEither from "@scripts/either";
+import { type DataParser } from "./base";
+import { type DataParserChecker } from "./baseChecker";
 
 export const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
@@ -28,6 +31,7 @@ export interface DataParserErrorIssue extends Kind<typeof errorIssueKind.definit
 	readonly path: string;
 	readonly data: unknown;
 	readonly message: string | undefined;
+	getSource(): DataParser | DataParserChecker;
 }
 
 export const errorKind = createDataParserKind("error");
@@ -49,15 +53,21 @@ export function addIssue(
 	expected: string,
 	data: unknown,
 	message: string | undefined,
+	dataParser: DataParser | DataParserChecker,
 ): SymbolDataParserError {
-	error.issues.push(
-		errorIssueKind.setTo({
-			expected,
-			path: error.currentPath.join("."),
-			data,
-			message,
-		}),
-	);
+	const issue = errorIssueKind.setTo({
+		expected,
+		path: error.currentPath.join("."),
+		data,
+		message,
+	} as DataParserErrorIssue);
+
+	Object.defineProperty(issue, "getSource", {
+		value: () => dataParser,
+		enumerable: false,
+	});
+
+	error.issues.push(issue);
 
 	return SymbolDataParserError;
 }
@@ -103,11 +113,16 @@ export function interpretError(error: DataParserError | DEither.Left<string, Dat
 	]);
 }
 
-export function addAsyncIssue(error: DataParserError, data: unknown): SymbolDataParserError {
+export function addAsyncIssue(
+	error: DataParserError,
+	data: unknown,
+	dataParser: DataParser,
+): SymbolDataParserError {
 	return addIssue(
 		error,
 		"synchronous result",
 		data,
 		undefined,
+		dataParser,
 	);
 }

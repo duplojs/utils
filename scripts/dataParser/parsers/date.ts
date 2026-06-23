@@ -57,7 +57,7 @@ export class DataParserDate<
 		if (self.definition.coerce) {
 			if (typeof data === "number") {
 				if (!DDate.isSafeTimestamp(data)) {
-					return addIssue(error, "date", data, self.definition.errorMessage);
+					return addIssue(error, "date", data, self.definition.errorMessage, self);
 				}
 
 				return DDate.TheDate.new(data);
@@ -80,12 +80,12 @@ export class DataParserDate<
 			const timestamp = data.getTime();
 
 			if (!DDate.isSafeTimestamp(timestamp)) {
-				return addIssue(error, "date", data, self.definition.errorMessage);
+				return addIssue(error, "date", data, self.definition.errorMessage, self);
 			}
 			return DDate.TheDate.new(timestamp);
 		}
 
-		return addIssue(error, "date", data, self.definition.errorMessage);
+		return addIssue(error, "date", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserDate) {

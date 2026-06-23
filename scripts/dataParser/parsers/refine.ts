@@ -34,7 +34,7 @@ export class DataParserCheckerRefine<
 		error: DataParserError,
 		self: DataParserCheckerRefine,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return callThen(
 			self.definition.theFunction(value),
 			(awaitedResult) => awaitedResult
@@ -44,12 +44,14 @@ export class DataParserCheckerRefine<
 					"value matching refine predicate",
 					value,
 					self.definition.errorMessage ?? dataParser.definition.errorMessage,
+					self,
 				),
 			(catchError) => addIssue(
 				error,
 				"successful refine result",
 				catchError,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			),
 		);
 	}

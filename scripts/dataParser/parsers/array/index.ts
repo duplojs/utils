@@ -65,6 +65,7 @@ export class DataParserArray<
 				"array",
 				data,
 				self.definition.errorMessage,
+				self,
 			);
 		}
 

@@ -117,7 +117,7 @@ export class DataParserObject<
 			|| typeof data !== "object"
 			|| data instanceof Array
 		) {
-			return addIssue(error, "object", data, self.definition.errorMessage);
+			return addIssue(error, "object", data, self.definition.errorMessage, self);
 		}
 
 		const currentIndexPath = error.currentPath.length;

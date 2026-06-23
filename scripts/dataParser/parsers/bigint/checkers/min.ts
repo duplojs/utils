@@ -29,13 +29,14 @@ export class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerBigIntMin,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		if (value < self.definition.min) {
 			return addIssue(
 				error,
 				`bigint >= ${self.definition.min}n`,
 				value,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 		}
 

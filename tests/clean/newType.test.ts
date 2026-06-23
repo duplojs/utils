@@ -73,6 +73,7 @@ describe("createNewType", () => {
 			"string.length <= 5",
 			"too long",
 			undefined,
+			DDataParser.checkerStringMax(5),
 		);
 
 		expect(result).toStrictEqual(
@@ -150,6 +151,7 @@ describe("createNewType", () => {
 			"string.length <= 5",
 			"longer than five",
 			undefined,
+			DDataParser.checkerStringMax(5),
 		);
 
 		try {

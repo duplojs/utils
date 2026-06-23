@@ -31,7 +31,7 @@ describe("base parser", () => {
 			error: DDataParser.DataParserError,
 			self: CheckerTest,
 			dataParser: DDataParser.DataParser,
-		) {
+		): unknown {
 			if (!self.definition.positive || value > 0) {
 				return value;
 			}
@@ -41,6 +41,7 @@ describe("base parser", () => {
 				"positive number",
 				value,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 		}
 
@@ -80,7 +81,7 @@ describe("base parser", () => {
 			self: ParserTest,
 			data: unknown,
 			error: DDataParser.DataParserError,
-		) {
+		): unknown {
 			if (typeof data === "number") {
 				return data;
 			}
@@ -90,6 +91,7 @@ describe("base parser", () => {
 				"number",
 				data,
 				self.definition.errorMessage,
+				self,
 			);
 		}
 
@@ -130,7 +132,7 @@ describe("base parser", () => {
 			self: AsyncParserTest,
 			data: unknown,
 			error: DDataParser.DataParserError,
-		) {
+		): unknown {
 			return Promise.resolve(
 				typeof data === "number"
 					? data
@@ -139,6 +141,7 @@ describe("base parser", () => {
 						"number",
 						data,
 						self.definition.errorMessage,
+						self,
 					),
 			);
 		}

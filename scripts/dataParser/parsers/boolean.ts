@@ -66,7 +66,7 @@ export class DataParserBoolean<
 			}
 		}
 
-		return addIssue(error, "boolean", data, self.definition.errorMessage);
+		return addIssue(error, "boolean", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserBoolean) {

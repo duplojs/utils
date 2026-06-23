@@ -32,7 +32,7 @@ export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerEmail,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return self.definition.regex.test(data)
 			? data
 			: addIssue(
@@ -40,6 +40,7 @@ export class DataParserCheckerEmail extends DataParserCheckerBase.init(
 				"email",
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

@@ -75,6 +75,7 @@ export class DataParserString<
 			"string",
 			inputData,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 

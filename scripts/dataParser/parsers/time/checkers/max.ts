@@ -30,7 +30,7 @@ export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerTimeMax,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return DDate.lessTime(value, self.definition.max)
 			? value
 			: addIssue(
@@ -38,6 +38,7 @@ export class DataParserCheckerTimeMax extends DataParserCheckerBase.init(
 				`time <= ${self.definition.max.toString()}`,
 				value,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

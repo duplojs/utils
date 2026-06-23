@@ -130,9 +130,9 @@ export class DataParserRecord<
 		self: DataParserRecord,
 		data: unknown,
 		error: DataParserError,
-	) {
+	): unknown {
 		if (!data || typeof data !== "object" || data instanceof Array) {
-			return addIssue(error, "record object", data, self.definition.errorMessage);
+			return addIssue(error, "record object", data, self.definition.errorMessage, self);
 		}
 
 		const fromData = {

@@ -49,6 +49,7 @@ describe("createConstraintsSet", () => {
 			"string.length >= 3",
 			"hi",
 			undefined,
+			DDataParser.checkerStringMin(3),
 		);
 
 		expect(result).toStrictEqual(

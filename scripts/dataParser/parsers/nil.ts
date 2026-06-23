@@ -59,7 +59,7 @@ export class DataParserNil<
 			return null;
 		}
 
-		return addIssue(error, "null", data, self.definition.errorMessage);
+		return addIssue(error, "null", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserNil) {

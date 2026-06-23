@@ -69,6 +69,7 @@ export class DataParserLiteral<
 			`one of ${self.definition.value.join(", ")}`,
 			data,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 

@@ -30,7 +30,7 @@ export class DataParserCheckerNumberMax extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerNumberMax,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		const isValid = self.definition.exclusive
 			? value < self.definition.max
 			: value <= self.definition.max;
@@ -44,6 +44,7 @@ export class DataParserCheckerNumberMax extends DataParserCheckerBase.init(
 			`number ${self.definition.exclusive ? "<" : "<="} ${self.definition.max}`,
 			value,
 			self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			self,
 		);
 	}
 

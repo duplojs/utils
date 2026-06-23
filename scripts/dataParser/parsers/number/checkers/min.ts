@@ -30,7 +30,7 @@ export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerNumberMin,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		const isValid = self.definition.exclusive
 			? value > self.definition.min
 			: value >= self.definition.min;
@@ -44,6 +44,7 @@ export class DataParserCheckerNumberMin extends DataParserCheckerBase.init(
 			`number ${self.definition.exclusive ? ">" : ">="} ${self.definition.min}`,
 			value,
 			self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			self,
 		);
 	}
 

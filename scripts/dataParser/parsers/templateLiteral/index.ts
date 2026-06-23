@@ -220,6 +220,7 @@ export class DataParserTemplateLiteral<
 			`string matching template literal pattern ${self.definition.pattern.source}`,
 			data,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 

@@ -44,6 +44,7 @@ describe("createConstraint", () => {
 			"string.length >= 3",
 			"hi",
 			undefined,
+			minLengthChecker,
 		);
 
 		expect(result).toStrictEqual(
@@ -126,6 +127,7 @@ describe("createConstraint", () => {
 			"string.length >= 3",
 			"no",
 			undefined,
+			minLengthChecker,
 		);
 
 		try {

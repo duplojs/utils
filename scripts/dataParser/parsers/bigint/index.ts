@@ -75,6 +75,7 @@ export class DataParserBigInt<
 			"bigint",
 			inputData,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 

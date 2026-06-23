@@ -34,7 +34,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerUrl,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		try {
 			const url = new URL(data);
 
@@ -46,6 +46,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 						`URL with hostname matching ${self.definition.hostname.source}`,
 						data,
 						self.definition.errorMessage ?? dataParser.definition.errorMessage,
+						self,
 					);
 				}
 			}
@@ -58,6 +59,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 						`URL with protocol matching ${self.definition.protocol.source}`,
 						data,
 						self.definition.errorMessage ?? dataParser.definition.errorMessage,
+						self,
 					);
 				}
 			}
@@ -72,6 +74,7 @@ export class DataParserCheckerUrl extends DataParserCheckerBase.init(
 				"valid URL",
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 		}
 	}

@@ -65,7 +65,7 @@ export class DataParserTime<
 				const result = DDate.createTime({ value: data });
 
 				if (DEither.isLeft(result)) {
-					return addIssue(error, "time", data, self.definition.errorMessage);
+					return addIssue(error, "time", data, self.definition.errorMessage, self);
 				}
 
 				return unwrap(result);
@@ -78,13 +78,13 @@ export class DataParserTime<
 			return DDate.TheTime.new(DDate.toTimeValue(data));
 		} else if (typeof data === "number") {
 			if (!DDate.isSafeTimeValue(data)) {
-				return addIssue(error, "time", data, self.definition.errorMessage);
+				return addIssue(error, "time", data, self.definition.errorMessage, self);
 			}
 
 			return DDate.TheTime.new(data);
 		}
 
-		return addIssue(error, "time", data, self.definition.errorMessage);
+		return addIssue(error, "time", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserTime) {
