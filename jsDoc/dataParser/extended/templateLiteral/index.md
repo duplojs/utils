@@ -3,7 +3,7 @@ Creates an extended data parser for deterministic template literal strings.
 **Supported call styles:**
 - Method: `DPE.templateLiteral(template, definition?)` -> returns a template literal parser
 
-Validates that the input matches the provided template literal shape.
+Validates that the input matches the provided template literal shape. Nested sub-parsers must not include their own checkers; add template-level refine rules when needed.
 
 ```ts
 {@include dataParser/extended/templateLiteral/example.ts[3,14]}

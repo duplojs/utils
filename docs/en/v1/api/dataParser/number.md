@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Validates numbers (integers or floats) with optional constraints. DDataParser.number() ensures the input is a number, applies your checkers (min, max, int, refine, etc.) and returns an Either containing either the validated value or a rich DataParserError."
+description: "Validates finite numbers (integers or floats) with optional constraints. DDataParser.number() ensures the input is a finite number, applies your checkers (min, max, int, refine, etc.) and returns an Either containing either the validated value or a rich DataParserError."
 prev:
   text: "string"
   link: "/en/v1/api/dataParser/string"
@@ -11,7 +11,7 @@ next:
 
 # number
 
-Validates numbers (integers or floats) with optional constraints. `DDataParser.number()` ensures the input is a number, applies your checkers (`min`, `max`, `int`, `refine`, etc.) and returns an `Either` containing either the validated value or a rich `DataParserError`.
+Validates finite numbers (integers or floats) with optional constraints. `DDataParser.number()` ensures the input is a finite number, applies your checkers (`min`, `max`, `int`, `refine`, etc.) and returns an `Either` containing either the validated value or a rich `DataParserError`. `NaN`, `Infinity`, and `-Infinity` are rejected.
 
 ## Interactive example
 
@@ -23,9 +23,9 @@ Validates numbers (integers or floats) with optional constraints. `DDataParser.n
 
 ## Parameters
 
-- `errorMessage`: custom message when the input is not a number.
+- `errorMessage`: custom message when the input is not a finite number.
 - `checkers`: `checkerNumberMin`, `checkerNumberMax`, `checkerInt`, `checkerRefine`, etc.
-- `coerce`: `true` to convert strings/booleans before validation (via `Number(value)`). Defaults to `false`.
+- `coerce`: `true` to convert strings/booleans before validation (via `Number(value)`). The converted value must still be finite. Defaults to `false`.
 
 ## Return value
 

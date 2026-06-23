@@ -19,7 +19,7 @@ export declare class DataParserTemplateLiteralExtended<GenericDefinition extends
      * **Supported call styles:**
      * - Method: `DPE.templateLiteral(template, definition?)` -> returns a template literal parser
      * 
-     * Validates that the input matches the provided template literal shape.
+     * Validates that the input matches the provided template literal shape. Nested sub-parsers must not include their own checkers; add template-level refine rules when needed.
      * 
      * ```ts
      * const parser = DPE.templateLiteral(["user-", DPE.number()]);

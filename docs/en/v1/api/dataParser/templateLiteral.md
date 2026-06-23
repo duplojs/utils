@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Builds a parser for a deterministic string shape (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() takes an array mixing primitive parts and sub-parsers (string, number, literal, ...) and returns a strongly typed string parser."
+description: "Builds a parser for a deterministic string shape (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() takes an array mixing primitive parts and compatible sub-parsers without their own checkers (string, number, literal, ...) and returns a strongly typed string parser."
 prev:
   text: "literal"
   link: "/en/v1/api/dataParser/literal"
@@ -11,7 +11,7 @@ next:
 
 # templateLiteral
 
-Builds a parser for a deterministic string shape (`"order-${number}"`, `"user-${string}-${number}"`, etc.). `DDataParser.templateLiteral()` takes an array mixing primitive parts and sub-parsers (`string`, `number`, `literal`, ...) and returns a strongly typed `string` parser.
+Builds a parser for a deterministic string shape (`"order-${number}"`, `"user-${string}-${number}"`, etc.). `DDataParser.templateLiteral()` takes an array mixing primitive parts and compatible sub-parsers without their own checkers (`string`, `number`, `literal`, ...) and returns a strongly typed `string` parser.
 
 ## Interactive example
 
@@ -23,9 +23,9 @@ Builds a parser for a deterministic string shape (`"order-${number}"`, `"user-${
 
 ## Parameters
 
-- `template`: shape to validate (primitive parts or compatible sub-parsers).
+- `template`: shape to validate (primitive parts or compatible sub-parsers without their own checkers).
 - `pattern`: `RegExp` automatically generated from the template (manual configuration is rarely needed).
-- `checkers`: `checkerRefine` to apply additional rules.
+- `checkers`: `checkerRefine` to apply additional rules to the final template literal value.
 
 ## Return value
 

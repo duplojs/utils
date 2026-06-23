@@ -29,7 +29,7 @@ export declare class DataParserNumber<GenericDefinition extends DataParserDefini
      * - Classic: `DP.number(definition?)` -> returns a number parser
      * - Curried: not available
      * 
-     * Validates that the input is a number (non-NaN), optionally applies coerce, and runs the configured checkers.
+     * Validates that the input is a finite number, optionally applies coerce, and runs the configured checkers. `NaN`, `Infinity`, and `-Infinity` are rejected.
      * 
      * ```ts
      * const parser = DP.number();

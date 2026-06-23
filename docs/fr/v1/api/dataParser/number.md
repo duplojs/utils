@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Valide des nombres (entiers ou flottants) avec des contraintes optionnelles. DDataParser.number() assure que l'entrée est bien un nombre, applique vos checkers (min, max, int, refine, etc.) et retourne un Either contenant soit la valeur validée, soit un DataParserError riche."
+description: "Valide des nombres finis (entiers ou flottants) avec des contraintes optionnelles. DDataParser.number() assure que l'entrée est bien un nombre fini, applique vos checkers (min, max, int, refine, etc.) et retourne un Either contenant soit la valeur validée, soit un DataParserError riche."
 prev:
   text: "string"
   link: "/fr/v1/api/dataParser/string"
@@ -11,7 +11,7 @@ next:
 
 # number
 
-Valide des nombres (entiers ou flottants) avec des contraintes optionnelles. `DDataParser.number()` assure que l'entrée est bien un nombre, applique vos checkers (`min`, `max`, `int`, `refine`, etc.) et retourne un `Either` contenant soit la valeur validée, soit un `DataParserError` riche.
+Valide des nombres finis (entiers ou flottants) avec des contraintes optionnelles. `DDataParser.number()` assure que l'entrée est bien un nombre fini, applique vos checkers (`min`, `max`, `int`, `refine`, etc.) et retourne un `Either` contenant soit la valeur validée, soit un `DataParserError` riche. `NaN`, `Infinity` et `-Infinity` sont rejetés.
 
 ## Exemple interactif
 
@@ -23,9 +23,9 @@ Valide des nombres (entiers ou flottants) avec des contraintes optionnelles. `DD
 
 ## Paramètres
 
-- `errorMessage` : message personnalisé quand l'entrée n'est pas un nombre.
+- `errorMessage` : message personnalisé quand l'entrée n'est pas un nombre fini.
 - `checkers` : `checkerNumberMin`, `checkerNumberMax`, `checkerInt`, `checkerRefine`, etc.
-- `coerce` : `true` pour convertir les chaînes/boolean avant validation (via `Number(value)`). Par défaut `false`.
+- `coerce` : `true` pour convertir les chaînes/boolean avant validation (via `Number(value)`). La valeur convertie doit toujours être finie. Par défaut `false`.
 
 ## Valeur de retour
 
