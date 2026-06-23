@@ -15,7 +15,7 @@ class DataParserTransform extends DataParserBase.init(transformKind) {
             if (innerResult === SymbolDataParserError) {
                 return SymbolDataParserError;
             }
-            return callThen(self.definition.theFunction(innerResult, error), forward, (catchError) => addIssue(error, "successful transform result", catchError, self.definition.errorMessage));
+            return callThen(self.definition.theFunction(innerResult, error), forward, (catchError) => addIssue(error, "successful transform result", catchError, self.definition.errorMessage, self));
         });
     }
     static dataParserIsAsynchronous(self) {

@@ -66,7 +66,7 @@ export class DataParserNumber<
 			} catch {}
 		}
 
-		if (typeof data === "number" && !Number.isNaN(data)) {
+		if (typeof data === "number" && Number.isFinite(data)) {
 			return data;
 		}
 

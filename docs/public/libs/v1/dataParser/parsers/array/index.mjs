@@ -11,7 +11,7 @@ class DataParserArray extends DataParserBase.init(arrayKind) {
     }
     static execParse(self, data, error) {
         if (!(data instanceof Array)) {
-            return addIssue(error, "array", data, self.definition.errorMessage);
+            return addIssue(error, "array", data, self.definition.errorMessage, self);
         }
         const currentIndexPath = error.currentPath.length;
         const output = data.reduce((accumulator, element, index) => callThen(accumulator, (awaitedAccumulator) => {

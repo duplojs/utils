@@ -29,7 +29,7 @@ class DataParserUnion extends DataParserBase.init(unionKind) {
                 return awaitedOutput;
             }
             error.issues.push(...unionError.issues);
-            return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
+            return addIssue(error, "respect at least one union value", data, self.definition.errorMessage, self);
         });
     }
     static dataParserIsAsynchronous(self) {

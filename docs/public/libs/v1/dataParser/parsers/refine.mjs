@@ -15,7 +15,7 @@ class DataParserCheckerRefine extends DataParserCheckerBase.init(dataParserCheck
     static execCheck(value, error, self, dataParser) {
         return callThen(self.definition.theFunction(value), (awaitedResult) => awaitedResult
             ? value
-            : addIssue(error, "value matching refine predicate", value, self.definition.errorMessage ?? dataParser.definition.errorMessage), (catchError) => addIssue(error, "successful refine result", catchError, self.definition.errorMessage ?? dataParser.definition.errorMessage));
+            : addIssue(error, "value matching refine predicate", value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self), (catchError) => addIssue(error, "successful refine result", catchError, self.definition.errorMessage ?? dataParser.definition.errorMessage, self));
     }
     static create(theFunction, definition) {
         return new DataParserCheckerRefine({

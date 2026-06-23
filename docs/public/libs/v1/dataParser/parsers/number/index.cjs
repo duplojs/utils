@@ -19,10 +19,10 @@ class DataParserNumber extends base.DataParserBase.init(numberKind) {
             }
             catch { }
         }
-        if (typeof data === "number" && !Number.isNaN(data)) {
+        if (typeof data === "number" && Number.isFinite(data)) {
             return data;
         }
-        return error.addIssue(error$1, "number", inputData, self.definition.errorMessage);
+        return error.addIssue(error$1, "number", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

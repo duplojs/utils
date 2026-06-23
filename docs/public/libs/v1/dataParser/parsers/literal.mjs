@@ -13,7 +13,7 @@ class DataParserLiteral extends DataParserBase.init(literalKind) {
         if (self.definition.value.includes(data)) {
             return data;
         }
-        return addIssue(error, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage);
+        return addIssue(error, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

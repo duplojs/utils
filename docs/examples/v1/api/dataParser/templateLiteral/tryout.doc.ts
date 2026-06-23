@@ -2,9 +2,7 @@ import { unwrap, type ExpectType, E, DP } from "@duplojs/utils";
 
 const schema = DP.templateLiteral([
 	"order-",
-	DP.coerce.number().addChecker(
-		DP.checkerInt(),
-	),
+	DP.coerce.number(),
 	"-",
 	DP.literal(["foo", "lias"]),
 ]);

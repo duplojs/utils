@@ -13,7 +13,7 @@ class DataParserCheckerBigIntMax extends DataParserCheckerBase.init(checkerBigIn
     }
     static execCheck(value, error, self, dataParser) {
         if (value > self.definition.max) {
-            return addIssue(error, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            return addIssue(error, `bigint <= ${self.definition.max}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
         }
         return value;
     }

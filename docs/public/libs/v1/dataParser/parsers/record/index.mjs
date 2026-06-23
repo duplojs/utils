@@ -17,7 +17,7 @@ class DataParserRecord extends DataParserBase.init(recordKind) {
     }
     static execParse(self, data, error) {
         if (!data || typeof data !== "object" || data instanceof Array) {
-            return addIssue(error, "record object", data, self.definition.errorMessage);
+            return addIssue(error, "record object", data, self.definition.errorMessage, self);
         }
         const fromData = {
             ...self.definition.baseData,

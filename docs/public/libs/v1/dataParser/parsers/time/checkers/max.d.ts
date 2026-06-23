@@ -10,7 +10,7 @@ declare const DataParserCheckerTimeMax_base: import("../../..").DataParserChecke
 export declare class DataParserCheckerTimeMax extends DataParserCheckerTimeMax_base<DataParserCheckerDefinitionTimeMax, DDate.TheTime> {
     get classConstructor(): typeof DataParserCheckerTimeMax & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(value: DDate.TheTime, error: DataParserError, self: DataParserCheckerTimeMax, dataParser: DataParser): DDate.TheTime | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(value: DDate.TheTime, error: DataParserError, self: DataParserCheckerTimeMax, dataParser: DataParser): unknown;
     /**
      * Creates a checker that enforces a maximum `TheTime` bound.
      * 

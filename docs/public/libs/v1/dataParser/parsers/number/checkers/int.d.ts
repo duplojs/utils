@@ -8,7 +8,7 @@ declare const DataParserCheckerInt_base: import("../../..").DataParserCheckerBas
 export declare class DataParserCheckerInt extends DataParserCheckerInt_base<DataParserCheckerDefinitionInt, number> {
     get classConstructor(): typeof DataParserCheckerInt & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(data: number, error: DataParserError, self: DataParserCheckerInt, dataParser: DataParser): number | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(data: number, error: DataParserError, self: DataParserCheckerInt, dataParser: DataParser): unknown;
     static create(definition?: Partial<DataParserCheckerDefinitionInt>): DataParserCheckerInt;
 }
 export declare const checkerInt: typeof DataParserCheckerInt.create;

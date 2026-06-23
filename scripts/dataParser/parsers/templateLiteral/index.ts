@@ -1,11 +1,11 @@
-import { detachObjectMethod, type Adaptor, type AnyTuple, type FixDeepFunctionInfer, type NeverCoalescing, pipe, type SimplifyTopLevel } from "@scripts/common";
+import { detachObjectMethod, type AnyTuple, type FixDeepFunctionInfer, type NeverCoalescing, pipe, type SimplifyTopLevel } from "@scripts/common";
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
 import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
-import { type DataParserCheckerStringMax, type DataParserCheckerStringMin, type DataParserDefinitionString, type DataParserString } from "../string";
-import { type DataParserCheckerInt, type DataParserDefinitionNumber, type DataParserNumber } from "../number";
+import { type DataParserDefinitionString, type DataParserString } from "../string";
+import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
 import { type DataParserDefinitionLiteral, type DataParserLiteral } from "../literal";
 import { type DataParserDefinitionEmpty, type DataParserEmpty } from "../empty";
@@ -31,17 +31,14 @@ export type TemplateLiteralParts = (
 		SimplifyTopLevel<
 			& Omit<DataParserDefinitionString, "checkers">
 			& {
-				readonly checkers: readonly (
-					| DataParserCheckerStringMax
-					| DataParserCheckerStringMin
-				)[];
+				readonly checkers: readonly [];
 			}
 		>
 	>
 	| DataParserNumber<
 		SimplifyTopLevel<
 			& Omit<DataParserDefinitionNumber, "checkers">
-			& { readonly checkers: readonly DataParserCheckerInt[] }
+			& { readonly checkers: readonly [] }
 		>
 	>
 	| DataParserBigInt<
@@ -98,8 +95,6 @@ export type TemplateLiteralParts = (
 
 export type TemplateLiteralShape = readonly [TemplateLiteralParts, ...TemplateLiteralParts[]];
 
-type EligibleTemplateLiteral = string | number | bigint | boolean | null | undefined;
-
 export type TemplateLiteralShapeOutput<
 	GenericTemplate extends TemplateLiteralShape,
 	GenericLastResult extends string = "",
@@ -109,23 +104,22 @@ export type TemplateLiteralShapeOutput<
 ]
 	? (
 		`${GenericLastResult}${
-			InferredFirst extends TemplateLiteralPrimitiveParts
-				? InferredFirst extends bigint
-					? `${InferredFirst}n`
-					: InferredFirst
-				: Adaptor<
-					Output<
-						Exclude<InferredFirst, TemplateLiteralPrimitiveParts>
-					>,
-					EligibleTemplateLiteral
-				>
+			(
+				InferredFirst extends TemplateLiteralPrimitiveParts
+					? InferredFirst
+					: Output<Exclude<InferredFirst, TemplateLiteralPrimitiveParts>>
+			) extends infer InferredPrimitiveResult extends TemplateLiteralPrimitiveParts
+				? InferredPrimitiveResult extends bigint
+					? `${InferredPrimitiveResult}n`
+					: InferredPrimitiveResult
+				: never
 		}`
 	) extends infer InferredResult extends string
 		? InferredRest extends readonly []
 			? InferredResult
 			: InferredRest extends TemplateLiteralShape
 				? TemplateLiteralShapeOutput<InferredRest, InferredResult>
-				: TemplateLiteralShapeOutput<[InferredRest[number]], InferredResult>
+				: never
 		: never
 	: never;
 
@@ -138,23 +132,22 @@ export type TemplateLiteralShapeInput<
 ]
 	? (
 		`${GenericLastResult}${
-			InferredFirst extends TemplateLiteralPrimitiveParts
-				? InferredFirst extends bigint
-					? `${InferredFirst}n`
-					: InferredFirst
-				: Adaptor<
-					Input<
-						Exclude<InferredFirst, TemplateLiteralPrimitiveParts>
-					>,
-					EligibleTemplateLiteral
-				>
+			(
+				InferredFirst extends TemplateLiteralPrimitiveParts
+					? InferredFirst
+					: Input<Exclude<InferredFirst, TemplateLiteralPrimitiveParts>>
+			) extends infer InferredPrimitiveResult extends TemplateLiteralPrimitiveParts
+				? InferredPrimitiveResult extends bigint
+					? `${InferredPrimitiveResult}n`
+					: InferredPrimitiveResult
+				: never
 		}`
 	) extends infer InferredResult extends string
 		? InferredRest extends readonly []
 			? InferredResult
 			: InferredRest extends TemplateLiteralShape
 				? TemplateLiteralShapeInput<InferredRest, InferredResult>
-				: TemplateLiteralShapeInput<[InferredRest[number]], InferredResult>
+				: never
 		: never
 	: never;
 
@@ -179,8 +172,14 @@ export class DataParserTemplateLiteral<
 		templateLiteralKind,
 	)<
 		GenericDefinition,
-		TemplateLiteralShapeOutput<GenericDefinition["template"]>,
-		TemplateLiteralShapeInput<GenericDefinition["template"]>
+		NeverCoalescing<
+			TemplateLiteralShapeOutput<GenericDefinition["template"]>,
+			string
+		>,
+		NeverCoalescing<
+			TemplateLiteralShapeInput<GenericDefinition["template"]>,
+			string
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserTemplateLiteral);

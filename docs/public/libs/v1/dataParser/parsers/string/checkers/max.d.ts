@@ -9,7 +9,7 @@ declare const DataParserCheckerStringMax_base: import("../../..").DataParserChec
 export declare class DataParserCheckerStringMax extends DataParserCheckerStringMax_base<DataParserCheckerDefinitionStringMax, string> {
     get classConstructor(): typeof DataParserCheckerStringMax & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(data: string, error: DataParserError, self: DataParserCheckerStringMax, dataParser: DataParser): string | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(data: string, error: DataParserError, self: DataParserCheckerStringMax, dataParser: DataParser): unknown;
     static create(max: number, definition?: Partial<Omit<DataParserCheckerDefinitionStringMax, "max">>): DataParserCheckerStringMax;
 }
 export declare const checkerStringMax: typeof DataParserCheckerStringMax.create;

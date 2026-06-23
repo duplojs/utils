@@ -14,7 +14,7 @@ class DataParserCheckerArrayMax extends DataParserCheckerBase.init(checkerArrayM
     static execCheck(data, error, self, dataParser) {
         return data.length <= self.definition.max
             ? data
-            : addIssue(error, `array.length <= ${self.definition.max}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, `array.length <= ${self.definition.max}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(max, definition = {}) {
         return new DataParserCheckerArrayMax({

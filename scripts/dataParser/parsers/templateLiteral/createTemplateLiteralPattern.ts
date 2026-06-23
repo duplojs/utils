@@ -1,17 +1,21 @@
-import { escapeRegExp, innerPipe, isType, justReturn, or, pipe, when } from "@scripts/common";
+import { escapeRegExp, innerPipe, isType, or, pipe, when } from "@scripts/common";
 import { templateLiteralKind, type TemplateLiteralParts } from ".";
 import * as DArray from "@scripts/array";
 import * as DPattern from "@scripts/pattern";
 import * as DString from "@scripts/string";
-import * as DObject from "@scripts/object";
-import { checkerIntKind, numberKind } from "../number";
+import { numberKind } from "../number";
 import { bigIntKind } from "../bigint";
 import { booleanKind } from "../boolean";
 import { nilKind } from "../nil";
 import { emptyKind } from "../empty";
 import { literalKind } from "../literal";
-import { checkerStringMaxKind, checkerStringMinKind, stringKind } from "../string";
+import { stringKind } from "../string";
 import { unionKind } from "../union";
+
+const decimalNumberPattern = "[+-]?(?:(?:[0-9]+(?:\\.[0-9]*)?)|(?:\\.[0-9]+))(?:[eE][+-]?[0-9]+)?";
+const numericBasePattern = "0(?:[xX][0-9a-fA-F]+|[bB][01]+|[oO][0-7]+)";
+const numberPattern = `(?:${decimalNumberPattern})|(?:${numericBasePattern})`;
+const bigintPattern = `(?:-?${numericBasePattern})|(?:-?(?:0|[1-9][0-9]*))`;
 
 export function createTemplateLiteralPattern(templatePart: readonly TemplateLiteralParts[]): string {
 	return pipe(
@@ -20,48 +24,37 @@ export function createTemplateLiteralPattern(templatePart: readonly TemplateLite
 			innerPipe(
 				DPattern.when(
 					or([
-						isType("string"),
-						isType("boolean"),
 						isType("bigint"),
+						isType("boolean"),
 						isType("null"),
-						isType("undefined"),
 						isType("number"),
+						isType("string"),
+						isType("undefined"),
 					]),
-					innerPipe(
-						when(
-							isType("bigint"),
-							(value) => `${value}n`,
-						),
-						String,
-						escapeRegExp,
-						(value) => `(?:${value})`,
-					),
+					(value) => {
+						if (typeof value === "number" && !Number.isFinite(value)) {
+							return `(?:${numberPattern})`;
+						}
+
+						return pipe(
+							value,
+							when(
+								isType("bigint"),
+								(value) => `${value}n`,
+							),
+							String,
+							escapeRegExp,
+							(value) => `(?:${value})`,
+						);
+					},
 				),
 				DPattern.when(
 					numberKind.has,
-					(dataParser) => pipe(
-						dataParser.definition.checkers,
-						DObject.to({
-							int: innerPipe(
-								DArray.find(checkerIntKind.has),
-								when(
-									checkerIntKind.has,
-									justReturn(true),
-								),
-							),
-						}),
-						({ int }) => {
-							if (int) {
-								return "(?:-?[0-9]+)";
-							}
-
-							return "(?:-?[0-9]+(?:\\.[0-9]+)?)";
-						},
-					),
+					() => `(?:${numberPattern})`,
 				),
 				DPattern.when(
 					bigIntKind.has,
-					() => "(?:[0-9]+n)",
+					() => `(?:(?:${bigintPattern})n)`,
 				),
 				DPattern.when(
 					booleanKind.has,
@@ -88,34 +81,7 @@ export function createTemplateLiteralPattern(templatePart: readonly TemplateLite
 				),
 				DPattern.when(
 					stringKind.has,
-					(dataParser) => pipe(
-						dataParser.definition.checkers,
-						DObject.to({
-							min: innerPipe(
-								DArray.select(
-									({ element, select, skip }) => checkerStringMinKind.has(element)
-										? select(element.definition.min)
-										: skip(),
-								),
-								DArray.maxOf,
-							),
-							max: innerPipe(
-								DArray.select(
-									({ element, select, skip }) => checkerStringMaxKind.has(element)
-										? select(element.definition.max)
-										: skip(),
-								),
-								DArray.minOf,
-							),
-						}),
-						({ max, min }) => {
-							if (max !== undefined || min !== undefined) {
-								return `(?:[^]{${min ?? 0},${max ?? ""}})`;
-							}
-
-							return "(?:[^]*)";
-						},
-					),
+					() => "(?:[^]*)",
 				),
 				innerPipe(
 					DPattern.when(

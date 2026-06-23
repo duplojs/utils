@@ -15,7 +15,7 @@ class DataParserNil extends DataParserBase.init(nilKind) {
         else if (self.definition.coerce && data === "null") {
             return null;
         }
-        return addIssue(error, "null", data, self.definition.errorMessage);
+        return addIssue(error, "null", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

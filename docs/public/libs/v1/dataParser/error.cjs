@@ -4,6 +4,7 @@ var kind = require('./kind.cjs');
 var printer = require('../common/printer.cjs');
 var unwrap = require('../common/unwrap.cjs');
 
+/* eslint-disable @typescript-eslint/max-params */
 const SymbolDataParserErrorLabel = "SymbolDataParserError";
 const SymbolDataParserError = Symbol.for(SymbolDataParserErrorLabel);
 /**
@@ -22,13 +23,18 @@ function createError() {
         currentPath: [],
     });
 }
-function addIssue(error, expected, data, message) {
-    error.issues.push(errorIssueKind.setTo({
+function addIssue(error, expected, data, message, dataParser) {
+    const issue = errorIssueKind.setTo({
         expected,
         path: error.currentPath.join("."),
         data,
         message,
-    }));
+    });
+    Object.defineProperty(issue, "getSource", {
+        value: () => dataParser,
+        enumerable: false,
+    });
+    error.issues.push(issue);
     return SymbolDataParserError;
 }
 function setErrorPath(error, value, index) {
@@ -60,8 +66,8 @@ function interpretError(error) {
         dataParserError.issues.length === 0 && "No issue found",
     ]);
 }
-function addAsyncIssue(error, data) {
-    return addIssue(error, "synchronous result", data, undefined);
+function addAsyncIssue(error, data, dataParser) {
+    return addIssue(error, "synchronous result", data, undefined, dataParser);
 }
 
 exports.SymbolDataParserError = SymbolDataParserError;

@@ -22,7 +22,7 @@ class DataParserString extends base.DataParserBase.init(stringKind) {
         if (typeof data === "string") {
             return data;
         }
-        return error.addIssue(error$1, "string", inputData, self.definition.errorMessage);
+        return error.addIssue(error$1, "string", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

@@ -17,7 +17,7 @@ class DataParserCheckerTimeMax extends baseChecker.DataParserCheckerBase.init(ch
     static execCheck(value, error$1, self, dataParser) {
         return lessTime.lessTime(value, self.definition.max)
             ? value
-            : error.addIssue(error$1, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : error.addIssue(error$1, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     /**
      * {@include dataParser/classic/checkerTimeMax/index.md}

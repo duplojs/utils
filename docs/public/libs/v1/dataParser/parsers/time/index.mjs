@@ -21,7 +21,7 @@ class DataParserTime extends DataParserBase.init(timeKind) {
             if (typeof data === "string" && isoTimeRegex.test(data)) {
                 const result = createTime({ value: data });
                 if (isLeft(result)) {
-                    return addIssue(error, "time", data, self.definition.errorMessage);
+                    return addIssue(error, "time", data, self.definition.errorMessage, self);
                 }
                 return unwrap(result);
             }
@@ -34,11 +34,11 @@ class DataParserTime extends DataParserBase.init(timeKind) {
         }
         else if (typeof data === "number") {
             if (!isSafeTimeValue(data)) {
-                return addIssue(error, "time", data, self.definition.errorMessage);
+                return addIssue(error, "time", data, self.definition.errorMessage, self);
             }
             return TheTime.new(data);
         }
-        return addIssue(error, "time", data, self.definition.errorMessage);
+        return addIssue(error, "time", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

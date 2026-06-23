@@ -3,7 +3,7 @@ import { DPE, DP, E, unwrap, S } from "@duplojs/utils";
 const schema = DPE
 	.templateLiteral([
 		"invoice-",
-		DP.coerce.number({ checkers: [DP.checkerInt()] }),
+		DP.coerce.number(),
 	])
 	.refine(
 		S.startsWith("invoice-"),

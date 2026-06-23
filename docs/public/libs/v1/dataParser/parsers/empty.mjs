@@ -15,7 +15,7 @@ class DataParserEmpty extends DataParserBase.init(emptyKind) {
         else if (self.definition.coerce && data === "undefined") {
             return undefined;
         }
-        return addIssue(error, "undefined", data, self.definition.errorMessage);
+        return addIssue(error, "undefined", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

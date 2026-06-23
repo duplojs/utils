@@ -19,13 +19,13 @@ class DataParserCheckerUrl extends DataParserCheckerBase.init(checkerUrlKind) {
             if (self.definition.hostname) {
                 self.definition.hostname.lastIndex = 0;
                 if (!self.definition.hostname.test(url.hostname)) {
-                    return addIssue(error, `URL with hostname matching ${self.definition.hostname.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+                    return addIssue(error, `URL with hostname matching ${self.definition.hostname.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
                 }
             }
             if (self.definition.protocol) {
                 self.definition.protocol.lastIndex = 0;
                 if (!self.definition.protocol.test(url.protocol.replace(regexRemoveDote, ""))) {
-                    return addIssue(error, `URL with protocol matching ${self.definition.protocol.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+                    return addIssue(error, `URL with protocol matching ${self.definition.protocol.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
                 }
             }
             if (self.definition.normalize) {
@@ -36,7 +36,7 @@ class DataParserCheckerUrl extends DataParserCheckerBase.init(checkerUrlKind) {
             }
         }
         catch {
-            return addIssue(error, "valid URL", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            return addIssue(error, "valid URL", data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
         }
     }
     static create(definition = {}) {

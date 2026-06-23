@@ -19,7 +19,7 @@ class DataParserObject extends DataParserBase.init(objectKind) {
         if (!data
             || typeof data !== "object"
             || data instanceof Array) {
-            return addIssue(error, "object", data, self.definition.errorMessage);
+            return addIssue(error, "object", data, self.definition.errorMessage, self);
         }
         const currentIndexPath = error.currentPath.length;
         const output = self.definition.optimizedShape.value.reduce((accumulator, entry) => callThen(accumulator, (awaitedAccumulator) => {

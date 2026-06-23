@@ -16,7 +16,7 @@ class DataParserCheckerUuid extends DataParserCheckerBase.init(checkerUuidKind) 
     static execCheck(data, error, self, dataParser) {
         return uuidRegex.test(data)
             ? data
-            : addIssue(error, "uuid", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, "uuid", data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(definition = {}) {
         return new DataParserCheckerUuid({

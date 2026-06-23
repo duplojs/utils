@@ -1,6 +1,6 @@
-import { type FixDeepFunctionInfer, type IsEqual, type MaybePromise, type NeverCoalescing } from "../../../common";
+import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from "../../../common";
 import { type DataParser, type DataParserDefinition } from "../../base";
-import { type DataParserError, SymbolDataParserError } from "../../../dataParser/error";
+import { type DataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
 import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
@@ -35,7 +35,7 @@ export declare class DataParserRecord<GenericDefinition extends DataParserDefini
         DataParserChecker<Output<this>>,
         ...DataParserChecker<Output<this>>[]
     ], GenericChecker>) => DataParserRecord<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
-    static execParse(self: DataParserRecord, data: unknown, error: DataParserError): MaybePromise<Record<string, unknown> | typeof SymbolDataParserError>;
+    static execParse(self: DataParserRecord, data: unknown, error: DataParserError): unknown;
     static dataParserIsAsynchronous(self: DataParserRecord): boolean;
     static prepareDefinition(key: DataParserRecordKey, value: DataParser, definition?: Partial<Omit<DataParserDefinitionRecord, "key" | "value" | "baseData">>): DataParserDefinitionRecord;
     /**

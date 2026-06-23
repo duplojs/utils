@@ -22,7 +22,7 @@ class DataParserBigInt extends base.DataParserBase.init(bigIntKind) {
         if (typeof data === "bigint") {
             return data;
         }
-        return error.addIssue(error$1, "bigint", inputData, self.definition.errorMessage);
+        return error.addIssue(error$1, "bigint", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

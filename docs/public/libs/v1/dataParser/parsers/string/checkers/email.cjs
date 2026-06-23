@@ -18,7 +18,7 @@ class DataParserCheckerEmail extends baseChecker.DataParserCheckerBase.init(chec
     static execCheck(data, error$1, self, dataParser) {
         return self.definition.regex.test(data)
             ? data
-            : error.addIssue(error$1, "email", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : error.addIssue(error$1, "email", data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(definition = {}) {
         return new DataParserCheckerEmail({

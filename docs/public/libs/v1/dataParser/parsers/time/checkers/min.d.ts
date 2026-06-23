@@ -10,7 +10,7 @@ declare const DataParserCheckerTimeMin_base: import("../../..").DataParserChecke
 export declare class DataParserCheckerTimeMin extends DataParserCheckerTimeMin_base<DataParserCheckerDefinitionTimeMin, DDate.TheTime> {
     get classConstructor(): typeof DataParserCheckerTimeMin & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(value: DDate.TheTime, error: DataParserError, self: DataParserCheckerTimeMin, dataParser: DataParser): DDate.TheTime | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(value: DDate.TheTime, error: DataParserError, self: DataParserCheckerTimeMin, dataParser: DataParser): unknown;
     /**
      * Creates a checker that enforces a minimum `TheTime` bound.
      * 

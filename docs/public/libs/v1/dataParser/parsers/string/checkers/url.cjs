@@ -21,13 +21,13 @@ class DataParserCheckerUrl extends baseChecker.DataParserCheckerBase.init(checke
             if (self.definition.hostname) {
                 self.definition.hostname.lastIndex = 0;
                 if (!self.definition.hostname.test(url.hostname)) {
-                    return error.addIssue(error$1, `URL with hostname matching ${self.definition.hostname.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+                    return error.addIssue(error$1, `URL with hostname matching ${self.definition.hostname.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
                 }
             }
             if (self.definition.protocol) {
                 self.definition.protocol.lastIndex = 0;
                 if (!self.definition.protocol.test(url.protocol.replace(regexRemoveDote, ""))) {
-                    return error.addIssue(error$1, `URL with protocol matching ${self.definition.protocol.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+                    return error.addIssue(error$1, `URL with protocol matching ${self.definition.protocol.source}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
                 }
             }
             if (self.definition.normalize) {
@@ -38,7 +38,7 @@ class DataParserCheckerUrl extends baseChecker.DataParserCheckerBase.init(checke
             }
         }
         catch {
-            return error.addIssue(error$1, "valid URL", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            return error.addIssue(error$1, "valid URL", data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
         }
     }
     static create(definition = {}) {

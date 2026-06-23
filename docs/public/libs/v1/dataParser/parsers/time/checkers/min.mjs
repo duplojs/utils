@@ -15,7 +15,7 @@ class DataParserCheckerTimeMin extends DataParserCheckerBase.init(checkerTimeMin
     static execCheck(value, error, self, dataParser) {
         return greaterTime(value, self.definition.min)
             ? value
-            : addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, `time >= ${self.definition.min.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     /**
      * {@include dataParser/classic/checkerTimeMin/index.md}

@@ -13,7 +13,7 @@ class DataParserTuple extends base.DataParserBase.init(tupleKind) {
     }
     static execParse(self, data, error$1) {
         if (!(data instanceof Array)) {
-            return error.addIssue(error$1, "tuple array", data, self.definition.errorMessage);
+            return error.addIssue(error$1, "tuple array", data, self.definition.errorMessage, self);
         }
         const currentIndexPath = error$1.currentPath.length;
         const output = data.reduce((accumulator, value, index) => callThen.callThen(accumulator, (awaitedAccumulator) => {
@@ -22,7 +22,7 @@ class DataParserTuple extends base.DataParserBase.init(tupleKind) {
                 ? `[tupleRest: ${index}]`
                 : `[tuple: ${index}]`, currentIndexPath);
             if (!dataParser) {
-                error.addIssue(error$1, "empty", data, self.definition.errorMessage);
+                error.addIssue(error$1, "empty", data, self.definition.errorMessage, self);
                 return error.SymbolDataParserError;
             }
             return callThen.callThen(dataParser.exec(value, error$1), (result) => {

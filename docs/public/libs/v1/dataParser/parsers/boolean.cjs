@@ -25,7 +25,7 @@ class DataParserBoolean extends base.DataParserBase.init(booleanKind) {
                 return data === 1;
             }
         }
-        return error.addIssue(error$1, "boolean", data, self.definition.errorMessage);
+        return error.addIssue(error$1, "boolean", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;

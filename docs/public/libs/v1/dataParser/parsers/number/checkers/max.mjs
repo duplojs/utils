@@ -18,7 +18,7 @@ class DataParserCheckerNumberMax extends DataParserCheckerBase.init(checkerNumbe
         if (isValid) {
             return value;
         }
-        return addIssue(error, `number ${self.definition.exclusive ? "<" : "<="} ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+        return addIssue(error, `number ${self.definition.exclusive ? "<" : "<="} ${self.definition.max}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(max, definition = {}) {
         return new DataParserCheckerNumberMax({
