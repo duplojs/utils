@@ -16,7 +16,7 @@ class DataParserCheckerRegex extends baseChecker.DataParserCheckerBase.init(chec
     static execCheck(data, error$1, self, dataParser) {
         return self.definition.regex.test(data)
             ? data
-            : error.addIssue(error$1, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : error.addIssue(error$1, `string with pattern ${self.definition.regex.source.toString()}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(regex, definition = {}) {
         return new DataParserCheckerRegex({

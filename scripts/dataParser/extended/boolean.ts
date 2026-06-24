@@ -68,4 +68,7 @@ export class DataParserBooleanExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/boolean/index.md}
+ */
 export const boolean = detachObjectMethod(DataParserBooleanExtended, "create");

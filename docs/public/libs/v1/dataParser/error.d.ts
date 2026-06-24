@@ -1,5 +1,7 @@
 import { type Kind } from "../common";
 import type * as DEither from "../either";
+import { type DataParser } from "./base";
+import { type DataParserChecker } from "./baseChecker";
 export declare const SymbolDataParserErrorLabel = "SymbolDataParserError";
 export declare const SymbolDataParserError: unique symbol;
 export type SymbolDataParserError = typeof SymbolDataParserError;
@@ -21,6 +23,7 @@ export interface DataParserErrorIssue extends Kind<typeof errorIssueKind.definit
     readonly path: string;
     readonly data: unknown;
     readonly message: string | undefined;
+    getSource(): DataParser | DataParserChecker;
 }
 export declare const errorKind: import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/error", unknown>>;
 export interface DataParserError extends Kind<typeof errorKind.definition> {
@@ -28,8 +31,8 @@ export interface DataParserError extends Kind<typeof errorKind.definition> {
     readonly currentPath: string[];
 }
 export declare function createError(): DataParserError;
-export declare function addIssue(error: DataParserError, expected: string, data: unknown, message: string | undefined): SymbolDataParserError;
+export declare function addIssue(error: DataParserError, expected: string, data: unknown, message: string | undefined, dataParser: DataParser | DataParserChecker): SymbolDataParserError;
 export declare function setErrorPath(error: DataParserError, value: string, index: number): DataParserError;
 export declare function popErrorPath(error: DataParserError): DataParserError;
 export declare function interpretError(error: DataParserError | DEither.Left<string, DataParserError>): string;
-export declare function addAsyncIssue(error: DataParserError, data: unknown): SymbolDataParserError;
+export declare function addAsyncIssue(error: DataParserError, data: unknown, dataParser: DataParser): SymbolDataParserError;

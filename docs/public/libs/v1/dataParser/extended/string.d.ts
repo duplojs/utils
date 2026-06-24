@@ -130,6 +130,34 @@ export declare class DataParserStringExtended<GenericDefinition extends dataPars
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionString> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionString>, GenericDefinition>): DataParserStringExtended<MergeDefinition<dataParsers.DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates an extended data parser for strings.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.string(definition?)` -> returns a string parser
+ * 
+ * Validates that the input is a string and exposes string-specific methods like min, max, and regex.
+ * 
+ * ```ts
+ * const parser = DPE.string().min(3).max(10);
+ * const result = parser.parse("DuploJS");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const withRegex = DPE.string().regex(/^[A-Z][a-z]+$/);
+ * const regexResult = withRegex.parse("Duplo");
+ * 
+ * const coerceParser = DPE.coerce.string().min(2);
+ * const coerceResult = coerceParser.parse(123);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const string: typeof DataParserStringExtended.create;
 /**
  * Creates an extended data parser for email strings.

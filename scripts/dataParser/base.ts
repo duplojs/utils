@@ -143,7 +143,7 @@ export abstract class DataParserBase<
 		const result = this.exec(data, error);
 
 		if (result instanceof Promise) {
-			addAsyncIssue(error, result);
+			addAsyncIssue(error, result, this);
 
 			return {
 				...EE,
@@ -203,7 +203,7 @@ export abstract class DataParserBase<
 		const result = this.exec(data, error);
 
 		if (result instanceof Promise) {
-			addAsyncIssue(error, result);
+			addAsyncIssue(error, result, this);
 
 			throw new ParseError(error);
 		}

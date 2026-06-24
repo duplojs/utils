@@ -14,7 +14,7 @@ class DataParserCheckerStringMin extends DataParserCheckerBase.init(checkerStrin
     static execCheck(data, error, self, dataParser) {
         return data.length >= self.definition.min
             ? data
-            : addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, `string.length >= ${self.definition.min}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(min, definition = {}) {
         return new DataParserCheckerStringMin({

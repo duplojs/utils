@@ -54,4 +54,34 @@ export declare class DataParserBigInt<GenericDefinition extends DataParserDefini
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBigInt> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionBigInt>, GenericDefinition>): DataParserBigInt<MergeDefinition<DataParserDefinitionBigInt, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates a data parser for bigint values.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.bigint(definition?)` -> returns a bigint parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a bigint, optionally applies coerce, and runs the configured checkers.
+ * 
+ * ```ts
+ * const parser = DP.bigint();
+ * const result = parser.parse(BigInt(42));
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: bigint
+ * }
+ * 
+ * const withCheckers = DP.bigint({
+ * 	checkers: [DP.checkerBigIntMin(BigInt(1)), DP.checkerBigIntMax(BigInt(10))],
+ * });
+ * 
+ * const coerceParser = DP.coerce.bigint();
+ * const coerceResult = coerceParser.parse("42");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/bigint
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const bigint: typeof DataParserBigInt.create;

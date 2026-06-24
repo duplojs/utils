@@ -11,6 +11,7 @@ import { DataParserPipe } from '../parsers/pipe.mjs';
 import { DataParserNullable } from '../parsers/nullable.mjs';
 import { DataParserOptional } from '../parsers/optional.mjs';
 import { DataParserRecover } from '../parsers/recover.mjs';
+import { DataParserErrorHandler } from '../parsers/errorHandler.mjs';
 
 const dataParserExtendedKind = createDataParserKind("extended");
 class DataParserBaseExtended extends kindClass(dataParserExtendedKind, DataParserBase) {
@@ -73,6 +74,12 @@ class DataParserBaseExtended extends kindClass(dataParserExtendedKind, DataParse
      */
     recover(recoveredValue, definition) {
         return DataParserRecoverExtended.create(this, recoveredValue, definition);
+    }
+    /**
+     * {@include dataParser/extended/base/errorHandler/index.md}
+     */
+    errorHandler(errorMessageTransformers, definition) {
+        return DataParserErrorHandlerExtended.create(this, errorMessageTransformers, definition);
     }
     static initExtended(dataParserConstructor) {
         class _DataParserBaseExtendedInit extends kindClass(dataParserConstructor.specificKindHandler, DataParserBaseExtended) {
@@ -191,5 +198,18 @@ class DataParserRecoverExtended extends DataParserBaseExtended.initExtended(Data
         return new DataParserRecoverExtended(this.prepareDefinition(inner, recoveredValue, definition));
     }
 }
+class DataParserErrorHandlerExtended extends DataParserBaseExtended.initExtended(DataParserErrorHandler) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserErrorHandlerExtended);
+    }
+    /**
+     * {@include dataParser/extended/errorHandler/index.md}
+     */
+    static create(inner, errorMessageTransformers, definition) {
+        return new DataParserErrorHandlerExtended(this.prepareDefinition(inner, errorMessageTransformers instanceof Array
+            ? errorMessageTransformers
+            : [errorMessageTransformers], definition));
+    }
+}
 
-export { DataParserArrayExtended, DataParserBaseExtended, DataParserNullableExtended, DataParserOptionalExtended, DataParserPipeExtended, DataParserRecoverExtended, DataParserTransformExtended, DataParserUnionExtended, dataParserExtendedKind };
+export { DataParserArrayExtended, DataParserBaseExtended, DataParserErrorHandlerExtended, DataParserNullableExtended, DataParserOptionalExtended, DataParserPipeExtended, DataParserRecoverExtended, DataParserTransformExtended, DataParserUnionExtended, dataParserExtendedKind };

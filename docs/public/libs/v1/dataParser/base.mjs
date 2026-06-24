@@ -61,7 +61,7 @@ class DataParserBase extends kindClass(dataParserKind) {
         };
         const result = this.exec(data, error);
         if (result instanceof Promise) {
-            addAsyncIssue(error, result);
+            addAsyncIssue(error, result, this);
             return {
                 ...EE,
                 [KWV]: error,
@@ -110,7 +110,7 @@ class DataParserBase extends kindClass(dataParserKind) {
         };
         const result = this.exec(data, error);
         if (result instanceof Promise) {
-            addAsyncIssue(error, result);
+            addAsyncIssue(error, result, this);
             throw new ParseError(error);
         }
         if (result === SymbolDataParserError) {

@@ -58,5 +58,36 @@ export declare class DataParserPipe<GenericDefinition extends DataParserDefiniti
         output: GenericOutput;
     }>>;
 }
+/**
+ * Creates a data parser pipeline from an input parser to an output parser.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.pipe(input, output, definition?)` -> returns a pipe parser
+ * - Curried: not available
+ * 
+ * Runs the input parser, then feeds its output to the output parser.
+ * 
+ * ```ts
+ * const schema = DP.pipe(
+ * 	DP.coerce.number(),
+ * 	DP.transform(
+ * 		DP.number(),
+ * 		(value) => value + 1,
+ * 	),
+ * );
+ * 
+ * const result = schema.parse("1234");
+ * 
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/pipe
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const pipe: typeof DataParserPipe.create;
 export {};

@@ -1,5 +1,6 @@
 import { createCleanKind } from './kind.mjs';
 import { kindClass } from '../common/kindClass.mjs';
+import { result } from '../either/right/result.mjs';
 
 const evidenceKind = createCleanKind("evidence");
 class ArrayWithEvidence extends kindClass(evidenceKind, Array) {
@@ -43,5 +44,11 @@ function hasEvidence(...args) {
     }
     return false;
 }
+/**
+ * {@include clean/evidenceResult/index.md}
+ */
+function evidenceResult(information, value) {
+    return result(information, appendEvidence(value, information));
+}
 
-export { ArrayWithEvidence, appendEvidence, evidenceKind, hasEvidence };
+export { ArrayWithEvidence, appendEvidence, evidenceKind, evidenceResult, hasEvidence };

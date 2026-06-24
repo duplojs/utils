@@ -5,8 +5,8 @@ prev:
   text: "refine"
   link: "/fr/v1/api/dataParser/refine"
 next:
-  text: "isAsynchronous"
-  link: "/fr/v1/api/dataParser/isAsynchronous"
+  text: "errorHandler"
+  link: "/fr/v1/api/dataParser/errorHandler"
 ---
 
 # recover
@@ -45,4 +45,4 @@ Un `DataParserRecover`. `schema.parse(data)` renvoie toujours `DEither.success` 
 ## Voir aussi
 
 - [`date`](/fr/v1/api/dataParser/date) - Parser pour les dates
-- [`nil`](/fr/v1/api/dataParser/nil) - Parser pour les valeurs null ou undefined
+- [`errorHandler`](/fr/v1/api/dataParser/errorHandler) - Réassigne les messages d'issues après parsing

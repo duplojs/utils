@@ -80,6 +80,7 @@ exports.requirementsChainedFunctionKind = chainedFunction.requirementsChainedFun
 exports.ArrayWithEvidence = evidence.ArrayWithEvidence;
 exports.appendEvidence = evidence.appendEvidence;
 exports.evidenceKind = evidence.evidenceKind;
+exports.evidenceResult = evidence.evidenceResult;
 exports.hasEvidence = evidence.hasEvidence;
 exports.createPort = port.createPort;
 exports.portHandlerKind = port.portHandlerKind;

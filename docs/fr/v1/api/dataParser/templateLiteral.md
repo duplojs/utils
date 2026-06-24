@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "Construit un parser pour une forme de chaîne déterministe (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() prend un tableau mêlant parties primitives et sous-parsers (string, number, literal, ...) et retourne un parser string fortement typé."
+description: "Construit un parser pour une forme de chaîne déterministe (\"order-${number}\", \"user-${string}-${number}\", etc.). DDataParser.templateLiteral() prend un tableau mêlant parties primitives et sous-parsers compatibles sans leurs propres checkers (string, number, literal, ...) et retourne un parser string fortement typé."
 prev:
   text: "literal"
   link: "/fr/v1/api/dataParser/literal"
@@ -11,7 +11,7 @@ next:
 
 # templateLiteral
 
-Construit un parser pour une forme de chaîne déterministe (`"order-${number}"`, `"user-${string}-${number}"`, etc.). `DDataParser.templateLiteral()` prend un tableau mêlant parties primitives et sous-parsers (`string`, `number`, `literal`, ...) et retourne un parser `string` fortement typé.
+Construit un parser pour une forme de chaîne déterministe (`"order-${number}"`, `"user-${string}-${number}"`, etc.). `DDataParser.templateLiteral()` prend un tableau mêlant parties primitives et sous-parsers compatibles sans leurs propres checkers (`string`, `number`, `literal`, ...) et retourne un parser `string` fortement typé.
 
 ## Exemple interactif
 
@@ -23,9 +23,9 @@ Construit un parser pour une forme de chaîne déterministe (`"order-${number}"`
 
 ## Paramètres
 
-- `template` : forme à valider (parties primitives ou sous-parsers compatibles).
+- `template` : forme à valider (parties primitives ou sous-parsers compatibles sans leurs propres checkers).
 - `pattern` : `RegExp` généré automatiquement à partir du template (une configuration manuelle est rarement nécessaire).
-- `checkers` : `checkerRefine` pour appliquer des règles additionnelles.
+- `checkers` : `checkerRefine` pour appliquer des règles additionnelles sur la valeur finale du template literal.
 
 ## Valeur de retour
 

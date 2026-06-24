@@ -32,6 +32,9 @@ class DataParserNullable extends DataParserBase.init(nullableKind) {
         return new DataParserNullable(this.prepareDefinition(inner, definition));
     }
 }
+/**
+ * {@include dataParser/classic/nullable/index.md}
+ */
 const nullable = detachObjectMethod(DataParserNullable, "create");
 
 export { DataParserNullable, nullable, nullableKind };

@@ -11,7 +11,7 @@ class DataParserTuple extends DataParserBase.init(tupleKind) {
     }
     static execParse(self, data, error) {
         if (!(data instanceof Array)) {
-            return addIssue(error, "tuple array", data, self.definition.errorMessage);
+            return addIssue(error, "tuple array", data, self.definition.errorMessage, self);
         }
         const currentIndexPath = error.currentPath.length;
         const output = data.reduce((accumulator, value, index) => callThen(accumulator, (awaitedAccumulator) => {
@@ -20,7 +20,7 @@ class DataParserTuple extends DataParserBase.init(tupleKind) {
                 ? `[tupleRest: ${index}]`
                 : `[tuple: ${index}]`, currentIndexPath);
             if (!dataParser) {
-                addIssue(error, "empty", data, self.definition.errorMessage);
+                addIssue(error, "empty", data, self.definition.errorMessage, self);
                 return SymbolDataParserError;
             }
             return callThen(dataParser.exec(value, error), (result) => {
@@ -54,6 +54,9 @@ class DataParserTuple extends DataParserBase.init(tupleKind) {
         return new DataParserTuple(this.prepareDefinition(shape, definition));
     }
 }
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 const tuple = detachObjectMethod(DataParserTuple, "create");
 
 export { DataParserTuple, tuple, tupleKind };

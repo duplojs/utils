@@ -15,7 +15,7 @@ class DataParserEmpty extends DataParserBase.init(emptyKind) {
         else if (self.definition.coerce && data === "undefined") {
             return undefined;
         }
-        return addIssue(error, "undefined", data, self.definition.errorMessage);
+        return addIssue(error, "undefined", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -35,6 +35,9 @@ class DataParserEmpty extends DataParserBase.init(emptyKind) {
         return new DataParserEmpty(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 const empty = detachObjectMethod(DataParserEmpty, "create");
 
 export { DataParserEmpty, empty, emptyKind };

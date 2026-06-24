@@ -11,7 +11,7 @@ declare const DataParserCheckerUrl_base: import("../../..").DataParserCheckerBas
 export declare class DataParserCheckerUrl extends DataParserCheckerUrl_base<DataParserCheckerDefinitionUrl, string> {
     get classConstructor(): typeof DataParserCheckerUrl & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(data: string, error: DataParserError, self: DataParserCheckerUrl, dataParser: DataParser): string | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(data: string, error: DataParserError, self: DataParserCheckerUrl, dataParser: DataParser): unknown;
     static create(definition?: Partial<DataParserCheckerDefinitionUrl>): DataParserCheckerUrl;
 }
 export declare const checkerUrl: typeof DataParserCheckerUrl.create;

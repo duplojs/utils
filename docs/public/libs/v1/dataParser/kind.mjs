@@ -1,7 +1,8 @@
 import { createKindNamespace } from '../common/kind.mjs';
 
+const nameKindNamespace = "DuplojsUtilsDataParser";
 const createDataParserKind = createKindNamespace(
 // @ts-expect-error reserved kind namespace
-"DuplojsUtilsDataParser");
+nameKindNamespace);
 
-export { createDataParserKind };
+export { createDataParserKind, nameKindNamespace };

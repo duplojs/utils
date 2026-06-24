@@ -75,6 +75,7 @@ export class DataParserString<
 			"string",
 			inputData,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 
@@ -113,4 +114,7 @@ export class DataParserString<
 	}
 }
 
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 export const string = detachObjectMethod(DataParserString, "create");

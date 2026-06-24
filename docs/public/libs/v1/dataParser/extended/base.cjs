@@ -13,6 +13,7 @@ var pipe = require('../parsers/pipe.cjs');
 var nullable = require('../parsers/nullable.cjs');
 var optional = require('../parsers/optional.cjs');
 var recover = require('../parsers/recover.cjs');
+var errorHandler = require('../parsers/errorHandler.cjs');
 
 const dataParserExtendedKind = kind.createDataParserKind("extended");
 class DataParserBaseExtended extends kindClass.kindClass(dataParserExtendedKind, base.DataParserBase) {
@@ -75,6 +76,12 @@ class DataParserBaseExtended extends kindClass.kindClass(dataParserExtendedKind,
      */
     recover(recoveredValue, definition) {
         return DataParserRecoverExtended.create(this, recoveredValue, definition);
+    }
+    /**
+     * {@include dataParser/extended/base/errorHandler/index.md}
+     */
+    errorHandler(errorMessageTransformers, definition) {
+        return DataParserErrorHandlerExtended.create(this, errorMessageTransformers, definition);
     }
     static initExtended(dataParserConstructor) {
         class _DataParserBaseExtendedInit extends kindClass.kindClass(dataParserConstructor.specificKindHandler, DataParserBaseExtended) {
@@ -193,9 +200,23 @@ class DataParserRecoverExtended extends DataParserBaseExtended.initExtended(reco
         return new DataParserRecoverExtended(this.prepareDefinition(inner, recoveredValue, definition));
     }
 }
+class DataParserErrorHandlerExtended extends DataParserBaseExtended.initExtended(errorHandler.DataParserErrorHandler) {
+    get classConstructor() {
+        return this.checkConstructor(DataParserErrorHandlerExtended);
+    }
+    /**
+     * {@include dataParser/extended/errorHandler/index.md}
+     */
+    static create(inner, errorMessageTransformers, definition) {
+        return new DataParserErrorHandlerExtended(this.prepareDefinition(inner, errorMessageTransformers instanceof Array
+            ? errorMessageTransformers
+            : [errorMessageTransformers], definition));
+    }
+}
 
 exports.DataParserArrayExtended = DataParserArrayExtended;
 exports.DataParserBaseExtended = DataParserBaseExtended;
+exports.DataParserErrorHandlerExtended = DataParserErrorHandlerExtended;
 exports.DataParserNullableExtended = DataParserNullableExtended;
 exports.DataParserOptionalExtended = DataParserOptionalExtended;
 exports.DataParserPipeExtended = DataParserPipeExtended;

@@ -52,6 +52,7 @@ export { DataParserTransform, transform, transformKind } from './parsers/transfo
 export { DataParserTuple, tuple, tupleKind } from './parsers/tuple.mjs';
 export { DataParserUnion, union, unionKind } from './parsers/union.mjs';
 export { DataParserUnknown, unknown, unknownKind } from './parsers/unknown.mjs';
+export { DataParserErrorHandler, createErrorMessageTransformer, errorHandler, errorHandlerKind } from './parsers/errorHandler.mjs';
 
 /**
  * {@include dataParser/index.md}

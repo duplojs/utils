@@ -9,7 +9,7 @@ declare const DataParserCheckerStringMin_base: import("../../..").DataParserChec
 export declare class DataParserCheckerStringMin extends DataParserCheckerStringMin_base<DataParserCheckerDefinitionStringMin, string> {
     get classConstructor(): typeof DataParserCheckerStringMin & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(data: string, error: DataParserError, self: DataParserCheckerStringMin, dataParser: DataParser): string | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(data: string, error: DataParserError, self: DataParserCheckerStringMin, dataParser: DataParser): unknown;
     static create(min: number, definition?: Partial<Omit<DataParserCheckerDefinitionStringMin, "min">>): DataParserCheckerStringMin;
 }
 export declare const checkerStringMin: typeof DataParserCheckerStringMin.create;

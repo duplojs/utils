@@ -41,6 +41,18 @@ When you need to apply several constraints together, you can build a reusable se
   height="418px"
 />
 
+### Constraints set errors
+
+The `create()` and `createWithUnknown()` methods of a set return a `Left<"createConstraintsSetError", C.ConstraintError<...>>` when validation fails.
+This error contains:
+- `constraintName`: the name of the constraint linked to the checker that failed
+- `dataParserError`: the full `DDataParser` error
+
+The `createOrThrow()` and `createWithUnknownOrThrow()` methods throw `C.CreateConstraintsSetError` with the same information, plus the received data.
+
+When the failure comes from a constraint checker, `constraintName` is the constraint that owns this checker, even when that constraint comes from another nested constraints set.
+If the failure happens before constraints run, for example because the primitive cannot parse the value, no constraint checker is responsible. In that case, the implementation uses the first constraint name of the set as the fallback `constraintName`.
+
 ## Create a constraint
 
 To create a constraint, use `C.createConstraint(name, primitive, checker)` then get its type via `C.GetConstraint`.

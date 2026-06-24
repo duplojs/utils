@@ -13,7 +13,7 @@ class DataParserCheckerBigIntMin extends DataParserCheckerBase.init(checkerBigIn
     }
     static execCheck(value, error, self, dataParser) {
         if (value < self.definition.min) {
-            return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            return addIssue(error, `bigint >= ${self.definition.min}n`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
         }
         return value;
     }

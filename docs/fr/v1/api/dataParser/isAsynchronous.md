@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "dataParser.isAsynchronous() indique si un parser (ou ses parsers internes) nécessite une exécution async avant de parser."
 prev:
-  text: "recover"
-  link: "/fr/v1/api/dataParser/recover"
+  text: "errorHandler"
+  link: "/fr/v1/api/dataParser/errorHandler"
 next:
   text: "coerce.*"
   link: "/fr/v1/api/dataParser/coerce"

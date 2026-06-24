@@ -295,9 +295,7 @@ describe("DDataParser record", () => {
 				DDataParser.templateLiteral([
 					DDataParser.union([
 						DDataParser.literal(["eu", "us"]),
-						DDataParser.string({
-							checkers: [DDataParser.checkerStringMin(2)],
-						}),
+						DDataParser.string(),
 					]),
 				]),
 			]),
@@ -510,9 +508,7 @@ describe("DDataParser record", () => {
 					DDataParser.templateLiteral([
 						DDataParser.union([
 							DDataParser.literal(["eu", "us"]),
-							DDataParser.string({
-								checkers: [DDataParser.checkerStringMin(2)],
-							}),
+							DDataParser.string(),
 						]),
 					]),
 				]),

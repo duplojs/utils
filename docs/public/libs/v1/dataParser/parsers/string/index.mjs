@@ -20,7 +20,7 @@ class DataParserString extends DataParserBase.init(stringKind) {
         if (typeof data === "string") {
             return data;
         }
-        return addIssue(error, "string", inputData, self.definition.errorMessage);
+        return addIssue(error, "string", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -40,6 +40,9 @@ class DataParserString extends DataParserBase.init(stringKind) {
         return new DataParserString(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 const string = detachObjectMethod(DataParserString, "create");
 
 export { DataParserString, string, stringKind };

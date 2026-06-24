@@ -91,4 +91,7 @@ export class DataParserBigIntExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/bigint/index.md}
+ */
 export const bigint = detachObjectMethod(DataParserBigIntExtended, "create");

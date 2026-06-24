@@ -4,7 +4,7 @@ Creates a data parser for deterministic template literal strings.
 - Classic: `DP.templateLiteral(template, definition?)` -> returns a template literal parser
 - Curried: not available
 
-Validates that the input matches the provided template literal shape and pattern.
+Validates that the input matches the provided template literal shape and pattern. Nested sub-parsers must not include their own checkers; add template-level `checkerRefine` rules when needed.
 
 ```ts
 {@include dataParser/classic/templateLiteral/example.ts[3,15]}

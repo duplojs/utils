@@ -15,7 +15,7 @@ class DataParserCheckerTimeMax extends DataParserCheckerBase.init(checkerTimeMax
     static execCheck(value, error, self, dataParser) {
         return lessTime(value, self.definition.max)
             ? value
-            : addIssue(error, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, `time <= ${self.definition.max.toString()}`, value, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     /**
      * {@include dataParser/classic/checkerTimeMax/index.md}
@@ -27,6 +27,9 @@ class DataParserCheckerTimeMax extends DataParserCheckerBase.init(checkerTimeMax
         });
     }
 }
+/**
+ * {@include dataParser/classic/checkerTimeMax/index.md}
+ */
 const checkerTimeMax = detachObjectMethod(DataParserCheckerTimeMax, "create");
 
 export { DataParserCheckerTimeMax, checkerTimeMax, checkerTimeMaxKind };

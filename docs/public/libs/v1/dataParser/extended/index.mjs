@@ -22,5 +22,6 @@ export { DataParserTemplateLiteralExtended, templateLiteral } from './templateLi
 export { DataParserTupleExtended, tuple } from './tuple.mjs';
 export { DataParserUnknownExtended, unknown } from './unknown.mjs';
 export { recover } from './recover.mjs';
+export { errorHandler } from './errorHandler.mjs';
 export { SymbolDataParserError, SymbolDataParserErrorIssue, SymbolDataParserErrorIssueLabel, SymbolDataParserErrorLabel, addAsyncIssue, addIssue, createError, errorIssueKind, errorKind, interpretError, popErrorPath, setErrorPath } from '../error.mjs';
-export { DataParserArrayExtended, DataParserBaseExtended, DataParserNullableExtended, DataParserOptionalExtended, DataParserPipeExtended, DataParserRecoverExtended, DataParserTransformExtended, DataParserUnionExtended, dataParserExtendedKind } from './base.mjs';
+export { DataParserArrayExtended, DataParserBaseExtended, DataParserErrorHandlerExtended, DataParserNullableExtended, DataParserOptionalExtended, DataParserPipeExtended, DataParserRecoverExtended, DataParserTransformExtended, DataParserUnionExtended, dataParserExtendedKind } from './base.mjs';

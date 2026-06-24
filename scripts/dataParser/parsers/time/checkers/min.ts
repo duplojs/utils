@@ -30,7 +30,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerTimeMin,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return DDate.greaterTime(value, self.definition.min)
 			? value
 			: addIssue(
@@ -38,6 +38,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 				`time >= ${self.definition.min.toString()}`,
 				value,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 
@@ -57,4 +58,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 	}
 }
 
+/**
+ * {@include dataParser/classic/checkerTimeMin/index.md}
+ */
 export const checkerTimeMin = detachObjectMethod(DataParserCheckerTimeMin, "create");

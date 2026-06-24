@@ -65,6 +65,7 @@ export class DataParserArray<
 				"array",
 				data,
 				self.definition.errorMessage,
+				self,
 			);
 		}
 
@@ -147,4 +148,7 @@ export class DataParserArray<
 	}
 }
 
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 export const array = detachObjectMethod(DataParserArray, "create");

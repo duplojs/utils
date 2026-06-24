@@ -100,6 +100,9 @@ export class DataParserNumberExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/number/index.md}
+ */
 export const number = detachObjectMethod(DataParserNumberExtended, "create");
 
 /**

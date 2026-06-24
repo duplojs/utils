@@ -113,6 +113,9 @@ Adds custom rules (async/sync) with specific messages and metadata.
 ### [recover](/en/v1/api/dataParser/recover)
 Intercepts errors to return an alternative value (fallback) or trigger business logic.
 
+### [errorHandler](/en/v1/api/dataParser/errorHandler)
+Reassigns issue messages after parsing, useful when user-facing messages must be declared after the schema.
+
 ## Runtime helpers
 
 ### [isAsynchronous](/en/v1/api/dataParser/isAsynchronous)

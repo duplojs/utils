@@ -29,7 +29,7 @@ export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerRegex,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return self.definition.regex.test(data)
 			? data
 			: addIssue(
@@ -37,6 +37,7 @@ export class DataParserCheckerRegex extends DataParserCheckerBase.init(
 				`string with pattern ${self.definition.regex.source.toString()}`,
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

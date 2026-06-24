@@ -11,7 +11,7 @@ class DataParserArray extends DataParserBase.init(arrayKind) {
     }
     static execParse(self, data, error) {
         if (!(data instanceof Array)) {
-            return addIssue(error, "array", data, self.definition.errorMessage);
+            return addIssue(error, "array", data, self.definition.errorMessage, self);
         }
         const currentIndexPath = error.currentPath.length;
         const output = data.reduce((accumulator, element, index) => callThen(accumulator, (awaitedAccumulator) => {
@@ -46,6 +46,9 @@ class DataParserArray extends DataParserBase.init(arrayKind) {
         return new DataParserArray(this.prepareDefinition(element, definition));
     }
 }
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 const array = detachObjectMethod(DataParserArray, "create");
 
 export { DataParserArray, array, arrayKind };

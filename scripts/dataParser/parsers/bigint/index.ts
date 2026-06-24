@@ -75,6 +75,7 @@ export class DataParserBigInt<
 			"bigint",
 			inputData,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 
@@ -113,4 +114,7 @@ export class DataParserBigInt<
 	}
 }
 
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 export const bigint = detachObjectMethod(DataParserBigInt, "create");

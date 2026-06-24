@@ -31,7 +31,7 @@ class DataParserUnion extends base.DataParserBase.init(unionKind) {
                 return awaitedOutput;
             }
             error$1.issues.push(...unionError.issues);
-            return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage);
+            return error.addIssue(error$1, "respect at least one union value", data, self.definition.errorMessage, self);
         });
     }
     static dataParserIsAsynchronous(self) {
@@ -52,6 +52,9 @@ class DataParserUnion extends base.DataParserBase.init(unionKind) {
         return new DataParserUnion(this.prepareDefinition(options, definition));
     }
 }
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 const union = detachObjectMethod.detachObjectMethod(DataParserUnion, "create");
 
 exports.DataParserUnion = DataParserUnion;

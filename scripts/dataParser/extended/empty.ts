@@ -68,4 +68,7 @@ export class DataParserEmptyExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/empty/index.md}
+ */
 export const empty = detachObjectMethod(DataParserEmptyExtended, "create");

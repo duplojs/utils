@@ -2,6 +2,7 @@
 
 var kind = require('./kind.cjs');
 var kindClass = require('../common/kindClass.cjs');
+var result = require('../either/right/result.cjs');
 
 const evidenceKind = kind.createCleanKind("evidence");
 class ArrayWithEvidence extends kindClass.kindClass(evidenceKind, Array) {
@@ -45,8 +46,15 @@ function hasEvidence(...args) {
     }
     return false;
 }
+/**
+ * {@include clean/evidenceResult/index.md}
+ */
+function evidenceResult(information, value) {
+    return result.result(information, appendEvidence(value, information));
+}
 
 exports.ArrayWithEvidence = ArrayWithEvidence;
 exports.appendEvidence = appendEvidence;
 exports.evidenceKind = evidenceKind;
+exports.evidenceResult = evidenceResult;
 exports.hasEvidence = hasEvidence;

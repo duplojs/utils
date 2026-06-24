@@ -15,6 +15,9 @@ class DataParserRecordExtended extends base.DataParserBaseExtended.initExtended(
         return new DataParserRecordExtended(this.prepareDefinition(key, value, definition));
     }
 }
+/**
+ * {@include dataParser/extended/record/index.md}
+ */
 const record = detachObjectMethod.detachObjectMethod(DataParserRecordExtended, "create");
 
 exports.DataParserRecordExtended = DataParserRecordExtended;

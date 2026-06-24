@@ -77,4 +77,7 @@ export class DataParserLiteralExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/literal/index.md}
+ */
 export const literal = detachObjectMethod(DataParserLiteralExtended, "create");

@@ -23,7 +23,7 @@ class DataParserBoolean extends DataParserBase.init(booleanKind) {
                 return data === 1;
             }
         }
-        return addIssue(error, "boolean", data, self.definition.errorMessage);
+        return addIssue(error, "boolean", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -43,6 +43,9 @@ class DataParserBoolean extends DataParserBase.init(booleanKind) {
         return new DataParserBoolean(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/boolean/index.md}
+ */
 const boolean = detachObjectMethod(DataParserBoolean, "create");
 
 export { DataParserBoolean, boolean, booleanKind };

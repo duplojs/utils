@@ -59,7 +59,7 @@ export class DataParserEmpty<
 			return undefined;
 		}
 
-		return addIssue(error, "undefined", data, self.definition.errorMessage);
+		return addIssue(error, "undefined", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserEmpty) {
@@ -97,4 +97,7 @@ export class DataParserEmpty<
 	}
 }
 
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 export const empty = detachObjectMethod(DataParserEmpty, "create");

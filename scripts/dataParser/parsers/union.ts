@@ -94,7 +94,7 @@ export class DataParserUnion<
 
 				error.issues.push(...unionError.issues);
 
-				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage);
+				return addIssue(error, "respect at least one union value", data, self.definition.errorMessage, self);
 			},
 		);
 	}
@@ -152,4 +152,7 @@ export class DataParserUnion<
 	}
 }
 
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 export const union = detachObjectMethod(DataParserUnion, "create");

@@ -13,7 +13,7 @@ class DataParserLiteral extends DataParserBase.init(literalKind) {
         if (self.definition.value.includes(data)) {
             return data;
         }
-        return addIssue(error, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage);
+        return addIssue(error, `one of ${self.definition.value.join(", ")}`, data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -33,6 +33,9 @@ class DataParserLiteral extends DataParserBase.init(literalKind) {
         return new DataParserLiteral(this.prepareDefinition(value, definition));
     }
 }
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 const literal = detachObjectMethod(DataParserLiteral, "create");
 
 export { DataParserLiteral, literal, literalKind };

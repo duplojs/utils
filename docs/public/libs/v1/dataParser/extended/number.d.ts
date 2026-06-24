@@ -139,6 +139,37 @@ export declare class DataParserNumberExtended<GenericDefinition extends dataPars
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNumber>, GenericDefinition>): DataParserNumberExtended<MergeDefinition<dataParsers.DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates an extended data parser for numbers.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.number(definition?)` -> returns a number parser
+ * 
+ * Validates numbers and exposes number-specific methods like min, max, and int.
+ * 
+ * ```ts
+ * const parser = DPE.number()
+ * 	.min(0)
+ * 	.max(10)
+ * 	.int();
+ * const result = parser.parse(5);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * 
+ * const coerceParser = DPE.coerce.number();
+ * const coerceResult = coerceParser.parse("42");
+ * 
+ * const intOnly = DPE.number().int();
+ * const intResult = intOnly.parse(3);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/number
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const number: typeof DataParserNumberExtended.create;
 /**
  * Creates an extended data parser for integers.

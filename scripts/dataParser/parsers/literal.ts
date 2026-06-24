@@ -69,6 +69,7 @@ export class DataParserLiteral<
 			`one of ${self.definition.value.join(", ")}`,
 			data,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 
@@ -116,4 +117,7 @@ export class DataParserLiteral<
 	}
 }
 
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 export const literal = detachObjectMethod(DataParserLiteral, "create");

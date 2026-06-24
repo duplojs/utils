@@ -14,7 +14,7 @@ class DataParserTemplateLiteral extends DataParserBase.init(templateLiteralKind)
         if (typeof data === "string" && self.definition.pattern.test(data)) {
             return data;
         }
-        return addIssue(error, `string matching template literal pattern ${self.definition.pattern.source}`, data, self.definition.errorMessage);
+        return addIssue(error, `string matching template literal pattern ${self.definition.pattern.source}`, data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -36,6 +36,9 @@ class DataParserTemplateLiteral extends DataParserBase.init(templateLiteralKind)
         return new DataParserTemplateLiteral(this.prepareDefinition(template, definition));
     }
 }
+/**
+ * {@include dataParser/classic/templateLiteral/index.md}
+ */
 const templateLiteral = detachObjectMethod(DataParserTemplateLiteral, "create");
 
 export { DataParserTemplateLiteral, createTemplateLiteralPattern, templateLiteral, templateLiteralKind };

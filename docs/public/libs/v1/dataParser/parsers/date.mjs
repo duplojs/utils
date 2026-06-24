@@ -16,7 +16,7 @@ class DataParserDate extends DataParserBase.init(dateKind) {
         if (self.definition.coerce) {
             if (typeof data === "number") {
                 if (!isSafeTimestamp(data)) {
-                    return addIssue(error, "date", data, self.definition.errorMessage);
+                    return addIssue(error, "date", data, self.definition.errorMessage, self);
                 }
                 return TheDate.new(data);
             }
@@ -37,11 +37,11 @@ class DataParserDate extends DataParserBase.init(dateKind) {
         else if (data instanceof Date) {
             const timestamp = data.getTime();
             if (!isSafeTimestamp(timestamp)) {
-                return addIssue(error, "date", data, self.definition.errorMessage);
+                return addIssue(error, "date", data, self.definition.errorMessage, self);
             }
             return TheDate.new(timestamp);
         }
-        return addIssue(error, "date", data, self.definition.errorMessage);
+        return addIssue(error, "date", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -61,6 +61,9 @@ class DataParserDate extends DataParserBase.init(dateKind) {
         return new DataParserDate(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 const date = detachObjectMethod(DataParserDate, "create");
 
 export { DataParserDate, date, dateKind };

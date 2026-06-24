@@ -15,6 +15,9 @@ class DataParserLiteralExtended extends base.DataParserBaseExtended.initExtended
         return new DataParserLiteralExtended(this.prepareDefinition(value, definition));
     }
 }
+/**
+ * {@include dataParser/extended/literal/index.md}
+ */
 const literal = detachObjectMethod.detachObjectMethod(DataParserLiteralExtended, "create");
 
 exports.DataParserLiteralExtended = DataParserLiteralExtended;

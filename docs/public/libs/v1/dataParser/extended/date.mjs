@@ -13,6 +13,9 @@ class DataParserDateExtended extends DataParserBaseExtended.initExtended(DataPar
         return new DataParserDateExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/date/index.md}
+ */
 const date = detachObjectMethod(DataParserDateExtended, "create");
 
 export { DataParserDateExtended, date };

@@ -30,7 +30,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerInt,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		if (Number.isInteger(data)) {
 			return data;
 		}
@@ -40,6 +40,7 @@ export class DataParserCheckerInt extends DataParserCheckerBase.init(
 			"integer",
 			data,
 			self.definition.errorMessage ?? dataParser.definition.errorMessage,
+			self,
 		);
 	}
 

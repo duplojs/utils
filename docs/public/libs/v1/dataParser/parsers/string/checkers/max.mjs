@@ -14,7 +14,7 @@ class DataParserCheckerStringMax extends DataParserCheckerBase.init(checkerStrin
     static execCheck(data, error, self, dataParser) {
         return data.length <= self.definition.max
             ? data
-            : addIssue(error, `string.length <= ${self.definition.max}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+            : addIssue(error, `string.length <= ${self.definition.max}`, data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(max, definition = {}) {
         return new DataParserCheckerStringMax({

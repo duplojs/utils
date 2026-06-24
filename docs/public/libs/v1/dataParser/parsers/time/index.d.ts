@@ -61,4 +61,40 @@ export declare class DataParserTime<GenericDefinition extends DataParserDefiniti
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionTime> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionTime>, GenericDefinition>): DataParserTime<MergeDefinition<DataParserDefinitionTime, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates a classic parser for `TheTime` values.
+ * 
+ * Signature: `DP.time(definition?)` → `DataParserTime`
+ * 
+ * The parser accepts `TheTime`, `SerializedTheTime`, and safe numeric time values.
+ * With `coerce: true`, ISO-like time strings are also supported.
+ * 
+ * ```ts
+ * const parser = DP.time();
+ * const result = parser.parse("time0+");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: TheTime
+ * }
+ * 
+ * const withCheckers = DP.time({
+ * 	checkers: [DP.checkerRefine((value) => value.toNative() !== 0)],
+ * });
+ * const checked = withCheckers.parse("time1000+");
+ * // checked: E.Error<DP.DataParserError> | E.Success<TheTime>
+ * 
+ * const coerceParser = DP.coerce.time();
+ * const coerceResult = coerceParser.parse("10:20:00");
+ * // coerceResult: E.Error<DP.DataParserError> | E.Success<TheTime>
+ * ```
+ * 
+ * @remarks
+ * - Parsed output is always `TheTime`.
+ * - Use `DP.coerce.time()` when you want string coercion enabled by default.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/time
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const time: typeof DataParserTime.create;

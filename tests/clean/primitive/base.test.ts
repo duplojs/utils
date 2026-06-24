@@ -22,6 +22,7 @@ describe("primitive handler String", () => {
 			"string",
 			invalidValue,
 			undefined,
+			DDataParser.string(),
 		);
 
 		expect(result).toStrictEqual(
@@ -57,6 +58,7 @@ describe("primitive handler String", () => {
 			"string",
 			invalidValue,
 			undefined,
+			DDataParser.string(),
 		);
 
 		try {

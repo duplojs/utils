@@ -56,5 +56,35 @@ export declare class DataParserOptional<GenericDefinition extends DataParserDefi
         inner: GenericDataParser;
     }>>;
 }
+/**
+ * Creates a data parser that accepts undefined or the inner parser output.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.optional(inner, definition?)` -> returns an optional parser
+ * - Curried: not available
+ * 
+ * Returns undefined (or a coalescing value) when input is undefined, otherwise parses with the inner parser.
+ * 
+ * ```ts
+ * const parser = DP.optional(DP.string());
+ * const result = parser.parse(undefined);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string | undefined
+ * }
+ * 
+ * const withCoalescing = DP.optional(DP.number(), { coalescingValue: 0 });
+ * const coalesced = withCoalescing.parse(undefined);
+ * 
+ * const withCheckers = DP.optional(DP.number(), {
+ * 	checkers: [DP.checkerRefine((value) => value !== 13)],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/optional
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const optional: typeof DataParserOptional.create;
 export {};

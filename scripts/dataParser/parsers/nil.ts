@@ -59,7 +59,7 @@ export class DataParserNil<
 			return null;
 		}
 
-		return addIssue(error, "null", data, self.definition.errorMessage);
+		return addIssue(error, "null", data, self.definition.errorMessage, self);
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserNil) {
@@ -97,4 +97,7 @@ export class DataParserNil<
 	}
 }
 
+/**
+ * {@include dataParser/classic/nil/index.md}
+ */
 export const nil = detachObjectMethod(DataParserNil, "create");

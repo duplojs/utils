@@ -57,5 +57,34 @@ export declare class DataParserTransform<GenericDefinition extends DataParserDef
         theFunction(input: Output<GenericDataParser>, error: DataParserError): GenericOutput;
     }>>;
 }
+/**
+ * Creates a data parser that transforms the output of another parser.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.transform(inner, theFunction, definition?)` -> returns a transform parser
+ * - Curried: not available
+ * 
+ * Runs the inner parser and applies a transformation function to its output.
+ * 
+ * ```ts
+ * const parser = DP.transform(DP.string(), (value) => value.length);
+ * const result = parser.parse("Duplo");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * 
+ * const toUpper = DP.transform(
+ * 	DP.string(),
+ * 	S.toUpperCase,
+ * );
+ * const upperResult = toUpper.parse("duplo");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/transform
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const transform: typeof DataParserTransform.create;
 export {};

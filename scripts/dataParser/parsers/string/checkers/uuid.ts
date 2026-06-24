@@ -32,7 +32,7 @@ export class DataParserCheckerUuid extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerUuid,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return uuidRegex.test(data)
 			? data
 			: addIssue(
@@ -40,6 +40,7 @@ export class DataParserCheckerUuid extends DataParserCheckerBase.init(
 				"uuid",
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

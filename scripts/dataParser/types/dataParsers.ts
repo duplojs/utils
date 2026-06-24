@@ -31,6 +31,7 @@ export type DataParsers = (
 	| AllDataParser.DataParserUnknown
 	| AllDataParser.DataParserRecord
 	| AllDataParser.DataParserRecover
+	| AllDataParser.DataParserErrorHandler
 );
 
 export interface DataParserExtendedCustom {
@@ -61,4 +62,5 @@ export type DataParsersExtended = (
 	| AllDataParserExtended.DataParserUnknownExtended
 	| AllDataParserExtended.DataParserRecordExtended
 	| AllDataParserExtended.DataParserRecoverExtended
+	| AllDataParserExtended.DataParserErrorHandlerExtended
 );

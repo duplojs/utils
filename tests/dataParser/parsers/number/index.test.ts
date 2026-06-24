@@ -79,44 +79,44 @@ describe("DDataParser number", () => {
 	it("fails to coerce NaN", () => {
 		const schema = DDataParser.number({ coerce: true });
 
-		const result = schema.parse("not-a-number");
-
-		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.errorKind.addTo({
-					issues: [
-						DDataParser.errorIssueKind.addTo({
-							expected: "number",
-							path: "",
-							data: "not-a-number",
-							message: undefined,
-						}),
-					],
-					currentPath: [],
-				}),
-			),
-		);
+		for (const value of ["not-a-number", "Infinity", "-Infinity"]) {
+			expect(schema.parse(value)).toStrictEqual(
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: value,
+								message: undefined,
+							}),
+						],
+						currentPath: [],
+					}),
+				),
+			);
+		}
 	});
 
-	it("rejects NaN values", () => {
+	it("rejects NaN and infinity values", () => {
 		const schema = DDataParser.number();
 
-		const result = schema.parse(Number.NaN);
-
-		expect(result).toStrictEqual(
-			DEither.error(
-				DDataParser.errorKind.addTo({
-					issues: [
-						DDataParser.errorIssueKind.addTo({
-							expected: "number",
-							path: "",
-							data: Number.NaN,
-							message: undefined,
-						}),
-					],
-					currentPath: [],
-				}),
-			),
-		);
+		for (const value of [Number.NaN, Infinity, -Infinity]) {
+			expect(schema.parse(value)).toStrictEqual(
+				DEither.error(
+					DDataParser.errorKind.addTo({
+						issues: [
+							DDataParser.errorIssueKind.addTo({
+								expected: "number",
+								path: "",
+								data: value,
+								message: undefined,
+							}),
+						],
+						currentPath: [],
+					}),
+				),
+			);
+		}
 	});
 });

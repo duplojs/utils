@@ -53,5 +53,35 @@ export declare class DataParserBoolean<GenericDefinition extends DataParserDefin
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionBoolean> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionBoolean>, GenericDefinition>): DataParserBoolean<MergeDefinition<DataParserDefinitionBoolean, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates a data parser for boolean values.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.boolean(definition?)` -> returns a boolean parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a boolean, optionally applies coerce, and runs the configured checkers.
+ * 
+ * ```ts
+ * const parser = DP.boolean();
+ * const result = parser.parse(true);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: boolean
+ * }
+ * 
+ * const onlyTrue = DP.boolean({
+ * 	checkers: [DP.checkerRefine((value) => value === true)],
+ * });
+ * 
+ * const coerceParser = DP.coerce.boolean();
+ * const coerceResult = coerceParser.parse("false");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/boolean
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const boolean: typeof DataParserBoolean.create;
 export {};

@@ -27,20 +27,23 @@ describe("dataParser error helpers", () => {
 
 	it("addIssue stores expected with joined path and popErrorPath removes last segment", () => {
 		const error = DDataParser.createError();
+		const source = DDataParser.string();
 
 		DDataParser.setErrorPath(error, "user", 0);
 		DDataParser.setErrorPath(error, "email", 1);
 
-		DDataParser.addIssue(error, "value", undefined, undefined);
+		DDataParser.addIssue(error, "value", undefined, undefined, source);
 
-		expect(error.issues).toStrictEqual([
+		expect(error.issues).toHaveLength(1);
+		expect(error.issues[0]).toMatchObject(
 			DDataParser.errorIssueKind.addTo({
 				expected: "value",
 				path: "user.email",
 				data: undefined,
 				message: undefined,
 			}),
-		]);
+		);
+		expect(error.issues[0]?.getSource()).toBe(source);
 
 		const afterPop = DDataParser.popErrorPath(error);
 		expect(afterPop).toBe(error);
@@ -49,15 +52,17 @@ describe("dataParser error helpers", () => {
 
 	it("interpretError renders multiple nested issues", () => {
 		const error = DDataParser.createError();
+		const stringSource = DDataParser.string();
+		const numberSource = DDataParser.number();
 
 		DDataParser.setErrorPath(error, "user", 0);
 		DDataParser.setErrorPath(error, "email", 1);
-		DDataParser.addIssue(error, "string with max 5 characters", "tonton", "email is invalid");
+		DDataParser.addIssue(error, "string with max 5 characters", "tonton", "email is invalid", stringSource);
 
 		DDataParser.setErrorPath(error, "useAsyncRetry", 0);
 		DDataParser.setErrorPath(error, "(option 1)", 1);
 		DDataParser.setErrorPath(error, "age", 2);
-		DDataParser.addIssue(error, "number >= 18", "15", "age too small");
+		DDataParser.addIssue(error, "number >= 18", "15", "age too small", numberSource);
 
 		expect(DDataParser.interpretError(error)).toBe(
 			Printer.renderParagraph([
@@ -105,7 +110,7 @@ describe("dataParser error helpers", () => {
 	it("interpretError renders root when issue path is empty", () => {
 		const error = DDataParser.createError();
 
-		DDataParser.addIssue(error, "string", "", "root issue");
+		DDataParser.addIssue(error, "string", "", "root issue", DDataParser.string());
 
 		expect(DDataParser.interpretError(error)).toBe(
 			Printer.renderParagraph([

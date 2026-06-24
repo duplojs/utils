@@ -88,4 +88,7 @@ export class DataParserUnknown<
 	}
 }
 
+/**
+ * {@include dataParser/classic/unknown/index.md}
+ */
 export const unknown = detachObjectMethod(DataParserUnknown, "create");

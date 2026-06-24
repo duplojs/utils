@@ -119,6 +119,9 @@ export class DataParserStringExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/string/index.md}
+ */
 export const string = detachObjectMethod(DataParserStringExtended, "create");
 
 /**

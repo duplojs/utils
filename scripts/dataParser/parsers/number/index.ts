@@ -66,7 +66,7 @@ export class DataParserNumber<
 			} catch {}
 		}
 
-		if (typeof data === "number" && !Number.isNaN(data)) {
+		if (typeof data === "number" && Number.isFinite(data)) {
 			return data;
 		}
 
@@ -75,6 +75,7 @@ export class DataParserNumber<
 			"number",
 			inputData,
 			self.definition.errorMessage,
+			self,
 		);
 	}
 
@@ -113,4 +114,7 @@ export class DataParserNumber<
 	}
 }
 
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 export const number = detachObjectMethod(DataParserNumber, "create");

@@ -64,7 +64,7 @@ export class DataParserTransform<
 		self: DataParserTransform,
 		data: unknown,
 		error: DataParserError,
-	) {
+	): unknown {
 		return callThen(
 			self.definition.inner.exec(data, error),
 			(innerResult) => {
@@ -80,6 +80,7 @@ export class DataParserTransform<
 						"successful transform result",
 						catchError,
 						self.definition.errorMessage,
+						self,
 					),
 				);
 			},
@@ -152,4 +153,7 @@ export class DataParserTransform<
 	}
 }
 
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 export const transform = detachObjectMethod(DataParserTransform, "create");

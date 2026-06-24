@@ -45,5 +45,33 @@ export declare class DataParserLiteralExtended<GenericDefinition extends dataPar
         readonly value: readonly GenericValue[];
     }>>;
 }
+/**
+ * Creates an extended data parser for a literal value.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.literal(value)` -> returns a literal parser
+ * 
+ * Accepts only the provided literal value.
+ * 
+ * ```ts
+ * const parser = DPE.literal("status");
+ * const result = parser.parse("status");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: "status"
+ * }
+ * 
+ * const numberLiteral = DPE.literal(42);
+ * const numberResult = numberLiteral.parse(42);
+ * 
+ * const boolLiteral = DPE.literal(true);
+ * const boolResult = boolLiteral.parse(true);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/literal
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const literal: typeof DataParserLiteralExtended.create;
 export {};

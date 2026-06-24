@@ -135,7 +135,7 @@ export class DataParserTuple<
 		error: DataParserError,
 	): MaybePromise<unknown[] | SymbolDataParserError> {
 		if (!(data instanceof Array)) {
-			return addIssue(error, "tuple array", data, self.definition.errorMessage);
+			return addIssue(error, "tuple array", data, self.definition.errorMessage, self);
 		}
 
 		const currentIndexPath = error.currentPath.length;
@@ -155,7 +155,7 @@ export class DataParserTuple<
 						currentIndexPath,
 					);
 					if (!dataParser) {
-						addIssue(error, "empty", data, self.definition.errorMessage);
+						addIssue(error, "empty", data, self.definition.errorMessage, self);
 						return SymbolDataParserError;
 					}
 
@@ -243,4 +243,7 @@ export class DataParserTuple<
 	}
 }
 
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 export const tuple = detachObjectMethod(DataParserTuple, "create");

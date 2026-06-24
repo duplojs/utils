@@ -9,7 +9,7 @@ declare const DataParserCheckerRegex_base: import("../../..").DataParserCheckerB
 export declare class DataParserCheckerRegex extends DataParserCheckerRegex_base<DataParserCheckerDefinitionRegex, string> {
     get classConstructor(): typeof DataParserCheckerRegex & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(data: string, error: DataParserError, self: DataParserCheckerRegex, dataParser: DataParser): string | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(data: string, error: DataParserError, self: DataParserCheckerRegex, dataParser: DataParser): unknown;
     static create(regex: RegExp, definition?: Partial<Omit<DataParserCheckerDefinitionRegex, "regex">>): DataParserCheckerRegex;
 }
 export declare const checkerRegex: typeof DataParserCheckerRegex.create;

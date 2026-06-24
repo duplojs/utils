@@ -54,7 +54,7 @@ describe("DDataParser transform", () => {
 		const schema = DDataParser.transform(inner, (value) => value);
 		const expectedError = DDataParser.createError();
 
-		DDataParser.addIssue(expectedError, "number", "value", "not-number");
+		DDataParser.addIssue(expectedError, "number", "value", "not-number", inner);
 
 		const result = schema.parse("value");
 
@@ -102,7 +102,7 @@ describe("DDataParser transform", () => {
 			const schema = DDataParser.transform(inner, (value) => Promise.resolve(value));
 			const expectedError = DDataParser.createError();
 
-			DDataParser.addIssue(expectedError, "number", "value", "not-number");
+			DDataParser.addIssue(expectedError, "number", "value", "not-number", inner);
 
 			const result = await schema.asyncParse("value");
 

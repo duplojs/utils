@@ -9,7 +9,7 @@ declare const DataParserCheckerBigIntMin_base: import("../../..").DataParserChec
 export declare class DataParserCheckerBigIntMin extends DataParserCheckerBigIntMin_base<DataParserCheckerDefinitionBigIntMin, bigint> {
     get classConstructor(): typeof DataParserCheckerBigIntMin & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(value: bigint, error: DataParserError, self: DataParserCheckerBigIntMin, dataParser: DataParser): bigint | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(value: bigint, error: DataParserError, self: DataParserCheckerBigIntMin, dataParser: DataParser): unknown;
     static create(min: bigint, definition?: Partial<Omit<DataParserCheckerDefinitionBigIntMin, "min">>): DataParserCheckerBigIntMin;
 }
 export declare const checkerBigIntMin: typeof DataParserCheckerBigIntMin.create;

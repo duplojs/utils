@@ -16,7 +16,7 @@ class DataParserCheckerInt extends DataParserCheckerBase.init(checkerIntKind) {
         if (Number.isInteger(data)) {
             return data;
         }
-        return addIssue(error, "integer", data, self.definition.errorMessage ?? dataParser.definition.errorMessage);
+        return addIssue(error, "integer", data, self.definition.errorMessage ?? dataParser.definition.errorMessage, self);
     }
     static create(definition = {}) {
         return new DataParserCheckerInt(definition);

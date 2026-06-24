@@ -13,6 +13,9 @@ class DataParserTemplateLiteralExtended extends DataParserBaseExtended.initExten
         return new DataParserTemplateLiteralExtended(this.prepareDefinition(template, definition));
     }
 }
+/**
+ * {@include dataParser/extended/templateLiteral/index.md}
+ */
 const templateLiteral = detachObjectMethod(DataParserTemplateLiteralExtended, "create");
 
 export { DataParserTemplateLiteralExtended, templateLiteral };

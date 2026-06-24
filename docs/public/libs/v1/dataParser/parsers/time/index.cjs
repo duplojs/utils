@@ -23,7 +23,7 @@ class DataParserTime extends base.DataParserBase.init(timeKind) {
             if (typeof data === "string" && constants.isoTimeRegex.test(data)) {
                 const result = createTime.createTime({ value: data });
                 if (is.isLeft(result)) {
-                    return error.addIssue(error$1, "time", data, self.definition.errorMessage);
+                    return error.addIssue(error$1, "time", data, self.definition.errorMessage, self);
                 }
                 return unwrap.unwrap(result);
             }
@@ -36,11 +36,11 @@ class DataParserTime extends base.DataParserBase.init(timeKind) {
         }
         else if (typeof data === "number") {
             if (!isSafeTimeValue.isSafeTimeValue(data)) {
-                return error.addIssue(error$1, "time", data, self.definition.errorMessage);
+                return error.addIssue(error$1, "time", data, self.definition.errorMessage, self);
             }
             return theTime.TheTime.new(data);
         }
-        return error.addIssue(error$1, "time", data, self.definition.errorMessage);
+        return error.addIssue(error$1, "time", data, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -60,6 +60,9 @@ class DataParserTime extends base.DataParserBase.init(timeKind) {
         return new DataParserTime(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 const time = detachObjectMethod.detachObjectMethod(DataParserTime, "create");
 
 exports.DataParserTime = DataParserTime;

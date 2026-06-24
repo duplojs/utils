@@ -29,7 +29,7 @@ export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerArrayMin,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return data.length >= self.definition.min
 			? data
 			: addIssue(
@@ -37,6 +37,7 @@ export class DataParserCheckerArrayMin extends DataParserCheckerBase.init(
 				`array.length >= ${self.definition.min}`,
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

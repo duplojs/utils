@@ -85,4 +85,43 @@ export declare class DataParserObject<GenericDefinition extends DataParserDefini
         readonly shape: GenericShape;
     }>>;
 }
+/**
+ * Creates a data parser for objects with a defined shape.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.object(shape, definition?)` -> returns an object parser
+ * - Curried: not available
+ * 
+ * Validates that the input is an object and parses each property in the provided shape.
+ * 
+ * ```ts
+ * const parser = DP.object({
+ * 	name: DP.string(),
+ * 	age: DP.number(),
+ * });
+ * const result = parser.parse({
+ * 	name: "Alex",
+ * 	age: 32,
+ * });
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: { name: string; age: number }
+ * }
+ * 
+ * const partialUser = DP.partial(parser);
+ * const partialResult = partialUser.parse({ name: "Alex" });
+ * // value: { name?: string | undefined }
+ * 
+ * const requiredUser = DP.required(partialUser);
+ * const requiredResult = requiredUser.parse({
+ * 	name: "Alex",
+ * 	age: 32,
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/object
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const object: typeof DataParserObject.create;

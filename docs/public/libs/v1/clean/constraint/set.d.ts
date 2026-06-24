@@ -1,8 +1,8 @@
 import { type Kind, type WrappedValue, type UnionToIntersection, type IsEqual } from "../..";
-import { type GetConstraint, type ConstraintHandler } from "../constraint";
+import { type GetConstraint, type ConstraintHandler, type ConstraintError } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DEither from "../../either";
-import type * as DDataParser from "../../dataParser";
+import * as DDataParser from "../../dataParser";
 export declare const constraintsSetHandlerKind: import("../..").KindHandler<import("../..").KindDefinition<"@DuplojsUtilsClean/constraints-set-handler", unknown>>;
 export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePrimitive = EligiblePrimitive, GenericConstraintsHandler extends readonly ConstraintHandler[] = readonly [], GenericPrimitiveInput extends unknown = unknown> extends Kind<typeof constraintsSetHandlerKind.definition> {
     /**
@@ -38,6 +38,8 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
     /**
      * Creates a constrained value and returns an Either.
      * 
+     * On error, returns `Left<"createConstraintsSetError", ConstraintError<...>>`. The `constraintName` is resolved from the failing checker; if primitive parsing fails before a constraint checker is responsible, it falls back to the first constraint name in the set.
+     * 
      * ```ts
      * const result = UsernameConstraints.create("Ada");
      * 
@@ -47,11 +49,13 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * ```
      * 
      */
-    create<const GenericInput extends GenericPrimitiveValue>(data: GenericInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericInput> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", DDataParser.DataParserError>);
-    create(data: GenericPrimitiveInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", DDataParser.DataParserError>);
-    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstraintsSet", (GenericPrimitive & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", DDataParser.DataParserError>);
+    create<const GenericInput extends GenericPrimitiveValue>(data: GenericInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericInput> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
+    create(data: GenericPrimitiveInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
+    create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstraintsSet", (GenericPrimitive & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
     /**
      * Creates a constrained value and throws on error. Works with raw values or primitives.
+     * 
+     * Throws `CreateConstraintsSetError` with the received data, the `dataParserError`, and the resolved `constraintName`. If primitive parsing fails before a constraint checker is responsible, `constraintName` falls back to the first constraint name in the set.
      * 
      * ```ts
      * const value = UsernameConstraints.createOrThrow("Nova");
@@ -68,15 +72,19 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
     /**
      * Creates a constrained value from an unknown input and returns an Either.
      * 
+     * On error, returns `Left<"createConstraintsSetError", ConstraintError<...>>`. The `constraintName` is resolved from the failing checker; if primitive parsing fails before a constraint checker is responsible, it falls back to the first constraint name in the set.
+     * 
      * ```ts
      * const unknownValue: unknown = "Sam";
      * const maybe = UsernameConstraints.createWithUnknown(unknownValue);
      * ```
      * 
      */
-    createWithUnknown<GenericInput extends unknown>(data: GenericInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", DDataParser.DataParserError>);
+    createWithUnknown<GenericInput extends unknown>(data: GenericInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
     /**
      * Creates a constrained value from an unknown input and throws on error.
+     * 
+     * Throws `CreateConstraintsSetError` with the received data, the `dataParserError`, and the resolved `constraintName`. If primitive parsing fails before a constraint checker is responsible, `constraintName` falls back to the first constraint name in the set.
      * 
      * ```ts
      * const strictValue = UsernameConstraints.createWithUnknownOrThrow(unknownValue);
@@ -108,9 +116,10 @@ declare const CreateConstraintsSetError_base: new (params: {
     "@DuplojsUtilsError/create-constraint-set-error"?: unknown;
 }, parentParams: readonly [message?: string | undefined, options?: ErrorOptions | undefined]) => Error & Kind<import("../..").KindDefinition<"@DuplojsUtilsError/create-constraint-set-error", unknown>, unknown> & Kind<import("../..").KindDefinition<"create-constraint-set-error", unknown>, unknown>;
 export declare class CreateConstraintsSetError extends CreateConstraintsSetError_base {
+    constraintName: string;
     data: unknown;
     dataParserError: DDataParser.DataParserError;
-    constructor(data: unknown, dataParserError: DDataParser.DataParserError);
+    constructor(constraintName: string, data: unknown, dataParserError: DDataParser.DataParserError);
 }
 export type ConstraintSetInputConstraint<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]> | ConstraintsSetHandler<GenericValue, readonly ConstraintHandler<string, GenericValue, readonly DDataParser.DataParserChecker<GenericValue>[]>[]>);
 export type ConstraintsHandlerArguments<GenericValue extends EligiblePrimitive = EligiblePrimitive> = (ConstraintSetInputConstraint<GenericValue> | readonly [
@@ -131,6 +140,8 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * - Classic: `createConstraintsSet(primitiveHandler, constraints)` -> returns a handler
  * 
  * A constraints set validates input with the primitive DataParser, applies all constraint checkers, and tags the value with each constraint name. Use it to compose multiple constraints once and reuse the handler.
+ * 
+ * On validation failure, `create` and `createWithUnknown` return `Left<"createConstraintsSetError", ConstraintError<...>>`. The error contains the failing `dataParserError` and a `constraintName` resolved from the checker source.
  * 
  * ```ts
  * const UsernameConstraints = C.createConstraintsSet(
@@ -164,6 +175,8 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * - You can pass a single constraint handler, a constraints set handler, or a tuple mixing constraints and constraints sets.
  * - Constraints sets are expanded internally, so their contained constraints are applied in declaration order.
  * - The handler accepts both raw values and primitives.
+ * - When a constraint checker fails, `constraintName` points to the constraint that owns the checker, including constraints expanded from nested sets.
+ * - When primitive parsing fails before any constraint checker is responsible, `constraintName` falls back to the first constraint name in the set.
  * 
  * @see https://utils.duplojs.dev/en/v1/api/clean/constraints
  * 

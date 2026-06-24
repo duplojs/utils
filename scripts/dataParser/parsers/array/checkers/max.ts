@@ -29,7 +29,7 @@ export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
 		error: DataParserError,
 		self: DataParserCheckerArrayMax,
 		dataParser: DataParser,
-	) {
+	): unknown {
 		return data.length <= self.definition.max
 			? data
 			: addIssue(
@@ -37,6 +37,7 @@ export class DataParserCheckerArrayMax extends DataParserCheckerBase.init(
 				`array.length <= ${self.definition.max}`,
 				data,
 				self.definition.errorMessage ?? dataParser.definition.errorMessage,
+				self,
 			);
 	}
 

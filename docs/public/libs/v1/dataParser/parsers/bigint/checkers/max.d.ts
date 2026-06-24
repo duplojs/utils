@@ -9,7 +9,7 @@ declare const DataParserCheckerBigIntMax_base: import("../../..").DataParserChec
 export declare class DataParserCheckerBigIntMax extends DataParserCheckerBigIntMax_base<DataParserCheckerDefinitionBigIntMax, bigint> {
     get classConstructor(): typeof DataParserCheckerBigIntMax & import("../../..").CheckedConstructorKind;
     isAsynchronous(): boolean;
-    static execCheck(value: bigint, error: DataParserError, self: DataParserCheckerBigIntMax, dataParser: DataParser): bigint | typeof import("../../../../dataParser/error").SymbolDataParserError;
+    static execCheck(value: bigint, error: DataParserError, self: DataParserCheckerBigIntMax, dataParser: DataParser): unknown;
     static create(max: bigint, definition?: Partial<Omit<DataParserCheckerDefinitionBigIntMax, "max">>): DataParserCheckerBigIntMax;
 }
 export declare const checkerBigIntMax: typeof DataParserCheckerBigIntMax.create;

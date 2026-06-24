@@ -20,7 +20,7 @@ class DataParserBigInt extends DataParserBase.init(bigIntKind) {
         if (typeof data === "bigint") {
             return data;
         }
-        return addIssue(error, "bigint", inputData, self.definition.errorMessage);
+        return addIssue(error, "bigint", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -40,6 +40,9 @@ class DataParserBigInt extends DataParserBase.init(bigIntKind) {
         return new DataParserBigInt(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 const bigint = detachObjectMethod(DataParserBigInt, "create");
 
 export { DataParserBigInt, bigIntKind, bigint };

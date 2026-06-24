@@ -17,10 +17,10 @@ class DataParserNumber extends DataParserBase.init(numberKind) {
             }
             catch { }
         }
-        if (typeof data === "number" && !Number.isNaN(data)) {
+        if (typeof data === "number" && Number.isFinite(data)) {
             return data;
         }
-        return addIssue(error, "number", inputData, self.definition.errorMessage);
+        return addIssue(error, "number", inputData, self.definition.errorMessage, self);
     }
     static dataParserIsAsynchronous(self) {
         return false;
@@ -40,6 +40,9 @@ class DataParserNumber extends DataParserBase.init(numberKind) {
         return new DataParserNumber(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 const number = detachObjectMethod(DataParserNumber, "create");
 
 export { DataParserNumber, number, numberKind };
