@@ -2,7 +2,7 @@ import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } f
 import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../base";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import { type DataParserError } from "@scripts/dataParser/error";
 
 export type DataParserUnknownCheckers = GetEligibleChecker<unknown>;
@@ -19,7 +19,10 @@ export class DataParserUnknown<
 		unknownKind,
 	)<
 		GenericDefinition,
-		unknown,
+		ApplyRefinementOfDefinition<
+			unknown,
+			GenericDefinition
+		>,
 		unknown
 	> {
 	public get classConstructor() {

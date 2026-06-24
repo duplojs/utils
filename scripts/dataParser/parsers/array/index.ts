@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type ApplyRefinementOfChecker, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -27,7 +27,7 @@ export class DataParserArray<
 		arrayKind,
 	)<
 		GenericDefinition,
-		ApplyRefinementOfChecker<
+		ApplyRefinementOfDefinition<
 			Output<GenericDefinition["element"]>[],
 			GenericDefinition
 		>,

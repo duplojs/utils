@@ -45,8 +45,8 @@ export abstract class DataParserBase<
 	)<
 		never,
 		{
-			input: GenericInput;
 			output: GenericOutput;
+			input: GenericInput;
 		}
 	> {
 	public readonly definition: GenericDefinition;

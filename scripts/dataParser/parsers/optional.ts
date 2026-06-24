@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserOptionalCheckers<
 	GenericInput extends unknown = unknown,
@@ -26,12 +26,15 @@ export class DataParserOptional<
 		optionalKind,
 	)<
 		GenericDefinition,
-		IsEqual<
-			GenericDefinition["coalescingValue"],
-			unknown
-		> extends true
-			? Output<GenericDefinition["inner"]> | undefined
-			: Output<GenericDefinition["inner"]>,
+		ApplyRefinementOfDefinition<
+			IsEqual<
+				GenericDefinition["coalescingValue"],
+				unknown
+			> extends true
+				? Output<GenericDefinition["inner"]> | undefined
+				: Output<GenericDefinition["inner"]>,
+			GenericDefinition
+		>,
 		Input<GenericDefinition["inner"]> | undefined
 	> {
 	public get classConstructor() {

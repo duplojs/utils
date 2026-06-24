@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 
@@ -96,9 +96,12 @@ export class DataParserTuple<
 		tupleKind,
 	)<
 		GenericDefinition,
-		DataParserTupleShapeOutput<
-			GenericDefinition["shape"],
-			GenericDefinition["rest"]
+		ApplyRefinementOfDefinition<
+			DataParserTupleShapeOutput<
+				GenericDefinition["shape"],
+				GenericDefinition["rest"]
+			>,
+			GenericDefinition
 		>,
 		DataParserTupleShapeInput<
 			GenericDefinition["shape"],

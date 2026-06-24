@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserPipeCheckers<
 	GenericInput extends unknown = unknown,
@@ -26,7 +26,10 @@ export class DataParserPipe<
 		pipeKind,
 	)<
 		GenericDefinition,
-		Output<GenericDefinition["output"]>,
+		ApplyRefinementOfDefinition<
+			Output<GenericDefinition["output"]>,
+			GenericDefinition
+		>,
 		Input<GenericDefinition["input"]>
 	> {
 	public get classConstructor() {

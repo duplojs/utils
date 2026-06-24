@@ -1,4 +1,4 @@
-import { type NeverCoalescing, type UnionToIntersection, type AnyPredicate, type IsExtends } from "@scripts/common";
+import { type NeverCoalescing, type UnionToIntersection, type AnyPredicate, type IsExtends, type AnyTuple, type IsNever } from "@scripts/common";
 import { type DataParserChecker } from "../baseChecker";
 import type * as AllDataParser from "../parsers";
 import type * as DDate from "@scripts/date";
@@ -111,25 +111,36 @@ export interface RefinementOfChecker<
 			? never
 			: GenericValue & DArray.MaxElements<GenericChecker["definition"]["max"]>
 		: never;
+	stringEmail: GenericChecker extends AllDataParser.DataParserCheckerEmail
+		? `${string}@${string}.${string}`
+		: never;
 }
 
 export type ApplyRefinementOfChecker<
 	GenericValue extends unknown,
-	GenericDataParserDefinition extends DataParserDefinition,
-> = GenericDataParserDefinition["checkers"][number] extends infer inferredChecker extends DataParserChecker
-	? NeverCoalescing<
+	GenericDataParserChecker extends DataParserChecker,
+> = IsNever<GenericDataParserChecker> extends true
+	? GenericValue
+	: NeverCoalescing<
 		UnionToIntersection<
-			inferredChecker extends any
-				? RefinementOfChecker<GenericValue, inferredChecker> extends infer InferredResult
+			GenericDataParserChecker extends any
+				? RefinementOfChecker<GenericValue, GenericDataParserChecker> extends infer InferredResult
 					? InferredResult[keyof InferredResult]
 					: never
 				: never
 		> extends infer InferredResult extends GenericValue
 			? (
-			& InferredResult
-			& GenericValue
+				& InferredResult
+				& GenericValue
 			)
 			: never,
 		GenericValue
-	>
-	: never;
+	>;
+
+export type ApplyRefinementOfDefinition<
+	GenericValue extends unknown,
+	GenericDataParserDefinition extends DataParserDefinition,
+> = ApplyRefinementOfChecker<
+	GenericValue,
+	Extract<GenericDataParserDefinition["checkers"], AnyTuple>[number]
+>;
