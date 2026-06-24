@@ -22,6 +22,7 @@ export * from "./templateLiteral";
 export * from "./tuple";
 export * from "./unknown";
 export * from "./recover";
+export * from "./errorHandler";
 
 export * from "../error";
 export { type DataParser } from "../base";

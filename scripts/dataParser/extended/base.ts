@@ -354,6 +354,40 @@ export abstract class DataParserBaseExtended<
 		);
 	}
 
+	public errorHandler<
+		GenericThis extends this = this,
+		const GenericDefinition extends PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionErrorHandler<
+				Output<this>
+			>,
+			"inner" | "errorMessageTransformers"
+		> = never,
+	>(
+		errorMessageTransformers: dataParsers.ErrorMessageTransformer | dataParsers.ErrorMessageTransformer[],
+		definition?: DCommon.FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionErrorHandler<
+					Output<this>
+				>,
+				"inner" | "errorMessageTransformers"
+			>,
+			GenericDefinition
+		>,
+	): DataParserErrorHandlerExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionErrorHandler,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					inner: GenericThis;
+				}
+			>
+		> {
+		return DataParserErrorHandlerExtended.create(
+			this,
+			errorMessageTransformers,
+			definition,
+		);
+	}
+
 	public static initExtended<
 		GenericConstructor extends DCommon.SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>,
 	>(
@@ -990,6 +1024,90 @@ export class DataParserRecoverExtended<
 			>
 		> {
 		return new DataParserRecoverExtended(this.prepareDefinition(inner, recoveredValue, definition)) as never;
+	}
+}
+
+export class DataParserErrorHandlerExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionErrorHandler =
+	dataParsers.DataParserDefinitionErrorHandler,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserErrorHandler)<
+		GenericDefinition,
+		Output<dataParsers.DataParserErrorHandler<GenericDefinition>>,
+		Input<dataParsers.DataParserErrorHandler<GenericDefinition>>
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserErrorHandlerExtended);
+	}
+
+	public declare addChecker: <
+		GenericChecker extends readonly [
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
+		],
+	>(
+		...args: DCommon.FixDeepFunctionInfer<
+			readonly [
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
+			],
+			GenericChecker
+		>
+	) => DataParserErrorHandlerExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
+
+	public declare refine: (
+		theFunction: (input: Output<this>) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>,
+	) => DataParserErrorHandlerExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
+		>
+	>;
+
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionErrorHandler<
+				Output<GenericDataParser>
+			>,
+			"inner" | "errorMessageTransformers"
+		> = never,
+	>(
+		inner: GenericDataParser,
+		errorMessageTransformers: dataParsers.ErrorMessageTransformer | dataParsers.ErrorMessageTransformer[],
+		definition?: DCommon.FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionErrorHandler<
+					Output<GenericDataParser>
+				>,
+				"inner" | "errorMessageTransformers"
+			>,
+			GenericDefinition
+		>,
+	): DataParserErrorHandlerExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionErrorHandler,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & {
+					inner: GenericDataParser;
+				}
+			>
+		> {
+		return new DataParserErrorHandlerExtended(
+			this.prepareDefinition(
+				inner,
+				errorMessageTransformers instanceof Array
+					? errorMessageTransformers
+					: [errorMessageTransformers],
+				definition,
+			),
+		) as never;
 	}
 }
 
