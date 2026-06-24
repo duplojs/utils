@@ -1,11 +1,11 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type AnyTuple } from "@scripts";
 import { createCleanKind } from "../kind";
-import { constrainedTypeKind, type GetConstraint, type ConstraintHandler } from "../constraint";
+import { constrainedTypeKind, type GetConstraint, type ConstraintHandler, type ConstraintError } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DEither from "../../either";
 import * as DArray from "../../array";
 import * as DObject from "../../object";
-import type * as DDataParser from "../../dataParser";
+import * as DDataParser from "../../dataParser";
 
 export const constraintsSetHandlerKind = createCleanKind("constraints-set-handler");
 
@@ -71,7 +71,11 @@ export interface ConstraintsSetHandler<
 		>
 		| DEither.Left<
 			"createConstraintsSetError",
-			DDataParser.DataParserError
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? ConstraintError<InferredConstraint["name"]>
+					: never
+				: never
 		>
 	);
 
@@ -93,7 +97,11 @@ export interface ConstraintsSetHandler<
 		>
 		| DEither.Left<
 			"createConstraintsSetError",
-			DDataParser.DataParserError
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? ConstraintError<InferredConstraint["name"]>
+					: never
+				: never
 		>
 	);
 
@@ -117,7 +125,11 @@ export interface ConstraintsSetHandler<
 		>
 		| DEither.Left<
 			"createConstraintsSetError",
-			DDataParser.DataParserError
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? ConstraintError<InferredConstraint["name"]>
+					: never
+				: never
 		>
 	);
 
@@ -190,7 +202,11 @@ export interface ConstraintsSetHandler<
 		>
 		| DEither.Left<
 			"createConstraintsSetError",
-			DDataParser.DataParserError
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? ConstraintError<InferredConstraint["name"]>
+					: never
+				: never
 		>
 	);
 
@@ -250,10 +266,11 @@ export class CreateConstraintsSetError extends kindHeritage(
 	Error,
 ) {
 	public constructor(
+		public constraintName: string,
 		public data: unknown,
 		public dataParserError: DDataParser.DataParserError,
 	) {
-		super({}, ["Error when create constrained type with set."]);
+		super({}, [`Error when create constrained type ${constraintName} with set.`]);
 	}
 }
 
@@ -336,7 +353,20 @@ export function createConstraintsSet<
 		(constraint) => constraintsSetHandlerKind.has(constraint)
 			? constraint.internal.constraints
 			: constraint,
-	) as ConstraintHandler[];
+	) as unknown as AnyTuple<ConstraintHandler>;
+
+	const sourceMapper = DArray.reduce(
+		constraints,
+		DArray.reduceFrom(new Map<DDataParser.DataParserChecker, ConstraintHandler>()),
+		({ element: constraint, next, lastValue: mapper }) => {
+			void DArray.map(
+				constraint.internal.checkers,
+				(checker) => mapper.set(checker, constraint),
+			);
+
+			return next(mapper);
+		},
+	);
 
 	const checkers = DArray.flatMap(
 		constraints,
@@ -368,9 +398,20 @@ export function createConstraintsSet<
 		const result = dataParserWithCheckers.parse(unwrap(data));
 
 		if (DEither.isLeft(result)) {
+			const dataParserError = unwrap(result);
+			const source = DArray.first(dataParserError.issues)?.getSource();
+
+			const constrainedSource = (
+				DDataParser.checkerKind.has(source)
+				&& sourceMapper.get(source)
+			) || DArray.first(constraints);
+
 			return DEither.left(
 				"createConstraintsSetError",
-				unwrap(result),
+				{
+					constraintName: constrainedSource.name,
+					dataParserError,
+				} satisfies ConstraintError,
 			);
 		} else if (constrainedTypeKind.has(data)) {
 			return DEither.right(
@@ -398,7 +439,12 @@ export function createConstraintsSet<
 		const result = create(data);
 
 		if (DEither.isLeft(result)) {
-			throw new CreateConstraintsSetError(data, unwrap(result));
+			const errorContent = unwrap(result);
+			throw new CreateConstraintsSetError(
+				errorContent.constraintName,
+				data,
+				errorContent.dataParserError,
+			);
 		} else {
 			return unwrap(result);
 		}

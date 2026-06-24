@@ -1,4 +1,4 @@
-import { DDataParser, DEither, type ExpectType } from "@scripts";
+import { DDataParser, DEither, pipe, type ExpectType } from "@scripts";
 
 const { extended } = DDataParser;
 
@@ -93,6 +93,49 @@ describe("extended.errorHandler", () => {
 		type check = ExpectType<
 			typeof result,
 			DEither.Error<DDataParser.DataParserError> | DEither.Success<number>,
+			"strict"
+		>;
+	});
+
+	it("creates an error handler parser from the extended namespace function with multiple transformers", () => {
+		const parser = pipe(
+			extended.string({ errorMessage: "initial-string-message" }),
+			(inner) => extended.errorHandler(
+				inner,
+				[
+					DDataParser.createErrorMessageTransformer(
+						DDataParser.numberKind,
+						() => "number-message",
+					),
+					DDataParser.createErrorMessageTransformer(
+						DDataParser.stringKind,
+						() => "string-message",
+					),
+				],
+			),
+		);
+
+		const result = parser.parse(12);
+
+		expect(result).toStrictEqual(
+			DEither.error(
+				DDataParser.errorKind.addTo({
+					issues: [
+						DDataParser.errorIssueKind.addTo({
+							expected: "string",
+							path: "",
+							data: 12,
+							message: "string-message",
+						}),
+					],
+					currentPath: [],
+				}),
+			),
+		);
+
+		type check = ExpectType<
+			typeof result,
+			DEither.Error<DDataParser.DataParserError> | DEither.Success<string>,
 			"strict"
 		>;
 	});

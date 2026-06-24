@@ -41,6 +41,18 @@ Quand vous devez appliquer plusieurs contraintes ensemble, vous pouvez créer un
   height="418px"
 />
 
+### Erreurs des ensembles de contraintes
+
+Les méthodes `create()` et `createWithUnknown()` d'un ensemble retournent un `Left<"createConstraintsSetError", C.ConstraintError<...>>` en cas d'échec.
+Cette erreur contient :
+- `constraintName` : le nom de la contrainte associée au checker qui a échoué
+- `dataParserError` : l'erreur complète du `DDataParser`
+
+Les méthodes `createOrThrow()` et `createWithUnknownOrThrow()` lèvent `C.CreateConstraintsSetError` avec les mêmes informations, plus la donnée reçue.
+
+Quand l'échec vient d'un checker de contrainte, `constraintName` correspond à la contrainte qui contient ce checker, même si cette contrainte provient d'un autre ensemble imbriqué.
+Si l'échec arrive avant l'exécution des contraintes, par exemple parce que la primitive ne peut pas parser la valeur, aucun checker de contrainte n'est responsable. Dans ce cas, l'implémentation utilise le premier nom de contrainte de l'ensemble comme fallback pour `constraintName`.
+
 ## Créer une contrainte
 
 Pour créer une contrainte, utilisez `C.createConstraint(name, primitive, checker)` puis récupérez son type via `C.GetConstraint`.

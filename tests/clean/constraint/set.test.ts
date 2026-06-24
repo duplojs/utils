@@ -34,7 +34,8 @@ describe("createConstraintsSet", () => {
 			>
 			| DEither.Left<
 				"createConstraintsSetError",
-				DDataParser.DataParserError
+				| DClean.ConstraintError<"string-min-3">
+				| DClean.ConstraintError<"string-max-5">
 			>,
 			"strict"
 		>;
@@ -55,13 +56,20 @@ describe("createConstraintsSet", () => {
 		expect(result).toStrictEqual(
 			DEither.left(
 				"createConstraintsSetError",
-				expectedError,
+				{
+					constraintName: "string-min-3",
+					dataParserError: expectedError,
+				},
 			),
 		);
 
 		type Check = ExpectType<
 			typeof result,
-			| DEither.Left<"createConstraintsSetError", DDataParser.DataParserError>
+			| DEither.Left<
+				"createConstraintsSetError",
+				| DClean.ConstraintError<"string-min-3">
+				| DClean.ConstraintError<"string-max-5">
+			>
 			| DEither.Right<
 				"createConstraintsSet",
 				& DClean.Primitive<"hi">
@@ -70,6 +78,173 @@ describe("createConstraintsSet", () => {
 			>,
 			"strict"
 		>;
+	});
+
+	it("create returns the constraint name linked to a failing checker", () => {
+		const strictLengthConstraint = DClean.createConstraint(
+			"strict-length",
+			DClean.String,
+			[
+				DDataParser.checkerStringMin(3),
+				DDataParser.checkerStringMax(5),
+			],
+		);
+		const suffixConstraint = DClean.createConstraint(
+			"suffix",
+			DClean.String,
+			DDataParser.checkerRefine<string>((value) => value.endsWith("-ok")),
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				strictLengthConstraint,
+				suffixConstraint,
+			],
+		);
+
+		const result = handler.create("abcdef");
+
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string.length <= 5",
+			"abcdef",
+			undefined,
+			strictLengthConstraint.internal.checkers[1]!,
+		);
+
+		expect(result).toStrictEqual(
+			DEither.left(
+				"createConstraintsSetError",
+				{
+					constraintName: "strict-length",
+					dataParserError: expectedError,
+				},
+			),
+		);
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.Left<
+				"createConstraintsSetError",
+				| DClean.ConstraintError<"strict-length">
+				| DClean.ConstraintError<"suffix">
+			>
+			| DEither.Right<
+				"createConstraintsSet",
+				& DClean.Primitive<"abcdef">
+				& DClean.ConstrainedType<"strict-length", string>
+				& DClean.ConstrainedType<"suffix", string>
+			>,
+			"strict"
+		>;
+	});
+
+	it("create returns the nested constraint name linked to a failing checker", () => {
+		const minConstraint = DClean.StringMin(3);
+		const suffixChecker = DDataParser.checkerRefine<string>(
+			(value) => value.endsWith("-ok"),
+		);
+		const suffixConstraint = DClean.createConstraint(
+			"suffix",
+			DClean.String,
+			suffixChecker,
+		);
+		const nestedConstraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				minConstraint,
+				suffixConstraint,
+			],
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			nestedConstraintsSet,
+		);
+
+		const result = handler.create("valid");
+
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"value matching refine predicate",
+			"valid",
+			undefined,
+			suffixChecker,
+		);
+
+		expect(result).toStrictEqual(
+			DEither.left(
+				"createConstraintsSetError",
+				{
+					constraintName: "suffix",
+					dataParserError: expectedError,
+				},
+			),
+		);
+	});
+
+	it("createOrThrow throws the constraint name linked to a failing checker", () => {
+		const minConstraint = DClean.StringMin(3);
+		const suffixChecker = DDataParser.checkerRefine<string>(
+			(value) => value.endsWith("-ok"),
+		);
+		const suffixConstraint = DClean.createConstraint(
+			"suffix",
+			DClean.String,
+			suffixChecker,
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				minConstraint,
+				suffixConstraint,
+			],
+		);
+
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"value matching refine predicate",
+			"valid",
+			undefined,
+			suffixChecker,
+		);
+
+		try {
+			handler.createOrThrow("valid");
+			expect.fail("Expected createOrThrow to throw.");
+		} catch (error) {
+			expect(error).toBeInstanceOf(DClean.CreateConstraintsSetError);
+			expect(error).toMatchObject({
+				constraintName: "suffix",
+				data: "valid",
+				dataParserError: expectedError,
+			});
+		}
+	});
+
+	it("create exposes the first constraint fallback when primitive parsing fails before constraints", () => {
+		const result = handler.create(12 as never);
+
+		const expectedError = DDataParser.createError();
+		DDataParser.addIssue(
+			expectedError,
+			"string",
+			12,
+			undefined,
+			DClean.String.internal.dataParser,
+		);
+
+		expect(result).toStrictEqual(
+			DEither.left(
+				"createConstraintsSetError",
+				{
+					constraintName: "string-min-3",
+					dataParserError: expectedError,
+				},
+			),
+		);
 	});
 
 	it("create keeps constraint metadata when input already constrained", () => {
