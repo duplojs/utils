@@ -325,4 +325,7 @@ export class DataParserObjectExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/object/index.md}
+ */
 export const object = detachObjectMethod(DataParserObjectExtended, "create");

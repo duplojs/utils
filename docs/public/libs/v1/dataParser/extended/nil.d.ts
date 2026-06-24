@@ -43,5 +43,33 @@ export declare class DataParserNilExtended<GenericDefinition extends dataParsers
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionNil>, GenericDefinition>): DataParserNilExtended<MergeDefinition<dataParsers.DataParserDefinitionNil, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates an extended data parser that accepts null.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.nil(definition?)` -> returns a nil parser
+ * 
+ * Accepts null (or the string "null" when coerce is enabled).
+ * 
+ * ```ts
+ * const parser = DPE.nil();
+ * const result = parser.parse(null);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: null
+ * }
+ * 
+ * const coerceParser = DPE.coerce.nil();
+ * const coerceResult = coerceParser.parse("null");
+ * 
+ * const nullableNil = DPE.nil().nullable();
+ * const nullableResult = nullableNil.parse(null);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/nil
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const nil: typeof DataParserNilExtended.create;
 export {};

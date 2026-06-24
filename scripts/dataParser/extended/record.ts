@@ -97,4 +97,7 @@ export class DataParserRecordExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/record/index.md}
+ */
 export const record = detachObjectMethod(DataParserRecordExtended, "create");

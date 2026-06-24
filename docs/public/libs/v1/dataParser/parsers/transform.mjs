@@ -38,6 +38,9 @@ class DataParserTransform extends DataParserBase.init(transformKind) {
         return new DataParserTransform(this.prepareDefinition(inner, theFunction, definition));
     }
 }
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 const transform = detachObjectMethod(DataParserTransform, "create");
 
 export { DataParserTransform, transform, transformKind };

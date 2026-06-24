@@ -54,4 +54,34 @@ export declare class DataParserNumber<GenericDefinition extends DataParserDefini
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionNumber> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionNumber>, GenericDefinition>): DataParserNumber<MergeDefinition<DataParserDefinitionNumber, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates a data parser for numbers.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.number(definition?)` -> returns a number parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a finite number, optionally applies coerce, and runs the configured checkers. `NaN`, `Infinity`, and `-Infinity` are rejected.
+ * 
+ * ```ts
+ * const parser = DP.number();
+ * const result = parser.parse(42);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: number
+ * }
+ * 
+ * const withCheckers = DP.number({
+ * 	checkers: [DP.checkerNumberMin(0), DP.checkerInt()],
+ * });
+ * 
+ * const coerceParser = DP.coerce.number();
+ * const coerceResult = coerceParser.parse("42");
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/number
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const number: typeof DataParserNumber.create;

@@ -15,6 +15,9 @@ class DataParserEmptyExtended extends base.DataParserBaseExtended.initExtended(e
         return new DataParserEmptyExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/empty/index.md}
+ */
 const empty = detachObjectMethod.detachObjectMethod(DataParserEmptyExtended, "create");
 
 exports.DataParserEmptyExtended = DataParserEmptyExtended;

@@ -42,5 +42,32 @@ export declare class DataParserEmptyExtended<GenericDefinition extends dataParse
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionEmpty> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionEmpty>, GenericDefinition>): DataParserEmptyExtended<MergeDefinition<dataParsers.DataParserDefinitionEmpty, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates an extended data parser that accepts undefined.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.empty(definition?)` -> returns an empty parser
+ * 
+ * Accepts undefined (or the string "undefined" when coerce is enabled).
+ * 
+ * ```ts
+ * const parser = DPE.empty();
+ * const result = parser.parse(undefined);
+ * if (E.isRight(result)) {
+ * 	// E.Success<undefined>
+ * }
+ * 
+ * const coerceParser = DPE.coerce.empty();
+ * const coerceResult = coerceParser.parse("undefined");
+ * 
+ * const optionalEmpty = DPE.empty().optional();
+ * const optionalResult = optionalEmpty.parse(undefined);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/empty
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const empty: typeof DataParserEmptyExtended.create;
 export {};

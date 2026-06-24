@@ -35,6 +35,9 @@ class DataParserEmpty extends DataParserBase.init(emptyKind) {
         return new DataParserEmpty(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/empty/index.md}
+ */
 const empty = detachObjectMethod(DataParserEmpty, "create");
 
 export { DataParserEmpty, empty, emptyKind };

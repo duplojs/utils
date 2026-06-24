@@ -80,4 +80,41 @@ export declare class DataParserRecord<GenericDefinition extends DataParserDefini
         value: GenericDataParserValue;
     }>>;
 }
+/**
+ * Creates a data parser for records with key and value parsers.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.record(key, value, definition?)` -> returns a record parser
+ * - Curried: not available
+ * 
+ * Validates that the input is an object and parses each key and value with the provided parsers.
+ * 
+ * ```ts
+ * const parser = DP.record(DP.string(), DP.number());
+ * const result = parser.parse({
+ * 	aKey: 1,
+ * 	bKey: 2,
+ * });
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: Record<string, number>
+ * }
+ * 
+ * const keyUnion = DP.union([DP.literal("xPos"), DP.literal("yPos")]);
+ * const strictKeys = DP.record(keyUnion, DP.boolean());
+ * const strictResult = strictKeys.parse({
+ * 	xPos: true,
+ * 	yPos: false,
+ * });
+ * 
+ * const withCheckers = DP.record(DP.string(), DP.string(), {
+ * 	checkers: [DP.checkerRefine((value) => Object.keys(value).length > 0)],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/record
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const record: typeof DataParserRecord.create;

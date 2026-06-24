@@ -42,6 +42,9 @@ class DataParserBigInt extends base.DataParserBase.init(bigIntKind) {
         return new DataParserBigInt(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/bigint/index.md}
+ */
 const bigint = detachObjectMethod.detachObjectMethod(DataParserBigInt, "create");
 
 exports.DataParserBigInt = DataParserBigInt;

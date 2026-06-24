@@ -56,5 +56,43 @@ export declare class DataParserLazyExtended<GenericDefinition extends dataParser
         getter: Memoized<GenericDataParser>;
     }>>;
 }
+/**
+ * Creates an extended lazy data parser resolved at runtime.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.lazy(getter, definition?)` -> returns a lazy parser
+ * 
+ * Defers parser creation until execution, useful for recursive schemas.
+ * 
+ * ```ts
+ * const parser = DPE.lazy(() => DPE.string());
+ * const result = parser.parse("lazy");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * interface RecursiveSchema {
+ * 	value: number;
+ * 	next?: RecursiveSchema;
+ * }
+ * 
+ * const recursive: DPE.DataParserExtended<RecursiveSchema> = DPE.lazy(
+ * 	() => DPE.object({
+ * 		value: DPE.number(),
+ * 		next: DPE.optional(recursive),
+ * 	}),
+ * );
+ * const recursiveResult = recursive.parse({
+ * 	value: 1,
+ * 	next: { value: 2 },
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/lazy
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const lazy: typeof DataParserLazyExtended.create;
 export {};

@@ -110,4 +110,7 @@ export class DataParserLazy<
 	}
 }
 
+/**
+ * {@include dataParser/classic/lazy/index.md}
+ */
 export const lazy = detachObjectMethod(DataParserLazy, "create");

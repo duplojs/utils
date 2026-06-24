@@ -35,6 +35,9 @@ class DataParserNil extends DataParserBase.init(nilKind) {
         return new DataParserNil(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/nil/index.md}
+ */
 const nil = detachObjectMethod(DataParserNil, "create");
 
 export { DataParserNil, nil, nilKind };

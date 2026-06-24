@@ -46,6 +46,9 @@ class DataParserArray extends DataParserBase.init(arrayKind) {
         return new DataParserArray(this.prepareDefinition(element, definition));
     }
 }
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 const array = detachObjectMethod(DataParserArray, "create");
 
 export { DataParserArray, array, arrayKind };

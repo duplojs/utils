@@ -61,6 +61,9 @@ class DataParserDate extends DataParserBase.init(dateKind) {
         return new DataParserDate(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 const date = detachObjectMethod(DataParserDate, "create");
 
 export { DataParserDate, date, dateKind };

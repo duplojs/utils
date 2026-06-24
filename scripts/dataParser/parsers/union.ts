@@ -152,4 +152,7 @@ export class DataParserUnion<
 	}
 }
 
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 export const union = detachObjectMethod(DataParserUnion, "create");

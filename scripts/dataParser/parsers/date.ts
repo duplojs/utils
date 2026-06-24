@@ -123,4 +123,7 @@ export class DataParserDate<
 	}
 }
 
+/**
+ * {@include dataParser/classic/date/index.md}
+ */
 export const date = detachObjectMethod(DataParserDate, "create");

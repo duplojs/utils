@@ -136,4 +136,7 @@ export class DataParserPipe<
 	}
 }
 
+/**
+ * {@include dataParser/classic/pipe/index.md}
+ */
 export const pipe = detachObjectMethod(DataParserPipe, "create");

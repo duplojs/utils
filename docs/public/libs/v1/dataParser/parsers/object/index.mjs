@@ -60,6 +60,9 @@ class DataParserObject extends DataParserBase.init(objectKind) {
         return new DataParserObject(this.prepareDefinition(shape, definition));
     }
 }
+/**
+ * {@include dataParser/classic/object/index.md}
+ */
 const object = detachObjectMethod(DataParserObject, "create");
 
 export { DataParserObject, object, objectKind };

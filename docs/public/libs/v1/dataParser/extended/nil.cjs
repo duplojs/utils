@@ -15,6 +15,9 @@ class DataParserNilExtended extends base.DataParserBaseExtended.initExtended(nil
         return new DataParserNilExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/nil/index.md}
+ */
 const nil = detachObjectMethod.detachObjectMethod(DataParserNilExtended, "create");
 
 exports.DataParserNilExtended = DataParserNilExtended;

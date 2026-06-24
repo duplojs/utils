@@ -67,6 +67,9 @@ class DataParserRecord extends base.DataParserBase.init(recordKind) {
         return new DataParserRecord(this.prepareDefinition(key, value, definition));
     }
 }
+/**
+ * {@include dataParser/classic/record/index.md}
+ */
 const record = detachObjectMethod.detachObjectMethod(DataParserRecord, "create");
 
 exports.findRecordRequiredKey = findRecordRequiredKey.findRecordRequiredKey;

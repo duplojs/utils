@@ -29,6 +29,9 @@ class DataParserLazy extends DataParserBase.init(lazyKind) {
         return new DataParserLazy(this.prepareDefinition(getter, definition));
     }
 }
+/**
+ * {@include dataParser/classic/lazy/index.md}
+ */
 const lazy = detachObjectMethod(DataParserLazy, "create");
 
 export { DataParserLazy, lazy, lazyKind };

@@ -301,6 +301,45 @@ export declare abstract class DataParserBaseExtended<GenericDefinition extends D
         inner: GenericThis;
         recoveredValue: GenericRecoveredValue;
     }>>;
+    /**
+     * Reassigns issue messages after the current extended parser has run.
+     * 
+     * **Supported call styles:**
+     * - Method: `dataParser.errorHandler(transformers, definition?)` -> returns an error handler parser
+     * 
+     * Runs the current parser, inspects every produced issue source, and replaces matching messages with the provided transformers.
+     * 
+     * ```ts
+     * const parser = DPE.number({ errorMessage: "invalid number" })
+     * 	.errorHandler(
+     * 		DP.createErrorMessageTransformer(
+     * 			DP.numberKind,
+     * 			() => "Expected a valid age.",
+     * 		),
+     * 	);
+     * const result = parser.parse("twenty");
+     * if (E.isLeft(result)) {
+     * 	const error = unwrap(result);
+     * 	// error.issues[0]?.message === "Expected a valid age."
+     * }
+     * 
+     * const objectParser = DPE.object({
+     * 	name: DPE.string(),
+     * }).errorHandler(DP.createErrorMessageTransformer(DP.stringKind, () => "Expected text."));
+     * 
+     * ```
+     * 
+     * @remarks
+     * Checkers added directly to the returned error handler run after message rewriting. Issues produced by those checkers keep their own `errorMessage` or the handler `definition.errorMessage`.
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/errorHandler
+     * 
+     * @namespace DPE
+     * 
+     */
+    errorHandler<GenericThis extends this = this, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionErrorHandler<Output<this>>, "inner" | "errorMessageTransformers"> = never>(errorMessageTransformers: dataParsers.ErrorMessageTransformer | dataParsers.ErrorMessageTransformer[], definition?: DCommon.FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionErrorHandler<Output<this>>, "inner" | "errorMessageTransformers">, GenericDefinition>): DataParserErrorHandlerExtended<MergeDefinition<dataParsers.DataParserDefinitionErrorHandler, DCommon.NeverCoalescing<GenericDefinition, {}> & {
+        inner: GenericThis;
+    }>>;
     static initExtended<GenericConstructor extends DCommon.SimplifyTopLevel<ReturnType<typeof DataParserBase.init>>>(dataParserConstructor: GenericConstructor): DataParserExtendedBaseInit<GenericConstructor>;
 }
 declare const DataParserArrayExtended_base: DataParserExtendedBaseInit<typeof dataParsers.DataParserArray>;
@@ -676,6 +715,61 @@ export declare class DataParserRecoverExtended<GenericDefinition extends dataPar
     static create<GenericDataParser extends DataParser, GenericRecoveredValue extends Output<GenericDataParser>, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue"> = never>(inner: GenericDataParser, recoveredValue: GenericRecoveredValue, definition?: DCommon.FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionRecover<Output<GenericDataParser>>, "inner" | "recoveredValue">, GenericDefinition>): DataParserRecoverExtended<MergeDefinition<dataParsers.DataParserDefinitionRecover, DCommon.NeverCoalescing<GenericDefinition, {}> & {
         inner: GenericDataParser;
         recoveredValue: GenericRecoveredValue;
+    }>>;
+}
+declare const DataParserErrorHandlerExtended_base: DataParserExtendedBaseInit<typeof dataParsers.DataParserErrorHandler>;
+export declare class DataParserErrorHandlerExtended<GenericDefinition extends dataParsers.DataParserDefinitionErrorHandler = dataParsers.DataParserDefinitionErrorHandler> extends DataParserErrorHandlerExtended_base<GenericDefinition, Output<dataParsers.DataParserErrorHandler<GenericDefinition>>, Input<dataParsers.DataParserErrorHandler<GenericDefinition>>> {
+    get classConstructor(): typeof DataParserErrorHandlerExtended & import("..").CheckedConstructorKind;
+    addChecker: <GenericChecker extends readonly [
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
+    ]>(...args: DCommon.FixDeepFunctionInfer<readonly [
+        DataParserChecker<Output<this>>,
+        ...DataParserChecker<Output<this>>[]
+    ], GenericChecker>) => DataParserErrorHandlerExtended<AddCheckersToDefinition<GenericDefinition, GenericChecker>>;
+    refine: (theFunction: (input: Output<this>) => boolean, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">>) => DataParserErrorHandlerExtended<AddCheckersToDefinition<GenericDefinition, readonly [dataParsers.CheckerRefineImplementation<Output<this>>]>>;
+    /**
+     * Creates an extended data parser that reassigns issue messages after a schema has run.
+     * 
+     * **Supported call styles:**
+     * - Method: `DPE.errorHandler(inner, transformers, definition?)` -> returns an error handler parser
+     * 
+     * Runs the inner parser, inspects every produced issue source, and replaces matching messages with the provided transformers.
+     * 
+     * ```ts
+     * const parser = DPE.errorHandler(
+     * 	DPE.number({ errorMessage: "invalid number" }),
+     * 	DP.createErrorMessageTransformer(
+     * 		DP.numberKind,
+     * 		() => "Expected a valid age.",
+     * 	),
+     * );
+     * const result = parser.parse("twenty");
+     * if (E.isLeft(result)) {
+     * 	const error = unwrap(result);
+     * 	// error.issues[0]?.message === "Expected a valid age."
+     * }
+     * 
+     * const withObject = DPE.errorHandler(
+     * 	DPE.object({
+     * 		name: DPE.string(),
+     * 	}),
+     * 	DP.createErrorMessageTransformer(DP.stringKind, () => "Expected text."),
+     * );
+     * const objectResult = withObject.parse({ name: 42 });
+     * 
+     * ```
+     * 
+     * @remarks
+     * Checkers added directly to the returned error handler run after message rewriting. Issues produced by those checkers keep their own `errorMessage` or the handler `definition.errorMessage`.
+     * 
+     * @see https://utils.duplojs.dev/en/v1/api/dataParser/errorHandler
+     * 
+     * @namespace DPE
+     * 
+     */
+    static create<GenericDataParser extends DataParser, const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionErrorHandler<Output<GenericDataParser>>, "inner" | "errorMessageTransformers"> = never>(inner: GenericDataParser, errorMessageTransformers: dataParsers.ErrorMessageTransformer | dataParsers.ErrorMessageTransformer[], definition?: DCommon.FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionErrorHandler<Output<GenericDataParser>>, "inner" | "errorMessageTransformers">, GenericDefinition>): DataParserErrorHandlerExtended<MergeDefinition<dataParsers.DataParserDefinitionErrorHandler, DCommon.NeverCoalescing<GenericDefinition, {}> & {
+        inner: GenericDataParser;
     }>>;
 }
 export interface DataParserExtended<GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBaseExtended<DataParserDefinition, GenericOutput, GenericInput> {

@@ -40,6 +40,9 @@ class DataParserNumber extends DataParserBase.init(numberKind) {
         return new DataParserNumber(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 const number = detachObjectMethod(DataParserNumber, "create");
 
 export { DataParserNumber, number, numberKind };

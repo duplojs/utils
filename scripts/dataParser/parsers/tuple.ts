@@ -243,4 +243,7 @@ export class DataParserTuple<
 	}
 }
 
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 export const tuple = detachObjectMethod(DataParserTuple, "create");

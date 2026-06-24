@@ -58,4 +58,7 @@ export class DataParserCheckerTimeMin extends DataParserCheckerBase.init(
 	}
 }
 
+/**
+ * {@include dataParser/classic/checkerTimeMin/index.md}
+ */
 export const checkerTimeMin = detachObjectMethod(DataParserCheckerTimeMin, "create");

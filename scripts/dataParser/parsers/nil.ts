@@ -97,4 +97,7 @@ export class DataParserNil<
 	}
 }
 
+/**
+ * {@include dataParser/classic/nil/index.md}
+ */
 export const nil = detachObjectMethod(DataParserNil, "create");

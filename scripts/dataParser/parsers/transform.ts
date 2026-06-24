@@ -153,4 +153,7 @@ export class DataParserTransform<
 	}
 }
 
+/**
+ * {@include dataParser/classic/transform/index.md}
+ */
 export const transform = detachObjectMethod(DataParserTransform, "create");

@@ -15,6 +15,9 @@ class DataParserLazyExtended extends base.DataParserBaseExtended.initExtended(la
         return new DataParserLazyExtended(this.prepareDefinition(getter, definition));
     }
 }
+/**
+ * {@include dataParser/extended/lazy/index.md}
+ */
 const lazy = detachObjectMethod.detachObjectMethod(DataParserLazyExtended, "create");
 
 exports.DataParserLazyExtended = DataParserLazyExtended;

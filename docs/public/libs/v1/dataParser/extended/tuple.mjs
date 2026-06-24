@@ -36,6 +36,9 @@ class DataParserTupleExtended extends DataParserBaseExtended.initExtended(DataPa
         return new DataParserTupleExtended(this.prepareDefinition(shape, definition));
     }
 }
+/**
+ * {@include dataParser/extended/tuple/index.md}
+ */
 const tuple = detachObjectMethod(DataParserTupleExtended, "create");
 
 export { DataParserTupleExtended, tuple };

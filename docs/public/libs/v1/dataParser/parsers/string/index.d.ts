@@ -54,4 +54,34 @@ export declare class DataParserString<GenericDefinition extends DataParserDefini
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<DataParserDefinitionString> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<DataParserDefinitionString>, GenericDefinition>): DataParserString<MergeDefinition<DataParserDefinitionString, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates a data parser for strings.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.string(definition?)` -> returns a string parser
+ * - Curried: not available
+ * 
+ * Validates that the input is a string, optionally applies coerce, and runs the configured checkers.
+ * 
+ * ```ts
+ * const parser = DP.string();
+ * const result = parser.parse("DuploJS");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const withCheckers = DP.string({
+ * 	checkers: [DP.checkerStringMin(3), DP.checkerStringMax(10)],
+ * });
+ * 
+ * const coerceParser = DP.coerce.string();
+ * const coerceResult = coerceParser.parse(123);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/string
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const string: typeof DataParserString.create;

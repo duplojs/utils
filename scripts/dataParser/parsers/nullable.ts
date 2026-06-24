@@ -119,4 +119,7 @@ export class DataParserNullable<
 	}
 }
 
+/**
+ * {@include dataParser/classic/nullable/index.md}
+ */
 export const nullable = detachObjectMethod(DataParserNullable, "create");

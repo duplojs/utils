@@ -68,4 +68,7 @@ export class DataParserUnknownExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/unknown/index.md}
+ */
 export const unknown = detachObjectMethod(DataParserUnknownExtended, "create");

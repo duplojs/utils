@@ -48,6 +48,9 @@ class DataParserObjectExtended extends DataParserBaseExtended.initExtended(DataP
         return new DataParserObjectExtended(this.prepareDefinition(shape, definition));
     }
 }
+/**
+ * {@include dataParser/extended/object/index.md}
+ */
 const object = detachObjectMethod(DataParserObjectExtended, "create");
 
 export { DataParserObjectExtended, object };

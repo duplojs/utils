@@ -27,6 +27,9 @@ class DataParserTimeExtended extends DataParserBaseExtended.initExtended(DataPar
         return new DataParserTimeExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/time/index.md}
+ */
 const time = detachObjectMethod(DataParserTimeExtended, "create");
 
 export { DataParserTimeExtended, time };

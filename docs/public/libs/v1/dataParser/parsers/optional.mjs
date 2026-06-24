@@ -32,6 +32,9 @@ class DataParserOptional extends DataParserBase.init(optionalKind) {
         return new DataParserOptional(this.prepareDefinition(inner, definition));
     }
 }
+/**
+ * {@include dataParser/classic/optional/index.md}
+ */
 const optional = detachObjectMethod(DataParserOptional, "create");
 
 export { DataParserOptional, optional, optionalKind };

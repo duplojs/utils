@@ -39,6 +39,9 @@ class DataParserStringExtended extends base.DataParserBaseExtended.initExtended(
         return new DataParserStringExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/string/index.md}
+ */
 const string = detachObjectMethod.detachObjectMethod(DataParserStringExtended, "create");
 /**
  * {@include dataParser/extended/email/index.md}

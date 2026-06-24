@@ -56,4 +56,34 @@ export declare class DataParserArray<GenericDefinition extends DataParserDefinit
         readonly element: GenericElement;
     }>>;
 }
+/**
+ * Creates a data parser for arrays of a given element parser.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.array(element, definition?)` -> returns an array parser
+ * - Curried: not available
+ * 
+ * Validates that the input is an array and validates each element with the provided parser.
+ * 
+ * ```ts
+ * const parser = DP.array(DP.string());
+ * const result = parser.parse(["a", "b"]);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string[]
+ * }
+ * 
+ * const withCheckers = DP.array(DP.number(), {
+ * 	checkers: [DP.checkerArrayMin(1), DP.checkerArrayMax(3)],
+ * });
+ * 
+ * const nested = DP.array(DP.array(DP.boolean()));
+ * const nestedResult = nested.parse([[true, false]]);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/array
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const array: typeof DataParserArray.create;

@@ -15,6 +15,9 @@ class DataParserBooleanExtended extends base.DataParserBaseExtended.initExtended
         return new DataParserBooleanExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/boolean/index.md}
+ */
 const boolean = detachObjectMethod.detachObjectMethod(DataParserBooleanExtended, "create");
 
 exports.DataParserBooleanExtended = DataParserBooleanExtended;

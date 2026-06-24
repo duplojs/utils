@@ -13,6 +13,9 @@ class DataParserUnknownExtended extends DataParserBaseExtended.initExtended(Data
         return new DataParserUnknownExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/unknown/index.md}
+ */
 const unknown = detachObjectMethod(DataParserUnknownExtended, "create");
 
 export { DataParserUnknownExtended, unknown };

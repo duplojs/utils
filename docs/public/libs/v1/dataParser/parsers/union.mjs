@@ -50,6 +50,9 @@ class DataParserUnion extends DataParserBase.init(unionKind) {
         return new DataParserUnion(this.prepareDefinition(options, definition));
     }
 }
+/**
+ * {@include dataParser/classic/union/index.md}
+ */
 const union = detachObjectMethod(DataParserUnion, "create");
 
 export { DataParserUnion, union, unionKind };

@@ -58,6 +58,9 @@ class DataParserTime extends DataParserBase.init(timeKind) {
         return new DataParserTime(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 const time = detachObjectMethod(DataParserTime, "create");
 
 export { DataParserTime, time, timeKind };

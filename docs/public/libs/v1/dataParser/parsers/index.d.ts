@@ -22,3 +22,4 @@ export * from "./transform";
 export * from "./tuple";
 export * from "./union";
 export * from "./unknown";
+export * from "./errorHandler";

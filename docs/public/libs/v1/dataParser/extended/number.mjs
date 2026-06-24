@@ -34,6 +34,9 @@ class DataParserNumberExtended extends DataParserBaseExtended.initExtended(DataP
         return new DataParserNumberExtended(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/extended/number/index.md}
+ */
 const number = detachObjectMethod(DataParserNumberExtended, "create");
 /**
  * {@include dataParser/extended/int/index.md}

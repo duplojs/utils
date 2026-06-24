@@ -52,6 +52,7 @@ var transform = require('./parsers/transform.cjs');
 var tuple = require('./parsers/tuple.cjs');
 var union = require('./parsers/union.cjs');
 var unknown = require('./parsers/unknown.cjs');
+var errorHandler = require('./parsers/errorHandler.cjs');
 
 /**
  * {@include dataParser/index.md}
@@ -210,3 +211,7 @@ exports.unionKind = union.unionKind;
 exports.DataParserUnknown = unknown.DataParserUnknown;
 exports.unknown = unknown.unknown;
 exports.unknownKind = unknown.unknownKind;
+exports.DataParserErrorHandler = errorHandler.DataParserErrorHandler;
+exports.createErrorMessageTransformer = errorHandler.createErrorMessageTransformer;
+exports.errorHandler = errorHandler.errorHandler;
+exports.errorHandlerKind = errorHandler.errorHandlerKind;

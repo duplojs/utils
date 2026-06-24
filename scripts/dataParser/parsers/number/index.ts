@@ -114,4 +114,7 @@ export class DataParserNumber<
 	}
 }
 
+/**
+ * {@include dataParser/classic/number/index.md}
+ */
 export const number = detachObjectMethod(DataParserNumber, "create");

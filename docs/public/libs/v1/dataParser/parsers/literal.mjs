@@ -33,6 +33,9 @@ class DataParserLiteral extends DataParserBase.init(literalKind) {
         return new DataParserLiteral(this.prepareDefinition(value, definition));
     }
 }
+/**
+ * {@include dataParser/classic/literal/index.md}
+ */
 const literal = detachObjectMethod(DataParserLiteral, "create");
 
 export { DataParserLiteral, literal, literalKind };

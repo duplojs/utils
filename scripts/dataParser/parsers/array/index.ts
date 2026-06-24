@@ -148,4 +148,7 @@ export class DataParserArray<
 	}
 }
 
+/**
+ * {@include dataParser/classic/array/index.md}
+ */
 export const array = detachObjectMethod(DataParserArray, "create");

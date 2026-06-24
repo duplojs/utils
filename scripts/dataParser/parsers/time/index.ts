@@ -122,4 +122,7 @@ export class DataParserTime<
 	}
 }
 
+/**
+ * {@include dataParser/classic/time/index.md}
+ */
 export const time = detachObjectMethod(DataParserTime, "create");

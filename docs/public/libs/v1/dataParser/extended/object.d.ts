@@ -276,5 +276,48 @@ export declare class DataParserObjectExtended<GenericDefinition extends dataPars
         readonly shape: GenericShape;
     }>>;
 }
+/**
+ * Creates an extended data parser for objects with a defined shape.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.object(shape, definition?)` -> returns an object parser
+ * 
+ * Validates objects and exposes object-specific helpers like pick, omit, partial, and required.
+ * 
+ * ```ts
+ * const userParser = DPE.object({
+ * 	id: DPE.number(),
+ * 	name: DPE.string(),
+ * 	email: DPE.string(),
+ * });
+ * 
+ * const picked = userParser.pick({
+ * 	id: true,
+ * 	name: true,
+ * });
+ * const result = picked.parse({
+ * 	id: 1,
+ * 	name: "Alex",
+ * });
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: { id: number; name: string }
+ * }
+ * 
+ * const omitted = userParser.omit({ email: true });
+ * const omitResult = omitted.parse({
+ * 	id: 1,
+ * 	name: "Alex",
+ * });
+ * 
+ * const partialUser = userParser.partial();
+ * const partialResult = partialUser.parse({ name: "Alex" });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/object
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const object: typeof DataParserObjectExtended.create;
 export {};

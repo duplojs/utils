@@ -68,4 +68,7 @@ export class DataParserDateExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/date/index.md}
+ */
 export const date = detachObjectMethod(DataParserDateExtended, "create");

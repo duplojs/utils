@@ -54,6 +54,9 @@ class DataParserTuple extends DataParserBase.init(tupleKind) {
         return new DataParserTuple(this.prepareDefinition(shape, definition));
     }
 }
+/**
+ * {@include dataParser/classic/tuple/index.md}
+ */
 const tuple = detachObjectMethod(DataParserTuple, "create");
 
 export { DataParserTuple, tuple, tupleKind };

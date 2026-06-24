@@ -115,7 +115,7 @@ export class DataParserErrorHandler<
 	}
 
 	/**
-	 * {@include dataParser/classic/nil/index.md}
+	 * {@include dataParser/classic/errorHandler/index.md}
 	 */
 	public static override create<
 		GenericDataParser extends DataParser,
@@ -157,4 +157,7 @@ export class DataParserErrorHandler<
 	}
 }
 
+/**
+ * {@include dataParser/classic/errorHandler/index.md}
+ */
 export const errorHandler = detachObjectMethod(DataParserErrorHandler, "create");

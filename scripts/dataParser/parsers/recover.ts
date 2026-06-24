@@ -123,4 +123,7 @@ export class DataParserRecover<
 	}
 }
 
+/**
+ * {@include dataParser/classic/recover/index.md}
+ */
 export const recover = detachObjectMethod(DataParserRecover, "create");

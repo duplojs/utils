@@ -45,6 +45,9 @@ class DataParserPipe extends base.DataParserBase.init(pipeKind) {
         return new DataParserPipe(this.prepareDefinition(input, output, definition));
     }
 }
+/**
+ * {@include dataParser/classic/pipe/index.md}
+ */
 const pipe = detachObjectMethod.detachObjectMethod(DataParserPipe, "create");
 
 exports.DataParserPipe = DataParserPipe;

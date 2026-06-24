@@ -122,5 +122,43 @@ export declare class DataParserTimeExtended<GenericDefinition extends dataParser
      */
     static create<const GenericDefinition extends PrepareDataParserDefinition<dataParsers.DataParserDefinitionTime> = never>(definition?: FixDeepFunctionInfer<PrepareDataParserDefinition<dataParsers.DataParserDefinitionTime>, GenericDefinition>): DataParserTimeExtended<MergeDefinition<dataParsers.DataParserDefinitionTime, NeverCoalescing<GenericDefinition, {}>>>;
 }
+/**
+ * Creates an extended parser for `TheTime` with chainable time-specific helpers.
+ * 
+ * Signature: `DPE.time(definition?)` → `DataParserTimeExtended`
+ * 
+ * This parser extends the classic time parser behavior and adds fluent methods like `.min(...)` and `.max(...)`.
+ * 
+ * ```ts
+ * const minTime = D.createTime(0, "millisecond");
+ * const maxTime = D.createTime(10000, "millisecond");
+ * 
+ * const parser = DPE.time()
+ * 	.min(minTime)
+ * 	.max(maxTime);
+ * const result = parser.parse("time10+");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: TheTime
+ * }
+ * 
+ * const coerceParser = DPE.coerce.time();
+ * const coerceResult = coerceParser.parse("10:20:00");
+ * // E.Error<DPE.DataParserError> | E.Success<D.TheTime>
+ * 
+ * const minOnly = DPE.time().min(minTime);
+ * const minResult = minOnly.parse("time0+");
+ * // E.Error<DPE.DataParserError> | E.Success<D.TheTime>
+ * ```
+ * 
+ * @remarks
+ * - `.min(...)` and `.max(...)` expect `TheTime` values.
+ * - `DPE.coerce.time()` enables the same coercion flow as classic parser mode.
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/time
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const time: typeof DataParserTimeExtended.create;
 export {};

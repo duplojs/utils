@@ -95,4 +95,34 @@ export declare class DataParserTemplateLiteral<GenericDefinition extends DataPar
         template: GenericTemplate;
     }>>;
 }
+/**
+ * Creates a data parser for deterministic template literal strings.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.templateLiteral(template, definition?)` -> returns a template literal parser
+ * - Curried: not available
+ * 
+ * Validates that the input matches the provided template literal shape and pattern. Nested sub-parsers must not include their own checkers; add template-level `checkerRefine` rules when needed.
+ * 
+ * ```ts
+ * const parser = DP.templateLiteral(["user-", DP.number()]);
+ * const result = parser.parse("user-42");
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string
+ * }
+ * 
+ * const orderParser = DP.templateLiteral(["order-", DP.literal("vip"), "-", DP.number()]);
+ * const orderResult = orderParser.parse("order-vip-12");
+ * 
+ * const withCheckers = DP.templateLiteral(["id-", DP.number()], {
+ * 	checkers: [DP.checkerRefine((value) => value.endsWith("0"))],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/templateLiteral
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const templateLiteral: typeof DataParserTemplateLiteral.create;

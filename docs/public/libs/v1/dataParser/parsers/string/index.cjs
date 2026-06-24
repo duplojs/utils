@@ -42,6 +42,9 @@ class DataParserString extends base.DataParserBase.init(stringKind) {
         return new DataParserString(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/string/index.md}
+ */
 const string = detachObjectMethod.detachObjectMethod(DataParserString, "create");
 
 exports.DataParserString = DataParserString;

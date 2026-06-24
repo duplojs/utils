@@ -38,6 +38,9 @@ class DataParserTemplateLiteral extends base.DataParserBase.init(templateLiteral
         return new DataParserTemplateLiteral(this.prepareDefinition(template, definition));
     }
 }
+/**
+ * {@include dataParser/classic/templateLiteral/index.md}
+ */
 const templateLiteral = detachObjectMethod.detachObjectMethod(DataParserTemplateLiteral, "create");
 
 exports.createTemplateLiteralPattern = createTemplateLiteralPattern.createTemplateLiteralPattern;

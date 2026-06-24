@@ -150,5 +150,33 @@ export declare class DataParserTupleExtended<GenericDefinition extends dataParse
         ]> extends true ? undefined : GenericDefinition["rest"];
     }>>;
 }
+/**
+ * Creates an extended data parser for tuples with a fixed shape.
+ * 
+ * **Supported call styles:**
+ * - Method: `DPE.tuple(shape, definition?)` -> returns a tuple parser
+ * 
+ * Validates array inputs against the provided tuple shape, with an optional rest parser.
+ * 
+ * ```ts
+ * const parser = DPE.tuple([DPE.string(), DPE.number()]);
+ * const result = parser.parse(["id", 42]);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: [string, number]
+ * }
+ * 
+ * const withRest = DPE.tuple([DPE.string()], { rest: DPE.number() });
+ * const restResult = withRest.parse(["a", 1, 2]);
+ * 
+ * const bools = DPE.tuple([DPE.boolean(), DPE.boolean()]);
+ * const boolResult = bools.parse([true, false]);
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/tuple
+ * 
+ * @namespace DPE
+ * 
+ */
 export declare const tuple: typeof DataParserTupleExtended.create;
 export {};

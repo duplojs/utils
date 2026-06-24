@@ -354,6 +354,9 @@ export abstract class DataParserBaseExtended<
 		);
 	}
 
+	/**
+	 * {@include dataParser/extended/base/errorHandler/index.md}
+	 */
 	public errorHandler<
 		GenericThis extends this = this,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -1071,6 +1074,9 @@ export class DataParserErrorHandlerExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/errorHandler/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<

@@ -35,6 +35,9 @@ class DataParserRecover extends base.DataParserBase.init(recoverKind) {
         return new DataParserRecover(this.prepareDefinition(inner, recoveredValue, definition));
     }
 }
+/**
+ * {@include dataParser/classic/recover/index.md}
+ */
 const recover = detachObjectMethod.detachObjectMethod(DataParserRecover, "create");
 
 exports.DataParserRecover = DataParserRecover;

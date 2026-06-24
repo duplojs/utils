@@ -221,4 +221,7 @@ export class DataParserObject<
 	}
 }
 
+/**
+ * {@include dataParser/classic/object/index.md}
+ */
 export const object = detachObjectMethod(DataParserObject, "create");

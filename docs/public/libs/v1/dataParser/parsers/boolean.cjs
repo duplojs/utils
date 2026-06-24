@@ -45,6 +45,9 @@ class DataParserBoolean extends base.DataParserBase.init(booleanKind) {
         return new DataParserBoolean(this.prepareDefinition(definition));
     }
 }
+/**
+ * {@include dataParser/classic/boolean/index.md}
+ */
 const boolean = detachObjectMethod.detachObjectMethod(DataParserBoolean, "create");
 
 exports.DataParserBoolean = DataParserBoolean;

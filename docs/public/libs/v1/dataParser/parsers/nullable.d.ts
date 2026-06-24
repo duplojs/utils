@@ -56,5 +56,35 @@ export declare class DataParserNullable<GenericDefinition extends DataParserDefi
         inner: GenericDataParser;
     }>>;
 }
+/**
+ * Creates a data parser that accepts null or the inner parser output.
+ * 
+ * **Supported call styles:**
+ * - Classic: `DP.nullable(inner, definition?)` -> returns a nullable parser
+ * - Curried: not available
+ * 
+ * Returns null (or a coalescing value) when input is null, otherwise parses with the inner parser.
+ * 
+ * ```ts
+ * const parser = DP.nullable(DP.string());
+ * const result = parser.parse(null);
+ * if (E.isRight(result)) {
+ * 	const value = unwrap(result);
+ * 	// value: string | null
+ * }
+ * 
+ * const withCoalescing = DP.nullable(DP.number(), { coalescingValue: 0 });
+ * const coalesced = withCoalescing.parse(null);
+ * 
+ * const withCheckers = DP.nullable(DP.boolean(), {
+ * 	checkers: [DP.checkerRefine((value) => value !== null)],
+ * });
+ * ```
+ * 
+ * @see https://utils.duplojs.dev/en/v1/api/dataParser/nullable
+ * 
+ * @namespace DP
+ * 
+ */
 export declare const nullable: typeof DataParserNullable.create;
 export {};

@@ -252,4 +252,7 @@ export class DataParserRecord<
 	}
 }
 
+/**
+ * {@include dataParser/classic/record/index.md}
+ */
 export const record = detachObjectMethod(DataParserRecord, "create");

@@ -279,4 +279,7 @@ export class DataParserTemplateLiteral<
 	}
 }
 
+/**
+ * {@include dataParser/classic/templateLiteral/index.md}
+ */
 export const templateLiteral = detachObjectMethod(DataParserTemplateLiteral, "create");

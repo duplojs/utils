@@ -29,6 +29,9 @@ class DataParserCheckerTimeMax extends baseChecker.DataParserCheckerBase.init(ch
         });
     }
 }
+/**
+ * {@include dataParser/classic/checkerTimeMax/index.md}
+ */
 const checkerTimeMax = detachObjectMethod.detachObjectMethod(DataParserCheckerTimeMax, "create");
 
 exports.DataParserCheckerTimeMax = DataParserCheckerTimeMax;

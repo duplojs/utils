@@ -119,4 +119,7 @@ export class DataParserOptional<
 	}
 }
 
+/**
+ * {@include dataParser/classic/optional/index.md}
+ */
 export const optional = detachObjectMethod(DataParserOptional, "create");

@@ -2153,6 +2153,15 @@
               "name": "empty.mjs"
             },
             {
+              "name": "errorHandler.cjs"
+            },
+            {
+              "name": "errorHandler.d.ts"
+            },
+            {
+              "name": "errorHandler.mjs"
+            },
+            {
               "name": "index.cjs"
             },
             {
@@ -2781,6 +2790,15 @@
             },
             {
               "name": "empty.mjs"
+            },
+            {
+              "name": "errorHandler.cjs"
+            },
+            {
+              "name": "errorHandler.d.ts"
+            },
+            {
+              "name": "errorHandler.mjs"
             },
             {
               "name": "index.d.ts"
