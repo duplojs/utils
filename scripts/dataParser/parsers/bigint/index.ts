@@ -27,7 +27,10 @@ export class DataParserBigInt<
 			bigint,
 			GenericDefinition
 		>,
-		bigint
+		ApplyRefinementOfDefinition<
+			bigint,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserBigInt);

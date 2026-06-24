@@ -25,7 +25,10 @@ export class DataParserEmpty<
 			undefined,
 			GenericDefinition
 		>,
-		undefined
+		ApplyRefinementOfDefinition<
+			undefined,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserEmpty);

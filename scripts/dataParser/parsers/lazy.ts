@@ -29,7 +29,10 @@ export class DataParserLazy<
 			Output<GenericDefinition["getter"]["value"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["getter"]["value"]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["getter"]["value"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserLazy);

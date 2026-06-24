@@ -31,7 +31,10 @@ export class DataParserUnion<
 			Output<GenericDefinition["options"][number]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["options"][number]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["options"][number]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserUnion);

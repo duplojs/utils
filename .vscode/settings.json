@@ -23,5 +23,5 @@
 	"js/ts.format.enabled": false,
 	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
 	"js/ts.updateImportsOnFileMove.enabled": "prompt",
-	"workbench.sash.size": 20
+	"workbench.sash.size": 8
 }

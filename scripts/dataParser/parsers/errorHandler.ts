@@ -51,7 +51,10 @@ export class DataParserErrorHandler<
 			Output<GenericDefinition["inner"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["inner"]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserErrorHandler);

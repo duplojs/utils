@@ -25,7 +25,10 @@ export class DataParserNil<
 			null,
 			GenericDefinition
 		>,
-		null
+		ApplyRefinementOfDefinition<
+			null,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserNil);

@@ -237,7 +237,10 @@ export function createConstraint<
 	>,
 ): ConstraintHandler<
 		GenericName,
-		GenericPrimitiveValue,
+		DDataParser.ApplyRefinementOfChecker<
+			GenericPrimitiveValue,
+			DArray.ArrayCoalescing<GenericChecker>[number]
+		>,
 		DArray.ArrayCoalescing<GenericChecker>,
 		GenericPrimitiveInput
 	> {
@@ -330,8 +333,8 @@ createConstraint.overrideHandler = createOverride<ConstraintHandler>("@duplojs/u
 
 export type GetConstraint<
 	GenericConstrainHandler extends ConstraintHandler,
-	GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>
-	= DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>,
+	GenericValue extends DDataParser.Output<GenericConstrainHandler["internal"]["dataParser"]>
+	= DDataParser.Output<GenericConstrainHandler["internal"]["dataParser"]>,
 > = Extract<
 	ConstrainedType<
 		GenericConstrainHandler["name"],

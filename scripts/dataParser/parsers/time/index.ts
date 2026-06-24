@@ -29,7 +29,10 @@ export class DataParserTime<
 			DDate.TheTime,
 			GenericDefinition
 		>,
-		DDate.TheTime | number | DDate.SerializedTheTime
+		ApplyRefinementOfDefinition<
+			DDate.TheTime | number | DDate.SerializedTheTime,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserTime);

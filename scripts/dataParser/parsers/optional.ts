@@ -35,7 +35,10 @@ export class DataParserOptional<
 				: Output<GenericDefinition["inner"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["inner"]> | undefined
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]> | undefined,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserOptional);

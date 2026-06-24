@@ -35,7 +35,10 @@ export class DataParserNullable<
 				: Output<GenericDefinition["inner"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["inner"]> | null
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]> | null,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserNullable);

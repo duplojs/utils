@@ -272,7 +272,10 @@ export function createNewType<
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
-	DeepReadonly<DDataParser.Output<GenericDataParser>>,
+	DDataParser.ApplyRefinementOfChecker<
+		DeepReadonly<DDataParser.Output<GenericDataParser>>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	>,
 	GenericConstraints,
 	IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
 		? never
@@ -296,7 +299,10 @@ export function createNewType<
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
-	DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
+	DDataParser.ApplyRefinementOfChecker<
+		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	>,
 	NoInfer<GenericConstraints>,
 	GenericPrimitiveHandler extends PrimitiveHandler<any, any, infer InferredInput>
 		? InferredInput

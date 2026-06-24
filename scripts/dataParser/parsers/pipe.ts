@@ -30,7 +30,10 @@ export class DataParserPipe<
 			Output<GenericDefinition["output"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["input"]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["input"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserPipe);

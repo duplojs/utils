@@ -32,7 +32,10 @@ export class DataParserLiteral<
 			GenericDefinition["value"][number],
 			GenericDefinition
 		>,
-		GenericDefinition["value"][number]
+		ApplyRefinementOfDefinition<
+			GenericDefinition["value"][number],
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserLiteral);

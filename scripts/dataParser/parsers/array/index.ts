@@ -31,7 +31,10 @@ export class DataParserArray<
 			Output<GenericDefinition["element"]>[],
 			GenericDefinition
 		>,
-		Input<GenericDefinition["element"]>[]
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["element"]>[],
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserArray);

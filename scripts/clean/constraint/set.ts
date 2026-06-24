@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type AnyTuple } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type AnyTuple, type IsNever } from "@scripts";
 import { createCleanKind } from "../kind";
 import { constrainedTypeKind, type GetConstraint, type ConstraintHandler, type ConstraintError } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
@@ -340,12 +340,18 @@ export function createConstraintsSet<
 	GenericPrimitiveValue extends EligiblePrimitive,
 	GenericPrimitiveInput extends unknown,
 	const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never,
+	GenericConstraints extends ExtractConstraintSetConstraintHandlers<
+		GenericConstrainHandler
+	> = ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>,
 >(
 	primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,
 ): ConstraintsSetHandler<
-		GenericPrimitiveValue,
-		ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>,
+		DDataParser.ApplyRefinementOfChecker<
+			GenericPrimitiveValue,
+			GenericConstraints[number]["internal"]["checkers"][number]
+		>,
+		GenericConstraints,
 		GenericPrimitiveInput
 	> {
 	const constraints = DArray.flatMap(
@@ -491,6 +497,7 @@ createConstraintsSet.overrideHandler = createOverride<ConstraintsSetHandler>("@d
 
 export type GetConstraints<
 	GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>,
+	GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = never,
 > = Extract<
 	GenericHandler extends any
 		? & UnionToIntersection<
@@ -500,6 +507,11 @@ export type GetConstraints<
 					: never
 				: never
 		>
+		& (
+				IsNever<GenericValue> extends true
+					? unknown
+					: Primitive<GenericValue>
+			)
 		: never,
 	any
 >;

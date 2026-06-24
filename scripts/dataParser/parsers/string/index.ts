@@ -27,7 +27,10 @@ export class DataParserString<
 			string,
 			GenericDefinition
 		>,
-		string
+		ApplyRefinementOfDefinition<
+			string,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserString);

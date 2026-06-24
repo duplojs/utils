@@ -30,7 +30,10 @@ export class DataParserRecover<
 			GenericDefinition["recoveredValue"],
 			GenericDefinition
 		>,
-		Input<GenericDefinition["inner"]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserRecover);

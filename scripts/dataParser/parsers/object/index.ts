@@ -84,7 +84,10 @@ export class DataParserObject<
 			DataParserObjectShapeOutput<GenericDefinition["shape"]>,
 			GenericDefinition
 		>,
-		DataParserObjectShapeInput<GenericDefinition["shape"]>
+		ApplyRefinementOfDefinition<
+			DataParserObjectShapeInput<GenericDefinition["shape"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserObject);

@@ -23,7 +23,10 @@ export class DataParserUnknown<
 			unknown,
 			GenericDefinition
 		>,
-		unknown
+		ApplyRefinementOfDefinition<
+			unknown,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserUnknown);

@@ -179,9 +179,12 @@ export class DataParserTemplateLiteral<
 			>,
 			GenericDefinition
 		>,
-		NeverCoalescing<
-			TemplateLiteralShapeInput<GenericDefinition["template"]>,
-			string
+		ApplyRefinementOfDefinition<
+			NeverCoalescing<
+				TemplateLiteralShapeInput<GenericDefinition["template"]>,
+				string
+			>,
+			GenericDefinition
 		>
 	> {
 	public get classConstructor() {

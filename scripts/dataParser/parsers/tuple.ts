@@ -103,9 +103,12 @@ export class DataParserTuple<
 			>,
 			GenericDefinition
 		>,
-		DataParserTupleShapeInput<
-			GenericDefinition["shape"],
-			GenericDefinition["rest"]
+		ApplyRefinementOfDefinition<
+			DataParserTupleShapeInput<
+				GenericDefinition["shape"],
+				GenericDefinition["rest"]
+			>,
+			GenericDefinition
 		>
 	> {
 	public get classConstructor() {

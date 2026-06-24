@@ -37,7 +37,10 @@ export class DataParserTransform<
 			DataParserTransformOutput<GenericDefinition["theFunction"]>,
 			GenericDefinition
 		>,
-		Input<GenericDefinition["inner"]>
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserTransform);

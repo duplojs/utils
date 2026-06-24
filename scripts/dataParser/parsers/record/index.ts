@@ -103,7 +103,10 @@ export class DataParserRecord<
 			DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>,
 			GenericDefinition
 		>,
-		DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>
+		ApplyRefinementOfDefinition<
+			DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserRecord);

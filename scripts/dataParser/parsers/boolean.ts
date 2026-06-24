@@ -25,7 +25,10 @@ export class DataParserBoolean<
 			boolean,
 			GenericDefinition
 		>,
-		boolean
+		ApplyRefinementOfDefinition<
+			boolean,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserBoolean);
