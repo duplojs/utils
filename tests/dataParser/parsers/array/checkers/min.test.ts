@@ -18,6 +18,12 @@ describe("DDataParser array checker min", () => {
 			"strict"
 		>;
 
+		type checkInput = ExpectType<
+			DDataParser.Input<typeof schema>,
+			[string, string, ...string[]] & string[],
+			"strict"
+		>;
+
 		expect(schema.parse(["a", "b"])).toStrictEqual(DEither.success(["a", "b"]));
 		expect(schema.parse(["one", "two", "three"])).toStrictEqual(
 			DEither.success(["one", "two", "three"]),

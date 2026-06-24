@@ -1,6 +1,24 @@
 import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser bigint", () => {
+	it("refines output and input with predicate checker", () => {
+		const schema = DDataParser.bigint().addChecker(
+			DDataParser.checkerRefine((value): value is 42n => value === 42n),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			42n,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof schema>,
+			42n,
+			"strict"
+		>;
+	});
+
 	it("create data parser with checker", () => {
 		const dataParser = DDataParser.bigint({
 			checkers: [

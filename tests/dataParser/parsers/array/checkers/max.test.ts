@@ -18,6 +18,12 @@ describe("DDataParser array checker max", () => {
 			"strict"
 		>;
 
+		type checkInput = ExpectType<
+			DDataParser.Input<typeof schema>,
+			string[] & DArray.MaxElements<3>,
+			"strict"
+		>;
+
 		expect(schema.parse(["a", "b"])).toStrictEqual(DEither.success(["a", "b"]));
 		expect(schema.parse(["one", "two", "three"])).toStrictEqual(
 			DEither.success(["one", "two", "three"]),

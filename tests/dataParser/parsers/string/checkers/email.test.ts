@@ -11,6 +11,12 @@ describe("DDataParser string checker email", () => {
 			`${string}@${string}.${string}`,
 			"strict"
 		>;
+
+		type checkInput = ExpectType<
+			DDataParser.Input<typeof schema>,
+			`${string}@${string}.${string}`,
+			"strict"
+		>;
 	});
 
 	it("fails for invalid email", () => {
