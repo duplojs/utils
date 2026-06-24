@@ -1,6 +1,6 @@
 import { type UnionToIntersection, type AnyFunction, type AnyTuple, type GetKindValue, type Kind, type Unwrap, kindClass } from "@scripts/common";
 import { createCleanKind } from "./kind";
-import type * as DEither from "@scripts/either";
+import * as DEither from "@scripts/either";
 
 export const evidenceKind = createCleanKind<
 	"evidence",
@@ -148,6 +148,35 @@ export function hasEvidence(
 	}
 
 	return false;
+}
+
+export interface EvidenceResult<
+	GenericInformation extends string,
+	GenericValue extends object,
+> extends DEither.Result<
+		GenericInformation,
+		& GenericValue
+		& Evidence<GenericInformation>
+	> {
+}
+
+/**
+ * {@include clean/evidenceResult/index.md}
+ */
+export function evidenceResult<
+	GenericInformation extends string,
+	GenericValue extends object,
+>(
+	information: GenericInformation,
+	value: GenericValue,
+): EvidenceResult<
+		GenericInformation,
+		GenericValue
+	> {
+	return DEither.result(
+		information,
+		appendEvidence(value, information),
+	);
 }
 
 export type GetEvidenceResult<

@@ -1,4 +1,4 @@
-import { DClean, pipe, type ExpectType, when } from "@scripts";
+import { DClean, DEither, pipe, type ExpectType, when } from "@scripts";
 
 describe("ArrayWithEvidence", () => {
 	it("behaves like an array and exposes its evidence", () => {
@@ -278,6 +278,95 @@ describe("appendEvidence", () => {
 		type Check = ExpectType<
 			typeof result,
 			typeof input & DClean.Evidence<"from-pipe">,
+			"strict"
+		>;
+	});
+});
+
+describe("evidenceResult", () => {
+	it("creates a result with the provided information and an evidenced value", () => {
+		const input = {
+			id: 1,
+			name: "Ada",
+		};
+
+		const result = DClean.evidenceResult("created", input);
+		const value = DEither.unwrapRightOrThrow(result);
+
+		expect(DEither.resultKind.has(result)).toBe(true);
+		expect(DEither.hasInformation(result, "created")).toBe(true);
+		expect(value).not.toBe(input);
+		expect(value.id).toBe(1);
+		expect(value.name).toBe("Ada");
+		expect(DClean.evidenceKind.getValue(value)).toStrictEqual({
+			created: null,
+		});
+
+		type ResultCheck = ExpectType<
+			typeof result,
+			DClean.EvidenceResult<"created", typeof input>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			typeof input & DClean.Evidence<"created">,
+			"strict"
+		>;
+	});
+
+	it("keeps existing evidence while adding the result information as evidence", () => {
+		const input = DClean.appendEvidence(
+			{
+				userId: "user-1",
+			},
+			"parsed",
+		);
+
+		const result = DClean.evidenceResult("validated", input);
+		const value = DEither.unwrapRightOrThrow(result);
+
+		expect(DEither.hasInformation(result, "validated")).toBe(true);
+		expect(DClean.evidenceKind.getValue(value)).toStrictEqual({
+			parsed: null,
+			validated: null,
+		});
+
+		type ResultCheck = ExpectType<
+			typeof result,
+			DClean.EvidenceResult<"validated", typeof input>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			typeof input & DClean.Evidence<"validated">,
+			"strict"
+		>;
+	});
+
+	it("works in a pipe chain", () => {
+		const input = {
+			email: "ada@example.com",
+		};
+
+		const result = pipe(
+			input,
+			(value) => DClean.evidenceResult("loaded", value),
+		);
+		const value = DEither.unwrapRightOrThrow(result);
+
+		expect(DEither.hasInformation(result, "loaded")).toBe(true);
+		expect(DClean.evidenceKind.getValue(value)).toStrictEqual({
+			loaded: null,
+		});
+
+		type ResultCheck = ExpectType<
+			typeof result,
+			DClean.EvidenceResult<"loaded", typeof input>,
+			"strict"
+		>;
+		type ValueCheck = ExpectType<
+			typeof value,
+			typeof input & DClean.Evidence<"loaded">,
 			"strict"
 		>;
 	});
