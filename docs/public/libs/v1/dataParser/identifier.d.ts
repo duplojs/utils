@@ -9,95 +9,95 @@ import { type DataParser } from "./base";
  */
 export declare const identifier: {
     <GenericKindHandler extends import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/empty", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/nil", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/string", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/optional", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/record", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/recover", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/error-handler", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: unknown;
         output: unknown;
+        input: unknown;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: string;
         output: string;
+        input: string;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: {
-            [x: string]: unknown;
-            [x: number]: unknown;
-        };
         output: {
             [x: string]: unknown;
             [x: number]: unknown;
         };
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: number;
         output: number;
+        input: number;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: import("./parsers").LiteralValue;
         output: import("./parsers").LiteralValue;
+        input: import("./parsers").LiteralValue;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: unknown[];
         output: unknown[];
+        input: unknown[];
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: bigint;
         output: bigint;
+        input: bigint;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: boolean;
         output: boolean;
+        input: boolean;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
         output: import("../date").TheDate;
+        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;
         output: import("../date").TheTime;
+        input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: null;
         output: null;
+        input: null;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: undefined;
         output: undefined;
+        input: undefined;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Record<never, unknown>;
         output: Record<never, unknown>;
+        input: Record<never, unknown>;
     }>>, GenericInput extends unknown, GenericGroupedKind extends import("../common").UnionToIntersection<GenericKindHandler extends import("../common").KindHandler<import("../common").KindDefinition<string, unknown>> ? import("../common").Kind<GenericKindHandler["definition"], GenericKindHandler["definition"]["value"]> : never>>(kind: GenericKindHandler | GenericKindHandler[]): (input: GenericInput) => input is (import("../common").IsEqual<import("../common").IsEqual<false | (GenericInput extends any ? import("../common").IsEqual<GenericInput, DataParser<unknown, unknown>> : never), boolean>, true> extends true ? Extract<DataParser<unknown, unknown>, GenericGroupedKind> | Extract<import("./parsers").DataParserString<import("./parsers").DataParserDefinitionString>, GenericGroupedKind> | Extract<import("./parsers").DataParserObject<import("./parsers").DataParserDefinitionObject<Record<string | number, unknown>>>, GenericGroupedKind> | Extract<import("./parsers").DataParserNumber<import("./parsers").DataParserDefinitionNumber>, GenericGroupedKind> | Extract<import("./parsers").DataParserLiteral<import("./parsers").DataParserDefinitionLiteral<import("./parsers").LiteralValue>>, GenericGroupedKind> | Extract<import("./parsers").DataParserUnion<import("./parsers").DataParserDefinitionUnion<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserArray<import("./parsers").DataParserDefinitionArray<unknown[]>>, GenericGroupedKind> | Extract<import("./parsers").DataParserBigInt<import("./parsers").DataParserDefinitionBigInt>, GenericGroupedKind> | Extract<import("./parsers").DataParserTuple<import("./parsers").DataParserDefinitionTuple<unknown[]>>, GenericGroupedKind> | Extract<import("./parsers").DataParserTransform<import("./parsers").DataParserDefinitionTransform<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserBoolean<import("./parsers").DataParserDefinitionBoolean>, GenericGroupedKind> | Extract<import("./parsers").DataParserDate<import("./parsers").DataParserDefinitionDate>, GenericGroupedKind> | Extract<import("./parsers").DataParserTime<import("./parsers").DataParserDefinitionTime>, GenericGroupedKind> | Extract<import("./parsers").DataParserNil<import("./parsers").DataParserDefinitionNil>, GenericGroupedKind> | Extract<import("./parsers").DataParserEmpty<import("./parsers").DataParserDefinitionEmpty>, GenericGroupedKind> | Extract<import("./parsers").DataParserTemplateLiteral<import("./parsers").DataParserDefinitionTemplateLiteral<string>>, GenericGroupedKind> | Extract<import("./parsers").DataParserPipe<import("./parsers").DataParserDefinitionPipe<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserNullable<import("./parsers").DataParserDefinitionNullable<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserOptional<import("./parsers").DataParserDefinitionOptional<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserLazy<import("./parsers").DataParserDefinitionLazy<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserUnknown<import("./parsers").DataParserDefinitionUnknown>, GenericGroupedKind> | Extract<import("./parsers").DataParserRecord<import("./parsers").DataParserDefinitionRecord<Record<string, unknown>>>, GenericGroupedKind> | Extract<import("./parsers").DataParserRecover<import("./parsers").DataParserDefinitionRecover<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserErrorHandler<import("./parsers").DataParserDefinitionErrorHandler<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserExtended<unknown, unknown>, GenericGroupedKind> | Extract<import("./extended").DataParserStringExtended<import("./parsers").DataParserDefinitionString>, GenericGroupedKind> | Extract<import("./extended").DataParserObjectExtended<import("./parsers").DataParserDefinitionObject<Record<string | number, unknown>>>, GenericGroupedKind> | Extract<import("./extended").DataParserNumberExtended<import("./parsers").DataParserDefinitionNumber>, GenericGroupedKind> | Extract<import("./extended").DataParserLiteralExtended<import("./parsers").DataParserDefinitionLiteral<import("./parsers").LiteralValue>>, GenericGroupedKind> | Extract<import("./extended").DataParserUnionExtended<import("./parsers").DataParserDefinitionUnion<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserArrayExtended<import("./parsers").DataParserDefinitionArray<unknown[]>>, GenericGroupedKind> | Extract<import("./extended").DataParserBigIntExtended<import("./parsers").DataParserDefinitionBigInt>, GenericGroupedKind> | Extract<import("./extended").DataParserTupleExtended<import("./parsers").DataParserDefinitionTuple<unknown[]>>, GenericGroupedKind> | Extract<import("./extended").DataParserTransformExtended<import("./parsers").DataParserDefinitionTransform<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserBooleanExtended<import("./parsers").DataParserDefinitionBoolean>, GenericGroupedKind> | Extract<import("./extended").DataParserDateExtended<import("./parsers").DataParserDefinitionDate>, GenericGroupedKind> | Extract<import("./extended").DataParserTimeExtended<import("./parsers").DataParserDefinitionTime>, GenericGroupedKind> | Extract<import("./extended").DataParserNilExtended<import("./parsers").DataParserDefinitionNil>, GenericGroupedKind> | Extract<import("./extended").DataParserEmptyExtended<import("./parsers").DataParserDefinitionEmpty>, GenericGroupedKind> | Extract<import("./extended").DataParserTemplateLiteralExtended<import("./parsers").DataParserDefinitionTemplateLiteral<string>>, GenericGroupedKind> | Extract<import("./extended").DataParserPipeExtended<import("./parsers").DataParserDefinitionPipe<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserNullableExtended<import("./parsers").DataParserDefinitionNullable<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserOptionalExtended<import("./parsers").DataParserDefinitionOptional<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserLazyExtended<import("./parsers").DataParserDefinitionLazy<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserUnknownExtended<import("./parsers").DataParserDefinitionUnknown>, GenericGroupedKind> | Extract<import("./extended").DataParserRecordExtended<import("./parsers").DataParserDefinitionRecord<Record<string, unknown>>>, GenericGroupedKind> | Extract<import("./extended").DataParserRecoverExtended<import("./parsers").DataParserDefinitionRecover<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserErrorHandlerExtended<import("./parsers").DataParserDefinitionErrorHandler<unknown>>, GenericGroupedKind> : never) | Extract<GenericInput, GenericGroupedKind>;
     <GenericKindHandler extends import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/empty", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/nil", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/string", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/optional", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/record", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/recover", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/error-handler", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/extended", unknown>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: unknown;
         output: unknown;
+        input: unknown;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: string;
         output: string;
+        input: string;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: {
-            [x: string]: unknown;
-            [x: number]: unknown;
-        };
         output: {
             [x: string]: unknown;
             [x: number]: unknown;
         };
+        input: {
+            [x: string]: unknown;
+            [x: number]: unknown;
+        };
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: number;
         output: number;
+        input: number;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: import("./parsers").LiteralValue;
         output: import("./parsers").LiteralValue;
+        input: import("./parsers").LiteralValue;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: unknown[];
         output: unknown[];
+        input: unknown[];
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: bigint;
         output: bigint;
+        input: bigint;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: boolean;
         output: boolean;
+        input: boolean;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
         output: import("../date").TheDate;
+        input: `date${number}-` | `date${number}+` | import("../date").TheDate | Date;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;
         output: import("../date").TheTime;
+        input: number | import("../date").TheTime | `time${number}-` | `time${number}+`;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: null;
         output: null;
+        input: null;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: undefined;
         output: undefined;
+        input: undefined;
     }>> | import("../common").KindHandler<import("../common").KindDefinition<"@DuplojsUtilsDataParser/base", {
-        input: Record<never, unknown>;
         output: Record<never, unknown>;
+        input: Record<never, unknown>;
     }>>, GenericInput extends unknown, GenericGroupedKind extends import("../common").UnionToIntersection<GenericKindHandler extends import("../common").KindHandler<import("../common").KindDefinition<string, unknown>> ? import("../common").Kind<GenericKindHandler["definition"], GenericKindHandler["definition"]["value"]> : never>>(input: GenericInput, kind: GenericKindHandler | GenericKindHandler[]): input is (import("../common").IsEqual<import("../common").IsEqual<false | (GenericInput extends any ? import("../common").IsEqual<GenericInput, DataParser<unknown, unknown>> : never), boolean>, true> extends true ? Extract<DataParser<unknown, unknown>, GenericGroupedKind> | Extract<import("./parsers").DataParserString<import("./parsers").DataParserDefinitionString>, GenericGroupedKind> | Extract<import("./parsers").DataParserObject<import("./parsers").DataParserDefinitionObject<Record<string | number, unknown>>>, GenericGroupedKind> | Extract<import("./parsers").DataParserNumber<import("./parsers").DataParserDefinitionNumber>, GenericGroupedKind> | Extract<import("./parsers").DataParserLiteral<import("./parsers").DataParserDefinitionLiteral<import("./parsers").LiteralValue>>, GenericGroupedKind> | Extract<import("./parsers").DataParserUnion<import("./parsers").DataParserDefinitionUnion<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserArray<import("./parsers").DataParserDefinitionArray<unknown[]>>, GenericGroupedKind> | Extract<import("./parsers").DataParserBigInt<import("./parsers").DataParserDefinitionBigInt>, GenericGroupedKind> | Extract<import("./parsers").DataParserTuple<import("./parsers").DataParserDefinitionTuple<unknown[]>>, GenericGroupedKind> | Extract<import("./parsers").DataParserTransform<import("./parsers").DataParserDefinitionTransform<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserBoolean<import("./parsers").DataParserDefinitionBoolean>, GenericGroupedKind> | Extract<import("./parsers").DataParserDate<import("./parsers").DataParserDefinitionDate>, GenericGroupedKind> | Extract<import("./parsers").DataParserTime<import("./parsers").DataParserDefinitionTime>, GenericGroupedKind> | Extract<import("./parsers").DataParserNil<import("./parsers").DataParserDefinitionNil>, GenericGroupedKind> | Extract<import("./parsers").DataParserEmpty<import("./parsers").DataParserDefinitionEmpty>, GenericGroupedKind> | Extract<import("./parsers").DataParserTemplateLiteral<import("./parsers").DataParserDefinitionTemplateLiteral<string>>, GenericGroupedKind> | Extract<import("./parsers").DataParserPipe<import("./parsers").DataParserDefinitionPipe<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserNullable<import("./parsers").DataParserDefinitionNullable<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserOptional<import("./parsers").DataParserDefinitionOptional<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserLazy<import("./parsers").DataParserDefinitionLazy<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserUnknown<import("./parsers").DataParserDefinitionUnknown>, GenericGroupedKind> | Extract<import("./parsers").DataParserRecord<import("./parsers").DataParserDefinitionRecord<Record<string, unknown>>>, GenericGroupedKind> | Extract<import("./parsers").DataParserRecover<import("./parsers").DataParserDefinitionRecover<unknown>>, GenericGroupedKind> | Extract<import("./parsers").DataParserErrorHandler<import("./parsers").DataParserDefinitionErrorHandler<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserExtended<unknown, unknown>, GenericGroupedKind> | Extract<import("./extended").DataParserStringExtended<import("./parsers").DataParserDefinitionString>, GenericGroupedKind> | Extract<import("./extended").DataParserObjectExtended<import("./parsers").DataParserDefinitionObject<Record<string | number, unknown>>>, GenericGroupedKind> | Extract<import("./extended").DataParserNumberExtended<import("./parsers").DataParserDefinitionNumber>, GenericGroupedKind> | Extract<import("./extended").DataParserLiteralExtended<import("./parsers").DataParserDefinitionLiteral<import("./parsers").LiteralValue>>, GenericGroupedKind> | Extract<import("./extended").DataParserUnionExtended<import("./parsers").DataParserDefinitionUnion<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserArrayExtended<import("./parsers").DataParserDefinitionArray<unknown[]>>, GenericGroupedKind> | Extract<import("./extended").DataParserBigIntExtended<import("./parsers").DataParserDefinitionBigInt>, GenericGroupedKind> | Extract<import("./extended").DataParserTupleExtended<import("./parsers").DataParserDefinitionTuple<unknown[]>>, GenericGroupedKind> | Extract<import("./extended").DataParserTransformExtended<import("./parsers").DataParserDefinitionTransform<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserBooleanExtended<import("./parsers").DataParserDefinitionBoolean>, GenericGroupedKind> | Extract<import("./extended").DataParserDateExtended<import("./parsers").DataParserDefinitionDate>, GenericGroupedKind> | Extract<import("./extended").DataParserTimeExtended<import("./parsers").DataParserDefinitionTime>, GenericGroupedKind> | Extract<import("./extended").DataParserNilExtended<import("./parsers").DataParserDefinitionNil>, GenericGroupedKind> | Extract<import("./extended").DataParserEmptyExtended<import("./parsers").DataParserDefinitionEmpty>, GenericGroupedKind> | Extract<import("./extended").DataParserTemplateLiteralExtended<import("./parsers").DataParserDefinitionTemplateLiteral<string>>, GenericGroupedKind> | Extract<import("./extended").DataParserPipeExtended<import("./parsers").DataParserDefinitionPipe<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserNullableExtended<import("./parsers").DataParserDefinitionNullable<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserOptionalExtended<import("./parsers").DataParserDefinitionOptional<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserLazyExtended<import("./parsers").DataParserDefinitionLazy<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserUnknownExtended<import("./parsers").DataParserDefinitionUnknown>, GenericGroupedKind> | Extract<import("./extended").DataParserRecordExtended<import("./parsers").DataParserDefinitionRecord<Record<string, unknown>>>, GenericGroupedKind> | Extract<import("./extended").DataParserRecoverExtended<import("./parsers").DataParserDefinitionRecover<unknown>>, GenericGroupedKind> | Extract<import("./extended").DataParserErrorHandlerExtended<import("./parsers").DataParserDefinitionErrorHandler<unknown>>, GenericGroupedKind> : never) | Extract<GenericInput, GenericGroupedKind>;
 };

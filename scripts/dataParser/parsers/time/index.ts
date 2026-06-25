@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DDate from "@scripts/date";
 import * as DEither from "@scripts/either";
 
@@ -25,8 +25,14 @@ export class DataParserTime<
 		timeKind,
 	)<
 		GenericDefinition,
-		DDate.TheTime,
-		DDate.TheTime | number | DDate.SerializedTheTime
+		ApplyRefinementOfDefinition<
+			DDate.TheTime,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			DDate.TheTime,
+			GenericDefinition
+		> | number | DDate.SerializedTheTime
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserTime);

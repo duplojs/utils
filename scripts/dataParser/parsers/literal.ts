@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import * as DArray from "@scripts/array";
 
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
@@ -28,8 +28,14 @@ export class DataParserLiteral<
 		literalKind,
 	)<
 		GenericDefinition,
-		GenericDefinition["value"][number],
-		GenericDefinition["value"][number]
+		ApplyRefinementOfDefinition<
+			GenericDefinition["value"][number],
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			GenericDefinition["value"][number],
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserLiteral);

@@ -1,4 +1,4 @@
-import { type IsEqual, type Kind, type WrappedValue } from "../../common";
+import { type IsEqual, type Kind, type NeverCoalescing, type WrappedValue } from "../../common";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
 import type * as DDate from "../../date";
@@ -46,12 +46,38 @@ export interface PrimitiveHandler<GenericName extends string = string, GenericVa
     createOrThrow<GenericData extends GenericValue>(data: GenericData): Primitive<GenericData>;
     createOrThrow(data: GenericInput): Primitive<GenericValue>;
     /**
+     * Creates a primitive value from the handler's wider input type and returns an Either.
+     * 
+     * When the handler has no wider input type, it accepts the primitive value type.
+     * 
+     * ```ts
+     * const largeValue = C.String.createWithLarge("from-database");
+     * // E.Left<"createPrimitiveError", C.PrimitiveError<"string">>
+     * // | E.Right<"createPrimitive", C.Primitive<string>>
+     * 
+     * ```
+     * 
+     */
+    createWithLarge(data: NeverCoalescing<GenericInput, GenericValue>): (DEither.Right<"createPrimitive", Primitive<GenericValue>> | DEither.Left<"createPrimitiveError", PrimitiveError<GenericName>>);
+    /**
+     * Creates a primitive value from the handler's wider input type and throws on error.
+     * 
+     * When the handler has no wider input type, it accepts the primitive value type.
+     * 
+     * ```ts
+     * // C.Primitive<string>
+     * 
+     * ```
+     * 
+     */
+    createWithLargeOrThrow(data: NeverCoalescing<GenericInput, GenericValue>): Primitive<GenericValue>;
+    /**
      * Creates a primitive value from an unknown input and returns an Either.
      * 
      * ```ts
      * const unknownValue: unknown = "world";
      * const maybe = C.String.createWithUnknown(unknownValue);
-     * // E.Left<"createPrimitiveError", C.PrimitiveError<"string">> | E.Right<"createPrimitive", C.Primitive<string>>
+     * // E.Left<"createPrimitiveError", C.PrimitiveError<"string">>
      * ```
      * 
      */
@@ -60,8 +86,8 @@ export interface PrimitiveHandler<GenericName extends string = string, GenericVa
      * Creates a primitive value from an unknown input and throws on error.
      * 
      * ```ts
+     * 
      * const strictValue = C.String.createWithUnknownOrThrow("ok");
-     * // C.Primitive<string>
      * ```
      * 
      */
@@ -70,11 +96,11 @@ export interface PrimitiveHandler<GenericName extends string = string, GenericVa
      * Checks if a value is a primitive of this handler (type guard).
      * 
      * ```ts
+     * 
      * const input = true ? C.Number.createOrThrow(42) : C.String.createOrThrow("value");
      * 
      * if (C.Number.is(input)) {
      * 	// input: C.Primitive<number>
-     * }
      * ```
      * 
      */

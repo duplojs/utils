@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, dataParserKind, type DataParser, type DataParserDefinition } from "../../base";
 import { addIssue, popErrorPath, setErrorPath, type DataParserError, SymbolDataParserError, type SymbolDataParserError as SymbolDataParserErrorType } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DArray from "@scripts/array";
 import * as DObject from "@scripts/object";
 
@@ -80,8 +80,14 @@ export class DataParserObject<
 		objectKind,
 	)<
 		GenericDefinition,
-		DataParserObjectShapeOutput<GenericDefinition["shape"]>,
-		DataParserObjectShapeInput<GenericDefinition["shape"]>
+		ApplyRefinementOfDefinition<
+			DataParserObjectShapeOutput<GenericDefinition["shape"]>,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			DataParserObjectShapeInput<GenericDefinition["shape"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserObject);

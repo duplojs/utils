@@ -45,7 +45,7 @@ export declare class DataParserTupleExtended<GenericDefinition extends dataParse
      * 
      */
     min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserTupleExtended<SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
-        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMin];
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMin<number>];
     }>>;
     /**
      * Adds a maximum length checker to a tuple parser.
@@ -78,7 +78,7 @@ export declare class DataParserTupleExtended<GenericDefinition extends dataParse
      * 
      */
     max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserTupleExtended<SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
-        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMax];
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMax<number>];
     }>>;
     /**
      * Adds or replaces the rest parser of a tuple parser.

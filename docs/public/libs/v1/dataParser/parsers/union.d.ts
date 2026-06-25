@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 export type DataParserUnionCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionUnion<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserUnionCheckers<GenericInput>> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionUnion<GenericInput extends unknown = unknow
 }
 export declare const unionKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>>;
 declare const DataParserUnion_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/union", unknown>>>;
-export declare class DataParserUnion<GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion> extends DataParserUnion_base<GenericDefinition, Output<GenericDefinition["options"][number]>, Input<GenericDefinition["options"][number]>> {
+export declare class DataParserUnion<GenericDefinition extends DataParserDefinitionUnion = DataParserDefinitionUnion> extends DataParserUnion_base<GenericDefinition, ApplyRefinementOfDefinition<Output<GenericDefinition["options"][number]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["options"][number]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserUnion & import("..").CheckedConstructorKind;
     addChecker: <const GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

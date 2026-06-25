@@ -3,6 +3,26 @@ import { DDataParser, DDate, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.date", () => {
+	it("refines output and input with predicate checker", () => {
+		const parser = extended.date().addChecker(
+			DDataParser.checkerRefine(
+				(value): value is DDate.TheDate & { readonly __refinedDate: true } => value instanceof DDate.TheDate,
+			),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			DDate.TheDate & { readonly __refinedDate: true },
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			Date | DDate.SerializedTheDate | (DDate.TheDate & { readonly __refinedDate: true }),
+			"strict"
+		>;
+	});
+
 	it("create data parser with checker", () => {
 		const dataParser = extended.date({
 			checkers: [

@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserBooleanCheckers = GetEligibleChecker<boolean>;
 
@@ -21,8 +21,14 @@ export class DataParserBoolean<
 		booleanKind,
 	)<
 		GenericDefinition,
-		boolean,
-		boolean
+		ApplyRefinementOfDefinition<
+			boolean,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			boolean,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserBoolean);

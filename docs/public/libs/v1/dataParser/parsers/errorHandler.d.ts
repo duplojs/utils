@@ -2,7 +2,7 @@ import { type KindHandler, type FixDeepFunctionInfer, type NeverCoalescing, type
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type Input, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition, type DataParsers, type DataParserCheckers } from "../types";
+import { type ApplyRefinementOfDefinition, type Input, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition, type DataParsers, type DataParserCheckers } from "../types";
 export type ErrorMessageTransformer = (source: DataParsers | DataParserCheckers) => string | null;
 export declare function createErrorMessageTransformer<GenericKindHandler extends KindHandler>(kindHandler: GenericKindHandler, theFunction: (source: Extract<DataParsers | DataParserCheckers, Kind<GenericKindHandler["definition"]>>) => string | null): ErrorMessageTransformer;
 export type DataParserErrorHandlerCheckers<GenericInput extends unknown> = GetEligibleChecker<GenericInput>;
@@ -12,7 +12,7 @@ export interface DataParserDefinitionErrorHandler<GenericInput extends unknown =
 }
 export declare const errorHandlerKind: KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/error-handler", unknown>>;
 declare const DataParserErrorHandler_base: import("..").DataParserBaseInit<KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/error-handler", unknown>>>;
-export declare class DataParserErrorHandler<GenericDefinition extends DataParserDefinitionErrorHandler = DataParserDefinitionErrorHandler> extends DataParserErrorHandler_base<GenericDefinition, Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]>> {
+export declare class DataParserErrorHandler<GenericDefinition extends DataParserDefinitionErrorHandler = DataParserDefinitionErrorHandler> extends DataParserErrorHandler_base<GenericDefinition, ApplyRefinementOfDefinition<Output<GenericDefinition["inner"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["inner"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserErrorHandler & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

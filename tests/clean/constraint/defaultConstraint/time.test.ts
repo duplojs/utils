@@ -2,7 +2,7 @@ import { DEither, DClean, type ExpectType, type DDate } from "@scripts";
 
 describe("defaultConstraint time", () => {
 	it("creates a positive time constraint for positive input", () => {
-		const result = DClean.PositiveTime.create(1);
+		const result = DClean.PositiveTime.createWithUnknown(1);
 
 		expect(DEither.isRight(result)).toBe(true);
 
@@ -15,13 +15,13 @@ describe("defaultConstraint time", () => {
 	});
 
 	it("returns an error for non-positive input", () => {
-		const result = DClean.PositiveTime.create(0);
+		const result = DClean.PositiveTime.createWithUnknown(0);
 
 		expect(DEither.isLeft(result)).toBe(true);
 	});
 
 	it("creates a negative time constraint for negative input", () => {
-		const result = DClean.NegativeTime.create(-1);
+		const result = DClean.NegativeTime.createWithUnknown(-1);
 
 		expect(DEither.isRight(result)).toBe(true);
 

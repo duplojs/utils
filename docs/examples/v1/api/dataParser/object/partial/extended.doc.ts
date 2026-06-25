@@ -15,10 +15,10 @@ const result = partialUser.parse(
 type check = ExpectType<
 	typeof result,
 	E.Error<DPE.DataParserError>
-	| E.Success<{
-		id?: number | undefined;
-		email?: string | undefined;
-		role?: "admin" | undefined;
-	}>,
+		| E.Success<{
+			id?: number | undefined;
+			email?: `${string}@${string}.${string}` | undefined;
+			role?: "admin" | undefined;
+		}>,
 	"strict"
 >;

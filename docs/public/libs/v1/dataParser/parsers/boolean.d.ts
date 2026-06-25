@@ -2,14 +2,14 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserError, type SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserBooleanCheckers = GetEligibleChecker<boolean>;
 export interface DataParserDefinitionBoolean extends DataParserDefinition<DataParserBooleanCheckers> {
     readonly coerce: boolean;
 }
 export declare const booleanKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>>;
 declare const DataParserBoolean_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/boolean", unknown>>>;
-export declare class DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean> extends DataParserBoolean_base<GenericDefinition, boolean, boolean> {
+export declare class DataParserBoolean<GenericDefinition extends DataParserDefinitionBoolean = DataParserDefinitionBoolean> extends DataParserBoolean_base<GenericDefinition, ApplyRefinementOfDefinition<boolean, GenericDefinition>, ApplyRefinementOfDefinition<boolean, GenericDefinition>> {
     get classConstructor(): typeof DataParserBoolean & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

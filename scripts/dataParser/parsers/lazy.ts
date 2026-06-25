@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserLazyCheckers<
 	GenericInput extends unknown = unknown,
@@ -25,8 +25,14 @@ export class DataParserLazy<
 		lazyKind,
 	)<
 		GenericDefinition,
-		Output<GenericDefinition["getter"]["value"]>,
-		Input<GenericDefinition["getter"]["value"]>
+		ApplyRefinementOfDefinition<
+			Output<GenericDefinition["getter"]["value"]>,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["getter"]["value"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserLazy);

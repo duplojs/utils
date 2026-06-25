@@ -1,4 +1,4 @@
-import { type AnyFunction, createErrorKind, createOverride, type IsEqual, type Kind, kindHeritage, pipe, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
+import { type AnyFunction, createErrorKind, createOverride, type IsEqual, type Kind, kindHeritage, type NeverCoalescing, pipe, type RemoveKind, unwrap, type WrappedValue, wrapValue } from "@scripts/common";
 import { createCleanKind } from "../kind";
 import * as DDataParser from "../../dataParser";
 import * as DEither from "../../either";
@@ -80,6 +80,29 @@ export interface PrimitiveHandler<
 
 	createOrThrow(
 		data: GenericInput
+	): Primitive<GenericValue>;
+
+	/**
+	 * {@include clean/primitive/createWithLarge.md}
+	 */
+	createWithLarge(
+		data: NeverCoalescing<GenericInput, GenericValue>
+	): (
+		| DEither.Right<
+			"createPrimitive",
+			Primitive<GenericValue>
+		>
+		| DEither.Left<
+			"createPrimitiveError",
+			PrimitiveError<GenericName>
+		>
+	);
+
+	/**
+	 * {@include clean/primitive/createWithLargeOrThrow.md}
+	 */
+	createWithLargeOrThrow(
+		data: NeverCoalescing<GenericInput, GenericValue>
 	): Primitive<GenericValue>;
 
 	/**
@@ -186,6 +209,8 @@ export function createPrimitive<
 			dataParser,
 			create,
 			createOrThrow,
+			createWithLarge: create,
+			createWithLargeOrThrow: createOrThrow,
 			createWithUnknown: create,
 			createWithUnknownOrThrow: createOrThrow,
 			is,

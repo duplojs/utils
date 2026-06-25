@@ -1,14 +1,14 @@
 import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import { type DataParserError } from "../../dataParser/error";
 export type DataParserUnknownCheckers = GetEligibleChecker<unknown>;
 export interface DataParserDefinitionUnknown extends DataParserDefinition<DataParserUnknownCheckers> {
 }
 export declare const unknownKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>>;
 declare const DataParserUnknown_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/unknown", unknown>>>;
-export declare class DataParserUnknown<GenericDefinition extends DataParserDefinitionUnknown = DataParserDefinitionUnknown> extends DataParserUnknown_base<GenericDefinition, unknown, unknown> {
+export declare class DataParserUnknown<GenericDefinition extends DataParserDefinitionUnknown = DataParserDefinitionUnknown> extends DataParserUnknown_base<GenericDefinition, ApplyRefinementOfDefinition<unknown, GenericDefinition>, ApplyRefinementOfDefinition<unknown, GenericDefinition>> {
     get classConstructor(): typeof DataParserUnknown & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

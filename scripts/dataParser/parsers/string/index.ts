@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition, type ApplyRefinementOfDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -23,8 +23,14 @@ export class DataParserString<
 		stringKind,
 	)<
 		GenericDefinition,
-		string,
-		string
+		ApplyRefinementOfDefinition<
+			string,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			string,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserString);

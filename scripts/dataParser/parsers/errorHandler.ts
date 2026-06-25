@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { type DataParser, DataParserBase, type DataParserDefinition } from "../base";
 import { type DataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type Input, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition, type DataParsers, type DataParserCheckers } from "../types";
+import { type ApplyRefinementOfDefinition, type Input, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition, type DataParsers, type DataParserCheckers } from "../types";
 
 export type ErrorMessageTransformer = (source: DataParsers | DataParserCheckers) => string | null;
 
@@ -47,8 +47,14 @@ export class DataParserErrorHandler<
 		errorHandlerKind,
 	)<
 		GenericDefinition,
-		Output<GenericDefinition["inner"]>,
-		Input<GenericDefinition["inner"]>
+		ApplyRefinementOfDefinition<
+			Output<GenericDefinition["inner"]>,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserErrorHandler);

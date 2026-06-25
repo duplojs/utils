@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import { type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -172,13 +172,19 @@ export class DataParserTemplateLiteral<
 		templateLiteralKind,
 	)<
 		GenericDefinition,
-		NeverCoalescing<
-			TemplateLiteralShapeOutput<GenericDefinition["template"]>,
-			string
+		ApplyRefinementOfDefinition<
+			NeverCoalescing<
+				TemplateLiteralShapeOutput<GenericDefinition["template"]>,
+				string
+			>,
+			GenericDefinition
 		>,
-		NeverCoalescing<
-			TemplateLiteralShapeInput<GenericDefinition["template"]>,
-			string
+		ApplyRefinementOfDefinition<
+			NeverCoalescing<
+				TemplateLiteralShapeInput<GenericDefinition["template"]>,
+				string
+			>,
+			GenericDefinition
 		>
 	> {
 	public get classConstructor() {

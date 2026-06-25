@@ -27,8 +27,8 @@ declare const DataParserBase_base: new <GenericParentInstance extends never = ne
     output: unknown;
 }>, GenericKindValue>;
 export declare abstract class DataParserBase<GenericDefinition extends DataParserDefinition = DataParserDefinition, GenericOutput extends unknown = unknown, GenericInput extends unknown = GenericOutput> extends DataParserBase_base<never, {
-    input: GenericInput;
     output: GenericOutput;
+    input: GenericInput;
 }> {
     readonly definition: GenericDefinition;
     constructor(definition: GenericDefinition);

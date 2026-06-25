@@ -31,9 +31,11 @@ Builds a parser for strings. `DDataParser.string()` guarantees the input is a st
 
 Checkers follow a type contract: a checker is compatible when its input type matches the parser output type.
 
+Some string checkers refine the output type. For example, `checkerEmail()` narrows `string` to `` `${string}@${string}.${string}` ``, and a `checkerRefine(...)` type predicate can narrow the output to your own string subtype.
+
 ## Return value
 
-A `DataParserString` providing `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, and `clone`. `schema.parse(data)` returns `DEither.success<string>` when all validations pass, or `DEither.error<DataParserError>` with the paths (`path`), messages, and rejected values.
+A `DataParserString` providing `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, and `clone`. `schema.parse(data)` returns `DEither.success<Output>` when all validations pass, or `DEither.error<DataParserError>` with the paths (`path`), messages, and rejected values.
 
 ## Other examples
 

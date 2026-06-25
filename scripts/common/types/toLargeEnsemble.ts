@@ -14,22 +14,27 @@ export type ToLargeEnsemble<
 						? undefined
 						: GenericValue extends symbol
 							? symbol
-							: GenericValue extends [infer InferredValue, ...infer InferredRest]
-								? [
+							: GenericValue extends readonly [infer InferredValue, ...infer InferredRest]
+								? readonly [
 									ToLargeEnsemble<InferredValue>,
 									...ToLargeEnsemble<InferredRest>,
 								]
-								: GenericValue extends never[]
-									? []
+								: GenericValue extends readonly []
+									? readonly []
 									: GenericValue extends (infer InferredValue)[]
 										? ToLargeEnsemble<InferredValue>[]
-										: GenericValue extends Record<number, unknown>
+										: GenericValue extends Record<number, unknown> & object
 											? {
-												[Prop in keyof GenericValue]: ToLargeEnsemble<GenericValue[Prop]>
+												readonly [Prop in keyof GenericValue]: ToLargeEnsemble<
+													GenericValue[Prop]
+												>
 											}
 											: GenericValue extends (...args: infer InferredArgs) => infer InferredReturn
-												? (...args: ToLargeEnsemble<InferredArgs>) =>
-												ToLargeEnsemble<InferredReturn>
+												? (
+													...args: ToLargeEnsemble<InferredArgs>
+												) => ToLargeEnsemble<InferredReturn>
 												: GenericValue extends Promise<infer InferredValue>
-													? InferredValue
+													? Promise<
+														ToLargeEnsemble<InferredValue>
+													>
 													: GenericValue;

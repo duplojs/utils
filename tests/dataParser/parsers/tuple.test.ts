@@ -1,6 +1,29 @@
 import { DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser tuple", () => {
+	it("refines output and input with predicate checker", () => {
+		const schema = DDataParser.tuple([
+			DDataParser.string(),
+			DDataParser.number(),
+		]).addChecker(
+			DDataParser.checkerRefine(
+				(value): value is ["id", number] => value[0] === "id",
+			),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			["id", number] & [string, number],
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof schema>,
+			["id", number] & [string, number],
+			"strict"
+		>;
+	});
+
 	it("parses fixed tuple shape", () => {
 		const schema = DDataParser.tuple([
 			DDataParser.string(),

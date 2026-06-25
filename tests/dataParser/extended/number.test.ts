@@ -3,6 +3,24 @@ import { DDataParser, DEither, type ExpectType } from "@scripts";
 const { extended } = DDataParser;
 
 describe("extended.number", () => {
+	it("refines output and input with predicate checker", () => {
+		const parser = extended.number().addChecker(
+			DDataParser.checkerRefine((value): value is 42 => value === 42),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			42,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			42,
+			"strict"
+		>;
+	});
+
 	it("create data parser with checker", () => {
 		const dataParser = extended.number({
 			checkers: [

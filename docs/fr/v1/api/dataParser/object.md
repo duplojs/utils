@@ -31,6 +31,8 @@ Décrit un objet typé via un dictionnaire de parsers. `DDataParser.object()` co
 
 Un `DataParserObject` avec les méthodes `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. `schema.parse(data)` renvoie `DEither.success<Shape>` si tout passe ou `DEither.error<DataParserError>` regroupant toutes les issues.
 
+Les raffinements des champs sont conservés dans la sortie de l'objet. Par exemple, un champ parsé avec `DP.email()` est typé comme un template-literal d'email, et un tableau imbriqué avec des checkers min/max conserve ses raffinements de longueur.
+
 ## Others exemples
 
 ### Checkers personnalisés
@@ -38,7 +40,7 @@ Un `DataParserObject` avec les méthodes `parse`, `asyncParse`, `exec`, `asyncEx
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/object/checkers.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="754px"
 />
 
 ### Mode étendu
@@ -128,7 +130,7 @@ Rendez toutes les clés optionnelles (utile pour les payloads de patch/update), 
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/partial/default.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="544px"
     />
   </div>
   <div>
@@ -136,7 +138,7 @@ Rendez toutes les clés optionnelles (utile pour les payloads de patch/update), 
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/partial/extended.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="544px"
     />
   </div>
 </div>
@@ -151,7 +153,7 @@ Retirez l'optionnalité (wrappers `optional`) sur un schéma d'objet : pratique 
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/required/default.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="586px"
     />
   </div>
   <div>
@@ -159,7 +161,7 @@ Retirez l'optionnalité (wrappers `optional`) sur un schéma d'objet : pratique 
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/required/extended.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="586px"
     />
   </div>
 </div>

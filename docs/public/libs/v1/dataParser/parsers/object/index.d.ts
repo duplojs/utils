@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type Kind, type MaybePromise, type Memoized,
 import { dataParserKind, type DataParser, type DataParserDefinition } from "../../base";
 import { type DataParserError, SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DObject from "../../../object";
 export * from "./omit";
 export * from "./pick";
@@ -30,7 +30,7 @@ export interface DataParserDefinitionObject<GenericInput extends Record<string |
 }
 export declare const objectKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>>;
 declare const DataParserObject_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/object", unknown>>>;
-export declare class DataParserObject<GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject> extends DataParserObject_base<GenericDefinition, DataParserObjectShapeOutput<GenericDefinition["shape"]>, DataParserObjectShapeInput<GenericDefinition["shape"]>> {
+export declare class DataParserObject<GenericDefinition extends DataParserDefinitionObject = DataParserDefinitionObject> extends DataParserObject_base<GenericDefinition, ApplyRefinementOfDefinition<DataParserObjectShapeOutput<GenericDefinition["shape"]>, GenericDefinition>, ApplyRefinementOfDefinition<DataParserObjectShapeInput<GenericDefinition["shape"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserObject & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

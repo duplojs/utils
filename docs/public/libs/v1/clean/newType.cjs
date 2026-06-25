@@ -101,6 +101,8 @@ function createNewType(name, maybeDataParser, constraint) {
         getConstraint,
         create: create$2,
         createOrThrow,
+        createWithLarge: create$2,
+        createWithLargeOrThrow: createOrThrow,
         createWithUnknown: create$2,
         createWithUnknownOrThrow: createOrThrow,
         is: is$1,

@@ -382,7 +382,7 @@ export declare class DataParserArrayExtended<GenericDefinition extends dataParse
      * 
      */
     min(min: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">>): DataParserArrayExtended<DCommon.SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
-        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMin];
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMin<number>];
     }>>;
     /**
      * Adds a maximum length checker to an array parser.
@@ -413,7 +413,7 @@ export declare class DataParserArrayExtended<GenericDefinition extends dataParse
      * 
      */
     max(max: number, definition?: Partial<Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">>): DataParserArrayExtended<DCommon.SimplifyTopLevel<Omit<GenericDefinition, "checkers"> & {
-        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMax];
+        readonly checkers: readonly [...GenericDefinition["checkers"], dataParsers.DataParserCheckerArrayMax<number>];
     }>>;
     /**
      * Creates an extended data parser for arrays.

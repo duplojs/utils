@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from ".
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserOptionalCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput | undefined>;
 export interface DataParserDefinitionOptional<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserOptionalCheckers<GenericOutput>> {
     readonly inner: DataParser;
@@ -10,7 +10,7 @@ export interface DataParserDefinitionOptional<GenericOutput extends unknown = un
 }
 export declare const optionalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/optional", unknown>>;
 declare const DataParserOptional_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/optional", unknown>>>;
-export declare class DataParserOptional<GenericDefinition extends DataParserDefinitionOptional = DataParserDefinitionOptional> extends DataParserOptional_base<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | undefined : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | undefined> {
+export declare class DataParserOptional<GenericDefinition extends DataParserDefinitionOptional = DataParserDefinitionOptional> extends DataParserOptional_base<GenericDefinition, ApplyRefinementOfDefinition<IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | undefined : Output<GenericDefinition["inner"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["inner"]> | undefined, GenericDefinition>> {
     get classConstructor(): typeof DataParserOptional & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

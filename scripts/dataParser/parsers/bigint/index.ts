@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParserDefinition } from "../../base";
 import { addIssue, type DataParserError, type SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 
 export * from "./checkers";
 
@@ -23,8 +23,14 @@ export class DataParserBigInt<
 		bigIntKind,
 	)<
 		GenericDefinition,
-		bigint,
-		bigint
+		ApplyRefinementOfDefinition<
+			bigint,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			bigint,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserBigInt);

@@ -2,14 +2,14 @@ import { type FixDeepFunctionInfer, type Memoized, type NeverCoalescing } from "
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserLazyCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionLazy<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserLazyCheckers<GenericInput>> {
     getter: Memoized<DataParser>;
 }
 export declare const lazyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>;
 declare const DataParserLazy_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/lazy", unknown>>>;
-export declare class DataParserLazy<GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy> extends DataParserLazy_base<GenericDefinition, Output<GenericDefinition["getter"]["value"]>, Input<GenericDefinition["getter"]["value"]>> {
+export declare class DataParserLazy<GenericDefinition extends DataParserDefinitionLazy = DataParserDefinitionLazy> extends DataParserLazy_base<GenericDefinition, ApplyRefinementOfDefinition<Output<GenericDefinition["getter"]["value"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["getter"]["value"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserLazy & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

@@ -31,6 +31,16 @@ next:
 
 Le contrat repose sur le type de sortie du parser ciblé : un checker `DataParserChecker<..., T>` est compatible avec un parser dont la sortie est `T`.
 
+Lorsque le prédicat est déclaré comme un type guard TypeScript, le checker affine aussi le type de sortie du parser. `parse(...)`, `Output<typeof schema>`, les contraintes Clean et les NewTypes portent alors le sous-type validé au lieu du type source plus large.
+
+### Raffinement par type guard
+
+<MonacoTSEditor
+  src="/examples/v1/api/dataParser/refine/typeGuard.doc.ts"
+  majorVersion="v1"
+  height="586px"
+/>
+
 ## Exemples supplémentaires
 
 ### Valider des coordonnées

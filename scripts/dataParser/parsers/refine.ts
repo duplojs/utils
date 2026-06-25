@@ -1,4 +1,4 @@
-import { detachObjectMethod, callThen, type NeverCoalescing, type SimplifyTopLevel, type MaybePromise } from "@scripts/common";
+import { detachObjectMethod, callThen, type NeverCoalescing, type SimplifyTopLevel, type MaybePromise, type AnyFunction } from "@scripts/common";
 import { DataParserCheckerBase, type DataParserCheckerDefinition } from "../baseChecker";
 import { type DataParser } from "../base";
 import { addIssue, type DataParserError } from "@scripts/dataParser/error";
@@ -58,6 +58,28 @@ export class DataParserCheckerRefine<
 
 	public static override create<
 		GenericInput extends unknown,
+		GenericPredicate extends GenericInput,
+		const GenericDefinition extends Partial<
+			Omit<DataParserCheckerDefinitionRefine, "theFunction">
+		> = never,
+	>(
+		theFunction: (input: GenericInput) => input is GenericPredicate,
+		definition?: GenericDefinition,
+	): DataParserCheckerRefine<
+		SimplifyTopLevel<
+			& NeverCoalescing<
+				GenericDefinition,
+				Omit<DataParserCheckerDefinitionRefine<GenericInput>, "theFunction">
+			>
+			& {
+				theFunction(input: GenericInput): input is GenericPredicate;
+			}
+		>,
+		GenericInput
+	>;
+
+	public static override create<
+		GenericInput extends unknown,
 		const GenericDefinition extends Partial<
 			Omit<DataParserCheckerDefinitionRefine, "theFunction">
 		> = never,
@@ -65,24 +87,32 @@ export class DataParserCheckerRefine<
 		theFunction: (input: GenericInput) => MaybePromise<boolean>,
 		definition?: GenericDefinition,
 	): DataParserCheckerRefine<
-			SimplifyTopLevel<
-				& NeverCoalescing<
-					GenericDefinition,
-					DataParserCheckerDefinitionRefine<GenericInput>
-				>
-				& {
-					theFunction(input: GenericInput): MaybePromise<boolean>;
-				}
-			>,
-			GenericInput
-		> {
+		SimplifyTopLevel<
+			& NeverCoalescing<
+				GenericDefinition,
+				Omit<DataParserCheckerDefinitionRefine<GenericInput>, "theFunction">
+			>
+			& {
+				theFunction(input: GenericInput): MaybePromise<boolean>;
+			}
+		>,
+		GenericInput
+	>;
+
+	public static override create(
+		theFunction: AnyFunction,
+		definition?: Partial<DataParserCheckerDefinitionRefine>,
+	) {
 		return new DataParserCheckerRefine({
 			...definition,
 			theFunction,
-		}) as never;
+		});
 	}
 }
 
+/**
+ * {@include dataParser/classic/checkerRefine/index.md}
+ */
 export const checkerRefine = detachObjectMethod(DataParserCheckerRefine, "create");
 
 export type CheckerRefineImplementation<

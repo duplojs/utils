@@ -27,3 +27,9 @@ const unknownValue: unknown = 9;
 const maybe = Between1And10.createWithUnknown(unknownValue);
 
 const strictValue = Between1And10.createWithUnknownOrThrow(unknownValue);
+
+const largeValue = Between1And10.createWithLarge(8);
+// E.Left<"createConstrainedTypeError", C.ConstraintError<"between-1-10">>
+// | E.Right<"createConstrainedType", C.ConstrainedType<"between-1-10", number>>
+
+const strictLargeValue = Between1And10.createWithLargeOrThrow(8);

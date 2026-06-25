@@ -29,7 +29,7 @@ next:
 
 ## Valeur de retour
 
-Un `DataParserArray` avec `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. Le `parse` renvoie `DEither.success<Element[]>` ou `DEither.error<DataParserError>` avec les indices fautifs.
+Un `DataParserArray` avec `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. Le `parse` renvoie `DEither.success<Output>` ou `DEither.error<DataParserError>` avec les indices fautifs. Les appels littéraux à `checkerArrayMin(...)` et `checkerArrayMax(...)` sont reflétés dans le type de sortie : la longueur minimale peut produire une forme de tuple non vide et la longueur maximale ajoute `MaxElements<N>`.
 
 ## Autres exemples
 
@@ -38,7 +38,7 @@ Un `DataParserArray` avec `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecke
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/array/checkers.doc.ts"
   majorVersion="v1"
-  height="500px"
+  height="607px"
 />
 
 ### Mode étendu

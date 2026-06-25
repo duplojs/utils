@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../../common
 import { type DataParserDefinition } from "../../base";
 import { type DataParserError, type SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import * as DDate from "../../../date";
 export * from "./checkers";
 export type DataParserTimeCheckers = GetEligibleChecker<DDate.TheTime>;
@@ -11,7 +11,7 @@ export interface DataParserDefinitionTime extends DataParserDefinition<DataParse
 }
 export declare const timeKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>>;
 declare const DataParserTime_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/time", unknown>>>;
-export declare class DataParserTime<GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime> extends DataParserTime_base<GenericDefinition, DDate.TheTime, DDate.TheTime | number | DDate.SerializedTheTime> {
+export declare class DataParserTime<GenericDefinition extends DataParserDefinitionTime = DataParserDefinitionTime> extends DataParserTime_base<GenericDefinition, ApplyRefinementOfDefinition<DDate.TheTime, GenericDefinition>, ApplyRefinementOfDefinition<DDate.TheTime, GenericDefinition> | number | DDate.SerializedTheTime> {
     get classConstructor(): typeof DataParserTime & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

@@ -60,6 +60,8 @@ function createPrimitive(name, dataParser) {
         dataParser,
         create,
         createOrThrow,
+        createWithLarge: create,
+        createWithLargeOrThrow: createOrThrow,
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,

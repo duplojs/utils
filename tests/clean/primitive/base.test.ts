@@ -97,6 +97,29 @@ describe("primitive handler String", () => {
 		expect(result).toStrictEqual(createResult);
 	});
 
+	it("createWithLarge accepts the wider input type", () => {
+		const result = DClean.String.createWithLarge("test");
+
+		expect(result).toStrictEqual(
+			DEither.right(
+				"createPrimitive",
+				wrapValue("test"),
+			),
+		);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			DClean.String.createWithLarge(1);
+		}
+
+		type Check = ExpectType<
+			typeof result,
+			| DEither.Right<"createPrimitive", DClean.Primitive<string>>
+			| DEither.Left<"createPrimitiveError", DClean.PrimitiveError<"string">>,
+			"strict"
+		>;
+	});
+
 	it("createWithUnknownOrThrow matches createOrThrow", () => {
 		const createResult = DClean.String.createOrThrow("test");
 		const result = DClean.String.createWithUnknownOrThrow("test");

@@ -28,7 +28,7 @@ import { type OnlyLiteralNumber } from "../../../common";
  * @namespace C
  * 
  */
-export declare const Email: ConstraintHandler<"email", string, readonly [DDataParser.DataParserCheckerEmail], never>;
+export declare const Email: ConstraintHandler<"email", `${string}@${string}.${string}`, readonly [DDataParser.DataParserCheckerEmail], string>;
 export type Email = GetConstraint<typeof Email>;
 export declare const Uuid: ConstraintHandler<"uuid", string, readonly [DDataParser.DataParserCheckerUuid], never>;
 export type Uuid = GetConstraint<typeof Uuid>;

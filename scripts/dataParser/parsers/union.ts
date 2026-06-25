@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { addIssue, setErrorPath, type DataParserError, SymbolDataParserError, popErrorPath } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type UnionOptions = readonly [DataParser, ...DataParser[]];
 
@@ -27,8 +27,14 @@ export class DataParserUnion<
 		unionKind,
 	)<
 		GenericDefinition,
-		Output<GenericDefinition["options"][number]>,
-		Input<GenericDefinition["options"][number]>
+		ApplyRefinementOfDefinition<
+			Output<GenericDefinition["options"][number]>,
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["options"][number]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserUnion);

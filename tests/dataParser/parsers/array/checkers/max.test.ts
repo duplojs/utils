@@ -1,4 +1,4 @@
-import { DDataParser, DEither } from "@scripts";
+import { type DArray, DDataParser, DEither, type ExpectType } from "@scripts";
 
 describe("DDataParser array checker max", () => {
 	it("accepts arrays at or below maximum length", () => {
@@ -11,6 +11,18 @@ describe("DDataParser array checker max", () => {
 				checkers: [checker],
 			},
 		);
+
+		type check = ExpectType<
+			DDataParser.Output<typeof schema>,
+			string[] & DArray.MaxElements<3>,
+			"strict"
+		>;
+
+		type checkInput = ExpectType<
+			DDataParser.Input<typeof schema>,
+			string[] & DArray.MaxElements<3>,
+			"strict"
+		>;
 
 		expect(schema.parse(["a", "b"])).toStrictEqual(DEither.success(["a", "b"]));
 		expect(schema.parse(["one", "two", "three"])).toStrictEqual(

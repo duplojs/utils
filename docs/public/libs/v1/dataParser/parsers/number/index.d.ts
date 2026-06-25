@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../../common
 import { type DataParserDefinition } from "../../base";
 import { type DataParserError, type SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 export * from "./checkers";
 export type DataParserNumberCheckers = GetEligibleChecker<number>;
 export interface DataParserDefinitionNumber extends DataParserDefinition<DataParserNumberCheckers> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionNumber extends DataParserDefinition<DataPar
 }
 export declare const numberKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>>;
 declare const DataParserNumber_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/number", unknown>>>;
-export declare class DataParserNumber<GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber> extends DataParserNumber_base<GenericDefinition, number, number> {
+export declare class DataParserNumber<GenericDefinition extends DataParserDefinitionNumber = DataParserDefinitionNumber> extends DataParserNumber_base<GenericDefinition, ApplyRefinementOfDefinition<number, GenericDefinition>, ApplyRefinementOfDefinition<number, GenericDefinition>> {
     get classConstructor(): typeof DataParserNumber & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

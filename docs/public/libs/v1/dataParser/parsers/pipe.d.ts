@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserPipeCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionPipe<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserPipeCheckers<GenericInput>> {
     readonly input: DataParser;
@@ -10,7 +10,7 @@ export interface DataParserDefinitionPipe<GenericInput extends unknown = unknown
 }
 export declare const pipeKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>>;
 declare const DataParserPipe_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/pipe", unknown>>>;
-export declare class DataParserPipe<GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe> extends DataParserPipe_base<GenericDefinition, Output<GenericDefinition["output"]>, Input<GenericDefinition["input"]>> {
+export declare class DataParserPipe<GenericDefinition extends DataParserDefinitionPipe = DataParserDefinitionPipe> extends DataParserPipe_base<GenericDefinition, ApplyRefinementOfDefinition<Output<GenericDefinition["output"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["input"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserPipe & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

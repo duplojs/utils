@@ -17,6 +17,11 @@ const result = schema.parse(["1", "2", "3"]);
 
 type check = ExpectType<
 	typeof result,
-	E.Error<DP.DataParserError> | E.Success<number[]>,
+	E.Error<DP.DataParserError>
+	| E.Success<
+		& [number, ...number[]]
+		& number[]
+		& A.MaxElements<10>
+	>,
 	"strict"
 >;

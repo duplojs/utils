@@ -67,6 +67,32 @@ function createOrThrow(
 ): Primitive<RawType>
 ```
 
+#### `createWithLarge()`
+
+```typescript
+function createWithLarge(
+	value: LargeInput
+): Right<Primitive<RawType>> | Left<C.PrimitiveError<PrimitiveName>>
+```
+
+Uses the wider input type carried by the handler. If no wider input type exists, the method accepts the initial primitive type.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/primitives/createWithLarge.doc.ts"
+  majorVersion="v1"
+  height="460px"
+/>
+
+#### `createWithLargeOrThrow()`
+
+```typescript
+function createWithLargeOrThrow(
+	value: LargeInput
+): Primitive<RawType>
+```
+
+Throws `C.CreatePrimitiveError` if validation fails.
+
 #### `createWithUnknown()`
 
 ```typescript

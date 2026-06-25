@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type AnyTuple } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, pipe, type UnionToIntersection, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type AnyTuple, type IsNever, type NeverCoalescing } from "@scripts";
 import { createCleanKind } from "../kind";
 import { constrainedTypeKind, type GetConstraint, type ConstraintHandler, type ConstraintError } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
@@ -79,32 +79,6 @@ export interface ConstraintsSetHandler<
 		>
 	);
 
-	create(
-		data: GenericPrimitiveInput
-	): (
-		| DEither.Right<
-			"createConstraintsSet",
-			(
-				& Primitive<GenericPrimitiveValue>
-				& UnionToIntersection<
-					GenericConstraintsHandler[number] extends infer InferredConstraint
-						? InferredConstraint extends ConstraintHandler
-							? GetConstraint<InferredConstraint>
-							: never
-						: never
-				>
-			)
-		>
-		| DEither.Left<
-			"createConstraintsSetError",
-			GenericConstraintsHandler[number] extends infer InferredConstraint
-				? InferredConstraint extends ConstraintHandler
-					? ConstraintError<InferredConstraint["name"]>
-					: never
-				: never
-		>
-	);
-
 	create<
 		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
 	>(
@@ -151,10 +125,12 @@ export interface ConstraintsSetHandler<
 		>
 	);
 
-	createOrThrow(
-		data: GenericPrimitiveInput
+	createOrThrow<
+		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
+	>(
+		data: GenericPrimitive
 	): (
-		& Primitive<GenericPrimitiveValue>
+		& GenericPrimitive
 		& UnionToIntersection<
 			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
@@ -164,12 +140,42 @@ export interface ConstraintsSetHandler<
 		>
 	);
 
-	createOrThrow<
-		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
-	>(
-		data: GenericPrimitive
+	/**
+	 * {@include clean/createConstraintsSet/createWithLarge.md}
+	 */
+	createWithLarge(
+		data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>
 	): (
-		& GenericPrimitive
+		| DEither.Right<
+			"createConstraintsSet",
+			(
+				& Primitive<GenericPrimitiveValue>
+				& UnionToIntersection<
+					GenericConstraintsHandler[number] extends infer InferredConstraint
+						? InferredConstraint extends ConstraintHandler
+							? GetConstraint<InferredConstraint>
+							: never
+						: never
+				>
+			)
+		>
+		| DEither.Left<
+			"createConstraintsSetError",
+			GenericConstraintsHandler[number] extends infer InferredConstraint
+				? InferredConstraint extends ConstraintHandler
+					? ConstraintError<InferredConstraint["name"]>
+					: never
+				: never
+		>
+	);
+
+	/**
+	 * {@include clean/createConstraintsSet/createWithLargeOrThrow.md}
+	 */
+	createWithLargeOrThrow(
+		data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>
+	): (
+		& Primitive<GenericPrimitiveValue>
 		& UnionToIntersection<
 			GenericConstraintsHandler[number] extends infer InferredConstraint
 				? InferredConstraint extends ConstraintHandler
@@ -340,13 +346,26 @@ export function createConstraintsSet<
 	GenericPrimitiveValue extends EligiblePrimitive,
 	GenericPrimitiveInput extends unknown,
 	const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never,
+	GenericConstraints extends readonly ConstraintHandler[]
+	= ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>,
+	GenericPrimitiveRefinedValue extends EligiblePrimitive = DDataParser.ApplyRefinementOfChecker<
+		GenericPrimitiveValue,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	>,
 >(
 	primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>,
 	constraint: GenericConstrainHandler,
 ): ConstraintsSetHandler<
-		GenericPrimitiveValue,
-		ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>,
-		GenericPrimitiveInput
+		GenericPrimitiveRefinedValue,
+		GenericConstraints,
+		IsNever<GenericPrimitiveInput> extends true
+			? IsEqual<
+				GenericPrimitiveValue,
+				GenericPrimitiveRefinedValue
+			> extends true
+				? never
+				: GenericPrimitiveValue
+			: GenericPrimitiveInput
 	> {
 	const constraints = DArray.flatMap(
 		DArray.coalescing(constraint),
@@ -478,6 +497,8 @@ export function createConstraintsSet<
 			getConstraint,
 			create,
 			createOrThrow,
+			createWithLarge: create,
+			createWithLargeOrThrow: createOrThrow,
 			createWithUnknown: create,
 			createWithUnknownOrThrow: createOrThrow,
 			is,
@@ -491,6 +512,7 @@ createConstraintsSet.overrideHandler = createOverride<ConstraintsSetHandler>("@d
 
 export type GetConstraints<
 	GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>,
+	GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = never,
 > = Extract<
 	GenericHandler extends any
 		? & UnionToIntersection<
@@ -500,6 +522,11 @@ export type GetConstraints<
 					: never
 				: never
 		>
+		& (
+				IsNever<GenericValue> extends true
+					? unknown
+					: Primitive<GenericValue>
+			)
 		: never,
 	any
 >;

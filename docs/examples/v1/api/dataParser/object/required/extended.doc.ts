@@ -17,11 +17,10 @@ const result = strictUser.parse({
 type check = ExpectType<
 	typeof result,
 	E.Error<DPE.DataParserError>
-	| E.Success<{
-		id: number;
-		role: "admin";
-		email: string;
-	}>,
+		| E.Success<{
+			id: number;
+			role: "admin";
+			email: `${string}@${string}.${string}`;
+		}>,
 	"strict"
 >;
-

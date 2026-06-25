@@ -1,9 +1,8 @@
 import { type UnionContain, type SimplifyTopLevel } from "@scripts/common";
 import { type DataParserDefinition } from "../base";
-import { type DataParserCheckerDefinition } from "../baseChecker";
 
 export type MergeDefinition<
-	GenericDefinition extends DataParserDefinition | DataParserCheckerDefinition,
+	GenericDefinition extends DataParserDefinition,
 	GenericPartialDefinition extends Partial<GenericDefinition>,
 > = SimplifyTopLevel<
 	Readonly<

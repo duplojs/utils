@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, DPE, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
+import { DClean, DDataParser, DEither, DPE, DString, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
 
 describe("createNewType", () => {
 	const constraint = DClean.createConstraint(
@@ -525,6 +525,295 @@ describe("createNewType", () => {
 				"Label",
 				"test",
 				"string-min-2" | "string-max-5"
+			>,
+			"strict"
+		>;
+	});
+
+	it("refines new type value with a predicate constraint", () => {
+		const prefixChecker = DDataParser.checkerRefine(
+			DString.startsWith("prefix-"),
+		);
+		const prefixedConstraint = DClean.createConstraint(
+			"prefixed",
+			DClean.String,
+			prefixChecker,
+		);
+		const handler = DClean.createNewType(
+			"PrefixedLabel",
+			DClean.String,
+			prefixedConstraint,
+		);
+
+		const value = handler.createOrThrow("prefix-value");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("prefix-value"),
+					{ prefixed: null },
+				),
+				"PrefixedLabel",
+			),
+		);
+		expect(() => handler.createWithUnknownOrThrow("value"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		const largeResult = handler.createWithLarge("prefix-large");
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(() => handler.createWithLargeOrThrow("value"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			handler.createWithLarge(1);
+		}
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"PrefixedLabel",
+				`prefix-${string}`,
+				readonly [typeof prefixedConstraint],
+				string
+			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<"createNewType", DClean.NewType<"PrefixedLabel", `prefix-${string}`, "prefixed">>
+			| DEither.Left<"createNewTypeError", DClean.NewTypeError<"PrefixedLabel">>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			DClean.NewType<"PrefixedLabel", "prefix-value", "prefixed">,
+			"strict"
+		>;
+
+		type CheckNewType = ExpectType<
+			DClean.GetNewType<typeof handler>,
+			DClean.NewType<"PrefixedLabel", `prefix-${string}`, "prefixed">,
+			"strict"
+		>;
+	});
+
+	it("intersects new type value from nested constraints sets", () => {
+		const emailChecker = DDataParser.checkerEmail();
+		const adminChecker = DDataParser.checkerRefine(
+			DString.startsWith("admin@"),
+		);
+		const emailConstraint = DClean.createConstraint(
+			"email-like",
+			DClean.String,
+			emailChecker,
+		);
+		const adminConstraint = DClean.createConstraint(
+			"admin-like",
+			DClean.String,
+			adminChecker,
+		);
+		const nestedConstraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			emailConstraint,
+		);
+		const constraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				nestedConstraintsSet,
+				adminConstraint,
+			],
+		);
+		const handler = DClean.createNewType(
+			"AdminEmailLabel",
+			DClean.String,
+			constraintsSet,
+		);
+
+		type AdminEmail = `admin@${string}` & `${string}@${string}.${string}`;
+
+		const value = handler.createOrThrow("admin@example.com");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("admin@example.com"),
+					{
+						"email-like": null,
+						"admin-like": null,
+					},
+				),
+				"AdminEmailLabel",
+			),
+		);
+		expect(handler.internal.constraints.map(({ name }) => name)).toStrictEqual([
+			"email-like",
+			"admin-like",
+		]);
+		expect(() => handler.createWithUnknownOrThrow("user@example.com"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"AdminEmailLabel",
+				AdminEmail,
+				readonly [
+					typeof emailConstraint,
+					typeof adminConstraint,
+				],
+				string
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			DClean.NewType<"AdminEmailLabel", "admin@example.com", "email-like" | "admin-like">,
+			"strict"
+		>;
+
+		type CheckNewType = ExpectType<
+			DClean.GetNewType<typeof handler>,
+			DClean.NewType<"AdminEmailLabel", AdminEmail, "email-like" | "admin-like">,
+			"strict"
+		>;
+	});
+
+	it("intersects new type value from constraints with data parser source", () => {
+		const emailChecker = DDataParser.checkerEmail();
+		const adminChecker = DDataParser.checkerRefine(
+			DString.startsWith("admin@"),
+		);
+		const emailConstraint = DClean.createConstraint(
+			"email-like",
+			DClean.String,
+			emailChecker,
+		);
+		const adminConstraint = DClean.createConstraint(
+			"admin-like",
+			DClean.String,
+			adminChecker,
+		);
+		const handler = DClean.createNewType(
+			"AdminEmailFromParser",
+			DDataParser.string(),
+			[
+				emailConstraint,
+				adminConstraint,
+			],
+		);
+
+		type AdminEmail = `admin@${string}` & `${string}@${string}.${string}`;
+
+		const value = handler.createOrThrow("admin@example.com");
+
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("admin@example.com"),
+					{
+						"email-like": null,
+						"admin-like": null,
+					},
+				),
+				"AdminEmailFromParser",
+			),
+		);
+		expect(() => handler.createWithUnknownOrThrow("user@example.com"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"AdminEmailFromParser",
+				AdminEmail,
+				readonly [
+					typeof emailConstraint,
+					typeof adminConstraint,
+				],
+				string
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			DClean.NewType<"AdminEmailFromParser", "admin@example.com", "email-like" | "admin-like">,
+			"strict"
+		>;
+
+		type CheckNewType = ExpectType<
+			DClean.GetNewType<typeof handler>,
+			DClean.NewType<"AdminEmailFromParser", AdminEmail, "email-like" | "admin-like">,
+			"strict"
+		>;
+	});
+
+	it("accepts a large input when new type starts from a refined data parser", () => {
+		const handler = DClean.createNewType(
+			"EmailAddress",
+			DDataParser.email(),
+		);
+
+		const emailFromDatabase = "user@example.com" as string;
+		const largeResult = handler.createWithLarge(emailFromDatabase);
+		const value = handler.createWithLargeOrThrow(emailFromDatabase);
+
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("user@example.com"),
+					{},
+				),
+				"EmailAddress",
+			),
+		);
+		expect(() => handler.createWithLargeOrThrow("invalid-email"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			handler.createWithLarge(1);
+		}
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"EmailAddress",
+				`${string}@${string}.${string}`,
+				readonly [],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<
+				"createNewType",
+				DClean.NewType<
+					"EmailAddress",
+					`${string}@${string}.${string}`,
+					never
+				>
+			>
+			| DEither.Left<
+				"createNewTypeError",
+				DClean.NewTypeError<"EmailAddress">
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"EmailAddress",
+				`${string}@${string}.${string}`,
+				never
 			>,
 			"strict"
 		>;

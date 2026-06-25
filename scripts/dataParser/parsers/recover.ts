@@ -3,7 +3,7 @@ import { createDataParserKind } from "@scripts/dataParser/kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError, SymbolDataParserError } from "@scripts/dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 
 export type DataParserRecoverCheckers<
 	GenericInput extends unknown = unknown,
@@ -26,8 +26,14 @@ export class DataParserRecover<
 		recoverKind,
 	)<
 		GenericDefinition,
-		GenericDefinition["recoveredValue"],
-		Input<GenericDefinition["inner"]>
+		ApplyRefinementOfDefinition<
+			GenericDefinition["recoveredValue"],
+			GenericDefinition
+		>,
+		ApplyRefinementOfDefinition<
+			Input<GenericDefinition["inner"]>,
+			GenericDefinition
+		>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserRecover);

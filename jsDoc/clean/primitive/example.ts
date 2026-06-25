@@ -11,7 +11,8 @@ const value = C.Number.createOrThrow(42);
 
 const unknownValue: unknown = "world";
 const maybe = C.String.createWithUnknown(unknownValue);
-// E.Left<"createPrimitiveError", C.PrimitiveError<"string">> | E.Right<"createPrimitive", C.Primitive<string>>
+// E.Left<"createPrimitiveError", C.PrimitiveError<"string">>
+// | E.Right<"createPrimitive", C.Primitive<string>>
 
 const strictValue = C.String.createWithUnknownOrThrow("ok");
 // C.Primitive<string>
@@ -21,3 +22,10 @@ const input = true ? C.Number.createOrThrow(42) : C.String.createOrThrow("value"
 if (C.Number.is(input)) {
 	// input: C.Primitive<number>
 }
+
+const largeValue = C.String.createWithLarge("from-database");
+// E.Left<"createPrimitiveError", C.PrimitiveError<"string">>
+// | E.Right<"createPrimitive", C.Primitive<string>>
+
+const strictLargeValue = C.String.createWithLargeOrThrow("from-database");
+// C.Primitive<string>

@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../../common
 import { type DataParserDefinition } from "../../base";
 import { type DataParserError, type SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type GetEligibleChecker, type AddCheckersToDefinition, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 export * from "./checkers";
 export type DataParserBigIntCheckers = GetEligibleChecker<bigint>;
 export interface DataParserDefinitionBigInt extends DataParserDefinition<DataParserBigIntCheckers> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionBigInt extends DataParserDefinition<DataPar
 }
 export declare const bigIntKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>>;
 declare const DataParserBigInt_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/bigint", unknown>>>;
-export declare class DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt> extends DataParserBigInt_base<GenericDefinition, bigint, bigint> {
+export declare class DataParserBigInt<GenericDefinition extends DataParserDefinitionBigInt = DataParserDefinitionBigInt> extends DataParserBigInt_base<GenericDefinition, ApplyRefinementOfDefinition<bigint, GenericDefinition>, ApplyRefinementOfDefinition<bigint, GenericDefinition>> {
     get classConstructor(): typeof DataParserBigInt & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

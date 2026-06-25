@@ -1,4 +1,4 @@
-import { type Unwrap, type Kind, type WrappedValue, type FixDeepFunctionInfer } from "../..";
+import { type Unwrap, type Kind, type WrappedValue, type FixDeepFunctionInfer, type IsEqual, type IsNever, type NeverCoalescing } from "../..";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DArray from "../../array";
 import * as DEither from "../../either";
@@ -61,7 +61,6 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * 
      */
     create<GenericData extends GenericPrimitiveValue>(data: GenericData): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericData>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
-    create(data: GenericPrimitiveInput): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
     create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstrainedType", (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>)> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
     /**
      * Creates a constrained value and throws on error.
@@ -73,8 +72,31 @@ export interface ConstraintHandler<GenericName extends string = string, GenericP
      * 
      */
     createOrThrow<GenericData extends GenericPrimitiveValue>(data: GenericData): ConstrainedType<GenericName, GenericData>;
-    createOrThrow(data: GenericPrimitiveInput): ConstrainedType<GenericName, GenericPrimitiveValue>;
     createOrThrow<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (GenericPrimitive & ConstrainedType<GenericName, Unwrap<GenericPrimitive>>);
+    /**
+     * Creates a constrained value from the handler's wider input type and returns an Either.
+     * 
+     * This is useful when the output type is refined, but the source data is only known as the primitive input type.
+     * 
+     * ```ts
+     * const largeValue = Between1And10.createWithLarge(8);
+     * // E.Left<"createConstrainedTypeError", C.ConstraintError<"between-1-10">>
+     * // | E.Right<"createConstrainedType", C.ConstrainedType<"between-1-10", number>>
+     * ```
+     * 
+     */
+    createWithLarge(data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>): (DEither.Right<"createConstrainedType", ConstrainedType<GenericName, GenericPrimitiveValue>> | DEither.Left<"createConstrainedTypeError", ConstraintError<GenericName>>);
+    /**
+     * Creates a constrained value from the handler's wider input type and throws on error.
+     * 
+     * This is useful when the output type is refined, but the source data is only known as the primitive input type.
+     * 
+     * ```ts
+     * const strictLargeValue = Between1And10.createWithLargeOrThrow(8);
+     * ```
+     * 
+     */
+    createWithLargeOrThrow(data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>): ConstrainedType<GenericName, GenericPrimitiveValue>;
     /**
      * Creates a constrained value from an unknown input and returns an Either.
      * 
@@ -164,12 +186,12 @@ export declare class CreateConstrainedTypeError extends CreateConstrainedTypeErr
 export declare function createConstraint<GenericName extends string, GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericChecker extends (DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
-]) = never>(name: GenericName, primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, checker: FixDeepFunctionInfer<(DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
+]) = never, GenericPrimitiveRefinedValue extends EligiblePrimitive = DDataParser.ApplyRefinementOfChecker<GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>[number]>>(name: GenericName, primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, checker: FixDeepFunctionInfer<(DDataParser.DataParserChecker<GenericPrimitiveValue> | readonly [
     DDataParser.DataParserChecker<GenericPrimitiveValue>,
     ...DDataParser.DataParserChecker<GenericPrimitiveValue>[]
-]), GenericChecker>): ConstraintHandler<GenericName, GenericPrimitiveValue, DArray.ArrayCoalescing<GenericChecker>, GenericPrimitiveInput>;
+]), GenericChecker>): ConstraintHandler<GenericName, GenericPrimitiveRefinedValue, DArray.ArrayCoalescing<GenericChecker>, IsNever<GenericPrimitiveInput> extends true ? IsEqual<GenericPrimitiveValue, GenericPrimitiveRefinedValue> extends true ? never : GenericPrimitiveValue : GenericPrimitiveInput>;
 export declare namespace createConstraint {
     var overrideHandler: import("../..").OverrideHandler<ConstraintHandler<string, EligiblePrimitive, readonly DDataParser.DataParserChecker<unknown>[], unknown>>;
 }
-export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]> = DDataParser.InputChecker<GenericConstrainHandler["internal"]["checkers"][number]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
+export type GetConstraint<GenericConstrainHandler extends ConstraintHandler, GenericValue extends DDataParser.Output<GenericConstrainHandler["internal"]["dataParser"]> = DDataParser.Output<GenericConstrainHandler["internal"]["dataParser"]>> = Extract<ConstrainedType<GenericConstrainHandler["name"], GenericValue>, any>;
 export {};
