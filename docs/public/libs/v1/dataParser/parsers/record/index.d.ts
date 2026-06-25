@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from ".
 import { type DataParser, type DataParserDefinition } from "../../base";
 import { type DataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserString } from "../string";
 import { type DataParserTemplateLiteral } from "../templateLiteral";
@@ -26,7 +26,7 @@ export declare const recordKind: import("../../../common").KindHandler<import(".
 export type DataParserRecordShapeOutput<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser> = Extract<Record<Output<GenericDataParserKey> extends infer InferredKey extends string | number ? `${InferredKey}` : never, Output<GenericDataParserValue> extends infer InferredValue ? InferredValue : never> extends infer InferredResult extends Record<string, unknown> ? IsEqual<Extract<InferredResult[keyof InferredResult], undefined>, never> extends true ? InferredResult : Partial<InferredResult> : never, any>;
 export type DataParserRecordShapeInput<GenericDataParserKey extends DataParserRecordKey, GenericDataParserValue extends DataParser> = Extract<Record<Input<GenericDataParserKey> extends infer InferredKey extends string | number ? `${InferredKey}` : never, Input<GenericDataParserValue> extends infer InferredValue ? InferredValue : never> extends infer InferredResult extends Record<string, unknown> ? IsEqual<Extract<InferredResult[keyof InferredResult], undefined>, never> extends true ? InferredResult : Partial<InferredResult> : never, any>;
 declare const DataParserRecord_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/record", unknown>>>;
-export declare class DataParserRecord<GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord> extends DataParserRecord_base<GenericDefinition, DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>, DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>> {
+export declare class DataParserRecord<GenericDefinition extends DataParserDefinitionRecord = DataParserDefinitionRecord> extends DataParserRecord_base<GenericDefinition, ApplyRefinementOfDefinition<DataParserRecordShapeOutput<GenericDefinition["key"], GenericDefinition["value"]>, GenericDefinition>, ApplyRefinementOfDefinition<DataParserRecordShapeInput<GenericDefinition["key"], GenericDefinition["value"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserRecord & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

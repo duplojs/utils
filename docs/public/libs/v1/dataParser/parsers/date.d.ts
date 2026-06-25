@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserError, type SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 import * as DDate from "../../date";
 export type DataParserDateCheckers = GetEligibleChecker<DDate.TheDate>;
 export interface DataParserDefinitionDate extends DataParserDefinition<DataParserDateCheckers> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionDate extends DataParserDefinition<DataParse
 }
 export declare const dateKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>>;
 declare const DataParserDate_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/date", unknown>>>;
-export declare class DataParserDate<GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate> extends DataParserDate_base<GenericDefinition, DDate.TheDate, DDate.TheDate | Date | DDate.SerializedTheDate> {
+export declare class DataParserDate<GenericDefinition extends DataParserDefinitionDate = DataParserDefinitionDate> extends DataParserDate_base<GenericDefinition, ApplyRefinementOfDefinition<DDate.TheDate, GenericDefinition>, ApplyRefinementOfDefinition<DDate.TheDate, GenericDefinition> | Date | DDate.SerializedTheDate> {
     get classConstructor(): typeof DataParserDate & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

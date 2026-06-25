@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP, type IsNever, type NeverCoalescing } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP, type IsNever, type NeverCoalescing, type ToLargeEnsemble } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandlers, type PrimitiveHandler } from "./primitive";
@@ -154,7 +154,7 @@ export interface NewTypeHandler<
 	 * {@include clean/createNewType/createWithLarge.md}
 	 */
 	createWithLarge(
-		data: NeverCoalescing<GenericInput, GenericValue>
+		data: NeverCoalescing<GenericInput, ToLargeEnsemble<GenericValue>>
 	): (
 		| DEither.Right<
 			"createNewType",
@@ -174,7 +174,7 @@ export interface NewTypeHandler<
 	 * {@include clean/createNewType/createWithLargeOrThrow.md}
 	 */
 	createWithLargeOrThrow(
-		data: NeverCoalescing<GenericInput, GenericValue>
+		data: NeverCoalescing<GenericInput, ToLargeEnsemble<GenericValue>>
 	): NewType<
 		GenericName,
 		GenericValue,

@@ -2,14 +2,14 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserError, type SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserEmptyCheckers = GetEligibleChecker<undefined>;
 export interface DataParserDefinitionEmpty extends DataParserDefinition<DataParserEmptyCheckers> {
     readonly coerce: boolean;
 }
 export declare const emptyKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/empty", unknown>>;
 declare const DataParserEmpty_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/empty", unknown>>>;
-export declare class DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty> extends DataParserEmpty_base<GenericDefinition, undefined, undefined> {
+export declare class DataParserEmpty<GenericDefinition extends DataParserDefinitionEmpty = DataParserDefinitionEmpty> extends DataParserEmpty_base<GenericDefinition, ApplyRefinementOfDefinition<undefined, GenericDefinition>, ApplyRefinementOfDefinition<undefined, GenericDefinition>> {
     get classConstructor(): typeof DataParserEmpty & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

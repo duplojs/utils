@@ -29,7 +29,7 @@ next:
 
 ## Return value
 
-A `DataParserTuple`. `schema.parse(data)` returns `DEither.success<[...]>` if all elements satisfy their parser, otherwise `DEither.error<DataParserError>` with the incriminated index.
+A `DataParserTuple`. `schema.parse(data)` returns `DEither.success<Output>` if all elements satisfy their parser, otherwise `DEither.error<DataParserError>` with the incriminated index. Tuple-level array min/max checkers are reflected in the output type in the same way as array parsers.
 
 ## Other examples
 
@@ -38,7 +38,7 @@ A `DataParserTuple`. `schema.parse(data)` returns `DEither.success<[...]>` if al
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/tuple/checkers.doc.ts"
   majorVersion="v1"
-  height="600px"
+  height="733px"
 />
 
 ### Extended mode

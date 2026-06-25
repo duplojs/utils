@@ -8,7 +8,10 @@ const UsernameConstraints = C.createConstraintsSet(
 const result = UsernameConstraints.create("Ada");
 
 if (E.isRight(result)) {
-	// result: E.Right<"createConstraintsSet", C.Primitive<"Ada"> & C.GetConstraints<typeof UsernameConstraints>>
+	// result: E.Right<
+	// "createConstraintsSet",
+	// C.Primitive<"Ada"> & C.GetConstraints<typeof UsernameConstraints>
+	// >
 }
 
 const value = UsernameConstraints.createOrThrow("Nova");
@@ -25,3 +28,15 @@ UsernameConstraints.is(value); // type guard
 
 const constraint = UsernameConstraints.getConstraint("string-max-16");
 constraint.createOrThrow("hello");
+
+const largeValue = UsernameConstraints.createWithLarge("from-database");
+// E.Left<
+// "createConstraintsSetError",
+// C.ConstraintError<"string-min-3" | "string-max-16">
+// >
+// | E.Right<
+// "createConstraintsSet",
+// C.Primitive<string> & C.GetConstraints<typeof UsernameConstraints>
+// >
+
+const strictLargeValue = UsernameConstraints.createWithLargeOrThrow("from-database");

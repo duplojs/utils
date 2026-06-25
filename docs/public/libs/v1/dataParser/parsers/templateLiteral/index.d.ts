@@ -2,7 +2,7 @@ import { type AnyTuple, type FixDeepFunctionInfer, type NeverCoalescing, type Si
 import { type DataParserDefinition } from "../../base";
 import { type DataParserError, type SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 import { type DataParserDefinitionString, type DataParserString } from "../string";
 import { type DataParserDefinitionNumber, type DataParserNumber } from "../number";
 import { type DataParserDefinitionBigInt, type DataParserBigInt } from "../bigint";
@@ -49,7 +49,7 @@ export interface DataParserDefinitionTemplateLiteral<GenericInput extends string
 }
 export declare const templateLiteralKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>>;
 declare const DataParserTemplateLiteral_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/template-literal", unknown>>>;
-export declare class DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral> extends DataParserTemplateLiteral_base<GenericDefinition, NeverCoalescing<TemplateLiteralShapeOutput<GenericDefinition["template"]>, string>, NeverCoalescing<TemplateLiteralShapeInput<GenericDefinition["template"]>, string>> {
+export declare class DataParserTemplateLiteral<GenericDefinition extends DataParserDefinitionTemplateLiteral = DataParserDefinitionTemplateLiteral> extends DataParserTemplateLiteral_base<GenericDefinition, ApplyRefinementOfDefinition<NeverCoalescing<TemplateLiteralShapeOutput<GenericDefinition["template"]>, string>, GenericDefinition>, ApplyRefinementOfDefinition<NeverCoalescing<TemplateLiteralShapeInput<GenericDefinition["template"]>, string>, GenericDefinition>> {
     get classConstructor(): typeof DataParserTemplateLiteral & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

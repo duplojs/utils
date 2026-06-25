@@ -31,6 +31,8 @@ Describes a typed object via a dictionary of parsers. `DDataParser.object()` bui
 
 A `DataParserObject` with the methods `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker`, `clone`. `schema.parse(data)` returns `DEither.success<Shape>` if everything passes or `DEither.error<DataParserError>` grouping all issues.
 
+Field-level refinements are preserved in the object output. For example, a field parsed with `DP.email()` is typed as an email template-literal type, and a nested array with min/max checkers keeps its length refinements.
+
 ## Other examples
 
 ### Custom checkers
@@ -38,7 +40,7 @@ A `DataParserObject` with the methods `parse`, `asyncParse`, `exec`, `asyncExec`
 <MonacoTSEditor
   src="/examples/v1/api/dataParser/object/checkers.doc.ts"
   majorVersion="v1"
-  height="700px"
+  height="754px"
 />
 
 ### Extended mode
@@ -128,7 +130,7 @@ Make all keys optional (useful for patch/update payloads) without losing field v
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/partial/default.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="544px"
     />
   </div>
   <div>
@@ -136,7 +138,7 @@ Make all keys optional (useful for patch/update payloads) without losing field v
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/partial/extended.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="544px"
     />
   </div>
 </div>
@@ -151,7 +153,7 @@ Remove optionality (`optional` wrappers) on an object schema: useful after a `pa
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/required/default.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="586px"
     />
   </div>
   <div>
@@ -159,7 +161,7 @@ Remove optionality (`optional` wrappers) on an object schema: useful after a `pa
     <MonacoTSEditor
       src="/examples/v1/api/dataParser/object/required/extended.doc.ts"
       majorVersion="v1"
-      height="560px"
+      height="586px"
     />
   </div>
 </div>

@@ -39,3 +39,8 @@ const strictValue = UserId.createWithUnknownOrThrow(unknownValue);
 
 const constraint = UserId.getConstraint("positive");
 constraint.createOrThrow(1);
+
+const largeValue = UserId.createWithLarge(24);
+// E.Left<"createNewTypeError", C.NewTypeError<"user-id">> | E.Right<"createNewType", UserId>
+
+const strictLargeValue = UserId.createWithLargeOrThrow(24);

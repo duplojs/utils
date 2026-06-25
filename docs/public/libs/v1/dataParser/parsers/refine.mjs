@@ -24,6 +24,9 @@ class DataParserCheckerRefine extends DataParserCheckerBase.init(dataParserCheck
         });
     }
 }
+/**
+ * {@include dataParser/classic/checkerRefine/index.md}
+ */
 const checkerRefine = detachObjectMethod(DataParserCheckerRefine, "create");
 
 export { DataParserCheckerRefine, checkerRefine, dataParserCheckerRefineKind };

@@ -110,6 +110,9 @@ export class DataParserCheckerRefine<
 	}
 }
 
+/**
+ * {@include dataParser/classic/checkerRefine/index.md}
+ */
 export const checkerRefine = detachObjectMethod(DataParserCheckerRefine, "create");
 
 export type CheckerRefineImplementation<

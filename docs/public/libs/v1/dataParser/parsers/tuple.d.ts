@@ -2,7 +2,7 @@ import { type Adaptor, type FixDeepFunctionInfer, type IsEqual, type MaybePromis
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError, SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type TupleShape = readonly [DataParser, ...DataParser[]];
 export type DataParserTupleShapeOutput<GenericShape extends TupleShape, GenericRest extends DataParser | undefined> = IsEqual<GenericShape, TupleShape> extends true ? unknown[] : GenericShape extends readonly [
     infer InferredFirst extends DataParser,
@@ -33,7 +33,7 @@ export interface DataParserDefinitionTuple<GenericInput extends unknown[] = unkn
 }
 export declare const tupleKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>>;
 declare const DataParserTuple_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/tuple", unknown>>>;
-export declare class DataParserTuple<GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple> extends DataParserTuple_base<GenericDefinition, DataParserTupleShapeOutput<GenericDefinition["shape"], GenericDefinition["rest"]>, DataParserTupleShapeInput<GenericDefinition["shape"], GenericDefinition["rest"]>> {
+export declare class DataParserTuple<GenericDefinition extends DataParserDefinitionTuple = DataParserDefinitionTuple> extends DataParserTuple_base<GenericDefinition, ApplyRefinementOfDefinition<DataParserTupleShapeOutput<GenericDefinition["shape"], GenericDefinition["rest"]>, GenericDefinition>, ApplyRefinementOfDefinition<DataParserTupleShapeInput<GenericDefinition["shape"], GenericDefinition["rest"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserTuple & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

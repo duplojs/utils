@@ -49,6 +49,7 @@ Cette erreur contient :
 - `dataParserError` : l'erreur complète du `DDataParser`
 
 Les méthodes `createOrThrow()` et `createWithUnknownOrThrow()` lèvent `C.CreateConstraintsSetError` avec les mêmes informations, plus la donnée reçue.
+Les variantes `createWithLarge()` et `createWithLargeOrThrow()` suivent les mêmes règles d'erreur, mais acceptent uniquement le type d'entrée large connu par le handler.
 
 Quand l'échec vient d'un checker de contrainte, `constraintName` correspond à la contrainte qui contient ce checker, même si cette contrainte provient d'un autre ensemble imbriqué.
 Si l'échec arrive avant l'exécution des contraintes, par exemple parce que la primitive ne peut pas parser la valeur, aucun checker de contrainte n'est responsable. Dans ce cas, l'implémentation utilise le premier nom de contrainte de l'ensemble comme fallback pour `constraintName`.
@@ -84,6 +85,32 @@ function createOrThrow(
 ```
 
 Lève `C.CreateConstrainedTypeError` en cas d'échec de validation.
+
+#### `createWithLarge()`
+
+```typescript
+function createWithLarge(
+	value: LargeInput
+): Right<ConstrainedType<ConstraintName, RawType>> | Left<C.ConstraintError<ConstraintName>>
+```
+
+Accepte le type d'entrée large porté par la primitive ou par les contraintes. C'est utile lorsqu'une contrainte affine le type de sortie, mais que la source de données reste typée plus largement, par exemple lors d'une hydratation depuis une base de données.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/constraints/createWithLarge.doc.ts"
+  majorVersion="v1"
+  height="649px"
+/>
+
+#### `createWithLargeOrThrow()`
+
+```typescript
+function createWithLargeOrThrow(
+	value: LargeInput
+): ConstrainedType<ConstraintName, RawType>
+```
+
+Lève `C.CreateConstrainedTypeError` ou `C.CreateConstraintsSetError` en cas d'échec de validation.
 
 #### `createWithUnknown()`
 

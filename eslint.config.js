@@ -28,6 +28,7 @@ export default [
 	{
 		files: ["**/*.doc.ts"],
 		rules: {
+			"@typescript-eslint/no-inferrable-types": "off",
 			"@typescript-eslint/no-confusing-void-expression": "off",
 			"no-nested-ternary": "off",
 			"@stylistic/js/line-comment-position": "off",
@@ -38,6 +39,7 @@ export default [
 		files: ["jsDoc/**/*.ts"],
 		rules: {
 			"@stylistic/js/line-comment-position": "off",
+			"@typescript-eslint/no-confusing-void-expression": "off",
 		},
 	},
 	{

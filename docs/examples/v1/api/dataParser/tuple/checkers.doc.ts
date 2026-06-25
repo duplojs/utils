@@ -1,4 +1,4 @@
-import { DP, type E, type ExpectType } from "@duplojs/utils";
+import { type A, DP, type E, type ExpectType } from "@duplojs/utils";
 
 const schema = DP
 	.tuple([
@@ -23,6 +23,11 @@ const result = schema.parse([
 
 type check = ExpectType<
 	typeof result,
-	E.Error<DP.DataParserError> | E.Success<[string, number]>,
+	E.Error<DP.DataParserError>
+	| E.Success<
+		& [string | number, string | number, ...(string | number)[]]
+		& [string, number]
+		& A.MaxElements<4>
+	>,
 	"strict"
 >;

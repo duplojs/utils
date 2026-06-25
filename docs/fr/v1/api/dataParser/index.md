@@ -38,6 +38,7 @@ import * as DPE from "@duplojs/utils/dataParserExtended";
 
 Le contrat de checker est centré sur le type de sortie du parser : un checker est compatible si son type d'entrée correspond à `Output<Parser>`. Les checkers sont modélisés via ce contrat de compatibilité de type.
 
+Certains checkers affinent aussi le type du parser. `checkerRefine(...)` resserre la sortie lorsque le prédicat est un type guard TypeScript, `checkerEmail()` resserre les chaînes vers un type template-literal d'email, et les checkers min/max des tableaux peuvent ajouter une information de tuple non vide et `MaxElements<N>` lorsque les bornes sont des nombres littéraux. Ces raffinements s'appliquent aux parsers classiques et étendus, puis se propagent aux contraintes Clean et aux NewTypes.
 
 ## Parsers primitifs
 

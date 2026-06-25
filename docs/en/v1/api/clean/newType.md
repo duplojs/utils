@@ -89,6 +89,32 @@ function createOrThrow(
 
 Throws `C.CreateNewTypeError` if validation fails.
 
+#### `createWithLarge()`
+
+```typescript
+function createWithLarge(
+	value: LargeInput
+): Right<NewType<NewTypeName, RawType, ConstraintName>> | Left<C.NewTypeError<NewTypeName>>
+```
+
+Accepts the wider input type known by the `DataParser`, primitive, or constraints used by the `NewType`. This method is especially useful when hydrating a value from a less precise source while getting a refined `NewType` after validation.
+
+<MonacoTSEditor
+  src="/examples/v1/api/clean/newType/createWithLarge.doc.ts"
+  majorVersion="v1"
+  height="628px"
+/>
+
+#### `createWithLargeOrThrow()`
+
+```typescript
+function createWithLargeOrThrow(
+	value: LargeInput
+): NewType<NewTypeName, RawType, ConstraintName>
+```
+
+Throws `C.CreateNewTypeError` if validation fails.
+
 #### `createWithUnknown()`
 
 ```typescript

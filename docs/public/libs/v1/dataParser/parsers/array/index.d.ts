@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type MaybePromise, type NeverCoalescing } fr
 import { type DataParser, type DataParserDefinition } from "../../base";
 import { type DataParserError, SymbolDataParserError } from "../../../dataParser/error";
 import { type DataParserChecker } from "../../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../../types";
 export * from "./checkers";
 export type DataParserArrayCheckers<GenericInput extends unknown[] = unknown[]> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionArray<GenericInput extends unknown[] = unknown[]> extends DataParserDefinition<DataParserArrayCheckers<GenericInput>> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionArray<GenericInput extends unknown[] = unkn
 }
 export declare const arrayKind: import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>;
 declare const DataParserArray_base: import("../..").DataParserBaseInit<import("../../../common").KindHandler<import("../../../common").KindDefinition<"@DuplojsUtilsDataParser/array", unknown>>>;
-export declare class DataParserArray<GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray> extends DataParserArray_base<GenericDefinition, Output<GenericDefinition["element"]>[], Input<GenericDefinition["element"]>[]> {
+export declare class DataParserArray<GenericDefinition extends DataParserDefinitionArray = DataParserDefinitionArray> extends DataParserArray_base<GenericDefinition, ApplyRefinementOfDefinition<Output<GenericDefinition["element"]>[], GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["element"]>[], GenericDefinition>> {
     get classConstructor(): typeof DataParserArray & import("../..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

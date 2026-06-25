@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type IsEqual, type NeverCoalescing } from ".
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserNullableCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput | null>;
 export interface DataParserDefinitionNullable<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserNullableCheckers<GenericOutput>> {
     readonly inner: DataParser;
@@ -10,7 +10,7 @@ export interface DataParserDefinitionNullable<GenericOutput extends unknown = un
 }
 export declare const nullableKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>>;
 declare const DataParserNullable_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nullable", unknown>>>;
-export declare class DataParserNullable<GenericDefinition extends DataParserDefinitionNullable = DataParserDefinitionNullable> extends DataParserNullable_base<GenericDefinition, IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | null : Output<GenericDefinition["inner"]>, Input<GenericDefinition["inner"]> | null> {
+export declare class DataParserNullable<GenericDefinition extends DataParserDefinitionNullable = DataParserDefinitionNullable> extends DataParserNullable_base<GenericDefinition, ApplyRefinementOfDefinition<IsEqual<GenericDefinition["coalescingValue"], unknown> extends true ? Output<GenericDefinition["inner"]> | null : Output<GenericDefinition["inner"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["inner"]> | null, GenericDefinition>> {
     get classConstructor(): typeof DataParserNullable & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

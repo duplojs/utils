@@ -31,10 +31,11 @@ Construit un parser pour les chaînes de caractères. `DDataParser.string()` gar
 
 Les checkers suivent un contrat de type : un checker est compatible si son type d'entrée correspond à la sortie du parser.
 
+Certains checkers string affinent le type de sortie. Par exemple, `checkerEmail()` resserre `string` vers `` `${string}@${string}.${string}` ``, et un `checkerRefine(...)` avec type predicate peut resserrer la sortie vers votre propre sous-type de chaîne.
 
 ## Valeur de retour
 
-Un `DataParserString` disposant de `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker` et `clone`. `schema.parse(data)` renvoie `DEither.success<string>` lorsque toutes les validations passent, ou `DEither.error<DataParserError>` avec les chemins (`path`), les messages et les valeurs rejetées.
+Un `DataParserString` disposant de `parse`, `asyncParse`, `exec`, `asyncExec`, `addChecker` et `clone`. `schema.parse(data)` renvoie `DEither.success<Output>` lorsque toutes les validations passent, ou `DEither.error<DataParserError>` avec les chemins (`path`), les messages et les valeurs rejetées.
 
 ## Others exemples
 

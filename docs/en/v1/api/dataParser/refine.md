@@ -31,6 +31,16 @@ next:
 
 The contract is based on the target parser output type: a checker `DataParserChecker<..., T>` is compatible with a parser whose output is `T`.
 
+When the predicate is declared as a TypeScript type guard, the checker also refines the parser output type. This lets `parse(...)`, `Output<typeof schema>`, Clean constraints, and NewTypes carry the validated subtype instead of the wider source type.
+
+### Type guard refinement
+
+<MonacoTSEditor
+  src="/examples/v1/api/dataParser/refine/typeGuard.doc.ts"
+  majorVersion="v1"
+  height="586px"
+/>
+
 ## Additional examples
 
 ### Validate coordinates

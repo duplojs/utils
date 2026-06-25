@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserRecoverCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionRecover<GenericInput extends unknown = unknown> extends DataParserDefinition<DataParserRecoverCheckers<GenericInput>> {
     readonly inner: DataParser;
@@ -10,7 +10,7 @@ export interface DataParserDefinitionRecover<GenericInput extends unknown = unkn
 }
 export declare const recoverKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/recover", unknown>>;
 declare const DataParserRecover_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/recover", unknown>>>;
-export declare class DataParserRecover<GenericDefinition extends DataParserDefinitionRecover = DataParserDefinitionRecover> extends DataParserRecover_base<GenericDefinition, GenericDefinition["recoveredValue"], Input<GenericDefinition["inner"]>> {
+export declare class DataParserRecover<GenericDefinition extends DataParserDefinitionRecover = DataParserDefinitionRecover> extends DataParserRecover_base<GenericDefinition, ApplyRefinementOfDefinition<GenericDefinition["recoveredValue"], GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["inner"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserRecover & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

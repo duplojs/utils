@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParser, type DataParserDefinition } from "../base";
 import { type DataParserError, SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type Input, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserTransformCheckers<GenericInput extends unknown = unknown> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionTransform<GenericOutput extends unknown = unknown> extends DataParserDefinition<DataParserTransformCheckers<GenericOutput>> {
     readonly inner: DataParser;
@@ -11,7 +11,7 @@ export interface DataParserDefinitionTransform<GenericOutput extends unknown = u
 export declare const transformKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>>;
 export type DataParserTransformOutput<GenericTheFunction extends DataParserDefinitionTransform["theFunction"]> = Exclude<Awaited<ReturnType<GenericTheFunction>>, typeof SymbolDataParserError>;
 declare const DataParserTransform_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/transform", unknown>>>;
-export declare class DataParserTransform<GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform> extends DataParserTransform_base<GenericDefinition, DataParserTransformOutput<GenericDefinition["theFunction"]>, Input<GenericDefinition["inner"]>> {
+export declare class DataParserTransform<GenericDefinition extends DataParserDefinitionTransform = DataParserDefinitionTransform> extends DataParserTransform_base<GenericDefinition, ApplyRefinementOfDefinition<DataParserTransformOutput<GenericDefinition["theFunction"]>, GenericDefinition>, ApplyRefinementOfDefinition<Input<GenericDefinition["inner"]>, GenericDefinition>> {
     get classConstructor(): typeof DataParserTransform & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

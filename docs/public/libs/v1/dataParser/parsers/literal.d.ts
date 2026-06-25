@@ -2,7 +2,7 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserError, type SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type LiteralValue = string | number | bigint | undefined | null | boolean;
 export type DataParserLiteralCheckers<GenericInput extends LiteralValue = LiteralValue> = GetEligibleChecker<GenericInput>;
 export interface DataParserDefinitionLiteral<GenericInput extends LiteralValue = LiteralValue> extends DataParserDefinition<DataParserLiteralCheckers<GenericInput>> {
@@ -10,7 +10,7 @@ export interface DataParserDefinitionLiteral<GenericInput extends LiteralValue =
 }
 export declare const literalKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>>;
 declare const DataParserLiteral_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/literal", unknown>>>;
-export declare class DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral> extends DataParserLiteral_base<GenericDefinition, GenericDefinition["value"][number], GenericDefinition["value"][number]> {
+export declare class DataParserLiteral<GenericDefinition extends DataParserDefinitionLiteral = DataParserDefinitionLiteral> extends DataParserLiteral_base<GenericDefinition, ApplyRefinementOfDefinition<GenericDefinition["value"][number], GenericDefinition>, ApplyRefinementOfDefinition<GenericDefinition["value"][number], GenericDefinition>> {
     get classConstructor(): typeof DataParserLiteral & import("..").CheckedConstructorKind;
     addChecker: <const GenericChecker extends readonly [
         DataParserChecker<Output<this>>,

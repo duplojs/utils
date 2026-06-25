@@ -752,6 +752,73 @@ describe("createNewType", () => {
 		>;
 	});
 
+	it("accepts a large input when new type starts from a refined data parser", () => {
+		const handler = DClean.createNewType(
+			"EmailAddress",
+			DDataParser.email(),
+		);
+
+		const emailFromDatabase = "user@example.com" as string;
+		const largeResult = handler.createWithLarge(emailFromDatabase);
+		const value = handler.createWithLargeOrThrow(emailFromDatabase);
+
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(value).toStrictEqual(
+			DClean.newTypeKind.setTo(
+				DClean.constrainedTypeKind.setTo(
+					wrapValue("user@example.com"),
+					{},
+				),
+				"EmailAddress",
+			),
+		);
+		expect(() => handler.createWithLargeOrThrow("invalid-email"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			handler.createWithLarge(1);
+		}
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.NewTypeHandler<
+				"EmailAddress",
+				`${string}@${string}.${string}`,
+				readonly [],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<
+				"createNewType",
+				DClean.NewType<
+					"EmailAddress",
+					`${string}@${string}.${string}`,
+					never
+				>
+			>
+			| DEither.Left<
+				"createNewTypeError",
+				DClean.NewTypeError<"EmailAddress">
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			DClean.NewType<
+				"EmailAddress",
+				`${string}@${string}.${string}`,
+				never
+			>,
+			"strict"
+		>;
+	});
+
 	it("preserves mixed constraints and constraints sets order at runtime", () => {
 		const executionOrder: string[] = [];
 		const firstConstraint = DClean.createConstraint(

@@ -107,6 +107,8 @@ function createConstraintsSet(primitiveHandler, constraint) {
         getConstraint,
         create,
         createOrThrow,
+        createWithLarge: create,
+        createWithLargeOrThrow: createOrThrow,
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,

@@ -80,6 +80,8 @@ function createConstraint(name, primitiveHandler, checker) {
         },
         create,
         createOrThrow,
+        createWithLarge: create,
+        createWithLargeOrThrow: createOrThrow,
         createWithUnknown: create,
         createWithUnknownOrThrow: createOrThrow,
         is,

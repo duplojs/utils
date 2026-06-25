@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, type UnionToIntersection, type IsEqual } from "../..";
+import { type Kind, type WrappedValue, type UnionToIntersection, type IsEqual, type IsNever, type NeverCoalescing } from "../..";
 import { type GetConstraint, type ConstraintHandler, type ConstraintError } from "../constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DEither from "../../either";
@@ -44,13 +44,12 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * const result = UsernameConstraints.create("Ada");
      * 
      * if (E.isRight(result)) {
-     * 	// result: E.Right<"createConstraintsSet", C.Primitive<"Ada"> & C.GetConstraints<typeof UsernameConstraints>>
-     * }
+     * 	// result: E.Right<
+     * 	// "createConstraintsSet",
      * ```
      * 
      */
     create<const GenericInput extends GenericPrimitiveValue>(data: GenericInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericInput> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
-    create(data: GenericPrimitiveInput): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
     create<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (DEither.Right<"createConstraintsSet", (GenericPrimitive & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
     /**
      * Creates a constrained value and throws on error. Works with raw values or primitives.
@@ -58,25 +57,54 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * Throws `CreateConstraintsSetError` with the received data, the `dataParserError`, and the resolved `constraintName`. If primitive parsing fails before a constraint checker is responsible, `constraintName` falls back to the first constraint name in the set.
      * 
      * ```ts
+     * 	// >
+     * }
+     * 
      * const value = UsernameConstraints.createOrThrow("Nova");
      * // value: C.Primitive<"Nova"> & C.GetConstraints<typeof UsernameConstraints>
-     * 
-     * const primitive = C.String.createOrThrow("Kit");
-     * UsernameConstraints.create(primitive);
      * ```
      * 
      */
     createOrThrow<const GenericInput extends GenericPrimitiveValue>(data: GenericInput): (Primitive<GenericInput> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>);
-    createOrThrow(data: GenericPrimitiveInput): (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>);
     createOrThrow<GenericPrimitive extends Primitive<GenericPrimitiveValue>>(data: GenericPrimitive): (GenericPrimitive & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>);
+    /**
+     * Creates a constrained value from the set handler's wider input type and returns an Either.
+     * 
+     * This is useful when one of the set constraints refines the output type, but the source data is only known as the primitive input type.
+     * 
+     * ```ts
+     * const largeValue = UsernameConstraints.createWithLarge("from-database");
+     * // E.Left<
+     * // "createConstraintsSetError",
+     * // C.ConstraintError<"string-min-3" | "string-max-16">
+     * // >
+     * // | E.Right<
+     * // "createConstraintsSet",
+     * // C.Primitive<string> & C.GetConstraints<typeof UsernameConstraints>
+     * // >
+     * ```
+     * 
+     */
+    createWithLarge(data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>): (DEither.Right<"createConstraintsSet", (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>)> | DEither.Left<"createConstraintsSetError", GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? ConstraintError<InferredConstraint["name"]> : never : never>);
+    /**
+     * Creates a constrained value from the set handler's wider input type and throws on error.
+     * 
+     * This is useful when one of the set constraints refines the output type, but the source data is only known as the primitive input type.
+     * 
+     * ```ts
+     * const strictLargeValue = UsernameConstraints.createWithLargeOrThrow("from-database");
+     * ```
+     * 
+     */
+    createWithLargeOrThrow(data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>): (Primitive<GenericPrimitiveValue> & UnionToIntersection<GenericConstraintsHandler[number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never>);
     /**
      * Creates a constrained value from an unknown input and returns an Either.
      * 
      * On error, returns `Left<"createConstraintsSetError", ConstraintError<...>>`. The `constraintName` is resolved from the failing checker; if primitive parsing fails before a constraint checker is responsible, it falls back to the first constraint name in the set.
      * 
      * ```ts
-     * const unknownValue: unknown = "Sam";
-     * const maybe = UsernameConstraints.createWithUnknown(unknownValue);
+     * const primitive = C.String.createOrThrow("Kit");
+     * UsernameConstraints.create(primitive);
      * ```
      * 
      */
@@ -87,7 +115,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * Throws `CreateConstraintsSetError` with the received data, the `dataParserError`, and the resolved `constraintName`. If primitive parsing fails before a constraint checker is responsible, `constraintName` falls back to the first constraint name in the set.
      * 
      * ```ts
-     * const strictValue = UsernameConstraints.createWithUnknownOrThrow(unknownValue);
+     * 
      * ```
      * 
      */
@@ -96,7 +124,7 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * Checks if a value satisfies all constraints of the set (type guard).
      * 
      * ```ts
-     * UsernameConstraints.is(value); // type guard
+     * const maybe = UsernameConstraints.createWithUnknown(unknownValue);
      * ```
      * 
      */
@@ -105,8 +133,8 @@ export interface ConstraintsSetHandler<GenericPrimitiveValue extends EligiblePri
      * Returns a constraint handler by name from the constraints set.
      * 
      * ```ts
-     * const constraint = UsernameConstraints.getConstraint("string-max-16");
-     * constraint.createOrThrow("hello");
+     * 
+     * UsernameConstraints.is(value); // type guard
      * ```
      * 
      */
@@ -152,7 +180,10 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * const result = UsernameConstraints.create("Ada");
  * 
  * if (E.isRight(result)) {
- * 	// result: E.Right<"createConstraintsSet", C.Primitive<"Ada"> & C.GetConstraints<typeof UsernameConstraints>>
+ * 	// result: E.Right<
+ * 	// "createConstraintsSet",
+ * 	// C.Primitive<"Ada"> & C.GetConstraints<typeof UsernameConstraints>
+ * 	// >
  * }
  * 
  * const value = UsernameConstraints.createOrThrow("Nova");
@@ -166,9 +197,6 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * const strictValue = UsernameConstraints.createWithUnknownOrThrow(unknownValue);
  * 
  * UsernameConstraints.is(value); // type guard
- * 
- * const constraint = UsernameConstraints.getConstraint("string-max-16");
- * constraint.createOrThrow("hello");
  * ```
  * 
  * @remarks
@@ -183,9 +211,9 @@ export type ExtractConstraintSetConstraintHandlers<GenericConstraint extends (Co
  * @namespace C
  * 
  */
-export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never>(primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveValue, ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>, GenericPrimitiveInput>;
+export declare function createConstraintsSet<GenericPrimitiveValue extends EligiblePrimitive, GenericPrimitiveInput extends unknown, const GenericConstrainHandler extends ConstraintsHandlerArguments<GenericPrimitiveValue> = never, GenericConstraints extends readonly ConstraintHandler[] = ExtractConstraintSetConstraintHandlers<GenericConstrainHandler>, GenericPrimitiveRefinedValue extends EligiblePrimitive = DDataParser.ApplyRefinementOfChecker<GenericPrimitiveValue, GenericConstraints[number]["internal"]["checkers"][number]>>(primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>, constraint: GenericConstrainHandler): ConstraintsSetHandler<GenericPrimitiveRefinedValue, GenericConstraints, IsNever<GenericPrimitiveInput> extends true ? IsEqual<GenericPrimitiveValue, GenericPrimitiveRefinedValue> extends true ? never : GenericPrimitiveValue : GenericPrimitiveInput>;
 export declare namespace createConstraintsSet {
     var overrideHandler: import("../..").OverrideHandler<ConstraintsSetHandler<EligiblePrimitive, readonly [], unknown>>;
 }
-export type GetConstraints<GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["internal"]["constraints"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> : never, any>;
+export type GetConstraints<GenericHandler extends ConstraintsSetHandler<EligiblePrimitive, readonly any[]>, GenericValue extends DDataParser.Output<GenericHandler["internal"]["dataParser"]> = never> = Extract<GenericHandler extends any ? UnionToIntersection<GenericHandler["internal"]["constraints"][number] extends infer InferredConstraint ? InferredConstraint extends ConstraintHandler ? GetConstraint<InferredConstraint> : never : never> & (IsNever<GenericValue> extends true ? unknown : Primitive<GenericValue>) : never, any>;
 export {};

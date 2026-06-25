@@ -1,4 +1,4 @@
-import { DP, type E, type ExpectType } from "@duplojs/utils";
+import { type A, DP, type E, type ExpectType } from "@duplojs/utils";
 
 const schema = DP.object({
 	name: DP.string(),
@@ -25,7 +25,10 @@ type check = ExpectType<
 	E.Error<DP.DataParserError> | E.Success<{
 		name: string;
 		age: number;
-		roles: ("admin" | "editor" | "viewer")[];
+		roles:
+			& ["admin" | "editor" | "viewer", ...("admin" | "editor" | "viewer")[]]
+			& ("admin" | "editor" | "viewer")[]
+			& A.MaxElements<3>;
 	}>,
 	"strict"
 >;

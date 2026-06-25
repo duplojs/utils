@@ -2,14 +2,14 @@ import { type FixDeepFunctionInfer, type NeverCoalescing } from "../../common";
 import { type DataParserDefinition } from "../base";
 import { type DataParserError, type SymbolDataParserError } from "../../dataParser/error";
 import { type DataParserChecker } from "../baseChecker";
-import { type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
+import { type ApplyRefinementOfDefinition, type AddCheckersToDefinition, type GetEligibleChecker, type MergeDefinition, type Output, type PrepareDataParserDefinition } from "../types";
 export type DataParserNilCheckers = GetEligibleChecker<null>;
 export interface DataParserDefinitionNil extends DataParserDefinition<DataParserNilCheckers> {
     readonly coerce: boolean;
 }
 export declare const nilKind: import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nil", unknown>>;
 declare const DataParserNil_base: import("..").DataParserBaseInit<import("../../common").KindHandler<import("../../common").KindDefinition<"@DuplojsUtilsDataParser/nil", unknown>>>;
-export declare class DataParserNil<GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil> extends DataParserNil_base<GenericDefinition, null, null> {
+export declare class DataParserNil<GenericDefinition extends DataParserDefinitionNil = DataParserDefinitionNil> extends DataParserNil_base<GenericDefinition, ApplyRefinementOfDefinition<null, GenericDefinition>, ApplyRefinementOfDefinition<null, GenericDefinition>> {
     get classConstructor(): typeof DataParserNil & import("..").CheckedConstructorKind;
     addChecker: <GenericChecker extends readonly [
         DataParserChecker<Output<this>>,
