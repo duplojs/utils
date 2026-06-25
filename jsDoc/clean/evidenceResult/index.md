@@ -2,11 +2,12 @@ Creates an `Either.Result` while adding an evidence trait to the wrapped object 
 
 **Supported call styles:**
 - Classic: `evidenceResult(information, value)` -> returns a result whose value carries the same evidence as `information`
+- Curried: `evidenceResult(information)` -> returns a function waiting for the value
 
 Use it when a business step needs to return an `Either.Result` and mark the successful value as proven in the same operation. This keeps the implementation short and lets the result information drive the evidence type.
 
 ```ts
-{@include clean/evidenceResult/example.ts[3,38]}
+{@include clean/evidenceResult/example.ts[3,45]}
 ```
 
 @remarks

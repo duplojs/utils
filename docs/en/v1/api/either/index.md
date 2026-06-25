@@ -120,7 +120,7 @@ The info must be explicit and representative. Use clear names like `"emailAlread
 Builds a typed `Right` with mandatory business information (optional payload).
 
 ### [result](/en/v1/api/either/result)
-Builds a neutral `Right` result, neither positive nor negative, with business information and an optional payload.
+Builds a neutral `Right` result, neither positive nor negative, with business information and a payload. It can be curried for `pipe`.
 
 ### [success](/en/v1/api/either/success)
 Shortcut to return a success `right("success", value)` in an expressive way.

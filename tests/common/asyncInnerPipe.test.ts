@@ -64,3 +64,20 @@ it("asyncInnerPipe", async() => {
 		},
 	});
 });
+
+it("should infer a promise unioned with a synchronous result", async() => {
+	const input = 20 as number;
+	const preparedPipe = asyncInnerPipe(
+		(value: number) => value === 20 ? Promise.resolve("promise") : value,
+		(value) => value,
+	);
+	const result = preparedPipe(Promise.resolve(input));
+
+	expect(await result).toBe("promise");
+
+	type check = ExpectType<
+		typeof result,
+		Promise<string | number>,
+		"strict"
+	>;
+});

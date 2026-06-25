@@ -44,10 +44,12 @@ function hasEvidence(...args) {
     }
     return false;
 }
-/**
- * {@include clean/evidenceResult/index.md}
- */
-function evidenceResult(information, value) {
+function evidenceResult(...args) {
+    if (args.length === 1) {
+        const [information] = args;
+        return (value) => evidenceResult(information, value);
+    }
+    const [information, value] = args;
     return result(information, appendEvidence(value, information));
 }
 

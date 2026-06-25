@@ -18,8 +18,8 @@ describe("result", () => {
 		>;
 	});
 
-	it("uses undefined as default value when no value is provided", () => {
-		const either = DEither.result("result");
+	it("uses undefined as value when it is explicitly provided", () => {
+		const either = DEither.result("result", undefined);
 
 		expect(either).toStrictEqual({
 			[`${keyKindPrefix}${DEither.resultKind.definition.name}`]: null,
@@ -35,10 +35,10 @@ describe("result", () => {
 		>;
 	});
 
-	it("works in a pipe chain", () => {
+	it("works in a pipe chain using the curried overload", () => {
 		const either = pipe(
 			10,
-			(value) => DEither.result("result", value),
+			DEither.result("result"),
 		);
 
 		expect(either).toStrictEqual(DEither.result("result", 10));

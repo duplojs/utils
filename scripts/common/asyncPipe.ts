@@ -2,7 +2,6 @@
 import { type BreakGenericLink } from "./types";
 import { type AnyFunction } from "./types/anyFunction";
 import { type AnyValue } from "./types/anyValue";
-import { type MaybePromise } from "./types/maybePromise";
 
 /**
  * {@include common/asyncPipe/index.md}
@@ -11,10 +10,10 @@ export function asyncPipe<
 	const GenericInput extends unknown,
 	const GenericOutputPipe1 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe1>
+	BreakGenericLink<Awaited<GenericOutputPipe1>>
 >;
 
 export function asyncPipe<
@@ -22,11 +21,11 @@ export function asyncPipe<
 	const GenericOutputPipe1 extends unknown,
 	const GenericOutputPipe2 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe2>
+	BreakGenericLink<Awaited<GenericOutputPipe2>>
 >;
 
 export function asyncPipe<
@@ -35,12 +34,12 @@ export function asyncPipe<
 	const GenericOutputPipe2 extends unknown,
 	const GenericOutputPipe3 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe3>
+	BreakGenericLink<Awaited<GenericOutputPipe3>>
 >;
 
 export function asyncPipe<
@@ -50,13 +49,13 @@ export function asyncPipe<
 	const GenericOutputPipe3 extends unknown,
 	const GenericOutputPipe4 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe4>
+	BreakGenericLink<Awaited<GenericOutputPipe4>>
 >;
 
 export function asyncPipe<
@@ -67,14 +66,14 @@ export function asyncPipe<
 	const GenericOutputPipe4 extends unknown,
 	const GenericOutputPipe5 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe5>
+	BreakGenericLink<Awaited<GenericOutputPipe5>>
 >;
 
 export function asyncPipe<
@@ -86,15 +85,15 @@ export function asyncPipe<
 	const GenericOutputPipe5 extends unknown,
 	const GenericOutputPipe6 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe6>
+	BreakGenericLink<Awaited<GenericOutputPipe6>>
 >;
 
 export function asyncPipe<
@@ -107,16 +106,16 @@ export function asyncPipe<
 	const GenericOutputPipe6 extends unknown,
 	const GenericOutputPipe7 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe7>
+	BreakGenericLink<Awaited<GenericOutputPipe7>>
 >;
 
 export function asyncPipe<
@@ -130,17 +129,17 @@ export function asyncPipe<
 	const GenericOutputPipe7 extends unknown,
 	const GenericOutputPipe8 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe8>
+	BreakGenericLink<Awaited<GenericOutputPipe8>>
 >;
 
 export function asyncPipe<
@@ -155,18 +154,18 @@ export function asyncPipe<
 	const GenericOutputPipe8 extends unknown,
 	const GenericOutputPipe9 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe9>
+	BreakGenericLink<Awaited<GenericOutputPipe9>>
 >;
 
 export function asyncPipe<
@@ -182,19 +181,19 @@ export function asyncPipe<
 	const GenericOutputPipe9 extends unknown,
 	const GenericOutputPipe10 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe10>
+	BreakGenericLink<Awaited<GenericOutputPipe10>>
 >;
 export function asyncPipe<
 	const GenericInput extends unknown,
@@ -210,20 +209,20 @@ export function asyncPipe<
 	const GenericOutputPipe10 extends unknown,
 	const GenericOutputPipe11 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
-	pipe11: (input: GenericOutputPipe10) => MaybePromise<GenericOutputPipe11>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
+	pipe11: (input: Awaited<GenericOutputPipe10>) => GenericOutputPipe11,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe11>
+	BreakGenericLink<Awaited<GenericOutputPipe11>>
 >;
 export function asyncPipe<
 	const GenericInput extends unknown,
@@ -240,21 +239,21 @@ export function asyncPipe<
 	const GenericOutputPipe11 extends unknown,
 	const GenericOutputPipe12 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
-	pipe11: (input: GenericOutputPipe10) => MaybePromise<GenericOutputPipe11>,
-	pipe12: (input: GenericOutputPipe11) => MaybePromise<GenericOutputPipe12>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
+	pipe11: (input: Awaited<GenericOutputPipe10>) => GenericOutputPipe11,
+	pipe12: (input: Awaited<GenericOutputPipe11>) => GenericOutputPipe12,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe12>
+	BreakGenericLink<Awaited<GenericOutputPipe12>>
 >;
 export function asyncPipe<
 	const GenericInput extends unknown,
@@ -272,22 +271,22 @@ export function asyncPipe<
 	const GenericOutputPipe12 extends unknown,
 	const GenericOutputPipe13 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
-	pipe11: (input: GenericOutputPipe10) => MaybePromise<GenericOutputPipe11>,
-	pipe12: (input: GenericOutputPipe11) => MaybePromise<GenericOutputPipe12>,
-	pipe13: (input: GenericOutputPipe12) => MaybePromise<GenericOutputPipe13>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
+	pipe11: (input: Awaited<GenericOutputPipe10>) => GenericOutputPipe11,
+	pipe12: (input: Awaited<GenericOutputPipe11>) => GenericOutputPipe12,
+	pipe13: (input: Awaited<GenericOutputPipe12>) => GenericOutputPipe13,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe13>
+	BreakGenericLink<Awaited<GenericOutputPipe13>>
 >;
 export function asyncPipe<
 	const GenericInput extends unknown,
@@ -306,23 +305,23 @@ export function asyncPipe<
 	const GenericOutputPipe13 extends unknown,
 	const GenericOutputPipe14 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
-	pipe11: (input: GenericOutputPipe10) => MaybePromise<GenericOutputPipe11>,
-	pipe12: (input: GenericOutputPipe11) => MaybePromise<GenericOutputPipe12>,
-	pipe13: (input: GenericOutputPipe12) => MaybePromise<GenericOutputPipe13>,
-	pipe14: (input: GenericOutputPipe13) => MaybePromise<GenericOutputPipe14>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
+	pipe11: (input: Awaited<GenericOutputPipe10>) => GenericOutputPipe11,
+	pipe12: (input: Awaited<GenericOutputPipe11>) => GenericOutputPipe12,
+	pipe13: (input: Awaited<GenericOutputPipe12>) => GenericOutputPipe13,
+	pipe14: (input: Awaited<GenericOutputPipe13>) => GenericOutputPipe14,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe14>
+	BreakGenericLink<Awaited<GenericOutputPipe14>>
 >;
 export function asyncPipe<
 	const GenericInput extends unknown,
@@ -342,24 +341,24 @@ export function asyncPipe<
 	const GenericOutputPipe14 extends unknown,
 	const GenericOutputPipe15 extends unknown,
 >(
-	input: MaybePromise<GenericInput>,
-	pipe1: (input: GenericInput) => MaybePromise<GenericOutputPipe1>,
-	pipe2: (input: GenericOutputPipe1) => MaybePromise<GenericOutputPipe2>,
-	pipe3: (input: GenericOutputPipe2) => MaybePromise<GenericOutputPipe3>,
-	pipe4: (input: GenericOutputPipe3) => MaybePromise<GenericOutputPipe4>,
-	pipe5: (input: GenericOutputPipe4) => MaybePromise<GenericOutputPipe5>,
-	pipe6: (input: GenericOutputPipe5) => MaybePromise<GenericOutputPipe6>,
-	pipe7: (input: GenericOutputPipe6) => MaybePromise<GenericOutputPipe7>,
-	pipe8: (input: GenericOutputPipe7) => MaybePromise<GenericOutputPipe8>,
-	pipe9: (input: GenericOutputPipe8) => MaybePromise<GenericOutputPipe9>,
-	pipe10: (input: GenericOutputPipe9) => MaybePromise<GenericOutputPipe10>,
-	pipe11: (input: GenericOutputPipe10) => MaybePromise<GenericOutputPipe11>,
-	pipe12: (input: GenericOutputPipe11) => MaybePromise<GenericOutputPipe12>,
-	pipe13: (input: GenericOutputPipe12) => MaybePromise<GenericOutputPipe13>,
-	pipe14: (input: GenericOutputPipe13) => MaybePromise<GenericOutputPipe14>,
-	pipe15: (input: GenericOutputPipe14) => MaybePromise<GenericOutputPipe15>,
+	input: GenericInput,
+	pipe1: (input: Awaited<GenericInput>) => GenericOutputPipe1,
+	pipe2: (input: Awaited<GenericOutputPipe1>) => GenericOutputPipe2,
+	pipe3: (input: Awaited<GenericOutputPipe2>) => GenericOutputPipe3,
+	pipe4: (input: Awaited<GenericOutputPipe3>) => GenericOutputPipe4,
+	pipe5: (input: Awaited<GenericOutputPipe4>) => GenericOutputPipe5,
+	pipe6: (input: Awaited<GenericOutputPipe5>) => GenericOutputPipe6,
+	pipe7: (input: Awaited<GenericOutputPipe6>) => GenericOutputPipe7,
+	pipe8: (input: Awaited<GenericOutputPipe7>) => GenericOutputPipe8,
+	pipe9: (input: Awaited<GenericOutputPipe8>) => GenericOutputPipe9,
+	pipe10: (input: Awaited<GenericOutputPipe9>) => GenericOutputPipe10,
+	pipe11: (input: Awaited<GenericOutputPipe10>) => GenericOutputPipe11,
+	pipe12: (input: Awaited<GenericOutputPipe11>) => GenericOutputPipe12,
+	pipe13: (input: Awaited<GenericOutputPipe12>) => GenericOutputPipe13,
+	pipe14: (input: Awaited<GenericOutputPipe13>) => GenericOutputPipe14,
+	pipe15: (input: Awaited<GenericOutputPipe14>) => GenericOutputPipe15,
 ): Promise<
-	BreakGenericLink<GenericOutputPipe15>
+	BreakGenericLink<Awaited<GenericOutputPipe15>>
 >;
 
 /**

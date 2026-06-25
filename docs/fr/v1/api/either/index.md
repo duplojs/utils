@@ -35,7 +35,7 @@ Une explication complète (concept, info obligatoire, pattern matching, pipeline
 Construit un `Right` typé avec une information métier obligatoire (payload optionnel).
 
 ### [result](/fr/v1/api/either/result)
-Construit un `Right` de résultat neutre, ni positif ni négatif, avec une information métier et un payload optionnel.
+Construit un `Right` de résultat neutre, ni positif ni négatif, avec une information métier et un payload. Il peut être currifié pour `pipe`.
 
 ### [success](/fr/v1/api/either/success)
 Raccourci pour retourner un succès `right("success", value)` de manière expressive.

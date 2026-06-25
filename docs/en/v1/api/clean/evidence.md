@@ -88,6 +88,8 @@ function hasEvidence<
 
 `evidenceResult` creates an `Either.Result` with the provided information and adds that same information as an evidence on the wrapped value.
 
+#### Classic
+
 ```typescript
 function evidenceResult<
 	GenericInformation extends string,
@@ -98,10 +100,21 @@ function evidenceResult<
 ): C.EvidenceResult<GenericInformation, GenericValue>
 ```
 
+#### Curried
+
+```typescript
+function evidenceResult<
+	GenericInformation extends string,
+	GenericValue extends object
+>(
+	information: GenericInformation,
+): (value: GenericValue) => C.EvidenceResult<GenericInformation, GenericValue>
+```
+
 <MonacoTSEditor
   src="/examples/v1/api/clean/evidence/evidenceResult.doc.ts"
   majorVersion="v1"
-  height="628px"
+  height="1048px"
 />
 
 ### `GetEvidenceResult`
@@ -131,7 +144,7 @@ It automatically goes through promises with `Awaited` and reads the value carrie
 
 `hasEvidence` returns a boolean typed as a predicate. If the result is positive, the input is narrowed to the branch carrying the requested evidence.
 
-`evidenceResult` returns a `C.EvidenceResult<information, value>`, which is an `Either.Result` whose success value carries `C.Evidence<information>`.
+`evidenceResult` returns a `C.EvidenceResult<information, value>`, which is an `Either.Result` whose success value carries `C.Evidence<information>`. In curried form, it returns a function waiting for the value to wrap.
 
 `GetEvidenceResult` returns only the branch of the function result that carries `C.Evidence<EvidenceName>`. If the function returns a `Promise`, the resolved type is used; if it returns an `Either.Left` or an `Either.Right`, the wrapped value is used.
 

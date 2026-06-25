@@ -5,12 +5,13 @@ type _Result<GenericInformation extends string = string, GenericValue extends un
 export interface Result<GenericInformation extends string = string, GenericValue extends unknown = unknown> extends _Result<GenericInformation, GenericValue> {
 }
 /**
- * Builds a `Right` tagged as a neutral result: neither positive nor negative, just a result associated with business information and an optional payload.
+ * Builds a `Right` tagged as a neutral result: neither positive nor negative, just a result associated with business information and a payload.
  * 
  * **Supported call styles:**
- * - Classic: `result(information, value?)` → returns a value
+ * - Classic: `result(information, value)` → returns a result value
+ * - Curried: `result(information)` → returns a function waiting for the value
  * 
- * Use `result` when you want to express that an operation produced a result without marking it as a success, an error, or a failure. The returned value keeps the provided information string and optionally embeds a payload.
+ * Use `result` when you want to express that an operation produced a result without marking it as a success, an error, or a failure. The returned value keeps the provided information string and embeds the provided payload. Pass `undefined` explicitly when the result has no payload.
  * 
  * ```ts
  * const created = E.result(
@@ -24,6 +25,7 @@ export interface Result<GenericInformation extends string = string, GenericValue
  * 
  * const skipped = E.result(
  * 	"user.skipped",
+ * 	undefined,
  * );
  * // type: E.Result<"user.skipped", undefined>
  * 
@@ -32,6 +34,17 @@ export interface Result<GenericInformation extends string = string, GenericValue
  * 	1250,
  * );
  * // type: E.Result<"invoice.total", 1250>
+ * 
+ * const piped = pipe(
+ * 	1250,
+ * 	E.result("invoice.total"),
+ * );
+ * 
+ * type checkPiped = ExpectType<
+ * 	typeof piped,
+ * 	E.Result<"invoice.total", 1250>,
+ * 	"strict"
+ * >;
  * ```
  * 
  * @see [`E.right`](https://utils.duplojs.dev/en/v1/api/either/right)
@@ -41,5 +54,6 @@ export interface Result<GenericInformation extends string = string, GenericValue
  * @namespace E
  * 
  */
-export declare function result<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value?: GenericValue): Result<GenericInformation, GenericValue>;
+export declare function result<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation): (value: GenericValue) => Result<GenericInformation, GenericValue>;
+export declare function result<GenericInformation extends string, const GenericValue extends unknown = undefined>(information: GenericInformation, value: GenericValue): Result<GenericInformation, GenericValue>;
 export {};

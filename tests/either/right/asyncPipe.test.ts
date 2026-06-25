@@ -102,6 +102,23 @@ describe("eitherRightAsyncPipe", () => {
 		>;
 	});
 
+	it("should infer a promise unioned with a synchronous result", async() => {
+		const input = 20 as number;
+		const result = DEither.rightAsyncPipe(
+			input,
+			(value) => (value + value) ? Promise.resolve("promise") : value,
+			(value) => value,
+		);
+
+		expect(await result).toStrictEqual(DEither.success("promise"));
+
+		type check = ExpectType<
+			Awaited<typeof result>,
+			DEither.Success<string> | DEither.Success<number>,
+			"strict"
+		>;
+	});
+
 	it("input object with 6 pipe and one error", async() => {
 		const result = DEither.rightAsyncPipe(
 			{ value: 10 },

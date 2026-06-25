@@ -30,11 +30,34 @@ export function result<
 	const GenericValue extends unknown = undefined,
 >(
 	information: GenericInformation,
-	value: GenericValue = undefined as GenericValue,
+): (value: GenericValue) => Result<
+	GenericInformation,
+	GenericValue
+>;
+
+export function result<
+	GenericInformation extends string,
+	const GenericValue extends unknown = undefined,
+>(
+	information: GenericInformation,
+	value: GenericValue,
 ): Result<
-		GenericInformation,
-		GenericValue
-	> {
+	GenericInformation,
+	GenericValue
+>;
+
+export function result(
+	...args: [string, unknown]
+		| [string]
+): any {
+	if (args.length === 1) {
+		const [information] = args;
+
+		return (value: unknown) => result(information, value);
+	}
+
+	const [information, value] = args;
+
 	return resultKind.setTo(
 		right(information, value),
 	);

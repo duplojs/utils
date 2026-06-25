@@ -27,11 +27,19 @@ const validatedUser = E.unwrapRightOrThrow(validatedResult);
 
 const loadedResult = pipe(
 	user,
-	(value) => C.evidenceResult("loaded", value),
+	C.evidenceResult("loaded"),
 );
 
 type checkLoadedResult = ExpectType<
 	typeof loadedResult,
 	C.EvidenceResult<"loaded", typeof user>,
+	"strict"
+>;
+
+const loadedUser = E.unwrapRightOrThrow(loadedResult);
+
+type checkLoadedUser = ExpectType<
+	typeof loadedUser,
+	typeof user & C.Evidence<"loaded">,
 	"strict"
 >;

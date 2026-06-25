@@ -16,7 +16,7 @@ type RightAsyncPipeFunction<
 			? Unwrap<Exclude<InferredInput, Left>>
 			: InferredInput
 		: never
-) => MaybePromise<GenericOutput>;
+) => GenericOutput;
 
 type RightAsyncPipeResult<
 	GenericPipeOutputs extends unknown,

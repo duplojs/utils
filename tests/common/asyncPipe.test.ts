@@ -59,4 +59,21 @@ describe("asyncPipe", () => {
 			"strict"
 		>;
 	});
+
+	it("should infer a promise unioned with a synchronous result", async() => {
+		const input = 20 as number;
+		const result = asyncPipe(
+			input,
+			(value) => (value + value) ? Promise.resolve("promise") : value,
+			(value) => value,
+		);
+
+		expect(await result).toBe("promise");
+
+		type check = ExpectType<
+			typeof result,
+			Promise<string | number>,
+			"strict"
+		>;
+	});
 });

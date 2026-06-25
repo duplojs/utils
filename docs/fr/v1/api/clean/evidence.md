@@ -88,6 +88,8 @@ function hasEvidence<
 
 `evidenceResult` crée un `Either.Result` avec l'information fournie et ajoute cette même information comme evidence sur la valeur enveloppée.
 
+#### Classique
+
 ```typescript
 function evidenceResult<
 	GenericInformation extends string,
@@ -98,10 +100,21 @@ function evidenceResult<
 ): C.EvidenceResult<GenericInformation, GenericValue>
 ```
 
+#### Currifiée
+
+```typescript
+function evidenceResult<
+	GenericInformation extends string,
+	GenericValue extends object
+>(
+	information: GenericInformation,
+): (value: GenericValue) => C.EvidenceResult<GenericInformation, GenericValue>
+```
+
 <MonacoTSEditor
   src="/examples/v1/api/clean/evidence/evidenceResult.doc.ts"
   majorVersion="v1"
-  height="628px"
+  height="1048px"
 />
 
 ### `GetEvidenceResult`
@@ -131,7 +144,7 @@ Il traverse automatiquement les promesses avec `Awaited` et lit la valeur porté
 
 `hasEvidence` retourne un booléen typé comme predicate. Si le résultat est positif, l'entrée est affinée vers la branche qui porte l'evidence demandée.
 
-`evidenceResult` retourne un `C.EvidenceResult<information, value>`, c'est-à-dire un `Either.Result` dont la valeur de succès porte `C.Evidence<information>`.
+`evidenceResult` retourne un `C.EvidenceResult<information, value>`, c'est-à-dire un `Either.Result` dont la valeur de succès porte `C.Evidence<information>`. En forme currifiée, elle retourne une fonction en attente de la valeur à envelopper.
 
 `GetEvidenceResult` retourne uniquement la branche du résultat de fonction qui porte `C.Evidence<EvidenceName>`. Si la fonction retourne un `Promise`, le type résolu est utilisé ; si elle retourne un `Either.Left` ou un `Either.Right`, la valeur enveloppée est utilisée.
 

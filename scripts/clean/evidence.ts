@@ -168,11 +168,34 @@ export function evidenceResult<
 	GenericValue extends object,
 >(
 	information: GenericInformation,
+): (value: GenericValue) => EvidenceResult<
+	GenericInformation,
+	GenericValue
+>;
+
+export function evidenceResult<
+	GenericInformation extends string,
+	GenericValue extends object,
+>(
+	information: GenericInformation,
 	value: GenericValue,
 ): EvidenceResult<
-		GenericInformation,
-		GenericValue
-	> {
+	GenericInformation,
+	GenericValue
+>;
+
+export function evidenceResult(
+	...args: [string, object]
+		| [string]
+): any {
+	if (args.length === 1) {
+		const [information] = args;
+
+		return (value: object) => evidenceResult(information, value);
+	}
+
+	const [information, value] = args;
+
 	return DEither.result(
 		information,
 		appendEvidence(value, information),

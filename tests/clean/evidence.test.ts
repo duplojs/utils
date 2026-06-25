@@ -343,14 +343,14 @@ describe("evidenceResult", () => {
 		>;
 	});
 
-	it("works in a pipe chain", () => {
+	it("works in a pipe chain using the curried overload", () => {
 		const input = {
 			email: "ada@example.com",
 		};
 
 		const result = pipe(
 			input,
-			(value) => DClean.evidenceResult("loaded", value),
+			DClean.evidenceResult("loaded"),
 		);
 		const value = DEither.unwrapRightOrThrow(result);
 

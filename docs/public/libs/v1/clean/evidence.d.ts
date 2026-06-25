@@ -121,6 +121,7 @@ export interface EvidenceResult<GenericInformation extends string, GenericValue 
  * 
  * **Supported call styles:**
  * - Classic: `evidenceResult(information, value)` -> returns a result whose value carries the same evidence as `information`
+ * - Curried: `evidenceResult(information)` -> returns a function waiting for the value
  * 
  * Use it when a business step needs to return an `Either.Result` and mark the successful value as proven in the same operation. This keeps the implementation short and lets the result information drive the evidence type.
  * 
@@ -152,7 +153,7 @@ export interface EvidenceResult<GenericInformation extends string, GenericValue 
  * 
  * const loadedResult = pipe(
  * 	user,
- * 	(value) => C.evidenceResult("loaded", value),
+ * 	C.evidenceResult("loaded"),
  * );
  * 
  * type checkLoadedResult = ExpectType<
@@ -161,6 +162,13 @@ export interface EvidenceResult<GenericInformation extends string, GenericValue 
  * 	"strict"
  * >;
  * 
+ * const loadedUser = E.unwrapRightOrThrow(loadedResult);
+ * 
+ * type checkLoadedUser = ExpectType<
+ * 	typeof loadedUser,
+ * 	typeof user & C.Evidence<"loaded">,
+ * 	"strict"
+ * >;
  * ```
  * 
  * @remarks
@@ -173,6 +181,7 @@ export interface EvidenceResult<GenericInformation extends string, GenericValue 
  * @namespace C
  * 
  */
+export declare function evidenceResult<GenericInformation extends string, GenericValue extends object>(information: GenericInformation): (value: GenericValue) => EvidenceResult<GenericInformation, GenericValue>;
 export declare function evidenceResult<GenericInformation extends string, GenericValue extends object>(information: GenericInformation, value: GenericValue): EvidenceResult<GenericInformation, GenericValue>;
 export type GetEvidenceResult<GenericFunction extends AnyFunction, EvidenceName extends Extract<keyof UnionToIntersection<GetKindValue<typeof evidenceKind, Extract<Awaited<ReturnType<GenericFunction>> extends infer InferredResult ? InferredResult extends Evidence ? InferredResult : InferredResult extends DEither.Right | DEither.Left ? Unwrap<InferredResult> : InferredResult : never, Evidence>>>, string>> = Extract<Awaited<ReturnType<GenericFunction>> extends infer InferredResult ? InferredResult extends Evidence ? InferredResult : InferredResult extends DEither.Right | DEither.Left ? Unwrap<InferredResult> : InferredResult : never, EvidenceName extends any ? Evidence<EvidenceName> : never>;
 export {};

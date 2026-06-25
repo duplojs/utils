@@ -1,4 +1,4 @@
-import { E } from "@scripts";
+import { E, pipe, type ExpectType } from "@scripts";
 
 const created = E.result(
 	"user.created",
@@ -11,6 +11,7 @@ const created = E.result(
 
 const skipped = E.result(
 	"user.skipped",
+	undefined,
 );
 // type: E.Result<"user.skipped", undefined>
 
@@ -19,3 +20,14 @@ const computed = E.result(
 	1250,
 );
 // type: E.Result<"invoice.total", 1250>
+
+const piped = pipe(
+	1250,
+	E.result("invoice.total"),
+);
+
+type checkPiped = ExpectType<
+	typeof piped,
+	E.Result<"invoice.total", 1250>,
+	"strict"
+>;

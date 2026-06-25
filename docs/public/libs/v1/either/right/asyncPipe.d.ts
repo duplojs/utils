@@ -1,9 +1,9 @@
 import { type Right } from "./create";
 import { type Left } from "../left";
 import { type Success } from "./success";
-import { type MaybePromise, type Unwrap } from "../../common";
+import { type Unwrap } from "../../common";
 type Either = Right | Left;
-type RightAsyncPipeFunction<GenericInput extends unknown, GenericOutput extends unknown> = (input: Awaited<GenericInput> extends infer InferredInput ? InferredInput extends Either ? Unwrap<Exclude<InferredInput, Left>> : InferredInput : never) => MaybePromise<GenericOutput>;
+type RightAsyncPipeFunction<GenericInput extends unknown, GenericOutput extends unknown> = (input: Awaited<GenericInput> extends infer InferredInput ? InferredInput extends Either ? Unwrap<Exclude<InferredInput, Left>> : InferredInput : never) => GenericOutput;
 type RightAsyncPipeResult<GenericPipeOutputs extends unknown, GenericLastPipeOutput extends unknown> = (Extract<Awaited<GenericPipeOutputs>, Left> | (Awaited<GenericLastPipeOutput> extends infer InferredLastResult ? Exclude<InferredLastResult extends Either ? InferredLastResult : Success<InferredLastResult>, Left> : never));
 /**
  * Asynchronous version of rightPipe. Automatically handles promises and Either, and short-circuits on the first Left.
