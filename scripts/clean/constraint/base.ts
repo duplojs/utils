@@ -1,4 +1,4 @@
-import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction, type FixDeepFunctionInfer } from "@scripts";
+import { createErrorKind, kindHeritage, type Unwrap, unwrap, wrapValue, type Kind, type WrappedValue, type RemoveKind, createOverride, pipe, type AnyFunction, type FixDeepFunctionInfer, type IsEqual, type IsNever, type NeverCoalescing } from "@scripts";
 import { createCleanKind } from "../kind";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandler, type PrimitiveHandlers } from "../primitive";
 import * as DArray from "@scripts/array";
@@ -91,19 +91,6 @@ export interface ConstraintHandler<
 		>
 	);
 
-	create(
-		data: GenericPrimitiveInput
-	): (
-		| DEither.Right<
-			"createConstrainedType",
-			ConstrainedType<GenericName, GenericPrimitiveValue>
-		>
-		| DEither.Left<
-			"createConstrainedTypeError",
-			ConstraintError<GenericName>
-		>
-	);
-
 	create<
 		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
 	>(
@@ -131,10 +118,6 @@ export interface ConstraintHandler<
 		data: GenericData
 	): ConstrainedType<GenericName, GenericData>;
 
-	createOrThrow(
-		data: GenericPrimitiveInput
-	): ConstrainedType<GenericName, GenericPrimitiveValue>;
-
 	createOrThrow<
 		GenericPrimitive extends Primitive<GenericPrimitiveValue>,
 	>(
@@ -143,6 +126,29 @@ export interface ConstraintHandler<
 		& GenericPrimitive
 		& ConstrainedType<GenericName, Unwrap<GenericPrimitive>>
 	);
+
+	/**
+	 * {@include clean/createConstraint/createWithLarge.md}
+	 */
+	createWithLarge(
+		data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>
+	): (
+		| DEither.Right<
+			"createConstrainedType",
+			ConstrainedType<GenericName, GenericPrimitiveValue>
+		>
+		| DEither.Left<
+			"createConstrainedTypeError",
+			ConstraintError<GenericName>
+		>
+	);
+
+	/**
+	 * {@include clean/createConstraint/createWithLargeOrThrow.md}
+	 */
+	createWithLargeOrThrow(
+		data: NeverCoalescing<GenericPrimitiveInput, GenericPrimitiveValue>
+	): ConstrainedType<GenericName, GenericPrimitiveValue>;
 
 	/**
 	 * {@include clean/createConstraint/createWithUnknown.md}
@@ -216,6 +222,10 @@ export function createConstraint<
 			>[],
 		]
 	) = never,
+	GenericPrimitiveRefinedValue extends EligiblePrimitive = DDataParser.ApplyRefinementOfChecker<
+		GenericPrimitiveValue,
+		DArray.ArrayCoalescing<GenericChecker>[number]
+	>,
 >(
 	name: GenericName,
 	primitiveHandler: PrimitiveHandler<string, GenericPrimitiveValue, GenericPrimitiveInput>,
@@ -237,12 +247,16 @@ export function createConstraint<
 	>,
 ): ConstraintHandler<
 		GenericName,
-		DDataParser.ApplyRefinementOfChecker<
-			GenericPrimitiveValue,
-			DArray.ArrayCoalescing<GenericChecker>[number]
-		>,
+		GenericPrimitiveRefinedValue,
 		DArray.ArrayCoalescing<GenericChecker>,
-		GenericPrimitiveInput
+		IsNever<GenericPrimitiveInput> extends true
+			? IsEqual<
+				GenericPrimitiveValue,
+				GenericPrimitiveRefinedValue
+			> extends true
+				? never
+				: GenericPrimitiveValue
+			: GenericPrimitiveInput
 	> {
 	const checkers = DArray.coalescing(checker);
 	const dataParserWithCheckers = primitiveHandler
@@ -320,6 +334,8 @@ export function createConstraint<
 			},
 			create,
 			createOrThrow,
+			createWithLarge: create,
+			createWithLargeOrThrow: createOrThrow,
 			createWithUnknown: create,
 			createWithUnknownOrThrow: createOrThrow,
 			is,

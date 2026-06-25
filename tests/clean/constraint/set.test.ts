@@ -225,7 +225,7 @@ describe("createConstraintsSet", () => {
 	});
 
 	it("create exposes the first constraint fallback when primitive parsing fails before constraints", () => {
-		const result = handler.create(12 as never);
+		const result = handler.createWithUnknown(12);
 
 		const expectedError = DDataParser.createError();
 		DDataParser.addIssue(
@@ -568,13 +568,34 @@ describe("createConstraintsSet", () => {
 		expect(() => handler.createWithUnknownOrThrow("value"))
 			.toThrow(DClean.CreateConstraintsSetError);
 
+		const largeResult = handler.createWithLarge("prefix-large");
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(() => handler.createWithLargeOrThrow("value"))
+			.toThrow(DClean.CreateConstraintsSetError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			handler.createWithLarge(1);
+		}
+
 		type CheckHandler = ExpectType<
 			typeof handler,
 			DClean.ConstraintsSetHandler<
 				`prefix-${string}`,
 				readonly [typeof prefixedConstraint],
-				never
+				string
 			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<
+				"createConstraintsSet",
+				& DClean.Primitive<`prefix-${string}`>
+				& DClean.ConstrainedType<"prefixed", `prefix-${string}`>
+			>
+			| DEither.Left<"createConstraintsSetError", DClean.ConstraintError<"prefixed">>,
 			"strict"
 		>;
 
@@ -639,7 +660,7 @@ describe("createConstraintsSet", () => {
 					typeof emailConstraint,
 					typeof adminConstraint,
 				],
-				never
+				string
 			>,
 			"strict"
 		>;
@@ -760,7 +781,7 @@ describe("createConstraintsSet", () => {
 					typeof prefixedConstraint,
 					typeof lengthConstraint,
 				],
-				never
+				string
 			>,
 			"strict"
 		>;

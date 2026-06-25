@@ -559,6 +559,16 @@ describe("createNewType", () => {
 		expect(() => handler.createWithUnknownOrThrow("value"))
 			.toThrow(DClean.CreateNewTypeError);
 
+		const largeResult = handler.createWithLarge("prefix-large");
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(() => handler.createWithLargeOrThrow("value"))
+			.toThrow(DClean.CreateNewTypeError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			handler.createWithLarge(1);
+		}
+
 		type CheckHandler = ExpectType<
 			typeof handler,
 			DClean.NewTypeHandler<
@@ -567,6 +577,13 @@ describe("createNewType", () => {
 				readonly [typeof prefixedConstraint],
 				string
 			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<"createNewType", DClean.NewType<"PrefixedLabel", `prefix-${string}`, "prefixed">>
+			| DEither.Left<"createNewTypeError", DClean.NewTypeError<"PrefixedLabel">>,
 			"strict"
 		>;
 

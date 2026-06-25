@@ -207,14 +207,31 @@ describe("createConstraint", () => {
 		expect(() => prefixedConstraint.createOrThrow("value" as `prefix-${string}`))
 			.toThrow(DClean.CreateConstrainedTypeError);
 
+		const largeResult = prefixedConstraint.createWithLarge("prefix-large");
+		expect(DEither.isRight(largeResult)).toBe(true);
+		expect(() => prefixedConstraint.createWithLargeOrThrow("value"))
+			.toThrow(DClean.CreateConstrainedTypeError);
+
+		if (false) {
+			// @ts-expect-error createWithLarge does not accept unrelated input.
+			prefixedConstraint.createWithLarge(1);
+		}
+
 		type CheckHandler = ExpectType<
 			typeof prefixedConstraint,
 			DClean.ConstraintHandler<
 				"prefixed",
 				`prefix-${string}`,
 				readonly [typeof prefixChecker],
-				never
+				string
 			>,
+			"strict"
+		>;
+
+		type CheckLargeResult = ExpectType<
+			typeof largeResult,
+			| DEither.Right<"createConstrainedType", DClean.ConstrainedType<"prefixed", `prefix-${string}`>>
+			| DEither.Left<"createConstrainedTypeError", DClean.ConstraintError<"prefixed">>,
 			"strict"
 		>;
 
@@ -267,7 +284,7 @@ describe("createConstraint", () => {
 					typeof emailChecker,
 					typeof adminChecker,
 				],
-				never
+				string
 			>,
 			"strict"
 		>;

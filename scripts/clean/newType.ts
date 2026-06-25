@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP, type NeverCoalescing, type IsNever } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP, type IsNever, type NeverCoalescing } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandlers, type PrimitiveHandler } from "./primitive";
@@ -102,23 +102,6 @@ export interface NewTypeHandler<
 			NewTypeError<GenericName>
 		>
 	);
-	create(
-		data: GenericValue
-	): (
-		| DEither.Right<
-			"createNewType",
-			NewType<
-				GenericName,
-				GenericInput,
-				GenericConstraintsHandler[number]["name"]
-			>
-		>
-		| DEither.Left<
-			"createNewTypeError",
-			NewTypeError<GenericName>
-		>
-	);
-
 	create<
 		GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>,
 	>(
@@ -154,14 +137,6 @@ export interface NewTypeHandler<
 		GenericConstraintsHandler[number]["name"]
 	>;
 
-	createOrThrow(
-		data: GenericInput
-	): NewType<
-		GenericName,
-		GenericValue,
-		GenericConstraintsHandler[number]["name"]
-	>;
-
 	createOrThrow<
 		GenericPrimitive extends Primitive<Extract<GenericValue, EligiblePrimitive>>,
 	>(
@@ -174,6 +149,37 @@ export interface NewTypeHandler<
 			GenericConstraintsHandler[number]["name"]
 		>
 	);
+
+	/**
+	 * {@include clean/createNewType/createWithLarge.md}
+	 */
+	createWithLarge(
+		data: NeverCoalescing<GenericInput, GenericValue>
+	): (
+		| DEither.Right<
+			"createNewType",
+			NewType<
+				GenericName,
+				GenericValue,
+				GenericConstraintsHandler[number]["name"]
+			>
+		>
+		| DEither.Left<
+			"createNewTypeError",
+			NewTypeError<GenericName>
+		>
+	);
+
+	/**
+	 * {@include clean/createNewType/createWithLargeOrThrow.md}
+	 */
+	createWithLargeOrThrow(
+		data: NeverCoalescing<GenericInput, GenericValue>
+	): NewType<
+		GenericName,
+		GenericValue,
+		GenericConstraintsHandler[number]["name"]
+	>;
 
 	/**
 	 * {@include clean/createNewType/createWithUnknown.md}
@@ -261,14 +267,11 @@ export function createNewType<
 	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
 		Extract<DDataParser.Output<GenericDataParser>, EligiblePrimitive>
 	> = never,
-	GenericConstraints extends ExtractConstraintSetConstraintHandlers<
-		GenericConstraintsHandler
-	> = ExtractConstraintSetConstraintHandlers<
+	GenericConstraints extends readonly ConstraintHandler[] = ExtractConstraintSetConstraintHandlers<
 		GenericConstraintsHandler
 	>,
-	GenericValue extends DDataParser.ApplyRefinementOfChecker<
-		DDataParser.Output<GenericDataParser>,
-		GenericConstraints[number]["internal"]["checkers"][number]
+	GenericValue extends DDataParser.Output<
+		GenericDataParser
 	> = DDataParser.ApplyRefinementOfChecker<
 		DDataParser.Output<GenericDataParser>,
 		GenericConstraints[number]["internal"]["checkers"][number]
@@ -292,14 +295,11 @@ export function createNewType<
 	const GenericConstraintsHandler extends ConstraintsHandlerArguments<
 		Extract<DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>, EligiblePrimitive>
 	> = never,
-	GenericConstraints extends ExtractConstraintSetConstraintHandlers<
-		GenericConstraintsHandler
-	> = ExtractConstraintSetConstraintHandlers<
+	GenericConstraints extends readonly ConstraintHandler[] = ExtractConstraintSetConstraintHandlers<
 		GenericConstraintsHandler
 	>,
-	GenericValue extends DDataParser.ApplyRefinementOfChecker<
-		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
-		GenericConstraints[number]["internal"]["checkers"][number]
+	GenericValue extends DDataParser.Output<
+		GenericPrimitiveHandler["internal"]["dataParser"]
 	> = DDataParser.ApplyRefinementOfChecker<
 		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
 		GenericConstraints[number]["internal"]["checkers"][number]
@@ -443,6 +443,8 @@ export function createNewType(
 			getConstraint,
 			create,
 			createOrThrow,
+			createWithLarge: create,
+			createWithLargeOrThrow: createOrThrow,
 			createWithUnknown: create,
 			createWithUnknownOrThrow: createOrThrow,
 			is,

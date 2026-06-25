@@ -13,12 +13,12 @@ describe("defaultConstraint string", () => {
 				),
 			),
 		);
-		expect(() => DClean.Email.createOrThrow("invalid@@@@."))
+		expect(() => DClean.Email.createWithUnknownOrThrow("invalid@@@@."))
 			.toThrow(DClean.CreateConstrainedTypeError);
 
 		type check = ExpectType<
 			typeof DClean.Email,
-			DClean.ConstraintHandler<"email", `${string}@${string}.${string}`, readonly [DDataParser.DataParserCheckerEmail], never>,
+			DClean.ConstraintHandler<"email", `${string}@${string}.${string}`, readonly [DDataParser.DataParserCheckerEmail], string>,
 			"strict"
 		>;
 
