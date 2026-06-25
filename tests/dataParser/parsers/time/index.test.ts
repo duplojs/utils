@@ -16,7 +16,8 @@ describe("DDataParser time", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			(DDate.TheTime | number | DDate.SerializedTheTime) & DDate.TheTime & { readonly __refinedTime: true },
+			(DDate.TheTime & { readonly __refinedTime: true })
+			| number | DDate.SerializedTheTime,
 			"strict"
 		>;
 	});

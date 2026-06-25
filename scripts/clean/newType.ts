@@ -1,4 +1,4 @@
-import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP } from "@scripts";
+import { type Kind, type WrappedValue, unwrap, wrapValue, kindHeritage, createErrorKind, type Unwrap, pipe, type DeepReadonly, type RemoveKind, createOverride, type AnyFunction, type IsEqual, type DP, type NeverCoalescing, type IsNever } from "@scripts";
 import { createCleanKind } from "./kind";
 import { constrainedTypeKind, type ConstraintsHandlerArguments, constraintsSetHandlerKind, type ConstraintHandler, type ExtractConstraintSetConstraintHandlers } from "./constraint";
 import { type Primitive, type EligiblePrimitive, type PrimitiveHandlers, type PrimitiveHandler } from "./primitive";
@@ -266,18 +266,22 @@ export function createNewType<
 	> = ExtractConstraintSetConstraintHandlers<
 		GenericConstraintsHandler
 	>,
+	GenericValue extends DDataParser.ApplyRefinementOfChecker<
+		DDataParser.Output<GenericDataParser>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	> = DDataParser.ApplyRefinementOfChecker<
+		DDataParser.Output<GenericDataParser>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	>,
 >(
 	name: GenericName,
 	dataParser: GenericDataParser & NoInfer<GenericDataParserError>,
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
-	DDataParser.ApplyRefinementOfChecker<
-		DeepReadonly<DDataParser.Output<GenericDataParser>>,
-		GenericConstraints[number]["internal"]["checkers"][number]
-	>,
+	DeepReadonly<GenericValue>,
 	GenericConstraints,
-	IsEqual<DDataParser.Output<GenericDataParser>, DDataParser.Input<GenericDataParser>> extends true
+	IsEqual<GenericValue, DDataParser.Input<GenericDataParser>> extends true
 		? never
 		: DDataParser.Input<GenericDataParser>
 >;
@@ -293,19 +297,27 @@ export function createNewType<
 	> = ExtractConstraintSetConstraintHandlers<
 		GenericConstraintsHandler
 	>,
+	GenericValue extends DDataParser.ApplyRefinementOfChecker<
+		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	> = DDataParser.ApplyRefinementOfChecker<
+		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
+		GenericConstraints[number]["internal"]["checkers"][number]
+	>,
 >(
 	name: GenericName,
 	primitiveHandler: GenericPrimitiveHandler,
 	constraint?: GenericConstraintsHandler,
 ): NewTypeHandler<
 	GenericName,
-	DDataParser.ApplyRefinementOfChecker<
-		DDataParser.Output<GenericPrimitiveHandler["internal"]["dataParser"]>,
-		GenericConstraints[number]["internal"]["checkers"][number]
-	>,
+	GenericValue,
 	NoInfer<GenericConstraints>,
-	GenericPrimitiveHandler extends PrimitiveHandler<any, any, infer InferredInput>
-		? InferredInput
+	GenericPrimitiveHandler extends PrimitiveHandler<any, infer InferredValue, infer InferredInput>
+		? IsNever<InferredInput> extends true
+			? IsEqual<InferredValue, GenericValue> extends true
+				? never
+				: InferredValue
+			: InferredInput
 		: never
 >;
 

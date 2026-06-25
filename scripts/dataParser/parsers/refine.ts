@@ -69,7 +69,7 @@ export class DataParserCheckerRefine<
 		SimplifyTopLevel<
 			& NeverCoalescing<
 				GenericDefinition,
-				DataParserCheckerDefinitionRefine<GenericInput>
+				Omit<DataParserCheckerDefinitionRefine<GenericInput>, "theFunction">
 			>
 			& {
 				theFunction(input: GenericInput): input is GenericPredicate;
@@ -90,7 +90,7 @@ export class DataParserCheckerRefine<
 		SimplifyTopLevel<
 			& NeverCoalescing<
 				GenericDefinition,
-				DataParserCheckerDefinitionRefine<GenericInput>
+				Omit<DataParserCheckerDefinitionRefine<GenericInput>, "theFunction">
 			>
 			& {
 				theFunction(input: GenericInput): MaybePromise<boolean>;

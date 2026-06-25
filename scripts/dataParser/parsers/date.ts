@@ -27,9 +27,9 @@ export class DataParserDate<
 			GenericDefinition
 		>,
 		ApplyRefinementOfDefinition<
-			DDate.TheDate | Date | DDate.SerializedTheDate,
+			DDate.TheDate,
 			GenericDefinition
-		>
+		> | Date | DDate.SerializedTheDate
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserDate);

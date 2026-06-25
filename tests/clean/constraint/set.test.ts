@@ -1,4 +1,4 @@
-import { DClean, DDataParser, DEither, pipe, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
+import { DClean, DDataParser, DEither, DString, pipe, wrapValue, type ExpectType, type WrappedValue } from "@scripts";
 
 describe("createConstraintsSet", () => {
 	const minConstraint = DClean.StringMin(3);
@@ -541,5 +541,235 @@ describe("createConstraintsSet", () => {
 			"fourth",
 			"fifth",
 		]);
+	});
+
+	it("refines constraints set primitive value type with a predicate checker", () => {
+		const prefixChecker = DDataParser.checkerRefine(
+			DString.startsWith("prefix-"),
+		);
+		const prefixedConstraint = DClean.createConstraint(
+			"prefixed",
+			DClean.String,
+			prefixChecker,
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			prefixedConstraint,
+		);
+
+		const value = handler.createOrThrow("prefix-value");
+
+		expect(value).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue("prefix-value"),
+				{ prefixed: null },
+			),
+		);
+		expect(() => handler.createWithUnknownOrThrow("value"))
+			.toThrow(DClean.CreateConstraintsSetError);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.ConstraintsSetHandler<
+				`prefix-${string}`,
+				readonly [typeof prefixedConstraint],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			& DClean.Primitive<"prefix-value">
+			& DClean.ConstrainedType<"prefixed", `prefix-${string}`>,
+			"strict"
+		>;
+
+		type CheckConstraints = ExpectType<
+			DClean.GetConstraints<typeof handler>,
+			DClean.ConstrainedType<"prefixed", `prefix-${string}`>,
+			"strict"
+		>;
+	});
+
+	it("intersects constraints set primitive value types from multiple checkers", () => {
+		const emailChecker = DDataParser.checkerEmail();
+		const adminChecker = DDataParser.checkerRefine(
+			DString.startsWith("admin@"),
+		);
+		const emailConstraint = DClean.createConstraint(
+			"email-like",
+			DClean.String,
+			emailChecker,
+		);
+		const adminConstraint = DClean.createConstraint(
+			"admin-like",
+			DClean.String,
+			adminChecker,
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				emailConstraint,
+				adminConstraint,
+			],
+		);
+
+		type AdminEmail = `admin@${string}` & `${string}@${string}.${string}`;
+
+		const value = handler.createOrThrow("admin@example.com");
+
+		expect(value).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue("admin@example.com"),
+				{
+					"email-like": null,
+					"admin-like": null,
+				},
+			),
+		);
+		expect(() => handler.createWithUnknownOrThrow("user@example.com"))
+			.toThrow(DClean.CreateConstraintsSetError);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.ConstraintsSetHandler<
+				AdminEmail,
+				readonly [
+					typeof emailConstraint,
+					typeof adminConstraint,
+				],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			& DClean.Primitive<"admin@example.com">
+			& DClean.ConstrainedType<"email-like", `${string}@${string}.${string}`>
+			& DClean.ConstrainedType<"admin-like", `admin@${string}`>,
+			"strict"
+		>;
+
+		type CheckConstraints = ExpectType<
+			DClean.GetConstraints<typeof handler>,
+			& DClean.ConstrainedType<"email-like", `${string}@${string}.${string}`>
+			& DClean.ConstrainedType<"admin-like", `admin@${string}`>,
+			"strict"
+		>;
+	});
+
+	it("keeps constraints set primitive value type unchanged with non-refining checkers", () => {
+		const lengthConstraint = DClean.createConstraint(
+			"length",
+			DClean.String,
+			[
+				DDataParser.checkerStringMin(3),
+				DDataParser.checkerStringMax(5),
+			],
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			lengthConstraint,
+		);
+
+		const value = handler.createOrThrow("test");
+
+		expect(value).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue("test"),
+				{ length: null },
+			),
+		);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.ConstraintsSetHandler<
+				string,
+				readonly [typeof lengthConstraint],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckValue = ExpectType<
+			typeof value,
+			& DClean.Primitive<"test">
+			& DClean.ConstrainedType<"length", string>,
+			"strict"
+		>;
+
+		type CheckConstraints = ExpectType<
+			DClean.GetConstraints<typeof handler>,
+			DClean.ConstrainedType<"length", string>,
+			"strict"
+		>;
+	});
+
+	it("flattens nested constraints sets while keeping refined primitive value type", () => {
+		const prefixChecker = DDataParser.checkerRefine(
+			DString.startsWith("prefix-"),
+		);
+		const prefixedConstraint = DClean.createConstraint(
+			"prefixed",
+			DClean.String,
+			prefixChecker,
+		);
+		const lengthConstraint = DClean.createConstraint(
+			"length",
+			DClean.String,
+			[
+				DDataParser.checkerStringMin(3),
+				DDataParser.checkerStringMax(20),
+			],
+		);
+		const nestedConstraintsSet = DClean.createConstraintsSet(
+			DClean.String,
+			prefixedConstraint,
+		);
+		const handler = DClean.createConstraintsSet(
+			DClean.String,
+			[
+				nestedConstraintsSet,
+				lengthConstraint,
+			],
+		);
+
+		const value = handler.createOrThrow("prefix-value");
+
+		expect(value).toStrictEqual(
+			DClean.constrainedTypeKind.setTo(
+				wrapValue("prefix-value"),
+				{
+					prefixed: null,
+					length: null,
+				},
+			),
+		);
+		expect(handler.internal.constraints.map(({ name }) => name)).toStrictEqual([
+			"prefixed",
+			"length",
+		]);
+
+		type CheckHandler = ExpectType<
+			typeof handler,
+			DClean.ConstraintsSetHandler<
+				`prefix-${string}`,
+				readonly [
+					typeof prefixedConstraint,
+					typeof lengthConstraint,
+				],
+				never
+			>,
+			"strict"
+		>;
+
+		type CheckConstraints = ExpectType<
+			DClean.GetConstraints<typeof handler>,
+			& DClean.ConstrainedType<"prefixed", `prefix-${string}`>
+			& DClean.ConstrainedType<"length", string>,
+			"strict"
+		>;
 	});
 });

@@ -16,7 +16,10 @@ describe("DDataParser date", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof schema>,
-			(DDate.TheDate | Date | DDate.SerializedTheDate) & DDate.TheDate & { readonly __refinedDate: true },
+			(
+				& DDate.TheDate
+				& { readonly __refinedDate: true }
+			) | Date | DDate.SerializedTheDate,
 			"strict"
 		>;
 	});
