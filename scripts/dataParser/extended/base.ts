@@ -469,8 +469,10 @@ export class DataParserArrayExtended<
 	/**
 	 * {@include dataParser/extended/array/min/index.md}
 	 */
-	public min(
-		min: number,
+	public min<
+		GenericMin extends number,
+	>(
+		min: GenericMin,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMin, "min">
 		>,
@@ -481,8 +483,10 @@ export class DataParserArrayExtended<
 	/**
 	 * {@include dataParser/extended/array/max/index.md}
 	 */
-	public max(
-		max: number,
+	public max<
+		GenericMax extends number,
+	>(
+		max: GenericMax,
 		definition?: Partial<
 			Omit<dataParsers.DataParserCheckerDefinitionArrayMax, "max">
 		>,
