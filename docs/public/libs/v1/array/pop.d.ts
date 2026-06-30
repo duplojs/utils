@@ -1,4 +1,5 @@
-import { type MaxElements, type RemoveKind } from "./types";
+import { type AnyTuple } from "../common";
+import { type MaxElements, type RemoveKind, type TupleHasSpread } from "./types";
 /**
  * Removes the last element from an array.
  * 
@@ -30,4 +31,4 @@ import { type MaxElements, type RemoveKind } from "./types";
  * @namespace A
  * 
  */
-export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): RemoveKind<GenericArray> extends readonly [...infer InferredRest, any] ? (InferredRest & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;
+export declare function pop<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? TupleHasSpread<RemoveKind<GenericArray>> extends true ? GenericArray[number][] : RemoveKind<GenericArray> extends readonly [...infer InferredRest, any] ? (InferredRest & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray : GenericArray;

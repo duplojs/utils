@@ -1,5 +1,5 @@
 import { type AnyTuple } from "../common/types/anyTuple";
-import { type MaxElements, type RemoveKind, type ReverseTuple } from "../array";
+import { type MaxElements, type RemoveKind, type ReverseTuple, type TupleHasSpread } from "../array";
 /**
  * Reverses the order of an array.
  * 
@@ -31,4 +31,4 @@ import { type MaxElements, type RemoveKind, type ReverseTuple } from "../array";
  * @namespace A
  * 
  */
-export declare function reverse<GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? (ReverseTuple<RemoveKind<GenericArray>> & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;
+export declare function reverse<GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? TupleHasSpread<RemoveKind<GenericArray>> extends true ? GenericArray[number][] : (ReverseTuple<RemoveKind<GenericArray>> & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;

@@ -66,4 +66,17 @@ describe("shift", () => {
 			"strict"
 		>;
 	});
+
+	it("infers array result from an array and open tuple intersection", () => {
+		const arr = ["a", "b"] as string[] & ["a", ...string[]];
+		const result = DArray.shift(arr);
+
+		expect(result).toStrictEqual(["b"]);
+
+		type check = ExpectType<
+			typeof result,
+			string[],
+			"strict"
+		>;
+	});
 });

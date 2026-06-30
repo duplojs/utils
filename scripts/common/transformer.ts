@@ -1,27 +1,29 @@
 import type { GetPropsWithValueExtends } from "@scripts/object/types";
-import type { Adaptor, AnyFunction, ComputedTypeError, IsEqual, NeverCoalescing, Or, UnionToIntersection } from "./types";
+import type { Adaptor, AnyFunction, AnyTuple, ComputedTypeError, IsEqual, NeverCoalescing, Or, UnionToIntersection } from "./types";
 
 export type Transformer<
 	GenericValue extends unknown,
 	GenericMethodName extends string,
 > = GenericValue extends Record<GenericMethodName, () => unknown>
 	? ReturnType<GenericValue[GenericMethodName]>
-	: GenericValue extends readonly [infer InferredFirst, ...infer InferredRest]
-		? [
-			Transformer<InferredFirst, GenericMethodName>,
-			...Adaptor<Transformer<InferredRest, GenericMethodName>, readonly any[]>,
-		]
-		: GenericValue extends readonly []
-			? []
-			: GenericValue extends readonly any[]
-				? Transformer<GenericValue[number], GenericMethodName>[]
-				: GenericValue extends string
-					? GenericValue
-					: GenericValue extends Record<number, unknown>
-						? {
-							[Prop in keyof GenericValue]: Transformer<GenericValue[Prop], GenericMethodName>
-						}
-						: GenericValue;
+	: GenericValue extends readonly unknown[] & AnyTuple
+		? Transformer<GenericValue[number], GenericMethodName>[]
+		: GenericValue extends readonly [infer InferredFirst, ...infer InferredRest]
+			? [
+				Transformer<InferredFirst, GenericMethodName>,
+				...Adaptor<Transformer<InferredRest, GenericMethodName>, readonly any[]>,
+			]
+			: GenericValue extends readonly []
+				? []
+				: GenericValue extends readonly any[]
+					? Transformer<GenericValue[number], GenericMethodName>[]
+					: GenericValue extends string
+						? GenericValue
+						: GenericValue extends Record<number, unknown>
+							? {
+								[Prop in keyof GenericValue]: Transformer<GenericValue[Prop], GenericMethodName>
+							}
+							: GenericValue;
 
 export type CheckTransformArgument<
 	GenericValue extends unknown,
@@ -42,37 +44,42 @@ export type CheckTransformArgument<
 					? unknown
 					: GenericValue extends Record<GenericMethodName, AnyFunction>
 						? ComputedTypeError<`A method ${GenericMethodName} in input have an argument.`>
-						: GenericValue extends readonly [infer InferredFirst, ...infer InferredRest]
-							? (
-								& CheckTransformArgument<InferredFirst, GenericMethodName>
-								& CheckTransformArgument<InferredRest, GenericMethodName>
-							)
-							: GenericValue extends readonly []
-								? unknown
-								: GenericValue extends string
+						: GenericValue extends readonly unknown[] & AnyTuple
+							? CheckTransformArgument<
+								Extract<GenericValue, readonly unknown[]>[number],
+								GenericMethodName
+							>
+							: GenericValue extends readonly [infer InferredFirst, ...infer InferredRest]
+								? (
+									& CheckTransformArgument<InferredFirst, GenericMethodName>
+									& CheckTransformArgument<InferredRest, GenericMethodName>
+								)
+								: GenericValue extends readonly []
 									? unknown
-									: GenericValue extends readonly (infer InferredValue)[]
-										? CheckTransformArgument<InferredValue, GenericMethodName>
-										: GenericValue extends Record<number, unknown>
-											? {
-												[Prop in keyof GenericValue]: CheckTransformArgument<
-													GenericValue[Prop],
-													GenericMethodName
-												>
-											} extends infer InferredResult extends object
-												? UnionToIntersection<
-													NeverCoalescing<
-														InferredResult[
-															GetPropsWithValueExtends<
-																InferredResult,
-															object
-															>
-														],
-														unknown
+									: GenericValue extends string
+										? unknown
+										: GenericValue extends readonly (infer InferredValue)[]
+											? CheckTransformArgument<InferredValue, GenericMethodName>
+											: GenericValue extends Record<number, unknown>
+												? {
+													[Prop in keyof GenericValue]: CheckTransformArgument<
+														GenericValue[Prop],
+														GenericMethodName
 													>
-												>
-												: never
-											: unknown
+												} extends infer InferredResult extends object
+													? UnionToIntersection<
+														NeverCoalescing<
+															InferredResult[
+																GetPropsWithValueExtends<
+																	InferredResult,
+															object
+																>
+															],
+															unknown
+														>
+													>
+													: never
+												: unknown
 		) extends infer InferredResult
 			? IsEqual<InferredResult, unknown> extends true
 				? never

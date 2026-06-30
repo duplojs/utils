@@ -16,6 +16,6 @@ const result = schema.parse(["viewer", "admin"]);
 
 type check = ExpectType<
 	typeof result,
-	E.Error<DPE.DataParserError> | E.Success<string[]>,
+	E.Error<DPE.DataParserError> | E.Success<[string, ...string[]] & string[] & A.MaxElements<5>>,
 	"strict"
 >;

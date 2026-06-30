@@ -1,5 +1,5 @@
 import { type AnyTuple } from "@scripts/common/types/anyTuple";
-import { type MaxElements, type RemoveKind, type ReverseTuple } from "@scripts/array";
+import { type MaxElements, type RemoveKind, type ReverseTuple, type TupleHasSpread } from "@scripts/array";
 
 /**
  * {@include array/reverse/index.md}
@@ -9,14 +9,16 @@ export function reverse<
 >(
 	array: GenericArray,
 ): GenericArray extends AnyTuple
-		? (
-			& ReverseTuple<RemoveKind<GenericArray>>
-			& (
-				GenericArray extends MaxElements<infer InferredMax>
-					? MaxElements<InferredMax>
-					: unknown
+		? TupleHasSpread<RemoveKind<GenericArray>> extends true
+			? GenericArray[number][]
+			: (
+				& ReverseTuple<RemoveKind<GenericArray>>
+				& (
+					GenericArray extends MaxElements<infer InferredMax>
+						? MaxElements<InferredMax>
+						: unknown
+				)
 			)
-		)
 		: GenericArray {
 	return [...array].reverse() as never;
 }

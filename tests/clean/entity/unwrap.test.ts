@@ -1,4 +1,4 @@
-import { DClean, DDataParser, pipe, type ExpectType } from "@scripts";
+import { DClean, DDataParser, pipe, type ExpectType, type WrappedValue, wrapValue } from "@scripts";
 import { newTypeKind } from "@scripts/clean";
 
 describe("unwrapEntityProperty", () => {
@@ -77,6 +77,23 @@ describe("unwrapEntityProperty", () => {
 		type Check = ExpectType<
 			typeof result,
 			readonly ["a", null, readonly [1]],
+			"strict"
+		>;
+	});
+
+	it("infers array result from an array and open tuple intersection", () => {
+		const value = [
+			wrapValue("a"),
+			wrapValue("a"),
+		] as WrappedValue<"a">[] & [WrappedValue<"a">, ...WrappedValue<"a">[]];
+
+		const result = DClean.unwrapEntityProperty(value);
+
+		expect(result).toStrictEqual(["a", "a"]);
+
+		type Check = ExpectType<
+			typeof result,
+			readonly "a"[],
 			"strict"
 		>;
 	});

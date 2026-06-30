@@ -103,4 +103,29 @@ describe("transformer", () => {
 			"strict"
 		>;
 	});
+
+	it("infers array result from an array and open tuple intersection", () => {
+		const input = [
+			{
+				toNative() {
+					return "a" as const;
+				},
+			},
+			{
+				toNative() {
+					return "a" as const;
+				},
+			},
+		] as { toNative(): "a" }[] & [{ toNative(): "a" }, ...{ toNative(): "a" }[]];
+
+		const result = DCommon.transformer(input, "toNative");
+
+		expect(result).toStrictEqual(["a", "a"]);
+
+		type check = DCommon.ExpectType<
+			typeof result,
+			"a"[],
+			"strict"
+		>;
+	});
 });

@@ -55,4 +55,17 @@ describe("join", () => {
 			"strict"
 		>;
 	});
+
+	it("infers string result from an array and open tuple intersection", () => {
+		const input = ["a", "b"] as string[] & ["a", ...string[]];
+		const result = DArray.join(input, "-");
+
+		expect(result).toBe("a-b");
+
+		type check = ExpectType<
+			typeof result,
+			string,
+			"strict"
+		>;
+	});
 });

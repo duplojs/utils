@@ -12,3 +12,4 @@ export * from "./joinTuple";
 export * from "./mapTuple";
 export * from "./maxElements";
 export * from "./removeKind";
+export * from "./isCompromiseTuple";

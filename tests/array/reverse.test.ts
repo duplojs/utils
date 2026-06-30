@@ -45,4 +45,17 @@ describe("reverse", () => {
 			"strict"
 		>;
 	});
+
+	it("infers array result from an array and open tuple intersection", () => {
+		const input = ["a", "b"] as string[] & ["a", ...string[]];
+		const result = DArray.reverse(input);
+
+		expect(result).toStrictEqual(["b", "a"]);
+
+		type check = ExpectType<
+			typeof result,
+			string[],
+			"strict"
+		>;
+	});
 });

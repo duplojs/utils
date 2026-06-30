@@ -1,6 +1,7 @@
 import { type Unwrap, type WrappedValue, type IsEqual, type Transformer, type TransformerFunction, type SimplifyTopLevel, type DeepReadonly, type GetKindValue, type Kind, unwrap, isWrappedValue, isRuntimeKind } from "@scripts/common";
 import { entityKind, type Entity } from ".";
 import { flagKind } from "../flag";
+import { type IsCompromiseTuple } from "@scripts/array";
 
 export type UnwrapEntityProperty<
 	GenericProperty extends unknown,
@@ -16,10 +17,12 @@ export type UnwrapEntityProperty<
 		: GenericProperty extends string
 			? GenericProperty
 			: GenericProperty extends readonly [infer InferredFirst, ...infer InferredRest]
-				? readonly [
-					UnwrapEntityProperty<InferredFirst, GenericTransformer>,
-					...UnwrapEntityProperty<InferredRest, GenericTransformer>,
-				]
+				? IsCompromiseTuple<GenericProperty> extends true
+					? readonly UnwrapEntityProperty<GenericProperty[number], GenericTransformer>[]
+					: readonly [
+						UnwrapEntityProperty<InferredFirst, GenericTransformer>,
+						...UnwrapEntityProperty<InferredRest, GenericTransformer>,
+					]
 				: GenericProperty extends readonly []
 					? readonly []
 					: GenericProperty extends readonly unknown[]

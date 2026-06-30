@@ -1,6 +1,6 @@
 import { type AnyTuple } from "../common";
 import { type ShiftTuple } from "../array/types/shiftTuple";
-import { type MaxElements, type RemoveKind } from "./types";
+import { type MaxElements, type RemoveKind, type TupleHasSpread } from "./types";
 /**
  * Removes the first element from an array.
  * 
@@ -32,4 +32,4 @@ import { type MaxElements, type RemoveKind } from "./types";
  * @namespace A
  * 
  */
-export declare function shift<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? (ShiftTuple<RemoveKind<GenericArray>> & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;
+export declare function shift<const GenericArray extends readonly unknown[]>(array: GenericArray): GenericArray extends AnyTuple ? TupleHasSpread<RemoveKind<GenericArray>> extends true ? GenericArray[number][] : (ShiftTuple<RemoveKind<GenericArray>> & (GenericArray extends MaxElements<infer InferredMax> ? MaxElements<InferredMax> : unknown)) : GenericArray;

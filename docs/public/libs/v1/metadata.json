@@ -157,6 +157,9 @@
               "name": "index.d.ts"
             },
             {
+              "name": "isCompromiseTuple.d.ts"
+            },
+            {
               "name": "joinTuple.d.ts"
             },
             {
