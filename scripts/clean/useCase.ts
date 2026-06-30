@@ -90,7 +90,7 @@ export interface UseCaseHandler<
  */
 export function createUseCase<
 	const GenericDependencies extends UseCaseDependencies,
-	GenericUseCase extends(input: any) => any,
+	GenericUseCase extends(...args: any[]) => any,
 >(
 	dependencies: GenericDependencies,
 	getUseCase: (
