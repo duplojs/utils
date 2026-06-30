@@ -125,6 +125,12 @@ Pattern matching exhaustif par information où chaque cas Either doit être trai
 ### [matchInformationOtherwise](/fr/v1/api/either/matchInformationOtherwise)
 Pattern matching non exhaustif par information avec callback de fallback obligatoire.
 
+### [keepAsRightByInformation](/fr/v1/api/either/keepAsRightByInformation)
+Conserve les informations `Either` correspondantes côté `Right` et convertit chaque `Right` non correspondant en `Left`.
+
+### [keepAsRightSelection](/fr/v1/api/either/keepAsRightSelection)
+Conserve les informations `Either` sélectionnées côté `Right` via un sélecteur exhaustif.
+
 ### [unwrapByInformation](/fr/v1/api/either/unwrapByInformation)
 Unwrap un `Either` quand une information (ou l'une de plusieurs informations) correspond, sinon renvoie l'entrée inchangée.
 

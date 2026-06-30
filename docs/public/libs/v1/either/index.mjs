@@ -9,6 +9,8 @@ export { asyncSafeCallback } from './asyncSafeCallback.mjs';
 export { expect } from './expect.mjs';
 export { matchInformation } from './matchInformation.mjs';
 export { matchInformationOtherwise } from './matchInformationOtherwise.mjs';
+export { keepAsRightByInformation } from './keepAsRightByInformation.mjs';
+export { keepAsRightSelection } from './keepAsRightSelection.mjs';
 export { unwrapByInformation } from './unwrapByInformation.mjs';
 export { HasNotInformationError, unwrapByInformationOrThrow } from './unwrapByInformationOrThrow.mjs';
 export { unwrapSelection } from './unwrapSelection.mjs';

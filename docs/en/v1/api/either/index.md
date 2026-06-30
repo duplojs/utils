@@ -210,6 +210,12 @@ Exhaustive pattern matching by information where every Either case must be handl
 ### [matchInformationOtherwise](/en/v1/api/either/matchInformationOtherwise)
 Non-exhaustive pattern matching by information with a mandatory fallback callback.
 
+### [keepAsRightByInformation](/en/v1/api/either/keepAsRightByInformation)
+Keeps matching `Either` informations on the `Right` side and converts every non-matching `Right` to `Left`.
+
+### [keepAsRightSelection](/en/v1/api/either/keepAsRightSelection)
+Keeps selected `Either` informations on the `Right` side through an exhaustive selector.
+
 ### [unwrapByInformation](/en/v1/api/either/unwrapByInformation)
 Unwraps an `Either` when one information (or one of several informations) matches, otherwise returns the input unchanged.
 

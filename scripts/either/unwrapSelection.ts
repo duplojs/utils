@@ -28,7 +28,7 @@ type ForbiddenMoreKey<
  */
 export function unwrapSelection<
 	GenericInput extends unknown,
-	GenericSelector extends Record<
+	const GenericSelector extends Record<
 		GetKindValue<
 			typeof informationKind,
 			Extract<

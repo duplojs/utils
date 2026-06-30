@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "Unwraps an Either payload when one literal information or one of multiple literal informations matches, otherwise returns the original input unchanged."
 prev:
-  text: "matchInformationOtherwise"
-  link: "/en/v1/api/either/matchInformationOtherwise"
+  text: "keepAsRightSelection"
+  link: "/en/v1/api/either/keepAsRightSelection"
 next:
   text: "unwrapByInformationOrThrow"
   link: "/en/v1/api/either/unwrapByInformationOrThrow"

@@ -40,6 +40,8 @@ export * from "./asyncSafeCallback";
 export * from "./expect";
 export * from "./matchInformation";
 export * from "./matchInformationOtherwise";
+export * from "./keepAsRightByInformation";
+export * from "./keepAsRightSelection";
 export * from "./unwrapByInformation";
 export * from "./unwrapByInformationOrThrow";
 export * from "./unwrapSelection";

@@ -110,7 +110,7 @@ export interface UseCaseHandler<GenericDependencies extends UseCaseDependencies 
  * @namespace C
  * 
  */
-export declare function createUseCase<const GenericDependencies extends UseCaseDependencies, GenericUseCase extends (input: any) => any>(dependencies: GenericDependencies, getUseCase: (dependenciesValue: UseCaseDependenciesValue<GenericDependencies>) => GenericUseCase): UseCaseHandler<GenericDependencies, GenericUseCase>;
+export declare function createUseCase<const GenericDependencies extends UseCaseDependencies, GenericUseCase extends (...args: any[]) => any>(dependencies: GenericDependencies, getUseCase: (dependenciesValue: UseCaseDependenciesValue<GenericDependencies>) => GenericUseCase): UseCaseHandler<GenericDependencies, GenericUseCase>;
 export declare namespace createUseCase {
     var overrideHandler: import("../common").OverrideHandler<UseCaseHandler<any, any>>;
 }

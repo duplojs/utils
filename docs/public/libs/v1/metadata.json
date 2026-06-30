@@ -4404,6 +4404,24 @@
           "name": "index.mjs"
         },
         {
+          "name": "keepAsRightByInformation.cjs"
+        },
+        {
+          "name": "keepAsRightByInformation.d.ts"
+        },
+        {
+          "name": "keepAsRightByInformation.mjs"
+        },
+        {
+          "name": "keepAsRightSelection.cjs"
+        },
+        {
+          "name": "keepAsRightSelection.d.ts"
+        },
+        {
+          "name": "keepAsRightSelection.mjs"
+        },
+        {
           "name": "kind.cjs"
         },
         {
