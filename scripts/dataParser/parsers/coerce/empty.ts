@@ -1,21 +1,20 @@
-import { type FixDeepFunctionInfer } from "@scripts/common";
+import type { FixDeepFunctionInfer } from "@scripts/common";
 import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import * as dataParsers from "../..";
-import { coercer } from "../base";
+import * as dataParsers from "..";
 
-export function nil<
+export function empty<
 	const GenericDefinition extends PrepareDataParserDefinition<
-		dataParsers.DataParserDefinitionNil,
+		dataParsers.DataParserDefinitionEmpty,
 		"coerce"
 	> = never,
 >(
 	definition?: FixDeepFunctionInfer<
 		PrepareDataParserDefinition<
-			dataParsers.DataParserDefinitionNil,
+			dataParsers.DataParserDefinitionEmpty,
 			"coerce"
 		>,
 		GenericDefinition
 	>,
 ) {
-	return coercer(dataParsers.nil(definition));
+	return dataParsers.coercer(dataParsers.empty(definition));
 }

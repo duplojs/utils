@@ -1,7 +1,6 @@
-import { type FixDeepFunctionInfer } from "@scripts/common";
-import { type PrepareDataParserDefinition } from "../../../types";
-import * as dataParsers from "../..";
-import { coercer } from "../base";
+import type { FixDeepFunctionInfer } from "@scripts/common";
+import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import * as dataParsers from "..";
 
 export function boolean<
 	const GenericDefinition extends PrepareDataParserDefinition<
@@ -17,5 +16,5 @@ export function boolean<
 		GenericDefinition
 	>,
 ) {
-	return coercer(dataParsers.boolean(definition));
+	return dataParsers.coercer(dataParsers.boolean(definition));
 }

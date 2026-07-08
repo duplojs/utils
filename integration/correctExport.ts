@@ -27,7 +27,7 @@ type Check2 = All.ExpectType<
 >;
 
 type Check22 = All.ExpectType<
-	typeof All.DDataParserCoerce.coerce,
+	typeof All.DDataParserCoerce,
 	typeof DDPC,
 	"strict"
 >;

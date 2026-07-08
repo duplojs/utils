@@ -32,7 +32,7 @@ describe("coerce.bigint", () => {
 
 		type _CheckIn = ExpectType<
 			DDataParser.Input<typeof dataParser>,
-			bigint,
+			string | number | bigint | boolean,
 			"strict"
 		>;
 

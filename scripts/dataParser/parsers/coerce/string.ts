@@ -1,7 +1,6 @@
-import { type FixDeepFunctionInfer } from "@scripts/common";
+import type { FixDeepFunctionInfer } from "@scripts/common";
 import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import * as dataParsers from "../..";
-import { coercer } from "../base";
+import * as dataParsers from "..";
 
 export function string<
 	const GenericDefinition extends PrepareDataParserDefinition<
@@ -17,5 +16,5 @@ export function string<
 		GenericDefinition
 	>,
 ) {
-	return coercer(dataParsers.string(definition));
+	return dataParsers.coercer(dataParsers.string(definition));
 }
