@@ -24,6 +24,18 @@ describe("coerce.boolean", () => {
 			}),
 		);
 
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			boolean,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof dataParser>,
+			string | number | boolean,
+			"strict"
+		>;
+
 		void dataParser;
 	});
 
@@ -36,5 +48,10 @@ describe("coerce.boolean", () => {
 		expect(DDataParser.coerce.boolean({ errorMessage: "boolean.coerce" }).parse("yes")).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
+	});
+
+	it("coerces number", () => {
+		expect(DDataParser.coerce.boolean().parse(1)).toStrictEqual(DEither.success(true));
+		expect(DDataParser.coerce.boolean().parse(0)).toStrictEqual(DEither.success(false));
 	});
 });

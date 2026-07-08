@@ -55,9 +55,9 @@
       "types": "./dist/dataParser/index.d.ts"
     },
     "./dataParserCoerce": {
-      "import": "./dist/dataParser/parsers/coerce/index.mjs",
-      "require": "./dist/dataParser/parsers/coerce/index.cjs",
-      "types": "./dist/dataParser/parsers/coerce/index.d.ts"
+      "import": "./dist/dataParser/parsers/coerce/presets/index.mjs",
+      "require": "./dist/dataParser/parsers/coerce/presets/index.cjs",
+      "types": "./dist/dataParser/parsers/coerce/presets/index.d.ts"
     },
     "./dataParserExtended": {
       "import": "./dist/dataParser/extended/index.mjs",

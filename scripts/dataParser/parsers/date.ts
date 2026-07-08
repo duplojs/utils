@@ -11,6 +11,10 @@ export type DataParserDateCheckers = GetEligibleChecker<DDate.TheDate>;
 export interface DataParserDefinitionDate extends DataParserDefinition<
 	DataParserDateCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 */
 	readonly coerce: boolean;
 }
 

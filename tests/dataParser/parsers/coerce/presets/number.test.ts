@@ -24,6 +24,18 @@ describe("coerce.number", () => {
 			}),
 		);
 
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			number,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof dataParser>,
+			string | number,
+			"strict"
+		>;
+
 		void dataParser;
 	});
 
@@ -33,6 +45,12 @@ describe("coerce.number", () => {
 
 	it("fails for non numeric string", () => {
 		expect(DDataParser.coerce.number({ errorMessage: "number.coerce" }).parse("abc")).toStrictEqual(
+			DEither.error(expect.any(Object)),
+		);
+	});
+
+	it("fails for symbol", () => {
+		expect(DDataParser.coerce.number({ errorMessage: "number.coerce" }).parse(Symbol("foo"))).toStrictEqual(
 			DEither.error(expect.any(Object)),
 		);
 	});

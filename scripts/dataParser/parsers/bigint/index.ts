@@ -12,6 +12,10 @@ export type DataParserBigIntCheckers = GetEligibleChecker<bigint>;
 export interface DataParserDefinitionBigInt extends DataParserDefinition<
 	DataParserBigIntCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 */
 	readonly coerce: boolean;
 }
 

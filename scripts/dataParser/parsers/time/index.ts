@@ -14,6 +14,10 @@ export type DataParserTimeCheckers = GetEligibleChecker<DDate.TheTime>;
 export interface DataParserDefinitionTime extends DataParserDefinition<
 	DataParserTimeCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 */
 	readonly coerce: boolean;
 }
 

@@ -12,6 +12,10 @@ export type DataParserNumberCheckers = GetEligibleChecker<number>;
 export interface DataParserDefinitionNumber extends DataParserDefinition<
 	DataParserNumberCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 */
 	readonly coerce: boolean;
 }
 

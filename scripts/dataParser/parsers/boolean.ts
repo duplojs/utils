@@ -10,6 +10,10 @@ export type DataParserBooleanCheckers = GetEligibleChecker<boolean>;
 export interface DataParserDefinitionBoolean extends DataParserDefinition<
 	DataParserBooleanCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 */
 	readonly coerce: boolean;
 }
 

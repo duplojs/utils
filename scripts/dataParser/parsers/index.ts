@@ -1,4 +1,4 @@
-export * as coerce from "./coerce";
+export * from "./coerce";
 export * from "./string";
 export * from "./number";
 export * from "./array";

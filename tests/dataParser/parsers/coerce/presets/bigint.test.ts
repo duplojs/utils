@@ -24,6 +24,18 @@ describe("coerce.bigint", () => {
 			}),
 		);
 
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			bigint,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof dataParser>,
+			bigint,
+			"strict"
+		>;
+
 		void dataParser;
 	});
 

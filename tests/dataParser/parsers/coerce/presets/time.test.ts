@@ -24,16 +24,31 @@ describe("coerce.time", () => {
 			}),
 		);
 
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof dataParser>,
+			DDate.TheTime,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof dataParser>,
+			DDate.TheTime | string | number,
+			"strict"
+		>;
+
 		void dataParser;
 	});
 
-	it("coerces number, TheTime and ISO time inputs", () => {
+	it("coerces number, serialized string, ISO time string and TheTime inputs", () => {
 		const parser = DDataParser.coerce.time();
 		const existing = DDate.createTime(1, "minute");
+		const serialized = "time3720000+" as DDate.SerializedTheTime;
+		const expected = DDate.createTimeOrThrow(serialized);
 
 		expect(parser.parse(1)).toStrictEqual((DEither.success(DDate.createTime(1, "millisecond"))));
 		expect(parser.parse(-1)).toStrictEqual(DEither.success(DDate.createTime(-1, "millisecond")));
-		expect(parser.parse("01:02")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time3720000+")));
+		expect(parser.parse(serialized)).toStrictEqual(DEither.success(expected));
+		expect(parser.parse("01:02")).toStrictEqual(DEither.success(expected));
 		expect(parser.parse(existing)).toStrictEqual(DEither.success(existing));
 	});
 
