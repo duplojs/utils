@@ -1,4 +1,4 @@
-import { detachObjectMethod, type ComputedTypeError, type FixDeepFunctionInfer, type IsNever, type KindHandler, type NeverCoalescing } from "@scripts/common";
+import { detachObjectMethod, type Memoized, type ComputedTypeError, type FixDeepFunctionInfer, type IsNever, type KindHandler, type NeverCoalescing, memo } from "@scripts/common";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { createDataParserKind } from "../../kind";
 import { addIssue, type DataParserError } from "../../error";
@@ -203,6 +203,12 @@ export class DataParserCoerce<
 			GenericDefinition
 		>
 	> {
+	readonly #transformer: Memoized<DataParserCoerceTransformer | undefined> = memo(
+		() => dataParserCoerceTransformerMapper.get(
+			this.definition.inner.classConstructor.specificKindHandler,
+		),
+	);
+
 	public get classConstructor(): typeof DataParserCoerce {
 		return this.checkConstructor(DataParserCoerce);
 	}
@@ -232,11 +238,7 @@ export class DataParserCoerce<
 		data: unknown,
 		error: DataParserError,
 	): unknown {
-		const transformer = dataParserCoerceTransformerMapper.get(
-			self.definition.inner.classConstructor.specificKindHandler,
-		);
-
-		if (!transformer) {
+		if (!self.#transformer.value) {
 			return addIssue(
 				error,
 				"supported coerce data parser",
@@ -247,7 +249,7 @@ export class DataParserCoerce<
 		}
 
 		try {
-			return self.definition.inner.exec(transformer(data), error);
+			return self.definition.inner.exec(self.#transformer.value(data), error);
 		} catch (catchError) {
 			return addIssue(
 				error,

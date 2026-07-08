@@ -78,6 +78,19 @@ describe("DDataParser coercer", () => {
 		);
 	});
 
+	it("reuses the transformer resolved during first parse", () => {
+		const schema = DDataParser.coercer(DDataParser.number());
+
+		expect(schema.parse("42")).toStrictEqual(DEither.success(42));
+
+		DDataParser.dataParserCoerceTransformerMapper.delete(DDataParser.numberKind);
+
+		expect(schema.parse("43")).toStrictEqual(DEither.success(43));
+		expect(DDataParser.coercer(DDataParser.number()).parse("44")).toStrictEqual(
+			DEither.error(expect.any(Object)),
+		);
+	});
+
 	it("keeps coercion synchronous when inner parser is synchronous", () => {
 		expect(DDataParser.coercer(DDataParser.number()).isAsynchronous()).toBe(false);
 	});
