@@ -1,5 +1,5 @@
-import type { FixDeepFunctionInfer } from "@scripts/common";
-import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import * as dataParsers from "..";
 
 export function number<
@@ -15,6 +15,18 @@ export function number<
 		>,
 		GenericDefinition
 	>,
-) {
+): dataParsers.DataParserCoercer<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsers.DataParserNumber<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionNumber,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
+		>
+	> {
 	return dataParsers.coercer(dataParsers.number(definition));
 }

@@ -1,14 +1,11 @@
-import { callThen, detachObjectMethod, type FixDeepFunctionInfer, type Memoized, memo, type NeverCoalescing, type KindHandler, forward } from "@scripts/common";
+import { detachObjectMethod, type FixDeepFunctionInfer, type Memoized, memo, type NeverCoalescing, type KindHandler, type AnyFunction, callThen, forward } from "@scripts/common";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../../base";
 import { createDataParserKind } from "../../kind";
 import { addIssue, type DataParserError } from "../../error";
 import type { DataParserChecker } from "../../baseChecker";
 import type { ApplyRefinementOfDefinition, AddCheckersToDefinition, GetEligibleChecker, Input, MergeDefinition, Output, PrepareDataParserDefinition } from "../../types";
-import type { DataParserCoercerTransformer } from "./types";
 import * as coercerTransformers from "./transformers";
 import * as dataParsers from "..";
-
-export * from "./types";
 
 export interface ComputeInputDataParserCoercer<
 	GenericDataParser extends DataParser,
@@ -61,7 +58,7 @@ export interface DataParserDefinitionCoercer<
 		DataParserCoercerCheckers<GenericOutput>
 	> {
 	readonly inner: DataParser;
-	readonly transformer: Memoized<DataParserCoercerTransformer | undefined>;
+	readonly transformer: Memoized<AnyFunction | undefined>;
 }
 
 export const coercerKind = createDataParserKind("coercer");
@@ -76,10 +73,7 @@ export class DataParserCoercer<
 			Output<GenericDefinition["inner"]>,
 			GenericDefinition
 		>,
-		ApplyRefinementOfDefinition<
-			DataParserCoercerInput<GenericDefinition["inner"]>,
-			GenericDefinition
-		>
+		DataParserCoercerInput<GenericDefinition["inner"]>
 	> {
 	public get classConstructor() {
 		return this.checkConstructor(DataParserCoercer);
@@ -110,40 +104,38 @@ export class DataParserCoercer<
 		data: unknown,
 		error: DataParserError,
 	): unknown {
-		return callThen(
-			data,
-			(resolvedData) => {
-				const transformedData = self.definition.transformer.value
-					? self.definition.transformer.value(resolvedData)
-					: resolvedData;
+		try {
+			const transformedData = self.definition.transformer.value
+				? self.definition.transformer.value(data)
+				: data;
 
-				return callThen(
-					self.definition.inner.exec(transformedData, error),
-					forward,
-					(catchError) => addIssue(
-						error,
-						"successful coerce result",
-						catchError,
-						self.definition.errorMessage,
-						self,
-					),
-				);
-			},
-			(catchError) => addIssue(
+			return callThen(
+				self.definition.inner.exec(transformedData, error),
+				forward,
+				(catchError) => addIssue(
+					error,
+					"successful coerce result",
+					catchError,
+					self.definition.errorMessage,
+					self,
+				),
+			);
+		} catch (catchError) {
+			return addIssue(
 				error,
 				"successful coerce result",
 				catchError,
 				self.definition.errorMessage,
 				self,
-			),
-		);
+			);
+		}
 	}
 
 	public static override dataParserIsAsynchronous(self: DataParserCoercer) {
 		return self.definition.inner.isAsynchronous();
 	}
 
-	public static transformers = new Map<KindHandler, DataParserCoercerTransformer>([
+	public static transformers = new Map<KindHandler, AnyFunction>([
 		[dataParsers.numberKind, coercerTransformers.numberTransformer],
 		[dataParsers.stringKind, coercerTransformers.stringTransformer],
 		[dataParsers.booleanKind, coercerTransformers.booleanTransformer],

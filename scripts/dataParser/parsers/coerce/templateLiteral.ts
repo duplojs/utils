@@ -1,5 +1,5 @@
-import type { FixDeepFunctionInfer } from "@scripts/common";
-import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import * as dataParsers from "..";
 
 export function templateLiteral<
@@ -21,6 +21,20 @@ export function templateLiteral<
 		>,
 		GenericDefinition
 	>,
-) {
+): dataParsers.DataParserCoercer<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer<
+				dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
+			>,
+			{
+				inner: dataParsers.DataParserTemplateLiteral<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionTemplateLiteral,
+						NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
+					>
+				>;
+			}
+		>
+	> {
 	return dataParsers.coercer(dataParsers.templateLiteral(template, definition));
 }

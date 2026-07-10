@@ -32,6 +32,28 @@ describe("DDataParser coercer", () => {
 		expect(schema.parse("42")).toStrictEqual(DEither.success(42));
 	});
 
+	it("keeps coercer input unrefined when checker refines output", () => {
+		const schema = DDataParser.coercer(DDataParser.number()).addChecker(
+			DDataParser.checkerRefine(
+				(value): value is 42 => value === 42,
+			),
+		);
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof schema>,
+			42,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof schema>,
+			string | number | bigint | boolean | null,
+			"strict"
+		>;
+
+		expect(schema.parse("42")).toStrictEqual(DEither.success(42));
+	});
+
 	it("runs checkers after inner parser succeeds", () => {
 		const schema = DDataParser.coercer(DDataParser.number()).addChecker(
 			DDataParser.checkerNumberMin(10),

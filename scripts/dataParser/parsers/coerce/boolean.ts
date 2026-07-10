@@ -1,5 +1,5 @@
-import type { FixDeepFunctionInfer } from "@scripts/common";
-import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import * as dataParsers from "..";
 
 export function boolean<
@@ -15,6 +15,18 @@ export function boolean<
 		>,
 		GenericDefinition
 	>,
-) {
+): dataParsers.DataParserCoercer<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsers.DataParserBoolean<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionBoolean,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
+		>
+	> {
 	return dataParsers.coercer(dataParsers.boolean(definition));
 }

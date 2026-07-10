@@ -1,5 +1,5 @@
-import type { FixDeepFunctionInfer } from "@scripts/common";
-import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import * as dataParsers from "..";
 
 export function bigint<
@@ -15,6 +15,18 @@ export function bigint<
 		>,
 		GenericDefinition
 	>,
-) {
+): dataParsers.DataParserCoercer<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsers.DataParserBigInt<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionBigInt,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
+		>
+	> {
 	return dataParsers.coercer(dataParsers.bigint(definition));
 }
