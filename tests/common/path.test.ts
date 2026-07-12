@@ -221,4 +221,82 @@ describe("path", () => {
 			"strict"
 		>;
 	});
+
+	it("returns dot when source and destination are the same safe absolute path", () => {
+		const result = Path.computeRelativeFromTo(
+			"/project/src",
+			"/project/src",
+		);
+
+		expect(result).toBe(".");
+
+		type check = ExpectType<
+			typeof result,
+			string | null,
+			"strict"
+		>;
+	});
+
+	it("computes relative paths for child, parent, and sibling destinations", () => {
+		expect(Path.computeRelativeFromTo(
+			"/project/src",
+			"/project/src/components/button",
+		)).toBe("components/button");
+
+		expect(Path.computeRelativeFromTo(
+			"/project/src/components",
+			"/project/src/assets/icon.svg",
+		)).toBe("../assets/icon.svg");
+
+		expect(Path.computeRelativeFromTo(
+			"/project/src/domain/user",
+			"/project/test/domain/user",
+		)).toBe("../../../test/domain/user");
+	});
+
+	it("normalizes trailing separators before computing the relative path", () => {
+		expect(Path.computeRelativeFromTo(
+			"/project/src/",
+			"/project/src/components/",
+		)).toBe("components");
+	});
+
+	it("uses computeRelativeFromTo in pipe", () => {
+		const result = pipe(
+			"/project/src/components",
+			(value) => Path.computeRelativeFromTo(value, "/project/src/assets"),
+		);
+
+		expect(result).toBe("../assets");
+
+		type check = ExpectType<
+			typeof result,
+			string | null,
+			"strict"
+		>;
+	});
+
+	it("returns null when source or destination is not absolute", () => {
+		expect(Path.computeRelativeFromTo(
+			"project/src",
+			"/project/src/components",
+		)).toBe(null);
+
+		expect(Path.computeRelativeFromTo(
+			"/project/src",
+			"project/src/components",
+		)).toBe(null);
+	});
+
+	it("returns null when source or destination contains parent traversal segments", () => {
+		expect(Path.computeRelativeFromTo(
+			"/project/src/../secret",
+			"/project/src/components",
+		)).toBe(null);
+
+		expect(Path.computeRelativeFromTo(
+			"/project/src",
+			"/project/src/../secret",
+		)).toBe(null);
+	});
 });

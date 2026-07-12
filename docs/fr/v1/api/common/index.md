@@ -213,8 +213,17 @@ Mini-domaine pour les utilitaires de chemin POSIX (résolution, extraction).
 ### [Path.isAbsolute](/fr/v1/api/common/path/isAbsolute)
 Vérifie si un chemin est absolu.
 
+### [Path.fix](/fr/v1/api/common/path/fix)
+Nettoie un chemin en retirant un slash final et le prefixe `./`.
+
+### [Path.resolveRelative](/fr/v1/api/common/path/resolveRelative)
+Résout plusieurs segments en un seul chemin.
+
 ### [Path.resolveFrom](/fr/v1/api/common/path/resolveFrom)
 Résout une liste de segments à partir d'un origin.
+
+### [Path.computeRelativeFromTo](/fr/v1/api/common/path/computeRelativeFromTo)
+Calcule un chemin relatif entre deux chemins absolus.
 
 ### [Path.getParentFolderPath](/fr/v1/api/common/path/getParentFolderPath)
 Retourne le dossier parent d'un chemin.

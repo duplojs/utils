@@ -5,8 +5,8 @@ prev:
   text: "resolveRelative"
   link: "/fr/v1/api/common/path/resolveRelative"
 next:
-  text: "getParentFolderPath"
-  link: "/fr/v1/api/common/path/getParentFolderPath"
+  text: "computeRelativeFromTo"
+  link: "/fr/v1/api/common/path/computeRelativeFromTo"
 ---
 
 # resolveFrom
@@ -53,4 +53,4 @@ Le chemin absolu résolu, ou `null` si le résultat n'est pas absolu (ou si `sta
 ## Voir aussi
 
 - [`resolveRelative`](/fr/v1/api/common/path/resolveRelative) - Résout plusieurs segments en un seul chemin
-- [`getParentFolderPath`](/fr/v1/api/common/path/getParentFolderPath) - Retourne le dossier parent d'un chemin
+- [`computeRelativeFromTo`](/fr/v1/api/common/path/computeRelativeFromTo) - Calcule un chemin relatif entre deux chemins absolus

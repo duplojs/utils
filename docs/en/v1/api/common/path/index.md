@@ -19,7 +19,7 @@ Path functions are exposed from the main entry or via direct import (tree-shakin
 
 ```typescript
 import { Path } from "@duplojs/utils";
-import * as Path from "@duplojs/utils/common/path";
+import { Path } from "@duplojs/utils/common";
 ```
 
 ## Checks
@@ -39,6 +39,9 @@ Resolves multiple segments into a single path.
 
 ### [resolveFrom](/en/v1/api/common/path/resolveFrom)
 Resolves a list of segments from an origin.
+
+### [computeRelativeFromTo](/en/v1/api/common/path/computeRelativeFromTo)
+Computes a relative path between two absolute paths.
 
 ## Extraction
 

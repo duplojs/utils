@@ -213,8 +213,17 @@ Mini-domain for POSIX path utilities (resolution, extraction).
 ### [Path.isAbsolute](/en/v1/api/common/path/isAbsolute)
 Checks whether a path is absolute.
 
+### [Path.fix](/en/v1/api/common/path/fix)
+Cleans a path by removing a trailing slash and a leading `./` prefix.
+
+### [Path.resolveRelative](/en/v1/api/common/path/resolveRelative)
+Resolves multiple segments into a single path.
+
 ### [Path.resolveFrom](/en/v1/api/common/path/resolveFrom)
 Resolves a list of segments from an origin.
+
+### [Path.computeRelativeFromTo](/en/v1/api/common/path/computeRelativeFromTo)
+Computes a relative path between two absolute paths.
 
 ### [Path.getParentFolderPath](/en/v1/api/common/path/getParentFolderPath)
 Returns the parent folder of a path.

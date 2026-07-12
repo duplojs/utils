@@ -171,4 +171,51 @@ export namespace Path {
 			.replace(segmentTrailingRegex, "")
 			.replace(segmentRelativeRegex, "");
 	}
+
+	/**
+	 * {@include common/path/computeRelativeFromTo/index.md}
+	 */
+	export function computeRelativeFromTo<
+		GenericSourcePath extends string,
+		GenericDestinationPath extends string,
+	>(
+		source: GenericSourcePath,
+		destination: GenericDestinationPath,
+	): string | null {
+		const fixedSource = fix(source);
+		const fixedDestination = fix(destination);
+
+		if (!isAbsolute(fixedSource) || !isAbsolute(fixedDestination)) {
+			return null;
+		}
+
+		const sourceSegments = fixedSource.split("/");
+		const destinationSegments = fixedDestination.split("/");
+
+		let commonIndex = 1;
+
+		while (
+			commonIndex < sourceSegments.length
+			&& commonIndex < destinationSegments.length
+			&& sourceSegments[commonIndex] === destinationSegments[commonIndex]
+		) {
+			commonIndex++;
+		}
+
+		let result = "";
+
+		for (let index = commonIndex; index < sourceSegments.length; index++) {
+			result += result === ""
+				? ".."
+				: "/..";
+		}
+
+		for (let index = commonIndex; index < destinationSegments.length; index++) {
+			result += result === ""
+				? destinationSegments[index]
+				: `/${destinationSegments[index]}`;
+		}
+
+		return result || ".";
+	}
 }

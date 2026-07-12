@@ -19,7 +19,7 @@ Les fonctions Path sont exposées via l'entrée principale ou en import direct (
 
 ```typescript
 import { Path } from "@duplojs/utils";
-import * as Path from "@duplojs/utils/common/path";
+import { Path } from "@duplojs/utils/common";
 ```
 
 ## Vérifications
@@ -39,6 +39,9 @@ Résout plusieurs segments en un seul chemin.
 
 ### [resolveFrom](/fr/v1/api/common/path/resolveFrom)
 Résout une liste de segments à partir d'une origine.
+
+### [computeRelativeFromTo](/fr/v1/api/common/path/computeRelativeFromTo)
+Calcule un chemin relatif entre deux chemins absolus.
 
 ## Extraction
 
