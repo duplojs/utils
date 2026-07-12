@@ -223,7 +223,7 @@ describe("path", () => {
 	});
 
 	it("returns dot when source and destination are the same safe absolute path", () => {
-		const result = Path.computeRelativeFromTo(
+		const result = Path.computeRelative(
 			"/project/src",
 			"/project/src",
 		);
@@ -238,33 +238,33 @@ describe("path", () => {
 	});
 
 	it("computes relative paths for child, parent, and sibling destinations", () => {
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src",
 			"/project/src/components/button",
 		)).toBe("components/button");
 
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src/components",
 			"/project/src/assets/icon.svg",
 		)).toBe("../assets/icon.svg");
 
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src/domain/user",
 			"/project/test/domain/user",
 		)).toBe("../../../test/domain/user");
 	});
 
 	it("normalizes trailing separators before computing the relative path", () => {
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src/",
 			"/project/src/components/",
 		)).toBe("components");
 	});
 
-	it("uses computeRelativeFromTo in pipe", () => {
+	it("uses computeRelative in pipe", () => {
 		const result = pipe(
 			"/project/src/components",
-			(value) => Path.computeRelativeFromTo(value, "/project/src/assets"),
+			(value) => Path.computeRelative(value, "/project/src/assets"),
 		);
 
 		expect(result).toBe("../assets");
@@ -277,24 +277,24 @@ describe("path", () => {
 	});
 
 	it("returns null when source or destination is not absolute", () => {
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"project/src",
 			"/project/src/components",
 		)).toBe(null);
 
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src",
 			"project/src/components",
 		)).toBe(null);
 	});
 
 	it("returns null when source or destination contains parent traversal segments", () => {
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src/../secret",
 			"/project/src/components",
 		)).toBe(null);
 
-		expect(Path.computeRelativeFromTo(
+		expect(Path.computeRelative(
 			"/project/src",
 			"/project/src/../secret",
 		)).toBe(null);

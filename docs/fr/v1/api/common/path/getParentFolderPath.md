@@ -2,8 +2,8 @@
 outline: [2, 3]
 description: "La fonction getParentFolderPath() retourne le dossier parent d'un chemin POSIX."
 prev:
-  text: "computeRelativeFromTo"
-  link: "/fr/v1/api/common/path/computeRelativeFromTo"
+  text: "computeRelative"
+  link: "/fr/v1/api/common/path/computeRelative"
 next:
   text: "getBaseName"
   link: "/fr/v1/api/common/path/getBaseName"

@@ -40,7 +40,7 @@ Resolves multiple segments into a single path.
 ### [resolveFrom](/en/v1/api/common/path/resolveFrom)
 Resolves a list of segments from an origin.
 
-### [computeRelativeFromTo](/en/v1/api/common/path/computeRelativeFromTo)
+### [computeRelative](/en/v1/api/common/path/computeRelative)
 Computes a relative path between two absolute paths.
 
 ## Extraction

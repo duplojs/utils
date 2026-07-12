@@ -119,9 +119,9 @@ var Path;
     }
     Path.fix = fix;
     /**
-     * {@include common/path/computeRelativeFromTo/index.md}
+     * {@include common/path/computeRelative/index.md}
      */
-    function computeRelativeFromTo(source, destination) {
+    function computeRelative(source, destination) {
         const fixedSource = fix(source);
         const fixedDestination = fix(destination);
         if (!isAbsolute(fixedSource) || !isAbsolute(fixedDestination)) {
@@ -148,7 +148,7 @@ var Path;
         }
         return result || ".";
     }
-    Path.computeRelativeFromTo = computeRelativeFromTo;
+    Path.computeRelative = computeRelative;
 })(Path || (Path = {}));
 
 export { Path };

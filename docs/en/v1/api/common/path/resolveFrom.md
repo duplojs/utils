@@ -5,8 +5,8 @@ prev:
   text: "resolveRelative"
   link: "/en/v1/api/common/path/resolveRelative"
 next:
-  text: "computeRelativeFromTo"
-  link: "/en/v1/api/common/path/computeRelativeFromTo"
+  text: "computeRelative"
+  link: "/en/v1/api/common/path/computeRelative"
 ---
 
 # resolveFrom
@@ -53,4 +53,4 @@ The resolved absolute path, or `null` when the result is not absolute (or when `
 ## See also
 
 - [`resolveRelative`](/en/v1/api/common/path/resolveRelative) - Resolves multiple segments into a single path
-- [`computeRelativeFromTo`](/en/v1/api/common/path/computeRelativeFromTo) - Computes a relative path between two absolute paths
+- [`computeRelative`](/en/v1/api/common/path/computeRelative) - Computes a relative path between two absolute paths

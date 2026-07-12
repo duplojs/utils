@@ -222,7 +222,7 @@ Resolves multiple segments into a single path.
 ### [Path.resolveFrom](/en/v1/api/common/path/resolveFrom)
 Resolves a list of segments from an origin.
 
-### [Path.computeRelativeFromTo](/en/v1/api/common/path/computeRelativeFromTo)
+### [Path.computeRelative](/en/v1/api/common/path/computeRelative)
 Computes a relative path between two absolute paths.
 
 ### [Path.getParentFolderPath](/en/v1/api/common/path/getParentFolderPath)

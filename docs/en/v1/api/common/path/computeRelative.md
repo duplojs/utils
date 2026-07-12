@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "The computeRelativeFromTo() function computes the relative path from one absolute POSIX path to another."
+description: "The computeRelative() function computes the relative path from one absolute POSIX path to another."
 prev:
   text: "resolveFrom"
   link: "/en/v1/api/common/path/resolveFrom"
@@ -9,9 +9,9 @@ next:
   link: "/en/v1/api/common/path/getParentFolderPath"
 ---
 
-# computeRelativeFromTo
+# computeRelative
 
-The **`computeRelativeFromTo()`** function computes the relative path from one absolute POSIX path to another.
+The **`computeRelative()`** function computes the relative path from one absolute POSIX path to another.
 It returns `null` when either path is not absolute.
 
 ::: warning
@@ -21,7 +21,7 @@ Works only with POSIX paths (not Windows paths).
 ## Interactive example
 
 <MonacoTSEditor
-  src="/examples/v1/api/common/path/computeRelativeFromTo/tryout.doc.ts"
+  src="/examples/v1/api/common/path/computeRelative/tryout.doc.ts"
   majorVersion="v1"
   height="250px"
 />
@@ -29,7 +29,7 @@ Works only with POSIX paths (not Windows paths).
 ## Syntax
 
 ```typescript
-function computeRelativeFromTo<
+function computeRelative<
 	GenericSourcePath extends string,
 	GenericDestinationPath extends string,
 >(

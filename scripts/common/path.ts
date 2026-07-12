@@ -173,9 +173,9 @@ export namespace Path {
 	}
 
 	/**
-	 * {@include common/path/computeRelativeFromTo/index.md}
+	 * {@include common/path/computeRelative/index.md}
 	 */
-	export function computeRelativeFromTo<
+	export function computeRelative<
 		GenericSourcePath extends string,
 		GenericDestinationPath extends string,
 	>(

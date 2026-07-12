@@ -182,28 +182,28 @@ export declare namespace Path {
      * Computes the relative POSIX-like path from one absolute path to another.
      * 
      * **Supported call styles:**
-     * - Classic: `computeRelativeFromTo(source, destination)` -> returns the relative path or null
+     * - Classic: `computeRelative(source, destination)` -> returns the relative path or null
      * 
      * The function returns `null` when either path is not absolute.
      * When paths are absolute, it compares their common segments and builds the relative path with `..` segments when needed.
      * It returns `.` when source and destination resolve to the same.
      * 
      * ```ts
-     * const samePath = Path.computeRelativeFromTo("/project/src", "/project/src");
+     * const samePath = Path.computeRelative("/project/src", "/project/src");
      * // samePath: "."
      * 
-     * const childPath = Path.computeRelativeFromTo("/project/src", "/project/src/components");
+     * const childPath = Path.computeRelative("/project/src", "/project/src/components");
      * // childPath: "components"
      * 
-     * const siblingPath = Path.computeRelativeFromTo("/project/src/components", "/project/src/assets");
+     * const siblingPath = Path.computeRelative("/project/src/components", "/project/src/assets");
      * // siblingPath: "../assets"
      * 
-     * const invalidPath = Path.computeRelativeFromTo("project/src", "/project/src/assets");
+     * const invalidPath = Path.computeRelative("project/src", "/project/src/assets");
      * // invalidPath: null
      * ```
      * 
-     * @see https://utils.duplojs.dev/en/v1/api/common/path/computeRelativeFromTo
+     * @see https://utils.duplojs.dev/en/v1/api/common/path/computeRelative
      * 
      */
-    function computeRelativeFromTo<GenericSourcePath extends string, GenericDestinationPath extends string>(source: GenericSourcePath, destination: GenericDestinationPath): string | null;
+    function computeRelative<GenericSourcePath extends string, GenericDestinationPath extends string>(source: GenericSourcePath, destination: GenericDestinationPath): string | null;
 }

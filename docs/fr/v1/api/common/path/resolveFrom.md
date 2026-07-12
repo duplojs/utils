@@ -5,8 +5,8 @@ prev:
   text: "resolveRelative"
   link: "/fr/v1/api/common/path/resolveRelative"
 next:
-  text: "computeRelativeFromTo"
-  link: "/fr/v1/api/common/path/computeRelativeFromTo"
+  text: "computeRelative"
+  link: "/fr/v1/api/common/path/computeRelative"
 ---
 
 # resolveFrom
@@ -53,4 +53,4 @@ Le chemin absolu résolu, ou `null` si le résultat n'est pas absolu (ou si `sta
 ## Voir aussi
 
 - [`resolveRelative`](/fr/v1/api/common/path/resolveRelative) - Résout plusieurs segments en un seul chemin
-- [`computeRelativeFromTo`](/fr/v1/api/common/path/computeRelativeFromTo) - Calcule un chemin relatif entre deux chemins absolus
+- [`computeRelative`](/fr/v1/api/common/path/computeRelative) - Calcule un chemin relatif entre deux chemins absolus

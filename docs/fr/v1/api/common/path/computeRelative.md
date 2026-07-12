@@ -1,6 +1,6 @@
 ---
 outline: [2, 3]
-description: "La fonction computeRelativeFromTo() calcule le chemin relatif entre deux chemins POSIX absolus."
+description: "La fonction computeRelative() calcule le chemin relatif entre deux chemins POSIX absolus."
 prev:
   text: "resolveFrom"
   link: "/fr/v1/api/common/path/resolveFrom"
@@ -9,9 +9,9 @@ next:
   link: "/fr/v1/api/common/path/getParentFolderPath"
 ---
 
-# computeRelativeFromTo
+# computeRelative
 
-La fonction **`computeRelativeFromTo()`** calcule le chemin relatif entre deux chemins POSIX absolus.
+La fonction **`computeRelative()`** calcule le chemin relatif entre deux chemins POSIX absolus.
 Elle retourne `null` si l'un des chemins n'est pas absolu.
 
 ::: warning
@@ -21,7 +21,7 @@ Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
 ## Exemple interactif
 
 <MonacoTSEditor
-  src="/examples/v1/api/common/path/computeRelativeFromTo/tryout.doc.ts"
+  src="/examples/v1/api/common/path/computeRelative/tryout.doc.ts"
   majorVersion="v1"
   height="250px"
 />
@@ -29,7 +29,7 @@ Fonctionne uniquement avec les chemins POSIX (pas avec les chemins Windows).
 ## Syntaxe
 
 ```typescript
-function computeRelativeFromTo<
+function computeRelative<
 	GenericSourcePath extends string,
 	GenericDestinationPath extends string,
 >(
