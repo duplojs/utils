@@ -7,7 +7,7 @@ Creates a data parser that accepts null.
 Accepts null (or the string "null" when coerce is enabled) and rejects other inputs.
 
 ```ts
-{@include dataParser/classic/nil/example.ts[3,15]}
+{@include dataParser/classic/nil/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/nil

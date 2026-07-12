@@ -19,18 +19,15 @@ export function boolean<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserBooleanExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserBooleanExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionBoolean,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionBoolean,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.boolean(definition));
+	return dataParsersExtended.boolean({
+		...definition,
+		coerce: true,
+	});
 }
+

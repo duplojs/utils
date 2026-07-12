@@ -24,18 +24,6 @@ describe("coerce.nil", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			null,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			"null" | null,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

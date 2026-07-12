@@ -81,6 +81,9 @@ export class DataParserNumberExtended<
 		return this.addChecker(dataParsers.checkerInt(definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/number/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

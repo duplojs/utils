@@ -59,6 +59,24 @@ describe("extended.nil", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.nil().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			null,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			null | "null",
+			"strict"
+		>;
+
+		expect(parser.parse("null")).toStrictEqual(DEither.success(null));
+	});
+
 	it("coerces string when enabled", () => {
 		const parser = extended.nil({ coerce: true });
 		expect(parser.parse("null")).toStrictEqual(DEither.success(null));

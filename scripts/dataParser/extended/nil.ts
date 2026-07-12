@@ -49,6 +49,9 @@ export class DataParserNilExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/nil/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

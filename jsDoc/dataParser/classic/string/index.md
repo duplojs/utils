@@ -7,7 +7,7 @@ Creates a data parser for strings.
 Validates that the input is a string, optionally applies coerce, and runs the configured checkers.
 
 ```ts
-{@include dataParser/classic/string/example.ts[3,15]}
+{@include dataParser/classic/string/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/string

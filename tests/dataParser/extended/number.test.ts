@@ -59,6 +59,24 @@ describe("extended.number", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.number().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			number,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | bigint | boolean | null,
+			"strict"
+		>;
+
+		expect(parser.parse("42")).toStrictEqual(DEither.success(42));
+	});
+
 	it("supports min/max helpers", () => {
 		const parser = extended.number();
 

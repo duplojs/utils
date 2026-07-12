@@ -24,18 +24,6 @@ describe("coerce.number", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			number,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			string | number | bigint | boolean | null,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

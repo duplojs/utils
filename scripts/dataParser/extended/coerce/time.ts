@@ -19,18 +19,14 @@ export function time<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserTimeExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserTimeExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionTime,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionTime,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.time(definition));
+	return dataParsersExtended.time({
+		...definition,
+		coerce: true,
+	});
 }

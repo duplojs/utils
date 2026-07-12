@@ -100,6 +100,9 @@ export class DataParserStringExtended<
 		return this.addChecker(dataParsers.checkerRegex(regex, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/string/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

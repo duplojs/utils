@@ -8,16 +8,16 @@ if (E.isRight(result)) {
 	// value: string
 }
 
-const resultWithError = DP.string({
-	checkers: [DP.checkerStringMin(3)],
-}).parse("ok");
+const resultWithError = DP.string()
+	.addChecker(DP.checkerStringMin(3))
+	.parse("ok");
 
 if (E.isLeft(resultWithError)) {
 	const error = unwrap(resultWithError);
 	// error: DP.DataParserError
 }
 
-const numberSchema = DP.coerce.number();
+const numberSchema = DP.coercer(DP.number());
 const numberResult = numberSchema.parse("42");
 if (E.isRight(numberResult)) {
 	const value = unwrap(numberResult);

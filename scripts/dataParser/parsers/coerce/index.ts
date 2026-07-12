@@ -6,4 +6,3 @@ export * from "./empty";
 export * from "./nil";
 export * from "./number";
 export * from "./string";
-export * from "./templateLiteral";

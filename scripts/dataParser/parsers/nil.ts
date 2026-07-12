@@ -12,7 +12,7 @@ export interface DataParserDefinitionNil extends DataParserDefinition<
 > {
 
 	/**
-	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 * @deprecated Use DDataParser.coercer(DDataParser.nil()) instead.
 	 */
 	readonly coerce: boolean;
 }

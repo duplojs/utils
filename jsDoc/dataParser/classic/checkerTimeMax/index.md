@@ -5,7 +5,7 @@ Signature: `checkerTimeMax(max, definition?)` → `DataParserCheckerTimeMax`
 The checker passes when parsed value is less than or equal to `max`.
 
 ```ts
-{@include dataParser/classic/checkerTimeMax/example.ts[3,13]}
+{@include dataParser/classic/checkerTimeMax/example.ts[3,10]}
 ```
 
 @remarks

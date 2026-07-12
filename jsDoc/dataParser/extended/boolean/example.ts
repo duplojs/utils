@@ -7,7 +7,7 @@ if (E.isRight(result)) {
 	// value: boolean
 }
 
-const coerceParser = DPE.coerce.boolean();
+const coerceParser = DPE.boolean().coerce();
 const coerceResult = coerceParser.parse("false");
 
 const optionalBool = DPE.boolean().optional();

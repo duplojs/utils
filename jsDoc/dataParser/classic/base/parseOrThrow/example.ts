@@ -1,8 +1,7 @@
 import { DP } from "@scripts";
 
-const stringSchema = DP.string({
-	checkers: [DP.checkerStringMin(3)],
-});
+const stringSchema = DP.string()
+	.addChecker(DP.checkerStringMin(3));
 
 const value = stringSchema.parseOrThrow("DuploJS");
 // value: string

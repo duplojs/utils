@@ -7,7 +7,7 @@ Creates a data parser for arrays of a given element parser.
 Validates that the input is an array and validates each element with the provided parser.
 
 ```ts
-{@include dataParser/classic/array/example.ts[3,15]}
+{@include dataParser/classic/array/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/array

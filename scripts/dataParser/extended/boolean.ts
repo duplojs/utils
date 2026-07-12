@@ -49,6 +49,9 @@ export class DataParserBooleanExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/boolean/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

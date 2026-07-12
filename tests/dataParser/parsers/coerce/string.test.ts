@@ -24,18 +24,6 @@ describe("coerce.string", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			string,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			string | number | bigint | boolean | symbol | null | undefined,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

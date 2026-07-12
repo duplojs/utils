@@ -19,18 +19,14 @@ export function nil<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserNilExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserNilExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionNil,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionNil,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.nil(definition));
+	return dataParsersExtended.nil({
+		...definition,
+		coerce: true,
+	});
 }

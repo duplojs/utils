@@ -19,18 +19,14 @@ export function bigint<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserBigIntExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserBigIntExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionBigInt,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionBigInt,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.bigint(definition));
+	return dataParsersExtended.bigint({
+		...definition,
+		coerce: true,
+	});
 }

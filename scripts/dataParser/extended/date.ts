@@ -49,6 +49,9 @@ export class DataParserDateExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/date/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

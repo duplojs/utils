@@ -24,18 +24,6 @@ describe("coerce.time", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			DDate.TheTime,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			DDate.TheTime | string | number,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

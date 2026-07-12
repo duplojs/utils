@@ -10,6 +10,6 @@ if (E.isRight(result)) {
 const withCoalescing = DPE.number().optional({ coalescingValue: 0 });
 const coalesced = withCoalescing.parse(undefined);
 
-const withCheckers = DPE.number().optional({
-	checkers: [DP.checkerRefine((value) => value !== 13)],
-});
+const withCheckers = DPE.number()
+	.optional()
+	.addChecker(DP.checkerRefine((value) => value !== 13));

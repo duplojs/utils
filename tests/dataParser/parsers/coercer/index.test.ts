@@ -202,11 +202,26 @@ describe("DDataParser coercer", () => {
 		expect(DDataParser.coercer(DDataParser.number()).isAsynchronous()).toBe(false);
 	});
 
-	it("transformer throw", () => {
-		DDataParser.DataParserCoercer.transformers.set(DDataParser.numberKind, Number);
+	it("returns an error when transformer throws", () => {
+		const transformerError = new Error("transformer failed");
+		DDataParser.DataParserCoercer.transformers.set(
+			DDataParser.numberKind,
+			() => {
+				throw transformerError;
+			},
+		);
 
-		expect(DDataParser.coerce.number().parse(Symbol("foo"))).toStrictEqual(
-			DEither.error(expect.any(Object)),
+		expect(DDataParser.coercer(DDataParser.number()).parse("42")).toStrictEqual(
+			DEither.error(
+				expect.objectContaining({
+					issues: [
+						expect.objectContaining({
+							expected: "successful coerce result",
+							data: transformerError,
+						}),
+					],
+				}),
+			),
 		);
 	});
 });

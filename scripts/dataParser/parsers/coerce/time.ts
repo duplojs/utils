@@ -1,5 +1,5 @@
-import type { FixDeepFunctionInfer } from "@scripts/common";
-import type { PrepareDataParserDefinition } from "@scripts/dataParser/types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import * as dataParsers from "..";
 
 /**
@@ -18,6 +18,14 @@ export function time<
 		>,
 		GenericDefinition
 	>,
-) {
-	return dataParsers.coercer(dataParsers.time(definition));
+): dataParsers.DataParserTime<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionTime,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
+		>
+	> {
+	return dataParsers.time({
+		...definition,
+		coerce: true,
+	});
 }

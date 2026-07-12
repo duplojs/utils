@@ -18,18 +18,14 @@ export function date<
 		>,
 		GenericDefinition
 	>,
-): dataParsers.DataParserCoercer<
+): dataParsers.DataParserDate<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsers.DataParserDate<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionDate,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionDate,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsers.coercer(dataParsers.date(definition));
+	return dataParsers.date({
+		...definition,
+		coerce: true,
+	});
 }

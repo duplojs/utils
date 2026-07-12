@@ -1,6 +1,6 @@
 import { DPE, E, unwrap } from "@scripts";
 
-const parser = DPE.pipe(DPE.string(), DPE.coerce.number());
+const parser = DPE.pipe(DPE.string(), DPE.number().coerce());
 const result = parser.parse("42");
 if (E.isRight(result)) {
 	const value = unwrap(result);

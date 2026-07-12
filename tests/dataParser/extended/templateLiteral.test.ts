@@ -67,4 +67,22 @@ describe("extended.templateLiteral", () => {
 			"strict"
 		>;
 	});
+
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.templateLiteral(["item-", extended.number()]).coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			`item-${number}`,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			number | bigint | boolean | `item-${number}`,
+			"strict"
+		>;
+
+		expect(parser.parse("item-42")).toStrictEqual(DEither.success("item-42"));
+	});
 });

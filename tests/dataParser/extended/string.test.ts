@@ -59,6 +59,24 @@ describe("extended.string", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.string().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			string,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | bigint | boolean | symbol | null | undefined,
+			"strict"
+		>;
+
+		expect(parser.parse(42)).toStrictEqual(DEither.success("42"));
+	});
+
 	it("supports min/max helpers", () => {
 		const parser = extended.string();
 		const minParser = parser.min(3);

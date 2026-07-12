@@ -72,6 +72,9 @@ export class DataParserBigIntExtended<
 		return this.addChecker(dataParsers.checkerBigIntMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/bigint/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

@@ -49,6 +49,9 @@ export class DataParserTemplateLiteralExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/templateLiteral/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

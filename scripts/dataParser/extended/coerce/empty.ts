@@ -19,18 +19,15 @@ export function empty<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserEmptyExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserEmptyExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionEmpty,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionEmpty,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.empty(definition));
+	return dataParsersExtended.empty({
+		...definition,
+		coerce: true,
+	});
 }
+

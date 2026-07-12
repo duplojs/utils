@@ -135,6 +135,9 @@ export class DataParserCoercer<
 		return self.definition.inner.isAsynchronous();
 	}
 
+	/**
+	 * {@include dataParser/classic/coercer/transformers/index.md}
+	 */
 	public static transformers = new Map<KindHandler, AnyFunction>([
 		[dataParsers.numberKind, coercerTransformers.numberTransformer],
 		[dataParsers.stringKind, coercerTransformers.stringTransformer],
@@ -164,6 +167,9 @@ export class DataParserCoercer<
 		};
 	}
 
+	/**
+	 * {@include dataParser/classic/coercer/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -193,4 +199,7 @@ export class DataParserCoercer<
 	}
 }
 
+/**
+ * {@include dataParser/classic/coercer/index.md}
+ */
 export const coercer = detachObjectMethod(DataParserCoercer, "create");

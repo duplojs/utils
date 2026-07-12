@@ -7,7 +7,7 @@ Creates a data parser that accepts one of multiple parsers.
 Tries each option in order until one succeeds, then returns its output.
 
 ```ts
-{@include dataParser/classic/union/example.ts[3,16]}
+{@include dataParser/classic/union/example.ts[3,15]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/union

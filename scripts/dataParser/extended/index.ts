@@ -24,7 +24,7 @@ export * from "./errorHandler";
 export * from "./coercer";
 
 /**
- * @deprecated Use the corresponding extended DataParser and call `.coerce()`.
+ * @deprecated Use `DPE.<parser>().coerce()` when the method exists, or `DPE.coercer(...)`.
  */
 export * as coerce from "./coerce";
 

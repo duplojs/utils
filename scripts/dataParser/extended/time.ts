@@ -73,6 +73,9 @@ export class DataParserTimeExtended<
 		return this.addChecker(dataParsers.checkerTimeMax(max, definition));
 	}
 
+	/**
+	 * {@include dataParser/extended/time/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

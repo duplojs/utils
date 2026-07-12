@@ -59,6 +59,24 @@ describe("extended.bigint", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.bigint().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			bigint,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | boolean | bigint,
+			"strict"
+		>;
+
+		expect(parser.parse("5")).toStrictEqual(DEither.success(5n));
+	});
+
 	it("supports min/max helpers", () => {
 		const parser = extended.bigint();
 		expect(parser.min(2n).parse(1n)).toStrictEqual(

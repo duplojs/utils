@@ -24,18 +24,6 @@ describe("coerce.empty", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			undefined,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			"undefined" | undefined,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

@@ -7,7 +7,7 @@ Creates a data parser that accepts undefined.
 Accepts undefined (or the string "undefined" when coerce is enabled) and rejects other inputs.
 
 ```ts
-{@include dataParser/classic/empty/example.ts[3,14]}
+{@include dataParser/classic/empty/example.ts[3,13]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/empty

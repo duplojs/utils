@@ -17,6 +17,5 @@ const strictResult = strictKeys.parse({
 	yPos: false,
 });
 
-const withCheckers = DP.record(DP.string(), DP.string(), {
-	checkers: [DP.checkerRefine((value) => Object.keys(value).length > 0)],
-});
+const withCheckers = DP.record(DP.string(), DP.string())
+	.addChecker(DP.checkerRefine((value) => Object.keys(value).length > 0));

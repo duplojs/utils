@@ -14,7 +14,7 @@ export interface DataParserDefinitionString extends DataParserDefinition<
 > {
 
 	/**
-	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 * @deprecated Use `DDataParser.coercer(DDataParser.string())` instead.
 	 */
 	readonly coerce: boolean;
 }

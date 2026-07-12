@@ -19,18 +19,15 @@ export function date<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserDateExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserDateExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionDate,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionDate,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.date(definition));
+	return dataParsersExtended.date({
+		...definition,
+		coerce: true,
+	});
 }
+

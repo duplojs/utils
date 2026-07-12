@@ -16,6 +16,9 @@ export class DataParserCoercerExtended<
 		return this.checkConstructor(DataParserCoercerExtended);
 	}
 
+	/**
+	 * {@include dataParser/extended/coercer/transformers/index.md}
+	 */
 	public static transformers = dataParsers.DataParserCoercer.transformers;
 
 	public declare addChecker: <
@@ -50,6 +53,9 @@ export class DataParserCoercerExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/coercer/index.md}
+	 */
 	public static override create<
 		GenericDataParser extends DataParser,
 		const GenericDefinition extends PrepareDataParserDefinition<
@@ -79,4 +85,7 @@ export class DataParserCoercerExtended<
 	}
 }
 
+/**
+ * {@include dataParser/extended/coercer/index.md}
+ */
 export const coercer = detachObjectMethod(DataParserCoercerExtended, "create");

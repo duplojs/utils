@@ -49,6 +49,9 @@ export class DataParserEmptyExtended<
 		>
 	>;
 
+	/**
+	 * {@include dataParser/extended/empty/coerce/index.md}
+	 */
 	public coerce<
 		GenericThis extends this = this,
 	>(): DataParserCoercerExtended<

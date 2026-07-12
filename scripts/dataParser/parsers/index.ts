@@ -25,6 +25,6 @@ export * from "./errorHandler";
 export * from "./coercer";
 
 /**
- * @deprecated
+ * @deprecated Use DP.coercer()
  */
 export * as coerce from "./coerce";

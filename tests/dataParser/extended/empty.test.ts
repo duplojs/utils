@@ -59,6 +59,24 @@ describe("extended.empty", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.empty().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			undefined,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			undefined | "undefined",
+			"strict"
+		>;
+
+		expect(parser.parse("undefined")).toStrictEqual(DEither.success(undefined));
+	});
+
 	it("coerces string when enabled", () => {
 		const parser = extended.empty({ coerce: true });
 		expect(parser.parse("undefined")).toStrictEqual(DEither.success(undefined));

@@ -7,7 +7,7 @@ Creates a data parser for bigint values.
 Validates that the input is a bigint, optionally applies coerce, and runs the configured checkers.
 
 ```ts
-{@include dataParser/classic/bigint/example.ts[3,15]}
+{@include dataParser/classic/bigint/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/bigint

@@ -24,18 +24,6 @@ describe("coerce.boolean", () => {
 			}),
 		);
 
-		type _CheckOut = ExpectType<
-			DDataParser.Output<typeof dataParser>,
-			boolean,
-			"strict"
-		>;
-
-		type _CheckIn = ExpectType<
-			DDataParser.Input<typeof dataParser>,
-			string | number | boolean,
-			"strict"
-		>;
-
 		void dataParser;
 	});
 

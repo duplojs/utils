@@ -16,7 +16,7 @@ export interface DataParserDefinitionTime extends DataParserDefinition<
 > {
 
 	/**
-	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 * @deprecated Use `DDataParser.coercer(DDataParser.time())` instead.
 	 */
 	readonly coerce: boolean;
 }

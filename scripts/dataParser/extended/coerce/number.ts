@@ -19,18 +19,14 @@ export function number<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserCoercerExtended<
+): dataParsersExtended.DataParserNumberExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{
-				inner: dataParsersExtended.DataParserNumberExtended<
-					MergeDefinition<
-						dataParsers.DataParserDefinitionNumber,
-						NeverCoalescing<GenericDefinition, {}>
-					>
-				>;
-			}
+			dataParsers.DataParserDefinitionNumber,
+			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
 		>
 	> {
-	return dataParsersExtended.coercer(dataParsersExtended.number(definition));
+	return dataParsersExtended.number({
+		...definition,
+		coerce: true,
+	});
 }

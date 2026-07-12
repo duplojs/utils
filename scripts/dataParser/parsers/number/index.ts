@@ -14,7 +14,7 @@ export interface DataParserDefinitionNumber extends DataParserDefinition<
 > {
 
 	/**
-	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 * @deprecated Use `DDataParser.coercer(DDataParser.number())` instead.
 	 */
 	readonly coerce: boolean;
 }

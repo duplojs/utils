@@ -12,7 +12,7 @@ export interface DataParserDefinitionEmpty extends DataParserDefinition<
 > {
 
 	/**
-	 * @deprecated Use DDataParser.coercer(DDataParser.boolean()) or DDataParser.coerce.boolean() instead.
+	 * @deprecated Use `DDataParser.coercer(DDataParser.empty())` instead.
 	 */
 	readonly coerce: boolean;
 }

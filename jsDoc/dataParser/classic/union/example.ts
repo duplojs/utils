@@ -11,6 +11,5 @@ const literals = DP.union([DP.literal("on"), DP.literal("off")]);
 const literalResult = literals.parse("off");
 
 const withCheckers = DP.union(
-	[DP.string(), DP.coerce.number()],
-	{ checkers: [DP.checkerRefine((value) => value !== "forbidden")] },
-);
+	[DP.string(), DP.coercer(DP.number())],
+).addChecker(DP.checkerRefine((value) => value !== "forbidden"));

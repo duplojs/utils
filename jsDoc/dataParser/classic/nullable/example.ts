@@ -10,6 +10,5 @@ if (E.isRight(result)) {
 const withCoalescing = DP.nullable(DP.number(), { coalescingValue: 0 });
 const coalesced = withCoalescing.parse(null);
 
-const withCheckers = DP.nullable(DP.boolean(), {
-	checkers: [DP.checkerRefine((value) => value !== null)],
-});
+const withCheckers = DP.nullable(DP.boolean())
+	.addChecker(DP.checkerRefine((value) => value !== null));

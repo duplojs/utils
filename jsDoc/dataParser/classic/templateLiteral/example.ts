@@ -10,6 +10,5 @@ if (E.isRight(result)) {
 const orderParser = DP.templateLiteral(["order-", DP.literal("vip"), "-", DP.number()]);
 const orderResult = orderParser.parse("order-vip-12");
 
-const withCheckers = DP.templateLiteral(["id-", DP.number()], {
-	checkers: [DP.checkerRefine((value) => value.endsWith("0"))],
-});
+const withCheckers = DP.templateLiteral(["id-", DP.number()])
+	.addChecker(DP.checkerRefine((value) => value.endsWith("0")));
