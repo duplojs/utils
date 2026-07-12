@@ -25,7 +25,14 @@ export * as DPattern from "./pattern";
 export * as DP from "./dataParser";
 export * as DDataParser from "./dataParser";
 
+/**
+ * @deprecated Use the corresponding extended DataParser and call `.coerce()`.
+ */
 export * as DPC from "./dataParser/parsers/coerce";
+
+/**
+ * @deprecated Use the corresponding extended DataParser and call `.coerce()`.
+ */
 export * as DDataParserCoerce from "./dataParser/parsers/coerce";
 
 export * as DPE from "./dataParser/extended";

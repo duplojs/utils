@@ -3,6 +3,7 @@ import { DataParserBaseExtended } from "./base";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
 import { type DataParserChecker } from "../baseChecker";
+import { DataParserCoercerExtended } from "./coercer";
 
 export class DataParserBigIntExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBigInt = dataParsers.DataParserDefinitionBigInt,
@@ -69,6 +70,17 @@ export class DataParserBigIntExtended<
 		>,
 	) {
 		return this.addChecker(dataParsers.checkerBigIntMax(max, definition));
+	}
+
+	public coerce<
+		GenericThis extends this = this,
+	>(): DataParserCoercerExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{ inner: GenericThis }
+		>
+	> {
+		return DataParserCoercerExtended.create(this) as never;
 	}
 
 	/**

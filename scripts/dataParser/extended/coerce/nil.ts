@@ -1,8 +1,11 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
-import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import type * as dataParsers from "../../parsers";
 import * as dataParsersExtended from "..";
 
+/**
+ * @deprecated Use `dataParsersExtended.nil().coerce()` instead.
+ */
 export function nil<
 	const GenericDefinition extends PrepareDataParserDefinition<
 		dataParsers.DataParserDefinitionNil,
@@ -16,14 +19,18 @@ export function nil<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserNilExtended<
+): dataParsersExtended.DataParserCoercerExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionNil,
-			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsersExtended.DataParserNilExtended<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionNil,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
 		>
 	> {
-	return dataParsersExtended.nil({
-		...definition,
-		coerce: true,
-	});
+	return dataParsersExtended.coercer(dataParsersExtended.nil(definition));
 }

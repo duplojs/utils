@@ -4,6 +4,7 @@ import { DataParserBaseExtended } from "./base";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
 import { type DataParserChecker } from "../baseChecker";
+import { DataParserCoercerExtended } from "./coercer";
 
 export class DataParserBooleanExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean,
@@ -47,6 +48,17 @@ export class DataParserBooleanExtended<
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
+
+	public coerce<
+		GenericThis extends this = this,
+	>(): DataParserCoercerExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{ inner: GenericThis }
+		>
+	> {
+		return DataParserCoercerExtended.create(this) as never;
+	}
 
 	/**
 	 * {@include dataParser/extended/boolean/index.md}

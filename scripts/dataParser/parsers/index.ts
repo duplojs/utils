@@ -23,4 +23,8 @@ export * from "./union";
 export * from "./unknown";
 export * from "./errorHandler";
 export * from "./coercer";
+
+/**
+ * @deprecated
+ */
 export * as coerce from "./coerce";

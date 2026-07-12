@@ -1,8 +1,11 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
-import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import type * as dataParsers from "../../parsers";
 import * as dataParsersExtended from "..";
 
+/**
+ * @deprecated Use `dataParsersExtended.empty().coerce()` instead.
+ */
 export function empty<
 	const GenericDefinition extends PrepareDataParserDefinition<
 		dataParsers.DataParserDefinitionEmpty,
@@ -16,14 +19,18 @@ export function empty<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserEmptyExtended<
+): dataParsersExtended.DataParserCoercerExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionEmpty,
-			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsersExtended.DataParserEmptyExtended<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionEmpty,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
 		>
 	> {
-	return dataParsersExtended.empty({
-		...definition,
-		coerce: true,
-	});
+	return dataParsersExtended.coercer(dataParsersExtended.empty(definition));
 }

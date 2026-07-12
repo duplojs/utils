@@ -1,9 +1,10 @@
 import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
 import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
-import * as dataParsers from "..";
+import type * as dataParsers from "../../parsers";
+import * as dataParsersExtended from "..";
 
 /**
- * @deprecated Use `DP.coercer(DP.templateLiteral())` instead.
+ * @deprecated Use `dataParsersExtended.templateLiteral(...).coerce()` instead.
  */
 export function templateLiteral<
 	const GenericTemplate extends dataParsers.TemplateLiteralShape,
@@ -24,13 +25,13 @@ export function templateLiteral<
 		>,
 		GenericDefinition
 	>,
-): dataParsers.DataParserCoercer<
+): dataParsersExtended.DataParserCoercerExtended<
 		MergeDefinition<
 			dataParsers.DataParserDefinitionCoercer<
 				dataParsers.TemplateLiteralShapeOutput<GenericTemplate>
 			>,
 			{
-				inner: dataParsers.DataParserTemplateLiteral<
+				inner: dataParsersExtended.DataParserTemplateLiteralExtended<
 					MergeDefinition<
 						dataParsers.DataParserDefinitionTemplateLiteral,
 						NeverCoalescing<GenericDefinition, {}> & { template: GenericTemplate }
@@ -39,5 +40,5 @@ export function templateLiteral<
 			}
 		>
 	> {
-	return dataParsers.coercer(dataParsers.templateLiteral(template, definition));
+	return dataParsersExtended.coercer(dataParsersExtended.templateLiteral(template, definition));
 }

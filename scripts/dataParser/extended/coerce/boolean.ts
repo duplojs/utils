@@ -1,8 +1,11 @@
-import { type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
-import { type MergeDefinition, type PrepareDataParserDefinition } from "../../types";
+import type { FixDeepFunctionInfer, NeverCoalescing } from "@scripts/common";
+import type { MergeDefinition, PrepareDataParserDefinition } from "@scripts/dataParser/types";
 import type * as dataParsers from "../../parsers";
 import * as dataParsersExtended from "..";
 
+/**
+ * @deprecated Use `dataParsersExtended.boolean().coerce()` instead.
+ */
 export function boolean<
 	const GenericDefinition extends PrepareDataParserDefinition<
 		dataParsers.DataParserDefinitionBoolean,
@@ -16,14 +19,18 @@ export function boolean<
 		>,
 		GenericDefinition
 	>,
-): dataParsersExtended.DataParserBooleanExtended<
+): dataParsersExtended.DataParserCoercerExtended<
 		MergeDefinition<
-			dataParsers.DataParserDefinitionBoolean,
-			NeverCoalescing<GenericDefinition, {}> & { coerce: true }
+			dataParsers.DataParserDefinitionCoercer,
+			{
+				inner: dataParsersExtended.DataParserBooleanExtended<
+					MergeDefinition<
+						dataParsers.DataParserDefinitionBoolean,
+						NeverCoalescing<GenericDefinition, {}>
+					>
+				>;
+			}
 		>
 	> {
-	return dataParsersExtended.boolean({
-		...definition,
-		coerce: true,
-	});
+	return dataParsersExtended.coercer(dataParsersExtended.boolean(definition));
 }

@@ -3,6 +3,7 @@ import { DataParserBaseExtended } from "./base";
 import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
 import * as dataParsers from "../parsers";
 import { type DataParserChecker } from "../baseChecker";
+import { DataParserCoercerExtended } from "./coercer";
 
 export class DataParserNumberExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNumber = dataParsers.DataParserDefinitionNumber,
@@ -78,6 +79,17 @@ export class DataParserNumberExtended<
 		definition?: Partial<dataParsers.DataParserCheckerDefinitionInt>,
 	) {
 		return this.addChecker(dataParsers.checkerInt(definition));
+	}
+
+	public coerce<
+		GenericThis extends this = this,
+	>(): DataParserCoercerExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{ inner: GenericThis }
+		>
+	> {
+		return DataParserCoercerExtended.create(this) as never;
 	}
 
 	/**

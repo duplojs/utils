@@ -4,6 +4,7 @@ import { type AddCheckersToDefinition, type Output, type MergeDefinition, type P
 import * as dataParsers from "../parsers";
 import { type DataParserChecker } from "../baseChecker";
 import { type TheTime } from "@scripts/date";
+import { DataParserCoercerExtended } from "./coercer";
 
 export class DataParserTimeExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionTime = dataParsers.DataParserDefinitionTime,
@@ -70,6 +71,17 @@ export class DataParserTimeExtended<
 		>,
 	) {
 		return this.addChecker(dataParsers.checkerTimeMax(max, definition));
+	}
+
+	public coerce<
+		GenericThis extends this = this,
+	>(): DataParserCoercerExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{ inner: GenericThis }
+		>
+	> {
+		return DataParserCoercerExtended.create(this) as never;
 	}
 
 	/**
