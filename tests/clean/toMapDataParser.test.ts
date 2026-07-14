@@ -26,6 +26,12 @@ describe("toMapDataParser", () => {
 			DClean.GetNewType<typeof newTypeLabel>,
 			"strict"
 		>;
+
+		type CheckInput = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string,
+			"strict"
+		>;
 	});
 
 	it("maps constraint handler to a data parser with constraint kind", () => {
@@ -46,6 +52,12 @@ describe("toMapDataParser", () => {
 		type Check = ExpectType<
 			typeof value,
 			DClean.GetConstraint<typeof constraint>,
+			"strict"
+		>;
+
+		type CheckInput = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string,
 			"strict"
 		>;
 	});
@@ -75,6 +87,12 @@ describe("toMapDataParser", () => {
 			DClean.GetConstraints<typeof constraintsSet>,
 			"strict"
 		>;
+
+		type CheckInput = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string,
+			"strict"
+		>;
 	});
 
 	it("maps primitive handler to a data parser with wrapped value only", () => {
@@ -93,6 +111,12 @@ describe("toMapDataParser", () => {
 		type Check = ExpectType<
 			typeof value,
 			DClean.String,
+			"strict"
+		>;
+
+		type CheckInput = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string,
 			"strict"
 		>;
 	});
@@ -145,5 +169,37 @@ describe("toMapDataParser", () => {
 			count: "x",
 			tags: [],
 		})).toStrictEqual(DEither.error(expect.any(Object)));
+	});
+
+	it("infers entity property from wrapped new type handlers", () => {
+		const Label = DClean.createNewType("label", DPE.string().coerce());
+		const Count = DClean.createNewType("count", DPE.number().coerce());
+		const parser = DClean.toMapDataParser(
+			DClean.entityPropertyDefinitionTools.structure({
+				label: Label,
+				count: DClean.entityPropertyDefinitionTools.nullable(Count),
+				tags: DClean.entityPropertyDefinitionTools.array(Label),
+			}),
+		);
+
+		type CheckInput = ExpectType<
+			DDataParser.Input<typeof parser>,
+			{
+				readonly label: string | number | bigint | boolean | symbol | null | undefined;
+				readonly count: string | number | bigint | boolean | null;
+				readonly tags: readonly (string | number | bigint | boolean | symbol | null | undefined)[];
+			},
+			"strict"
+		>;
+
+		type CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			{
+				readonly label: DClean.NewType<"label", string, never>;
+				readonly count: DClean.NewType<"count", number, never> | null;
+				readonly tags: readonly DClean.NewType<"label", string, never>[];
+			},
+			"strict"
+		>;
 	});
 });
