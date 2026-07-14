@@ -12,7 +12,7 @@ if (E.isRight(result)) {
 	// value: TheTime
 }
 
-const coerceParser = DPE.coerce.time();
+const coerceParser = DPE.time().coerce();
 const coerceResult = coerceParser.parse("10:20:00");
 // E.Error<DPE.DataParserError> | E.Success<D.TheTime>
 

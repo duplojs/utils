@@ -75,6 +75,7 @@ export abstract class DataParserBase<
 			prepareDefinition(
 				...args: never[]
 			): DataParserDefinition;
+			readonly specificKindHandler: DCommon.KindHandler;
 		}
 	);
 

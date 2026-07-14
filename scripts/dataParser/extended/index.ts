@@ -1,5 +1,3 @@
-export * as coerce from "./coerce";
-
 export * from "./string";
 export * from "./array";
 export * from "./bigint";
@@ -23,6 +21,12 @@ export * from "./tuple";
 export * from "./unknown";
 export * from "./recover";
 export * from "./errorHandler";
+export * from "./coercer";
+
+/**
+ * @deprecated Use `DPE.<parser>().coerce()` when the method exists, or `DPE.coercer(...)`.
+ */
+export * as coerce from "./coerce";
 
 export * from "../error";
 export { type DataParser } from "../base";

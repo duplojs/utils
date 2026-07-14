@@ -3,8 +3,8 @@ import * as DPattern from "../pattern";
 import { constrainedTypeKind, constraintHandlerKind, constraintsSetHandlerKind, type ConstraintHandler, type ConstraintsSetHandler, type GetConstraint, type GetConstraints } from "./constraint";
 import { newTypeHandlerKind, newTypeKind } from "./newType";
 import { primitiveHandlerKind, type PrimitiveHandler } from "./primitive";
-import { type EntityPropertyDefinition, entityPropertyUnionKind, entityPropertyIdentifierKind, entityPropertyStructureKind, entityPropertyArrayKind, entityPropertyNullableKind, entityPropertyDefinitionToDataParser, type EntityProperty } from "./entity";
-import { hasSomeKinds, keyWrappedValue } from "@scripts/common";
+import { type EntityPropertyDefinition, entityPropertyUnionKind, entityPropertyIdentifierKind, entityPropertyStructureKind, entityPropertyArrayKind, entityPropertyNullableKind, entityPropertyDefinitionToDataParser, type EntityInputRawProperty, type EntityProperty } from "./entity";
+import { hasSomeKinds, type IsNever, keyWrappedValue } from "@scripts/common";
 
 type ToMapDataParserInput = (
 	| ConstraintHandler<any, any, readonly any[], any>
@@ -25,6 +25,24 @@ type OutputDataParser<
 				? EntityProperty<GenericInput>
 				: never;
 
+type InputDataParser<
+	GenericInput extends ToMapDataParserInput,
+> = GenericInput extends ConstraintHandler<any, infer InferredValue, readonly any[], infer InferredInput>
+	? IsNever<InferredInput> extends true
+		? InferredValue
+		: InferredInput
+	: GenericInput extends ConstraintsSetHandler<infer InferredValue, readonly any[], infer InferredInput>
+		? IsNever<InferredInput> extends true
+			? InferredValue
+			: InferredInput
+		: GenericInput extends PrimitiveHandler<any, infer InferredValue, infer InferredInput>
+			? IsNever<InferredInput> extends true
+				? InferredValue
+				: InferredInput
+			: GenericInput extends EntityPropertyDefinition
+				? EntityInputRawProperty<GenericInput>
+				: never;
+
 interface ToMapDataParserParams {
 	coerce?: boolean;
 }
@@ -34,13 +52,14 @@ interface ToMapDataParserParams {
  */
 export function toMapDataParser<
 	GenericInput extends ToMapDataParserInput,
-	GenericOutput extends OutputDataParser<GenericInput>,
+	GenericOutputDataParser extends OutputDataParser<GenericInput> = OutputDataParser<GenericInput>,
+	GenericInputDataParser extends InputDataParser<GenericInput> = InputDataParser<GenericInput>,
 >(
 	input: GenericInput,
 	params?: ToMapDataParserParams,
 ): DDataParser.DataParser<
-	NoInfer<GenericOutput>,
-	unknown
+	NoInfer<GenericOutputDataParser>,
+	NoInfer<GenericInputDataParser>
 >;
 
 export function toMapDataParser(
@@ -68,29 +87,7 @@ export function toMapDataParser(
 		);
 	}
 
-	const dataParser = (primitiveHandlerKind.has(input)
-		? input.internal.dataParser.clone()
-		: input.internal.dataParser.clone()) as DDataParser.DataParsers;
-
-	if (
-		params?.coerce
-		&& hasSomeKinds(
-			dataParser,
-			[
-				DDataParser.stringKind,
-				DDataParser.numberKind,
-				DDataParser.bigIntKind,
-				DDataParser.bigIntKind,
-				DDataParser.booleanKind,
-				DDataParser.dateKind,
-				DDataParser.timeKind,
-				DDataParser.emptyKind,
-				DDataParser.nilKind,
-			],
-		)
-	) {
-		(dataParser.definition.coerce as any) = true;
-	}
+	const dataParser = input.internal.dataParser.clone() as DDataParser.DataParsers;
 
 	const valueContainer = DPattern.match(input)
 		.when(
@@ -114,7 +111,9 @@ export function toMapDataParser(
 		.exhaustive();
 
 	return DDataParser.transform(
-		dataParser,
+		params?.coerce
+			? DDataParser.coercer(dataParser)
+			: dataParser,
 		(value) => ({
 			...valueContainer,
 			[keyWrappedValue]: value,

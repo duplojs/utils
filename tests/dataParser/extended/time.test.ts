@@ -63,6 +63,24 @@ describe("extended.time", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.time().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			DDate.TheTime,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | DDate.TheTime,
+			"strict"
+		>;
+
+		expect(parser.parse("01:02")).toStrictEqual(DEither.success(DDate.createTimeOrThrow("time3720000+")));
+	});
+
 	it("supports refine helper", () => {
 		const parser = extended.time().refine(
 			(time) => time.toNative() > 0,

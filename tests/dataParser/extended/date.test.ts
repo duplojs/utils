@@ -63,6 +63,24 @@ describe("extended.date", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.date().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			DDate.TheDate,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | Date | DDate.TheDate,
+			"strict"
+		>;
+
+		expect(parser.parse(1)).toStrictEqual(DEither.success(DDate.createOrThrow("date1+")));
+	});
+
 	it("supports refine helper", () => {
 		const parser = extended.date().refine(
 			(date) => DDate.greaterThan(date, DDate.createOrThrow(0)),

@@ -10,6 +10,10 @@ export type DataParserNilCheckers = GetEligibleChecker<null>;
 export interface DataParserDefinitionNil extends DataParserDefinition<
 	DataParserNilCheckers
 > {
+
+	/**
+	 * @deprecated Use DDataParser.coercer(DDataParser.nil()) instead.
+	 */
 	readonly coerce: boolean;
 }
 

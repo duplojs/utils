@@ -59,6 +59,24 @@ describe("extended.boolean", () => {
 		>;
 	});
 
+	it("coerces values and preserves input and output types", () => {
+		const parser = extended.boolean().coerce();
+
+		type _CheckOut = ExpectType<
+			DDataParser.Output<typeof parser>,
+			boolean,
+			"strict"
+		>;
+
+		type _CheckIn = ExpectType<
+			DDataParser.Input<typeof parser>,
+			string | number | boolean,
+			"strict"
+		>;
+
+		expect(parser.parse("true")).toStrictEqual(DEither.success(true));
+	});
+
 	it("coerces when enabled", () => {
 		const parser = extended.boolean({ coerce: true });
 		expect(parser.parse("true")).toStrictEqual(DEither.success(true));

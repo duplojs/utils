@@ -7,9 +7,8 @@ if (E.isRight(result)) {
 	// value: string[]
 }
 
-const withCheckers = DP.array(DP.number(), {
-	checkers: [DP.checkerArrayMin(1), DP.checkerArrayMax(3)],
-});
+const withCheckers = DP.array(DP.number())
+	.addChecker(DP.checkerArrayMin(1), DP.checkerArrayMax(3));
 
 const nested = DP.array(DP.array(DP.boolean()));
 const nestedResult = nested.parse([[true, false]]);

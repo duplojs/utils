@@ -1,7 +1,7 @@
 import { DP, E, unwrap } from "@scripts";
 
 const schema = DP.pipe(
-	DP.coerce.number(),
+	DP.coercer(DP.number()),
 	DP.transform(
 		DP.number(),
 		(value) => value + 1,

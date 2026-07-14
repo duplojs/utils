@@ -10,7 +10,7 @@ This parser extends the classic time parser behavior and adds fluent methods lik
 
 @remarks
 - `.min(...)` and `.max(...)` expect `TheTime` values.
-- `DPE.coerce.time()` enables the same coercion flow as classic parser mode.
+- `DPE.time().coerce()` enables the same coercion flow after time-specific configuration.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/time
 

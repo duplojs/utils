@@ -1,4 +1,3 @@
-export * as coerce from "./coerce";
 export * from "./string";
 export * from "./number";
 export * from "./array";
@@ -23,3 +22,9 @@ export * from "./tuple";
 export * from "./union";
 export * from "./unknown";
 export * from "./errorHandler";
+export * from "./coercer";
+
+/**
+ * @deprecated Use DP.coercer()
+ */
+export * as coerce from "./coerce";

@@ -7,7 +7,7 @@ Creates a data parser that accepts undefined or the inner parser output.
 Returns undefined (or a coalescing value) when input is undefined, otherwise parses with the inner parser.
 
 ```ts
-{@include dataParser/classic/optional/example.ts[3,15]}
+{@include dataParser/classic/optional/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/optional

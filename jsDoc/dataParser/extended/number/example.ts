@@ -10,7 +10,7 @@ if (E.isRight(result)) {
 	// value: number
 }
 
-const coerceParser = DPE.coerce.number();
+const coerceParser = DPE.number().coerce();
 const coerceResult = coerceParser.parse("42");
 
 const intOnly = DPE.number().int();

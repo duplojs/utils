@@ -7,9 +7,8 @@ if (E.isRight(result)) {
 	// value: boolean
 }
 
-const onlyTrue = DP.boolean({
-	checkers: [DP.checkerRefine((value) => value === true)],
-});
+const onlyTrue = DP.boolean()
+	.addChecker(DP.checkerRefine((value) => value === true));
 
-const coerceParser = DP.coerce.boolean();
+const coerceParser = DP.coercer(DP.boolean());
 const coerceResult = coerceParser.parse("false");

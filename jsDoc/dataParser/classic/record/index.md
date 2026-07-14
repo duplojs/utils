@@ -7,7 +7,7 @@ Creates a data parser for records with key and value parsers.
 Validates that the input is an object and parses each key and value with the provided parsers.
 
 ```ts
-{@include dataParser/classic/record/example.ts[3,22]}
+{@include dataParser/classic/record/example.ts[3,21]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/record

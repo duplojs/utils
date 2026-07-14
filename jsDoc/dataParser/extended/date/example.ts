@@ -7,7 +7,7 @@ if (E.isRight(result)) {
 	// value: TheDate
 }
 
-const coerceParser = DPE.coerce.date();
+const coerceParser = DPE.date().coerce();
 const coerceResult = coerceParser.parse("2024-01-01T00:00:00.000Z");
 // coerceResult: E.Error<DP.DataParserError> | E.Success<TheDate>
 

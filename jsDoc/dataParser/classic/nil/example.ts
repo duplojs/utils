@@ -7,9 +7,8 @@ if (E.isRight(result)) {
 	// value: null
 }
 
-const withCheckers = DP.nil({
-	checkers: [DP.checkerRefine((value) => value === null)],
-});
+const withCheckers = DP.nil()
+	.addChecker(DP.checkerRefine((value) => value === null));
 
-const coerceParser = DP.coerce.nil();
+const coerceParser = DP.coercer(DP.nil());
 const coerceResult = coerceParser.parse("null");

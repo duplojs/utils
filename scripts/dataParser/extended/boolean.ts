@@ -1,9 +1,9 @@
 
 import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { DataParserBaseExtended } from "./base";
-import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import type { AddCheckersToDefinition, Output, MergeDefinition, PrepareDataParserDefinition, Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParserChecker } from "../baseChecker";
+import type { DataParserChecker } from "../baseChecker";
 
 export class DataParserBooleanExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionBoolean = dataParsers.DataParserDefinitionBoolean,

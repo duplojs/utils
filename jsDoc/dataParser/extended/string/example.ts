@@ -10,5 +10,7 @@ if (E.isRight(result)) {
 const withRegex = DPE.string().regex(/^[A-Z][a-z]+$/);
 const regexResult = withRegex.parse("Duplo");
 
-const coerceParser = DPE.coerce.string().min(2);
+const coerceParser = DPE.string()
+	.min(2)
+	.coerce();
 const coerceResult = coerceParser.parse(123);

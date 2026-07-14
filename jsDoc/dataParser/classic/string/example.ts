@@ -7,9 +7,8 @@ if (E.isRight(result)) {
 	// value: string
 }
 
-const withCheckers = DP.string({
-	checkers: [DP.checkerStringMin(3), DP.checkerStringMax(10)],
-});
+const withCheckers = DP.string()
+	.addChecker(DP.checkerStringMin(3), DP.checkerStringMax(10));
 
-const coerceParser = DP.coerce.string();
+const coerceParser = DP.coercer(DP.string());
 const coerceResult = coerceParser.parse(123);

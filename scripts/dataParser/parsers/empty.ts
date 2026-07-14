@@ -10,6 +10,10 @@ export type DataParserEmptyCheckers = GetEligibleChecker<undefined>;
 export interface DataParserDefinitionEmpty extends DataParserDefinition<
 	DataParserEmptyCheckers
 > {
+
+	/**
+	 * @deprecated Use `DDataParser.coercer(DDataParser.empty())` instead.
+	 */
 	readonly coerce: boolean;
 }
 

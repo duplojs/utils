@@ -7,7 +7,7 @@ Creates a data parser for deterministic template literal strings.
 Validates that the input matches the provided template literal shape and pattern. Nested sub-parsers must not include their own checkers; add template-level `checkerRefine` rules when needed.
 
 ```ts
-{@include dataParser/classic/templateLiteral/example.ts[3,15]}
+{@include dataParser/classic/templateLiteral/example.ts[3,14]}
 ```
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/templateLiteral

@@ -12,6 +12,10 @@ export type DataParserStringCheckers = GetEligibleChecker<string>;
 export interface DataParserDefinitionString extends DataParserDefinition<
 	DataParserStringCheckers
 > {
+
+	/**
+	 * @deprecated Use `DDataParser.coercer(DDataParser.string())` instead.
+	 */
 	readonly coerce: boolean;
 }
 

@@ -7,7 +7,7 @@ if (E.isRight(result)) {
 	// value: bigint
 }
 
-const coerceParser = DPE.coerce.bigint();
+const coerceParser = DPE.bigint().coerce();
 const coerceResult = coerceParser.parse("42");
 
 const onlySmall = DPE.bigint().max(3n);

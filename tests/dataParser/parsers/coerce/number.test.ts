@@ -36,4 +36,10 @@ describe("coerce.number", () => {
 			DEither.error(expect.any(Object)),
 		);
 	});
+
+	it("fails for symbol", () => {
+		expect(DDataParser.coerce.number({ errorMessage: "number.coerce" }).parse(Symbol("foo"))).toStrictEqual(
+			DEither.error(expect.any(Object)),
+		);
+	});
 });

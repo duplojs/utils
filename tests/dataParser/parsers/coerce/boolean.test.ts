@@ -37,4 +37,9 @@ describe("coerce.boolean", () => {
 			DEither.error(expect.any(Object)),
 		);
 	});
+
+	it("coerces number", () => {
+		expect(DDataParser.coerce.boolean().parse(1)).toStrictEqual(DEither.success(true));
+		expect(DDataParser.coerce.boolean().parse(0)).toStrictEqual(DEither.success(false));
+	});
 });

@@ -10,6 +10,6 @@ if (E.isRight(result)) {
 const literals = DPE.literal("on").or(DPE.literal("off"));
 const literalResult = literals.parse("off");
 
-const withCheckers = DPE.string().or(DPE.coerce.number(), {
-	checkers: [DP.checkerRefine((value) => value !== "forbidden")],
-});
+const withCheckers = DPE.string()
+	.or(DPE.number().coerce())
+	.addChecker(DP.checkerRefine((value) => value !== "forbidden"));

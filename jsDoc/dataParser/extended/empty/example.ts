@@ -6,7 +6,7 @@ if (E.isRight(result)) {
 	// E.Success<undefined>
 }
 
-const coerceParser = DPE.coerce.empty();
+const coerceParser = DPE.empty().coerce();
 const coerceResult = coerceParser.parse("undefined");
 
 const optionalEmpty = DPE.empty().optional();

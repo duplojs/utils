@@ -5,7 +5,7 @@ Signature: `checkerTimeMin(min, definition?)` → `DataParserCheckerTimeMin`
 The checker passes when parsed value is greater than or equal to `min`.
 
 ```ts
-{@include dataParser/classic/checkerTimeMin/example.ts[3,13]}
+{@include dataParser/classic/checkerTimeMin/example.ts[3,10]}
 ```
 
 @remarks

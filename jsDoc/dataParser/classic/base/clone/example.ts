@@ -8,5 +8,5 @@ const withMin = DP.string()
 
 const withMinClone = withMin.clone();
 
-const coerceNumber = DP.coerce.number();
+const coerceNumber = DP.coercer(DP.number());
 const coerceNumberClone = coerceNumber.clone();

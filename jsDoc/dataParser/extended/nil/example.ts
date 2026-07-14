@@ -7,7 +7,7 @@ if (E.isRight(result)) {
 	// value: null
 }
 
-const coerceParser = DPE.coerce.nil();
+const coerceParser = DPE.nil().coerce();
 const coerceResult = coerceParser.parse("null");
 
 const nullableNil = DPE.nil().nullable();

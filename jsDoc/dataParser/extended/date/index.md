@@ -10,7 +10,7 @@ This parser extends classic `DP.date(...)` behavior and keeps the extended chain
 
 @remarks
 - Parsed output is always `TheDate`.
-- `DPE.coerce.date()` enables coercion by default.
+- `DPE.date().coerce()` enables coercion after date-specific configuration.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/date
 

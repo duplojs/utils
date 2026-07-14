@@ -7,9 +7,9 @@ if (E.isRight(result)) {
 	// value: string[]
 }
 
-const withCheckers = DPE.number().array({
-	checkers: [DP.checkerArrayMin(1)],
-});
+const withCheckers = DPE.number()
+	.array()
+	.addChecker(DP.checkerArrayMin(1));
 
 const nested = DPE.string().array().array();
 const nestedResult = nested.parse([["a"], ["b"]]);
