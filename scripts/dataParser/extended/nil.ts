@@ -1,10 +1,9 @@
 
 import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { DataParserBaseExtended } from "./base";
-import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import type { AddCheckersToDefinition, Output, MergeDefinition, PrepareDataParserDefinition, Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParserChecker } from "../baseChecker";
-import { DataParserCoercerExtended } from "./coercer";
+import type { DataParserChecker } from "../baseChecker";
 
 export class DataParserNilExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionNil = dataParsers.DataParserDefinitionNil,
@@ -48,20 +47,6 @@ export class DataParserNilExtended<
 			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
 		>
 	>;
-
-	/**
-	 * {@include dataParser/extended/nil/coerce/index.md}
-	 */
-	public coerce<
-		GenericThis extends this = this,
-	>(): DataParserCoercerExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{ inner: GenericThis }
-		>
-	> {
-		return DataParserCoercerExtended.create(this) as never;
-	}
 
 	/**
 	 * {@include dataParser/extended/nil/index.md}

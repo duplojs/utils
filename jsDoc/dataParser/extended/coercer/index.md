@@ -11,8 +11,8 @@ This parser does not represent a data type by itself. It represents a parsing ac
 @remarks
 - Parsed output is always the output of the inner parser.
 - Accepted input is widened with the values supported by the inner parser coercion transformer.
-- Prefer the fluent `.coerce()` method on supported extended parsers when you need parser-specific methods before coercion.
-- Before wrapping an extended parser with `DPE.coercer(parser)`, check whether that parser exposes `.coerce()`; when it does, prefer `parser.coerce()` so parser-specific fluent methods stay before coercion.
+- Prefer the fluent `.coerce()` method on extended parsers when you need parser-specific methods before coercion.
+- Use `DPE.coercer(parser)` when you need the direct constructor form.
 
 @see https://utils.duplojs.dev/en/v1/api/dataParser/coercer
 

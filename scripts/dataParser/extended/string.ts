@@ -1,10 +1,9 @@
 
 import { detachObjectMethod, type FixDeepFunctionInfer, type NeverCoalescing } from "@scripts/common";
 import { DataParserBaseExtended } from "./base";
-import { type AddCheckersToDefinition, type Output, type MergeDefinition, type PrepareDataParserDefinition, type Input } from "../types";
+import type { AddCheckersToDefinition, Output, MergeDefinition, PrepareDataParserDefinition, Input } from "../types";
 import * as dataParsers from "../parsers";
-import { type DataParserChecker } from "../baseChecker";
-import { DataParserCoercerExtended } from "./coercer";
+import type { DataParserChecker } from "../baseChecker";
 
 export class DataParserStringExtended<
 	GenericDefinition extends dataParsers.DataParserDefinitionString = dataParsers.DataParserDefinitionString,
@@ -98,20 +97,6 @@ export class DataParserStringExtended<
 			>
 		> {
 		return this.addChecker(dataParsers.checkerRegex(regex, definition));
-	}
-
-	/**
-	 * {@include dataParser/extended/string/coerce/index.md}
-	 */
-	public coerce<
-		GenericThis extends this = this,
-	>(): DataParserCoercerExtended<
-		MergeDefinition<
-			dataParsers.DataParserDefinitionCoercer,
-			{ inner: GenericThis }
-		>
-	> {
-		return DataParserCoercerExtended.create(this) as never;
 	}
 
 	/**

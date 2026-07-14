@@ -2,9 +2,9 @@ import * as DCommon from "@scripts/common";
 import { createDataParserKind } from "../kind";
 import { DataParserBase, type DataParser, type DataParserDefinition } from "../base";
 import * as dataParsers from "../parsers";
-import { type DataParserError } from "../error";
-import { type DataParserChecker, type DataParserCheckerBase, type DataParserCheckerDefinition } from "../baseChecker";
-import { type Output, type PrepareDataParserDefinition, type DataParserExtendedBaseInit, type MergeDefinition, type Input, type AddCheckersToDefinition } from "../types";
+import type { DataParserError } from "../error";
+import type { DataParserChecker, DataParserCheckerBase, DataParserCheckerDefinition } from "../baseChecker";
+import type { Output, PrepareDataParserDefinition, DataParserExtendedBaseInit, MergeDefinition, Input, AddCheckersToDefinition } from "../types";
 
 export const dataParserExtendedKind = createDataParserKind("extended");
 
@@ -389,6 +389,20 @@ export abstract class DataParserBaseExtended<
 			errorMessageTransformers,
 			definition,
 		);
+	}
+
+	/**
+	 * {@include dataParser/extended/base/coerce/index.md}
+	 */
+	public coerce<
+		GenericThis extends this = this,
+	>(): DataParserCoercerExtended<
+		MergeDefinition<
+			dataParsers.DataParserDefinitionCoercer,
+			{ inner: GenericThis }
+		>
+	> {
+		return DataParserCoercerExtended.create(this) as never;
 	}
 
 	public static initExtended<
@@ -1118,6 +1132,86 @@ export class DataParserErrorHandlerExtended<
 				definition,
 			),
 		) as never;
+	}
+}
+
+export class DataParserCoercerExtended<
+	GenericDefinition extends dataParsers.DataParserDefinitionCoercer = dataParsers.DataParserDefinitionCoercer,
+> extends DataParserBaseExtended.initExtended(dataParsers.DataParserCoercer)<
+		GenericDefinition,
+		Output<dataParsers.DataParserCoercer<GenericDefinition>>,
+		Input<dataParsers.DataParserCoercer<GenericDefinition>>
+	> {
+	public get classConstructor() {
+		return this.checkConstructor(DataParserCoercerExtended);
+	}
+
+	/**
+	 * {@include dataParser/extended/coercer/transformers/index.md}
+	 */
+	public static transformers = dataParsers.DataParserCoercer.transformers;
+
+	public declare addChecker: <
+		GenericChecker extends readonly [
+			DataParserChecker<Output<this>>,
+			...DataParserChecker<Output<this>>[],
+		],
+	>(
+		...args: DCommon.FixDeepFunctionInfer<
+			readonly [
+				DataParserChecker<Output<this>>,
+				...DataParserChecker<Output<this>>[],
+			],
+			GenericChecker
+		>
+	) => DataParserCoercerExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			GenericChecker
+		>
+	>;
+
+	public declare refine: (
+		theFunction: (input: Output<this>) => boolean,
+		definition?: Partial<
+			Omit<dataParsers.DataParserCheckerDefinitionRefine, "theFunction">
+		>,
+	) => DataParserCoercerExtended<
+		AddCheckersToDefinition<
+			GenericDefinition,
+			readonly [dataParsers.CheckerRefineImplementation<Output<this>>]
+		>
+	>;
+
+	/**
+	 * {@include dataParser/extended/coercer/index.md}
+	 */
+	public static override create<
+		GenericDataParser extends DataParser,
+		const GenericDefinition extends PrepareDataParserDefinition<
+			dataParsers.DataParserDefinitionCoercer<
+				Output<GenericDataParser>
+			>,
+			"inner"
+		> = never,
+	>(
+		inner: GenericDataParser,
+		definition?: DCommon.FixDeepFunctionInfer<
+			PrepareDataParserDefinition<
+				dataParsers.DataParserDefinitionCoercer<
+					Output<GenericDataParser>
+				>,
+				"inner"
+			>,
+			GenericDefinition
+		>,
+	): DataParserCoercerExtended<
+			MergeDefinition<
+				dataParsers.DataParserDefinitionCoercer,
+				DCommon.NeverCoalescing<GenericDefinition, {}> & { inner: GenericDataParser }
+			>
+		> {
+		return new DataParserCoercerExtended(this.prepareDefinition(inner, definition)) as never;
 	}
 }
 

@@ -2,7 +2,7 @@ Defines the transformer map used by extended coercer parsers.
 
 Signature: `DPE.DataParserCoercerExtended.transformers` -> `Map<KindHandler, AnyFunction>`
 
-This map is shared with the classic coercer. It links a DataParser kind to the function that prepares raw input before the inner parser runs. The fluent `.coerce()` methods are only added on extended parsers whose kind is supported by this coercion system.
+This map is shared with the classic coercer. It links a DataParser kind to the function that prepares raw input before the inner parser runs. The fluent `.coerce()` method is available on all extended parsers, but only registered kinds widen their accepted input with a transformer.
 
 ```ts
 {@include dataParser/extended/coercer/transformers/example.ts[3,16]}
